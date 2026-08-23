@@ -240,11 +240,16 @@ def _model_call(
 
 
 def _retriever(documents: list[dict]):
-    def retrieve(_request: dict) -> dict:
+    def retrieve(request: dict) -> dict:
         return {
             "status": "PASS",
             "evidence_documents": documents,
             "provenance": {"request_count": 2, "retrieved_at_utc": AS_OF},
+            "rolling_x_story_binding": {
+                "cluster_id": request.get("cluster_id"),
+                "headline_ids": list(request.get("headline_ids") or []),
+                "request_logical_hash": request.get("request_logical_hash"),
+            },
             "publication_authority": False,
         }
 

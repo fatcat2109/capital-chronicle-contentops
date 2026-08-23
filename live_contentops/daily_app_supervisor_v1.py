@@ -95,6 +95,7 @@ NOT_IMPLEMENTED_NOT_DUE = "NOT_IMPLEMENTED_NOT_DUE"
 PRODUCTION_EPOCH_METRIC_ID = "metric_contentops_production_epoch_start_utc"
 PRODUCTION_EPOCH_METRIC_NAME = "contentops_production_epoch_start_utc"
 PREPARED_CANDIDATE_CHECKPOINT_NAME = "rolling_x_prepared_candidate_state_v1.json"
+SOURCE_ROUTE_HEALTH_STATE_NAME = "source_route_health_v1.json"
 
 
 class ProductionEpochConflictError(RuntimeError):
@@ -518,6 +519,43 @@ class ContentOpsDailyAppSupervisor:
     @property
     def operating_mode(self) -> str:
         return self._operating_mode
+
+    def _load_source_route_health_state(self) -> dict[str, Any]:
+        path = self._output_root / SOURCE_ROUTE_HEALTH_STATE_NAME
+        try:
+            value = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, TypeError, ValueError):
+            return {}
+        if (
+            not isinstance(value, Mapping)
+            or value.get("schema_version") != "contentops.source_route_health.v1"
+            or value.get("routing_only") is not True
+        ):
+            return {}
+        return dict(value)
+
+    def _persist_source_route_health_state(self, result: Mapping[str, Any]) -> dict[str, Any]:
+        value = result.get("source_route_health")
+        if not isinstance(value, Mapping) or value.get("schema_version") != (
+            "contentops.source_route_health.v1"
+        ):
+            return {}
+        snapshot = dict(value)
+        if (
+            snapshot.get("routing_only") is not True
+            or snapshot.get("sourceability_or_health_grants_factual_authority") is not False
+            or snapshot.get("sourceability_or_health_grants_publication_authority") is not False
+        ):
+            raise ValueError("source_route_health_authority_contract_invalid")
+        self._output_root.mkdir(parents=True, exist_ok=True)
+        path = self._output_root / SOURCE_ROUTE_HEALTH_STATE_NAME
+        temporary = path.with_suffix(".tmp")
+        temporary.write_text(
+            json.dumps(snapshot, indent=2, sort_keys=True, default=str) + "\n",
+            encoding="utf-8",
+        )
+        temporary.replace(path)
+        return snapshot
 
     def _refresh_operating_mode(self) -> str:
         """Reload durable mode so UI/restart changes cannot be silently ignored."""
@@ -1549,6 +1587,8 @@ class ContentOpsDailyAppSupervisor:
                 reentry_headline_ids=reentry_ids,
                 editorial_opportunities=opportunities,
                 prior_prepared_state=prior_state,
+                autonomous_source_discovery_available=True,
+                source_route_health=self._load_source_route_health_state(),
                 continuity_binding=prepared_candidate_continuity_binding(
                     continuity=continuity,
                     evaluated_headline_ids=evaluated_ids,
@@ -2936,6 +2976,9 @@ class ContentOpsDailyAppSupervisor:
                 "cutoff_utc": _iso_utc(cutoff),
                 "publication_enabled": cycle_article_worker_required,
             }
+            source_route_health_state = self._load_source_route_health_state()
+            if source_route_health_state:
+                cycle_kwargs["source_route_health"] = source_route_health_state
             prepared_candidate_state = self._load_prepared_candidate_checkpoint(cutoff)
             if prepared_candidate_state is not None:
                 cycle_kwargs["prepared_candidate_state"] = prepared_candidate_state
@@ -3043,6 +3086,12 @@ class ContentOpsDailyAppSupervisor:
                         "published_corpus": published_memory,
                     }
                     attempt_result = dict(self._newsroom_cycle(**attempt_kwargs))
+                    updated_source_route_health = self._persist_source_route_health_state(
+                        attempt_result
+                    )
+                    if updated_source_route_health:
+                        source_route_health_state = updated_source_route_health
+                        cycle_kwargs["source_route_health"] = source_route_health_state
                     result = attempt_result
                     qualification: dict[str, Any] | None = None
                     if managed_daily_output and (

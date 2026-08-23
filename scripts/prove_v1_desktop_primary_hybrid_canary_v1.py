@@ -36,6 +36,7 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
     build_rolling_x_grounded_article_and_media,
     extract_governed_story_context,
     normalize_article_transport_representation,
+    resolve_article_transport_envelope,
 )
 from scripts.prove_v1_official_codex_direct_provider_canary_v1 import (
     _ready_override,
@@ -102,7 +103,7 @@ class _DesktopWorkerArticleBuilder:
         if governed_input_hash != str(self.worker_return.get("governed_input_hash") or ""):
             raise ValueError("desktop_canary_governed_input_hash_mismatch")
         generated = normalize_article_transport_representation(
-            dict(self.worker_return.get("article") or {}),
+            resolve_article_transport_envelope(self.worker_return),
             context=extract_governed_story_context(viability),
         )
         built = build_rolling_x_grounded_article_and_media(

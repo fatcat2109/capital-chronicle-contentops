@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
-Authority date: 2026-08-22
+Authority date: 2026-08-23
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
 Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, task-existence, canary, or sequencing assumptions.
@@ -33,16 +33,18 @@ Any file containing these current-looking claims is stale for routing unless exp
 - the original daily-output/Codex Automation bridge remains the current next task;
 - passive wait-for-perfect-candidate is the current sole next action.
 - the 4-qualified/32-intent throughput proof is a prerequisite for one supervised MVP canary.
+- the Italy article audit is the current V1 next task;
+- immediate 4/32 article/derivative generation is the current V1 next task.
 
 ## 3. Current replacement semantics
 
-- MVP canary launch gate: one current useful zero-write article plus eight derivative intents,
-  hard-safe native XHIGH/claim/system validation, JIT nine-surface identity/readiness, and owner
-  audit before an explicit public-write grant.
-- POST-LAUNCH throughput/unattended-operation gate: 4 qualified zero-write articles and 32
-  derivative intents per newsroom production day.
-- FINAL V1 target: 5–8 published articles per newsroom production day.
-- Candidate abstention is valid; whole-day deficit is degraded unless exact hard external blocker.
+- Current exact task: autonomous discovery + shared route health + sourceability-first funnel + four
+  distinct governed evidence-ready candidates + frozen article-envelope transport, all pre-writer.
+- Current acceptance is
+  `PASS_V1_EVIDENCE_FOUNDATION_4_ARTICLE_READY_ZERO_WRITER`; it authorizes no article, derivative,
+  XHIGH worker, Automation enablement, or public write.
+- Candidate abstention remains valid and must retain exact blockers; the task may not manufacture
+  PASS by increasing request ceilings or weakening evidence/freshness/claim gates.
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
 - Later windows may recover earlier deficit through bounded additional candidate/article work.
 - No fifth routine task merely to satisfy the floor.
@@ -54,10 +56,8 @@ Any file containing these current-looking claims is stale for routing unless exp
   calendar-time execution proof remains required because the supported surface exposed no run-now.
 - The proven official ChatGPT-authenticated Codex App Server/SDK provider remains the bounded
   missed/failed-primary fallback, immediate direct path, and benchmark path.
-- The exact one-candidate MVP zero-write slice is complete with
-  `PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`. The current next action is
-  Jim/ChatGPT audit of that exact Desktop Italy article and nine-surface plan. No task enablement,
-  second article, public write, or 4/32 start is authorized.
+- The prior Desktop Italy slice and 4/32 attempts remain preserved evidence, not current routing.
+  The current task stops for owner audit at the four-candidate pre-writer evidence gate.
 
 ## 4. Historical/non-routing families
 

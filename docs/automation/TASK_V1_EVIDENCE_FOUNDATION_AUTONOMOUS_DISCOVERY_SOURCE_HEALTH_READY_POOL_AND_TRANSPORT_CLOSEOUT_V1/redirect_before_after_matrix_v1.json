@@ -1,0 +1,42 @@
+{
+  "schema_version": "contentops.v1_redirect_revalidation_matrix.v1",
+  "historical_baseline": {
+    "artifact": "docs/automation/TASK_V1_THROUGHPUT_SOURCEABILITY_GROUNDED_DISCOVERY_AND_SEMANTIC_GATE_CLOSEOUT_V1/final_closeout_receipt_v1.json",
+    "public_source_redirect_authority_invalid": 15,
+    "fresh_four_opportunity_subset_count": 13,
+    "interpretation": "nonexclusive blocker observations, not fifteen identical redirect defects"
+  },
+  "cases": [
+    {
+      "case": "CNBC registered short host",
+      "before": "cnb.cx to cnbc.com rejected as cross-host redirect",
+      "after": "PASS only for exact registered cnb.cx to cnbc.com relationship",
+      "live_retrieval_observed": true,
+      "deterministic_hash_observed": true
+    },
+    {
+      "case": "same publisher, different exact route",
+      "before": "one failed route could be retried repeatedly",
+      "after": "failed exact route can be TTL-suppressed while another exact route on the same publisher remains eligible",
+      "authority_granted": false
+    },
+    {
+      "case": "unsafe unrelated cross-host redirect",
+      "before": "REJECT",
+      "after": "REJECT_UNCHANGED",
+      "regression_example": "apnews.com to reuters.com"
+    },
+    {
+      "case": "Google News redirector or search result",
+      "before": "locator only; never evidence",
+      "after": "UNCHANGED_LOCATOR_ONLY"
+    },
+    {
+      "case": "401/403/404/WAF/paywall/dead link",
+      "before": "separate access/retrieval blockers could co-occur with redirect-invalid",
+      "after": "not reclassified as a redirect repair; route health and bounded discovery may choose alternatives"
+    }
+  ],
+  "broad_cross_host_allowlist_added": false,
+  "redirector_as_evidence_allowed": false
+}

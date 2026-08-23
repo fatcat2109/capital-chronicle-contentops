@@ -1,9 +1,15 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import urllib.request
+import urllib.parse
 
+import pytest
+
+from live_contentops import public_secondary_evidence_loader_v1 as loader_module
 from live_contentops.public_secondary_evidence_loader_v1 import (
     BoundedPublicSecondaryEvidenceLoader,
+    _default_public_http_get,
     _rss_relevance_score,
 )
 
@@ -182,6 +188,147 @@ def test_unresolved_discovery_listing_never_becomes_factual_authority():
     assert result["locator_only_records"][0]["canonical_resolution_status"] == (
         "PUBLISHER_URL_UNRESOLVED_ATTRIBUTION_ONLY"
     )
+
+
+def test_recent_failed_exact_route_is_reused_across_candidates_without_host_wide_suppression():
+    calls: list[str] = []
+
+    def first_get(url: str, _timeout: float, _maximum: int):
+        calls.append(url)
+        return {"status": 403, "final_url": url, "headers": {}, "body": b""}
+
+    first = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        http_get=first_get,
+        clock=lambda: datetime(2026, 8, 19, 10, 20, tzinfo=timezone.utc),
+    )
+    failed_url = "https://www.reuters.com/world/exact-failed-route"
+    assert first._get(failed_url)["status"] == 403
+    snapshot = first.source_route_health_snapshot()
+
+    second_calls: list[str] = []
+
+    def second_get(url: str, _timeout: float, _maximum: int):
+        second_calls.append(url)
+        return _response(url, b"ok", "text/plain")
+
+    second = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        http_get=second_get,
+        clock=lambda: datetime(2026, 8, 19, 10, 21, tzinfo=timezone.utc),
+        source_route_health=snapshot,
+    )
+    with pytest.raises(RuntimeError, match="route_suppressed_by_recent_health"):
+        second._get(failed_url)
+    recovery_url = "https://www.reuters.com/world/distinct-same-publisher-route"
+    assert second._get(recovery_url)["status"] == 200
+    assert calls == [failed_url]
+    assert second_calls == [recovery_url]
+    assert snapshot["routing_only"] is True
+    assert snapshot["sourceability_or_health_grants_factual_authority"] is False
+
+
+def test_public_transport_rejects_unsafe_cross_publisher_redirect(monkeypatch):
+    def fake_build_opener(handler):
+        redirect_handler = handler()
+
+        class FakeOpener:
+            def open(self, request, timeout):
+                redirect_handler.redirect_request(
+                    request,
+                    None,
+                    302,
+                    "Found",
+                    {},
+                    "https://www.reuters.com/world/different-publisher",
+                )
+
+        return FakeOpener()
+
+    monkeypatch.setattr(loader_module.urllib.request, "build_opener", fake_build_opener)
+    monkeypatch.setattr(
+        loader_module,
+        "_public_host",
+        lambda url, **_kwargs: urllib.parse.urlsplit(url).hostname,
+    )
+    with pytest.raises(ValueError, match="public_source_redirect_authority_invalid"):
+        _default_public_http_get(
+            "https://www.apnews.com/article/exact-story", 12.0, 800_000
+        )
+
+
+def test_registered_cnbc_short_link_may_canonicalize_only_to_cnbc(monkeypatch):
+    redirects: list[str] = []
+
+    def fake_build_opener(handler):
+        redirect_handler = handler()
+
+        class FakeResponse:
+            status = 200
+            headers = {"content-type": "text/html"}
+
+            def read(self, _size):
+                return b"<html><body>publisher bytes</body></html>"
+
+            def geturl(self):
+                return "https://www.cnbc.com/2026/08/22/exact-story.html"
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *_args):
+                return None
+
+        class FakeOpener:
+            def open(self, request, timeout):
+                redirected = "https://www.cnbc.com/2026/08/22/exact-story.html"
+                redirects.append(redirected)
+                redirect_handler.redirect_request(
+                    request, None, 302, "Found", {}, redirected
+                )
+                return FakeResponse()
+
+        return FakeOpener()
+
+    monkeypatch.setattr(loader_module.urllib.request, "build_opener", fake_build_opener)
+    monkeypatch.setattr(
+        loader_module,
+        "_public_host",
+        lambda url, **_kwargs: urllib.parse.urlsplit(url).hostname,
+    )
+
+    response = _default_public_http_get("https://cnb.cx/registered-short", 12.0, 800_000)
+
+    assert response["status"] == 200
+    assert response["final_url"].startswith("https://www.cnbc.com/")
+    assert redirects == ["https://www.cnbc.com/2026/08/22/exact-story.html"]
+
+
+def test_registered_cnbc_short_link_cannot_retarget_another_publisher(monkeypatch):
+    def fake_build_opener(handler):
+        redirect_handler = handler()
+
+        class FakeOpener:
+            def open(self, request, timeout):
+                redirect_handler.redirect_request(
+                    request,
+                    None,
+                    302,
+                    "Found",
+                    {},
+                    "https://www.reuters.com/world/different-publisher",
+                )
+
+        return FakeOpener()
+
+    monkeypatch.setattr(loader_module.urllib.request, "build_opener", fake_build_opener)
+    monkeypatch.setattr(
+        loader_module,
+        "_public_host",
+        lambda url, **_kwargs: urllib.parse.urlsplit(url).hostname,
+    )
+    with pytest.raises(ValueError, match="public_source_redirect_authority_invalid"):
+        _default_public_http_get("https://cnb.cx/registered-short", 12.0, 800_000)
 
 
 def test_publisher_sitemap_cannot_retarget_listing_to_another_host():

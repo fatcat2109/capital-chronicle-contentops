@@ -775,6 +775,7 @@ class RollingXTargetedEvidenceAdapter:
         public_secondary_loader: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
         grounded_researcher: Any = None,
         capability_registry: Mapping[str, Any] | None = None,
+        source_route_health: Any = None,
     ) -> None:
         self._root = Path(capital_chronicle_root) if capital_chronicle_root else None
         self._evaluation_as_of_utc = evaluation_as_of_utc or _utc_now()
@@ -798,7 +799,8 @@ class RollingXTargetedEvidenceAdapter:
             )
 
             public_secondary_loader = BoundedPublicSecondaryEvidenceLoader(
-                evaluation_as_of_utc=self._evaluation_as_of_utc
+                evaluation_as_of_utc=self._evaluation_as_of_utc,
+                source_route_health=source_route_health,
             )
         self._public_secondary_loader = public_secondary_loader
         if grounded_researcher is None and not injected_acquisition_boundary:
@@ -813,6 +815,10 @@ class RollingXTargetedEvidenceAdapter:
             capability_registry
         )
         self._load_error: str | None = None
+
+    def source_route_health_snapshot(self) -> dict[str, Any]:
+        snapshot = getattr(self._public_secondary_loader, "source_route_health_snapshot", None)
+        return dict(snapshot()) if callable(snapshot) else {}
 
     def _run_grounded_research(
         self,
@@ -1072,6 +1078,155 @@ class RollingXTargetedEvidenceAdapter:
                     pre_enrichment_fresh_documents.append(document)
             documents = pre_enrichment_fresh_documents
 
+            # Cheap deterministic public acquisition precedes any grounded model call. The same
+            # story-scoped loader/cache is reused by grounded research, so successful reads are
+            # not repeated and deterministic unreachability cannot burn an expensive call.
+            secondary_preflight_attempted = False
+            if "public_secondary" in families:
+                secondary_preflight_attempted = True
+                pre_secondary_depth = summarize_evidence_substance(request, documents)
+                secondary_needed = not bool(
+                    pre_secondary_depth.get("enough_for_useful_article")
+                )
+                if secondary_needed:
+                    secondary_request = {
+                        **dict(request),
+                        "evidence_enrichment_context": {
+                            "requested": bool(documents)
+                            or bool(pre_enrichment_freshness_exclusions),
+                            "reason": "ELIGIBLE_EVIDENCE_TOO_THIN_FOR_USEFUL_ARTICLE"
+                            if documents or pre_enrichment_freshness_exclusions
+                            else "MINIMUM_PUBLIC_EVIDENCE_ACQUISITION",
+                            "existing_evidence_substance": pre_secondary_depth,
+                            "additional_source_is_eligibility_requirement": False,
+                        },
+                    }
+                    try:
+                        secondary_raw = self._public_secondary_loader(secondary_request)
+                        secondary = (
+                            dict(secondary_raw) if isinstance(secondary_raw, Mapping) else {}
+                        )
+                    except (FileNotFoundError, RuntimeError, ValueError, OSError) as exc:
+                        secondary = {
+                            "status": "BLOCKED",
+                            "blockers": [
+                                _sanitized_evidence_loader_error(
+                                    "public_secondary_evidence_unavailable", exc
+                                )
+                            ],
+                        }
+                else:
+                    secondary = {
+                        "status": "NOT_NEEDED_EVIDENCE_DEPTH_SUFFICIENT",
+                        "blockers": [],
+                        "evidence_documents": [],
+                        "provided_evidence_capabilities": [],
+                        "provenance": {"request_count": 0},
+                    }
+                diagnostics["public_secondary"] = {
+                    "status": secondary.get("status"),
+                    "blockers": list(secondary.get("blockers") or []),
+                    "provenance": dict(secondary.get("provenance") or {}),
+                    "enrichment_requested": bool(
+                        documents or pre_enrichment_freshness_exclusions
+                    )
+                    and secondary_needed,
+                    "pre_acquisition_substance": pre_secondary_depth,
+                }
+                binding_blockers = _exact_binding_blockers(secondary, request)
+                if not binding_blockers:
+                    known_at = (secondary.get("provenance") or {}).get(
+                        "retrieved_at_utc"
+                    )
+                    for row in secondary.get("evidence_documents") or []:
+                        if not isinstance(row, Mapping):
+                            continue
+                        document = dict(row)
+                        if (
+                            document.get("source_url")
+                            and document.get("source_identity")
+                            and document.get("source_authority_class")
+                            == "reputable_secondary_source"
+                            and document.get("public_claim_allowed") is True
+                            and document.get("canonical_content_sha256")
+                            and known_at
+                        ):
+                            document.update(
+                                {
+                                    "known_at_utc": known_at,
+                                    "cluster_id": request.get("cluster_id"),
+                                    "headline_ids": list(
+                                        request.get("headline_ids") or []
+                                    ),
+                                    "request_logical_hash": request.get(
+                                        "request_logical_hash"
+                                    ),
+                                    "permission_state": "PUBLIC_CLAIM_ALLOWED",
+                                    "freshness_state": "FRESH_CURRENT_OPERATOR_READINESS",
+                                }
+                            )
+                            documents.append(document)
+                    supplied.update(
+                        str(value)
+                        for value in (
+                            secondary.get("provided_evidence_capabilities") or []
+                        )
+                    )
+                else:
+                    diagnostics["public_secondary"]["binding_blockers"] = binding_blockers
+
+            if not documents:
+                deterministic_blockers = sorted(
+                    {
+                        str(value)
+                        for value in list(blockers)
+                        + [
+                            item
+                            for lane in ("official", "public_secondary")
+                            for item in (
+                                (diagnostics.get(lane) or {}).get("blockers") or []
+                            )
+                        ]
+                        + [
+                            finding
+                            for row in pre_enrichment_freshness_exclusions
+                            for finding in row.get("findings") or []
+                        ]
+                        if str(value)
+                    }
+                )
+                if "evidence_documents_missing" not in deterministic_blockers:
+                    deterministic_blockers.append("evidence_documents_missing")
+                    deterministic_blockers.sort()
+                trigger = (
+                    "SOURCE_DISCOVERY_REQUIRED"
+                    if codex_discovery_receipt is None
+                    else "AUTONOMOUS_SOURCE_DISCOVERY_EXHAUSTED"
+                )
+                receipt = _blocked_receipt(
+                    request,
+                    deterministic_blockers + [trigger],
+                    documents=[],
+                    supplied=sorted(supplied),
+                    evidence_acquisition_provenance=diagnostics,
+                )
+                receipt["source_discovery_handshake"] = {
+                    "status": trigger,
+                    "story_identity": request.get("cluster_id"),
+                    "headline_ids": list(request.get("headline_ids") or []),
+                    "prior_blockers": deterministic_blockers,
+                    "same_candidate_resume_required": True,
+                    "grounded_research_calls_before_discovery": 0,
+                    "search_snippet_or_model_summary_authority": False,
+                    "publication_authority": False,
+                }
+                return _with_cc_authority_evidence(
+                    receipt,
+                    packet=packet,
+                    resolution=authority_resolution,
+                    consume_projection=False,
+                )
+
             grounded = self._run_grounded_research(request, documents)
             grounded_attempted = grounded is not None
             grounded_packet: dict[str, Any] = {}
@@ -1158,7 +1313,11 @@ class RollingXTargetedEvidenceAdapter:
                         ]
                     )
 
-            if "public_secondary" in families and not grounded_attempted:
+            if (
+                "public_secondary" in families
+                and not grounded_attempted
+                and not secondary_preflight_attempted
+            ):
                 pre_secondary_depth = summarize_evidence_substance(request, documents)
                 secondary_needed = not bool(
                     pre_secondary_depth.get("enough_for_useful_article")

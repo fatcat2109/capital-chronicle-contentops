@@ -1,0 +1,46 @@
+{
+  "schema_version": "contentops.v1_evidence_foundation_validation.v1",
+  "focused_regression": {
+    "status": "PASS",
+    "passed": 145,
+    "failed": 0,
+    "command_scope": [
+      "tests/test_grounded_news_research_v1.py",
+      "tests/test_public_secondary_evidence_loader_v1.py",
+      "tests/test_rolling_x_v1_publishability_closure_v1.py",
+      "tests/test_v1_evidence_foundation_closeout_v1.py",
+      "tests/test_codex_desktop_newsroom_operator_v1.py",
+      "tests/test_daily_app_supervisor_v1.py",
+      "tests/test_latest_event_state_closure_v1.py"
+    ]
+  },
+  "canonical_live_evidence_only_e2e": {
+    "status": "PASS_V1_EVIDENCE_FOUNDATION_4_ARTICLE_READY_ZERO_WRITER",
+    "current_universe_count": 377,
+    "production_day_opportunities": 4,
+    "accepted_distinct_candidates": 4,
+    "writer_or_article_invocations": 0,
+    "public_writes": 0,
+    "unknown_write": 0
+  },
+  "python_compile_changed_files": "PASS",
+  "codegraph": {
+    "check": "CODEGRAPH_CURRENT",
+    "tests_passed": 17,
+    "tests_failed": 0,
+    "nodes": 7288,
+    "edges": 13775
+  },
+  "git_diff_check": "PASS",
+  "known_out_of_scope_baseline_consistent_test_debt": {
+    "file": "tests/test_daily_app_operator_trigger_v1.py",
+    "result": "18 passed, 3 failed",
+    "failures": [
+      "test_operator_trigger_suppresses_same_tick_scheduled_window",
+      "test_shadow_only_operator_cycle_performs_zero_public_writes",
+      "test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only"
+    ],
+    "base_consistency": "The exact 55b base already passes prepared_candidate_state and learning_policy, computes the canonical publication gate flag, and owns the pre-existing window behavior. This task did not alter those semantics; it added only source-route-health loading/persistence/injection in that supervisor seam.",
+    "changed_to_force_green": false
+  }
+}

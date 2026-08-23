@@ -1895,11 +1895,57 @@ def _rolling_x_public_evidence_urls(row: Mapping[str, Any]) -> list[str]:
     return urls
 
 
+def _rolling_x_attributed_source_host_hints(row: Mapping[str, Any]) -> list[str]:
+    """Infer explicit publisher attributions for routing only, never evidence authority."""
+    external = row.get("external_content")
+    if not isinstance(external, Mapping):
+        return []
+    text = " ".join(str(external.get("headline_text") or "").split()).casefold()
+    patterns = {
+        "apnews.com": (r"(?:^|\s)(?:-|via)\s+ap(?:\s|$)", r"associated press"),
+        "bbc.com": (r"(?:^|\s)(?:-|via)\s+bbc(?:\s|$)",),
+        "cnbc.com": (r"(?:^|\s)(?:-|via)\s+cnbc(?:\s|$)",),
+        "ft.com": (r"(?:^|\s)(?:-|via)\s+ft(?:\s|$)", r"financial times"),
+        "theguardian.com": (r"(?:^|\s)(?:-|via)\s+(?:the\s+)?guardian(?:\s|$)",),
+        "aljazeera.com": (r"(?:^|\s)(?:-|via)\s+al\s+jazeera(?:\s|$)",),
+        "npr.org": (r"(?:^|\s)(?:-|via)\s+npr(?:\s|$)",),
+        "politico.com": (r"(?:^|\s)(?:-|via)\s+politico(?:\s|$)",),
+        "reuters.com": (r"(?:^|\s)(?:-|via)\s+reuters(?:\s|$)",),
+        "wsj.com": (r"(?:^|\s)(?:-|via)\s+wsj(?:\s|$)", r"wall street journal"),
+    }
+    return sorted(
+        host
+        for host, host_patterns in patterns.items()
+        if any(re.search(pattern, text) for pattern in host_patterns)
+    )
+
+
+def _rolling_x_event_state_routing_risk(row: Mapping[str, Any]) -> int:
+    """Estimate closure cost from untrusted text for work order only."""
+    text = " ".join(
+        str((row.get("external_content") or {}).get("headline_text") or "").split()
+    ).casefold()
+    forward = re.search(
+        r"\b(?:will|plans?\s+to|prepares?\s+to|set\s+to|scheduled\s+to|expected\s+to|working\s+on)\b",
+        text,
+    )
+    completed = re.search(
+        r"\b(?:announced|appointed|approved|collapsed|died|fired|hit|imposed|launched|reported|signed|struck|took\s+effect)\b",
+        text,
+    )
+    if forward and not completed:
+        return 1
+    if completed and not forward:
+        return -1
+    return 0
+
+
 def _rolling_x_publishability_path_profile(
     headline_ids: Sequence[str],
     *,
     records_by_id: Mapping[str, Mapping[str, Any]],
     story_context: Mapping[str, Any] | None = None,
+    autonomous_discovery_available: bool = False,
 ) -> dict[str, Any]:
     """Rank bounded evidence paths before acquisition; never grant evidence authority."""
     from live_contentops.official_primary_evidence_loader_v1 import (
@@ -1910,10 +1956,11 @@ def _rolling_x_publishability_path_profile(
     )
 
     urls: list[str] = []
+    attributed_hosts: set[str] = set()
     for headline_id in headline_ids:
-        for url in _rolling_x_public_evidence_urls(
-            records_by_id.get(str(headline_id)) or {}
-        ):
+        record = records_by_id.get(str(headline_id)) or {}
+        attributed_hosts.update(_rolling_x_attributed_source_host_hints(record))
+        for url in _rolling_x_public_evidence_urls(record):
             if url not in urls:
                 urls.append(url)
     hosts = {str(urlsplit(url).hostname or "").casefold() for url in urls}
@@ -1927,19 +1974,24 @@ def _rolling_x_publishability_path_profile(
         records_by_id,
     )
     if hosts.intersection(exact_official_hosts):
-        priority = 4
+        priority = 5
         tier = "EXACT_OFFICIAL_DIRECT"
         bounded_request_upper_bound = 1
     elif locator_projection["applicable"]:
-        priority = 3
+        priority = 4
         tier = "EXACT_CONTEXT_ROUTED_OFFICIAL_LOCATOR"
         # One bounded locator read plus one exact candidate-document read.
         bounded_request_upper_bound = 2
     elif hosts.intersection(REPUTABLE_SECONDARY_HOSTS):
-        priority = 2
+        priority = 3
         tier = "REPUTABLE_PUBLIC_SECONDARY"
         # The accepted secondary loader tries at most three bound URLs plus one RSS query.
         bounded_request_upper_bound = 4
+    elif not urls and autonomous_discovery_available:
+        priority = 2
+        tier = "AUTONOMOUS_DISCOVERY_AVAILABLE"
+        # One URL-only discovery call precedes the unchanged per-candidate retrieval bound.
+        bounded_request_upper_bound = 1
     elif urls:
         priority = 1
         tier = "UNCLASSIFIED_PUBLIC_LOCATOR"
@@ -1956,6 +2008,10 @@ def _rolling_x_publishability_path_profile(
         "context_routed_locator_applicable": locator_projection["applicable"],
         "context_routed_locator_surface_ids": locator_projection["surface_ids"],
         "context_routed_locator_families": locator_projection["families"],
+        "autonomous_discovery_available": bool(autonomous_discovery_available),
+        "attributed_source_host_hints": sorted(attributed_hosts),
+        "attributed_source_hints_grant_authority": False,
+        "autonomous_discovery_grants_authority": False,
         "grants_factual_or_evidence_or_publication_authority": False,
     }
 
@@ -2090,6 +2146,8 @@ def build_prepared_rolling_x_candidate_state(
     continuity_binding: Mapping[str, Any] | None = None,
     editorial_opportunities: Sequence[Mapping[str, Any]] | None = None,
     prior_prepared_state: Mapping[str, Any] | None = None,
+    autonomous_source_discovery_available: bool = False,
+    source_route_health: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build the small zero-model candidate checkpoint consumed by an editorial opportunity.
 
@@ -2122,6 +2180,27 @@ def build_prepared_rolling_x_candidate_state(
         if headline_id not in evaluated or headline_id in reentry
     ]
     window_hours = float(rolling_input.get("window_hours") or 24.0)
+    route_health_hosts = {
+        str(row.get("normalized_host") or ""): dict(row)
+        for row in (source_route_health or {}).get("hosts") or []
+        if isinstance(row, Mapping) and str(row.get("normalized_host") or "")
+    }
+
+    def attributed_route_risk(row: Mapping[str, Any]) -> int:
+        attributed_hosts = _rolling_x_attributed_source_host_hints(row)
+        for host in attributed_hosts:
+            observed = route_health_hosts.get(host) or {}
+            if int(observed.get("success_count") or 0) > int(
+                observed.get("failure_count") or 0
+            ):
+                return -1
+            if int(observed.get("failure_count") or 0) >= 2 and int(
+                observed.get("failure_count") or 0
+            ) > int(observed.get("success_count") or 0):
+                return 1
+        # An explicit reputable attribution is a cheap discovery routing hint. It cannot
+        # become a source or claim until URL discovery and deterministic retrieval pass.
+        return -1 if attributed_hosts else 0
 
     def normalized_opportunity(row: Mapping[str, Any]) -> dict[str, Any]:
         start = _normalize_cutoff_utc(str(row.get("start_utc") or row.get("start") or ""))
@@ -2213,12 +2292,16 @@ def build_prepared_rolling_x_candidate_state(
         # identity continues through the same evidence, claim, and publication gates.
         evidence_path_priority = int(
             _rolling_x_publishability_path_profile(
-                [headline_id], records_by_id={headline_id: row}
+                [headline_id],
+                records_by_id={headline_id: row},
+                autonomous_discovery_available=autonomous_source_discovery_available,
             )["priority"]
         )
         return (
             0 if headline_id in reentry else 1,
             -evidence_path_priority,
+            attributed_route_risk(row),
+            _rolling_x_event_state_routing_risk(row),
             expires_at.timestamp(),
             source_time.timestamp(),
             headline_id,
@@ -2571,6 +2654,16 @@ def build_prepared_rolling_x_candidate_state(
         "llm_or_provider_calls": 0,
         "factual_or_numeric_authority_granted": False,
         "publication_authority_granted": False,
+        "autonomous_source_discovery_available": bool(
+            autonomous_source_discovery_available
+        ),
+        "autonomous_source_discovery_grants_authority": False,
+        "source_route_health_input_sha256": (
+            _logical_hash(source_route_health)
+            if isinstance(source_route_health, Mapping)
+            else None
+        ),
+        "source_route_health_grants_authority": False,
     }
     state["prepared_candidate_logical_hash"] = _logical_hash(state)
     return state

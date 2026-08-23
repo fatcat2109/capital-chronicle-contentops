@@ -132,6 +132,10 @@ def run_rolling_x_newsroom_cycle(
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
     sourceability_observations: Mapping[str, Any] | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
+    source_discoverer: Any = None,
+    autonomous_source_discovery_enabled: bool = True,
+    evidence_only_target_count: int | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     editorial_execution_route: str = DESKTOP_PRIMARY_EDITORIAL_ROUTE,
     hybrid_arbitration_receipt: Mapping[str, Any] | None = None,
@@ -164,6 +168,10 @@ def run_rolling_x_newsroom_cycle(
         "learning_policy": learning_policy,
         "material_event_priority": material_event_priority,
         "sourceability_observations": sourceability_observations,
+        "source_route_health": source_route_health,
+        "source_discoverer": source_discoverer,
+        "autonomous_source_discovery_enabled": autonomous_source_discovery_enabled,
+        "evidence_only_target_count": evidence_only_target_count,
         "destination_readiness_override": destination_readiness_override,
     }
     route = str(editorial_execution_route or "").strip().upper()

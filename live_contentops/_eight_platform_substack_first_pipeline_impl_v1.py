@@ -4363,6 +4363,7 @@ def _default_rolling_x_evidence_acquirer(
     *,
     capital_chronicle_root: str | Path | None,
     evaluation_as_of_utc: str | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
 ) -> Any:
     """Build the capability-driven governed adapter used by the production path."""
     from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
@@ -4372,6 +4373,7 @@ def _default_rolling_x_evidence_acquirer(
     return RollingXTargetedEvidenceAdapter(
         capital_chronicle_root=capital_chronicle_root,
         evaluation_as_of_utc=evaluation_as_of_utc,
+        source_route_health=source_route_health,
     )
 
 
@@ -4571,6 +4573,10 @@ def _run_rolling_x_newsroom_cycle(
     learning_policy: Mapping[str, Any] | None = None,
     material_event_priority: Mapping[str, Any] | None = None,
     sourceability_observations: Mapping[str, Any] | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
+    source_discoverer: Any = None,
+    autonomous_source_discovery_enabled: bool = True,
+    evidence_only_target_count: int | None = None,
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
     acceptance_profile: str | None = None,
@@ -4579,6 +4585,11 @@ def _run_rolling_x_newsroom_cycle(
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 
         sidecar_glob = canonical_headline_sidecar_glob()
+    if evidence_only_target_count is not None:
+        if publication_enabled:
+            raise ValueError("evidence_only_mode_requires_publication_disabled")
+        if not isinstance(evidence_only_target_count, int) or not 1 <= evidence_only_target_count <= 4:
+            raise ValueError("evidence_only_target_count_invalid")
     """Run the rolling-X route through the one canonical production boundary."""
     from live_contentops.newsroom_assignment_scheduler_v1 import (
         assign_rolling_x_headlines_with_nine_router,
@@ -4878,13 +4889,35 @@ def _run_rolling_x_newsroom_cycle(
             story_label=safe_story_label(enriched_clusters[0] if enriched_clusters else {}),
             grounding="Capital Chronicle additive context",
         )
+        effective_sourceability_observations = dict(sourceability_observations or {})
+        if not effective_sourceability_observations and isinstance(
+            source_route_health, Mapping
+        ):
+            effective_sourceability_observations = {
+                "schema_version": "contentops.sourceability_observations.from_route_health.v1",
+                "hosts": {
+                    str(row.get("normalized_host") or ""): {
+                        "successful_retrieval_count": int(
+                            row.get("success_count") or 0
+                        ),
+                        "access_failure_count": int(
+                            row.get("failure_count") or 0
+                        ),
+                    }
+                    for row in source_route_health.get("hosts") or []
+                    if isinstance(row, Mapping)
+                    and str(row.get("normalized_host") or "")
+                },
+                "routing_only": True,
+                "factual_or_numeric_or_publication_authority_granted": False,
+            }
         preselection = apply_preselection_intelligence(
             enriched_clusters,
             published_corpus=list(published_corpus or []),
             cc_catalog=effective_catalog,
             learning_policy=dict(learning_policy or {}),
             material_event_priority=dict(material_event_priority or {}),
-            sourceability_observations=dict(sourceability_observations or {}),
+            sourceability_observations=effective_sourceability_observations,
             now=datetime.fromisoformat(str(cutoff_utc).replace("Z", "+00:00")),
         )
         _write_json(output_dir / "preselection_intelligence_v1.json", preselection)
@@ -4988,8 +5021,22 @@ def _run_rolling_x_newsroom_cycle(
         or _default_rolling_x_evidence_acquirer(
             capital_chronicle_root=capital_chronicle_root,
             evaluation_as_of_utc=cutoff_utc,
+            source_route_health=source_route_health,
         )
     )
+    effective_source_discoverer = source_discoverer
+    if (
+        effective_source_discoverer is None
+        and evidence_acquirer is None
+        and autonomous_source_discovery_enabled
+    ):
+        from live_contentops.official_codex_source_discovery_v1 import (
+            OfficialCodexUrlDiscoveryProvider,
+        )
+
+        effective_source_discoverer = OfficialCodexUrlDiscoveryProvider(
+            output_dir=output_dir / "source_discovery"
+        )
 
     def tracked_evidence_acquirer(request: Mapping[str, Any]) -> Any:
         cluster = cluster_by_id_for_activity.get(str(request.get("cluster_id") or ""), {})
@@ -5000,7 +5047,105 @@ def _run_rolling_x_newsroom_cycle(
             story_label=safe_story_label(cluster),
             grounding="latest-web source-bound research",
         )
-        return base_evidence_acquirer(dict(request))
+        initial = base_evidence_acquirer(dict(request))
+        if not isinstance(initial, Mapping):
+            return initial
+        initial_receipt = dict(initial)
+        initial_blockers = [str(value) for value in initial_receipt.get("blockers") or []]
+        if "SOURCE_DISCOVERY_REQUIRED" not in initial_blockers:
+            return initial_receipt
+        handshake = {
+            "schema_version": "contentops.autonomous_source_discovery_handshake.v1",
+            "story_identity": request.get("cluster_id"),
+            "headline_ids": list(request.get("headline_ids") or []),
+            "initial_receipt_sha256": _json_sha256(initial_receipt),
+            "prior_blockers": initial_blockers,
+            "same_candidate_resume_required": True,
+            "source_discovery_available": callable(effective_source_discoverer),
+            "search_snippet_or_model_summary_authority": False,
+            "publication_authority": False,
+        }
+        if not callable(effective_source_discoverer):
+            return {
+                **initial_receipt,
+                "autonomous_source_discovery": {
+                    **handshake,
+                    "status": "SUPPORTED_DISCOVERY_PROVIDER_UNAVAILABLE",
+                },
+            }
+        discovery_request = {
+            **dict(request),
+            "prior_blockers": initial_blockers,
+        }
+        health_snapshotter = getattr(
+            base_evidence_acquirer, "source_route_health_snapshot", None
+        )
+        if callable(health_snapshotter):
+            health_snapshot = health_snapshotter()
+            discovery_request["source_route_health_hosts"] = [
+                dict(row)
+                for row in (health_snapshot or {}).get("hosts") or []
+                if isinstance(row, Mapping)
+            ]
+        try:
+            discovery_result = effective_source_discoverer(discovery_request)
+        except Exception as exc:  # provider errors remain sanitized role-local blockers
+            provider_receipt = getattr(exc, "receipt", None)
+            return {
+                **initial_receipt,
+                "blockers": sorted(
+                    set(initial_blockers + ["SUPPORTED_SOURCE_DISCOVERY_FAILED:" + type(exc).__name__])
+                ),
+                "autonomous_source_discovery": {
+                    **handshake,
+                    "status": "SUPPORTED_SOURCE_DISCOVERY_FAILED",
+                    "failure_class": type(exc).__name__,
+                    "failure_code": str(
+                        getattr(exc, "code", type(exc).__name__)
+                    ),
+                    "provider_receipt": (
+                        dict(provider_receipt)
+                        if isinstance(provider_receipt, Mapping)
+                        else {}
+                    ),
+                },
+            }
+        discovery_result = (
+            dict(discovery_result) if isinstance(discovery_result, Mapping) else {}
+        )
+        contract = discovery_result.get("contract")
+        if not isinstance(contract, Mapping):
+            return {
+                **initial_receipt,
+                "blockers": sorted(
+                    set(initial_blockers + ["SUPPORTED_SOURCE_DISCOVERY_CONTRACT_MISSING"])
+                ),
+                "autonomous_source_discovery": {
+                    **handshake,
+                    "status": "SUPPORTED_SOURCE_DISCOVERY_CONTRACT_MISSING",
+                },
+            }
+        resumed_request = {**dict(request), "codex_source_discovery": dict(contract)}
+        resumed = base_evidence_acquirer(resumed_request)
+        if not isinstance(resumed, Mapping):
+            return resumed
+        return {
+            **dict(resumed),
+            "autonomous_source_discovery": {
+                **handshake,
+                "status": "SAME_CANDIDATE_RESUMED",
+                "resumed_story_identity": resumed_request.get("cluster_id"),
+                "same_candidate_resumed": (
+                    resumed_request.get("cluster_id") == request.get("cluster_id")
+                    and list(resumed_request.get("headline_ids") or [])
+                    == list(request.get("headline_ids") or [])
+                ),
+                "provider_receipt": dict(
+                    discovery_result.get("provider_receipt") or {}
+                ),
+                "resumed_receipt_sha256": _json_sha256(dict(resumed)),
+            },
+        }
 
     viability_path = output_dir / "rolling_x_ranked_viability_v1.json"
     viability_checkpoint: Mapping[str, Any] | None = None
@@ -5094,6 +5239,12 @@ def _run_rolling_x_newsroom_cycle(
             if prepared_state is not None
             else None
         ),
+        "source_route_health_input_sha256": (
+            _json_sha256(dict(source_route_health))
+            if isinstance(source_route_health, Mapping)
+            and source_route_health
+            else None
+        ),
         "prepared_story_frontier": None,
         "publishability_candidate_pool": publishability_candidate_pool,
         "ranked_viability": viability,
@@ -5181,6 +5332,16 @@ def _run_rolling_x_newsroom_cycle(
         }
 
     def _persist_cycle_evidence() -> None:
+        health_snapshot = getattr(
+            base_evidence_acquirer, "source_route_health_snapshot", None
+        )
+        if callable(health_snapshot):
+            evidence["source_route_health"] = {
+                **dict(health_snapshot()),
+                "autonomous_source_discovery_available": callable(
+                    effective_source_discoverer
+                ),
+            }
         article_telemetry = dict(evidence.get("article_build_telemetry") or {})
         editorial_telemetry = dict(evidence.get("editorial_cycle") or {})
         assignment_calls = int(
@@ -5415,6 +5576,148 @@ def _run_rolling_x_newsroom_cycle(
         )
         evidence["exact_next_blocker"] = viability.get("reason_code")
         _persist_candidate_walk(terminal_reason=str(viability.get("reason_code") or ""))
+        _persist_cycle_evidence()
+        return evidence
+
+    if evidence_only_target_count is not None:
+        evidence_ready_candidates: list[dict[str, Any]] = []
+        while viability.get("status") == "SUCCESS":
+            selected_rank = int(viability.get("selected_rank") or 0)
+            selected_evidence = dict(viability.get("selected_evidence") or {})
+            selected_cluster = dict(viability.get("selected_cluster") or {})
+            minimum_packet = dict(
+                selected_evidence.get("minimum_trustworthy_evidence_packet") or {}
+            )
+            claim_contract = dict(
+                selected_evidence.get("claim_evidence_contract")
+                or minimum_packet.get("claim_evidence_contract")
+                or {}
+            )
+            supported_claim_count = int(
+                claim_contract.get("supported_claim_count")
+                or minimum_packet.get("supported_claim_count")
+                or 0
+            )
+            documents = [
+                dict(row)
+                for row in selected_evidence.get("evidence_documents") or []
+                if isinstance(row, Mapping)
+            ]
+            evidence_ready_candidates.append(
+                {
+                    "rank": selected_rank,
+                    "cluster_id": viability.get("selected_cluster_id"),
+                    "headline_ids": list(viability.get("selected_headline_ids") or []),
+                    "candidate_title": str(
+                        selected_cluster.get("why_now")
+                        or selected_cluster.get("selection_case")
+                        or safe_story_label(selected_cluster)
+                    ),
+                    "effective_article_mode": selected_evidence.get(
+                        "effective_article_mode"
+                    )
+                    or selected_cluster.get("resolved_article_mode"),
+                    "evidence_status": selected_evidence.get("status"),
+                    "evidence_review_tier": selected_evidence.get(
+                        "evidence_review_tier"
+                    ),
+                    "provided_evidence_capabilities": list(
+                        selected_evidence.get("provided_evidence_capabilities") or []
+                    ),
+                    "evidence_document_count": len(documents),
+                    "evidence_document_hashes": sorted(
+                        str(row.get("canonical_content_sha256") or row.get("raw_sha256") or "")
+                        for row in documents
+                        if str(
+                            row.get("canonical_content_sha256")
+                            or row.get("raw_sha256")
+                            or ""
+                        )
+                    ),
+                    "supported_claim_count": supported_claim_count,
+                    "claim_contract_status": claim_contract.get("status")
+                    or minimum_packet.get("status"),
+                    "freshness_pass": all(
+                        row.get("freshness_state")
+                        == "FRESH_CURRENT_OPERATOR_READINESS"
+                        for row in documents
+                    ),
+                    "supported_source_bound_claim_present": supported_claim_count >= 1,
+                    "capital_chronicle_authority_required": bool(
+                        selected_evidence.get(
+                            "capital_chronicle_numeric_or_analytical_authority_required"
+                        )
+                    ),
+                    "unresolved_blockers": list(selected_evidence.get("blockers") or []),
+                    "evidence_receipt_sha256": _json_sha256(selected_evidence),
+                    "writer_invoked": False,
+                    "article_generated": False,
+                    "publication_authority_granted": False,
+                }
+            )
+            walk_row = _candidate_walk_row(selected_rank)
+            walk_row["writer_invocation_result"] = "NOT_RUN_EVIDENCE_ONLY_BOUNDARY"
+            walk_row["terminal_reason"] = "GOVERNED_EVIDENCE_READY_PRE_WRITER"
+            if len(evidence_ready_candidates) >= evidence_only_target_count:
+                break
+            viability = _next_viable_after(selected_rank)
+            if viability.get("status") != "SUCCESS":
+                break
+
+        complete = len(evidence_ready_candidates) >= evidence_only_target_count
+        evidence["classification"] = (
+            "PASS_V1_EVIDENCE_FOUNDATION_4_ARTICLE_READY_ZERO_WRITER"
+            if complete and evidence_only_target_count == 4
+            else "PASS_GOVERNED_EVIDENCE_READY_POOL_ZERO_WRITER"
+            if complete
+            else "EVIDENCE_READY_POOL_INCOMPLETE"
+        )
+        evidence["exact_next_blocker"] = (
+            None
+            if complete
+            else str(
+                viability.get("reason_code")
+                or "EVIDENCE_READY_TARGET_NOT_REACHED_WITHIN_BOUNDED_POOL"
+            )
+        )
+        evidence["evidence_ready_pool"] = {
+            "schema_version": "contentops.governed_evidence_ready_pool.v1",
+            "target_candidate_count": evidence_only_target_count,
+            "ready_candidate_count": len(evidence_ready_candidates),
+            "target_met": complete,
+            "candidates": evidence_ready_candidates,
+            "large_universe_to_cheap_feasibility_to_likely_sourceable_pool": True,
+            "expensive_grounded_synthesis_only_after_deterministic_retrieval": True,
+            "writer_or_article_boundary_crossed": False,
+            "factual_or_numeric_authority_granted_by_routing": False,
+            "publication_authority_granted": False,
+        }
+        health_snapshot = getattr(
+            base_evidence_acquirer, "source_route_health_snapshot", None
+        )
+        evidence["source_route_health"] = (
+            {
+                **dict(health_snapshot()),
+                "autonomous_source_discovery_available": callable(
+                    effective_source_discoverer
+                ),
+            }
+            if callable(health_snapshot)
+            else {}
+        )
+        evidence["editorial_worker_count_requested"] = 0
+        evidence["editorial_worker_count_invoked"] = 0
+        evidence["xhigh_worker_invocations"] = 0
+        evidence["article_generation_attempts"] = 0
+        evidence["public_write_performed"] = False
+        evidence["unknown_write_detected"] = False
+        _persist_candidate_walk(
+            terminal_reason=(
+                "GOVERNED_EVIDENCE_READY_TARGET_MET_ZERO_WRITER"
+                if complete
+                else str(evidence["exact_next_blocker"])
+            )
+        )
         _persist_cycle_evidence()
         return evidence
 

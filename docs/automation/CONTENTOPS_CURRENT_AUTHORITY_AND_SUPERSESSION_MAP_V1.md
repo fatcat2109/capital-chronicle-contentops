@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Authority and Supersession Map V1
 
-Authority date: 2026-08-22
+Authority date: 2026-08-23
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, or branch assumptions.
@@ -31,23 +31,20 @@ This map prevents fresh sessions from reviving stale quota, scheduler, canary, o
 
 Jim's latest explicit instruction remains highest product authority.
 
-## Current V1 owner override
+## Current V1 evidence-foundation override
 
-The following rules are current and supersede all conflicting earlier wording:
+The current exact V1 task is
+`TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1`.
+It stops at the governed pre-writer boundary. It must prove four distinct current evidence-ready
+candidates within the existing four-opportunity production-day economics, with zero article/XHIGH
+generation and zero public write. The prior Italy article audit, immediate-canary routing, and
+4-article/32-derivative throughput build are historical/non-routing for this task.
 
-1. Immediate `MVP_CANARY_LAUNCH_GATE` = exactly one current useful zero-write article, native XHIGH
-   final authorship, hard-safe evidence/claim binding, eight derivative package intents, JIT exact
-   nine-surface identity/readiness, and `UNKNOWN_WRITE=0`, followed by owner audit before any write.
-2. The prior 4-qualified/32-intent proof is not a prerequisite for that one supervised MVP canary.
-3. `POST_LAUNCH_THROUGHPUT_GATE` remains `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE
-   INTENTS` before production-grade daily-yield claims or unattended routine operation.
-4. FINAL V1 target = `5–8 PUBLISHED ARTICLES` per newsroom production day.
-5. Candidate abstention remains valid; a whole-day throughput deficit is not healthy success.
-6. The intended 17:00, 21:00, 23:00, and following 01:00 Bangkok windows belong to one deterministic newsroom production day.
-7. No fifth routine task may be created merely to satisfy the floor.
-8. Truth, evidence, numeric/CC authority, rights, identity, permission, native-worker binding, and
-   write-reconciliation gates remain unchanged and can never become canary warnings.
-9. Filler remains forbidden.
+Truth, evidence, numeric/CC authority, permission, freshness, rights, publication, and unknown-write
+gates remain hard. Sourceability and route health may reorder work only. Search output supplies URL
+locators only; deterministic retrieval, hashing, freshness, and claim validation remain mandatory.
+No fifth routine task, filler candidate, article generation, Automation enablement, or public write
+is authorized by the foundation closeout.
 
 ## Hybrid Codex and current Automation truth override
 
@@ -90,30 +87,11 @@ Current known architecture rule:
 
 ## Current V1 lane state
 
-P0-G3 growth-first multi-mode zero-write proof is accepted and merged on current master lineage.
-
-P0-G4 draft PR #12 is frozen while the owner 4/32 zero-write build floor remains unproven. Its
-historical `NO_PUBLICATION_WAIT...` evidence remains valid evidence for that attempt but its
-whole-day-success semantics do not route current work.
-
-Accepted continuation lineage:
-
-`DAILY OUTPUT/AUTOMATION REVALIDATION -> CANDIDATE CONTINUATION/QUOTE REPAIR -> EVIDENCE-YIELD
-REACHABILITY -> DISTINCT-STORY FRONTIER -> STORY-SCOPED EVIDENCE REUSE`
-
-The official SDK proof remains accepted historical/current capability evidence. The same accepted
-Italy story then passed the Desktop-primary hybrid convergence proof at:
-
-`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`
-
-That proof binds a fresh standalone Desktop `gpt-5.6-sol / HIGH` coordinator, one fresh isolated
-`gpt-5.6-sol / XHIGH` worker with one same-worker revision, the exact governed-input hash and
-official evidence ID, a mode-proportional `DATA_OR_DOCUMENT_LENS`, eight semantically deduplicated
-derivatives, current JIT readiness for all nine surfaces, zero public/provider writes, and
-`UNKNOWN_WRITE=0`. The current next gate is Jim/ChatGPT audit of this exact Desktop artifact set and
-plan. No task enablement, second article, public write, or routine-operation claim is authorized.
-The 4/32 proof remains the post-canary throughput gate, and `V1_FINAL_PRODUCT_ACCEPTED` remains
-forbidden.
+The accepted implementation lineage through story-scoped evidence reuse remains historical input.
+The active continuation now closes the missing autonomous URL-discovery handshake, shared bounded
+route health, cheap sourceability/event-state work ordering, the four-candidate governed evidence
+pool, and the frozen Desktop `editorial_output` transport envelope. The task must stop for owner
+audit at that pre-writer gate. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
 
 ## Growth-first V1 rules that remain current
 
@@ -143,6 +121,8 @@ The following phrases or equivalent semantics must never route a fresh V1 task:
 - `FDA-G immediately wakes Codex` without a supported execution bridge;
 - SDK/App Server as the sole primary routine V1 heavy-editorial invocation path;
 - P0-G3 as the next task;
+- the Italy artifact audit as the current next task;
+- immediate 4/32 article generation as the current next task;
 - any branch/HEAD/pointer that predates the accepted P0-G3 merge and current owner override.
 
 ## Historical evidence only

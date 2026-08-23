@@ -138,6 +138,31 @@ def _evidence_reachability(
         )
     )
     hosts = {str(urlsplit(value).hostname or "").casefold() for value in urls}
+    attribution_text = " ".join(
+        str(value or "")
+        for value in (
+            cluster.get("event_topic_summary"),
+            cluster.get("why_now"),
+            *(cluster.get("leaf_summaries") or []),
+        )
+    ).casefold()
+    attributed_hosts = {
+        host
+        for host, markers in {
+            "apnews.com": ("associated press", " - ap"),
+            "bbc.com": (" - bbc", "bbc reports"),
+            "bloomberg.com": ("bloomberg",),
+            "cnbc.com": (" - cnbc", "cnbc reports"),
+            "ft.com": ("financial times", " - ft"),
+            "theguardian.com": ("the guardian", "guardian reports"),
+            "aljazeera.com": ("al jazeera",),
+            "npr.org": (" - npr", "npr reports"),
+            "politico.com": (" - politico", "politico reports"),
+            "reuters.com": ("reuters",),
+            "wsj.com": ("wall street journal", " - wsj"),
+        }.items()
+        if any(marker in attribution_text for marker in markers)
+    }
     registered_official_families = sorted(
         family
         for family, family_hosts in OFFICIAL_HOSTS_BY_FAMILY.items()
@@ -149,6 +174,7 @@ def _evidence_reachability(
     official = bool(registered_official_families or routed_locator_families)
     official_suffix_candidate = any(host.endswith(_KNOWN_OFFICIAL_SUFFIXES) for host in hosts)
     reputable_secondary = any(host in REPUTABLE_SECONDARY_HOSTS for host in hosts)
+    attributed_reputable = bool(attributed_hosts.intersection(REPUTABLE_SECONDARY_HOSTS))
     cc_relevant = float(cc_context.get("cc_context_richness") or 0.0) >= 0.35
     cc_authority = cluster.get("capital_chronicle_publication_authority")
     cc_authority = cc_authority if isinstance(cc_authority, Mapping) else {}
@@ -199,7 +225,7 @@ def _evidence_reachability(
     observed_hosts = observed_hosts if isinstance(observed_hosts, Mapping) else {}
     successful_retrievals = 0
     access_failures = 0
-    for host in hosts:
+    for host in hosts.union(attributed_hosts):
         observation = observed_hosts.get(host)
         if not isinstance(observation, Mapping):
             observation = observed_hosts.get(host.removeprefix("www."))
@@ -212,7 +238,9 @@ def _evidence_reachability(
             int(observation.get(key) or 0) for key in _OBSERVED_ACCESS_FAILURE_KEYS
         )
     repeated_access_failure = access_failures >= 2
-    known_access_risk = bool(hosts.intersection(_KNOWN_ACCESS_RISK_HOSTS))
+    known_access_risk = bool(
+        hosts.union(attributed_hosts).intersection(_KNOWN_ACCESS_RISK_HOSTS)
+    )
     expected_request_cost = (
         0
         if exact_cc_packet
@@ -227,6 +255,7 @@ def _evidence_reachability(
         + (0.28 if routed_locator_families else 0.0)
         + (0.44 if exact_cc_packet else 0.0)
         + (0.28 if reputable_secondary else 0.0)
+        + (0.12 if attributed_reputable else 0.0)
         + (0.2 if successful_retrievals else 0.0)
         + (0.18 * family_coverage)
         + (0.08 if bounded_discovery else 0.0)
@@ -244,6 +273,7 @@ def _evidence_reachability(
         "context_routed_official_locator_families": routed_locator_families,
         "unregistered_official_suffix_candidate": official_suffix_candidate and not official,
         "reputable_public_secondary_path": reputable_secondary,
+        "attributed_reputable_routing_hint": attributed_reputable,
         "capital_chronicle_relevant_context": cc_relevant,
         "exact_matching_cc_publication_authorized_packet": exact_cc_packet,
         "public_source_candidate_count": len(urls),
@@ -258,6 +288,8 @@ def _evidence_reachability(
         "observed_access_failure_count": access_failures,
         "observed_repeated_access_failure": repeated_access_failure,
         "known_paywall_waf_or_dead_link_risk": known_access_risk,
+        "attributed_host_routing_hints": sorted(attributed_hosts),
+        "attributed_host_hints_grant_source_or_factual_authority": False,
         "expected_request_cost": expected_request_cost,
         "mode_downgrade_viable": True,
         "ranking_only": True,
@@ -546,6 +578,47 @@ def apply_preselection_intelligence(
         )
         decision = str(novelty["decision"])
         mode_resolution = select_growth_editorial_mode(cluster, novelty)
+        resolved_mode = str(mode_resolution["mode"])
+        from live_contentops.source_capability_registry_v2 import (
+            capability_mode_for_product_mode,
+            effective_rolling_x_capability_registry,
+            resolve_story_capabilities,
+        )
+
+        mode_capability = resolve_story_capabilities(
+            {
+                "story_type": str(cluster.get("story_type") or "general_public_event"),
+                "article_mode": capability_mode_for_product_mode(resolved_mode)
+                or _CAPABILITY_MODE.get(resolved_mode, "straight_news"),
+                "product_article_mode": resolved_mode,
+            },
+            effective_rolling_x_capability_registry(),
+        )
+        if mode_capability.get("status") != "PASS":
+            fallback_mode = "BREAKING_BRIEF"
+            fallback_capability = resolve_story_capabilities(
+                {
+                    "story_type": str(
+                        cluster.get("story_type") or "general_public_event"
+                    ),
+                    "article_mode": capability_mode_for_product_mode(fallback_mode)
+                    or _CAPABILITY_MODE[fallback_mode],
+                    "product_article_mode": fallback_mode,
+                },
+                effective_rolling_x_capability_registry(),
+            )
+            if fallback_capability.get("status") == "PASS":
+                mode_resolution = {
+                    **dict(mode_resolution),
+                    "mode": fallback_mode,
+                    "preselection_capability_fallback_from": resolved_mode,
+                    "preselection_capability_fallback_reason": sorted(
+                        str(value)
+                        for value in mode_capability.get("blockers") or []
+                    ),
+                    "capability_fallback_changes_truth_or_evidence_gates": False,
+                }
+                resolved_mode = fallback_mode
         if mode_resolution["quiet_day_utility_candidate"]:
             decision = DECISION_QUIET_DAY_USEFUL
         concentration = concentration_penalty(
@@ -583,7 +656,6 @@ def apply_preselection_intelligence(
             - 24.0 * effective_concentration
             + 28.0 * float(reachability["score"])
         )
-        resolved_mode = str(mode_resolution["mode"])
         learning_bonus = 0.0
         learning_matches: list[dict[str, Any]] = []
         feature_values = {

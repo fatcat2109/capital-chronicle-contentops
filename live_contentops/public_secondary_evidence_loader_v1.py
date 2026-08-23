@@ -15,6 +15,7 @@ import socket
 from typing import Any, Callable, Mapping
 from urllib.parse import urlencode, urlsplit
 import urllib.request
+import urllib.error
 import xml.etree.ElementTree as ET
 
 from live_contentops.official_primary_evidence_loader_v1 import (
@@ -24,6 +25,10 @@ from live_contentops.official_primary_evidence_loader_v1 import (
     _parse_timestamp,
 )
 from live_contentops.claim_evidence_contract_v1 import summarize_evidence_substance
+from live_contentops.source_route_health_v1 import (
+    SourceRouteHealthState,
+    normalized_host,
+)
 
 
 REPUTABLE_SECONDARY_HOSTS = frozenset(
@@ -46,6 +51,11 @@ REPUTABLE_SECONDARY_NAMES = frozenset(
         "jerusalem post", "the wall street journal", "wsj",
     }
 )
+# Exact, publisher-controlled short-link origins that may redirect only into the
+# corresponding registered publisher family. They are locators, never evidence.
+SAFE_PUBLISHER_SHORT_HOST_TARGETS = {
+    "cnb.cx": "cnbc.com",
+}
 NEWS_RSS_ENDPOINT = "https://news.google.com/rss/search"
 PUBLISHER_NEWS_SITEMAP_PATH = "/news-sitemap.xml"
 MAX_PUBLISHER_RESOLUTION_ATTEMPTS = 2
@@ -101,7 +111,13 @@ def _default_public_http_get(url: str, timeout_seconds: float, max_bytes: int) -
                 or redirected_host in REPUTABLE_SECONDARY_HOSTS
             )
             if requested_host != "news.google.com":
-                allowed = redirected_host in REPUTABLE_SECONDARY_HOSTS
+                publisher_target = SAFE_PUBLISHER_SHORT_HOST_TARGETS.get(
+                    normalized_host(requested_host), normalized_host(requested_host)
+                )
+                allowed = (
+                    redirected_host in REPUTABLE_SECONDARY_HOSTS
+                    and normalized_host(redirected_host) == publisher_target
+                )
             if not allowed:
                 raise ValueError("public_source_redirect_authority_invalid")
             return super().redirect_request(req, fp, code, msg, headers, newurl)
@@ -222,6 +238,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         max_response_bytes: int = 800_000,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
         clock: Callable[[], datetime] | None = None,
+        source_route_health: SourceRouteHealthState | Mapping[str, Any] | None = None,
     ) -> None:
         cutoff = datetime.fromisoformat(evaluation_as_of_utc.replace("Z", "+00:00"))
         if cutoff.utcoffset() is None:
@@ -234,6 +251,11 @@ class BoundedPublicSecondaryEvidenceLoader:
         self._http_get = http_get or _default_public_http_get
         self._validate_dns = http_get is None
         self._clock = clock or (lambda: datetime.now(timezone.utc))
+        self._source_route_health = (
+            source_route_health
+            if isinstance(source_route_health, SourceRouteHealthState)
+            else SourceRouteHealthState(source_route_health, clock=self._clock)
+        )
         self._request_count = 0
         self._candidate_request_start = 0
         self._request_count_by_story_scope: dict[str, int] = {}
@@ -253,6 +275,13 @@ class BoundedPublicSecondaryEvidenceLoader:
                     self._active_story_scope_id, []
                 ).append(sha256(url.encode("utf-8")).hexdigest())
                 return dict(cached)
+        suppressed = self._source_route_health.should_suppress(url)
+        if suppressed is not None:
+            if self._active_story_scope_id:
+                self._reused_request_signatures_by_story_scope.setdefault(
+                    self._active_story_scope_id, []
+                ).append(str(suppressed["route_identity_sha256"]))
+            raise RuntimeError("public_source_route_suppressed_by_recent_health")
         if self._request_count >= self._max_requests:
             raise RuntimeError("public_source_request_budget_exhausted")
         candidate_request_count = (
@@ -268,9 +297,21 @@ class BoundedPublicSecondaryEvidenceLoader:
             self._request_count_by_story_scope[self._active_story_scope_id] = (
                 candidate_request_count + 1
             )
-        response = dict(
-            self._http_get(url, self._timeout_seconds, self._max_response_bytes)
-        )
+        try:
+            response = dict(
+                self._http_get(url, self._timeout_seconds, self._max_response_bytes)
+            )
+        except urllib.error.HTTPError as exc:
+            self._source_route_health.observe_failure(url, int(exc.code))
+            raise
+        except (OSError, RuntimeError, TypeError, ValueError) as exc:
+            self._source_route_health.observe_failure(url, exc)
+            raise
+        status = int(response.get("status") or 0)
+        if status == 200:
+            self._source_route_health.observe_success(url)
+        else:
+            self._source_route_health.observe_failure(url, status)
         if self._active_story_scope_id:
             self._response_cache_by_story_scope.setdefault(
                 self._active_story_scope_id, {}
@@ -286,7 +327,12 @@ class BoundedPublicSecondaryEvidenceLoader:
     ) -> dict[str, Any] | None:
         host = _public_host(url, resolve_dns=self._validate_dns)
         discovery_redirect = host == "news.google.com"
-        if host not in REPUTABLE_SECONDARY_HOSTS and not discovery_redirect:
+        publisher_short_link = normalized_host(host) in SAFE_PUBLISHER_SHORT_HOST_TARGETS
+        if (
+            host not in REPUTABLE_SECONDARY_HOSTS
+            and not discovery_redirect
+            and not publisher_short_link
+        ):
             return None
         response = self._get(url)
         if int(response.get("status") or 0) != 200:
@@ -294,6 +340,10 @@ class BoundedPublicSecondaryEvidenceLoader:
         final_url = str(response.get("final_url") or url)
         final_host = _public_host(final_url, resolve_dns=self._validate_dns)
         if final_host not in REPUTABLE_SECONDARY_HOSTS:
+            raise ValueError("public_source_redirect_authority_invalid")
+        if publisher_short_link and normalized_host(final_host) != (
+            SAFE_PUBLISHER_SHORT_HOST_TARGETS[normalized_host(host)]
+        ):
             raise ValueError("public_source_redirect_authority_invalid")
         headers = {str(k).casefold(): str(v) for k, v in (response.get("headers") or {}).items()}
         content_type = headers.get("content-type", "").split(";", 1)[0].casefold()
@@ -882,3 +932,6 @@ class BoundedPublicSecondaryEvidenceLoader:
             "blockers": [] if documents else sorted(set(diagnostics or ["public_source_unavailable"])),
             "publication_authority": False,
         }
+
+    def source_route_health_snapshot(self) -> dict[str, Any]:
+        return self._source_route_health.snapshot()

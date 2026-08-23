@@ -791,9 +791,14 @@ def validate_same_xhigh_worker_revision_return(
         revision_contract.get("required_bounded_revision_count") or -1
     ):
         raise ValueError("same_xhigh_revision_count_mismatch")
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        resolve_article_transport_envelope,
+    )
+
+    resolved_article = resolve_article_transport_envelope(worker_return)
     article_evidence_ids = {
         str(value)
-        for value in (worker_return.get("article") or {}).get("evidence_document_ids") or []
+        for value in resolved_article.get("evidence_document_ids") or []
         if str(value)
     }
     immutable_evidence_ids = {
@@ -843,7 +848,11 @@ def validate_editorial_worker_return(
         raise ValueError("desktop_editorial_worker_revision_limit_exceeded")
     if bool(worker_return.get("public_write_attempted")):
         raise ValueError("desktop_editorial_worker_public_write_forbidden")
-    article = worker_return.get("article")
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        resolve_article_transport_envelope,
+    )
+
+    article = resolve_article_transport_envelope(worker_return)
     if not isinstance(article, Mapping) or not str(article.get("title") or "").strip():
         raise ValueError("desktop_editorial_worker_article_invalid")
     editorial_validation: dict[str, Any] | None = None
@@ -1690,6 +1699,7 @@ def build_live_zero_write_rehearsal(
             reentry_headline_ids=reentry_ids,
             editorial_opportunities=opportunities,
             prior_prepared_state=prior_prepared_state,
+            autonomous_source_discovery_available=True,
             continuity_binding=prepared_candidate_continuity_binding(
                 continuity=continuity,
                 evaluated_headline_ids=evaluated_ids,

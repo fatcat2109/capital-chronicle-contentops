@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — V1 Current Execution Pointer V3
 
-Authority date: 2026-08-22
+Authority date: 2026-08-23
 Status: `CURRENT_V1_LANE_POINTER`
 
 ## Root authority
@@ -42,24 +42,15 @@ Draft P0-G4 PR #12 remains frozen historical evidence and is not the current can
 
 ## Current owner output contract
 
-IMMEDIATE MVP CANARY:
+CURRENT FOUNDATION GATE:
 
-`one useful current zero-write article + eight derivative intents + JIT nine-surface readiness`
+`four DISTINCT current governed evidence-ready candidates / zero writer / zero article / zero public write`
 
-The slice stops for owner audit before any public write. Hard factual/system/write gates remain
-mandatory; standard editorial/SEO perfection findings remain observable warnings.
-
-POST-LAUNCH THROUGHPUT/UNATTENDED OPERATION:
-
-`minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
-
-FINAL V1:
-
-`5–8 PUBLISHED ARTICLES per newsroom production day`
-
-Candidate abstention remains valid. A production day below the active floor is not healthy success unless an exact hard external blocker is proven.
-
-Stale phrases such as `no publication quota`, `publication minimum zero`, or whole-day `NO_PUBLICATION` success are superseded.
+The exact task is
+`TASK_V1_EVIDENCE_FOUNDATION_AUTONOMOUS_DISCOVERY_SOURCE_HEALTH_READY_POOL_AND_TRANSPORT_CLOSEOUT_V1`.
+It closes autonomous URL-only discovery, deterministic retrieval/hash/freshness resumption on the
+same candidate, shared routing-only source health, the cheap evidence funnel, and frozen article
+transport. It does not continue into article or derivative generation.
 
 ## Current execution truth
 
@@ -77,19 +68,10 @@ operation; the accepted manual standalone proof does not claim calendar-time exe
 
 ## Current next capability
 
-The exact Italy zero-write canary is ready for Jim/ChatGPT audit. Its accepted classification is:
-
-`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`
-
-It has the title `State Department Approves Possible APKWS II Sale to Italy`, mode
-`DATA_OR_DOCUMENT_LENS`, evidence ID `official-primary-ffb8e742e0932254c29d`, eight derivative
-packages, and exact JIT readiness for Substack plus all eight derivative destinations. Public-write
-count and `UNKNOWN_WRITE` are both zero.
-
-Do not generate a second article, enable an Automation, start 4/32, or write publicly. The next
-action is owner audit of this exact Desktop artifact set. The 4/32 proof remains required before
-production-grade daily-yield or unattended routine-operation claims.
-`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+The current next capability is the governed evidence foundation described above. The prior Italy
+artifact and immediate 4/32 wording are historical/non-routing. After the foundation result, stop
+for Jim/ChatGPT audit. Do not call XHIGH, generate an article, enable an Automation, create a fifth
+task, or write publicly. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
 
 ## Routine schedule policy
 
@@ -115,12 +97,10 @@ enablement or public-write authority. No fifth window may be added.
 5. reconcile all attempted objects and require `UNKNOWN_WRITE=0`;
 6. audit actual public objects.
 
-## Post-canary 4/32 and P0-G5 after owner acceptance
+## Historical post-canary throughput wording
 
-First prove 4 qualified zero-write articles / 32 derivative intents. Then use the owner-enabled
-four Desktop Automations as primary with bound SDK fallback arbitration. No fifth routine window.
-
-Prove unattended calendar-time execution, production-day floor/target accounting, bounded catch-up, cold-start/restart, no duplicate article/public object, recovery/readback, and bounded cost.
+Earlier 4-article/32-derivative and Italy-audit sequencing is retained as historical planning only.
+It does not authorize work after the current four-candidate evidence gate.
 
 Immediate/live material-event-to-Codex/publication capability remains separately owner-gated and must not be claimed until a supported execution bridge is proven.
 

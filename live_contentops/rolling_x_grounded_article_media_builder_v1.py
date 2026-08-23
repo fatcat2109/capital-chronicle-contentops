@@ -1041,6 +1041,39 @@ def build_article_transport_schema() -> dict[str, Any]:
 ARTICLE_TRANSPORT_SCHEMA = build_article_transport_schema()
 
 
+def resolve_article_transport_envelope(worker_return: Mapping[str, Any]) -> dict[str, Any]:
+    """Losslessly unwrap the two known Desktop worker envelopes and copy exact aliases.
+
+    This is representation correction only. Missing semantic fields remain missing so the
+    unchanged strict schema and article validators still fail closed. A mechanical envelope
+    mismatch therefore never requires or consumes an editorial revision.
+    """
+    article = worker_return.get("article")
+    editorial_output = worker_return.get("editorial_output")
+    if isinstance(article, Mapping) and isinstance(editorial_output, Mapping):
+        if dict(article) != dict(editorial_output):
+            raise ValueError("article_transport_conflicting_envelopes")
+    source = article if isinstance(article, Mapping) else editorial_output
+    if not isinstance(source, Mapping):
+        raise ValueError("article_transport_envelope_missing")
+    normalized = dict(source)
+    aliases = {
+        "title": "canonical_editorial_headline",
+        "subtitle": "dek",
+        "seo_title": "search_title",
+        "substack_body_markdown": "article_body",
+        "social_lede": "social_hook",
+    }
+    for target, origin in aliases.items():
+        if target not in normalized and origin in normalized:
+            normalized[target] = normalized[origin]
+    if "quote_source_records" not in normalized and isinstance(
+        worker_return.get("quote_source_records"), list
+    ):
+        normalized["quote_source_records"] = list(worker_return["quote_source_records"])
+    return normalized
+
+
 def normalize_article_transport_nulls(article: Mapping[str, Any]) -> dict[str, Any]:
     """Remove only nullable transport placeholders; never synthesize semantic content."""
     return {
