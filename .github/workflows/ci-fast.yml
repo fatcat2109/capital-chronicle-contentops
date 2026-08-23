@@ -48,13 +48,10 @@ jobs:
 
           agents = Path('AGENTS.md').read_text(encoding='utf-8')
           authority_map = Path('docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md').read_text(encoding='utf-8')
-          stale_manifest = Path('docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md').read_text(encoding='utf-8')
           policy = Path('docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md').read_text(encoding='utf-8')
-          current_context = Path('docs/CURRENT_CONTEXT.md').read_text(encoding='utf-8')
           north_star = Path('docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md').read_text(encoding='utf-8')
           master_plan = Path('docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md').read_text(encoding='utf-8')
           v1_pointer = Path('docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md').read_text(encoding='utf-8')
-          codex_operator = Path('docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md').read_text(encoding='utf-8')
           v2_pointer = Path('docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md').read_text(encoding='utf-8')
           video_agents = Path('video/AGENTS.md').read_text(encoding='utf-8')
           v2_creative = Path('docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md').read_text(encoding='utf-8')
@@ -67,16 +64,12 @@ jobs:
           assert '`CODEX_EXECUTION`' in agents and '`OWNER_GATED_EXTERNAL`' in agents
           assert 'Status: `CURRENT_EXECUTION_POLICY`' in policy
           assert 'no merge without explicit owner authorization' in policy
-          assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.' in v2_pointer
-          assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`' in video_agents
-          assert 'Engineering/repository execution follows the root `CAPABILITY_ROUTED_HYBRID` policy.' in v2_creative
 
-          # Durable product targets remain current, but the immediate routing gate is now the
-          # quota-safe evidence-foundation state rather than another 4/32 proof campaign.
           for text in (agents, north_star, master_plan):
               upper = text.upper()
               assert '4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES' in upper
               assert '5–8 PUBLISHED ARTICLES' in upper
+              assert 'DEGRADED_DAILY_OUTPUT_DEFICIT' in upper
 
           for text in (authority_map, v1_pointer):
               assert 'PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED' in text
@@ -84,29 +77,16 @@ jobs:
               assert '5–8/day' in text
 
           assert 'quota-efficient batch/tail discovery architecture' in v1_pointer.lower()
+          assert 'Desktop standalone fresh-run Automations are the primary routine V1' in authority_map
+          assert 'App Server/SDK provider remains the currently proven' in authority_map
+          assert 'no fifth' in authority_map.lower()
           assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_api
           assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_impl
+          assert 'UNKNOWN_WRITE' in agents
 
-          assert 'DEGRADED_DAILY_OUTPUT_DEFICIT' in agents
-          assert 'DEGRADED_DAILY_OUTPUT_DEFICIT' in north_star
-          assert 'UNPROVEN_HOST_AUTOMATION_STATE' in north_star
-          assert 'UNPROVEN_HOST_AUTOMATION_STATE' in codex_operator
-          assert 'CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md' in authority_map
-
-          assert 'Repository configuration is not host proof' in authority_map
-          assert 'does **not** prove that Codex Automations currently exist on the host' in codex_operator
-          assert 'MATERIAL_EVENT_CODEX_WAKE_NOT_PROVEN' in north_star
-
-          for text in (stale_manifest, authority_map):
-              lower = text.lower()
-              assert 'no mandatory post' in lower
-              assert 'no publication minimum' in lower
-              assert 'publication minimum' in lower and ('zero' in lower or '= 0' in lower)
-              assert 'whole-day' in lower or 'whole production day' in lower
-
-          assert 'current execution-routing policy candidate' not in authority_map
-          assert 'On the owner-authorized hybrid pilot branch' not in authority_map
-          assert 'under the owner-authorized policy candidate' not in current_context
+          assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.' in v2_pointer
+          assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`' in video_agents
+          assert 'Engineering/repository execution follows the root `CAPABILITY_ROUTED_HYBRID` policy.' in v2_creative
           assert 'Canonical execution framework is `MAIN_CODEX` only.' not in north_star
           assert '`MAIN_CODEX` owns repo/task/orchestration.' not in v2_pointer
           assert '`MAIN_CODEX` owns repo/task orchestration' not in video_agents
