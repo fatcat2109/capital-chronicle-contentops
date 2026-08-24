@@ -8,6 +8,9 @@ from pathlib import Path
 from typing import Any, Optional
 
 from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
+from live_contentops.daily_app_supervisor_v1 import (
+    SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+)
 from live_contentops.browser_interaction_budget_v1 import (
     configure_browser_interaction_telemetry,
 )
@@ -69,6 +72,7 @@ class FinalDailyAppProductionRuntime:
             "readback_wiring_not_none": self.supervisor._publication_readback_provider is not None,
             "performance_wiring_not_none": self.supervisor._performance_collector is not None,
             "learning_enabled": self.supervisor._performance_learning_enabled,
+            "scheduled_editorial_owner": self.supervisor._scheduled_editorial_owner,
             "next_wake_utc": self.supervisor._next_wake(self.supervisor._clock()).isoformat().replace("+00:00", "Z"),
             "public_write_performed": False,
         }
@@ -128,6 +132,7 @@ def build_final_daily_app_production_runtime(
         performance_collector=coordinator.collect_metrics,
         interaction_classifier=classify_interactions_with_nine_router,
         performance_learning_enabled=True,
+        scheduled_editorial_owner=SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
     )
     return FinalDailyAppProductionRuntime(
         store=store, orchestrator=orchestrator, readiness_manager=readiness,

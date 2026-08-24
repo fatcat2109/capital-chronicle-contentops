@@ -122,8 +122,19 @@ normalization/readback:
 4/32 remains useful throughput/economics telemetry and daily-output health evidence, not a launch
 prerequisite or current host-proof gate.
 
-Accepted host truth is exactly four native V1 Automations, all `PAUSED`, with correct model,
-reasoning effort, schedules, project, and one matching repo-derived prompt hash. Calendar-time
+It is also never a per-window stop condition. Below five useful articles, each scheduled routine
+opportunity must walk governed candidates unless the useful universe is exhausted or an exact hard
+external blocker exists. Bounded capacity keeps five reachable through remaining windows while the
+0..4 routine-opportunity counter remains independent. Zero-write editorial eligibility is
+independent from destination readiness diagnostics; public dispatch still fails closed at its exact
+identity/readiness boundary.
+
+Accepted host truth is exactly four native V1 Automations with correct model, reasoning effort,
+schedules, and project. The 2026-08-24 21:00 Automation fired on schedule
+(`PASS_NATIVE_CALENDAR_TRIGGER_OBSERVED`) while the old runtime exposed
+`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G terminalized the canonical opportunity before the
+Automation began and the old pacing target allocated zero work. All four are held paused for the
+single-owner/five-reachability/readiness-role correction. Broader unattended/cold-start/fallback
 execution remains unproven. At
 the sweep epoch the production database was opened read-only and was healthy with
 `UNKNOWN_WRITE=0`, while no Daily App process/listener was running. That at-rest observation is not

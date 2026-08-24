@@ -99,14 +99,42 @@ def newsroom_production_day_bounds(reference: datetime | str) -> tuple[datetime,
 
 
 def routine_progress_target(session: str) -> int:
-    """Cumulative qualified-article progress expected at an existing routine wake."""
+    """Historical 4/32 telemetry checkpoint; never an editorial skip condition."""
     if session not in ROUTINE_SESSION_ORDINAL:
         return 0
     return min(BUILD_QUALIFIED_FLOOR, ROUTINE_SESSION_ORDINAL[session])
 
 
+def routine_session_ordinal(session: str) -> int:
+    """Return the independent 1..4 routine-opportunity position for ``session``."""
+    return int(ROUTINE_SESSION_ORDINAL.get(session, 0))
+
+
+def remaining_future_routine_windows(session: str) -> int:
+    """Return later routine windows in the same deterministic production day."""
+    ordinal = routine_session_ordinal(session)
+    return max(0, ROUTINE_OPPORTUNITY_LIMIT - ordinal) if ordinal else 0
+
+
 def bounded_deficit_work_needed(*, session: str, qualified_articles_today: int) -> int:
-    return max(0, routine_progress_target(session) - int(qualified_articles_today))
+    """Allocate bounded article slots without allowing quota pacing to starve a window.
+
+    Every valid routine opportunity gets at least one real candidate walk.  Below the final
+    five-article minimum, extra capacity is allocated when needed to keep that minimum reachable
+    through the later routine windows.  Qualification still depends on the normal governed
+    candidate, evidence, truth, and authority gates; this is capacity, never a filler quota.
+    """
+    if routine_session_ordinal(session) == 0:
+        return 0
+    qualified = max(0, int(qualified_articles_today))
+    if qualified >= FINAL_PUBLISHED_TARGET_MIN:
+        return 1
+    return max(
+        1,
+        FINAL_PUBLISHED_TARGET_MIN
+        - qualified
+        - remaining_future_routine_windows(session),
+    )
 
 
 def _read_json(path: Path) -> dict[str, Any]:

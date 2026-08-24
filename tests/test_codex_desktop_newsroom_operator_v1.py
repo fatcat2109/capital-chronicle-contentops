@@ -825,10 +825,16 @@ def test_exact_four_task_packet_has_current_fast_ship_prompt_and_no_scale_up():
     assert "proven current provider-resilient batch/tail discovery" in DESKTOP_TASK_PROMPT
     assert "do not restore the historical 35-call / 10.2M-token per-trigger default" in DESKTOP_TASK_PROMPT
     assert "Only when one real candidate has enough governed evidence" in DESKTOP_TASK_PROMPT
+    assert "Every routine opportunity below five useful articles" in DESKTOP_TASK_PROMPT
+    assert "intermediate 4/32 pacing checkpoint is never a skip condition" in DESKTOP_TASK_PROMPT
+    assert "destination readiness HOLD is publication diagnostics" in DESKTOP_TASK_PROMPT
+    assert "bounded catch-up may qualify more than one distinct useful article" in DESKTOP_TASK_PROMPT
     assert "UNKNOWN_WRITE means STOP RETRY -> READ BACK -> RECONCILE" in DESKTOP_TASK_PROMPT
     assert "Start one fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in MANUAL_GO_PROMPT
     assert "GO bypasses no gate" in MANUAL_GO_PROMPT
     assert "not a prerequisite for one safe article" in MANUAL_GO_PROMPT
+    assert "intermediate 4/32 pacing checkpoint is met" in MANUAL_GO_PROMPT
+    assert "destination readiness HOLD is publication diagnostics" in MANUAL_GO_PROMPT
     assert "No fifth routine task" in MANUAL_GO_PROMPT
 
     stale_routine_semantics = (
@@ -883,7 +889,7 @@ def test_supported_host_observation_persists_only_exact_safe_four_task_readback(
     assert persisted["tasks"][0]["observation_projection_sha256"] != f"{1:064x}"
 
 
-def test_committed_automation_normalization_readback_matches_current_setup_contract():
+def test_committed_automation_normalization_readback_remains_historical_evidence():
     evidence_path = (
         Path(__file__).resolve().parents[1]
         / "docs"
@@ -893,8 +899,8 @@ def test_committed_automation_normalization_readback_matches_current_setup_contr
     )
     evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
     packet = four_task_setup_packet()
-    expected_prompt_sha = hashlib.sha256(DESKTOP_TASK_PROMPT.encode("utf-8")).hexdigest()
     expected_by_id = {task["id"]: task for task in packet["tasks"]}
+    historical_prompt_sha = evidence["expected_repo_prompt_sha256"]
 
     assert evidence["classification"] == (
         "PASS_FOUR_EXISTING_V1_AUTOMATION_PROMPTS_NORMALIZED_AND_PAUSED"
@@ -903,7 +909,10 @@ def test_committed_automation_normalization_readback_matches_current_setup_contr
     assert evidence["all_exact_ids_present"] is True
     assert evidence["no_fifth_routine_v1_automation"] is True
     assert evidence["all_paused_after"] is True
-    assert evidence["expected_repo_prompt_sha256"] == expected_prompt_sha
+    assert len(evidence["expected_repo_prompt_sha256"]) == 64
+    assert evidence["expected_repo_prompt_sha256"] != hashlib.sha256(
+        DESKTOP_TASK_PROMPT.encode("utf-8")
+    ).hexdigest()
     assert {task["id"] for task in evidence["tasks"]} == set(EXACT_V1_AUTOMATION_IDS)
     for task in evidence["tasks"]:
         expected = expected_by_id[task["id"]]
@@ -913,7 +922,7 @@ def test_committed_automation_normalization_readback_matches_current_setup_contr
         assert task["model"] == packet["model"] == "gpt-5.6-sol"
         assert task["reasoning_effort"] == "high"
         assert task["status"] == "PAUSED"
-        assert task["after_prompt_sha256"] == expected_prompt_sha
+        assert task["after_prompt_sha256"] == historical_prompt_sha
         assert len(task["after_host_config_sha256"]) == 64
         assert "prompt" not in task
 
@@ -950,7 +959,7 @@ def test_no_article_paths_use_high_and_request_zero_xhigh_workers(opportunity_st
     assert route["scheduler_or_queue_created"] is False
 
 
-def test_distribution_hold_before_editorial_requests_no_xhigh_worker():
+def test_zero_write_distribution_hold_is_diagnostic_and_does_not_veto_xhigh():
     route = build_editorial_worker_routing_packet(
         opportunity_state="ARTICLE_QUALIFIED",
         governed_context={
@@ -961,9 +970,11 @@ def test_distribution_hold_before_editorial_requests_no_xhigh_worker():
         readiness_state="HOLD",
     )
 
-    assert route["opportunity_state"] == "FULL_DISTRIBUTION_READINESS_BLOCKED"
-    assert route["decision"] == "HIGH_ONLY_NO_EDITORIAL_WORKER"
-    assert route["xhigh_worker_count_requested"] == 0
+    assert route["opportunity_state"] == "ARTICLE_QUALIFIED"
+    assert route["readiness_state"] == "HOLD"
+    assert route["readiness_is_publication_diagnostic_only"] is True
+    assert route["decision"] == "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
+    assert route["xhigh_worker_count_requested"] == 1
 
 
 def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_high_resumes():
