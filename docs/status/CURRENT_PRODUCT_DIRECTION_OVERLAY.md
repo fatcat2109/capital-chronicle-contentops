@@ -36,24 +36,28 @@ Core Analyzer numeric authority to meet volume.
   and exercised; they are not implementation gaps.
 - The accepted later foundation produced four distinct governed evidence-ready candidates, but its
   35 URL-discovery calls and 10,237,897 discovery tokens are not production-acceptable economics.
+- PR #19's provider-resilient quota-efficient batch/tail discovery is accepted and reusable after
+  producing four governed ready candidates in three batch turns with 712,842 accounted tokens.
+- PR #20's native worker-return normalization, source-omission protection, and ordinary zero-write
+  article path are independently accepted and reusable.
 
 ## Current V1 implementation priority
 
-The native worker-return normalization gap is closed with one qualified article and eight
-undispatched derivative intents under zero write. The immediate gate is independent owner audit of
-the prose, diff, tests, and safety receipt. The 4/32 exercise remains separate throughput/economics
-evidence; prompt enablement, public-write scope, unattended runtime, V5 acceptance, and final
-product acceptance remain distinct later owner gates.
+The native worker-return normalization gap and PR #20 article audit are closed. All four routine
+host prompts now match the repo-derived FAST-SHIP hash while remaining paused. The immediate gate is
+exact zero-write Automation enablement/calendar-time unattended runtime proof. The 4/32 exercise
+remains throughput/economics telemetry, not a launch prerequisite. Fresh V5 acceptance and separate
+routine public-write/final-product authority decisions follow.
 
 ## Automation truth
 
 Exactly four native V1 Desktop Automations exist and are `PAUSED` with the correct
 `gpt-5.6-sol / HIGH` model/effort and the 17:00/21:00/23:00/following-01:00 Bangkok schedules.
-Their prompts require normalization. Calendar-time execution remains unproven because the supported
-surface exposed no run-now action. Never create a fifth task.
+Their prompts share the exact repo-derived FAST-SHIP hash. Calendar-time execution remains unproven
+because the supported surface exposes no run-now action. Never create a fifth task.
 
-Prompt normalization is not enablement. Enablement is not routine public-write authority. A
-zero-public-write unattended proof is valid when that is the exact owner grant.
+Completed prompt normalization is not enablement. Enablement is not routine public-write authority.
+A zero-public-write unattended proof is valid when that is the exact owner grant.
 
 ## Editorial and distribution doctrine
 

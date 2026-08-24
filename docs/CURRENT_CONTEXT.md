@@ -34,16 +34,17 @@ Always fetch remote master and relevant branches before trusting recorded SHAs.
 - The later evidence foundation produced four distinct governed evidence-ready candidates with
   deterministic retrieval/hash/freshness, redirect repair, source-route health, same-candidate
   resume, and frozen worker transport.
-- Its 35 URL-discovery calls and 10,237,897 discovery tokens are not an accepted routine production
-  default. Quota-efficient batch/tail discovery on the existing evidence seam is the sole
-  demonstrated new V1 product implementation gap.
-- Exactly four native V1 Automations exist and are `PAUSED` on the correct model/effort/schedules.
-  Their prompts require normalization. Calendar-time unattended execution remains unproven; never
-  create a fifth task.
+- Its historical 35 URL-discovery calls and 10,237,897 discovery tokens are not an accepted routine
+  default. PR #19's provider-resilient quota-efficient batch/tail discovery is accepted and reusable:
+  four governed ready candidates, three batch turns, and 712,842 accounted tokens.
+- Exactly four native V1 routine Automations exist and are `PAUSED` on the correct model/effort/
+  schedules/project with one matching repo-derived FAST-SHIP prompt hash. Calendar-time unattended
+  execution remains unproven; never create a fifth task.
 - At the sweep epoch the production store was read-only healthy with `UNKNOWN_WRITE=0`, but the
   Daily App process/listener was not running. That at-rest observation is not a cold-start PASS.
-- The fast-ship path has qualified one useful `BREAKING_BRIEF` plus eight undispatched derivative
-  intents with zero public/provider/unknown writes; independent owner audit remains required.
+- PR #20 independently accepted one useful `BREAKING_BRIEF` plus eight undispatched derivative
+  intents with zero public/provider/unknown writes. Reuse its native worker-return normalization and
+  source-omission hard protection.
 
 ## Output contract
 
@@ -62,12 +63,12 @@ external blocker. No filler and no weaker truth/evidence/rights/permission/numer
 
 ## Current progression order
 
-1. apply deterministic representation normalization at the canonical worker-return boundary;
-2. qualify one useful article and exactly eight derivative intents with zero writes;
-3. independently audit the real prose, diff, tests, and safety receipt;
-4. retain 4/32 as separate throughput/economics evidence rather than a launch gate;
-5. keep prompt enablement, routine public write, unattended runtime, V5, and final acceptance as
-   separate owner gates;
+1. preserve accepted PR #19 discovery and PR #20 article-path capability;
+2. preserve the completed four-prompt normalization/readback with all objects paused;
+3. obtain exact zero-write Automation enablement authority and calendar-time unattended proof;
+4. retain 4/32 as throughput/economics telemetry rather than a launch gate;
+5. complete fresh current-epoch V5 acceptance and separate routine public-write/final-product
+   authority decisions;
 6. only after explicit V1 acceptance begin authorized V2 continuation.
 
 ## V2 boundary

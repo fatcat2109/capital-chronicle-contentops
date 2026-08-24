@@ -56,6 +56,9 @@ The following claims are INVALID for current V1 unless they are supported by the
 - a perfect 4/32 proof is a prerequisite for proving or advancing one safe qualified article;
 - production-day accounting or bounded deficit recovery still needs implementation;
 - the four native V1 Automations are host-unproven;
+- PR #20's canonical article path still awaits owner audit;
+- native worker-return representation normalization is still an implementation gap;
+- PR #19's quota-efficient provider-resilient batch/tail discovery is still unimplemented;
 - first-party locator or publisher-resolution closure is the next V1 task;
 - the 35-call per-trigger discovery path is an accepted routine production default;
 - branch-proven V2 unattended/recovery/locale/native-relay capability must be rebuilt from zero;
@@ -120,12 +123,12 @@ missed/failed Desktop primary, the direct path where immediate supported invocat
 and the benchmark/controlled-experiment path. Neither model path has factual, numeric, permission,
 gate, or public-write authority.
 
-Accepted supported host observation proves exactly four existing native V1 Automations, all `PAUSED`, at the
-17:00/21:00/23:00/following-01:00 Bangkok windows with `gpt-5.6-sol / HIGH`. Their host prompts need
-owner-audited normalization before enablement, and the supported surface exposed no run-now action.
-The accepted Desktop parity proof therefore used one fresh standalone manual Desktop task and does
-not claim calendar-time execution. Do not enable the four tasks or create a fifth window. Prompt
-normalization, Automation enablement, and routine public-write authority are separate owner gates.
+Fresh supported host readback proves exactly four existing native V1 Automations, all `PAUSED`, at
+the 17:00/21:00/23:00/following-01:00 Bangkok windows with `gpt-5.6-sol / HIGH`. Their prompts now
+match the one repo-derived FAST-SHIP routine prompt. Calendar-time execution remains unproven and
+the supported surface exposes no run-now action. Do not create a fifth window. Prompt normalization
+is complete; zero-write enablement/calendar-time proof and routine public-write authority remain
+separate later owner gates.
 
 `live_contentops/codex_desktop_newsroom_operator_v1.py` supplies the canonical run identity and
 Desktop-primary/SDK-fallback arbitration; it is not a second scheduler or public-write grant. Do not
@@ -187,23 +190,21 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 Accepted and do not rebuild: the canonical V1 runtime/store/supervisor/publisher/UI, production-day
 accounting and bounded deficit recovery, Desktop-primary/SDK-fallback arbitration, official-source
-locator/redirect/source-health/evidence seams, the real reconciled nine-surface Italy canary, and
-the four-opportunity 4/32 harness. The first 4/32 result was a truthful failure, not an unstarted
-task. The later foundation produced four governed evidence-ready candidates, but its 35 discovery
-calls and 10,237,897 discovery tokens are rejected as a routine production default.
+locator/redirect/source-health/evidence seams, the real reconciled nine-surface Italy canary, the
+four-opportunity 4/32 harness, PR #19 provider-resilient quota-efficient batch/tail discovery, and
+PR #20's accepted canonical worker-return/article path. The first 4/32 result was a truthful failure,
+not an unstarted task or launch prerequisite.
 
 Current progression order:
 
-1. this master-plan/authority lock;
-2. normalize the canonical native worker return and qualify one useful zero-write article plus
-   exactly eight derivative intents;
-3. obtain independent article/diff/test/safety audit;
-4. retain 4/32 as separate throughput/economics evidence and a daily-output diagnostic;
-5. keep Automation prompt mutation/enablement, routine public-write scope, unattended runtime,
-   fresh V5 QA, and explicit final acceptance as distinct owner gates;
-6. only then selectively reconcile branch-proven V2 donor capability onto one current-compatible
-    stack, revalidate it with fresh cross-domain actual media/soak/growth-learning, and leave V2
-    public-write authority at zero unless a later exact owner grant changes it.
+1. preserve the independently accepted PR #19 discovery and PR #20 article-path capabilities;
+2. preserve the completed four-prompt normalization/readback with every native V1 Automation paused;
+3. obtain an exact owner grant for zero-write Automation enablement and calendar-time unattended
+   runtime proof; 4/32 remains throughput/economics telemetry, not its prerequisite;
+4. obtain fresh current-epoch V5 QA and separate routine public-write/final-product decisions;
+5. only then selectively reconcile branch-proven V2 donor capability onto one current-compatible
+   stack, revalidate it with fresh cross-domain actual media/soak/growth-learning, and leave V2
+   public-write authority at zero unless a later exact owner grant changes it.
 
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 
