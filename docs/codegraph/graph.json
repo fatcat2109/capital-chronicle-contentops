@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13804,
-    "entrypoints": 16,
-    "nodes": 7304,
+    "edges": 13815,
+    "entrypoints": 18,
+    "nodes": 7315,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -23,15 +23,15 @@
       "durable_table": 37,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 17,
+      "manifest": 19,
       "python_class": 598,
       "python_function": 4004,
       "python_method": 288,
       "python_module": 765,
       "schema": 194,
-      "test": 729,
-      "typescript_export": 506,
-      "typescript_or_javascript_module": 109
+      "test": 731,
+      "typescript_export": 508,
+      "typescript_or_javascript_module": 114
     }
   },
   "edges": [
@@ -76260,6 +76260,12 @@
       "to": "ui/contentops_v5/src/test/daily_app_runtime_cockpit.test.tsx"
     },
     {
+      "from": "ui/contentops_v5/src/dailyAppTypes.ts",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "ui/contentops_v5/src/test/simple_run_dashboard.test.tsx"
+    },
+    {
       "from": "ui/contentops_v5/src/data/canonicalDraftFinalReviewVariantPreviewAdapter.ts",
       "inference": "typescript_export_regex",
       "kind": "defines",
@@ -77664,6 +77670,12 @@
       "to": "ui/contentops_v5/src/views/DailyAppConsole.tsx"
     },
     {
+      "from": "ui/contentops_v5/src/main.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx"
+    },
+    {
       "from": "ui/contentops_v5/src/selectors.ts",
       "inference": "typescript_export_regex",
       "kind": "defines",
@@ -78856,6 +78868,30 @@
       "inference": "test_exact_import",
       "kind": "tests",
       "to": "ui/contentops_v5/src/App.tsx"
+    },
+    {
+      "from": "ui/contentops_v5/src/test/simple_run_dashboard.test.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "ui/contentops_v5/src/dailyAppTypes.ts"
+    },
+    {
+      "from": "ui/contentops_v5/src/test/simple_run_dashboard.test.tsx",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "ui/contentops_v5/src/dailyAppTypes.ts"
+    },
+    {
+      "from": "ui/contentops_v5/src/test/simple_run_dashboard.test.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx"
+    },
+    {
+      "from": "ui/contentops_v5/src/test/simple_run_dashboard.test.tsx",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx"
     },
     {
       "from": "ui/contentops_v5/src/test/supervised_input_stub_contract.test.tsx",
@@ -80281,6 +80317,12 @@
     },
     {
       "from": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:ui/contentops_v5/src/views/DailyAppConsole.tsx::useDailyAppSnapshot"
+    },
+    {
+      "from": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "inference": "typescript_relative_import_regex",
       "kind": "imports",
       "to": "ui/contentops_v5/src/dailyAppTypes.ts"
@@ -81076,6 +81118,30 @@
       "inference": "typescript_relative_import_regex",
       "kind": "imports",
       "to": "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx"
+    },
+    {
+      "from": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
+      "to": "typescript_export:ui/contentops_v5/src/views/SimpleRunDashboard.tsx::SimpleRunDashboard"
+    },
+    {
+      "from": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "ui/contentops_v5/src/dailyAppTypes.ts"
+    },
+    {
+      "from": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "ui/contentops_v5/src/test/simple_run_dashboard.test.tsx"
+    },
+    {
+      "from": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx",
+      "inference": "typescript_relative_import_regex",
+      "kind": "imports",
+      "to": "ui/contentops_v5/src/views/DailyAppConsole.tsx"
     },
     {
       "from": "ui/contentops_v5/src/views/SubstackArticleStudioCard.tsx",
@@ -82877,6 +82943,11 @@
       "path": "Start_ContentOps_Daily_App.cmd"
     },
     {
+      "command_or_symbol": "Start_ContentOps_Simple_Run_Dashboard.cmd",
+      "kind": "operator_script",
+      "path": "Start_ContentOps_Simple_Run_Dashboard.cmd"
+    },
+    {
       "command_or_symbol": "python -m live_contentops.cli",
       "kind": "canonical_cli",
       "path": "live_contentops/cli.py"
@@ -82932,6 +83003,11 @@
       "path": "scripts/Start-ContentOpsDailyApp.ps1"
     },
     {
+      "command_or_symbol": "scripts/Start-ContentOpsSimpleRunDashboard.ps1",
+      "kind": "operator_script",
+      "path": "scripts/Start-ContentOpsSimpleRunDashboard.ps1"
+    },
+    {
       "command_or_symbol": "scripts/Stop-ContentOpsBackground.ps1",
       "kind": "operator_script",
       "path": "scripts/Stop-ContentOpsBackground.ps1"
@@ -82979,7 +83055,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-24T04:06:18Z",
+  "generation_timestamp_utc": "2026-08-24T11:08:03Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -83028,6 +83104,11 @@
       "id": "Start_ContentOps_Daily_App.cmd",
       "kind": "manifest",
       "size_bytes": 551
+    },
+    {
+      "id": "Start_ContentOps_Simple_Run_Dashboard.cmd",
+      "kind": "manifest",
+      "size_bytes": 429
     },
     {
       "command": "assemble",
@@ -122141,6 +122222,11 @@
       "size_bytes": 1086
     },
     {
+      "id": "scripts/Start-ContentOpsSimpleRunDashboard.ps1",
+      "kind": "manifest",
+      "size_bytes": 1199
+    },
+    {
       "id": "scripts/Stop-ContentOpsBackground.ps1",
       "kind": "manifest",
       "size_bytes": 8176
@@ -123064,6 +123150,11 @@
       "id": "tests/test_contentops_profile_continuity_lock_v1.py",
       "kind": "test",
       "size_bytes": 12254
+    },
+    {
+      "id": "tests/test_contentops_simple_run_dashboard_launcher_v1.py",
+      "kind": "test",
+      "size_bytes": 1178
     },
     {
       "id": "tests/test_contracts.py",
@@ -128973,6 +129064,13 @@
       "symbol": "formatUtcDateTime"
     },
     {
+      "id": "typescript_export:ui/contentops_v5/src/views/DailyAppConsole.tsx::useDailyAppSnapshot",
+      "kind": "typescript_export",
+      "line": 31,
+      "path": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
+      "symbol": "useDailyAppSnapshot"
+    },
+    {
       "id": "typescript_export:ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx::DiscordOperatorSourceGoPhraseIntakePanel",
       "kind": "typescript_export",
       "line": 24,
@@ -129069,6 +129167,13 @@
       "line": 29,
       "path": "ui/contentops_v5/src/views/PreflightBundle.tsx",
       "symbol": "PreflightBundle"
+    },
+    {
+      "id": "typescript_export:ui/contentops_v5/src/views/SimpleRunDashboard.tsx::SimpleRunDashboard",
+      "kind": "typescript_export",
+      "line": 119,
+      "path": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx",
+      "symbol": "SimpleRunDashboard"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/views/SubstackArticleStudioCard.tsx::SubstackArticleStudioCard",
@@ -129755,7 +129860,7 @@
     {
       "id": "ui/contentops_v5/src/main.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 495
+      "size_bytes": 690
     },
     {
       "id": "ui/contentops_v5/src/selectors.ts",
@@ -129908,6 +130013,11 @@
       "size_bytes": 36
     },
     {
+      "id": "ui/contentops_v5/src/test/simple_run_dashboard.test.tsx",
+      "kind": "test",
+      "size_bytes": 6815
+    },
+    {
       "id": "ui/contentops_v5/src/test/supervised_input_stub_contract.test.tsx",
       "kind": "test",
       "size_bytes": 4475
@@ -129980,7 +130090,7 @@
     {
       "id": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 59167
+      "size_bytes": 59174
     },
     {
       "id": "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
@@ -130053,6 +130163,11 @@
       "size_bytes": 40459
     },
     {
+      "id": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 12278
+    },
+    {
       "id": "ui/contentops_v5/src/views/SubstackArticleStudioCard.tsx",
       "kind": "typescript_or_javascript_module",
       "size_bytes": 5017
@@ -130068,6 +130183,16 @@
       "size_bytes": 66360
     },
     {
+      "id": "ui/contentops_v5/tailwind.config.d.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1233
+    },
+    {
+      "id": "ui/contentops_v5/tailwind.config.js",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 1884
+    },
+    {
       "id": "ui/contentops_v5/tailwind.config.ts",
       "kind": "typescript_or_javascript_module",
       "size_bytes": 1616
@@ -130076,6 +130201,16 @@
       "id": "ui/contentops_v5/tsconfig.json",
       "kind": "manifest",
       "size_bytes": 651
+    },
+    {
+      "id": "ui/contentops_v5/vite.config.d.ts",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 76
+    },
+    {
+      "id": "ui/contentops_v5/vite.config.js",
+      "kind": "typescript_or_javascript_module",
+      "size_bytes": 491
     },
     {
       "id": "ui/contentops_v5/vite.config.ts",
@@ -130391,6 +130526,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "bc2af5a195732fbf9d509a183fb7b117cc24ef62",
-  "source_tree_digest": "c0a29f4aaf2a1c451106638b3ab05b2ef8cb839f03e6c234e0cdd645c67423b7"
+  "source_head": "7240ff95c39ec7595be1fc818ee39688c19eb8a0",
+  "source_tree_digest": "e7b8feb91afec5db52c5e274254951aae3eada6039dd3d11eb9b536bbc6f71ba"
 }
