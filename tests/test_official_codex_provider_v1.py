@@ -14,6 +14,12 @@ from live_contentops.official_codex_provider_v1 import (
     OfficialCodexEditorialArticleBuilder,
     OfficialCodexProviderError,
 )
+from live_contentops.capital_chronicle_institutional_edge_v1 import (
+    build_institutional_edge_editorial_packet,
+)
+from live_contentops.codex_desktop_newsroom_operator_v1 import (
+    validate_editorial_worker_return,
+)
 
 
 class _FakeThread:
@@ -318,6 +324,15 @@ def test_representation_normalization_binds_only_alias_identity_packet_and_pendi
             "publisher": "Capital Chronicle",
         },
     )
+    repairs = []
+    raw["epistemic_claims"] = [
+        {
+            "text": "A stale annotation absent from every public surface.",
+            "layer": "OBSERVED_FACT",
+            "public_treatment": "DIRECT_SOURCE_FACT",
+            "source_ids": ["official-1"],
+        }
+    ]
     normalized = normalize_article_transport_representation(
         raw,
         context={
@@ -325,12 +340,14 @@ def test_representation_normalization_binds_only_alias_identity_packet_and_pendi
                 "editorial_packet_sha256": "d" * 64
             }
         },
+        repair_log=repairs,
     )
 
     assert normalized["canonical_editorial_headline"] == raw["title"]
     assert normalized["dek"] == raw["subtitle"]
     assert normalized["search_title"] == raw["seo_title"]
     assert normalized["social_hook"] == raw["social_lede"]
+    assert normalized["slug"] == raw["canonical_slug_candidate"]
     assert normalized["institutional_edge_editorial_packet_sha256"] == "d" * 64
     assert normalized["structured_data_packet"] == {
         "@type": "NewsArticle",
@@ -345,8 +362,125 @@ def test_representation_normalization_binds_only_alias_identity_packet_and_pendi
         "author": "Capital Chronicle",
         "publisher": "Capital Chronicle",
     }
-    assert normalized["epistemic_claims"] == raw["epistemic_claims"]
+    assert normalized["epistemic_claims"] == []
     assert normalized["substack_body_markdown"] == raw["substack_body_markdown"]
+    assert "social_hook_social_lede_mismatch" in repairs
+    assert "structured_data_description_mismatch" in repairs
+    assert "epistemic_claim_not_present_in_public_copy" in repairs
+
+
+def test_native_worker_return_normalizes_soft_representation_before_hard_validation():
+    evidence = {
+        "status": "PASS",
+        "evidence_documents": [
+            {
+                "document_id": "official-1",
+                "publisher": "U.S. Department of State",
+                "title": "Possible military sale notice",
+                "canonical_content_text": (
+                    "The State Department approved the possible APKWS II sale to Italy."
+                ),
+            }
+        ],
+    }
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="DATA_OR_DOCUMENT_LENS",
+        accepted_evidence_packet=evidence,
+    )
+    article = _transport_article(
+        social_hook="A conflicting transport alias.",
+        institutional_edge_editorial_packet_sha256="model-controlled",
+        structured_data_packet={
+            "@type": "Article",
+            "headline": "A separate headline",
+            "description": "A separate description",
+            "datePublished": "invented",
+            "dateModified": "invented",
+            "publication_time_binding": "invented",
+            "eligible_for_emission": True,
+            "author": "A model byline",
+            "publisher": "A model publisher",
+        },
+        epistemic_claims=[
+            {
+                "text": "A stale annotation absent from public copy.",
+                "layer": "OBSERVED_FACT",
+                "public_treatment": "DIRECT_SOURCE_FACT",
+                "source_ids": ["official-1"],
+            }
+        ],
+    )
+    receipt = {
+        "governed_input_hash": "a" * 64,
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "XHIGH",
+        "fresh": True,
+        "isolated": True,
+        "bounded_revision_count": 0,
+        "public_write_attempted": False,
+        "article": article,
+    }
+
+    validated = validate_editorial_worker_return(
+        worker_return=receipt,
+        expected_governed_input_hash="a" * 64,
+        expected_editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    normalized = validated["normalized_article"]
+    assert normalized["social_hook"] == normalized["social_lede"]
+    assert normalized["structured_data_packet"]["description"] == normalized["meta_description"]
+    assert normalized["structured_data_packet"]["eligible_for_emission"] is False
+    assert normalized["epistemic_claims"] == []
+    assert validated["institutional_edge_editorial_validation"]["classification"] == "PASS"
+    assert {
+        "social_hook_social_lede_mismatch",
+        "structured_data_description_mismatch",
+        "epistemic_claim_not_present_in_public_copy",
+    }.issubset(validated["institutional_edge_quality_warnings"])
+
+
+def test_native_worker_return_still_rejects_public_unsupported_causality():
+    evidence = {
+        "status": "PASS",
+        "evidence_documents": [
+            {
+                "document_id": "official-1",
+                "canonical_content_text": (
+                    "The State Department approved the possible APKWS II sale to Italy."
+                ),
+            }
+        ],
+    }
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="DATA_OR_DOCUMENT_LENS",
+        accepted_evidence_packet=evidence,
+    )
+    article = _transport_article(
+        institutional_edge_editorial_packet_sha256=packet["editorial_packet_sha256"],
+        substack_body_markdown=(
+            "The State Department approved the possible APKWS II sale to Italy. "
+            "The notice caused a global market selloff."
+        ),
+    )
+
+    with pytest.raises(ValueError, match="unsupported_causality"):
+        validate_editorial_worker_return(
+            worker_return={
+                "governed_input_hash": "a" * 64,
+                "model": "gpt-5.6-sol",
+                "reasoning_effort": "XHIGH",
+                "fresh": True,
+                "isolated": True,
+                "bounded_revision_count": 0,
+                "public_write_attempted": False,
+                "article": article,
+            },
+            expected_governed_input_hash="a" * 64,
+            expected_editorial_packet=packet,
+            accepted_evidence_packet=evidence,
+        )
 
 
 def test_revision_feedback_excludes_repeated_governed_context_and_keeps_codes_hashes():

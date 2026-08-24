@@ -1084,25 +1084,83 @@ def normalize_article_transport_nulls(article: Mapping[str, Any]) -> dict[str, A
 
 
 def normalize_article_transport_representation(
-    article: Mapping[str, Any], *, context: Mapping[str, Any]
+    article: Mapping[str, Any],
+    *,
+    context: Mapping[str, Any],
+    repair_log: list[str] | None = None,
 ) -> dict[str, Any]:
-    """Bind deterministic aliases/identity/pre-publication metadata before product validation."""
+    """Bind aliases/identity/pre-publication metadata before product validation.
+
+    Every edit is representation-only: visible copy is authoritative, structured data mirrors
+    that copy, and stale annotations that refer to no public text are discarded.  The latter
+    cannot hide a public-copy defect because causality, numeric, quotation, evidence, and house-
+    analysis checks run independently over the remaining reader-facing article.
+    """
+    repairs = repair_log if repair_log is not None else []
+
+    def record(code: str) -> None:
+        if code not in repairs:
+            repairs.append(code)
+
     normalized = normalize_article_transport_nulls(article)
-    normalized["canonical_editorial_headline"] = str(normalized.get("title") or "")
-    normalized["dek"] = str(normalized.get("subtitle") or "")
-    normalized["search_title"] = str(normalized.get("seo_title") or "")
-    normalized["social_hook"] = str(normalized.get("social_lede") or "")
+    alias_bindings = (
+        ("canonical_editorial_headline", "title", "canonical_editorial_headline_title_mismatch"),
+        ("dek", "subtitle", "dek_subtitle_mismatch"),
+        ("search_title", "seo_title", "search_title_seo_title_mismatch"),
+        ("social_hook", "social_lede", "social_hook_social_lede_mismatch"),
+    )
+    for target, source, code in alias_bindings:
+        source_value = str(normalized.get(source) or "")
+        if str(normalized.get(target) or "") != source_value:
+            record(code)
+        normalized[target] = source_value
+    if "slug" in normalized:
+        slug = str(normalized.get("slug") or "")
+        if str(normalized.get("canonical_slug_candidate") or "") != slug:
+            record("canonical_slug_alias_mismatch")
+        normalized["canonical_slug_candidate"] = slug
+    elif str(normalized.get("canonical_slug_candidate") or ""):
+        record("canonical_slug_alias_mismatch")
+        normalized["slug"] = str(normalized["canonical_slug_candidate"])
+    if str(normalized.get("author_identity") or "") != "Capital Chronicle":
+        record("author_identity_representation_mismatch")
+    if str(normalized.get("publisher_identity") or "") != "Capital Chronicle":
+        record("publisher_identity_representation_mismatch")
     normalized["author_identity"] = "Capital Chronicle"
     normalized["publisher_identity"] = "Capital Chronicle"
     packet = context.get("institutional_edge_editorial_packet")
     packet = packet if isinstance(packet, Mapping) else {}
-    normalized["institutional_edge_editorial_packet_sha256"] = str(
-        packet.get("editorial_packet_sha256") or ""
+    packet_hash = str(packet.get("editorial_packet_sha256") or "")
+    if str(normalized.get("institutional_edge_editorial_packet_sha256") or "") != packet_hash:
+        record("institutional_edge_article_packet_binding_mismatch")
+    normalized["institutional_edge_editorial_packet_sha256"] = packet_hash
+    public_copy = "\n".join(
+        str(normalized.get(field) or "")
+        for field in (
+            "title",
+            "subtitle",
+            "seo_title",
+            "meta_description",
+            "social_lede",
+            "substack_body_markdown",
+        )
     )
+    public_copy_folded = " ".join(public_copy.split()).casefold()
+    annotations = normalized.get("epistemic_claims")
+    if isinstance(annotations, Sequence) and not isinstance(annotations, (str, bytes)):
+        retained_annotations: list[Any] = []
+        for row in annotations:
+            if isinstance(row, Mapping):
+                claim = " ".join(str(row.get("text") or "").split())
+                if claim and claim.casefold() not in public_copy_folded:
+                    record("epistemic_claim_not_present_in_public_copy")
+                    continue
+            retained_annotations.append(row)
+        normalized["epistemic_claims"] = retained_annotations
     # No canonical publication has occurred at this zero-write boundary.  The existing validator
     # explicitly recognizes this truthful coordinator-bound state; an evidence-document timestamp
     # must never be misrepresented as the article's publication timestamp.
-    normalized["structured_data_packet"] = {
+    expected_structured_data = {
         "@type": "NewsArticle",
         "headline": normalized["canonical_editorial_headline"],
         "description": str(normalized.get("meta_description") or ""),
@@ -1115,6 +1173,31 @@ def normalize_article_transport_representation(
         "author": "Capital Chronicle",
         "publisher": "Capital Chronicle",
     }
+    supplied_structured_data = normalized.get("structured_data_packet")
+    supplied_structured_data = (
+        supplied_structured_data if isinstance(supplied_structured_data, Mapping) else {}
+    )
+    structured_repairs = (
+        ("@type", "structured_data_type_invalid"),
+        ("headline", "structured_data_headline_mismatch"),
+        ("description", "structured_data_description_mismatch"),
+        ("author", "structured_data_author_identity_mismatch"),
+        ("publisher", "structured_data_publisher_identity_mismatch"),
+    )
+    for field, code in structured_repairs:
+        if supplied_structured_data.get(field) != expected_structured_data[field]:
+            record(code)
+    if any(
+        supplied_structured_data.get(field) != expected_structured_data[field]
+        for field in (
+            "datePublished",
+            "dateModified",
+            "publication_time_binding",
+            "eligible_for_emission",
+        )
+    ):
+        record("structured_data_dates_missing_or_unbound")
+    normalized["structured_data_packet"] = expected_structured_data
     return normalized
 _INSTITUTIONAL_EDGE_LIST_FIELDS = frozenset(
     {
@@ -1573,6 +1656,55 @@ def resolve_editorial_worker_article_for_public_lock(
     raw_article = dict(article)
     raw_body = str(raw_article.get("substack_body_markdown") or "")
     context = extract_governed_story_context(viability)
+    representation_repairs: list[str] = []
+    normalized_article = normalize_article_transport_representation(
+        raw_article,
+        context=context,
+        repair_log=representation_repairs,
+    )
+    # The native worker may use canonical product-mode names in legacy audit aliases. Restore the
+    # exact governed projections so downstream audits do not mistake representation drift for an
+    # editorial defect.
+    legacy_article_mode = str(context.get("article_mode") or "")
+    effective_article_mode = str(
+        context.get("effective_article_mode")
+        or context.get("resolved_article_mode")
+        or ""
+    )
+    if legacy_article_mode:
+        if str(normalized_article.get("editorial_mode") or "") != legacy_article_mode:
+            if "editorial_mode_representation_mismatch" not in representation_repairs:
+                representation_repairs.append("editorial_mode_representation_mismatch")
+        normalized_article["article_mode"] = legacy_article_mode
+        normalized_article["editorial_mode"] = legacy_article_mode
+    if effective_article_mode:
+        normalized_article["effective_article_mode"] = effective_article_mode
+        normalized_article["resolved_article_mode"] = effective_article_mode
+    normalized_article["cluster_id"] = str(context.get("cluster_id") or "")
+    normalized_article["headline_ids"] = [
+        str(value) for value in context.get("headline_ids") or [] if str(value)
+    ]
+    normalized_article["evidence_document_ids"] = [
+        str(document.get("document_id") or document.get("evidence_id") or "")
+        for document in context.get("evidence_documents") or []
+        if isinstance(document, Mapping)
+        and str(document.get("document_id") or document.get("evidence_id") or "")
+    ]
+    normalized_article["minimum_trustworthy_evidence_packet"] = dict(
+        context.get("minimum_trustworthy_evidence_packet") or {}
+    )
+    normalized_article["grounded_research_packet"] = dict(
+        context.get("grounded_research_packet") or {}
+    )
+    normalized_article["claim_evidence_contract"] = dict(
+        context.get("claim_evidence_contract") or {}
+    )
+    normalized_article["evidence_review_tier"] = str(
+        context.get("evidence_review_tier") or ""
+    )
+    normalized_article["article_generation_method"] = "ROUTED_LLM_GROUNDED_ARTICLE"
+    normalized_article["x_content_grants_factual_authority"] = False
+    normalized_article["publication_authority"] = False
     source_bindings = _source_bindings(context)
     supported_claims = _writer_supported_claims(context)
     omitted_claims = [
@@ -1586,12 +1718,12 @@ def resolve_editorial_worker_article_for_public_lock(
         if isinstance(row, Mapping)
     ]
     resolved_body, referenced_source_ids, blockers = _resolve_generated_source_references(
-        raw_body,
+        str(normalized_article.get("substack_body_markdown") or ""),
         context=context,
     )
     if blockers:
         raise GroundedArticleBuilderError(";".join(blockers))
-    resolved = dict(raw_article)
+    resolved = dict(normalized_article)
     resolved["substack_body_markdown"] = resolved_body
     # The native worker returns only the claim IDs it used.  Restore the exact governed claim
     # objects and source identities from the accepted viability packet before any downstream
@@ -1632,6 +1764,7 @@ def resolve_editorial_worker_article_for_public_lock(
         "unknown_source_handle_count": 0,
         "unbound_source_url_count": 0,
     }
+    resolved["article_transport_representation_repairs"] = representation_repairs
     resolved["semantic_review_contract_sha256"] = _sha256_text(
         json.dumps(
             {

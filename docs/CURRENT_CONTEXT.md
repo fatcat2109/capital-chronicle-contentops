@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Context
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 Status: `CURRENT_BOOTSTRAP_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
 This is a compact bootstrap only. Root `AGENTS.md`, the current authority/supersession map, North
@@ -42,12 +42,16 @@ Always fetch remote master and relevant branches before trusting recorded SHAs.
   create a fifth task.
 - At the sweep epoch the production store was read-only healthy with `UNKNOWN_WRITE=0`, but the
   Daily App process/listener was not running. That at-rest observation is not a cold-start PASS.
+- The fast-ship path has qualified one useful `BREAKING_BRIEF` plus eight undispatched derivative
+  intents with zero public/provider/unknown writes; independent owner audit remains required.
 
 ## Output contract
 
-Build/proof floor:
+Throughput benchmark and daily-output diagnostic:
 
 `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+
+This benchmark is not a prerequisite for proving or advancing one safe qualified article path.
 
 Final V1 target:
 
@@ -56,17 +60,15 @@ Final V1 target:
 Candidate abstention is valid. Whole-day deficit is not healthy success without an exact hard
 external blocker. No filler and no weaker truth/evidence/rights/permission/numeric-authority gates.
 
-## Current dependency order
+## Current progression order
 
-1. quota-efficient batch/tail discovery on the existing seam;
-2. fresh economical four-ready-candidate zero-write proof;
-3. rerun the existing 4/32 acceptance proof with accepted accounting and the HIGH/XHIGH path;
-4. normalize/read back only the four existing paused Automation prompts;
-5. separate owner decisions for Automation enablement and routine public-write scope;
-6. calendar-time unattended/cold-start/SDK fallback/late-result/duplicate-suppression proof;
-7. fresh current-epoch V5 desktop/mobile visual and truth QA;
-8. explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze decision;
-9. only then selective V2 donor reconciliation and current revalidation.
+1. apply deterministic representation normalization at the canonical worker-return boundary;
+2. qualify one useful article and exactly eight derivative intents with zero writes;
+3. independently audit the real prose, diff, tests, and safety receipt;
+4. retain 4/32 as separate throughput/economics evidence rather than a launch gate;
+5. keep prompt enablement, routine public write, unattended runtime, V5, and final acceptance as
+   separate owner gates;
+6. only after explicit V1 acceptance begin authorized V2 continuation.
 
 ## V2 boundary
 

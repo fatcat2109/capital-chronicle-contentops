@@ -1,12 +1,12 @@
 # ContentOps V1 Current Context Map
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 
 This is a curated implementation/discovery map, not product authority. Jim's latest instruction, root authority, fresh GitHub bytes, exact code/tests/evidence, and current runtime evidence outrank this map when they conflict.
 
 ## Current product state
 
-`CANARY_COMPLETE / FIRST_4_32_FAILED / EVIDENCE_FOUNDATION_READY / ECONOMICS_REPAIR_REQUIRED`
+`CANARY_COMPLETE / FIRST_4_32_FAILED / EVIDENCE_FOUNDATION_READY / FAST_SHIP_ARTICLE_READY_FOR_OWNER_AUDIT`
 
 The canonical runtime/store/supervisor/publisher/UI, production-day accounting, four-window harness,
 bounded deficit recovery, Desktop/SDK arbitration, official-source evidence seams, destination
@@ -23,6 +23,10 @@ and frozen worker transport. Its 35 URL-discovery calls and 10,237,897 discovery
 accepted routine production default. The next implementation capability is quota-efficient
 batch/tail discovery on the existing evidence seam. First-party locator/publisher resolution is
 already accepted.
+
+The fast-ship path has now qualified one `BREAKING_BRIEF` article plus exactly eight undispatched
+derivative intents with hard blockers empty and public/provider/unknown writes all zero. The real
+prose and PR remain subject to independent Jim/ChatGPT audit; this is not final-product acceptance.
 
 Exactly four native V1 Automations exist and are `PAUSED` with correct model/effort/schedules; their
 prompts require normalization. Calendar-time execution remains unproven. `V1_FINAL_PRODUCT_ACCEPTED`
@@ -51,9 +55,10 @@ one-click launcher
 -> Daily App read model -> V5 control surface
 ```
 
-Candidate-level no-publication remains valid. A whole production day below the build/proof floor of
-4 qualified zero-public-write articles is `DEGRADED_DAILY_OUTPUT_DEFICIT` unless a true hard external
-blocker is proven. Filler remains forbidden; the final V1 target remains 5–8 published articles/day.
+Candidate-level no-publication remains valid and a semantic failure does not halt the whole
+opportunity while another governed candidate can qualify. The 4/32 exercise remains a throughput
+benchmark and daily-output diagnostic, not a prerequisite for one safe qualified article. Filler
+remains forbidden; the final V1 target remains 5–8 useful published articles/day.
 
 ## Editorial modes
 
@@ -126,8 +131,9 @@ Use CodeGraph callers/callees around these seams before editing. Do not create p
 
 The next implementation task is not a wake-path rebuild. Material-event priority remains shadow-only
 unless a later exact owner grant authorizes more. Calendar-time unattended/cold-start/fallback proof
-comes only after discovery economics, the fresh ready pool, the 4/32 rerun, prompt normalization,
-and separate Automation/public-write decisions. No fifth task is authorized.
+comes only after the single-article path audit plus separate prompt, Automation, and public-write
+decisions. A 4/32 rerun remains useful throughput evidence but is not that path's prerequisite. No
+fifth task is authorized.
 
 ### Newsroom / selection
 
@@ -215,17 +221,11 @@ These are identities, not permission to inspect credentials/session material.
 
 1. preserve all accepted V1 foundation, the completed Italy canary, the failed 4/32 receipt, and the
    four-ready-candidate foundation;
-2. implement quota-efficient batch/tail discovery on the existing evidence seam under a later exact
-   owner task;
-3. prove a fresh economical four-ready-candidate zero-write pool;
-4. rerun the existing 4/32 proof through accepted production-day accounting and the current HIGH /
-   isolated XHIGH path, requiring `UNKNOWN_WRITE=0`;
-5. normalize/read back only the four existing paused prompts under exact owner authority;
-6. obtain separate owner decisions for Automation enablement and routine public-write scope;
-7. prove calendar-time unattended/cold-start/SDK fallback/late-result/bounded-cost/duplicate
-   suppression, valid under zero public write if that is the exact grant;
-8. perform fresh current-epoch V5 desktop/mobile rendered truth/visual QA;
-9. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority.
+2. apply deterministic representation normalization at the canonical worker-return boundary;
+3. qualify one useful zero-write article plus exactly eight derivative intents and obtain audit;
+4. retain 4/32 as separate throughput/economics evidence;
+5. keep prompt mutation/enablement, routine public write, unattended runtime, V5, and final
+   acceptance as distinct later owner gates.
 
 ## Stale traps
 
@@ -237,6 +237,7 @@ Do not route from:
 - old manual-GO canary text as the immediate next implementation;
 - any claim that the real Italy nine-surface canary is still pending;
 - any claim that the 4/32 proof has never run;
+- any claim that a perfect 4/32 proof gates one safe qualified article path;
 - production-day accounting or bounded deficit recovery as an implementation gap;
 - the four native V1 Automations as host-unproven;
 - first-party locator/source-family or publisher-resolution closure as the next task;

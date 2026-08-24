@@ -799,8 +799,24 @@ def test_hostname_source_label_uses_exact_page_title_publisher_and_preserves_sen
 def test_final_worker_source_markers_resolve_before_public_lock_for_fresh_and_revision(
     revision_count,
 ):
+    evidence = _evidence([_official_document()])
+    evidence["minimum_trustworthy_evidence_packet"] = {
+        "status": "PASS",
+        "risk_tier": "ORDINARY",
+        "evidence_document_id": "official-primary-abc123",
+    }
+    evidence["evidence_review_tier"] = "ORDINARY_MINIMUM"
+    viability = _viability(evidence=evidence)
+    viability["rank_attempts"][0]["request"].update(
+        {
+            "effective_article_mode": "BREAKING_BRIEF",
+            "resolved_article_mode": "BREAKING_BRIEF",
+        }
+    )
     article = {
         "title": "Treasury rule",
+        "article_mode": "BREAKING_BRIEF",
+        "editorial_mode": "BREAKING_BRIEF",
         "substack_body_markdown": (
             "The Treasury published its final rule [[SOURCE:SOURCE_1]]."
         ),
@@ -808,13 +824,23 @@ def test_final_worker_source_markers_resolve_before_public_lock_for_fresh_and_re
     }
 
     resolved = resolve_editorial_worker_article_for_public_lock(
-        article, viability=_viability()
+        article, viability=viability
     )
 
     assert "[[SOURCE:" not in resolved["substack_body_markdown"]
     assert FR_URL in resolved["substack_body_markdown"]
     assert resolved["raw_worker_body_sha256"] != resolved["resolved_public_body_sha256"]
     assert resolved["source_reference_resolution"]["status"] == "PASS"
+    assert resolved["editorial_mode"] == "straight_news"
+    assert resolved["effective_article_mode"] == "BREAKING_BRIEF"
+    assert resolved["minimum_trustworthy_evidence_packet"]["risk_tier"] == "ORDINARY"
+    assert resolved["evidence_document_ids"] == ["official-primary-abc123"]
+    assert resolved["article_generation_method"] == "ROUTED_LLM_GROUNDED_ARTICLE"
+    assert resolved["cluster_id"] == "c1"
+    assert resolved["headline_ids"] == ["h1"]
+    assert "editorial_mode_representation_mismatch" in resolved[
+        "article_transport_representation_repairs"
+    ]
 
 
 def test_exact_failed_oil_treasury_semantic_projection_restores_claims_and_clean_prose():

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
 Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, task-existence, canary, or sequencing assumptions.
@@ -44,6 +44,7 @@ Any file containing these current-looking claims is stale for routing unless exp
 - the four native V1 Automations remain host-unproven;
 - first-party locator/source-family or publisher-resolution closure is the next V1 capability;
 - immediate 4/32 article/derivative generation is the current V1 next task.
+- a perfect 4/32 rehearsal is a prerequisite for proving or advancing one safe qualified article.
 - per-trigger fresh Sol/HIGH URL discovery is the routine production default.
 - branch-proven V2 unattended/recovery/locale/native-relay systems must be rebuilt from zero;
 - V2 may write publicly; or
@@ -64,12 +65,15 @@ Any file containing these current-looking claims is stale for routing unless exp
   plus exactly eight derivatives, all nine reconciled, `UNKNOWN_WRITE=0`. It must not be repeated
   merely to prove publication.
 - The first real four-opportunity 4/32 proof already ran and truthfully failed at `0/4 / 0/32`
-  after 40 distinct stories. It must be rerun only after economics repair and a fresh economical
-  four-ready-candidate proof.
+  after 40 distinct stories. A future rerun remains a throughput/economics benchmark and daily-
+  output diagnostic, not a launch gate for one safe qualified article.
 - Production-day accounting, the four-window harness, and bounded deficit recovery are accepted
   foundation, not implementation gaps.
 - Candidate abstention remains valid and must retain exact blockers; the task may not manufacture
   PASS by increasing request ceilings or weakening evidence/freshness/claim gates.
+- Candidate-level semantic failure does not halt the whole production opportunity while another
+  governed candidate can qualify. Pure representation/SEO/metadata mismatches are repaired or
+  warned without weakening factual, numeric, quotation, evidence, permission, or write gates.
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
 - Later windows may recover earlier deficit through bounded additional candidate/article work.
 - No fifth routine task merely to satisfy the floor.

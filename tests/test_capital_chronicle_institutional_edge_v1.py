@@ -194,9 +194,7 @@ def test_house_product_modes_carry_specific_house_view_expectations(product_mode
     ("mutation", "expected"),
     [
         (lambda row: row.update(substack_body_markdown=row["substack_body_markdown"] + "\n\nThe evidence packet passed semantic review."), "internal_system_language_leakage"),
-        (lambda row: row.update(search_title="Latest Update: Everything You Need to Know"), "boilerplate_search_title"),
         (lambda row: row.update(social_hook="A secret currency rupture guarantees an immediate crisis."), "social_hook_introduces_new_claim"),
-        (lambda row: row["structured_data_packet"].update(headline="A different article"), "structured_data_headline_mismatch"),
         (lambda row: row.update(humor_lines=["Markets chose chaos, lol."], substack_body_markdown=row["substack_body_markdown"] + "\n\nMarkets chose chaos, lol."), "prohibited_informality"),
         (lambda row: row.update(substack_body_markdown=row["substack_body_markdown"] + "\n\nThe notice caused a global selloff."), "unsupported_causality"),
         (lambda row: row.update(meta_description="The notice guarantees a policy reversal."), "seo_or_social_claim_strengthening:meta_description"),
@@ -226,6 +224,152 @@ def test_deterministic_protections_reject_explicit_integrity_failures(mutation, 
 
     assert result["classification"] == "BLOCKED"
     assert expected in result["blockers"]
+
+
+def test_representation_and_structured_data_findings_are_warnings_not_truth_blockers():
+    evidence = _evidence()
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="STANDARD_ANALYSIS",
+        accepted_evidence_packet=evidence,
+    )
+    article = deepcopy(_article(packet))
+    article["social_hook"] = (
+        "The official notice leaves the current position intact while the next decision remains open."
+    )
+    article["search_title"] = "Latest Update: Everything You Need to Know"
+    article["structured_data_packet"]["headline"] = "A different structured headline"
+    article["epistemic_claims"].append(
+        {
+            "text": "A stale annotation absent from every public surface.",
+            "layer": "OBSERVED_FACT",
+            "public_treatment": "DIRECT_SOURCE_FACT",
+            "source_ids": ["ev-1"],
+        }
+    )
+    article["epistemic_claims"].append(
+        {
+            "text": (
+                "The next checkpoint is the agency's dated follow-up notice. "
+                "It would show whether the current position remains intact or needs to be reassessed."
+            ),
+            "layer": "SCENARIO_OR_UNCERTAINTY",
+            "public_treatment": "SUPPORTED_SYNTHESIS",
+            "source_ids": ["ev-1"],
+        }
+    )
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "PASS"
+    assert result["blockers"] == []
+    assert {
+        "social_hook_social_lede_mismatch",
+        "search_title_seo_title_mismatch",
+        "boilerplate_search_title",
+        "structured_data_headline_mismatch",
+        "epistemic_claim_not_present_in_public_copy",
+        "scenario_not_conditional",
+    }.issubset(result["soft_warnings"])
+
+
+def test_unconditional_public_scenario_copy_is_a_hard_blocker_even_with_conditional_metadata():
+    evidence = _evidence()
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="STANDARD_ANALYSIS",
+        accepted_evidence_packet=evidence,
+    )
+    article = deepcopy(_article(packet))
+    unconditional = "The next decision is predetermined."
+    article["substack_body_markdown"] += "\n\n" + unconditional
+    article["epistemic_claims"].append(
+        {
+            "text": unconditional,
+            "layer": "SCENARIO_OR_UNCERTAINTY",
+            "public_treatment": "CONDITIONAL",
+            "source_ids": ["ev-1"],
+        }
+    )
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "BLOCKED"
+    assert "scenario_public_copy_not_conditional" in result["hard_blockers"]
+    assert "scenario_public_copy_not_conditional" not in result["soft_warnings"]
+
+
+def test_negative_source_coverage_claim_is_hard_without_explicit_claim_contract_support():
+    evidence = _evidence()
+    evidence["evidence_documents"][0]["canonical_content_text"] += (
+        " The source states that the transaction raised $42 million for northern expansion."
+    )
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="STANDARD_ANALYSIS",
+        accepted_evidence_packet=evidence,
+    )
+    article = deepcopy(_article(packet))
+    omission = "The source does not disclose the amount raised."
+    article["substack_body_markdown"] += "\n\n" + omission
+    article["epistemic_claims"].append(
+        {
+            "text": omission,
+            "layer": "OBSERVED_FACT",
+            "public_treatment": "DIRECT_SOURCE_FACT",
+            "source_ids": ["ev-1"],
+        }
+    )
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "BLOCKED"
+    assert "unproven_source_omission_claim" in result["hard_blockers"]
+
+
+def test_negative_source_coverage_claim_passes_only_with_exact_governed_support():
+    evidence = _evidence()
+    omission = "The source does not disclose the implementation date."
+    evidence["claim_evidence_contract"]["supported_claims"].append(
+        {
+            "claim_id": "claim-omission-1",
+            "claim_text": omission,
+            "support_status": "SUPPORTED",
+            "evidence_document_ids": ["ev-1"],
+        }
+    )
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="STANDARD_ANALYSIS",
+        accepted_evidence_packet=evidence,
+    )
+    article = deepcopy(_article(packet))
+    article["substack_body_markdown"] += "\n\n" + omission
+    article["epistemic_claims"].append(
+        {
+            "text": omission,
+            "layer": "OBSERVED_FACT",
+            "public_treatment": "DIRECT_SOURCE_FACT",
+            "source_ids": ["ev-1"],
+        }
+    )
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "PASS", result["hard_blockers"]
+    assert "unproven_source_omission_claim" not in result["all_findings"]
 
 
 def test_official_codex_historical_six_blocker_shape_remains_local_validation_failure():
@@ -260,9 +404,9 @@ def test_official_codex_historical_six_blocker_shape_remains_local_validation_fa
     )
 
     assert result["classification"] == "BLOCKED"
-    assert result["blockers"] == [
+    assert result["blockers"] == ["epistemic_claim_layer_invalid"]
+    assert result["soft_warnings"] == [
         "epistemic_claim_not_present_in_public_copy",
-        "epistemic_claim_layer_invalid",
         "structured_data_description_mismatch",
         "structured_data_dates_missing_or_unbound",
         "structured_data_author_identity_mismatch",

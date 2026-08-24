@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 Status: `CURRENT_OWNER_DIRECTION_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
 This is a concise owner-direction pointer. Root `AGENTS.md`, the current authority map, North Star
@@ -11,9 +11,11 @@ V3, Master Plan V3, and the current lane pointers are stronger.
 ContentOps V1 is an autonomous growth newsroom with a hard truth floor. It must produce reliable
 daily output without treating governed candidate abstention as whole-day healthy success.
 
-Build/proof floor:
+Throughput benchmark and daily-output health metric:
 
 `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+
+It is not a prerequisite for proving or advancing one safe qualified article path.
 
 Final V1 target:
 
@@ -28,8 +30,8 @@ Core Analyzer numeric authority to meet volume.
   derivative packages; all nine reconciled with `UNKNOWN_WRITE=0`. It is complete and must not be
   repeated merely to prove publication.
 - The first real 4/32 proof already ran all four opportunities against 40 distinct stories and
-  failed truthfully at `0/4 / 0/32`. It must be rerun after the demonstrated economics blocker is
-  repaired.
+  failed truthfully at `0/4 / 0/32`. A future rerun remains useful throughput/economics evidence,
+  not a prerequisite for one safe qualified article.
 - Production-day accounting, four-window progress, and bounded deficit recovery are already built
   and exercised; they are not implementation gaps.
 - The accepted later foundation produced four distinct governed evidence-ready candidates, but its
@@ -37,20 +39,11 @@ Core Analyzer numeric authority to meet volume.
 
 ## Current V1 implementation priority
 
-Quota-efficient batch/tail discovery on the existing evidence seam is the sole demonstrated new V1
-product implementation gap. Reuse the existing provider, same-candidate resume, route health,
-deterministic retrieval/hash/freshness, and hard evidence gates. The authority lock identifies this
-dependency but does not authorize implementation.
-
-After that exact implementation:
-
-1. prove a fresh economical four-ready-candidate zero-write pool;
-2. rerun the existing 4/32 acceptance proof with accepted accounting and HIGH/XHIGH execution;
-3. normalize and read back only the four existing paused Automation prompts;
-4. obtain separate owner decisions for Automation enablement and routine public-write scope;
-5. prove calendar-time unattended/cold-start/SDK fallback/late-result/duplicate suppression;
-6. run fresh current-epoch V5 desktop/mobile visual and truth QA;
-7. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority.
+The native worker-return normalization gap is closed with one qualified article and eight
+undispatched derivative intents under zero write. The immediate gate is independent owner audit of
+the prose, diff, tests, and safety receipt. The 4/32 exercise remains separate throughput/economics
+evidence; prompt enablement, public-write scope, unattended runtime, V5 acceptance, and final
+product acceptance remain distinct later owner gates.
 
 ## Automation truth
 

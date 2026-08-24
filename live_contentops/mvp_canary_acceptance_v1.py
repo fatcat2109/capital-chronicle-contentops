@@ -16,6 +16,9 @@ from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
     V1_REQUIRED_PUBLICATION_DESTINATIONS,
 )
+from live_contentops.capital_chronicle_institutional_edge_v1 import (
+    classify_institutional_edge_findings,
+)
 
 
 MVP_CANARY_ACCEPTANCE_PROFILE = "MVP_CANARY_LAUNCH_GATE_V1"
@@ -68,9 +71,10 @@ def classify_institutional_edge_blockers(
 ) -> dict[str, list[str]]:
     """Split deterministic institutional findings without deleting observability."""
 
+    canonical = classify_institutional_edge_findings(blockers)
     hard: list[str] = []
-    quality: list[str] = []
-    for raw in blockers:
+    quality: list[str] = list(canonical["soft_warnings"])
+    for raw in canonical["hard_blockers"]:
         blocker = str(raw or "").strip()
         if not blocker:
             continue
@@ -217,6 +221,9 @@ def institutional_edge_hard_gate(
     validation: Mapping[str, Any],
 ) -> dict[str, Any]:
     split = classify_institutional_edge_blockers(validation.get("blockers") or [])
+    split["quality_warnings"] = sorted(
+        set(split["quality_warnings"]).union(validation.get("soft_warnings") or [])
+    )
     return {
         "classification": "PASS" if not split["hard_gate_blockers"] else "BLOCKED_HARD_GATE",
         **split,

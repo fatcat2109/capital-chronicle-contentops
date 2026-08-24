@@ -1,0 +1,111 @@
+{
+  "schema_version": "contentops.v1_fast_ship_article_owner_review_packet.v1",
+  "title": "Blank Street raises General Atlantic funds for expansion and ice-cream push",
+  "subtitle": "The coffee chain's funding from General Atlantic is intended to support expansion and an ice-cream push.",
+  "dek": "The coffee chain's funding from General Atlantic is intended to support expansion and an ice-cream push.",
+  "public_article_body": "Blank Street has raised funds from General Atlantic to support expansion and an ice-cream push, according to the Financial Times. [Ft](https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5) Blank Street is a coffee chain. Both stated uses sit within the purpose attached to the raise.\n\nThe announcement combines the financing event and its intended uses: General Atlantic is the funding source, Blank Street is the coffee-chain recipient, and expansion plus the ice-cream push are the stated destinations for the funds.\n\nFor readers, the key distinction is between capital received and plans attached to it. The raise is the reported event; expansion and the ice-cream push describe what the funding is intended to fuel.\n\nThe practical watch point is execution. Future observable execution would show how the stated expansion and product plans take shape, allowing readers to compare what becomes visible with the stated purposes attached to the funding.",
+  "seo_title": "Blank Street raises General Atlantic funds for expansion and ice cream",
+  "meta_description": "Blank Street raised funds from General Atlantic intended to support the coffee chain's expansion and ice-cream push.",
+  "social_lede": "Blank Street raises funds from General Atlantic for expansion and an ice-cream push.",
+  "mode": "BREAKING_BRIEF",
+  "source": {
+    "source_identity": "www.ft.com",
+    "publisher": "Ft",
+    "canonical_source_url": "https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5",
+    "evidence_document_id": "public-secondary-dc8ac2e4033d4a59c1fb",
+    "raw_sha256": "dc8ac2e4033d4a59c1fbc8e8098acb384b1bb669dce390cfd557b69f8ab8b21d",
+    "canonical_content_sha256": "1b44ee410458d10bfffc6e99e8eb31c6de62d58ddece427f56057b0a78ab4c25"
+  },
+  "supported_material_claims": [
+    {
+      "claim_id": "fact_1",
+      "governed_claim": "Blank Street is a coffee chain.",
+      "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD",
+      "direct_or_inferred": "DIRECT",
+      "attribution_required": true,
+      "evidence_document_ids": [
+        "public-secondary-dc8ac2e4033d4a59c1fb"
+      ],
+      "source_refs": [
+        "SRC_232B84B81DAABB74"
+      ]
+    },
+    {
+      "claim_id": "fact_2",
+      "governed_claim": "Blank Street raised funds from General Atlantic.",
+      "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD",
+      "direct_or_inferred": "DIRECT",
+      "attribution_required": true,
+      "evidence_document_ids": [
+        "public-secondary-dc8ac2e4033d4a59c1fb"
+      ],
+      "source_refs": [
+        "SRC_232B84B81DAABB74"
+      ]
+    },
+    {
+      "claim_id": "fact_3",
+      "governed_claim": "The funds raised by Blank Street are intended to fuel expansion and an 'ice cream push'.",
+      "support_status": "SUPPORTED_GROUNDED_SOURCE_RECORD",
+      "direct_or_inferred": "DIRECT",
+      "attribution_required": true,
+      "evidence_document_ids": [
+        "public-secondary-dc8ac2e4033d4a59c1fb"
+      ],
+      "source_refs": [
+        "SRC_232B84B81DAABB74"
+      ]
+    }
+  ],
+  "hashes": {
+    "accepted_evidence_sha256": "3a839f4d87a2150dc9f93df9b10ce5f4ba5f5e7dc33547332a2153e17ed37b18",
+    "article_content_sha256": "be0812df7c983c1e8192d57aac7c6d814acd87207e6b040b0f9b31107d12707a",
+    "article_manifest_file_sha256": "31facbf0567aed45d74da9b7d4137edc41f96663bb1a60acf55c9ae49881ceda"
+  },
+  "hard_blockers": [],
+  "soft_warnings": [],
+  "deterministic_repairs": [
+    "canonical_slug_alias_mismatch",
+    "institutional_edge_article_packet_binding_mismatch",
+    "editorial_mode_representation_mismatch"
+  ],
+  "derivative_intents": [
+    {
+      "destination": "telegram",
+      "payload_sha256": "f487e43718c26f0d8c71c501721a4418588d9bb3a9e32ebf5549a280fccec20b"
+    },
+    {
+      "destination": "x",
+      "payload_sha256": "7b219da7a7fdf97057c243ca548821edf182a3e9f0c1c2d4b9d72f341ce78390"
+    },
+    {
+      "destination": "discord",
+      "payload_sha256": "5bab7497f233cf451c4acd6c61b4b9e3daa15c8ec81063d316fcb965c8345191"
+    },
+    {
+      "destination": "linkedin",
+      "payload_sha256": "0363af8172f5506e2db6ee48298ede280457e1833eb77ee59f5a270d06792844"
+    },
+    {
+      "destination": "facebook_page",
+      "payload_sha256": "3fcaae0b29fa97deaa2de149c0e3bdc8b4587c77c7ffdc52dac61149f876686d"
+    },
+    {
+      "destination": "instagram_business",
+      "payload_sha256": "ea7f4316030209c70a47ec1a0fc3c8bb71af46ac30d23fe321865041f5f335f8"
+    },
+    {
+      "destination": "threads",
+      "payload_sha256": "555f850e1066d2643573bb0b9bac9a355023ef74441a3ccaf22660c60839dbae"
+    },
+    {
+      "destination": "youtube",
+      "payload_sha256": "3b4c641a753d7ca28b2369dc6bc51fec4466df9ed4647816639960a68417eec3"
+    }
+  ],
+  "safety_counters": {
+    "public_write": 0,
+    "provider_write": 0,
+    "unknown_write": 0
+  }
+}

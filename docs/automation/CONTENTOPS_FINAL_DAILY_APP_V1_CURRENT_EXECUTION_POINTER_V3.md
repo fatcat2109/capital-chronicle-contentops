@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — V1 Current Execution Pointer V3
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 Status: `CURRENT_V1_LANE_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
 ## Root authority
@@ -27,8 +27,9 @@ Older V1 task packets and branch handoffs are exact historical evidence only whe
   derivative packages; all nine reconciled with `UNKNOWN_WRITE=0`. Never route another Italy
   canary merely to prove publication.
 - The first real four-opportunity 4/32 proof already ran against 40 distinct stories and truthfully
-  failed at `0 qualified articles / 0 derivative intents`. It must be rerun after economics repair;
-  its harness/accounting must not be rebuilt.
+  failed at `0 qualified articles / 0 derivative intents`. A future rerun remains useful throughput
+  evidence, not a prerequisite for one safe qualified article; its harness/accounting must not be
+  rebuilt.
 - The later `330f19787ee0bd8ecc60780417042e19d64f8a1a` foundation produced four distinct
   governed evidence-ready candidates with deterministic retrieval/hash/freshness, redirect repair,
   shared route health, same-candidate resume, and frozen worker transport.
@@ -38,21 +39,19 @@ Older V1 task packets and branch handoffs are exact historical evidence only whe
 - The final operating target remains `5–8/day` published articles per newsroom production day,
   without filler or weaker truth/evidence/rights/permission/numeric-authority gates.
 
-## Current next implementation capability
+## Current next gate
 
-`V1 QUOTA-EFFICIENT BATCH/TAIL DISCOVERY ON THE EXISTING EVIDENCE SEAM`
+`V1 FAST-SHIP ARTICLE / DIFF / SAFETY OWNER AUDIT`
 
-The required design is a quota-efficient batch/tail discovery architecture. This is the sole
-demonstrated new V1 product implementation gap. Reuse the current discovery
-provider, handshake, route-health, deterministic retrieval/hash/freshness, and hard evidence gates.
-Do not weaken evidence or increase an unbounded per-candidate call ceiling. This pointer identifies
-the dependency; it does not authorize implementation without an exact owner task.
+The canonical path has produced one useful ordinary article plus exactly eight derivative intents
+with zero writes. Jim/ChatGPT now audits the real prose, exact diff, focused tests, safety counters,
+and PR. 4/32 remains a separate throughput benchmark, not this path's prerequisite. No Automation
+or public-write scope changes are implied.
 
-Until that bounded implementation is authorized and available, missing source discovery remains a
-fail-closed `SOURCE_DISCOVERY_REQUIRED` abstention rather than permission to weaken admission.
-
-First-party locator/source-family and publisher-resolution closure are already accepted. They are
-not the next task.
+For throughput economics, the quota-efficient batch/tail discovery architecture remains a measured
+production improvement. A candidate that genuinely lacks an authorized source route retains the
+fail-closed `SOURCE_DISCOVERY_REQUIRED` state. Neither condition blocks advancement of a separate,
+identity-valid governed candidate whose accepted evidence is already ready.
 
 ## Current execution truth
 
@@ -66,17 +65,12 @@ Exactly four native V1 Automations exist and are `PAUSED` on the correct model/e
 Their prompts require normalization. Their existence and paused state are accepted host truth;
 calendar-time execution remains unproven. No fifth task may be created.
 
-## Locked dependency order
+## Locked progression order
 
-1. quota-efficient batch/tail discovery implementation;
-2. fresh economical four-ready-candidate zero-write proof;
-3. rerun the existing 4/32 acceptance proof with accepted accounting and the HIGH/XHIGH path;
-4. normalize and read back only the four existing paused prompts under exact owner authority;
-5. obtain separate owner decisions for Automation enablement and routine public-write scope;
-6. prove calendar-time unattended/cold-start/SDK fallback/late-result/bounded-cost/duplicate
-   suppression, valid under zero public write if that is the exact owner grant;
-7. run fresh current-epoch V5 desktop/mobile visual and truth QA;
-8. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority.
+1. one canonical zero-write article plus eight intents and independent audit;
+2. separate 4/32 throughput/economics rehearsal when useful;
+3. normalize/read back only the four existing paused prompts under exact authority;
+4. obtain separate Automation, public-write, unattended-runtime, V5, and final-acceptance decisions.
 
 ## Routine schedule policy
 

@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR`
 
 ## 1. Product role
@@ -25,7 +25,7 @@ This is completed technical evidence and must not be routed again merely to prov
 Any still-desired owner aesthetic/business review is evidence review only and authorizes no second
 write.
 
-### Build/proof throughput floor
+### Throughput benchmark
 
 During the current V1 build/proof phase, one newsroom production day must produce at least:
 
@@ -33,9 +33,9 @@ During the current V1 build/proof phase, one newsroom production day must produc
 
 A qualified throughput article must clear the normal production validation contract and persist its
 native package intents. The first real four-opportunity proof already ran and truthfully failed at
-`0 qualified articles / 0 derivative intents` after 40 distinct stories. The existing acceptance
-proof must be rerun after quota-efficient batch/tail discovery and a fresh economical four-ready-
-candidate zero-write proof; it is not an unstarted implementation task.
+`0 qualified articles / 0 derivative intents` after 40 distinct stories. A future rerun remains a
+throughput/economics KPI and daily-output diagnostic; it is not a prerequisite for proving or
+advancing one safe qualified article through the canonical path.
 
 ### Final V1 target
 
@@ -44,6 +44,12 @@ After public-write authority is granted and final V1 is accepted, the operating 
 `5–8 PUBLISHED ARTICLES PER NEWSROOM PRODUCTION DAY`
 
 This is an output requirement, not permission to create filler or unsupported claims.
+
+### Fast-ship single-article path
+
+One ordinary `BREAKING_BRIEF` and exactly eight undispatched derivative intents now pass the
+canonical zero-write path. Hard blockers are empty and public/provider/unknown writes are zero.
+Independent owner audit of the prose, diff, tests, and safety evidence remains required.
 
 ### Abstention semantics
 
@@ -185,18 +191,15 @@ Accepted sequence facts:
 - the later evidence foundation produced four governed evidence-ready candidates, but its 35 URL-
   discovery calls and 10,237,897 discovery tokens are rejected as a production default.
 
-Current dependency order:
+Current progression order:
 
-1. implement quota-efficient batch/tail discovery on the existing evidence seam;
-2. prove a fresh economical four-ready-candidate zero-write pool;
-3. rerun the existing 4/32 acceptance proof using accepted accounting and the HIGH/XHIGH path;
-4. normalize and read back only the four existing paused Automation prompts;
-5. obtain separate owner decisions for Automation enablement and routine public-write scope;
-6. prove calendar-time unattended/cold-start/SDK-fallback/late-result/duplicate suppression;
-7. perform fresh current-epoch V5 desktop/mobile visual and truth QA;
-8. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority;
-9. only then begin selective V2 donor reconciliation, current revalidation, fresh cross-domain
-   actual-media/soak/growth-learning proof, with V2 public-write authority still zero.
+1. normalize the canonical worker return and qualify one useful zero-write article plus eight
+   derivative intents;
+2. independently audit the prose, implementation, and safety evidence;
+3. retain 4/32 as separate throughput/economics evidence;
+4. keep Automation prompt mutation/enablement, routine public write, unattended runtime, V5, and
+   final acceptance as distinct owner gates;
+5. only after explicit V1 acceptance begin authorized V2 continuation.
 
 ## 12. Canonical UI
 

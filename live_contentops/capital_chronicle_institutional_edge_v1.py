@@ -18,6 +18,56 @@ SCHEMA_VERSION = "contentops.capital_chronicle_institutional_edge_editorial_pack
 VALIDATION_SCHEMA_VERSION = "contentops.institutional_edge_editorial_validation.v1"
 SEO_PACKAGE_SCHEMA_VERSION = "contentops.institutional_edge_seo_package.v1"
 
+# Findings in this set never change the factual meaning of public copy.  They remain observable,
+# but they are repair/warning concerns rather than article-terminal truth gates.  Any unknown code
+# stays hard by default.
+SOFT_REPRESENTATION_AND_METADATA_FINDINGS = frozenset(
+    {
+        "canonical_editorial_headline_title_mismatch",
+        "dek_subtitle_mismatch",
+        "search_title_seo_title_mismatch",
+        "social_hook_social_lede_mismatch",
+        "canonical_slug_alias_mismatch",
+        "author_identity_representation_mismatch",
+        "publisher_identity_representation_mismatch",
+        "epistemic_claim_not_present_in_public_copy",
+        "scenario_not_conditional",
+        "structured_data_packet_missing",
+        "structured_data_type_invalid",
+        "structured_data_headline_mismatch",
+        "structured_data_description_mismatch",
+        "structured_data_dates_missing_or_unbound",
+        "structured_data_author_identity_mismatch",
+        "structured_data_publisher_identity_mismatch",
+        "search_freshness_class_invalid",
+        "primary_reader_question_invalid",
+        "boilerplate_search_title",
+        "internal_link_candidate_invalid",
+        "internal_link_relation_invalid",
+        "internal_link_anchor_not_descriptive",
+    }
+)
+
+
+def classify_institutional_edge_findings(
+    findings: Sequence[Any],
+) -> dict[str, list[str]]:
+    """Split truth/authority blockers from representation and metadata warnings."""
+    hard: list[str] = []
+    soft: list[str] = []
+    for raw in findings:
+        finding = str(raw or "").strip()
+        if not finding:
+            continue
+        if finding in SOFT_REPRESENTATION_AND_METADATA_FINDINGS:
+            soft.append(finding)
+        else:
+            hard.append(finding)
+    return {
+        "hard_blockers": list(dict.fromkeys(hard)),
+        "soft_warnings": list(dict.fromkeys(soft)),
+    }
+
 _REPO_ROOT = Path(__file__).resolve().parents[1]
 _AUTHORITY_PATHS = (
     "docs/editorial/CAPITAL_CHRONICLE_INSTITUTIONAL_EDGE_V1.md",
@@ -109,6 +159,28 @@ _INTERNAL_LANGUAGE = re.compile(
     re.I,
 )
 _CAUSAL = re.compile(r"\b(?:caused|drove|triggered|led directly to|proves?|guarantees?)\b", re.I)
+_SCENARIO_CONDITIONAL_OR_UNCERTAIN = re.compile(
+    r"\b(?:if|unless|until|would|could|may|might|possible|potential|uncertain|unclear|unknown|"
+    r"depends?\s+on|dependent\s+on|subject\s+to|contingent\s+on|but\s+not|"
+    r"(?:does|do|did)\s+not\s+(?:specify|disclose|establish|show)|"
+    r"remain(?:s|ed)?\s+(?:open|unknown|unclear|uncertain))\b",
+    re.I,
+)
+_SOURCE_OMISSION_ASSERTION = re.compile(
+    r"\b(?:report|source|filing|document|notice|announcement|evidence|record)\b"
+    r"[^.!?]{0,120}\b(?:does|do|did|has|have|had)\s+not\s+"
+    r"(?:specify|disclose|provide|state|identify|include|reveal)\b|"
+    r"\b(?:amount|sum|valuation|value|investors?|geograph(?:y|ic)|locations?|scope|"
+    r"timing|timeline|dates?|details?)\b[^.!?]{0,120}\b"
+    r"(?:remain(?:s|ed)?\s+)?(?:undisclosed|unspecified|unknown|not\s+"
+    r"(?:specified|disclosed|provided|stated|identified))\b|"
+    r"\bno\s+(?:amount|sum|valuation|value|investors?|geograph(?:y|ic)|locations?|"
+    r"scope|timing|timeline|dates?|details?)\b[^.!?]{0,80}\b"
+    r"(?:provided|disclosed|specified|stated|identified)\b|"
+    r"\bbut\s+not\s+(?:(?:the|their|its)\s+)?"
+    r"(?:amount|scale|scope|footprint|timing|timeline|details?)\b",
+    re.I,
+)
 _SENSATIONAL = re.compile(
     r"\b(?:shocking|apocalypse|apocalyptic|catastrophic collapse|you won.t believe|secret that|"
     r"guaranteed|destroys?|obliterates?)\b",
@@ -308,6 +380,50 @@ def _evidence_ids(packet: Mapping[str, Any] | None) -> set[str]:
         for row in packet.get("evidence_documents") or []
         if isinstance(row, Mapping)
     } - {""}
+
+
+def _source_omission_assertions(public_copy: str) -> list[str]:
+    return list(
+        dict.fromkeys(
+            assertion
+            for assertion in (
+                _normalise(value)
+                for value in re.split(r"(?<=[.!?])\s+|\n+", str(public_copy or ""))
+            )
+            if assertion and _SOURCE_OMISSION_ASSERTION.search(assertion)
+        )
+    )
+
+
+def _supported_source_omission_claims(
+    packet: Mapping[str, Any] | None,
+) -> list[str]:
+    if not isinstance(packet, Mapping):
+        return []
+    contract = packet.get("claim_evidence_contract")
+    if not isinstance(contract, Mapping):
+        return []
+    evidence_ids = _evidence_ids(packet)
+    supported: list[str] = []
+    for row in contract.get("supported_claims") or []:
+        if not isinstance(row, Mapping):
+            continue
+        status = str(row.get("support_status") or "SUPPORTED").upper()
+        if any(marker in status for marker in ("UNSUPPORTED", "OMITTED", "REJECTED", "BLOCKED")):
+            continue
+        source_ids = {
+            str(value)
+            for value in (
+                row.get("evidence_document_ids") or row.get("source_ids") or []
+            )
+            if str(value)
+        }
+        claim = _normalise(
+            row.get("claim_text") or row.get("text") or row.get("factual_statement")
+        )
+        if claim and source_ids and source_ids.issubset(evidence_ids):
+            supported.append(claim)
+    return list(dict.fromkeys(supported))
 
 
 def build_editorial_seo_package(article: Mapping[str, Any]) -> dict[str, Any]:
@@ -510,6 +626,21 @@ def validate_institutional_edge_article(
                 blockers.append("capital_chronicle_analysis_presented_as_source_fact")
         if layer == "SCENARIO_OR_UNCERTAINTY" and treatment != "CONDITIONAL":
             blockers.append("scenario_not_conditional")
+        if (
+            layer == "SCENARIO_OR_UNCERTAINTY"
+            and claim
+            and not _SCENARIO_CONDITIONAL_OR_UNCERTAIN.search(claim)
+        ):
+            blockers.append("scenario_public_copy_not_conditional")
+    omission_support = [
+        value.casefold()
+        for value in _supported_source_omission_claims(accepted_evidence_packet)
+    ]
+    for assertion in _source_omission_assertions(all_public):
+        folded = assertion.casefold()
+        if not any(claim in folded or folded in claim for claim in omission_support):
+            blockers.append("unproven_source_omission_claim")
+            break
     for sentence in re.split(r"(?<=[.!?])\s+", _normalise(body)):
         sentence_tokens = _tokens(sentence)
         source_overlap = bool(sentence_tokens) and (
@@ -599,19 +730,24 @@ def validate_institutional_edge_article(
         if _normalise(line).casefold() not in _normalise(all_public).casefold():
             blockers.append("declared_humor_line_not_present")
 
+    all_findings = list(dict.fromkeys(blockers))
     checks = {
-        "packet_hash_bound": not any("packet" in blocker and ("hash" in blocker or "binding" in blocker) for blocker in blockers),
-        "required_surfaces_present": not any("required_surface" in blocker or "surface_type" in blocker for blocker in blockers),
-        "proposition_bound": not any(blocker in {"headline_body_proposition_mismatch", "social_hook_introduces_new_claim", "unsupported_causality"} for blocker in blockers),
-        "seo_truth_preserved": not any(blocker.startswith(("unsupported_sensational_", "seo_or_social_claim_strengthening", "keyword_stuffing")) for blocker in blockers),
-        "epistemic_and_source_binding": not any(blocker in {"epistemic_source_binding_invalid", "capital_chronicle_analysis_presented_as_source_fact", "numeric_source_binding_violation", "fake_or_unbound_quote_presentation"} for blocker in blockers),
-        "tone_policy_preserved": not any(blocker in {"prohibited_informality", "prohibited_humor_class_or_ceiling"} for blocker in blockers),
-        "structured_data_matches_visible_copy": not any(blocker.startswith("structured_data_") for blocker in blockers),
+        "packet_hash_bound": not any("packet" in blocker and ("hash" in blocker or "binding" in blocker) for blocker in all_findings),
+        "required_surfaces_present": not any("required_surface" in blocker or "surface_type" in blocker for blocker in all_findings),
+        "proposition_bound": not any(blocker in {"headline_body_proposition_mismatch", "social_hook_introduces_new_claim", "unsupported_causality"} for blocker in all_findings),
+        "seo_truth_preserved": not any(blocker.startswith(("unsupported_sensational_", "seo_or_social_claim_strengthening", "keyword_stuffing")) for blocker in all_findings),
+        "epistemic_and_source_binding": not any(blocker in {"epistemic_source_binding_invalid", "capital_chronicle_analysis_presented_as_source_fact", "numeric_source_binding_violation", "fake_or_unbound_quote_presentation"} for blocker in all_findings),
+        "tone_policy_preserved": not any(blocker in {"prohibited_informality", "prohibited_humor_class_or_ceiling"} for blocker in all_findings),
+        "structured_data_matches_visible_copy": not any(blocker.startswith("structured_data_") for blocker in all_findings),
     }
+    severity = classify_institutional_edge_findings(all_findings)
     return {
         "schema_version": VALIDATION_SCHEMA_VERSION,
-        "classification": "PASS" if not blockers else "BLOCKED",
-        "blockers": list(dict.fromkeys(blockers)),
+        "classification": "PASS" if not severity["hard_blockers"] else "BLOCKED",
+        "blockers": severity["hard_blockers"],
+        "hard_blockers": severity["hard_blockers"],
+        "soft_warnings": severity["soft_warnings"],
+        "all_findings": all_findings,
         "checks": checks,
         "editorial_packet_sha256": expected_hash,
         "editorial_seo_package": package,
