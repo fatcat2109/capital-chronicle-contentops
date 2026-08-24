@@ -159,6 +159,13 @@ _INTERNAL_LANGUAGE = re.compile(
     re.I,
 )
 _CAUSAL = re.compile(r"\b(?:caused|drove|triggered|led directly to|proves?|guarantees?)\b", re.I)
+_SCENARIO_CONDITIONAL_OR_UNCERTAIN = re.compile(
+    r"\b(?:if|unless|until|would|could|may|might|possible|potential|uncertain|unclear|unknown|"
+    r"depends?\s+on|dependent\s+on|subject\s+to|contingent\s+on|but\s+not|"
+    r"(?:does|do|did)\s+not\s+(?:specify|disclose|establish|show)|"
+    r"remain(?:s|ed)?\s+(?:open|unknown|unclear|uncertain))\b",
+    re.I,
+)
 _SENSATIONAL = re.compile(
     r"\b(?:shocking|apocalypse|apocalyptic|catastrophic collapse|you won.t believe|secret that|"
     r"guaranteed|destroys?|obliterates?)\b",
@@ -560,6 +567,12 @@ def validate_institutional_edge_article(
                 blockers.append("capital_chronicle_analysis_presented_as_source_fact")
         if layer == "SCENARIO_OR_UNCERTAINTY" and treatment != "CONDITIONAL":
             blockers.append("scenario_not_conditional")
+        if (
+            layer == "SCENARIO_OR_UNCERTAINTY"
+            and claim
+            and not _SCENARIO_CONDITIONAL_OR_UNCERTAIN.search(claim)
+        ):
+            blockers.append("scenario_public_copy_not_conditional")
     for sentence in re.split(r"(?<=[.!?])\s+", _normalise(body)):
         sentence_tokens = _tokens(sentence)
         source_overlap = bool(sentence_tokens) and (

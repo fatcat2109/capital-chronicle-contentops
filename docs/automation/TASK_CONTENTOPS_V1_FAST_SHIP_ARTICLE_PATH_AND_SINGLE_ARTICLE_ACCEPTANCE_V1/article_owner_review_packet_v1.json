@@ -1,0 +1,71 @@
+{
+  "schema_version": "contentops.v1_fast_ship_article_owner_review_packet.v1",
+  "title": "Blank Street raises funds from General Atlantic for expansion and ice cream",
+  "subtitle": "Breaking brief: The coffee chain raised funds for expansion and an ice-cream push; the amount and execution details remain undisclosed.",
+  "dek": "Breaking brief: The coffee chain raised funds for expansion and an ice-cream push; the amount and execution details remain undisclosed.",
+  "public_article_body": "The Financial Times reports that Blank Street, a coffee chain, has raised funds from General Atlantic. Blank Street intends to use the funding for expansion and an ice-cream push. [Ft](https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5)\n\nThe mechanism is direct: the funding is meant to support those two initiatives. The report does not specify the amount raised, the geographic or operational scope of expansion, or the exact nature and timing of the ice-cream push. That gives readers the direction of the plans, but not their scale, footprint or timetable. [Ft](https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5)\n\nWhat to watch next is any disclosure from Blank Street or General Atlantic that specifies the amount, expansion scope or ice-cream plan. Those details would confirm what the announced uses mean in practice. The current understanding would be contradicted if later disclosure shows that the funds are not intended for expansion or an ice-cream push. [Ft](https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5)",
+  "seo_title": "Blank Street funding from General Atlantic: what is known",
+  "meta_description": "Blank Street raised funds from General Atlantic for expansion and an ice-cream push, but the amount, expansion scope and ice-cream timing are not specified.",
+  "social_lede": "Blank Street raised funds from General Atlantic for expansion and an ice-cream push. The amount and execution details remain unspecified.",
+  "mode": "BREAKING_BRIEF",
+  "source": {
+    "source_identity": "www.ft.com",
+    "publisher": "Ft",
+    "canonical_source_url": "https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5",
+    "evidence_document_id": "public-secondary-dc8ac2e4033d4a59c1fb",
+    "canonical_content_sha256": "1b44ee410458d10bfffc6e99e8eb31c6de62d58ddece427f56057b0a78ab4c25"
+  },
+  "hashes": {
+    "accepted_evidence_sha256": "39166f8318804363cecda2ea7b35a18e836581ed604d875614e85ed5197afa6d",
+    "article_content_sha256": "914c84b3162101ef9aee4128d8177a9444beb2f4bbd5ae1a9f613b11e5de5e21",
+    "article_manifest_file_sha256": "c4790619ab4acfd9d05de02d85efff503a8780665c847632f5c2ea640a397e6d"
+  },
+  "hard_blockers": [],
+  "soft_warnings": [
+    "scenario_not_conditional"
+  ],
+  "deterministic_repairs": [
+    "canonical_slug_alias_mismatch",
+    "institutional_edge_article_packet_binding_mismatch",
+    "editorial_mode_representation_mismatch"
+  ],
+  "derivative_intents": [
+    {
+      "destination": "telegram",
+      "payload_sha256": "d417531f802e2326382b87c6bdedcf5829d4207102d7a9ca4e29aa60a7db7aad"
+    },
+    {
+      "destination": "x",
+      "payload_sha256": "6e4d1a477cf773d89e48e76e11b6a10e29be9a3e86a12b22062d5614caf010a0"
+    },
+    {
+      "destination": "discord",
+      "payload_sha256": "8238dbaed9a80222b7a4acf49d3362bcaad250ee30f1205935c80a438f11aa15"
+    },
+    {
+      "destination": "linkedin",
+      "payload_sha256": "326f6e8b58f5e858ffced908ef7305928e88e0b276ecb9428c63520f5a8cebd9"
+    },
+    {
+      "destination": "facebook_page",
+      "payload_sha256": "a7019e210fd0813f676715fe80e4c40f10efe8ace7047e4e89f38ec3102425e3"
+    },
+    {
+      "destination": "instagram_business",
+      "payload_sha256": "c5a3e638e97ccb975396155b42dce8d20ef1cdafec68c0de6c43e1e52f611a1d"
+    },
+    {
+      "destination": "threads",
+      "payload_sha256": "5042bcf82d969d2db301d8d718ad5fa782d62ac6f5eb2106706be355626365d3"
+    },
+    {
+      "destination": "youtube",
+      "payload_sha256": "240f92bf1d6ec86a6da5ceccfdcd0513899fd9bc7f88b8640aae00c354f7e297"
+    }
+  ],
+  "safety_counters": {
+    "public_write": 0,
+    "provider_write": 0,
+    "unknown_write": 0
+  }
+}

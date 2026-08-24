@@ -248,7 +248,10 @@ def test_representation_and_structured_data_findings_are_warnings_not_truth_bloc
     )
     article["epistemic_claims"].append(
         {
-            "text": "The next checkpoint is the agency's dated follow-up notice.",
+            "text": (
+                "The next checkpoint is the agency's dated follow-up notice. "
+                "It would show whether the current position remains intact or needs to be reassessed."
+            ),
             "layer": "SCENARIO_OR_UNCERTAINTY",
             "public_treatment": "SUPPORTED_SYNTHESIS",
             "source_ids": ["ev-1"],
@@ -271,6 +274,35 @@ def test_representation_and_structured_data_findings_are_warnings_not_truth_bloc
         "epistemic_claim_not_present_in_public_copy",
         "scenario_not_conditional",
     }.issubset(result["soft_warnings"])
+
+
+def test_unconditional_public_scenario_copy_is_a_hard_blocker_even_with_conditional_metadata():
+    evidence = _evidence()
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="STANDARD_ANALYSIS",
+        accepted_evidence_packet=evidence,
+    )
+    article = deepcopy(_article(packet))
+    unconditional = "The next decision is predetermined."
+    article["substack_body_markdown"] += "\n\n" + unconditional
+    article["epistemic_claims"].append(
+        {
+            "text": unconditional,
+            "layer": "SCENARIO_OR_UNCERTAINTY",
+            "public_treatment": "CONDITIONAL",
+            "source_ids": ["ev-1"],
+        }
+    )
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "BLOCKED"
+    assert "scenario_public_copy_not_conditional" in result["hard_blockers"]
+    assert "scenario_public_copy_not_conditional" not in result["soft_warnings"]
 
 
 def test_official_codex_historical_six_blocker_shape_remains_local_validation_failure():

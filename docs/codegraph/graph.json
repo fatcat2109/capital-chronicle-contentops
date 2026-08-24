@@ -83212,7 +83212,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 10539
+      "size_bytes": 21210
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
@@ -83958,7 +83958,7 @@
     {
       "id": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "kind": "python_module",
-      "size_bytes": 32190
+      "size_bytes": 32785
     },
     {
       "id": "live_contentops/cc_artifact_packet_approval_v0.py",
@@ -90947,14 +90947,14 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_institutional_edge_v1.py::build_editorial_seo_package",
       "kind": "python_function",
-      "line": 363,
+      "line": 370,
       "path": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "symbol": "build_editorial_seo_package"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_institutional_edge_v1.py::build_institutional_edge_editorial_packet",
       "kind": "python_function",
-      "line": 247,
+      "line": 254,
       "path": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "symbol": "build_institutional_edge_editorial_packet"
     },
@@ -90968,14 +90968,14 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_institutional_edge_v1.py::validate_institutional_edge_article",
       "kind": "python_function",
-      "line": 391,
+      "line": 398,
       "path": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "symbol": "validate_institutional_edge_article"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_institutional_edge_v1.py::validate_institutional_edge_packet",
       "kind": "python_function",
-      "line": 315,
+      "line": 322,
       "path": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "symbol": "validate_institutional_edge_packet"
     },
@@ -122883,7 +122883,7 @@
     {
       "id": "tests/test_capital_chronicle_institutional_edge_v1.py",
       "kind": "test",
-      "size_bytes": 17567
+      "size_bytes": 18728
     },
     {
       "id": "tests/test_cc_artifact_packet_intake_v0.py",
@@ -130392,5 +130392,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "7e0daf5adf5b06f4dc5624a52e69def8ca35b0e0",
-  "source_tree_digest": "4aa9cfd8705c63534d74a90fc2953c0ea113419cc56fb8184bf1a3286a7437a7"
+  "source_tree_digest": "9be300706dcd4b926bf94e9acbcd5bfc12b4f240a5057c6d4f34a3c4f5057173"
 }
