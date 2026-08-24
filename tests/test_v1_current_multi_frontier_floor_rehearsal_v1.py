@@ -1,9 +1,14 @@
 """Regression coverage for the bounded current-frontier rehearsal handoff."""
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import pytest
 
 from scripts.run_v1_current_multi_frontier_floor_rehearsal import (
+    _StageAEvidenceReuseAcquirer,
+    _new_state,
     _sha,
     _summary,
     _semantic_resume_checkpoints_from_probe,
@@ -157,3 +162,104 @@ def test_summary_counts_only_current_input_members_when_durable_memory_is_seeded
     assert summary["attempted_headline_identity_count"] == 1
     assert summary["distinct_candidate_count"] == 1
     assert summary["no_repeat_proof"] is True
+
+
+def test_stage_a_evidence_reuse_requires_exact_request_identity(tmp_path: Path) -> None:
+    stage_root = tmp_path / "stage-a"
+    cycle_path = stage_root / "frontier_1" / "rolling_x_newsroom_cycle_evidence_v1.json"
+    cycle_path.parent.mkdir(parents=True)
+    request = {
+        "cluster_id": "stage-a-ready",
+        "headline_ids": ["headline-ready"],
+        "request_logical_hash": "request-hash",
+    }
+    receipt = {
+        "status": "PASS",
+        "cluster_id": "stage-a-ready",
+        "headline_ids": ["headline-ready"],
+        "evidence_documents": [{"document_id": "document-ready"}],
+        "blockers": [],
+        "publication_authority": False,
+    }
+    cycle_path.write_text(
+        json.dumps(
+            {
+                "ranked_viability": {
+                    "rank_attempts": [
+                        {"request": request, "evidence_receipt": receipt}
+                    ]
+                },
+                "source_route_health": {
+                    "schema_version": "contentops.source_route_health.v1",
+                    "routing_only": True,
+                    "hosts": [],
+                    "routes": [],
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+    acquirer = _StageAEvidenceReuseAcquirer(
+        stage_a_root=stage_root,
+        evaluation_as_of_utc="2026-08-23T23:46:33Z",
+    )
+
+    replayed = acquirer(request)
+    manifest = acquirer.manifest()
+
+    assert replayed == receipt
+    assert manifest["cached_exact_request_count"] == 1
+    assert manifest["cached_ready_receipt_count"] == 1
+    assert manifest["reuse_hit_count"] == 1
+    assert manifest["fallback_call_count"] == 0
+    assert manifest[
+        "request_identity_requires_cluster_headlines_and_logical_hash"
+    ] is True
+    assert manifest[
+        "cached_model_output_grants_factual_or_publication_authority"
+    ] is False
+
+
+def test_stage_a_evidence_binding_requires_same_frozen_universe(
+    tmp_path: Path,
+) -> None:
+    rolling = {
+        "cutoff_time_utc": "2026-08-23T23:46:33Z",
+        "headlines": [{"headline_id": "headline-ready"}],
+    }
+    stage_root = tmp_path / "stage-a"
+    stage_root.mkdir()
+    stage_input = stage_root / "frozen_current_rolling_input_v1.json"
+    stage_input.write_text(json.dumps(rolling), encoding="utf-8")
+    source_input = tmp_path / "rolling.json"
+    source_input.write_text(json.dumps(rolling), encoding="utf-8")
+
+    state = _new_state(
+        tmp_path / "proof",
+        "unused-glob",
+        rolling_input_path=source_input,
+        stage_a_evidence_root=stage_root,
+    )
+
+    assert state["stage_a_evidence_binding"][
+        "stage_a_frozen_input_sha256"
+    ] == _sha(rolling)
+    different = tmp_path / "different.json"
+    different.write_text(
+        json.dumps(
+            {
+                "cutoff_time_utc": "2026-08-23T23:46:33Z",
+                "headlines": [{"headline_id": "different"}],
+            }
+        ),
+        encoding="utf-8",
+    )
+    with pytest.raises(
+        ValueError, match="stage_a_evidence_rolling_input_identity_mismatch"
+    ):
+        _new_state(
+            tmp_path / "proof-mismatch",
+            "unused-glob",
+            rolling_input_path=different,
+            stage_a_evidence_root=stage_root,
+        )
