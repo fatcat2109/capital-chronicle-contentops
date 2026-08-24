@@ -7,9 +7,12 @@ import '@fontsource/jetbrains-mono/500.css';
 import '@fontsource/jetbrains-mono/700.css';
 import './index.css';
 import { DailyAppConsole } from './views/DailyAppConsole';
+import { SimpleRunDashboard } from './views/SimpleRunDashboard';
+
+const simpleView = new URLSearchParams(window.location.search).get('view') === 'simple';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <DailyAppConsole />
+    {simpleView ? <SimpleRunDashboard /> : <DailyAppConsole />}
   </React.StrictMode>,
 );
