@@ -173,12 +173,20 @@ def test_stage_a_evidence_reuse_requires_exact_request_identity(tmp_path: Path) 
         "cluster_id": "stage-a-ready",
         "headline_ids": ["headline-ready"],
         "request_logical_hash": "request-hash",
+        "story_evidence_scope_id": "story-scope-ready",
+        "effective_article_mode": "BREAKING_BRIEF",
     }
     receipt = {
         "status": "PASS",
         "cluster_id": "stage-a-ready",
         "headline_ids": ["headline-ready"],
-        "evidence_documents": [{"document_id": "document-ready"}],
+        "evidence_documents": [
+            {
+                "document_id": "document-ready",
+                "request_logical_hash": "request-hash",
+                "canonical_content_sha256": "a" * 64,
+            }
+        ],
         "blockers": [],
         "publication_authority": False,
     }
@@ -205,16 +213,35 @@ def test_stage_a_evidence_reuse_requires_exact_request_identity(tmp_path: Path) 
         evaluation_as_of_utc="2026-08-23T23:46:33Z",
     )
 
-    replayed = acquirer(request)
+    replayed = acquirer(
+        {**request, "request_logical_hash": "different-diagnostic-hash"}
+    )
     manifest = acquirer.manifest()
 
-    assert replayed == receipt
+    assert replayed["evidence_documents"][0]["document_id"] == (
+        "document-ready"
+    )
+    assert replayed["evidence_documents"][0][
+        "canonical_content_sha256"
+    ] == "a" * 64
+    assert replayed["evidence_documents"][0]["request_logical_hash"] == (
+        "different-diagnostic-hash"
+    )
+    assert replayed["stage_a_evidence_reuse"][
+        "story_evidence_scope_id"
+    ] == "story-scope-ready"
+    assert replayed["stage_a_evidence_reuse"][
+        "source_document_content_hashes_unchanged"
+    ] is True
     assert manifest["cached_exact_request_count"] == 1
     assert manifest["cached_ready_receipt_count"] == 1
     assert manifest["reuse_hit_count"] == 1
     assert manifest["fallback_call_count"] == 0
     assert manifest[
-        "request_identity_requires_cluster_headlines_and_logical_hash"
+        "request_identity_requires_cluster_headlines_scope_and_mode"
+    ] is True
+    assert manifest[
+        "diagnostic_request_hash_may_rebind_within_exact_scope"
     ] is True
     assert manifest[
         "cached_model_output_grants_factual_or_publication_authority"

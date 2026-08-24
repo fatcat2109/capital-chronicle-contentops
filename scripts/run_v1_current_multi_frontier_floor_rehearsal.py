@@ -89,11 +89,16 @@ def _sha(value: Any) -> str:
 
 def _evidence_request_identity(
     request: Mapping[str, Any],
-) -> tuple[str, tuple[str, ...], str]:
+) -> tuple[str, tuple[str, ...], str, str]:
     return (
         str(request.get("cluster_id") or ""),
         tuple(sorted(str(value) for value in request.get("headline_ids") or [])),
-        str(request.get("request_logical_hash") or ""),
+        str(request.get("story_evidence_scope_id") or ""),
+        str(
+            request.get("effective_article_mode")
+            or request.get("resolved_article_mode")
+            or ""
+        ),
     )
 
 
@@ -112,7 +117,7 @@ class _StageAEvidenceReuseAcquirer:
 
         self._stage_a_root = stage_a_root
         self._receipts: dict[
-            tuple[str, tuple[str, ...], str], dict[str, Any]
+            tuple[str, tuple[str, ...], str, str], dict[str, Any]
         ] = {}
         self._reuse_hits: list[dict[str, Any]] = []
         self._fallback_calls: list[dict[str, Any]] = []
@@ -139,9 +144,14 @@ class _StageAEvidenceReuseAcquirer:
                 ):
                     continue
                 identity = _evidence_request_identity(request)
-                if not identity[0] or not identity[1] or not identity[2]:
+                if not identity[0] or not identity[1] or not identity[2] or not identity[3]:
                     continue
-                self._receipts[identity] = json.loads(json.dumps(receipt))
+                self._receipts[identity] = {
+                    "receipt": json.loads(json.dumps(receipt)),
+                    "original_request_logical_hash": str(
+                        request.get("request_logical_hash") or ""
+                    ),
+                }
         self._fallback = RollingXTargetedEvidenceAdapter(
             evaluation_as_of_utc=evaluation_as_of_utc,
             source_route_health=latest_health,
@@ -149,14 +159,39 @@ class _StageAEvidenceReuseAcquirer:
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         identity = _evidence_request_identity(request)
-        cached = self._receipts.get(identity)
-        if cached is not None:
-            receipt = json.loads(json.dumps(cached))
+        cached_record = self._receipts.get(identity)
+        if cached_record is not None:
+            receipt = json.loads(json.dumps(cached_record["receipt"]))
+            current_request_hash = str(
+                request.get("request_logical_hash") or ""
+            )
+            for document in receipt.get("evidence_documents") or []:
+                if isinstance(document, dict):
+                    document["request_logical_hash"] = current_request_hash
+            original_receipt_sha256 = _sha(cached_record["receipt"])
+            receipt["stage_a_evidence_reuse"] = {
+                "schema_version": "contentops.stage_a_evidence_reuse_binding.v1",
+                "story_evidence_scope_id": identity[2],
+                "effective_article_mode": identity[3],
+                "original_request_logical_hash": cached_record[
+                    "original_request_logical_hash"
+                ],
+                "current_request_logical_hash": current_request_hash,
+                "original_evidence_receipt_sha256": original_receipt_sha256,
+                "source_document_content_hashes_unchanged": True,
+                "source_or_factual_authority_granted": False,
+                "publication_authority_granted": False,
+            }
             self._reuse_hits.append(
                 {
                     "story_identity": identity[0],
                     "headline_ids": list(identity[1]),
-                    "request_logical_hash": identity[2],
+                    "story_evidence_scope_id": identity[2],
+                    "effective_article_mode": identity[3],
+                    "original_request_logical_hash": cached_record[
+                        "original_request_logical_hash"
+                    ],
+                    "current_request_logical_hash": current_request_hash,
                     "evidence_receipt_sha256": _sha(receipt),
                 }
             )
@@ -165,7 +200,9 @@ class _StageAEvidenceReuseAcquirer:
             {
                 "story_identity": identity[0],
                 "headline_ids": list(identity[1]),
-                "request_logical_hash": identity[2],
+                "story_evidence_scope_id": identity[2],
+                "effective_article_mode": identity[3],
+                "request_logical_hash": request.get("request_logical_hash"),
             }
         )
         return dict(self._fallback(request))
@@ -175,8 +212,9 @@ class _StageAEvidenceReuseAcquirer:
 
     def manifest(self) -> dict[str, Any]:
         ready_receipts = sum(
-            receipt.get("status") == "PASS" and not receipt.get("blockers")
-            for receipt in self._receipts.values()
+            (row.get("receipt") or {}).get("status") == "PASS"
+            and not (row.get("receipt") or {}).get("blockers")
+            for row in self._receipts.values()
         )
         return {
             "schema_version": "contentops.stage_a_evidence_reuse.v1",
@@ -187,7 +225,8 @@ class _StageAEvidenceReuseAcquirer:
             "fallback_call_count": len(self._fallback_calls),
             "reuse_hits": list(self._reuse_hits),
             "fallback_calls": list(self._fallback_calls),
-            "request_identity_requires_cluster_headlines_and_logical_hash": True,
+            "request_identity_requires_cluster_headlines_scope_and_mode": True,
+            "diagnostic_request_hash_may_rebind_within_exact_scope": True,
             "cached_model_output_grants_factual_or_publication_authority": False,
         }
 
