@@ -94,7 +94,9 @@ jobs:
               assert 'SOURCE_DISCOVERY_REQUIRED' in text
               assert '5–8/day' in text
 
-          assert 'quota-efficient batch/tail discovery architecture' in v1_pointer.lower()
+          assert 'pr #19 provider-resilient quota-efficient batch/tail discovery is accepted and reusable' in v1_pointer.lower()
+          assert 'zero-write automation enablement / calendar-time unattended runtime proof' in v1_pointer.lower()
+          assert 'prompts share the repo-derived fast-ship hash' in v1_pointer.lower()
           assert 'Desktop standalone fresh-run Automations are the primary routine V1' in authority_map
           assert 'App Server/SDK provider remains the currently proven' in authority_map
           assert 'no fifth' in authority_map.lower()

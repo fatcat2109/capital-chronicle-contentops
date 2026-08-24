@@ -73,7 +73,11 @@ PR #19 is accepted as `CURRENTLY_PROVEN_AND_REUSE`: Stage A produced four govern
 in three batch turns with 712,842 accounted tokens while preserving deterministic retrieval,
 hashing, freshness, exact redirect repair, source health, same-candidate resume, and frozen worker
 transport. Reuse that provider-resilient batch/tail path. Do not restore the superseded 35-call /
-10,237,897-token per-trigger default and do not route discovery as an unimplemented capability.
+10,237,897-token per-trigger default; it remains `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. Do not
+route discovery as an unimplemented capability. A candidate that genuinely lacks an authorized
+source route remains fail-closed as `SOURCE_DISCOVERY_REQUIRED` without blocking another eligible
+governed candidate. The final operating target remains `5–8/day` useful published articles without
+filler.
 
 PR #20 is independently accepted as `CURRENTLY_PROVEN_AND_REUSE`: the canonical worker-return path
 normalizes representation before hard qualification, rejects unproven source-omission claims, and
