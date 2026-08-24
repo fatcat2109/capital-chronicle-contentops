@@ -3,7 +3,7 @@
 Authority date: 2026-08-24
 
 Final classification:
-`FAIL_STAGE_B_EDITORIAL_VALIDATION_AFTER_STAGE_A_PASS`
+`PASS_STAGE_A_PROVIDER_RESILIENCE / STAGE_B_INCOMPLETE_NON_QUALIFIED`
 
 ## Repository identity
 
@@ -72,7 +72,7 @@ Ready candidates:
    `ORDINARY_MINIMUM_TRUSTWORTHY_EVIDENCE_PACKET`,
    `11c6a0fde1f17e778af45cac61646482cb54a7d6aef43c7e80045a25d715abe3`.
 
-## Stage B — FAIL
+## Stage B — incomplete / non-qualified
 
 The accepted four-frontier zero-write harness immediately consumed the Stage A frozen universe.
 Two reversible reuse defects were repaired in-task: fresh assignment identity drift and a

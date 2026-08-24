@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.v1_provider_resilient_discovery_and_4_32_final_closure.v1",
-  "classification": "FAIL_STAGE_B_EDITORIAL_VALIDATION_AFTER_STAGE_A_PASS",
+  "classification": "PASS_STAGE_A_PROVIDER_RESILIENCE_STAGE_B_INCOMPLETE_NON_QUALIFIED",
   "repository": "fatcat2109/capital-chronicle-contentops",
   "branch": "codex/v1-quota-efficient-batch-tail-discovery-v1",
   "pull_request": 19,
