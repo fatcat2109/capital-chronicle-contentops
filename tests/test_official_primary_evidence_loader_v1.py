@@ -10,6 +10,9 @@ from live_contentops.official_primary_evidence_loader_v1 import (
     BoundedOfficialPrimaryEvidenceLoader,
     _default_http_get,
 )
+from live_contentops.public_secondary_evidence_loader_v1 import (
+    BoundedPublicSecondaryEvidenceLoader,
+)
 
 
 AS_OF = "2026-08-08T12:00:00Z"
@@ -28,6 +31,24 @@ BEA_SCHEDULE_HTML = b"""
   <td class="release-title views-field">Personal Income and Outlays, July 2026</td>
 </tr></tbody></table></body></html>
 """
+
+
+def test_official_and_public_loaders_share_one_aggregate_request_budget():
+    shared = {"limit": 1, "used": 0}
+    official = BoundedOfficialPrimaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        shared_request_budget=shared,
+    )
+    public = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        shared_request_budget=shared,
+    )
+
+    public._consume_request()
+
+    assert shared == {"limit": 1, "used": 1}
+    with pytest.raises(RuntimeError, match="official_source_request_budget_exhausted"):
+        official._consume_request()
 
 
 def _request(*, family, required, url):

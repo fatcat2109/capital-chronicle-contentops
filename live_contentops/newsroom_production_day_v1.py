@@ -470,3 +470,32 @@ def persist_production_day_snapshot(
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return path
+
+
+def load_production_day_discovery_accounting(
+    output_root: str | Path, *, production_day_id: str
+) -> dict[str, Any]:
+    """Load cumulative quota state from existing production-day cycle artifacts."""
+    candidates: list[dict[str, Any]] = []
+    for path in Path(output_root).glob("**/rolling_x_newsroom_cycle_evidence_v1.json"):
+        cycle = _read_json(path)
+        accounting = cycle.get("quota_efficient_source_discovery")
+        if (
+            not isinstance(accounting, Mapping)
+            or accounting.get("schema_version")
+            != "contentops.quota_efficient_source_discovery.v1"
+            or str(accounting.get("newsroom_production_day_id") or "")
+            != str(production_day_id)
+        ):
+            continue
+        candidates.append(dict(accounting))
+    if not candidates:
+        return {}
+    candidates.sort(
+        key=lambda row: (
+            int(row.get("total_discovery_turns") or 0),
+            int(row.get("accounted_discovery_tokens") or 0),
+            int(row.get("deterministic_network_requests") or 0),
+        )
+    )
+    return candidates[-1]

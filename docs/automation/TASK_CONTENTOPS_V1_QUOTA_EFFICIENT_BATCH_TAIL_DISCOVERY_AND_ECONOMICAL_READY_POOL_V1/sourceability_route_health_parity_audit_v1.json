@@ -1,0 +1,72 @@
+{
+  "schema_version": "contentops.v1_batch_tail_sourceability_route_health_parity_audit.v1",
+  "classification": "PASS_V1_SOURCEABILITY_PARITY_INTEGRATION_CORRECTED",
+  "exact_question": "Does the acceptance proof exercise the same current source-route-health and sourceability information that the real Daily App path is designed to use when selecting or reranking evidence work?",
+  "answer_before_correction": false,
+  "answer_after_correction": true,
+  "current_host_snapshot": {
+    "canonical_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\source_route_health_v1.json",
+    "state": "ABSENT_AT_FINAL_PROOF_EPOCH",
+    "empty_state_fabricated_as_observations": false
+  },
+  "capabilities": [
+    {
+      "capability": "routing_only_source_health_state_machine_and_daily_app_persistence",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "finding": "Canonical loaders observe exact-route successes and failures; Daily App persists and reloads the routing-only snapshot."
+    },
+    {
+      "capability": "current_host_persisted_route_health_observation_set",
+      "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+      "finding": "The canonical snapshot file was absent at the final proof epoch, so no current observations existed to consume."
+    },
+    {
+      "capability": "sourceability_observations_scoring_and_existing_preselection_reranking",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "finding": "Existing preselection converts host success and failure counts into ranking-only evidence reachability without authority."
+    },
+    {
+      "capability": "observed_access_failure_success_feedback",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "finding": "Source route health records 401, 403, 404, access, paywall and dead-link outcomes and permits safe distinct-route recovery."
+    },
+    {
+      "capability": "registered_locator_and_source_family_fit",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "finding": "Existing reachability scoring uses registered official locator families, reputable public-secondary paths, and capability-family coverage."
+    },
+    {
+      "capability": "discovery_aware_candidate_frontier_construction",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "finding": "Prepared frontier ordering already combines known evidence-path priority, attributed route risk, event-state risk, expiry, and source time."
+    },
+    {
+      "capability": "acceptance_runner_sourceability_parity_integration",
+      "classification": "CURRENTLY_PROVEN_AND_REUSE",
+      "pre_correction_classification": "NEW_IMPLEMENTATION_GAP",
+      "finding": "Correction B now feeds the existing discovery-availability and current routing-only snapshot inputs into the same frontier and canonical cycle seams as Daily App."
+    },
+    {
+      "capability": "historical_four_ready_evidence_foundation_runtime_result",
+      "classification": "HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY",
+      "finding": "Historical evidence proves a four-ready result at its epoch; current acceptance still requires a fresh four-ready proof."
+    }
+  ],
+  "authority": {
+    "sourceability_may_reorder_materially_comparable_candidates": true,
+    "sourceability_grants_factual_authority": false,
+    "sourceability_grants_numeric_authority": false,
+    "sourceability_grants_permission_authority": false,
+    "sourceability_grants_publication_authority": false
+  },
+  "final_proof": {
+    "classification": "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED",
+    "ready_distinct_candidate_count": 1,
+    "batch_discovery_turns": 1,
+    "tail_discovery_turns": 1,
+    "total_discovery_turns": 2,
+    "accounted_discovery_tokens": 1237551,
+    "deterministic_network_requests": 16,
+    "exact_remaining_blocker": "ALL_RANKED_CLUSTERS_EVIDENCE_BLOCKED"
+  }
+}

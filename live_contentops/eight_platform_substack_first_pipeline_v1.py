@@ -136,6 +136,10 @@ def run_rolling_x_newsroom_cycle(
     source_discoverer: Any = None,
     autonomous_source_discovery_enabled: bool = False,
     evidence_only_target_count: int | None = None,
+    newsroom_production_day_id: str | None = None,
+    quota_discovery_prior_accounting: Mapping[str, Any] | None = None,
+    quota_discovery_budget: Mapping[str, Any] | None = None,
+    quota_discovery_fresh_unseen_available: bool = False,
     destination_readiness_override: Mapping[str, Any] | None = None,
     editorial_execution_route: str = DESKTOP_PRIMARY_EDITORIAL_ROUTE,
     hybrid_arbitration_receipt: Mapping[str, Any] | None = None,
@@ -172,6 +176,12 @@ def run_rolling_x_newsroom_cycle(
         "source_discoverer": source_discoverer,
         "autonomous_source_discovery_enabled": autonomous_source_discovery_enabled,
         "evidence_only_target_count": evidence_only_target_count,
+        "newsroom_production_day_id": newsroom_production_day_id,
+        "quota_discovery_prior_accounting": quota_discovery_prior_accounting,
+        "quota_discovery_budget": quota_discovery_budget,
+        "quota_discovery_fresh_unseen_available": (
+            quota_discovery_fresh_unseen_available
+        ),
         "destination_readiness_override": destination_readiness_override,
     }
     route = str(editorial_execution_route or "").strip().upper()

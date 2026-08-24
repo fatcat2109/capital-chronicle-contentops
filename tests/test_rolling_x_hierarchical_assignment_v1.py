@@ -158,6 +158,28 @@ def test_prepared_candidate_state_is_small_zero_model_and_exactly_bound():
     }
 
 
+def test_evaluated_identity_continuation_replenishes_next_frontier_without_prior_terminal_state():
+    rolling_input = _small_input(20)
+    first = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-07-08T13:21:16Z",
+        autonomous_source_discovery_available=True,
+    )
+    first_ids = set(first["prepared_frontier"]["selected_headline_ids"])
+
+    second = build_prepared_rolling_x_candidate_state(
+        rolling_input=rolling_input,
+        prepared_at_utc="2026-07-08T13:21:16Z",
+        evaluated_headline_ids=sorted(first_ids),
+        autonomous_source_discovery_available=True,
+    )
+    second_ids = set(second["prepared_frontier"]["selected_headline_ids"])
+
+    assert len(first_ids) == 12
+    assert len(second_ids) == 8
+    assert first_ids.isdisjoint(second_ids)
+
+
 def test_prepared_candidate_state_rejects_stale_or_tampered_checkpoint():
     state = build_prepared_rolling_x_candidate_state(
         rolling_input=_small_input(4),

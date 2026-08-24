@@ -58,6 +58,8 @@ SAFE_PUBLISHER_SHORT_HOST_TARGETS = {
 }
 NEWS_RSS_ENDPOINT = "https://news.google.com/rss/search"
 PUBLISHER_NEWS_SITEMAP_PATH = "/news-sitemap.xml"
+PUBLISHER_ROBOTS_PATH = "/robots.txt"
+PUBLISHER_GENERIC_SITEMAP_PATH = "/sitemap.xml"
 MAX_PUBLISHER_RESOLUTION_ATTEMPTS = 2
 MAX_PUBLISHER_SITEMAP_INDEX_CHILDREN = 1
 MIN_PUBLISHER_SITEMAP_CANDIDATE_RELEVANCE = 0.5
@@ -239,6 +241,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
         clock: Callable[[], datetime] | None = None,
         source_route_health: SourceRouteHealthState | Mapping[str, Any] | None = None,
+        shared_request_budget: dict[str, int] | None = None,
     ) -> None:
         cutoff = datetime.fromisoformat(evaluation_as_of_utc.replace("Z", "+00:00"))
         if cutoff.utcoffset() is None:
@@ -257,6 +260,7 @@ class BoundedPublicSecondaryEvidenceLoader:
             else SourceRouteHealthState(source_route_health, clock=self._clock)
         )
         self._request_count = 0
+        self._shared_request_budget = shared_request_budget
         self._candidate_request_start = 0
         self._request_count_by_story_scope: dict[str, int] = {}
         self._active_story_scope_id: str | None = None
@@ -264,6 +268,17 @@ class BoundedPublicSecondaryEvidenceLoader:
             str, dict[str, dict[str, Any]]
         ] = {}
         self._reused_request_signatures_by_story_scope: dict[str, list[str]] = {}
+
+    def _consume_request(self) -> None:
+        if self._request_count >= self._max_requests:
+            raise RuntimeError("public_source_request_budget_exhausted")
+        if self._shared_request_budget is not None:
+            used = int(self._shared_request_budget.get("used") or 0)
+            limit = int(self._shared_request_budget.get("limit") or 0)
+            if used >= limit:
+                raise RuntimeError("public_source_request_budget_exhausted")
+            self._shared_request_budget["used"] = used + 1
+        self._request_count += 1
 
     def _get(self, url: str) -> dict[str, Any]:
         if self._active_story_scope_id:
@@ -282,8 +297,6 @@ class BoundedPublicSecondaryEvidenceLoader:
                     self._active_story_scope_id, []
                 ).append(str(suppressed["route_identity_sha256"]))
             raise RuntimeError("public_source_route_suppressed_by_recent_health")
-        if self._request_count >= self._max_requests:
-            raise RuntimeError("public_source_request_budget_exhausted")
         candidate_request_count = (
             self._request_count_by_story_scope.get(self._active_story_scope_id, 0)
             if self._active_story_scope_id
@@ -292,7 +305,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         if candidate_request_count >= self._max_requests_per_candidate:
             raise RuntimeError("public_source_candidate_request_budget_exhausted")
         _public_host(url, resolve_dns=self._validate_dns)
-        self._request_count += 1
+        self._consume_request()
         if self._active_story_scope_id:
             self._request_count_by_story_scope[self._active_story_scope_id] = (
                 candidate_request_count + 1
@@ -401,16 +414,17 @@ class BoundedPublicSecondaryEvidenceLoader:
 
     def _publisher_sitemap_candidate(
         self, listing: Mapping[str, Any]
-    ) -> dict[str, Any] | None:
-        """Resolve a discovery listing through one same-publisher news sitemap.
+    ) -> tuple[dict[str, Any] | None, list[str]]:
+        """Resolve a listing through bounded same-publisher declared sitemap paths.
 
         The sitemap is locator evidence only. Its candidate must strongly match the
         discovery title and the exact publisher article is fetched separately before
         any public-claim authority is granted.
         """
+        diagnostics: list[str] = []
         source_host = str(listing.get("source_identity") or "").casefold()
         if source_host not in REPUTABLE_SECONDARY_HOSTS:
-            return None
+            return None, diagnostics
         publisher_home_url = str(listing.get("publisher_home_url") or "")
         publisher_home_host = _public_host(
             publisher_home_url, resolve_dns=self._validate_dns
@@ -419,25 +433,94 @@ class BoundedPublicSecondaryEvidenceLoader:
             "www."
         ):
             raise ValueError("publisher_news_sitemap_identity_mismatch")
-        locator_url = (
-            publisher_home_url.rstrip("/") + PUBLISHER_NEWS_SITEMAP_PATH
-        )
-        response = self._get(locator_url)
-        if int(response.get("status") or 0) != 200:
-            raise ValueError("publisher_news_sitemap_http_status_not_200")
-        body = response.get("body")
-        if not isinstance(body, bytes) or not body:
-            raise ValueError("publisher_news_sitemap_body_invalid")
-        try:
-            root = ET.fromstring(body)
-        except ET.ParseError as exc:
-            raise ValueError("publisher_news_sitemap_xml_invalid") from exc
+        parsed_home = urlsplit(publisher_home_url)
+        publisher_origin = f"{parsed_home.scheme}://{parsed_home.netloc}"
+        locator_chain: list[dict[str, str]] = []
 
-        locator_chain = [
-            {"url": locator_url, "sha256": sha256(body).hexdigest()}
-        ]
+        def fetch_xml(url: str, *, failure_prefix: str) -> tuple[ET.Element, bytes] | None:
+            try:
+                if normalized_host(_public_host(url, resolve_dns=False)) != normalized_host(
+                    source_host
+                ):
+                    raise ValueError("publisher_sitemap_cross_host_forbidden")
+                response = self._get(url)
+                if int(response.get("status") or 0) != 200:
+                    raise ValueError(f"{failure_prefix}_http_status_not_200")
+                final_url = str(response.get("final_url") or url)
+                if normalized_host(
+                    _public_host(final_url, resolve_dns=False)
+                ) != normalized_host(source_host):
+                    raise ValueError("publisher_sitemap_redirect_identity_mismatch")
+                body = response.get("body")
+                if not isinstance(body, bytes) or not body:
+                    raise ValueError(f"{failure_prefix}_body_invalid")
+                root = ET.fromstring(body)
+                locator_chain.append(
+                    {"url": final_url, "sha256": sha256(body).hexdigest()}
+                )
+                return root, body
+            except (ET.ParseError, OSError, RuntimeError, TypeError, ValueError) as exc:
+                diagnostics.append(str(exc) or f"{failure_prefix}_unavailable")
+                return None
+
+        locator_url = publisher_origin + PUBLISHER_NEWS_SITEMAP_PATH
+        fetched = fetch_xml(
+            locator_url, failure_prefix="publisher_news_sitemap"
+        )
+        resolution_method = "PUBLISHER_NEWS_SITEMAP"
+        if fetched is None:
+            robots_url = publisher_origin + PUBLISHER_ROBOTS_PATH
+            declared_urls: list[str] = []
+            try:
+                robots = self._get(robots_url)
+                robots_body = robots.get("body")
+                if int(robots.get("status") or 0) != 200 or not isinstance(
+                    robots_body, bytes
+                ):
+                    raise ValueError("publisher_robots_unavailable")
+                robots_final_url = str(robots.get("final_url") or robots_url)
+                if normalized_host(
+                    _public_host(robots_final_url, resolve_dns=False)
+                ) != normalized_host(source_host):
+                    raise ValueError("publisher_robots_redirect_identity_mismatch")
+                locator_chain.append(
+                    {
+                        "url": robots_final_url,
+                        "sha256": sha256(robots_body).hexdigest(),
+                    }
+                )
+                for match in re.findall(
+                    r"(?im)^\s*Sitemap\s*:\s*(https://\S+)\s*$",
+                    robots_body.decode("utf-8", errors="replace"),
+                ):
+                    try:
+                        if normalized_host(
+                            _public_host(match, resolve_dns=False)
+                        ) == normalized_host(source_host):
+                            declared_urls.append(match)
+                    except ValueError:
+                        continue
+            except (OSError, RuntimeError, TypeError, ValueError) as exc:
+                diagnostics.append(str(exc) or "publisher_robots_unavailable")
+            declared_urls = sorted(
+                dict.fromkeys(declared_urls),
+                key=lambda value: (
+                    0 if "news" in value.casefold() else 1 if "post" in value.casefold() else 2,
+                    value,
+                ),
+            )
+            if not declared_urls:
+                declared_urls = [publisher_origin + PUBLISHER_GENERIC_SITEMAP_PATH]
+            locator_url = declared_urls[0]
+            fetched = fetch_xml(
+                locator_url, failure_prefix="publisher_declared_sitemap"
+            )
+            resolution_method = "PUBLISHER_DECLARED_SITEMAP"
+        if fetched is None:
+            return None, diagnostics
+        root, body = fetched
         if str(root.tag).rsplit("}", 1)[-1].casefold() == "sitemapindex":
-            child_urls: list[str] = []
+            child_rows: list[tuple[int, float, str]] = []
             for sitemap_row in root:
                 if str(sitemap_row.tag).rsplit("}", 1)[-1].casefold() != "sitemap":
                     continue
@@ -458,24 +541,40 @@ class BoundedPublicSecondaryEvidenceLoader:
                     continue
                 if child_host.removeprefix("www.") != source_host.removeprefix("www."):
                     continue
-                child_urls.append(child_url)
-            for child_url in child_urls[:MAX_PUBLISHER_SITEMAP_INDEX_CHILDREN]:
-                child_response = self._get(child_url)
-                if int(child_response.get("status") or 0) != 200:
-                    raise ValueError("publisher_news_sitemap_child_http_status_not_200")
-                child_body = child_response.get("body")
-                if not isinstance(child_body, bytes) or not child_body:
-                    raise ValueError("publisher_news_sitemap_child_body_invalid")
-                try:
-                    root = ET.fromstring(child_body)
-                except ET.ParseError as exc:
-                    raise ValueError("publisher_news_sitemap_child_xml_invalid") from exc
-                body = child_body
-                locator_url = child_url
-                locator_chain.append(
-                    {"url": child_url, "sha256": sha256(child_body).hexdigest()}
+                lastmod = next(
+                    (
+                        _parse_timestamp(str(child.text or ""))
+                        for child in sitemap_row
+                        if str(child.tag).rsplit("}", 1)[-1].casefold()
+                        == "lastmod"
+                        and str(child.text or "").strip()
+                    ),
+                    None,
                 )
-                break
+                lastmod_epoch = (
+                    datetime.fromisoformat(lastmod.replace("Z", "+00:00")).timestamp()
+                    if lastmod
+                    else 0.0
+                )
+                priority = (
+                    0
+                    if "news" in child_url.casefold()
+                    else 1
+                    if "post" in child_url.casefold()
+                    else 2
+                )
+                child_rows.append((priority, -lastmod_epoch, child_url))
+            for _priority, _lastmod, child_url in sorted(child_rows)[
+                :MAX_PUBLISHER_SITEMAP_INDEX_CHILDREN
+            ]:
+                child = fetch_xml(
+                    child_url,
+                    failure_prefix="publisher_sitemap_child",
+                )
+                if child is not None:
+                    root, body = child
+                    locator_url = child_url
+                    break
 
         listing_title = str(listing.get("title") or "")
         listing_terms = _rss_query_terms(listing_title)
@@ -524,7 +623,8 @@ class BoundedPublicSecondaryEvidenceLoader:
                 (relevance, distance, candidate_url, published, candidate_title)
             )
         if not candidates:
-            return None
+            diagnostics.append("publisher_sitemap_relevant_candidate_unavailable")
+            return None, diagnostics
         relevance, _distance, candidate_url, published, candidate_title = sorted(
             candidates,
             key=lambda row: (-row[0], row[1], row[2]),
@@ -537,7 +637,8 @@ class BoundedPublicSecondaryEvidenceLoader:
             "locator_url": locator_url,
             "locator_sha256": sha256(body).hexdigest(),
             "locator_chain": locator_chain,
-        }
+            "resolution_method": resolution_method,
+        }, diagnostics
 
     def _resolve_listing_to_publisher_document(
         self, listing: Mapping[str, Any]
@@ -545,7 +646,10 @@ class BoundedPublicSecondaryEvidenceLoader:
         diagnostics: list[str] = []
         candidate: dict[str, Any] | None = None
         try:
-            candidate = self._publisher_sitemap_candidate(listing)
+            candidate, sitemap_diagnostics = self._publisher_sitemap_candidate(
+                listing
+            )
+            diagnostics.extend(sitemap_diagnostics)
         except (OSError, RuntimeError, TypeError, ValueError) as exc:
             diagnostics.append(str(exc) or type(exc).__name__)
         if candidate is not None:
@@ -584,7 +688,10 @@ class BoundedPublicSecondaryEvidenceLoader:
                                 resolved_title_relevance, 4
                             ),
                             "canonical_resolution_status": (
-                                "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP"
+                                "RESOLVED_FROM_PUBLISHER_DECLARED_SITEMAP"
+                                if candidate.get("resolution_method")
+                                == "PUBLISHER_DECLARED_SITEMAP"
+                                else "RESOLVED_FROM_PUBLISHER_NEWS_SITEMAP"
                             ),
                         }
                     )

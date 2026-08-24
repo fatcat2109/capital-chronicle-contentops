@@ -3,12 +3,14 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import urllib.request
 import urllib.parse
+import urllib.error
 
 import pytest
 
 from live_contentops import public_secondary_evidence_loader_v1 as loader_module
 from live_contentops.public_secondary_evidence_loader_v1 import (
     BoundedPublicSecondaryEvidenceLoader,
+    NEWS_RSS_ENDPOINT,
     _default_public_http_get,
     _rss_relevance_score,
 )
@@ -431,6 +433,82 @@ def test_authorized_ap_news_listing_resolves_through_one_same_host_sitemap_index
         AP_SITEMAP_INDEX_URL,
         AP_SITEMAP_CHILD_URL,
         AP_PUBLISHER_URL,
+    ]
+
+
+def test_missing_news_sitemap_uses_same_host_robots_declared_sitemap_safely():
+    publisher_url = "https://www.cnbc.com/2026/08/23/trump-june-stock-trades.html"
+    declared_sitemap = "https://www.cnbc.com/sitemaps/latest-news.xml"
+    rss = f"""<rss><channel><item>
+      <title>Trump disclosure shows more than 1,000 June stock trades - CNBC</title>
+      <link>{GOOGLE_ARTICLE_URL}</link>
+      <pubDate>Sun, 23 Aug 2026 15:30:00 GMT</pubDate>
+      <source url="https://www.cnbc.com">CNBC</source>
+    </item></channel></rss>""".encode()
+    robots = (
+        "User-agent: *\n"
+        "Sitemap: https://example.com/forbidden-cross-host.xml\n"
+        f"Sitemap: {declared_sitemap}\n"
+    ).encode()
+    sitemap = f"""<urlset><url>
+      <loc>{publisher_url}</loc>
+      <publication_date>2026-08-23T15:25:00Z</publication_date>
+      <title>Trump disclosure shows more than 1,000 June stock trades</title>
+    </url></urlset>""".encode()
+    article = b"""<html><head>
+      <meta property="article:published_time" content="2026-08-23T15:25:00Z"/>
+      <meta property="og:title" content="Trump disclosure shows more than 1,000 June stock trades"/>
+      </head><body><main>
+      A newly filed disclosure shows more than one thousand stock trades during June.
+      This exact publisher article contains sufficient directly retrieved reporting text,
+      remains bound to CNBC publisher bytes, and supplies no authority from the locator.
+      </main></body></html>"""
+    calls: list[str] = []
+
+    def http_get(url: str, _timeout: float, _maximum: int):
+        calls.append(url)
+        if url.startswith("https://news.google.com/rss/search?"):
+            return _response(url, rss, "application/xml")
+        if url == "https://www.cnbc.com/news-sitemap.xml":
+            raise urllib.error.HTTPError(url, 404, "Not Found", None, None)
+        if url == "https://www.cnbc.com/robots.txt":
+            return _response(url, robots, "text/plain")
+        if url == declared_sitemap:
+            return _response(url, sitemap, "application/xml")
+        if url == publisher_url:
+            return _response(url, article, "text/html")
+        raise AssertionError(f"unexpected URL: {url}")
+
+    request = _request()
+    request["story_context"]["grounded_research_queries"] = [
+        "Trump disclosure 1000 June stock trades"
+    ]
+    result = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc="2026-08-23T22:41:06Z",
+        http_get=http_get,
+        max_requests_per_candidate=8,
+    )(request)
+
+    assert result["status"] == "PASS"
+    document = result["evidence_documents"][0]
+    assert document["source_url"] == publisher_url
+    assert document["canonical_resolution_status"] == (
+        "RESOLVED_FROM_PUBLISHER_DECLARED_SITEMAP"
+    )
+    assert [row["url"] for row in document["publisher_locator_chain"]] == [
+        "https://www.cnbc.com/robots.txt",
+        declared_sitemap,
+    ]
+    assert not any("example.com" in url for url in calls)
+    assert calls == [
+        next(url for url in calls if url.startswith(NEWS_RSS_ENDPOINT)),
+        "https://www.cnbc.com/news-sitemap.xml",
+        "https://www.cnbc.com/robots.txt",
+        declared_sitemap,
+        publisher_url,
+    ]
+    assert result["provenance"]["publisher_resolution_diagnostics"] == [
+        "HTTP Error 404: Not Found"
     ]
 
 

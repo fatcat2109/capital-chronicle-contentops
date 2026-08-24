@@ -1,0 +1,38 @@
+{
+  "schema_version": "contentops.v1_provider_resilient_discovery_validation.v1",
+  "status": "PASS",
+  "provider_resilient_evidence_newsroom_router_suite": {
+    "passed": 288,
+    "failed": 0,
+    "duration_seconds": 58.77
+  },
+  "final_4_32_operator_article_worker_suite": {
+    "passed": 129,
+    "failed": 0,
+    "duration_seconds": 41.41
+  },
+  "focused_provider_cascade_subset": {
+    "passed": 74,
+    "failed": 0,
+    "duration_seconds": 5.54
+  },
+  "compileall": "PASS",
+  "codegraph": "CODEGRAPH_CURRENT",
+  "git_diff_check": "PASS",
+  "stage_a_raw_receipt_self_hash": "PASS",
+  "stage_a_pass": true,
+  "stage_b_pass": false,
+  "stage_b_gate_weakened": false,
+  "second_worker_created_after_editorial_failure": false,
+  "second_revision_granted": false,
+  "safety": {
+    "public_writes": 0,
+    "provider_writes": 0,
+    "unknown_write": 0,
+    "browser_or_cdp_publication_actions": 0,
+    "automation_mutations": 0,
+    "capital_chronicle_mutations": 0,
+    "v2_mutations": 0,
+    "secret_or_session_reads": 0
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "schema_version": "contentops.v1_production_day_shared_discovery_correction_c.v1",
+  "classification": "CURRENT_HOST_RUNTIME_PROOF_REQUIRED",
+  "fresh_master": "c4239a96513c24fc9f7f331025386756d0248569",
+  "starting_branch_head": "90ffe31b64f61e3b4f6e3cf5bd8ef02881675d3b",
+  "implementation": {
+    "production_day_identity_bound": true,
+    "shared_request_ceiling": 96,
+    "shared_batch_turn_ceiling": 2,
+    "shared_tail_turn_ceiling": 2,
+    "shared_total_turn_ceiling": 4,
+    "shared_accounted_token_ceiling": 2000000,
+    "official_public_loader_budget_is_aggregate": true,
+    "later_cycle_receives_residual_only": true,
+    "existing_production_day_cycle_artifacts_reused": true,
+    "new_store_or_scheduler_created": false,
+    "mode_risk_proportional_ready_contracts": true,
+    "evidence_or_freshness_gate_weakened": false
+  },
+  "real_proof": {
+    "classification": "FAIL_V1_EVIDENCE_READY_POOL_NOT_ACCEPTED",
+    "cutoff_utc": "2026-08-23T20:47:29.46975Z",
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-24-bangkok",
+    "frozen_current_universe_count": 157,
+    "frontier_count": 1,
+    "ready_distinct_candidate_count": 0,
+    "remaining_held_identity_count": 145,
+    "batch_discovery_turns": 1,
+    "tail_discovery_turns": 1,
+    "total_discovery_turns": 2,
+    "accounted_discovery_tokens": 362493,
+    "deterministic_network_requests": 14,
+    "unused_budget": {
+      "batch_turns": 1,
+      "tail_turns": 1,
+      "total_turns": 2,
+      "accounted_discovery_tokens": 1637507,
+      "deterministic_network_requests": 82
+    },
+    "repeated_headline_ids": [],
+    "repeated_story_ids": [],
+    "writer_calls": 0,
+    "article_generation": 0,
+    "derivative_generation": 0,
+    "public_writes": 0,
+    "provider_writes": 0,
+    "unknown_write": 0
+  },
+  "post_proof_demonstrated_defect": {
+    "code": "PRIOR_SINGLE_OPPORTUNITY_PREPARED_STATE_BLOCKED_HELD_MULTI_FRONTIER_REPLENISHMENT",
+    "detail": "Frontier 2 imported prior NOT_PROMOTED_BEFORE_EXPIRY dispositions and returned empty while 145 frozen-universe identities remained held.",
+    "corrected": true,
+    "correction": "Carry evaluated headline identities, cumulative quota accounting, and route health only; rebuild each frontier from the same frozen universe without prior single-opportunity terminal dispositions.",
+    "real_proof_retried": false
+  },
+  "exact_remaining_blocker": "CORRECTED_MULTI_FRONTIER_CONTINUATION_CURRENT_HOST_REVALIDATION_REQUIRED",
+  "four_32_started": false,
+  "master_merged": false
+}

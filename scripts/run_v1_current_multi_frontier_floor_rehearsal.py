@@ -87,6 +87,191 @@ def _sha(value: Any) -> str:
     ).hexdigest()
 
 
+def _evidence_request_identity(
+    request: Mapping[str, Any],
+) -> tuple[str, tuple[str, ...], str, str]:
+    return (
+        str(request.get("cluster_id") or ""),
+        tuple(sorted(str(value) for value in request.get("headline_ids") or [])),
+        str(request.get("story_evidence_scope_id") or ""),
+        str(
+            request.get("effective_article_mode")
+            or request.get("resolved_article_mode")
+            or ""
+        ),
+    )
+
+
+class _StageAEvidenceReuseAcquirer:
+    """Reuse exact Stage A receipts, falling back to the canonical evidence adapter."""
+
+    def __init__(
+        self,
+        *,
+        stage_a_root: Path,
+        evaluation_as_of_utc: str,
+    ) -> None:
+        from live_contentops.rolling_x_targeted_evidence_adapter_v1 import (
+            RollingXTargetedEvidenceAdapter,
+        )
+
+        self._stage_a_root = stage_a_root
+        self._receipts: dict[
+            tuple[str, tuple[str, ...], str, str], dict[str, Any]
+        ] = {}
+        self._reuse_hits: list[dict[str, Any]] = []
+        self._fallback_calls: list[dict[str, Any]] = []
+        latest_health: dict[str, Any] = {}
+        for cycle_path in sorted(
+            stage_a_root.glob(
+                "frontier_*/rolling_x_newsroom_cycle_evidence_v1.json"
+            )
+        ):
+            cycle = _load(cycle_path)
+            health = cycle.get("source_route_health")
+            if isinstance(health, Mapping):
+                latest_health = dict(health)
+            for attempt in (
+                (cycle.get("ranked_viability") or {}).get("rank_attempts")
+                or []
+            ):
+                if not isinstance(attempt, Mapping):
+                    continue
+                request = attempt.get("request")
+                receipt = attempt.get("evidence_receipt")
+                if not isinstance(request, Mapping) or not isinstance(
+                    receipt, Mapping
+                ):
+                    continue
+                identity = _evidence_request_identity(request)
+                if not identity[0] or not identity[1] or not identity[2] or not identity[3]:
+                    continue
+                self._receipts[identity] = {
+                    "receipt": json.loads(json.dumps(receipt)),
+                    "original_request_logical_hash": str(
+                        request.get("request_logical_hash") or ""
+                    ),
+                }
+        self._fallback = RollingXTargetedEvidenceAdapter(
+            evaluation_as_of_utc=evaluation_as_of_utc,
+            source_route_health=latest_health,
+        )
+
+    def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
+        identity = _evidence_request_identity(request)
+        cached_record = self._receipts.get(identity)
+        if cached_record is not None:
+            receipt = json.loads(json.dumps(cached_record["receipt"]))
+            current_request_hash = str(
+                request.get("request_logical_hash") or ""
+            )
+            for document in receipt.get("evidence_documents") or []:
+                if isinstance(document, dict):
+                    document["request_logical_hash"] = current_request_hash
+            original_receipt_sha256 = _sha(cached_record["receipt"])
+            receipt["stage_a_evidence_reuse"] = {
+                "schema_version": "contentops.stage_a_evidence_reuse_binding.v1",
+                "story_evidence_scope_id": identity[2],
+                "effective_article_mode": identity[3],
+                "original_request_logical_hash": cached_record[
+                    "original_request_logical_hash"
+                ],
+                "current_request_logical_hash": current_request_hash,
+                "original_evidence_receipt_sha256": original_receipt_sha256,
+                "source_document_content_hashes_unchanged": True,
+                "source_or_factual_authority_granted": False,
+                "publication_authority_granted": False,
+            }
+            self._reuse_hits.append(
+                {
+                    "story_identity": identity[0],
+                    "headline_ids": list(identity[1]),
+                    "story_evidence_scope_id": identity[2],
+                    "effective_article_mode": identity[3],
+                    "original_request_logical_hash": cached_record[
+                        "original_request_logical_hash"
+                    ],
+                    "current_request_logical_hash": current_request_hash,
+                    "evidence_receipt_sha256": _sha(receipt),
+                }
+            )
+            return receipt
+        self._fallback_calls.append(
+            {
+                "story_identity": identity[0],
+                "headline_ids": list(identity[1]),
+                "story_evidence_scope_id": identity[2],
+                "effective_article_mode": identity[3],
+                "request_logical_hash": request.get("request_logical_hash"),
+            }
+        )
+        return dict(self._fallback(request))
+
+    def source_route_health_snapshot(self) -> dict[str, Any]:
+        return dict(self._fallback.source_route_health_snapshot())
+
+    def manifest(self) -> dict[str, Any]:
+        ready_receipts = sum(
+            (row.get("receipt") or {}).get("status") == "PASS"
+            and not (row.get("receipt") or {}).get("blockers")
+            for row in self._receipts.values()
+        )
+        return {
+            "schema_version": "contentops.stage_a_evidence_reuse.v1",
+            "stage_a_root": str(self._stage_a_root),
+            "cached_exact_request_count": len(self._receipts),
+            "cached_ready_receipt_count": ready_receipts,
+            "reuse_hit_count": len(self._reuse_hits),
+            "fallback_call_count": len(self._fallback_calls),
+            "reuse_hits": list(self._reuse_hits),
+            "fallback_calls": list(self._fallback_calls),
+            "request_identity_requires_cluster_headlines_scope_and_mode": True,
+            "diagnostic_request_hash_may_rebind_within_exact_scope": True,
+            "cached_model_output_grants_factual_or_publication_authority": False,
+        }
+
+
+def _stage_a_ready_frontiers(stage_a_root: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for cycle_path in sorted(
+        stage_a_root.glob(
+            "frontier_*/rolling_x_newsroom_cycle_evidence_v1.json"
+        )
+    ):
+        cycle = _load(cycle_path)
+        candidates = [
+            dict(row)
+            for row in (cycle.get("evidence_ready_pool") or {}).get(
+                "candidates"
+            )
+            or []
+            if isinstance(row, Mapping) and row.get("cluster_id")
+        ]
+        if not candidates:
+            continue
+        prepared_path = (
+            cycle_path.parent / "rolling_x_prepared_candidate_state_v1.json"
+        )
+        if not prepared_path.is_file():
+            raise ValueError("stage_a_ready_frontier_prepared_state_missing")
+        rows.append(
+            {
+                "stage_a_frontier": int(
+                    str(cycle_path.parent.name).rsplit("_", 1)[-1]
+                ),
+                "cycle_evidence_path": str(cycle_path),
+                "cycle_evidence_sha256": _sha(cycle),
+                "prepared_state_path": str(prepared_path),
+                "prepared_state_sha256": _sha(_load(prepared_path)),
+                "ready_candidate_ids": [
+                    str(row.get("cluster_id")) for row in candidates
+                ],
+                "ready_candidate_count": len(candidates),
+            }
+        )
+    return rows
+
+
 def _current_durable_state() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Read the canonical continuity and published corpus without mutating either."""
     continuity = load_terminal_editorial_continuity(
@@ -205,6 +390,7 @@ def _new_state(
     task_label: str = TASK,
     acceptance_profile: str | None = None,
     current_durable_state: bool = False,
+    stage_a_evidence_root: Path | None = None,
 ) -> dict[str, Any]:
     now = datetime.now(timezone.utc)
     rolling = (
@@ -221,6 +407,29 @@ def _new_state(
     )
     rolling_path = root / "frozen_current_rolling_input_v1.json"
     _write(rolling_path, rolling)
+    stage_a_binding: dict[str, Any] = {}
+    if stage_a_evidence_root is not None:
+        stage_a_input_path = (
+            stage_a_evidence_root / "frozen_current_rolling_input_v1.json"
+        )
+        stage_a_input = _load(stage_a_input_path)
+        if _sha(stage_a_input) != _sha(rolling):
+            raise ValueError("stage_a_evidence_rolling_input_identity_mismatch")
+        ready_frontiers = _stage_a_ready_frontiers(stage_a_evidence_root)
+        if sum(
+            int(row.get("ready_candidate_count") or 0)
+            for row in ready_frontiers
+        ) < MAX_QUALIFIED:
+            raise ValueError("stage_a_four_ready_candidates_required")
+        stage_a_binding = {
+            "stage_a_evidence_root": str(stage_a_evidence_root),
+            "stage_a_frozen_input_path": str(stage_a_input_path),
+            "stage_a_frozen_input_sha256": _sha(stage_a_input),
+            "same_frozen_universe_required": True,
+            "ready_frontiers": ready_frontiers,
+            "ready_frontier_cursor": 0,
+            "prepared_and_router_checkpoint_reuse_required": True,
+        }
     current_headline_ids = sorted(
         {
             str(row.get("headline_id") or row.get("id"))
@@ -265,6 +474,9 @@ def _new_state(
         "initial_evaluated_headline_count": len(evaluated_headline_ids),
         "current_durable_state_bound": current_durable_state,
         "current_durable_state_snapshot": durable_snapshot,
+        "stage_a_evidence_binding": stage_a_binding,
+        "stage_a_evidence_reuse_hits": [],
+        "stage_a_evidence_fallback_calls": [],
         "published_corpus": published_corpus,
         "published_canonical_article_count": len(published_corpus),
         "italy_canary_published_memory_count": len(
@@ -297,6 +509,7 @@ def _state(
     task_label: str = TASK,
     acceptance_profile: str | None = None,
     current_durable_state: bool = False,
+    stage_a_evidence_root: Path | None = None,
 ) -> dict[str, Any]:
     path = _state_path(root)
     return (
@@ -311,6 +524,7 @@ def _state(
             task_label,
             acceptance_profile,
             current_durable_state,
+            stage_a_evidence_root,
         )
     )
 
@@ -721,6 +935,13 @@ def _summary(state: Mapping[str, Any], root: Path | None = None) -> dict[str, An
             int(row.get("prepared_headline_identity_count") or 0)
             for row in frontiers
         ),
+        "stage_a_evidence_reuse_hit_count": len(
+            state.get("stage_a_evidence_reuse_hits") or []
+        ),
+        "stage_a_evidence_fallback_call_count": len(
+            state.get("stage_a_evidence_fallback_calls") or []
+        ),
+        "stage_a_evidence_reuse_grants_authority": False,
         "distinct_story_opportunity_count": sum(
             int(row.get("distinct_story_opportunity_count") or 0)
             for row in frontiers
@@ -833,6 +1054,7 @@ def probe(
     task_label: str = TASK,
     acceptance_profile: str | None = None,
     current_durable_state: bool = False,
+    stage_a_evidence_root: Path | None = None,
 ) -> dict[str, Any]:
     state = _state(
         root,
@@ -843,6 +1065,7 @@ def probe(
         task_label,
         acceptance_profile,
         current_durable_state,
+        stage_a_evidence_root,
     )
     if state.get("pending_frontier"):
         raise ValueError("pending_frontier_must_be_completed_first")
@@ -852,11 +1075,32 @@ def probe(
         raise ValueError("daily_floor_already_met")
     number = len(state.get("frontiers") or []) + 1
     rolling = _load(Path(str(state["rolling_input_path"])))
-    prepared = build_prepared_rolling_x_candidate_state(
-        rolling_input=rolling,
-        prepared_at_utc=state["cutoff_utc"],
-        evaluated_headline_ids=state.get("evaluated_headline_ids") or [],
-    )
+    stage_binding = dict(state.get("stage_a_evidence_binding") or {})
+    ready_frontiers = list(stage_binding.get("ready_frontiers") or [])
+    ready_cursor = int(stage_binding.get("ready_frontier_cursor") or 0)
+    stage_frontier_reuse: dict[str, Any] = {}
+    leaf_checkpoints = None
+    global_checkpoint = None
+    stage_story_types = None
+    if ready_cursor < len(ready_frontiers):
+        stage_frontier_reuse = dict(ready_frontiers[ready_cursor])
+        prepared = _load(
+            Path(str(stage_frontier_reuse["prepared_state_path"]))
+        )
+        stage_cycle = _load(
+            Path(str(stage_frontier_reuse["cycle_evidence_path"]))
+        )
+        leaf_checkpoints, global_checkpoint, stage_story_types = (
+            _semantic_resume_checkpoints_from_probe(stage_cycle)
+        )
+        stage_binding["ready_frontier_cursor"] = ready_cursor + 1
+        state["stage_a_evidence_binding"] = stage_binding
+    else:
+        prepared = build_prepared_rolling_x_candidate_state(
+            rolling_input=rolling,
+            prepared_at_utc=state["cutoff_utc"],
+            evaluated_headline_ids=state.get("evaluated_headline_ids") or [],
+        )
     frontier_root = root / f"frontier_{number}"
     prepared_path = frontier_root / "prepared_candidate_state_v1.json"
     _write(prepared_path, prepared)
@@ -870,6 +1114,19 @@ def probe(
         ).exists():
             suffix += 1
         probe_dir = frontier_root / f"route_probe_attempt_{suffix}"
+    reuse_root_value = (
+        (state.get("stage_a_evidence_binding") or {}).get(
+            "stage_a_evidence_root"
+        )
+    )
+    reuse_acquirer = (
+        _StageAEvidenceReuseAcquirer(
+            stage_a_root=Path(str(reuse_root_value)),
+            evaluation_as_of_utc=str(state["cutoff_utc"]),
+        )
+        if reuse_root_value
+        else None
+    )
     result = _run_rolling_x_newsroom_cycle(
         run_id=f"v1-current-floor-frontier-{number}-route-probe",
         output_dir=probe_dir,
@@ -881,10 +1138,37 @@ def probe(
         destination_readiness_override=_ready(),
         acceptance_profile=state.get("acceptance_profile"),
         published_corpus=_published_corpus_from_state(state),
+        evidence_acquirer=reuse_acquirer,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
+        story_type_by_cluster=stage_story_types,
     )
     route = dict(result.get("editorial_worker_routing") or {})
     row = _frontier_row(number=number, prepared=prepared, result=result, path=probe_dir)
     row["prepared_state_path"] = str(prepared_path)
+    if stage_frontier_reuse:
+        row["stage_a_prepared_frontier_reuse"] = stage_frontier_reuse
+        row["stage_a_router_checkpoints_reused"] = True
+    if reuse_acquirer is not None:
+        reuse_manifest = reuse_acquirer.manifest()
+        manifest_path = frontier_root / "stage_a_evidence_reuse_v1.json"
+        _write(manifest_path, reuse_manifest)
+        row["stage_a_evidence_reuse_path"] = str(manifest_path)
+        row["stage_a_evidence_reuse_sha256"] = _sha(reuse_manifest)
+        row["stage_a_evidence_reuse_hit_count"] = int(
+            reuse_manifest.get("reuse_hit_count") or 0
+        )
+        row["stage_a_evidence_fallback_call_count"] = int(
+            reuse_manifest.get("fallback_call_count") or 0
+        )
+        state["stage_a_evidence_reuse_hits"] = [
+            *list(state.get("stage_a_evidence_reuse_hits") or []),
+            *list(reuse_manifest.get("reuse_hits") or []),
+        ]
+        state["stage_a_evidence_fallback_calls"] = [
+            *list(state.get("stage_a_evidence_fallback_calls") or []),
+            *list(reuse_manifest.get("fallback_calls") or []),
+        ]
     if route.get("decision") == "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER":
         if int(state.get("xhigh_attempt_count") or 0) >= MAX_XHIGH_ATTEMPTS:
             raise ValueError("xhigh_attempt_budget_exhausted")
@@ -1254,6 +1538,7 @@ def main() -> int:
     parser.add_argument("--task-label", default=TASK)
     parser.add_argument("--acceptance-profile")
     parser.add_argument("--continuity-root", type=Path)
+    parser.add_argument("--stage-a-evidence-root", type=Path)
     parser.add_argument(
         "--current-durable-state",
         action="store_true",
@@ -1275,6 +1560,11 @@ def main() -> int:
             args.task_label,
             args.acceptance_profile,
             args.current_durable_state,
+            (
+                args.stage_a_evidence_root.resolve(strict=True)
+                if args.stage_a_evidence_root
+                else None
+            ),
         )
     elif args.action == "probe-locator-recovery":
         if args.continuity_root is None:

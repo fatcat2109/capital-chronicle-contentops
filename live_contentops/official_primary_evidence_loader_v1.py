@@ -523,6 +523,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
         clock: Callable[[], datetime] | None = None,
         source_locator: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
         pdf_text_extractor: Callable[[bytes], str] | None = None,
+        shared_request_budget: dict[str, int] | None = None,
     ) -> None:
         evaluation_as_of = datetime.fromisoformat(
             evaluation_as_of_utc.replace("Z", "+00:00")
@@ -547,7 +548,19 @@ class BoundedOfficialPrimaryEvidenceLoader:
             )
         self._source_locator = source_locator
         self._request_count = 0
+        self._shared_request_budget = shared_request_budget
         self._story_scope_acquisition_cache: dict[str, dict[str, Any]] = {}
+
+    def _consume_request(self) -> None:
+        if self._request_count >= self._max_requests:
+            raise RuntimeError("official_source_request_budget_exhausted")
+        if self._shared_request_budget is not None:
+            used = int(self._shared_request_budget.get("used") or 0)
+            limit = int(self._shared_request_budget.get("limit") or 0)
+            if used >= limit:
+                raise RuntimeError("official_source_request_budget_exhausted")
+            self._shared_request_budget["used"] = used + 1
+        self._request_count += 1
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         requested_families = [
@@ -639,10 +652,11 @@ class BoundedOfficialPrimaryEvidenceLoader:
             blockers.append("official_source_family_not_launch_supported")
         if not urls:
             if requested_families and (not binding_rows or public_binding_rows_present):
-                if self._request_count >= self._max_requests:
+                try:
+                    self._consume_request()
+                except RuntimeError:
                     blockers.append("official_source_request_budget_exhausted")
                 else:
-                    self._request_count += 1
                     locator_request_count = 1
                     located = self._source_locator({
                         **dict(request),
@@ -692,9 +706,7 @@ class BoundedOfficialPrimaryEvidenceLoader:
             allowed_hosts = set(OFFICIAL_HOSTS_BY_FAMILY[family])
             try:
                 requested_url, host = _safe_url(url, allowed_hosts)
-                if self._request_count >= self._max_requests:
-                    raise RuntimeError("official_source_request_budget_exhausted")
-                self._request_count += 1
+                self._consume_request()
                 official_evidence_get_count = 1
                 response = dict(
                     self._http_get(
