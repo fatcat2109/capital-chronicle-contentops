@@ -83055,7 +83055,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-24T11:08:03Z",
+  "generation_timestamp_utc": "2026-08-24T11:37:17Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -129171,7 +129171,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/views/SimpleRunDashboard.tsx::SimpleRunDashboard",
       "kind": "typescript_export",
-      "line": 119,
+      "line": 197,
       "path": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx",
       "symbol": "SimpleRunDashboard"
     },
@@ -130015,7 +130015,7 @@
     {
       "id": "ui/contentops_v5/src/test/simple_run_dashboard.test.tsx",
       "kind": "test",
-      "size_bytes": 6815
+      "size_bytes": 9045
     },
     {
       "id": "ui/contentops_v5/src/test/supervised_input_stub_contract.test.tsx",
@@ -130165,7 +130165,7 @@
     {
       "id": "ui/contentops_v5/src/views/SimpleRunDashboard.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 12278
+      "size_bytes": 18960
     },
     {
       "id": "ui/contentops_v5/src/views/SubstackArticleStudioCard.tsx",
@@ -130506,6 +130506,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "7240ff95c39ec7595be1fc818ee39688c19eb8a0",
-  "source_tree_digest": "f85c50dd7e77eca923b40d7360d9a2252c71bde21f542f914ecf231931f7f674"
+  "source_head": "91ffd383a8708c7eca4dddf35cfdd7c26c83a6a7",
+  "source_tree_digest": "e82caa172488fdd12bcff3e0f90b660932f1a309b661ccf9a681868c56cbccb3"
 }
