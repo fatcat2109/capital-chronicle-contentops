@@ -1114,6 +1114,7 @@ def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):
     assert smoke["readback_wiring_not_none"] is True
     assert smoke["performance_wiring_not_none"] is True
     assert smoke["learning_enabled"] is True
+    assert smoke["scheduled_editorial_owner"] == "NATIVE_DESKTOP_AUTOMATION"
     assert smoke["public_write_performed"] is False
 
 

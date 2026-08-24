@@ -45,7 +45,7 @@ Older V1 task packets and branch handoffs are exact historical evidence only whe
 
 ## Current next gate
 
-`ZERO-WRITE AUTOMATION ENABLEMENT / CALENDAR-TIME UNATTENDED RUNTIME PROOF`
+`ZERO-WRITE ROUTINE STARVATION / OWNERSHIP CORRECTION AND PROSPECTIVE CALENDAR PROOF`
 
 The canonical article path and provider-resilient discovery path are accepted. The four existing
 routine host prompts now match the repo-derived FAST-SHIP hash and all four remain paused. The next
@@ -66,9 +66,14 @@ Desktop standalone fresh-run Automations remain the primary routine heavy-editor
 remains bounded missed/failed-primary fallback, immediate direct path, and benchmark path under the
 same canonical run identity.
 
-Exactly four native V1 routine Automations exist and are `PAUSED` on the correct model/effort/
-schedules/project. Their prompts share the repo-derived FAST-SHIP hash. This configuration is
-accepted host truth; calendar-time execution remains unproven. No fifth task may be created.
+Exactly four native V1 routine Automations exist on the correct model/effort/schedules/project.
+The 2026-08-24 21:00 evidence is `PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and
+`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G created, claimed, executed, and terminalized the
+canonical scheduled opportunity while the old 4/32 pacing logic allocated zero work. Codex Desktop
+was not running during that window, so native Desktop Automation calendar execution remains
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. All four are held paused while the corrected single-owner,
+five-reachability, readiness-separated prompt/runtime bytes are deployed and read back. No fifth
+task may be created.
 
 ## Locked progression order
 

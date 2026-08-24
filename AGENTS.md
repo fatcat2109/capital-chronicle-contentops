@@ -94,6 +94,14 @@ Candidate-level abstention is allowed. A candidate semantic failure preserves it
 does not halt the whole opportunity while another governed candidate can qualify. Whole-day deficit
 is not healthy success.
 
+Every routine editorial opportunity below the final minimum of five useful articles performs a
+real governed candidate walk unless the useful universe is genuinely exhausted or an exact hard
+external blocker exists. The 4/32 telemetry checkpoint is never a per-window stop condition.
+Bounded catch-up capacity is derived from five-article reachability through the remaining routine
+windows, independently from the 0..4 routine-opportunity counter. In zero-write/SHADOW_ONLY,
+destination readiness is publication diagnostics and cannot veto article creation or a warranted
+fresh XHIGH worker; actual dispatch remains fail-closed on its exact readiness/identity boundary.
+
 If a post-launch throughput proof ends below the 4/32 floor without an exact hard external blocker, classify:
 
 `DEGRADED_DAILY_OUTPUT_DEFICIT`
@@ -123,12 +131,18 @@ missed/failed Desktop primary, the direct path where immediate supported invocat
 and the benchmark/controlled-experiment path. Neither model path has factual, numeric, permission,
 gate, or public-write authority.
 
-Fresh supported host readback proves exactly four existing native V1 Automations, all `PAUSED`, at
+Fresh supported host readback proves exactly four existing native V1 Automations. The 2026-08-24
+21:00 evidence is `PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and
+`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G created, claimed, executed, and terminalized the
+canonical scheduled window while the old pacing checkpoint allocated zero editorial work. Codex
+Desktop was not running for that window, so native Desktop Automation calendar execution remains
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` and must not be inferred. The correction keeps FDA-G as
+intake/state/runtime authority while making native Desktop the sole routine heavy-editorial owner.
+The four objects are held `PAUSED` during correction, at
 the 17:00/21:00/23:00/following-01:00 Bangkok windows with `gpt-5.6-sol / HIGH`. Their prompts now
-match the one repo-derived FAST-SHIP routine prompt. Calendar-time execution remains unproven and
-the supported surface exposes no run-now action. Do not create a fifth window. Prompt normalization
-is complete; zero-write enablement/calendar-time proof and routine public-write authority remain
-separate later owner gates.
+must match the corrected repo-derived routine prompt. Broader unattended/cold-start/fallback proof
+remains open and the supported surface exposes no run-now action. Do not create a fifth window.
+Routine public-write authority remains a separate later owner gate.
 
 `live_contentops/codex_desktop_newsroom_operator_v1.py` supplies the canonical run identity and
 Desktop-primary/SDK-fallback arbitration; it is not a second scheduler or public-write grant. Do not

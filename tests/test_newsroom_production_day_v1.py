@@ -22,6 +22,9 @@ from live_contentops.newsroom_production_day_v1 import (
     newsroom_production_day_id,
     persist_qualified_article_record,
     qualify_zero_write_article,
+    remaining_future_routine_windows,
+    routine_progress_target,
+    routine_session_ordinal,
 )
 
 
@@ -213,7 +216,7 @@ def test_floor_states_and_bounded_catchup_are_deterministic(tmp_path):
     assert empty.production_day_state == STATE_ON_TRACK
     assert bounded_deficit_work_needed(
         session="new_york_2300_bangkok", qualified_articles_today=1
-    ) == 2
+    ) == 3
     _record(tmp_path, suffix="one", day_id=day_id)
     lagging = build_production_day_snapshot(
         reference=reference, output_root=tmp_path, routine_opportunities_used_override=2
@@ -248,6 +251,41 @@ def test_floor_states_and_bounded_catchup_are_deterministic(tmp_path):
     assert floor.qualified_articles_today == 4
     assert floor.remaining_build_deficit == 0
     assert floor.production_day_state == STATE_FLOOR_MET
+
+
+def test_final_minimum_reachability_never_starves_a_routine_opportunity():
+    assert bounded_deficit_work_needed(
+        session="new_york_2100_bangkok", qualified_articles_today=2
+    ) >= 1
+    assert bounded_deficit_work_needed(
+        session="new_york_2300_bangkok", qualified_articles_today=2
+    ) >= 2
+    assert bounded_deficit_work_needed(
+        session="new_york_0100_bangkok", qualified_articles_today=4
+    ) >= 1
+    # The build floor is telemetry; it cannot suppress work below the final minimum.
+    assert bounded_deficit_work_needed(
+        session="new_york_0100_bangkok", qualified_articles_today=4
+    ) == 1
+    # At 5-8, quota pressure disappears but one normal useful-story walk remains available.
+    assert bounded_deficit_work_needed(
+        session="new_york_2300_bangkok", qualified_articles_today=5
+    ) == 1
+
+
+def test_routine_opportunity_accounting_is_independent_from_article_pacing():
+    assert routine_session_ordinal("london_1700_bangkok") == 1
+    assert routine_session_ordinal("new_york_2100_bangkok") == 2
+    assert routine_session_ordinal("new_york_2300_bangkok") == 3
+    assert routine_session_ordinal("new_york_0100_bangkok") == 4
+    assert remaining_future_routine_windows("new_york_2300_bangkok") == 1
+    assert routine_progress_target("new_york_2300_bangkok") == 3
+    assert bounded_deficit_work_needed(
+        session="new_york_2300_bangkok", qualified_articles_today=2
+    ) == 2
+    assert bounded_deficit_work_needed(
+        session="not-a-routine-window", qualified_articles_today=0
+    ) == 0
 
 
 def test_published_article_count_uses_canonical_article_identity_not_derivative_count(tmp_path):

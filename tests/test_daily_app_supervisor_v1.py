@@ -12,6 +12,7 @@ from live_contentops.daily_app_supervisor_v1 import (
     build_bootstrap_editorial_window_policy,
     editorial_window_id,
     material_event_due,
+    SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
     TRIGGER_SCHEDULED,
     TRIGGER_MATERIAL_EVENT,
     WINDOW_EXECUTED_STATES,
@@ -46,6 +47,7 @@ def _supervisor(
     cycle=_USE_DEFAULT_CYCLE,
     policy=None,
     owner_ref=None,
+    scheduled_editorial_owner=None,
 ):
     calls = []
     newsroom_cycle = None if cycle is _USE_DEFAULT_CYCLE else cycle
@@ -57,11 +59,39 @@ def _supervisor(
         newsroom_cycle=newsroom_cycle,
         policy=policy,
         owner_ref=owner_ref,
+        **(
+            {"scheduled_editorial_owner": scheduled_editorial_owner}
+            if scheduled_editorial_owner is not None
+            else {}
+        ),
     )
     if newsroom_cycle is None:
         # Replace the default canonical facade with a controlled recorder for isolation.
         supervisor._newsroom_cycle = _controlled_cycle(calls)
     return supervisor, calls
+
+
+def test_fda_g_does_not_consume_native_desktop_owned_scheduled_window(tmp_path):
+    now = datetime(2026, 8, 24, 14, 0, tzinfo=timezone.utc)
+    supervisor, calls = _supervisor(
+        tmp_path,
+        clock=lambda: now,
+        scheduled_editorial_owner=SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+    )
+
+    due = supervisor._currently_due_scheduled_windows(now)
+    assert any(row["session"] == "new_york_2100_bangkok" for row in due)
+    report = supervisor.tick(now=now)
+
+    assert report["windows_due"] == 0
+    assert report["windows_dispatched"] == 0
+    assert report["newsroom_cycle_invocations"] == 0
+    assert calls == []
+    with supervisor._store.get_read_only_connection() as connection:
+        assert connection.execute(
+            "SELECT COUNT(*) FROM work_items "
+            "WHERE target_surface='daily_app_editorial_window'"
+        ).fetchone()[0] == 0
 
 
 def test_source_route_health_snapshot_persists_in_existing_output_state_and_reloads(
@@ -392,8 +422,9 @@ def test_later_window_runs_bounded_catchup_only_after_each_qualified_article(
 
     assert report["windows_dispatched"] == 1
     assert report["newsroom_cycle_invocations"] == 1
-    assert len(calls) == 2
+    assert len(calls) == 3
     assert calls[1]["run_id"].endswith("-catchup-02")
+    assert calls[2]["run_id"].endswith("-catchup-03")
     assert calls[0]["newsroom_production_day_id"] == day_id
     assert calls[0]["quota_discovery_prior_accounting"][
         "deterministic_network_requests"
@@ -401,6 +432,9 @@ def test_later_window_runs_bounded_catchup_only_after_each_qualified_article(
     assert calls[1]["quota_discovery_prior_accounting"][
         "deterministic_network_requests"
     ] == 20
+    assert calls[2]["quota_discovery_prior_accounting"][
+        "deterministic_network_requests"
+    ] == 30
 
 
 def test_duplicate_tick_does_not_invoke_cycle_twice(tmp_path):

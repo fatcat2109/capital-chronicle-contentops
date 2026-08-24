@@ -14,6 +14,11 @@ governed candidate when available. Pure alias, structured-data, SEO-metadata, an
 annotation differences are deterministic repair/warning concerns; truth, evidence, numeric/Capital
 Chronicle authority, quotation, permission, public-write identity, and `UNKNOWN_WRITE` remain hard.
 The final target remains 5–8 useful published articles per production day without filler.
+Every routine opportunity below five must walk governed candidates unless the useful universe is
+genuinely exhausted or an exact hard external blocker exists. Meeting an intermediate 4/32 pacing
+checkpoint never suppresses the walk. Publication readiness and zero-write editorial eligibility
+are separate axes; a destination HOLD is diagnostic before public dispatch, not an article/XHIGH
+veto.
 
 ## Canonical read path
 
@@ -112,11 +117,14 @@ resilient fallback for an exact missed/failed Desktop primary, the direct path f
 supported invocation, and the benchmark/controlled-experiment path. It may not race an accepted
 Desktop result or create a duplicate article/public object.
 
-Fresh supported host readback proves exactly four native V1 routine Automation objects, all
-`PAUSED`, configured for `gpt-5.6-sol / HIGH` at the four Bangkok windows. Only those four prompts
-were updated; all now match the one repo-derived FAST-SHIP prompt, no fifth routine object was
-created, and nothing was enabled. The supported surface exposes no run-now operation. Calendar-time
-native execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`.
+Fresh supported host readback proves exactly four native V1 routine Automation objects configured
+for `gpt-5.6-sol / HIGH` at the four Bangkok windows. The 2026-08-24 21:00 evidence is
+`PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: safe durable
+metadata proves FDA-G's supervisor actor created, claimed, executed, and terminalized the canonical
+scheduled opportunity. Codex Desktop was not running during that window, so native Desktop
+Automation calendar execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. The correction makes
+native Desktop the scheduled heavy-editorial owner and holds all four objects paused until corrected
+repo and prompt bytes are safely deployable. No fifth routine object exists.
 
 Current subordinate statements such as:
 

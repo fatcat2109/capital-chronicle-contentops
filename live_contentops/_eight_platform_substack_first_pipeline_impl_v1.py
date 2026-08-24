@@ -5960,7 +5960,11 @@ def _run_rolling_x_newsroom_cycle(
                 },
             },
             readiness_checked_before_editorial=publication_enabled,
-            readiness_state="READY" if publication_enabled else "NOT_APPLICABLE_SHADOW",
+            readiness_state=(
+                str(readiness.get("status") or "UNKNOWN")
+                if publication_enabled
+                else "NOT_APPLICABLE_SHADOW"
+            ),
             article_mode=editorial_article_mode,
         )
 

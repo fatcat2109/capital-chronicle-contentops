@@ -95,6 +95,12 @@ At each scheduled Desktop opportunity after explicit owner enablement:
    bounded cost/retry limits are reached, or a hard external blocker occurs;
 9. persist deficit before/after and terminal reasons.
 
+Every routine opportunity below five useful articles performs at least one real candidate walk.
+Intermediate 4/32 pacing never authorizes a zero-work exit. Allocate extra article slots when
+needed to keep five reachable through the remaining routine windows; this capacity never permits
+filler or weaker gates. Routine session ordinal/opportunities-used accounting is independent from
+article progress.
+
 Do not loop forever or repeatedly research unchanged terminal candidates.
 
 ## 6. Editorial spectrum
@@ -147,12 +153,21 @@ assertion, permission/publication identity failure, and `UNKNOWN_WRITE`. Never i
 omits something merely because a partial evidence projection lacks it. A genuine terminal semantic
 failure does not authorize provider shopping.
 
+In ZERO-WRITE/SHADOW_ONLY, destination readiness is publication diagnostics, not an editorial or
+XHIGH gate. A qualified article may persist exactly eight undispatched intents through a HOLD.
+Actual Substack dispatch still requires exact canonical readiness/identity; derivative readiness is
+destination-local, and `UNKNOWN_WRITE` remains hard.
+
 ## 9. Desktop Automation and SDK arbitration rule
 
-Current supported host truth proves exactly four native routine Automation objects, all `PAUSED`,
-with the four schedules above and `gpt-5.6-sol / HIGH`. Their prompts now share the exact current
-repo-derived FAST-SHIP hash. The supported surface exposes no run-now action, so calendar-time
-execution remains unproven.
+Current supported host truth proves exactly four native routine Automation objects with the four
+schedules above and `gpt-5.6-sol / HIGH`. The 2026-08-24 21:00 evidence is
+`PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: safe durable
+metadata proves FDA-G's supervisor created, claimed, executed, and terminalized the canonical
+scheduled window. Codex Desktop was not running during that window, so native Desktop Automation
+calendar execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. During correction all four
+objects remain paused. The corrected architecture leaves FDA-G as intake/state/runtime authority
+and makes native Desktop the sole scheduled heavy-editorial owner.
 
 Prompt normalization/readback is complete without creating a fifth routine object. No task is
 enabled by this contract. Zero-write enablement/calendar-time proof and routine public-write

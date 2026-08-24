@@ -64,6 +64,11 @@ A production day ending below the build floor without a proven hard external blo
 
 It must never be reported as healthy success merely because individual candidate abstentions were governed.
 
+Every routine opportunity below the final minimum of five is an editorial opportunity, not a quota
+checkpoint exit. It must walk the governed candidate universe unless that universe is genuinely
+exhausted or an exact hard external blocker exists. Catch-up capacity must keep five reachable
+through later routine windows; routine-opportunity accounting remains a separate 0..4 counter.
+
 Examples of acceptable hard external blockers include source-universe unavailability, provider-wide failure after bounded fallback, required credential/reauth unavailability, runtime unavailability, or evidence authority that is genuinely impossible across the full useful editorial ladder. Truth/evidence gates must never be weakened to avoid a deficit.
 
 ## 3. Newsroom production-day semantics
@@ -176,6 +181,11 @@ Canonical lifecycle:
 `qualified article -> exact Substack identity/readiness -> canonical publish/readback -> eight derivative package attempts -> destination-local recovery -> strict reconciliation`
 
 `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`
+
+Editorial eligibility and destination readiness are separate axes. In zero-write/SHADOW_ONLY, a
+readiness HOLD cannot veto canonical article generation, validation, or eight undispatched
+derivative intents. At public-write time, Substack readiness gates its dispatch and derivative
+readiness is destination-local; neither can erase a valid canonical article.
 
 A derivative-local outage does not erase canonical truth. The completed Italy canary supplies the
 required nine-surface technical proof for its exact owner-scoped obligation; it grants no routine

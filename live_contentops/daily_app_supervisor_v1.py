@@ -47,6 +47,11 @@ CANONICAL_CAPITAL_CHRONICLE_ROOT = Path(r"A:\Capital Chronicle\Main App")
 OPERATING_MODES = frozenset(
     {"AUTONOMOUS_DEFAULT", "SUPERVISED_OPERATOR_GATE", "SHADOW_ONLY", "KILL_SWITCH"}
 )
+SCHEDULED_EDITORIAL_OWNER_FDA_G = "FDA_G_SUPERVISOR"
+SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP = "NATIVE_DESKTOP_AUTOMATION"
+SCHEDULED_EDITORIAL_OWNERS = frozenset(
+    {SCHEDULED_EDITORIAL_OWNER_FDA_G, SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP}
+)
 
 #: Work-item states that indicate an editorial window has already been executed (or recovered)
 #: and must not be re-executed. Only DISCOVERED is fresh. EVIDENCE_PENDING is handled
@@ -441,6 +446,7 @@ class ContentOpsDailyAppSupervisor:
         interaction_classifier: Optional[Callable[..., Mapping[str, Any]]] = None,
         performance_learning_enabled: bool = False,
         intake_housekeeping: Optional[Callable[..., Mapping[str, Any]]] = None,
+        scheduled_editorial_owner: str = SCHEDULED_EDITORIAL_OWNER_FDA_G,
     ) -> None:
         requested_mode = operating_mode or "AUTONOMOUS_DEFAULT"
         if requested_mode not in OPERATING_MODES:
@@ -509,6 +515,10 @@ class ContentOpsDailyAppSupervisor:
         self._output_root = Path(output_root)
         self._lease_ttl_seconds = int(lease_ttl_seconds)
         self._sidecar_glob = sidecar_glob
+        owner = str(scheduled_editorial_owner or "").strip().upper()
+        if owner not in SCHEDULED_EDITORIAL_OWNERS:
+            raise ValueError(f"scheduled_editorial_owner_invalid:{scheduled_editorial_owner}")
+        self._scheduled_editorial_owner = owner
 
     # -- public API -----------------------------------------------------------
 
@@ -2423,7 +2433,15 @@ class ContentOpsDailyAppSupervisor:
     def _due_windows(
         self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
     ) -> list[dict[str, Any]]:
-        windows = self._currently_due_scheduled_windows(now)
+        # FDA-G maintains intake/state/runtime truth but the native Desktop Automation is the
+        # primary routine heavy-editorial brain in production.  When that owner is selected,
+        # FDA-G must not create, claim, or terminalize the same scheduled opportunity first.
+        windows = (
+            []
+            if self._scheduled_editorial_owner
+            == SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP
+            else self._currently_due_scheduled_windows(now)
+        )
         # Scheduled core windows for the current day (and previous day for late ticks). A
         # scheduled window is due only while we are inside [start, end + small grace]; it does
         # not stay due long after it ends. minimum_cycle_spacing_hours remains an anti-spam
@@ -3036,7 +3054,7 @@ class ContentOpsDailyAppSupervisor:
                 persist_qualified_article_record,
                 qualify_zero_write_article,
                 qualified_records_as_published_memory,
-                routine_progress_target,
+                routine_session_ordinal,
             )
 
             canonical_published_memory = list(
@@ -3157,12 +3175,14 @@ class ContentOpsDailyAppSupervisor:
                 for row in material_priorities
                 if str(row.get("priority_id") or "")
             }
-            current_progress = routine_progress_target(
+            current_opportunity_ordinal = routine_session_ordinal(
                 str(window.get("session") or "")
             )
             used_after = max(
                 production_before.routine_opportunities_used,
-                current_progress if managed_daily_output else production_before.routine_opportunities_used,
+                current_opportunity_ordinal
+                if managed_daily_output
+                else production_before.routine_opportunities_used,
             )
             hard_external_reason = None
             exact_reason = str(result.get("exact_next_blocker") or "")

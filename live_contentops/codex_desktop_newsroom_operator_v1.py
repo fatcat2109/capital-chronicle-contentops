@@ -139,9 +139,13 @@ DESKTOP_TASK_PROMPT = (
     "exact input hash. Its source-bound factual copy must use only the exact supplied "
     "[[SOURCE:SOURCE_N]] markers and must never invent or alter URLs, handles, source IDs, evidence IDs, "
     "or facts. Grant it zero factual, numeric, Capital Chronicle, permission, or public-write authority "
-    "and allow at most one bounded editorial revision. Do not spawn XHIGH for no headline, duplicate-only, "
-    "no qualified candidate, evidence block, readiness HOLD checked before editorial work, recovery-only, "
-    "or metrics/learning-only work. If the worker is unavailable or its hash-bound return is invalid, "
+    "and allow at most one bounded editorial revision. Every routine opportunity below five useful articles "
+    "must perform a real candidate walk; meeting an intermediate 4/32 pacing checkpoint is never a skip "
+    "condition, and bounded catch-up may qualify more than one distinct useful article when needed to keep "
+    "five reachable through the remaining windows. In ZERO-WRITE or SHADOW_ONLY, destination readiness HOLD "
+    "is publication diagnostics, not an editorial or XHIGH veto. Do not spawn XHIGH for no headline, "
+    "duplicate-only, no qualified candidate, evidence block, recovery-only, or metrics/learning-only work. "
+    "If the worker is unavailable or its hash-bound return is invalid, "
     "record that exact candidate blocker and continue only to another eligible governed candidate; use "
     "no legacy writer fallback. After return, HIGH resumes all deterministic validation, publication "
     "coordination, strict readback/reconciliation, observation scheduling, and terminal reporting. "
@@ -160,7 +164,10 @@ MANUAL_GO_PROMPT = (
     "candidates before writing. Use the proven provider-resilient discovery/evidence path without "
     "rebuilding PR #19. Record any candidate hard blocker and continue to another eligible governed "
     "candidate; locally repair pure representation/SEO/structured-data defects before another model "
-    "call, and never provider-shop after terminal semantic failure. Spawn exactly one fresh isolated "
+    "call, and never provider-shop after terminal semantic failure. Every routine opportunity below five "
+    "useful articles must walk candidates even when an intermediate 4/32 pacing checkpoint is met; bounded "
+    "catch-up may qualify multiple distinct useful articles when required to keep five reachable. ZERO-WRITE "
+    "destination readiness HOLD is publication diagnostics, not an editorial/XHIGH veto. Spawn exactly one fresh isolated "
     "gpt-5.6-sol / XHIGH editorial worker only when one candidate's governed evidence warrants a final "
     "canonical article, including BREAKING_BRIEF; otherwise use HIGH only. Require its source-bound "
     "factual copy to use only the exact supplied [[SOURCE:SOURCE_N]] markers and never invent or alter "
@@ -547,8 +554,6 @@ def build_editorial_worker_routing_packet(
     """
     state = str(opportunity_state or "").strip().upper()
     current_readiness = str(readiness_state or "UNKNOWN").strip().upper()
-    if state == "ARTICLE_QUALIFIED" and readiness_checked_before_editorial and current_readiness != "READY":
-        state = "FULL_DISTRIBUTION_READINESS_BLOCKED"
     if state not in NO_EDITORIAL_WORKER_PATHS and state != "ARTICLE_QUALIFIED":
         raise ValueError("desktop_editorial_opportunity_state_unknown")
 
@@ -563,6 +568,7 @@ def build_editorial_worker_routing_packet(
         "opportunity_state": state,
         "readiness_checked_before_editorial": bool(readiness_checked_before_editorial),
         "readiness_state": current_readiness,
+        "readiness_is_publication_diagnostic_only": state == "ARTICLE_QUALIFIED",
         "desktop_bridge_created": False,
         "scheduler_or_queue_created": False,
         "public_write_performed": False,
