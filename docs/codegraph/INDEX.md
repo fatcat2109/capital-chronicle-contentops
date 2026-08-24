@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `bc2af5a195732fbf9d509a183fb7b117cc24ef62`
-Source tree digest: `c0a29f4aaf2a1c451106638b3ab05b2ef8cb839f03e6c234e0cdd645c67423b7`
+Source HEAD: `91ffd383a8708c7eca4dddf35cfdd7c26c83a6a7`
+Source tree digest: `e82caa172488fdd12bcff3e0f90b660932f1a309b661ccf9a681868c56cbccb3`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.1`
 
 This generated map is descriptive, not product authority.
@@ -31,6 +31,7 @@ This generated router is subordinate to root `AGENTS.md`. Never use it to bypass
 | `explicit_llm_resume` | `RESUME_CONTENTOPS_LLM.cmd` | `RESUME_CONTENTOPS_LLM.cmd` |
 | `one_click_emergency_stop` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` |
 | `one_click_launcher` | `Start_ContentOps_Daily_App.cmd` | `Start_ContentOps_Daily_App.cmd` |
+| `operator_script` | `Start_ContentOps_Simple_Run_Dashboard.cmd` | `Start_ContentOps_Simple_Run_Dashboard.cmd` |
 | `canonical_cli` | `live_contentops/cli.py` | `python -m live_contentops.cli` |
 | `daily_app_launcher` | `live_contentops/daily_app_launcher_v1.py` | `python -m live_contentops.daily_app_launcher_v1` |
 | `daily_app_supervisor` | `live_contentops/daily_app_supervisor_v1.py` | `ContentOpsDailyAppSupervisor` |
@@ -42,6 +43,7 @@ This generated router is subordinate to root `AGENTS.md`. Never use it to bypass
 | `operator_script` | `scripts/Resolve-ContentOpsV1Runtime.ps1` | `scripts/Resolve-ContentOpsV1Runtime.ps1` |
 | `operator_script` | `scripts/Resume-ContentOpsLLM.ps1` | `scripts/Resume-ContentOpsLLM.ps1` |
 | `operator_script` | `scripts/Start-ContentOpsDailyApp.ps1` | `scripts/Start-ContentOpsDailyApp.ps1` |
+| `operator_script` | `scripts/Start-ContentOpsSimpleRunDashboard.ps1` | `scripts/Start-ContentOpsSimpleRunDashboard.ps1` |
 | `operator_script` | `scripts/Stop-ContentOpsBackground.ps1` | `scripts/Stop-ContentOpsBackground.ps1` |
 | `canonical_ui` | `ui/contentops_v5/src/main.tsx` | `npm run dev/build/test in ui/contentops_v5` |
 
@@ -157,4 +159,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7304` nodes and `13804` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7311` nodes and `13815` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

@@ -29,7 +29,7 @@ const NAV: Array<{ group: string; items: Array<{ id: DailyView; label: string; i
   { group: 'Reference', items: [{ id: 'audit', label: 'Evidence / Audit', icon: BookOpenCheck }] },
 ];
 
-function useDailyAppSnapshot(): [LoadState, () => Promise<void>] {
+export function useDailyAppSnapshot(): [LoadState, () => Promise<void>] {
   const [state, setState] = useState<LoadState>({ kind: 'loading', snapshot: null, error: null });
   const refresh = useCallback(async () => {
     try {
