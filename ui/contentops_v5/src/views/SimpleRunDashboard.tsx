@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { CSSProperties } from 'react';
 import {
-  Activity, AlertTriangle, Check, CheckCircle2, Clock3, FileCheck2,
-  Leaf, LoaderCircle, RefreshCw, ShieldCheck, Sparkles, WifiOff,
+  Activity, AlertTriangle, Check, CheckCircle2, ChevronRight, Clock3, FileCheck2,
+  History, Leaf, LoaderCircle, RefreshCw, ShieldCheck, Sparkles, WifiOff, X,
 } from 'lucide-react';
 import type { DailyAppSnapshot, RuntimeCockpit, RuntimePrimaryState } from '../dailyAppTypes';
 import { useDailyAppSnapshot } from './DailyAppConsole';
@@ -78,18 +78,96 @@ function timeUntil(value: string | null | undefined, now: Date) {
   return hours ? `${hours}g ${rest}p nữa` : `${rest} phút nữa`;
 }
 
-function simpleStatus(cockpit: RuntimeCockpit | undefined, snapshot: DailyAppSnapshot) {
+function simpleStatus(cockpit: RuntimeCockpit | undefined, snapshot: DailyAppSnapshot, actionableCount: number) {
   const state = cockpit?.primary_state;
   if (state && RUNNING_STATES.has(state)) {
     return { tone: 'running', eyebrow: 'ĐANG CHẠY', title: 'Hệ thống đang làm việc', detail: cockpit?.current_activity?.story_label || 'Đang xử lý cơ hội mới', icon: Activity };
   }
-  if (state === 'ACTION_REQUIRED' || state === 'DEGRADED' || snapshot.incidents.active_count > 0) {
-    return { tone: 'attention', eyebrow: 'CẦN XEM', title: 'Có việc cần chú ý', detail: 'Mở cảnh báo bên dưới để xem bước tiếp theo', icon: AlertTriangle };
+  if (state === 'ACTION_REQUIRED' || state === 'DEGRADED' || actionableCount > 0) {
+    return { tone: 'attention', eyebrow: 'CẦN XEM', title: 'Có việc cần chú ý', detail: 'Bấm vào đây để xem việc cần làm', icon: AlertTriangle };
   }
   if (state === 'STOPPED' || snapshot.runtime.kill_switch_active) {
     return { tone: 'stopped', eyebrow: 'ĐANG DỪNG', title: 'Hệ thống chưa chạy', detail: 'Không có hoạt động mới', icon: WifiOff };
   }
   return { tone: 'ready', eyebrow: 'SẴN SÀNG', title: 'Hệ thống đang chờ lịch', detail: 'Mọi thứ bình thường', icon: Leaf };
+}
+
+type FriendlyIncident = {
+  key: string;
+  title: string;
+  detail: string;
+  action: string;
+  tone: 'attention' | 'resolved';
+  count: number;
+};
+
+function isActionableIncident(item: Record<string, unknown>) {
+  return String(item.severity || '').toUpperCase() !== 'RECOVERY_AUDIT';
+}
+
+function friendlyIncident(item: Record<string, unknown>): Omit<FriendlyIncident, 'count'> {
+  const text = `${String(item.what_happened || '')} ${String(item.operator_action || '')}`.toLowerCase();
+  const resolved = !isActionableIncident(item);
+  if (resolved && text.includes('stale derivative expired')) return {
+    key: 'resolved-expired', title: 'Nội dung cũ đã được đóng an toàn',
+    detail: 'Không có bài đăng mới và lịch sử đối soát vẫn được giữ lại.',
+    action: 'Không cần làm gì.', tone: 'resolved',
+  };
+  if (resolved && text.includes('transport-correction')) return {
+    key: 'resolved-transport', title: 'Một lượt phân phối đã được đối soát',
+    detail: 'Hệ thống đã giữ đúng danh tính của lượt gửi.',
+    action: 'Không cần làm gì.', tone: 'resolved',
+  };
+  if (resolved && text.includes('absence-safe')) return {
+    key: 'resolved-retry', title: 'Một lượt gửi lại đã được xác nhận',
+    detail: 'Lượt xử lý bổ sung đã kết thúc an toàn.',
+    action: 'Không cần làm gì.', tone: 'resolved',
+  };
+  if (/reauth|login|sign-in|auth_invalid/.test(text)) return {
+    key: 'login', title: 'Một kênh cần đăng nhập lại',
+    detail: 'Kênh này đang được giữ an toàn và chưa nhận nội dung mới.',
+    action: 'Đăng nhập lại đúng tài khoản được nhắc đến.', tone: 'attention',
+  };
+  if (/identity|wrong account/.test(text)) return {
+    key: 'identity', title: 'Cần kiểm tra đúng tài khoản',
+    detail: 'Hệ thống đã dừng trước khi thực hiện hành động.',
+    action: 'Xác nhận đúng tài khoản rồi làm mới dashboard.', tone: 'attention',
+  };
+  if (/heartbeat|supervisor|controller.*offline/.test(text)) return {
+    key: 'runtime', title: 'Hệ thống theo dõi chưa phản hồi',
+    detail: 'Dữ liệu vẫn được giữ nguyên và không có hành động công khai.',
+    action: 'Chờ một phút rồi bấm Làm mới.', tone: 'attention',
+  };
+  if (/unknown_write|unknown write|pending.*reconcil|retry/.test(text)) return {
+    key: 'pending-truth', title: 'Một kết quả vẫn đang được xác nhận',
+    detail: 'Hệ thống đã dừng gửi lại để tránh thao tác trùng.',
+    action: 'Không thử lại. Chờ hệ thống hoàn tất đối soát.', tone: 'attention',
+  };
+  if (/permission|scope/.test(text)) return {
+    key: 'permission', title: 'Một kênh chưa đủ quyền',
+    detail: 'Kênh này đã được tách khỏi lượt xử lý mới.',
+    action: 'Kiểm tra quyền truy cập của kênh.', tone: 'attention',
+  };
+  return resolved ? {
+    key: 'resolved-other', title: 'Một mục đã được xử lý an toàn',
+    detail: 'Lịch sử được giữ lại để tiện kiểm tra sau này.',
+    action: 'Không cần làm gì.', tone: 'resolved',
+  } : {
+    key: 'attention-other', title: 'Có một trạng thái cần kiểm tra',
+    detail: 'Hệ thống đang giữ an toàn và chưa thực hiện hành động mới.',
+    action: 'Bấm Làm mới sau một phút. Nếu vẫn còn, liên hệ người vận hành.', tone: 'attention',
+  };
+}
+
+function groupIncidents(items: Array<Record<string, unknown>>) {
+  const grouped = new Map<string, FriendlyIncident>();
+  for (const item of items) {
+    const friendly = friendlyIncident(item);
+    const current = grouped.get(friendly.key);
+    if (current) current.count += 1;
+    else grouped.set(friendly.key, { ...friendly, count: 1 });
+  }
+  return Array.from(grouped.values());
 }
 
 function opportunityState(index: number, now: Date, running: boolean, nextWake: string | null | undefined) {
@@ -120,6 +198,7 @@ function lastResult(cockpit?: RuntimeCockpit) {
 export function SimpleRunDashboard() {
   const [load, refresh] = useDailyAppSnapshot();
   const [now, setNow] = useState(() => new Date());
+  const [incidentPanel, setIncidentPanel] = useState<'attention' | 'history' | null>(null);
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 1_000);
     return () => window.clearInterval(timer);
@@ -129,10 +208,24 @@ export function SimpleRunDashboard() {
     document.title = 'ContentOps · Run Monitor';
     return () => { document.title = previous; };
   }, []);
+  useEffect(() => {
+    if (!incidentPanel) return;
+    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') setIncidentPanel(null); };
+    window.addEventListener('keydown', close);
+    return () => window.removeEventListener('keydown', close);
+  }, [incidentPanel]);
 
   const snapshot = load.snapshot;
   const cockpit = snapshot?.runtime.operator_cockpit;
-  const status = snapshot ? simpleStatus(cockpit, snapshot) : null;
+  const actionableIncidents = useMemo(
+    () => (snapshot?.incidents.items ?? []).filter(isActionableIncident),
+    [snapshot?.incidents.items],
+  );
+  const resolvedIncidents = useMemo(
+    () => (snapshot?.incidents.items ?? []).filter(item => !isActionableIncident(item)),
+    [snapshot?.incidents.items],
+  );
+  const status = snapshot ? simpleStatus(cockpit, snapshot, actionableIncidents.length) : null;
   const running = Boolean(cockpit?.primary_state && RUNNING_STATES.has(cockpit.primary_state));
   const result = snapshot ? lastResult(cockpit) : null;
   const qualified = snapshot?.today.qualified_articles_today ?? 0;
@@ -173,11 +266,11 @@ export function SimpleRunDashboard() {
 
     {load.kind === 'offline' && <div className="simple-stale"><WifiOff /> Mất kết nối · đang hiển thị dữ liệu gần nhất</div>}
 
-    <section className={`simple-hero is-${status!.tone}`}>
+    <button type="button" className={`simple-hero is-${status!.tone} ${actionableIncidents.length ? 'is-clickable' : ''}`} disabled={!actionableIncidents.length} onClick={() => setIncidentPanel('attention')}>
       <div className="simple-hero__icon"><StatusIcon /></div>
-      <div className="simple-hero__copy"><span>{status!.eyebrow}</span><h1>{status!.title}</h1><p>{status!.detail}</p></div>
+      <div className="simple-hero__copy"><span>{status!.eyebrow}</span><h1>{status!.title}</h1><p>{status!.detail}</p>{actionableIncidents.length > 0 && <em>Xem chi tiết <ChevronRight /></em>}</div>
       <div className="simple-next"><small>Lần chạy tiếp theo</small><strong>{timeUntil(nextWake, now)}</strong><span>{nextWake ? new Intl.DateTimeFormat('vi-VN', { timeZone: BANGKOK_ZONE, hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(nextWake)) : '—'}</span></div>
-    </section>
+    </button>
 
     <section className="simple-schedule" aria-label="Lịch chạy hôm nay">
       <div className="simple-section-title"><Clock3 /><span>Lịch hôm nay</span></div>
@@ -225,8 +318,20 @@ export function SimpleRunDashboard() {
       <div className="simple-stage-row">{visibleStages.map(step => <div key={step.stage} className={`simple-stage is-${step.state}`}><span>{step.state === 'completed' ? <Check /> : step.state === 'current' ? <LoaderCircle className="simple-spin" /> : null}</span><small>{STAGE_LABELS[step.stage] ?? step.label}</small></div>)}</div>
     </section>}
 
-    {snapshot.incidents.active_count > 0 && <section className="simple-alert"><AlertTriangle /><div><strong>Cần chú ý</strong><span>{snapshot.incidents.active_count} cảnh báo đang mở</span></div></section>}
+    {actionableIncidents.length > 0 && <button type="button" className="simple-alert" onClick={() => setIncidentPanel('attention')}><AlertTriangle /><div><strong>Cần chú ý</strong><span>{actionableIncidents.length} việc cần xem</span></div><ChevronRight /></button>}
+    {actionableIncidents.length === 0 && resolvedIncidents.length > 0 && <button type="button" className="simple-alert simple-alert--history" onClick={() => setIncidentPanel('history')}><History /><div><strong>Đã xử lý an toàn</strong><span>{resolvedIncidents.length} mục trong lịch sử</span></div><ChevronRight /></button>}
 
     <footer><span><i /> Tự làm mới mỗi 3 giây</span><small>Chỉ theo dõi · không đăng</small></footer>
+
+    {incidentPanel && <div className="simple-dialog-backdrop" onMouseDown={() => setIncidentPanel(null)}>
+      <section className="simple-dialog" role="dialog" aria-modal="true" aria-labelledby="simple-dialog-title" onMouseDown={event => event.stopPropagation()}>
+        <header><div><span>{incidentPanel === 'attention' ? 'VIỆC CẦN LÀM' : 'LỊCH SỬ'}</span><h2 id="simple-dialog-title">{incidentPanel === 'attention' ? 'Cần chú ý' : 'Đã xử lý an toàn'}</h2><p>{incidentPanel === 'attention' ? 'Làm theo từng bước bên dưới.' : 'Các mục này chỉ để tham khảo. Bạn không cần làm gì.'}</p></div><button type="button" onClick={() => setIncidentPanel(null)} aria-label="Đóng"><X /></button></header>
+        <div className="simple-dialog__list">{groupIncidents(incidentPanel === 'attention' ? actionableIncidents : resolvedIncidents).map(item => <article key={item.key} className={`is-${item.tone}`}>
+          <div className="simple-dialog__status">{item.tone === 'resolved' ? <CheckCircle2 /> : <AlertTriangle />}</div>
+          <div><h3>{item.title}{item.count > 1 && <small>× {item.count}</small>}</h3><p>{item.detail}</p><strong>{item.action}</strong></div>
+        </article>)}</div>
+        <button type="button" className="simple-dialog__done" onClick={() => setIncidentPanel(null)}>Đã hiểu</button>
+      </section>
+    </div>}
   </main>;
 }

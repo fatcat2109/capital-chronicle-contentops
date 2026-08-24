@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { DailyAppSnapshot, RuntimePrimaryState } from '../dailyAppTypes';
 import { SimpleRunDashboard } from '../views/SimpleRunDashboard';
@@ -80,5 +80,52 @@ describe('SimpleRunDashboard', () => {
     expect(screen.getByText('Tiến độ hiện tại')).toBeInTheDocument();
     expect(screen.getByText('Kiểm chứng')).toBeInTheDocument();
     await waitFor(() => expect(fetch).toHaveBeenCalled());
+  });
+
+  it('does not misclassify resolved recovery history as an active warning', async () => {
+    const data = snapshot();
+    data.incidents = {
+      active_count: 23,
+      empty_reason: null,
+      items: Array.from({ length: 23 }, (_, index) => ({
+        incident_id: `history-${index}`,
+        severity: 'RECOVERY_AUDIT',
+        what_happened: 'Stale derivative expired with zero public write; prior readback history retained.',
+        operator_action: 'Inspect the linked lifecycle and follow the exact recovery state.',
+      })),
+    };
+    respond(data);
+    render(<SimpleRunDashboard />);
+
+    expect(await screen.findByText('Hệ thống đang chờ lịch')).toBeInTheDocument();
+    expect(screen.queryByText('Có việc cần chú ý')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: /23 mục trong lịch sử/i }));
+    expect(screen.getByRole('dialog', { name: 'Đã xử lý an toàn' })).toBeInTheDocument();
+    expect(screen.getByText('Nội dung cũ đã được đóng an toàn')).toBeInTheDocument();
+    expect(screen.getByText('× 23')).toBeInTheDocument();
+    expect(screen.getByText('Không cần làm gì.')).toBeInTheDocument();
+  });
+
+  it('opens an actionable alert panel from the hero and closes it explicitly', async () => {
+    const data = snapshot();
+    data.incidents = {
+      active_count: 1,
+      empty_reason: null,
+      items: [{
+        incident_id: 'heartbeat-1', severity: 'HIGH',
+        what_happened: 'No current supervisor heartbeat is available.',
+        operator_action: 'Verify the Daily App supervisor process.',
+      }],
+    };
+    respond(data);
+    render(<SimpleRunDashboard />);
+
+    const hero = await screen.findByRole('button', { name: /Có việc cần chú ý/i });
+    fireEvent.click(hero);
+    expect(screen.getByRole('dialog', { name: 'Cần chú ý' })).toBeInTheDocument();
+    expect(screen.getByText('Hệ thống theo dõi chưa phản hồi')).toBeInTheDocument();
+    expect(screen.getByText('Chờ một phút rồi bấm Làm mới.')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Đóng' }));
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });
