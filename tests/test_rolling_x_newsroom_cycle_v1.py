@@ -448,6 +448,74 @@ def test_post_xhigh_validation_failure_terminalizes_candidate_and_advances_disti
     assert result["candidate_walk"]["selected_publication_candidate_rank"] == 2
 
 
+def test_native_worker_raw_source_markers_are_resolved_before_receipt_article_hash_check(
+    monkeypatch, tmp_path: Path
+):
+    viability = _walk_viability(1)
+    _configure_candidate_walk_cycle(
+        monkeypatch,
+        lambda **kwargs: viability,
+        lambda **kwargs: {
+            "status": "PASS",
+            "article": kwargs["article"],
+            "mandatory_semantic_review_calls": 0,
+            "review_history": [],
+        },
+    )
+
+    def resolve_raw(article, *, viability):
+        del viability
+        resolved = dict(article)
+        resolved["institutional_edge_editorial_packet_sha256"] = ""
+        resolved["substack_body_markdown"] = str(
+            resolved.get("substack_body_markdown") or ""
+        ).replace("[[SOURCE:SOURCE_1]]", "[Official Agency](https://example.test/source)")
+        return resolved
+
+    monkeypatch.setattr(
+        "live_contentops.rolling_x_grounded_article_media_builder_v1."
+        "resolve_editorial_worker_article_for_public_lock",
+        resolve_raw,
+    )
+
+    def builder(value):
+        raw_article = {
+            "title": "Official Event Update",
+            "cluster_id": value["selected_cluster_id"],
+            "headline_ids": value["selected_headline_ids"],
+            "effective_article_mode": "BREAKING_BRIEF",
+            "substack_body_markdown": (
+                "The official record establishes the current position. "
+                "[[SOURCE:SOURCE_1]]\n\n"
+                "The next official update remains the relevant checkpoint for readers."
+            ),
+        }
+        receipt = _xhigh_receipt(raw_article, value["editorial_worker_request"])
+        resolved_article = resolve_raw(receipt["article"], viability=value)
+        return {
+            "article": resolved_article,
+            "media": {"assets": []},
+            "critical_path_telemetry": {"article_writer_semantic_calls": 1},
+            "editorial_worker_receipt": receipt,
+        }
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="native-worker-raw-source-resolution",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-20T12:00:13Z",
+        article_builder=builder,
+        destination_readiness_override=_all_ready(),
+        publication_enabled=True,
+    )
+
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert result["candidate_walk"]["candidate_attempts"][0]["terminal_reason"] == (
+        "PUBLICATION_QUALIFIED"
+    )
+    assert "[[SOURCE:" not in result["article"]["substack_body_markdown"]
+    assert result["article"]["institutional_edge_editorial_packet_sha256"]
+
+
 def test_exhausted_native_xhigh_candidate_advances_to_distinct_fresh_worker(
     monkeypatch, tmp_path: Path
 ):

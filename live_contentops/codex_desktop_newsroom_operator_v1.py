@@ -849,12 +849,21 @@ def validate_editorial_worker_return(
     if bool(worker_return.get("public_write_attempted")):
         raise ValueError("desktop_editorial_worker_public_write_forbidden")
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
+        normalize_article_transport_representation,
         resolve_article_transport_envelope,
     )
 
     article = resolve_article_transport_envelope(worker_return)
     if not isinstance(article, Mapping) or not str(article.get("title") or "").strip():
         raise ValueError("desktop_editorial_worker_article_invalid")
+    representation_repairs: list[str] = []
+    article = normalize_article_transport_representation(
+        article,
+        context={
+            "institutional_edge_editorial_packet": dict(expected_editorial_packet or {})
+        },
+        repair_log=representation_repairs,
+    )
     editorial_validation: dict[str, Any] | None = None
     if expected_editorial_packet is not None:
         from live_contentops.capital_chronicle_institutional_edge_v1 import (
@@ -866,7 +875,7 @@ def validate_editorial_worker_return(
             editorial_packet=expected_editorial_packet,
             accepted_evidence_packet=accepted_evidence_packet,
         )
-        institutional_quality_warnings: list[str] = []
+        institutional_quality_warnings: list[str] = list(representation_repairs)
         if acceptance_profile:
             from live_contentops.mvp_canary_acceptance_v1 import (
                 institutional_edge_hard_gate,
@@ -875,8 +884,10 @@ def validate_editorial_worker_return(
 
             if is_mvp_canary_profile(acceptance_profile):
                 canary_institutional = institutional_edge_hard_gate(editorial_validation)
-                institutional_quality_warnings = list(
-                    canary_institutional.get("quality_warnings") or []
+                institutional_quality_warnings = sorted(
+                    set(institutional_quality_warnings).union(
+                        canary_institutional.get("quality_warnings") or []
+                    )
                 )
                 if canary_institutional.get("classification") != "PASS":
                     raise ValueError(
@@ -893,8 +904,13 @@ def validate_editorial_worker_return(
                 "desktop_editorial_worker_institutional_edge_invalid:"
                 + ",".join(editorial_validation.get("blockers") or [])
             )
+        institutional_quality_warnings = sorted(
+            set(institutional_quality_warnings).union(
+                editorial_validation.get("soft_warnings") or []
+            )
+        )
     else:
-        institutional_quality_warnings = []
+        institutional_quality_warnings = list(representation_repairs)
     return_hash = _logical_hash(worker_return)
     return {
         "schema_version": "contentops.desktop_editorial_worker_return_validation.v1",
@@ -911,6 +927,8 @@ def validate_editorial_worker_return(
         "coordinator_reasoning_effort": COORDINATOR_REASONING_EFFORT,
         "deterministic_validation_required": True,
         "institutional_edge_editorial_validation": editorial_validation,
+        "normalized_article": article,
+        "article_transport_representation_repairs": representation_repairs,
         "acceptance_profile": acceptance_profile,
         "institutional_edge_quality_warnings": institutional_quality_warnings,
         "publication_coordinator_remains_sole_public_writer": True,

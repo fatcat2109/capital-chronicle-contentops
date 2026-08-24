@@ -1,9 +1,19 @@
 # Capital Chronicle ContentOps — Current Authority and Supersession Map V1
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, or branch assumptions.
+
+## 2026-08-24 fast-ship owner override
+
+The 4-qualified/32-intent exercise remains a throughput benchmark and daily-output health metric.
+It is not a prerequisite for proving or advancing one safe qualified article through the canonical
+path. Candidate-level semantic failure preserves its exact hard blockers and continues to another
+governed candidate when available. Pure alias, structured-data, SEO-metadata, and stale non-public
+annotation differences are deterministic repair/warning concerns; truth, evidence, numeric/Capital
+Chronicle authority, quotation, permission, public-write identity, and `UNKNOWN_WRITE` remain hard.
+The final target remains 5–8 useful published articles per production day without filler.
 
 ## Canonical read path
 
@@ -66,23 +76,25 @@ default. Routine canonical V1 now leaves discovery disabled unless explicitly au
 bounded tail/proof invocation; a missing authorization remains the fail-closed
 `SOURCE_DISCOVERY_REQUIRED` abstention.
 
-Quota-efficient batch/tail discovery on the existing evidence seam is the sole demonstrated new V1
-product implementation gap. It is not authorized by this authority-lock task. Final 5–8/day claims
-require economically repeatable evidence acquisition.
+Quota-efficient batch/tail discovery remains a throughput-economics gap. The immediate product gap
+is narrower: consistently apply the proven representation normalizer at the native worker-return
+boundary before hard qualification. Final 5–8/day claims still require economically repeatable
+evidence acquisition.
 
 The real Italy canary already completed one canonical Substack publication plus exactly eight
 derivative packages; all nine public objects reconciled with `UNKNOWN_WRITE=0`. Never route another
 Italy canary merely to prove publication. The first four-opportunity 4/32 acceptance proof also
 already ran and truthfully failed at `0 qualified articles / 0 derivative intents` after 40
 distinct stories. Its harness, cross-midnight production-day accounting, and bounded deficit
-recovery are accepted foundation; the acceptance proof must be rerun only after the economics
-repair and a fresh economical four-ready-candidate proof.
+recovery are accepted foundation. A future 4/32 rerun remains useful throughput evidence after
+economics repair, but it does not gate the canonical single-article qualification path.
 
 Truth, evidence, numeric/CC authority, permission, freshness, rights, publication, and unknown-write
 gates remain hard. Sourceability and route health may reorder work only. Search output supplies URL
 locators only; deterministic retrieval, hashing, freshness, and claim validation remain mandatory.
-No fifth routine task, filler candidate, article generation, Automation enablement, or public write
-is authorized by the foundation closeout.
+No fifth routine task, filler candidate, Automation enablement, or public write is authorized by
+the foundation closeout. Article generation requires an exact owner task such as the current
+single-article zero-write acceptance.
 
 ## Hybrid Codex and current Automation truth override
 
@@ -132,16 +144,15 @@ bounded cost, and duplicate suppression remain current host/runtime proof requir
 sweep epoch the production store was read-only healthy with `UNKNOWN_WRITE=0`, but the Daily App
 process/listener was not running; that at-rest fact is not a cold-start PASS.
 
-The current V1 dependency order is:
+The current V1 progression order is:
 
-1. quota-efficient batch/tail discovery on the existing evidence seam;
-2. fresh economical four-ready-candidate zero-write proof;
-3. rerun the existing 4/32 acceptance proof with accepted accounting and the HIGH/XHIGH path;
-4. normalize/read back only the four existing paused Automation prompts;
-5. separate owner decisions for Automation enablement and routine public-write scope;
-6. calendar-time unattended/cold-start/SDK-fallback/late-result/duplicate-suppression proof;
-7. fresh current-epoch V5 desktop/mobile visual and truth QA;
-8. explicit owner `V1_FINAL_PRODUCT_ACCEPTED` and freeze decision.
+1. prove one useful qualified canonical article plus eight derivative intents under zero write;
+2. obtain independent article/diff/safety audit;
+3. keep 4/32 as a separate throughput/economics benchmark and daily-output diagnostic;
+4. normalize/read back only the four existing paused Automation prompts under exact authority;
+5. obtain separate owner decisions for Automation enablement and routine public-write scope;
+6. complete unattended/runtime and fresh V5 acceptance evidence;
+7. obtain explicit owner `V1_FINAL_PRODUCT_ACCEPTED` and freeze decision.
 
 No fifth Automation, prompt mutation, enablement, article generation, or public write is authorized
 by this plan lock. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until explicitly granted.

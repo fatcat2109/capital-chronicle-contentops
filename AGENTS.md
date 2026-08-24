@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 Status: `CURRENT_ROOT_AUTHORITY`
 Repository: `fatcat2109/capital-chronicle-contentops`
 
@@ -53,6 +53,7 @@ The following claims are INVALID for current V1 unless they are supported by the
 - `material-event wake immediately invokes Codex` unless a supported bridge is proven.
 - the Italy nine-surface canary still needs audit or publication;
 - the 4/32 proof has never run;
+- a perfect 4/32 proof is a prerequisite for proving or advancing one safe qualified article;
 - production-day accounting or bounded deficit recovery still needs implementation;
 - the four native V1 Automations are host-unproven;
 - first-party locator or publisher-resolution closure is the next V1 task;
@@ -71,13 +72,14 @@ The owner-scoped Italy canary is complete: one canonical Substack article plus e
 derivative packages were published, read back, and reconciled across all nine surfaces with
 `UNKNOWN_WRITE=0`. Never route another Italy canary merely to prove publication.
 
-The `POST_LAUNCH_THROUGHPUT_GATE` remains the build/proof floor:
+The `POST_LAUNCH_THROUGHPUT_GATE` remains a throughput benchmark and daily-output health metric:
 
 `minimum 4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
 
 The first real four-opportunity proof already ran and truthfully failed at `0 qualified articles /
-0 derivative intents` after 40 distinct stories. Rerun this existing acceptance proof only after
-quota-efficient batch/tail discovery repairs the demonstrated evidence-acquisition economics.
+0 derivative intents` after 40 distinct stories. A future rerun remains useful economics/throughput
+evidence, but it is not a prerequisite for proving or advancing one safe qualified article through
+the canonical path.
 
 Final V1 operating target:
 
@@ -85,7 +87,9 @@ Final V1 operating target:
 
 These are not filler quotas.
 
-Candidate-level abstention is allowed. Whole-day deficit is not healthy success.
+Candidate-level abstention is allowed. A candidate semantic failure preserves its hard blockers and
+does not halt the whole opportunity while another governed candidate can qualify. Whole-day deficit
+is not healthy success.
 
 If a post-launch throughput proof ends below the 4/32 floor without an exact hard external blocker, classify:
 
@@ -188,22 +192,20 @@ the four-opportunity 4/32 harness. The first 4/32 result was a truthful failure,
 task. The later foundation produced four governed evidence-ready candidates, but its 35 discovery
 calls and 10,237,897 discovery tokens are rejected as a routine production default.
 
-Current dependency order:
+Current progression order:
 
 1. this master-plan/authority lock;
-2. implement quota-efficient batch/tail discovery on the existing evidence seam;
-3. prove a fresh economical four-ready-candidate zero-write pool;
-4. rerun the existing 4/32 proof through the current HIGH/XHIGH path and accepted accounting;
-5. normalize and read back only the four existing paused Automation prompts;
-6. obtain separate owner decisions for Automation enablement and routine public-write scope;
-7. prove calendar-time unattended/cold-start/SDK-fallback/late-result/duplicate-suppression behavior;
-8. run fresh current-epoch V5 desktop/mobile visual and truth QA;
-9. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED` and freeze authority;
-10. only then selectively reconcile branch-proven V2 donor capability onto one current-compatible
+2. normalize the canonical native worker return and qualify one useful zero-write article plus
+   exactly eight derivative intents;
+3. obtain independent article/diff/test/safety audit;
+4. retain 4/32 as separate throughput/economics evidence and a daily-output diagnostic;
+5. keep Automation prompt mutation/enablement, routine public-write scope, unattended runtime,
+   fresh V5 QA, and explicit final acceptance as distinct owner gates;
+6. only then selectively reconcile branch-proven V2 donor capability onto one current-compatible
     stack, revalidate it with fresh cross-domain actual media/soak/growth-learning, and leave V2
     public-write authority at zero unless a later exact owner grant changes it.
 
-`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until step 9 is explicitly granted.
+`V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 
 ## 12. Change discipline
 

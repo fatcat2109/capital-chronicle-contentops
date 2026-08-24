@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-Authority date: 2026-08-23
+Authority date: 2026-08-24
 Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
 North Star: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
@@ -13,9 +13,11 @@ Finish one coherent autonomous growth newsroom and then one isolated retention-n
 without rebuilding accepted systems, weakening truth, or confusing missing runtime acceptance with
 missing implementation.
 
-V1 build/proof floor:
+V1 throughput benchmark and daily-output diagnostic:
 
 `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+
+This is not a prerequisite for proving or advancing one safe qualified article path.
 
 Final V1 operating target:
 
@@ -110,7 +112,7 @@ wholesale-merge its stale authority and never mutate V1 runtime/store/browser/pu
 Seven capability rows require fresh evidence rather than new architecture:
 
 1. exact current reliance on the four native Desktop Automations under calendar-time execution;
-2. 4/32 acceptance after economics repair;
+2. 4/32 throughput/economics evidence after the single-article path is independently accepted;
 3. normalization/readback of only the four existing host prompts under exact owner authority;
 4. unattended calendar-time/cold-start/missed-primary SDK fallback/late-result/cost/duplicate-
    suppression proof;
@@ -137,8 +139,8 @@ Exactly three gaps survived the accepted repository/branch/runtime truth sweep:
    input -> V2 production -> observed performance -> bounded packaging/priority learning without a
    parallel authority system.
 
-Only gap 1 is the next V1 implementation capability. This authority lock does not authorize its
-implementation.
+The immediate V1 implementation capability is the smaller native worker-return normalization gap.
+Gap 1 remains necessary for economically repeatable final 5–8/day throughput.
 
 ## 6. Superseded — never route or revive
 
@@ -161,8 +163,9 @@ The current sequence starts after three completed evidence events:
    derivative packages; all nine reconciled; `UNKNOWN_WRITE=0`. Never publish the same canary again
    merely to prove transport.
 2. **First 4/32 proof complete and failed.** All four opportunities ran against 40 distinct stories
-   and produced `0 qualified articles / 0 derivative intents`. This is failed acceptance evidence,
-   not an unstarted implementation task. The accounting/harness is accepted.
+   and produced `0 qualified articles / 0 derivative intents`. This is throughput evidence, not an
+   unstarted implementation task or a prerequisite for one safe qualified article. The accounting/
+   harness is accepted.
 3. **Later evidence foundation complete.** Four distinct governed evidence-ready candidates were
    produced with deterministic retrieval/hash/freshness, redirect repair, source-route health,
    same-candidate resume, and frozen worker transport. Its 35 URL-discovery calls and 10,237,897
@@ -170,13 +173,13 @@ The current sequence starts after three completed evidence events:
 
 ## 8. Final locked V1 roadmap
 
-Dependency order:
+Progression order:
 
 1. master-plan/authority lock;
-2. owner-authorized quota-efficient batch/tail discovery on the existing evidence seam;
-3. fresh economical four-ready-candidate zero-write proof;
-4. rerun the existing 4/32 acceptance proof using accepted production-day accounting plus the
-   current Desktop HIGH / isolated XHIGH path;
+2. apply proven representation normalization at the native worker-return boundary;
+3. qualify one useful canonical article plus eight derivative intents under zero write and obtain
+   independent audit;
+4. retain 4/32 as a separate throughput/economics benchmark;
 5. owner-authorized normalization and supported readback of only the four existing paused
    Automation prompts;
 6. separate owner decisions for Automation enablement and routine public-write scope;
@@ -230,7 +233,8 @@ publication authority remains isolated. Current V2 public-write authority is exa
 V1 is final only when:
 
 1. quota-efficient evidence acquisition is implemented and economically evidenced;
-2. the existing 4/32 acceptance proof passes without filler or weaker truth;
+2. the canonical article path is independently accepted and throughput/economics are sufficient
+   for the final 5–8 useful-article target without filler or weaker truth;
 3. only the four existing Automation prompts are normalized/read back and their enablement scope is
    explicitly decided;
 4. calendar-time unattended/cold-start/fallback/duplicate-suppression behavior is proven;

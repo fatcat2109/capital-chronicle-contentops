@@ -6100,8 +6100,18 @@ def _run_rolling_x_newsroom_cycle(
 
                 receipt = dict((built or {}).get("editorial_worker_receipt") or {})
                 built_article_for_resolution = dict((built or {}).get("article") or {})
+                raw_receipt_article = receipt.get("article")
+                if not isinstance(raw_receipt_article, Mapping):
+                    raw_receipt_article = receipt.get("editorial_output")
+                raw_receipt_article = (
+                    dict(raw_receipt_article)
+                    if isinstance(raw_receipt_article, Mapping)
+                    else {}
+                )
                 worker_body_for_resolution = str(
-                    built_article_for_resolution.get("substack_body_markdown") or ""
+                    raw_receipt_article.get("substack_body_markdown")
+                    or built_article_for_resolution.get("substack_body_markdown")
+                    or ""
                 )
                 official_direct_provider_return = isinstance(
                     receipt.get("official_codex_turn_receipt"), Mapping
@@ -6112,10 +6122,10 @@ def _run_rolling_x_newsroom_cycle(
                 ):
                     raw_worker_return_sha256 = _json_sha256(receipt)
                     raw_worker_article_sha256 = _json_sha256(
-                        dict(receipt.get("article") or {})
+                        raw_receipt_article
                     )
                     resolved_article = resolve_editorial_worker_article_for_public_lock(
-                        built_article_for_resolution,
+                        raw_receipt_article or built_article_for_resolution,
                         viability=viability,
                     )
                     receipt["raw_worker_return_sha256"] = str(
@@ -6188,13 +6198,18 @@ def _run_rolling_x_newsroom_cycle(
                     raise GroundedArticleBuilderError(
                         "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
                     )
-                built_article = dict((built or {}).get("article") or {})
+                built_article = dict(
+                    worker_validation.get("normalized_article")
+                    or (built or {}).get("article")
+                    or {}
+                )
                 built_article["institutional_edge_editorial_validation"] = dict(
                     worker_validation.get("institutional_edge_editorial_validation") or {}
                 )
                 built = {
                     **dict(built),
                     "article": built_article,
+                    "editorial_worker_receipt": receipt,
                     "editorial_worker_validation": worker_validation,
                 }
             if isinstance(built, Mapping):
