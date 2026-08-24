@@ -305,6 +305,73 @@ def test_unconditional_public_scenario_copy_is_a_hard_blocker_even_with_conditio
     assert "scenario_public_copy_not_conditional" not in result["soft_warnings"]
 
 
+def test_negative_source_coverage_claim_is_hard_without_explicit_claim_contract_support():
+    evidence = _evidence()
+    evidence["evidence_documents"][0]["canonical_content_text"] += (
+        " The source states that the transaction raised $42 million for northern expansion."
+    )
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="STANDARD_ANALYSIS",
+        accepted_evidence_packet=evidence,
+    )
+    article = deepcopy(_article(packet))
+    omission = "The source does not disclose the amount raised."
+    article["substack_body_markdown"] += "\n\n" + omission
+    article["epistemic_claims"].append(
+        {
+            "text": omission,
+            "layer": "OBSERVED_FACT",
+            "public_treatment": "DIRECT_SOURCE_FACT",
+            "source_ids": ["ev-1"],
+        }
+    )
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "BLOCKED"
+    assert "unproven_source_omission_claim" in result["hard_blockers"]
+
+
+def test_negative_source_coverage_claim_passes_only_with_exact_governed_support():
+    evidence = _evidence()
+    omission = "The source does not disclose the implementation date."
+    evidence["claim_evidence_contract"]["supported_claims"].append(
+        {
+            "claim_id": "claim-omission-1",
+            "claim_text": omission,
+            "support_status": "SUPPORTED",
+            "evidence_document_ids": ["ev-1"],
+        }
+    )
+    packet = build_institutional_edge_editorial_packet(
+        article_mode="STANDARD_ANALYSIS",
+        accepted_evidence_packet=evidence,
+    )
+    article = deepcopy(_article(packet))
+    article["substack_body_markdown"] += "\n\n" + omission
+    article["epistemic_claims"].append(
+        {
+            "text": omission,
+            "layer": "OBSERVED_FACT",
+            "public_treatment": "DIRECT_SOURCE_FACT",
+            "source_ids": ["ev-1"],
+        }
+    )
+
+    result = validate_institutional_edge_article(
+        article,
+        editorial_packet=packet,
+        accepted_evidence_packet=evidence,
+    )
+
+    assert result["classification"] == "PASS", result["hard_blockers"]
+    assert "unproven_source_omission_claim" not in result["all_findings"]
+
+
 def test_official_codex_historical_six_blocker_shape_remains_local_validation_failure():
     evidence = _evidence()
     packet = build_institutional_edge_editorial_packet(

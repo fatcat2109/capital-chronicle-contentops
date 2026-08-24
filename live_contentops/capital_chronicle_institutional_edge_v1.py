@@ -166,6 +166,21 @@ _SCENARIO_CONDITIONAL_OR_UNCERTAIN = re.compile(
     r"remain(?:s|ed)?\s+(?:open|unknown|unclear|uncertain))\b",
     re.I,
 )
+_SOURCE_OMISSION_ASSERTION = re.compile(
+    r"\b(?:report|source|filing|document|notice|announcement|evidence|record)\b"
+    r"[^.!?]{0,120}\b(?:does|do|did|has|have|had)\s+not\s+"
+    r"(?:specify|disclose|provide|state|identify|include|reveal)\b|"
+    r"\b(?:amount|sum|valuation|value|investors?|geograph(?:y|ic)|locations?|scope|"
+    r"timing|timeline|dates?|details?)\b[^.!?]{0,120}\b"
+    r"(?:remain(?:s|ed)?\s+)?(?:undisclosed|unspecified|unknown|not\s+"
+    r"(?:specified|disclosed|provided|stated|identified))\b|"
+    r"\bno\s+(?:amount|sum|valuation|value|investors?|geograph(?:y|ic)|locations?|"
+    r"scope|timing|timeline|dates?|details?)\b[^.!?]{0,80}\b"
+    r"(?:provided|disclosed|specified|stated|identified)\b|"
+    r"\bbut\s+not\s+(?:(?:the|their|its)\s+)?"
+    r"(?:amount|scale|scope|footprint|timing|timeline|details?)\b",
+    re.I,
+)
 _SENSATIONAL = re.compile(
     r"\b(?:shocking|apocalypse|apocalyptic|catastrophic collapse|you won.t believe|secret that|"
     r"guaranteed|destroys?|obliterates?)\b",
@@ -365,6 +380,50 @@ def _evidence_ids(packet: Mapping[str, Any] | None) -> set[str]:
         for row in packet.get("evidence_documents") or []
         if isinstance(row, Mapping)
     } - {""}
+
+
+def _source_omission_assertions(public_copy: str) -> list[str]:
+    return list(
+        dict.fromkeys(
+            assertion
+            for assertion in (
+                _normalise(value)
+                for value in re.split(r"(?<=[.!?])\s+|\n+", str(public_copy or ""))
+            )
+            if assertion and _SOURCE_OMISSION_ASSERTION.search(assertion)
+        )
+    )
+
+
+def _supported_source_omission_claims(
+    packet: Mapping[str, Any] | None,
+) -> list[str]:
+    if not isinstance(packet, Mapping):
+        return []
+    contract = packet.get("claim_evidence_contract")
+    if not isinstance(contract, Mapping):
+        return []
+    evidence_ids = _evidence_ids(packet)
+    supported: list[str] = []
+    for row in contract.get("supported_claims") or []:
+        if not isinstance(row, Mapping):
+            continue
+        status = str(row.get("support_status") or "SUPPORTED").upper()
+        if any(marker in status for marker in ("UNSUPPORTED", "OMITTED", "REJECTED", "BLOCKED")):
+            continue
+        source_ids = {
+            str(value)
+            for value in (
+                row.get("evidence_document_ids") or row.get("source_ids") or []
+            )
+            if str(value)
+        }
+        claim = _normalise(
+            row.get("claim_text") or row.get("text") or row.get("factual_statement")
+        )
+        if claim and source_ids and source_ids.issubset(evidence_ids):
+            supported.append(claim)
+    return list(dict.fromkeys(supported))
 
 
 def build_editorial_seo_package(article: Mapping[str, Any]) -> dict[str, Any]:
@@ -573,6 +632,15 @@ def validate_institutional_edge_article(
             and not _SCENARIO_CONDITIONAL_OR_UNCERTAIN.search(claim)
         ):
             blockers.append("scenario_public_copy_not_conditional")
+    omission_support = [
+        value.casefold()
+        for value in _supported_source_omission_claims(accepted_evidence_packet)
+    ]
+    for assertion in _source_omission_assertions(all_public):
+        folded = assertion.casefold()
+        if not any(claim in folded or folded in claim for claim in omission_support):
+            blockers.append("unproven_source_omission_claim")
+            break
     for sentence in re.split(r"(?<=[.!?])\s+", _normalise(body)):
         sentence_tokens = _tokens(sentence)
         source_overlap = bool(sentence_tokens) and (

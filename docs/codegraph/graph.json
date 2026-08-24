@@ -83958,7 +83958,7 @@
     {
       "id": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "kind": "python_module",
-      "size_bytes": 32785
+      "size_bytes": 35549
     },
     {
       "id": "live_contentops/cc_artifact_packet_approval_v0.py",
@@ -90947,14 +90947,14 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_institutional_edge_v1.py::build_editorial_seo_package",
       "kind": "python_function",
-      "line": 370,
+      "line": 429,
       "path": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "symbol": "build_editorial_seo_package"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_institutional_edge_v1.py::build_institutional_edge_editorial_packet",
       "kind": "python_function",
-      "line": 254,
+      "line": 269,
       "path": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "symbol": "build_institutional_edge_editorial_packet"
     },
@@ -90968,14 +90968,14 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_institutional_edge_v1.py::validate_institutional_edge_article",
       "kind": "python_function",
-      "line": 398,
+      "line": 457,
       "path": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "symbol": "validate_institutional_edge_article"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_institutional_edge_v1.py::validate_institutional_edge_packet",
       "kind": "python_function",
-      "line": 322,
+      "line": 337,
       "path": "live_contentops/capital_chronicle_institutional_edge_v1.py",
       "symbol": "validate_institutional_edge_packet"
     },
@@ -122883,7 +122883,7 @@
     {
       "id": "tests/test_capital_chronicle_institutional_edge_v1.py",
       "kind": "test",
-      "size_bytes": 18728
+      "size_bytes": 21037
     },
     {
       "id": "tests/test_cc_artifact_packet_intake_v0.py",
@@ -130392,5 +130392,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "375600c39a36a26d0613ef765bdab967767e7676",
-  "source_tree_digest": "454c72828420ad3c41df8aab256977c0f877901f75ab11256472d776e40e0bad"
+  "source_tree_digest": "f83f6724d7ee04252c4b4aa7d7b6ebc90aa8e3dc435a673c4258bc48d4732e40"
 }
