@@ -161,12 +161,13 @@ destination-local, and `UNKNOWN_WRITE` remains hard.
 ## 9. Desktop Automation and SDK arbitration rule
 
 Current supported host truth proves exactly four native routine Automation objects with the four
-schedules above and `gpt-5.6-sol / HIGH`. The 2026-08-24 21:00 object fired on schedule, proving
-`PASS_NATIVE_CALENDAR_TRIGGER_OBSERVED`. Safe durable metadata separately proves FDA-G's supervisor
-created and terminalized that canonical window before the Automation began; the zero-work result is
-`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`. During correction all four objects remain paused. The
-corrected architecture leaves FDA-G as intake/state/runtime authority and makes native Desktop the
-sole scheduled heavy-editorial owner.
+schedules above and `gpt-5.6-sol / HIGH`. The 2026-08-24 21:00 evidence is
+`PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: safe durable
+metadata proves FDA-G's supervisor created, claimed, executed, and terminalized the canonical
+scheduled window. Codex Desktop was not running during that window, so native Desktop Automation
+calendar execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. During correction all four
+objects remain paused. The corrected architecture leaves FDA-G as intake/state/runtime authority
+and makes native Desktop the sole scheduled heavy-editorial owner.
 
 Prompt normalization/readback is complete without creating a fifth routine object. No task is
 enabled by this contract. Zero-write enablement/calendar-time proof and routine public-write

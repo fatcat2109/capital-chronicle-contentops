@@ -118,12 +118,13 @@ supported invocation, and the benchmark/controlled-experiment path. It may not r
 Desktop result or create a duplicate article/public object.
 
 Fresh supported host readback proves exactly four native V1 routine Automation objects configured
-for `gpt-5.6-sol / HIGH` at the four Bangkok windows. The 2026-08-24 21:00 object fired on schedule,
-which is `PASS_NATIVE_CALENDAR_TRIGGER_OBSERVED`; its zero-output behavior is separately
-`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`. Safe durable metadata proves FDA-G's supervisor actor had
-already claimed and terminalized the canonical 21:00 opportunity before the Automation began. The
-correction makes native Desktop the scheduled heavy-editorial owner and holds all four objects
-paused until corrected repo and prompt bytes are safely deployable. No fifth routine object exists.
+for `gpt-5.6-sol / HIGH` at the four Bangkok windows. The 2026-08-24 21:00 evidence is
+`PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: safe durable
+metadata proves FDA-G's supervisor actor created, claimed, executed, and terminalized the canonical
+scheduled opportunity. Codex Desktop was not running during that window, so native Desktop
+Automation calendar execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. The correction makes
+native Desktop the scheduled heavy-editorial owner and holds all four objects paused until corrected
+repo and prompt bytes are safely deployable. No fifth routine object exists.
 
 Current subordinate statements such as:
 

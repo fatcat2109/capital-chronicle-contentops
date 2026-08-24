@@ -130,10 +130,11 @@ independent from destination readiness diagnostics; public dispatch still fails 
 identity/readiness boundary.
 
 Accepted host truth is exactly four native V1 Automations with correct model, reasoning effort,
-schedules, and project. The 2026-08-24 21:00 Automation fired on schedule
-(`PASS_NATIVE_CALENDAR_TRIGGER_OBSERVED`) while the old runtime exposed
-`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G terminalized the canonical opportunity before the
-Automation began and the old pacing target allocated zero work. All four are held paused for the
+schedules, and project. The 2026-08-24 21:00 evidence is
+`PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G created,
+claimed, executed, and terminalized the canonical scheduled opportunity while the old pacing target
+allocated zero work. Codex Desktop was not running during that window, so native Desktop Automation
+calendar execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. All four are held paused for the
 single-owner/five-reachability/readiness-role correction. Broader unattended/cold-start/fallback
 execution remains unproven. At
 the sweep epoch the production database was opened read-only and was healthy with

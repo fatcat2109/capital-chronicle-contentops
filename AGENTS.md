@@ -131,10 +131,12 @@ missed/failed Desktop primary, the direct path where immediate supported invocat
 and the benchmark/controlled-experiment path. Neither model path has factual, numeric, permission,
 gate, or public-write authority.
 
-Fresh supported host readback proves exactly four existing native V1 Automations. The 21:00
-calendar trigger was observed on 2026-08-24, proving native calendar invocation while separately
-exposing `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G had already terminalized the same canonical
-window and the old pacing checkpoint allocated zero editorial work. The correction keeps FDA-G as
+Fresh supported host readback proves exactly four existing native V1 Automations. The 2026-08-24
+21:00 evidence is `PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and
+`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G created, claimed, executed, and terminalized the
+canonical scheduled window while the old pacing checkpoint allocated zero editorial work. Codex
+Desktop was not running for that window, so native Desktop Automation calendar execution remains
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` and must not be inferred. The correction keeps FDA-G as
 intake/state/runtime authority while making native Desktop the sole routine heavy-editorial owner.
 The four objects are held `PAUSED` during correction, at
 the 17:00/21:00/23:00/following-01:00 Bangkok windows with `gpt-5.6-sol / HIGH`. Their prompts now

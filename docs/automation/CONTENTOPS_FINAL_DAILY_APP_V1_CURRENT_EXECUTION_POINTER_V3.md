@@ -67,9 +67,11 @@ remains bounded missed/failed-primary fallback, immediate direct path, and bench
 same canonical run identity.
 
 Exactly four native V1 routine Automations exist on the correct model/effort/schedules/project.
-The 2026-08-24 21:00 Automation fired on schedule (`PASS_NATIVE_CALENDAR_TRIGGER_OBSERVED`) but
-FDA-G had already terminalized that opportunity and the old 4/32 pacing logic allocated zero work
-(`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`). All four are held paused while the corrected single-owner,
+The 2026-08-24 21:00 evidence is `PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and
+`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G created, claimed, executed, and terminalized the
+canonical scheduled opportunity while the old 4/32 pacing logic allocated zero work. Codex Desktop
+was not running during that window, so native Desktop Automation calendar execution remains
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. All four are held paused while the corrected single-owner,
 five-reachability, readiness-separated prompt/runtime bytes are deployed and read back. No fifth
 task may be created.
 
