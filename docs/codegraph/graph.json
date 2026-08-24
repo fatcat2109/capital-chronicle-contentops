@@ -83227,7 +83227,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 4964
+      "size_bytes": 5335
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -130392,5 +130392,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "dd03be405f319fd46de939bbe0c3c0d69222ba36",
-  "source_tree_digest": "9be300706dcd4b926bf94e9acbcd5bfc12b4f240a5057c6d4f34a3c4f5057173"
+  "source_tree_digest": "454c72828420ad3c41df8aab256977c0f877901f75ab11256472d776e40e0bad"
 }

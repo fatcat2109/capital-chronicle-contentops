@@ -48,6 +48,11 @@ with zero writes. Jim/ChatGPT now audits the real prose, exact diff, focused tes
 and PR. 4/32 remains a separate throughput benchmark, not this path's prerequisite. No Automation
 or public-write scope changes are implied.
 
+For throughput economics, the quota-efficient batch/tail discovery architecture remains a measured
+production improvement. A candidate that genuinely lacks an authorized source route retains the
+fail-closed `SOURCE_DISCOVERY_REQUIRED` state. Neither condition blocks advancement of a separate,
+identity-valid governed candidate whose accepted evidence is already ready.
+
 ## Current execution truth
 
 Desktop standalone fresh-run Automations remain the primary routine heavy-editorial brain: fresh
