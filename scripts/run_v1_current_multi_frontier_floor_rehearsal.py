@@ -192,6 +192,47 @@ class _StageAEvidenceReuseAcquirer:
         }
 
 
+def _stage_a_ready_frontiers(stage_a_root: Path) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for cycle_path in sorted(
+        stage_a_root.glob(
+            "frontier_*/rolling_x_newsroom_cycle_evidence_v1.json"
+        )
+    ):
+        cycle = _load(cycle_path)
+        candidates = [
+            dict(row)
+            for row in (cycle.get("evidence_ready_pool") or {}).get(
+                "candidates"
+            )
+            or []
+            if isinstance(row, Mapping) and row.get("cluster_id")
+        ]
+        if not candidates:
+            continue
+        prepared_path = (
+            cycle_path.parent / "rolling_x_prepared_candidate_state_v1.json"
+        )
+        if not prepared_path.is_file():
+            raise ValueError("stage_a_ready_frontier_prepared_state_missing")
+        rows.append(
+            {
+                "stage_a_frontier": int(
+                    str(cycle_path.parent.name).rsplit("_", 1)[-1]
+                ),
+                "cycle_evidence_path": str(cycle_path),
+                "cycle_evidence_sha256": _sha(cycle),
+                "prepared_state_path": str(prepared_path),
+                "prepared_state_sha256": _sha(_load(prepared_path)),
+                "ready_candidate_ids": [
+                    str(row.get("cluster_id")) for row in candidates
+                ],
+                "ready_candidate_count": len(candidates),
+            }
+        )
+    return rows
+
+
 def _current_durable_state() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     """Read the canonical continuity and published corpus without mutating either."""
     continuity = load_terminal_editorial_continuity(
@@ -335,11 +376,20 @@ def _new_state(
         stage_a_input = _load(stage_a_input_path)
         if _sha(stage_a_input) != _sha(rolling):
             raise ValueError("stage_a_evidence_rolling_input_identity_mismatch")
+        ready_frontiers = _stage_a_ready_frontiers(stage_a_evidence_root)
+        if sum(
+            int(row.get("ready_candidate_count") or 0)
+            for row in ready_frontiers
+        ) < MAX_QUALIFIED:
+            raise ValueError("stage_a_four_ready_candidates_required")
         stage_a_binding = {
             "stage_a_evidence_root": str(stage_a_evidence_root),
             "stage_a_frozen_input_path": str(stage_a_input_path),
             "stage_a_frozen_input_sha256": _sha(stage_a_input),
             "same_frozen_universe_required": True,
+            "ready_frontiers": ready_frontiers,
+            "ready_frontier_cursor": 0,
+            "prepared_and_router_checkpoint_reuse_required": True,
         }
     current_headline_ids = sorted(
         {
@@ -986,11 +1036,32 @@ def probe(
         raise ValueError("daily_floor_already_met")
     number = len(state.get("frontiers") or []) + 1
     rolling = _load(Path(str(state["rolling_input_path"])))
-    prepared = build_prepared_rolling_x_candidate_state(
-        rolling_input=rolling,
-        prepared_at_utc=state["cutoff_utc"],
-        evaluated_headline_ids=state.get("evaluated_headline_ids") or [],
-    )
+    stage_binding = dict(state.get("stage_a_evidence_binding") or {})
+    ready_frontiers = list(stage_binding.get("ready_frontiers") or [])
+    ready_cursor = int(stage_binding.get("ready_frontier_cursor") or 0)
+    stage_frontier_reuse: dict[str, Any] = {}
+    leaf_checkpoints = None
+    global_checkpoint = None
+    stage_story_types = None
+    if ready_cursor < len(ready_frontiers):
+        stage_frontier_reuse = dict(ready_frontiers[ready_cursor])
+        prepared = _load(
+            Path(str(stage_frontier_reuse["prepared_state_path"]))
+        )
+        stage_cycle = _load(
+            Path(str(stage_frontier_reuse["cycle_evidence_path"]))
+        )
+        leaf_checkpoints, global_checkpoint, stage_story_types = (
+            _semantic_resume_checkpoints_from_probe(stage_cycle)
+        )
+        stage_binding["ready_frontier_cursor"] = ready_cursor + 1
+        state["stage_a_evidence_binding"] = stage_binding
+    else:
+        prepared = build_prepared_rolling_x_candidate_state(
+            rolling_input=rolling,
+            prepared_at_utc=state["cutoff_utc"],
+            evaluated_headline_ids=state.get("evaluated_headline_ids") or [],
+        )
     frontier_root = root / f"frontier_{number}"
     prepared_path = frontier_root / "prepared_candidate_state_v1.json"
     _write(prepared_path, prepared)
@@ -1029,10 +1100,16 @@ def probe(
         acceptance_profile=state.get("acceptance_profile"),
         published_corpus=_published_corpus_from_state(state),
         evidence_acquirer=reuse_acquirer,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
+        story_type_by_cluster=stage_story_types,
     )
     route = dict(result.get("editorial_worker_routing") or {})
     row = _frontier_row(number=number, prepared=prepared, result=result, path=probe_dir)
     row["prepared_state_path"] = str(prepared_path)
+    if stage_frontier_reuse:
+        row["stage_a_prepared_frontier_reuse"] = stage_frontier_reuse
+        row["stage_a_router_checkpoints_reused"] = True
     if reuse_acquirer is not None:
         reuse_manifest = reuse_acquirer.manifest()
         manifest_path = frontier_root / "stage_a_evidence_reuse_v1.json"

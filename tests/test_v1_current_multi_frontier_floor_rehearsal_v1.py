@@ -10,6 +10,7 @@ from scripts.run_v1_current_multi_frontier_floor_rehearsal import (
     _StageAEvidenceReuseAcquirer,
     _new_state,
     _sha,
+    _stage_a_ready_frontiers,
     _summary,
     _semantic_resume_checkpoints_from_probe,
     _validated_probe_viability_checkpoint,
@@ -231,6 +232,24 @@ def test_stage_a_evidence_binding_requires_same_frozen_universe(
     stage_root.mkdir()
     stage_input = stage_root / "frozen_current_rolling_input_v1.json"
     stage_input.write_text(json.dumps(rolling), encoding="utf-8")
+    frontier = stage_root / "frontier_1"
+    frontier.mkdir()
+    (frontier / "rolling_x_prepared_candidate_state_v1.json").write_text(
+        json.dumps({"prepared_candidate_count": 4}), encoding="utf-8"
+    )
+    (frontier / "rolling_x_newsroom_cycle_evidence_v1.json").write_text(
+        json.dumps(
+            {
+                "evidence_ready_pool": {
+                    "candidates": [
+                        {"cluster_id": f"ready-{index}"}
+                        for index in range(1, 5)
+                    ]
+                }
+            }
+        ),
+        encoding="utf-8",
+    )
     source_input = tmp_path / "rolling.json"
     source_input.write_text(json.dumps(rolling), encoding="utf-8")
 
@@ -244,6 +263,10 @@ def test_stage_a_evidence_binding_requires_same_frozen_universe(
     assert state["stage_a_evidence_binding"][
         "stage_a_frozen_input_sha256"
     ] == _sha(rolling)
+    assert state["stage_a_evidence_binding"]["ready_frontiers"] == (
+        _stage_a_ready_frontiers(stage_root)
+    )
+    assert state["stage_a_evidence_binding"]["ready_frontier_cursor"] == 0
     different = tmp_path / "different.json"
     different.write_text(
         json.dumps(
