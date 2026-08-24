@@ -1,0 +1,103 @@
+{
+  "schema_version": "contentops.v1_provider_resilient_discovery_and_4_32_final_closure.v1",
+  "classification": "FAIL_STAGE_B_EDITORIAL_VALIDATION_AFTER_STAGE_A_PASS",
+  "repository": "fatcat2109/capital-chronicle-contentops",
+  "branch": "codex/v1-quota-efficient-batch-tail-discovery-v1",
+  "pull_request": 19,
+  "fresh_master": "c4239a96513c24fc9f7f331025386756d0248569",
+  "starting_branch_head": "869c9485c78c4dc360c49f26645542be219625fd",
+  "stage_a": {
+    "status": "PASS",
+    "classification": "PASS_V1_QUOTA_EFFICIENT_BATCH_TAIL_DISCOVERY_ECONOMICAL_READY_POOL",
+    "cutoff_utc": "2026-08-23T23:46:33.626619Z",
+    "newsroom_production_day_id": "newsroom-production-day-2026-08-24-bangkok",
+    "frozen_universe_headline_count": 121,
+    "evaluated_distinct_story_count": 44,
+    "evaluated_distinct_headline_count": 58,
+    "remaining_held_headline_count": 63,
+    "ready_candidate_count": 4,
+    "locator_model_invocations": 44,
+    "provider_independent_query_replans": 41,
+    "optional_codex_batch_turns": 3,
+    "optional_codex_usage_limit_failures": 0,
+    "batch_turns": 3,
+    "tail_turns": 0,
+    "accounted_tokens_at_candidate_four": 712842,
+    "deterministic_requests_at_candidate_four": 386,
+    "receipt_payload_sha256": "4e663a41d5a4f050b4ae8cf95cfafb715b3091f24b2083755c6739046c0c9864",
+    "ready_candidates": [
+      {
+        "cluster_id": "rolling-x-semantic-reserve-537e5b4936dd16eb619a",
+        "headline_ids": ["cc-x-headline-66ea2d4fade67a233218a985"],
+        "contract_kind": "ORDINARY_MINIMUM_TRUSTWORTHY_EVIDENCE_PACKET",
+        "contract_sha256": "024d1f4840eb4def580a3a5acf5c99f9c8718e329054602d5963c5ca4e6e220e"
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-17153eaa0270b7d634e4",
+        "headline_ids": [
+          "cc-x-headline-95edc603dee32bee083a3a0b",
+          "cc-x-headline-5d41d33025e98c8af67c904e",
+          "cc-x-headline-0ed555ea45f3faa3e59837c0"
+        ],
+        "contract_kind": "ORDINARY_MINIMUM_TRUSTWORTHY_EVIDENCE_PACKET",
+        "contract_sha256": "c2c554e35dec07a7127c9bcefb4329176e1c99ee9a9c6f35c172ab5745d930f9"
+      },
+      {
+        "cluster_id": "rolling-x-semantic-reserve-17c72ad7cdfb9bf74630",
+        "headline_ids": ["cc-x-headline-0801a00dbcc740fcc0cdd966"],
+        "contract_kind": "ENHANCED_CLAIM_EVIDENCE_CONTRACT",
+        "contract_sha256": "fe4980d80b18c3899cd162b0eb76a38950164ac64f07be634c27e3593913fc32"
+      },
+      {
+        "cluster_id": "rolling-x-global-cluster-823dd0e338b183cb3b74",
+        "headline_ids": ["cc-x-headline-1c395ae05a29ceec85923021"],
+        "contract_kind": "ORDINARY_MINIMUM_TRUSTWORTHY_EVIDENCE_PACKET",
+        "contract_sha256": "11c6a0fde1f17e778af45cac61646482cb54a7d6aef43c7e80045a25d715abe3"
+      }
+    ]
+  },
+  "stage_b": {
+    "status": "FAIL_GENUINE_EDITORIAL_VALIDATION",
+    "qualified_zero_public_write_articles": 0,
+    "derivative_intents": 0,
+    "attempted_article_candidate": "rolling-x-semantic-reserve-537e5b4936dd16eb619a",
+    "qualified_article_identities": [],
+    "stage_a_evidence_reuse_hits": 4,
+    "stage_a_evidence_fallback_calls": 4,
+    "xhigh_worker_attempts": 1,
+    "xhigh_worker_returns": 1,
+    "bounded_same_worker_revisions": 1,
+    "high_coordinator_receipt": "NOT_EXPOSED_TASK_SESSION_EXPLICITLY_XHIGH",
+    "xhigh_worker_model": "gpt-5.6-sol",
+    "xhigh_worker_reasoning_effort": "XHIGH",
+    "deterministic_validation_blockers": [
+      "social_hook_social_lede_mismatch",
+      "epistemic_claim_not_present_in_public_copy",
+      "structured_data_description_mismatch"
+    ],
+    "summary_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\daily_app_outputs\\v1_provider_resilient_4_32_scope_reuse_revision_20260824T012000Z\\multi_frontier_floor_rehearsal_summary_v1.json",
+    "summary_sha256": "8284a8d720c3781a50a99a2987c1f10036f151aa2b8af528e07b0d89be15aeac",
+    "route_probe_sha256": "6464439fcf08ce3dd677e9ebf3939da7ed69efe124cc1fe26be4a91b890d75b2",
+    "final_cycle_sha256": "33d8cfeafb1301148d22ed2c3067840cba390694b9f01a96831a4cbe76bed5e2",
+    "worker_request_sha256": "38396c62540e2f30356d788b4bfdb50cb70689c365c98254bef7ae7243cec619",
+    "worker_revision_return_sha256": "c6e594404dfc8ef299de7be0b66a709771ae796faa8606d7f52fd95e90826c0e",
+    "stage_a_reuse_manifest_sha256": "f19719e4d5316152d3f85ace3ac14aeef80c98f8e362e3f8ef81240952c791f3"
+  },
+  "safety": {
+    "public_writes": 0,
+    "provider_writes": 0,
+    "unknown_write": 0,
+    "browser_or_cdp_publication_actions": 0,
+    "automation_mutations": 0,
+    "capital_chronicle_mutations": 0,
+    "v2_mutations": 0,
+    "secret_or_session_reads": 0,
+    "production_store_resets": 0,
+    "fifth_automation_created": 0
+  },
+  "exact_residual_blockers": [
+    "social_hook_social_lede_mismatch",
+    "epistemic_claim_not_present_in_public_copy",
+    "structured_data_description_mismatch"
+  ]
+}
