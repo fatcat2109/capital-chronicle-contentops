@@ -49,7 +49,8 @@ This is an output requirement, not permission to create filler or unsupported cl
 
 One ordinary `BREAKING_BRIEF` and exactly eight undispatched derivative intents now pass the
 canonical zero-write path. Hard blockers are empty and public/provider/unknown writes are zero.
-Independent owner audit of the prose, diff, tests, and safety evidence remains required.
+PR #20 is independently owner-audited and accepted. Reuse this canonical path; do not route another
+article proof merely to re-establish it.
 
 ### Abstention semantics
 
@@ -123,10 +124,10 @@ The four routine opportunities are:
 Do not create a fifth routine opportunity merely to satisfy the daily floor. Catch-up belongs inside the existing production-day logic and bounded candidate walk.
 
 Current host truth proves exactly these four existing native Automations, all paused on
-`gpt-5.6-sol / HIGH`. It does not authorize enablement. Their prompt hashes must be normalized and
-read back under a separate owner gate. Prompt normalization, Automation enablement, and routine
-public-write authority are distinct decisions. Calendar-time unattended execution remains
-unproven.
+`gpt-5.6-sol / HIGH`. All four prompt hashes now match the same repo-derived FAST-SHIP routine
+prompt. It does not authorize enablement. Zero-write Automation enablement/calendar-time proof and
+routine public-write authority remain distinct decisions. Calendar-time unattended execution
+remains unproven.
 
 ## 6. Material-event wake truth
 
@@ -188,17 +189,18 @@ Accepted sequence facts:
 - the real Italy nine-surface canary is complete and reconciled;
 - the first 4/32 proof ran and failed truthfully at `0/4 / 0/32`;
 - production-day accounting and bounded deficit recovery are accepted;
-- the later evidence foundation produced four governed evidence-ready candidates, but its 35 URL-
-  discovery calls and 10,237,897 discovery tokens are rejected as a production default.
+- PR #19 provider-resilient batch/tail discovery is accepted and reusable after producing four
+  governed ready candidates in three batch turns with 712,842 accounted tokens;
+- PR #20's canonical worker-return normalization and ordinary zero-write article path are accepted;
+- the four existing paused host prompts are normalized and read back to one repo-derived hash.
 
 Current progression order:
 
-1. normalize the canonical worker return and qualify one useful zero-write article plus eight
-   derivative intents;
-2. independently audit the prose, implementation, and safety evidence;
-3. retain 4/32 as separate throughput/economics evidence;
-4. keep Automation prompt mutation/enablement, routine public write, unattended runtime, V5, and
-   final acceptance as distinct owner gates;
+1. preserve the accepted PR #19 discovery and PR #20 article path;
+2. preserve the completed four-prompt normalization/readback with all objects paused;
+3. obtain exact zero-write Automation enablement authority and calendar-time unattended proof;
+4. complete fresh current-epoch V5 acceptance and separate routine public-write/final-product
+   authority decisions;
 5. only after explicit V1 acceptance begin authorized V2 continuation.
 
 ## 12. Canonical UI

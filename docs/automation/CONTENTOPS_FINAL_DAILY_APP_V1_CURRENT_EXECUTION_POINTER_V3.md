@@ -36,20 +36,25 @@ Older V1 task packets and branch handoffs are exact historical evidence only whe
 - That foundation's 35 URL-discovery calls and 10,237,897 discovery tokens are
   `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. The provider is a bounded reusable tail/proof
   capability, not the routine production default.
+- PR #19 provider-resilient quota-efficient batch/tail discovery is accepted and reusable: four
+  governed ready candidates, three batch turns, and 712,842 accounted tokens.
+- PR #20's canonical worker-return normalization, source-omission protection, and ordinary
+  single-article zero-write path are independently accepted and reusable.
 - The final operating target remains `5–8/day` published articles per newsroom production day,
   without filler or weaker truth/evidence/rights/permission/numeric-authority gates.
 
 ## Current next gate
 
-`V1 FAST-SHIP ARTICLE / DIFF / SAFETY OWNER AUDIT`
+`ZERO-WRITE AUTOMATION ENABLEMENT / CALENDAR-TIME UNATTENDED RUNTIME PROOF`
 
-The canonical path has produced one useful ordinary article plus exactly eight derivative intents
-with zero writes. Jim/ChatGPT now audits the real prose, exact diff, focused tests, safety counters,
-and PR. 4/32 remains a separate throughput benchmark, not this path's prerequisite. No Automation
-or public-write scope changes are implied.
+The canonical article path and provider-resilient discovery path are accepted. The four existing
+routine host prompts now match the repo-derived FAST-SHIP hash and all four remain paused. The next
+boundary requires a separate exact owner grant to enable only those four for a zero-write
+calendar-time unattended/cold-start/fallback/late-result/cost/duplicate-suppression proof. 4/32
+remains throughput/economics telemetry, not a prerequisite. No public-write scope is implied.
 
-For throughput economics, the quota-efficient batch/tail discovery architecture remains a measured
-production improvement. A candidate that genuinely lacks an authorized source route retains the
+For throughput economics, reuse PR #19's provider-resilient batch/tail discovery. A candidate that
+genuinely lacks an authorized source route retains the
 fail-closed `SOURCE_DISCOVERY_REQUIRED` state. Neither condition blocks advancement of a separate,
 identity-valid governed candidate whose accepted evidence is already ready.
 
@@ -61,16 +66,17 @@ Desktop standalone fresh-run Automations remain the primary routine heavy-editor
 remains bounded missed/failed-primary fallback, immediate direct path, and benchmark path under the
 same canonical run identity.
 
-Exactly four native V1 Automations exist and are `PAUSED` on the correct model/effort/schedules.
-Their prompts require normalization. Their existence and paused state are accepted host truth;
-calendar-time execution remains unproven. No fifth task may be created.
+Exactly four native V1 routine Automations exist and are `PAUSED` on the correct model/effort/
+schedules/project. Their prompts share the repo-derived FAST-SHIP hash. This configuration is
+accepted host truth; calendar-time execution remains unproven. No fifth task may be created.
 
 ## Locked progression order
 
-1. one canonical zero-write article plus eight intents and independent audit;
-2. separate 4/32 throughput/economics rehearsal when useful;
-3. normalize/read back only the four existing paused prompts under exact authority;
-4. obtain separate Automation, public-write, unattended-runtime, V5, and final-acceptance decisions.
+1. preserve accepted PR #19 discovery and PR #20 article-path evidence;
+2. preserve the completed four-prompt normalization/readback with all objects paused;
+3. obtain exact zero-write enablement authority and calendar-time unattended runtime proof;
+4. complete fresh current-epoch V5 acceptance;
+5. obtain separate routine public-write and final-product authority decisions.
 
 ## Routine schedule policy
 

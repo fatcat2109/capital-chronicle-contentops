@@ -18,6 +18,7 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     DESKTOP_TASK_PROMPT,
     EDITORIAL_WORKER_MODEL,
     EDITORIAL_WORKER_REASONING_EFFORT,
+    EXACT_V1_AUTOMATION_IDS,
     MANUAL_GO_PROMPT,
     arbitrate_hybrid_editorial_execution,
     build_editorial_worker_routing_packet,
@@ -786,7 +787,7 @@ def test_desktop_rehearsal_reuses_canonical_reserved_frontier_and_never_promotes
     } == output_before
 
 
-def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
+def test_exact_four_task_packet_has_current_fast_ship_prompt_and_no_scale_up():
     packet = four_task_setup_packet()
     assert packet["model"] == COORDINATOR_MODEL == "gpt-5.6-sol"
     assert packet["reasoning_effort"] == COORDINATOR_REASONING_EFFORT == "HIGH"
@@ -812,12 +813,32 @@ def test_exact_four_task_packet_has_no_hidden_minimum_or_scale_up():
         ("V1 Newsroom — New York 0100", "Tuesday-Saturday", "01:00"),
     ]
     assert "native V1 coordinator on exact gpt-5.6-sol / HIGH" in DESKTOP_TASK_PROMPT
-    assert "immediate one-article MVP canary launch gate" in DESKTOP_TASK_PROMPT
-    assert "four qualified zero-public-write articles and 32 derivative intents" in DESKTOP_TASK_PROMPT
-    assert "does not satisfy the 4/32 gate" in DESKTOP_TASK_PROMPT
-    assert "five to eight published articles" in DESKTOP_TASK_PROMPT
+    assert "Treat 4/32 only as throughput/economics telemetry" in DESKTOP_TASK_PROMPT
+    assert "never as a prerequisite for generating or advancing one safe article" in DESKTOP_TASK_PROMPT
+    assert "five to eight useful published articles" in DESKTOP_TASK_PROMPT
+    assert "do not require four ready candidates before writing" in DESKTOP_TASK_PROMPT
+    assert "record its exact blocker and continue to another eligible governed candidate" in DESKTOP_TASK_PROMPT
+    assert "deterministic local repair or warning" in DESKTOP_TASK_PROMPT
+    assert "do not provider-shop after a genuine terminal semantic failure" in DESKTOP_TASK_PROMPT
+    assert "unproven source-omission assertions" in DESKTOP_TASK_PROMPT
+    assert "partial evidence projection lacks it" in DESKTOP_TASK_PROMPT
+    assert "proven current provider-resilient batch/tail discovery" in DESKTOP_TASK_PROMPT
+    assert "do not restore the historical 35-call / 10.2M-token per-trigger default" in DESKTOP_TASK_PROMPT
     assert "Only when one real candidate has enough governed evidence" in DESKTOP_TASK_PROMPT
+    assert "UNKNOWN_WRITE means STOP RETRY -> READ BACK -> RECONCILE" in DESKTOP_TASK_PROMPT
     assert "Start one fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in MANUAL_GO_PROMPT
+    assert "GO bypasses no gate" in MANUAL_GO_PROMPT
+    assert "not a prerequisite for one safe article" in MANUAL_GO_PROMPT
+    assert "No fifth routine task" in MANUAL_GO_PROMPT
+
+    stale_routine_semantics = (
+        "immediate one-article MVP canary launch gate",
+        "post-launch throughput gate",
+        "does not satisfy the 4/32 gate",
+        "One supervised MVP canary",
+        "OWNER_AUDIT_REQUIRED",
+    )
+    assert all(phrase not in DESKTOP_TASK_PROMPT for phrase in stale_routine_semantics)
 
 
 def test_supported_host_observation_persists_only_exact_safe_four_task_readback(tmp_path):
@@ -860,6 +881,41 @@ def test_supported_host_observation_persists_only_exact_safe_four_task_readback(
     assert len({row["observation_projection_sha256"] for row in persisted["tasks"]}) == 4
     assert persisted["tasks"][0]["host_config_sha256"] == f"{1:064x}"
     assert persisted["tasks"][0]["observation_projection_sha256"] != f"{1:064x}"
+
+
+def test_committed_automation_normalization_readback_matches_current_setup_contract():
+    evidence_path = (
+        Path(__file__).resolve().parents[1]
+        / "docs"
+        / "automation"
+        / "TASK_CONTENTOPS_V1_LAUNCH_ACTIVATION_FOUR_AUTOMATION_PROMPT_NORMALIZATION_AND_HOST_READBACK_V1"
+        / "automation_prompt_normalization_readback_v1.json"
+    )
+    evidence = json.loads(evidence_path.read_text(encoding="utf-8"))
+    packet = four_task_setup_packet()
+    expected_prompt_sha = hashlib.sha256(DESKTOP_TASK_PROMPT.encode("utf-8")).hexdigest()
+    expected_by_id = {task["id"]: task for task in packet["tasks"]}
+
+    assert evidence["classification"] == (
+        "PASS_FOUR_EXISTING_V1_AUTOMATION_PROMPTS_NORMALIZED_AND_PAUSED"
+    )
+    assert evidence["task_count"] == 4
+    assert evidence["all_exact_ids_present"] is True
+    assert evidence["no_fifth_routine_v1_automation"] is True
+    assert evidence["all_paused_after"] is True
+    assert evidence["expected_repo_prompt_sha256"] == expected_prompt_sha
+    assert {task["id"] for task in evidence["tasks"]} == set(EXACT_V1_AUTOMATION_IDS)
+    for task in evidence["tasks"]:
+        expected = expected_by_id[task["id"]]
+        assert task["name"] == expected["name"]
+        assert task["rrule"] == expected["rrule"]
+        assert task["timezone"] == packet["timezone"] == "Asia/Bangkok"
+        assert task["model"] == packet["model"] == "gpt-5.6-sol"
+        assert task["reasoning_effort"] == "high"
+        assert task["status"] == "PAUSED"
+        assert task["after_prompt_sha256"] == expected_prompt_sha
+        assert len(task["after_host_config_sha256"]) == 64
+        assert "prompt" not in task
 
 
 @pytest.mark.parametrize(

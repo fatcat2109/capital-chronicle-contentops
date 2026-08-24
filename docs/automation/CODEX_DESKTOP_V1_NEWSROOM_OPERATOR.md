@@ -25,13 +25,12 @@ small deterministic arbitration. It is not a scheduler, public-write bridge, or 
 
 ## 2. Owner output contract
 
-IMMEDIATE CANARY:
+PR #20's one useful zero-write article plus eight derivative intents is independently accepted.
+PR #19's provider-resilient quota-efficient batch/tail discovery is accepted and reusable.
 
-`one useful current zero-write article + eight derivative intents + JIT nine-surface readiness`
-
-POST-CANARY THROUGHPUT:
-
-`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS` remains throughput/economics
+telemetry and daily-output health evidence. It is not a prerequisite for generating or advancing
+one safe article and does not require four ready candidates before writing.
 
 FINAL V1:
 
@@ -87,10 +86,12 @@ At each scheduled Desktop opportunity after explicit owner enablement:
 2. read qualified/published counts and remaining deficit;
 3. recover/reconcile existing state and require `UNKNOWN_WRITE=0`;
 4. load the current candidate universe using durable cutoff/evaluated/update-chain memory;
-5. walk strong candidates and applicable editorial modes;
+5. walk strong candidates and applicable editorial modes; record an exact candidate hard blocker
+   and continue to another eligible governed candidate rather than stopping the opportunity;
 6. for each candidate that reaches the article boundary, invoke one fresh isolated XHIGH worker;
 7. persist each qualified article/package result;
-8. continue only until cumulative expected progress is restored, the bounded universe is exhausted,
+8. repair pure representation/SEO/structured-data defects deterministically before another model
+   call and continue only until useful progress is restored, the bounded universe is exhausted,
    bounded cost/retry limits are reached, or a hard external blocker occurs;
 9. persist deficit before/after and terminal reasons.
 
@@ -129,21 +130,33 @@ No legacy final-writer fallback.
 
 ## 8. Desktop-primary request contract
 
-Use current repository authority; do not embed stale branch SHAs.
+`live_contentops.codex_desktop_newsroom_operator_v1.py::DESKTOP_TASK_PROMPT` is the one canonical
+routine prompt. Use its exact current repo bytes; do not embed stale branch SHAs or copy an older
+proof prompt. Its contract requires:
 
 ```text
-Resolve the current newsroom production day and active output contract. Recover/reconcile state and require UNKNOWN_WRITE=0. Run as a fresh standalone Desktop gpt-5.6-sol / HIGH coordinator. At a genuinely qualified article boundary, start exactly one fresh isolated gpt-5.6-sol / XHIGH worker with only the bounded governed packet, exact input hash, full strict article output schema, and developer instructions. Persist a secret-free worker receipt before product validation. If deterministic validation returns concrete repair deltas, allow at most one bounded revision on the same worker; never blind-retry or create a replacement worker. The coordinator and worker have zero factual/numeric/CC/permission/gate/public-write authority. Deterministic validation and the existing V1 publication coordinator resume after return. Do not manufacture filler, weaken evidence, create a fifth window, start an SDK fallback after accepting Desktop primary, or perform public writes without exact owner authority.
+fresh authority -> deterministic production day/current useful-output state -> recovery and
+UNKNOWN_WRITE=0 -> proven provider-resilient discovery/evidence -> eligible candidate walk -> local
+representation repair -> one fresh isolated XHIGH only at a warranted article boundary ->
+deterministic hard-gate validation -> zero write unless separately authorized
 ```
+
+The hard gates include unsupported/fabricated material fact or causality, unbound quotation,
+unsupported numeric/proprietary claim, invalid evidence/source binding, unproven source-omission
+assertion, permission/publication identity failure, and `UNKNOWN_WRITE`. Never infer that a source
+omits something merely because a partial evidence projection lacks it. A genuine terminal semantic
+failure does not authorize provider shopping.
 
 ## 9. Desktop Automation and SDK arbitration rule
 
-Current supported host truth proves exactly four native Automation objects, all `PAUSED`, with the
-four schedules above and `gpt-5.6-sol / HIGH`. Their prompt hash differs from the current configured
-intent, and the supported surface exposed no run-now action. The accepted proof is therefore one
-fresh manual standalone Desktop run, not calendar-time execution.
+Current supported host truth proves exactly four native routine Automation objects, all `PAUSED`,
+with the four schedules above and `gpt-5.6-sol / HIGH`. Their prompts now share the exact current
+repo-derived FAST-SHIP hash. The supported surface exposes no run-now action, so calendar-time
+execution remains unproven.
 
-Before any enablement, Jim/ChatGPT must accept the exact zero-write canary and the host prompts must
-be normalized without creating a fifth object. No task is enabled by this contract.
+Prompt normalization/readback is complete without creating a fifth routine object. No task is
+enabled by this contract. Zero-write enablement/calendar-time proof and routine public-write
+authority require separate exact owner decisions.
 
 Hybrid arbitration uses one canonical identity over runtime run, production day, opportunity,
 story, and governed input. Accepted Desktop primary wins inside its valid window. SDK fallback may
@@ -168,12 +181,12 @@ authorize blind retry of ambiguous writes.
 
 ## 12. Current proof and remaining acceptance
 
-The same-Italy Desktop-primary hybrid proof is accepted as
-`PASS_DESKTOP_PRIMARY_HYBRID_EDITORIAL_PARITY_AND_FINAL_CANARY_READY`. The official SDK proof remains
-preserved as fallback/direct/benchmark capability evidence. The Desktop proof establishes one exact
-useful zero-write vertical; it does not prove calendar-time Automation execution,
-production-grade throughput, or publication authority.
+PR #20's exact useful zero-write vertical is independently accepted. The official SDK proof remains
+preserved as fallback/direct/benchmark capability evidence, and PR #19 discovery remains current.
+The completed prompt normalization proves configuration only; it does not prove calendar-time
+Automation execution, production throughput, or publication authority.
 
-Next: Jim/ChatGPT audits the exact article and nine-surface plan. No task enablement, second article,
-public write, or 4/32 start is authorized. The 4/32 gate remains required before production-grade
-daily-yield or unattended routine-operation claims. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+Next: exact owner-authorized zero-write Automation enablement/calendar-time unattended proof,
+followed by fresh current-epoch V5 acceptance and separate routine public-write/final-product
+authority decisions. No task enablement, article generation, public write, or 4/32 rerun is
+authorized here. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.

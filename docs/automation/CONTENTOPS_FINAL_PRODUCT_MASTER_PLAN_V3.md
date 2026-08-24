@@ -109,38 +109,40 @@ wholesale-merge its stale authority and never mutate V1 runtime/store/browser/pu
 
 ## 4. Current host/runtime proof required
 
-Seven capability rows require fresh evidence rather than new architecture:
+Five capability rows require fresh evidence rather than new architecture after the completed prompt
+normalization/readback:
 
 1. exact current reliance on the four native Desktop Automations under calendar-time execution;
-2. 4/32 throughput/economics evidence after the single-article path is independently accepted;
-3. normalization/readback of only the four existing host prompts under exact owner authority;
-4. unattended calendar-time/cold-start/missed-primary SDK fallback/late-result/cost/duplicate-
+2. unattended calendar-time/cold-start/missed-primary SDK fallback/late-result/cost/duplicate-
    suppression proof;
-5. fresh current-epoch V5 desktop/mobile visual and truth acceptance;
-6. repeated qualified fresh cross-domain V2 story production after reconciliation;
-7. final V2 actual-media picture/sound/taste/pacing/novelty/publishability acceptance.
+3. fresh current-epoch V5 desktop/mobile visual and truth acceptance;
+4. repeated qualified fresh cross-domain V2 story production after reconciliation;
+5. final V2 actual-media picture/sound/taste/pacing/novelty/publishability acceptance.
+
+4/32 remains useful throughput/economics telemetry and daily-output health evidence, not a launch
+prerequisite or current host-proof gate.
 
 Accepted host truth is exactly four native V1 Automations, all `PAUSED`, with correct model,
-reasoning effort, schedules, and mismatched prompts. Calendar-time execution remains unproven. At
+reasoning effort, schedules, project, and one matching repo-derived prompt hash. Calendar-time
+execution remains unproven. At
 the sweep epoch the production database was opened read-only and was healthy with
 `UNKNOWN_WRITE=0`, while no Daily App process/listener was running. That at-rest observation is not
 a cold-start or unattended PASS.
 
 ## 5. True new implementation gaps
 
-Exactly three gaps survived the accepted repository/branch/runtime truth sweep:
+The accepted sweep originally recorded three gaps. PR #19 closes the V1 discovery row without
+rewriting historical sweep evidence. Exactly two current implementation gaps remain:
 
-1. **V1 quota-efficient batch/tail discovery.** Reuse the existing discovery provider,
-   same-candidate handshake, route health, deterministic retrieval/hash/freshness, and hard
-   evidence gates. Change invocation economics/batching/tail selection only.
-2. **V2 selective single-stack reconciliation.** Reconcile current-compatible unattended/locale/
+1. **V2 selective single-stack reconciliation.** Reconcile current-compatible unattended/locale/
    daily-operator donor capability onto the current free-form/package/publication substrate.
-3. **V2 integrated qualification/observation/bounded-learning loop.** Close qualified V1/story
+2. **V2 integrated qualification/observation/bounded-learning loop.** Close qualified V1/story
    input -> V2 production -> observed performance -> bounded packaging/priority learning without a
    parallel authority system.
 
-The immediate V1 implementation capability is the smaller native worker-return normalization gap.
-Gap 1 remains necessary for economically repeatable final 5–8/day throughput.
+PR #19 provider-resilient quota-efficient batch/tail discovery and PR #20 native worker-return
+normalization/article qualification are `CURRENTLY_PROVEN_AND_REUSE`. No V1 implementation gap is
+opened by the current activation slice.
 
 ## 6. Superseded — never route or revive
 
@@ -157,7 +159,7 @@ Do not revive these merely because their historical artifacts are detailed.
 
 ## 7. Locked V1 evidence truth
 
-The current sequence starts after three completed evidence events:
+The current sequence starts after five completed evidence events:
 
 1. **Real canary complete.** Italy published one canonical Substack article plus exactly eight
    derivative packages; all nine reconciled; `UNKNOWN_WRITE=0`. Never publish the same canary again
@@ -170,32 +172,32 @@ The current sequence starts after three completed evidence events:
    produced with deterministic retrieval/hash/freshness, redirect repair, source-route health,
    same-candidate resume, and frozen worker transport. Its 35 URL-discovery calls and 10,237,897
    discovery tokens are `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`.
+4. **PR #19 discovery complete.** Provider-resilient batch/tail discovery produced four governed
+   ready candidates in three batch turns with 712,842 accounted tokens and is accepted for reuse.
+5. **PR #20 article path complete.** Native worker-return normalization and source-omission hard
+   protection qualified one ordinary zero-write article plus exactly eight derivative intents and
+   passed independent owner audit.
 
 ## 8. Final locked V1 roadmap
 
 Progression order:
 
-1. master-plan/authority lock;
-2. apply proven representation normalization at the native worker-return boundary;
-3. qualify one useful canonical article plus eight derivative intents under zero write and obtain
-   independent audit;
-4. retain 4/32 as a separate throughput/economics benchmark;
-5. owner-authorized normalization and supported readback of only the four existing paused
-   Automation prompts;
-6. separate owner decisions for Automation enablement and routine public-write scope;
-7. calendar-time unattended/cold-start/SDK fallback/late-result/bounded-cost/duplicate-suppression
+1. preserve accepted PR #19 discovery and PR #20 article-path evidence;
+2. preserve the completed normalization/readback of only the four existing paused Automation prompts;
+3. obtain an exact owner grant for zero-write Automation enablement;
+4. prove calendar-time unattended/cold-start/SDK fallback/late-result/bounded-cost/duplicate-suppression
    proof, valid under zero public write if that is the exact owner grant;
-8. fresh current-epoch V5 desktop/mobile visual and truth QA;
-9. explicit owner `V1_FINAL_PRODUCT_ACCEPTED` and freeze decision.
+5. run fresh current-epoch V5 desktop/mobile visual and truth QA;
+6. obtain separate routine public-write and explicit owner `V1_FINAL_PRODUCT_ACCEPTED` decisions.
 
 Do not create a fifth Automation. Do not treat prompt normalization as enablement. Do not treat
 Automation enablement as public-write permission. Do not infer V1 acceptance from this plan.
 
 ## 9. Automation and public-write gates
 
-The four existing Automations are the only routine native task objects. The supported host surface
-proved their existence and paused state but exposed no run-now action. Prompt normalization and
-readback must occur before any enablement decision.
+The four existing Automations are the only routine native task objects. Supported readback proves
+their paused state and matching repo-derived prompt hashes but exposes no run-now action. No fifth
+routine object exists. Enablement remains a separate exact owner decision.
 
 Automation enablement and routine public-write authority are separate owner gates. A calendar-time
 unattended proof may validly run with zero public-write authority if that is the exact grant. Any
@@ -232,11 +234,12 @@ publication authority remains isolated. Current V2 public-write authority is exa
 
 V1 is final only when:
 
-1. quota-efficient evidence acquisition is implemented and economically evidenced;
-2. the canonical article path is independently accepted and throughput/economics are sufficient
-   for the final 5–8 useful-article target without filler or weaker truth;
-3. only the four existing Automation prompts are normalized/read back and their enablement scope is
-   explicitly decided;
+1. reuse PR #19's quota-efficient provider-resilient evidence acquisition and keep economics as
+   operating telemetry rather than a launch prerequisite;
+2. reuse the independently accepted canonical article path and keep 4/32/output economics as
+   operating telemetry toward the final 5–8 useful-article target without filler or weaker truth;
+3. the completed four-prompt normalization/readback is preserved and enablement scope is explicitly
+   decided;
 4. calendar-time unattended/cold-start/fallback/duplicate-suppression behavior is proven;
 5. fresh current-epoch V5 visual and truth QA passes;
 6. the owner explicitly records `V1_FINAL_PRODUCT_ACCEPTED` and freezes the product.

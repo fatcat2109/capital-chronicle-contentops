@@ -46,6 +46,10 @@ Any file containing these current-looking claims is stale for routing unless exp
 - immediate 4/32 article/derivative generation is the current V1 next task.
 - a perfect 4/32 rehearsal is a prerequisite for proving or advancing one safe qualified article.
 - per-trigger fresh Sol/HIGH URL discovery is the routine production default.
+- PR #19 provider-resilient quota-efficient batch/tail discovery remains unimplemented.
+- PR #20's canonical article path still awaits owner audit.
+- native worker-return representation normalization remains the immediate implementation gap.
+- the four current host prompts still require normalization.
 - branch-proven V2 unattended/recovery/locale/native-relay systems must be rebuilt from zero;
 - V2 may write publicly; or
 - `V1_FINAL_PRODUCT_ACCEPTED` is already true.
@@ -59,8 +63,12 @@ Any file containing these current-looking claims is stale for routing unless exp
   `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`; routine canonical execution leaves it disabled. An
   explicit bounded tail/proof opt-in may use the existing provider, while no opt-in remains a
   fail-closed `SOURCE_DISCOVERY_REQUIRED` abstention.
-- A quota-efficient batch/tail discovery architecture is a future implementation gap. It is required
-  before treating final 5–8/day as economically repeatable and is not authorized by this task.
+- PR #19 provider-resilient quota-efficient batch/tail discovery is accepted and reusable: Stage A
+  produced four governed ready candidates in three batch turns with 712,842 accounted tokens. Do
+  not rebuild it or restore the historical 35-call/10,237,897-token per-trigger default.
+- PR #20's canonical worker-return normalization and single-article path are independently accepted
+  and reusable. The ordinary article plus exactly eight undispatched derivative intents cleared the
+  hard gates with zero public/provider/unknown writes.
 - The owner-scoped Italy canary is completed technical evidence: one canonical Substack article
   plus exactly eight derivatives, all nine reconciled, `UNKNOWN_WRITE=0`. It must not be repeated
   merely to prove publication.
@@ -77,9 +85,9 @@ Any file containing these current-looking claims is stale for routing unless exp
 - Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
 - Later windows may recover earlier deficit through bounded additional candidate/article work.
 - No fifth routine task merely to satisfy the floor.
-- Current hash-bound supported host observation proves exactly four native V1 Automations, all
-  `PAUSED`, on `gpt-5.6-sol / HIGH` at the four Bangkok windows. No mutation, enablement, or fifth
-  task occurred. Prompt normalization is still required before owner-gated enablement.
+- Current hash-bound supported host observation proves exactly four native V1 routine Automations,
+  all `PAUSED`, on `gpt-5.6-sol / HIGH` at the four Bangkok windows. Their prompts now share the
+  exact repo-derived FAST-SHIP hash; no enablement or fifth routine task occurred.
 - FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
 - Desktop standalone fresh-run Automations are the primary routine editorial brain; current
   calendar-time execution proof remains required because the supported surface exposed no run-now.
@@ -87,8 +95,8 @@ Any file containing these current-looking claims is stale for routing unless exp
   missed/failed-primary fallback, immediate direct path, and benchmark path.
 - The zero-write Desktop Italy slice, real nine-surface Italy canary, failed 4/32 proof, and later
   four-ready-candidate foundation remain preserved evidence. None is an unstarted routing task.
-- Prompt normalization/readback, Automation enablement, and routine public-write authority are
-  three separate owner gates. Calendar-time unattended behavior remains unproven.
+- Prompt normalization/readback is complete. Zero-write Automation enablement/calendar-time
+  unattended proof and routine public-write authority remain separate later owner gates.
 - V2 starts only after the V1 gate with selective reconciliation of current-compatible donor
   capability. Historical branch authority must not be wholesale merged; V2 public-write authority
   remains zero.

@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`CANARY_COMPLETE / FIRST_4_32_FAILED / EVIDENCE_FOUNDATION_READY / FAST_SHIP_ARTICLE_READY_FOR_OWNER_AUDIT`
+`CANARY_COMPLETE / PR19_DISCOVERY_ACCEPTED / PR20_ARTICLE_PATH_ACCEPTED / FOUR_PROMPTS_NORMALIZED_PAUSED`
 
 The canonical runtime/store/supervisor/publisher/UI, production-day accounting, four-window harness,
 bounded deficit recovery, Desktop/SDK arbitration, official-source evidence seams, destination
@@ -17,20 +17,18 @@ derivative packages; all nine reconciled with `UNKNOWN_WRITE=0`. The first real 
 4/32 proof then ran against 40 distinct stories and truthfully failed at `0 qualified articles / 0
 derivative intents`. It is failed acceptance evidence, not an unstarted task.
 
-The later evidence foundation produced four distinct governed evidence-ready candidates with
-deterministic retrieval/hash/freshness, redirect repair, source-route health, same-candidate resume,
-and frozen worker transport. Its 35 URL-discovery calls and 10,237,897 discovery tokens are not an
-accepted routine production default. The next implementation capability is quota-efficient
-batch/tail discovery on the existing evidence seam. First-party locator/publisher resolution is
-already accepted.
+PR #19 provider-resilient quota-efficient batch/tail discovery is accepted and reusable. Stage A
+produced four governed ready candidates in three batch turns with 712,842 accounted tokens while
+preserving deterministic retrieval/hash/freshness, redirect repair, route health, same-candidate
+resume, and frozen worker transport. Do not restore the older 35-call/10,237,897-token default.
 
-The fast-ship path has now qualified one `BREAKING_BRIEF` article plus exactly eight undispatched
-derivative intents with hard blockers empty and public/provider/unknown writes all zero. The real
-prose and PR remain subject to independent Jim/ChatGPT audit; this is not final-product acceptance.
+PR #20 independently accepted one `BREAKING_BRIEF` article plus exactly eight undispatched
+derivative intents with hard blockers empty and public/provider/unknown writes all zero. Native
+worker-return normalization and source-omission hard protection are current reusable capability.
 
-Exactly four native V1 Automations exist and are `PAUSED` with correct model/effort/schedules; their
-prompts require normalization. Calendar-time execution remains unproven. `V1_FINAL_PRODUCT_ACCEPTED`
-is not true.
+Exactly four native V1 routine Automations exist and are `PAUSED` with correct model/effort/schedules/
+project and one matching repo-derived prompt hash. Calendar-time execution remains unproven.
+`V1_FINAL_PRODUCT_ACCEPTED` is not true.
 
 ## Canonical product flow
 
@@ -41,7 +39,7 @@ one-click launcher
 -> rolling current candidate universe + published memory
 -> routine window OR bounded material-event wake eligibility
 -> story type + editorial mode selection
--> quota-efficient batch/tail discovery when authorized and needed
+-> proven provider-resilient quota-efficient batch/tail discovery when needed
 -> claim/mode-specific evidence and CC authority resolution
 -> choose useful story or abstain
 -> one strong editorial worker when warranted
@@ -129,11 +127,10 @@ Use CodeGraph callers/callees around these seams before editing. Do not create p
 - existing material-event trigger/update-chain and operator-trigger state discovered by CodeGraph
 - durable window/trigger/lease/idempotency tables and focused supervisor tests
 
-The next implementation task is not a wake-path rebuild. Material-event priority remains shadow-only
-unless a later exact owner grant authorizes more. Calendar-time unattended/cold-start/fallback proof
-comes only after the single-article path audit plus separate prompt, Automation, and public-write
-decisions. A 4/32 rerun remains useful throughput evidence but is not that path's prerequisite. No
-fifth task is authorized.
+The next V1 boundary is not a wake-path rebuild. It is exact zero-write Automation enablement and
+calendar-time unattended/cold-start/fallback proof, followed by fresh V5 acceptance and separate
+routine public-write/final-product decisions. A 4/32 rerun remains useful telemetry but is not a
+launch prerequisite. No fifth task is authorized.
 
 ### Newsroom / selection
 
@@ -150,9 +147,9 @@ fifth task is authorized.
 - `live_contentops/official_primary_evidence_loader_v1.py`
 - exact current evidence capability/profile contracts discovered from callers/tests
 
-Quota-efficient batch/tail discovery must extend this existing seam. Reuse
+PR #19's quota-efficient provider-resilient batch/tail discovery extends this existing seam. Reuse
 `OfficialCodexUrlDiscoveryProvider`, same-candidate resume, route health, deterministic retrieval,
-hashing, freshness, and hard admission gates. Do not create a parallel evidence system or accept
+hashing, freshness, and hard admission gates. Do not create a parallel evidence system or restore
 the historical 35-call per-trigger path as routine production policy.
 
 ### Capital Chronicle authority
@@ -219,13 +216,11 @@ These are identities, not permission to inspect credentials/session material.
 
 ## Current validation sequence
 
-1. preserve all accepted V1 foundation, the completed Italy canary, the failed 4/32 receipt, and the
-   four-ready-candidate foundation;
-2. apply deterministic representation normalization at the canonical worker-return boundary;
-3. qualify one useful zero-write article plus exactly eight derivative intents and obtain audit;
-4. retain 4/32 as separate throughput/economics evidence;
-5. keep prompt mutation/enablement, routine public write, unattended runtime, V5, and final
-   acceptance as distinct later owner gates.
+1. preserve all accepted V1 foundation, the completed Italy canary, and failed 4/32 receipt;
+2. reuse PR #19 provider-resilient batch discovery and PR #20's accepted article path;
+3. preserve the four normalized matching prompts with all routine Automations paused;
+4. next obtain exact zero-write enablement/calendar-time unattended proof;
+5. follow with fresh V5 acceptance and separate routine public-write/final-product decisions.
 
 ## Stale traps
 
@@ -238,6 +233,9 @@ Do not route from:
 - any claim that the real Italy nine-surface canary is still pending;
 - any claim that the 4/32 proof has never run;
 - any claim that a perfect 4/32 proof gates one safe qualified article path;
+- PR #20 article audit or native worker-return normalization as pending;
+- PR #19 quota-efficient provider-resilient batch/tail discovery as unimplemented;
+- the four host prompts as still mismatched or awaiting normalization;
 - production-day accounting or bounded deficit recovery as an implementation gap;
 - the four native V1 Automations as host-unproven;
 - first-party locator/source-family or publisher-resolution closure as the next task;
