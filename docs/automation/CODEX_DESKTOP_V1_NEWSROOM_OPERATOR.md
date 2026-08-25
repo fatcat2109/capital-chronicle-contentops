@@ -179,6 +179,36 @@ start only after an exact missed/failed/expired primary condition. Once SDK fall
 Desktop completion is suppressed and may create neither a duplicate article nor a public object.
 Terminal content-gate failure does not authorize provider shopping.
 
+### 9.1 Native production PREPARE/COMPLETE seam
+
+The supported production composition exposes two public methods on
+`FinalDailyAppProductionRuntime`:
+
+- `prepare_native_desktop_scheduled_opportunity(automation_id=..., now=...)`
+- `complete_native_desktop_scheduled_opportunity(automation_id=...,
+  canonical_opportunity_id=..., worker_return=..., coordinator_review_receipt=..., now=...)`
+
+PREPARE claims the exact scheduled window through the existing durable work item and lease. It
+runs the canonical candidate/evidence path. If no article worker is warranted, it terminalizes
+normally. If one is warranted, it persists the exact worker request, governed-input hash,
+viability checkpoint, accepted semantic-resume bindings, candidate identity, attempt budget, and
+prior qualified progress; it leaves the work item `EVIDENCE_PENDING` and releases the lease.
+Duplicate PREPARE returns the same pending handoff without another cycle.
+
+Desktop HIGH creates the one fresh isolated `gpt-5.6-sol / XHIGH` worker. Python receives no Codex
+credential or private provider bridge. COMPLETE requires the exact opportunity id, worker return,
+and hash-bound HIGH coordinator review receipt. It reacquires the same work item, reuses the exact
+intake/leaf/global/story-type/viability checkpoints, and runs the canonical article builder and
+validators without reranking or refetching the bound candidate. A candidate-local hard failure
+may return the next distinct governed worker request in the same opportunity. A semantic revision
+may return one same-worker revision request; no legacy or SDK writer substitution is permitted.
+Only the canonical terminal conditions close the work item.
+
+Both phases are permanently zero-public-write. Destination readiness HOLD remains diagnostics,
+while observed public-write or `UNKNOWN_WRITE` truth is preserved and blocks the result. The
+compatibility method `execute_native_desktop_scheduled_opportunity(...)` aliases PREPARE; callers
+must not invoke the supervisor's private `_execute_window` method.
+
 ## 10. Material-event wake
 
 FDA-G material-event detection may prioritize existing-runtime work. It grants neither extra model

@@ -5,7 +5,7 @@ import threading
 from dataclasses import dataclass
 from http.server import HTTPServer
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Mapping, Optional
 
 from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
 from live_contentops.daily_app_supervisor_v1 import (
@@ -63,9 +63,36 @@ class FinalDailyAppProductionRuntime:
     def execute_native_desktop_scheduled_opportunity(
         self, *, automation_id: str, now: Any = None
     ) -> dict[str, Any]:
-        """Public production seam for one native Desktop-owned routine opportunity."""
+        """Compatibility alias for the public PREPARE phase."""
         return self.supervisor.execute_native_desktop_scheduled_opportunity(
             automation_id=automation_id,
+            now=now,
+        )
+
+    def prepare_native_desktop_scheduled_opportunity(
+        self, *, automation_id: str, now: Any = None
+    ) -> dict[str, Any]:
+        """Run canonical discovery/evidence and return a durable XHIGH request when warranted."""
+        return self.supervisor.prepare_native_desktop_scheduled_opportunity(
+            automation_id=automation_id,
+            now=now,
+        )
+
+    def complete_native_desktop_scheduled_opportunity(
+        self,
+        *,
+        automation_id: str,
+        canonical_opportunity_id: str,
+        worker_return: Mapping[str, Any],
+        coordinator_review_receipt: Mapping[str, Any],
+        now: Any = None,
+    ) -> dict[str, Any]:
+        """Resume the same opportunity with its exact worker and HIGH review receipts."""
+        return self.supervisor.complete_native_desktop_scheduled_opportunity(
+            automation_id=automation_id,
+            canonical_opportunity_id=canonical_opportunity_id,
+            worker_return=worker_return,
+            coordinator_review_receipt=coordinator_review_receipt,
             now=now,
         )
 
