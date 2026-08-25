@@ -128,6 +128,7 @@ def test_native_desktop_public_entrypoint_claims_exact_window_once_and_binds_fal
     assert first["execution_owner"] == "NATIVE_DESKTOP_AUTOMATION"
     assert first["public_write_authority"] == "ZERO"
     assert first["public_write_performed"] is False
+    assert first["unknown_write_detected"] is False
     assert first["canonical_opportunity_id"] == first["runtime_run_id"]
     assert len(calls) == 1
     assert calls[0]["run_id"] == first["canonical_opportunity_id"]
@@ -146,6 +147,73 @@ def test_native_desktop_public_entrypoint_claims_exact_window_once_and_binds_fal
     )
     assert identity["runtime_run_id"] == first["canonical_opportunity_id"]
     assert identity["opportunity_id"] == first["canonical_opportunity_id"]
+
+
+def test_native_desktop_public_entrypoint_surfaces_unexpected_public_write_fail_closed(
+    tmp_path,
+):
+    now = datetime(2026, 8, 24, 14, 5, tzinfo=timezone.utc)
+
+    def unexpected_public_write(**_kwargs):
+        return {
+            "classification": "PASS_PUBLICATION_PLAN_READY",
+            "public_write_performed": True,
+            "unknown_write_detected": False,
+        }
+
+    supervisor, _calls = _supervisor(
+        tmp_path,
+        mode="SHADOW_ONLY",
+        clock=lambda: now,
+        cycle=unexpected_public_write,
+        scheduled_editorial_owner=SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+    )
+
+    result = supervisor.execute_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-new-york-2100",
+        now=now,
+    )
+
+    assert result["public_write_authority"] == "ZERO"
+    assert result["public_write_performed"] is True
+    assert result["unknown_write_detected"] is False
+    assert result["classification"] == "BLOCKED"
+    assert result["exact_next_blocker"] == (
+        "NATIVE_DESKTOP_ZERO_WRITE_CONTRACT_VIOLATION"
+    )
+    assert result["retry_authorized"] is False
+
+
+def test_native_desktop_public_entrypoint_preserves_unknown_write_stop_rule(tmp_path):
+    now = datetime(2026, 8, 24, 14, 5, tzinfo=timezone.utc)
+
+    def unexpected_unknown_write(**_kwargs):
+        return {
+            "classification": "NO_PUBLICATION",
+            "public_write_performed": False,
+            "unknown_write_detected": True,
+        }
+
+    supervisor, _calls = _supervisor(
+        tmp_path,
+        mode="SHADOW_ONLY",
+        clock=lambda: now,
+        cycle=unexpected_unknown_write,
+        scheduled_editorial_owner=SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+    )
+
+    result = supervisor.execute_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-new-york-2100",
+        now=now,
+    )
+
+    assert result["public_write_authority"] == "ZERO"
+    assert result["public_write_performed"] is False
+    assert result["unknown_write_detected"] is True
+    assert result["classification"] == "BLOCKED"
+    assert result["exact_next_blocker"] == "UNKNOWN_WRITE"
+    assert result["unknown_write_rule"] == "STOP_RETRY_READ_BACK_RECONCILE"
+    assert result["retry_authorized"] is False
 
 
 def test_source_route_health_snapshot_persists_in_existing_output_state_and_reloads(

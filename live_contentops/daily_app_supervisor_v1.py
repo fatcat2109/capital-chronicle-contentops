@@ -590,7 +590,9 @@ class ContentOpsDailyAppSupervisor:
         from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
 
         outcome = dict(self._execute_window(window, moment))
-        return {
+        observed_public_write = outcome.get("public_write_performed") is True
+        observed_unknown_write = outcome.get("unknown_write_detected") is True
+        result = {
             "schema_version": "contentops.native_desktop_scheduled_opportunity.v1",
             "automation_id": task_id,
             "session": session,
@@ -601,10 +603,31 @@ class ContentOpsDailyAppSupervisor:
             "canonical_opportunity_id": opportunity_id,
             "runtime_run_id": opportunity_id,
             "sdk_fallback_identity_compatible": True,
-            "public_write_authority": "ZERO",
             **outcome,
-            "public_write_performed": False,
+            "public_write_authority": "ZERO",
+            "public_write_performed": observed_public_write,
+            "unknown_write_detected": observed_unknown_write,
         }
+        if observed_public_write:
+            result.update(
+                {
+                    "classification": "BLOCKED",
+                    "exact_next_blocker": (
+                        "NATIVE_DESKTOP_ZERO_WRITE_CONTRACT_VIOLATION"
+                    ),
+                    "retry_authorized": False,
+                }
+            )
+        if observed_unknown_write:
+            result.update(
+                {
+                    "classification": "BLOCKED",
+                    "exact_next_blocker": "UNKNOWN_WRITE",
+                    "unknown_write_rule": "STOP_RETRY_READ_BACK_RECONCILE",
+                    "retry_authorized": False,
+                }
+            )
+        return result
 
     def _load_source_route_health_state(self) -> dict[str, Any]:
         path = self._output_root / SOURCE_ROUTE_HEALTH_STATE_NAME
