@@ -1116,6 +1116,7 @@ def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):
     assert smoke["learning_enabled"] is True
     assert smoke["scheduled_editorial_owner"] == "NATIVE_DESKTOP_AUTOMATION"
     assert smoke["public_write_performed"] is False
+    assert callable(runtime.execute_native_desktop_scheduled_opportunity)
 
 
 def test_default_production_startup_does_not_ensure_or_navigate_edge(tmp_path, monkeypatch):

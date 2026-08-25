@@ -52,6 +52,12 @@ SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP = "NATIVE_DESKTOP_AUTOMATION"
 SCHEDULED_EDITORIAL_OWNERS = frozenset(
     {SCHEDULED_EDITORIAL_OWNER_FDA_G, SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP}
 )
+NATIVE_DESKTOP_AUTOMATION_SESSION_BY_ID = {
+    "v1-newsroom-london-1700": "london_1700_bangkok",
+    "v1-newsroom-new-york-2100": "new_york_2100_bangkok",
+    "v1-newsroom-new-york-2300": "new_york_2300_bangkok",
+    "v1-newsroom-new-york-0100": "new_york_0100_bangkok",
+}
 
 #: Work-item states that indicate an editorial window has already been executed (or recovered)
 #: and must not be re-executed. Only DISCOVERED is fresh. EVIDENCE_PENDING is handled
@@ -529,6 +535,76 @@ class ContentOpsDailyAppSupervisor:
     @property
     def operating_mode(self) -> str:
         return self._operating_mode
+
+    def execute_native_desktop_scheduled_opportunity(
+        self,
+        *,
+        automation_id: str,
+        now: Optional[datetime] = None,
+    ) -> dict[str, Any]:
+        """Claim and execute one exact Desktop-owned routine opportunity.
+
+        This is the supported native Desktop production entrypoint.  It reuses the existing
+        schedule identity, durable store, lease/fencing, newsroom cycle, and terminal-state
+        suppression.  FDA-G's ordinary ``tick`` deliberately omits these windows when native
+        Desktop owns them; callers never invoke the private ``_execute_window`` contract.
+
+        The entrypoint is permanently zero-public-write.  It may build and validate a canonical
+        article plus undispatched intents, but cannot hand a plan to the publication lifecycle.
+        """
+        if self._scheduled_editorial_owner != SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP:
+            raise ValueError("native_desktop_scheduled_owner_not_configured")
+        task_id = str(automation_id or "").strip()
+        session = NATIVE_DESKTOP_AUTOMATION_SESSION_BY_ID.get(task_id)
+        if session is None:
+            raise ValueError("native_desktop_automation_id_invalid")
+        moment = now or self._clock()
+        if moment.tzinfo is None:
+            moment = moment.replace(tzinfo=timezone.utc)
+        moment = moment.astimezone(timezone.utc)
+        matches = [
+            row
+            for row in self._currently_due_scheduled_windows(moment)
+            if str(row.get("session") or "") == session
+        ]
+        if not matches:
+            return {
+                "schema_version": "contentops.native_desktop_scheduled_opportunity.v1",
+                "automation_id": task_id,
+                "session": session,
+                "execution_owner": SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+                "executed": False,
+                "reason": "scheduled_opportunity_not_due",
+                "public_write_authority": "ZERO",
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+            }
+        if len(matches) != 1:
+            raise RuntimeError("native_desktop_scheduled_opportunity_identity_ambiguous")
+        window = {
+            **matches[0],
+            "native_desktop_automation_id": task_id,
+            "native_desktop_zero_public_write": True,
+        }
+        opportunity_id = str(window["window_id"])
+        from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
+
+        outcome = dict(self._execute_window(window, moment))
+        return {
+            "schema_version": "contentops.native_desktop_scheduled_opportunity.v1",
+            "automation_id": task_id,
+            "session": session,
+            "execution_owner": SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+            "scheduled_at_utc": _iso_utc(window["start"]),
+            "actual_start_utc": _iso_utc(moment),
+            "newsroom_production_day_id": newsroom_production_day_id(window["start"]),
+            "canonical_opportunity_id": opportunity_id,
+            "runtime_run_id": opportunity_id,
+            "sdk_fallback_identity_compatible": True,
+            "public_write_authority": "ZERO",
+            **outcome,
+            "public_write_performed": False,
+        }
 
     def _load_source_route_health_state(self) -> dict[str, Any]:
         path = self._output_root / SOURCE_ROUTE_HEALTH_STATE_NAME
@@ -2969,7 +3045,13 @@ class ContentOpsDailyAppSupervisor:
                     reason_code="EDITORIAL_WINDOW_DUE",
                     explanation=f"Executing editorial window {window_id}",
                 )
-            publication_enabled = self._refresh_operating_mode() == "AUTONOMOUS_DEFAULT"
+            native_desktop_zero_write = bool(
+                window.get("native_desktop_zero_public_write")
+            )
+            publication_enabled = (
+                self._refresh_operating_mode() == "AUTONOMOUS_DEFAULT"
+                and not native_desktop_zero_write
+            )
             material_event_shadow = str(window.get("trigger") or "") == TRIGGER_MATERIAL_EVENT
             if material_event_shadow:
                 publication_enabled = False
@@ -2989,6 +3071,7 @@ class ContentOpsDailyAppSupervisor:
             cycle_article_worker_required = bool(
                 publication_enabled
                 or self._operating_mode == "SHADOW_ONLY"
+                or native_desktop_zero_write
             )
             cycle_kwargs: dict[str, Any] = {
                 "cutoff_utc": _iso_utc(cutoff),

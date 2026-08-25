@@ -60,6 +60,15 @@ class FinalDailyAppProductionRuntime:
             self.api_server.server_close()
             self.api_server = None
 
+    def execute_native_desktop_scheduled_opportunity(
+        self, *, automation_id: str, now: Any = None
+    ) -> dict[str, Any]:
+        """Public production seam for one native Desktop-owned routine opportunity."""
+        return self.supervisor.execute_native_desktop_scheduled_opportunity(
+            automation_id=automation_id,
+            now=now,
+        )
+
     def smoke_snapshot(self) -> dict[str, Any]:
         control = self.store.get_operating_control()
         return {
