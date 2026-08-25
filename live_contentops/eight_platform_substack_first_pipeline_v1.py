@@ -143,6 +143,7 @@ def run_rolling_x_newsroom_cycle(
     destination_readiness_override: Mapping[str, Any] | None = None,
     editorial_execution_route: str = DESKTOP_PRIMARY_EDITORIAL_ROUTE,
     hybrid_arbitration_receipt: Mapping[str, Any] | None = None,
+    native_desktop_prepare: bool = False,
 ) -> dict[str, Any]:
     kwargs = {
         "run_id": run_id,
@@ -209,7 +210,11 @@ def run_rolling_x_newsroom_cycle(
         return execute_with_receipt(article_builder)
 
     if route == DESKTOP_PRIMARY_EDITORIAL_ROUTE:
-        if not publication_enabled:
+        # The native Desktop PREPARE phase intentionally reaches the canonical viable-candidate
+        # boundary without an in-process writer.  The implementation returns the exact governed
+        # worker request and performs no article generation or public write.  COMPLETE later
+        # supplies a hash-bound injected builder through this same public facade.
+        if not publication_enabled or native_desktop_prepare is True:
             return execute_with_receipt(None)
         raise ValueError("desktop_primary_editorial_builder_required")
 

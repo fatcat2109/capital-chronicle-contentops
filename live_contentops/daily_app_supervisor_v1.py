@@ -542,16 +542,15 @@ class ContentOpsDailyAppSupervisor:
         automation_id: str,
         now: Optional[datetime] = None,
     ) -> dict[str, Any]:
-        """Claim and execute one exact Desktop-owned routine opportunity.
+        """Compatibility public seam: execute PREPARE and finish unless XHIGH is required."""
+        return self.prepare_native_desktop_scheduled_opportunity(
+            automation_id=automation_id,
+            now=now,
+        )
 
-        This is the supported native Desktop production entrypoint.  It reuses the existing
-        schedule identity, durable store, lease/fencing, newsroom cycle, and terminal-state
-        suppression.  FDA-G's ordinary ``tick`` deliberately omits these windows when native
-        Desktop owns them; callers never invoke the private ``_execute_window`` contract.
-
-        The entrypoint is permanently zero-public-write.  It may build and validate a canonical
-        article plus undispatched intents, but cannot hand a plan to the publication lifecycle.
-        """
+    def _resolve_native_desktop_due_window(
+        self, *, automation_id: str, now: Optional[datetime]
+    ) -> tuple[str, str, datetime, Optional[dict[str, Any]]]:
         if self._scheduled_editorial_owner != SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP:
             raise ValueError("native_desktop_scheduled_owner_not_configured")
         task_id = str(automation_id or "").strip()
@@ -568,28 +567,27 @@ class ContentOpsDailyAppSupervisor:
             if str(row.get("session") or "") == session
         ]
         if not matches:
-            return {
-                "schema_version": "contentops.native_desktop_scheduled_opportunity.v1",
-                "automation_id": task_id,
-                "session": session,
-                "execution_owner": SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
-                "executed": False,
-                "reason": "scheduled_opportunity_not_due",
-                "public_write_authority": "ZERO",
-                "public_write_performed": False,
-                "unknown_write_detected": False,
-            }
+            return task_id, session, moment, None
         if len(matches) != 1:
             raise RuntimeError("native_desktop_scheduled_opportunity_identity_ambiguous")
-        window = {
+        return task_id, session, moment, {
             **matches[0],
             "native_desktop_automation_id": task_id,
             "native_desktop_zero_public_write": True,
         }
-        opportunity_id = str(window["window_id"])
+
+    @staticmethod
+    def _native_desktop_zero_write_result(
+        *,
+        task_id: str,
+        session: str,
+        moment: datetime,
+        window: Mapping[str, Any],
+        outcome: Mapping[str, Any],
+    ) -> dict[str, Any]:
         from live_contentops.newsroom_production_day_v1 import newsroom_production_day_id
 
-        outcome = dict(self._execute_window(window, moment))
+        opportunity_id = str(window["window_id"])
         observed_public_write = outcome.get("public_write_performed") is True
         observed_unknown_write = outcome.get("unknown_write_detected") is True
         result = {
@@ -603,7 +601,7 @@ class ContentOpsDailyAppSupervisor:
             "canonical_opportunity_id": opportunity_id,
             "runtime_run_id": opportunity_id,
             "sdk_fallback_identity_compatible": True,
-            **outcome,
+            **dict(outcome),
             "public_write_authority": "ZERO",
             "public_write_performed": observed_public_write,
             "unknown_write_detected": observed_unknown_write,
@@ -612,9 +610,7 @@ class ContentOpsDailyAppSupervisor:
             result.update(
                 {
                     "classification": "BLOCKED",
-                    "exact_next_blocker": (
-                        "NATIVE_DESKTOP_ZERO_WRITE_CONTRACT_VIOLATION"
-                    ),
+                    "exact_next_blocker": "NATIVE_DESKTOP_ZERO_WRITE_CONTRACT_VIOLATION",
                     "retry_authorized": False,
                 }
             )
@@ -628,6 +624,88 @@ class ContentOpsDailyAppSupervisor:
                 }
             )
         return result
+
+    def prepare_native_desktop_scheduled_opportunity(
+        self,
+        *,
+        automation_id: str,
+        now: Optional[datetime] = None,
+    ) -> dict[str, Any]:
+        """Claim one exact opportunity and pause durably if a fresh XHIGH worker is warranted."""
+        task_id, session, moment, window = self._resolve_native_desktop_due_window(
+            automation_id=automation_id,
+            now=now,
+        )
+        if window is None:
+            return {
+                "schema_version": "contentops.native_desktop_scheduled_opportunity.v1",
+                "automation_id": task_id,
+                "session": session,
+                "execution_owner": SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+                "executed": False,
+                "reason": "scheduled_opportunity_not_due",
+                "public_write_authority": "ZERO",
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+            }
+        outcome = self._execute_window(
+            window,
+            moment,
+            split_phase_operation="PREPARE",
+        )
+        return self._native_desktop_zero_write_result(
+            task_id=task_id,
+            session=session,
+            moment=moment,
+            window=window,
+            outcome=outcome,
+        )
+
+    def complete_native_desktop_scheduled_opportunity(
+        self,
+        *,
+        automation_id: str,
+        canonical_opportunity_id: str,
+        worker_return: Mapping[str, Any],
+        coordinator_review_receipt: Mapping[str, Any],
+        now: Optional[datetime] = None,
+    ) -> dict[str, Any]:
+        """Resume the same claimed opportunity with one exact hash-bound worker return."""
+        if self._scheduled_editorial_owner != SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP:
+            raise ValueError("native_desktop_scheduled_owner_not_configured")
+        task_id = str(automation_id or "").strip()
+        session = NATIVE_DESKTOP_AUTOMATION_SESSION_BY_ID.get(task_id)
+        if session is None:
+            raise ValueError("native_desktop_automation_id_invalid")
+        opportunity_id = str(canonical_opportunity_id or "").strip()
+        window = self._load_editorial_opportunity_checkpoint(opportunity_id)
+        if window is None:
+            raise ValueError("native_desktop_opportunity_checkpoint_missing_or_invalid")
+        if str(window.get("session") or "") != session:
+            raise ValueError("native_desktop_opportunity_session_mismatch")
+        moment = now or self._clock()
+        if moment.tzinfo is None:
+            moment = moment.replace(tzinfo=timezone.utc)
+        moment = moment.astimezone(timezone.utc)
+        window = {
+            **window,
+            "native_desktop_automation_id": task_id,
+            "native_desktop_zero_public_write": True,
+        }
+        outcome = self._execute_window(
+            window,
+            moment,
+            split_phase_operation="COMPLETE",
+            split_phase_worker_return=worker_return,
+            split_phase_coordinator_review=coordinator_review_receipt,
+        )
+        return self._native_desktop_zero_write_result(
+            task_id=task_id,
+            session=session,
+            moment=moment,
+            window=window,
+            outcome=outcome,
+        )
 
     def _load_source_route_health_state(self) -> dict[str, Any]:
         path = self._output_root / SOURCE_ROUTE_HEALTH_STATE_NAME
@@ -2997,12 +3075,206 @@ class ContentOpsDailyAppSupervisor:
             pass
         return proof
 
-    def _execute_window(self, window: Mapping[str, Any], now: datetime) -> dict[str, Any]:
+    def _native_desktop_handoff_path(self, window_id: str) -> Path:
+        from live_contentops.native_desktop_production_handoff_v1 import (
+            HANDOFF_FILE_NAME,
+        )
+
+        return self._output_root / window_id / HANDOFF_FILE_NAME
+
+    @staticmethod
+    def _native_desktop_pending_handoff_outcome(
+        checkpoint: Mapping[str, Any],
+    ) -> dict[str, Any]:
+        return {
+            "executed": True,
+            "classification": str(checkpoint.get("handoff_status") or "XHIGH_REQUIRED"),
+            "exact_next_blocker": str(
+                checkpoint.get("exact_next_blocker")
+                or "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
+            ),
+            "editorial_worker_request": dict(
+                checkpoint.get("editorial_worker_request") or {}
+            ),
+            "governed_input_hash": checkpoint.get("governed_input_hash"),
+            "handoff_checkpoint_path": checkpoint.get("handoff_checkpoint_path"),
+            "handoff_logical_hash": checkpoint.get("handoff_logical_hash"),
+            "resume_sequence": checkpoint.get("resume_sequence"),
+            "candidate_rank": checkpoint.get("candidate_rank"),
+            "candidate_cluster_id": checkpoint.get("candidate_cluster_id"),
+            "terminal_state": "EVIDENCE_PENDING",
+            "opportunity_resumable": True,
+            "opportunity_terminalized": False,
+            "lease_released_after_return": True,
+            "legacy_writer_fallback_used": False,
+            "sdk_writer_substitution_used": False,
+            "public_write_performed": bool(checkpoint.get("public_write_performed")),
+            "unknown_write_detected": bool(checkpoint.get("unknown_write_detected")),
+        }
+
+    def _persist_native_desktop_pending_handoff(
+        self,
+        *,
+        window: Mapping[str, Any],
+        attempt_number: int,
+        attempt_run_id: str,
+        attempt_output_dir: Path,
+        attempt_result: Mapping[str, Any],
+        prior_attempt_results: Sequence[Mapping[str, Any]],
+        qualified_records: Sequence[Mapping[str, Any]],
+        work_budget: int,
+    ) -> dict[str, Any]:
+        from live_contentops.native_desktop_production_handoff_v1 import (
+            WORKER_DECISION,
+            load_handoff_checkpoint,
+            logical_hash,
+            persist_handoff_checkpoint,
+            read_json,
+            semantic_resume_bindings_from_probe,
+            validate_same_worker_revision_contract,
+            validate_worker_request_binding,
+            validated_viability_checkpoint,
+        )
+
+        result = dict(attempt_result)
+        reason = str(result.get("exact_next_blocker") or "")
+        revision_contract = dict(result.get("same_xhigh_worker_revision_contract") or {})
+        route = dict(result.get("editorial_worker_routing") or {})
+        if reason == "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+            revision_contract = validate_same_worker_revision_contract(
+                revision_contract
+            )
+            worker_request = dict(revision_contract.get("worker_request") or {})
+            governed_hash = str(
+                revision_contract.get("governed_input_hash")
+                or worker_request.get("governed_input_hash")
+                or ""
+            )
+            handoff_status = "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+        else:
+            if route.get("decision") != WORKER_DECISION:
+                raise ValueError("native_desktop_pending_worker_route_missing")
+            worker_request = dict(route.get("worker_request") or {})
+            governed_hash = str(
+                route.get("governed_input_hash")
+                or worker_request.get("governed_input_hash")
+                or ""
+            )
+            handoff_status = (
+                "XHIGH_REQUIRED_FOR_CANDIDATE_CONTINUATION"
+                if reason == "NEXT_NATIVE_XHIGH_WORKER_REQUIRED"
+                else "XHIGH_REQUIRED"
+            )
+        if (
+            len(governed_hash) != 64
+            or str(worker_request.get("governed_input_hash") or "") != governed_hash
+        ):
+            raise ValueError("native_desktop_pending_worker_hash_invalid")
+
+        cycle_path = attempt_output_dir / "rolling_x_newsroom_cycle_evidence_v1.json"
+        viability_path = attempt_output_dir / "rolling_x_ranked_viability_v1.json"
+        intake_path = attempt_output_dir / "rolling_x_intake_v1.json"
+        if not cycle_path.is_file() or not viability_path.is_file() or not intake_path.is_file():
+            raise ValueError("native_desktop_pending_canonical_checkpoint_missing")
+        semantic_bindings = semantic_resume_bindings_from_probe(result)
+        viability = validated_viability_checkpoint(read_json(viability_path))
+        worker_request = validate_worker_request_binding(
+            worker_request,
+            expected_governed_input_hash=governed_hash,
+            viability=viability,
+            allow_same_worker_revision=bool(revision_contract),
+        )
+
+        current_path = self._native_desktop_handoff_path(str(window["window_id"]))
+        sequence = 1
+        if current_path.exists():
+            sequence = int(load_handoff_checkpoint(current_path).get("resume_sequence") or 0) + 1
+        checkpoint = {
+            "canonical_opportunity_id": str(window["window_id"]),
+            "runtime_run_id": str(window["window_id"]),
+            "automation_id": str(window.get("native_desktop_automation_id") or ""),
+            "session": str(window.get("session") or ""),
+            "attempt_number": int(attempt_number),
+            "attempt_run_id": str(attempt_run_id),
+            "work_budget": int(work_budget),
+            "resume_sequence": sequence,
+            "handoff_status": handoff_status,
+            "exact_next_blocker": (
+                reason
+                if reason in {
+                    "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                    "NEXT_NATIVE_XHIGH_WORKER_REQUIRED",
+                }
+                else WORKER_DECISION
+            ),
+            "governed_input_hash": governed_hash,
+            "editorial_worker_request": worker_request,
+            "same_xhigh_worker_revision_contract": revision_contract,
+            "prepare_cycle_evidence_path": str(cycle_path),
+            "prepare_cycle_evidence_sha256": logical_hash(read_json(cycle_path)),
+            "intake_checkpoint_path": str(intake_path),
+            "intake_checkpoint_sha256": logical_hash(read_json(intake_path)),
+            "prepared_candidate_checkpoint_path": str(
+                attempt_output_dir / "rolling_x_prepared_candidate_state_v1.json"
+            ),
+            "viability_checkpoint_path": str(viability_path),
+            "viability_logical_hash": viability.get("viability_logical_hash"),
+            "semantic_resume_bindings": semantic_bindings,
+            "candidate_rank": viability.get("selected_rank"),
+            "candidate_cluster_id": viability.get("selected_cluster_id"),
+            "candidate_headline_ids": list(viability.get("selected_headline_ids") or []),
+            "prior_attempt_results": [dict(row) for row in prior_attempt_results],
+            "qualified_records": [dict(row) for row in qualified_records],
+            "public_write_performed": bool(result.get("public_write_performed")),
+            "unknown_write_detected": bool(result.get("unknown_write_detected")),
+            "legacy_writer_fallback_used": False,
+            "sdk_writer_substitution_used": False,
+            "handoff_checkpoint_path": str(current_path),
+        }
+        persisted = persist_handoff_checkpoint(current_path, checkpoint)
+        return persisted
+
+    def _execute_window(
+        self,
+        window: Mapping[str, Any],
+        now: datetime,
+        *,
+        split_phase_operation: Optional[str] = None,
+        split_phase_worker_return: Optional[Mapping[str, Any]] = None,
+        split_phase_coordinator_review: Optional[Mapping[str, Any]] = None,
+    ) -> dict[str, Any]:
         from live_contentops.durable_operational_store_v1 import (
             LeaseConflictError,
         )
 
         window_id = window["window_id"]
+        split_operation = str(split_phase_operation or "").strip().upper() or None
+        if split_operation not in {None, "PREPARE", "COMPLETE"}:
+            raise ValueError("native_desktop_split_phase_operation_invalid")
+        if split_operation is not None and not bool(
+            window.get("native_desktop_zero_public_write")
+        ):
+            raise ValueError("native_desktop_split_phase_requires_zero_write_window")
+        handoff_checkpoint: Optional[dict[str, Any]] = None
+        if split_operation == "COMPLETE":
+            from live_contentops.native_desktop_production_handoff_v1 import (
+                load_handoff_checkpoint,
+            )
+
+            handoff_checkpoint = load_handoff_checkpoint(
+                self._native_desktop_handoff_path(str(window_id))
+            )
+            if (
+                str(handoff_checkpoint.get("canonical_opportunity_id") or "")
+                != str(window_id)
+                or str(handoff_checkpoint.get("automation_id") or "")
+                != str(window.get("native_desktop_automation_id") or "")
+            ):
+                raise ValueError("native_desktop_handoff_runtime_identity_mismatch")
+            if not isinstance(split_phase_worker_return, Mapping):
+                raise ValueError("native_desktop_worker_return_required")
+            if not isinstance(split_phase_coordinator_review, Mapping):
+                raise ValueError("native_desktop_coordinator_review_receipt_required")
         # Idempotent creation: the same window_id always maps to the same work item. A restart
         # or duplicate tick therefore never creates a second independent cycle/work item.
         if self._window_state(window_id) is None:
@@ -3068,6 +3340,15 @@ class ContentOpsDailyAppSupervisor:
                     reason_code="EDITORIAL_WINDOW_DUE",
                     explanation=f"Executing editorial window {window_id}",
                 )
+            if split_operation == "PREPARE":
+                handoff_path = self._native_desktop_handoff_path(str(window_id))
+                if handoff_path.exists():
+                    from live_contentops.native_desktop_production_handoff_v1 import (
+                        load_handoff_checkpoint,
+                    )
+
+                    existing_handoff = load_handoff_checkpoint(handoff_path)
+                    return self._native_desktop_pending_handoff_outcome(existing_handoff)
             native_desktop_zero_write = bool(
                 window.get("native_desktop_zero_public_write")
             )
@@ -3191,8 +3472,35 @@ class ContentOpsDailyAppSupervisor:
                 if managed_daily_output
                 else 1
             )
+            if handoff_checkpoint is not None:
+                work_budget = max(
+                    work_budget,
+                    int(handoff_checkpoint.get("work_budget") or 1),
+                )
             attempt_results: list[dict[str, Any]] = []
             qualified_records: list[dict[str, Any]] = []
+            start_attempt_number = 1
+            if handoff_checkpoint is not None:
+                attempt_results = [
+                    dict(row)
+                    for row in handoff_checkpoint.get("prior_attempt_results") or []
+                    if isinstance(row, Mapping)
+                ]
+                qualified_records = [
+                    dict(row)
+                    for row in handoff_checkpoint.get("qualified_records") or []
+                    if isinstance(row, Mapping)
+                ]
+                published_memory.extend(
+                    qualified_records_as_published_memory(
+                        qualified_records, reference=now
+                    )
+                )
+                start_attempt_number = int(
+                    handoff_checkpoint.get("attempt_number") or 1
+                )
+                if not 1 <= start_attempt_number <= work_budget:
+                    raise ValueError("native_desktop_handoff_attempt_number_invalid")
             result: dict[str, Any] = {
                 "schema_version": "contentops.daily_output_noop.v1",
                 "run_id": window_id,
@@ -3204,7 +3512,7 @@ class ContentOpsDailyAppSupervisor:
             from live_contentops.llm_cost_governor_v1 import llm_cycle_budget_scope
 
             with llm_cycle_budget_scope(window_id, now=now):
-                for attempt_number in range(1, work_budget + 1):
+                for attempt_number in range(start_attempt_number, work_budget + 1):
                     attempt_run_id = (
                         window_id
                         if attempt_number == 1
@@ -3215,13 +3523,168 @@ class ContentOpsDailyAppSupervisor:
                         if attempt_number == 1
                         else output_dir / f"catchup-{attempt_number:02d}"
                     )
+                    bound_resume = bool(
+                        split_operation == "COMPLETE"
+                        and handoff_checkpoint is not None
+                        and attempt_number == start_attempt_number
+                    )
+                    if bound_resume:
+                        attempt_run_id = str(
+                            handoff_checkpoint.get("attempt_run_id") or attempt_run_id
+                        )
+                        attempt_output_dir = output_dir / (
+                            "split-phase-resume-"
+                            f"{int(handoff_checkpoint.get('resume_sequence') or 1):02d}"
+                        )
                     attempt_kwargs = {
                         **cycle_kwargs,
                         "run_id": attempt_run_id,
                         "output_dir": attempt_output_dir,
                         "published_corpus": published_memory,
                     }
+                    if split_operation is not None and not bound_resume:
+                        attempt_kwargs["native_desktop_prepare"] = True
+                    if bound_resume:
+                        from live_contentops.native_desktop_production_handoff_v1 import (
+                            BoundNativeDesktopWorkerReturnBuilder,
+                            build_hash_bound_coordinator_reviewer,
+                            logical_hash,
+                            read_json,
+                            validated_viability_checkpoint,
+                            write_json,
+                        )
+
+                        bindings = dict(
+                            handoff_checkpoint.get("semantic_resume_bindings") or {}
+                        )
+                        if str(bindings.get("semantic_resume_logical_hash") or "") != (
+                            logical_hash(
+                                {
+                                    "leaf_checkpoints": dict(
+                                        bindings.get("leaf_checkpoints") or {}
+                                    ),
+                                    "global_checkpoint": dict(
+                                        bindings.get("global_checkpoint") or {}
+                                    ),
+                                    "story_type_by_cluster": dict(
+                                        bindings.get("story_type_by_cluster") or {}
+                                    ),
+                                }
+                            )
+                        ):
+                            raise ValueError(
+                                "native_desktop_handoff_semantic_binding_invalid"
+                            )
+                        viability = validated_viability_checkpoint(
+                            read_json(
+                                str(
+                                    handoff_checkpoint.get(
+                                        "viability_checkpoint_path"
+                                    )
+                                    or ""
+                                )
+                            )
+                        )
+                        revision_contract = dict(
+                            handoff_checkpoint.get(
+                                "same_xhigh_worker_revision_contract"
+                            )
+                            or {}
+                        )
+                        if revision_contract:
+                            viability = {
+                                **viability,
+                                "same_xhigh_worker_revision_contract": revision_contract,
+                            }
+                            viability.pop("viability_logical_hash", None)
+                            viability["viability_logical_hash"] = logical_hash(viability)
+                        write_json(
+                            attempt_output_dir / "rolling_x_ranked_viability_v1.json",
+                            viability,
+                        )
+                        intake = read_json(
+                            str(handoff_checkpoint.get("intake_checkpoint_path") or "")
+                        )
+                        if logical_hash(intake) != str(
+                            handoff_checkpoint.get("intake_checkpoint_sha256") or ""
+                        ):
+                            raise ValueError("native_desktop_handoff_intake_binding_invalid")
+                        attempt_kwargs.update(
+                            {
+                                "rolling_input": intake,
+                                "prepared_candidate_state": None,
+                                "leaf_checkpoints": dict(
+                                    bindings.get("leaf_checkpoints") or {}
+                                ),
+                                "global_checkpoint": dict(
+                                    bindings.get("global_checkpoint") or {}
+                                ),
+                                "story_type_by_cluster": dict(
+                                    bindings.get("story_type_by_cluster") or {}
+                                ),
+                                "article_builder": BoundNativeDesktopWorkerReturnBuilder(
+                                    worker_return=dict(split_phase_worker_return or {}),
+                                    expected_governed_input_hash=str(
+                                        handoff_checkpoint.get(
+                                            "governed_input_hash"
+                                        )
+                                        or ""
+                                    ),
+                                    viability=viability,
+                                    same_worker_revision_contract=revision_contract,
+                                ),
+                                "editorial_reviewer": (
+                                    build_hash_bound_coordinator_reviewer(
+                                        dict(split_phase_coordinator_review or {})
+                                    )
+                                ),
+                            }
+                        )
                     attempt_result = dict(self._newsroom_cycle(**attempt_kwargs))
+                    route = dict(attempt_result.get("editorial_worker_routing") or {})
+                    pending_reason = str(
+                        attempt_result.get("exact_next_blocker") or ""
+                    )
+                    initial_worker_required = bool(
+                        split_operation == "PREPARE"
+                        and route.get("decision")
+                        == "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
+                        and pending_reason
+                        == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+                    )
+                    candidate_continuation_required = bool(
+                        split_operation == "COMPLETE"
+                        and route.get("decision")
+                        == "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
+                        and pending_reason == "NEXT_NATIVE_XHIGH_WORKER_REQUIRED"
+                    )
+                    same_worker_revision_required = bool(
+                        split_operation == "COMPLETE"
+                        and pending_reason == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+                    )
+                    unexpected_write_truth = bool(
+                        attempt_result.get("public_write_performed") is True
+                        or attempt_result.get("unknown_write_detected") is True
+                    )
+                    if (
+                        not unexpected_write_truth
+                        and (
+                            initial_worker_required
+                            or candidate_continuation_required
+                            or same_worker_revision_required
+                        )
+                    ):
+                        pending = self._persist_native_desktop_pending_handoff(
+                            window=window,
+                            attempt_number=attempt_number,
+                            attempt_run_id=attempt_run_id,
+                            attempt_output_dir=attempt_output_dir,
+                            attempt_result=attempt_result,
+                            prior_attempt_results=attempt_results,
+                            qualified_records=qualified_records,
+                            work_budget=work_budget,
+                        )
+                        return self._native_desktop_pending_handoff_outcome(pending)
                     current_quota_accounting = attempt_result.get(
                         "quota_efficient_source_discovery"
                     )
@@ -3423,7 +3886,7 @@ class ContentOpsDailyAppSupervisor:
             except (OSError, TypeError, ValueError):
                 # Presentation telemetry is deliberately non-authoritative and best-effort.
                 pass
-            return {
+            outcome = {
                 "executed": True,
                 "classification": classification,
                 "viable": viable,
@@ -3437,6 +3900,42 @@ class ContentOpsDailyAppSupervisor:
                 "editorial_novelty_decision": novelty_decision,
                 "terminal_state": self._window_state(window_id),
             }
+            if split_operation is not None:
+                from live_contentops.native_desktop_production_handoff_v1 import (
+                    logical_hash,
+                    write_json,
+                )
+
+                completion = {
+                    "schema_version": (
+                        "contentops.native_desktop_editorial_handoff_completion.v1"
+                    ),
+                    "canonical_opportunity_id": str(window_id),
+                    "runtime_run_id": str(window_id),
+                    "automation_id": str(
+                        window.get("native_desktop_automation_id") or ""
+                    ),
+                    "terminal_state": outcome["terminal_state"],
+                    "classification": classification,
+                    "prior_handoff_logical_hash": (
+                        (handoff_checkpoint or {}).get("handoff_logical_hash")
+                    ),
+                    "public_write_authority": "ZERO",
+                    "public_write_performed": public_write,
+                    "unknown_write_detected": unknown_write,
+                    "publication_authority_granted": False,
+                }
+                completion["completion_logical_hash"] = logical_hash(completion)
+                completion_path = (
+                    output_dir
+                    / "native_desktop_editorial_handoff_completion_v1.json"
+                )
+                write_json(completion_path, completion)
+                outcome["handoff_completion_receipt_path"] = str(completion_path)
+                outcome["handoff_completion_logical_hash"] = completion[
+                    "completion_logical_hash"
+                ]
+            return outcome
         finally:
             try:
                 self._store.release_lease(lease_id, self._owner_ref, fencing)
