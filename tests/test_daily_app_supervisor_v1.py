@@ -26,7 +26,13 @@ def _fixed_clock(dt: datetime):
 
 def _controlled_cycle(calls: list, classification: str = "NO_PUBLICATION"):
     def cycle(**kwargs):
-        calls.append({"run_id": kwargs.get("run_id"), "cutoff_utc": kwargs.get("cutoff_utc")})
+        calls.append(
+            {
+                "run_id": kwargs.get("run_id"),
+                "cutoff_utc": kwargs.get("cutoff_utc"),
+                "publication_enabled": kwargs.get("publication_enabled"),
+            }
+        )
         return {
             "classification": classification,
             "public_write_performed": False,
@@ -92,6 +98,54 @@ def test_fda_g_does_not_consume_native_desktop_owned_scheduled_window(tmp_path):
             "SELECT COUNT(*) FROM work_items "
             "WHERE target_surface='daily_app_editorial_window'"
         ).fetchone()[0] == 0
+
+
+def test_native_desktop_public_entrypoint_claims_exact_window_once_and_binds_fallback_identity(
+    tmp_path,
+):
+    from live_contentops.codex_desktop_newsroom_operator_v1 import (
+        build_hybrid_editorial_run_identity,
+    )
+
+    now = datetime(2026, 8, 24, 14, 5, tzinfo=timezone.utc)
+    supervisor, calls = _supervisor(
+        tmp_path,
+        mode="SHADOW_ONLY",
+        clock=lambda: now,
+        scheduled_editorial_owner=SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+    )
+
+    first = supervisor.execute_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-new-york-2100",
+        now=now,
+    )
+    duplicate = supervisor.execute_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-new-york-2100",
+        now=now,
+    )
+
+    assert first["executed"] is True
+    assert first["execution_owner"] == "NATIVE_DESKTOP_AUTOMATION"
+    assert first["public_write_authority"] == "ZERO"
+    assert first["public_write_performed"] is False
+    assert first["canonical_opportunity_id"] == first["runtime_run_id"]
+    assert len(calls) == 1
+    assert calls[0]["run_id"] == first["canonical_opportunity_id"]
+    assert calls[0]["publication_enabled"] is True
+    assert duplicate["executed"] is False
+    assert duplicate["reason"] == "already_executed_terminal_state"
+    assert duplicate["canonical_opportunity_id"] == first["canonical_opportunity_id"]
+    assert len(calls) == 1
+
+    identity = build_hybrid_editorial_run_identity(
+        runtime_run_id=first["runtime_run_id"],
+        production_day_id=first["newsroom_production_day_id"],
+        opportunity_id=first["canonical_opportunity_id"],
+        story_identity="story-1",
+        governed_input_hash="a" * 64,
+    )
+    assert identity["runtime_run_id"] == first["canonical_opportunity_id"]
+    assert identity["opportunity_id"] == first["canonical_opportunity_id"]
 
 
 def test_source_route_health_snapshot_persists_in_existing_output_state_and_reloads(
