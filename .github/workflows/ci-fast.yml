@@ -3,6 +3,7 @@ name: ci-fast
 on:
   push:
     branches:
+      - master
       - 'agent/web-**'
   pull_request:
     branches:
@@ -163,17 +164,26 @@ jobs:
         shell: bash
         run: |
           git fetch --no-tags origin master
-          base="$(git merge-base HEAD origin/master)"
+          if [ "$GITHUB_EVENT_NAME" = "push" ] && [ "$GITHUB_REF" = "refs/heads/master" ]; then
+            base="${{ github.event.before }}"
+            if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
+              base="$(git rev-parse HEAD^)"
+            fi
+          else
+            base="$(git merge-base HEAD origin/master)"
+          fi
           git diff --check "$base" HEAD
 
       - name: Enforce committed CodeGraph freshness
-        if: always() && steps.codegraph.outputs.rc != '0'
+        if: always() && steps.codegraph.outputs.rc != '0' && (github.event_name != 'push' || github.ref != 'refs/heads/master')
         shell: bash
         run: |
           echo 'Committed CodeGraph is stale; commit the generated artifact bytes and rerun.'
           exit 1
 
-  # Same-repo PRs may repair generated-only CodeGraph drift without consuming a builder session.
+  # Same-repo PRs and agent/web branches may repair generated-only CodeGraph drift without consuming a builder session.
+  # Direct master pushes generate and upload repair bytes but do not self-commit; the GitHub operator applies those
+  # exact generated files as a separate audited master commit so every master mutation is connector-visible.
   branch-codegraph-refresh:
     if: (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/agent/web-')) || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest
