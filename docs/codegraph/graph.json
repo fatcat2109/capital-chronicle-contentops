@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13933,
+    "edges": 13908,
     "entrypoints": 16,
-    "nodes": 7370,
+    "nodes": 7359,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,9 +25,9 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 603,
-      "python_function": 4034,
+      "python_function": 4024,
       "python_method": 299,
-      "python_module": 771,
+      "python_module": 770,
       "schema": 203,
       "test": 734,
       "typescript_export": 506,
@@ -69672,90 +69672,6 @@
       "to": "python_symbol:scripts/intake_cc_artifact_packet_v0.py::build_parser"
     },
     {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::main",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::guard_blobs"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::main",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_daily_supervisor"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::main",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_handoff"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::main",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_native_supervisor"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::main",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_pipeline"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_daily_supervisor",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_once"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_handoff",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_once"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_native_supervisor",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_between"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_native_supervisor",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_once"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_pipeline",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_once"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_between",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::read"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_between",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::write"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_once",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::read"
-    },
-    {
-      "from": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_once",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::write"
-    },
-    {
       "from": "python_symbol:scripts/prove_v1_9router_research_model_ladder_v1.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -71800,72 +71716,6 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:scripts/intake_cc_artifact_packet_v0.py::main"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::guard_blobs"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_exact_name_call",
-      "kind": "calls",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::main"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::main"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_daily_supervisor"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_handoff"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_native_supervisor"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_pipeline"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::read"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_between"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_once"
-    },
-    {
-      "from": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "inference": "python_ast_definition",
-      "kind": "defines",
-      "to": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::write"
     },
     {
       "from": "scripts/prove_v1_9router_research_model_ladder_v1.py",
@@ -83753,7 +83603,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-26T13:26:00Z",
+  "generation_timestamp_utc": "2026-08-26T13:32:03Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84267,7 +84117,7 @@
     {
       "id": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "kind": "python_module",
-      "size_bytes": 416428
+      "size_bytes": 419057
     },
     {
       "id": "live_contentops/accepted_review_editorial_workflow_v6.py",
@@ -85057,7 +84907,7 @@
     {
       "id": "live_contentops/daily_app_supervisor_v1.py",
       "kind": "python_module",
-      "size_bytes": 190226
+      "size_bytes": 191867
     },
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
@@ -86057,12 +85907,12 @@
     {
       "id": "live_contentops/native_desktop_production_handoff_v1.py",
       "kind": "python_module",
-      "size_bytes": 19134
+      "size_bytes": 20693
     },
     {
       "id": "live_contentops/native_llm_first_daily_app_supervisor_v1.py",
       "kind": "python_module",
-      "size_bytes": 50545
+      "size_bytes": 74773
     },
     {
       "id": "live_contentops/native_llm_first_validate_after_v1.py",
@@ -87821,7 +87671,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_apply_exact_editorial_replacements",
       "kind": "python_function",
-      "line": 7721,
+      "line": 7771,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_apply_exact_editorial_replacements"
     },
@@ -87912,7 +87762,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_dispatch_canonical_operation",
       "kind": "python_function",
-      "line": 8673,
+      "line": 8723,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_dispatch_canonical_operation"
     },
@@ -87933,7 +87783,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_ensure_canonical_edge_publishing_runtime",
       "kind": "python_function",
-      "line": 8633,
+      "line": 8683,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_ensure_canonical_edge_publishing_runtime"
     },
@@ -87947,7 +87797,7 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_implementation_main",
       "kind": "python_function",
-      "line": 8365,
+      "line": 8415,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_implementation_main"
     },
@@ -88129,21 +87979,21 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_existing_derivative_readbacks",
       "kind": "python_function",
-      "line": 7495,
+      "line": 7545,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_existing_derivative_readbacks"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_linkedin_activity_pair",
       "kind": "python_function",
-      "line": 8082,
+      "line": 8132,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_linkedin_activity_pair"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_reconcile_public_substack_for_derivative_resume",
       "kind": "python_function",
-      "line": 6728,
+      "line": 6778,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_reconcile_public_substack_for_derivative_resume"
     },
@@ -88164,28 +88014,28 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_substack_caption_fragment",
       "kind": "python_function",
-      "line": 7645,
+      "line": 7695,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_substack_caption_fragment"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_exact_treasury_release_candidate_editorial",
       "kind": "python_function",
-      "line": 7732,
+      "line": 7782,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_exact_treasury_release_candidate_editorial"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_repair_final_treasury_auction_logic",
       "kind": "python_function",
-      "line": 7852,
+      "line": 7902,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_repair_final_treasury_auction_logic"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_resume_eight_platform_derivatives",
       "kind": "python_function",
-      "line": 6760,
+      "line": 6810,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_resume_eight_platform_derivatives"
     },
@@ -88262,56 +88112,56 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._candidate_walk_row",
       "kind": "python_method",
-      "line": 5722,
+      "line": 5772,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._candidate_walk_row"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._editorial_route_for_viability",
       "kind": "python_method",
-      "line": 6030,
+      "line": 6080,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._editorial_route_for_viability"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._merge_viability_attempts",
       "kind": "python_method",
-      "line": 5626,
+      "line": 5676,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._merge_viability_attempts"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._next_viable_after",
       "kind": "python_method",
-      "line": 5752,
+      "line": 5802,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._next_viable_after"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._persist_candidate_walk",
       "kind": "python_method",
-      "line": 5725,
+      "line": 5775,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._persist_candidate_walk"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle._persist_cycle_evidence",
       "kind": "python_method",
-      "line": 5544,
+      "line": 5580,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle._persist_cycle_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle.select_with_quota_efficient_discovery",
       "kind": "python_method",
-      "line": 5255,
+      "line": 5291,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle.select_with_quota_efficient_discovery"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::_run_rolling_x_newsroom_cycle.tracked_evidence_acquirer",
       "kind": "python_method",
-      "line": 5221,
+      "line": 5257,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "_run_rolling_x_newsroom_cycle.tracked_evidence_acquirer"
     },
@@ -88458,14 +88308,14 @@
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::compile_variant_reliability_evidence",
       "kind": "python_function",
-      "line": 8204,
+      "line": 8254,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "compile_variant_reliability_evidence"
     },
     {
       "id": "python_symbol:live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py::finalize_reliability_hardening_evidence",
       "kind": "python_function",
-      "line": 8242,
+      "line": 8292,
       "path": "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py",
       "symbol": "finalize_reliability_hardening_evidence"
     },
@@ -95584,7 +95434,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_supervisor_v1.py::ContentOpsDailyAppSupervisor._next_wake",
       "kind": "python_method",
-      "line": 3947,
+      "line": 3978,
       "path": "live_contentops/daily_app_supervisor_v1.py",
       "symbol": "ContentOpsDailyAppSupervisor._next_wake"
     },
@@ -105286,14 +105136,14 @@
     {
       "id": "python_symbol:live_contentops/native_desktop_production_handoff_v1.py::BoundNativeDesktopWorkerReturnBuilder",
       "kind": "python_class",
-      "line": 337,
+      "line": 365,
       "path": "live_contentops/native_desktop_production_handoff_v1.py",
       "symbol": "BoundNativeDesktopWorkerReturnBuilder"
     },
     {
       "id": "python_symbol:live_contentops/native_desktop_production_handoff_v1.py::build_hash_bound_coordinator_reviewer",
       "kind": "python_function",
-      "line": 418,
+      "line": 446,
       "path": "live_contentops/native_desktop_production_handoff_v1.py",
       "symbol": "build_hash_bound_coordinator_reviewer"
     },
@@ -121013,76 +120863,6 @@
       "symbol": "main"
     },
     {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::guard_blobs",
-      "kind": "python_function",
-      "line": 14,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "guard_blobs"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::main",
-      "kind": "python_function",
-      "line": 119,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "main"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_daily_supervisor",
-      "kind": "python_function",
-      "line": 71,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "patch_daily_supervisor"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_handoff",
-      "kind": "python_function",
-      "line": 64,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "patch_handoff"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_native_supervisor",
-      "kind": "python_function",
-      "line": 85,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "patch_native_supervisor"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::patch_pipeline",
-      "kind": "python_function",
-      "line": 50,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "patch_pipeline"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::read",
-      "kind": "python_function",
-      "line": 23,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "read"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_between",
-      "kind": "python_function",
-      "line": 39,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "replace_between"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::replace_once",
-      "kind": "python_function",
-      "line": 31,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "replace_once"
-    },
-    {
-      "id": "python_symbol:scripts/one_shot_pr30_true_native_llm_first_correction.py::write",
-      "kind": "python_function",
-      "line": 27,
-      "path": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "symbol": "write"
-    },
-    {
       "id": "python_symbol:scripts/prove_v1_9router_research_model_ladder_v1.py::main",
       "kind": "python_function",
       "line": 98,
@@ -123442,11 +123222,6 @@
       "size_bytes": 2165
     },
     {
-      "id": "scripts/one_shot_pr30_true_native_llm_first_correction.py",
-      "kind": "python_module",
-      "size_bytes": 44058
-    },
-    {
       "id": "scripts/prove_v1_9router_research_model_ladder_v1.py",
       "kind": "python_module",
       "size_bytes": 4311
@@ -125389,7 +125164,7 @@
     {
       "id": "tests/test_native_llm_first_daily_app_supervisor_v1.py",
       "kind": "test",
-      "size_bytes": 30378
+      "size_bytes": 29999
     },
     {
       "id": "tests/test_native_llm_first_validate_after_v1.py",
@@ -131587,6 +131362,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "6492d9e209f3e2b8e968c78c92ccc89ed78afa1e",
-  "source_tree_digest": "64d82581b96637253b5016422fc242ee21c8236411f23878213d770b8eb36c3d"
+  "source_head": "a9a14767c5f9a437c3eb5de0e7d2fee7aaed70c1",
+  "source_tree_digest": "c375537887b59dae8003e86c52dc407474d6186db926718f4a820cf1a22322b4"
 }
