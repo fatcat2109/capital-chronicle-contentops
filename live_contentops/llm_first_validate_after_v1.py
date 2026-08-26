@@ -1,26 +1,30 @@
 """LLM-first, validate-after editorial adapter for the canonical V1 newsroom.
 
-The adapter performs no publication.  A HIGH coordinator selects one current governed
+The adapter performs no publication. A HIGH coordinator selects one current governed
 candidate, one fresh isolated HIGH worker researches and drafts it, and deterministic public
-retrieval then verifies every cited source and exact material-claim excerpt.  The resulting
-evidence packet and article are fed back into the existing rolling-X qualification/package path.
+retrieval verifies cited bytes, publication-time provenance, and exact material-claim excerpts.
+The verified evidence packet and article then re-enter the existing canonical qualification and
+packaging path.
 """
 from __future__ import annotations
 
 import hashlib
 import json
-import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
 
 from live_contentops.official_codex_provider_v1 import (
-    MODEL,
     EFFORT,
+    MODEL,
     OfficialCodexEditorialSession,
 )
-from live_contentops.official_primary_evidence_loader_v1 import OFFICIAL_HOSTS_BY_FAMILY
+from live_contentops.official_primary_evidence_loader_v1 import (
+    OFFICIAL_HOSTS_BY_FAMILY,
+    _html_timestamp,
+    _parse_timestamp,
+)
 from live_contentops.public_secondary_evidence_loader_v1 import (
     REPUTABLE_SECONDARY_HOSTS,
     _default_public_http_get,
@@ -33,11 +37,22 @@ from live_contentops.rolling_x_grounded_article_media_builder_v1 import (
 )
 
 SCHEMA_VERSION = "contentops.llm_first_validate_after.v1"
+COORDINATOR_CHECKPOINT_SCHEMA_VERSION = "contentops.llm_first_coordinator_selection.v1"
 MAX_CANDIDATE_ATTEMPTS = 3
 MAX_SOURCES = 3
 MAX_RESPONSE_BYTES = 800_000
 ALLOWED_SOURCE_HOSTS = frozenset(REPUTABLE_SECONDARY_HOSTS).union(
     host for hosts in OFFICIAL_HOSTS_BY_FAMILY.values() for host in hosts
+)
+ARTICLE_MODES = (
+    "BREAKING_BRIEF",
+    "FOLLOW_UP_UPDATE",
+    "STANDARD_NEWS_ANALYSIS",
+    "CAPITAL_CHRONICLE_VIEW",
+    "WHAT_THE_MARKET_IS_MISSING",
+    "EVERGREEN_EXPLAINER",
+    "DATA_OR_DOCUMENT_LENS",
+    "WEEK_AHEAD_OR_WATCH",
 )
 
 
@@ -61,29 +76,18 @@ def _closed(properties: Mapping[str, Any], required: Sequence[str]) -> dict[str,
 SELECTION_SCHEMA = _closed(
     {
         "selected_cluster_id": {"type": "string"},
-        "article_mode": {
-            "type": "string",
-            "enum": [
-                "BREAKING_BRIEF",
-                "FOLLOW_UP_UPDATE",
-                "STANDARD_NEWS_ANALYSIS",
-                "CAPITAL_CHRONICLE_VIEW",
-                "WHAT_THE_MARKET_IS_MISSING",
-                "EVERGREEN_EXPLAINER",
-                "DATA_OR_DOCUMENT_LENS",
-                "WEEK_AHEAD_OR_WATCH",
-            ],
-        },
+        "article_mode": {"type": "string", "enum": list(ARTICLE_MODES)},
         "selection_rationale": {"type": "string"},
     },
     ("selected_cluster_id", "article_mode", "selection_rationale"),
 )
-
 SOURCE_SCHEMA = _closed(
     {
         "source_id": {"type": "string"},
         "url": {"type": "string"},
         "publisher": {"type": "string"},
+        # Worker-declared publication time is only a diagnostic hint. Deterministic
+        # source bytes/headers or exact URL-bound intake metadata own publication time.
         "published_at_utc": {"type": "string"},
     },
     ("source_id", "url", "publisher", "published_at_utc"),
@@ -153,6 +157,10 @@ def _host_allowed(url: str) -> bool:
     )
 
 
+def _iso_utc(value: datetime) -> str:
+    return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
 class LlmFirstValidationError(ValueError):
     def __init__(self, blockers: Sequence[str]) -> None:
         self.blockers = sorted({str(value) for value in blockers if str(value)})
@@ -170,6 +178,7 @@ class LlmFirstValidateAfterProvider:
         self._prepared: dict[str, Any] | None = None
         self._selected_cluster_id: str | None = None
         self._published_memory = list(published_memory or [])
+        self._coordinator_checkpoint_reused = False
 
     @staticmethod
     def _candidate_packet(
@@ -183,6 +192,7 @@ class LlmFirstValidateAfterProvider:
         packet: list[dict[str, Any]] = []
         for row in clusters[:8]:
             ids = [str(value) for value in row.get("headline_ids") or [] if str(value)]
+
             def headline_value(headline_id: str, key: str) -> Any:
                 headline = headlines.get(headline_id, {})
                 external = (
@@ -196,6 +206,7 @@ class LlmFirstValidateAfterProvider:
                     "source_url": "url_or_source_ref",
                 }
                 return headline.get(key) or external.get(aliases.get(key, key))
+
             packet.append(
                 {
                     "cluster_id": str(row.get("cluster_id") or ""),
@@ -221,15 +232,15 @@ class LlmFirstValidateAfterProvider:
             )
         return packet
 
-    def _select(
-        self,
+    @staticmethod
+    def _selection_governed_input(
         *,
         candidates: Sequence[Mapping[str, Any]],
         cutoff_utc: str,
         published_corpus: Sequence[Any],
         excluded_cluster_ids: Sequence[str],
-    ) -> tuple[dict[str, Any], dict[str, Any]]:
-        governed = {
+    ) -> dict[str, Any]:
+        return {
             "cutoff_utc": cutoff_utc,
             "candidates": list(candidates),
             "excluded_cluster_ids": list(excluded_cluster_ids),
@@ -243,7 +254,79 @@ class LlmFirstValidateAfterProvider:
                 if isinstance(row, Mapping)
             ][-100:],
         }
+
+    def _load_coordinator_checkpoint(
+        self,
+        *,
+        governed_input_hash: str,
+        candidates: Sequence[Mapping[str, Any]],
+        excluded_cluster_ids: Sequence[str],
+    ) -> tuple[dict[str, Any], dict[str, Any]] | None:
+        path = self.output_dir / "llm_first_coordinator_selection_v1.json"
+        if not path.exists():
+            return None
+        try:
+            checkpoint = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, TypeError, ValueError):
+            return None
+        if not isinstance(checkpoint, Mapping):
+            return None
+        receipt = checkpoint.get("coordinator_receipt")
+        selection = checkpoint.get("selection")
+        if not isinstance(receipt, Mapping) or not isinstance(selection, Mapping):
+            return None
+        receipt_identity = receipt.get("provider_input_identity")
+        receipt_identity = receipt_identity if isinstance(receipt_identity, Mapping) else {}
+        bound_hash = str(
+            checkpoint.get("governed_input_hash")
+            or receipt_identity.get("governed_input_hash")
+            or ""
+        )
+        selected_id = str(selection.get("selected_cluster_id") or "")
+        candidate_ids = {
+            str(row.get("cluster_id") or "")
+            for row in candidates
+            if isinstance(row, Mapping)
+        }
+        if (
+            checkpoint.get("schema_version") != COORDINATOR_CHECKPOINT_SCHEMA_VERSION
+            or checkpoint.get("public_write_performed") is not False
+            or str(checkpoint.get("maximum_reasoning_effort") or "").upper() != "HIGH"
+            or bound_hash != governed_input_hash
+            or str(receipt.get("model") or "") != MODEL
+            or str(receipt.get("reasoning_effort") or "").upper() != "HIGH"
+            or str(receipt_identity.get("role") or "") != "V1_LLM_FIRST_COORDINATOR_SELECTION"
+            or selected_id not in candidate_ids
+            or selected_id in set(str(value) for value in excluded_cluster_ids)
+            or str(selection.get("article_mode") or "") not in ARTICLE_MODES
+        ):
+            return None
+        self._coordinator_checkpoint_reused = True
+        return dict(selection), dict(receipt)
+
+    def _select(
+        self,
+        *,
+        candidates: Sequence[Mapping[str, Any]],
+        cutoff_utc: str,
+        published_corpus: Sequence[Any],
+        excluded_cluster_ids: Sequence[str],
+    ) -> tuple[dict[str, Any], dict[str, Any]]:
+        governed = self._selection_governed_input(
+            candidates=candidates,
+            cutoff_utc=cutoff_utc,
+            published_corpus=published_corpus,
+            excluded_cluster_ids=excluded_cluster_ids,
+        )
         governed_hash = _hash(governed)
+        reusable = self._load_coordinator_checkpoint(
+            governed_input_hash=governed_hash,
+            candidates=candidates,
+            excluded_cluster_ids=excluded_cluster_ids,
+        )
+        if reusable is not None:
+            return reusable
+        self._coordinator_checkpoint_reused = False
         prompt = (
             "Select exactly one useful current Capital Chronicle story/angle from GOVERNED_INPUT. "
             "Avoid published duplicates and excluded clusters. Quiet news may use a lower-rung mode, "
@@ -267,7 +350,8 @@ class LlmFirstValidateAfterProvider:
         selection = dict(execution.output)
         receipt = dict(execution.receipt)
         checkpoint = {
-            "schema_version": "contentops.llm_first_coordinator_selection.v1",
+            "schema_version": COORDINATOR_CHECKPOINT_SCHEMA_VERSION,
+            "governed_input_hash": governed_hash,
             "selection": selection,
             "coordinator_receipt": receipt,
             "maximum_reasoning_effort": "HIGH",
@@ -278,6 +362,20 @@ class LlmFirstValidateAfterProvider:
             encoding="utf-8",
         )
         return selection, receipt
+
+    @staticmethod
+    def _exact_bound_candidate_timestamp(
+        candidate: Mapping[str, Any], requested_url: str
+    ) -> str | None:
+        for headline in candidate.get("headlines") or []:
+            if not isinstance(headline, Mapping):
+                continue
+            if str(headline.get("source_url") or "").strip() != requested_url:
+                continue
+            parsed = _parse_timestamp(headline.get("source_timestamp_utc"))
+            if parsed:
+                return parsed
+        return None
 
     def _worker(
         self,
@@ -292,7 +390,9 @@ class LlmFirstValidateAfterProvider:
             "selected_article_mode": selection.get("article_mode"),
             "selection_rationale": selection.get("selection_rationale"),
             "allowed_source_hosts": sorted(ALLOWED_SOURCE_HOSTS),
-            "source_marker_contract": "cited_sources order is SOURCE_1..SOURCE_N; use exact [[SOURCE:SOURCE_N]] markers",
+            "source_marker_contract": (
+                "cited_sources order is SOURCE_1..SOURCE_N; use exact [[SOURCE:SOURCE_N]] markers"
+            ),
         }
         governed_hash = _hash(governed)
         prompt = (
@@ -300,6 +400,7 @@ class LlmFirstValidateAfterProvider:
             "Cite one to three exact HTTPS pages only from allowed_source_hosts. Return every source in cited_sources in marker order. "
             "For every material fact, number, quotation, or causal assertion in public copy, return one material_claim_binding whose "
             "claim_text appears verbatim in the public copy and whose support_excerpt is a short exact excerpt from the cited page. "
+            "The source published_at_utc field is only a locator hint and never authority; deterministic validation owns publication time. "
             "Use [[SOURCE:SOURCE_N]] in the body. No unsupported facts, numbers, quotes, market reaction, forecasts, probabilities, "
             "scenarios, regimes, valuations, misconduct, or Core Analyzer claims. Zero media is valid.\nGOVERNED_INPUT:\n"
             + json.dumps(governed, sort_keys=True, ensure_ascii=False)
@@ -357,7 +458,11 @@ class LlmFirstValidateAfterProvider:
         cutoff_utc: str,
     ) -> dict[str, Any]:
         article = dict(output.get("article") or {})
-        sources = [dict(row) for row in output.get("cited_sources") or [] if isinstance(row, Mapping)]
+        sources = [
+            dict(row)
+            for row in output.get("cited_sources") or []
+            if isinstance(row, Mapping)
+        ]
         claims = [
             dict(row)
             for row in output.get("material_claim_bindings") or []
@@ -372,6 +477,9 @@ class LlmFirstValidateAfterProvider:
         documents: list[dict[str, Any]] = []
         source_by_id: dict[str, dict[str, Any]] = {}
         cutoff = datetime.fromisoformat(str(cutoff_utc).replace("Z", "+00:00"))
+        if cutoff.tzinfo is None:
+            raise LlmFirstValidationError(["cutoff_timezone_required"])
+
         for index, source in enumerate(sources, start=1):
             source_id = str(source.get("source_id") or "")
             url = str(source.get("url") or "")
@@ -382,11 +490,6 @@ class LlmFirstValidateAfterProvider:
                 blockers.append(f"source_host_not_allowed:{source_id}")
                 continue
             try:
-                published = datetime.fromisoformat(
-                    str(source.get("published_at_utc") or "").replace("Z", "+00:00")
-                )
-                if published.tzinfo is None or published > cutoff:
-                    raise ValueError
                 response = _default_public_http_get(url, 15.0, MAX_RESPONSE_BYTES)
                 body = response.get("body")
                 final_url = str(response.get("final_url") or url)
@@ -396,21 +499,47 @@ class LlmFirstValidateAfterProvider:
                     or not body
                     or not _host_allowed(final_url)
                 ):
-                    raise ValueError
+                    raise ValueError("source_retrieval_invalid")
                 headers = {
                     str(key).casefold(): str(value)
                     for key, value in dict(response.get("headers") or {}).items()
                 }
                 content_type = headers.get("content-type", "").split(";", 1)[0].casefold()
+                raw = body.decode("utf-8", errors="replace")
                 text = _public_text(body, content_type)
                 if len(text) < 80:
-                    raise ValueError
-            except Exception:
+                    raise ValueError("source_text_insufficient")
+
+                publisher_timestamp = _html_timestamp(raw) or _parse_timestamp(
+                    headers.get("last-modified")
+                )
+                bound_intake_timestamp = self._exact_bound_candidate_timestamp(candidate, url)
+                published_at_utc = publisher_timestamp or bound_intake_timestamp
+                if not published_at_utc:
+                    blockers.append(
+                        f"deterministic_published_timestamp_unavailable:{source_id}"
+                    )
+                    continue
+                published = datetime.fromisoformat(
+                    str(published_at_utc).replace("Z", "+00:00")
+                )
+                if published.tzinfo is None or published > cutoff:
+                    blockers.append(
+                        f"deterministic_published_timestamp_invalid:{source_id}"
+                    )
+                    continue
+                timestamp_source = (
+                    "PUBLISHER_BYTES_OR_HEADERS"
+                    if publisher_timestamp
+                    else "EXACT_BOUND_HEADLINE_TIMESTAMP"
+                )
+            except (OSError, RuntimeError, TypeError, ValueError):
                 blockers.append(f"deterministic_source_retrieval_failed:{source_id}")
                 continue
+
             document = {
                 "document_id": "llm-first-" + hashlib.sha256(body).hexdigest()[:20],
-                "title": _title(body.decode("utf-8", errors="replace")) or source.get("publisher"),
+                "title": _title(raw) or source.get("publisher"),
                 "publisher": str(source.get("publisher") or urlsplit(final_url).hostname or ""),
                 "source_identity": str(urlsplit(final_url).hostname or "").casefold(),
                 "source_authority_class": (
@@ -421,8 +550,14 @@ class LlmFirstValidateAfterProvider:
                 ),
                 "source_url": final_url,
                 "reader_source_url": final_url,
-                "published_at_utc": str(source.get("published_at_utc") or ""),
-                "event_time_utc": str(source.get("published_at_utc") or ""),
+                "requested_source_url": url,
+                "published_at_utc": _iso_utc(published),
+                "published_at_source": timestamp_source,
+                "freshness_timestamp_source": timestamp_source,
+                "model_declared_published_at_utc": str(
+                    source.get("published_at_utc") or ""
+                ),
+                "event_time_utc": _iso_utc(published),
                 "known_at_utc": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
                 "raw_sha256": hashlib.sha256(body).hexdigest(),
                 "canonical_content_sha256": hashlib.sha256(text.encode("utf-8")).hexdigest(),
@@ -432,7 +567,6 @@ class LlmFirstValidateAfterProvider:
                 "content_truncated": bool(response.get("content_truncated")),
                 "public_claim_allowed": True,
                 "permission_state": "PUBLIC_CLAIM_ALLOWED",
-                "freshness_state": "FRESH_CURRENT_OPERATOR_READINESS",
                 "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET_AFTER_GENERATION",
                 "source_handle": source_id,
                 "cluster_id": str(candidate.get("cluster_id") or ""),
@@ -440,6 +574,7 @@ class LlmFirstValidateAfterProvider:
             }
             documents.append(document)
             source_by_id[source_id] = document
+
         supported_claims: list[dict[str, Any]] = []
         for claim in claims:
             claim_id = str(claim.get("claim_id") or "")
@@ -453,7 +588,9 @@ class LlmFirstValidateAfterProvider:
             if document is None or len(excerpt) < 8 or excerpt not in _normalized(
                 document.get("canonical_content_text")
             ):
-                blockers.append(f"material_claim_excerpt_not_verified:{claim_id or 'UNKNOWN'}")
+                blockers.append(
+                    f"material_claim_excerpt_not_verified:{claim_id or 'UNKNOWN'}"
+                )
                 continue
             supported_claims.append(
                 {
@@ -484,6 +621,10 @@ class LlmFirstValidateAfterProvider:
                 "status": "PASS",
                 "ordering": "LLM_FIRST_VALIDATE_AFTER",
                 "deterministic_source_request_count": len(documents),
+                "source_timestamp_authority": (
+                    "PUBLISHER_BYTES_OR_HEADERS_OR_EXACT_BOUND_HEADLINE_TIMESTAMP"
+                ),
+                "model_declared_source_timestamp_grants_authority": False,
                 "unsupported_claims_removed_or_narrowed": [],
             },
         }
@@ -506,6 +647,7 @@ class LlmFirstValidateAfterProvider:
                 published_corpus=[*self._published_memory, *published_corpus],
                 excluded_cluster_ids=excluded,
             )
+            coordinator_reused = self._coordinator_checkpoint_reused
             selected_id = str(selection.get("selected_cluster_id") or "")
             candidate = next(
                 (row for row in candidates if row.get("cluster_id") == selected_id), None
@@ -524,6 +666,7 @@ class LlmFirstValidateAfterProvider:
                         "cluster_id": selected_id,
                         "status": "POST_GENERATION_VALIDATION_BLOCKED",
                         "blockers": exc.blockers,
+                        "coordinator_checkpoint_reused": coordinator_reused,
                         "coordinator_receipt": coordinator_receipt,
                     }
                 )
@@ -533,6 +676,7 @@ class LlmFirstValidateAfterProvider:
                 {
                     "cluster_id": selected_id,
                     "status": "PASS",
+                    "coordinator_checkpoint_reused": coordinator_reused,
                     "coordinator_receipt": coordinator_receipt,
                     "worker_receipts": worker_receipts,
                 }
@@ -542,6 +686,7 @@ class LlmFirstValidateAfterProvider:
                 **verified,
                 "selection": selection,
                 "coordinator_receipt": coordinator_receipt,
+                "coordinator_checkpoint_reused": coordinator_reused,
                 "worker_receipts": worker_receipts,
                 "candidate_attempts": attempts,
             }
@@ -551,41 +696,49 @@ class LlmFirstValidateAfterProvider:
 
     def _persist_receipt(self) -> None:
         assert self._prepared is not None
-        serializable = {
-            key: value for key, value in self._prepared.items() if key != "article"
-        }
-        serializable["article"] = self._prepared["article"]
         path = self.output_dir / "llm_first_validate_after_receipt_v1.json"
         path.write_text(
-            json.dumps(serializable, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
+            json.dumps(self._prepared, indent=2, sort_keys=True, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
+
+    @staticmethod
+    def _compact_model_call(row: Mapping[str, Any]) -> dict[str, Any]:
+        return {
+            "role": (row.get("provider_input_identity") or {}).get("role"),
+            "model": row.get("model"),
+            "reasoning_effort": row.get("reasoning_effort"),
+            "usage": dict(row.get("turn_result_usage") or {}),
+            "duration_ms": row.get("turn_result_duration_ms"),
+        }
 
     def summary(self) -> dict[str, Any]:
         if self._prepared is None:
             raise ValueError("llm_first_provider_not_prepared")
-        receipts = [self._prepared["coordinator_receipt"], *self._prepared["worker_receipts"]]
+        coordinator_receipt = self._prepared["coordinator_receipt"]
+        worker_receipts = list(self._prepared["worker_receipts"])
+        all_receipts = [coordinator_receipt, *worker_receipts]
+        executed_receipts = list(worker_receipts)
+        if not self._prepared.get("coordinator_checkpoint_reused"):
+            executed_receipts.insert(0, coordinator_receipt)
         return {
             "schema_version": SCHEMA_VERSION,
             "status": "PASS",
             "ordering": "LLM_FIRST_VALIDATE_AFTER",
             "selected_cluster_id": self._selected_cluster_id,
             "selection": dict(self._prepared["selection"]),
+            "coordinator_checkpoint_reused": bool(
+                self._prepared.get("coordinator_checkpoint_reused")
+            ),
             "candidate_attempts": list(self._prepared["candidate_attempts"]),
-            "model_calls": [
-                {
-                    "role": (row.get("provider_input_identity") or {}).get("role"),
-                    "model": row.get("model"),
-                    "reasoning_effort": row.get("reasoning_effort"),
-                    "usage": dict(row.get("turn_result_usage") or {}),
-                    "duration_ms": row.get("turn_result_duration_ms"),
-                }
-                for row in receipts
+            "model_calls": [self._compact_model_call(row) for row in all_receipts],
+            "model_calls_executed_this_prepare": [
+                self._compact_model_call(row) for row in executed_receipts
             ],
             "maximum_reasoning_effort": "HIGH",
             "above_high_call_count": sum(
                 str(row.get("reasoning_effort") or "").upper() not in {"", "HIGH"}
-                for row in receipts
+                for row in all_receipts
             ),
             "network_requests": int(
                 self._prepared["verification"]["deterministic_source_request_count"]
@@ -621,7 +774,7 @@ class LlmFirstValidateAfterProvider:
         }
         claim_contract["claim_contract_sha256"] = _hash(claim_contract)
         primary = supported[0]
-        receipt = {
+        return {
             "schema_version": "contentops.rolling_x_targeted_evidence_receipt.v1",
             "status": "PASS",
             "blockers": [],
@@ -682,7 +835,6 @@ class LlmFirstValidateAfterProvider:
             "publication_authority": False,
             "llm_first_validate_after": self.summary(),
         }
-        return receipt
 
     def article_builder(self, viability: Mapping[str, Any]) -> dict[str, Any]:
         if self._prepared is None:
