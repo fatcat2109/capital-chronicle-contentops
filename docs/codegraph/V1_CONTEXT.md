@@ -6,57 +6,35 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`CANARY_COMPLETE / PR19_DISCOVERY_ACCEPTED / PR20_ARTICLE_PATH_ACCEPTED / FOUR_PROMPTS_NORMALIZED_PAUSED`
+`SIMPLE_GEMINI_RUNTIME_RESET / ZERO_WRITE_HOST_CANARY_PENDING`
 
-The canonical runtime/store/supervisor/publisher/UI, production-day accounting, four-window harness,
-bounded deficit recovery, Desktop/SDK arbitration, official-source evidence seams, destination
-transports, and UNKNOWN_WRITE recovery are accepted current foundation.
+Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
+evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
+current sidecars + published memory -> one Gemini selection -> <=6 deterministic selected-story
+source requests -> one Gemini writer -> deterministic material-claim validation -> optional one
+Gemini revision -> one qualified zero-write article -> exactly eight undispatched intents. Codex
+runtime model calls are zero.
 
-The owner-scoped Italy canary published one canonical Substack article plus exactly eight
-derivative packages; all nine reconciled with `UNKNOWN_WRITE=0`. The first real four-opportunity
-4/32 proof then ran against 40 distinct stories and truthfully failed at `0 qualified articles / 0
-derivative intents`. It is failed acceptance evidence, not an unstarted task.
-
-PR #19 provider-resilient quota-efficient batch/tail discovery is accepted and reusable. Stage A
-produced four governed ready candidates in three batch turns with 712,842 accounted tokens while
-preserving deterministic retrieval/hash/freshness, redirect repair, route health, same-candidate
-resume, and frozen worker transport. Do not restore the older 35-call/10,237,897-token default.
-
-PR #20 independently accepted one `BREAKING_BRIEF` article plus exactly eight undispatched
-derivative intents with hard blockers empty and public/provider/unknown writes all zero. Native
-worker-return normalization and source-omission hard protection are current reusable capability.
-
-Exactly four native V1 routine Automations exist and are `PAUSED` with correct model/effort/schedules/
-project and one matching repo-derived prompt hash. Calendar-time execution remains unproven.
-`V1_FINAL_PRODUCT_ACCEPTED` is not true.
+PR #19 locator/retrieval primitives, PR #20 article/package proof, and PR #29 validate-after concepts
+are reusable donors. PR #30/#31 and native Desktop split-phase routing are historical evidence only.
 
 ## Canonical product flow
 
 ```text
-one-click launcher
--> durable Daily App supervisor
--> continuous low-cost headline intake / housekeeping
--> rolling current candidate universe + published memory
--> routine window OR bounded material-event wake eligibility
--> story type + editorial mode selection
--> proven provider-resilient quota-efficient batch/tail discovery when needed
--> claim/mode-specific evidence and CC authority resolution
--> choose useful story or abstain
--> one strong editorial worker when warranted
--> factual/numeric/rights/reader-value validation
--> source-backed/purposeful media when useful
--> exact canonical Substack plan
--> exactly eight native derivative packages
--> owner-authorized canonical publish + destination-local derivative attempt/recovery
+local headline sidecars + published memory
+-> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
+-> bounded 9Router/Gemini selection
+-> BoundedPublicSecondaryEvidenceLoader on selected story only
+-> bounded 9Router/Gemini article writer
+-> deterministic source/claim validation
+-> optional one Gemini revision
+-> contentops.newsroom_qualified_article.v1
+-> exactly eight UNDISPATCHED derivative intents
+-> separately authorized DurablePublicationCoordinator
 -> strict readback/reconciliation
--> real metrics + bounded growth/editorial learning
--> Daily App read model -> V5 control surface
 ```
 
-Candidate-level no-publication remains valid and a semantic failure does not halt the whole
-opportunity while another governed candidate can qualify. The 4/32 exercise remains a throughput
-benchmark and daily-output diagnostic, not a prerequisite for one safe qualified article. Filler
-remains forbidden; the final V1 target remains 5–8 useful published articles/day.
+Final target remains 5–8 useful published articles/day without filler.
 
 ## Editorial modes
 
@@ -83,99 +61,21 @@ ContentOps may make clearly labeled qualitative editorial inference from accepte
 
 ## Canonical implementation path
 
-```text
-Start_ContentOps_Daily_App.cmd
-  -> scripts/Start-ContentOpsDailyApp.ps1
-  -> live_contentops.daily_app_launcher_v1
-  -> python -m live_contentops.cli daily-app start
-  -> ContentOpsDailyAppSupervisor
-      -> continuous_headline_ingest_v1.run_ingestion_housekeeping_iteration
-      -> recovery/readback/performance housekeeping
-      -> routine due-window OR material-event trigger evaluation
-          -> stable/idempotent editorial opportunity
-          -> eight_platform_substack_first_pipeline_v1.run_rolling_x_newsroom_cycle
-          -> ContentOpsProductionOrchestrator.execute
-          -> _eight_platform_substack_first_pipeline_impl_v1._run_rolling_x_newsroom_cycle
-              -> current rolling universe / prepared candidates
-              -> apply_preselection_intelligence
-              -> story type + editorial mode/capability selection
-              -> one story/update-chain-scoped evidence acquisition ledger
-              -> RollingXTargetedEvidenceAdapter
-              -> deterministic lower-mode sufficiency recheck; bounded same-ledger delta only for a new need
-              -> official_primary_source_locator_v1 / official_primary_evidence_loader_v1 where applicable
-              -> publication-authorized CC/context resolution
-              -> build_rolling_x_grounded_article_and_media
-              -> bounded editorial cycle
-              -> release candidate + platform-native package intents
-              -> publication plan
-          -> DurablePublicationCoordinator.publish_plan
-              -> destination_transport_registry_v1
-              -> FinalDailyAppTransportRuntime
-              -> outbox -> dispatch -> strict readback -> reconciliation
-          -> performance observation / bounded learning
-          -> daily_app_ui_read_model_v1
-          -> V5 DailyAppConsole
-```
+Current routine implementation areas:
 
-Use CodeGraph callers/callees around these seams before editing. Do not create parallel selection/evidence/publication/state/scheduler paths.
+- `live_contentops/v1_simple_gemini_newsroom_v1.py` — selected-story simple runtime;
+- `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model authority;
+- `live_contentops/public_secondary_evidence_loader_v1.py` — deterministic selected-story retrieval;
+- `live_contentops/newsroom_production_day_v1.py` — provider-neutral qualified zero-write record;
+- `live_contentops/production_orchestrator_v1.py` — canonical public operation boundary;
+- `live_contentops/publication_coordinator_v1.py` and destination registry — sole later public-write path.
 
-## Canonical implementation areas for the next exact task
+The legacy rolling-X monolith, Desktop PREPARE/COMPLETE handoff, broad ready-pool discovery, and
+deficit catch-up loops remain available for historical evidence/compatibility only and do not route
+current routine V1. Use CodeGraph for donor call paths, not to revive superseded ownership.
 
-### Supervisor / material-event wake
-
-- `live_contentops/daily_app_supervisor_v1.py`
-- existing material-event trigger/update-chain and operator-trigger state discovered by CodeGraph
-- durable window/trigger/lease/idempotency tables and focused supervisor tests
-
-The next V1 boundary is not a wake-path rebuild. It is exact zero-write Automation enablement and
-calendar-time unattended/cold-start/fallback proof, followed by fresh V5 acceptance and separate
-routine public-write/final-product decisions. A 4/32 rerun remains useful telemetry but is not a
-launch prerequisite. No fifth task is authorized.
-
-### Newsroom / selection
-
-- `live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py`
-- `live_contentops/preselection_intelligence_v1.py`
-- `live_contentops/editorial_portfolio_v1.py`
-- `live_contentops/newsroom_assignment_scheduler_v1.py`
-- relevant capability/story-mode registry code discovered by CodeGraph
-
-### Evidence
-
-- `live_contentops/rolling_x_targeted_evidence_adapter_v1.py`
-- `live_contentops/official_primary_source_locator_v1.py`
-- `live_contentops/official_primary_evidence_loader_v1.py`
-- exact current evidence capability/profile contracts discovered from callers/tests
-
-PR #19's quota-efficient provider-resilient batch/tail discovery extends this existing seam. Reuse
-`OfficialCodexUrlDiscoveryProvider`, same-candidate resume, route health, deterministic retrieval,
-hashing, freshness, and hard admission gates. Do not create a parallel evidence system or restore
-the historical 35-call per-trigger path as routine production policy.
-
-### Capital Chronicle authority
-
-- `live_contentops/capital_chronicle_data_catalog_v1.py`
-- current publication-evidence resolver/adapter path discovered by CodeGraph
-
-Context/discovery remains non-public authority. Publication-authorized CC material requires exact story/consumer/use binding and may not be regenerated or widened.
-
-### Article/editorial/media
-
-- `live_contentops/rolling_x_grounded_article_media_builder_v1.py`
-- current bounded editorial worker/revision seam discovered by CodeGraph
-
-House-view/critical modes may express strong qualitative editorial judgment from accepted public evidence; models still receive zero factual/numeric/permission/public-write authority and may not present house inference as Core Analyzer output.
-
-### Publication / recovery
-
-- `live_contentops/publication_coordinator_v1.py`
-- `live_contentops/destination_transport_registry_v1.py`
-- `live_contentops/production_runtime_v1.py`
-- publication-plan builder in the canonical rolling-X implementation
-
-Current root direction supersedes the older blanket rule that any derivative non-readiness must veto canonical Substack. Target product semantics are canonical Substack first, then exactly eight independently gated derivative packages with destination-local hold/recovery and strict readback/reconciliation. The real Italy nine-surface canary already proved this exact technical lifecycle and must not be repeated merely as transport proof.
-
-No live/public write is authorized merely by this context map.
+Next exact gate: one isolated zero-write current-sidecar host canary of the simple Gemini operation,
+then a lightweight local scheduler using the same entrypoint. No live/public write is authorized.
 
 ## Focused test families
 

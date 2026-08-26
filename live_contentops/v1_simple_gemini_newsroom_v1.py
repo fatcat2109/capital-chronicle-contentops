@@ -488,14 +488,15 @@ def _default_evidence_loader(cutoff_utc: str) -> EvidenceLoader:
 
 def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
     pack: list[dict[str, Any]] = []
-    for index, document in enumerate(documents[:MAX_SOURCE_DOCUMENTS], start=1):
+    for document in documents[:MAX_SOURCE_DOCUMENTS]:
         url = str(document.get("reader_source_url") or document.get("source_url") or "")
         text = str(document.get("canonical_content_text") or "")
         if not url.startswith("https://") or len(text.strip()) < 40:
             continue
+        source_id = f"SOURCE_{len(pack) + 1}"
         pack.append(
             {
-                "source_id": f"SOURCE_{index}",
+                "source_id": source_id,
                 "url": url,
                 "publisher": str(
                     document.get("publisher")

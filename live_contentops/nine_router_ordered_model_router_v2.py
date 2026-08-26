@@ -51,9 +51,9 @@ AUTHORITY_VERSION = "v3_gemini_only_v1"
 SUPERSEDES_AUTHORITY_ID = "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1"
 GATEWAY = "9router"
 
-#: Current V1 can reach only these two exact 9Router models.  The router never parses,
-#: normalises, or "corrects" an authority entry.  Final editorial prose remains a native
-#: Codex Desktop XHIGH responsibility; this pool is semantic/review assistance only.
+#: Current V1 routine editorial production reaches only these two exact 9Router Gemini
+#: models. The router never parses, normalises, or silently substitutes an authority entry.
+#: Codex Desktop is builder/debugger/host-proof capacity, not a routine article model.
 V1_GEMINI_ONLY_MODEL_AUTHORITY_ID = "CONTENTOPS_V1_GEMINI_ONLY_9ROUTER_MODEL_AUTHORITY_V1"
 ORDERED_MODEL_POOL: tuple[str, ...] = (
     "vx/gemini-3.1-pro-preview(high)",
@@ -82,8 +82,7 @@ ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     NEWSROOM_LEAF_SCAN_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
     PASSIVE_INTERACTION_QUALITY_ROLE: NEWSROOM_LEAF_SCAN_MODEL_POOL,
     NEWSROOM_GLOBAL_EDITOR_ROLE: V1_HIGH_QUALITY_MODEL_POOL,
-    # Legacy zero-write writer compatibility only.  A publication-qualified article is
-    # authored by a fresh native Codex Desktop XHIGH worker, never by 9Router.
+    # Current simple V1 article writing uses this bounded Gemini pool.
     ARTICLE_WRITING_ROLE: ARTICLE_WRITING_MODEL_POOL,
     GROUNDED_RESEARCH_ROLE: GROUNDED_RESEARCH_MODEL_POOL,
     "platform_native_variant_generation": NEWSROOM_LEAF_SCAN_MODEL_POOL,
@@ -222,8 +221,10 @@ def authority_packet() -> dict[str, Any]:
         "newsroom_leaf_scan_model": NEWSROOM_LEAF_SCAN_MODEL,
         "newsroom_leaf_scan_is_semantic_labor_only": True,
         "newsroom_global_editor_uses_pro_then_flash": True,
-        "article_writing_via_9router_is_legacy_zero_write_compatibility_only": True,
-        "publication_qualified_article_uses_native_codex_desktop_xhigh": True,
+        "article_writing_via_9router_is_legacy_zero_write_compatibility_only": False,
+        "publication_qualified_article_uses_native_codex_desktop_xhigh": False,
+        "publication_qualified_article_uses_9router_gemini": True,
+        "codex_runtime_model_calls_required": False,
         "v1_grounded_research_gateway": GATEWAY,
         "v1_grounded_research_model_ladder": list(V1_GROUNDED_RESEARCH_MODEL_LADDER),
         "v1_grounded_research_model_order_is_deterministic": True,

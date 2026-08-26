@@ -133,6 +133,7 @@ def test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once(mon
         "ensure_canonical_edge_publishing_runtime": lambda: public_module.ensure_canonical_edge_publishing_runtime(urls=("https://substack.com/",), wait_seconds=0.0),
         "run_eight_platform_substack_first_pipeline": lambda: public_module.run_eight_platform_substack_first_pipeline(run_id="r", output_dir=tmp_path, operator_approved_full_live_run=False),
         "run_rolling_x_newsroom_cycle": lambda: public_module.run_rolling_x_newsroom_cycle(run_id="r", output_dir=tmp_path, cutoff_utc="2026-08-08T00:00:00Z", publication_enabled=False),
+        "run_v1_simple_gemini_newsroom": lambda: public_module.run_v1_simple_gemini_newsroom(output_dir=tmp_path, cutoff_utc="2026-08-27T00:00:00Z", rolling_input={"headlines": []}),
         "reconcile_public_substack_for_derivative_resume": lambda: public_module.reconcile_public_substack_for_derivative_resume(output_dir=tmp_path),
         "resume_eight_platform_derivatives": lambda: public_module.resume_eight_platform_derivatives(output_dir=tmp_path),
         "reconcile_existing_derivative_readbacks": lambda: public_module.reconcile_existing_derivative_readbacks(output_dir=tmp_path),
