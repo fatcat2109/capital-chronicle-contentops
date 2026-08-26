@@ -83471,7 +83471,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-26T09:34:36Z",
+  "generation_timestamp_utc": "2026-08-26T09:36:53Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -124970,7 +124970,7 @@
     {
       "id": "tests/test_native_llm_first_daily_app_supervisor_v1.py",
       "kind": "test",
-      "size_bytes": 14741
+      "size_bytes": 19376
     },
     {
       "id": "tests/test_newsroom_assignment_scheduler_v1.py",
@@ -131163,6 +131163,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "1a5d3ddad4c483be55aa8a86b0a99dcb9a4ae63e",
-  "source_tree_digest": "4dd4379446241af53e96f5b936ce36bd77c53e9f7bc5d33ed06285f68ce45baa"
+  "source_head": "77416b8b89d9ef762186f877a8e31e905a25638a",
+  "source_tree_digest": "6b13a1a2996dfc74bffcdb57bb562d4888bea020290355b2e4870c813ac60eb4"
 }
