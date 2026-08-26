@@ -40,8 +40,8 @@ def _prepared_state() -> dict:
             "assignment_method": "DETERMINISTIC_EVIDENCE_REACHABLE_FALLBACK",
             "input_binding": {
                 "canonical_input_hash": "prepared-input-hash",
-                "input_count": 2,
-                "selected_count": 2,
+                "input_count": 3,
+                "selected_count": 3,
                 "held_count": 0,
             },
             "ranked_clusters": [
@@ -65,16 +65,21 @@ def _prepared_state() -> dict:
                     "selection_case": "Candidate B",
                     "update_chain": {"relationship": "distinct"},
                 },
+                {
+                    "cluster_id": "cluster-c",
+                    "headline_ids": ["headline-c"],
+                    "leaf_cluster_ids": ["leaf-c"],
+                    "rank": 3,
+                    "article_mode": "breaking",
+                    "why_now": "C is current but lower value",
+                    "selection_case": "Candidate C",
+                    "update_chain": {"relationship": "distinct"},
+                },
             ],
             "leaf_clusters": [
-                {
-                    "leaf_cluster_id": "leaf-a",
-                    "member_headline_ids": ["headline-a"],
-                },
-                {
-                    "leaf_cluster_id": "leaf-b",
-                    "member_headline_ids": ["headline-b"],
-                },
+                {"leaf_cluster_id": "leaf-a", "member_headline_ids": ["headline-a"]},
+                {"leaf_cluster_id": "leaf-b", "member_headline_ids": ["headline-b"]},
+                {"leaf_cluster_id": "leaf-c", "member_headline_ids": ["headline-c"]},
             ],
             "router_calls": [],
             "factual_or_numeric_authority_granted": False,
@@ -83,7 +88,7 @@ def _prepared_state() -> dict:
         },
         "prepared_input": {
             "canonical_input_hash": "prepared-input-hash",
-            "unique_headline_ids": ["headline-a", "headline-b"],
+            "unique_headline_ids": ["headline-a", "headline-b", "headline-c"],
             "headlines": [
                 {
                     "headline_id": "headline-a",
@@ -103,12 +108,22 @@ def _prepared_state() -> dict:
                         "url_or_source_ref": "https://x.com/source_b/status/2",
                     },
                 },
+                {
+                    "headline_id": "headline-c",
+                    "source_timestamp_utc": "2026-08-26T09:58:00Z",
+                    "external_content": {
+                        "headline_text": "Company C publishes a lower-value update",
+                        "author_handle": "source_c",
+                        "url_or_source_ref": "https://x.com/source_c/status/3",
+                    },
+                },
             ],
         },
         "story_routing": {
             "story_type_by_cluster": {
                 "cluster-a": "general_public_event",
                 "cluster-b": "company_sector_event",
+                "cluster-c": "company_sector_event",
             }
         },
     }
@@ -140,7 +155,11 @@ def _supervisor(tmp_path: Path, canonical_cycle):
 
 
 def _selection_from_probe(
-    probe: dict, *, cluster_id: str = "cluster-b", effort: str = "HIGH"
+    probe: dict,
+    *,
+    cluster_id: str = "cluster-b",
+    effort: str = "HIGH",
+    fallback_candidates: list[dict] | None = None,
 ) -> dict:
     request = probe["coordinator_selection_request"]
     return {
@@ -150,9 +169,18 @@ def _selection_from_probe(
         "selected_cluster_id": cluster_id,
         "article_mode": "STANDARD_NEWS_ANALYSIS",
         "selection_rationale": "B is the most useful current reader-facing story.",
+        "fallback_candidates": list(fallback_candidates or []),
         "model": COORDINATOR_MODEL,
         "reasoning_effort": effort,
         "public_write_attempted": False,
+    }
+
+
+def _fallback(cluster_id: str, *, mode: str = "BREAKING_BRIEF") -> dict:
+    return {
+        "cluster_id": cluster_id,
+        "article_mode": mode,
+        "selection_rationale": f"{cluster_id} remains a useful bounded fallback.",
     }
 
 
@@ -174,7 +202,7 @@ def test_probe_is_zero_cycle_zero_evidence_and_hash_idempotent(tmp_path: Path):
     assert first["story_type_semantic_calls"] == 0
     assert first["public_write_performed"] is False
     assert first["unknown_write_detected"] is False
-    assert len(first["coordinator_selection_request"]["candidates"]) == 2
+    assert len(first["coordinator_selection_request"]["candidates"]) == 3
     assert first["coordinator_selection_request"]["factual_or_numeric_authority_granted"] is False
     assert first["coordinator_selection_request"]["evidence_authority_granted"] is False
     assert first["coordinator_selection_request"]["publication_authority_granted"] is False
@@ -237,7 +265,7 @@ def test_selection_return_is_immutable_per_opportunity(tmp_path: Path):
         )
 
 
-def test_valid_high_selection_narrows_canonical_prepare_to_one_cluster(tmp_path: Path):
+def test_primary_only_selection_still_narrows_canonical_prepare(tmp_path: Path):
     cycle_calls = []
 
     def canonical_cycle(**kwargs):
@@ -278,26 +306,111 @@ def test_valid_high_selection_narrows_canonical_prepare_to_one_cluster(tmp_path:
     assert result["classification"] == "HIGH_REQUIRED"
     assert result["public_write_performed"] is False
     assert result["unknown_write_detected"] is False
-    assert result["native_llm_first_ordering"] == (
-        "HIGH_SELECTION_THEN_SELECTED_STORY_DETERMINISTIC_HYDRATION"
-    )
     assert len(cycle_calls) == 1
     call = cycle_calls[0]
     assert call["prepared_candidate_state"] is None
     assignment = call["assignment_override"]
     assert assignment["selected_cluster_id"] == "cluster-b"
+    assert assignment["selected_cluster_ids"] == ["cluster-b"]
     assert assignment["selected_headline_ids"] == ["headline-b"]
-    assert len(assignment["ranked_clusters"]) == 1
-    assert assignment["ranked_clusters"][0]["cluster_id"] == "cluster-b"
+    assert [row["cluster_id"] for row in assignment["ranked_clusters"]] == ["cluster-b"]
     assert assignment["ranked_clusters"][0]["rank"] == 1
     assert assignment["ranked_clusters"][0]["resolved_article_mode"] == "STANDARD_NEWS_ANALYSIS"
     assert assignment["ranked_clusters"][0]["llm_first_validate_after_selected"] is True
     assert assignment["input_binding"]["input_ids"] == ["headline-b"]
     assert [row["leaf_cluster_id"] for row in assignment["leaf_clusters"]] == ["leaf-b"]
     assert call["story_type_by_cluster"] == {"cluster-b": "company_sector_event"}
-    assert result["native_llm_first_selection"]["full_prepared_frontier_reopened"] is False
-    assert result["native_llm_first_selection"]["semantic_assignment_provider_call_required"] is False
-    assert result["native_llm_first_selection"]["story_type_semantic_call_required"] is False
+    telemetry = result["native_llm_first_selection"]
+    assert telemetry["selected_cluster_ids"] == ["cluster-b"]
+    assert telemetry["high_admitted_shortlist_count"] == 1
+    assert telemetry["full_prepared_frontier_reopened"] is False
+    assert telemetry["semantic_assignment_provider_call_required"] is False
+    assert telemetry["story_type_semantic_call_required"] is False
+
+
+def test_high_admitted_fallback_shortlist_preserves_candidate_continuation(tmp_path: Path):
+    cycle_calls = []
+    supervisor = _supervisor(
+        tmp_path,
+        lambda **kwargs: cycle_calls.append(kwargs)
+        or {
+            "classification": "HIGH_REQUIRED",
+            "public_write_performed": False,
+            "unknown_write_detected": False,
+        },
+    )
+    probe = supervisor.prepare_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-london-1700", now=NOW
+    )
+    artifact = supervisor._load_selection_artifact(
+        task_id="v1-newsroom-london-1700",
+        session="london_1700_bangkok",
+        opportunity_id=probe["canonical_opportunity_id"],
+    )
+    selection = supervisor._validate_selection_return(
+        _selection_from_probe(probe, fallback_candidates=[_fallback("cluster-a")]),
+        artifact,
+    )
+    binding = supervisor._selected_assignment_binding(
+        artifact=artifact, selection=selection
+    )
+
+    assignment = binding["assignment_override"]
+    assert binding["selected_cluster_ids"] == ["cluster-b", "cluster-a"]
+    assert assignment["selected_cluster_ids"] == ["cluster-b", "cluster-a"]
+    assert [row["cluster_id"] for row in assignment["ranked_clusters"]] == [
+        "cluster-b",
+        "cluster-a",
+    ]
+    assert [row["rank"] for row in assignment["ranked_clusters"]] == [1, 2]
+    assert all(
+        row["llm_first_validate_after_selected"] is True
+        for row in assignment["ranked_clusters"]
+    )
+    assert assignment["input_binding"]["input_ids"] == ["headline-b", "headline-a"]
+    assert set(row["leaf_cluster_id"] for row in assignment["leaf_clusters"]) == {
+        "leaf-a",
+        "leaf-b",
+    }
+    assert "leaf-c" not in {
+        row["leaf_cluster_id"] for row in assignment["leaf_clusters"]
+    }
+    assert binding["story_type_by_cluster"] == {
+        "cluster-b": "company_sector_event",
+        "cluster-a": "general_public_event",
+    }
+    assert "cluster-c" not in binding["story_type_by_cluster"]
+
+
+def test_fallback_plan_rejects_duplicate_unknown_and_excess_entries(tmp_path: Path):
+    supervisor = _supervisor(tmp_path, lambda **_kwargs: {})
+    probe = supervisor.prepare_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-london-1700", now=NOW
+    )
+    artifact = supervisor._load_selection_artifact(
+        task_id="v1-newsroom-london-1700",
+        session="london_1700_bangkok",
+        opportunity_id=probe["canonical_opportunity_id"],
+    )
+
+    with pytest.raises(ValueError, match="native_llm_first_candidate_plan_duplicate"):
+        supervisor._validate_selection_return(
+            _selection_from_probe(probe, fallback_candidates=[_fallback("cluster-b")]),
+            artifact,
+        )
+    with pytest.raises(ValueError, match="native_llm_first_selected_cluster_invalid"):
+        supervisor._validate_selection_return(
+            _selection_from_probe(probe, fallback_candidates=[_fallback("cluster-missing")]),
+            artifact,
+        )
+    with pytest.raises(ValueError, match="native_llm_first_fallback_candidates_invalid"):
+        supervisor._validate_selection_return(
+            _selection_from_probe(
+                probe,
+                fallback_candidates=[_fallback(f"cluster-{index}") for index in range(8)],
+            ),
+            artifact,
+        )
 
 
 def test_selection_rejects_effort_above_high_before_cycle(tmp_path: Path):
