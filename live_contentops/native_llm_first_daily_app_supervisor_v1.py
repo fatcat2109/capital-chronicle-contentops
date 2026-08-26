@@ -63,9 +63,6 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         self._native_selection_binding: ContextVar[Optional[dict[str, Any]]] = ContextVar(
             f"contentops_native_llm_first_selection_{id(self)}", default=None
         )
-        # Install one permanent thread/context-local wrapper. There is no second newsroom;
-        # absent an exact selected binding this delegates byte-for-byte to the injected/canonical
-        # cycle. A selected PREPARE narrows only that synchronous invocation.
         self._newsroom_cycle = self._native_llm_first_newsroom_cycle
 
     def _native_llm_first_newsroom_cycle(self, **kwargs: Any) -> Mapping[str, Any]:
@@ -75,9 +72,6 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         if kwargs.get("native_desktop_prepare") is not True:
             raise ValueError("native_llm_first_selection_only_valid_for_desktop_prepare")
         narrowed = dict(kwargs)
-        # Critical anti-widening invariant: the full prepared frontier was selection input only.
-        # Once HIGH selects one story, canonical publishability/evidence work receives only the
-        # selected assignment and cannot reopen unused prepared candidates ahead of the worker.
         narrowed["prepared_candidate_state"] = None
         narrowed["assignment_override"] = dict(binding["assignment_override"])
         narrowed["story_type_by_cluster"] = dict(binding["story_type_by_cluster"])
@@ -111,9 +105,16 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             / "native_desktop_llm_first_selection_v1.json"
         )
 
+    def _selection_return_path(self, opportunity_id: str) -> Path:
+        return (
+            self._output_root
+            / opportunity_id
+            / "native_desktop_llm_first_selection_return_v1.json"
+        )
+
     @staticmethod
     def _published_memory_projection(value: Any) -> list[dict[str, Any]]:
-        """Project the actual continuity shapes without inventing publication metadata."""
+        """Project actual continuity shapes without inventing publication metadata."""
         if not isinstance(value, Mapping):
             return []
         memory = value.get("published_memory")
@@ -150,8 +151,6 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                         "published_at_utc": row.get("published_at_utc"),
                     }
                 )
-        # Stable de-duplication keeps the selection packet bounded while preserving the most
-        # recent projection order. These are duplicate-avoidance hints, never factual authority.
         deduped_reversed: list[dict[str, Any]] = []
         seen: set[str] = set()
         for row in reversed(projected):
@@ -176,8 +175,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             if isinstance(row, Mapping) and str(row.get("headline_id") or "")
         }
         packet: list[dict[str, Any]] = []
-        for cluster in list(assignment.get("ranked_clusters") or [
-        ])[:MAX_SELECTION_CANDIDATES]:
+        for cluster in list(assignment.get("ranked_clusters") or [])[
+            :MAX_SELECTION_CANDIDATES
+        ]:
             if not isinstance(cluster, Mapping):
                 continue
             headline_ids = [
@@ -241,18 +241,13 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 store_path=self._store_path, output_root=self._output_root
             )
         except Exception:
-            # Continuity is duplicate-avoidance selection context, never authority. The prepared
-            # frontier already carries its deterministic evaluated/update-chain filtering.
             continuity = {}
         coordinator_request = {
             "schema_version": SELECTION_REQUEST_SCHEMA_VERSION,
             "automation_id": task_id,
             "session": session,
             "canonical_opportunity_id": str(window["window_id"]),
-            # Bind request identity to the scheduled opportunity, not the wall-clock instant a
-            # transient caller happens to retry. Real prepared/continuity drift still changes the
-            # request hash and fails closed in _persist_selection_artifact.
-            "selection_as_of_utc": _iso_utc(window["start"]),
+            "selection_as_of_utc": _iso_utc(window["end"]),
             "opportunity_cutoff_utc": _iso_utc(window["end"]),
             "prepared_candidate_logical_hash": prepared_state.get(
                 "prepared_candidate_logical_hash"
@@ -322,6 +317,25 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         temporary = path.with_suffix(path.suffix + ".tmp")
         temporary.write_text(
             json.dumps(artifact, indent=2, sort_keys=True, default=str) + "\n",
+            encoding="utf-8",
+        )
+        temporary.replace(path)
+        return path
+
+    def _persist_selection_return(
+        self, *, opportunity_id: str, selection: Mapping[str, Any]
+    ) -> Path:
+        path = self._selection_return_path(opportunity_id)
+        path.parent.mkdir(parents=True, exist_ok=True)
+        material = dict(selection)
+        if path.exists():
+            existing = json.loads(path.read_text(encoding="utf-8"))
+            if existing != material:
+                raise ValueError("native_llm_first_selection_return_identity_conflict")
+            return path
+        temporary = path.with_suffix(path.suffix + ".tmp")
+        temporary.write_text(
+            json.dumps(material, indent=2, sort_keys=True) + "\n",
             encoding="utf-8",
         )
         temporary.replace(path)
@@ -548,8 +562,6 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 self._refresh_prepared_candidate_checkpoint(moment)
                 prepared = self._load_prepared_candidate_checkpoint(window["end"])
             if not isinstance(prepared, Mapping) or not self._candidate_packet(prepared):
-                # No useful zero-model frontier means there is no HIGH selection to make. Reuse
-                # canonical base PREPARE to persist the governed no-candidate/blocker outcome.
                 return super().prepare_native_desktop_scheduled_opportunity(
                     automation_id=automation_id, now=moment
                 )
@@ -584,8 +596,6 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "unknown_write_detected": False,
             }
 
-        # Continuation uses the already-persisted exact opportunity identity rather than asking
-        # the scheduler for a new one after a potentially long HIGH turn.
         opportunity_id = str(
             coordinator_selection.get("canonical_opportunity_id") or ""
         ).strip()
@@ -597,15 +607,11 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         if moment > _parse_utc(str(artifact.get("expires_at_utc") or "")):
             raise ValueError("native_llm_first_selection_request_expired")
         selection = self._validate_selection_return(coordinator_selection, artifact)
+        selection_receipt_path = self._persist_selection_return(
+            opportunity_id=opportunity_id, selection=selection
+        )
         binding = self._selected_assignment_binding(
             artifact=artifact, selection=selection
-        )
-        selection_receipt_path = self._selection_artifact_path(
-            opportunity_id
-        ).with_name("native_desktop_llm_first_selection_return_v1.json")
-        selection_receipt_path.write_text(
-            json.dumps(selection, indent=2, sort_keys=True) + "\n",
-            encoding="utf-8",
         )
         window_binding = dict(
             (artifact.get("runtime_binding") or {}).get("window") or {}
