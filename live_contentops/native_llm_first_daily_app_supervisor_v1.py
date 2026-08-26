@@ -1,13 +1,13 @@
 """Native Desktop LLM-first selection over the canonical V1 supervisor.
 
-The base Daily App supervisor remains the sole scheduler/store/runtime owner.  This thin subclass
+The base Daily App supervisor remains the sole scheduler/store/runtime owner. This thin subclass
 changes only the native Desktop PREPARE ordering used by the production composition:
 
 zero-model prepared frontier -> external HIGH coordinator selection -> canonical selected-story
 preselection/evidence hydration -> existing hash-bound native HIGH worker handoff -> existing
 COMPLETE path.
 
-It does not create a second scheduler, store, evidence engine, model gateway, or publisher.  The
+It does not create a second scheduler, store, evidence engine, model gateway, or publisher. The
 selection phase grants no factual, numeric, evidence, permission, or public-write authority.
 """
 from __future__ import annotations
@@ -34,7 +34,9 @@ MAX_SELECTION_CANDIDATES = 8
 
 
 def _canonical_json(value: Any) -> str:
-    return json.dumps(value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, default=str)
+    return json.dumps(
+        value, sort_keys=True, separators=(",", ":"), ensure_ascii=True, default=str
+    )
 
 
 def _logical_hash(value: Any) -> str:
@@ -61,9 +63,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         self._native_selection_binding: ContextVar[Optional[dict[str, Any]]] = ContextVar(
             f"contentops_native_llm_first_selection_{id(self)}", default=None
         )
-        # Install one permanent thread/context-local wrapper.  There is no second newsroom;
+        # Install one permanent thread/context-local wrapper. There is no second newsroom;
         # absent an exact selected binding this delegates byte-for-byte to the injected/canonical
-        # cycle.  A selected PREPARE narrows only that synchronous invocation.
+        # cycle. A selected PREPARE narrows only that synchronous invocation.
         self._newsroom_cycle = self._native_llm_first_newsroom_cycle
 
     def _native_llm_first_newsroom_cycle(self, **kwargs: Any) -> Mapping[str, Any]:
@@ -86,8 +88,12 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             **dict(result),
             "native_llm_first_selection": {
                 "ordering": "HIGH_SELECTION_THEN_SELECTED_STORY_DETERMINISTIC_HYDRATION",
-                "selection_request_logical_hash": binding["selection_request_logical_hash"],
-                "selection_return_logical_hash": binding["selection_return_logical_hash"],
+                "selection_request_logical_hash": binding[
+                    "selection_request_logical_hash"
+                ],
+                "selection_return_logical_hash": binding[
+                    "selection_return_logical_hash"
+                ],
                 "selected_cluster_id": binding["selected_cluster_id"],
                 "selected_article_mode": binding["article_mode"],
                 "full_prepared_frontier_reopened": False,
@@ -99,35 +105,69 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         }
 
     def _selection_artifact_path(self, opportunity_id: str) -> Path:
-        return self._output_root / opportunity_id / "native_desktop_llm_first_selection_v1.json"
+        return (
+            self._output_root
+            / opportunity_id
+            / "native_desktop_llm_first_selection_v1.json"
+        )
 
     @staticmethod
     def _published_memory_projection(value: Any) -> list[dict[str, Any]]:
+        """Project the actual continuity shapes without inventing publication metadata."""
         if not isinstance(value, Mapping):
             return []
         memory = value.get("published_memory")
+        projected: list[dict[str, Any]] = []
         if isinstance(memory, Mapping):
             rows = memory.get("articles") or memory.get("items") or []
+            if isinstance(rows, list):
+                for row in rows:
+                    if not isinstance(row, Mapping):
+                        continue
+                    projected.append(
+                        {
+                            "title": row.get("title"),
+                            "story_identity": row.get("story_identity"),
+                            "update_chain_identity": row.get("update_chain_identity"),
+                            "published_at_utc": row.get("published_at_utc"),
+                        }
+                    )
+            for story_identity in memory.get("story_identities") or []:
+                if str(story_identity):
+                    projected.append({"story_identity": str(story_identity)})
+            for chain_identity in memory.get("update_chain_identities") or []:
+                if str(chain_identity):
+                    projected.append({"update_chain_identity": str(chain_identity)})
         elif isinstance(memory, list):
-            rows = memory
-        else:
-            rows = []
-        projected = []
-        for row in rows:
-            if not isinstance(row, Mapping):
+            for row in memory:
+                if not isinstance(row, Mapping):
+                    continue
+                projected.append(
+                    {
+                        "title": row.get("title"),
+                        "story_identity": row.get("story_identity"),
+                        "update_chain_identity": row.get("update_chain_identity"),
+                        "published_at_utc": row.get("published_at_utc"),
+                    }
+                )
+        # Stable de-duplication keeps the selection packet bounded while preserving the most
+        # recent projection order. These are duplicate-avoidance hints, never factual authority.
+        deduped_reversed: list[dict[str, Any]] = []
+        seen: set[str] = set()
+        for row in reversed(projected):
+            key = _canonical_json(row)
+            if key in seen:
                 continue
-            projected.append(
-                {
-                    "title": row.get("title"),
-                    "story_identity": row.get("story_identity"),
-                    "update_chain_identity": row.get("update_chain_identity"),
-                    "published_at_utc": row.get("published_at_utc"),
-                }
-            )
-        return projected[-100:]
+            seen.add(key)
+            deduped_reversed.append(row)
+            if len(deduped_reversed) >= 100:
+                break
+        return list(reversed(deduped_reversed))
 
     @staticmethod
-    def _candidate_packet(prepared_state: Mapping[str, Any]) -> list[dict[str, Any]]:
+    def _candidate_packet(
+        prepared_state: Mapping[str, Any],
+    ) -> list[dict[str, Any]]:
         assignment = prepared_state.get("assignment") or {}
         prepared_input = prepared_state.get("prepared_input") or {}
         headline_by_id = {
@@ -136,29 +176,41 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             if isinstance(row, Mapping) and str(row.get("headline_id") or "")
         }
         packet: list[dict[str, Any]] = []
-        for cluster in list(assignment.get("ranked_clusters") or [])[:MAX_SELECTION_CANDIDATES]:
+        for cluster in list(assignment.get("ranked_clusters") or [
+        ])[:MAX_SELECTION_CANDIDATES]:
             if not isinstance(cluster, Mapping):
                 continue
             headline_ids = [
-                str(value) for value in cluster.get("headline_ids") or [] if str(value)
+                str(value)
+                for value in cluster.get("headline_ids") or []
+                if str(value)
             ]
             headlines = []
             for headline_id in headline_ids:
                 row = headline_by_id.get(headline_id, {})
-                external = row.get("external_content") if isinstance(row.get("external_content"), Mapping) else {}
+                external = (
+                    row.get("external_content")
+                    if isinstance(row.get("external_content"), Mapping)
+                    else {}
+                )
                 headlines.append(
                     {
                         "headline_id": headline_id,
-                        "headline_text": row.get("headline_text") or external.get("headline_text"),
+                        "headline_text": row.get("headline_text")
+                        or external.get("headline_text"),
                         "source_timestamp_utc": row.get("source_timestamp_utc"),
-                        "source_account": row.get("source_account") or external.get("author_handle"),
-                        "source_url": row.get("source_url") or external.get("url_or_source_ref"),
+                        "source_account": row.get("source_account")
+                        or external.get("author_handle"),
+                        "source_url": row.get("source_url")
+                        or external.get("url_or_source_ref"),
                     }
                 )
             packet.append(
                 {
                     "cluster_id": str(cluster.get("cluster_id") or ""),
-                    "deterministic_rank": int(cluster.get("rank") or len(packet) + 1),
+                    "deterministic_rank": int(
+                        cluster.get("rank") or len(packet) + 1
+                    ),
                     "headline_ids": headline_ids,
                     "headlines": headlines,
                     "why_now": cluster.get("why_now"),
@@ -189,15 +241,18 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 store_path=self._store_path, output_root=self._output_root
             )
         except Exception:
-            # Published/evaluated continuity is helpful selection context but never authority.
-            # The prepared frontier already carries its exact deterministic continuity binding.
+            # Continuity is duplicate-avoidance selection context, never authority. The prepared
+            # frontier already carries its deterministic evaluated/update-chain filtering.
             continuity = {}
         coordinator_request = {
             "schema_version": SELECTION_REQUEST_SCHEMA_VERSION,
             "automation_id": task_id,
             "session": session,
             "canonical_opportunity_id": str(window["window_id"]),
-            "selection_as_of_utc": _iso_utc(moment),
+            # Bind request identity to the scheduled opportunity, not the wall-clock instant a
+            # transient caller happens to retry. Real prepared/continuity drift still changes the
+            # request hash and fails closed in _persist_selection_artifact.
+            "selection_as_of_utc": _iso_utc(window["start"]),
             "opportunity_cutoff_utc": _iso_utc(window["end"]),
             "prepared_candidate_logical_hash": prepared_state.get(
                 "prepared_candidate_logical_hash"
@@ -206,9 +261,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "published_memory": self._published_memory_projection(continuity),
             "allowed_article_modes": list(CANONICAL_PRODUCT_MODES),
             "instruction": (
-                "Select exactly one useful current story/angle. Avoid published duplicates and filler. "
-                "Choose one canonical article mode. This selection grants no factual, evidence, numeric, "
-                "Capital Chronicle, permission, or public-write authority."
+                "Select exactly one useful current story/angle. Avoid published duplicates and "
+                "filler. Choose one canonical article mode. This selection grants no factual, "
+                "evidence, numeric, Capital Chronicle, permission, or public-write authority."
             ),
             "model": COORDINATOR_MODEL,
             "reasoning_effort": COORDINATOR_REASONING_EFFORT,
@@ -252,7 +307,10 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
 
     def _persist_selection_artifact(self, artifact: Mapping[str, Any]) -> Path:
         opportunity_id = str(
-            (artifact.get("coordinator_request") or {}).get("canonical_opportunity_id") or ""
+            (artifact.get("coordinator_request") or {}).get(
+                "canonical_opportunity_id"
+            )
+            or ""
         )
         path = self._selection_artifact_path(opportunity_id)
         path.parent.mkdir(parents=True, exist_ok=True)
@@ -276,9 +334,15 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         try:
             artifact = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, TypeError, ValueError) as exc:
-            raise ValueError("native_llm_first_selection_request_missing_or_invalid") from exc
+            raise ValueError(
+                "native_llm_first_selection_request_missing_or_invalid"
+            ) from exc
         logical_hash = str(artifact.get("artifact_logical_hash") or "")
-        material = {key: value for key, value in artifact.items() if key != "artifact_logical_hash"}
+        material = {
+            key: value
+            for key, value in artifact.items()
+            if key != "artifact_logical_hash"
+        }
         request = artifact.get("coordinator_request") or {}
         if (
             artifact.get("schema_version") != SELECTION_ARTIFACT_SCHEMA_VERSION
@@ -306,11 +370,17 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "selection_request_logical_hash": str(
                 selection.get("selection_request_logical_hash") or ""
             ),
-            "selected_cluster_id": str(selection.get("selected_cluster_id") or ""),
+            "selected_cluster_id": str(
+                selection.get("selected_cluster_id") or ""
+            ),
             "article_mode": str(selection.get("article_mode") or ""),
-            "selection_rationale": str(selection.get("selection_rationale") or "").strip(),
+            "selection_rationale": str(
+                selection.get("selection_rationale") or ""
+            ).strip(),
             "model": str(selection.get("model") or ""),
-            "reasoning_effort": str(selection.get("reasoning_effort") or "").upper(),
+            "reasoning_effort": str(
+                selection.get("reasoning_effort") or ""
+            ).upper(),
             "public_write_attempted": selection.get("public_write_attempted"),
         }
         if normalized["schema_version"] != SELECTION_RETURN_SCHEMA_VERSION:
@@ -347,18 +417,28 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             if isinstance(row, Mapping)
         ]
         selected = next(
-            (row for row in source_clusters if str(row.get("cluster_id") or "") == selected_id),
+            (
+                row
+                for row in source_clusters
+                if str(row.get("cluster_id") or "") == selected_id
+            ),
             None,
         )
         if selected is None:
-            raise ValueError("native_llm_first_selected_cluster_not_in_runtime_binding")
+            raise ValueError(
+                "native_llm_first_selected_cluster_not_in_runtime_binding"
+            )
         selected_headline_ids = [
-            str(value) for value in selected.get("headline_ids") or [] if str(value)
+            str(value)
+            for value in selected.get("headline_ids") or []
+            if str(value)
         ]
         if not selected_headline_ids:
             raise ValueError("native_llm_first_selected_headline_ids_missing")
         selected_leaf_ids = {
-            str(value) for value in selected.get("leaf_cluster_ids") or [] if str(value)
+            str(value)
+            for value in selected.get("leaf_cluster_ids") or []
+            if str(value)
         }
         selected = {
             **selected,
@@ -366,7 +446,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "article_mode": str(selection["article_mode"]),
             "resolved_article_mode": str(selection["article_mode"]),
             "llm_first_validate_after_selected": True,
-            "native_llm_first_selection_rationale": str(selection["selection_rationale"]),
+            "native_llm_first_selection_rationale": str(
+                selection["selection_rationale"]
+            ),
         }
         input_binding = dict(source_assignment.get("input_binding") or {})
         input_binding.update(
@@ -375,7 +457,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "input_count": len(selected_headline_ids),
                 "selected_count": len(selected_headline_ids),
                 "held_count": 0,
-                "selection_scope": "ONE_HIGH_SELECTED_CLUSTER_FROM_ZERO_MODEL_PREPARED_FRONTIER",
+                "selection_scope": (
+                    "ONE_HIGH_SELECTED_CLUSTER_FROM_ZERO_MODEL_PREPARED_FRONTIER"
+                ),
             }
         )
         assignment = {
@@ -387,7 +471,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "status": "SUCCESS",
             "decision": "SELECT_STORY",
             "reason_code": None,
-            "assignment_method": "NATIVE_LLM_FIRST_HIGH_SELECTION_FROM_ZERO_MODEL_PREPARED_FRONTIER",
+            "assignment_method": (
+                "NATIVE_LLM_FIRST_HIGH_SELECTION_FROM_ZERO_MODEL_PREPARED_FRONTIER"
+            ),
             "input_binding": input_binding,
             "ranked_clusters": [selected],
             "leaf_clusters": [
@@ -423,8 +509,12 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "story_type_by_cluster": {selected_id: story_type},
             "selected_cluster_id": selected_id,
             "article_mode": str(selection["article_mode"]),
-            "selection_request_logical_hash": selection["selection_request_logical_hash"],
-            "selection_return_logical_hash": selection["selection_return_logical_hash"],
+            "selection_request_logical_hash": selection[
+                "selection_request_logical_hash"
+            ],
+            "selection_return_logical_hash": selection[
+                "selection_return_logical_hash"
+            ],
         }
 
     def prepare_native_desktop_scheduled_opportunity(
@@ -441,7 +531,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         if coordinator_selection is None:
             if window is None:
                 return {
-                    "schema_version": "contentops.native_desktop_scheduled_opportunity.v1",
+                    "schema_version": (
+                        "contentops.native_desktop_scheduled_opportunity.v1"
+                    ),
                     "automation_id": task_id,
                     "session": session,
                     "execution_owner": SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
@@ -456,8 +548,8 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 self._refresh_prepared_candidate_checkpoint(moment)
                 prepared = self._load_prepared_candidate_checkpoint(window["end"])
             if not isinstance(prepared, Mapping) or not self._candidate_packet(prepared):
-                # No useful zero-model frontier means there is no HIGH selection to make.  Reuse
-                # the canonical base PREPARE to persist the governed no-candidate/blocker outcome.
+                # No useful zero-model frontier means there is no HIGH selection to make. Reuse
+                # canonical base PREPARE to persist the governed no-candidate/blocker outcome.
                 return super().prepare_native_desktop_scheduled_opportunity(
                     automation_id=automation_id, now=moment
                 )
@@ -494,7 +586,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
 
         # Continuation uses the already-persisted exact opportunity identity rather than asking
         # the scheduler for a new one after a potentially long HIGH turn.
-        opportunity_id = str(coordinator_selection.get("canonical_opportunity_id") or "").strip()
+        opportunity_id = str(
+            coordinator_selection.get("canonical_opportunity_id") or ""
+        ).strip()
         if not opportunity_id:
             raise ValueError("native_llm_first_selection_opportunity_id_missing")
         artifact = self._load_selection_artifact(
@@ -503,14 +597,19 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         if moment > _parse_utc(str(artifact.get("expires_at_utc") or "")):
             raise ValueError("native_llm_first_selection_request_expired")
         selection = self._validate_selection_return(coordinator_selection, artifact)
-        binding = self._selected_assignment_binding(artifact=artifact, selection=selection)
-        selection_receipt_path = self._selection_artifact_path(opportunity_id).with_name(
-            "native_desktop_llm_first_selection_return_v1.json"
+        binding = self._selected_assignment_binding(
+            artifact=artifact, selection=selection
         )
+        selection_receipt_path = self._selection_artifact_path(
+            opportunity_id
+        ).with_name("native_desktop_llm_first_selection_return_v1.json")
         selection_receipt_path.write_text(
-            json.dumps(selection, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+            json.dumps(selection, indent=2, sort_keys=True) + "\n",
+            encoding="utf-8",
         )
-        window_binding = dict((artifact.get("runtime_binding") or {}).get("window") or {})
+        window_binding = dict(
+            (artifact.get("runtime_binding") or {}).get("window") or {}
+        )
         window_for_prepare = {
             "window_id": opportunity_id,
             "trigger": str(window_binding.get("trigger") or "SCHEDULED"),
@@ -535,7 +634,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             outcome=outcome,
         )
         result["coordinator_selection"] = selection
-        result["selection_artifact_path"] = str(self._selection_artifact_path(opportunity_id))
+        result["selection_artifact_path"] = str(
+            self._selection_artifact_path(opportunity_id)
+        )
         result["selection_return_path"] = str(selection_receipt_path)
         result["native_llm_first_ordering"] = (
             "HIGH_SELECTION_THEN_SELECTED_STORY_DETERMINISTIC_HYDRATION"
