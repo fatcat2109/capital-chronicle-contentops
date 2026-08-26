@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13879,
+    "edges": 13895,
     "entrypoints": 16,
-    "nodes": 7342,
+    "nodes": 7360,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,9 +25,9 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 601,
-      "python_function": 4019,
+      "python_function": 4035,
       "python_method": 299,
-      "python_module": 768,
+      "python_module": 770,
       "schema": 197,
       "test": 732,
       "typescript_export": 506,
@@ -35,6 +35,102 @@
     }
   },
   "edges": [
+    {
+      "from": ".github/reset/apply_v1_simple_gemini_reset_v6.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/apply_v1_simple_gemini_reset_v6.py::copy_template"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::append_before"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::assert_exact_checkout"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::main"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::patch_authority_docs"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::patch_codex_noop"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::patch_final_ci"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::patch_orchestrator"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::patch_qualified_record_helper"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::patch_router_authority"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::patch_simple_runtime"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::read"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::replace_between"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::replace_once"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::run"
+    },
+    {
+      "from": ".github/reset/patch_base.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:.github/reset/patch_base.py::write"
+    },
     {
       "from": "AGENTS.md",
       "inference": "agents_directory_scope",
@@ -83429,7 +83525,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-26T08:27:31Z",
+  "generation_timestamp_utc": "2026-08-26T18:02:09Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -83459,6 +83555,16 @@
     "typescript_relative_import_regex"
   ],
   "nodes": [
+    {
+      "id": ".github/reset/apply_v1_simple_gemini_reset_v6.py",
+      "kind": "python_module",
+      "size_bytes": 3887
+    },
+    {
+      "id": ".github/reset/patch_base.py",
+      "kind": "python_module",
+      "size_bytes": 38166
+    },
     {
       "id": "AGENTS.md",
       "kind": "instructions",
@@ -87364,6 +87470,118 @@
       "id": "pyproject.toml",
       "kind": "manifest",
       "size_bytes": 547
+    },
+    {
+      "id": "python_symbol:.github/reset/apply_v1_simple_gemini_reset_v6.py::copy_template",
+      "kind": "python_function",
+      "line": 12,
+      "path": ".github/reset/apply_v1_simple_gemini_reset_v6.py",
+      "symbol": "copy_template"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::append_before",
+      "kind": "python_function",
+      "line": 71,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "append_before"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::assert_exact_checkout",
+      "kind": "python_function",
+      "line": 36,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "assert_exact_checkout"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::main",
+      "kind": "python_function",
+      "line": 246,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "main"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::patch_authority_docs",
+      "kind": "python_function",
+      "line": 167,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "patch_authority_docs"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::patch_codex_noop",
+      "kind": "python_function",
+      "line": 161,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "patch_codex_noop"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::patch_final_ci",
+      "kind": "python_function",
+      "line": 215,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "patch_final_ci"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::patch_orchestrator",
+      "kind": "python_function",
+      "line": 92,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "patch_orchestrator"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::patch_qualified_record_helper",
+      "kind": "python_function",
+      "line": 86,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "patch_qualified_record_helper"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::patch_router_authority",
+      "kind": "python_function",
+      "line": 118,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "patch_router_authority"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::patch_simple_runtime",
+      "kind": "python_function",
+      "line": 79,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "patch_simple_runtime"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::read",
+      "kind": "python_function",
+      "line": 46,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "read"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::replace_between",
+      "kind": "python_function",
+      "line": 62,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "replace_between"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::replace_once",
+      "kind": "python_function",
+      "line": 54,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "replace_once"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::run",
+      "kind": "python_function",
+      "line": 32,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "run"
+    },
+    {
+      "id": "python_symbol:.github/reset/patch_base.py::write",
+      "kind": "python_function",
+      "line": 50,
+      "path": ".github/reset/patch_base.py",
+      "symbol": "write"
     },
     {
       "id": "python_symbol:headline_ingestion/Data_Ingestion.py::append_headline_sidecars",
@@ -131089,6 +131307,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "044fd994aee89e9c079ec875a13970f96592979c",
-  "source_tree_digest": "b4bb1071d6fd5a442367be3d95ef47bddf7f1a23d6c99279d572e059f497dfdc"
+  "source_head": "0dd4269f0982ed5e6b368783736b1e2aff45cf49",
+  "source_tree_digest": "394873276ea76dd4df50bd01ad929cc85261d68a3a50fe68e77689b82713b5eb"
 }
