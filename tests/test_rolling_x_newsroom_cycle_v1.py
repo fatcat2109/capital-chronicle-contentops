@@ -2074,51 +2074,34 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
 def test_canonical_cycle_recompacts_full_intake_to_exact_checkpoint_input(
     monkeypatch, tmp_path: Path
 ):
-    full_intake = {
-        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
-        "canonical_input_hash": "full-input-hash",
-        "cutoff_time_utc": "2026-08-08T09:18:54Z",
-        "counts": {"accepted": 2},
-        "unique_headline_ids": ["headline-1", "headline-2"],
-        "headlines": [
-            {"headline_id": "headline-1"},
-            {"headline_id": "headline-2"},
-        ],
-    }
-    compacted_input = {
-        **full_intake,
-        "canonical_input_hash": "compacted-input-hash",
-        "counts": {"accepted": 1},
-        "unique_headline_ids": ["headline-1"],
-        "headlines": [{"headline_id": "headline-1"}],
-    }
+    from live_contentops.preselection_intelligence_v1 import (
+        _logical_hash,
+        compact_rolling_x_assignment_universe,
+    )
+
+    full_intake = json.loads(
+        Path(
+            "docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/"
+            "rolling_x_intake_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    compacted_input, _ = compact_rolling_x_assignment_universe(full_intake)
+    expected_hash = compacted_input["canonical_input_hash"]
     leaf_checkpoints = {
         "leaf-1": {
             "checkpoint": "exact",
-            "canonical_input_hash": "compacted-input-hash",
+            "canonical_input_hash": expected_hash,
         }
     }
     global_checkpoint = {
         "checkpoint": "exact-global",
-        "canonical_input_hash": "compacted-input-hash",
+        "canonical_input_hash": expected_hash,
     }
-    compaction_calls = []
     assignment_calls = []
-
-    def compact(value):
-        compaction_calls.append(value)
-        return compacted_input, {
-            "schema_version": "contentops.rolling_x_assignment_compaction.v1",
-            "compaction_applied": True,
-            "reason": "NORMAL_COMPACTION",
-            "full_rolling_headline_count": 2,
-            "assignment_headline_count": 1,
-            "held_before_semantic_assignment_count": 1,
-        }
 
     def assign(**kwargs):
         assignment_calls.append(kwargs)
-        assert kwargs["rolling_input"] is compacted_input
+        assert kwargs["rolling_input"] == compacted_input
         return {
             "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
             "status": "SUCCESS",
@@ -2126,10 +2109,6 @@ def test_canonical_cycle_recompacts_full_intake_to_exact_checkpoint_input(
             "ranked_clusters": [],
         }
 
-    monkeypatch.setattr(
-        "live_contentops.preselection_intelligence_v1.compact_rolling_x_assignment_universe",
-        compact,
-    )
     monkeypatch.setattr(
         "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
         assign,
@@ -2148,11 +2127,19 @@ def test_canonical_cycle_recompacts_full_intake_to_exact_checkpoint_input(
         publication_enabled=False,
     )
 
-    assert compaction_calls == [full_intake]
     assert len(assignment_calls) == 1
+    replay_evidence = result["assignment"]["pre_assignment_compaction"]
     assert (
-        result["assignment"]["pre_assignment_compaction"]["reason"]
+        replay_evidence["reason"]
         == "HASH_BOUND_SEMANTIC_RESUME_COMPACTION_REPLAYED"
+    )
+    replay_hash = replay_evidence["compaction_logical_hash"]
+    assert replay_hash == _logical_hash(
+        {
+            key: value
+            for key, value in replay_evidence.items()
+            if key != "compaction_logical_hash"
+        }
     )
     assert result["classification"] == "NO_PUBLICATION"
 

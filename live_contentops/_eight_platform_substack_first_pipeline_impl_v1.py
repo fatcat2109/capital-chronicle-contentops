@@ -4741,6 +4741,7 @@ def _run_rolling_x_newsroom_cycle(
     )
     _write_json(output_dir / "rolling_x_intake_v1.json", intake)
     from live_contentops.preselection_intelligence_v1 import (
+        _logical_hash as _preselection_logical_hash,
         compact_rolling_x_assignment_universe,
     )
 
@@ -4813,6 +4814,10 @@ def _run_rolling_x_newsroom_cycle(
                 "factual_or_numeric_authority_granted": False,
                 "publication_authority_granted": False,
             }
+            assignment_compaction.pop("compaction_logical_hash", None)
+            assignment_compaction["compaction_logical_hash"] = (
+                _preselection_logical_hash(assignment_compaction)
+            )
     elif isinstance(intake.get("headlines"), list):
         assignment_input, assignment_compaction = compact_rolling_x_assignment_universe(intake)
     else:
