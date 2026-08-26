@@ -986,6 +986,53 @@ def test_native_xhigh_exhausted_revision_budget_never_calls_router_rewriter(monk
     assert reviser_calls == []
 
 
+def test_native_xhigh_ordinary_reader_value_failure_requests_same_worker_revision(
+    monkeypatch,
+):
+    article = {
+        **_article(),
+        "minimum_trustworthy_evidence_packet": {
+            "status": "PASS",
+            "risk_tier": "ORDINARY",
+        },
+    }
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {
+            "classification": "NEEDS_REVISION",
+            "hard_editorial_blockers": ["reader_value_floor"],
+            "reader_value_gate": {
+                "classification": "INSUFFICIENT_READER_VALUE",
+                "blockers": ["mode_appropriate_substance"],
+            },
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.review_minimum_evidence_news_brief",
+        lambda article: _semantic("PASS"),
+    )
+    route, receipt, validation = _native_xhigh_binding_for_editorial_test(article)
+    reviser_calls = []
+
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=article,
+        media_assets=[],
+        editorial_reviewer=lambda _article: (_ for _ in ()).throw(
+            AssertionError("ordinary story must not require semantic reviewer")
+        ),
+        article_reviser=lambda *args: reviser_calls.append(args),
+        native_xhigh_worker_return=receipt,
+        native_xhigh_worker_validation=validation,
+        native_xhigh_worker_request=route["worker_request"],
+    )
+
+    assert result["reason_code"] == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+    assert result["same_xhigh_worker_revision_contract"]["same_worker_required"] is True
+    assert result["same_xhigh_worker_revision_contract"]["router_final_writer_forbidden"] is True
+    assert result["mandatory_semantic_review_calls"] == 0
+    assert reviser_calls == []
+
+
 def test_revision_binding_failure_uses_structured_repair_class(monkeypatch):
     from live_contentops import nine_router_llm_seam_v2 as seam
 
@@ -1970,6 +2017,12 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
             AssertionError("frozen resume must not reload X sidecars")
         ),
     )
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.compact_rolling_x_assignment_universe",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("hash-bound resume must not recompact frozen assignment input")
+        ),
+    )
 
     def assign(**kwargs):
         calls.append(kwargs)
@@ -2003,6 +2056,10 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
     assert calls[0]["leaf_checkpoints"] is leaf_checkpoints
     assert calls[0]["global_checkpoint"] is global_checkpoint
     assert result["intake"]["canonical_input_hash"] == "frozen-input-hash"
+    assert (
+        result["assignment"]["pre_assignment_compaction"]["reason"]
+        == "HASH_BOUND_SEMANTIC_RESUME_INPUT_REUSED"
+    )
     assert result["classification"] == "NO_PUBLICATION"
 
 
