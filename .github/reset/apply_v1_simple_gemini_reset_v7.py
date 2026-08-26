@@ -36,9 +36,10 @@ run = namespace["run"]
 read = namespace["read"]
 write = namespace["write"]
 replace_once = namespace["replace_once"]
+replace_between = namespace["replace_between"]
 append_before = namespace["append_before"]
 assert callable(run) and callable(read) and callable(write)
-assert callable(replace_once) and callable(append_before)
+assert callable(replace_once) and callable(replace_between) and callable(append_before)
 
 branch = os.environ.get("GITHUB_REF_NAME") or ""
 expected_sha = os.environ.get("GITHUB_SHA") or ""
@@ -88,6 +89,35 @@ for name in (
     fn = namespace[name]
     assert callable(fn)
     fn()
+
+# The Desktop operator helpers remain historical/reusable evidence, but the current routine V1
+# prompt is intentionally a fail-safe NOOP. Replace only the stale prompt-routing assertions; keep
+# the helper/host/readback contract tests intact so this reset does not erase historical proof.
+codex_tests = "tests/test_codex_desktop_newsroom_operator_v1.py"
+replace_once(
+    codex_tests,
+    "def test_exact_four_task_packet_has_current_fast_ship_prompt_and_no_scale_up():\n",
+    "def test_exact_four_task_packet_is_superseded_noop_and_retains_historical_shape():\n",
+)
+replace_between(
+    codex_tests,
+    '    assert "native V1 coordinator on exact gpt-5.6-sol / HIGH" in DESKTOP_TASK_PROMPT\n',
+    "\n\n    stale_routine_semantics = (\n",
+    '''    assert DESKTOP_TASK_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")\n    assert "run_v1_simple_gemini_newsroom" in DESKTOP_TASK_PROMPT\n    assert "do not run newsroom production" in DESKTOP_TASK_PROMPT\n    assert "do not spawn an editorial worker" in DESKTOP_TASK_PROMPT\n    assert "do not edit repository files" in DESKTOP_TASK_PROMPT\n    assert "do not perform any public/provider write" in DESKTOP_TASK_PROMPT\n    assert "UNKNOWN_WRITE remains STOP RETRY -> READ BACK -> RECONCILE" in DESKTOP_TASK_PROMPT\n    assert MANUAL_GO_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")\n    assert "Manual GO no longer invokes routine V1 production" in MANUAL_GO_PROMPT\n    assert "current simple Gemini runtime" in MANUAL_GO_PROMPT\n    assert "Zero public write." in MANUAL_GO_PROMPT\n''',
+)
+replace_once(
+    codex_tests,
+    "def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_high_resumes():\n",
+    "def test_article_qualified_route_preserves_historical_worker_contract_without_current_prompt_routing():\n",
+)
+replace_once(
+    codex_tests,
+    '    assert "exact supplied [[SOURCE:SOURCE_N]] markers" in DESKTOP_TASK_PROMPT\n    assert "exact supplied [[SOURCE:SOURCE_N]]" in MANUAL_GO_PROMPT\n',
+    '    assert "exact supplied [[SOURCE:SOURCE_N]] markers" not in DESKTOP_TASK_PROMPT\n    assert "exact supplied [[SOURCE:SOURCE_N]]" not in MANUAL_GO_PROMPT\n    assert DESKTOP_TASK_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")\n    assert MANUAL_GO_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")\n',
+)
+# Stage this corrected regression explicitly because the setup workflow final git-add list predates
+# the supersession assertion update. The later product commit keeps it while deleting .github/reset.
+run("git", "add", "--", codex_tests)
 
 # The base patch originally used an orchestrator-local special case. That violated the repository's
 # canonical-entrypoint invariant. Restore normal dispatcher ownership and add a lazy private-map
@@ -166,7 +196,9 @@ reset_tests = (
     "          python -m pytest -q tests/test_v1_simple_gemini_newsroom_v1.py\n"
     "          python -m pytest -q tests/test_newsroom_production_day_v1.py\n"
     "          python -m pytest -q tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py\n"
-    "          python -m pytest -q tests/test_nine_router_ordered_model_router_v2.py\n\n"
+    "          python -m pytest -q tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py\n"
+    "          python -m pytest -q tests/test_publication_coordinator_v1.py\n"
+    "          python -m pytest -q tests/test_codex_desktop_newsroom_operator_v1.py\n\n"
 )
 replace_once(ci_path, authority_marker, reset_tests + authority_marker)
 ci_text = read(ci_path)
