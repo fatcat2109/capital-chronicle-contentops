@@ -15,7 +15,7 @@
   "counts": {
     "edges": 13904,
     "entrypoints": 16,
-    "nodes": 7357,
+    "nodes": 7358,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -29,7 +29,7 @@
       "python_method": 299,
       "python_module": 770,
       "schema": 202,
-      "test": 733,
+      "test": 734,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -83579,7 +83579,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-26T19:08:51Z",
+  "generation_timestamp_utc": "2026-08-26T19:49:38Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -121221,14 +121221,14 @@
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_newsroom.py::build_parser",
       "kind": "python_function",
-      "line": 23,
+      "line": 32,
       "path": "scripts/run_v1_simple_gemini_newsroom.py",
       "symbol": "build_parser"
     },
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_newsroom.py::main",
       "kind": "python_function",
-      "line": 45,
+      "line": 54,
       "path": "scripts/run_v1_simple_gemini_newsroom.py",
       "symbol": "main"
     },
@@ -123345,7 +123345,7 @@
     {
       "id": "scripts/run_v1_simple_gemini_newsroom.py",
       "kind": "python_module",
-      "size_bytes": 2038
+      "size_bytes": 2485
     },
     {
       "id": "tests/AGENTS.md",
@@ -126136,6 +126136,11 @@
       "id": "tests/test_run_v1_llm_first_single_article_canary_v1.py",
       "kind": "test",
       "size_bytes": 2121
+    },
+    {
+      "id": "tests/test_run_v1_simple_gemini_newsroom_cli_v1.py",
+      "kind": "test",
+      "size_bytes": 698
     },
     {
       "id": "tests/test_runtime_activity_projection_v1.py",
@@ -131328,6 +131333,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "5e1090819156616e71e8df871bccf9e310645131",
-  "source_tree_digest": "8c0479452b19057c9fd002819e4a12e0d75b13ee632847dae3a8445b9efd1983"
+  "source_head": "5010ebd657cd25207079d1b9bf13a1cdfd08be68",
+  "source_tree_digest": "a0c69877a4c8fee9516905af81d6c8f7afb76af722a4b9c4c5433fc898829a3a"
 }
