@@ -3501,6 +3501,13 @@ class ContentOpsDailyAppSupervisor:
                 )
                 if not 1 <= start_attempt_number <= work_budget:
                     raise ValueError("native_desktop_handoff_attempt_number_invalid")
+                if isinstance(
+                    handoff_checkpoint.get("native_llm_first_prevalidation"), Mapping
+                ):
+                    # One external native HIGH worker return owns exactly one article attempt.
+                    # A later article needs a new HIGH selection/worker binding, not silent reuse
+                    # of this worker inside deficit catch-up work.
+                    work_budget = start_attempt_number
             result: dict[str, Any] = {
                 "schema_version": "contentops.daily_output_noop.v1",
                 "run_id": window_id,
@@ -3544,7 +3551,31 @@ class ContentOpsDailyAppSupervisor:
                     }
                     if split_operation is not None and not bound_resume:
                         attempt_kwargs["native_desktop_prepare"] = True
-                    if bound_resume:
+                    if bound_resume and isinstance(
+                        (handoff_checkpoint or {}).get("native_llm_first_prevalidation"),
+                        Mapping,
+                    ):
+                        from live_contentops.native_desktop_production_handoff_v1 import (
+                            logical_hash,
+                            read_json,
+                        )
+
+                        intake = read_json(
+                            str(handoff_checkpoint.get("intake_checkpoint_path") or "")
+                        )
+                        if logical_hash(intake) != str(
+                            handoff_checkpoint.get("intake_checkpoint_sha256") or ""
+                        ):
+                            raise ValueError("native_desktop_handoff_intake_binding_invalid")
+                        attempt_kwargs.update(
+                            {
+                                "rolling_input": intake,
+                                "prepared_candidate_state": None,
+                                "leaf_checkpoints": {},
+                                "global_checkpoint": None,
+                            }
+                        )
+                    elif bound_resume:
                         from live_contentops.native_desktop_production_handoff_v1 import (
                             BoundNativeDesktopWorkerReturnBuilder,
                             build_hash_bound_coordinator_reviewer,

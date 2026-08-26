@@ -72,52 +72,169 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         if binding is None:
             return self._canonical_newsroom_cycle(**kwargs)
         phase = str(binding.get("phase") or "PREPARE").strip().upper()
-        if phase not in {"PREPARE", "COMPLETE"}:
+        if phase not in {"PREPARE", "COMPLETE", "TERMINAL"}:
             raise ValueError("native_llm_first_resume_phase_invalid")
-        if phase == "PREPARE" and kwargs.get("native_desktop_prepare") is not True:
-            raise ValueError("native_llm_first_selection_only_valid_for_desktop_prepare")
 
-        narrowed = dict(kwargs)
         rolling_input = dict(binding["rolling_input_override"])
+        assignment = dict(binding["assignment_override"])
+        story_types = dict(binding["story_type_by_cluster"])
         expected_input_hash = str(rolling_input.get("canonical_input_hash") or "")
-        supplied_input = narrowed.get("rolling_input")
-        if phase == "COMPLETE" and isinstance(supplied_input, Mapping):
-            supplied_hash = str(supplied_input.get("canonical_input_hash") or "")
-            if supplied_hash and supplied_hash != expected_input_hash:
-                raise ValueError("native_llm_first_complete_intake_binding_mismatch")
-
-        # The HIGH selection packet is the complete candidate universe for this opportunity
-        # continuation.  Narrow both the rolling input and assignment so the canonical
-        # publishability pool cannot synthesize reserve candidates from the full intake.
-        narrowed["prepared_candidate_state"] = None
-        narrowed["rolling_input"] = rolling_input
-        narrowed["assignment_override"] = dict(binding["assignment_override"])
-        narrowed["story_type_by_cluster"] = dict(binding["story_type_by_cluster"])
-        # Historical semantic checkpoints were produced for the pre-selection frontier and are
-        # intentionally not replayed against the newly narrowed input. Assignment override is the
-        # exact deterministic resume authority for this path.
-        narrowed["leaf_checkpoints"] = {}
-        narrowed["global_checkpoint"] = None
-        result = self._canonical_newsroom_cycle(**narrowed)
-        if not isinstance(result, Mapping):
-            return result
+        output_dir = Path(kwargs.get("output_dir") or self._output_root)
         full_intake_count = int(
             (rolling_input.get("counts") or {}).get("accepted_in_full_rolling_intake")
             or len(rolling_input.get("headlines") or [])
         )
-        return {
+
+        if phase == "PREPARE":
+            if kwargs.get("native_desktop_prepare") is not True:
+                raise ValueError("native_llm_first_selection_only_valid_for_desktop_prepare")
+            from live_contentops.native_desktop_production_handoff_v1 import (
+                WORKER_DECISION,
+                write_json,
+            )
+            from live_contentops.native_llm_first_validate_after_v1 import (
+                INITIAL_NEXT_BLOCKER,
+                build_external_worker_request,
+            )
+
+            selection = dict(binding.get("selection") or {})
+            worker_request, candidate, current_selection = build_external_worker_request(
+                binding=binding,
+                selection=selection,
+                cutoff_utc=str(kwargs.get("cutoff_utc") or ""),
+                candidate_index=0,
+            )
+            story_routing = {
+                "status": "SUCCESS",
+                "reason_code": None,
+                "story_type_by_cluster": story_types,
+                "llm_first_selection_precedes_capability_admission": True,
+                "semantic_routing_grants_authority": False,
+            }
+            prevalidation = {
+                "schema_version": "contentops.native_llm_first_prevalidation_handoff.v1",
+                "ordering": "HIGH_SELECTION_THEN_FRESH_HIGH_WORKER_THEN_DETERMINISTIC_VALIDATE_AFTER",
+                "candidate_plan_index": 0,
+                "bounded_revision_count": 0,
+                "selected_cluster_id": current_selection["selected_cluster_id"],
+                "selected_headline_ids": list(candidate.get("headline_ids") or []),
+                "selection_request_logical_hash": binding[
+                    "selection_request_logical_hash"
+                ],
+                "selection_return_logical_hash": binding[
+                    "selection_return_logical_hash"
+                ],
+                "native_llm_first_resume_binding": dict(binding["resume_binding"]),
+                "worker_precedes_evidence_acquisition": True,
+                "evidence_acquisition_requests_before_worker": 0,
+                "locator_model_invocations_before_worker": 0,
+                "public_write_authority": "ZERO",
+                "publication_authority_granted": False,
+            }
+            output_dir.mkdir(parents=True, exist_ok=True)
+            write_json(output_dir / "rolling_x_intake_v1.json", rolling_input)
+            write_json(output_dir / "rolling_x_assignment_v1.json", assignment)
+            write_json(output_dir / "rolling_x_story_routing_v1.json", story_routing)
+            write_json(
+                output_dir / "native_llm_first_prevalidation_v1.json", prevalidation
+            )
+            return {
+                "schema_version": "contentops.rolling_x_newsroom_cycle.v1",
+                "classification": "NO_PUBLICATION",
+                "exact_next_blocker": "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID",
+                "intake": rolling_input,
+                "assignment": assignment,
+                "story_routing": story_routing,
+                "editorial_worker_routing": {
+                    "decision": WORKER_DECISION,
+                    "governed_input_hash": worker_request["governed_input_hash"],
+                    "worker_request": worker_request,
+                    "native_llm_first": True,
+                    "actual_reasoning_effort": "HIGH",
+                    "legacy_xhigh_schema_token_is_execution_authority": False,
+                    "public_write_authority": "ZERO",
+                },
+                "native_llm_first_prevalidation": prevalidation,
+                "native_llm_first_resume_binding": dict(binding["resume_binding"]),
+                "native_llm_first_assignment_override_reused": True,
+                "full_rolling_headline_count": full_intake_count,
+                "high_admitted_shortlist_count": len(binding["selected_cluster_ids"]),
+                "evidence_acquisition_requests": 0,
+                "grounded_locator_model_invocations": 0,
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+                "critical_path_telemetry": {
+                    "schema_version": "contentops.publication_critical_path_telemetry.v1",
+                    "prepared_candidate_state_reused": False,
+                    "full_rolling_headline_count": full_intake_count,
+                    "full_universe_semantic_assignment_on_critical_path": False,
+                    "bounded_prepared_frontier_semantic_assignment": False,
+                    "exact_assignment_override_input_bound": True,
+                    "native_llm_first_assignment_override_reused": True,
+                    "assignment_semantic_calls": 0,
+                    "story_type_semantic_calls": 0,
+                    "article_writer_semantic_calls": 0,
+                    "mandatory_semantic_review_calls": 0,
+                    "candidates_attempted": 0,
+                    "routine_semantic_calls": 0,
+                    "public_write_performed": False,
+                },
+            }
+
+        if phase == "TERMINAL":
+            from live_contentops.native_desktop_production_handoff_v1 import write_json
+
+            evidence = {
+                "schema_version": "contentops.rolling_x_newsroom_cycle.v1",
+                "classification": "NO_PUBLICATION",
+                "exact_next_blocker": "BOUNDED_LLM_FIRST_CANDIDATE_ATTEMPTS_EXHAUSTED_AFTER_POST_GENERATION_VALIDATION",
+                "intake": rolling_input,
+                "assignment": assignment,
+                "story_routing": {
+                    "status": "SUCCESS",
+                    "story_type_by_cluster": story_types,
+                    "semantic_routing_grants_authority": False,
+                },
+                "native_llm_first_resume_binding": dict(binding["resume_binding"]),
+                "native_llm_first_assignment_override_reused": True,
+                "full_rolling_headline_count": full_intake_count,
+                "full_universe_semantic_assignment_on_critical_path": False,
+                "high_admitted_shortlist_count": len(binding["selected_cluster_ids"]),
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+            }
+            write_json(output_dir / "rolling_x_newsroom_cycle_evidence_v1.json", evidence)
+            return evidence
+
+        external_provider = binding.get("external_provider")
+        if external_provider is None:
+            raise ValueError("native_llm_first_external_provider_required_for_complete")
+        narrowed = dict(kwargs)
+        supplied_input = narrowed.get("rolling_input")
+        if isinstance(supplied_input, Mapping):
+            supplied_hash = str(supplied_input.get("canonical_input_hash") or "")
+            if supplied_hash and supplied_hash != expected_input_hash:
+                raise ValueError("native_llm_first_complete_intake_binding_mismatch")
+        narrowed["prepared_candidate_state"] = None
+        narrowed["rolling_input"] = rolling_input
+        narrowed["assignment_override"] = assignment
+        narrowed["story_type_by_cluster"] = story_types
+        narrowed["leaf_checkpoints"] = {}
+        narrowed["global_checkpoint"] = None
+        narrowed["publication_enabled"] = False
+        narrowed["llm_first_editorial_provider"] = external_provider
+        result = self._canonical_newsroom_cycle(**narrowed)
+        if not isinstance(result, Mapping):
+            return result
+        annotated = {
             **dict(result),
-            # Generic canonical telemetry equates prepared_state=None with a full-universe
-            # critical path. This path intentionally uses prepared_state=None because frontier
-            # semantic checkpoints are invalid after narrowing; the actual candidate universe is
-            # the exact HIGH-admitted rolling_input below, with assignment provider calls = 0.
             "full_rolling_headline_count": full_intake_count,
             "full_universe_semantic_assignment_on_critical_path": False,
             "bounded_prepared_frontier_semantic_assignment": False,
             "native_llm_first_assignment_override_reused": True,
             "high_admitted_shortlist_count": len(binding["selected_cluster_ids"]),
             "native_llm_first_selection": {
-                "ordering": "HIGH_SELECTION_THEN_SELECTED_STORY_DETERMINISTIC_HYDRATION",
+                "ordering": "HIGH_SELECTION_THEN_FRESH_HIGH_WORKER_THEN_DETERMINISTIC_VALIDATE_AFTER",
                 "selection_request_logical_hash": binding[
                     "selection_request_logical_hash"
                 ],
@@ -132,11 +249,44 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "high_admitted_shortlist_count": len(binding["selected_cluster_ids"]),
                 "semantic_assignment_provider_call_required": False,
                 "story_type_semantic_call_required": False,
+                "worker_precedes_deterministic_source_retrieval": True,
                 "factual_or_numeric_authority_granted": False,
                 "publication_authority_granted": False,
             },
             "native_llm_first_resume_binding": dict(binding["resume_binding"]),
         }
+        evidence_path = output_dir / "rolling_x_newsroom_cycle_evidence_v1.json"
+        if evidence_path.exists():
+            from live_contentops.native_desktop_production_handoff_v1 import (
+                read_json,
+                write_json,
+            )
+
+            persisted = read_json(evidence_path)
+            persisted.update(
+                {
+                    "full_rolling_headline_count": full_intake_count,
+                    "full_universe_semantic_assignment_on_critical_path": False,
+                    "native_llm_first_assignment_override_reused": True,
+                    "high_admitted_shortlist_count": len(binding["selected_cluster_ids"]),
+                    "native_llm_first_selection": annotated[
+                        "native_llm_first_selection"
+                    ],
+                    "native_llm_first_resume_binding": dict(binding["resume_binding"]),
+                }
+            )
+            telemetry = dict(persisted.get("critical_path_telemetry") or {})
+            telemetry.update(
+                {
+                    "full_rolling_headline_count": full_intake_count,
+                    "full_universe_semantic_assignment_on_critical_path": False,
+                    "exact_assignment_override_input_bound": True,
+                    "native_llm_first_assignment_override_reused": True,
+                }
+            )
+            persisted["critical_path_telemetry"] = telemetry
+            write_json(evidence_path, persisted)
+        return annotated
 
     def _selection_artifact_path(self, opportunity_id: str) -> Path:
         return (
@@ -706,6 +856,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "selection_return_logical_hash": selection[
                 "selection_return_logical_hash"
             ],
+            "selection": dict(selection),
         }
 
     def prepare_native_desktop_scheduled_opportunity(
@@ -822,7 +973,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         )
         result["selection_return_path"] = str(selection_receipt_path)
         result["native_llm_first_ordering"] = (
-            "HIGH_SELECTION_THEN_SELECTED_STORY_DETERMINISTIC_HYDRATION"
+            "HIGH_SELECTION_THEN_FRESH_HIGH_WORKER_THEN_DETERMINISTIC_VALIDATE_AFTER"
         )
         return result
 
@@ -903,6 +1054,122 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         qualified_records: Sequence[Mapping[str, Any]],
         work_budget: int,
     ) -> dict[str, Any]:
+        native_prevalidation = attempt_result.get("native_llm_first_prevalidation")
+        if isinstance(native_prevalidation, Mapping):
+            from live_contentops.native_desktop_production_handoff_v1 import (
+                load_handoff_checkpoint,
+                logical_hash,
+                persist_handoff_checkpoint,
+                read_json,
+                validate_worker_request_binding,
+            )
+            from live_contentops.native_llm_first_validate_after_v1 import (
+                INITIAL_HANDOFF_STATUS,
+                INITIAL_NEXT_BLOCKER,
+            )
+
+            result = dict(attempt_result)
+            route = dict(result.get("editorial_worker_routing") or {})
+            worker_request = dict(route.get("worker_request") or {})
+            governed_hash = str(
+                route.get("governed_input_hash")
+                or worker_request.get("governed_input_hash")
+                or ""
+            )
+            worker_request = validate_worker_request_binding(
+                worker_request, expected_governed_input_hash=governed_hash
+            )
+            current_path = self._native_desktop_handoff_path(str(window["window_id"]))
+            sequence = 1
+            if current_path.exists():
+                sequence = int(
+                    load_handoff_checkpoint(current_path).get("resume_sequence") or 0
+                ) + 1
+            intake_path = attempt_output_dir / "rolling_x_intake_v1.json"
+            assignment_path = attempt_output_dir / "rolling_x_assignment_v1.json"
+            story_path = attempt_output_dir / "rolling_x_story_routing_v1.json"
+            prevalidation_path = attempt_output_dir / "native_llm_first_prevalidation_v1.json"
+            if not all(
+                path.is_file()
+                for path in (intake_path, assignment_path, story_path, prevalidation_path)
+            ):
+                raise ValueError("native_llm_first_prevalidation_checkpoint_missing")
+            intake = read_json(intake_path)
+            semantic_material = {
+                "leaf_checkpoints": {},
+                "global_checkpoint": {},
+                "story_type_by_cluster": dict(
+                    (result.get("story_routing") or {}).get(
+                        "story_type_by_cluster"
+                    )
+                    or {}
+                ),
+            }
+            semantic_bindings = {
+                **semantic_material,
+                "canonical_input_hash": intake.get("canonical_input_hash"),
+                "semantic_resume_mode": "NATIVE_LLM_FIRST_ASSIGNMENT_OVERRIDE",
+                "semantic_resume_logical_hash": logical_hash(semantic_material),
+            }
+            prevalidation_state = {
+                **dict(native_prevalidation),
+                "candidate_plan_index": 0,
+                "bounded_revision_count": 0,
+                "current_candidate_worker_receipts": [],
+                "prior_candidate_attempts": [],
+                "intake_checkpoint_path": str(intake_path),
+                "assignment_checkpoint_path": str(assignment_path),
+                "story_routing_checkpoint_path": str(story_path),
+                "prevalidation_checkpoint_path": str(prevalidation_path),
+            }
+            checkpoint = {
+                "canonical_opportunity_id": str(window["window_id"]),
+                "runtime_run_id": str(window["window_id"]),
+                "automation_id": str(window.get("native_desktop_automation_id") or ""),
+                "session": str(window.get("session") or ""),
+                "attempt_number": int(attempt_number),
+                "attempt_run_id": str(attempt_run_id),
+                "work_budget": int(work_budget),
+                "resume_sequence": sequence,
+                "handoff_status": INITIAL_HANDOFF_STATUS,
+                "exact_next_blocker": INITIAL_NEXT_BLOCKER,
+                "governed_input_hash": governed_hash,
+                "editorial_worker_request": worker_request,
+                "same_xhigh_worker_revision_contract": {},
+                "same_high_worker_revision_contract": {},
+                "prepare_cycle_evidence_path": str(prevalidation_path),
+                "prepare_cycle_evidence_sha256": logical_hash(
+                    read_json(prevalidation_path)
+                ),
+                "intake_checkpoint_path": str(intake_path),
+                "intake_checkpoint_sha256": logical_hash(intake),
+                "prepared_candidate_checkpoint_path": str(
+                    self._selection_artifact_path(str(window["window_id"]))
+                ),
+                "viability_checkpoint_path": None,
+                "viability_logical_hash": None,
+                "semantic_resume_bindings": semantic_bindings,
+                "native_llm_first_resume_binding": dict(
+                    native_prevalidation.get("native_llm_first_resume_binding") or {}
+                ),
+                "native_llm_first_prevalidation": prevalidation_state,
+                "candidate_rank": 1,
+                "candidate_cluster_id": native_prevalidation.get(
+                    "selected_cluster_id"
+                ),
+                "candidate_headline_ids": list(
+                    native_prevalidation.get("selected_headline_ids") or []
+                ),
+                "prior_attempt_results": [dict(row) for row in prior_attempt_results],
+                "qualified_records": [dict(row) for row in qualified_records],
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+                "legacy_writer_fallback_used": False,
+                "sdk_writer_substitution_used": False,
+                "handoff_checkpoint_path": str(current_path),
+            }
+            return persist_handoff_checkpoint(current_path, checkpoint)
+
         native_resume_raw = attempt_result.get("native_llm_first_resume_binding")
         if not isinstance(native_resume_raw, Mapping):
             return super()._persist_native_desktop_pending_handoff(
@@ -1063,10 +1330,241 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         if not isinstance(persisted_selection, Mapping):
             raise ValueError("native_llm_first_selection_return_missing_or_invalid")
         selection = self._validate_selection_return(persisted_selection, artifact)
-        binding = self._selected_assignment_binding(
-            artifact=artifact, selection=selection
+        binding = self._selected_assignment_binding(artifact=artifact, selection=selection)
+
+        from live_contentops.native_desktop_production_handoff_v1 import (
+            load_handoff_checkpoint,
+            persist_handoff_checkpoint,
         )
-        token = self._native_selection_binding.set({**binding, "phase": "COMPLETE"})
+        from live_contentops.native_llm_first_validate_after_v1 import (
+            INITIAL_HANDOFF_STATUS,
+            INITIAL_NEXT_BLOCKER,
+            REVISION_HANDOFF_STATUS,
+            REVISION_NEXT_BLOCKER,
+            NativeDesktopExternalLlmFirstProvider,
+            build_external_worker_request,
+            build_same_high_revision_contract,
+            normalized_external_worker_receipt_for_failure,
+            selection_for_candidate,
+            validate_same_high_revision_contract,
+        )
+        from live_contentops.llm_first_validate_after_v1 import LlmFirstValidationError
+
+        handoff_path = self._native_desktop_handoff_path(opportunity_id)
+        handoff = load_handoff_checkpoint(handoff_path)
+        prevalidation = handoff.get("native_llm_first_prevalidation")
+        if not isinstance(prevalidation, Mapping):
+            # Backward-compatible completion for old native evidence-first handoffs.
+            token = self._native_selection_binding.set({**binding, "phase": "COMPLETE"})
+            try:
+                return super().complete_native_desktop_scheduled_opportunity(
+                    automation_id=task_id,
+                    canonical_opportunity_id=opportunity_id,
+                    worker_return=worker_return,
+                    coordinator_review_receipt=coordinator_review_receipt,
+                    now=now,
+                )
+            finally:
+                self._native_selection_binding.reset(token)
+
+        stored_resume = dict(handoff.get("native_llm_first_resume_binding") or {})
+        if stored_resume != dict(binding.get("resume_binding") or {}):
+            raise ValueError("native_llm_first_complete_resume_binding_drift")
+        candidate_index = int(prevalidation.get("candidate_plan_index") or 0)
+        revision_count = int(prevalidation.get("bounded_revision_count") or 0)
+        revision_contract = dict(handoff.get("same_high_worker_revision_contract") or {})
+        if revision_count:
+            validate_same_high_revision_contract(revision_contract)
+        current_request, current_candidate, current_selection = build_external_worker_request(
+            binding=binding,
+            selection=selection,
+            cutoff_utc=str(
+                (artifact.get("coordinator_request") or {}).get(
+                    "opportunity_cutoff_utc"
+                )
+                or ""
+            ),
+            candidate_index=candidate_index,
+            revision_contract=revision_contract if revision_count else None,
+        )
+        if current_request != dict(handoff.get("editorial_worker_request") or {}):
+            raise ValueError("native_llm_first_complete_worker_request_drift")
+        resume_sequence = int(handoff.get("resume_sequence") or 1)
+        provider_output_dir = self._output_root / opportunity_id / (
+            f"split-phase-resume-{resume_sequence:02d}"
+        )
+        prior_current_receipts = [
+            dict(row)
+            for row in prevalidation.get("current_candidate_worker_receipts") or []
+            if isinstance(row, Mapping)
+        ]
+        prior_candidate_attempts = [
+            dict(row)
+            for row in prevalidation.get("prior_candidate_attempts") or []
+            if isinstance(row, Mapping)
+        ]
+        provider = NativeDesktopExternalLlmFirstProvider(
+            output_dir=provider_output_dir,
+            selected_selection=current_selection,
+            expected_worker_request=current_request,
+            worker_return=worker_return,
+            candidate_index=candidate_index,
+            revision_count=revision_count,
+            prior_current_candidate_receipts=prior_current_receipts,
+            prior_candidate_attempts=prior_candidate_attempts,
+        )
+        try:
+            provider.prepare(
+                ranked_clusters=binding["assignment_override"]["ranked_clusters"],
+                intake=binding["rolling_input_override"],
+                cutoff_utc=str(
+                    (artifact.get("coordinator_request") or {}).get(
+                        "opportunity_cutoff_utc"
+                    )
+                    or ""
+                ),
+                published_corpus=[],
+            )
+        except LlmFirstValidationError as exc:
+            failure_receipt = normalized_external_worker_receipt_for_failure(
+                worker_return=worker_return,
+                expected_worker_request=current_request,
+                revision=bool(revision_count),
+            )
+            current_receipts = [*prior_current_receipts, failure_receipt]
+            attempts = [
+                *prior_candidate_attempts,
+                {
+                    "cluster_id": current_selection["selected_cluster_id"],
+                    "candidate_plan_index": candidate_index,
+                    "status": "POST_GENERATION_VALIDATION_BLOCKED",
+                    "blockers": list(exc.blockers),
+                    "bounded_revision_count": revision_count,
+                    "worker_receipt": failure_receipt,
+                },
+            ]
+            updated = {
+                key: value
+                for key, value in handoff.items()
+                if key != "handoff_logical_hash"
+            }
+            updated["resume_sequence"] = resume_sequence + 1
+            updated["prior_candidate_attempts"] = attempts
+            if revision_count == 0:
+                contract = build_same_high_revision_contract(
+                    governed_input_hash=current_request["governed_input_hash"],
+                    worker_return=worker_return,
+                    blockers=exc.blockers,
+                    prior_bounded_revision_count=0,
+                )
+                revision_request, _candidate, _selection_row = build_external_worker_request(
+                    binding=binding,
+                    selection=selection,
+                    cutoff_utc=str(
+                        (artifact.get("coordinator_request") or {}).get(
+                            "opportunity_cutoff_utc"
+                        )
+                        or ""
+                    ),
+                    candidate_index=candidate_index,
+                    revision_contract=contract,
+                )
+                updated.update(
+                    {
+                        "handoff_status": REVISION_HANDOFF_STATUS,
+                        "exact_next_blocker": REVISION_NEXT_BLOCKER,
+                        "governed_input_hash": revision_request["governed_input_hash"],
+                        "editorial_worker_request": revision_request,
+                        "same_high_worker_revision_contract": contract,
+                        "same_xhigh_worker_revision_contract": {},
+                        "candidate_rank": candidate_index + 1,
+                        "candidate_cluster_id": current_selection[
+                            "selected_cluster_id"
+                        ],
+                        "candidate_headline_ids": list(
+                            current_candidate.get("headline_ids") or []
+                        ),
+                        "native_llm_first_prevalidation": {
+                            **dict(prevalidation),
+                            "candidate_plan_index": candidate_index,
+                            "bounded_revision_count": 1,
+                            "selected_cluster_id": current_selection[
+                                "selected_cluster_id"
+                            ],
+                            "selected_headline_ids": list(
+                                current_candidate.get("headline_ids") or []
+                            ),
+                            "current_candidate_worker_receipts": current_receipts,
+                            "prior_candidate_attempts": attempts,
+                        },
+                    }
+                )
+                persisted = persist_handoff_checkpoint(handoff_path, updated)
+                return self._native_desktop_pending_handoff_outcome(persisted)
+
+            next_index = candidate_index + 1
+            try:
+                next_selection = selection_for_candidate(
+                    selection, candidate_index=next_index
+                )
+            except ValueError:
+                token = self._native_selection_binding.set(
+                    {**binding, "phase": "TERMINAL"}
+                )
+                try:
+                    return super().complete_native_desktop_scheduled_opportunity(
+                        automation_id=task_id,
+                        canonical_opportunity_id=opportunity_id,
+                        worker_return=worker_return,
+                        coordinator_review_receipt=coordinator_review_receipt,
+                        now=now,
+                    )
+                finally:
+                    self._native_selection_binding.reset(token)
+
+            fresh_request, next_candidate, _next_selection = build_external_worker_request(
+                binding=binding,
+                selection=selection,
+                cutoff_utc=str(
+                    (artifact.get("coordinator_request") or {}).get(
+                        "opportunity_cutoff_utc"
+                    )
+                    or ""
+                ),
+                candidate_index=next_index,
+            )
+            updated.update(
+                {
+                    "handoff_status": INITIAL_HANDOFF_STATUS,
+                    "exact_next_blocker": INITIAL_NEXT_BLOCKER,
+                    "governed_input_hash": fresh_request["governed_input_hash"],
+                    "editorial_worker_request": fresh_request,
+                    "same_high_worker_revision_contract": {},
+                    "same_xhigh_worker_revision_contract": {},
+                    "candidate_rank": next_index + 1,
+                    "candidate_cluster_id": next_selection["selected_cluster_id"],
+                    "candidate_headline_ids": list(
+                        next_candidate.get("headline_ids") or []
+                    ),
+                    "native_llm_first_prevalidation": {
+                        **dict(prevalidation),
+                        "candidate_plan_index": next_index,
+                        "bounded_revision_count": 0,
+                        "selected_cluster_id": next_selection["selected_cluster_id"],
+                        "selected_headline_ids": list(
+                            next_candidate.get("headline_ids") or []
+                        ),
+                        "current_candidate_worker_receipts": [],
+                        "prior_candidate_attempts": attempts,
+                    },
+                }
+            )
+            persisted = persist_handoff_checkpoint(handoff_path, updated)
+            return self._native_desktop_pending_handoff_outcome(persisted)
+
+        token = self._native_selection_binding.set(
+            {**binding, "phase": "COMPLETE", "external_provider": provider}
+        )
         try:
             return super().complete_native_desktop_scheduled_opportunity(
                 automation_id=task_id,

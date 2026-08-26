@@ -265,14 +265,16 @@ def test_selection_return_is_immutable_per_opportunity(tmp_path: Path):
         )
 
 
-def test_primary_only_selection_still_narrows_canonical_prepare(tmp_path: Path):
+def test_primary_only_selection_stops_before_canonical_evidence_and_requests_high_worker(
+    tmp_path: Path,
+):
     cycle_calls = []
+    prevalidation_results = []
 
     def canonical_cycle(**kwargs):
         cycle_calls.append(kwargs)
         return {
-            "classification": "HIGH_REQUIRED",
-            "exact_next_blocker": "DESKTOP_EDITORIAL_WORKER_REQUIRED",
+            "classification": "SHOULD_NOT_RUN_BEFORE_WORKER",
             "public_write_performed": False,
             "unknown_write_detected": False,
         }
@@ -294,6 +296,7 @@ def test_primary_only_selection_still_narrows_canonical_prepare(tmp_path: Path):
             publication_enabled=False,
             operating_mode="SHADOW_ONLY",
         )
+        prevalidation_results.append(dict(result))
         return {"executed": True, **dict(result)}
 
     supervisor._execute_window = execute_window
@@ -303,29 +306,38 @@ def test_primary_only_selection_still_narrows_canonical_prepare(tmp_path: Path):
         coordinator_selection=_selection_from_probe(probe),
     )
 
-    assert result["classification"] == "HIGH_REQUIRED"
+    assert result["classification"] == "NO_PUBLICATION"
     assert result["public_write_performed"] is False
     assert result["unknown_write_detected"] is False
-    assert len(cycle_calls) == 1
-    call = cycle_calls[0]
-    assert call["prepared_candidate_state"] is None
-    assignment = call["assignment_override"]
+    assert cycle_calls == []
+    assert len(prevalidation_results) == 1
+    prepared = prevalidation_results[0]
+    assert prepared["exact_next_blocker"] == "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID"
+    assert prepared["native_llm_first_assignment_override_reused"] is True
+    assert prepared["critical_path_telemetry"][
+        "full_universe_semantic_assignment_on_critical_path"
+    ] is False
+    assert prepared["evidence_acquisition_requests"] == 0
+    assert prepared["grounded_locator_model_invocations"] == 0
+    assert prepared["native_llm_first_prevalidation"][
+        "worker_precedes_evidence_acquisition"
+    ] is True
+    route = prepared["editorial_worker_routing"]
+    assert route["native_llm_first"] is True
+    assert route["actual_reasoning_effort"] == "HIGH"
+    worker_request = route["worker_request"]
+    assert worker_request["candidate_cluster_id"] == "cluster-b"
+    assert worker_request["fresh"] is True
+    assert worker_request["isolated"] is True
+    assert worker_request["resume_existing"] is False
+    assert worker_request["reasoning_effort"] == "high"
+    assignment = prepared["assignment"]
     assert assignment["selected_cluster_id"] == "cluster-b"
     assert assignment["selected_cluster_ids"] == ["cluster-b"]
     assert assignment["selected_headline_ids"] == ["headline-b"]
     assert [row["cluster_id"] for row in assignment["ranked_clusters"]] == ["cluster-b"]
-    assert assignment["ranked_clusters"][0]["rank"] == 1
-    assert assignment["ranked_clusters"][0]["resolved_article_mode"] == "STANDARD_NEWS_ANALYSIS"
-    assert assignment["ranked_clusters"][0]["llm_first_validate_after_selected"] is True
-    assert assignment["input_binding"]["input_ids"] == ["headline-b"]
-    assert [row["leaf_cluster_id"] for row in assignment["leaf_clusters"]] == ["leaf-b"]
-    assert call["story_type_by_cluster"] == {"cluster-b": "company_sector_event"}
-    telemetry = result["native_llm_first_selection"]
-    assert telemetry["selected_cluster_ids"] == ["cluster-b"]
-    assert telemetry["high_admitted_shortlist_count"] == 1
-    assert telemetry["full_prepared_frontier_reopened"] is False
-    assert telemetry["semantic_assignment_provider_call_required"] is False
-    assert telemetry["story_type_semantic_call_required"] is False
+    assert prepared["intake"]["unique_headline_ids"] == ["headline-b"]
+    assert (tmp_path / "native_llm_first_prevalidation_v1.json").is_file()
 
 
 def test_high_admitted_fallback_shortlist_preserves_candidate_continuation(tmp_path: Path):
@@ -566,7 +578,9 @@ def test_selection_return_file_is_self_replayable_and_opportunity_bound(tmp_path
     assert supervisor._validate_selection_return(persisted, artifact) == selection
 
 
-def test_complete_phase_reuses_narrow_assignment_and_drops_old_semantic_checkpoints(tmp_path: Path):
+def test_complete_phase_requires_post_generation_verified_external_provider(
+    tmp_path: Path,
+):
     cycle_calls = []
     supervisor = _supervisor(
         tmp_path,
@@ -600,34 +614,23 @@ def test_complete_phase_reuses_narrow_assignment_and_drops_old_semantic_checkpoi
     binding = supervisor._selected_assignment_binding(artifact=artifact, selection=selection)
     token = supervisor._native_selection_binding.set({**binding, "phase": "COMPLETE"})
     try:
-        result = supervisor._native_llm_first_newsroom_cycle(
-            run_id="resume",
-            output_dir=tmp_path,
-            cutoff_utc="2026-08-26T11:00:00Z",
-            rolling_input=binding["rolling_input_override"],
-            prepared_candidate_state={"must": "drop"},
-            leaf_checkpoints={"old": {"must": "drop"}},
-            global_checkpoint={"old": "must_drop"},
-            story_type_by_cluster={"wrong": "value"},
-            publication_enabled=False,
-        )
+        with pytest.raises(
+            ValueError, match="native_llm_first_external_provider_required_for_complete"
+        ):
+            supervisor._native_llm_first_newsroom_cycle(
+                run_id="resume",
+                output_dir=tmp_path,
+                cutoff_utc="2026-08-26T11:00:00Z",
+                rolling_input=binding["rolling_input_override"],
+                prepared_candidate_state={"must": "drop"},
+                leaf_checkpoints={"old": {"must": "drop"}},
+                global_checkpoint={"old": "must_drop"},
+                story_type_by_cluster={"wrong": "value"},
+                publication_enabled=False,
+            )
     finally:
         supervisor._native_selection_binding.reset(token)
-    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
-    assert result["full_rolling_headline_count"] == 1093
-    assert result["full_universe_semantic_assignment_on_critical_path"] is False
-    assert result["native_llm_first_assignment_override_reused"] is True
-    assert result["high_admitted_shortlist_count"] == 1
-    call = cycle_calls[0]
-    assert call["prepared_candidate_state"] is None
-    assert call["rolling_input"]["unique_headline_ids"] == ["headline-b"]
-    assert call["assignment_override"]["selected_cluster_ids"] == ["cluster-b"]
-    assert call["leaf_checkpoints"] == {}
-    assert call["global_checkpoint"] is None
-    assert call["story_type_by_cluster"] == {"cluster-b": "company_sector_event"}
-    assert result["native_llm_first_resume_binding"]["rolling_input_canonical_hash"] == call[
-        "rolling_input"
-    ]["canonical_input_hash"]
+    assert cycle_calls == []
 
 
 def test_native_pending_handoff_uses_assignment_resume_not_probe_semantic_checkpoint(

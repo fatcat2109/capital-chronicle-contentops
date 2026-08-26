@@ -4701,7 +4701,43 @@ def _run_rolling_x_newsroom_cycle(
             "publication_authority_granted": False,
         }
     elif isinstance(intake.get("headlines"), list):
-        assignment_input, assignment_compaction = compact_rolling_x_assignment_universe(intake)
+        override_input_hash = str(
+            ((assignment_override or {}).get("input_binding") or {}).get(
+                "canonical_input_hash"
+            )
+            or ""
+        )
+        intake_input_hash = str(intake.get("canonical_input_hash") or "")
+        exact_assignment_override_input_bound = bool(
+            assignment_override is not None
+            and override_input_hash
+            and override_input_hash == intake_input_hash
+        )
+        if exact_assignment_override_input_bound:
+            # An exact assignment override already owns the complete bounded candidate universe.
+            # Re-running pre-assignment compaction can reorder HIGH primary/fallback priority and
+            # changes the canonical input hash even though no new candidate is admitted.
+            assignment_input = intake
+            intake_counts = dict(intake.get("counts") or {})
+            assignment_compaction = {
+                "schema_version": "contentops.rolling_x_assignment_compaction.v1",
+                "compaction_applied": False,
+                "reason": "EXACT_ASSIGNMENT_OVERRIDE_INPUT_BOUND",
+                "full_rolling_headline_count": int(
+                    intake_counts.get("accepted_in_full_rolling_intake")
+                    or len(intake.get("headlines") or [])
+                ),
+                "assignment_headline_count": len(intake.get("headlines") or []),
+                "held_before_semantic_assignment_count": 0,
+                "full_rolling_input_canonical_hash": intake_input_hash,
+                "assignment_input_canonical_hash": intake_input_hash,
+                "exact_assignment_override_input_bound": True,
+                "llm_or_provider_calls": 0,
+                "factual_or_numeric_authority_granted": False,
+                "publication_authority_granted": False,
+            }
+        else:
+            assignment_input, assignment_compaction = compact_rolling_x_assignment_universe(intake)
     else:
         # Narrow injected tests may replace the canonical loader with a minimal count-only
         # fixture and replace assignment as well. Production intake always materializes the
@@ -5601,11 +5637,25 @@ def _run_rolling_x_newsroom_cycle(
             ),
             "full_rolling_headline_count": int(
                 (prepared_state or {}).get("full_rolling_headline_count")
+                or (assignment_compaction or {}).get("full_rolling_headline_count")
+                or (intake.get("counts") or {}).get("accepted_in_full_rolling_intake")
                 or (intake.get("counts") or {}).get("accepted")
                 or 0
             ),
-            "full_universe_semantic_assignment_on_critical_path": prepared_state is None,
+            "full_universe_semantic_assignment_on_critical_path": bool(
+                prepared_state is None
+                and not (assignment_compaction or {}).get(
+                    "exact_assignment_override_input_bound"
+                )
+            ),
             "bounded_prepared_frontier_semantic_assignment": prepared_state is not None,
+            "exact_assignment_override_input_bound": bool(
+                (assignment_compaction or {}).get("exact_assignment_override_input_bound")
+            ),
+            "native_llm_first_assignment_override_reused": bool(
+                (assignment_compaction or {}).get("exact_assignment_override_input_bound")
+                and assignment.get("assignment_checkpoint_reused") is True
+            ),
             "assignment_semantic_calls": assignment_calls,
             "story_type_semantic_calls": story_calls,
             "article_writer_semantic_calls": writer_calls,

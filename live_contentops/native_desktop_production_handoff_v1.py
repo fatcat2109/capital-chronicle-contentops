@@ -320,17 +320,45 @@ def load_handoff_checkpoint(path: str | Path) -> dict[str, Any]:
         or claimed_hash != logical_hash(payload)
     ):
         raise ValueError("native_desktop_handoff_checkpoint_invalid")
+    handoff_status = str(payload.get("handoff_status") or "")
+    same_high_llm_first_revision = (
+        handoff_status == "SAME_HIGH_WORKER_LLM_FIRST_REVISION_REQUIRED"
+    )
     validate_worker_request_binding(
         dict(payload.get("editorial_worker_request") or {}),
         expected_governed_input_hash=str(payload.get("governed_input_hash") or ""),
         allow_same_worker_revision=(
-            payload.get("handoff_status") == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+            handoff_status == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+            or same_high_llm_first_revision
         ),
     )
-    if payload.get("handoff_status") == "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+    if handoff_status == "SAME_XHIGH_WORKER_REVISION_REQUIRED":
         validate_same_worker_revision_contract(
             dict(payload.get("same_xhigh_worker_revision_contract") or {})
         )
+    elif same_high_llm_first_revision:
+        contract = dict(payload.get("same_high_worker_revision_contract") or {})
+        contract_hash = str(contract.pop("revision_contract_hash", "") or "")
+        if (
+            contract.get("schema_version")
+            != "contentops.native_llm_first_same_high_revision.v1"
+            or contract.get("decision")
+            != "SAME_HIGH_WORKER_LLM_FIRST_REVISION_REQUIRED"
+            or not contract_hash
+            or contract_hash != logical_hash(contract)
+            or str(contract.get("governed_input_hash") or "")
+            != str(payload.get("governed_input_hash") or "")
+            or not str(contract.get("prior_worker_return_hash") or "")
+            or not list(contract.get("blockers") or [])
+            or int(contract.get("prior_bounded_revision_count") or 0) != 0
+            or int(contract.get("required_bounded_revision_count") or 0) != 1
+            or int(contract.get("maximum_bounded_revision_count") or 0) != 1
+            or contract.get("same_worker_required") is not True
+            or contract.get("fresh_replacement_worker_forbidden") is not True
+            or contract.get("public_write_authority") != "ZERO"
+            or contract.get("publication_authority_granted") is not False
+        ):
+            raise ValueError("native_llm_first_same_high_revision_contract_invalid")
     return {**payload, "handoff_logical_hash": claimed_hash}
 
 
