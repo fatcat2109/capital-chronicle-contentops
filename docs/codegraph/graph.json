@@ -83541,7 +83541,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 15021
+      "size_bytes": 16030
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
@@ -83551,7 +83551,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 6268
+      "size_bytes": 8305
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -130899,5 +130899,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "69db3e7d96a9d78692ab79eafb52cf1f9f43d4e0",
-  "source_tree_digest": "7d599f8e5756a26fa3d44684013aa4dd8e77e7706f62f28db6f5561418e41236"
+  "source_tree_digest": "de69150797e28bfa80b25a0fab3a0bc349482c45ef80f2d033bb41c9c7e775d6"
 }

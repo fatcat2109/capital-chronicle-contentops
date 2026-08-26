@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — V1 Current Execution Pointer V3
 
-Authority date: 2026-08-24
+Authority date: 2026-08-25
 Status: `CURRENT_V1_LANE_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 
 ## Root authority
@@ -40,18 +40,40 @@ Older V1 task packets and branch handoffs are exact historical evidence only whe
   governed ready candidates, three batch turns, and 712,842 accounted tokens.
 - PR #20's canonical worker-return normalization, source-omission protection, and ordinary
   single-article zero-write path are independently accepted and reusable.
+- PR #27's native Desktop production PREPARE/COMPLETE seam is merged at
+  `839713160e6594d6a61fa8223aed98be9122ff25`. It preserves one durable opportunity/run identity and
+  persists a hash-bound XHIGH handoff only when warranted.
+- The 2026-08-25 London 17:00 native calendar trigger is proven. Its bounded assignment stopped at
+  `ROLLING_X_LEAF_ASSIGNMENT_BLOCKED` after authorized provider-pool DNS/upstream exhaustion;
+  qualified articles, XHIGH workers, public/provider publication writes, and UNKNOWN_WRITE were
+  all zero.
+- The 2026-08-25 New York 23:00 native calendar trigger is proven. The Automation-created HIGH task
+  claimed `editorial-window-f7fb75af3e5be3af0275de2f1698fd6a`, walked all seven governed
+  candidates, and terminalized `REJECTED` with
+  `EVIDENCE_REQUEST_BUDGET_EXHAUSTED_BEFORE_PUBLISHABILITY_POOL_CLOSURE`. No candidate reached the
+  article boundary, so XHIGH/PREPARE handoff/COMPLETE/derivative-intent counts were all zero;
+  public/provider publication writes and UNKNOWN_WRITE remained zero.
+- The following New York 01:00 Automation task started at `2026-08-25T18:00:49Z` but failed at the
+  Codex host usage limit two seconds later, before runtime import or canonical work-item creation.
+  The production day therefore closed at `0 qualified / 0 published`, deficit 4. This is a hard
+  host-capacity miss, not candidate abstention or a runtime terminal result.
 - The final operating target remains `5–8/day` published articles per newsroom production day,
   without filler or weaker truth/evidence/rights/permission/numeric-authority gates.
 
 ## Current next gate
 
-`ZERO-WRITE ROUTINE STARVATION / OWNERSHIP CORRECTION AND PROSPECTIVE CALENDAR PROOF`
+`ZERO-WRITE DISCOVERY ROUTING / READINESS-PERSISTENCE CORRECTION AFTER CALENDAR PROOF`
 
-The canonical article path and provider-resilient discovery path are accepted. The four existing
-routine host prompts now match the repo-derived FAST-SHIP hash and all four remain paused. The next
-boundary requires a separate exact owner grant to enable only those four for a zero-write
-calendar-time unattended/cold-start/fallback/late-result/cost/duplicate-suppression proof. 4/32
-remains throughput/economics telemetry, not a prerequisite. No public-write scope is implied.
+The canonical article path, provider-resilient discovery implementation, and split-phase production
+seam are accepted. All four existing routine Automations are ACTIVE on the normalized prompt hash,
+and genuine native calendar execution is observed at London 17:00 and New York 23:00. The 23:00
+receipt exposed two deterministic gaps before the next model-backed article attempt: the accepted
+quota-efficient batch/tail discovery path reported `NOT_ENABLED_FAIL_CLOSED` through the native
+seam, and passive nine-surface diagnostic persistence rejected `LAST_VERIFIED_READY` /
+`STALE_NEEDS_JIT_VERIFICATION` against the durable readiness CHECK constraint. Correct those exact
+routes without rebuilding discovery or widening readiness/public authority. 4/32 remains telemetry,
+not a prerequisite. Restore host model capacity before the next natural routine window. No
+public-write scope is implied.
 
 For throughput economics, reuse PR #19's provider-resilient batch/tail discovery. A candidate that
 genuinely lacks an authorized source route retains the
@@ -66,20 +88,23 @@ Desktop standalone fresh-run Automations remain the primary routine heavy-editor
 remains bounded missed/failed-primary fallback, immediate direct path, and benchmark path under the
 same canonical run identity.
 
-Exactly four native V1 routine Automations exist on the correct model/effort/schedules/project.
+Exactly four native V1 routine Automations exist and are ACTIVE on the correct
+model/effort/schedules/project/prompt hash.
 The 2026-08-24 21:00 evidence is `PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and
 `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G created, claimed, executed, and terminalized the
 canonical scheduled opportunity while the old 4/32 pacing logic allocated zero work. Codex Desktop
-was not running during that window, so native Desktop Automation calendar execution remains
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. All four are held paused while the corrected single-owner,
-five-reachability, readiness-separated prompt/runtime bytes are deployed and read back. No fifth
-task may be created.
+was not running during that historical window. That fact remains historical, but the 2026-08-25
+London 17:00 and New York 23:00 tasks now prove native calendar triggering on the current host. The
+23:00 task began at `2026-08-25T16:01:18Z`, claimed the canonical opportunity at
+`16:08:47.782890Z`, and terminalized at `16:12:39.577786Z`; FDA-G did not consume or race the
+Desktop-owned window. No fifth task exists.
 
 ## Locked progression order
 
 1. preserve accepted PR #19 discovery and PR #20 article-path evidence;
-2. preserve the completed four-prompt normalization/readback with all objects paused;
-3. obtain exact zero-write enablement authority and calendar-time unattended runtime proof;
+2. preserve PR #27's merged split-phase seam and the 17:00/23:00 native calendar receipts;
+3. correct the native discovery enablement route and passive-readiness persistence enum/schema
+   mismatch, then revalidate on a later natural zero-write opportunity;
 4. complete fresh current-epoch V5 acceptance;
 5. obtain separate routine public-write and final-product authority decisions.
 

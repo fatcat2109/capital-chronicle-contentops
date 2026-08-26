@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Authority and Supersession Map V1
 
-Authority date: 2026-08-24
+Authority date: 2026-08-25
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, or branch assumptions.
@@ -69,8 +69,10 @@ locked as exact sweep-epoch evidence:
 Later accepted work may reclassify an exact row without rewriting that historical sweep. PR #19
 promotes V1 quota-efficient provider-resilient batch/tail discovery to
 `CURRENTLY_PROVEN_AND_REUSE`; PR #20 closes the native worker-return/article-path correction; and
-the current four-prompt host normalization moves that exact host requirement to proven config
-evidence. A missing current runtime PASS does not turn a proven implementation into a new gap.
+PR #27 closes the production split-phase PREPARE/COMPLETE handoff. The normalized four-task host
+configuration and the 2026-08-25 London 17:00 / New York 23:00 calendar receipts move native
+calendar triggering to current host evidence. A routing failure to activate a proven capability
+does not reclassify that capability as unimplemented.
 
 ## Current V1 evidence-foundation and quota-economics override
 
@@ -117,14 +119,23 @@ resilient fallback for an exact missed/failed Desktop primary, the direct path f
 supported invocation, and the benchmark/controlled-experiment path. It may not race an accepted
 Desktop result or create a duplicate article/public object.
 
-Fresh supported host readback proves exactly four native V1 routine Automation objects configured
-for `gpt-5.6-sol / HIGH` at the four Bangkok windows. The 2026-08-24 21:00 evidence is
+Fresh supported host readback proves exactly four ACTIVE native V1 routine Automation objects
+configured for `gpt-5.6-sol / HIGH` at the four Bangkok windows, on prompt SHA-256
+`f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71`. The 2026-08-24 21:00 evidence is
 `PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: safe durable
 metadata proves FDA-G's supervisor actor created, claimed, executed, and terminalized the canonical
 scheduled opportunity. Codex Desktop was not running during that window, so native Desktop
-Automation calendar execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. The correction makes
-native Desktop the scheduled heavy-editorial owner and holds all four objects paused until corrected
-repo and prompt bytes are safely deployable. No fifth routine object exists.
+Automation calendar execution was then unproven. The 2026-08-25 London 17:00 and New York 23:00
+receipts now prove genuine native calendar task creation and canonical opportunity ownership. PR #27
+is merged at `839713160e6594d6a61fa8223aed98be9122ff25`; the 23:00 task used that split-phase runtime,
+walked seven candidates, created zero XHIGH workers because all seven remained evidence-blocked,
+and terminalized with public/provider publication writes and UNKNOWN_WRITE at zero. No fifth
+routine object exists.
+
+The following 01:00 Automation task was calendar-created but failed at the Codex host usage limit
+before runtime import or canonical work-item creation. The deterministic production day therefore
+ended at `0 qualified / 0 published`, deficit 4. Do not reinterpret this host-capacity miss as a
+candidate-level editorial abstention, runtime provider exhaustion, or permission to backfill.
 
 Current subordinate statements such as:
 
@@ -136,8 +147,8 @@ are superseded unless exact host/runtime evidence proves the relevant fact.
 Current known architecture rule:
 
 - FDA-G is the continuous intake/state/runtime authority;
-- the existing four Desktop Automations are the paused primary routine invocation objects with
-  normalized matching prompts, subject to separate explicit zero-write enablement;
+- the existing four Desktop Automations are the ACTIVE primary routine invocation objects with
+  normalized matching prompts and zero public-write authority;
 - the official ChatGPT-authenticated Codex provider is fallback/direct/benchmark, not a racing
   second routine scheduler;
 - `live_contentops/codex_desktop_newsroom_operator_v1.py` owns canonical run identity and the small
@@ -147,24 +158,26 @@ Current known architecture rule:
 
 ## Current V1 lane state and locked sequence
 
-Exactly four native V1 Desktop Automations exist and are `PAUSED`; their model/effort/schedules and
-normalized prompt hashes match current repo intent. Their current state is accepted host truth.
-Calendar-time unattended execution, cold start, SDK fallback, late-result suppression,
-bounded cost, and duplicate suppression remain current host/runtime proof requirements. At the
-sweep epoch the production store was read-only healthy with `UNKNOWN_WRITE=0`, but the Daily App
-process/listener was not running; that at-rest fact is not a cold-start PASS.
+Exactly four native V1 Desktop Automations exist and are `ACTIVE`; their model/effort/schedules and
+normalized prompt hashes match current repo intent. Genuine London 17:00 and New York 23:00
+calendar-time task creation is proven. The 23:00 canonical result was safely `REJECTED`, not an
+article-execution PASS: seven of seven candidates failed governed evidence/source binding,
+quota-efficient discovery reported `NOT_ENABLED_FAIL_CLOSED`, and passive readiness persistence
+exposed a durable enum/CHECK mismatch. Cold-start, SDK fallback, late-result suppression, bounded
+cost, duplicate suppression, and actual native article/XHIGH completion remain unproven where not
+covered by these exact receipts.
 
 The current V1 progression order is:
 
 1. preserve accepted PR #19 discovery and PR #20 article-path evidence;
-2. preserve the completed four-prompt normalization/readback with all four objects paused;
-3. obtain exact zero-write Automation enablement authority and calendar-time unattended runtime proof;
+2. preserve PR #27 and the exact 17:00/23:00 zero-write calendar receipts;
+3. repair only the native discovery activation and passive-readiness persistence mismatches, then
+   revalidate through a later natural zero-write opportunity;
 4. complete fresh current-epoch V5 acceptance evidence;
 5. obtain separate routine public-write and explicit `V1_FINAL_PRODUCT_ACCEPTED` decisions.
 
-No fifth Automation, further prompt mutation, enablement, article generation, or public write is
-authorized by this completed slice. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until explicitly
-granted.
+No fifth Automation, further prompt mutation, or public write is authorized by this completed
+slice. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until explicitly granted.
 
 ## Locked V2-after-V1 sequence
 
