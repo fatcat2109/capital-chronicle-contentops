@@ -15,6 +15,7 @@ from live_contentops.native_llm_first_daily_app_supervisor_v1 import (
     SELECTION_RETURN_SCHEMA_VERSION,
     NativeLlmFirstContentOpsDailyAppSupervisor,
 )
+from live_contentops.production_runtime_v1 import build_final_daily_app_production_runtime
 
 
 NOW = datetime(2026, 8, 26, 10, 20, tzinfo=timezone.utc)
@@ -199,9 +200,41 @@ def test_published_memory_projection_supports_current_identity_sets():
         "story-a",
         "story-b",
     }
-    assert {row.get("update_chain_identity") for row in projected if row.get("update_chain_identity")} == {
-        "chain-a"
-    }
+    assert {
+        row.get("update_chain_identity")
+        for row in projected
+        if row.get("update_chain_identity")
+    } == {"chain-a"}
+
+
+def test_selection_return_is_immutable_per_opportunity(tmp_path: Path):
+    supervisor = _supervisor(tmp_path, lambda **_kwargs: {})
+    probe = supervisor.prepare_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-london-1700", now=NOW
+    )
+    artifact = supervisor._load_selection_artifact(
+        task_id="v1-newsroom-london-1700",
+        session="london_1700_bangkok",
+        opportunity_id=probe["canonical_opportunity_id"],
+    )
+    first = supervisor._validate_selection_return(_selection_from_probe(probe), artifact)
+    first_path = supervisor._persist_selection_return(
+        opportunity_id=probe["canonical_opportunity_id"], selection=first
+    )
+    assert first_path.exists()
+    assert supervisor._persist_selection_return(
+        opportunity_id=probe["canonical_opportunity_id"], selection=first
+    ) == first_path
+
+    second = supervisor._validate_selection_return(
+        _selection_from_probe(probe, cluster_id="cluster-a"), artifact
+    )
+    with pytest.raises(
+        ValueError, match="native_llm_first_selection_return_identity_conflict"
+    ):
+        supervisor._persist_selection_return(
+            opportunity_id=probe["canonical_opportunity_id"], selection=second
+        )
 
 
 def test_valid_high_selection_narrows_canonical_prepare_to_one_cluster(tmp_path: Path):
@@ -295,10 +328,25 @@ def test_selection_rejects_unknown_cluster_and_expired_request(tmp_path: Path):
             coordinator_selection=_selection_from_probe(probe, cluster_id="cluster-missing"),
         )
 
-    # The selection artifact is bounded to the scheduled window plus the existing one-hour grace.
     with pytest.raises(ValueError, match="native_llm_first_selection_request_expired"):
         supervisor.prepare_native_desktop_scheduled_opportunity(
             automation_id="v1-newsroom-london-1700",
             now=WINDOW["end"] + timedelta(hours=1, seconds=1),
             coordinator_selection=_selection_from_probe(probe),
         )
+
+
+def test_production_runtime_instantiates_native_llm_first_supervisor(tmp_path: Path):
+    runtime = build_final_daily_app_production_runtime(
+        store_path=tmp_path / "contentops.sqlite3",
+        output_root=tmp_path / "outputs",
+        operating_mode="SHADOW_ONLY",
+        run_readiness_probes=False,
+    )
+    try:
+        assert isinstance(runtime.supervisor, NativeLlmFirstContentOpsDailyAppSupervisor)
+        snapshot = runtime.smoke_snapshot()
+        assert snapshot["native_llm_first_selection_before_hydration"] is True
+        assert snapshot["public_write_performed"] is False
+    finally:
+        runtime.close()
