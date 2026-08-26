@@ -1,7 +1,7 @@
 # Desktop-Primary Hybrid Codex V1 Newsroom Operator
 
 Authority date: 2026-08-26
-Status: `CURRENT_V1_CODEX_EXECUTION_CONTRACT / NATIVE_LLM_FIRST_SELECTED_SHORTLIST_PREPARE`
+Status: `CURRENT_V1_CODEX_EXECUTION_CONTRACT / NATIVE_LLM_FIRST_VALIDATE_AFTER_PREPARE_COMPLETE`
 
 This document is the exact runtime contract that the four existing V1 Codex Desktop Automations
 must read from current repository bytes. It owns execution detail only. Root `AGENTS.md`, current
@@ -16,100 +16,89 @@ The current native zero-write order is:
 ```text
 FDA-G / durable current intake + continuity
 -> zero-model prepared candidate frontier
--> fresh Desktop gpt-5.6-sol / HIGH coordinator chooses ONE primary useful story
-   + OPTIONAL useful fallback candidates from the same frontier, in preferred order
--> deterministic preselection/evidence hydration may walk ONLY that HIGH-admitted useful shortlist
--> exact hash-bound native worker handoff for the first viable admitted candidate
--> one fresh isolated gpt-5.6-sol / HIGH final worker
--> deterministic validation
--> at most one same-worker HIGH revision from concrete validation deltas
+-> one Desktop gpt-5.6-sol / HIGH coordinator chooses ONE primary useful story
+   + OPTIONAL genuinely useful fallbacks from the same frontier, in preferred order
+-> exact HIGH-admitted shortlist is hash-bound; the full frontier cannot reopen
+-> one fresh isolated gpt-5.6-sol / HIGH worker for the primary
+   -> worker performs read-only research and writes the article
+   -> worker returns article + exact cited URLs + material claim/source bindings
+-> deterministic validate-after retrieves ONLY the cited URLs and verifies source bytes,
+   timestamp provenance, material claims, numbers, quotes, causality and required CC authority
+-> if concrete deterministic deltas remain: at most ONE same-worker HIGH revision
+-> if that candidate still hard-fails: one fresh HIGH worker may continue to the next candidate
+   already admitted by the SAME coordinator turn
+-> only a deterministically verified worker article re-enters canonical viability/article/package
 -> exactly eight undispatched derivative intents when qualified
 -> zero public write unless separately authorized later
 ```
 
-This is `LLM-FIRST / VALIDATE-AFTER` at the editorial-decision boundary: HIGH useful-story selection
-happens before evidence-ready/sourceability/capability perfection can veto ordinary writing. A
-candidate-level hard evidence failure must not starve the whole opportunity when the same HIGH turn
-already admitted another useful fallback. At the same time, deterministic hydration must never
-reopen the full prepared frontier after HIGH selection.
-
-This ordering does **not** mean the final worker should spend quota broadly rediscovering evidence
-that deterministic selected-story hydration can already provide. The accepted evidence packet is
-context, never factual or publication authority by itself; final deterministic claim/source/CC/
-rights/identity gates remain hard after the worker returns.
+This is literal `LLM-FIRST / VALIDATE-AFTER`. Ordinary pre-writer evidence-ready/sourceability/
+capability perfection does not veto the writer. The worker may research with read-only web access;
+its assertions and timestamps grant no factual authority. Deterministic source retrieval and hard
+truth/CC/rights/identity gates run after generation and remain authoritative.
 
 Do not restore either historical failure mode:
 
 ```text
-full multi-candidate evidence-ready pool -> capability/sourceability perfection -> writer
+full candidate pool -> evidence/sourceability perfection -> writer
 ```
 
 or:
 
 ```text
-HIGH selects one candidate -> its evidence fails -> whole opportunity terminates despite other
-already-recognized useful candidates
+HIGH chooses primary -> deterministic evidence gate blocks before worker -> no article attempt
 ```
 
-Do not restore the historical 35-call / 10.2M-token discovery default.
+Candidate failure also must not starve the whole opportunity when the same HIGH turn admitted a
+genuinely useful fallback. Never widen beyond that HIGH-admitted plan without a new governed
+opportunity and new HIGH selection.
 
-## 2. Two-step native PREPARE handshake
+## 2. Step A — zero-work HIGH selection probe
 
-Use only the public production runtime methods. Never call private supervisor methods.
-
-### Step A — zero-work selection probe
-
-Call:
+Use only the public production runtime API:
 
 ```text
 FinalDailyAppProductionRuntime.prepare_native_desktop_scheduled_opportunity(
   automation_id=<exact existing V1 Automation id>,
-  now=<current governed time if explicitly supplied>
+  now=<governed time when explicitly supplied>
 )
 ```
 
-When a zero-model prepared frontier exists, the expected result is:
+When a zero-model prepared frontier exists, expected result:
 
 `classification = HIGH_SELECTION_REQUIRED`
 
-with an exact `coordinator_selection_request` and persisted selection artifact.
+with an exact `coordinator_selection_request` and persisted immutable selection artifact.
 
-At this point the runtime must have performed:
+Before the coordinator returns, require:
 
-- zero newsroom-cycle invocations for the article path;
-- zero evidence-acquisition requests;
-- zero semantic-assignment provider calls;
-- zero story-type semantic calls;
-- zero public/provider writes;
-- zero factual/numeric/evidence/CC/publication authority grants.
+- newsroom-cycle invocations for the article path = `0`;
+- evidence-acquisition requests = `0`;
+- semantic-assignment provider calls = `0`;
+- story-type semantic calls = `0`;
+- public/provider writes = `0`;
+- factual/numeric/evidence/CC/publication authority grants = `0`.
 
-The coordinator request contains at most eight current prepared candidates, current bounded
-published/update-chain memory where available, the exact canonical opportunity id, the eight
-canonical product modes, and an exact `selection_request_logical_hash`.
+The request contains at most eight current prepared candidates, bounded publication/update-chain
+memory, canonical opportunity identity, canonical product modes, and an exact request logical hash.
 
-The Desktop HIGH coordinator chooses:
+The single HIGH coordinator chooses exactly one primary useful non-filler candidate and zero or more
+optional fallbacks that are independently worth writing if an earlier candidate fails. Do not fill
+the fallback list mechanically.
 
-1. exactly one **primary** useful non-filler current candidate; and
-2. zero or more **optional useful fallbacks** from the same request, in preferred order, only when
-   they remain worth attempting if an earlier admitted candidate hard-fails deterministic evidence
-   or eligibility.
-
-Do not include weak candidates merely to fill the fallback list. The entire primary+fallback plan
-is produced by the **same single HIGH coordinator turn** before evidence acquisition begins.
-
-Return:
+Return the exact selection contract:
 
 ```text
 schema_version = contentops.native_llm_first_selection_return.v1
 canonical_opportunity_id = <exact probe value>
 selection_request_logical_hash = <exact probe value>
-selected_cluster_id = <one primary candidate from the probe>
-article_mode = <one canonical product mode>
+selected_cluster_id = <primary candidate from the probe>
+article_mode = <canonical product mode>
 selection_rationale = <concise reader-value rationale>
 fallback_candidates = [
   {
-    cluster_id = <another candidate from the same probe>,
-    article_mode = <one canonical product mode>,
+    cluster_id = <candidate from same probe>,
+    article_mode = <canonical product mode>,
     selection_rationale = <concise reader-value rationale>
   }, ...
 ]
@@ -118,109 +107,153 @@ reasoning_effort = HIGH
 public_write_attempted = false
 ```
 
-`fallback_candidates` may be empty. Primary and fallback IDs must be unique and must all come from
-the exact probe. The runtime caps the whole plan to the bounded probe frontier; no second selection
-turn is authorized merely to add fallbacks.
-
-Selection grants no factual, evidence, numeric, Capital Chronicle, permission, rights, or
+Selection grants no factual, numeric, evidence, Capital Chronicle, permission, rights, or
 publication authority.
 
-If Step A returns a governed no-candidate/blocker terminal result instead of
-`HIGH_SELECTION_REQUIRED`, do not invent a selection and do not create a worker.
+## 3. Step B — exact worker handoff BEFORE evidence admission
 
-### Step B — HIGH-admitted-shortlist deterministic hydration
+Pass the exact coordinator selection back through the same public PREPARE method.
 
-Pass the exact selection plan back through the same public method:
+The runtime must:
+
+1. validate the persisted request/hash/expiry and immutable opportunity-bound selection return;
+2. construct one narrowed rolling input containing only HIGH-admitted headline IDs in the exact
+   coordinator primary/fallback order;
+3. bind the assignment override to that exact input hash;
+4. bypass generic pre-assignment compaction when the assignment override is already exact-input
+   bound, so compaction cannot reorder the HIGH primary/fallback plan;
+5. persist the narrowed intake/assignment/story-routing/prevalidation checkpoint;
+6. return an exact fresh isolated HIGH `editorial_worker_request` for candidate-plan index `0`;
+7. perform **zero deterministic evidence retrieval, zero source-locator model calls and zero old
+   evidence-capability admission before that worker**.
+
+Expected ordering marker:
+
+`HIGH_SELECTION_THEN_FRESH_HIGH_WORKER_THEN_DETERMINISTIC_VALIDATE_AFTER`
+
+Expected worker handoff is hash-bound to the selected candidate governed context and uses:
+
+- model `gpt-5.6-sol`;
+- reasoning effort `HIGH`;
+- fresh = `true`;
+- isolated = `true`;
+- resume_existing = `false`;
+- public-write authority = zero.
+
+The historical constant string `SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER` may remain inside
+legacy schema compatibility code. It is not current execution authority. Current native execution
+must never request effort above HIGH.
+
+## 4. External HIGH worker return
+
+The worker researches and writes before deterministic source validation. It receives only the exact
+bounded governed context for its candidate. Read-only web research is allowed. No public/provider
+publication write is allowed.
+
+The native return envelope is:
 
 ```text
-FinalDailyAppProductionRuntime.prepare_native_desktop_scheduled_opportunity(
-  automation_id=<same exact id>,
-  coordinator_selection=<exact Step-A return>,
-  now=<current governed time if explicitly supplied>
-)
+schema_version = contentops.native_llm_first_external_worker_return.v1
+governed_input_hash = <exact worker-request hash>
+model = gpt-5.6-sol
+reasoning_effort = HIGH
+fresh = true
+isolated = true
+resume_existing = false
+public_write_attempted = false
+usage = <supported exposed usage only; optional>
+duration_ms = <supported exposed duration only; optional>
+output = {
+  article = <strict PR29 article transport>,
+  cited_sources = [
+    {
+      source_id,
+      url,
+      publisher,
+      published_at_utc = <locator hint only; never authority>
+    }
+  ],
+  material_claim_bindings = [
+    {
+      claim_id,
+      claim_text = <verbatim public-copy claim>,
+      claim_kind = FACT | NUMBER | QUOTE | CAUSALITY,
+      source_id,
+      support_excerpt = <short exact source excerpt>,
+      attribution_required
+    }
+  ]
+}
 ```
 
-The runtime verifies the persisted selection artifact/hash/expiry and immutable selection return,
-then invokes the **existing canonical PREPARE** on only the HIGH-admitted shortlist:
+Use one to three exact allowed HTTPS pages when possible. Every material fact, number, quotation or
+causal assertion must bind to an exact cited source. The worker must not invent URLs, timestamps,
+quotes, source IDs or facts.
 
-- full `prepared_candidate_state` is removed from that canonical invocation, so non-admitted
-  prepared candidates cannot reopen a pre-writer evidence walk;
-- `assignment_override` contains only primary + optional fallback cluster/headline sets in the HIGH
-  plan order;
-- every admitted cluster retains its coordinator-chosen canonical article mode and is marked
-  LLM-first-selected;
-- deterministic prepared `story_type_by_cluster` is reused only for admitted clusters, avoiding a
-  hidden story-type model call;
-- canonical deterministic preselection may reorder or hold candidates **within the admitted
-  shortlist** according to existing hard/soft rules;
-- existing official/public evidence loaders, exact retrieval, story-scoped cache, request budgets,
-  Capital Chronicle authority resolver, candidate continuation, and handoff builder remain the sole
-  evidence path;
-- no second crawler/cache/store/scheduler/newsroom/publisher is created.
+## 5. COMPLETE — deterministic validate-after
 
-If the primary candidate hard-fails deterministic evidence, canonical candidate continuation may
-walk the remaining HIGH-admitted useful fallbacks. It must not widen beyond that shortlist without a
-new governed editorial opportunity/selection. This preserves `candidate failure != whole-opportunity
-starvation` without resurrecting the old evidence-first full-frontier admission stack.
-
-If the admitted shortlist is genuinely exhausted, retain the exact blockers and terminalize the
-candidate/opportunity truthfully. Never weaken hard evidence gates or manufacture filler.
-
-If Step B reaches the article boundary it returns the existing exact hash-bound native worker
-handoff (`HIGH_REQUIRED` / equivalent existing handoff classification). Only then create one fresh
-isolated HIGH worker for the viable admitted candidate.
-
-## 3. Worker contract
-
-Final worker:
-
-`gpt-5.6-sol / HIGH`, fresh and isolated.
-
-Current ContentOps reasoning ceiling is permanently HIGH for coordinator, worker, revision, and
-official SDK fallback. No XHIGH, ULTRA_HIGH, MAX, or effort above HIGH.
-
-The worker receives only the bounded viable selected-story packet and exact governed-input hash. It
-has zero factual, numeric, Capital Chronicle, permission, rights, gate, or public-write authority.
-
-Use the accepted deterministic evidence packet first. Do not spend broad web/search turns merely
-to rediscover already accepted source bytes. Read-only web expansion is permitted only when the
-exact selected-story packet is genuinely insufficient for the warranted article scope and the
-canonical bounded research/evidence policy allows it. Any newly cited material still requires
-deterministic source-byte verification before qualification.
-
-The worker must not invent or alter URLs, source handles, source IDs, evidence IDs, quotations,
-numbers, or facts. Source-backed public copy uses only the exact supplied source markers/identity
-contract. Never infer that a source omits a fact merely because a partial projection does not show
-it.
-
-At most one same-worker HIGH revision is allowed, and only for concrete deterministic validation
-deltas. Representation-only title/dek/SEO/structured-data/alias defects are local normalization or
-warnings where meaning is unchanged; do not spend another model turn on them.
-
-## 4. COMPLETE
-
-Use:
+Resume through:
 
 ```text
 FinalDailyAppProductionRuntime.complete_native_desktop_scheduled_opportunity(
   automation_id=<same exact id>,
-  canonical_opportunity_id=<exact Step-A/Step-B opportunity id>,
-  worker_return=<exact worker return>,
-  coordinator_review_receipt=<exact hash-bound HIGH review receipt>,
-  now=<current governed time if explicitly supplied>
+  canonical_opportunity_id=<same opportunity id>,
+  worker_return=<exact native external worker return>,
+  coordinator_review_receipt=<deterministic NOT_REQUIRED marker or exact current supported receipt>,
+  now=<governed time when explicitly supplied>
 )
 ```
 
-COMPLETE reacquires the same durable work item and reuses the exact persisted intake/story/evidence/
-viability bindings. It must not rerank or refetch the full prepared frontier merely because the
-model conversation is fresh.
+For the current native LLM-first path, COMPLETE does **not** need another coordinator model turn.
+The `coordinator_review_receipt` parameter remains for public API compatibility; a deterministic
+`model_turn_performed=false / decision=NOT_REQUIRED` marker is valid when the current implementation
+only requires a mapping and does not consume semantic review authority.
 
-A semantic revision may return one same-worker revision request. A candidate-local hard failure may
-continue according to the existing bounded candidate-continuation contract, but only among the
-HIGH-admitted useful shortlist for this opportunity. No legacy writer fallback or provider shopping
-after a terminal semantic failure.
+COMPLETE first validates the external worker identity/hash, then reuses PR #29's accepted
+post-generation validator to:
 
-## 5. Four routine Automations only
+- GET only the worker-cited exact URLs through the bounded deterministic public retrieval path;
+- derive authoritative publication time from publisher HTML metadata, HTTP headers, or exact
+  URL-bound intake metadata—not the worker timestamp;
+- require exact retrieved support for every declared material claim;
+- reject invented/unreachable/unbound URLs, unsupported material claims and stale/invalid source
+  time;
+- cache accepted verified bytes so canonical evidence replay does not refetch them;
+- feed only verified article/evidence into the existing canonical viability/article/package path.
+
+No old pre-selection semantic checkpoints may be rebound to a different narrowed input universe.
+The exact native assignment override owns shortlist identity; deterministic validation owns factual
+support.
+
+### One bounded same-worker revision
+
+If deterministic validation returns concrete deltas on the first worker return, COMPLETE may persist:
+
+`SAME_HIGH_WORKER_LLM_FIRST_REVISION_REQUIRED`
+
+with an exact same-worker revision request. Resume the **same isolated HIGH worker** once:
+
+- fresh = `false`;
+- isolated = `true`;
+- resume_existing = `true`;
+- resume_same_isolated_worker = `true`;
+- fresh_worker_creation = `false`;
+- same governed-input hash;
+- exact deterministic validation deltas only.
+
+Maximum bounded revision count = `1`. No replacement worker for revision and no effort above HIGH.
+
+### Candidate continuation
+
+If the same candidate still fails after its one revision, COMPLETE may issue a new fresh HIGH worker
+request only for the next candidate already admitted by the original HIGH coordinator plan. The next
+candidate keeps its original plan order and canonical mode. No new coordinator turn and no full
+frontier reopening.
+
+If all admitted candidates exhaust after post-generation validation, terminalize truthfully. Do not
+manufacture filler or weaken evidence.
+
+## 6. Four routine Automations only
 
 Exactly four native V1 routine objects exist:
 
@@ -232,29 +265,24 @@ Exactly four native V1 routine objects exist:
 Do not create a fifth routine Automation.
 
 The four objects remain paused until current zero-write enablement/calendar-time proof is advanced
-by the operator. Prompt/config normalization is not enablement. Enablement is not public-write
+by the operator. Prompt/config normalization is not enablement and never implies public-write
 permission.
 
-## 6. Output and throughput semantics
+## 7. Output and throughput semantics
 
-The build/proof throughput benchmark remains:
+Build/proof health benchmark:
 
 `4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`.
 
-It is telemetry/daily-output health evidence, not a prerequisite for one useful article and never a
-per-window stop condition.
-
-Final V1 target remains:
+Final V1 target:
 
 `5–8 useful PUBLISHED ARTICLES per newsroom production day`, without filler.
 
 Candidate-level abstention is valid. Whole-day output below the active floor without an exact hard
-external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
+external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`. Later existing windows may perform bounded
+catch-up work; do not create extra routine windows merely to chase the counter.
 
-Later existing windows may perform bounded catch-up work. Do not create extra routine windows to
-chase the counter.
-
-## 7. Hard gates preserved
+## 8. Hard gates preserved
 
 Fail closed for:
 
@@ -264,8 +292,8 @@ Fail closed for:
 - unsupported factual number;
 - materially misleading stale event state;
 - proprietary probability/forecast/scenario/regime/valuation/decision claim without exact Capital
-  Chronicle publication authority;
-- invalid or materially insufficient source/evidence binding;
+  Chronicle authority;
+- invalid post-generation source/material-claim binding;
 - rights/permission failure;
 - wrong destination/account or unauthorized public write;
 - secret/session exposure;
@@ -273,29 +301,26 @@ Fail closed for:
 
 `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 
-In ZERO-WRITE/SHADOW_ONLY, destination readiness HOLD is publication diagnostics, not a story-
-selection, hydration, or worker-admission veto. Zero media is valid.
+Zero media is valid. In ZERO-WRITE/SHADOW_ONLY, destination readiness is publication diagnostics,
+not a writer-admission veto.
 
-## 8. Native primary vs SDK fallback
+## 9. Native primary vs SDK fallback
 
-Native Desktop is the primary routine heavy-editorial owner. The official ChatGPT-authenticated
-Codex App Server/SDK path is a bounded missed/failed-primary fallback, immediate direct path when
-needed, and benchmark path. It is not a racing second scheduler.
+Native Desktop is the primary routine heavy-editorial owner. PR #29's official
+ChatGPT-authenticated Codex App Server/SDK path remains accepted fallback/benchmark capability. It
+must not race the native primary as a second scheduler.
 
-Do not use the PR #29 direct SDK canary's approximately 993k accounted tokens / nine web-search
-events as proof of native-primary steady-state economics. Native primary now performs one HIGH
-useful-shortlist selection first, reuses deterministic evidence for the first viable admitted story,
-and gives that exact packet to the worker. Measure actual native coordinator/worker/revision tokens,
-evidence/network reads, candidate attempts, and web expansion in the host canary.
+Do not use PR #29's approximately 993k accounted tokens / nine web-search events as proof of native
+steady-state economics. Measure actual native coordinator/worker/revision turns, supported token
+usage, deterministic source GETs, web expansion, candidate attempts and cache reuse.
 
-Accepted Desktop primary wins its canonical run identity. SDK fallback may start only after an exact
-missed/failed/expired primary condition. Late Desktop completion after accepted fallback must be
-suppressed; neither path may create duplicate articles or public objects.
+Accepted native primary wins its canonical run identity. SDK fallback may start only after an exact
+missed/failed/expired primary condition. Late duplicate completion must be suppressed.
 
-## 9. Browser, publication, and safety boundaries
+## 10. Browser, publication and safety boundaries
 
-FDA-G remains continuous intake/state/runtime authority. The native selection seam is not a new
-scheduler or state store.
+FDA-G remains continuous intake/state/runtime authority. The native LLM-first seam is not a new
+scheduler, store, crawler, evidence authority or publisher.
 
 Browser roles remain:
 
@@ -303,32 +328,37 @@ Browser roles remain:
 - Edge `contentops-social-main` CDP 9223 — publication/media/readback and explicitly authorized
   observation only.
 
-No pyautogui, SendKeys, focus stealing, brittle UI selectors, private session/browser DB inspection,
-cookie/token extraction, or unsupported internals.
+No pyautogui, SendKeys, focus stealing, brittle selectors, private session/browser DB inspection,
+cookie/token extraction or unsupported internals.
 
-No model, prompt, config, Automation, branch, or runtime composition grants public-write authority
-by implication.
+No model, prompt, config, Automation, branch or runtime composition grants public-write authority by
+implication.
 
-## 10. Current proof boundary
+## 11. Current proof boundary
 
 Accepted/reuse:
 
 - canonical durable V1 runtime/store/supervisor/publication/readback foundations;
-- PR #19 quota-efficient provider-resilient evidence discovery;
-- PR #20 canonical single-article worker-return path;
+- PR #19 provider-resilient discovery;
+- PR #20 canonical article/package path;
 - PR #29 HIGH-only direct LLM-first/validate-after single-article zero-write runtime proof;
-- four existing paused native Automation objects and their prior supported host readback.
+- existing four paused native Automation objects and prior supported host readback.
 
-Current PR implementation may prove the **native HIGH-selection-first -> HIGH-admitted useful
-shortlist -> deterministic selected-story hydration -> existing worker handoff** mechanics through
-GitHub CI. That is not host/runtime acceptance.
+PR #30 static code/CI may prove the native split-phase mechanics, exact shortlist ordering, external
+worker handoff, post-generation validator reuse, one same-worker revision cap, bounded fallback and
+zero-write invariants. It cannot prove the current Windows Codex Desktop host or article quality.
 
-Before enabling routine Automations, one narrow zero-write host canary must prove the new two-step
-native PREPARE handshake on current real intake with an isolated scratch store/output root, actual
-HIGH coordinator/worker behavior, candidate continuation inside the admitted shortlist when needed,
-exact economics, one qualified article plus eight undispatched derivative intents when a useful
-candidate exists, public/provider writes `0`, and `UNKNOWN_WRITE=0`.
+Before merge, one isolated zero-write host canary on the exact accepted PR head must prove:
 
-Do not merge implementation status into `V1_FINAL_PRODUCT_ACCEPTED`. Calendar-time unattended/
-cold-start/fallback/late-result/duplicate-suppression proof and fresh V5 acceptance remain separate
-later boundaries.
+1. Step A selection before evidence work;
+2. Step B returns a fresh HIGH worker request with evidence/source-locator calls still `0`;
+3. actual worker runs before deterministic cited-source retrieval;
+4. COMPLETE verifies only worker-cited source material, preserving deterministic timestamp/claim
+   authority;
+5. max one same-worker HIGH revision, then only HIGH-admitted fallback continuation if needed;
+6. one useful qualified article + exactly eight undispatched derivatives when a viable story exists;
+7. public/provider writes `0`, `UNKNOWN_WRITE=0`;
+8. supported native economics and actual prose/source bindings are inspected.
+
+Do not merge PR #30, enable routine Automations, or expand public-write authority before that proof is
+independently audited.
