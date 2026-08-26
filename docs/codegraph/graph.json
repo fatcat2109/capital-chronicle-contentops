@@ -83471,7 +83471,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-26T09:17:31Z",
+  "generation_timestamp_utc": "2026-08-26T09:25:45Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -85780,7 +85780,7 @@
     {
       "id": "live_contentops/native_llm_first_daily_app_supervisor_v1.py",
       "kind": "python_module",
-      "size_bytes": 26747
+      "size_bytes": 29672
     },
     {
       "id": "live_contentops/newsroom_assignment_scheduler_v1.py",
@@ -105076,7 +105076,7 @@
     {
       "id": "python_symbol:live_contentops/native_llm_first_daily_app_supervisor_v1.py::NativeLlmFirstContentOpsDailyAppSupervisor",
       "kind": "python_class",
-      "line": 55,
+      "line": 57,
       "path": "live_contentops/native_llm_first_daily_app_supervisor_v1.py",
       "symbol": "NativeLlmFirstContentOpsDailyAppSupervisor"
     },
@@ -124970,7 +124970,7 @@
     {
       "id": "tests/test_native_llm_first_daily_app_supervisor_v1.py",
       "kind": "test",
-      "size_bytes": 12074
+      "size_bytes": 12856
     },
     {
       "id": "tests/test_newsroom_assignment_scheduler_v1.py",
@@ -131163,6 +131163,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "8d51381d716eb31d0a31958ac66d492b3787a0c8",
-  "source_tree_digest": "e506a198587f43d77416f44ea836f3de20043aa98aa316293961ac88fe177746"
+  "source_head": "6b326597504afbc0deb2785721dff605d21e40f9",
+  "source_tree_digest": "60beb848d0e0abd2dedad3c93ccd01cd748f40a2b016f712ae59048870406c4d"
 }
