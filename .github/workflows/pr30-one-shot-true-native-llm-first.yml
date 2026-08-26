@@ -1,0 +1,67 @@
+name: pr30-one-shot-true-native-llm-first
+
+on:
+  push:
+    branches:
+      - agent/v1-llm-first-selected-source-hydration-economics-v1
+
+permissions:
+  contents: write
+
+jobs:
+  apply-exact-correction:
+    if: github.event.head_commit.message == 'ci: apply true native LLM-first correction'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact branch head
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Apply exact blob-pinned correction
+        run: python scripts/one_shot_pr30_true_native_llm_first_correction.py
+
+      - name: Compile corrected Python
+        run: python -m compileall -q live_contentops scripts tests/test_native_llm_first_validate_after_v1.py
+
+      - name: Install focused test runner
+        run: python -m pip install --disable-pip-version-check pytest pillow
+
+      - name: Run native validate-after regressions
+        run: python -m pytest -q tests/test_native_llm_first_validate_after_v1.py
+
+      - name: Run PR30 supervisor and handoff regressions
+        run: |
+          python -m pytest -q tests/test_native_llm_first_daily_app_supervisor_v1.py
+          python -m pytest -q tests/test_native_desktop_production_handoff_v1.py
+
+      - name: Run accepted PR29 validate-after regressions
+        run: |
+          python -m pytest -q tests/test_llm_first_validate_after_v1.py
+          python -m pytest -q tests/test_run_v1_llm_first_single_article_canary_v1.py
+
+      - name: Check exact diff hygiene
+        run: git diff --check
+
+      - name: Commit corrected product bytes and remove one-shot machinery
+        shell: bash
+        run: |
+          git config user.name 'contentops-ci'
+          git config user.email 'contentops-ci@users.noreply.github.com'
+          git add \
+            live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py \
+            live_contentops/native_llm_first_daily_app_supervisor_v1.py \
+            live_contentops/daily_app_supervisor_v1.py \
+            live_contentops/native_desktop_production_handoff_v1.py
+          git rm \
+            scripts/one_shot_pr30_true_native_llm_first_correction.py \
+            .github/workflows/pr30-one-shot-true-native-llm-first.yml
+          git diff --cached --check
+          git commit -m 'fix(v1): make native Desktop truly validate after writing'
+          git push origin HEAD:agent/v1-llm-first-selected-source-hydration-economics-v1
