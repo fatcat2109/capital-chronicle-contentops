@@ -3,9 +3,9 @@
 The base Daily App supervisor remains the sole scheduler/store/runtime owner. This thin subclass
 changes only the native Desktop PREPARE ordering used by the production composition:
 
-zero-model prepared frontier -> external HIGH coordinator selection -> canonical selected-story
-preselection/evidence hydration -> existing hash-bound native HIGH worker handoff -> existing
-COMPLETE path.
+zero-model prepared frontier -> external HIGH coordinator useful-candidate shortlist -> canonical
+selected-shortlist preselection/evidence hydration -> existing hash-bound native HIGH worker
+handoff -> existing COMPLETE path.
 
 It does not create a second scheduler, store, evidence engine, model gateway, or publisher. The
 selection phase grants no factual, numeric, evidence, permission, or public-write authority.
@@ -31,6 +31,7 @@ SELECTION_ARTIFACT_SCHEMA_VERSION = "contentops.native_llm_first_selection_artif
 COORDINATOR_MODEL = "gpt-5.6-sol"
 COORDINATOR_REASONING_EFFORT = "HIGH"
 MAX_SELECTION_CANDIDATES = 8
+MAX_SELECTION_FALLBACKS = MAX_SELECTION_CANDIDATES - 1
 
 
 def _canonical_json(value: Any) -> str:
@@ -72,6 +73,8 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         if kwargs.get("native_desktop_prepare") is not True:
             raise ValueError("native_llm_first_selection_only_valid_for_desktop_prepare")
         narrowed = dict(kwargs)
+        # The full prepared frontier was selection input only. Once HIGH returns its bounded
+        # useful shortlist, canonical preselection/evidence may walk only those admitted stories.
         narrowed["prepared_candidate_state"] = None
         narrowed["assignment_override"] = dict(binding["assignment_override"])
         narrowed["story_type_by_cluster"] = dict(binding["story_type_by_cluster"])
@@ -89,8 +92,10 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                     "selection_return_logical_hash"
                 ],
                 "selected_cluster_id": binding["selected_cluster_id"],
+                "selected_cluster_ids": list(binding["selected_cluster_ids"]),
                 "selected_article_mode": binding["article_mode"],
                 "full_prepared_frontier_reopened": False,
+                "high_admitted_shortlist_count": len(binding["selected_cluster_ids"]),
                 "semantic_assignment_provider_call_required": False,
                 "story_type_semantic_call_required": False,
                 "factual_or_numeric_authority_granted": False,
@@ -256,9 +261,12 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "published_memory": self._published_memory_projection(continuity),
             "allowed_article_modes": list(CANONICAL_PRODUCT_MODES),
             "instruction": (
-                "Select exactly one useful current story/angle. Avoid published duplicates and "
-                "filler. Choose one canonical article mode. This selection grants no factual, "
-                "evidence, numeric, Capital Chronicle, permission, or public-write authority."
+                "Choose one primary useful current story/angle and optionally additional useful "
+                "fallback candidates from this same list, in preferred order, so a hard failure "
+                "of one candidate does not starve the opportunity. Omit filler and published "
+                "duplicates. Give each admitted candidate one canonical article mode and concise "
+                "rationale. Selection grants no factual, evidence, numeric, Capital Chronicle, "
+                "permission, or public-write authority."
             ),
             "model": COORDINATOR_MODEL,
             "reasoning_effort": COORDINATOR_REASONING_EFFORT,
@@ -374,23 +382,57 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         selection: Mapping[str, Any], artifact: Mapping[str, Any]
     ) -> dict[str, Any]:
         request = artifact.get("coordinator_request") or {}
-        candidate_ids = {
+        candidate_ids = [
             str(row.get("cluster_id") or "")
             for row in request.get("candidates") or []
-            if isinstance(row, Mapping)
+            if isinstance(row, Mapping) and str(row.get("cluster_id") or "")
+        ]
+        candidate_id_set = set(candidate_ids)
+
+        primary = {
+            "cluster_id": str(selection.get("selected_cluster_id") or ""),
+            "article_mode": str(selection.get("article_mode") or ""),
+            "selection_rationale": str(
+                selection.get("selection_rationale") or ""
+            ).strip(),
         }
+        fallback_rows = selection.get("fallback_candidates") or []
+        if not isinstance(fallback_rows, list) or len(fallback_rows) > MAX_SELECTION_FALLBACKS:
+            raise ValueError("native_llm_first_fallback_candidates_invalid")
+        fallbacks: list[dict[str, str]] = []
+        for row in fallback_rows:
+            if not isinstance(row, Mapping):
+                raise ValueError("native_llm_first_fallback_candidate_invalid")
+            fallbacks.append(
+                {
+                    "cluster_id": str(row.get("cluster_id") or ""),
+                    "article_mode": str(row.get("article_mode") or ""),
+                    "selection_rationale": str(
+                        row.get("selection_rationale") or ""
+                    ).strip(),
+                }
+            )
+
+        plan = [primary, *fallbacks]
+        plan_ids = [row["cluster_id"] for row in plan]
+        if len(plan_ids) != len(set(plan_ids)):
+            raise ValueError("native_llm_first_candidate_plan_duplicate")
+        if any(cluster_id not in candidate_id_set for cluster_id in plan_ids):
+            raise ValueError("native_llm_first_selected_cluster_invalid")
+        if any(row["article_mode"] not in CANONICAL_PRODUCT_MODES for row in plan):
+            raise ValueError("native_llm_first_selected_article_mode_invalid")
+        if any(not row["selection_rationale"] for row in plan):
+            raise ValueError("native_llm_first_selection_rationale_missing")
+
         normalized = {
             "schema_version": str(selection.get("schema_version") or ""),
             "selection_request_logical_hash": str(
                 selection.get("selection_request_logical_hash") or ""
             ),
-            "selected_cluster_id": str(
-                selection.get("selected_cluster_id") or ""
-            ),
-            "article_mode": str(selection.get("article_mode") or ""),
-            "selection_rationale": str(
-                selection.get("selection_rationale") or ""
-            ).strip(),
+            "selected_cluster_id": primary["cluster_id"],
+            "article_mode": primary["article_mode"],
+            "selection_rationale": primary["selection_rationale"],
+            "fallback_candidates": fallbacks,
             "model": str(selection.get("model") or ""),
             "reasoning_effort": str(
                 selection.get("reasoning_effort") or ""
@@ -403,12 +445,6 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             request.get("selection_request_logical_hash") or ""
         ):
             raise ValueError("native_llm_first_selection_request_hash_mismatch")
-        if normalized["selected_cluster_id"] not in candidate_ids:
-            raise ValueError("native_llm_first_selected_cluster_invalid")
-        if normalized["article_mode"] not in CANONICAL_PRODUCT_MODES:
-            raise ValueError("native_llm_first_selected_article_mode_invalid")
-        if not normalized["selection_rationale"]:
-            raise ValueError("native_llm_first_selection_rationale_missing")
         if normalized["model"] != COORDINATOR_MODEL:
             raise ValueError("native_llm_first_coordinator_model_invalid")
         if normalized["reasoning_effort"] != COORDINATOR_REASONING_EFFORT:
@@ -424,46 +460,63 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
     ) -> dict[str, Any]:
         runtime = artifact.get("runtime_binding") or {}
         source_assignment = dict(runtime.get("assignment") or {})
-        selected_id = str(selection["selected_cluster_id"])
-        source_clusters = [
-            dict(row)
+        source_clusters = {
+            str(row.get("cluster_id") or ""): dict(row)
             for row in source_assignment.get("ranked_clusters") or []
-            if isinstance(row, Mapping)
+            if isinstance(row, Mapping) and str(row.get("cluster_id") or "")
+        }
+        plan = [
+            {
+                "cluster_id": str(selection["selected_cluster_id"]),
+                "article_mode": str(selection["article_mode"]),
+                "selection_rationale": str(selection["selection_rationale"]),
+            },
+            *[
+                dict(row)
+                for row in selection.get("fallback_candidates") or []
+                if isinstance(row, Mapping)
+            ],
         ]
-        selected = next(
-            (
-                row
-                for row in source_clusters
-                if str(row.get("cluster_id") or "") == selected_id
-            ),
-            None,
-        )
-        if selected is None:
-            raise ValueError(
-                "native_llm_first_selected_cluster_not_in_runtime_binding"
+        selected_clusters: list[dict[str, Any]] = []
+        selected_cluster_ids: list[str] = []
+        selected_headline_ids: list[str] = []
+        selected_leaf_ids: set[str] = set()
+        for rank, plan_row in enumerate(plan, start=1):
+            cluster_id = str(plan_row.get("cluster_id") or "")
+            source = source_clusters.get(cluster_id)
+            if source is None:
+                raise ValueError(
+                    "native_llm_first_selected_cluster_not_in_runtime_binding"
+                )
+            headline_ids = [
+                str(value)
+                for value in source.get("headline_ids") or []
+                if str(value)
+            ]
+            if not headline_ids:
+                raise ValueError("native_llm_first_selected_headline_ids_missing")
+            selected_cluster_ids.append(cluster_id)
+            for headline_id in headline_ids:
+                if headline_id not in selected_headline_ids:
+                    selected_headline_ids.append(headline_id)
+            selected_leaf_ids.update(
+                str(value)
+                for value in source.get("leaf_cluster_ids") or []
+                if str(value)
             )
-        selected_headline_ids = [
-            str(value)
-            for value in selected.get("headline_ids") or []
-            if str(value)
-        ]
-        if not selected_headline_ids:
-            raise ValueError("native_llm_first_selected_headline_ids_missing")
-        selected_leaf_ids = {
-            str(value)
-            for value in selected.get("leaf_cluster_ids") or []
-            if str(value)
-        }
-        selected = {
-            **selected,
-            "rank": 1,
-            "article_mode": str(selection["article_mode"]),
-            "resolved_article_mode": str(selection["article_mode"]),
-            "llm_first_validate_after_selected": True,
-            "native_llm_first_selection_rationale": str(
-                selection["selection_rationale"]
-            ),
-        }
+            selected_clusters.append(
+                {
+                    **source,
+                    "rank": rank,
+                    "article_mode": str(plan_row.get("article_mode") or ""),
+                    "resolved_article_mode": str(plan_row.get("article_mode") or ""),
+                    "llm_first_validate_after_selected": True,
+                    "native_llm_first_selection_rationale": str(
+                        plan_row.get("selection_rationale") or ""
+                    ),
+                }
+            )
+
         input_binding = dict(source_assignment.get("input_binding") or {})
         input_binding.update(
             {
@@ -472,7 +525,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "selected_count": len(selected_headline_ids),
                 "held_count": 0,
                 "selection_scope": (
-                    "ONE_HIGH_SELECTED_CLUSTER_FROM_ZERO_MODEL_PREPARED_FRONTIER"
+                    "HIGH_SELECTED_USEFUL_SHORTLIST_FROM_ZERO_MODEL_PREPARED_FRONTIER"
                 ),
             }
         )
@@ -489,7 +542,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "NATIVE_LLM_FIRST_HIGH_SELECTION_FROM_ZERO_MODEL_PREPARED_FRONTIER"
             ),
             "input_binding": input_binding,
-            "ranked_clusters": [selected],
+            "ranked_clusters": selected_clusters,
             "leaf_clusters": [
                 dict(row)
                 for row in source_assignment.get("leaf_clusters") or []
@@ -499,7 +552,8 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                     or str(row.get("leaf_cluster_id") or "") in selected_leaf_ids
                 )
             ],
-            "selected_cluster_id": selected_id,
+            "selected_cluster_id": selected_cluster_ids[0],
+            "selected_cluster_ids": selected_cluster_ids,
             "selected_headline_ids": selected_headline_ids,
             "router_calls": [],
             "factual_or_numeric_authority_granted": False,
@@ -514,14 +568,19 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         }
         assignment.pop("assignment_logical_hash", None)
         assignment["assignment_logical_hash"] = _logical_hash(assignment)
+
         story_types = dict(runtime.get("story_type_by_cluster") or {})
-        story_type = str(story_types.get(selected_id) or "").strip()
-        if not story_type:
-            raise ValueError("native_llm_first_selected_story_type_missing")
+        selected_story_types: dict[str, str] = {}
+        for cluster_id in selected_cluster_ids:
+            story_type = str(story_types.get(cluster_id) or "").strip()
+            if not story_type:
+                raise ValueError("native_llm_first_selected_story_type_missing")
+            selected_story_types[cluster_id] = story_type
         return {
             "assignment_override": assignment,
-            "story_type_by_cluster": {selected_id: story_type},
-            "selected_cluster_id": selected_id,
+            "story_type_by_cluster": selected_story_types,
+            "selected_cluster_id": selected_cluster_ids[0],
+            "selected_cluster_ids": selected_cluster_ids,
             "article_mode": str(selection["article_mode"]),
             "selection_request_logical_hash": selection[
                 "selection_request_logical_hash"
@@ -538,7 +597,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         now: Optional[datetime] = None,
         coordinator_selection: Optional[Mapping[str, Any]] = None,
     ) -> dict[str, Any]:
-        """Probe selection first; hydrate only the exact HIGH-selected story on continuation."""
+        """Probe selection first; hydrate only the HIGH-admitted useful shortlist."""
         task_id, session, moment, window = self._resolve_native_desktop_due_window(
             automation_id=automation_id, now=now
         )
