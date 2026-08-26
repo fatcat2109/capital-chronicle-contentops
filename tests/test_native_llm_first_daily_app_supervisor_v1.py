@@ -614,6 +614,10 @@ def test_complete_phase_reuses_narrow_assignment_and_drops_old_semantic_checkpoi
     finally:
         supervisor._native_selection_binding.reset(token)
     assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    assert result["full_rolling_headline_count"] == 1093
+    assert result["full_universe_semantic_assignment_on_critical_path"] is False
+    assert result["native_llm_first_assignment_override_reused"] is True
+    assert result["high_admitted_shortlist_count"] == 1
     call = cycle_calls[0]
     assert call["prepared_candidate_state"] is None
     assert call["rolling_input"]["unique_headline_ids"] == ["headline-b"]

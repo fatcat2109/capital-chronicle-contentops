@@ -101,8 +101,21 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         result = self._canonical_newsroom_cycle(**narrowed)
         if not isinstance(result, Mapping):
             return result
+        full_intake_count = int(
+            (rolling_input.get("counts") or {}).get("accepted_in_full_rolling_intake")
+            or len(rolling_input.get("headlines") or [])
+        )
         return {
             **dict(result),
+            # Generic canonical telemetry equates prepared_state=None with a full-universe
+            # critical path. This path intentionally uses prepared_state=None because frontier
+            # semantic checkpoints are invalid after narrowing; the actual candidate universe is
+            # the exact HIGH-admitted rolling_input below, with assignment provider calls = 0.
+            "full_rolling_headline_count": full_intake_count,
+            "full_universe_semantic_assignment_on_critical_path": False,
+            "bounded_prepared_frontier_semantic_assignment": False,
+            "native_llm_first_assignment_override_reused": True,
+            "high_admitted_shortlist_count": len(binding["selected_cluster_ids"]),
             "native_llm_first_selection": {
                 "ordering": "HIGH_SELECTION_THEN_SELECTED_STORY_DETERMINISTIC_HYDRATION",
                 "selection_request_logical_hash": binding[
