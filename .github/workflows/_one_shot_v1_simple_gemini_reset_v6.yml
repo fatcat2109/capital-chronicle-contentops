@@ -1,0 +1,90 @@
+name: one-shot V1 simple Gemini reset v6
+
+on:
+  push:
+    branches:
+      - agent/web-v1-simple-gemini-runtime-reset-v6
+
+permissions:
+  contents: write
+
+concurrency:
+  group: one-shot-v1-simple-gemini-reset-v6
+  cancel-in-progress: false
+
+jobs:
+  apply-reset:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout exact setup commit
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.sha }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install focused test runner
+        run: python -m pip install --disable-pip-version-check pytest pillow
+
+      - name: Apply exact blob-guarded reset patch
+        run: python .github/reset/apply_v1_simple_gemini_reset_v6.py
+
+      - name: Compile reset tree
+        run: python -m compileall -q live_contentops scripts
+
+      - name: Run reset and donor regression suites
+        shell: bash
+        run: |
+          python -m pytest -q tests/test_v1_simple_gemini_newsroom_v1.py
+          python -m pytest -q tests/test_newsroom_production_day_v1.py
+          python -m pytest -q tests/test_production_orchestrator_v1.py
+          python -m pytest -q tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py
+          python -m pytest -q tests/test_llm_first_validate_after_v1.py
+          python -m pytest -q tests/test_publication_coordinator_v1.py
+          python -m pytest -q tests/test_codex_desktop_newsroom_operator_v1.py
+
+      - name: Verify no whitespace or staged scope drift
+        run: git diff --check
+
+      - name: Generate exact CodeGraph for final product tree
+        run: python scripts/generate_codex_context_index.py
+
+      - name: Remove temporary reset machinery
+        shell: bash
+        run: |
+          git rm -r -- .github/reset
+          git rm -- .github/workflows/_one_shot_v1_simple_gemini_reset_v6.yml
+
+      - name: Commit explicit final reset paths
+        shell: bash
+        run: |
+          git config user.name 'contentops-operator-ci'
+          git config user.email 'contentops-operator-ci@users.noreply.github.com'
+          git add -- \
+            .github/workflows/ci-fast.yml \
+            AGENTS.md \
+            docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md \
+            docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md \
+            docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md \
+            docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md \
+            docs/codegraph/INDEX.md \
+            docs/codegraph/V1_CONTEXT.md \
+            docs/codegraph/V2_CONTEXT.md \
+            docs/codegraph/graph.json \
+            live_contentops/codex_desktop_newsroom_operator_v1.py \
+            live_contentops/newsroom_production_day_v1.py \
+            live_contentops/nine_router_llm_seam_v2.py \
+            live_contentops/nine_router_ordered_model_router_v2.py \
+            live_contentops/production_orchestrator_v1.py \
+            live_contentops/v1_simple_gemini_newsroom_v1.py \
+            scripts/run_v1_simple_gemini_newsroom.py \
+            tests/test_nine_router_ordered_model_router_v2.py \
+            tests/test_v1_simple_gemini_newsroom_v1.py
+          git diff --cached --check
+          git commit -m 'feat(v1): reset routine newsroom to simple Gemini path'
+          git push origin HEAD:agent/web-v1-simple-gemini-runtime-reset-v6
