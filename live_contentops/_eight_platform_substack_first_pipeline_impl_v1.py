@@ -4764,25 +4764,55 @@ def _run_rolling_x_newsroom_cycle(
             "publication_authority_granted": False,
         }
     elif leaf_checkpoints is not None or global_checkpoint is not None:
-        # Split-phase COMPLETE must replay the exact frozen assignment input that
-        # produced the hash-bound semantic checkpoints. Recompacting that input can
-        # change partition identities and makes an otherwise valid checkpoint appear
-        # to belong to an unknown partition.
-        assignment_input = intake
-        assignment_compaction = {
-            "schema_version": "contentops.rolling_x_assignment_compaction.v1",
-            "compaction_applied": False,
-            "reason": "HASH_BOUND_SEMANTIC_RESUME_INPUT_REUSED",
-            "full_rolling_headline_count": int(
-                (intake.get("counts") or {}).get("accepted")
-                or len(intake.get("headlines") or [])
-            ),
-            "assignment_headline_count": len(intake.get("headlines") or []),
-            "held_before_semantic_assignment_count": 0,
-            "llm_or_provider_calls": 0,
-            "factual_or_numeric_authority_granted": False,
-            "publication_authority_granted": False,
+        # Split-phase COMPLETE must reconstruct the exact assignment input that
+        # produced the hash-bound semantic checkpoints. PREPARE persists a prepared
+        # frontier verbatim, but when no prepared checkpoint exists it persists the
+        # full intake before deterministic assignment compaction. Match the checkpoint
+        # hash first; compact only when required, and fail closed on any disagreement.
+        checkpoint_input_hashes = {
+            str(row.get("canonical_input_hash") or "")
+            for row in (leaf_checkpoints or {}).values()
+            if isinstance(row, Mapping)
         }
+        if isinstance(global_checkpoint, Mapping):
+            checkpoint_input_hashes.add(
+                str(global_checkpoint.get("canonical_input_hash") or "")
+            )
+        checkpoint_input_hashes.discard("")
+        if len(checkpoint_input_hashes) != 1:
+            raise ValueError("rolling_x_semantic_resume_input_hash_invalid")
+        expected_assignment_input_hash = next(iter(checkpoint_input_hashes))
+        if str(intake.get("canonical_input_hash") or "") == expected_assignment_input_hash:
+            assignment_input = intake
+            assignment_compaction = {
+                "schema_version": "contentops.rolling_x_assignment_compaction.v1",
+                "compaction_applied": False,
+                "reason": "HASH_BOUND_SEMANTIC_RESUME_INPUT_REUSED",
+                "full_rolling_headline_count": int(
+                    (intake.get("counts") or {}).get("accepted")
+                    or len(intake.get("headlines") or [])
+                ),
+                "assignment_headline_count": len(intake.get("headlines") or []),
+                "held_before_semantic_assignment_count": 0,
+                "llm_or_provider_calls": 0,
+                "factual_or_numeric_authority_granted": False,
+                "publication_authority_granted": False,
+            }
+        else:
+            assignment_input, assignment_compaction = (
+                compact_rolling_x_assignment_universe(intake)
+            )
+            if str(assignment_input.get("canonical_input_hash") or "") != (
+                expected_assignment_input_hash
+            ):
+                raise ValueError("rolling_x_semantic_resume_input_binding_invalid")
+            assignment_compaction = {
+                **assignment_compaction,
+                "reason": "HASH_BOUND_SEMANTIC_RESUME_COMPACTION_REPLAYED",
+                "llm_or_provider_calls": 0,
+                "factual_or_numeric_authority_granted": False,
+                "publication_authority_granted": False,
+            }
     elif isinstance(intake.get("headlines"), list):
         assignment_input, assignment_compaction = compact_rolling_x_assignment_universe(intake)
     else:

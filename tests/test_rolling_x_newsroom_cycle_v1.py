@@ -2008,8 +2008,16 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
         "cutoff_time_utc": "2026-08-08T09:18:54Z",
         "counts": {"accepted": 1},
     }
-    leaf_checkpoints = {"leaf-1": {"checkpoint": "exact"}}
-    global_checkpoint = {"checkpoint": "exact-global"}
+    leaf_checkpoints = {
+        "leaf-1": {
+            "checkpoint": "exact",
+            "canonical_input_hash": "frozen-input-hash",
+        }
+    }
+    global_checkpoint = {
+        "checkpoint": "exact-global",
+        "canonical_input_hash": "frozen-input-hash",
+    }
     calls = []
     monkeypatch.setattr(
         "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
@@ -2061,6 +2069,128 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
         == "HASH_BOUND_SEMANTIC_RESUME_INPUT_REUSED"
     )
     assert result["classification"] == "NO_PUBLICATION"
+
+
+def test_canonical_cycle_recompacts_full_intake_to_exact_checkpoint_input(
+    monkeypatch, tmp_path: Path
+):
+    full_intake = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "canonical_input_hash": "full-input-hash",
+        "cutoff_time_utc": "2026-08-08T09:18:54Z",
+        "counts": {"accepted": 2},
+        "unique_headline_ids": ["headline-1", "headline-2"],
+        "headlines": [
+            {"headline_id": "headline-1"},
+            {"headline_id": "headline-2"},
+        ],
+    }
+    compacted_input = {
+        **full_intake,
+        "canonical_input_hash": "compacted-input-hash",
+        "counts": {"accepted": 1},
+        "unique_headline_ids": ["headline-1"],
+        "headlines": [{"headline_id": "headline-1"}],
+    }
+    leaf_checkpoints = {
+        "leaf-1": {
+            "checkpoint": "exact",
+            "canonical_input_hash": "compacted-input-hash",
+        }
+    }
+    global_checkpoint = {
+        "checkpoint": "exact-global",
+        "canonical_input_hash": "compacted-input-hash",
+    }
+    compaction_calls = []
+    assignment_calls = []
+
+    def compact(value):
+        compaction_calls.append(value)
+        return compacted_input, {
+            "schema_version": "contentops.rolling_x_assignment_compaction.v1",
+            "compaction_applied": True,
+            "reason": "NORMAL_COMPACTION",
+            "full_rolling_headline_count": 2,
+            "assignment_headline_count": 1,
+            "held_before_semantic_assignment_count": 1,
+        }
+
+    def assign(**kwargs):
+        assignment_calls.append(kwargs)
+        assert kwargs["rolling_input"] is compacted_input
+        return {
+            "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+            "status": "SUCCESS",
+            "decision": "NO_PUBLICATION",
+            "ranked_clusters": [],
+        }
+
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.compact_rolling_x_assignment_universe",
+        compact,
+    )
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        assign,
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="compacted-frozen-resume",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T09:18:54Z",
+        rolling_input=full_intake,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
+        assignment_provider_call=lambda *_args: (_ for _ in ()).throw(
+            AssertionError("assignment provider call forbidden")
+        ),
+        publication_enabled=False,
+    )
+
+    assert compaction_calls == [full_intake]
+    assert len(assignment_calls) == 1
+    assert (
+        result["assignment"]["pre_assignment_compaction"]["reason"]
+        == "HASH_BOUND_SEMANTIC_RESUME_COMPACTION_REPLAYED"
+    )
+    assert result["classification"] == "NO_PUBLICATION"
+
+
+def test_canonical_cycle_fails_closed_when_resume_input_cannot_match_checkpoints(
+    monkeypatch, tmp_path: Path
+):
+    intake = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "canonical_input_hash": "full-input-hash",
+        "counts": {"accepted": 1},
+        "headlines": [{"headline_id": "headline-1"}],
+    }
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.compact_rolling_x_assignment_universe",
+        lambda value: (
+            {**value, "canonical_input_hash": "different-compacted-hash"},
+            {"schema_version": "contentops.rolling_x_assignment_compaction.v1"},
+        ),
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="rolling_x_semantic_resume_input_binding_invalid",
+    ):
+        implementation._run_rolling_x_newsroom_cycle(
+            run_id="mismatched-frozen-resume",
+            output_dir=tmp_path,
+            cutoff_utc="2026-08-08T09:18:54Z",
+            rolling_input=intake,
+            leaf_checkpoints={
+                "leaf-1": {"canonical_input_hash": "expected-checkpoint-hash"}
+            },
+            global_checkpoint={
+                "canonical_input_hash": "expected-checkpoint-hash"
+            },
+            publication_enabled=False,
+        )
 
 
 def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk(
