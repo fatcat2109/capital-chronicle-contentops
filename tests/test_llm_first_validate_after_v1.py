@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import re
+import hashlib
 from pathlib import Path
 
 import pytest
@@ -13,6 +14,7 @@ from live_contentops.codex_desktop_newsroom_operator_v1 import (
     EDITORIAL_WORKER_REASONING_EFFORT,
 )
 from live_contentops.official_codex_provider_v1 import EFFORT
+from live_contentops import newsroom_assignment_scheduler_v1 as scheduler
 
 
 def _article() -> dict:
@@ -242,6 +244,133 @@ def test_exact_bound_coordinator_checkpoint_is_reused_without_new_model_turn(
     assert provider._coordinator_checkpoint_reused is True
 
 
+def test_exact_verified_worker_checkpoint_reenters_without_another_model_call(
+    monkeypatch, tmp_path
+):
+    ranked = [
+        {
+            "cluster_id": "cluster-1",
+            "rank": 1,
+            "headline_ids": ["headline-1"],
+            "why_now": "Current event",
+        }
+    ]
+    intake = {
+        "headlines": [
+            {
+                "headline_id": "headline-1",
+                "headline_text": "Acme reports earnings Wednesday",
+                "source_timestamp_utc": "2026-08-26T01:00:00Z",
+            }
+        ]
+    }
+    provider = llm_first.LlmFirstValidateAfterProvider(output_dir=tmp_path)
+    candidates = provider._candidate_packet(ranked, intake)
+    selection = {
+        "selected_cluster_id": "cluster-1",
+        "article_mode": "WEEK_AHEAD_OR_WATCH",
+        "selection_rationale": "A useful current catalyst watch.",
+    }
+    cutoff = "2026-08-26T12:00:00Z"
+    coordinator_hash = llm_first._hash(
+        provider._selection_governed_input(
+            candidates=candidates,
+            cutoff_utc=cutoff,
+            published_corpus=[],
+            excluded_cluster_ids=[],
+        )
+    )
+    worker_hash = llm_first._hash(
+        provider._worker_governed_input(
+            candidate=candidates[0], selection=selection, cutoff_utc=cutoff
+        )
+    )
+    content = "Acme reports earnings Wednesday with enough exact source text."
+    coordinator_receipt = {
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "HIGH",
+        "model_turn_completed": True,
+        "public_write_attempted": False,
+        "provider_input_identity": {
+            "role": "V1_LLM_FIRST_COORDINATOR_SELECTION",
+            "governed_input_hash": coordinator_hash,
+        },
+    }
+    worker_receipt = {
+        "model": "gpt-5.6-sol",
+        "reasoning_effort": "HIGH",
+        "model_turn_completed": True,
+        "public_write_attempted": False,
+        "provider_input_identity": {"role": "V1_LLM_FIRST_EDITORIAL_WRITER"},
+    }
+    (tmp_path / "llm_first_validate_after_receipt_v1.json").write_text(
+        json.dumps(
+            {
+                "article": _article(),
+                "selection": selection,
+                "coordinator_receipt": coordinator_receipt,
+                "coordinator_checkpoint_reused": False,
+                "worker_receipts": [worker_receipt],
+                "candidate_attempts": [{"cluster_id": "cluster-1", "status": "PASS"}],
+                "governed_input_hash": worker_hash,
+                "documents": [
+                    {
+                        "document_id": "doc-1",
+                        "canonical_content_text": content,
+                        "canonical_content_sha256": hashlib.sha256(
+                            content.encode("utf-8")
+                        ).hexdigest(),
+                    }
+                ],
+                "supported_claims": [{"claim_id": "claim-1"}],
+                "cited_sources": [],
+                "material_claim_bindings": [],
+                "verification": {
+                    "status": "PASS",
+                    "deterministic_source_request_count": 1,
+                },
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    class ForbiddenSession:
+        def __init__(self, **_kwargs):
+            raise AssertionError("verified checkpoint must avoid a new model session")
+
+    monkeypatch.setattr(llm_first, "OfficialCodexEditorialSession", ForbiddenSession)
+
+    summary = provider.prepare(
+        ranked_clusters=ranked,
+        intake=intake,
+        cutoff_utc=cutoff,
+        published_corpus=[],
+    )
+
+    assert summary["verified_checkpoint_reused"] is True
+    assert summary["coordinator_checkpoint_reused"] is True
+    assert summary["model_calls_executed_this_prepare"] == []
+
+
+def test_duplicate_title_h1_is_removed_without_changing_body_prose():
+    article = {
+        "title": "Acme reports earnings",
+        "canonical_editorial_headline": "Acme reports earnings",
+        "substack_body_markdown": (
+            "# Acme reports earnings\n\n"
+            "Acme reports earnings Wednesday. [[SOURCE:SOURCE_1]]"
+        ),
+    }
+
+    normalized = llm_first._without_duplicate_leading_h1(article)
+
+    assert normalized["title"] == article["title"]
+    assert normalized["substack_body_markdown"] == (
+        "Acme reports earnings Wednesday. [[SOURCE:SOURCE_1]]"
+    )
+    assert article["substack_body_markdown"].startswith("# ")
+
+
 def test_checkpoint_is_not_reused_when_governed_input_drifted(monkeypatch, tmp_path):
     checkpoint = {
         "schema_version": llm_first.COORDINATOR_CHECKPOINT_SCHEMA_VERSION,
@@ -291,6 +420,68 @@ def test_current_contentops_codex_configuration_is_high_only():
     assert EDITORIAL_WORKER_REASONING_EFFORT == "HIGH"
     assert EFFORT == "high"
 
+
+def test_llm_first_selected_mode_reaches_exact_post_generation_evidence():
+    cluster_id = "cluster-earnings"
+    headline_ids = ["headline-1"]
+
+    def acquire(request):
+        document = {
+            "document_id": "doc-1",
+            "source_url": "https://www.reuters.com/world/acme-service/",
+            "public_claim_allowed": True,
+        }
+        return {
+            "status": "PASS",
+            "blockers": [],
+            "cluster_id": request["cluster_id"],
+            "headline_ids": list(request["headline_ids"]),
+            "provided_evidence_capabilities": list(
+                request["required_evidence_capabilities"]
+            ),
+            "evidence_documents": [document],
+            "minimum_trustworthy_evidence_packet": {
+                "status": "PASS",
+                "risk_tier": "ORDINARY",
+                "core_factual_proposition": "Acme reports earnings Wednesday.",
+                "evidence_document_id": "doc-1",
+                "source_url": document["source_url"],
+            },
+            "claim_evidence_contract": {
+                "status": "PASS",
+                "supported_claim_count": 1,
+                "fabricated_claim_count": 0,
+            },
+            "capital_chronicle_authority_verified": False,
+            "publication_authority": False,
+        }
+
+    result = scheduler.select_first_viable_rolling_x_cluster(
+        assignment={
+            "schema_version": scheduler.ROLLING_X_ASSIGNMENT_SCHEMA_VERSION,
+            "decision": "SELECT_STORY",
+            "ranked_clusters": [
+                {
+                    "cluster_id": cluster_id,
+                    "headline_ids": headline_ids,
+                    "rank": 1,
+                    "article_mode": "WEEK_AHEAD_OR_WATCH",
+                    "resolved_article_mode": "WEEK_AHEAD_OR_WATCH",
+                    "llm_first_validate_after_selected": True,
+                }
+            ],
+        },
+        acquire_evidence=acquire,
+        story_type_by_cluster={cluster_id: "company_sector_event"},
+    )
+
+    assert result["status"] == "SUCCESS"
+    assert result["selected_cluster_id"] == cluster_id
+    assert result["rank_attempts"][0]["capability_resolution"]["blockers"] == []
+    assert result["rank_attempts"][0]["effective_article_mode"] == (
+        "WEEK_AHEAD_OR_WATCH"
+    )
+
     root = Path(__file__).resolve().parents[1]
     runtime_paths = [
         root / "live_contentops" / "codex_desktop_newsroom_operator_v1.py",
@@ -336,3 +527,5 @@ def test_canonical_cycle_exposes_llm_first_adapter_before_evidence_selection():
     readiness_index = implementation.index("verify_full_v1_transaction_preflight")
     assert prepare_index < evidence_index < readiness_index
     assert "llm_first_validate_after_requires_zero_public_write" in implementation
+    assert '"llm_first_validate_after_binding"' in implementation
+    assert "checkpoint_llm_binding_valid" in implementation

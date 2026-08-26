@@ -72,28 +72,36 @@ def run(*, output_dir: Path, cutoff_utc: str) -> dict[str, Any]:
     assignment_path = output_dir / "rolling_x_assignment_v1.json"
     story_routing_path = output_dir / "rolling_x_story_routing_v1.json"
     if assignment_path.exists() and story_routing_path.exists():
-        assignment_checkpoint = json.loads(
-            assignment_path.read_text(encoding="utf-8")
-        )
-        bindings = semantic_resume_bindings_from_probe(
-            {
-                "assignment": assignment_checkpoint,
-                "story_routing": json.loads(
-                    story_routing_path.read_text(encoding="utf-8")
-                ),
+        try:
+            assignment_checkpoint = json.loads(
+                assignment_path.read_text(encoding="utf-8")
+            )
+            bindings = semantic_resume_bindings_from_probe(
+                {
+                    "assignment": assignment_checkpoint,
+                    "story_routing": json.loads(
+                        story_routing_path.read_text(encoding="utf-8")
+                    ),
+                }
+            )
+            persisted_intake_path = output_dir / "rolling_x_intake_v1.json"
+            persisted_intake = json.loads(
+                persisted_intake_path.read_text(encoding="utf-8")
+            )
+        except (OSError, TypeError, ValueError):
+            # Presence alone does not make an older checkpoint reusable. If its exact
+            # semantic bindings are missing or stale, recompute from current governed
+            # intake instead of crashing or weakening the resume contract.
+            checkpoint_kwargs = {}
+        else:
+            checkpoint_kwargs = {
+                "leaf_checkpoints": bindings["leaf_checkpoints"],
+                "global_checkpoint": bindings["global_checkpoint"],
+                "story_type_by_cluster": bindings["story_type_by_cluster"],
+                "assignment_override": assignment_checkpoint,
             }
-        )
-        checkpoint_kwargs = {
-            "leaf_checkpoints": bindings["leaf_checkpoints"],
-            "global_checkpoint": bindings["global_checkpoint"],
-            "story_type_by_cluster": bindings["story_type_by_cluster"],
-            "assignment_override": assignment_checkpoint,
-        }
-        persisted_intake_path = output_dir / "rolling_x_intake_v1.json"
-        rolling_input = json.loads(
-            persisted_intake_path.read_text(encoding="utf-8")
-        )
-        cutoff_utc = str(bindings["global_checkpoint"]["cutoff_time_utc"])
+            rolling_input = persisted_intake
+            cutoff_utc = str(bindings["global_checkpoint"]["cutoff_time_utc"])
     try:
         result = run_rolling_x_newsroom_cycle(
             run_id=run_id,

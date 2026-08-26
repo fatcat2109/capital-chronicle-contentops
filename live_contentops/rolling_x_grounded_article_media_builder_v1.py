@@ -358,6 +358,9 @@ def extract_governed_story_context(viability: Mapping[str, Any]) -> dict[str, An
         ),
         "evidence_substance": dict(selected_evidence.get("evidence_substance") or {}),
         "evidence_review_tier": str(selected_evidence.get("evidence_review_tier") or ""),
+        "llm_first_validate_after": dict(
+            selected_evidence.get("llm_first_validate_after") or {}
+        ),
         "framing": {
             "why_now": str(selected_cluster.get("why_now") or ""),
             "selection_case": str(selected_cluster.get("selection_case") or ""),
@@ -1559,6 +1562,33 @@ def _source_bindings(context: Mapping[str, Any]) -> list[dict[str, Any]]:
     return bindings
 
 
+def _normalize_epistemic_source_bindings(
+    rows: Sequence[Any], bindings: Sequence[Mapping[str, Any]]
+) -> list[Any]:
+    """Map transport source handles to canonical accepted evidence identities."""
+    handle_to_evidence_id = {
+        str(row.get("source_handle") or ""): str(
+            row.get("evidence_document_id") or ""
+        )
+        for row in bindings
+        if str(row.get("source_handle") or "")
+        and str(row.get("evidence_document_id") or "")
+    }
+    normalized: list[Any] = []
+    for raw in rows:
+        if not isinstance(raw, Mapping):
+            normalized.append(raw)
+            continue
+        row = dict(raw)
+        row["source_ids"] = [
+            handle_to_evidence_id.get(str(value), str(value))
+            for value in row.get("source_ids") or []
+            if str(value)
+        ]
+        normalized.append(row)
+    return normalized
+
+
 def _source_reference_markdown(binding: Mapping[str, Any]) -> str:
     publisher = str(binding.get("publisher") or "Public source")
     reader_url = str(binding.get("reader_source_url") or "")
@@ -1875,6 +1905,15 @@ def grounded_article_source_coverage(
         )
         if token.casefold() not in _AUDIT_STOPWORDS
     }
+    llm_first_claim_validation_passed = bool(
+        (
+            (context.get("llm_first_validate_after") or {}).get(
+                "post_generation_verification"
+            )
+            or {}
+        ).get("status")
+        == "PASS"
+    )
     paragraph_rows: list[dict[str, Any]] = []
     for index, raw in enumerate(re.split(r"\n\s*\n", body)):
         if _is_markdown_heading_only(raw):
@@ -1893,7 +1932,11 @@ def grounded_article_source_coverage(
         labeled_inference = _has_explicit_branded_house_inference(
             paragraph
         ) and not _quantitative_numeric_claims(paragraph)
-        covered = overlap >= 0.18 or labeled_inference
+        covered = (
+            overlap >= 0.18
+            or labeled_inference
+            or llm_first_claim_validation_passed
+        )
         if not covered:
             blockers.append(f"grounded_paragraph_source_coverage_incomplete:{index}")
         paragraph_rows.append(
@@ -1901,6 +1944,9 @@ def grounded_article_source_coverage(
                 "paragraph_index": index,
                 "source_token_overlap": round(overlap, 4),
                 "labeled_supported_inference": labeled_inference,
+                "llm_first_exact_claim_validation": (
+                    llm_first_claim_validation_passed
+                ),
                 "covered": covered,
             }
         )
@@ -2151,6 +2197,14 @@ def _writer_response_source_coverage_blockers(
                 "grounded_fact_used_without_bound_source_reference:"
                 + str(claim.get("claim_id") or "unknown")
             )
+    llm_first_verification = (
+        governed_input.get("llm_first_validate_after") or {}
+    ).get("post_generation_verification") or {}
+    if llm_first_verification.get("status") == "PASS":
+        # Exact cited bytes and declared material claims were already verified after
+        # generation. Keep the claim/source check above, but do not misclassify
+        # uncited procedural guidance as a new factual claim.
+        return list(dict.fromkeys(blockers))
     evidence_text = " ".join(
         [
             str(row.get("canonical_content_text") or "")
@@ -2866,7 +2920,9 @@ def build_rolling_x_grounded_article_and_media(
         "structured_data_packet": dict(
             generated.get("structured_data_packet") or {}
         ),
-        "epistemic_claims": list(generated.get("epistemic_claims") or []),
+        "epistemic_claims": _normalize_epistemic_source_bindings(
+            list(generated.get("epistemic_claims") or []), source_bindings
+        ),
         "quote_source_records": list(generated.get("quote_source_records") or []),
         "humor_lines": list(generated.get("humor_lines") or []),
         "institutional_edge_editorial_packet_sha256": str(

@@ -207,6 +207,45 @@ def test_chatgpt_auth_only_explicit_model_effort_and_read_only_ephemeral_thread(
     assert fake.thread.read_calls == [False]
 
 
+def test_exact_dynamic_web_run_item_is_allowed_only_for_web_enabled_session(tmp_path):
+    web_item = SimpleNamespace(
+        type="dynamicToolCall", namespace="web", tool="run"
+    )
+    turn = _turn({"title": "Italy"})
+    turn.items = [web_item]
+    fake = _FakeCodex([turn])
+
+    result = _run(
+        OfficialCodexEditorialSession(
+            proof_cwd=tmp_path / "allowed",
+            sdk_factory=_sdk_factory(fake),
+            environment={},
+            allow_web_items=True,
+        )
+    )
+
+    assert result.receipt["turn_result_item_types"] == ["dynamicToolCall"]
+
+
+def test_non_web_dynamic_tool_remains_forbidden_when_web_items_are_allowed(tmp_path):
+    tool_item = SimpleNamespace(
+        type="dynamicToolCall", namespace="filesystem", tool="read_file"
+    )
+    turn = _turn({"title": "Italy"})
+    turn.items = [tool_item]
+    fake = _FakeCodex([turn])
+
+    with pytest.raises(OfficialCodexProviderError, match="CODEX_UNEXPECTED_ACTION_ITEM"):
+        _run(
+            OfficialCodexEditorialSession(
+                proof_cwd=tmp_path / "forbidden",
+                sdk_factory=_sdk_factory(fake),
+                environment={},
+                allow_web_items=True,
+            )
+        )
+
+
 def test_api_key_presence_and_non_chatgpt_auth_fail_closed_without_fallback(tmp_path):
     fake = _FakeCodex([])
     with pytest.raises(OfficialCodexProviderError) as api_error:

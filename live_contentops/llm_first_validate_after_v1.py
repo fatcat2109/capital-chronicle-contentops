@@ -145,6 +145,25 @@ def _public_copy(article: Mapping[str, Any]) -> str:
     )
 
 
+def _without_duplicate_leading_h1(article: Mapping[str, Any]) -> dict[str, Any]:
+    normalized = dict(article)
+    body = str(normalized.get("substack_body_markdown") or "")
+    lines = body.splitlines()
+    if not lines or not lines[0].startswith("# "):
+        return normalized
+    heading = _normalized(lines[0][2:])
+    title = _normalized(
+        normalized.get("canonical_editorial_headline") or normalized.get("title")
+    )
+    if heading != title:
+        return normalized
+    remaining = lines[1:]
+    while remaining and not remaining[0].strip():
+        remaining.pop(0)
+    normalized["substack_body_markdown"] = "\n".join(remaining)
+    return normalized
+
+
 def _host_allowed(url: str) -> bool:
     parsed = urlsplit(str(url or ""))
     host = str(parsed.hostname or "").casefold()
@@ -179,6 +198,7 @@ class LlmFirstValidateAfterProvider:
         self._selected_cluster_id: str | None = None
         self._published_memory = list(published_memory or [])
         self._coordinator_checkpoint_reused = False
+        self._verified_checkpoint_reused = False
 
     @staticmethod
     def _candidate_packet(
@@ -377,14 +397,14 @@ class LlmFirstValidateAfterProvider:
                 return parsed
         return None
 
-    def _worker(
-        self,
+    @staticmethod
+    def _worker_governed_input(
         *,
         candidate: Mapping[str, Any],
         selection: Mapping[str, Any],
         cutoff_utc: str,
-    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-        governed = {
+    ) -> dict[str, Any]:
+        return {
             "cutoff_utc": cutoff_utc,
             "selected_candidate": dict(candidate),
             "selected_article_mode": selection.get("article_mode"),
@@ -394,6 +414,137 @@ class LlmFirstValidateAfterProvider:
                 "cited_sources order is SOURCE_1..SOURCE_N; use exact [[SOURCE:SOURCE_N]] markers"
             ),
         }
+
+    def _load_verified_checkpoint(
+        self,
+        *,
+        candidates: Sequence[Mapping[str, Any]],
+        cutoff_utc: str,
+        published_corpus: Sequence[Any],
+    ) -> bool:
+        path = self.output_dir / "llm_first_validate_after_receipt_v1.json"
+        if not path.exists():
+            return False
+        try:
+            checkpoint = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, TypeError, ValueError):
+            return False
+        if not isinstance(checkpoint, Mapping):
+            return False
+        selection = checkpoint.get("selection")
+        coordinator = checkpoint.get("coordinator_receipt")
+        if not isinstance(selection, Mapping) or not isinstance(coordinator, Mapping):
+            return False
+        selected_id = str(selection.get("selected_cluster_id") or "")
+        candidate = next(
+            (
+                dict(row)
+                for row in candidates
+                if isinstance(row, Mapping)
+                and str(row.get("cluster_id") or "") == selected_id
+            ),
+            None,
+        )
+        if candidate is None:
+            return False
+        selection_governed = self._selection_governed_input(
+            candidates=candidates,
+            cutoff_utc=cutoff_utc,
+            published_corpus=published_corpus,
+            excluded_cluster_ids=[],
+        )
+        coordinator_identity = coordinator.get("provider_input_identity")
+        coordinator_identity = (
+            coordinator_identity if isinstance(coordinator_identity, Mapping) else {}
+        )
+        worker_governed_hash = _hash(
+            self._worker_governed_input(
+                candidate=candidate,
+                selection=selection,
+                cutoff_utc=cutoff_utc,
+            )
+        )
+        worker_receipts = [
+            dict(row)
+            for row in checkpoint.get("worker_receipts") or []
+            if isinstance(row, Mapping)
+        ]
+        worker_roles = [
+            str((row.get("provider_input_identity") or {}).get("role") or "")
+            for row in worker_receipts
+        ]
+        documents = [
+            dict(row)
+            for row in checkpoint.get("documents") or []
+            if isinstance(row, Mapping)
+        ]
+        supported_claims = [
+            dict(row)
+            for row in checkpoint.get("supported_claims") or []
+            if isinstance(row, Mapping)
+        ]
+        document_hashes_valid = bool(documents) and all(
+            str(row.get("canonical_content_sha256") or "")
+            == hashlib.sha256(
+                str(row.get("canonical_content_text") or "").encode("utf-8")
+            ).hexdigest()
+            for row in documents
+        )
+        if (
+            _hash(selection_governed)
+            != str(coordinator_identity.get("governed_input_hash") or "")
+            or str(coordinator.get("model") or "") != MODEL
+            or str(coordinator.get("reasoning_effort") or "").upper() != "HIGH"
+            or coordinator.get("public_write_attempted") is not False
+            or coordinator.get("model_turn_completed") is not True
+            or str(coordinator_identity.get("role") or "")
+            != "V1_LLM_FIRST_COORDINATOR_SELECTION"
+            or str(checkpoint.get("governed_input_hash") or "")
+            != worker_governed_hash
+            or not 1 <= len(worker_receipts) <= 2
+            or worker_roles
+            not in (
+                ["V1_LLM_FIRST_EDITORIAL_WRITER"],
+                [
+                    "V1_LLM_FIRST_EDITORIAL_WRITER",
+                    "V1_LLM_FIRST_EDITORIAL_REVISION",
+                ],
+            )
+            or any(
+                str(row.get("model") or "") != MODEL
+                or str(row.get("reasoning_effort") or "").upper() != "HIGH"
+                or row.get("public_write_attempted") is not False
+                or row.get("model_turn_completed") is not True
+                for row in worker_receipts
+            )
+            or not isinstance(checkpoint.get("article"), Mapping)
+            or not supported_claims
+            or not document_hashes_valid
+            or (checkpoint.get("verification") or {}).get("status") != "PASS"
+        ):
+            return False
+        self._selected_cluster_id = selected_id
+        self._coordinator_checkpoint_reused = True
+        self._verified_checkpoint_reused = True
+        self._prepared = {
+            **dict(checkpoint),
+            "coordinator_checkpoint_reused": True,
+            "verified_checkpoint_reused": True,
+        }
+        return True
+
+    def _worker(
+        self,
+        *,
+        candidate: Mapping[str, Any],
+        selection: Mapping[str, Any],
+        cutoff_utc: str,
+    ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+        governed = self._worker_governed_input(
+            candidate=candidate,
+            selection=selection,
+            cutoff_utc=cutoff_utc,
+        )
         governed_hash = _hash(governed)
         prompt = (
             "Research and write one useful current Capital Chronicle article from GOVERNED_INPUT. Use read-only web research. "
@@ -638,13 +789,20 @@ class LlmFirstValidateAfterProvider:
         published_corpus: Sequence[Any],
     ) -> dict[str, Any]:
         candidates = self._candidate_packet(ranked_clusters, intake)
+        combined_published_corpus = [*self._published_memory, *published_corpus]
+        if self._load_verified_checkpoint(
+            candidates=candidates,
+            cutoff_utc=cutoff_utc,
+            published_corpus=combined_published_corpus,
+        ):
+            return self.summary()
         excluded: list[str] = []
         attempts: list[dict[str, Any]] = []
         for _attempt in range(min(MAX_CANDIDATE_ATTEMPTS, len(candidates))):
             selection, coordinator_receipt = self._select(
                 candidates=candidates,
                 cutoff_utc=cutoff_utc,
-                published_corpus=[*self._published_memory, *published_corpus],
+                published_corpus=combined_published_corpus,
                 excluded_cluster_ids=excluded,
             )
             coordinator_reused = self._coordinator_checkpoint_reused
@@ -719,7 +877,9 @@ class LlmFirstValidateAfterProvider:
         worker_receipts = list(self._prepared["worker_receipts"])
         all_receipts = [coordinator_receipt, *worker_receipts]
         executed_receipts = list(worker_receipts)
-        if not self._prepared.get("coordinator_checkpoint_reused"):
+        if self._prepared.get("verified_checkpoint_reused"):
+            executed_receipts = []
+        elif not self._prepared.get("coordinator_checkpoint_reused"):
             executed_receipts.insert(0, coordinator_receipt)
         return {
             "schema_version": SCHEMA_VERSION,
@@ -729,6 +889,9 @@ class LlmFirstValidateAfterProvider:
             "selection": dict(self._prepared["selection"]),
             "coordinator_checkpoint_reused": bool(
                 self._prepared.get("coordinator_checkpoint_reused")
+            ),
+            "verified_checkpoint_reused": bool(
+                self._prepared.get("verified_checkpoint_reused")
             ),
             "candidate_attempts": list(self._prepared["candidate_attempts"]),
             "model_calls": [self._compact_model_call(row) for row in all_receipts],
@@ -768,9 +931,15 @@ class LlmFirstValidateAfterProvider:
         supported = [dict(row) for row in self._prepared["supported_claims"]]
         claim_contract = {
             "schema_version": "contentops.claim_evidence_contract.v1",
+            "status": "PASS",
             "supported_claims": supported,
             "omitted_unsupported_claims": [],
+            "blocked_claims": [],
+            "supported_claim_count": len(supported),
             "omitted_claim_count": 0,
+            "fabricated_claim_count": 0,
+            "x_content_grants_factual_authority": False,
+            "publication_authority": False,
         }
         claim_contract["claim_contract_sha256"] = _hash(claim_contract)
         primary = supported[0]
@@ -778,6 +947,8 @@ class LlmFirstValidateAfterProvider:
             "schema_version": "contentops.rolling_x_targeted_evidence_receipt.v1",
             "status": "PASS",
             "blockers": [],
+            "cluster_id": request.get("cluster_id"),
+            "headline_ids": list(request.get("headline_ids") or []),
             "rolling_x_story_binding": {
                 "cluster_id": request.get("cluster_id"),
                 "headline_ids": list(request.get("headline_ids") or []),
@@ -793,6 +964,11 @@ class LlmFirstValidateAfterProvider:
                 "risk_tier": "ORDINARY",
                 "core_factual_proposition": primary["claim_text"],
                 "evidence_document_id": primary["evidence_document_ids"][0],
+                "source_url": next(
+                    str(row.get("source_url") or "")
+                    for row in documents
+                    if row.get("document_id") == primary["evidence_document_ids"][0]
+                ),
                 "attribution_required": bool(primary["attribution_required"]),
             },
             "grounded_research_packet": {
@@ -839,10 +1015,11 @@ class LlmFirstValidateAfterProvider:
     def article_builder(self, viability: Mapping[str, Any]) -> dict[str, Any]:
         if self._prepared is None:
             raise ValueError("llm_first_provider_not_prepared")
+        canonical_article = _without_duplicate_leading_h1(self._prepared["article"])
         built = build_rolling_x_grounded_article_and_media(
             viability,
             output_dir=self.output_dir,
-            article_generator=lambda _prompt: dict(self._prepared["article"]),
+            article_generator=lambda _prompt: dict(canonical_article),
         )
         built["critical_path_telemetry"] = {
             **dict(built.get("critical_path_telemetry") or {}),

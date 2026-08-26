@@ -5086,6 +5086,7 @@ def _run_rolling_x_newsroom_cycle(
             if str(cluster.get("cluster_id") or "") == selected_llm_cluster_id:
                 cluster["resolved_article_mode"] = selected_mode
                 cluster["article_mode"] = selected_mode
+                cluster["llm_first_validate_after_selected"] = True
             reranked_llm_clusters.append(cluster)
         ranked_assignment = {
             **ranked_assignment,
@@ -5317,6 +5318,17 @@ def _run_rolling_x_newsroom_cycle(
 
     viability_path = output_dir / "rolling_x_ranked_viability_v1.json"
     viability_checkpoint: Mapping[str, Any] | None = None
+    llm_first_viability_binding = (
+        _json_sha256(
+            {
+                "ordering": "LLM_FIRST_VALIDATE_AFTER",
+                "selected_cluster_id": llm_first_summary.get("selected_cluster_id"),
+                "selection": llm_first_summary.get("selection"),
+            }
+        )
+        if llm_first_summary is not None
+        else None
+    )
     if viability_path.exists():
         candidate_checkpoint = _read_json(viability_path)
         checkpoint_hash = str(candidate_checkpoint.get("viability_logical_hash") or "")
@@ -5331,13 +5343,21 @@ def _run_rolling_x_newsroom_cycle(
             if isinstance(row, Mapping)
         }
         checkpoint_selected = str(candidate_checkpoint.get("selected_cluster_id") or "")
-        if (
+        checkpoint_base_valid = (
             checkpoint_hash
             and checkpoint_hash == _json_sha256(checkpoint_material)
             and candidate_checkpoint.get("status") in {"SUCCESS", "NO_PUBLICATION", "BLOCKED"}
             and (not checkpoint_selected or checkpoint_selected in ranked_cluster_ids)
-        ):
+        )
+        checkpoint_llm_binding_valid = (
+            llm_first_viability_binding is None
+            or candidate_checkpoint.get("llm_first_validate_after_binding")
+            == llm_first_viability_binding
+        )
+        if checkpoint_base_valid and checkpoint_llm_binding_valid:
             viability_checkpoint = candidate_checkpoint
+        elif checkpoint_base_valid and llm_first_viability_binding is not None:
+            viability_checkpoint = None
         else:
             raise ValueError("rolling_x_viability_checkpoint_binding_invalid")
     if viability_checkpoint is not None:
@@ -5372,6 +5392,17 @@ def _run_rolling_x_newsroom_cycle(
                     "preselection_logical_hash"
                 ),
             }
+    if viability_checkpoint is None and llm_first_viability_binding is not None:
+        viability = {
+            **dict(viability),
+            "llm_first_validate_after_binding": llm_first_viability_binding,
+        }
+        viability_material = {
+            key: value
+            for key, value in viability.items()
+            if key != "viability_logical_hash"
+        }
+        viability["viability_logical_hash"] = _json_sha256(viability_material)
     if viability_checkpoint is None:
         _write_json(viability_path, viability)
 

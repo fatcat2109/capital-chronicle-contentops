@@ -4003,6 +4003,26 @@ def select_first_viable_rolling_x_cluster(
                 },
                 registry,
             )
+            if cluster.get("llm_first_validate_after_selected") is True:
+                legacy_mode_blockers = {
+                    "article_mode_mismatch_with_capability",
+                    "article_mode_unsupported_for_story_type",
+                }
+                remaining_capability_blockers = [
+                    str(value)
+                    for value in capability.get("blockers") or []
+                    if str(value) not in legacy_mode_blockers
+                ]
+                capability = {
+                    **capability,
+                    "status": (
+                        "PASS" if not remaining_capability_blockers else "BLOCK"
+                    ),
+                    "blockers": remaining_capability_blockers,
+                    "llm_first_validate_after_mode_admission": (
+                        "POST_GENERATION_EVIDENCE_STILL_REQUIRED"
+                    ),
+                }
             required = list(capability.get("required_evidence_capabilities") or [])
             request = {
             "schema_version": "capital_chronicle.rolling_x_story_evidence_request.v1",

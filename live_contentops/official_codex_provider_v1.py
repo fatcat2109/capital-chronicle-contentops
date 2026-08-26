@@ -72,6 +72,18 @@ def _item_type(item: Any) -> str:
     return str(_enum_value(getattr(root, "type", root.__class__.__name__)))
 
 
+def _is_allowed_read_only_web_item(item: Any) -> bool:
+    root = getattr(item, "root", item)
+    item_type = _item_type(item).casefold()
+    if item_type == "websearch":
+        return True
+    if item_type != "dynamictoolcall":
+        return False
+    namespace = str(getattr(root, "namespace", "") or "").casefold()
+    tool = str(getattr(root, "tool", "") or "").casefold()
+    return tool in {"web.run", "web__run"} or (namespace == "web" and tool == "run")
+
+
 def _usage(value: Any) -> dict[str, int]:
     total = getattr(value, "total", None)
     if total is None:
@@ -444,7 +456,14 @@ class OfficialCodexEditorialSession:
         )
         if not self.allow_web_items:
             forbidden = (*forbidden, "web")
-        if any(marker in item.lower() for item in item_types for marker in forbidden):
+        unexpected_action = any(
+            any(marker in item_type.lower() for marker in forbidden)
+            and not (
+                self.allow_web_items and _is_allowed_read_only_web_item(item)
+            )
+            for item, item_type in zip(getattr(result, "items", ()), item_types)
+        )
+        if unexpected_action:
             raise OfficialCodexProviderError(
                 "CODEX_UNEXPECTED_ACTION_ITEM",
                 phase="LOCAL_VALIDATION",
