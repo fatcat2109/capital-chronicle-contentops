@@ -2755,6 +2755,69 @@ def _run_bounded_rolling_x_editorial_cycle(
             "combined_editorial_gate": combined,
             "mvp_canary_editorial_gate": canary_gate,
         }]
+        if not effective_pass and native_xhigh_worker_return is not None:
+            revision_count = int(
+                native_xhigh_worker_return.get("bounded_revision_count") or 0
+            )
+            if revision_count >= max_revision_rounds:
+                history[0]["revision"] = {
+                    "round": 1,
+                    "status": "NOT_ATTEMPTED_NATIVE_XHIGH_BUDGET_EXHAUSTED",
+                    "native_xhigh_article_reviser_forbidden": True,
+                    "prior_bounded_revision_count": revision_count,
+                    "maximum_bounded_revision_count": max_revision_rounds,
+                }
+                return {
+                    "status": "NO_PUBLICATION",
+                    "reason_code": "EDITORIAL_WORKER_REVISION_BUDGET_EXHAUSTED",
+                    "article": candidate,
+                    "revision_rounds_completed": revision_count,
+                    "semantic_review_required": False,
+                    "mandatory_semantic_review_calls": 0,
+                    "review_history": history,
+                    "acceptance_profile": acceptance_profile,
+                    "canary_quality_warnings": list(
+                        (canary_gate or {}).get("quality_warnings") or []
+                    ),
+                    "publication_authority_granted": False,
+                }
+            if (
+                native_xhigh_worker_validation is None
+                or native_xhigh_worker_request is None
+            ):
+                raise ValueError("native_xhigh_revision_binding_required")
+            from live_contentops.codex_desktop_newsroom_operator_v1 import (
+                build_same_xhigh_worker_revision_contract,
+            )
+
+            revision_contract = build_same_xhigh_worker_revision_contract(
+                worker_return=native_xhigh_worker_return,
+                worker_validation=native_xhigh_worker_validation,
+                worker_request=native_xhigh_worker_request,
+                deterministic_review=deterministic,
+                semantic_review=hard_review,
+            )
+            history[0]["revision"] = {
+                "round": 1,
+                "status": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                "native_xhigh_article_reviser_forbidden": True,
+                "same_xhigh_worker_revision_contract": revision_contract,
+            }
+            return {
+                "status": "NO_PUBLICATION",
+                "reason_code": "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                "article": candidate,
+                "revision_rounds_completed": revision_count,
+                "semantic_review_required": False,
+                "mandatory_semantic_review_calls": 0,
+                "review_history": history,
+                "same_xhigh_worker_revision_contract": revision_contract,
+                "acceptance_profile": acceptance_profile,
+                "canary_quality_warnings": list(
+                    (canary_gate or {}).get("quality_warnings") or []
+                ),
+                "publication_authority_granted": False,
+            }
         return {
             "status": "PASS" if effective_pass else "NO_PUBLICATION",
             "reason_code": (
@@ -4678,6 +4741,7 @@ def _run_rolling_x_newsroom_cycle(
     )
     _write_json(output_dir / "rolling_x_intake_v1.json", intake)
     from live_contentops.preselection_intelligence_v1 import (
+        _logical_hash as _preselection_logical_hash,
         compact_rolling_x_assignment_universe,
     )
 
@@ -4700,6 +4764,60 @@ def _run_rolling_x_newsroom_cycle(
             "factual_or_numeric_authority_granted": False,
             "publication_authority_granted": False,
         }
+    elif leaf_checkpoints is not None or global_checkpoint is not None:
+        # Split-phase COMPLETE must reconstruct the exact assignment input that
+        # produced the hash-bound semantic checkpoints. PREPARE persists a prepared
+        # frontier verbatim, but when no prepared checkpoint exists it persists the
+        # full intake before deterministic assignment compaction. Match the checkpoint
+        # hash first; compact only when required, and fail closed on any disagreement.
+        checkpoint_input_hashes = {
+            str(row.get("canonical_input_hash") or "")
+            for row in (leaf_checkpoints or {}).values()
+            if isinstance(row, Mapping)
+        }
+        if isinstance(global_checkpoint, Mapping):
+            checkpoint_input_hashes.add(
+                str(global_checkpoint.get("canonical_input_hash") or "")
+            )
+        checkpoint_input_hashes.discard("")
+        if len(checkpoint_input_hashes) != 1:
+            raise ValueError("rolling_x_semantic_resume_input_hash_invalid")
+        expected_assignment_input_hash = next(iter(checkpoint_input_hashes))
+        if str(intake.get("canonical_input_hash") or "") == expected_assignment_input_hash:
+            assignment_input = intake
+            assignment_compaction = {
+                "schema_version": "contentops.rolling_x_assignment_compaction.v1",
+                "compaction_applied": False,
+                "reason": "HASH_BOUND_SEMANTIC_RESUME_INPUT_REUSED",
+                "full_rolling_headline_count": int(
+                    (intake.get("counts") or {}).get("accepted")
+                    or len(intake.get("headlines") or [])
+                ),
+                "assignment_headline_count": len(intake.get("headlines") or []),
+                "held_before_semantic_assignment_count": 0,
+                "llm_or_provider_calls": 0,
+                "factual_or_numeric_authority_granted": False,
+                "publication_authority_granted": False,
+            }
+        else:
+            assignment_input, assignment_compaction = (
+                compact_rolling_x_assignment_universe(intake)
+            )
+            if str(assignment_input.get("canonical_input_hash") or "") != (
+                expected_assignment_input_hash
+            ):
+                raise ValueError("rolling_x_semantic_resume_input_binding_invalid")
+            assignment_compaction = {
+                **assignment_compaction,
+                "reason": "HASH_BOUND_SEMANTIC_RESUME_COMPACTION_REPLAYED",
+                "llm_or_provider_calls": 0,
+                "factual_or_numeric_authority_granted": False,
+                "publication_authority_granted": False,
+            }
+            assignment_compaction.pop("compaction_logical_hash", None)
+            assignment_compaction["compaction_logical_hash"] = (
+                _preselection_logical_hash(assignment_compaction)
+            )
     elif isinstance(intake.get("headlines"), list):
         assignment_input, assignment_compaction = compact_rolling_x_assignment_universe(intake)
     else:

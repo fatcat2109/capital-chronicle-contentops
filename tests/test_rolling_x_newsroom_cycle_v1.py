@@ -986,6 +986,53 @@ def test_native_xhigh_exhausted_revision_budget_never_calls_router_rewriter(monk
     assert reviser_calls == []
 
 
+def test_native_xhigh_ordinary_reader_value_failure_requests_same_worker_revision(
+    monkeypatch,
+):
+    article = {
+        **_article(),
+        "minimum_trustworthy_evidence_packet": {
+            "status": "PASS",
+            "risk_tier": "ORDINARY",
+        },
+    }
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.audit_tier1_article",
+        lambda article, media_assets=(): {
+            "classification": "NEEDS_REVISION",
+            "hard_editorial_blockers": ["reader_value_floor"],
+            "reader_value_gate": {
+                "classification": "INSUFFICIENT_READER_VALUE",
+                "blockers": ["mode_appropriate_substance"],
+            },
+        },
+    )
+    monkeypatch.setattr(
+        "live_contentops.tier1_editorial_quality_v1.review_minimum_evidence_news_brief",
+        lambda article: _semantic("PASS"),
+    )
+    route, receipt, validation = _native_xhigh_binding_for_editorial_test(article)
+    reviser_calls = []
+
+    result = implementation._run_bounded_rolling_x_editorial_cycle(
+        article=article,
+        media_assets=[],
+        editorial_reviewer=lambda _article: (_ for _ in ()).throw(
+            AssertionError("ordinary story must not require semantic reviewer")
+        ),
+        article_reviser=lambda *args: reviser_calls.append(args),
+        native_xhigh_worker_return=receipt,
+        native_xhigh_worker_validation=validation,
+        native_xhigh_worker_request=route["worker_request"],
+    )
+
+    assert result["reason_code"] == "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+    assert result["same_xhigh_worker_revision_contract"]["same_worker_required"] is True
+    assert result["same_xhigh_worker_revision_contract"]["router_final_writer_forbidden"] is True
+    assert result["mandatory_semantic_review_calls"] == 0
+    assert reviser_calls == []
+
+
 def test_revision_binding_failure_uses_structured_repair_class(monkeypatch):
     from live_contentops import nine_router_llm_seam_v2 as seam
 
@@ -1961,13 +2008,27 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
         "cutoff_time_utc": "2026-08-08T09:18:54Z",
         "counts": {"accepted": 1},
     }
-    leaf_checkpoints = {"leaf-1": {"checkpoint": "exact"}}
-    global_checkpoint = {"checkpoint": "exact-global"}
+    leaf_checkpoints = {
+        "leaf-1": {
+            "checkpoint": "exact",
+            "canonical_input_hash": "frozen-input-hash",
+        }
+    }
+    global_checkpoint = {
+        "checkpoint": "exact-global",
+        "canonical_input_hash": "frozen-input-hash",
+    }
     calls = []
     monkeypatch.setattr(
         "live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars",
         lambda **kwargs: (_ for _ in ()).throw(
             AssertionError("frozen resume must not reload X sidecars")
+        ),
+    )
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.compact_rolling_x_assignment_universe",
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(
+            AssertionError("hash-bound resume must not recompact frozen assignment input")
         ),
     )
 
@@ -2003,7 +2064,120 @@ def test_canonical_cycle_forwards_frozen_input_and_exact_checkpoints(
     assert calls[0]["leaf_checkpoints"] is leaf_checkpoints
     assert calls[0]["global_checkpoint"] is global_checkpoint
     assert result["intake"]["canonical_input_hash"] == "frozen-input-hash"
+    assert (
+        result["assignment"]["pre_assignment_compaction"]["reason"]
+        == "HASH_BOUND_SEMANTIC_RESUME_INPUT_REUSED"
+    )
     assert result["classification"] == "NO_PUBLICATION"
+
+
+def test_canonical_cycle_recompacts_full_intake_to_exact_checkpoint_input(
+    monkeypatch, tmp_path: Path
+):
+    from live_contentops.preselection_intelligence_v1 import (
+        _logical_hash,
+        compact_rolling_x_assignment_universe,
+    )
+
+    full_intake = json.loads(
+        Path(
+            "docs/automation/ROLLING_X_NEWSROOM_LIVE_V1/real_cycle/"
+            "rolling_x_intake_v1.json"
+        ).read_text(encoding="utf-8")
+    )
+    compacted_input, _ = compact_rolling_x_assignment_universe(full_intake)
+    expected_hash = compacted_input["canonical_input_hash"]
+    leaf_checkpoints = {
+        "leaf-1": {
+            "checkpoint": "exact",
+            "canonical_input_hash": expected_hash,
+        }
+    }
+    global_checkpoint = {
+        "checkpoint": "exact-global",
+        "canonical_input_hash": expected_hash,
+    }
+    assignment_calls = []
+
+    def assign(**kwargs):
+        assignment_calls.append(kwargs)
+        assert kwargs["rolling_input"] == compacted_input
+        return {
+            "schema_version": "capital_chronicle.rolling_x_newsroom_assignment.v1",
+            "status": "SUCCESS",
+            "decision": "NO_PUBLICATION",
+            "ranked_clusters": [],
+        }
+
+    monkeypatch.setattr(
+        "live_contentops.newsroom_assignment_scheduler_v1.assign_rolling_x_headlines_with_nine_router",
+        assign,
+    )
+
+    result = implementation._run_rolling_x_newsroom_cycle(
+        run_id="compacted-frozen-resume",
+        output_dir=tmp_path,
+        cutoff_utc="2026-08-08T09:18:54Z",
+        rolling_input=full_intake,
+        leaf_checkpoints=leaf_checkpoints,
+        global_checkpoint=global_checkpoint,
+        assignment_provider_call=lambda *_args: (_ for _ in ()).throw(
+            AssertionError("assignment provider call forbidden")
+        ),
+        publication_enabled=False,
+    )
+
+    assert len(assignment_calls) == 1
+    replay_evidence = result["assignment"]["pre_assignment_compaction"]
+    assert (
+        replay_evidence["reason"]
+        == "HASH_BOUND_SEMANTIC_RESUME_COMPACTION_REPLAYED"
+    )
+    replay_hash = replay_evidence["compaction_logical_hash"]
+    assert replay_hash == _logical_hash(
+        {
+            key: value
+            for key, value in replay_evidence.items()
+            if key != "compaction_logical_hash"
+        }
+    )
+    assert result["classification"] == "NO_PUBLICATION"
+
+
+def test_canonical_cycle_fails_closed_when_resume_input_cannot_match_checkpoints(
+    monkeypatch, tmp_path: Path
+):
+    intake = {
+        "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+        "canonical_input_hash": "full-input-hash",
+        "counts": {"accepted": 1},
+        "headlines": [{"headline_id": "headline-1"}],
+    }
+    monkeypatch.setattr(
+        "live_contentops.preselection_intelligence_v1.compact_rolling_x_assignment_universe",
+        lambda value: (
+            {**value, "canonical_input_hash": "different-compacted-hash"},
+            {"schema_version": "contentops.rolling_x_assignment_compaction.v1"},
+        ),
+    )
+
+    with pytest.raises(
+        ValueError,
+        match="rolling_x_semantic_resume_input_binding_invalid",
+    ):
+        implementation._run_rolling_x_newsroom_cycle(
+            run_id="mismatched-frozen-resume",
+            output_dir=tmp_path,
+            cutoff_utc="2026-08-08T09:18:54Z",
+            rolling_input=intake,
+            leaf_checkpoints={
+                "leaf-1": {"canonical_input_hash": "expected-checkpoint-hash"}
+            },
+            global_checkpoint={
+                "canonical_input_hash": "expected-checkpoint-hash"
+            },
+            publication_enabled=False,
+        )
 
 
 def test_publication_window_clusters_only_prepared_frontier_before_evidence_walk(
