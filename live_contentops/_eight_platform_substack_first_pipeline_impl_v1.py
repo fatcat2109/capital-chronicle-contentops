@@ -8652,12 +8652,20 @@ def _ensure_canonical_edge_publishing_runtime(
     )
 
 
+def _run_v1_simple_gemini_newsroom_impl(**kwargs: Any) -> Any:
+    """Lazy private adapter for the current V1 Gemini-primary zero-write operation."""
+    from live_contentops.v1_simple_gemini_newsroom_v1 import run_v1_simple_gemini_newsroom
+
+    return run_v1_simple_gemini_newsroom(**kwargs)
+
+
 _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "prepare_text_image_release_candidate": _prepare_text_image_release_candidate,
     "prepare_generic_text_image_release_candidate": _prepare_generic_text_image_release_candidate,
     "build_operator_manual_audit_packet": _build_operator_manual_audit_packet,
     "run_eight_platform_substack_first_pipeline": _run_eight_platform_substack_first_pipeline,
     "run_rolling_x_newsroom_cycle": _run_rolling_x_newsroom_cycle,
+    "run_v1_simple_gemini_newsroom": _run_v1_simple_gemini_newsroom_impl,
     "reconcile_public_substack_for_derivative_resume": _reconcile_public_substack_for_derivative_resume,
     "resume_eight_platform_derivatives": _resume_eight_platform_derivatives,
     "reconcile_existing_derivative_readbacks": _reconcile_existing_derivative_readbacks,

@@ -257,6 +257,31 @@ def run_rolling_x_newsroom_cycle(
         return execute_with_receipt(direct_builder, validated_arbitration)
 
 
+
+def run_v1_simple_gemini_newsroom(
+    *,
+    output_dir: Path,
+    cutoff_utc: str,
+    rolling_input: Mapping[str, Any] | None = None,
+    published_memory: Sequence[Any] = (),
+    capital_chronicle_context: Mapping[str, Any] | None = None,
+    llm_invoke: Any = None,
+    evidence_loader: Any = None,
+    run_id: str | None = None,
+) -> dict[str, Any]:
+    """Run the current V1 Gemini-primary zero-public-write newsroom operation."""
+    return _execute(
+        "run_v1_simple_gemini_newsroom",
+        output_dir=output_dir,
+        cutoff_utc=cutoff_utc,
+        rolling_input=rolling_input,
+        published_memory=published_memory,
+        capital_chronicle_context=capital_chronicle_context,
+        llm_invoke=llm_invoke,
+        evidence_loader=evidence_loader,
+        run_id=run_id,
+    )
+
 def reconcile_public_substack_for_derivative_resume(
     *, output_dir: Path, cdp_port: int = 9223
 ) -> dict[str, Any]:

@@ -297,6 +297,101 @@ def qualify_zero_write_article(
     return {**record_core, "record_sha256": _logical_hash(record_core)}
 
 
+def build_current_zero_write_qualified_article_record(
+    *,
+    production_day_id: str,
+    parent_window_id: str,
+    attempt_run_id: str,
+    article: Mapping[str, Any],
+    story_identity: str,
+    update_chain_identity: str,
+    resolved_article_mode: str,
+    accepted_evidence_documents: Sequence[Mapping[str, Any]],
+    editorial_provider: str,
+    editorial_model: str,
+    editorial_reasoning_effort: str,
+    logical_model_invocation_count: int,
+    derivative_package_intents: Sequence[Mapping[str, Any]],
+) -> dict[str, Any]:
+    """Build the current provider-neutral zero-write qualification record.
+
+    The historical qualifier above remains exact evidence for the native Desktop era. New V1
+    production uses this provider-neutral builder so runtime truth records the real 9Router/Gemini
+    author instead of fabricating a Codex receipt. Public-write authority remains zero.
+    """
+    body = str(article.get("substack_body_markdown") or "").strip()
+    title = str(article.get("title") or "").strip()
+    provider = str(editorial_provider or "").strip()
+    model = str(editorial_model or "").strip()
+    effort = str(editorial_reasoning_effort or "").upper()
+    intents = [dict(row) for row in derivative_package_intents if isinstance(row, Mapping)]
+    required = tuple(str(value) for value in V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    blockers: list[str] = []
+    if not body or not title:
+        blockers.append("article_body_or_title_missing")
+    if provider != "9router":
+        blockers.append("current_v1_editorial_provider_not_9router")
+    if not model.startswith("vx/gemini-"):
+        blockers.append("current_v1_editorial_model_not_authorized_gemini")
+    if effort != "HIGH":
+        blockers.append("current_v1_editorial_reasoning_effort_not_high")
+    if int(logical_model_invocation_count) not in {2, 3}:
+        blockers.append("current_v1_logical_model_invocation_count_invalid")
+    if len(intents) != 8 or {str(row.get("destination") or "") for row in intents} != set(required):
+        blockers.append("exactly_eight_derivative_intents_required")
+    if any(str(row.get("dispatch_state") or "") != "UNDISPATCHED" for row in intents):
+        blockers.append("derivative_intent_dispatch_state_invalid")
+    evidence_rows = [dict(row) for row in accepted_evidence_documents if isinstance(row, Mapping)]
+    evidence_ids = sorted({
+        str(row.get("document_id") or row.get("source_url") or "")
+        for row in evidence_rows
+        if str(row.get("document_id") or row.get("source_url") or "")
+    })
+    if not evidence_ids:
+        blockers.append("accepted_evidence_identity_missing")
+    article_identity = hashlib.sha256(body.encode("utf-8")).hexdigest() if body else ""
+    evidence_material = [
+        {
+            "document_id": str(row.get("document_id") or ""),
+            "source_url": str(row.get("source_url") or ""),
+            "canonical_content_sha256": str(row.get("canonical_content_sha256") or ""),
+            "published_at_utc": str(row.get("published_at_utc") or ""),
+            "published_at_source": str(row.get("published_at_source") or ""),
+        }
+        for row in evidence_rows
+    ]
+    record_core = {
+        "schema_version": "contentops.newsroom_qualified_article.v1",
+        "newsroom_production_day_id": str(production_day_id),
+        "parent_window_id": str(parent_window_id),
+        "attempt_run_id": str(attempt_run_id),
+        "article_identity": article_identity,
+        "story_identity": str(story_identity),
+        "update_chain_identity": str(update_chain_identity),
+        "title": title,
+        "resolved_article_mode": str(resolved_article_mode),
+        "article_path": None,
+        "article_body_sha256": article_identity,
+        "accepted_evidence_ids": evidence_ids,
+        "accepted_evidence_sha256": _logical_hash(evidence_material),
+        "editorial_worker": {
+            "provider": provider,
+            "model": model,
+            "reasoning_effort": effort,
+            "logical_model_invocation_count": int(logical_model_invocation_count),
+            "codex_runtime_model_call_count": 0,
+            "public_write_attempted": False,
+        },
+        "derivative_package_intents": intents,
+        "derivative_package_intent_count": 8,
+        "public_write_performed": False,
+        "unknown_write_count": 0,
+        "qualification_blockers": sorted(set(blockers)),
+        "qualified": not blockers,
+    }
+    return {**record_core, "record_sha256": _logical_hash(record_core)}
+
+
 def persist_qualified_article_record(output_dir: str | Path, record: Mapping[str, Any]) -> Path:
     if record.get("qualified") is not True:
         raise ValueError("unqualified_article_record_cannot_be_persisted")

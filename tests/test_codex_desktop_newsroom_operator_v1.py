@@ -787,7 +787,7 @@ def test_desktop_rehearsal_reuses_canonical_reserved_frontier_and_never_promotes
     } == output_before
 
 
-def test_exact_four_task_packet_has_current_fast_ship_prompt_and_no_scale_up():
+def test_exact_four_task_packet_is_superseded_noop_and_retains_historical_shape():
     packet = four_task_setup_packet()
     assert packet["model"] == COORDINATOR_MODEL == "gpt-5.6-sol"
     assert packet["reasoning_effort"] == COORDINATOR_REASONING_EFFORT == "HIGH"
@@ -812,32 +812,18 @@ def test_exact_four_task_packet_has_current_fast_ship_prompt_and_no_scale_up():
         ("V1 Newsroom — New York 2300", "Monday-Friday", "23:00"),
         ("V1 Newsroom — New York 0100", "Tuesday-Saturday", "01:00"),
     ]
-    assert "native V1 coordinator on exact gpt-5.6-sol / HIGH" in DESKTOP_TASK_PROMPT
-    assert "Treat 4/32 only as throughput/economics telemetry" in DESKTOP_TASK_PROMPT
-    assert "never as a prerequisite for generating or advancing one safe article" in DESKTOP_TASK_PROMPT
-    assert "five to eight useful published articles" in DESKTOP_TASK_PROMPT
-    assert "do not require four ready candidates before writing" in DESKTOP_TASK_PROMPT
-    assert "record its exact blocker and continue to another eligible governed candidate" in DESKTOP_TASK_PROMPT
-    assert "deterministic local repair or warning" in DESKTOP_TASK_PROMPT
-    assert "do not provider-shop after a genuine terminal semantic failure" in DESKTOP_TASK_PROMPT
-    assert "unproven source-omission assertions" in DESKTOP_TASK_PROMPT
-    assert "partial evidence projection lacks it" in DESKTOP_TASK_PROMPT
-    assert "proven current provider-resilient batch/tail discovery" in DESKTOP_TASK_PROMPT
-    assert "do not restore the historical 35-call / 10.2M-token per-trigger default" in DESKTOP_TASK_PROMPT
-    assert "Use LLM-FIRST / VALIDATE-AFTER" in DESKTOP_TASK_PROMPT
-    assert "before evidence-ready, sourceability-ready" in DESKTOP_TASK_PROMPT
-    assert "material-claim bindings" in DESKTOP_TASK_PROMPT
-    assert "Every routine opportunity below five useful articles" in DESKTOP_TASK_PROMPT
-    assert "intermediate 4/32 pacing checkpoint is never a skip condition" in DESKTOP_TASK_PROMPT
-    assert "destination readiness HOLD is publication diagnostics" in DESKTOP_TASK_PROMPT
-    assert "bounded catch-up may qualify more than one distinct useful article" in DESKTOP_TASK_PROMPT
-    assert "UNKNOWN_WRITE means STOP RETRY -> READ BACK -> RECONCILE" in DESKTOP_TASK_PROMPT
-    assert "Start one fresh V1 Desktop coordinator on exact gpt-5.6-sol / HIGH" in MANUAL_GO_PROMPT
-    assert "GO bypasses no gate" in MANUAL_GO_PROMPT
-    assert "not a prerequisite for one safe article" in MANUAL_GO_PROMPT
-    assert "intermediate 4/32 pacing checkpoint is met" in MANUAL_GO_PROMPT
-    assert "destination readiness HOLD is publication diagnostics" in MANUAL_GO_PROMPT
-    assert "No fifth routine task" in MANUAL_GO_PROMPT
+    assert DESKTOP_TASK_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")
+    assert "run_v1_simple_gemini_newsroom" in DESKTOP_TASK_PROMPT
+    assert "do not run newsroom production" in DESKTOP_TASK_PROMPT
+    assert "do not spawn an editorial worker" in DESKTOP_TASK_PROMPT
+    assert "do not edit repository files" in DESKTOP_TASK_PROMPT
+    assert "do not perform any public/provider write" in DESKTOP_TASK_PROMPT
+    assert "UNKNOWN_WRITE remains STOP RETRY -> READ BACK -> RECONCILE" in DESKTOP_TASK_PROMPT
+    assert MANUAL_GO_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")
+    assert "Manual GO no longer invokes routine V1 production" in MANUAL_GO_PROMPT
+    assert "current simple Gemini runtime" in MANUAL_GO_PROMPT
+    assert "Zero public write." in MANUAL_GO_PROMPT
+
 
     stale_routine_semantics = (
         "immediate one-article MVP canary launch gate",
@@ -979,7 +965,7 @@ def test_zero_write_distribution_hold_is_diagnostic_and_does_not_veto_xhigh():
     assert route["xhigh_worker_count_requested"] == 1
 
 
-def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_high_resumes():
+def test_article_qualified_route_preserves_historical_worker_contract_without_current_prompt_routing():
     governed_context = {
         "accepted_evidence_packet": {"packet_id": "evidence-1", "status": "ACCEPTED"},
         "exact_source_handles": ["source-1", "source-2"],
@@ -1046,8 +1032,10 @@ def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_
     assert source_contract["marker_format"] == "[[SOURCE:SOURCE_N]]"
     assert source_contract["deterministic_marker_injection_after_authorship"] is False
     assert source_contract["invent_urls_handles_source_ids_evidence_ids_or_facts"] is False
-    assert "exact supplied [[SOURCE:SOURCE_N]] markers" in DESKTOP_TASK_PROMPT
-    assert "exact supplied [[SOURCE:SOURCE_N]]" in MANUAL_GO_PROMPT
+    assert "exact supplied [[SOURCE:SOURCE_N]] markers" not in DESKTOP_TASK_PROMPT
+    assert "exact supplied [[SOURCE:SOURCE_N]]" not in MANUAL_GO_PROMPT
+    assert DESKTOP_TASK_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")
+    assert MANUAL_GO_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")
 
     validated = validate_editorial_worker_return(
         worker_return={

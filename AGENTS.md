@@ -15,10 +15,11 @@ For every current implementation, audit, task framing, or owner decision, read i
 5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-9. current lane pointer
-10. nearest scoped `AGENTS.md`
-11. exact current implementation/tests/evidence.
+8. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md` for V1 work
+9. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+10. current lane pointer
+11. nearest scoped `AGENTS.md`
+12. exact current implementation/tests/evidence.
 
 Do not route from historical task evidence, stale handoffs, generated status snapshots, task branches, or chat SHAs.
 
@@ -119,40 +120,29 @@ accepted current foundation. Reuse them; do not list them as implementation gaps
 
 ## 6. Current V1 execution architecture
 
-FDA-G is the continuous low-cost intake/state/runtime authority.
+Current owner-approved routine V1 is `SIMPLE_GEMINI_RUNTIME`: ContentOps local state and current
+headline sidecars feed one bounded 9Router/Gemini selection; deterministic selected-story public
+retrieval performs at most six requests; one bounded Gemini writer returns the canonical article
+and exact material-claim bindings; deterministic validation checks retrieved bytes; at most one
+Gemini revision may run; then one qualified zero-write article record and exactly eight
+UNDISPATCHED derivative intents are persisted. Normal model count is two logical invocations and
+three is the hard ceiling with revision. Codex runtime model calls required: zero.
 
-The current hybrid heavy-editorial path is:
+This supersedes routine Desktop Automations, SDK/App-Server editorial fallback, broad evidence-ready
+pools, split-phase PREPARE/COMPLETE worker handoffs, and deficit-driven multi-candidate catch-up as
+the production critical path. Those capabilities/evidence remain historical and may be inspected,
+but they do not route current V1. The four old native newsroom Automation objects must remain off;
+if one fires it is a zero-write NOOP. A scheduled newsroom task may never edit repository code, run
+tests, regenerate CodeGraph, open/update PRs, or become a builder/debugger. Codex Desktop remains
+second-last builder/debugger/host-proof capacity only.
 
-`FDA-G / existing V1 runtime -> fresh standalone Desktop gpt-5.6-sol / HIGH coordinator -> one fresh isolated gpt-5.6-sol / HIGH final writer when warranted -> deterministic local validation -> zero-write build output or separately authorized publication`
+The existing deterministic source loader, qualified-record schema, destination registry, durable
+publication coordinator, strict readback/reconciliation, UI, and Capital Chronicle authority
+boundaries remain reusable. 9Router model output has zero factual, numeric, CC, permission, rights,
+or public-write authority. The current simple lane does not authorize proprietary CC numeric/
+forecast/probability/scenario/regime claims. Public publication remains a separate owner gate.
 
-Current editorial ordering is `LLM-FIRST / VALIDATE-AFTER`: current intake and published memory
-reach the HIGH editorial brain before evidence-ready/sourceability/capability perfection can veto
-writing. The worker returns explicit citations and material-claim bindings; deterministic retrieval
-then verifies exact source bytes and final hard truth/authority/rights/package gates remain closed.
-`CONTENTOPS_CODEX_MAX_REASONING_EFFORT = HIGH`; no current ContentOps Codex request may exceed HIGH.
-
-Desktop standalone Automations are the primary routine editorial brain. The official
-ChatGPT-authenticated Codex App Server/SDK provider remains the proven bounded fallback for an exact
-missed/failed Desktop primary, the direct path where immediate supported invocation is required,
-and the benchmark/controlled-experiment path. Neither model path has factual, numeric, permission,
-gate, or public-write authority.
-
-Fresh supported host readback proves exactly four existing native V1 Automations. The 2026-08-24
-21:00 evidence is `PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and
-`FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G created, claimed, executed, and terminalized the
-canonical scheduled window while the old pacing checkpoint allocated zero editorial work. Codex
-Desktop was not running for that window, so native Desktop Automation calendar execution remains
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` and must not be inferred. The correction keeps FDA-G as
-intake/state/runtime authority while making native Desktop the sole routine heavy-editorial owner.
-The four objects are held `PAUSED` during correction, at
-the 17:00/21:00/23:00/following-01:00 Bangkok windows with `gpt-5.6-sol / HIGH`. Their prompts now
-must match the corrected repo-derived routine prompt. Broader unattended/cold-start/fallback proof
-remains open and the supported surface exposes no run-now action. Do not create a fifth window.
-Routine public-write authority remains a separate later owner gate.
-
-`live_contentops/codex_desktop_newsroom_operator_v1.py` supplies the canonical run identity and
-Desktop-primary/SDK-fallback arbitration; it is not a second scheduler or public-write grant. Do not
-add an API/access-token bridge without explicit owner authorization.
+The exact current detail is `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`.
 
 ## 7. ContentOps/Core Analyzer boundary
 
@@ -208,23 +198,21 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 ## 11. Locked current sequence
 
-Accepted and do not rebuild: the canonical V1 runtime/store/supervisor/publisher/UI, production-day
-accounting and bounded deficit recovery, Desktop-primary/SDK-fallback arbitration, official-source
-locator/redirect/source-health/evidence seams, the real reconciled nine-surface Italy canary, the
-four-opportunity 4/32 harness, PR #19 provider-resilient quota-efficient batch/tail discovery, and
-PR #20's accepted canonical worker-return/article path. The first 4/32 result was a truthful failure,
-not an unstarted task or launch prerequisite.
+Accepted donor capabilities are not rebuilt: current headline ingestion, published-memory/dedupe,
+PR #19 selected-story locator/retrieval primitives, PR #20 article/package proof, PR #29
+validate-after/material-claim concepts, production-day accounting, destination registry, durable
+publication/readback/reconciliation, and V5 read model/UI. PR #30 and PR #31 are historical evidence
+only and `SUPERSEDED_DO_NOT_REUSE` for current routing.
 
 Current progression order:
 
-1. preserve the independently accepted PR #19 discovery and PR #20 article-path capabilities;
-2. preserve the completed four-prompt normalization/readback with every native V1 Automation paused;
-3. obtain an exact owner grant for zero-write Automation enablement and calendar-time unattended
-   runtime proof; 4/32 remains throughput/economics telemetry, not its prerequisite;
-4. obtain fresh current-epoch V5 QA and separate routine public-write/final-product decisions;
-5. only then selectively reconcile branch-proven V2 donor capability onto one current-compatible
-   stack, revalidate it with fresh cross-domain actual media/soak/growth-learning, and leave V2
-   public-write authority at zero unless a later exact owner grant changes it.
+1. land the simple Gemini zero-write runtime through exact-head CI;
+2. prove one current real-sidecar article in an isolated zero-write host canary;
+3. inspect actual article quality, source/claim bindings, <=6 source requests, <=3 logical Gemini
+   invocations, exactly eight undispatched intents, and zero Codex runtime calls;
+4. only after that PASS, schedule the same local operation with a lightweight non-Codex scheduler;
+5. obtain separate public-write/readback authority;
+6. then measure and optimize toward 5–8 useful published articles/day without filler.
 
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 

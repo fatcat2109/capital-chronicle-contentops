@@ -268,13 +268,14 @@ def integration_manifest() -> dict[str, Any]:
             role: list(model_pool_for_role(role)) for role in CURRENT_V1_ROUTED_ROLE_IDS
         },
         "v1_gemini_only_model_authority": True,
+        "v1_simple_gemini_runtime_primary": True,
+        "codex_runtime_model_calls_required": False,
         "forbidden_non_gemini_v1_models_reachable": False,
         "integrated_roles": list(INTEGRATED_ROLES),
         "current_v1_routed_role_ids": list(CURRENT_V1_ROUTED_ROLE_IDS),
         "integrated_call_sites": {
             ROLE_ARTICLE_WRITING: (
-                "legacy zero-write article compatibility; publication-qualified articles "
-                "use a native Codex Desktop HIGH worker"
+                "current V1 simple Gemini canonical article writing after bounded selected-story retrieval"
             ),
             ROLE_PLATFORM_VARIANTS: (
                 "platform_native_variant_generator_live_v6.generate_live_platform_variants"

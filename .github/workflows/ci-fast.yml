@@ -36,7 +36,7 @@ jobs:
         run: python -m compileall -q live_contentops scripts
 
       - name: Install focused test runner
-        run: python -m pip install --disable-pip-version-check pytest pillow
+        run: python -m pip install --disable-pip-version-check pytest pillow python-dotenv jsonschema
 
       - name: Run deterministic CodeGraph generator tests
         run: python -m pytest -q tests/test_codex_context_index.py
@@ -50,6 +50,16 @@ jobs:
           python -m pytest -q tests/test_official_codex_provider_v1.py -k "dynamic_web_run or non_web_dynamic_tool"
           python -m pytest -q tests/test_rolling_x_grounded_article_media_builder_v1.py -k "llm_first_exact_claim_validation or writer_validator_rejects_uncovered_connective_paragraph or epistemic_transport_handle"
           python -m pytest -q tests/test_run_v1_llm_first_single_article_canary_v1.py
+
+      - name: Run V1 simple Gemini reset regressions
+        shell: bash
+        run: |
+          python -m pytest -q tests/test_v1_simple_gemini_newsroom_v1.py
+          python -m pytest -q tests/test_newsroom_production_day_v1.py
+          python -m pytest -q tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py
+          python -m pytest -q tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py
+          python -m pytest -q tests/test_publication_coordinator_v1.py
+          python -m pytest -q tests/test_codex_desktop_newsroom_operator_v1.py
 
       - name: Validate current hybrid execution and V1 owner authority
         shell: bash
@@ -111,16 +121,31 @@ jobs:
               assert 'SOURCE_DISCOVERY_REQUIRED' in text
               assert '5–8/day' in text
 
-          assert 'pr #19 provider-resilient quota-efficient batch/tail discovery is accepted and reusable' in v1_pointer.lower()
-          assert 'zero-write routine starvation / ownership correction and prospective calendar proof' in v1_pointer.lower()
-          assert 'routine host prompts now match the repo-derived fast-ship hash' in v1_pointer.lower()
-          assert 'pass_fda_g_scheduled_window_observed' in v1_pointer.lower()
-          assert 'fail_routine_output_starvation_policy' in v1_pointer.lower()
-          assert 'current_host_runtime_proof_required' in v1_pointer.lower()
-          assert 'pass_native_calendar_trigger_observed' not in v1_pointer.lower()
-          assert 'all four are held paused' in v1_pointer.lower()
-          assert 'Desktop standalone fresh-run Automations are the primary routine V1' in authority_map
-          assert 'App Server/SDK provider remains the currently proven' in authority_map
+          reset = Path('docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md').read_text(encoding='utf-8')
+          desktop_doc = Path('docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md').read_text(encoding='utf-8')
+          desktop_code = Path('live_contentops/codex_desktop_newsroom_operator_v1.py').read_text(encoding='utf-8')
+          simple = Path('live_contentops/v1_simple_gemini_newsroom_v1.py').read_text(encoding='utf-8').lower()
+          from live_contentops.production_orchestrator_v1 import CANONICAL_OPERATIONS
+          from live_contentops.nine_router_llm_seam_v2 import integration_manifest
+          from live_contentops.nine_router_ordered_model_router_v2 import authority_packet
+          assert 'Status: `CURRENT_V1_EXECUTION_AUTHORITY`' in reset
+          assert 'run_v1_simple_gemini_newsroom' in CANONICAL_OPERATIONS
+          assert 'maximum 6 requests' in reset
+          assert 'Codex runtime model calls required: `0`' in reset
+          assert 'SUPERSEDED_DO_NOT_REUSE' in reset and 'PR #30' in reset and 'PR #31' in reset
+          assert 'SIMPLE_GEMINI_RUNTIME' in agents
+          assert 'simple Gemini' in v1_pointer
+          assert 'CURRENT_HOST_RUNTIME_PROOF_REQUIRED' in v1_pointer
+          assert 'SUPERSEDED_FOR_ROUTINE_V1_PRODUCTION' in desktop_doc
+          assert 'SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP' in desktop_code
+          assert 'official_codex' not in simple and 'codex_desktop' not in simple
+          manifest = integration_manifest()
+          packet = authority_packet()
+          assert manifest['v1_simple_gemini_runtime_primary'] is True
+          assert manifest['codex_runtime_model_calls_required'] is False
+          assert packet['publication_qualified_article_uses_9router_gemini'] is True
+          assert packet['publication_qualified_article_uses_native_codex_desktop_xhigh'] is False
+          assert packet['codex_runtime_model_calls_required'] is False
           assert 'no fifth' in authority_map.lower()
           assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_api
           assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_impl
@@ -181,9 +206,6 @@ jobs:
           echo 'Committed CodeGraph is stale; commit the generated artifact bytes and rerun.'
           exit 1
 
-  # Same-repo PRs and agent/web branches may repair generated-only CodeGraph drift without consuming a builder session.
-  # Direct master pushes generate and upload repair bytes but do not self-commit; the GitHub operator applies those
-  # exact generated files as a separate audited master commit so every master mutation is connector-visible.
   branch-codegraph-refresh:
     if: (github.event_name == 'push' && startsWith(github.ref, 'refs/heads/agent/web-')) || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
     runs-on: ubuntu-latest

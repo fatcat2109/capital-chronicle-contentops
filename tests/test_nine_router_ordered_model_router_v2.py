@@ -121,14 +121,16 @@ def test_role_ordering_matches_the_owner_authority() -> None:
     assert model_pool_for_role("unlisted_future_v1_semantic_role") == (PRO, FLASH)
 
 
-def test_authority_packet_is_permanent_gemini_only_and_preserves_native_xhigh_boundary() -> None:
+def test_authority_packet_is_permanent_gemini_only_and_owns_current_article_path() -> None:
     packet = authority_packet()
     assert packet["gateway"] == GATEWAY == "9router"
     assert packet["v1_model_authority_id"] == V1_GEMINI_ONLY_MODEL_AUTHORITY_ID
     assert packet["ordered_model_pool"] == [PRO, FLASH]
     assert packet["forbidden_non_gemini_v1_models_reachable"] is False
     assert packet["temporary_gemini_incident_override_supported"] is False
-    assert packet["publication_qualified_article_uses_native_codex_desktop_xhigh"] is True
+    assert packet["publication_qualified_article_uses_native_codex_desktop_xhigh"] is False
+    assert packet["publication_qualified_article_uses_9router_gemini"] is True
+    assert packet["codex_runtime_model_calls_required"] is False
     assert packet["grants_factual_or_numeric_authority"] is False
     assert packet["grants_publication_authority"] is False
 
