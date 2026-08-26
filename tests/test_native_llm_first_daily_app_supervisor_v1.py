@@ -138,7 +138,9 @@ def _supervisor(tmp_path: Path, canonical_cycle):
     return supervisor
 
 
-def _selection_from_probe(probe: dict, *, cluster_id: str = "cluster-b", effort: str = "HIGH") -> dict:
+def _selection_from_probe(
+    probe: dict, *, cluster_id: str = "cluster-b", effort: str = "HIGH"
+) -> dict:
     request = probe["coordinator_selection_request"]
     return {
         "schema_version": SELECTION_RETURN_SCHEMA_VERSION,
@@ -161,7 +163,7 @@ def test_probe_is_zero_cycle_zero_evidence_and_hash_idempotent(tmp_path: Path):
         automation_id="v1-newsroom-london-1700", now=NOW
     )
     second = supervisor.prepare_native_desktop_scheduled_opportunity(
-        automation_id="v1-newsroom-london-1700", now=NOW
+        automation_id="v1-newsroom-london-1700", now=NOW + timedelta(minutes=5)
     )
 
     assert first["classification"] == "HIGH_SELECTION_REQUIRED"
@@ -178,7 +180,28 @@ def test_probe_is_zero_cycle_zero_evidence_and_hash_idempotent(tmp_path: Path):
     assert second["coordinator_selection_request"]["selection_request_logical_hash"] == (
         first["coordinator_selection_request"]["selection_request_logical_hash"]
     )
+    assert second["coordinator_selection_request"]["selection_as_of_utc"] == (
+        first["coordinator_selection_request"]["selection_as_of_utc"]
+    )
     assert cycle_calls == []
+
+
+def test_published_memory_projection_supports_current_identity_sets():
+    projected = NativeLlmFirstContentOpsDailyAppSupervisor._published_memory_projection(
+        {
+            "published_memory": {
+                "story_identities": ["story-a", "story-b", "story-a"],
+                "update_chain_identities": ["chain-a"],
+            }
+        }
+    )
+    assert {row.get("story_identity") for row in projected if row.get("story_identity")} == {
+        "story-a",
+        "story-b",
+    }
+    assert {row.get("update_chain_identity") for row in projected if row.get("update_chain_identity")} == {
+        "chain-a"
+    }
 
 
 def test_valid_high_selection_narrows_canonical_prepare_to_one_cluster(tmp_path: Path):
@@ -210,10 +233,7 @@ def test_valid_high_selection_narrows_canonical_prepare_to_one_cluster(tmp_path:
             publication_enabled=False,
             operating_mode="SHADOW_ONLY",
         )
-        return {
-            "executed": True,
-            **dict(result),
-        }
+        return {"executed": True, **dict(result)}
 
     supervisor._execute_window = execute_window
     result = supervisor.prepare_native_desktop_scheduled_opportunity(
