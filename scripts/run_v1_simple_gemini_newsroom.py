@@ -9,9 +9,18 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Sequence
+
+# Direct-file execution sets sys.path[0] to ``scripts/`` rather than the repository root.
+# Bootstrap only the repository import root so the documented ``python scripts/...`` entrypoint
+# behaves the same as an installed/package invocation without changing runtime authority.
+_REPO_ROOT = Path(__file__).resolve().parents[1]
+_repo_root_text = str(_REPO_ROOT)
+if _repo_root_text not in sys.path:
+    sys.path.insert(0, _repo_root_text)
 
 from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrchestrator
 
