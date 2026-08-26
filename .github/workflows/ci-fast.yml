@@ -50,6 +50,9 @@ jobs:
           python -m pytest -q tests/test_rolling_x_grounded_article_media_builder_v1.py -k "llm_first_exact_claim_validation or writer_validator_rejects_uncovered_connective_paragraph or epistemic_transport_handle"
           python -m pytest -q tests/test_run_v1_llm_first_single_article_canary_v1.py
 
+      - name: Run native LLM-first selected-story ordering regressions
+        run: python -m pytest -q tests/test_native_llm_first_daily_app_supervisor_v1.py
+
       - name: Validate current hybrid execution and V1 owner authority
         shell: bash
         run: |
