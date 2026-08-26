@@ -24,10 +24,12 @@ jobs:
           python-version: '3.12'
 
       - name: Apply exact blob-pinned correction
-        run: python scripts/one_shot_pr30_true_native_llm_first_correction.py
+        run: |
+          python scripts/one_shot_pr30_true_native_llm_first_correction.py
+          python scripts/one_shot_pr30_test_contract_correction.py
 
       - name: Compile corrected Python
-        run: python -m compileall -q live_contentops scripts tests/test_native_llm_first_validate_after_v1.py
+        run: python -m compileall -q live_contentops scripts tests/test_native_llm_first_validate_after_v1.py tests/test_native_llm_first_daily_app_supervisor_v1.py
 
       - name: Install focused test runner
         run: python -m pip install --disable-pip-version-check pytest pillow
@@ -57,9 +59,11 @@ jobs:
             live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py \
             live_contentops/native_llm_first_daily_app_supervisor_v1.py \
             live_contentops/daily_app_supervisor_v1.py \
-            live_contentops/native_desktop_production_handoff_v1.py
+            live_contentops/native_desktop_production_handoff_v1.py \
+            tests/test_native_llm_first_daily_app_supervisor_v1.py
           git rm \
             scripts/one_shot_pr30_true_native_llm_first_correction.py \
+            scripts/one_shot_pr30_test_contract_correction.py \
             .github/workflows/pr30-one-shot-true-native-llm-first.yml
           git diff --cached --check
           git commit -m 'fix(v1): make native Desktop truly validate after writing'
