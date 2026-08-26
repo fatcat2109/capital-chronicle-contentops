@@ -35,7 +35,7 @@ jobs:
         run: python -m compileall -q live_contentops scripts
 
       - name: Install focused test runner
-        run: python -m pip install --disable-pip-version-check pytest
+        run: python -m pip install --disable-pip-version-check pytest pillow
 
       - name: Run deterministic CodeGraph generator tests
         run: python -m pytest -q tests/test_codex_context_index.py
