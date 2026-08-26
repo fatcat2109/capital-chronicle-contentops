@@ -124,10 +124,10 @@ def _supervisor(tmp_path: Path, canonical_cycle):
         f"test-native-selection-{id(supervisor)}", default=None
     )
     supervisor._newsroom_cycle = supervisor._native_llm_first_newsroom_cycle
-    supervisor._resolve_native_desktop_due_window = lambda **_kwargs: (
+    supervisor._resolve_native_desktop_due_window = lambda **kwargs: (
         "v1-newsroom-london-1700",
         "london_1700_bangkok",
-        NOW,
+        kwargs.get("now") or NOW,
         dict(WINDOW),
     )
     supervisor._load_prepared_candidate_checkpoint = lambda _cutoff: _prepared_state()
