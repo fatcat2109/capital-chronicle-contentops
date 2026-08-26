@@ -17,10 +17,11 @@ import json
 from contextvars import ContextVar
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Any, Mapping, Optional
+from typing import Any, Mapping, Optional, Sequence
 
 from live_contentops.daily_app_supervisor_v1 import (
     ContentOpsDailyAppSupervisor,
+    NATIVE_DESKTOP_AUTOMATION_SESSION_BY_ID,
     SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
 )
 from live_contentops.source_capability_registry_v2 import CANONICAL_PRODUCT_MODES
@@ -70,14 +71,33 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         binding = self._native_selection_binding.get()
         if binding is None:
             return self._canonical_newsroom_cycle(**kwargs)
-        if kwargs.get("native_desktop_prepare") is not True:
+        phase = str(binding.get("phase") or "PREPARE").strip().upper()
+        if phase not in {"PREPARE", "COMPLETE"}:
+            raise ValueError("native_llm_first_resume_phase_invalid")
+        if phase == "PREPARE" and kwargs.get("native_desktop_prepare") is not True:
             raise ValueError("native_llm_first_selection_only_valid_for_desktop_prepare")
+
         narrowed = dict(kwargs)
-        # The full prepared frontier was selection input only. Once HIGH returns its bounded
-        # useful shortlist, canonical preselection/evidence may walk only those admitted stories.
+        rolling_input = dict(binding["rolling_input_override"])
+        expected_input_hash = str(rolling_input.get("canonical_input_hash") or "")
+        supplied_input = narrowed.get("rolling_input")
+        if phase == "COMPLETE" and isinstance(supplied_input, Mapping):
+            supplied_hash = str(supplied_input.get("canonical_input_hash") or "")
+            if supplied_hash and supplied_hash != expected_input_hash:
+                raise ValueError("native_llm_first_complete_intake_binding_mismatch")
+
+        # The HIGH selection packet is the complete candidate universe for this opportunity
+        # continuation.  Narrow both the rolling input and assignment so the canonical
+        # publishability pool cannot synthesize reserve candidates from the full intake.
         narrowed["prepared_candidate_state"] = None
+        narrowed["rolling_input"] = rolling_input
         narrowed["assignment_override"] = dict(binding["assignment_override"])
         narrowed["story_type_by_cluster"] = dict(binding["story_type_by_cluster"])
+        # Historical semantic checkpoints were produced for the pre-selection frontier and are
+        # intentionally not replayed against the newly narrowed input. Assignment override is the
+        # exact deterministic resume authority for this path.
+        narrowed["leaf_checkpoints"] = {}
+        narrowed["global_checkpoint"] = None
         result = self._canonical_newsroom_cycle(**narrowed)
         if not isinstance(result, Mapping):
             return result
@@ -94,6 +114,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "selected_cluster_id": binding["selected_cluster_id"],
                 "selected_cluster_ids": list(binding["selected_cluster_ids"]),
                 "selected_article_mode": binding["article_mode"],
+                "canonical_rolling_input_hash": expected_input_hash,
                 "full_prepared_frontier_reopened": False,
                 "high_admitted_shortlist_count": len(binding["selected_cluster_ids"]),
                 "semantic_assignment_provider_call_required": False,
@@ -101,6 +122,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "factual_or_numeric_authority_granted": False,
                 "publication_authority_granted": False,
             },
+            "native_llm_first_resume_binding": dict(binding["resume_binding"]),
         }
 
     def _selection_artifact_path(self, opportunity_id: str) -> Path:
@@ -293,6 +315,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "prepared_candidate_logical_hash": prepared_state.get(
                     "prepared_candidate_logical_hash"
                 ),
+                "prepared_input": dict(prepared_state.get("prepared_input") or {}),
                 "assignment": dict(prepared_state.get("assignment") or {}),
                 "story_type_by_cluster": dict(
                     (prepared_state.get("story_routing") or {}).get(
@@ -426,6 +449,9 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
 
         normalized = {
             "schema_version": str(selection.get("schema_version") or ""),
+            "canonical_opportunity_id": str(
+                selection.get("canonical_opportunity_id") or ""
+            ),
             "selection_request_logical_hash": str(
                 selection.get("selection_request_logical_hash") or ""
             ),
@@ -441,6 +467,10 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
         }
         if normalized["schema_version"] != SELECTION_RETURN_SCHEMA_VERSION:
             raise ValueError("native_llm_first_selection_schema_invalid")
+        if normalized["canonical_opportunity_id"] != str(
+            request.get("canonical_opportunity_id") or ""
+        ):
+            raise ValueError("native_llm_first_selection_opportunity_id_mismatch")
         if normalized["selection_request_logical_hash"] != str(
             request.get("selection_request_logical_hash") or ""
         ):
@@ -460,6 +490,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
     ) -> dict[str, Any]:
         runtime = artifact.get("runtime_binding") or {}
         source_assignment = dict(runtime.get("assignment") or {})
+        prepared_input = dict(runtime.get("prepared_input") or {})
         source_clusters = {
             str(row.get("cluster_id") or ""): dict(row)
             for row in source_assignment.get("ranked_clusters") or []
@@ -495,10 +526,10 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             ]
             if not headline_ids:
                 raise ValueError("native_llm_first_selected_headline_ids_missing")
+            if any(value in selected_headline_ids for value in headline_ids):
+                raise ValueError("native_llm_first_selected_headline_overlap")
             selected_cluster_ids.append(cluster_id)
-            for headline_id in headline_ids:
-                if headline_id not in selected_headline_ids:
-                    selected_headline_ids.append(headline_id)
+            selected_headline_ids.extend(headline_ids)
             selected_leaf_ids.update(
                 str(value)
                 for value in source.get("leaf_cluster_ids") or []
@@ -517,10 +548,64 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 }
             )
 
+        prepared_rows = {
+            str(row.get("headline_id") or ""): dict(row)
+            for row in prepared_input.get("headlines") or []
+            if isinstance(row, Mapping) and str(row.get("headline_id") or "")
+        }
+        if (
+            not selected_headline_ids
+            or len(prepared_rows) != len(prepared_input.get("headlines") or [])
+            or any(headline_id not in prepared_rows for headline_id in selected_headline_ids)
+        ):
+            raise ValueError("native_llm_first_selected_input_binding_invalid")
+        narrowed_input = {
+            **prepared_input,
+            "unique_headline_ids": list(selected_headline_ids),
+            "headlines": [prepared_rows[value] for value in selected_headline_ids],
+        }
+        counts = dict(prepared_input.get("counts") or {})
+        full_count = int(
+            counts.get("accepted_in_full_rolling_intake")
+            or counts.get("accepted")
+            or len(prepared_rows)
+        )
+        counts.update(
+            {
+                "accepted_in_full_rolling_intake": full_count,
+                "accepted": len(selected_headline_ids),
+                "selected_for_native_llm_first": len(selected_headline_ids),
+            }
+        )
+        narrowed_input["counts"] = counts
+        from live_contentops.newsroom_assignment_scheduler_v1 import (
+            _rolling_x_canonical_hash_material,
+        )
+
+        narrowed_input["canonical_input_hash"] = _logical_hash(
+            _rolling_x_canonical_hash_material(narrowed_input)
+        )
+
+        selected_leaf_clusters = [
+            dict(row)
+            for row in source_assignment.get("leaf_clusters") or []
+            if isinstance(row, Mapping)
+            and str(row.get("leaf_cluster_id") or "") in selected_leaf_ids
+        ]
+        leaf_member_ids = {
+            str(value)
+            for row in selected_leaf_clusters
+            for value in row.get("member_headline_ids") or []
+            if str(value)
+        }
+        if selected_leaf_ids and leaf_member_ids != set(selected_headline_ids):
+            raise ValueError("native_llm_first_selected_leaf_binding_invalid")
+
         input_binding = dict(source_assignment.get("input_binding") or {})
         input_binding.update(
             {
-                "input_ids": selected_headline_ids,
+                "canonical_input_hash": narrowed_input["canonical_input_hash"],
+                "input_ids": list(selected_headline_ids),
                 "input_count": len(selected_headline_ids),
                 "selected_count": len(selected_headline_ids),
                 "held_count": 0,
@@ -543,18 +628,10 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             ),
             "input_binding": input_binding,
             "ranked_clusters": selected_clusters,
-            "leaf_clusters": [
-                dict(row)
-                for row in source_assignment.get("leaf_clusters") or []
-                if isinstance(row, Mapping)
-                and (
-                    not selected_leaf_ids
-                    or str(row.get("leaf_cluster_id") or "") in selected_leaf_ids
-                )
-            ],
+            "leaf_clusters": selected_leaf_clusters,
             "selected_cluster_id": selected_cluster_ids[0],
-            "selected_cluster_ids": selected_cluster_ids,
-            "selected_headline_ids": selected_headline_ids,
+            "selected_cluster_ids": list(selected_cluster_ids),
+            "selected_headline_ids": list(selected_headline_ids),
             "router_calls": [],
             "factual_or_numeric_authority_granted": False,
             "router_output_grants_publication_authority": False,
@@ -566,7 +643,16 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
                 "selection_return_logical_hash"
             ],
         }
-        assignment.pop("assignment_logical_hash", None)
+        # These checkpoints are valid only for the original prepared frontier.  The narrowed
+        # assignment is deterministic selection authority, not a claim that the old semantic
+        # router ran over the new input hash.
+        for stale_key in (
+            "compact_global_editor_input",
+            "leaf_partitions",
+            "router_summary",
+            "assignment_logical_hash",
+        ):
+            assignment.pop(stale_key, None)
         assignment["assignment_logical_hash"] = _logical_hash(assignment)
 
         story_types = dict(runtime.get("story_type_by_cluster") or {})
@@ -576,9 +662,28 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             if not story_type:
                 raise ValueError("native_llm_first_selected_story_type_missing")
             selected_story_types[cluster_id] = story_type
-        return {
+
+        resume_binding = {
+            "schema_version": "contentops.native_llm_first_assignment_resume.v1",
             "assignment_override": assignment,
             "story_type_by_cluster": selected_story_types,
+            "selected_cluster_ids": list(selected_cluster_ids),
+            "rolling_input_canonical_hash": narrowed_input["canonical_input_hash"],
+            "selection_request_logical_hash": selection[
+                "selection_request_logical_hash"
+            ],
+            "selection_return_logical_hash": selection[
+                "selection_return_logical_hash"
+            ],
+            "factual_or_numeric_authority_granted": False,
+            "publication_authority_granted": False,
+        }
+        resume_binding["resume_binding_logical_hash"] = _logical_hash(resume_binding)
+        return {
+            "rolling_input_override": narrowed_input,
+            "assignment_override": assignment,
+            "story_type_by_cluster": selected_story_types,
+            "resume_binding": resume_binding,
             "selected_cluster_id": selected_cluster_ids[0],
             "selected_cluster_ids": selected_cluster_ids,
             "article_mode": str(selection["article_mode"]),
@@ -684,7 +789,7 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "native_desktop_automation_id": task_id,
             "native_desktop_zero_public_write": True,
         }
-        token = self._native_selection_binding.set(binding)
+        token = self._native_selection_binding.set({**binding, "phase": "PREPARE"})
         try:
             outcome = self._execute_window(
                 window_for_prepare, moment, split_phase_operation="PREPARE"
@@ -707,6 +812,258 @@ class NativeLlmFirstContentOpsDailyAppSupervisor(ContentOpsDailyAppSupervisor):
             "HIGH_SELECTION_THEN_SELECTED_STORY_DETERMINISTIC_HYDRATION"
         )
         return result
+
+    @staticmethod
+    def _validated_native_resume_binding(
+        value: Mapping[str, Any],
+        *,
+        intake: Mapping[str, Any] | None = None,
+        viability: Mapping[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        binding = dict(value)
+        claimed_hash = str(binding.pop("resume_binding_logical_hash", "") or "")
+        if (
+            binding.get("schema_version")
+            != "contentops.native_llm_first_assignment_resume.v1"
+            or not claimed_hash
+            or claimed_hash != _logical_hash(binding)
+            or binding.get("factual_or_numeric_authority_granted") is not False
+            or binding.get("publication_authority_granted") is not False
+        ):
+            raise ValueError("native_llm_first_resume_binding_invalid")
+        assignment = dict(binding.get("assignment_override") or {})
+        assignment_hash = str(assignment.pop("assignment_logical_hash", "") or "")
+        if (
+            not assignment_hash
+            or assignment_hash != _logical_hash(assignment)
+            or assignment.get("status") != "SUCCESS"
+            or assignment.get("decision") != "SELECT_STORY"
+        ):
+            raise ValueError("native_llm_first_resume_assignment_invalid")
+        assignment = {**assignment, "assignment_logical_hash": assignment_hash}
+        admitted_ids = [str(value) for value in binding.get("selected_cluster_ids") or []]
+        ranked_ids = [
+            str(row.get("cluster_id") or "")
+            for row in assignment.get("ranked_clusters") or []
+            if isinstance(row, Mapping)
+        ]
+        story_types = {
+            str(key): str(value)
+            for key, value in dict(binding.get("story_type_by_cluster") or {}).items()
+        }
+        input_hash = str(binding.get("rolling_input_canonical_hash") or "")
+        input_binding = dict(assignment.get("input_binding") or {})
+        if (
+            not admitted_ids
+            or len(admitted_ids) != len(set(admitted_ids))
+            or ranked_ids != admitted_ids
+            or set(story_types) != set(admitted_ids)
+            or len(input_hash) != 64
+            or str(input_binding.get("canonical_input_hash") or "") != input_hash
+        ):
+            raise ValueError("native_llm_first_resume_scope_invalid")
+        selected_headline_ids = [
+            str(value) for value in assignment.get("selected_headline_ids") or []
+        ]
+        if intake is not None:
+            if (
+                str(intake.get("canonical_input_hash") or "") != input_hash
+                or list(intake.get("unique_headline_ids") or []) != selected_headline_ids
+            ):
+                raise ValueError("native_llm_first_resume_intake_invalid")
+        if viability is not None:
+            selected_viability_id = str(viability.get("selected_cluster_id") or "")
+            if selected_viability_id and selected_viability_id not in set(admitted_ids):
+                raise ValueError("native_llm_first_resume_viability_outside_shortlist")
+        binding["assignment_override"] = assignment
+        return {**binding, "resume_binding_logical_hash": claimed_hash}
+
+    def _persist_native_desktop_pending_handoff(
+        self,
+        *,
+        window: Mapping[str, Any],
+        attempt_number: int,
+        attempt_run_id: str,
+        attempt_output_dir: Path,
+        attempt_result: Mapping[str, Any],
+        prior_attempt_results: Sequence[Mapping[str, Any]],
+        qualified_records: Sequence[Mapping[str, Any]],
+        work_budget: int,
+    ) -> dict[str, Any]:
+        native_resume_raw = attempt_result.get("native_llm_first_resume_binding")
+        if not isinstance(native_resume_raw, Mapping):
+            return super()._persist_native_desktop_pending_handoff(
+                window=window,
+                attempt_number=attempt_number,
+                attempt_run_id=attempt_run_id,
+                attempt_output_dir=attempt_output_dir,
+                attempt_result=attempt_result,
+                prior_attempt_results=prior_attempt_results,
+                qualified_records=qualified_records,
+                work_budget=work_budget,
+            )
+        from live_contentops.native_desktop_production_handoff_v1 import (
+            WORKER_DECISION,
+            load_handoff_checkpoint,
+            logical_hash,
+            persist_handoff_checkpoint,
+            read_json,
+            validate_same_worker_revision_contract,
+            validate_worker_request_binding,
+            validated_viability_checkpoint,
+        )
+
+        result = dict(attempt_result)
+        reason = str(result.get("exact_next_blocker") or "")
+        revision_contract = dict(result.get("same_xhigh_worker_revision_contract") or {})
+        route = dict(result.get("editorial_worker_routing") or {})
+        if reason == "SAME_XHIGH_WORKER_REVISION_REQUIRED":
+            revision_contract = validate_same_worker_revision_contract(revision_contract)
+            worker_request = dict(revision_contract.get("worker_request") or {})
+            governed_hash = str(
+                revision_contract.get("governed_input_hash")
+                or worker_request.get("governed_input_hash")
+                or ""
+            )
+            handoff_status = "SAME_XHIGH_WORKER_REVISION_REQUIRED"
+        else:
+            if route.get("decision") != WORKER_DECISION:
+                raise ValueError("native_desktop_pending_worker_route_missing")
+            worker_request = dict(route.get("worker_request") or {})
+            governed_hash = str(
+                route.get("governed_input_hash")
+                or worker_request.get("governed_input_hash")
+                or ""
+            )
+            handoff_status = (
+                "XHIGH_REQUIRED_FOR_CANDIDATE_CONTINUATION"
+                if reason == "NEXT_NATIVE_XHIGH_WORKER_REQUIRED"
+                else "XHIGH_REQUIRED"
+            )
+        if (
+            len(governed_hash) != 64
+            or str(worker_request.get("governed_input_hash") or "") != governed_hash
+        ):
+            raise ValueError("native_desktop_pending_worker_hash_invalid")
+
+        cycle_path = attempt_output_dir / "rolling_x_newsroom_cycle_evidence_v1.json"
+        viability_path = attempt_output_dir / "rolling_x_ranked_viability_v1.json"
+        intake_path = attempt_output_dir / "rolling_x_intake_v1.json"
+        if not cycle_path.is_file() or not viability_path.is_file() or not intake_path.is_file():
+            raise ValueError("native_desktop_pending_canonical_checkpoint_missing")
+        viability = validated_viability_checkpoint(read_json(viability_path))
+        intake = read_json(intake_path)
+        native_resume = self._validated_native_resume_binding(
+            native_resume_raw, intake=intake, viability=viability
+        )
+        worker_request = validate_worker_request_binding(
+            worker_request,
+            expected_governed_input_hash=governed_hash,
+            viability=viability,
+            allow_same_worker_revision=bool(revision_contract),
+        )
+        semantic_material = {
+            "leaf_checkpoints": {},
+            "global_checkpoint": {},
+            "story_type_by_cluster": dict(
+                native_resume.get("story_type_by_cluster") or {}
+            ),
+        }
+        semantic_bindings = {
+            **semantic_material,
+            "canonical_input_hash": native_resume["rolling_input_canonical_hash"],
+            "semantic_resume_mode": "NATIVE_LLM_FIRST_ASSIGNMENT_OVERRIDE",
+            "semantic_resume_logical_hash": logical_hash(semantic_material),
+        }
+
+        current_path = self._native_desktop_handoff_path(str(window["window_id"]))
+        sequence = 1
+        if current_path.exists():
+            sequence = int(load_handoff_checkpoint(current_path).get("resume_sequence") or 0) + 1
+        checkpoint = {
+            "canonical_opportunity_id": str(window["window_id"]),
+            "runtime_run_id": str(window["window_id"]),
+            "automation_id": str(window.get("native_desktop_automation_id") or ""),
+            "session": str(window.get("session") or ""),
+            "attempt_number": int(attempt_number),
+            "attempt_run_id": str(attempt_run_id),
+            "work_budget": int(work_budget),
+            "resume_sequence": sequence,
+            "handoff_status": handoff_status,
+            "exact_next_blocker": (
+                reason
+                if reason in {
+                    "SAME_XHIGH_WORKER_REVISION_REQUIRED",
+                    "NEXT_NATIVE_XHIGH_WORKER_REQUIRED",
+                }
+                else WORKER_DECISION
+            ),
+            "governed_input_hash": governed_hash,
+            "editorial_worker_request": worker_request,
+            "same_xhigh_worker_revision_contract": revision_contract,
+            "prepare_cycle_evidence_path": str(cycle_path),
+            "prepare_cycle_evidence_sha256": logical_hash(read_json(cycle_path)),
+            "intake_checkpoint_path": str(intake_path),
+            "intake_checkpoint_sha256": logical_hash(intake),
+            "prepared_candidate_checkpoint_path": str(
+                attempt_output_dir / "rolling_x_prepared_candidate_state_v1.json"
+            ),
+            "viability_checkpoint_path": str(viability_path),
+            "viability_logical_hash": viability.get("viability_logical_hash"),
+            "semantic_resume_bindings": semantic_bindings,
+            "native_llm_first_resume_binding": native_resume,
+            "candidate_rank": viability.get("selected_rank"),
+            "candidate_cluster_id": viability.get("selected_cluster_id"),
+            "candidate_headline_ids": list(viability.get("selected_headline_ids") or []),
+            "prior_attempt_results": [dict(row) for row in prior_attempt_results],
+            "qualified_records": [dict(row) for row in qualified_records],
+            "public_write_performed": bool(result.get("public_write_performed")),
+            "unknown_write_detected": bool(result.get("unknown_write_detected")),
+            "legacy_writer_fallback_used": False,
+            "sdk_writer_substitution_used": False,
+            "handoff_checkpoint_path": str(current_path),
+        }
+        return persist_handoff_checkpoint(current_path, checkpoint)
+
+    def complete_native_desktop_scheduled_opportunity(
+        self,
+        *,
+        automation_id: str,
+        canonical_opportunity_id: str,
+        worker_return: Mapping[str, Any],
+        coordinator_review_receipt: Mapping[str, Any],
+        now: Optional[datetime] = None,
+    ) -> dict[str, Any]:
+        task_id = str(automation_id or "").strip()
+        session = NATIVE_DESKTOP_AUTOMATION_SESSION_BY_ID.get(task_id)
+        if not session:
+            raise ValueError("native_llm_first_automation_id_invalid")
+        opportunity_id = str(canonical_opportunity_id or "").strip()
+        artifact = self._load_selection_artifact(
+            task_id=task_id, session=session, opportunity_id=opportunity_id
+        )
+        return_path = self._selection_return_path(opportunity_id)
+        try:
+            persisted_selection = json.loads(return_path.read_text(encoding="utf-8"))
+        except (OSError, TypeError, ValueError) as exc:
+            raise ValueError("native_llm_first_selection_return_missing_or_invalid") from exc
+        if not isinstance(persisted_selection, Mapping):
+            raise ValueError("native_llm_first_selection_return_missing_or_invalid")
+        selection = self._validate_selection_return(persisted_selection, artifact)
+        binding = self._selected_assignment_binding(
+            artifact=artifact, selection=selection
+        )
+        token = self._native_selection_binding.set({**binding, "phase": "COMPLETE"})
+        try:
+            return super().complete_native_desktop_scheduled_opportunity(
+                automation_id=task_id,
+                canonical_opportunity_id=opportunity_id,
+                worker_return=worker_return,
+                coordinator_review_receipt=coordinator_review_receipt,
+                now=now,
+            )
+        finally:
+            self._native_selection_binding.reset(token)
 
     def execute_native_desktop_scheduled_opportunity(
         self,

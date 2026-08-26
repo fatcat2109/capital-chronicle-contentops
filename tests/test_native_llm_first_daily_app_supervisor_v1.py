@@ -463,3 +463,257 @@ def test_production_runtime_instantiates_native_llm_first_supervisor(tmp_path: P
         assert snapshot["public_write_performed"] is False
     finally:
         runtime.close()
+
+
+# PR30_HOST_STATIC_REGRESSIONS_V1
+
+def _pool_valid_prepared_state() -> dict:
+    import copy
+
+    state = copy.deepcopy(_prepared_state())
+    prepared_input = state["prepared_input"]
+    prepared_input.update(
+        {
+            "schema_version": "capital_chronicle.rolling_x_headline_input.v1",
+            "cutoff_time_utc": "2026-08-26T11:00:00Z",
+            "window_start_utc": "2026-08-25T11:00:00Z",
+            "window_hours": 24.0,
+            "counts": {"accepted_in_full_rolling_intake": 1093, "accepted": 3},
+        }
+    )
+    from live_contentops.native_llm_first_daily_app_supervisor_v1 import _logical_hash
+    from live_contentops.newsroom_assignment_scheduler_v1 import (
+        _rolling_x_canonical_hash_material,
+    )
+
+    prepared_input["canonical_input_hash"] = _logical_hash(
+        _rolling_x_canonical_hash_material(prepared_input)
+    )
+    state["assignment"]["input_binding"]["canonical_input_hash"] = prepared_input[
+        "canonical_input_hash"
+    ]
+    for index, leaf in enumerate(state["assignment"]["leaf_clusters"], start=1):
+        member = leaf["member_headline_ids"][0]
+        leaf.update(
+            {
+                "partition_id": f"partition-{index}",
+                "partition_index": index,
+                "canonical_representative_headline_id": member,
+                "event_topic_summary": f"summary-{member}",
+            }
+        )
+    return state
+
+
+def test_selected_shortlist_narrows_real_publishability_pool_before_evidence(tmp_path: Path):
+    from live_contentops.newsroom_assignment_scheduler_v1 import (
+        build_bounded_rolling_x_publishability_pool,
+    )
+
+    state = _pool_valid_prepared_state()
+    supervisor = _supervisor(tmp_path, lambda **_kwargs: {})
+    supervisor._load_prepared_candidate_checkpoint = lambda _cutoff: state
+    probe = supervisor.prepare_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-london-1700", now=NOW
+    )
+    artifact = supervisor._load_selection_artifact(
+        task_id="v1-newsroom-london-1700",
+        session="london_1700_bangkok",
+        opportunity_id=probe["canonical_opportunity_id"],
+    )
+    selection = supervisor._validate_selection_return(_selection_from_probe(probe), artifact)
+    binding = supervisor._selected_assignment_binding(artifact=artifact, selection=selection)
+
+    narrowed = binding["rolling_input_override"]
+    assignment = binding["assignment_override"]
+    assert narrowed["unique_headline_ids"] == ["headline-b"]
+    assert [row["headline_id"] for row in narrowed["headlines"]] == ["headline-b"]
+    assert narrowed["counts"]["accepted_in_full_rolling_intake"] == 1093
+    assert narrowed["counts"]["accepted"] == 1
+    assert assignment["input_binding"]["canonical_input_hash"] == narrowed[
+        "canonical_input_hash"
+    ]
+    assert assignment["input_binding"]["input_ids"] == ["headline-b"]
+
+    pooled = build_bounded_rolling_x_publishability_pool(
+        assignment=assignment, rolling_input=narrowed
+    )
+    assert [row["cluster_id"] for row in pooled["ranked_clusters"]] == ["cluster-b"]
+    assert pooled["publishability_candidate_pool"]["combined_candidate_count"] == 1
+    assert pooled["publishability_candidate_pool"]["full_universe_expansion_performed"] is False
+    assert "cluster-a" not in pooled["publishability_candidate_pool"]["candidate_order"]
+    assert "cluster-c" not in pooled["publishability_candidate_pool"]["candidate_order"]
+
+
+def test_selection_return_file_is_self_replayable_and_opportunity_bound(tmp_path: Path):
+    import json
+
+    supervisor = _supervisor(tmp_path, lambda **_kwargs: {})
+    probe = supervisor.prepare_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-london-1700", now=NOW
+    )
+    artifact = supervisor._load_selection_artifact(
+        task_id="v1-newsroom-london-1700",
+        session="london_1700_bangkok",
+        opportunity_id=probe["canonical_opportunity_id"],
+    )
+    selection = supervisor._validate_selection_return(_selection_from_probe(probe), artifact)
+    path = supervisor._persist_selection_return(
+        opportunity_id=probe["canonical_opportunity_id"], selection=selection
+    )
+    persisted = json.loads(path.read_text(encoding="utf-8"))
+    assert persisted["canonical_opportunity_id"] == probe["canonical_opportunity_id"]
+    assert supervisor._validate_selection_return(persisted, artifact) == selection
+
+
+def test_complete_phase_reuses_narrow_assignment_and_drops_old_semantic_checkpoints(tmp_path: Path):
+    cycle_calls = []
+    supervisor = _supervisor(
+        tmp_path,
+        lambda **kwargs: cycle_calls.append(kwargs)
+        or {"classification": "PASS_PUBLICATION_PLAN_READY"},
+    )
+    state = _pool_valid_prepared_state()
+    artifact = supervisor._build_selection_artifact(
+        task_id="v1-newsroom-london-1700",
+        session="london_1700_bangkok",
+        moment=NOW,
+        window=WINDOW,
+        prepared_state=state,
+    )
+    request = artifact["coordinator_request"]
+    selection = supervisor._validate_selection_return(
+        {
+            "schema_version": SELECTION_RETURN_SCHEMA_VERSION,
+            "canonical_opportunity_id": WINDOW["window_id"],
+            "selection_request_logical_hash": request["selection_request_logical_hash"],
+            "selected_cluster_id": "cluster-b",
+            "article_mode": "STANDARD_NEWS_ANALYSIS",
+            "selection_rationale": "B is useful.",
+            "fallback_candidates": [],
+            "model": COORDINATOR_MODEL,
+            "reasoning_effort": "HIGH",
+            "public_write_attempted": False,
+        },
+        artifact,
+    )
+    binding = supervisor._selected_assignment_binding(artifact=artifact, selection=selection)
+    token = supervisor._native_selection_binding.set({**binding, "phase": "COMPLETE"})
+    try:
+        result = supervisor._native_llm_first_newsroom_cycle(
+            run_id="resume",
+            output_dir=tmp_path,
+            cutoff_utc="2026-08-26T11:00:00Z",
+            rolling_input=binding["rolling_input_override"],
+            prepared_candidate_state={"must": "drop"},
+            leaf_checkpoints={"old": {"must": "drop"}},
+            global_checkpoint={"old": "must_drop"},
+            story_type_by_cluster={"wrong": "value"},
+            publication_enabled=False,
+        )
+    finally:
+        supervisor._native_selection_binding.reset(token)
+    assert result["classification"] == "PASS_PUBLICATION_PLAN_READY"
+    call = cycle_calls[0]
+    assert call["prepared_candidate_state"] is None
+    assert call["rolling_input"]["unique_headline_ids"] == ["headline-b"]
+    assert call["assignment_override"]["selected_cluster_ids"] == ["cluster-b"]
+    assert call["leaf_checkpoints"] == {}
+    assert call["global_checkpoint"] is None
+    assert call["story_type_by_cluster"] == {"cluster-b": "company_sector_event"}
+    assert result["native_llm_first_resume_binding"]["rolling_input_canonical_hash"] == call[
+        "rolling_input"
+    ]["canonical_input_hash"]
+
+
+def test_native_pending_handoff_uses_assignment_resume_not_probe_semantic_checkpoint(
+    monkeypatch, tmp_path: Path
+):
+    import json
+    import live_contentops.native_desktop_production_handoff_v1 as handoff
+
+    state = _pool_valid_prepared_state()
+    supervisor = _supervisor(tmp_path, lambda **_kwargs: {})
+    artifact = supervisor._build_selection_artifact(
+        task_id="v1-newsroom-london-1700",
+        session="london_1700_bangkok",
+        moment=NOW,
+        window=WINDOW,
+        prepared_state=state,
+    )
+    request = artifact["coordinator_request"]
+    selection = supervisor._validate_selection_return(
+        {
+            "schema_version": SELECTION_RETURN_SCHEMA_VERSION,
+            "canonical_opportunity_id": WINDOW["window_id"],
+            "selection_request_logical_hash": request["selection_request_logical_hash"],
+            "selected_cluster_id": "cluster-b",
+            "article_mode": "BREAKING_BRIEF",
+            "selection_rationale": "B is useful.",
+            "fallback_candidates": [],
+            "model": COORDINATOR_MODEL,
+            "reasoning_effort": "HIGH",
+            "public_write_attempted": False,
+        },
+        artifact,
+    )
+    binding = supervisor._selected_assignment_binding(artifact=artifact, selection=selection)
+    attempt = tmp_path / "attempt"
+    attempt.mkdir(parents=True)
+    (attempt / "rolling_x_newsroom_cycle_evidence_v1.json").write_text("{}\n", encoding="utf-8")
+    (attempt / "rolling_x_intake_v1.json").write_text(
+        json.dumps(binding["rolling_input_override"]), encoding="utf-8"
+    )
+    (attempt / "rolling_x_ranked_viability_v1.json").write_text("{}\n", encoding="utf-8")
+
+    viability = {
+        "status": "SUCCESS",
+        "decision": "SELECT_STORY",
+        "selected_cluster_id": "cluster-b",
+        "selected_headline_ids": ["headline-b"],
+        "selected_evidence": {},
+        "viability_logical_hash": "fixture",
+    }
+    monkeypatch.setattr(handoff, "validated_viability_checkpoint", lambda _value: viability)
+    monkeypatch.setattr(
+        handoff,
+        "validate_worker_request_binding",
+        lambda request, **_kwargs: dict(request),
+    )
+    monkeypatch.setattr(
+        handoff,
+        "persist_handoff_checkpoint",
+        lambda _path, value: {**dict(value), "handoff_logical_hash": "persisted"},
+    )
+    monkeypatch.setattr(
+        handoff,
+        "semantic_resume_bindings_from_probe",
+        lambda _probe: (_ for _ in ()).throw(AssertionError("legacy semantic extractor called")),
+    )
+    governed_hash = "a" * 64
+    result = supervisor._persist_native_desktop_pending_handoff(
+        window=WINDOW,
+        attempt_number=1,
+        attempt_run_id=WINDOW["window_id"],
+        attempt_output_dir=attempt,
+        attempt_result={
+            "exact_next_blocker": "EDITORIAL_WORKER_UNAVAILABLE_OR_INVALID",
+            "editorial_worker_routing": {
+                "decision": handoff.WORKER_DECISION,
+                "governed_input_hash": governed_hash,
+                "worker_request": {"governed_input_hash": governed_hash},
+            },
+            "native_llm_first_resume_binding": binding["resume_binding"],
+            "public_write_performed": False,
+            "unknown_write_detected": False,
+        },
+        prior_attempt_results=[],
+        qualified_records=[],
+        work_budget=1,
+    )
+    assert result["semantic_resume_bindings"]["semantic_resume_mode"] == (
+        "NATIVE_LLM_FIRST_ASSIGNMENT_OVERRIDE"
+    )
+    assert result["semantic_resume_bindings"]["leaf_checkpoints"] == {}
+    assert result["semantic_resume_bindings"]["global_checkpoint"] == {}
+    assert result["native_llm_first_resume_binding"]["selected_cluster_ids"] == ["cluster-b"]
