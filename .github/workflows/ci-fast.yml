@@ -50,6 +50,55 @@ jobs:
           python -m pytest -q tests/test_rolling_x_grounded_article_media_builder_v1.py -k "llm_first_exact_claim_validation or writer_validator_rejects_uncovered_connective_paragraph or epistemic_transport_handle"
           python -m pytest -q tests/test_run_v1_llm_first_single_article_canary_v1.py
 
+      - name: Run native LLM-first validate-after, shortlist, handoff, and composition regressions
+        shell: bash
+        run: |
+          python -m pytest -q tests/test_native_llm_first_validate_after_v1.py
+          python -m pytest -q tests/test_native_llm_first_daily_app_supervisor_v1.py
+          python -m pytest -q tests/test_native_desktop_production_handoff_v1.py
+          python - <<'PY'
+          from pathlib import Path
+
+          native = Path('live_contentops/native_llm_first_daily_app_supervisor_v1.py').read_text(encoding='utf-8')
+          external = Path('live_contentops/native_llm_first_validate_after_v1.py').read_text(encoding='utf-8')
+          tests = Path('tests/test_native_llm_first_daily_app_supervisor_v1.py').read_text(encoding='utf-8')
+          for needle in (
+              'HIGH_SELECTION_THEN_FRESH_HIGH_WORKER_THEN_DETERMINISTIC_VALIDATE_AFTER',
+              'native_llm_first_assignment_override_reused',
+              'worker_precedes_evidence_acquisition',
+              'native_llm_first_external_provider_required_for_complete',
+              'canonical_opportunity_id',
+              'rolling_input_override',
+          ):
+              assert needle in native
+          for needle in (
+              'NativeDesktopExternalLlmFirstProvider',
+              'build_external_worker_request',
+              'SAME_HIGH_WORKER_LLM_FIRST_REVISION_REQUIRED',
+              'worker_precedes_deterministic_source_retrieval',
+              'contentops.native_llm_first_external_worker_return.v1',
+          ):
+              assert needle in external
+          for needle in (
+              'test_selected_shortlist_narrows_real_publishability_pool_before_evidence',
+              'test_selection_return_file_is_self_replayable_and_opportunity_bound',
+              'test_primary_only_selection_stops_before_canonical_evidence_and_requests_high_worker',
+              'test_complete_phase_requires_post_generation_verified_external_provider',
+              'test_native_pending_handoff_uses_assignment_resume_not_probe_semantic_checkpoint',
+          ):
+              assert needle in tests
+          for path in (
+              'scripts/one_shot_pr30_host_static_correction.py',
+              'scripts/one_shot_pr30_telemetry_truth_correction.py',
+              'scripts/one_shot_pr30_true_native_llm_first_correction.py',
+              'scripts/one_shot_pr30_test_contract_correction.py',
+              '.github/workflows/pr30-one-shot-host-static-correction.yml',
+              '.github/workflows/pr30-one-shot-telemetry-truth.yml',
+              '.github/workflows/pr30-one-shot-true-native-llm-first.yml',
+          ):
+              assert not Path(path).exists(), path
+          PY
+
       - name: Validate current hybrid execution and V1 owner authority
         shell: bash
         run: |
