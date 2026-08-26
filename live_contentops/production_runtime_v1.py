@@ -11,6 +11,9 @@ from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
 from live_contentops.daily_app_supervisor_v1 import (
     SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
 )
+from live_contentops.native_llm_first_daily_app_supervisor_v1 import (
+    NativeLlmFirstContentOpsDailyAppSupervisor,
+)
 from live_contentops.browser_interaction_budget_v1 import (
     configure_browser_interaction_telemetry,
 )
@@ -61,21 +64,31 @@ class FinalDailyAppProductionRuntime:
             self.api_server = None
 
     def execute_native_desktop_scheduled_opportunity(
-        self, *, automation_id: str, now: Any = None
+        self,
+        *,
+        automation_id: str,
+        now: Any = None,
+        coordinator_selection: Optional[Mapping[str, Any]] = None,
     ) -> dict[str, Any]:
-        """Compatibility alias for the public PREPARE phase."""
+        """Compatibility alias for the native LLM-first public PREPARE seam."""
         return self.supervisor.execute_native_desktop_scheduled_opportunity(
             automation_id=automation_id,
             now=now,
+            coordinator_selection=coordinator_selection,
         )
 
     def prepare_native_desktop_scheduled_opportunity(
-        self, *, automation_id: str, now: Any = None
+        self,
+        *,
+        automation_id: str,
+        now: Any = None,
+        coordinator_selection: Optional[Mapping[str, Any]] = None,
     ) -> dict[str, Any]:
-        """Run canonical discovery/evidence and return a durable XHIGH request when warranted."""
+        """Select first, then hydrate only the exact HIGH-selected story."""
         return self.supervisor.prepare_native_desktop_scheduled_opportunity(
             automation_id=automation_id,
             now=now,
+            coordinator_selection=coordinator_selection,
         )
 
     def complete_native_desktop_scheduled_opportunity(
@@ -109,6 +122,9 @@ class FinalDailyAppProductionRuntime:
             "performance_wiring_not_none": self.supervisor._performance_collector is not None,
             "learning_enabled": self.supervisor._performance_learning_enabled,
             "scheduled_editorial_owner": self.supervisor._scheduled_editorial_owner,
+            "native_llm_first_selection_before_hydration": isinstance(
+                self.supervisor, NativeLlmFirstContentOpsDailyAppSupervisor
+            ),
             "next_wake_utc": self.supervisor._next_wake(self.supervisor._clock()).isoformat().replace("+00:00", "Z"),
             "public_write_performed": False,
         }
@@ -153,7 +169,7 @@ def build_final_daily_app_production_runtime(
         store=store, transport_runtime=transport, readiness_provider=readiness_by_destination,
         readiness_manager=readiness,
     )
-    supervisor = ContentOpsDailyAppSupervisor(
+    supervisor = NativeLlmFirstContentOpsDailyAppSupervisor(
         store_path=store_path,
         output_root=output_root,
         operating_mode=operating_mode,
