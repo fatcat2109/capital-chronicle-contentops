@@ -1,249 +1,289 @@
 # Desktop-Primary Hybrid Codex V1 Newsroom Operator
 
-Authority date: 2026-08-22
-Status: `CURRENT_V1_CODEX_EXECUTION_CONTRACT`
+Authority date: 2026-08-26
+Status: `CURRENT_V1_CODEX_EXECUTION_CONTRACT / NATIVE_LLM_FIRST_SELECTED_STORY_PREPARE`
 
-## 1. Proven hybrid invocation boundary
+This document is the exact runtime contract that the four existing V1 Codex Desktop Automations
+must read from current repository bytes. It owns execution detail only. Root `AGENTS.md`, current
+V3 North Star/Master Plan, the authority/supersession map, and Jim's latest instruction remain
+higher authority.
 
-Desktop standalone fresh-run Automations are the primary routine V1 heavy-editorial brain behind
-the canonical article-builder seam. The accepted same-Italy proof established:
+## 1. Current native execution order
 
-- one fresh standalone `gpt-5.6-sol / HIGH` Desktop coordinator;
-- exactly one fresh isolated `gpt-5.6-sol / HIGH` final writer;
-- one bounded same-worker revision;
-- exact governed-input and native-worker receipt binding;
-- deterministic source, factual/numeric, institutional, SEO, usefulness, packaging, and readiness
-  validation after return;
-- zero publication authority, zero public/provider writes, and `UNKNOWN_WRITE=0`.
-
-The official ChatGPT-authenticated Codex App Server/SDK path remains proven for bounded fallback
-after an exact missed/failed Desktop primary, immediate direct invocation, and benchmarking. It is
-not a racing second routine scheduler.
-
-`live_contentops/codex_desktop_newsroom_operator_v1.py` owns canonical hybrid run identity and the
-small deterministic arbitration. It is not a scheduler, public-write bridge, or authority grant.
-
-## 2. Owner output contract
-
-PR #20's one useful zero-write article plus eight derivative intents is independently accepted.
-PR #19's provider-resilient quota-efficient batch/tail discovery is accepted and reusable.
-
-`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS` remains throughput/economics
-telemetry and daily-output health evidence. It is not a prerequisite for generating or advancing
-one safe article and does not require four ready candidates before writing.
-
-FINAL V1:
-
-`5–8 PUBLISHED ARTICLES per newsroom production day`
-
-Candidate-level abstention remains valid. A whole production day below the active floor is degraded
-unless an exact hard external blocker is proven. No filler. No truth, evidence, numeric, rights, or
-permission weakening.
-
-Current ordering is `LLM-FIRST / VALIDATE-AFTER`. The HIGH coordinator selects from current
-headlines plus published memory and optional read-only CC context; the fresh isolated HIGH worker
-researches and drafts before evidence-ready/sourceability/capability perfection can veto the
-writer. It returns explicit citations and material-claim bindings. Deterministic retrieval then
-verifies exact cited bytes, and unsupported material is removed, narrowed, attributed, or repaired
-with at most one same-worker HIGH revision. Destination readiness, media, SEO parity, and 4/32 are
-not pre-writer admission gates. Final factual/numeric/quotation/causality/CC-authority/rights/
-identity/public-write/UNKNOWN_WRITE gates remain hard.
-
-`CONTENTOPS_CODEX_MAX_REASONING_EFFORT = HIGH` for coordinator, worker, revision, and official
-fallback. Legacy XHIGH schema/field names remain only where historical compatibility requires them.
-
-## 3. Production-day windows
-
-Routine schedule policy:
-
-| Group | Window identity | Bangkok recurrence |
-|---|---|---|
-| London | `V1 Newsroom — London 1700` | Monday–Friday 17:00 |
-| New York | `V1 Newsroom — New York 2100` | Monday–Friday 21:00 |
-| New York | `V1 Newsroom — New York 2300` | Monday–Friday 23:00 |
-| New York | `V1 Newsroom — New York 0100` | Tuesday–Saturday 01:00 |
-
-Timezone: `Asia/Bangkok`.
-
-The 01:00 opportunity belongs to the prior newsroom production day. Production accounting must use
-deterministic `newsroom_production_day_id` semantics, not a naive local calendar date. Do not create
-a fifth routine window.
-
-## 4. Model roles
-
-Existing V1 runtime coordinator:
-
-`gpt-5.6-sol / HIGH`
-
-Primary routine coordinator:
-
-one fresh standalone Desktop `gpt-5.6-sol / HIGH` run per actual opportunity.
-
-Final editorial worker:
-
-one fresh isolated `gpt-5.6-sol / HIGH` worker for each warranted final canonical article.
-
-The grounded research/evidence model policy remains current repository authority and grants zero
-factual, numeric, permission, or public-write authority to model output.
-
-HIGH owns runtime/state recovery, candidate preparation/ranking, evidence/research, readiness,
-deterministic validation, publication coordination, readback/reconciliation, observation
-scheduling, and terminal reporting. HIGH must not silently author the final canonical article.
-
-## 5. Daily deficit recovery contract
-
-At each scheduled Desktop opportunity after explicit owner enablement:
-
-1. resolve the current newsroom production day;
-2. read qualified/published counts and remaining deficit;
-3. recover/reconcile existing state and require `UNKNOWN_WRITE=0`;
-4. load the current candidate universe using durable cutoff/evaluated/update-chain memory;
-5. walk strong candidates and applicable editorial modes; record an exact candidate hard blocker
-   and continue to another eligible governed candidate rather than stopping the opportunity;
-6. for each candidate that reaches the article boundary, invoke one fresh isolated HIGH worker;
-7. persist each qualified article/package result;
-8. repair pure representation/SEO/structured-data defects deterministically before another model
-   call and continue only until useful progress is restored, the bounded universe is exhausted,
-   bounded cost/retry limits are reached, or a hard external blocker occurs;
-9. persist deficit before/after and terminal reasons.
-
-Every routine opportunity below five useful articles performs at least one real candidate walk.
-Intermediate 4/32 pacing never authorizes a zero-work exit. Allocate extra article slots when
-needed to keep five reachable through the remaining routine windows; this capacity never permits
-filler or weaker gates. Routine session ordinal/opportunities-used accounting is independent from
-article progress.
-
-Do not loop forever or repeatedly research unchanged terminal candidates.
-
-## 6. Editorial spectrum
-
-Canonical modes:
-
-- `BREAKING_BRIEF`
-- `FOLLOW_UP_UPDATE`
-- `STANDARD_NEWS_ANALYSIS`
-- `CAPITAL_CHRONICLE_VIEW`
-- `WHAT_THE_MARKET_IS_MISSING`
-- `EVERGREEN_EXPLAINER`
-- `DATA_OR_DOCUMENT_LENS`
-- `WEEK_AHEAD_OR_WATCH`
-
-Quiet-day lower-rung modes are required before treating the usable universe as exhausted.
-
-## 7. Evidence and authority rules
-
-Evidence burden follows claim ambition.
-
-One exact current authentic official primary source may support a narrow attributed breaking fact.
-Broader causal, market, valuation, forecast, scenario, probability, regime, or proprietary numeric
-claims require stronger authority/evidence.
-
-Context/discovery and governed internal Core Analyzer material are not publication permission.
-
-Each HIGH request receives only bounded accepted evidence/authority/context, an exact governed-input
-hash, the full strict canonical article transport schema, and provider developer instructions. It
-receives zero factual, numeric, Capital Chronicle, permission, gate, or public-write authority.
-
-No legacy final-writer fallback.
-
-## 8. Desktop-primary request contract
-
-`live_contentops.codex_desktop_newsroom_operator_v1.py::DESKTOP_TASK_PROMPT` is the one canonical
-routine prompt. Use its exact current repo bytes; do not embed stale branch SHAs or copy an older
-proof prompt. Its contract requires:
+Desktop standalone fresh-run Automations remain the primary routine V1 heavy-editorial brain.
+The current native zero-write order is now:
 
 ```text
-fresh authority -> deterministic production day/current useful-output state -> recovery and
-UNKNOWN_WRITE=0 -> proven provider-resilient discovery/evidence -> eligible candidate walk -> local
-representation repair -> one fresh isolated HIGH only at a warranted article boundary ->
-deterministic hard-gate validation -> zero write unless separately authorized
+FDA-G / durable current intake + continuity
+-> zero-model prepared candidate frontier
+-> fresh Desktop gpt-5.6-sol / HIGH coordinator selects ONE useful story + canonical mode
+-> deterministic hydration/evidence acquisition for ONLY that selected story
+-> exact hash-bound native worker handoff with accepted evidence/context
+-> one fresh isolated gpt-5.6-sol / HIGH final worker
+-> deterministic validation
+-> at most one same-worker HIGH revision from concrete validation deltas
+-> exactly eight undispatched derivative intents when qualified
+-> zero public write unless separately authorized later
 ```
 
-The hard gates include unsupported/fabricated material fact or causality, unbound quotation,
-unsupported numeric/proprietary claim, invalid evidence/source binding, unproven source-omission
-assertion, permission/publication identity failure, and `UNKNOWN_WRITE`. Never infer that a source
-omits something merely because a partial evidence projection lacks it. A genuine terminal semantic
-failure does not authorize provider shopping.
+This is `LLM-FIRST / VALIDATE-AFTER` at the editorial-decision boundary: HIGH story/angle selection
+happens before evidence-ready/sourceability/capability perfection can veto the story. It does **not**
+mean the final worker should waste quota broadly rediscovering evidence that deterministic selected-
+story hydration can already provide. The accepted evidence packet is context, never factual or
+publication authority by itself; final deterministic claim/source/CC/rights/identity gates remain
+hard after the worker returns.
 
-In ZERO-WRITE/SHADOW_ONLY, destination readiness is publication diagnostics, not an editorial or
-HIGH-worker gate. A qualified article may persist exactly eight undispatched intents through a HOLD.
-Actual Substack dispatch still requires exact canonical readiness/identity; derivative readiness is
-destination-local, and `UNKNOWN_WRITE` remains hard.
+Do not restore the historical routine order:
 
-## 9. Desktop Automation and SDK arbitration rule
+```text
+multi-candidate evidence-ready pool -> capability/sourceability perfection -> writer
+```
 
-Current supported host truth proves exactly four native routine Automation objects with the four
-schedules above and `gpt-5.6-sol / HIGH`. The 2026-08-24 21:00 evidence is
-`PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: safe durable
-metadata proves FDA-G's supervisor created, claimed, executed, and terminalized the canonical
-scheduled window. Codex Desktop was not running during that window, so native Desktop Automation
-calendar execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. During correction all four
-objects remain paused. The corrected architecture leaves FDA-G as intake/state/runtime authority
-and makes native Desktop the sole scheduled heavy-editorial owner.
+and do not restore the historical 35-call / 10.2M-token discovery default.
 
-Prompt normalization/readback is complete without creating a fifth routine object. No task is
-enabled by this contract. Zero-write enablement/calendar-time proof and routine public-write
-authority require separate exact owner decisions.
+## 2. Two-step native PREPARE handshake
 
-Hybrid arbitration uses one canonical identity over runtime run, production day, opportunity,
-story, and governed input. Accepted Desktop primary wins inside its valid window. SDK fallback may
-start only after an exact missed/failed/expired primary condition. Once SDK fallback starts, late
-Desktop completion is suppressed and may create neither a duplicate article nor a public object.
-Terminal content-gate failure does not authorize provider shopping.
+Use only the public production runtime methods. Never call private supervisor methods.
 
-### 9.1 Native production PREPARE/COMPLETE seam
+### Step A — selection probe
 
-The supported production composition exposes two public methods on
-`FinalDailyAppProductionRuntime`:
+Call:
 
-- `prepare_native_desktop_scheduled_opportunity(automation_id=..., now=...)`
-- `complete_native_desktop_scheduled_opportunity(automation_id=...,
-  canonical_opportunity_id=..., worker_return=..., coordinator_review_receipt=..., now=...)`
+```text
+FinalDailyAppProductionRuntime.prepare_native_desktop_scheduled_opportunity(
+  automation_id=<exact existing V1 Automation id>,
+  now=<current governed time if explicitly supplied>
+)
+```
 
-PREPARE claims the exact scheduled window through the existing durable work item and lease. It
-runs the canonical candidate/evidence path. If no article worker is warranted, it terminalizes
-normally. If one is warranted, it persists the exact worker request, governed-input hash,
-viability checkpoint, accepted semantic-resume bindings, candidate identity, attempt budget, and
-prior qualified progress; it leaves the work item `EVIDENCE_PENDING` and releases the lease.
-Duplicate PREPARE returns the same pending handoff without another cycle.
+When a zero-model prepared frontier exists, the expected result is:
 
-Desktop HIGH creates the one fresh isolated `gpt-5.6-sol / HIGH` worker. Python receives no Codex
-credential or private provider bridge. COMPLETE requires the exact opportunity id, worker return,
-and hash-bound HIGH coordinator review receipt. It reacquires the same work item, reuses the exact
-intake/leaf/global/story-type/viability checkpoints, and runs the canonical article builder and
-validators without reranking or refetching the bound candidate. A candidate-local hard failure
-may return the next distinct governed worker request in the same opportunity. A semantic revision
-may return one same-worker revision request; no legacy or SDK writer substitution is permitted.
-Only the canonical terminal conditions close the work item.
+`classification = HIGH_SELECTION_REQUIRED`
 
-Both phases are permanently zero-public-write. Destination readiness HOLD remains diagnostics,
-while observed public-write or `UNKNOWN_WRITE` truth is preserved and blocks the result. The
-compatibility method `execute_native_desktop_scheduled_opportunity(...)` aliases PREPARE; callers
-must not invoke the supervisor's private `_execute_window` method.
+with an exact `coordinator_selection_request` and persisted selection artifact.
 
-## 10. Material-event wake
+At this point the runtime must have performed:
 
-FDA-G material-event detection may prioritize existing-runtime work. It grants neither extra model
-turns nor public-write authority and bypasses no deterministic gate.
+- zero newsroom-cycle invocations for the article path;
+- zero evidence-acquisition requests;
+- zero semantic-assignment provider calls;
+- zero story-type semantic calls;
+- zero public/provider writes;
+- zero factual/numeric/evidence/CC/publication authority grants.
 
-Do not add a credential/access-token/API Codex bridge without a separate explicit owner grant.
+The coordinator request contains at most eight current prepared candidates, current bounded
+continuity context where available, the exact canonical opportunity id, allowed canonical product
+modes, and an exact `selection_request_logical_hash`.
 
-## 11. Build and publication safety
+The Desktop coordinator itself chooses exactly one useful non-filler current candidate and one of
+the eight canonical article modes. It must return:
 
-The current provider and canary proof is `ZERO PUBLIC WRITE`. It does not publish, create externally
-visible drafts, dispatch derivatives, mutate public account identity, reset production state, or
-authorize blind retry of ambiguous writes.
+```text
+schema_version = contentops.native_llm_first_selection_return.v1
+canonical_opportunity_id = <exact probe value>
+selection_request_logical_hash = <exact probe value>
+selected_cluster_id = <one candidate from the probe>
+article_mode = <one canonical product mode>
+selection_rationale = <concise useful-reader rationale>
+model = gpt-5.6-sol
+reasoning_effort = HIGH
+public_write_attempted = false
+```
 
-`UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`
+Selection grants no factual, evidence, numeric, Capital Chronicle, permission, rights, or
+publication authority.
 
-## 12. Current proof and remaining acceptance
+If Step A returns a governed no-candidate/blocker terminal result instead of
+`HIGH_SELECTION_REQUIRED`, do not invent a selection and do not create a worker.
 
-PR #20's exact useful zero-write vertical is independently accepted. The official SDK proof remains
-preserved as fallback/direct/benchmark capability evidence, and PR #19 discovery remains current.
-The completed prompt normalization proves configuration only; it does not prove calendar-time
-Automation execution, production throughput, or publication authority.
+### Step B — selected-story deterministic hydration
 
-Next: exact owner-authorized zero-write Automation enablement/calendar-time unattended proof,
-followed by fresh current-epoch V5 acceptance and separate routine public-write/final-product
-authority decisions. No task enablement, article generation, public write, or 4/32 rerun is
-authorized here. `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden.
+Pass the exact selection back through the same public method:
+
+```text
+FinalDailyAppProductionRuntime.prepare_native_desktop_scheduled_opportunity(
+  automation_id=<same exact id>,
+  coordinator_selection=<exact Step-A return>,
+  now=<current governed time if explicitly supplied>
+)
+```
+
+The runtime verifies the persisted selection artifact/hash/expiry and then invokes the **existing
+canonical PREPARE** on only the selected story:
+
+- full `prepared_candidate_state` is removed from that canonical invocation so unused candidates
+  cannot reopen a pre-writer multi-candidate evidence walk;
+- `assignment_override` contains exactly the selected cluster/headline set;
+- selected canonical article mode is preserved and marked LLM-first-selected;
+- deterministic prepared `story_type_by_cluster` is reused, avoiding a hidden story-type model call;
+- existing official/public evidence loaders, exact retrieval, story-scoped cache, request budgets,
+  CC authority resolver, and handoff builder remain the sole evidence path;
+- no second crawler/cache/store/scheduler/newsroom/publisher is created.
+
+If selected-story hydration cannot establish the minimum trustworthy evidence required for the
+selected article scope, record the exact candidate blocker. Candidate failure may continue to a
+new governed candidate only through the bounded canonical opportunity semantics; never weaken hard
+evidence gates and never manufacture filler.
+
+If Step B reaches the article boundary it returns the existing exact hash-bound native worker
+handoff (`HIGH_REQUIRED` / equivalent existing handoff classification). Only then create one fresh
+isolated HIGH worker.
+
+## 3. Worker contract
+
+Final worker:
+
+`gpt-5.6-sol / HIGH`, fresh and isolated.
+
+Current ContentOps reasoning ceiling is permanently HIGH for coordinator, worker, revision, and
+official SDK fallback. No XHIGH, ULTRA_HIGH, MAX, or effort above HIGH.
+
+The worker receives only the bounded selected-story packet and exact governed-input hash. It has
+zero factual, numeric, Capital Chronicle, permission, rights, gate, or public-write authority.
+
+Use the accepted deterministic evidence packet first. Do not spend broad web/search turns merely
+to rediscover already accepted source bytes. Read-only web expansion is permitted only when the
+exact selected-story packet is genuinely insufficient for the warranted article scope and the
+canonical bounded research/evidence policy allows it. Any newly cited material still requires
+deterministic source-byte verification before qualification.
+
+The worker must not invent or alter URLs, source handles, source IDs, evidence IDs, quotations,
+numbers, or facts. Source-backed public copy uses only the exact supplied source markers/identity
+contract. Never infer that a source omits a fact merely because a partial projection does not show
+it.
+
+At most one same-worker HIGH revision is allowed, and only for concrete deterministic validation
+deltas. Representation-only title/dek/SEO/structured-data/alias defects are local normalization or
+warnings where meaning is unchanged; do not spend another model turn on them.
+
+## 4. COMPLETE
+
+Use:
+
+```text
+FinalDailyAppProductionRuntime.complete_native_desktop_scheduled_opportunity(
+  automation_id=<same exact id>,
+  canonical_opportunity_id=<exact Step-A/Step-B opportunity id>,
+  worker_return=<exact worker return>,
+  coordinator_review_receipt=<exact hash-bound HIGH review receipt>,
+  now=<current governed time if explicitly supplied>
+)
+```
+
+COMPLETE reacquires the same durable work item and reuses the exact persisted intake/story/evidence/
+viability bindings. It must not rerank or refetch the full candidate frontier merely because the
+model conversation is fresh.
+
+A semantic revision may return one same-worker revision request. A candidate-local hard failure may
+continue according to the existing bounded candidate continuation contract. No legacy writer
+fallback or provider shopping after a terminal semantic failure.
+
+## 5. Four routine Automations only
+
+Exactly four native V1 routine objects exist:
+
+- `v1-newsroom-london-1700` — Monday-Friday 17:00 Bangkok
+- `v1-newsroom-new-york-2100` — Monday-Friday 21:00 Bangkok
+- `v1-newsroom-new-york-2300` — Monday-Friday 23:00 Bangkok
+- `v1-newsroom-new-york-0100` — Tuesday-Saturday 01:00 Bangkok, belonging to the prior production day
+
+Do not create a fifth routine Automation.
+
+The four objects remain paused until current zero-write enablement/calendar-time proof is explicitly
+advanced by the operator. Prompt/config normalization is not enablement. Enablement is not public-
+write permission.
+
+## 6. Output and throughput semantics
+
+The build/proof throughput benchmark remains:
+
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`.
+
+It is telemetry/daily-output health evidence, not a prerequisite for one useful article and never a
+per-window stop condition.
+
+Final V1 target remains:
+
+`5–8 useful PUBLISHED ARTICLES per newsroom production day`, without filler.
+
+Candidate-level abstention is valid. Whole-day output below the active floor without an exact hard
+external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
+
+Later existing windows may perform bounded catch-up work. Do not create extra routine windows to
+chase the counter.
+
+## 7. Hard gates preserved
+
+Fail closed for:
+
+- fabricated or unsupported material fact;
+- materially unsupported causality;
+- fake/unbound quotation;
+- unsupported factual number;
+- materially misleading stale event state;
+- proprietary probability/forecast/scenario/regime/valuation/decision claim without exact Capital
+  Chronicle publication authority;
+- invalid or materially insufficient source/evidence binding;
+- rights/permission failure;
+- wrong destination/account or unauthorized public write;
+- secret/session exposure;
+- unresolved `UNKNOWN_WRITE`.
+
+`UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
+
+In ZERO-WRITE/SHADOW_ONLY, destination readiness HOLD is publication diagnostics, not a story-
+selection, hydration, or worker-admission veto. Zero media is valid.
+
+## 8. Native primary vs SDK fallback
+
+Native Desktop is the primary routine heavy-editorial owner. The official ChatGPT-authenticated
+Codex App Server/SDK path is a bounded missed/failed-primary fallback, immediate direct path when
+needed, and benchmark path. It is not a racing second scheduler.
+
+Do not use the PR #29 direct SDK canary's approximately 993k accounted tokens / nine web-search
+events as proof of native-primary steady-state economics. Native primary now selects first and then
+reuses deterministic selected-story evidence before the final worker. Measure actual native
+coordinator/worker/revision tokens, evidence/network reads, and web expansion in the host canary.
+
+Accepted Desktop primary wins its canonical run identity. SDK fallback may start only after an exact
+missed/failed/expired primary condition. Late Desktop completion after accepted fallback must be
+suppressed; neither path may create duplicate articles or public objects.
+
+## 9. Browser, publication, and safety boundaries
+
+FDA-G remains continuous intake/state/runtime authority. The native selection seam is not a new
+scheduler or state store.
+
+Browser roles remain:
+
+- Chrome `CapitalChronicleBot` CDP 9222 — ingestion only.
+- Edge `contentops-social-main` CDP 9223 — publication/media/readback and explicitly authorized
+  observation only.
+
+No pyautogui, SendKeys, focus stealing, brittle UI selectors, private session/browser DB inspection,
+cookie/token extraction, or unsupported internals.
+
+No model, prompt, config, Automation, branch, or runtime composition grants public-write authority
+by implication.
+
+## 10. Current proof boundary
+
+Accepted/reuse:
+
+- canonical durable V1 runtime/store/supervisor/publication/readback foundations;
+- PR #19 quota-efficient provider-resilient evidence discovery;
+- PR #20 canonical single-article worker-return path;
+- PR #29 HIGH-only direct LLM-first/validate-after single-article zero-write runtime proof;
+- four existing paused native Automation objects and their prior supported host readback.
+
+Current PR implementation may prove the **native selection-first -> selected-story hydration ->
+existing worker handoff** mechanics through GitHub CI. That is not host/runtime acceptance.
+
+Before enabling routine Automations, one narrow zero-write host canary must prove the new two-step
+native PREPARE handshake on current real intake/store, actual HIGH coordinator/worker behavior,
+exact economics, one qualified article plus eight undispatched derivative intents when a useful
+candidate exists, public/provider writes `0`, and `UNKNOWN_WRITE=0`.
+
+Do not merge implementation status into `V1_FINAL_PRODUCT_ACCEPTED`. Calendar-time unattended/
+cold-start/fallback/late-result/duplicate-suppression proof and fresh V5 acceptance remain separate
+later boundaries.
