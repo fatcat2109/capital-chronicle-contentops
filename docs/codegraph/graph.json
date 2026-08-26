@@ -13,7 +13,7 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13886,
+    "edges": 13889,
     "entrypoints": 16,
     "nodes": 7348,
     "nodes_by_kind": {
@@ -22282,6 +22282,12 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_native_desktop_production_handoff_v1.py"
+    },
+    {
+      "from": "live_contentops/native_desktop_production_handoff_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_native_llm_first_daily_app_supervisor_v1.py"
     },
     {
       "from": "live_contentops/native_llm_first_daily_app_supervisor_v1.py",
@@ -74383,6 +74389,18 @@
     },
     {
       "from": "tests/test_native_llm_first_daily_app_supervisor_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/native_desktop_production_handoff_v1.py"
+    },
+    {
+      "from": "tests/test_native_llm_first_daily_app_supervisor_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/native_desktop_production_handoff_v1.py"
+    },
+    {
+      "from": "tests/test_native_llm_first_daily_app_supervisor_v1.py",
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/native_llm_first_daily_app_supervisor_v1.py"
@@ -83471,7 +83489,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-26T09:36:53Z",
+  "generation_timestamp_utc": "2026-08-26T11:05:03Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -85780,7 +85798,7 @@
     {
       "id": "live_contentops/native_llm_first_daily_app_supervisor_v1.py",
       "kind": "python_module",
-      "size_bytes": 32278
+      "size_bytes": 50545
     },
     {
       "id": "live_contentops/newsroom_assignment_scheduler_v1.py",
@@ -105076,7 +105094,7 @@
     {
       "id": "python_symbol:live_contentops/native_llm_first_daily_app_supervisor_v1.py::NativeLlmFirstContentOpsDailyAppSupervisor",
       "kind": "python_class",
-      "line": 58,
+      "line": 59,
       "path": "live_contentops/native_llm_first_daily_app_supervisor_v1.py",
       "symbol": "NativeLlmFirstContentOpsDailyAppSupervisor"
     },
@@ -124970,7 +124988,7 @@
     {
       "id": "tests/test_native_llm_first_daily_app_supervisor_v1.py",
       "kind": "test",
-      "size_bytes": 19376
+      "size_bytes": 30378
     },
     {
       "id": "tests/test_newsroom_assignment_scheduler_v1.py",
@@ -131163,6 +131181,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "77416b8b89d9ef762186f877a8e31e905a25638a",
-  "source_tree_digest": "6b13a1a2996dfc74bffcdb57bb562d4888bea020290355b2e4870c813ac60eb4"
+  "source_head": "1bb7289fb9aa2f63adcbd5921dc1821506ca1acf",
+  "source_tree_digest": "09b99211c5d5b9bf14bb247181ac883ebefbd899841a9e42fdd6e9f29f5cf608"
 }
