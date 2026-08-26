@@ -108,7 +108,7 @@ def _plan_cycle(destinations=("substack",), package_identity="pkg-1"):
             {
                 "editorial_worker_receipt": {
                     "model": "gpt-5.6-sol",
-                    "reasoning_effort": "XHIGH",
+                    "reasoning_effort": "HIGH",
                     "fresh": True,
                     "isolated": True,
                     "resume_existing": False,

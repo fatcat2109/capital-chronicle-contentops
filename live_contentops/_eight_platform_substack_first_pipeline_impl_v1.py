@@ -4590,6 +4590,8 @@ def _run_rolling_x_newsroom_cycle(
     destination_readiness_override: Mapping[str, Any] | None = None,
     runtime_preflight_override: Mapping[str, Any] | None = None,
     acceptance_profile: str | None = None,
+    llm_first_editorial_provider: Any = None,
+    assignment_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if sidecar_glob is None:
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
@@ -4726,13 +4728,34 @@ def _run_rolling_x_newsroom_cycle(
     )
     activity.record("CANDIDATE_SELECTION")
     try:
-        assignment = assign_rolling_x_headlines_with_nine_router(
-            rolling_input=assignment_input,
-            timeout_seconds=assignment_timeout_seconds,
-            provider_call=assignment_provider_call,
-            leaf_checkpoints=leaf_checkpoints,
-            global_checkpoint=global_checkpoint,
-        )
+        if assignment_override is not None:
+            assignment = dict(assignment_override)
+            if (
+                assignment.get("status") != "SUCCESS"
+                or assignment.get("decision") != "SELECT_STORY"
+                or not set(
+                    str(value)
+                    for value in (assignment.get("input_binding") or {}).get("input_ids") or []
+                    if str(value)
+                ).issubset(
+                    set(
+                        str(value)
+                        for value in assignment_input.get("unique_headline_ids") or []
+                        if str(value)
+                    )
+                )
+                or not assignment.get("ranked_clusters")
+            ):
+                raise ValueError("rolling_x_assignment_override_binding_invalid")
+            assignment["assignment_checkpoint_reused"] = True
+        else:
+            assignment = assign_rolling_x_headlines_with_nine_router(
+                rolling_input=assignment_input,
+                timeout_seconds=assignment_timeout_seconds,
+                provider_call=assignment_provider_call,
+                leaf_checkpoints=leaf_checkpoints,
+                global_checkpoint=global_checkpoint,
+            )
         if prepared_state is not None:
             assignment = {
                 **assignment,
@@ -4809,6 +4832,8 @@ def _run_rolling_x_newsroom_cycle(
     preselection: Mapping[str, Any] | None = None
     ranked_assignment = assignment
     publishability_candidate_pool: Mapping[str, Any] | None = None
+    pre_preselection_clusters: list[dict[str, Any]] = []
+    llm_first_summary: dict[str, Any] | None = None
     if (
         assignment.get("status") == "SUCCESS"
         and assignment.get("decision") == "SELECT_STORY"
@@ -4873,6 +4898,7 @@ def _run_rolling_x_newsroom_cycle(
         enriched_clusters = _rolling_x_ranked_clusters_with_context(
             assignment=ranked_assignment, intake=intake
         )
+        pre_preselection_clusters = [dict(row) for row in enriched_clusters]
         from live_contentops.capital_chronicle_data_catalog_v1 import (
             discover_cc_data_estate,
         )
@@ -5018,6 +5044,81 @@ def _run_rolling_x_newsroom_cycle(
                         "semantic_routing_grants_authority": False,
                     }
         _write_json(output_dir / "rolling_x_story_routing_v1.json", story_routing)
+    if llm_first_editorial_provider is not None:
+        if publication_enabled:
+            raise ValueError("llm_first_validate_after_requires_zero_public_write")
+        if evidence_acquirer is not None or article_builder is not None:
+            raise ValueError("llm_first_validate_after_adapter_conflict")
+        prepare = getattr(llm_first_editorial_provider, "prepare", None)
+        cached_evidence = getattr(llm_first_editorial_provider, "evidence_acquirer", None)
+        cached_article = getattr(llm_first_editorial_provider, "article_builder", None)
+        if not callable(prepare) or not callable(cached_evidence) or not callable(cached_article):
+            raise ValueError("llm_first_validate_after_provider_invalid")
+        llm_candidates = list(pre_preselection_clusters)
+        if not llm_candidates:
+            raise ValueError("llm_first_validate_after_candidate_universe_empty")
+        llm_first_summary = dict(
+            prepare(
+                ranked_clusters=llm_candidates,
+                intake=intake,
+                cutoff_utc=cutoff_utc,
+                published_corpus=list(published_corpus or []),
+            )
+        )
+        selected_llm_cluster_id = str(
+            llm_first_summary.get("selected_cluster_id") or ""
+        )
+        selected_mode = str(
+            (llm_first_summary.get("selection") or {}).get("article_mode")
+            or "BREAKING_BRIEF"
+        )
+        ordered_llm_clusters = sorted(
+            llm_candidates,
+            key=lambda row: (
+                0 if str(row.get("cluster_id") or "") == selected_llm_cluster_id else 1,
+                int(row.get("rank") or 0),
+                str(row.get("cluster_id") or ""),
+            ),
+        )
+        reranked_llm_clusters = []
+        for llm_rank, raw_cluster in enumerate(ordered_llm_clusters, start=1):
+            cluster = {**dict(raw_cluster), "rank": llm_rank}
+            if str(cluster.get("cluster_id") or "") == selected_llm_cluster_id:
+                cluster["resolved_article_mode"] = selected_mode
+                cluster["article_mode"] = selected_mode
+            reranked_llm_clusters.append(cluster)
+        ranked_assignment = {
+            **ranked_assignment,
+            "status": "SUCCESS",
+            "decision": "SELECT_STORY",
+            "reason_code": None,
+            "ranked_clusters": reranked_llm_clusters,
+            "selected_cluster_id": selected_llm_cluster_id,
+            "selected_headline_ids": list(
+                next(
+                    row for row in reranked_llm_clusters
+                    if str(row.get("cluster_id") or "") == selected_llm_cluster_id
+                ).get("headline_ids")
+                or []
+            ),
+            "llm_first_validate_after": True,
+        }
+        story_type_by_cluster = {
+            str(row.get("cluster_id") or ""): str(
+                (story_type_by_cluster or {}).get(str(row.get("cluster_id") or ""))
+                or "general_public_event"
+            )
+            for row in reranked_llm_clusters
+        }
+        story_routing = {
+            "status": "SUCCESS",
+            "reason_code": None,
+            "story_type_by_cluster": dict(story_type_by_cluster),
+            "llm_first_selection_precedes_capability_admission": True,
+            "semantic_routing_grants_authority": False,
+        }
+        evidence_acquirer = cached_evidence
+        article_builder = cached_article
     ranked_clusters_for_activity = [
         dict(row)
         for row in (ranked_assignment.get("ranked_clusters") or [])
@@ -5326,6 +5427,7 @@ def _run_rolling_x_newsroom_cycle(
             }
         ),
         "runtime_preflight": runtime_preflight,
+        "llm_first_validate_after": llm_first_summary,
         "public_write_performed": False,
         "publishing_adapter_called": False,
         "unknown_write_detected": False,

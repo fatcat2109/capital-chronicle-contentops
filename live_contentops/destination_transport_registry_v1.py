@@ -817,7 +817,7 @@ class DestinationReadinessManager:
         """Refresh all nine required destinations for one qualified transaction.
 
         This is deliberately unavailable to idle polling. It is called only after governed
-        evidence qualifies an article and before the one XHIGH editorial worker can be created.
+        evidence qualifies an article and before the one HIGH editorial worker can be created.
         """
         rows: dict[str, Any] = {}
         for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:

@@ -131,7 +131,7 @@ Every Builder packet states:
 
 Operator chooses this. Do not return routine model/session selection to Jim.
 
-Use minimum sufficient compute. Consequential newsroom/runtime implementation normally warrants GPT-5.6 Sol HIGH; major cross-module or consequential creative work may warrant XHIGH; an actual final high-value article/video worker may use one fresh isolated XHIGH when warranted. Do not use MAX merely because a task is important.
+Use minimum sufficient compute. Current ContentOps Codex execution is permanently capped at GPT-5.6 Sol HIGH: coordinator, editorial/creative worker, revision, and official fallback may not request XHIGH, ULTRA_HIGH, MAX, or any effort above HIGH. Historical evidence names are not current configuration.
 
 Use CURRENT session when same branch/PR/worktree or live debug state is valuable. Use FRESH when starting a genuinely different capability, switching V1/V2 truth planes, or prior context is materially stale. Session context is disposable; Git worktree/branch state is durable.
 
@@ -159,7 +159,7 @@ Do not bounce ordinary engineering errors back to Operator after each attempt.
 
 There is no arbitrary debugging-attempt limit.
 
-**NO BLIND IDENTICAL RETRY.** Every expensive retry requires a new hypothesis, code/config/environment change, new evidence, or a justified transient provider failure. Prefer local deterministic repair before spending another XHIGH/network/provider/browser call.
+**NO BLIND IDENTICAL RETRY.** Every expensive retry requires a new hypothesis, code/config/environment change, new evidence, or a justified transient provider failure. Prefer local deterministic repair before spending another HIGH/network/provider/browser call.
 
 ---
 

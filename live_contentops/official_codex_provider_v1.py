@@ -28,7 +28,8 @@ PROVIDER_ID = "OPENAI_CODEX_CHATGPT"
 TRANSPORT = "OFFICIAL_CODEX_APP_SERVER_STDIO"
 AUTH_CLASSIFICATION = "CHATGPT"
 MODEL = "gpt-5.6-sol"
-EFFORT = "xhigh"
+CONTENTOPS_CODEX_MAX_REASONING_EFFORT = "high"
+EFFORT = CONTENTOPS_CODEX_MAX_REASONING_EFFORT
 API_KEY_ENVIRONMENT_NAMES = ("OPENAI_API_KEY", "CODEX_API_KEY")
 TRANSPORT_SCHEMA: dict[str, Any] = ARTICLE_TRANSPORT_SCHEMA
 PHASES = frozenset(
@@ -167,11 +168,15 @@ class OfficialCodexEditorialSession:
         sdk_factory: Callable[[], Any] | None = None,
         environment: Mapping[str, str] | None = None,
         expected_sdk_version: str = OFFICIAL_SDK_VERSION,
+        output_schema: Mapping[str, Any] | None = None,
+        allow_web_items: bool = False,
     ) -> None:
         self.proof_cwd = Path(proof_cwd).resolve()
         self.sdk_factory = sdk_factory
         self.environment = dict(os.environ if environment is None else environment)
         self.expected_sdk_version = expected_sdk_version
+        self.output_schema = dict(output_schema or TRANSPORT_SCHEMA)
+        self.allow_web_items = bool(allow_web_items)
         self._sdk_context: Any = None
         self._codex: Any = None
         self._thread: Any = None
@@ -204,7 +209,7 @@ class OfficialCodexEditorialSession:
                 read_only = "read_only"
 
             class ReasoningEffort:
-                xhigh = "xhigh"
+                high = "high"
 
             return (
                 supplied,
@@ -343,7 +348,7 @@ class OfficialCodexEditorialSession:
             "evidence_hash": evidence_hash,
             "prompt_sha256": _sha256(prompt),
             "developer_instruction_sha256": _sha256(developer_instructions),
-            "schema_sha256": _sha256(TRANSPORT_SCHEMA),
+            "schema_sha256": _sha256(self.output_schema),
         }
         attempt_key = _sha256(input_identity)
         if attempt_key in self._seen_attempt_keys:
@@ -367,9 +372,9 @@ class OfficialCodexEditorialSession:
             result = self._thread.run(
                 prompt,
                 approval_mode=self._approval_mode.deny_all,
-                effort=getattr(self._reasoning_effort, EFFORT),
+                effort=getattr(self._reasoning_effort, EFFORT, EFFORT),
                 model=MODEL,
-                output_schema=TRANSPORT_SCHEMA,
+                output_schema=self.output_schema,
                 sandbox=self._sandbox.read_only,
             )
         except TimeoutError as exc:
@@ -380,7 +385,12 @@ class OfficialCodexEditorialSession:
             kind = type(exc).__name__.lower()
             message = str(exc).lower()
             phase = "TURN_EXECUTION"
-            if "rate" in kind or "rate" in message or "quota" in message:
+            if (
+                "rate" in kind
+                or "rate" in message
+                or "quota" in message
+                or "usage limit" in message
+            ):
                 phase = "RATE_LIMIT"
             elif "context" in message and ("limit" in message or "length" in message):
                 phase = "CONTEXT_LIMIT"
@@ -414,7 +424,7 @@ class OfficialCodexEditorialSession:
                 phase="STRUCTURED_OUTPUT",
                 model_turn_completed=True,
             ) from exc
-        schema_error = _transport_schema_error(envelope, TRANSPORT_SCHEMA)
+        schema_error = _transport_schema_error(envelope, self.output_schema)
         if schema_error:
             raise OfficialCodexProviderError(
                 "CODEX_STRICT_TRANSPORT_SCHEMA_INVALID",
@@ -430,9 +440,10 @@ class OfficialCodexEditorialSession:
             "mcp",
             "shell",
             "tool",
-            "web",
             "computer",
         )
+        if not self.allow_web_items:
+            forbidden = (*forbidden, "web")
         if any(marker in item.lower() for item in item_types for marker in forbidden):
             raise OfficialCodexProviderError(
                 "CODEX_UNEXPECTED_ACTION_ITEM",
@@ -487,7 +498,7 @@ class OfficialCodexEditorialSession:
                 developer_instructions.encode("utf-8")
             ),
             "developer_instruction_sha256": _sha256(developer_instructions),
-            "transport_schema_sha256": _sha256(TRANSPORT_SCHEMA),
+            "transport_schema_sha256": _sha256(self.output_schema),
             "turn_result_status": status,
             "turn_result_final_response_sha256": _sha256(content),
             "turn_result_item_types": item_types,
@@ -497,7 +508,7 @@ class OfficialCodexEditorialSession:
             "normalized_article_sha256": _sha256(output),
             "transport_nullable_fields_removed": removed_transport_null_fields,
             "transport_schema_top_level_property_count": len(
-                TRANSPORT_SCHEMA["properties"]
+                self.output_schema["properties"]
             ),
             "completed_phase": "LOCAL_VALIDATION",
             "post_turn_metadata_phase": "POST_TURN_METADATA_READBACK",

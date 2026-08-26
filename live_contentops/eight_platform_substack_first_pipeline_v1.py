@@ -144,6 +144,8 @@ def run_rolling_x_newsroom_cycle(
     editorial_execution_route: str = DESKTOP_PRIMARY_EDITORIAL_ROUTE,
     hybrid_arbitration_receipt: Mapping[str, Any] | None = None,
     native_desktop_prepare: bool = False,
+    llm_first_editorial_provider: Any = None,
+    assignment_override: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     kwargs = {
         "run_id": run_id,
@@ -184,6 +186,8 @@ def run_rolling_x_newsroom_cycle(
             quota_discovery_fresh_unseen_available
         ),
         "destination_readiness_override": destination_readiness_override,
+        "llm_first_editorial_provider": llm_first_editorial_provider,
+        "assignment_override": assignment_override,
     }
     route = str(editorial_execution_route or "").strip().upper()
     if route not in _EDITORIAL_EXECUTION_ROUTES:

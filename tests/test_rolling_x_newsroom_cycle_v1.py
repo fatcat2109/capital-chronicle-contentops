@@ -80,7 +80,7 @@ def _xhigh_receipt(article, governed_input="a" * 64):
     else:
         governed_input_hash = governed_input
     return {
-        "model": "gpt-5.6-sol", "reasoning_effort": "XHIGH",
+        "model": "gpt-5.6-sol", "reasoning_effort": "HIGH",
         "fresh": True, "isolated": True,
         "governed_input_hash": governed_input_hash,
         "bounded_revision_count": 0,
@@ -1535,7 +1535,7 @@ def test_passed_cycle_returns_plan_without_direct_backend_write(monkeypatch, tmp
     ]
     assert route["xhigh_worker_count_requested"] == 1
     assert worker_request["model"] == "gpt-5.6-sol"
-    assert worker_request["reasoning_effort"] == "XHIGH"
+    assert worker_request["reasoning_effort"] == "HIGH"
     assert worker_request["governed_input_hash"] == route["governed_input_hash"]
     assert editorial_packet["editorial_packet_sha256"] == article[
         "institutional_edge_editorial_packet_sha256"

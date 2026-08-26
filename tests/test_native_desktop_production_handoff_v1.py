@@ -70,7 +70,7 @@ def _worker_route(cluster_id: str = "cluster-1"):
     request = {
         "schema_version": "contentops.editorial_worker_request.v1",
         "model": "gpt-5.6-sol",
-        "reasoning_effort": "xhigh",
+        "reasoning_effort": "high",
         "fresh": True,
         "isolated": True,
         "resume_existing": False,
@@ -226,7 +226,7 @@ class ControlledSplitCycle:
             initial_request = _worker_route()["worker_request"]
             revision_request = {
                 "model": "gpt-5.6-sol",
-                "reasoning_effort": "xhigh",
+                "reasoning_effort": "high",
                 "resume_same_isolated_worker": True,
                 "fresh_worker_creation": False,
                 "governed_input_hash": _worker_route()["governed_input_hash"],

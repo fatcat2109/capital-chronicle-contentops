@@ -100,7 +100,7 @@ external blocker exists. The 4/32 telemetry checkpoint is never a per-window sto
 Bounded catch-up capacity is derived from five-article reachability through the remaining routine
 windows, independently from the 0..4 routine-opportunity counter. In zero-write/SHADOW_ONLY,
 destination readiness is publication diagnostics and cannot veto article creation or a warranted
-fresh XHIGH worker; actual dispatch remains fail-closed on its exact readiness/identity boundary.
+  fresh HIGH worker; actual dispatch remains fail-closed on its exact readiness/identity boundary.
 
 If a post-launch throughput proof ends below the 4/32 floor without an exact hard external blocker, classify:
 
@@ -123,7 +123,13 @@ FDA-G is the continuous low-cost intake/state/runtime authority.
 
 The current hybrid heavy-editorial path is:
 
-`FDA-G / existing V1 runtime -> fresh standalone Desktop gpt-5.6-sol / HIGH coordinator -> one fresh isolated gpt-5.6-sol / XHIGH final writer when warranted -> deterministic local validation -> zero-write build output or separately authorized publication`
+`FDA-G / existing V1 runtime -> fresh standalone Desktop gpt-5.6-sol / HIGH coordinator -> one fresh isolated gpt-5.6-sol / HIGH final writer when warranted -> deterministic local validation -> zero-write build output or separately authorized publication`
+
+Current editorial ordering is `LLM-FIRST / VALIDATE-AFTER`: current intake and published memory
+reach the HIGH editorial brain before evidence-ready/sourceability/capability perfection can veto
+writing. The worker returns explicit citations and material-claim bindings; deterministic retrieval
+then verifies exact source bytes and final hard truth/authority/rights/package gates remain closed.
+`CONTENTOPS_CODEX_MAX_REASONING_EFFORT = HIGH`; no current ContentOps Codex request may exceed HIGH.
 
 Desktop standalone Automations are the primary routine editorial brain. The official
 ChatGPT-authenticated Codex App Server/SDK provider remains the proven bounded fallback for an exact

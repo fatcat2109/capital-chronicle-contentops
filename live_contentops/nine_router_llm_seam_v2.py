@@ -274,7 +274,7 @@ def integration_manifest() -> dict[str, Any]:
         "integrated_call_sites": {
             ROLE_ARTICLE_WRITING: (
                 "legacy zero-write article compatibility; publication-qualified articles "
-                "use a native Codex Desktop XHIGH worker"
+                "use a native Codex Desktop HIGH worker"
             ),
             ROLE_PLATFORM_VARIANTS: (
                 "platform_native_variant_generator_live_v6.generate_live_platform_variants"

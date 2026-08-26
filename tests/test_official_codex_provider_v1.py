@@ -79,7 +79,7 @@ class _FakeCodex:
 def _sdk_factory(fake):
     approval = SimpleNamespace(deny_all="deny_all")
     sandbox = SimpleNamespace(read_only="read_only")
-    efforts = SimpleNamespace(xhigh="xhigh")
+    efforts = SimpleNamespace(high="high")
     return lambda: (fake, approval, sandbox, efforts, "0.147.0")
 
 
@@ -413,7 +413,7 @@ def test_native_worker_return_normalizes_soft_representation_before_hard_validat
     receipt = {
         "governed_input_hash": "a" * 64,
         "model": "gpt-5.6-sol",
-        "reasoning_effort": "XHIGH",
+        "reasoning_effort": "HIGH",
         "fresh": True,
         "isolated": True,
         "bounded_revision_count": 0,
@@ -470,7 +470,7 @@ def test_native_worker_return_still_rejects_public_unsupported_causality():
             worker_return={
                 "governed_input_hash": "a" * 64,
                 "model": "gpt-5.6-sol",
-                "reasoning_effort": "XHIGH",
+                "reasoning_effort": "HIGH",
                 "fresh": True,
                 "isolated": True,
                 "bounded_revision_count": 0,
@@ -634,6 +634,7 @@ def test_local_product_validation_uses_one_same_thread_repair_and_persists_recei
     [
         (TimeoutError("timeout"), "TIMEOUT"),
         (RuntimeError("rate limit"), "RATE_LIMIT"),
+        (RuntimeError("You've hit your usage limit."), "RATE_LIMIT"),
         (RuntimeError("context length limit"), "CONTEXT_LIMIT"),
         (ConnectionError("connection failed"), "APP_SERVER_TRANSPORT"),
     ],
