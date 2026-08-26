@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13876,
+    "edges": 13877,
     "entrypoints": 16,
-    "nodes": 7339,
+    "nodes": 7340,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -28,7 +28,7 @@
       "python_function": 4018,
       "python_method": 299,
       "python_module": 768,
-      "schema": 196,
+      "schema": 197,
       "test": 731,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
@@ -19894,6 +19894,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/llm_first_validate_after_v1.py::LlmFirstValidationError"
+    },
+    {
+      "from": "live_contentops/llm_first_validate_after_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.llm_first_coordinator_selection.v1"
     },
     {
       "from": "live_contentops/llm_first_validate_after_v1.py",
@@ -83411,7 +83417,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-26T06:52:43Z",
+  "generation_timestamp_utc": "2026-08-26T06:55:37Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -85505,7 +85511,7 @@
     {
       "id": "live_contentops/llm_first_validate_after_v1.py",
       "kind": "python_module",
-      "size_bytes": 32104
+      "size_bytes": 38513
     },
     {
       "id": "live_contentops/llm_intent_editorial_brief_contract.py",
@@ -103107,14 +103113,14 @@
     {
       "id": "python_symbol:live_contentops/llm_first_validate_after_v1.py::LlmFirstValidateAfterProvider",
       "kind": "python_class",
-      "line": 162,
+      "line": 170,
       "path": "live_contentops/llm_first_validate_after_v1.py",
       "symbol": "LlmFirstValidateAfterProvider"
     },
     {
       "id": "python_symbol:live_contentops/llm_first_validate_after_v1.py::LlmFirstValidationError",
       "kind": "python_class",
-      "line": 156,
+      "line": 164,
       "path": "live_contentops/llm_first_validate_after_v1.py",
       "symbol": "LlmFirstValidationError"
     },
@@ -122214,6 +122220,11 @@
       "schema_id": "contentops.llm_cost_governor.v1"
     },
     {
+      "id": "schema:contentops.llm_first_coordinator_selection.v1",
+      "kind": "schema",
+      "schema_id": "contentops.llm_first_coordinator_selection.v1"
+    },
+    {
       "id": "schema:contentops.llm_first_validate_after.v1",
       "kind": "schema",
       "schema_id": "contentops.llm_first_validate_after.v1"
@@ -124636,7 +124647,7 @@
     {
       "id": "tests/test_llm_first_validate_after_v1.py",
       "kind": "test",
-      "size_bytes": 6828
+      "size_bytes": 12959
     },
     {
       "id": "tests/test_llm_intent_editorial_brief_contract.py",
@@ -131054,6 +131065,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "b11e48d6156ee9eb886fc4c08f013a0c4ceb0c71",
-  "source_tree_digest": "e83af80c787c4449c7beb68f9fa4acb073df72aeef3d51c69e4112e05bec8b4b"
+  "source_head": "86ceb55b752b35beb3b5116016bfefa9e081cd5e",
+  "source_tree_digest": "fa1ebe5c8110d5ac350f3a4d3fa8e503d7a23dea5917b7959c255565ee4c6863"
 }
