@@ -83525,7 +83525,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-26T18:29:28Z",
+  "generation_timestamp_utc": "2026-08-26T18:45:24Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -83558,7 +83558,7 @@
     {
       "id": ".github/reset/apply_v1_simple_gemini_reset_v7.py",
       "kind": "python_module",
-      "size_bytes": 9711
+      "size_bytes": 12707
     },
     {
       "id": ".github/reset/patch_base.py",
@@ -87474,7 +87474,7 @@
     {
       "id": "python_symbol:.github/reset/apply_v1_simple_gemini_reset_v7.py::copy_template",
       "kind": "python_function",
-      "line": 11,
+      "line": 12,
       "path": ".github/reset/apply_v1_simple_gemini_reset_v7.py",
       "symbol": "copy_template"
     },
@@ -131307,6 +131307,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "725d7c5eeb13673e22447601029c941b87d23860",
-  "source_tree_digest": "bbdde8bcfb4072d1189c25025f72071f83101f33d18fbe66671db94213de8746"
+  "source_head": "0f4d46ee98f97f43f64f57ee69cfe745ccec4cb7",
+  "source_tree_digest": "edf4522de964b0c0b697c9558b9417a9fb99a431e5b60ac6388e6bff6c687ed2"
 }
