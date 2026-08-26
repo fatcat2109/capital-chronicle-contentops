@@ -2,7 +2,7 @@
 
 This module contains no scheduler, provider bridge, writer, publisher, or authority grant.  It
 only validates and persists the canonical newsroom cycle checkpoints needed for the Desktop
-HIGH coordinator to pause one claimed opportunity while one fresh isolated XHIGH worker runs,
+HIGH coordinator to pause one claimed opportunity while one fresh isolated HIGH worker runs,
 then resume the same candidate without repeating semantic assignment or evidence acquisition.
 """
 from __future__ import annotations
@@ -221,7 +221,7 @@ def validate_worker_request_binding(
         or not isinstance(bounded_context, Mapping)
         or logical_hash(dict(bounded_context)) != expected_hash
         or request.get("model") != "gpt-5.6-sol"
-        or str(request.get("reasoning_effort") or "").lower() != "xhigh"
+        or str(request.get("reasoning_effort") or "").lower() != "high"
     ):
         raise ValueError("native_desktop_worker_request_binding_invalid")
     if allow_same_worker_revision:
@@ -397,7 +397,7 @@ class BoundNativeDesktopWorkerReturnBuilder:
             "media": {"assets": []},
             "critical_path_telemetry": {
                 "article_writer_semantic_calls": 1,
-                "article_writer_owner": "FRESH_NATIVE_CODEX_DESKTOP_XHIGH",
+                "article_writer_owner": "FRESH_NATIVE_CODEX_DESKTOP_HIGH",
                 "legacy_writer_fallback_used": False,
             },
             "editorial_worker_receipt": receipt,

@@ -1582,6 +1582,90 @@ def test_writer_source_coverage_does_not_treat_markdown_heading_as_prose():
     assert builder._writer_response_source_coverage_blockers(article, governed_input) == []
 
 
+def test_llm_first_exact_claim_validation_does_not_require_citations_on_guidance():
+    governed_input = {
+        "evidence_documents": [
+            {
+                "document_id": "d1",
+                "source_handle": "SOURCE_1",
+                "canonical_content_text": "Acme reports earnings Wednesday.",
+            }
+        ],
+        "supported_claims": [
+            {
+                "claim_id": "F1",
+                "claim_text": "Acme reports earnings Wednesday.",
+                "evidence_document_ids": ["d1"],
+            }
+        ],
+        "llm_first_validate_after": {
+            "post_generation_verification": {"status": "PASS"}
+        },
+    }
+    article = {
+        "substack_body_markdown": (
+            "Acme reports earnings Wednesday. [[SOURCE:SOURCE_1]]\n\n"
+            "Read reported results first, then separate guidance from completed-quarter facts."
+        )
+    }
+
+    assert builder._writer_response_source_coverage_blockers(article, governed_input) == []
+
+    final_article = {
+        **article,
+        "source_bindings": [
+            {"evidence_document_id": "d1", "source_id": "SOURCE_1"}
+        ],
+        "source_binding_ids_referenced": ["SOURCE_1"],
+    }
+    final_context = {
+        **governed_input,
+        "grounded_research_packet": {
+            "research_status": "PASS",
+            "confirmed_facts": [
+                {
+                    "fact_id": "F1",
+                    "factual_statement": "Acme reports earnings Wednesday.",
+                    "source_refs": ["SOURCE_1"],
+                }
+            ],
+            "sources": [
+                {"source_ref": "SOURCE_1", "evidence_document_id": "d1"}
+            ],
+        },
+    }
+    coverage = builder.grounded_article_source_coverage(
+        final_article, final_context
+    )
+    assert coverage["status"] == "PASS"
+    assert coverage["paragraph_rows"]
+    assert all(
+        row["llm_first_exact_claim_validation"] is True
+        for row in coverage["paragraph_rows"]
+    )
+
+
+def test_epistemic_transport_handle_normalizes_to_accepted_evidence_identity():
+    normalized = builder._normalize_epistemic_source_bindings(
+        [
+            {
+                "text": "Acme reports earnings Wednesday.",
+                "source_ids": ["SOURCE_1"],
+            },
+            {"text": "Unknown binding remains fail-closed.", "source_ids": ["OTHER"]},
+        ],
+        [
+            {
+                "source_handle": "SOURCE_1",
+                "evidence_document_id": "doc-1",
+            }
+        ],
+    )
+
+    assert normalized[0]["source_ids"] == ["doc-1"]
+    assert normalized[1]["source_ids"] == ["OTHER"]
+
+
 def _useful_writer_output(handle="SOURCE_1"):
     return {
         "title": "Treasury Publishes Final Stress Testing Rule",

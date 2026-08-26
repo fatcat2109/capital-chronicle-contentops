@@ -68,6 +68,18 @@ A task may stop for a real hard blocker. It must not stop merely because an arbi
 
 Use the cheapest lane capable of establishing the required truth.
 
+### Hard execution order
+
+For every task, audit, correction, next-task decision, or prompt request, use this order unless an earlier lane is technically incapable of establishing the required claim:
+
+1. **ChatGPT + GitHub Connector / `WEB_STATIC` first.** Fresh refs, authority archaeology, code inspection, exact diffs, simple deterministic repository edits, branch/commit/PR operations, documentation/authority updates, and static audit belong here whenever the connector can complete them truthfully.
+2. **GitHub Actions / `WEB_CI` next** for compile, focused tests, schema/contract checks, CodeGraph, deterministic builds, and other reproducible machine evidence.
+3. Use another cheaper specialized lane only when it materially improves evidence quality or avoids scarce runtime spend.
+4. **Codex Desktop / `CODEX_EXECUTION` is the second-last choice.** Spend Codex only on claims that genuinely require the Windows/local host, stateful runtime/debugging, provider/network behavior, browser/runtime state, local databases, actual article/video generation, rendered artifacts, or host Automation evidence that GitHub/CI cannot prove.
+5. **Owner/operator intervention / `OWNER_GATED_EXTERNAL` is last.** Reserve it for credentials/login/manual authentication, public-write or irreversible authority, destructive canonical actions, legal/rights choices, secret/session access, or other genuine owner gates.
+
+Before issuing any Codex task, the Operator must explicitly determine that GitHub Connector plus CI cannot complete the remaining claim. Do not spend Codex quota on repository reading, routine Git transport, CI babysitting, CodeGraph refresh, documentation editing, or waiting for a provider reset when those can be handled outside Codex.
+
 ### `WEB_STATIC`
 
 Default for fresh refs/authority, Git/PR/history/CodeGraph archaeology, capability-history search, duplicate-work detection, exact diff/static architecture review, sequencing, documentation/authority maintenance, simple deterministic edits, and Git-only branch/commit/PR/merge operations within standing authority.
@@ -84,7 +96,7 @@ CI proves only the checks it actually ran. CI does not prove Windows runtime sta
 
 Use Codex Desktop when correctness materially requires Windows/local runtime state, shell/worktree, environment/dependency work, stateful execution, provider/network behavior, iterative run-observe-debug cycles, browser/runtime inspection, local databases, actual article/video generation, performance/concurrency reproduction, rendered UI/video/audio, or tests unavailable from CI.
 
-Codex is the execution-feedback lane. It is not the default repository reader, auditor, documentation editor, or Git transport.
+Codex is the execution-feedback lane. It is not the default repository reader, auditor, documentation editor, Git transport, CI watcher, or waiting room for a future quota reset.
 
 ### `OWNER_GATED_EXTERNAL`
 
@@ -120,20 +132,25 @@ A task name is never evidence that a capability is missing.
 
 ---
 
-## 5. Every Codex packet declares execution identity
+## 5. Every Codex packet declares conversation identity first
 
-Every Builder packet states:
+Before model or effort is specified, every Codex Builder packet must begin with:
 
-- `SESSION: CURRENT CODEX DESKTOP SESSION` or `FRESH CODEX DESKTOP SESSION`
+- `CODEX DESKTOP CONVERSATION: CURRENT` or `CODEX DESKTOP CONVERSATION: FRESH`
+- `CONVERSATION DECISION: <why CURRENT or FRESH is the lower-risk/lower-cost choice>`
 - `MODEL: <explicit model>`
 - `REASONING EFFORT: <explicit effort>`
-- `WHY THIS CONFIG: <one short reason>`
+- `REASONING CEILING: HIGH`
 
-Operator chooses this. Do not return routine model/session selection to Jim.
+Operator chooses this. Do not return routine conversation/model selection to Jim.
 
-Use minimum sufficient compute. Consequential newsroom/runtime implementation normally warrants GPT-5.6 Sol HIGH; major cross-module or consequential creative work may warrant XHIGH; an actual final high-value article/video worker may use one fresh isolated XHIGH when warranted. Do not use MAX merely because a task is important.
+Use minimum sufficient compute. Current ContentOps Codex execution is permanently capped at GPT-5.6 Sol HIGH: coordinator, editorial/creative worker, revision, and official fallback may not request XHIGH, ULTRA_HIGH, MAX, or any effort above HIGH. Historical evidence names are not current configuration.
 
-Use CURRENT session when same branch/PR/worktree or live debug state is valuable. Use FRESH when starting a genuinely different capability, switching V1/V2 truth planes, or prior context is materially stale. Session context is disposable; Git worktree/branch state is durable.
+`FRESH` is the default when the current Codex Desktop conversation is materially long, context-bloated, stale, a prior task has closed out, architecture/product direction changed, a new capability begins, V1/V2 truth planes switch, or independent reasoning is valuable. If uncertain between CURRENT and FRESH, choose FRESH.
+
+Use `CURRENT` only when the same still-open task has valuable live debug/runtime state or recent local reasoning that would be materially expensive or risky to reconstruct. Same branch/worktree/PR does **not** by itself require CURRENT.
+
+Conversation continuity and Git continuity are orthogonal. A `FRESH` Codex Desktop conversation may and often should continue the exact same branch/worktree/PR after reconstructing from fresh repository authority. Conversation context is disposable; Git state is durable.
 
 ---
 
@@ -159,7 +176,7 @@ Do not bounce ordinary engineering errors back to Operator after each attempt.
 
 There is no arbitrary debugging-attempt limit.
 
-**NO BLIND IDENTICAL RETRY.** Every expensive retry requires a new hypothesis, code/config/environment change, new evidence, or a justified transient provider failure. Prefer local deterministic repair before spending another XHIGH/network/provider/browser call.
+**NO BLIND IDENTICAL RETRY.** Every expensive retry requires a new hypothesis, code/config/environment change, new evidence, or a justified transient provider failure. Prefer local deterministic repair before spending another HIGH/network/provider/browser call.
 
 ---
 

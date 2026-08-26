@@ -542,7 +542,7 @@ class ContentOpsDailyAppSupervisor:
         automation_id: str,
         now: Optional[datetime] = None,
     ) -> dict[str, Any]:
-        """Compatibility public seam: execute PREPARE and finish unless XHIGH is required."""
+        """Compatibility public seam: execute PREPARE and finish unless a HIGH worker is required."""
         return self.prepare_native_desktop_scheduled_opportunity(
             automation_id=automation_id,
             now=now,
@@ -631,7 +631,7 @@ class ContentOpsDailyAppSupervisor:
         automation_id: str,
         now: Optional[datetime] = None,
     ) -> dict[str, Any]:
-        """Claim one exact opportunity and pause durably if a fresh XHIGH worker is warranted."""
+        """Claim one exact opportunity and pause durably if a fresh HIGH worker is warranted."""
         task_id, session, moment, window = self._resolve_native_desktop_due_window(
             automation_id=automation_id,
             now=now,
@@ -3370,7 +3370,7 @@ class ContentOpsDailyAppSupervisor:
                 and str(window.get("session") or "") in ROUTINE_SESSION_ORDINAL
             )
             # The newsroom cycle never performs a public write.  In SHADOW_ONLY, every warranted
-            # final article still uses the real XHIGH worker contract and returns a plan; this
+            # final article still uses the real HIGH worker contract and returns a plan; this
             # supervisor simply does not hand that plan to the publication lifecycle.
             cycle_article_worker_required = bool(
                 publication_enabled

@@ -17,7 +17,7 @@ The final target remains 5–8 useful published articles per production day with
 Every routine opportunity below five must walk governed candidates unless the useful universe is
 genuinely exhausted or an exact hard external blocker exists. Meeting an intermediate 4/32 pacing
 checkpoint never suppresses the walk. Publication readiness and zero-write editorial eligibility
-are separate axes; a destination HOLD is diagnostic before public dispatch, not an article/XHIGH
+are separate axes; a destination HOLD is diagnostic before public dispatch, not an article/HIGH-worker
 veto.
 
 ## Canonical read path
@@ -107,10 +107,17 @@ is authorized by the current prompt-normalization task.
 ## Hybrid Codex and current Automation truth override
 
 Desktop standalone fresh-run Automations are the primary routine V1 heavy-editorial brain. A fresh
-`gpt-5.6-sol / HIGH` coordinator may create one fresh isolated `gpt-5.6-sol / XHIGH` final writer at
-a warranted article boundary, with at most one bounded same-worker revision. Deterministic
+`gpt-5.6-sol / HIGH` coordinator may create one fresh isolated `gpt-5.6-sol / HIGH` final writer at
+a warranted article boundary, with at most one bounded same-worker HIGH revision. Deterministic
 ContentOps remains factual, numeric, CC, permission, validation, publication, and reconciliation
 authority after return.
+
+The current owner direction is `LLM-FIRST / VALIDATE-AFTER`: the editorial brain selects and drafts
+from current intake plus published memory and optional read-only CC context before the old
+evidence-ready/sourceability/capability admission stack can veto it. Explicit citations and
+material-claim bindings are retrieved and verified after generation; unsupported material is
+removed, narrowed, attributed, or repaired before the unchanged hard final gates. Current
+`CONTENTOPS_CODEX_MAX_REASONING_EFFORT` is `HIGH`; historical XHIGH artifact names remain history.
 
 The official ChatGPT-authenticated Codex App Server/SDK provider remains the currently proven
 resilient fallback for an exact missed/failed Desktop primary, the direct path for an immediate

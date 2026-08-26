@@ -9,7 +9,7 @@ Desktop standalone fresh-run Automations are the primary routine V1 heavy-editor
 the canonical article-builder seam. The accepted same-Italy proof established:
 
 - one fresh standalone `gpt-5.6-sol / HIGH` Desktop coordinator;
-- exactly one fresh isolated `gpt-5.6-sol / XHIGH` final writer;
+- exactly one fresh isolated `gpt-5.6-sol / HIGH` final writer;
 - one bounded same-worker revision;
 - exact governed-input and native-worker receipt binding;
 - deterministic source, factual/numeric, institutional, SEO, usefulness, packaging, and readiness
@@ -40,6 +40,18 @@ Candidate-level abstention remains valid. A whole production day below the activ
 unless an exact hard external blocker is proven. No filler. No truth, evidence, numeric, rights, or
 permission weakening.
 
+Current ordering is `LLM-FIRST / VALIDATE-AFTER`. The HIGH coordinator selects from current
+headlines plus published memory and optional read-only CC context; the fresh isolated HIGH worker
+researches and drafts before evidence-ready/sourceability/capability perfection can veto the
+writer. It returns explicit citations and material-claim bindings. Deterministic retrieval then
+verifies exact cited bytes, and unsupported material is removed, narrowed, attributed, or repaired
+with at most one same-worker HIGH revision. Destination readiness, media, SEO parity, and 4/32 are
+not pre-writer admission gates. Final factual/numeric/quotation/causality/CC-authority/rights/
+identity/public-write/UNKNOWN_WRITE gates remain hard.
+
+`CONTENTOPS_CODEX_MAX_REASONING_EFFORT = HIGH` for coordinator, worker, revision, and official
+fallback. Legacy XHIGH schema/field names remain only where historical compatibility requires them.
+
 ## 3. Production-day windows
 
 Routine schedule policy:
@@ -69,7 +81,7 @@ one fresh standalone Desktop `gpt-5.6-sol / HIGH` run per actual opportunity.
 
 Final editorial worker:
 
-one fresh isolated `gpt-5.6-sol / XHIGH` worker for each warranted final canonical article.
+one fresh isolated `gpt-5.6-sol / HIGH` worker for each warranted final canonical article.
 
 The grounded research/evidence model policy remains current repository authority and grants zero
 factual, numeric, permission, or public-write authority to model output.
@@ -88,7 +100,7 @@ At each scheduled Desktop opportunity after explicit owner enablement:
 4. load the current candidate universe using durable cutoff/evaluated/update-chain memory;
 5. walk strong candidates and applicable editorial modes; record an exact candidate hard blocker
    and continue to another eligible governed candidate rather than stopping the opportunity;
-6. for each candidate that reaches the article boundary, invoke one fresh isolated XHIGH worker;
+6. for each candidate that reaches the article boundary, invoke one fresh isolated HIGH worker;
 7. persist each qualified article/package result;
 8. repair pure representation/SEO/structured-data defects deterministically before another model
    call and continue only until useful progress is restored, the bounded universe is exhausted,
@@ -128,7 +140,7 @@ claims require stronger authority/evidence.
 
 Context/discovery and governed internal Core Analyzer material are not publication permission.
 
-Each XHIGH request receives only bounded accepted evidence/authority/context, an exact governed-input
+Each HIGH request receives only bounded accepted evidence/authority/context, an exact governed-input
 hash, the full strict canonical article transport schema, and provider developer instructions. It
 receives zero factual, numeric, Capital Chronicle, permission, gate, or public-write authority.
 
@@ -143,7 +155,7 @@ proof prompt. Its contract requires:
 ```text
 fresh authority -> deterministic production day/current useful-output state -> recovery and
 UNKNOWN_WRITE=0 -> proven provider-resilient discovery/evidence -> eligible candidate walk -> local
-representation repair -> one fresh isolated XHIGH only at a warranted article boundary ->
+representation repair -> one fresh isolated HIGH only at a warranted article boundary ->
 deterministic hard-gate validation -> zero write unless separately authorized
 ```
 
@@ -154,7 +166,7 @@ omits something merely because a partial evidence projection lacks it. A genuine
 failure does not authorize provider shopping.
 
 In ZERO-WRITE/SHADOW_ONLY, destination readiness is publication diagnostics, not an editorial or
-XHIGH gate. A qualified article may persist exactly eight undispatched intents through a HOLD.
+HIGH-worker gate. A qualified article may persist exactly eight undispatched intents through a HOLD.
 Actual Substack dispatch still requires exact canonical readiness/identity; derivative readiness is
 destination-local, and `UNKNOWN_WRITE` remains hard.
 
@@ -195,7 +207,7 @@ viability checkpoint, accepted semantic-resume bindings, candidate identity, att
 prior qualified progress; it leaves the work item `EVIDENCE_PENDING` and releases the lease.
 Duplicate PREPARE returns the same pending handoff without another cycle.
 
-Desktop HIGH creates the one fresh isolated `gpt-5.6-sol / XHIGH` worker. Python receives no Codex
+Desktop HIGH creates the one fresh isolated `gpt-5.6-sol / HIGH` worker. Python receives no Codex
 credential or private provider bridge. COMPLETE requires the exact opportunity id, worker return,
 and hash-bound HIGH coordinator review receipt. It reacquires the same work item, reuses the exact
 intake/leaf/global/story-type/viability checkpoints, and runs the canonical article builder and

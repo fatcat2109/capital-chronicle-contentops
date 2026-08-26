@@ -62,7 +62,7 @@ Current runtime proof requirements are not permission to reimplement proven foun
 - `OfficialCodexUrlDiscoveryProvider`, same-candidate resume, and frozen worker transport as bounded
   reusable capabilities; their old per-trigger economics are not accepted production policy;
 - read-only Core Analyzer context plus exact story/use publication-authority boundaries;
-- fresh Desktop HIGH -> isolated XHIGH writer -> deterministic validation, one bounded same-worker
+- fresh Desktop HIGH -> isolated HIGH writer -> deterministic validation, one bounded same-worker
   repair, and Desktop-primary/SDK-fallback arbitration under one run identity;
 - article/utility/source/numeric/release validation and the valid zero-canonical-media path;
 - cross-midnight `newsroom_production_day_id`, four-floor counters, the existing four-opportunity
@@ -233,7 +233,7 @@ V2 starts only after the explicit V1 gate:
 2. revalidate unattended store/supervisor, Windows path/duration repair, transcript/audio timing,
    locale packages, read-only V1 qualification, and native relay under current dependencies;
 3. produce fresh non-oil/non-Hormuz cross-domain qualified stories through the asset-first path;
-4. obtain actual-media XHIGH and Jim/ChatGPT review for a strong Short and justified longer format;
+4. obtain actual-media HIGH and Jim/ChatGPT review for a strong Short and justified longer format;
 5. close repeated-job soak, cache/recovery, TCO, transcript/package truth, and the integrated
    V1->V2 growth-learning loop;
 6. only under a later exact owner grant, reverify destination identity/rights/provider contracts

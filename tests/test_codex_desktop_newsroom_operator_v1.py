@@ -794,7 +794,7 @@ def test_exact_four_task_packet_has_current_fast_ship_prompt_and_no_scale_up():
     assert packet["editorial_worker_model"] == EDITORIAL_WORKER_MODEL == "gpt-5.6-sol"
     assert packet["editorial_worker_reasoning_effort"] == (
         EDITORIAL_WORKER_REASONING_EFFORT
-    ) == "XHIGH"
+        ) == "HIGH"
     assert packet["editorial_worker_is_fresh_and_isolated"] is True
     assert packet["editorial_worker_only_when_article_warranted"] is True
     assert packet["routine_task_count"] == 4
@@ -824,7 +824,9 @@ def test_exact_four_task_packet_has_current_fast_ship_prompt_and_no_scale_up():
     assert "partial evidence projection lacks it" in DESKTOP_TASK_PROMPT
     assert "proven current provider-resilient batch/tail discovery" in DESKTOP_TASK_PROMPT
     assert "do not restore the historical 35-call / 10.2M-token per-trigger default" in DESKTOP_TASK_PROMPT
-    assert "Only when one real candidate has enough governed evidence" in DESKTOP_TASK_PROMPT
+    assert "Use LLM-FIRST / VALIDATE-AFTER" in DESKTOP_TASK_PROMPT
+    assert "before evidence-ready, sourceability-ready" in DESKTOP_TASK_PROMPT
+    assert "material-claim bindings" in DESKTOP_TASK_PROMPT
     assert "Every routine opportunity below five useful articles" in DESKTOP_TASK_PROMPT
     assert "intermediate 4/32 pacing checkpoint is never a skip condition" in DESKTOP_TASK_PROMPT
     assert "destination readiness HOLD is publication diagnostics" in DESKTOP_TASK_PROMPT
@@ -999,7 +1001,7 @@ def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_
     assert route["xhigh_worker_count_requested"] == 1
     assert route["decision"] == "SPAWN_ONE_FRESH_ISOLATED_XHIGH_EDITORIAL_WORKER"
     assert worker["model"] == "gpt-5.6-sol"
-    assert worker["reasoning_effort"] == "XHIGH"
+    assert worker["reasoning_effort"] == "HIGH"
     assert worker["fresh"] is True
     assert worker["isolated"] is True
     assert worker["resume_existing"] is False
@@ -1051,7 +1053,7 @@ def test_article_qualified_route_requests_one_fresh_hash_bound_xhigh_worker_and_
         worker_return={
             "governed_input_hash": route["governed_input_hash"],
             "model": "gpt-5.6-sol",
-            "reasoning_effort": "XHIGH",
+            "reasoning_effort": "HIGH",
             "fresh": True,
             "isolated": True,
             "bounded_revision_count": 1,
@@ -1078,7 +1080,7 @@ def test_xhigh_return_rejects_wrong_hash_second_revision_and_public_write():
         validate_editorial_worker_return(
             worker_return={
                 "governed_input_hash": expected_hash,
-                "model": "gpt-5.6-sol", "reasoning_effort": "XHIGH",
+                "model": "gpt-5.6-sol", "reasoning_effort": "HIGH",
                 "fresh": True, "isolated": True,
                 "bounded_revision_count": 2,
             },
@@ -1088,7 +1090,7 @@ def test_xhigh_return_rejects_wrong_hash_second_revision_and_public_write():
         validate_editorial_worker_return(
             worker_return={
                 "governed_input_hash": expected_hash,
-                "model": "gpt-5.6-sol", "reasoning_effort": "XHIGH",
+                "model": "gpt-5.6-sol", "reasoning_effort": "HIGH",
                 "fresh": True, "isolated": True,
                 "bounded_revision_count": 0,
                 "public_write_attempted": True,
@@ -1113,7 +1115,7 @@ def test_same_xhigh_worker_revision_contract_preserves_exact_binding_and_budget(
     original = {
         "governed_input_hash": route["governed_input_hash"],
         "model": "gpt-5.6-sol",
-        "reasoning_effort": "XHIGH",
+        "reasoning_effort": "HIGH",
         "fresh": True,
         "isolated": True,
         "bounded_revision_count": 0,
@@ -1180,7 +1182,7 @@ def test_breaking_brief_is_article_qualified_and_requests_exactly_one_xhigh_work
         readiness_state="READY",
     )
     assert route["xhigh_worker_count_requested"] == 1
-    assert route["worker_request"]["reasoning_effort"] == "XHIGH"
+    assert route["worker_request"]["reasoning_effort"] == "HIGH"
 
 
 @pytest.mark.parametrize(

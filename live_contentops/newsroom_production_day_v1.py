@@ -170,7 +170,7 @@ def qualify_zero_write_article(
     """Validate and build one countable zero-write article record.
 
     The record is deliberately strict.  A draft, package-only artifact, legacy writer,
-    missing XHIGH receipt, missing accepted evidence, or any public/unknown write cannot count.
+    missing HIGH-worker receipt, missing accepted evidence, or any public/unknown write cannot count.
     """
     root = Path(output_dir)
     blockers: list[str] = []
@@ -222,7 +222,7 @@ def qualify_zero_write_article(
         not expected_hash
         or str(receipt.get("governed_input_hash") or "") != expected_hash
         or str(receipt.get("model") or "") != "gpt-5.6-sol"
-        or str(receipt.get("reasoning_effort") or "").upper() != "XHIGH"
+        or str(receipt.get("reasoning_effort") or "").upper() != "HIGH"
         or receipt.get("fresh") is not True
         or receipt.get("isolated") is not True
         or receipt.get("resume_existing") not in {False, None}

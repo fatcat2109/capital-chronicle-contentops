@@ -35,10 +35,20 @@ jobs:
         run: python -m compileall -q live_contentops scripts
 
       - name: Install focused test runner
-        run: python -m pip install --disable-pip-version-check pytest
+        run: python -m pip install --disable-pip-version-check pytest pillow
 
       - name: Run deterministic CodeGraph generator tests
         run: python -m pytest -q tests/test_codex_context_index.py
+
+      - name: Run LLM-first Phase A focused tests
+        run: python -m pytest -q tests/test_llm_first_validate_after_v1.py
+
+      - name: Run LLM-first Phase B runtime-repair regressions
+        shell: bash
+        run: |
+          python -m pytest -q tests/test_official_codex_provider_v1.py -k "dynamic_web_run or non_web_dynamic_tool"
+          python -m pytest -q tests/test_rolling_x_grounded_article_media_builder_v1.py -k "llm_first_exact_claim_validation or writer_validator_rejects_uncovered_connective_paragraph or epistemic_transport_handle"
+          python -m pytest -q tests/test_run_v1_llm_first_single_article_canary_v1.py
 
       - name: Validate current hybrid execution and V1 owner authority
         shell: bash
@@ -63,6 +73,12 @@ jobs:
           assert '`WEB_STATIC`' in agents and '`WEB_CI`' in agents
           assert '`CODEX_EXECUTION`' in agents and '`OWNER_GATED_EXTERNAL`' in agents
           assert 'Status: `CURRENT_EXECUTION_POLICY`' in policy
+          assert 'GitHub Connector / `WEB_STATIC` first' in policy
+          assert 'Codex Desktop / `CODEX_EXECUTION` is the second-last choice' in policy
+          assert 'CODEX DESKTOP CONVERSATION: CURRENT' in policy
+          assert 'CODEX DESKTOP CONVERSATION: FRESH' in policy
+          assert 'If uncertain between CURRENT and FRESH, choose FRESH' in policy
+          assert 'REASONING CEILING: HIGH' in policy
 
           for text in (agents, policy, authority_map):
               normalized = ' '.join(text.lower().split())

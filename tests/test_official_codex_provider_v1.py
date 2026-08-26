@@ -79,7 +79,7 @@ class _FakeCodex:
 def _sdk_factory(fake):
     approval = SimpleNamespace(deny_all="deny_all")
     sandbox = SimpleNamespace(read_only="read_only")
-    efforts = SimpleNamespace(xhigh="xhigh")
+    efforts = SimpleNamespace(high="high")
     return lambda: (fake, approval, sandbox, efforts, "0.147.0")
 
 
@@ -205,6 +205,45 @@ def test_chatgpt_auth_only_explicit_model_effort_and_read_only_ephemeral_thread(
     assert result.receipt["provider_input_identity_sha256"] == result.receipt["attempt_key"]
     assert result.receipt["transport_schema_top_level_property_count"] >= 30
     assert fake.thread.read_calls == [False]
+
+
+def test_exact_dynamic_web_run_item_is_allowed_only_for_web_enabled_session(tmp_path):
+    web_item = SimpleNamespace(
+        type="dynamicToolCall", namespace="web", tool="run"
+    )
+    turn = _turn({"title": "Italy"})
+    turn.items = [web_item]
+    fake = _FakeCodex([turn])
+
+    result = _run(
+        OfficialCodexEditorialSession(
+            proof_cwd=tmp_path / "allowed",
+            sdk_factory=_sdk_factory(fake),
+            environment={},
+            allow_web_items=True,
+        )
+    )
+
+    assert result.receipt["turn_result_item_types"] == ["dynamicToolCall"]
+
+
+def test_non_web_dynamic_tool_remains_forbidden_when_web_items_are_allowed(tmp_path):
+    tool_item = SimpleNamespace(
+        type="dynamicToolCall", namespace="filesystem", tool="read_file"
+    )
+    turn = _turn({"title": "Italy"})
+    turn.items = [tool_item]
+    fake = _FakeCodex([turn])
+
+    with pytest.raises(OfficialCodexProviderError, match="CODEX_UNEXPECTED_ACTION_ITEM"):
+        _run(
+            OfficialCodexEditorialSession(
+                proof_cwd=tmp_path / "forbidden",
+                sdk_factory=_sdk_factory(fake),
+                environment={},
+                allow_web_items=True,
+            )
+        )
 
 
 def test_api_key_presence_and_non_chatgpt_auth_fail_closed_without_fallback(tmp_path):
@@ -413,7 +452,7 @@ def test_native_worker_return_normalizes_soft_representation_before_hard_validat
     receipt = {
         "governed_input_hash": "a" * 64,
         "model": "gpt-5.6-sol",
-        "reasoning_effort": "XHIGH",
+        "reasoning_effort": "HIGH",
         "fresh": True,
         "isolated": True,
         "bounded_revision_count": 0,
@@ -470,7 +509,7 @@ def test_native_worker_return_still_rejects_public_unsupported_causality():
             worker_return={
                 "governed_input_hash": "a" * 64,
                 "model": "gpt-5.6-sol",
-                "reasoning_effort": "XHIGH",
+                "reasoning_effort": "HIGH",
                 "fresh": True,
                 "isolated": True,
                 "bounded_revision_count": 0,
@@ -634,6 +673,7 @@ def test_local_product_validation_uses_one_same_thread_repair_and_persists_recei
     [
         (TimeoutError("timeout"), "TIMEOUT"),
         (RuntimeError("rate limit"), "RATE_LIMIT"),
+        (RuntimeError("You've hit your usage limit."), "RATE_LIMIT"),
         (RuntimeError("context length limit"), "CONTEXT_LIMIT"),
         (ConnectionError("connection failed"), "APP_SERVER_TRANSPORT"),
     ],

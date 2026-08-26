@@ -96,13 +96,18 @@ FDA-G is the always-on low-cost runtime/intake/state authority. It can ingest, m
 
 Desktop standalone fresh-run Automations are the primary routine heavy-editorial brain. Each
 routine opportunity uses a fresh `gpt-5.6-sol / HIGH` coordinator, which starts one fresh isolated
-`gpt-5.6-sol / XHIGH` final writer only at a warranted article boundary and permits at most one
-bounded same-worker repair from concrete deterministic validation deltas.
+`gpt-5.6-sol / HIGH` final writer only at a warranted article boundary and permits at most one
+bounded same-worker HIGH repair from concrete deterministic validation deltas.
+
+Editorial ordering is `LLM-FIRST / VALIDATE-AFTER`: current headlines, published memory, and
+optional read-only CC context reach the editorial brain before evidence-ready/sourceability/
+capability perfection can veto ordinary writing. The worker returns explicit citations and
+material-claim bindings; deterministic retrieval verifies the cited bytes after generation.
 
 Therefore:
 
 - deterministic validators remain factual, numeric, permission, gate, and publication authority;
-- neither Desktop coordinator nor XHIGH worker has public-write authority;
+- neither Desktop coordinator nor HIGH worker has public-write authority;
 - the official ChatGPT-authenticated Codex App Server/SDK provider remains the proven resilient
   missed/failed-primary fallback, immediate direct path, and benchmark path;
 - accepted Desktop and SDK receipts share one canonical run identity and may not produce duplicate
@@ -110,7 +115,7 @@ Therefore:
 
 The current heavy-editorial architecture is:
 
-`FDA-G / existing V1 runtime -> fresh standalone Desktop HIGH coordinator -> fresh isolated XHIGH writer when warranted -> deterministic validation -> zero-write or separately authorized publication lifecycle`
+`FDA-G / existing V1 runtime -> fresh standalone Desktop HIGH coordinator -> fresh isolated HIGH writer when warranted -> deterministic validate-after -> zero-write or separately authorized publication lifecycle`
 
 No second newsroom/store/publisher/control plane.
 
@@ -124,7 +129,7 @@ The four routine opportunities are:
 - New York 01:00 Tuesday–Saturday;
 - timezone: Asia/Bangkok;
 - coordinator: `gpt-5.6-sol / HIGH`;
-- final editorial worker: one fresh isolated `gpt-5.6-sol / XHIGH` only after a real candidate reaches the article boundary.
+- final editorial worker: one fresh isolated `gpt-5.6-sol / HIGH`; no current ContentOps request may exceed `CONTENTOPS_CODEX_MAX_REASONING_EFFORT = HIGH`.
 
 Do not create a fifth routine opportunity merely to satisfy the daily floor. Catch-up belongs inside the existing production-day logic and bounded candidate walk.
 

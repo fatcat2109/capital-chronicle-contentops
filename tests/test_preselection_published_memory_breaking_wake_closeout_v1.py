@@ -878,7 +878,7 @@ def test_full_canonical_shadow_reaches_article_review_and_platform_package(monke
             },
             "editorial_worker_receipt": {
                 "model": "gpt-5.6-sol",
-                "reasoning_effort": "XHIGH",
+                "reasoning_effort": "HIGH",
                 "fresh": True,
                 "isolated": True,
                 "resume_existing": False,

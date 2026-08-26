@@ -61,7 +61,7 @@ identity-valid governed candidate whose accepted evidence is already ready.
 ## Current execution truth
 
 Desktop standalone fresh-run Automations remain the primary routine heavy-editorial brain: fresh
-`gpt-5.6-sol / HIGH` coordinator -> one fresh isolated `gpt-5.6-sol / XHIGH` writer when warranted
+`gpt-5.6-sol / HIGH` coordinator -> one fresh isolated `gpt-5.6-sol / HIGH` writer when warranted
 -> deterministic validation. The official ChatGPT-authenticated Codex App Server/SDK provider
 remains bounded missed/failed-primary fallback, immediate direct path, and benchmark path under the
 same canonical run identity.
@@ -93,7 +93,11 @@ The four existing production-day opportunities remain:
 - New York 01:00 Tuesday–Saturday, belonging to the prior production day;
 - timezone Asia/Bangkok;
 - coordinator `gpt-5.6-sol / HIGH`;
-- final article worker fresh isolated `gpt-5.6-sol / XHIGH` only at the article boundary.
+- final article worker fresh isolated `gpt-5.6-sol / HIGH`; current maximum effort is HIGH.
+
+The current canary direction is `LLM-FIRST / VALIDATE-AFTER`: select/research/write before the old
+evidence-ready admission stack, then deterministically retrieve cited bytes, bind material claims,
+repair at most once on the same HIGH worker, and reuse the canonical final validation/package path.
 
 Prompt normalization is not enablement. Enablement is not public-write permission. Material-event
 priority grants no extra model turn or publication authority.
