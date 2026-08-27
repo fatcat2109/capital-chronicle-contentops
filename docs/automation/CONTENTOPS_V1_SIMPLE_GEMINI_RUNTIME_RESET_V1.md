@@ -22,6 +22,8 @@ current headline sidecars + canonical reconciled published memory + optional rea
 -> separate existing DurablePublicationCoordinator only after explicit public-write authority
 ```
 
+The source walk performs a maximum 6 requests total across the fixed admitted candidate plan.
+
 Normal success uses two logical model invocations. Three is the absolute ceiling when the one
 revision is needed. Each Simple logical invocation uses only `vx/gemini-3.5-flash(high)` with one
 provider attempt and no fallback/retry. A candidate-local source failure preserves its blocker and
