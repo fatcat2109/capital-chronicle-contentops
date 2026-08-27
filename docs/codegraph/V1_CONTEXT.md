@@ -6,14 +6,17 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`SIMPLE_GEMINI_RUNTIME_RESET / ZERO_WRITE_HOST_CANARY_PENDING`
+`SIMPLE_GEMINI_RUNTIME_RESET / NEWS_PEG_METADATA_INTEGRITY_HOST_CANARY_PASS`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
-current sidecars + published memory -> one Gemini selection -> <=6 deterministic selected-story
-source requests -> one Gemini writer -> deterministic material-claim validation -> optional one
-Gemini revision -> one qualified zero-write article -> exactly eight undispatched intents. Codex
-runtime model calls are zero.
+current sidecars + canonical reconciled published memory -> deterministic dedupe -> <=32 candidates
+-> one strict `gemini-3.5-flash(high)` selection admitting one useful primary and at most two useful
+fallbacks -> one first-party-aware resolver under a shared <=6 deterministic-GET budget (exact
+bound -> allowlisted official/company-primary locator and exact document -> reputable-secondary fallback) -> one Flash
+writer -> deterministic material-claim validation -> optional one Flash revision without source
+expansion -> one qualified zero-write article -> exactly eight undispatched intents. Codex runtime
+model calls are zero.
 
 PR #19 locator/retrieval primitives, PR #20 article/package proof, and PR #29 validate-after concepts
 are reusable donors. PR #30/#31 and native Desktop split-phase routing are historical evidence only.
@@ -23,9 +26,9 @@ are reusable donors. PR #30/#31 and native Desktop split-phase routing are histo
 ```text
 local headline sidecars + published memory
 -> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
--> bounded 9Router/Gemini selection
--> BoundedPublicSecondaryEvidenceLoader on selected story only
--> bounded 9Router/Gemini article writer
+-> bounded 9Router/Flash selection over <=32 candidates
+-> SimpleFirstPartyAwareEvidenceResolver composing existing official-primary and secondary loaders under one shared <=6 GET budget
+-> bounded 9Router/Flash article writer for the first source-qualified candidate
 -> deterministic source/claim validation
 -> optional one Gemini revision
 -> contentops.newsroom_qualified_article.v1
@@ -66,6 +69,8 @@ Current routine implementation areas:
 - `live_contentops/v1_simple_gemini_newsroom_v1.py` — selected-story simple runtime;
 - `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model authority;
 - `live_contentops/public_secondary_evidence_loader_v1.py` — deterministic selected-story retrieval;
+- `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger first-party-aware route arbitration;
+- `live_contentops/official_primary_source_locator_v1.py` / `official_primary_evidence_loader_v1.py` — allowlisted locator→exact official/issuer bytes;
 - `live_contentops/newsroom_production_day_v1.py` — provider-neutral qualified zero-write record;
 - `live_contentops/production_orchestrator_v1.py` — canonical public operation boundary;
 - `live_contentops/publication_coordinator_v1.py` and destination registry — sole later public-write path.
@@ -74,8 +79,9 @@ The legacy rolling-X monolith, Desktop PREPARE/COMPLETE handoff, broad ready-poo
 deficit catch-up loops remain available for historical evidence/compatibility only and do not route
 current routine V1. Use CodeGraph for donor call paths, not to revive superseded ownership.
 
-Next exact gate: one isolated zero-write current-sidecar host canary of the simple Gemini operation,
-then a lightweight local scheduler using the same entrypoint. No live/public write is authorized.
+The final zero-write current-sidecar canary passed with a current earnings-led article and exact
+material bindings for title, dek, search title, meta description, social hook, and body. Next exact gate: a
+lightweight local scheduler using the same proven entrypoint. No live/public write is authorized.
 
 ## Focused test families
 
@@ -117,10 +123,9 @@ These are identities, not permission to inspect credentials/session material.
 ## Current validation sequence
 
 1. preserve all accepted V1 foundation, the completed Italy canary, and failed 4/32 receipt;
-2. reuse PR #19 provider-resilient batch discovery and PR #20's accepted article path;
-3. preserve the four normalized matching prompts with all routine Automations paused;
-4. next obtain exact zero-write enablement/calendar-time unattended proof;
-5. follow with fresh V5 acceptance and separate routine public-write/final-product decisions.
+2. preserve the final Simple first-party/news-peg/public-metadata host PASS;
+3. next prove the same operation through a lightweight local non-Codex scheduler;
+4. follow with separate routine public-write/readback and final-product decisions.
 
 ## Stale traps
 

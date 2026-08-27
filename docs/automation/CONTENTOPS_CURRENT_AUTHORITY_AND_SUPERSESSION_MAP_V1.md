@@ -9,10 +9,15 @@ This map prevents fresh sessions from reviving stale quota, scheduler, canary, o
 
 Jim explicitly approved a routine V1 architecture reset. `CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
 is current V1 execution authority and supersedes any later Desktop-primary, SDK-editorial-fallback,
-evidence-ready-pool, or native PREPARE/COMPLETE routing language in this file. Routine V1 now uses
-9Router/Gemini for one selected story and one article, deterministic selected-story retrieval with
-a six-request ceiling, deterministic material-claim validation, and at most one Gemini revision.
-Codex runtime model calls required: zero. Exactly eight zero-write derivative intents are persisted
+evidence-ready-pool, or native PREPARE/COMPLETE routing language in this file. Routine V1 now reads
+the canonical reconciled published corpus without mutation, filters up to 32 current candidates
+before one strict `vx/gemini-3.5-flash(high)` selection, admits one primary plus at most two useful
+ordered fallbacks, and walks only that plan under one shared six-GET deterministic source budget.
+The current acquisition order is exact bound trustworthy source, allowlisted official/company-
+primary locator→exact document, then reputable-secondary fallback. Locator/search bytes never gain
+factual authority. One Flash writer, deterministic material-claim validation, and at most one Flash revision complete
+the article attempt. Each logical model invocation has one provider attempt and no fallback. Codex
+runtime model calls required: zero. Exactly eight zero-write derivative intents are persisted
 for a qualified article; `DurablePublicationCoordinator` remains the sole later public-write owner.
 
 PR #30 and PR #31 are `SUPERSEDED_DO_NOT_REUSE` for routing. Their runtime evidence remains valid
@@ -126,9 +131,17 @@ The old Desktop-primary/SDK-fallback/native split-phase route is superseded for 
 Desktop is builder/debugger/host-proof capacity only. The four historical native newsroom
 Automations must remain off; no fifth object is authorized.
 
-The current V1 progression order is static CI -> one isolated zero-write simple-Gemini host canary
+The current V1 progression order is preserve exact-head CI and the final zero-write Simple host PASS
 -> lightweight local scheduler proof -> separate public-write authority. 4/32 remains throughput
 telemetry, not a prerequisite. Final target remains 5–8 useful published articles/day.
+
+The final current-sidecar news-peg/public-metadata-integrity canary is `PASS`: 32 candidates, one
+Flash selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed
+to exact current NVIDIA earnings-release bytes, one Flash writer, deterministic source binding for
+title, dek, search title, meta description, social hook, and body, no revision, one qualified
+zero-write article, exactly eight UNDISPATCHED intents, and zero Codex runtime/public/provider/
+unknown writes. Preserve the prior source-routing and financing-led specimens as historical
+diagnostic evidence; neither is the current final editorial-quality result.
 
 ## Locked V2-after-V1 sequence
 

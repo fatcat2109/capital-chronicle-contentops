@@ -120,13 +120,17 @@ accepted current foundation. Reuse them; do not list them as implementation gaps
 
 ## 6. Current V1 execution architecture
 
-Current owner-approved routine V1 is `SIMPLE_GEMINI_RUNTIME`: ContentOps local state and current
-headline sidecars feed one bounded 9Router/Gemini selection; deterministic selected-story public
-retrieval performs at most six requests; one bounded Gemini writer returns the canonical article
-and exact material-claim bindings; deterministic validation checks retrieved bytes; at most one
-Gemini revision may run; then one qualified zero-write article record and exactly eight
-UNDISPATCHED derivative intents are persisted. Normal model count is two logical invocations and
-three is the hard ceiling with revision. Codex runtime model calls required: zero.
+Current owner-approved routine V1 is `SIMPLE_GEMINI_RUNTIME`: the canonical reconciled published
+corpus is read without migration or mutation and deterministically removes duplicates from up to 32
+current headline candidates; one strict 9Router `gemini-3.5-flash(high)` selection admits one useful
+primary and at most two independently useful ordered fallbacks; one shared deterministic source
+budget walks that fixed plan with at most six total GETs through exact bound source, allowlisted
+official/company-primary locator→document, then reputable-secondary fallback; one Flash writer returns the canonical
+article and exact material-claim bindings; deterministic validation checks retrieved bytes; and at
+most one Flash revision may run without source expansion. Then one qualified zero-write article
+record and exactly eight UNDISPATCHED derivative intents are persisted. Normal model count is two
+logical invocations and three is the hard ceiling with revision. Codex runtime model calls required:
+zero.
 
 This supersedes routine Desktop Automations, SDK/App-Server editorial fallback, broad evidence-ready
 pools, split-phase PREPARE/COMPLETE worker handoffs, and deficit-driven multi-candidate catch-up as
@@ -143,6 +147,12 @@ or public-write authority. The current simple lane does not authorize proprietar
 forecast/probability/scenario/regime claims. Public publication remains a separate owner gate.
 
 The exact current detail is `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`.
+
+The final news-peg/public-metadata-integrity current-sidecar host canary passed with one 32-candidate
+packet, one Flash selection, three admitted candidates, two shared-ledger GETs to a current NVIDIA
+issuer feed and exact earnings release, one Flash writer, deterministic validation PASS across the
+earnings-led title/dek/search-title/meta/social/body, no revision, one qualified article, exactly
+eight UNDISPATCHED intents, and zero Codex runtime/public/provider/unknown writes.
 
 ## 7. ContentOps/Core Analyzer boundary
 
@@ -206,13 +216,10 @@ only and `SUPERSEDED_DO_NOT_REUSE` for current routing.
 
 Current progression order:
 
-1. land the simple Gemini zero-write runtime through exact-head CI;
-2. prove one current real-sidecar article in an isolated zero-write host canary;
-3. inspect actual article quality, source/claim bindings, <=6 source requests, <=3 logical Gemini
-   invocations, exactly eight undispatched intents, and zero Codex runtime calls;
-4. only after that PASS, schedule the same local operation with a lightweight non-Codex scheduler;
-5. obtain separate public-write/readback authority;
-6. then measure and optimize toward 5–8 useful published articles/day without filler.
+1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
+2. schedule the same local operation with a lightweight non-Codex scheduler;
+3. obtain separate public-write/readback authority;
+4. then measure and optimize toward 5–8 useful published articles/day without filler.
 
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 

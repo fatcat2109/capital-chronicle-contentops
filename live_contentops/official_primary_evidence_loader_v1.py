@@ -29,7 +29,12 @@ OFFICIAL_HOSTS_BY_FAMILY = {
         "www.state.gov",
         "www.uscc.gov",
     }),
-    "company_primary": frozenset({"data.sec.gov", "www.sec.gov", "waymo.com"}),
+    "company_primary": frozenset({
+        "data.sec.gov",
+        "www.sec.gov",
+        "waymo.com",
+        "nvidianews.nvidia.com",
+    }),
     "sec_regulatory": frozenset({"data.sec.gov", "www.sec.gov"}),
     "official_policy": frozenset({"www.federalreserve.gov"}),
     "official_macro": frozenset({
@@ -45,6 +50,7 @@ OFFICIAL_HOSTS_BY_FAMILY = {
         "home.treasury.gov",
         "www.eia.gov",
         "www.philadelphiafed.org",
+        "www.imf.org",
         "data-api.ecb.europa.eu",
         "www.ecb.europa.eu",
     }),
@@ -65,6 +71,14 @@ USER_AGENT = (
     "+https://github.com/fatcat2109/capital-chronicle-contentops)"
 )
 PDF_TEXT_MAX_CHARS = 100_000
+
+# Issuer-publication hosts are configured here rather than inferred from arbitrary URLs or
+# model output.  The locator owns discovery; this map only verifies that retrieved exact bytes
+# contain the expected issuing entity before company-primary capability is granted.
+COMPANY_PRIMARY_RELEASE_MARKERS_BY_HOST = {
+    "waymo.com": ("waymo",),
+    "nvidianews.nvidia.com": ("nvidia",),
+}
 
 
 def _pdftotext_executable() -> str | None:
@@ -420,14 +434,25 @@ def _verified_capabilities(
         if keys.intersection({"cik", "name", "entitytype", "issuer", "companyname"}):
             capabilities.add("affected_entities")
         parsed_url = urlsplit(url)
-        waymo_company_release = bool(
-            family == "company_primary"
-            and str(parsed_url.hostname or "").casefold() == "waymo.com"
-            and re.fullmatch(r"/blog/20\d{2}/\d{2}/[a-z0-9-]+/?", parsed_url.path)
-            and re.search(r"\bwaymo\b", lowered)
-            and re.search(r"\b(asic|custom silicon|compute|robotaxi|waymo driver)\b", lowered)
+        company_host = str(parsed_url.hostname or "").casefold()
+        configured_markers = COMPANY_PRIMARY_RELEASE_MARKERS_BY_HOST.get(
+            company_host, ()
         )
-        if waymo_company_release:
+        configured_company_release = bool(
+            family == "company_primary"
+            and configured_markers
+            and any(re.search(rf"\b{re.escape(marker)}\b", lowered) for marker in configured_markers)
+            and (
+                re.fullmatch(r"/blog/20\d{2}/\d{2}/[a-z0-9-]+/?", parsed_url.path)
+                or re.fullmatch(r"/news/[a-z0-9-]+/?", parsed_url.path)
+            )
+            and re.search(
+                r"\b(press release|announces?|reported|financial results|earnings|"
+                r"asic|custom silicon|compute|robotaxi|waymo driver)\b",
+                lowered,
+            )
+        )
+        if configured_company_release:
             capabilities.add("company_filing_or_release")
             capabilities.add("affected_entities")
             if _html_timestamp(text):
@@ -465,12 +490,24 @@ def _verified_capabilities(
                 lowered,
             )
         )
+        imf_press_release = bool(
+            str(parsed_url.hostname or "").casefold() == "www.imf.org"
+            and re.fullmatch(
+                r"/en/news/articles/20\d{2}/\d{2}/\d{2}/pr[a-z0-9-]+/?",
+                parsed_url.path,
+                re.IGNORECASE,
+            )
+            and re.search(r"\binternational monetary fund\b|\bimf\b", lowered)
+            and re.search(r"\bpress release\b", lowered)
+            and _html_timestamp(text)
+        )
         official_release = bool(
             keys.intersection(macro_keys)
-            or re.search(r"\b(data release|news release|economic release|employment situation)\b", lowered)
+            or re.search(r"\b(data release|news release|press release|economic release|employment situation)\b", lowered)
             or dated_publication
             or eia_storage_release
             or philly_mbos_release
+            or imf_press_release
         )
         if official_release:
             capabilities.add("official_release")
@@ -750,10 +787,10 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     pdf_text_extractor=self._pdf_text_extractor,
                 )
                 published_at = (
-                    (_first_json_timestamp(parsed) if parsed is not None else None)
+                    _parse_timestamp((locator or {}).get("source_published_at_utc"))
+                    or (_first_json_timestamp(parsed) if parsed is not None else None)
                     or _html_timestamp(text)
                     or _parse_timestamp(headers.get("last-modified"))
-                    or _parse_timestamp((locator or {}).get("source_published_at_utc"))
                     or _parse_timestamp(next(
                         (
                             row.get("published_at_hint")
@@ -813,6 +850,12 @@ class BoundedOfficialPrimaryEvidenceLoader:
                     ),
                     "published_at_utc": published_at,
                     "published_at_source": (
+                        "EXACT_OFFICIAL_LOCATOR_TIMESTAMP"
+                        if _parse_timestamp(
+                            (locator or {}).get("source_published_at_utc")
+                        )
+                        == published_at
+                        else
                         "EXACT_BOUND_DISCOVERY_TIMESTAMP"
                         if any(
                             _parse_timestamp(row.get("published_at_hint")) == published_at

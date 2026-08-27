@@ -51,9 +51,10 @@ AUTHORITY_VERSION = "v3_gemini_only_v1"
 SUPERSEDES_AUTHORITY_ID = "CONTENTOPS_FINAL_PRELAUNCH_LLM_MODEL_AUTHORITY_V1"
 GATEWAY = "9router"
 
-#: Current V1 routine editorial production reaches only these two exact 9Router Gemini
-#: models. The router never parses, normalises, or silently substitutes an authority entry.
-#: Codex Desktop is builder/debugger/host-proof capacity, not a routine article model.
+#: The broader compatibility router retains these two exact 9Router Gemini models. Current
+#: Simple-Gemini roles are separately pinned below to Flash only. The router never parses,
+#: normalises, or silently substitutes an authority entry. Codex Desktop is builder/debugger/
+#: host-proof capacity, not a routine article model.
 V1_GEMINI_ONLY_MODEL_AUTHORITY_ID = "CONTENTOPS_V1_GEMINI_ONLY_9ROUTER_MODEL_AUTHORITY_V1"
 ORDERED_MODEL_POOL: tuple[str, ...] = (
     "vx/gemini-3.1-pro-preview(high)",
@@ -76,6 +77,7 @@ NEWSROOM_LEAF_SCAN_MODEL_POOL: tuple[str, ...] = (
     GEMINI_PRO_MODEL,
 )
 V1_HIGH_QUALITY_MODEL_POOL: tuple[str, ...] = ORDERED_MODEL_POOL
+V1_SIMPLE_FLASH_MODEL_POOL: tuple[str, ...] = (NEWSROOM_LEAF_SCAN_MODEL,)
 ARTICLE_WRITING_MODEL_POOL: tuple[str, ...] = V1_HIGH_QUALITY_MODEL_POOL
 GROUNDED_RESEARCH_MODEL_POOL: tuple[str, ...] = V1_GROUNDED_RESEARCH_MODEL_LADDER
 ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
@@ -92,6 +94,9 @@ ROLE_MODEL_POOLS: Mapping[str, tuple[str, ...]] = {
     "structured_output_repair": V1_HIGH_QUALITY_MODEL_POOL,
     "rolling_x_story_type_classifier": NEWSROOM_LEAF_SCAN_MODEL_POOL,
     "nine_router_preflight_probe": V1_HIGH_QUALITY_MODEL_POOL,
+    "v1_simple_gemini_selection": V1_SIMPLE_FLASH_MODEL_POOL,
+    "v1_simple_gemini_article_writing": V1_SIMPLE_FLASH_MODEL_POOL,
+    "v1_simple_gemini_editorial_revision": V1_SIMPLE_FLASH_MODEL_POOL,
 }
 AUTHORIZED_MODELS = frozenset(
     model
@@ -218,6 +223,7 @@ def authority_packet() -> dict[str, Any]:
         "role_specific_model_pools": {
             role: list(pool) for role, pool in ROLE_MODEL_POOLS.items()
         },
+        "v1_simple_gemini_model_pool": list(V1_SIMPLE_FLASH_MODEL_POOL),
         "newsroom_leaf_scan_model": NEWSROOM_LEAF_SCAN_MODEL,
         "newsroom_leaf_scan_is_semantic_labor_only": True,
         "newsroom_global_editor_uses_pro_then_flash": True,
