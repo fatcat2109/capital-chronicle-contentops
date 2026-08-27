@@ -154,6 +154,15 @@ issuer feed and exact earnings release, one Flash writer, deterministic validati
 earnings-led title/dek/search-title/meta/social/body, no revision, one qualified article, exactly
 eight UNDISPATCHED intents, and zero Codex runtime/public/provider/unknown writes.
 
+The current lightweight local scheduler binds that same one-article operation to exactly the four
+owner-locked windows. Each due window derives the existing deterministic production-day/window
+identity, allocates bounded one-article slot ordinals with `bounded_deficit_work_needed()`, reloads
+canonical reconciled publication memory plus countable zero-write qualified memory before every
+slot, and persists hash-bound terminal window/slot receipts. Duplicate ticks and process restarts
+do not repeat terminal semantic/source work; idle ticks perform none. The scheduler checkpoints are
+local execution receipts, not another newsroom/store/publication database. It never routes native
+Codex Automations, the Desktop runtime, `scheduler_v6`, or `DurablePublicationCoordinator`.
+
 ## 7. ContentOps/Core Analyzer boundary
 
 Capital Chronicle/Core Analyzer owns proprietary calculations, probabilities, scenarios, forecasts, regimes, decisions, paper records, realized-outcome attribution, and other analytical/numeric truth.
@@ -217,7 +226,7 @@ only and `SUPERSEDED_DO_NOT_REUSE` for current routing.
 Current progression order:
 
 1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
-2. schedule the same local operation with a lightweight non-Codex scheduler;
+2. preserve the accepted lightweight local four-window scheduler and zero-write restart proof;
 3. obtain separate public-write/readback authority;
 4. then measure and optimize toward 5–8 useful published articles/day without filler.
 

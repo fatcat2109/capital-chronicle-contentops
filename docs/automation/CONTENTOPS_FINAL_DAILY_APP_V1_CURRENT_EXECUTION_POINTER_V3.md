@@ -36,11 +36,15 @@ selected story with no reachable trustworthy source may truthfully abstain as
 The final zero-write news-peg/public-metadata-integrity current-source canary of the simple Gemini
 operation passed with one genuinely current earnings-led qualified article, two shared-ledger
 source GETs, two Flash calls, deterministic binding across every public metadata field and body,
-and exactly eight UNDISPATCHED intents. The next distinct gate is binding this same proven operation to a lightweight
-local non-Codex scheduler. Do not reintroduce Codex Automation as the newsroom. Public-write/readback
-remains a separate owner gate.
+and exactly eight UNDISPATCHED intents. The same operation is now bound to the owner-locked four-
+window lightweight local scheduler with deterministic production-day/window/slot identities,
+bounded deficit slots, per-slot published-memory refresh, and hash-bound terminal duplicate/restart
+suppression. Do not reintroduce Codex Automation as the newsroom.
 
-The prior `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` label is satisfied for this exact Simple article
-path only; it does not prove or authorize the later scheduler or public-write gates.
+The next distinct gate is separate public-write/readback authority. The scheduler proof grants none.
+
+The prior `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` label is satisfied for the exact Simple article path
+and the bounded local scheduler mechanics proven here. It does not prove a full production day,
+5–8/day acceptance, routine public writes, or final V1 acceptance.
 
 Final V1 target remains `5–8/day` useful published articles without filler.

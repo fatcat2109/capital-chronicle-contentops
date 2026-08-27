@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`SIMPLE_GEMINI_RUNTIME_RESET / NEWS_PEG_METADATA_INTEGRITY_HOST_CANARY_PASS`
+`SIMPLE_GEMINI_RUNTIME_RESET / LIGHTWEIGHT_LOCAL_SCHEDULER_ZERO_WRITE_RESTART_PASS`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
@@ -21,10 +21,19 @@ model calls are zero.
 PR #19 locator/retrieval primitives, PR #20 article/package proof, and PR #29 validate-after concepts
 are reusable donors. PR #30/#31 and native Desktop split-phase routing are historical evidence only.
 
+The current lightweight local scheduler enumerates only the existing four owner windows, derives
+the existing production-day/window identity, allocates stable ordinal slots from
+`bounded_deficit_work_needed()`, and calls the same Simple operation once per slot. Every slot
+reloads canonical reconciled published memory plus valid zero-write qualified records from the
+scheduler root. Hash-bound terminal window/slot checkpoints suppress duplicate/restart work. There
+is no Codex Automation/Desktop, material-event, legacy scheduler, or public-write path.
+
 ## Canonical product flow
 
 ```text
-local headline sidecars + published memory
+owner-locked four-window local tick + production-day/window/slot identity
+-> canonical published memory + countable zero-write scheduler memory
+-> local headline sidecars
 -> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
 -> bounded 9Router/Flash selection over <=32 candidates
 -> SimpleFirstPartyAwareEvidenceResolver composing existing official-primary and secondary loaders under one shared <=6 GET budget
@@ -72,6 +81,8 @@ Current routine implementation areas:
 - `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger first-party-aware route arbitration;
 - `live_contentops/official_primary_source_locator_v1.py` / `official_primary_evidence_loader_v1.py` — allowlisted locator→exact official/issuer bytes;
 - `live_contentops/newsroom_production_day_v1.py` — provider-neutral qualified zero-write record;
+- `live_contentops/v1_simple_gemini_scheduler_v1.py` — four-window local tick, bounded slots, and
+  hash-bound duplicate/restart suppression;
 - `live_contentops/production_orchestrator_v1.py` — canonical public operation boundary;
 - `live_contentops/publication_coordinator_v1.py` and destination registry — sole later public-write path.
 
@@ -80,8 +91,10 @@ deficit catch-up loops remain available for historical evidence/compatibility on
 current routine V1. Use CodeGraph for donor call paths, not to revive superseded ownership.
 
 The final zero-write current-sidecar canary passed with a current earnings-led article and exact
-material bindings for title, dek, search title, meta description, social hook, and body. Next exact gate: a
-lightweight local scheduler using the same proven entrypoint. No live/public write is authorized.
+material bindings for title, dek, search title, meta description, social hook, and body. The
+lightweight local scheduler now uses the same proven entrypoint and passed bounded due/idle/
+duplicate/restart proof. No live/public write is authorized. The next exact gate is separate
+public-write/readback authority.
 
 ## Focused test families
 
@@ -124,7 +137,7 @@ These are identities, not permission to inspect credentials/session material.
 
 1. preserve all accepted V1 foundation, the completed Italy canary, and failed 4/32 receipt;
 2. preserve the final Simple first-party/news-peg/public-metadata host PASS;
-3. next prove the same operation through a lightweight local non-Codex scheduler;
+3. preserve the lightweight local non-Codex scheduler zero-write/restart PASS;
 4. follow with separate routine public-write/readback and final-product decisions.
 
 ## Stale traps

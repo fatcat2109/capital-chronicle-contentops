@@ -131,9 +131,19 @@ The old Desktop-primary/SDK-fallback/native split-phase route is superseded for 
 Desktop is builder/debugger/host-proof capacity only. The four historical native newsroom
 Automations must remain off; no fifth object is authorized.
 
-The current V1 progression order is preserve exact-head CI and the final zero-write Simple host PASS
--> lightweight local scheduler proof -> separate public-write authority. 4/32 remains throughput
-telemetry, not a prerequisite. Final target remains 5–8 useful published articles/day.
+The lightweight local scheduler now reuses the exact four-window calendar, deterministic
+production-day/window identities, bounded deficit capacity, canonical reconciled published-memory
+read model, and the same one-article Simple operation. Stable slot identity includes production day,
+window, and ordinal. Hash-bound local terminal receipts suppress duplicate/restart work without
+creating another store or publication path. Each qualified slot refreshes canonical plus countable
+zero-write memory before the next independent slot. Idle/non-due ticks make zero semantic/provider/
+source calls. The scheduler has no native Codex Automation/Desktop, legacy scheduler, material-event,
+or public-write route.
+
+The current V1 progression order is preserve exact-head CI, the final zero-write Simple host PASS,
+and the lightweight local scheduler zero-write/restart proof -> separate public-write authority.
+4/32 remains throughput telemetry, not a prerequisite. Final target remains 5–8 useful published
+articles/day.
 
 The final current-sidecar news-peg/public-metadata-integrity canary is `PASS`: 32 candidates, one
 Flash selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed

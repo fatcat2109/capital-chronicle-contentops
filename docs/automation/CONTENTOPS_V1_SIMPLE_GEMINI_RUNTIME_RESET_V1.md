@@ -70,8 +70,18 @@ public-write owner and `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 1. Static implementation and exact-head CI.
 2. One isolated zero-write host canary using current real sidecars and 9Router.
 3. Inspect the real article, source/claim bindings, model/request economics, and eight intents.
-4. Only after that proof, bind the same CLI/runtime operation to a lightweight local scheduler.
+4. Bind the same CLI/runtime operation to the owner-locked four-window lightweight local scheduler
+   and prove injected-clock due/idle/duplicate/restart behavior with zero public write.
 5. Public-write enablement/readback remains a separate owner-gated step.
+
+Steps 1–4 are now complete for the current Simple path. The scheduler performs one independent
+canonical one-article invocation per bounded slot; it does not turn Simple into a multi-article
+call. Its stable identity is production day + canonical window + slot ordinal. Before every slot it
+reloads canonical reconciled publication memory and adds only valid countable zero-write qualified
+records from the same persistent scheduler output root, so a PASS becomes duplicate-suppression
+memory before the next slot. Terminal window/slot receipts are hash-bound and restart-safe. No
+fifth window, material-event expansion, Codex Automation/Desktop routing, second publication store,
+publication coordinator dispatch, or public/provider write was added.
 
 Final target remains 5–8 useful published articles per newsroom production day without filler.
 
@@ -86,6 +96,19 @@ UNDISPATCHED intents. Production memory was read through SQLite read-only/query-
 migrations disabled and unchanged bytes. Codex runtime calls, public writes, provider publication
 writes, and `UNKNOWN_WRITE` were all zero. This proves the article path; it grants no scheduler or
 public-write authority.
+
+The current local-scheduler host proof also passed its exact bounded claim. An injected production-
+shaped 17:00 Bangkok due tick derived one canonical production-day/window identity and two bounded
+slot identities, then reached the canonical Simple operation independently for both slots. Each
+slot received 32 candidates and used two source GETs; slot 1 qualified in two Flash logical calls
+without revision, while slot 2 saw the refreshed memory (`3 canonical + 1 zero-write qualified`),
+selected a distinct story, and qualified in three calls with the one permitted revision. Both
+records persisted exactly eight UNDISPATCHED intents. A second process repeated the due tick with
+zero model/source/memory work because the terminal window survived restart; an idle tick also
+performed zero semantic/network work. The production SQLite SHA-256 was unchanged before/after.
+Codex runtime, public write, provider publication write, publication-coordinator dispatch, and
+`UNKNOWN_WRITE` counters remained zero. This is scheduler mechanics evidence, not a full
+production-day, 5–8/day, or public-publication acceptance claim.
 
 The selected candidate is always the current article peg. Title/dek must remain led by that event;
 older/background highlights in a current document use temporally neutral wording unless exact bytes
