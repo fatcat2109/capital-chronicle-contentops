@@ -83756,7 +83756,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 14204
+      "size_bytes": 14047
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -83961,7 +83961,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 14137
+      "size_bytes": 14236
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
@@ -83971,7 +83971,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 2439
+      "size_bytes": 2525
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -83991,7 +83991,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 9059
+      "size_bytes": 9071
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -87497,7 +87497,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 60627
+      "size_bytes": 65324
     },
     {
       "id": "live_contentops/v6_platform_registry_contract.py",
@@ -119536,14 +119536,14 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::SimpleGeminiNewsroomError",
       "kind": "python_class",
-      "line": 82,
+      "line": 109,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "SimpleGeminiNewsroomError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 861,
+      "line": 957,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -126854,7 +126854,7 @@
     {
       "id": "tests/test_v1_simple_gemini_newsroom_v1.py",
       "kind": "test",
-      "size_bytes": 20261
+      "size_bytes": 26041
     },
     {
       "id": "tests/test_v1_source_binding_and_evidence_depth_v1.py",
@@ -131528,5 +131528,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "5de658df3b466835fe435f45455c972823f81524",
-  "source_tree_digest": "ce0f74aa19eab373dead928fe13c9b0c3331f58f498814d9d9e94a9bdea910d5"
+  "source_tree_digest": "cf6bc4861be79deff93f4dde23d5f2389352418c874b0f4d30f53ce72ce5b890"
 }

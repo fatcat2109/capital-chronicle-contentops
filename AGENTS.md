@@ -148,10 +148,11 @@ forecast/probability/scenario/regime claims. Public publication remains a separa
 
 The exact current detail is `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`.
 
-The first-party-aware current-sidecar host canary passed with one 32-candidate packet, one Flash
-selection, three admitted candidates, two shared-ledger GETs to a current NVIDIA issuer feed and
-exact release, one Flash writer, deterministic validation PASS, no revision, one qualified article,
-exactly eight UNDISPATCHED intents, and zero Codex runtime/public/provider/unknown writes.
+The final news-peg/public-metadata-integrity current-sidecar host canary passed with one 32-candidate
+packet, one Flash selection, three admitted candidates, two shared-ledger GETs to a current NVIDIA
+issuer feed and exact earnings release, one Flash writer, deterministic validation PASS across the
+earnings-led title/dek/search-title/meta/social/body, no revision, one qualified article, exactly
+eight UNDISPATCHED intents, and zero Codex runtime/public/provider/unknown writes.
 
 ## 7. ContentOps/Core Analyzer boundary
 
@@ -215,13 +216,10 @@ only and `SUPERSEDED_DO_NOT_REUSE` for current routing.
 
 Current progression order:
 
-1. land the simple Gemini zero-write runtime through exact-head CI;
-2. prove one current real-sidecar article in an isolated zero-write host canary;
-3. inspect actual article quality, source/claim bindings, <=6 source requests, <=3 logical Gemini
-   invocations, exactly eight undispatched intents, and zero Codex runtime calls;
-4. only after that PASS, schedule the same local operation with a lightweight non-Codex scheduler;
-5. obtain separate public-write/readback authority;
-6. then measure and optimize toward 5–8 useful published articles/day without filler.
+1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
+2. schedule the same local operation with a lightweight non-Codex scheduler;
+3. obtain separate public-write/readback authority;
+4. then measure and optimize toward 5–8 useful published articles/day without filler.
 
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 

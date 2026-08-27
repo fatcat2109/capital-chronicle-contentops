@@ -33,10 +33,10 @@ selected story with no reachable trustworthy source may truthfully abstain as
 
 ## Exact next gate
 
-The isolated zero-write first-party-aware current-source canary of the simple Gemini operation
-passed with one qualified article,
-two shared-ledger source GETs, two Flash calls, deterministic validation, and exactly eight
-UNDISPATCHED intents. The next distinct gate is binding this same proven operation to a lightweight
+The final zero-write news-peg/public-metadata-integrity current-source canary of the simple Gemini
+operation passed with one genuinely current earnings-led qualified article, two shared-ledger
+source GETs, two Flash calls, deterministic binding across every public metadata field and body,
+and exactly eight UNDISPATCHED intents. The next distinct gate is binding this same proven operation to a lightweight
 local non-Codex scheduler. Do not reintroduce Codex Automation as the newsroom. Public-write/readback
 remains a separate owner gate.
 

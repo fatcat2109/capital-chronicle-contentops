@@ -72,6 +72,33 @@ MAX_ADMITTED_CANDIDATES = 3
 _SELECTION_STATUS_SELECT = "SELECT_CANDIDATE_PLAN"
 _SELECTION_STATUS_ABSTAIN = "ABSTAIN"
 _VALID_CLAIM_KINDS = frozenset({"FACT", "NUMBER", "QUOTE", "CAUSALITY"})
+_PUBLIC_METADATA_FIELDS = (
+    "title",
+    "dek",
+    "search_title",
+    "meta_description",
+    "social_hook",
+)
+_NEWS_PEG_TOPIC_GROUPS = (
+    frozenset({"earnings", "results", "revenue", "margin", "quarter", "quarterly"}),
+    frozenset({"financing", "capital", "mou", "mous", "platform", "platforms"}),
+    frozenset({"pce", "inflation", "income", "outlays", "spending", "price"}),
+    frozenset({"imf", "chile", "credit", "fcl", "arrangement"}),
+)
+_NEWS_PEG_STOPWORDS = frozenset({
+    "about", "after", "amid", "and", "despite", "from", "future", "into", "more",
+    "nvidia", "says", "than", "that", "the", "this", "through", "today", "with",
+})
+_RISKY_TEMPORAL_PATTERNS = (
+    re.compile(r"\bannounc(?:ed|ement)\s+(?:came\s+)?alongside\b", re.IGNORECASE),
+    re.compile(r"\bcame\s+alongside\b", re.IGNORECASE),
+    re.compile(r"\btoday\s+announced\b", re.IGNORECASE),
+    re.compile(r"\bnewly\s+announced\b", re.IGNORECASE),
+    re.compile(
+        r"\bnew\s+(?:deal|fund|initiative|partnership|platform|arrangement)\b",
+        re.IGNORECASE,
+    ),
+)
 _SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_[1-4])\]\]")
 _URL_RE = re.compile(r"https?://", re.IGNORECASE)
 
@@ -668,8 +695,17 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. "
         "Do not browse or invent URLs. Do not expand factual scope beyond retrieved source bytes. "
         "Every non-heading body paragraph must contain at least one exact [[SOURCE:SOURCE_N]] marker. "
-        "Every material fact, number, quotation, or causal assertion in title, dek, or body must have a binding. "
-        "The exact title and exact dek must each appear as a claim_text binding. support_excerpt must be an exact "
+        "The selected_candidate is the article's current news peg. Title and dek must primarily represent that "
+        "selected current event; do not pivot to another highlight found in SOURCE_PACK. Older/background source "
+        "highlights may use only temporally neutral wording unless exact retrieved bytes establish their date. Do "
+        "not infer simultaneity merely because facts appear in the same document. Phrases such as announced alongside, "
+        "came alongside, today announced, newly announced, new, or equivalent temporal claims require exact source-byte "
+        "support. If the selected candidate is earnings, keep the article earnings-led. Prefer narrowing to the current "
+        "proved peg over adding optional background. Every material fact, number, quotation, or causal assertion in title, "
+        "dek, search_title, meta_description, social_hook, or body must have a binding. The exact title, dek, search_title, "
+        "meta_description, and social_hook must each appear as a claim_text binding. Public metadata must use source-faithful "
+        "terminology; never substitute financing platforms with a fund unless exact retrieved bytes say fund. "
+        "support_excerpt must be an exact "
         "substring of the cited SOURCE_PACK text. Every claim_text and support_excerpt must be at least eight "
         "characters and must not be a bare label, symbol, or isolated number. Use no proprietary Capital Chronicle numeric/forecast/scenario/"
         "probability/regime claim in this reset lane. Source timestamps are hints only; retrieved source provenance "
@@ -722,8 +758,67 @@ def _paragraph_marker_blockers(body: str, valid_source_ids: set[str]) -> list[st
     return blockers
 
 
+def _peg_terms(value: Any) -> set[str]:
+    return {
+        term
+        for term in re.findall(r"[a-z][a-z0-9'-]{2,}", _normal(value))
+        if term not in _NEWS_PEG_STOPWORDS and not term.startswith("http")
+    }
+
+
+def _selected_news_peg_blockers(
+    article: Mapping[str, Any], selected_candidate: Mapping[str, Any] | None
+) -> list[str]:
+    if not isinstance(selected_candidate, Mapping):
+        return []
+    headline = str(selected_candidate.get("headline_text") or "")
+    lead = " ".join(
+        str(article.get(field) or "") for field in ("title", "dek")
+    )
+    headline_terms = _peg_terms(headline)
+    lead_terms = _peg_terms(lead)
+    triggered_groups = [
+        group for group in _NEWS_PEG_TOPIC_GROUPS if headline_terms.intersection(group)
+    ]
+    if triggered_groups and not any(lead_terms.intersection(group) for group in triggered_groups):
+        return ["selected_current_news_peg_topic_missing_from_title_dek"]
+    if not triggered_groups and len(headline_terms.intersection(lead_terms)) < 2:
+        return ["selected_current_news_peg_alignment_insufficient"]
+    return []
+
+
+def _public_copy_integrity_blockers(
+    article: Mapping[str, Any], cited_documents: Mapping[str, Mapping[str, Any]]
+) -> list[str]:
+    public_copy = _public_copy(article)
+    source_text = "\n".join(
+        str(document.get("canonical_content_text") or "")
+        for document in cited_documents.values()
+    )
+    normalized_source = _normal(source_text)
+    blockers: list[str] = []
+    for pattern in _RISKY_TEMPORAL_PATTERNS:
+        for match in pattern.finditer(public_copy):
+            phrase = _normal(match.group(0))
+            if phrase and phrase not in normalized_source:
+                blockers.append(
+                    "unsupported_temporal_newness_or_simultaneity:"
+                    + _text_hash(phrase)[:16]
+                )
+    for field in _PUBLIC_METADATA_FIELDS:
+        value = str(article.get(field) or "")
+        if re.search(r"\bfunds?\b", value, re.IGNORECASE) and not re.search(
+            r"\bfunds?\b", source_text, re.IGNORECASE
+        ):
+            blockers.append(f"public_metadata_terminology_not_in_source:{field}:fund")
+    return blockers
+
+
 def _validate_article_against_source_pack(
-    worker_output: Mapping[str, Any], source_pack: Sequence[Mapping[str, Any]]
+    worker_output: Mapping[str, Any],
+    source_pack: Sequence[Mapping[str, Any]],
+    *,
+    selected_candidate: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
@@ -773,13 +868,12 @@ def _validate_article_against_source_pack(
                 "support_excerpt_sha256": _text_hash(excerpt),
             }
         )
-    title = str(article.get("title") or "").strip()
-    dek = str(article.get("dek") or "").strip()
     bound_claim_texts = {_normal(row.get("claim_text")) for row in claims}
-    if _normal(title) not in bound_claim_texts:
-        blockers.append("title_material_binding_missing")
-    if _normal(dek) not in bound_claim_texts:
-        blockers.append("dek_material_binding_missing")
+    for field in _PUBLIC_METADATA_FIELDS:
+        if _normal(article.get(field)) not in bound_claim_texts:
+            blockers.append(f"{field}_material_binding_missing")
+    blockers.extend(_selected_news_peg_blockers(article, selected_candidate))
+    blockers.extend(_public_copy_integrity_blockers(article, cited_by_id))
     blockers.extend(
         _paragraph_marker_blockers(
             str(article.get("substack_body_markdown") or ""), set(cited_by_id)
@@ -810,6 +904,8 @@ def _revision_prompt(
         "Return exactly one JSON object with no markdown fence, commentary, prefix, or suffix. "
         "Revise the prior article once using only the same governed candidate and SOURCE_PACK. "
         "Fix exactly the deterministic blockers, do not add a source or expand factual scope, and return the complete strict object. "
+        "Preserve the selected candidate as the current news peg and the exact binding requirement for all five public "
+        "metadata fields. Remove unsupported newness, simultaneity, or inflated terminology rather than expanding sources. "
         "Every body paragraph remains source-marker bound. Zero public write. public_write_attempted MUST be the JSON "
         "boolean false because this call has no publication tools.\nBLOCKERS:\n"
         + json.dumps(list(blockers), sort_keys=True)
@@ -1174,7 +1270,9 @@ def run_v1_simple_gemini_newsroom(
     revision_receipt: dict[str, Any] | None = None
     revision_performed = False
     try:
-        article, validation = _validate_article_against_source_pack(worker_output, source_pack)
+        article, validation = _validate_article_against_source_pack(
+            worker_output, source_pack, selected_candidate=selected
+        )
     except SimpleGeminiNewsroomError as first_error:
         if first_error.code != "deterministic_article_validation_failed":
             raise
@@ -1225,7 +1323,7 @@ def run_v1_simple_gemini_newsroom(
         worker_output = revised_output
         try:
             article, validation = _validate_article_against_source_pack(
-                worker_output, source_pack
+                worker_output, source_pack, selected_candidate=selected
             )
         except SimpleGeminiNewsroomError as second_error:
             receipt = {

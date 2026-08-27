@@ -77,11 +77,19 @@ Final target remains 5–8 useful published articles per newsroom production day
 
 ## Current host proof
 
-The 2026-08-27 first-party-aware current-sidecar canary passed: 32 governed candidates, one verified
-Flash selection, three admitted candidates, two total deterministic GETs (configured NVIDIA issuer
-feed then exact current release), one verified Flash writer, deterministic validation PASS with
-seven supported material claims, zero revisions, one qualified article, and exactly eight
+The final 2026-08-27 news-peg/public-metadata-integrity current-sidecar canary passed: 32 governed
+candidates, one verified Flash selection, three admitted candidates, two total deterministic GETs
+(configured NVIDIA issuer feed then exact current earnings release), one verified Flash writer,
+deterministic validation PASS with twenty-two supported material claims across the earnings-led
+title, dek, search title, meta description, social hook, and body, zero revisions, one qualified article, and exactly eight
 UNDISPATCHED intents. Production memory was read through SQLite read-only/query-only access with
 migrations disabled and unchanged bytes. Codex runtime calls, public writes, provider publication
 writes, and `UNKNOWN_WRITE` were all zero. This proves the article path; it grants no scheduler or
 public-write authority.
+
+The selected candidate is always the current article peg. Title/dek must remain led by that event;
+older/background highlights in a current document use temporally neutral wording unless exact bytes
+prove chronology, and co-location in one document never proves simultaneity. Every non-empty title,
+dek, search title, meta description, and social hook requires an exact material-claim binding under
+the same fail-closed validator as body claims. Unsupported public terminology inflation, including
+calling financing platforms a `fund`, is blocked.

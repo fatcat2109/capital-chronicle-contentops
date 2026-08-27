@@ -28,6 +28,7 @@ from live_contentops.v1_simple_gemini_newsroom_v1 import (
     _default_evidence_loader,
     _evidence_request,
     _selection_prompt,
+    _validate_article_against_source_pack,
     _validate_selection_text,
     run_v1_simple_gemini_newsroom,
 )
@@ -51,7 +52,7 @@ def _headlines(count: int = 3) -> dict[str, object]:
         "headlines": [
             {
                 "headline_id": f"headline-{index}",
-                "headline_text": f"Current governed business headline number {index} with useful detail",
+                "headline_text": f"Nvidia financing plan current governed business headline number {index}",
                 "source_timestamp_utc": f"2026-08-26T13:{59-index:02d}:00Z",
                 "source_account": "wire",
                 "source_url": f"https://www.reuters.com/world/story-{index}",
@@ -133,6 +134,30 @@ def _article_output(*, bad_excerpt: bool = False) -> dict[str, object]:
                 "support_excerpt": "The company said the financing framework would support data centres, chip factories and power infrastructure.",
                 "attribution_required": True,
             },
+            {
+                "claim_id": "claim-search-title",
+                "claim_text": "Nvidia financing plan: what remains undisclosed",
+                "claim_kind": "FACT",
+                "source_id": "SOURCE_1",
+                "support_excerpt": TITLE,
+                "attribution_required": True,
+            },
+            {
+                "claim_id": "claim-meta-description",
+                "claim_text": "The financing framework leaves individual commitments and deployment timing unclear.",
+                "claim_kind": "FACT",
+                "source_id": "SOURCE_1",
+                "support_excerpt": DEK,
+                "attribution_required": True,
+            },
+            {
+                "claim_id": "claim-social-hook",
+                "claim_text": "The headline number is large; the missing commitment detail matters more.",
+                "claim_kind": "FACT",
+                "source_id": "SOURCE_1",
+                "support_excerpt": "The disclosed aggregate scale did not include project-by-project funding schedules.",
+                "attribution_required": True,
+            },
         ],
         "public_write_attempted": False,
     }
@@ -178,6 +203,21 @@ def _receipt(role: str) -> dict[str, object]:
         "model_identity_provider_verifiable": True,
         "public_write_attempted": False,
     }
+
+
+def _source_pack_fixture() -> list[dict[str, object]]:
+    return [
+        {
+            "source_id": "SOURCE_1",
+            "url": SOURCE_URL,
+            "publisher": "Reuters",
+            "published_at_utc": "2026-08-26T13:20:00Z",
+            "published_at_source": "PUBLISHER_BYTES_OR_HEADERS",
+            "document_id": "doc-reuters-nvidia",
+            "canonical_content_sha256": "a" * 64,
+            "canonical_content_text": SOURCE_TEXT,
+        }
+    ]
 
 
 def test_strict_selection_accepts_32_candidate_shape_and_preserves_order():
@@ -254,6 +294,114 @@ def test_worker_prompt_requires_literal_false_public_write_flag():
     assert "public_write_attempted MUST be the JSON boolean false" in prompt
     assert "no publication tools" in prompt
     assert "Every claim_text and support_excerpt must be at least eight characters" in prompt
+    assert "selected_candidate is the article's current news peg" in prompt
+    assert "Do not infer simultaneity" in prompt
+    assert "search_title, meta_description, and social_hook" in prompt
+    assert "never substitute financing platforms with a fund" in prompt
+
+
+def test_current_earnings_candidate_cannot_pivot_to_older_financing_highlight():
+    with pytest.raises(SimpleGeminiNewsroomError) as exc_info:
+        _validate_article_against_source_pack(
+            _article_output(),
+            _source_pack_fixture(),
+            selected_candidate={
+                "headline_text": "Nvidia slides after Q2 earnings amid gross margin concerns",
+                "source_timestamp_utc": CUTOFF,
+            },
+        )
+    assert "selected_current_news_peg_topic_missing_from_title_dek" in exc_info.value.details
+
+
+@pytest.mark.parametrize(
+    "sentence",
+    [
+        "The announcement came alongside Nvidia's current quarterly results.",
+        "Nvidia today announced a new financing platform.",
+    ],
+)
+def test_unsupported_temporal_simultaneity_or_newness_fails_deterministically(sentence):
+    output = _article_output()
+    output["article"]["substack_body_markdown"] += (
+        f"\n\n{sentence} [[SOURCE:SOURCE_1]]"
+    )
+    with pytest.raises(SimpleGeminiNewsroomError) as exc_info:
+        _validate_article_against_source_pack(
+            output,
+            _source_pack_fixture(),
+            selected_candidate={
+                "headline_text": "Nvidia financing platforms and third-party capital plan",
+                "source_timestamp_utc": CUTOFF,
+            },
+        )
+    assert any(
+        value.startswith("unsupported_temporal_newness_or_simultaneity:")
+        for value in exc_info.value.details
+    )
+
+
+def test_search_title_cannot_relabel_financing_platforms_as_fund():
+    output = _article_output()
+    output["article"]["search_title"] = "Nvidia's $500B AI Fund"
+    search_binding = next(
+        row
+        for row in output["material_claim_bindings"]
+        if row["claim_id"] == "claim-search-title"
+    )
+    search_binding["claim_text"] = "Nvidia's $500B AI Fund"
+    with pytest.raises(SimpleGeminiNewsroomError) as exc_info:
+        _validate_article_against_source_pack(
+            output,
+            _source_pack_fixture(),
+            selected_candidate={
+                "headline_text": "Nvidia financing platforms and third-party capital plan",
+                "source_timestamp_utc": CUTOFF,
+            },
+        )
+    assert "public_metadata_terminology_not_in_source:search_title:fund" in exc_info.value.details
+
+
+@pytest.mark.parametrize(
+    ("field", "claim_id"),
+    [
+        ("title", "claim-title"),
+        ("dek", "claim-dek"),
+        ("search_title", "claim-search-title"),
+        ("meta_description", "claim-meta-description"),
+        ("social_hook", "claim-social-hook"),
+    ],
+)
+def test_every_public_metadata_field_requires_exact_binding(field, claim_id):
+    output = _article_output()
+    output["material_claim_bindings"] = [
+        row
+        for row in output["material_claim_bindings"]
+        if row["claim_id"] != claim_id
+    ]
+    with pytest.raises(SimpleGeminiNewsroomError) as exc_info:
+        _validate_article_against_source_pack(
+            output,
+            _source_pack_fixture(),
+            selected_candidate={
+                "headline_text": "Nvidia financing platforms and third-party capital plan",
+                "source_timestamp_utc": CUTOFF,
+            },
+        )
+    assert f"{field}_material_binding_missing" in exc_info.value.details
+
+
+def test_correct_source_bound_public_metadata_and_selected_peg_pass():
+    article, validation = _validate_article_against_source_pack(
+        _article_output(),
+        _source_pack_fixture(),
+        selected_candidate={
+            "headline_text": "Nvidia financing platforms and third-party capital plan",
+            "source_timestamp_utc": CUTOFF,
+        },
+    )
+    assert article["search_title"] == "Nvidia financing plan: what remains undisclosed"
+    assert validation["status"] == "PASS"
+    assert validation["unsupported_material_claim_count"] == 0
 
 
 def test_primary_source_blocked_second_candidate_succeeds_without_second_selection(tmp_path: Path):

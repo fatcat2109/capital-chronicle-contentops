@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`SIMPLE_GEMINI_RUNTIME_RESET / FIRST_PARTY_AWARE_ZERO_WRITE_HOST_CANARY_PASS`
+`SIMPLE_GEMINI_RUNTIME_RESET / NEWS_PEG_METADATA_INTEGRITY_HOST_CANARY_PASS`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
@@ -79,7 +79,8 @@ The legacy rolling-X monolith, Desktop PREPARE/COMPLETE handoff, broad ready-poo
 deficit catch-up loops remain available for historical evidence/compatibility only and do not route
 current routine V1. Use CodeGraph for donor call paths, not to revive superseded ownership.
 
-The isolated zero-write current-sidecar first-party-aware canary passed. Next exact gate: a
+The final zero-write current-sidecar canary passed with a current earnings-led article and exact
+material bindings for title, dek, search title, meta description, social hook, and body. Next exact gate: a
 lightweight local scheduler using the same proven entrypoint. No live/public write is authorized.
 
 ## Focused test families
@@ -122,10 +123,9 @@ These are identities, not permission to inspect credentials/session material.
 ## Current validation sequence
 
 1. preserve all accepted V1 foundation, the completed Italy canary, and failed 4/32 receipt;
-2. reuse PR #19 provider-resilient batch discovery and PR #20's accepted article path;
-3. preserve the four normalized matching prompts with all routine Automations paused;
-4. next obtain exact zero-write enablement/calendar-time unattended proof;
-5. follow with fresh V5 acceptance and separate routine public-write/final-product decisions.
+2. preserve the final Simple first-party/news-peg/public-metadata host PASS;
+3. next prove the same operation through a lightweight local non-Codex scheduler;
+4. follow with separate routine public-write/readback and final-product decisions.
 
 ## Stale traps
 

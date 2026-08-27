@@ -131,16 +131,17 @@ The old Desktop-primary/SDK-fallback/native split-phase route is superseded for 
 Desktop is builder/debugger/host-proof capacity only. The four historical native newsroom
 Automations must remain off; no fifth object is authorized.
 
-The current V1 progression order is static CI -> one isolated zero-write simple-Gemini host canary
+The current V1 progression order is preserve exact-head CI and the final zero-write Simple host PASS
 -> lightweight local scheduler proof -> separate public-write authority. 4/32 remains throughput
 telemetry, not a prerequisite. Final target remains 5–8 useful published articles/day.
 
-The isolated current-sidecar first-party-aware canary is now `PASS`: 32 candidates, one Flash
-selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed to
-exact NVIDIA release bytes, one Flash writer, deterministic claim validation, no revision, one
-qualified zero-write article, exactly eight UNDISPATCHED intents, and zero Codex runtime/public/
-provider/unknown writes. Preserve the prior source-routing failures as historical diagnostic
-evidence; they were implementation gaps, not external source-universe exhaustion.
+The final current-sidecar news-peg/public-metadata-integrity canary is `PASS`: 32 candidates, one
+Flash selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed
+to exact current NVIDIA earnings-release bytes, one Flash writer, deterministic source binding for
+title, dek, search title, meta description, social hook, and body, no revision, one qualified
+zero-write article, exactly eight UNDISPATCHED intents, and zero Codex runtime/public/provider/
+unknown writes. Preserve the prior source-routing and financing-led specimens as historical
+diagnostic evidence; neither is the current final editorial-quality result.
 
 ## Locked V2-after-V1 sequence
 
