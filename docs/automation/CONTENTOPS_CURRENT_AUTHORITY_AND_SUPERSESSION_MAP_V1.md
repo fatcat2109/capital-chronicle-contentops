@@ -9,10 +9,13 @@ This map prevents fresh sessions from reviving stale quota, scheduler, canary, o
 
 Jim explicitly approved a routine V1 architecture reset. `CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
 is current V1 execution authority and supersedes any later Desktop-primary, SDK-editorial-fallback,
-evidence-ready-pool, or native PREPARE/COMPLETE routing language in this file. Routine V1 now uses
-9Router/Gemini for one selected story and one article, deterministic selected-story retrieval with
-a six-request ceiling, deterministic material-claim validation, and at most one Gemini revision.
-Codex runtime model calls required: zero. Exactly eight zero-write derivative intents are persisted
+evidence-ready-pool, or native PREPARE/COMPLETE routing language in this file. Routine V1 now reads
+the canonical reconciled published corpus without mutation, filters up to 32 current candidates
+before one strict `vx/gemini-3.5-flash(high)` selection, admits one primary plus at most two useful
+ordered fallbacks, and walks only that plan under one shared six-GET deterministic source budget.
+One Flash writer, deterministic material-claim validation, and at most one Flash revision complete
+the article attempt. Each logical model invocation has one provider attempt and no fallback. Codex
+runtime model calls required: zero. Exactly eight zero-write derivative intents are persisted
 for a qualified article; `DurablePublicationCoordinator` remains the sole later public-write owner.
 
 PR #30 and PR #31 are `SUPERSEDED_DO_NOT_REUSE` for routing. Their runtime evidence remains valid

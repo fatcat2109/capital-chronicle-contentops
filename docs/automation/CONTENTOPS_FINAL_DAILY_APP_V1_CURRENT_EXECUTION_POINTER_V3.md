@@ -10,9 +10,11 @@ Read `AGENTS.md`, the current authority map, North Star/Master Plan, then
 
 Current routine execution is:
 
-`current sidecars/published memory -> one Gemini selection -> <=6 deterministic selected-story
-source requests -> one Gemini writer -> deterministic claim/source validation -> optional one
-Gemini revision -> one zero-write qualified article -> exactly eight undispatched intents`.
+`current sidecars/canonical published memory -> deterministic dedupe -> <=32 candidates -> one
+gemini-3.5-flash(high) selection admitting one primary plus <=2 useful fallbacks -> ordered walk
+under one shared <=6 deterministic-GET budget -> one Flash writer -> deterministic claim/source
+validation -> optional one Flash revision without source expansion -> one zero-write qualified
+article -> exactly eight undispatched intents`.
 
 Codex runtime model calls are zero. Public writes are zero. The existing publication coordinator
 remains the sole later public-write owner.

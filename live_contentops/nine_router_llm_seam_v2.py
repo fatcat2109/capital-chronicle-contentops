@@ -51,6 +51,9 @@ ROLE_NEWSROOM_ASSIGNMENT = "rolling_x_newsroom_assignment"
 ROLE_NEWSROOM_LEAF_SCAN = "rolling_x_newsroom_leaf_scan"
 ROLE_GROUNDED_RESEARCH = "v1_grounded_researcher"
 ROLE_EDITORIAL_REVISION = "rolling_x_editorial_revision"
+ROLE_V1_SIMPLE_SELECTION = "v1_simple_gemini_selection"
+ROLE_V1_SIMPLE_ARTICLE_WRITING = "v1_simple_gemini_article_writing"
+ROLE_V1_SIMPLE_EDITORIAL_REVISION = "v1_simple_gemini_editorial_revision"
 ROLE_STRUCTURED_REPAIR = "structured_output_repair"
 ROLE_PASSIVE_INTERACTION_QUALITY = "passive_interaction_quality_classification"
 
@@ -63,6 +66,9 @@ INTEGRATED_ROLES: tuple[str, ...] = (
     ROLE_NEWSROOM_LEAF_SCAN,
     ROLE_GROUNDED_RESEARCH,
     ROLE_EDITORIAL_REVISION,
+    ROLE_V1_SIMPLE_SELECTION,
+    ROLE_V1_SIMPLE_ARTICLE_WRITING,
+    ROLE_V1_SIMPLE_EDITORIAL_REVISION,
     ROLE_STRUCTURED_REPAIR,
     ROLE_PASSIVE_INTERACTION_QUALITY,
 )
@@ -293,6 +299,15 @@ def integration_manifest() -> dict[str, Any]:
             ),
             ROLE_EDITORIAL_REVISION: (
                 "_eight_platform_substack_first_pipeline_impl_v1 rolling-X bounded revision"
+            ),
+            ROLE_V1_SIMPLE_SELECTION: (
+                "v1_simple_gemini_newsroom_v1 one strict bounded useful-candidate plan"
+            ),
+            ROLE_V1_SIMPLE_ARTICLE_WRITING: (
+                "v1_simple_gemini_newsroom_v1 source-qualified article writing"
+            ),
+            ROLE_V1_SIMPLE_EDITORIAL_REVISION: (
+                "v1_simple_gemini_newsroom_v1 one bounded same-source revision"
             ),
             ROLE_STRUCTURED_REPAIR: (
                 "nine_router_ordered_model_router_v2 bounded same-model repair (in-router)"

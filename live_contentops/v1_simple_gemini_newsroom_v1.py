@@ -22,6 +22,7 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import urlsplit
 
+from live_contentops.credential_redaction_policy import redact_text
 from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
 )
@@ -36,9 +37,9 @@ from live_contentops.newsroom_production_day_v1 import (
     persist_qualified_article_record,
 )
 from live_contentops.nine_router_llm_seam_v2 import (
-    ROLE_ARTICLE_WRITING,
-    ROLE_EDITORIAL_REVISION,
-    ROLE_NEWSROOM_ASSIGNMENT,
+    ROLE_V1_SIMPLE_ARTICLE_WRITING,
+    ROLE_V1_SIMPLE_EDITORIAL_REVISION,
+    ROLE_V1_SIMPLE_SELECTION,
     routed_llm_invocation,
 )
 from live_contentops.nine_router_ordered_model_router_v2 import (
@@ -49,8 +50,8 @@ from live_contentops.public_secondary_evidence_loader_v1 import (
     BoundedPublicSecondaryEvidenceLoader,
 )
 
-SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v1"
-SELECTION_SCHEMA_VERSION = "contentops.v1_simple_gemini_selection.v1"
+SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v2"
+SELECTION_SCHEMA_VERSION = "contentops.v1_simple_gemini_selection.v2"
 ARTICLE_SCHEMA_VERSION = "contentops.v1_simple_gemini_article.v1"
 VALIDATION_SCHEMA_VERSION = "contentops.v1_simple_gemini_validation.v1"
 DERIVATIVE_INTENTS_SCHEMA_VERSION = "contentops.v1_simple_derivative_intents.v1"
@@ -61,13 +62,15 @@ ORDERING = (
 )
 MAX_SELECTION_CANDIDATES = 32
 MAX_SOURCE_REQUESTS = 6
+MAX_SOURCE_REQUESTS_PER_CANDIDATE = 2
 MAX_SOURCE_DOCUMENTS = 4
 MAX_SOURCE_TEXT_CHARS = 12_000
 MAX_LOGICAL_MODEL_INVOCATIONS = 3
-MAX_PROVIDER_ATTEMPTS_PER_LOGICAL_INVOCATION = 2
+MAX_PROVIDER_ATTEMPTS_PER_LOGICAL_INVOCATION = 1
 MAX_REVISION_ROUNDS = 1
+MAX_ADMITTED_CANDIDATES = 3
 
-_SELECTION_STATUS_SELECT = "SELECT_STORY"
+_SELECTION_STATUS_SELECT = "SELECT_CANDIDATE_PLAN"
 _SELECTION_STATUS_ABSTAIN = "ABSTAIN"
 _VALID_CLAIM_KINDS = frozenset({"FACT", "NUMBER", "QUOTE", "CAUSALITY"})
 _SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_[1-4])\]\]")
@@ -80,9 +83,16 @@ EvidenceLoader = Callable[[Mapping[str, Any]], Mapping[str, Any]]
 class SimpleGeminiNewsroomError(RuntimeError):
     """Fail-closed simple-runtime error with a stable code and safe details."""
 
-    def __init__(self, code: str, details: Sequence[str] | None = None) -> None:
+    def __init__(
+        self,
+        code: str,
+        details: Sequence[str] | None = None,
+        *,
+        diagnostics: Mapping[str, Any] | None = None,
+    ) -> None:
         self.code = str(code)
         self.details = sorted({str(value) for value in details or [] if str(value)})
+        self.diagnostics = dict(diagnostics or {})
         message = self.code + (":" + ";".join(self.details) if self.details else "")
         super().__init__(message)
 
@@ -210,6 +220,32 @@ def _candidate_packet(
     return result
 
 
+def _published_memory_summary(published_memory: Sequence[Any]) -> dict[str, Any]:
+    titles = sorted(
+        {_normal(_memory_field(row, "title")) for row in published_memory}
+        - {""}
+    )
+    story_ids = sorted(
+        {_memory_field(row, "story_identity") for row in published_memory}
+        - {""}
+    )
+    update_chain_ids = sorted(
+        {_memory_field(row, "update_chain_identity") for row in published_memory}
+        - {""}
+    )
+    return {
+        "article_count": len(published_memory),
+        "unique_title_count": len(titles),
+        "story_identity_count": len(story_ids),
+        "update_chain_identity_count": len(update_chain_ids),
+        "title_set_sha256": _hash(titles),
+        "story_identity_set_sha256": _hash(story_ids),
+        "update_chain_identity_set_sha256": _hash(update_chain_ids),
+        "candidate_filtering_performed_before_model": True,
+        "full_published_corpus_in_prompt": False,
+    }
+
+
 def _validate_selection_text(
     text: str, *, candidate_ids: set[str]
 ) -> tuple[bool, str | None, Any, str | None]:
@@ -219,42 +255,75 @@ def _validate_selection_text(
         return False, "structured_output_malformed", None, "selection_json_invalid"
     if not isinstance(value, Mapping):
         return False, "structured_output_schema_invalid", None, "selection_object_required"
-    allowed = {
+    required = {
         "schema_version",
         "status",
-        "selected_candidate_id",
-        "article_mode",
-        "selection_rationale",
-        "research_queries",
+        "ordered_candidate_plan",
+        "selection_summary",
         "public_write_attempted",
     }
-    if set(value) - allowed:
-        return False, "structured_output_schema_invalid", None, "selection_unknown_fields"
+    if set(value) != required:
+        return False, "structured_output_schema_invalid", None, "selection_top_level_fields_invalid"
     if value.get("schema_version") != SELECTION_SCHEMA_VERSION:
         return False, "structured_output_schema_invalid", None, "selection_schema_version_invalid"
     if value.get("public_write_attempted") is not False:
         return False, "publication_authority_failure", None, "selection_public_write_forbidden"
     status = str(value.get("status") or "")
+    plan = value.get("ordered_candidate_plan")
+    summary = str(value.get("selection_summary") or "").strip()
+    if not isinstance(plan, list):
+        return False, "structured_output_schema_invalid", None, "ordered_candidate_plan_list_required"
+    if not summary:
+        return False, "structured_output_schema_invalid", None, "selection_summary_required"
     if status == _SELECTION_STATUS_ABSTAIN:
-        if not str(value.get("selection_rationale") or "").strip():
-            return False, "structured_output_schema_invalid", None, "abstain_rationale_required"
+        if plan:
+            return False, "structured_output_schema_invalid", None, "abstain_candidate_plan_must_be_empty"
         return True, None, dict(value), None
     if status != _SELECTION_STATUS_SELECT:
         return False, "structured_output_schema_invalid", None, "selection_status_invalid"
-    selected = str(value.get("selected_candidate_id") or "")
-    mode = str(value.get("article_mode") or "")
-    queries = value.get("research_queries")
-    if selected not in candidate_ids:
-        return False, "malformed_business_input", None, "selected_candidate_not_governed"
-    if mode not in ARTICLE_MODES:
-        return False, "structured_output_schema_invalid", None, "article_mode_invalid"
-    if not isinstance(queries, list) or not 1 <= len(queries) <= 3:
-        return False, "structured_output_schema_invalid", None, "research_query_count_invalid"
-    cleaned = [" ".join(str(item or "").split()) for item in queries]
-    if any(len(item) < 6 or len(item) > 180 or _URL_RE.search(item) for item in cleaned):
-        return False, "structured_output_schema_invalid", None, "research_query_invalid"
+    if not 1 <= len(plan) <= MAX_ADMITTED_CANDIDATES:
+        return False, "structured_output_schema_invalid", None, "ordered_candidate_plan_count_invalid"
+    cleaned_plan: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    plan_fields = {
+        "candidate_id",
+        "article_mode",
+        "selection_rationale",
+        "research_queries",
+    }
+    for position, raw in enumerate(plan, start=1):
+        if not isinstance(raw, Mapping) or set(raw) != plan_fields:
+            return False, "structured_output_schema_invalid", None, "candidate_plan_entry_fields_invalid"
+        candidate_id = str(raw.get("candidate_id") or "")
+        if candidate_id not in candidate_ids:
+            return False, "malformed_business_input", None, "candidate_plan_id_not_governed"
+        if candidate_id in seen_ids:
+            return False, "malformed_business_input", None, "candidate_plan_id_duplicate"
+        seen_ids.add(candidate_id)
+        mode = raw.get("article_mode")
+        if not isinstance(mode, str) or mode not in ARTICLE_MODES:
+            return False, "structured_output_schema_invalid", None, "article_mode_scalar_invalid"
+        rationale = str(raw.get("selection_rationale") or "").strip()
+        if len(rationale) < 8:
+            return False, "structured_output_schema_invalid", None, "candidate_rationale_required"
+        queries = raw.get("research_queries")
+        if not isinstance(queries, list) or not 1 <= len(queries) <= 3:
+            return False, "structured_output_schema_invalid", None, "research_query_count_invalid"
+        cleaned = [" ".join(str(item or "").split()) for item in queries]
+        if any(len(item) < 6 or len(item) > 180 or _URL_RE.search(item) for item in cleaned):
+            return False, "structured_output_schema_invalid", None, "research_query_invalid"
+        cleaned_plan.append(
+            {
+                "candidate_id": candidate_id,
+                "article_mode": mode,
+                "selection_rationale": rationale,
+                "research_queries": cleaned,
+                "plan_position": position,
+                "plan_role": "PRIMARY" if position == 1 else "FALLBACK",
+            }
+        )
     result = dict(value)
-    result["research_queries"] = cleaned
+    result["ordered_candidate_plan"] = cleaned_plan
     return True, None, result, None
 
 
@@ -334,13 +403,30 @@ def _bounded_budget(logical_invocation_id: str) -> RetryBudget:
     return RetryBudget(
         logical_invocation_id=logical_invocation_id,
         max_total_provider_attempts=MAX_PROVIDER_ATTEMPTS_PER_LOGICAL_INVOCATION,
-        max_fallback_transitions=1,
+        max_fallback_transitions=0,
         max_same_model_retries=0,
         max_structured_output_repair_attempts=0,
         max_cumulative_retry_sleep_seconds=0.0,
         wall_clock_budget_seconds=180.0,
-        per_model_max_attempts=(1, 1),
+        per_model_max_attempts=(1,),
     )
+
+
+def _safe_attempt_diagnostic(attempt: Mapping[str, Any]) -> dict[str, Any]:
+    result: dict[str, Any] = {
+        "attempt_index": int(attempt.get("attempt_number_global") or 0),
+        "requested_model": attempt.get("requested_model"),
+        "resolved_model": attempt.get("resolved_model"),
+        "failure_class": attempt.get("failure_class"),
+        "provider_status_class": attempt.get("provider_status_class"),
+        "validator_reason": attempt.get("structured_validation_diagnostic_code"),
+        "accepted": str(attempt.get("disposition") or "") == "accepted",
+    }
+    if isinstance(attempt.get("usage"), Mapping):
+        result["usage"] = dict(attempt["usage"])
+    if isinstance(attempt.get("cost"), Mapping):
+        result["cost"] = dict(attempt["cost"])
+    return result
 
 
 def _safe_router_receipt(summary: Mapping[str, Any]) -> dict[str, Any]:
@@ -356,6 +442,12 @@ def _safe_router_receipt(summary: Mapping[str, Any]) -> dict[str, Any]:
         "total_usage": dict(summary.get("total_usage") or {}),
         "total_cost": dict(summary.get("total_cost") or {}),
         "model_identity_provider_verifiable": summary.get("model_identity_provider_verifiable"),
+        "attempt_diagnostics": [
+            _safe_attempt_diagnostic(row)
+            for row in summary.get("attempts") or []
+            if isinstance(row, Mapping)
+        ],
+        "budget_exhausted_reason": summary.get("budget_exhausted_reason"),
         "public_write_attempted": False,
     }
 
@@ -382,6 +474,7 @@ def _default_llm_invoke(
     if summary.get("terminal_disposition") != ACCEPTED or not isinstance(
         summary.get("output"), Mapping
     ):
+        safe_receipt = _safe_router_receipt(summary)
         raise SimpleGeminiNewsroomError(
             "gemini_logical_invocation_blocked",
             [
@@ -389,6 +482,7 @@ def _default_llm_invoke(
                 str(summary.get("terminal_disposition") or "UNKNOWN"),
                 str(summary.get("budget_exhausted_reason") or ""),
             ],
+            diagnostics={"router_receipt": safe_receipt},
         )
     return dict(summary["output"]), _safe_router_receipt(summary)
 
@@ -416,30 +510,49 @@ def _invoke(
 
 
 def _selection_prompt(governed: Mapping[str, Any]) -> str:
-    contract = {
+    select_contract = {
         "schema_version": SELECTION_SCHEMA_VERSION,
-        "status": "SELECT_STORY or ABSTAIN",
-        "selected_candidate_id": "exact candidate_id when SELECT_STORY",
-        "article_mode": list(ARTICLE_MODES),
-        "selection_rationale": "short reason",
-        "research_queries": ["1 to 3 query texts, never URLs"],
+        "status": _SELECTION_STATUS_SELECT,
+        "ordered_candidate_plan": [
+            {
+                "candidate_id": "copy one exact candidate_id from GOVERNED_INPUT",
+                "article_mode": "exactly one of: " + " | ".join(ARTICLE_MODES),
+                "selection_rationale": "why this candidate is independently worth an article",
+                "research_queries": ["1 to 3 query texts, never URLs"],
+            }
+        ],
+        "selection_summary": "short explanation of the ordered useful-candidate plan",
+        "public_write_attempted": False,
+    }
+    abstain_contract = {
+        "schema_version": SELECTION_SCHEMA_VERSION,
+        "status": _SELECTION_STATUS_ABSTAIN,
+        "ordered_candidate_plan": [],
+        "selection_summary": "specific reason no candidate is genuinely useful",
         "public_write_attempted": False,
     }
     return (
-        "Choose at most one genuinely useful current Capital Chronicle story from GOVERNED_INPUT. "
+        "Return exactly one JSON object. Do not use markdown, code fences, commentary, prefixes, or suffixes. "
+        "Use exactly the five top-level keys shown in one OUTPUT_CONTRACT variant and preserve their JSON types. "
+        "Choose one primary genuinely useful current Capital Chronicle story and at most two ordered fallback "
+        "stories from GOVERNED_INPUT. Every fallback must be independently worth an article, not filler. "
         "Do not require evidence-ready/sourceability/readiness/media/SEO perfection before selection. "
-        "Avoid exact published-memory duplicates and filler. If nothing is useful, ABSTAIN. "
-        "For SELECT_STORY return one to three short research query texts that can locate reputable "
-        "public reporting for the selected story. No tools, no URLs, no factual/numeric/publication authority. "
+        "Published-memory duplicates were filtered deterministically before this call. If nothing is useful, ABSTAIN. "
+        "For every admitted candidate return one to three short research query texts that can locate reputable "
+        "public reporting for that story. No tools, no URLs, no factual/numeric/publication authority. "
         "Do not select a proprietary Capital Chronicle forecast/probability/scenario/regime claim. "
-        "Return strict JSON only using OUTPUT_CONTRACT.\nOUTPUT_CONTRACT:\n"
-        + json.dumps(contract, sort_keys=True, ensure_ascii=False)
+        "Copy every candidate_id byte-for-byte from GOVERNED_INPUT and use one scalar article_mode string per entry. "
+        "Do not repeat a candidate ID. Return strict JSON only using OUTPUT_CONTRACT.\nOUTPUT_CONTRACT:\n"
+        + "SELECT_CANDIDATE_PLAN_CONTRACT:\n"
+        + json.dumps(select_contract, sort_keys=True, ensure_ascii=False)
+        + "\nABSTAIN_CONTRACT:\n"
+        + json.dumps(abstain_contract, sort_keys=True, ensure_ascii=False)
         + "\nGOVERNED_INPUT:\n"
         + json.dumps(governed, sort_keys=True, ensure_ascii=False)
     )
 
 
-def _evidence_request(candidate: Mapping[str, Any], selection: Mapping[str, Any]) -> dict[str, Any]:
+def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any]) -> dict[str, Any]:
     bindings: list[dict[str, Any]] = []
     source_url = str(candidate.get("source_url") or "")
     if source_url.startswith("https://"):
@@ -450,11 +563,12 @@ def _evidence_request(candidate: Mapping[str, Any], selection: Mapping[str, Any]
                 "source_timestamp_utc": candidate.get("source_timestamp_utc"),
             }
         )
+    research_queries = list(plan_entry["research_queries"])
     material = {
         "candidate_id": candidate["candidate_id"],
         "headline_id": candidate["headline_id"],
-        "article_mode": selection["article_mode"],
-        "research_queries": list(selection["research_queries"]),
+        "article_mode": plan_entry["article_mode"],
+        "research_queries": research_queries,
     }
     return {
         "cluster_id": candidate["candidate_id"],
@@ -462,8 +576,8 @@ def _evidence_request(candidate: Mapping[str, Any], selection: Mapping[str, Any]
         "request_logical_hash": _hash(material),
         "story_evidence_scope_id": candidate["candidate_id"],
         "story_type": "selected_current_news",
-        "requested_article_mode": selection["article_mode"],
-        "effective_article_mode": selection["article_mode"],
+        "requested_article_mode": plan_entry["article_mode"],
+        "effective_article_mode": plan_entry["article_mode"],
         "required_evidence_capabilities": [
             "credible_event_confirmation",
             "basic_attributed_facts",
@@ -471,7 +585,10 @@ def _evidence_request(candidate: Mapping[str, Any], selection: Mapping[str, Any]
         "evidence_enrichment_context": {"requested": True},
         "story_context": {
             "leaf_summaries": [candidate["headline_text"]],
-            "grounded_research_queries": list(selection["research_queries"]),
+            "grounded_research_queries": research_queries[:MAX_SOURCE_REQUESTS_PER_CANDIDATE],
+            "planned_research_query_count": len(research_queries),
+            "planned_research_query_set_sha256": _hash(research_queries),
+            "locator_query_policy": "UP_TO_TWO_ORDERED_QUERIES_PER_CANDIDATE_UNDER_SHARED_BUDGET",
             "public_source_url_bindings": bindings,
         },
     }
@@ -481,7 +598,7 @@ def _default_evidence_loader(cutoff_utc: str) -> EvidenceLoader:
     return BoundedPublicSecondaryEvidenceLoader(
         evaluation_as_of_utc=cutoff_utc,
         max_requests=MAX_SOURCE_REQUESTS,
-        max_requests_per_candidate=MAX_SOURCE_REQUESTS,
+        max_requests_per_candidate=MAX_SOURCE_REQUESTS_PER_CANDIDATE,
         timeout_seconds=12.0,
     )
 
@@ -548,6 +665,8 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "public_write_attempted": False,
     }
     return (
+        "Return exactly one JSON object with exactly the five top-level keys shown in OUTPUT_CONTRACT. "
+        "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. "
         "Do not browse or invent URLs. Do not expand factual scope beyond retrieved source bytes. "
         "Every non-heading body paragraph must contain at least one exact [[SOURCE:SOURCE_N]] marker. "
@@ -687,6 +806,7 @@ def _revision_prompt(
     governed: Mapping[str, Any], prior: Mapping[str, Any], blockers: Sequence[str]
 ) -> str:
     return (
+        "Return exactly one JSON object with no markdown fence, commentary, prefix, or suffix. "
         "Revise the prior article once using only the same governed candidate and SOURCE_PACK. "
         "Fix exactly the deterministic blockers, do not add a source or expand factual scope, and return the complete strict object. "
         "Every body paragraph remains source-marker bound. Zero public write.\nBLOCKERS:\n"
@@ -695,6 +815,44 @@ def _revision_prompt(
         + json.dumps(dict(prior), sort_keys=True, ensure_ascii=False)
         + "\nGOVERNED_INPUT:\n"
         + json.dumps(dict(governed), sort_keys=True, ensure_ascii=False)
+    )
+
+
+def _blocked_router_receipt(exc: SimpleGeminiNewsroomError) -> dict[str, Any]:
+    receipt = exc.diagnostics.get("router_receipt")
+    return dict(receipt) if isinstance(receipt, Mapping) else {}
+
+
+def _source_count_after_call(
+    provenance: Mapping[str, Any], *, previous_total: int
+) -> tuple[int, int]:
+    if provenance.get("request_count_for_call") is not None:
+        for_call = int(provenance.get("request_count_for_call") or 0)
+        total = previous_total + for_call
+        reported_total = provenance.get("request_count_total")
+        if reported_total is not None:
+            total = max(total, int(reported_total or 0))
+    elif provenance.get("request_count_total") is not None:
+        total = int(provenance.get("request_count_total") or 0)
+        for_call = max(0, total - previous_total)
+    elif provenance.get("request_count_for_candidate") is not None:
+        for_call = int(provenance.get("request_count_for_candidate") or 0)
+        total = previous_total + for_call
+    else:
+        total = max(previous_total, int(provenance.get("request_count") or 0))
+        for_call = max(0, total - previous_total)
+    if for_call < 0 or total < previous_total:
+        raise SimpleGeminiNewsroomError("source_request_accounting_invalid")
+    return for_call, total
+
+
+def _safe_source_blockers(values: Sequence[Any]) -> list[str]:
+    return sorted(
+        {
+            redact_text(str(value))[:500]
+            for value in values
+            if str(value).strip()
+        }
     )
 
 
@@ -709,7 +867,7 @@ def run_v1_simple_gemini_newsroom(
     evidence_loader: EvidenceLoader | None = None,
     run_id: str | None = None,
 ) -> dict[str, Any]:
-    """Run one zero-write, one-article V1 opportunity through the simple Gemini path."""
+    """Run one zero-write V1 opportunity through one bounded Simple-Gemini plan."""
     cutoff_utc = _iso_utc(cutoff_utc)
     root = Path(output_dir).resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -725,6 +883,10 @@ def run_v1_simple_gemini_newsroom(
         receipt = {
             "schema_version": SCHEMA_VERSION,
             "classification": "NO_PUBLICATION",
+            "run_id": run_id,
+            "cutoff_utc": cutoff_utc,
+            "candidate_count": 0,
+            "candidate_limit": MAX_SELECTION_CANDIDATES,
             "exact_next_blocker": "NO_USEFUL_CURRENT_HEADLINE_CANDIDATES",
             "ordering": ORDERING,
             "qualified_article_count": 0,
@@ -738,35 +900,61 @@ def run_v1_simple_gemini_newsroom(
         _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
+    memory_summary = _published_memory_summary(published_memory)
     selection_governed = {
         "cutoff_utc": cutoff_utc,
         "candidate_count": len(candidates),
         "candidates": candidates,
-        "published_memory": [
-            {
-                "title": _memory_field(row, "title"),
-                "story_identity": _memory_field(row, "story_identity"),
-                "update_chain_identity": _memory_field(row, "update_chain_identity"),
-            }
-            for row in published_memory[-100:]
-        ],
+        "published_memory_summary": memory_summary,
         "capital_chronicle_context_present": bool(capital_chronicle_context),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
     }
     candidate_ids = {row["candidate_id"] for row in candidates}
-    selection, selection_receipt = _invoke(
-        llm_invoke=llm_invoke,
-        role_task_id=ROLE_NEWSROOM_ASSIGNMENT,
-        logical_invocation_id=f"{run_id}:select",
-        prompt=_selection_prompt(selection_governed),
-        governed_input=selection_governed,
-        validator=lambda text: _validate_selection_text(text, candidate_ids=candidate_ids),
-    )
+    try:
+        selection, selection_receipt = _invoke(
+            llm_invoke=llm_invoke,
+            role_task_id=ROLE_V1_SIMPLE_SELECTION,
+            logical_invocation_id=f"{run_id}:select",
+            prompt=_selection_prompt(selection_governed),
+            governed_input=selection_governed,
+            validator=lambda text: _validate_selection_text(
+                text, candidate_ids=candidate_ids
+            ),
+        )
+    except SimpleGeminiNewsroomError as exc:
+        if exc.code != "gemini_logical_invocation_blocked":
+            raise
+        blocked = _blocked_router_receipt(exc)
+        receipt = {
+            "schema_version": SCHEMA_VERSION,
+            "classification": "NO_PUBLICATION",
+            "run_id": run_id,
+            "cutoff_utc": cutoff_utc,
+            "candidate_count": len(candidates),
+            "candidate_limit": MAX_SELECTION_CANDIDATES,
+            "exact_next_blocker": "GEMINI_SELECTION_LOGICAL_INVOCATION_BLOCKED",
+            "blocked_logical_invocation": blocked,
+            "published_memory_summary": memory_summary,
+            "ordering": ORDERING,
+            "qualified_article_count": 0,
+            "derivative_intent_count": 0,
+            "logical_model_invocation_count": 1,
+            "model_receipts": [blocked] if blocked else [],
+            "codex_runtime_model_call_count": 0,
+            "public_write_performed": False,
+            "provider_publication_writes": 0,
+            "unknown_write_count": 0,
+        }
+        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        return receipt
     selection_artifact = {
         "schema_version": SELECTION_SCHEMA_VERSION,
         "selection": selection,
         "router_receipt": selection_receipt,
         "candidate_packet_hash": _hash(candidates),
+        "candidate_count": len(candidates),
+        "candidate_limit": MAX_SELECTION_CANDIDATES,
+        "published_memory_summary": memory_summary,
         "public_write_performed": False,
     }
     _write_json(root / "simple_gemini_selection_v1.json", selection_artifact)
@@ -774,12 +962,19 @@ def run_v1_simple_gemini_newsroom(
         receipt = {
             "schema_version": SCHEMA_VERSION,
             "classification": "NO_PUBLICATION",
+            "run_id": run_id,
+            "cutoff_utc": cutoff_utc,
+            "candidate_count": len(candidates),
+            "candidate_limit": MAX_SELECTION_CANDIDATES,
+            "admitted_candidate_count": 0,
             "exact_next_blocker": "GEMINI_COORDINATOR_ABSTAINED_NO_USEFUL_STORY",
             "selection": selection,
             "ordering": ORDERING,
             "qualified_article_count": 0,
             "derivative_intent_count": 0,
             "logical_model_invocation_count": 1,
+            "provider_attempt_count": int(selection_receipt.get("total_attempts") or 1),
+            "model_receipts": [selection_receipt],
             "codex_runtime_model_call_count": 0,
             "public_write_performed": False,
             "provider_publication_writes": 0,
@@ -788,35 +983,104 @@ def run_v1_simple_gemini_newsroom(
         _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
-    selected = next(
-        row for row in candidates if row["candidate_id"] == selection["selected_candidate_id"]
-    )
-    request = _evidence_request(selected, selection)
+    candidate_by_id = {row["candidate_id"]: row for row in candidates}
+    plan = list(selection["ordered_candidate_plan"])
     loader = evidence_loader or _default_evidence_loader(cutoff_utc)
-    evidence = dict(loader(request) or {})
-    provenance = dict(evidence.get("provenance") or {})
-    request_count = int(
-        provenance.get("request_count_for_call")
-        or provenance.get("request_count_for_candidate")
-        or provenance.get("request_count")
-        or 0
-    )
-    if request_count > MAX_SOURCE_REQUESTS:
-        raise SimpleGeminiNewsroomError("selected_story_source_request_budget_exceeded")
-    documents = [
-        dict(row)
-        for row in evidence.get("evidence_documents") or []
-        if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
-    ][:MAX_SOURCE_DOCUMENTS]
-    source_pack = _source_pack(documents)
+    request_count = 0
+    candidate_attempt_history: list[dict[str, Any]] = []
+    evidence_attempts: list[dict[str, Any]] = []
+    selected: dict[str, Any] | None = None
+    selected_plan_entry: dict[str, Any] | None = None
+    source_pack: list[dict[str, Any]] = []
+    for plan_index, plan_entry_value in enumerate(plan, start=1):
+        plan_entry = dict(plan_entry_value)
+        plan_entry.setdefault("plan_position", plan_index)
+        plan_entry.setdefault("plan_role", "PRIMARY" if plan_index == 1 else "FALLBACK")
+        candidate = candidate_by_id[str(plan_entry["candidate_id"])]
+        if request_count >= MAX_SOURCE_REQUESTS:
+            candidate_attempt_history.append(
+                {
+                    "plan_position": plan_index,
+                    "plan_role": plan_entry["plan_role"],
+                    "candidate_id": candidate["candidate_id"],
+                    "article_mode": plan_entry["article_mode"],
+                    "status": "NOT_ATTEMPTED_SHARED_SOURCE_BUDGET_EXHAUSTED",
+                    "blockers": ["shared_source_request_budget_exhausted"],
+                    "source_request_count_for_attempt": 0,
+                    "source_request_count_total": request_count,
+                    "accepted_source_count": 0,
+                }
+            )
+            continue
+        request = _evidence_request(candidate, plan_entry)
+        try:
+            evidence = dict(loader(request) or {})
+        except (OSError, RuntimeError, TypeError, ValueError) as exc:
+            evidence = {
+                "status": "BLOCKED",
+                "blockers": [redact_text(str(exc) or type(exc).__name__)],
+                "evidence_documents": [],
+                "provenance": {"request_count_for_call": 0},
+            }
+        provenance = dict(evidence.get("provenance") or {})
+        for_call, request_count = _source_count_after_call(
+            provenance, previous_total=request_count
+        )
+        if request_count > MAX_SOURCE_REQUESTS:
+            raise SimpleGeminiNewsroomError(
+                "shared_source_request_budget_exceeded",
+                [f"observed={request_count}", f"limit={MAX_SOURCE_REQUESTS}"],
+            )
+        documents = [
+            dict(row)
+            for row in evidence.get("evidence_documents") or []
+            if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
+        ][:MAX_SOURCE_DOCUMENTS]
+        candidate_source_pack = _source_pack(documents)
+        status = (
+            "SOURCE_QUALIFIED"
+            if evidence.get("status") == "PASS" and candidate_source_pack
+            else "SOURCE_BLOCKED"
+        )
+        blockers = _safe_source_blockers(evidence.get("blockers") or [])
+        if status == "SOURCE_BLOCKED" and not blockers:
+            blockers = ["accepted_source_pack_empty"]
+        history = {
+            "plan_position": plan_index,
+            "plan_role": plan_entry["plan_role"],
+            "candidate_id": candidate["candidate_id"],
+            "article_mode": plan_entry["article_mode"],
+            "selection_rationale": plan_entry["selection_rationale"],
+            "research_queries": list(plan_entry["research_queries"]),
+            "status": status,
+            "blockers": blockers,
+            "source_request_count_for_attempt": for_call,
+            "source_request_count_total": request_count,
+            "accepted_source_count": len(candidate_source_pack),
+            "accepted_source_urls": [row["url"] for row in candidate_source_pack],
+        }
+        candidate_attempt_history.append(history)
+        evidence_attempts.append(
+            {
+                **history,
+                "request": request,
+                "source_pack": candidate_source_pack,
+                "provenance": provenance,
+            }
+        )
+        if status == "SOURCE_QUALIFIED":
+            selected = candidate
+            selected_plan_entry = plan_entry
+            source_pack = candidate_source_pack
+            break
     evidence_artifact = {
-        "schema_version": "contentops.v1_simple_selected_story_evidence.v1",
-        "selected_candidate_id": selected["candidate_id"],
-        "request": request,
-        "status": evidence.get("status"),
-        "blockers": list(evidence.get("blockers") or []),
-        "source_pack": source_pack,
-        "provenance": provenance,
+        "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
+        "status": "PASS" if selected is not None else "BLOCKED",
+        "admitted_candidate_count": len(plan),
+        "candidate_attempt_history": candidate_attempt_history,
+        "evidence_attempts": evidence_attempts,
+        "selected_candidate_id": selected["candidate_id"] if selected else None,
+        "selected_source_pack": source_pack,
         "request_count": request_count,
         "request_limit": MAX_SOURCE_REQUESTS,
         "model_calls_before_writer": 1,
@@ -824,18 +1088,25 @@ def run_v1_simple_gemini_newsroom(
         "public_write_performed": False,
     }
     _write_json(root / "simple_gemini_evidence_v1.json", evidence_artifact)
-    if evidence.get("status") != "PASS" or not source_pack:
+    if selected is None or selected_plan_entry is None or not source_pack:
         receipt = {
             "schema_version": SCHEMA_VERSION,
             "classification": "NO_PUBLICATION",
-            "exact_next_blocker": "SELECTED_STORY_SOURCE_RETRIEVAL_BLOCKED",
+            "run_id": run_id,
+            "cutoff_utc": cutoff_utc,
+            "candidate_count": len(candidates),
+            "candidate_limit": MAX_SELECTION_CANDIDATES,
+            "admitted_candidate_count": len(plan),
+            "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED",
             "selection": selection,
-            "source_blockers": list(evidence.get("blockers") or []),
+            "candidate_attempt_history": candidate_attempt_history,
             "source_request_count": request_count,
             "ordering": ORDERING,
             "qualified_article_count": 0,
             "derivative_intent_count": 0,
             "logical_model_invocation_count": 1,
+            "provider_attempt_count": int(selection_receipt.get("total_attempts") or 1),
+            "model_receipts": [selection_receipt],
             "codex_runtime_model_call_count": 0,
             "public_write_performed": False,
             "provider_publication_writes": 0,
@@ -847,21 +1118,51 @@ def run_v1_simple_gemini_newsroom(
     writer_governed = {
         "cutoff_utc": cutoff_utc,
         "selected_candidate": selected,
-        "article_mode": selection["article_mode"],
-        "selection_rationale": selection.get("selection_rationale"),
+        "article_mode": selected_plan_entry["article_mode"],
+        "selection_rationale": selected_plan_entry["selection_rationale"],
         "source_pack": source_pack,
         "capital_chronicle_context": dict(capital_chronicle_context or {}),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "source_marker_contract": "every non-heading body paragraph uses [[SOURCE:SOURCE_N]]",
     }
-    worker_output, worker_receipt = _invoke(
-        llm_invoke=llm_invoke,
-        role_task_id=ROLE_ARTICLE_WRITING,
-        logical_invocation_id=f"{run_id}:write",
-        prompt=_worker_prompt(writer_governed),
-        governed_input=writer_governed,
-        validator=_validate_worker_text,
-    )
+    try:
+        worker_output, worker_receipt = _invoke(
+            llm_invoke=llm_invoke,
+            role_task_id=ROLE_V1_SIMPLE_ARTICLE_WRITING,
+            logical_invocation_id=f"{run_id}:write",
+            prompt=_worker_prompt(writer_governed),
+            governed_input=writer_governed,
+            validator=_validate_worker_text,
+        )
+    except SimpleGeminiNewsroomError as exc:
+        if exc.code != "gemini_logical_invocation_blocked":
+            raise
+        blocked = _blocked_router_receipt(exc)
+        receipt = {
+            "schema_version": SCHEMA_VERSION,
+            "classification": "NO_PUBLICATION",
+            "run_id": run_id,
+            "cutoff_utc": cutoff_utc,
+            "candidate_count": len(candidates),
+            "candidate_limit": MAX_SELECTION_CANDIDATES,
+            "admitted_candidate_count": len(plan),
+            "exact_next_blocker": "GEMINI_WRITER_LOGICAL_INVOCATION_BLOCKED",
+            "selection": selection,
+            "selected_candidate": selected,
+            "candidate_attempt_history": candidate_attempt_history,
+            "source_request_count": request_count,
+            "blocked_logical_invocation": blocked,
+            "model_receipts": [selection_receipt, *([blocked] if blocked else [])],
+            "logical_model_invocation_count": 2,
+            "codex_runtime_model_call_count": 0,
+            "qualified_article_count": 0,
+            "derivative_intent_count": 0,
+            "public_write_performed": False,
+            "provider_publication_writes": 0,
+            "unknown_write_count": 0,
+        }
+        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        return receipt
     revision_receipt: dict[str, Any] | None = None
     revision_performed = False
     try:
@@ -869,18 +1170,49 @@ def run_v1_simple_gemini_newsroom(
     except SimpleGeminiNewsroomError as first_error:
         if first_error.code != "deterministic_article_validation_failed":
             raise
-        revised_output, revision_receipt = _invoke(
-            llm_invoke=llm_invoke,
-            role_task_id=ROLE_EDITORIAL_REVISION,
-            logical_invocation_id=f"{run_id}:revise",
-            prompt=_revision_prompt(writer_governed, worker_output, first_error.details),
-            governed_input={
-                **writer_governed,
-                "prior_output_hash": _hash(worker_output),
+        try:
+            revised_output, revision_receipt = _invoke(
+                llm_invoke=llm_invoke,
+                role_task_id=ROLE_V1_SIMPLE_EDITORIAL_REVISION,
+                logical_invocation_id=f"{run_id}:revise",
+                prompt=_revision_prompt(writer_governed, worker_output, first_error.details),
+                governed_input={
+                    **writer_governed,
+                    "prior_output_hash": _hash(worker_output),
+                    "validation_blockers": first_error.details,
+                },
+                validator=_validate_worker_text,
+            )
+        except SimpleGeminiNewsroomError as exc:
+            if exc.code != "gemini_logical_invocation_blocked":
+                raise
+            blocked = _blocked_router_receipt(exc)
+            receipt = {
+                "schema_version": SCHEMA_VERSION,
+                "classification": "NO_PUBLICATION",
+                "run_id": run_id,
+                "cutoff_utc": cutoff_utc,
+                "candidate_count": len(candidates),
+                "candidate_limit": MAX_SELECTION_CANDIDATES,
+                "admitted_candidate_count": len(plan),
+                "exact_next_blocker": "GEMINI_REVISION_LOGICAL_INVOCATION_BLOCKED",
+                "selection": selection,
+                "selected_candidate": selected,
+                "candidate_attempt_history": candidate_attempt_history,
+                "source_request_count": request_count,
                 "validation_blockers": first_error.details,
-            },
-            validator=_validate_worker_text,
-        )
+                "blocked_logical_invocation": blocked,
+                "model_receipts": [selection_receipt, worker_receipt, *([blocked] if blocked else [])],
+                "logical_model_invocation_count": 3,
+                "codex_runtime_model_call_count": 0,
+                "qualified_article_count": 0,
+                "derivative_intent_count": 0,
+                "public_write_performed": False,
+                "provider_publication_writes": 0,
+                "unknown_write_count": 0,
+            }
+            _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+            return receipt
         revision_performed = True
         worker_output = revised_output
         try:
@@ -891,8 +1223,14 @@ def run_v1_simple_gemini_newsroom(
             receipt = {
                 "schema_version": SCHEMA_VERSION,
                 "classification": "NO_PUBLICATION",
+                "run_id": run_id,
+                "cutoff_utc": cutoff_utc,
+                "candidate_count": len(candidates),
+                "candidate_limit": MAX_SELECTION_CANDIDATES,
+                "admitted_candidate_count": len(plan),
                 "exact_next_blocker": "SINGLE_GEMINI_REVISION_EXHAUSTED",
                 "selection": selection,
+                "candidate_attempt_history": candidate_attempt_history,
                 "validation_blockers": second_error.details,
                 "source_request_count": request_count,
                 "ordering": ORDERING,
@@ -910,7 +1248,7 @@ def run_v1_simple_gemini_newsroom(
     article_manifest = {
         "schema_version": "contentops.v1_simple_article_manifest.v1",
         **article,
-        "resolved_article_mode": selection["article_mode"],
+        "resolved_article_mode": selected_plan_entry["article_mode"],
         "story_identity": selected["story_identity"],
         "update_chain_identity": selected["story_identity"],
         "source_document_ids": [row["document_id"] for row in source_pack],
@@ -971,7 +1309,7 @@ def run_v1_simple_gemini_newsroom(
         article=article_manifest,
         story_identity=selected["story_identity"],
         update_chain_identity=selected["story_identity"],
-        resolved_article_mode=selection["article_mode"],
+        resolved_article_mode=selected_plan_entry["article_mode"],
         accepted_evidence_documents=accepted_documents,
         editorial_provider="9router",
         editorial_model=str(worker_receipt.get("selected_model") or "9router-gemini"),
@@ -986,9 +1324,14 @@ def run_v1_simple_gemini_newsroom(
         "classification": "PASS_V1_SIMPLE_GEMINI_ZERO_WRITE_ARTICLE",
         "run_id": run_id,
         "cutoff_utc": cutoff_utc,
+        "candidate_count": len(candidates),
+        "candidate_limit": MAX_SELECTION_CANDIDATES,
+        "admitted_candidate_count": len(plan),
         "ordering": ORDERING,
         "selection": selection,
         "selected_candidate": selected,
+        "selected_plan_entry": selected_plan_entry,
+        "candidate_attempt_history": candidate_attempt_history,
         "source_request_count": request_count,
         "source_request_limit": MAX_SOURCE_REQUESTS,
         "accepted_source_count": len(source_pack),

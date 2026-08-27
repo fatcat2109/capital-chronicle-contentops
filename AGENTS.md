@@ -120,13 +120,16 @@ accepted current foundation. Reuse them; do not list them as implementation gaps
 
 ## 6. Current V1 execution architecture
 
-Current owner-approved routine V1 is `SIMPLE_GEMINI_RUNTIME`: ContentOps local state and current
-headline sidecars feed one bounded 9Router/Gemini selection; deterministic selected-story public
-retrieval performs at most six requests; one bounded Gemini writer returns the canonical article
-and exact material-claim bindings; deterministic validation checks retrieved bytes; at most one
-Gemini revision may run; then one qualified zero-write article record and exactly eight
-UNDISPATCHED derivative intents are persisted. Normal model count is two logical invocations and
-three is the hard ceiling with revision. Codex runtime model calls required: zero.
+Current owner-approved routine V1 is `SIMPLE_GEMINI_RUNTIME`: the canonical reconciled published
+corpus is read without migration or mutation and deterministically removes duplicates from up to 32
+current headline candidates; one strict 9Router `gemini-3.5-flash(high)` selection admits one useful
+primary and at most two independently useful ordered fallbacks; one shared deterministic source
+budget walks that fixed plan with at most six total GETs; one Flash writer returns the canonical
+article and exact material-claim bindings; deterministic validation checks retrieved bytes; and at
+most one Flash revision may run without source expansion. Then one qualified zero-write article
+record and exactly eight UNDISPATCHED derivative intents are persisted. Normal model count is two
+logical invocations and three is the hard ceiling with revision. Codex runtime model calls required:
+zero.
 
 This supersedes routine Desktop Automations, SDK/App-Server editorial fallback, broad evidence-ready
 pools, split-phase PREPARE/COMPLETE worker handoffs, and deficit-driven multi-candidate catch-up as

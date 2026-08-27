@@ -10,10 +10,12 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
-current sidecars + published memory -> one Gemini selection -> <=6 deterministic selected-story
-source requests -> one Gemini writer -> deterministic material-claim validation -> optional one
-Gemini revision -> one qualified zero-write article -> exactly eight undispatched intents. Codex
-runtime model calls are zero.
+current sidecars + canonical reconciled published memory -> deterministic dedupe -> <=32 candidates
+-> one strict `gemini-3.5-flash(high)` selection admitting one useful primary and at most two useful
+fallbacks -> one ordered candidate walk under a shared <=6 deterministic-GET budget -> one Flash
+writer -> deterministic material-claim validation -> optional one Flash revision without source
+expansion -> one qualified zero-write article -> exactly eight undispatched intents. Codex runtime
+model calls are zero.
 
 PR #19 locator/retrieval primitives, PR #20 article/package proof, and PR #29 validate-after concepts
 are reusable donors. PR #30/#31 and native Desktop split-phase routing are historical evidence only.
@@ -23,9 +25,9 @@ are reusable donors. PR #30/#31 and native Desktop split-phase routing are histo
 ```text
 local headline sidecars + published memory
 -> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
--> bounded 9Router/Gemini selection
--> BoundedPublicSecondaryEvidenceLoader on selected story only
--> bounded 9Router/Gemini article writer
+-> bounded 9Router/Flash selection over <=32 candidates
+-> BoundedPublicSecondaryEvidenceLoader across only the fixed admitted plan under one shared <=6 GET budget
+-> bounded 9Router/Flash article writer for the first source-qualified candidate
 -> deterministic source/claim validation
 -> optional one Gemini revision
 -> contentops.newsroom_qualified_article.v1

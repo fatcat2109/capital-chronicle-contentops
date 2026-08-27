@@ -10,27 +10,34 @@ do not route current execution.
 ## Current V1 routine path
 
 ```text
-current headline sidecars + published memory + optional read-only CC context
--> one bounded 9Router/Gemini story-selection invocation
--> deterministic selected-story public retrieval only (maximum 6 requests)
--> one bounded 9Router/Gemini article-writing invocation
+current headline sidecars + canonical reconciled published memory + optional read-only CC context
+-> deterministic duplicate suppression and a packet of at most 32 current candidates
+-> one strict 9Router gemini-3.5-flash(high) selection admitting one useful primary and <=2 useful fallbacks
+-> ordered candidate source walk under one shared deterministic maximum of 6 total GETs
+-> one bounded 9Router gemini-3.5-flash(high) article-writing invocation for the first source-qualified candidate
 -> deterministic material-claim/source-byte validation
--> at most one bounded 9Router/Gemini revision
+-> at most one bounded 9Router gemini-3.5-flash(high) revision without source expansion
 -> one qualified zero-write canonical article record
 -> exactly eight UNDISPATCHED derivative intents
 -> separate existing DurablePublicationCoordinator only after explicit public-write authority
 ```
 
 Normal success uses two logical model invocations. Three is the absolute ceiling when the one
-revision is needed. Each logical invocation is bounded to the two authorized Gemini routes and no
-same-model retry. Codex runtime model calls required: `0`.
+revision is needed. Each Simple logical invocation uses only `vx/gemini-3.5-flash(high)` with one
+provider attempt and no fallback/retry. A candidate-local source failure preserves its blocker and
+continues only to the next candidate admitted by the original selection while shared budget remains;
+there is no second selection or frontier reopening. Codex runtime model calls required: `0`.
+
+The production proof runner opens the existing production store with migrations disabled and uses
+the canonical publication read model through SQLite read-only/query-only access. Duplicate filtering
+happens before selection; only compact published-memory counts and set hashes enter the model prompt.
 
 The reset intentionally removes from the routine critical path: broad evidence-ready pools,
 semantic leaf/global checkpoint replay, native PREPARE/COMPLETE worker handoffs, deficit-driven
 multi-candidate catch-up inside one scheduled task, and any scheduled Codex repo building/debugging.
 
 `BoundedPublicSecondaryEvidenceLoader` remains the deterministic source-byte authority for the
-selected story. 9Router has no native web-search/citation authority. Model-provided source
+fixed admitted candidate walk. 9Router has no native web-search/citation authority. Model-provided source
 timestamps are not authority. Every material fact, number, quote, or causal claim must bind to
 retrieved source bytes. Proprietary Capital Chronicle forecast/probability/scenario/regime/numeric
 claims remain unavailable in this initial reset lane unless exact publication-authorized CC
