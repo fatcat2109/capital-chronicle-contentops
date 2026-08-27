@@ -104,7 +104,11 @@ The final zero-write current-sidecar canary passed with a current earnings-led a
 material bindings for title, dek, search title, meta description, social hook, and body. The
 lightweight local scheduler now uses the same proven entrypoint and passed bounded due/idle/
 duplicate/restart plus persistent current-host/current-intake proof. No live/public write is
-authorized. The next exact authorization gate is separate public-write/readback authority.
+authorized. The next product slice is Simple Editorial Growth Edge reuse/integration before
+routine public-write enablement. It reuses the Institutional Edge editorial contract,
+`CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer separation,
+native eight-destination packaging, and compatible source discovery/retrieval capability. It must
+investigate `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` before adding a new discovery system.
 
 ## Focused test families
 
@@ -149,7 +153,11 @@ These are identities, not permission to inspect credentials/session material.
 2. preserve the final Simple first-party/news-peg/public-metadata host PASS;
 3. preserve the lightweight local non-Codex scheduler persistent current-host/current-intake
    zero-write/restart PASS;
-4. follow with separate routine public-write/readback and final-product decisions.
+4. integrate the existing Simple Editorial Growth Edge without rebuilding proven editorial,
+   authority-separation, packaging, or compatible source capabilities;
+5. follow with separate routine public-write/readback authority;
+6. prove a real production day at 5–8 useful published articles without filler, then obtain the
+   explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
 
 ## Stale traps
 

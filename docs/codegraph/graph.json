@@ -83996,7 +83996,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 15820
+      "size_bytes": 16367
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -84201,7 +84201,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 15806
+      "size_bytes": 16500
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
@@ -84211,7 +84211,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 3383
+      "size_bytes": 4004
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -84231,7 +84231,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 10851
+      "size_bytes": 11525
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -131933,5 +131933,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "9f435ddd9ce0946458613fa2dc1a836e6a6c0a7a",
-  "source_tree_digest": "6e4b61e0e24aef85cf52ea8f119dec338d6e36d374fe804b2c11222126a0bfe8"
+  "source_tree_digest": "a8bdfda485859989bb2f864d46f42f3c77bbe5c15ae9ad24c49fa81062d604f7"
 }

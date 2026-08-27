@@ -133,8 +133,15 @@ article was manufactured. Production publication SQLite SHA-256 remained unchang
 calls, public writes, provider publication writes, publication-coordinator dispatch, and
 `UNKNOWN_WRITE` were all zero.
 
-This closes persistent current-host zero-write runtime only. Public-write/readback authority and
-final 5–8 published/day acceptance remain separate later gates.
+This closes persistent current-host zero-write runtime only. The next product slice is Simple
+Editorial Growth Edge reuse/integration before routine public-write enablement. It must reuse the
+existing Institutional Edge editorial contract, `CAPITAL_CHRONICLE_VIEW`,
+`WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer authority separation, native eight-
+destination packaging, and compatible existing source discovery/retrieval capabilities. It must
+investigate the carried `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result before adding any
+new discovery system. PR #36 does not implement that slice. Separate public-write/readback, real
+production-day 5–8 useful published/day acceptance, and explicit `V1_FINAL_PRODUCT_ACCEPTED` remain
+later gates in that order.
 
 The selected candidate is always the current article peg. Title/dek must remain led by that event;
 older/background highlights in a current document use temporally neutral wording unless exact bytes

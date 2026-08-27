@@ -239,8 +239,15 @@ Current progression order:
 1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
 2. preserve the accepted lightweight local four-window scheduler plus persistent current-host,
    current-intake, exactly-one-process, and zero-write restart proof;
-3. obtain separate public-write/readback authority;
-4. then measure and optimize toward 5–8 useful published articles/day without filler.
+3. integrate the existing Simple Editorial Growth Edge before routine public-write enablement,
+   reusing the Institutional Edge editorial contract, `CAPITAL_CHRONICLE_VIEW`,
+   `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer authority separation, native eight-
+   destination packaging, and compatible existing discovery/retrieval capability; first investigate
+   the carried `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result before adding any new
+   discovery system;
+4. obtain separate public-write/readback authority;
+5. prove a real production day at 5–8 useful published articles without filler, then obtain the
+   explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
 
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 

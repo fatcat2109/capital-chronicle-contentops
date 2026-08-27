@@ -152,9 +152,16 @@ publication-store bytes were unchanged and all public/provider/unknown writes re
 
 The current V1 progression order is preserve exact-head CI, the final zero-write Simple host PASS,
 and the persistent current-host lightweight scheduler/current-intake zero-write/restart proof ->
-separate public-write/readback authority.
-4/32 remains throughput telemetry, not a prerequisite. Final target remains 5–8 useful published
-articles/day.
+Simple Editorial Growth Edge reuse/integration -> separate public-write/readback authority -> real
+production-day 5–8 useful published/day acceptance -> explicit `V1_FINAL_PRODUCT_ACCEPTED`.
+
+The next product slice must reuse rather than rebuild the existing Institutional Edge editorial
+contract, `CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer
+authority separation, native eight-destination packaging, and compatible existing source
+discovery/retrieval capabilities. It must investigate the carried current Simple result
+`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` before adding any new discovery system. PR #36
+does not implement that slice or grant public-write authority. 4/32 remains throughput telemetry,
+not a prerequisite. Final target remains 5–8 useful published articles/day without filler.
 
 The final current-sidecar news-peg/public-metadata-integrity canary is `PASS`: 32 candidates, one
 Flash selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed

@@ -47,8 +47,16 @@ identities, current canonical intake, and zero public/provider/unknown writes. A
 day due opportunity reached the canonical Simple operation and retained exact source-retrieval
 abstention instead of manufacturing output.
 
-The next distinct authorization gate is separate public-write/readback authority. The scheduler
-proof grants none. Final 5–8 published/day and `V1_FINAL_PRODUCT_ACCEPTED` remain later.
+The next product slice is Simple Editorial Growth Edge reuse/integration, and it must complete
+before routine public-write enablement. Reuse rather than rebuild the existing Institutional Edge
+editorial contract, `CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-
+Analyzer authority separation, native eight-destination packaging, and compatible existing source
+discovery/retrieval capabilities. Investigate the carried current result
+`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` before adding any new discovery system.
+
+After that slice, the next distinct authorization gate is separate public-write/readback authority.
+The scheduler proof grants none. A real production-day 5–8 useful published/day acceptance and
+explicit `V1_FINAL_PRODUCT_ACCEPTED` decision remain later.
 
 The prior `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` label is satisfied for the exact Simple article
 path, bounded scheduler mechanics, persistent process owner, and current-intake host closure proven
