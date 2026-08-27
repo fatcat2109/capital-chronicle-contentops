@@ -70,6 +70,23 @@ def build_operator_manual_audit_packet(*, output_dir: Path, cdp_port: int = 9223
     return _execute("build_operator_manual_audit_packet", output_dir=output_dir, cdp_port=cdp_port)
 
 
+def build_native_derivative_payloads(
+    *,
+    article: Mapping[str, Any],
+    selection: Mapping[str, Any],
+    canonical_url: str,
+    media_asset_ids: Sequence[str] = (),
+) -> dict[str, dict[str, Any]]:
+    """Compile the existing eight native payloads through the canonical boundary."""
+    return _execute(
+        "build_native_derivative_payloads",
+        article=article,
+        selection=selection,
+        canonical_url=canonical_url,
+        media_asset_ids=media_asset_ids,
+    )
+
+
 def ensure_canonical_edge_publishing_runtime(
     *,
     urls: Sequence[str] = ("https://substack.com/",),

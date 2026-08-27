@@ -1,0 +1,26 @@
+{
+  "schema_version": "contentops.v1_simple_editorial_growth_edge_tests_and_validation.v1",
+  "focused_editorial_evidence_native_boundary": {
+    "result": "PASS",
+    "passed": 166
+  },
+  "controlled_final_truth_package_proof": {
+    "result": "PASS",
+    "passed": 1
+  },
+  "codegraph_context_freshness": {
+    "result": "PASS",
+    "passed": 17
+  },
+  "expanded_simple_scheduler_compatibility": {
+    "result": "PASS_WITH_SPLIT_WINDOWS_LOOPBACK_RECHECK",
+    "passed_before_unrelated_loopback_case": 201,
+    "windows_loopback_case_initial_result": "CONNECTION_ABORTED_WINERROR_10053",
+    "windows_loopback_case_isolated_rerun": "PASS",
+    "changed_seam_implicated": false
+  },
+  "ruff_changed_nonlegacy_files": "PASS",
+  "py_compile_changed_files": "PASS",
+  "git_diff_check": "PASS",
+  "codegraph_refreshed": true
+}

@@ -8659,6 +8659,11 @@ def _run_v1_simple_gemini_newsroom_impl(**kwargs: Any) -> Any:
     return run_v1_simple_gemini_newsroom(**kwargs)
 
 
+def _build_native_derivative_payloads_impl(**kwargs: Any) -> Any:
+    """Pure local adapter to the existing native eight-destination compiler."""
+    return build_native_derivative_payloads(**kwargs)
+
+
 _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "prepare_text_image_release_candidate": _prepare_text_image_release_candidate,
     "prepare_generic_text_image_release_candidate": _prepare_generic_text_image_release_candidate,
@@ -8666,6 +8671,7 @@ _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "run_eight_platform_substack_first_pipeline": _run_eight_platform_substack_first_pipeline,
     "run_rolling_x_newsroom_cycle": _run_rolling_x_newsroom_cycle,
     "run_v1_simple_gemini_newsroom": _run_v1_simple_gemini_newsroom_impl,
+    "build_native_derivative_payloads": _build_native_derivative_payloads_impl,
     "reconcile_public_substack_for_derivative_resume": _reconcile_public_substack_for_derivative_resume,
     "resume_eight_platform_derivatives": _resume_eight_platform_derivatives,
     "reconcile_existing_derivative_readbacks": _reconcile_existing_derivative_readbacks,

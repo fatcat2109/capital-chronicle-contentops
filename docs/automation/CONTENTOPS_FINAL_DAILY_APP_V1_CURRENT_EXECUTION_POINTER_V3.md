@@ -47,12 +47,14 @@ identities, current canonical intake, and zero public/provider/unknown writes. A
 day due opportunity reached the canonical Simple operation and retained exact source-retrieval
 abstention instead of manufacturing output.
 
-The next product slice is Simple Editorial Growth Edge reuse/integration, and it must complete
-before routine public-write enablement. Reuse rather than rebuild the existing Institutional Edge
-editorial contract, `CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-
-Analyzer authority separation, native eight-destination packaging, and compatible existing source
-discovery/retrieval capabilities. Investigate the carried current result
-`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` before adding any new discovery system.
+The Simple Editorial Growth Edge implementation now reuses the existing Institutional Edge packet,
+house-mode fact/opinion/Core-Analyzer separation, and native eight-destination compiler. It keeps
+the 32/6/3/1 ceilings and lets an active candidate complete the existing three-GET RSS->sitemap->
+exact-document path under the same shared six-GET ledger. Deterministic and controlled package
+proof passes, but a fresh current-host run still truthfully ended
+`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` after GET allocation `3/2/1`. The exact next gate
+is one genuinely current source-qualified article plus owner inspection of the article and all
+eight previews. Do not add a new discovery system or enable public write from the partial proof.
 
 After that slice, the next distinct authorization gate is separate public-write/readback authority.
 The scheduler proof grants none. A real production-day 5–8 useful published/day acceptance and

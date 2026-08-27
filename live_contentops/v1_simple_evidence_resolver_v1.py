@@ -128,15 +128,17 @@ class SimpleFirstPartyAwareEvidenceResolver:
             "story_context": context,
         }
 
-    def _secondary_allowance(self, request: Mapping[str, Any]) -> int:
-        remaining_candidates = max(
-            0, int(request.get("remaining_admitted_candidate_count") or 0)
-        )
+    def _secondary_allowance(self, *, call_start: int) -> int:
         remaining_global = self._max_requests - self.request_count
-        # Preserve a locator->document pair for each later admitted candidate. This is
-        # completion-first rather than an equal split: the active candidate may use every
-        # non-reserved GET, while a later promising official route can still complete.
-        return max(0, remaining_global - (2 * remaining_candidates))
+        used_by_active_candidate = self.request_count - call_start
+        # The existing reputable-secondary path is normally RSS locator -> publisher
+        # sitemap locator -> exact publisher document.  Let the active candidate finish
+        # that three-GET path before moving on.  The unchanged shared six-GET ledger
+        # therefore admits at most two full completion attempts, without budget growth.
+        return max(
+            0,
+            min(remaining_global, 3 - used_by_active_candidate),
+        )
 
     @staticmethod
     def _route_row(
@@ -263,7 +265,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
                     selected_route="OFFICIAL_PRIMARY",
                 )
 
-        allowance = self._secondary_allowance(request)
+        allowance = self._secondary_allowance(call_start=call_start)
         if allowance > 0:
             before = self.request_count
             secondary = BoundedPublicSecondaryEvidenceLoader(

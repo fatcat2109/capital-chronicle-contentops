@@ -133,15 +133,18 @@ article was manufactured. Production publication SQLite SHA-256 remained unchang
 calls, public writes, provider publication writes, publication-coordinator dispatch, and
 `UNKNOWN_WRITE` were all zero.
 
-This closes persistent current-host zero-write runtime only. The next product slice is Simple
-Editorial Growth Edge reuse/integration before routine public-write enablement. It must reuse the
-existing Institutional Edge editorial contract, `CAPITAL_CHRONICLE_VIEW`,
-`WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer authority separation, native eight-
-destination packaging, and compatible existing source discovery/retrieval capabilities. It must
-investigate the carried `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result before adding any
-new discovery system. PR #36 does not implement that slice. Separate public-write/readback, real
-production-day 5–8 useful published/day acceptance, and explicit `V1_FINAL_PRODUCT_ACCEPTED` remain
-later gates in that order.
+The Simple Editorial Growth Edge implementation now reuses the existing Institutional Edge packet
+and current mode mappings in selector/writer/revision input, enforces explicit qualitative house
+inference without expanding Capital Chronicle numeric authority, and compiles exactly eight native
+text-only previews from final validated truth. The PR #36 equal two-GET allocation could not finish
+the existing RSS locator -> publisher sitemap locator -> exact document path; the active candidate
+may now use at most three GETs under the unchanged shared maximum of six. Focused deterministic and
+controlled package proof passes. A fresh current-host run nevertheless ended truthfully at
+`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` after GET allocation `3/2/1`, with no current
+article manufactured. One genuinely current source-qualified article and owner inspection remain
+the exact Growth Edge acceptance gap. Separate public-write/readback, real production-day 5–8
+useful published/day acceptance, and explicit `V1_FINAL_PRODUCT_ACCEPTED` remain later gates in
+that order.
 
 The selected candidate is always the current article peg. Title/dek must remain led by that event;
 older/background highlights in a current document use temporally neutral wording unless exact bytes

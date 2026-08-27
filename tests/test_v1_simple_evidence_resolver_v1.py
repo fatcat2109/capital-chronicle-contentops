@@ -300,3 +300,56 @@ def test_locator_bytes_alone_never_satisfy_evidence_and_global_ledger_never_exce
     assert result["provenance"]["locator_or_search_bytes_are_factual_authority"] is False
     assert resolver.request_count <= 6
     assert any(row["locator_bytes_grant_factual_authority"] is False for row in result["provenance"]["route_history"])
+
+
+def test_completion_first_allocation_finishes_existing_rss_sitemap_document_path():
+    calls: list[str] = []
+    discovery_url = "https://news.google.com/rss/articles/kioxia-memory-expansion"
+    publisher_url = "https://www.reuters.com/technology/kioxia-memory-expansion"
+    sitemap_url = "https://www.reuters.com/news-sitemap.xml"
+    rss = f"""<rss><channel><item>
+    <title>Kioxia and Sandisk plan Japan memory expansion - Reuters</title>
+    <link>{discovery_url}</link>
+    <pubDate>Thu, 27 Aug 2026 09:00:00 GMT</pubDate>
+    <source url="https://www.reuters.com">Reuters</source>
+    </item></channel></rss>""".encode()
+    sitemap = f"""<urlset><url>
+    <loc>{publisher_url}</loc>
+    <publication_date>2026-08-27T09:00:00Z</publication_date>
+    <title>Kioxia and Sandisk plan Japan memory expansion</title>
+    </url></urlset>""".encode()
+    publisher_bytes = b"""<html><head><title>Kioxia and Sandisk plan Japan memory expansion</title>
+    <meta property="article:published_time" content="2026-08-27T09:00:00Z"></head>
+    <body><p>Kioxia and Sandisk plan an expansion of advanced memory production in Japan.</p>
+    <p>The companies said the investment would support data-centre demand.</p></body></html>"""
+
+    def get(url, *_args):
+        calls.append(url)
+        if url.startswith("https://news.google.com/rss/search"):
+            return _response(url, rss, "application/rss+xml")
+        if url == sitemap_url:
+            return _response(url, sitemap, "application/xml")
+        if url == publisher_url:
+            return _response(url, publisher_bytes)
+        raise AssertionError(url)
+
+    result = SimpleFirstPartyAwareEvidenceResolver(
+        evaluation_as_of_utc=CUTOFF,
+        http_get=get,
+        clock=lambda: NOW,
+    )(
+        _request(
+            "Kioxia and Sandisk plan Japan memory expansion",
+            remaining=2,
+        )
+    )
+
+    assert result["status"] == "PASS"
+    assert len(calls) == 3
+    assert calls[0].startswith("https://news.google.com/rss/search")
+    assert calls[1:] == [sitemap_url, publisher_url]
+    assert result["evidence_documents"][0]["source_url"] == publisher_url
+    assert result["evidence_documents"][0]["discovery_path_url"] == discovery_url
+    assert result["provenance"]["request_count_for_call"] == 3
+    assert result["provenance"]["request_count_total"] == 3
+    assert result["provenance"]["locator_or_search_bytes_are_factual_authority"] is False

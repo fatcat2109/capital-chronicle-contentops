@@ -22,6 +22,10 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import urlsplit
 
+from live_contentops.capital_chronicle_institutional_edge_v1 import (
+    build_institutional_edge_editorial_packet,
+    validate_institutional_edge_packet,
+)
 from live_contentops.credential_redaction_policy import redact_text
 from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
@@ -50,11 +54,12 @@ from live_contentops.v1_simple_evidence_resolver_v1 import (
     SimpleFirstPartyAwareEvidenceResolver,
 )
 
-SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v2"
+SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v3"
 SELECTION_SCHEMA_VERSION = "contentops.v1_simple_gemini_selection.v2"
 ARTICLE_SCHEMA_VERSION = "contentops.v1_simple_gemini_article.v1"
 VALIDATION_SCHEMA_VERSION = "contentops.v1_simple_gemini_validation.v1"
-DERIVATIVE_INTENTS_SCHEMA_VERSION = "contentops.v1_simple_derivative_intents.v1"
+DERIVATIVE_INTENTS_SCHEMA_VERSION = "contentops.v1_simple_derivative_intents.v2"
+NATIVE_PREVIEWS_SCHEMA_VERSION = "contentops.v1_simple_native_derivative_previews.v1"
 
 ORDERING = (
     "GEMINI_SELECT_THEN_BOUNDED_DETERMINISTIC_RETRIEVAL_THEN_"
@@ -101,6 +106,30 @@ _RISKY_TEMPORAL_PATTERNS = (
 )
 _SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_[1-4])\]\]")
 _URL_RE = re.compile(r"https?://", re.IGNORECASE)
+_EXPLICIT_CC_INFERENCE_RE = re.compile(
+    r"\bCapital Chronicle(?:'s)?\s+(?:view|analysis|interpretation|inference)\b|"
+    r"\bCapital Chronicle\s+(?:views|infers|interprets)\b",
+    re.IGNORECASE,
+)
+_RESERVED_CC_NUMERIC_AUTHORITY_RE = re.compile(
+    r"\bCapital Chronicle(?:'s)?\s+(?:forecast|probabilit(?:y|ies)|scenario|"
+    r"regime|valuation|price target|base case)\b|"
+    r"\bCapital Chronicle\s+(?:assigns|calculates|estimates|forecasts|projects)\b"
+    r"[^.!?\n]{0,100}(?:\d+(?:\.\d+)?\s*%|\bprobabilit(?:y|ies)\b|"
+    r"\bvaluation\b|\bprice target\b)",
+    re.IGNORECASE,
+)
+
+_SIMPLE_MODE_BEHAVIOR = {
+    "BREAKING_BRIEF": "fast useful implication after the supported event; never a headline rewrite",
+    "FOLLOW_UP_UPDATE": "lead with the material supported delta; never recycle the prior story",
+    "STANDARD_NEWS_ANALYSIS": "early thesis, mechanism, consequence, counter-case, and watch condition",
+    "CAPITAL_CHRONICLE_VIEW": "explicit defensible Capital Chronicle qualitative house thesis",
+    "WHAT_THE_MARKET_IS_MISSING": "strongest supported overlooked variable or consensus challenge",
+    "EVERGREEN_EXPLAINER": "plain-English orientation followed by institutional depth",
+    "DATA_OR_DOCUMENT_LENS": "surface a non-obvious supported source or document finding",
+    "WEEK_AHEAD_OR_WATCH": "useful conditional watchpoints; never calendar filler",
+}
 
 LlmInvoke = Callable[..., tuple[dict[str, Any], dict[str, Any]]]
 EvidenceLoader = Callable[[Mapping[str, Any]], Mapping[str, Any]]
@@ -535,6 +564,49 @@ def _invoke(
     return dict(output), dict(receipt)
 
 
+def _institutional_edge_mode_guide() -> dict[str, dict[str, Any]]:
+    """Project the current Institutional Edge mode map for the Simple selector."""
+    result: dict[str, dict[str, Any]] = {}
+    for mode in ARTICLE_MODES:
+        packet = build_institutional_edge_editorial_packet(
+            article_mode=mode,
+            structured_data_supported=False,
+        )
+        blockers = validate_institutional_edge_packet(packet)
+        if blockers:
+            raise SimpleGeminiNewsroomError(
+                "institutional_edge_editorial_packet_invalid", blockers
+            )
+        result[mode] = {
+            "institutional_edge_mode": packet["article_mode"],
+            "mode_expectations": list(packet["mode_expectations"]),
+            "simple_mode_behavior": _SIMPLE_MODE_BEHAVIOR[mode],
+            "explicit_qualitative_inference_required": mode
+            in {"CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"},
+            "grants_factual_authority": False,
+            "grants_numeric_authority": False,
+        }
+    return result
+
+
+def _institutional_edge_writer_packet(
+    *, article_mode: str, source_pack: Sequence[Mapping[str, Any]]
+) -> dict[str, Any]:
+    packet = build_institutional_edge_editorial_packet(
+        article_mode=article_mode,
+        accepted_evidence_packet={
+            "evidence_documents": [dict(row) for row in source_pack]
+        },
+        structured_data_supported=False,
+    )
+    blockers = validate_institutional_edge_packet(packet)
+    if blockers:
+        raise SimpleGeminiNewsroomError(
+            "institutional_edge_editorial_packet_invalid", blockers
+        )
+    return packet
+
+
 def _selection_prompt(governed: Mapping[str, Any]) -> str:
     select_contract = {
         "schema_version": SELECTION_SCHEMA_VERSION,
@@ -564,6 +636,9 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "stories from GOVERNED_INPUT. Every fallback must be independently worth an article, not filler. "
         "Do not require evidence-ready/sourceability/readiness/media/SEO perfection before selection. "
         "Published-memory duplicates were filtered deterministically before this call. If nothing is useful, ABSTAIN. "
+        "Use institutional_edge_mode_guide to choose the mode the story genuinely warrants. Prefer the strongest "
+        "defensible tension over generic recap, and prioritize a proposition that can explain why the reader should care now. "
+        "Do not force a house view or market-missing mode when the headline does not support one. "
         "For every admitted candidate return one to three short research query texts that can locate reputable "
         "public reporting for that story. No tools, no URLs, no factual/numeric/publication authority. "
         "Do not select a proprietary Capital Chronicle forecast/probability/scenario/regime claim. "
@@ -693,6 +768,13 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Return exactly one JSON object with exactly the five top-level keys shown in OUTPUT_CONTRACT. "
         "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. "
+        "Follow institutional_edge_editorial_packet and its exact mode expectations. Lead with the strongest defensible "
+        "tension and explain why the reader should care now. Make title, dek, and social_hook compelling, proposition-led, "
+        "and no broader than the final supported article truth. In analytical modes, include a real counter-case or exact "
+        "condition that would challenge the thesis when appropriate. Criticism or contrarian framing is welcome only when "
+        "the retrieved record supports its factual premises. For CAPITAL_CHRONICLE_VIEW, explicitly label the qualitative "
+        "house inference as Capital Chronicle's view, interpretation, analysis, or inference. For "
+        "WHAT_THE_MARKET_IS_MISSING, explicitly label the supported overlooked-variable inference the same way. "
         "Do not browse or invent URLs. Do not expand factual scope beyond retrieved source bytes. "
         "Every non-heading body paragraph must contain at least one exact [[SOURCE:SOURCE_N]] marker. "
         "The selected_candidate is the article's current news peg. Title and dek must primarily represent that "
@@ -708,7 +790,8 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "support_excerpt must be an exact "
         "substring of the cited SOURCE_PACK text. Every claim_text and support_excerpt must be at least eight "
         "characters and must not be a bare label, symbol, or isolated number. Use no proprietary Capital Chronicle numeric/forecast/scenario/"
-        "probability/regime claim in this reset lane. Source timestamps are hints only; retrieved source provenance "
+        "probability/regime/valuation/base-case claim in this reset lane. A qualitative Capital Chronicle inference does "
+        "not create numeric authority and must remain distinguishable from observed fact. Source timestamps are hints only; retrieved source provenance "
         "remains deterministic authority. Zero media is valid. This call has no publication tools and must not claim "
         "a publication attempt: public_write_attempted MUST be the JSON boolean false, never true or a string. "
         "Return strict JSON only.\nOUTPUT_CONTRACT:\n"
@@ -814,11 +897,26 @@ def _public_copy_integrity_blockers(
     return blockers
 
 
+def _editorial_growth_edge_blockers(
+    article: Mapping[str, Any], *, article_mode: str | None
+) -> list[str]:
+    mode = str(article_mode or "").upper()
+    public_copy = _public_copy(article)
+    blockers: list[str] = []
+    if mode in {"CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"}:
+        if not _EXPLICIT_CC_INFERENCE_RE.search(public_copy):
+            blockers.append("house_mode_qualitative_inference_not_explicitly_labeled")
+    if _RESERVED_CC_NUMERIC_AUTHORITY_RE.search(public_copy):
+        blockers.append("capital_chronicle_reserved_numeric_authority_unavailable")
+    return blockers
+
+
 def _validate_article_against_source_pack(
     worker_output: Mapping[str, Any],
     source_pack: Sequence[Mapping[str, Any]],
     *,
     selected_candidate: Mapping[str, Any] | None = None,
+    article_mode: str | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
@@ -875,6 +973,9 @@ def _validate_article_against_source_pack(
     blockers.extend(_selected_news_peg_blockers(article, selected_candidate))
     blockers.extend(_public_copy_integrity_blockers(article, cited_by_id))
     blockers.extend(
+        _editorial_growth_edge_blockers(article, article_mode=article_mode)
+    )
+    blockers.extend(
         _paragraph_marker_blockers(
             str(article.get("substack_body_markdown") or ""), set(cited_by_id)
         )
@@ -904,6 +1005,8 @@ def _revision_prompt(
         "Return exactly one JSON object with no markdown fence, commentary, prefix, or suffix. "
         "Revise the prior article once using only the same governed candidate and SOURCE_PACK. "
         "Fix exactly the deterministic blockers, do not add a source or expand factual scope, and return the complete strict object. "
+        "Preserve the same Institutional Edge mode expectations, labeled qualitative inference contract, reader consequence, "
+        "and real counter-case/watch condition where the selected mode warrants them. "
         "Preserve the selected candidate as the current news peg and the exact binding requirement for all five public "
         "metadata fields. Remove unsupported newness, simultaneity, or inflated terminology rather than expanding sources. "
         "Every body paragraph remains source-marker bound. Zero public write. public_write_attempted MUST be the JSON "
@@ -952,6 +1055,80 @@ def _safe_source_blockers(values: Sequence[Any]) -> list[str]:
             if str(value).strip()
         }
     )
+
+
+def _reader_safe_native_article(
+    article: Mapping[str, Any], *, article_mode: str
+) -> dict[str, Any]:
+    """Adapt only final validated article truth to the existing native compiler."""
+    body = _SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or ""))
+    body = re.sub(r"(?m)^#{1,6}\s+", "", body)
+    return {
+        "title": str(article.get("title") or ""),
+        "subtitle": str(article.get("dek") or ""),
+        "social_hook": str(article.get("social_hook") or ""),
+        "effective_article_mode": str(article_mode),
+        "substack_body_markdown": body,
+    }
+
+
+def _native_preview_bundle(
+    *, article: Mapping[str, Any], article_mode: str, article_identity: str
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    from live_contentops.eight_platform_substack_first_pipeline_v1 import (
+        build_native_derivative_payloads,
+    )
+
+    pending_url = (
+        "https://capitalchronicle.substack.com/p/pending-publication-"
+        + article_identity[:16]
+    )
+    compiler_article = _reader_safe_native_article(
+        article, article_mode=article_mode
+    )
+    payloads = build_native_derivative_payloads(
+        article=compiler_article,
+        selection={},
+        canonical_url=pending_url,
+        media_asset_ids=(),
+    )
+    expected = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    if len(payloads) != 8 or set(payloads) != expected:
+        raise SimpleGeminiNewsroomError(
+            "exact_eight_native_preview_package_contract_failed"
+        )
+    intents = [
+        {
+            "destination": destination,
+            "dispatch_state": "UNDISPATCHED",
+            "article_identity": article_identity,
+            "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+            "payload_sha256": _hash(payloads[destination]),
+            "native_payload": dict(payloads[destination]),
+            "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+            "rematerialization_after_real_substack_url_required": True,
+        }
+        for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    ]
+    bundle = {
+        "schema_version": NATIVE_PREVIEWS_SCHEMA_VERSION,
+        "article_identity": article_identity,
+        "final_validated_article_public_copy_sha256": _text_hash(
+            _public_copy(article)
+        ),
+        "compiler_input_sha256": _hash(compiler_article),
+        "canonical_url": pending_url,
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "rematerialization_after_real_substack_url_required": True,
+        "package_count": len(payloads),
+        "packages": payloads,
+        "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+        "public_write_performed": False,
+        "provider_publication_writes": 0,
+        "publication_coordinator_dispatch_count": 0,
+        "unknown_write_count": 0,
+    }
+    return bundle, intents
 
 
 def run_v1_simple_gemini_newsroom(
@@ -1006,6 +1183,7 @@ def run_v1_simple_gemini_newsroom(
         "published_memory_summary": memory_summary,
         "capital_chronicle_context_present": bool(capital_chronicle_context),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
+        "institutional_edge_mode_guide": _institutional_edge_mode_guide(),
     }
     candidate_ids = {row["candidate_id"] for row in candidates}
     try:
@@ -1219,6 +1397,20 @@ def run_v1_simple_gemini_newsroom(
         _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
+    editorial_packet = _institutional_edge_writer_packet(
+        article_mode=str(selected_plan_entry["article_mode"]),
+        source_pack=source_pack,
+    )
+    _write_json(
+        root / "simple_gemini_editorial_edge_v1.json",
+        {
+            "schema_version": "contentops.v1_simple_editorial_edge_adaptation.v1",
+            "selected_product_mode": selected_plan_entry["article_mode"],
+            "institutional_edge_editorial_packet": editorial_packet,
+            "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
+            "public_write_performed": False,
+        },
+    )
     writer_governed = {
         "cutoff_utc": cutoff_utc,
         "selected_candidate": selected,
@@ -1227,6 +1419,7 @@ def run_v1_simple_gemini_newsroom(
         "source_pack": source_pack,
         "capital_chronicle_context": dict(capital_chronicle_context or {}),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
+        "institutional_edge_editorial_packet": editorial_packet,
         "source_marker_contract": "every non-heading body paragraph uses [[SOURCE:SOURCE_N]]",
     }
     try:
@@ -1271,7 +1464,10 @@ def run_v1_simple_gemini_newsroom(
     revision_performed = False
     try:
         article, validation = _validate_article_against_source_pack(
-            worker_output, source_pack, selected_candidate=selected
+            worker_output,
+            source_pack,
+            selected_candidate=selected,
+            article_mode=str(selected_plan_entry["article_mode"]),
         )
     except SimpleGeminiNewsroomError as first_error:
         if first_error.code != "deterministic_article_validation_failed":
@@ -1323,7 +1519,10 @@ def run_v1_simple_gemini_newsroom(
         worker_output = revised_output
         try:
             article, validation = _validate_article_against_source_pack(
-                worker_output, source_pack, selected_candidate=selected
+                worker_output,
+                source_pack,
+                selected_candidate=selected,
+                article_mode=str(selected_plan_entry["article_mode"]),
             )
         except SimpleGeminiNewsroomError as second_error:
             receipt = {
@@ -1371,22 +1570,22 @@ def run_v1_simple_gemini_newsroom(
     _write_json(root / "simple_gemini_validation_v1.json", validation_artifact)
 
     article_identity = _text_hash(str(article["substack_body_markdown"]))
-    intents = [
-        {
-            "destination": str(destination),
-            "dispatch_state": "UNDISPATCHED",
-            "article_identity": article_identity,
-            "payload_state": "DEFERRED_UNTIL_CANONICAL_SUBSTACK_URL",
-            "payload_sha256": None,
-        }
-        for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
-    ]
+    native_previews, intents = _native_preview_bundle(
+        article=article,
+        article_mode=str(selected_plan_entry["article_mode"]),
+        article_identity=article_identity,
+    )
+    _write_json(root / "native_derivative_previews_v1.json", native_previews)
     intents_artifact = {
         "schema_version": DERIVATIVE_INTENTS_SCHEMA_VERSION,
         "article_identity": article_identity,
         "intent_count": len(intents),
         "intents": intents,
-        "canonical_substack_url_required_before_payload_materialization": True,
+        "canonical_substack_url_required_before_dispatch_materialization": True,
+        "native_preview_package_path": str(
+            root / "native_derivative_previews_v1.json"
+        ),
+        "preview_payloads_require_real_substack_url_rematerialization": True,
         "public_write_performed": False,
     }
     if len(intents) != 8 or {row["destination"] for row in intents} != set(
@@ -1452,6 +1651,9 @@ def run_v1_simple_gemini_newsroom(
         "derivative_intent_count": 8,
         "article_identity": article_identity,
         "article_path": str(root / "article_manifest_v1.json"),
+        "native_derivative_preview_path": str(
+            root / "native_derivative_previews_v1.json"
+        ),
         "qualified_record_path": str(root / "qualified_article_record_v1.json"),
         "publication_coordinator_remains_sole_public_write_owner": True,
         "public_write_performed": False,

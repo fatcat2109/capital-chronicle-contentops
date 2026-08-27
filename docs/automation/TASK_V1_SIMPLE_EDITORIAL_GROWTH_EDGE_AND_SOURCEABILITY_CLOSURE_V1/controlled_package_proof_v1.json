@@ -1,0 +1,30 @@
+{
+  "schema_version": "contentops.v1_simple_editorial_growth_edge_controlled_package_proof.v1",
+  "classification": "PASS_CONTROLLED_FINAL_TRUTH_NATIVE_PACKAGE_BRIDGE",
+  "pytest_result": "1 passed",
+  "article_mode": "STANDARD_NEWS_ANALYSIS",
+  "qualified_article_count": 1,
+  "native_preview_package_count": 8,
+  "destinations": [
+    "telegram",
+    "x",
+    "discord",
+    "linkedin",
+    "facebook_page",
+    "instagram_business",
+    "threads",
+    "youtube"
+  ],
+  "all_packages_derive_from_final_validated_article_truth": true,
+  "selection_only_sentinel_present_in_derivative_copy": false,
+  "source_markers_present_in_derivative_copy": false,
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "rematerialization_after_real_substack_url_required": true,
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "public_write_count": 0,
+  "provider_publication_write_count": 0,
+  "publication_coordinator_dispatch_count": 0,
+  "unknown_write_count": 0,
+  "article_artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_EDITORIAL_GROWTH_EDGE_AND_SOURCEABILITY_CLOSURE_V1_CONTROLLED_PACKAGE_PROOF\\test_primary_source_blocked_se0\\article_manifest_v1.json",
+  "native_preview_artifact_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_EDITORIAL_GROWTH_EDGE_AND_SOURCEABILITY_CLOSURE_V1_CONTROLLED_PACKAGE_PROOF\\test_primary_source_blocked_se0\\native_derivative_previews_v1.json"
+}
