@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`SIMPLE_GEMINI_RUNTIME_RESET / LIGHTWEIGHT_LOCAL_SCHEDULER_ZERO_WRITE_RESTART_PASS`
+`SIMPLE_GEMINI_RUNTIME_RESET / PERSISTENT_CURRENT_HOST_SCHEDULER_INTAKE_ZERO_WRITE_PASS`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
@@ -27,6 +27,14 @@ the existing production-day/window identity, allocates stable ordinal slots from
 reloads canonical reconciled published memory plus valid zero-write qualified records from the
 scheduler root. Hash-bound terminal window/slot checkpoints suppress duplicate/restart work. There
 is no Codex Automation/Desktop, material-event, legacy scheduler, or public-write path.
+
+The canonical persistent root is
+`A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`. One detached process owns it
+through OS lock plus hash-bound PID identity; duplicate start, clean stop/restart, same-root
+recovery, and terminal identity restoration are current-host proven. Existing Chrome 9222 intake
+was resumed and fresh current sidecars were observed. The current-production-day Simple attempt
+reached canonical selection/retrieval and abstained on exact source blockers with independent
+32/6/3/1 ceilings and zero public/provider/unknown writes.
 
 ## Canonical product flow
 
@@ -83,6 +91,8 @@ Current routine implementation areas:
 - `live_contentops/newsroom_production_day_v1.py` — provider-neutral qualified zero-write record;
 - `live_contentops/v1_simple_gemini_scheduler_v1.py` — four-window local tick, bounded slots, and
   hash-bound duplicate/restart suppression;
+- `live_contentops/v1_simple_gemini_scheduler_process_v1.py` — canonical persistent root,
+  exactly-one detached process identity, and clean stop/restart control;
 - `live_contentops/production_orchestrator_v1.py` — canonical public operation boundary;
 - `live_contentops/publication_coordinator_v1.py` and destination registry — sole later public-write path.
 
@@ -93,8 +103,8 @@ current routine V1. Use CodeGraph for donor call paths, not to revive superseded
 The final zero-write current-sidecar canary passed with a current earnings-led article and exact
 material bindings for title, dek, search title, meta description, social hook, and body. The
 lightweight local scheduler now uses the same proven entrypoint and passed bounded due/idle/
-duplicate/restart proof. No live/public write is authorized. The next exact gate is separate
-public-write/readback authority.
+duplicate/restart plus persistent current-host/current-intake proof. No live/public write is
+authorized. The next exact authorization gate is separate public-write/readback authority.
 
 ## Focused test families
 
@@ -137,7 +147,8 @@ These are identities, not permission to inspect credentials/session material.
 
 1. preserve all accepted V1 foundation, the completed Italy canary, and failed 4/32 receipt;
 2. preserve the final Simple first-party/news-peg/public-metadata host PASS;
-3. preserve the lightweight local non-Codex scheduler zero-write/restart PASS;
+3. preserve the lightweight local non-Codex scheduler persistent current-host/current-intake
+   zero-write/restart PASS;
 4. follow with separate routine public-write/readback and final-product decisions.
 
 ## Stale traps

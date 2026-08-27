@@ -110,6 +110,32 @@ Codex runtime, public write, provider publication write, publication-coordinator
 `UNKNOWN_WRITE` counters remained zero. This is scheduler mechanics evidence, not a full
 production-day, 5–8/day, or public-publication acceptance claim.
 
+## Persistent current-host closure
+
+The production scheduler root is now fixed at
+`A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`; proof roots remain explicit
+overrides. One detached Simple scheduler process owns the root through one process-lifetime OS lock
+and a hash-bound PID identity. Launcher readback proved `STARTED`, sequential duplicate
+`ALREADY_RUNNING`, clean `STOPPED`, and `RESTARTED` on the same root. Terminal production-day,
+window, and slot identities survived the restart. Repeated idle polls and terminal-window polls
+performed zero Simple/model/source/memory work. Checkpoint and safety exceptions remain visible and
+are never converted into blind semantic retries; every acquired window lock releases through an
+unconditional `try/finally`.
+
+The existing canonical intake path was current-host revalidated rather than rebuilt. The locked
+`CapitalChronicleBot` Chrome/CDP 9222 profile was resumed, the canonical X list route returned
+`READY`, and one supported bounded capture appended fresh deduplicated sidecars. At the proof epoch,
+the newest accepted headline timestamp was `2026-08-27T20:24:23Z` and the rolling 24-hour universe
+contained 1,298 candidates. A same-production-day 17:00 Bangkok scheduler tick supplied 32 current
+candidates per slot to the canonical Simple operation. Both independent slots truthfully ended
+`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` after one Flash selection and six GETs each; no
+article was manufactured. Production publication SQLite SHA-256 remained unchanged. Codex runtime
+calls, public writes, provider publication writes, publication-coordinator dispatch, and
+`UNKNOWN_WRITE` were all zero.
+
+This closes persistent current-host zero-write runtime only. Public-write/readback authority and
+final 5–8 published/day acceptance remain separate later gates.
+
 The selected candidate is always the current article peg. Title/dek must remain led by that event;
 older/background highlights in a current document use temporally neutral wording unless exact bytes
 prove chronology, and co-location in one document never proves simultaneity. Every non-empty title,

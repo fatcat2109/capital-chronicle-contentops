@@ -480,6 +480,32 @@ class SimpleGeminiLocalScheduler:
         if not window_lock.acquire():
             report["classification"] = "WINDOW_ACTIVE_OTHER_PROCESS"
             return report
+        try:
+            return self._tick_acquired_window(
+                moment=moment,
+                report=report,
+                window=window,
+                window_id=window_id,
+                production_day_id=production_day_id,
+                session=session,
+                operation_cutoff=operation_cutoff,
+                window_path=window_path,
+            )
+        finally:
+            window_lock.release()
+
+    def _tick_acquired_window(
+        self,
+        *,
+        moment: datetime,
+        report: dict[str, Any],
+        window: Mapping[str, Any],
+        window_id: str,
+        production_day_id: str,
+        session: str,
+        operation_cutoff: datetime,
+        window_path: Path,
+    ) -> dict[str, Any]:
         existing_window = _load_checkpoint(
             window_path,
             schema_version=WINDOW_CHECKPOINT_SCHEMA_VERSION,
@@ -490,7 +516,6 @@ class SimpleGeminiLocalScheduler:
             report["slot_terminal_count"] = int(
                 existing_window.get("slot_terminal_count") or 0
             )
-            window_lock.release()
             return report
 
         qualified_before_window = len(
@@ -731,7 +756,6 @@ class SimpleGeminiLocalScheduler:
             "publication_coordinator_dispatched": False,
         }
         _write_checkpoint(window_path, window_terminal)
-        window_lock.release()
         if safety_error is not None:
             raise safety_error
         return report
@@ -742,17 +766,26 @@ class SimpleGeminiLocalScheduler:
         poll_seconds: float = 60.0,
         max_ticks: Optional[int] = None,
         on_tick: Callable[[Mapping[str, Any]], None] | None = None,
+        stop_requested: Callable[[], bool] | None = None,
     ) -> int:
         """Run cheap local ticks; idle ticks perform no semantic/provider/source work."""
         if float(poll_seconds) <= 0:
             raise ValueError("simple_gemini_scheduler_poll_seconds_invalid")
         ticks = 0
         while max_ticks is None or ticks < int(max_ticks):
+            if stop_requested is not None and stop_requested():
+                break
             result = self.tick()
             ticks += 1
             if on_tick is not None:
                 on_tick(result)
             if max_ticks is not None and ticks >= int(max_ticks):
                 break
-            time.sleep(float(poll_seconds))
+            remaining = float(poll_seconds)
+            while remaining > 0:
+                if stop_requested is not None and stop_requested():
+                    return ticks
+                interval = min(0.25, remaining)
+                time.sleep(interval)
+                remaining -= interval
         return ticks

@@ -41,10 +41,18 @@ window lightweight local scheduler with deterministic production-day/window/slot
 bounded deficit slots, per-slot published-memory refresh, and hash-bound terminal duplicate/restart
 suppression. Do not reintroduce Codex Automation as the newsroom.
 
-The next distinct gate is separate public-write/readback authority. The scheduler proof grants none.
+The persistent current-host closure is proven at the canonical Simple scheduler root with exactly
+one detached local process, duplicate-start suppression, clean stop/restart, retained terminal
+identities, current canonical intake, and zero public/provider/unknown writes. A current-production-
+day due opportunity reached the canonical Simple operation and retained exact source-retrieval
+abstention instead of manufacturing output.
 
-The prior `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` label is satisfied for the exact Simple article path
-and the bounded local scheduler mechanics proven here. It does not prove a full production day,
-5–8/day acceptance, routine public writes, or final V1 acceptance.
+The next distinct authorization gate is separate public-write/readback authority. The scheduler
+proof grants none. Final 5–8 published/day and `V1_FINAL_PRODUCT_ACCEPTED` remain later.
+
+The prior `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` label is satisfied for the exact Simple article
+path, bounded scheduler mechanics, persistent process owner, and current-intake host closure proven
+here. It does not prove a full production day, 5–8/day acceptance, routine public writes, or final
+V1 acceptance.
 
 Final V1 target remains `5–8/day` useful published articles without filler.

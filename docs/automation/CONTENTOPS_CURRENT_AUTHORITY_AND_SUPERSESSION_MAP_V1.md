@@ -140,8 +140,19 @@ zero-write memory before the next independent slot. Idle/non-due ticks make zero
 source calls. The scheduler has no native Codex Automation/Desktop, legacy scheduler, material-event,
 or public-write route.
 
+Current-host closure promotes the persistent scheduler/runtime seam to
+`CURRENTLY_PROVEN_AND_REUSE`: its canonical root is
+`A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`; one detached process is
+fenced by OS lock and hash-bound identity; duplicate start is `ALREADY_RUNNING`; clean stop/restart
+reuses the same root and terminal slot/window identities. The existing canonical Chrome 9222 intake
+was resumed without profile replacement and produced fresh current sidecars. A current-production-
+day Simple opportunity reached the canonical operation and abstained truthfully on exact source-
+retrieval blockers while respecting the independent 32/6/3/1 article ceilings. Production
+publication-store bytes were unchanged and all public/provider/unknown writes remained zero.
+
 The current V1 progression order is preserve exact-head CI, the final zero-write Simple host PASS,
-and the lightweight local scheduler zero-write/restart proof -> separate public-write authority.
+and the persistent current-host lightweight scheduler/current-intake zero-write/restart proof ->
+separate public-write/readback authority.
 4/32 remains throughput telemetry, not a prerequisite. Final target remains 5–8 useful published
 articles/day.
 

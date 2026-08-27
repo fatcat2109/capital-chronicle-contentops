@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13945,
+    "edges": 13968,
     "entrypoints": 16,
-    "nodes": 7380,
+    "nodes": 7393,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 606,
-      "python_function": 4033,
+      "python_function": 4041,
       "python_method": 299,
-      "python_module": 773,
-      "schema": 207,
-      "test": 736,
+      "python_module": 774,
+      "schema": 210,
+      "test": 737,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -39804,6 +39804,84 @@
       "to": "tests/test_v1_simple_gemini_newsroom_v1.py"
     },
     {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::build_scheduler_process_command"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::is_canonical_scheduler_command_line"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::restart_scheduler_process"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::run_owned_scheduler_forever"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::scheduler_process_state"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::spawn_detached_scheduler"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::start_scheduler_process"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::stop_scheduler_process"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_gemini_scheduler_process.v1"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_gemini_scheduler_process_identity.v1"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_gemini_scheduler_stop_request.v1"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_v1_simple_gemini_scheduler_process_v1.py"
+    },
+    {
       "from": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -68232,6 +68310,30 @@
       "to": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::SimpleGeminiNewsroomError"
     },
     {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::restart_scheduler_process",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::start_scheduler_process"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::restart_scheduler_process",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::stop_scheduler_process"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::scheduler_process_state",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::is_canonical_scheduler_command_line"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::start_scheduler_process",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::build_scheduler_process_command"
+    },
+    {
       "from": "python_symbol:live_contentops/v6_platform_registry_contract.py::build_registry",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -70732,6 +70834,36 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:scripts/run_v1_simple_gemini_newsroom.py::load_canonical_published_memory_read_only"
+    },
+    {
+      "from": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::restart_scheduler_process"
+    },
+    {
+      "from": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::run_owned_scheduler_forever"
+    },
+    {
+      "from": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::scheduler_process_state"
+    },
+    {
+      "from": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::start_scheduler_process"
+    },
+    {
+      "from": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::stop_scheduler_process"
     },
     {
       "from": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
@@ -76480,6 +76612,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/v1_simple_gemini_newsroom_v1.py"
+    },
+    {
+      "from": "tests/test_v1_simple_gemini_scheduler_process_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/v1_simple_gemini_scheduler_process_v1.py"
     },
     {
       "from": "tests/test_v1_simple_gemini_scheduler_v1.py",
@@ -83858,7 +83996,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 14843
+      "size_bytes": 15820
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -84063,7 +84201,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 14967
+      "size_bytes": 15806
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
@@ -84073,7 +84211,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 2817
+      "size_bytes": 3383
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -84093,7 +84231,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 10009
+      "size_bytes": 10851
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -87602,9 +87740,14 @@
       "size_bytes": 65324
     },
     {
+      "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "kind": "python_module",
+      "size_bytes": 16822
+    },
+    {
       "id": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "kind": "python_module",
-      "size_bytes": 30487
+      "size_bytes": 31573
     },
     {
       "id": "live_contentops/v6_platform_registry_contract.py",
@@ -119662,6 +119805,62 @@
       "symbol": "run_v1_simple_gemini_newsroom"
     },
     {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::build_scheduler_process_command",
+      "kind": "python_function",
+      "line": 111,
+      "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "symbol": "build_scheduler_process_command"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::is_canonical_scheduler_command_line",
+      "kind": "python_function",
+      "line": 134,
+      "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "symbol": "is_canonical_scheduler_command_line"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::restart_scheduler_process",
+      "kind": "python_function",
+      "line": 441,
+      "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "symbol": "restart_scheduler_process"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::run_owned_scheduler_forever",
+      "kind": "python_function",
+      "line": 228,
+      "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "symbol": "run_owned_scheduler_forever"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::scheduler_process_state",
+      "kind": "python_function",
+      "line": 167,
+      "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "symbol": "scheduler_process_state"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::spawn_detached_scheduler",
+      "kind": "python_function",
+      "line": 286,
+      "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "symbol": "spawn_detached_scheduler"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::start_scheduler_process",
+      "kind": "python_function",
+      "line": 314,
+      "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "symbol": "start_scheduler_process"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::stop_scheduler_process",
+      "kind": "python_function",
+      "line": 390,
+      "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
+      "symbol": "stop_scheduler_process"
+    },
+    {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiLocalScheduler",
       "kind": "python_class",
       "line": 269,
@@ -121561,14 +121760,14 @@
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::build_parser",
       "kind": "python_function",
-      "line": 23,
+      "line": 31,
       "path": "scripts/run_v1_simple_gemini_scheduler.py",
       "symbol": "build_parser"
     },
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
       "kind": "python_function",
-      "line": 47,
+      "line": 64,
       "path": "scripts/run_v1_simple_gemini_scheduler.py",
       "symbol": "main"
     },
@@ -123158,9 +123357,24 @@
       "schema_id": "contentops.v1_simple_gemini_newsroom.v2"
     },
     {
+      "id": "schema:contentops.v1_simple_gemini_scheduler_process.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v1_simple_gemini_scheduler_process.v1"
+    },
+    {
+      "id": "schema:contentops.v1_simple_gemini_scheduler_process_identity.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v1_simple_gemini_scheduler_process_identity.v1"
+    },
+    {
       "id": "schema:contentops.v1_simple_gemini_scheduler_slot.v1",
       "kind": "schema",
       "schema_id": "contentops.v1_simple_gemini_scheduler_slot.v1"
+    },
+    {
+      "id": "schema:contentops.v1_simple_gemini_scheduler_stop_request.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v1_simple_gemini_scheduler_stop_request.v1"
     },
     {
       "id": "schema:contentops.v1_simple_gemini_scheduler_window.v1",
@@ -123715,7 +123929,7 @@
     {
       "id": "scripts/run_v1_simple_gemini_scheduler.py",
       "kind": "python_module",
-      "size_bytes": 2392
+      "size_bytes": 4605
     },
     {
       "id": "tests/AGENTS.md",
@@ -127038,9 +127252,14 @@
       "size_bytes": 26041
     },
     {
+      "id": "tests/test_v1_simple_gemini_scheduler_process_v1.py",
+      "kind": "test",
+      "size_bytes": 6311
+    },
+    {
       "id": "tests/test_v1_simple_gemini_scheduler_v1.py",
       "kind": "test",
-      "size_bytes": 16035
+      "size_bytes": 19603
     },
     {
       "id": "tests/test_v1_source_binding_and_evidence_depth_v1.py",
@@ -131714,5 +131933,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "818e068cde2008868c9ccb3e8bb0db459000e148",
-  "source_tree_digest": "21eaa85c582b779f029d70cd815fcec8366ab95bfda9cafcc1600d1f742d5e83"
+  "source_tree_digest": "6e4b61e0e24aef85cf52ea8f119dec338d6e36d374fe804b2c11222126a0bfe8"
 }

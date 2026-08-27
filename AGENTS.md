@@ -163,6 +163,17 @@ do not repeat terminal semantic/source work; idle ticks perform none. The schedu
 local execution receipts, not another newsroom/store/publication database. It never routes native
 Codex Automations, the Desktop runtime, `scheduler_v6`, or `DurablePublicationCoordinator`.
 
+The current-host persistent scheduler closure is also proven. The stable production root is
+`A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`; exactly one detached local
+process owns it through an OS lock plus hash-bound PID identity. Duplicate start returns
+`ALREADY_RUNNING`; clean stop/start and restart retain the same root and terminal window/slot
+identities. Current canonical intake was resumed through the existing locked Chrome 9222 path and
+revalidated with fresh accepted sidecars. A current-production-day due tick reached the canonical
+Simple operation and truthfully abstained after each of two independent slots exhausted its own
+six-GET source budget. Production publication-store bytes and all Codex/public/provider/unknown-
+write counters remained unchanged/zero. This proves persistent zero-write host runtime, not public
+publication or final daily-output acceptance.
+
 ## 7. ContentOps/Core Analyzer boundary
 
 Capital Chronicle/Core Analyzer owns proprietary calculations, probabilities, scenarios, forecasts, regimes, decisions, paper records, realized-outcome attribution, and other analytical/numeric truth.
@@ -226,7 +237,8 @@ only and `SUPERSEDED_DO_NOT_REUSE` for current routing.
 Current progression order:
 
 1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
-2. preserve the accepted lightweight local four-window scheduler and zero-write restart proof;
+2. preserve the accepted lightweight local four-window scheduler plus persistent current-host,
+   current-intake, exactly-one-process, and zero-write restart proof;
 3. obtain separate public-write/readback authority;
 4. then measure and optimize toward 5–8 useful published articles/day without filler.
 

@@ -6,6 +6,7 @@ from pathlib import Path
 
 import pytest
 
+from live_contentops import v1_simple_gemini_scheduler_v1 as scheduler_module
 from live_contentops.daily_app_supervisor_v1 import (
     build_bootstrap_editorial_window_policy,
 )
@@ -412,6 +413,95 @@ def test_concurrent_process_lock_suppresses_duplicate_window_claim(tmp_path):
     assert result["published_memory_refresh_count"] == 0
     assert calls == []
     assert memory_calls == []
+
+
+def test_acquired_window_lock_releases_unconditionally_when_checkpoint_load_raises(
+    tmp_path, monkeypatch
+):
+    calls: list[dict] = []
+    scheduler, _ = _scheduler(tmp_path, calls)
+    moment = datetime.fromisoformat("2026-08-28T10:00:00+00:00")
+    due = scheduler._currently_due_windows(moment)[0]
+    day_id = newsroom_production_day_id(due["start_utc"])
+    window_path = scheduler._window_checkpoint_path(day_id, due["opportunity_id"])
+
+    def injected_failure(*_args, **_kwargs):
+        raise SimpleGeminiSchedulerCheckpointError("injected_checkpoint_failure")
+
+    monkeypatch.setattr(scheduler_module, "_load_checkpoint", injected_failure)
+    with pytest.raises(
+        SimpleGeminiSchedulerCheckpointError, match="injected_checkpoint_failure"
+    ):
+        scheduler.tick(now=moment)
+
+    reacquired = _NonBlockingFileLock(window_path.with_name("window.lock"))
+    assert reacquired.acquire() is True
+    reacquired.release()
+    assert calls == []
+
+
+def test_run_forever_idle_polling_and_max_ticks_are_deterministic(tmp_path):
+    calls: list[dict] = []
+    scheduler, memory_calls = _scheduler(tmp_path, calls)
+    scheduler._clock = lambda: datetime.fromisoformat("2026-08-30T04:30:00+00:00")
+    reports: list[dict] = []
+    ticks = scheduler.run_forever(
+        poll_seconds=0.001,
+        max_ticks=3,
+        on_tick=lambda value: reports.append(dict(value)),
+    )
+    assert ticks == 3
+    assert [row["classification"] for row in reports] == ["IDLE_NOT_DUE"] * 3
+    assert all(row["gemini_logical_call_count"] == 0 for row in reports)
+    assert all(row["source_get_count"] == 0 for row in reports)
+    assert calls == []
+    assert memory_calls == []
+
+
+def test_run_forever_terminal_window_stays_cheap_and_idempotent(tmp_path):
+    calls: list[dict] = []
+    scheduler, memory_calls = _scheduler(tmp_path, calls, ["ABSTAIN", "ABSTAIN"])
+    fixed = datetime.fromisoformat("2026-08-28T10:00:00+00:00")
+    scheduler.tick(now=fixed)
+    assert len(calls) == 2
+    assert len(memory_calls) == 2
+    scheduler._clock = lambda: fixed
+    reports: list[dict] = []
+    ticks = scheduler.run_forever(
+        poll_seconds=0.001,
+        max_ticks=2,
+        on_tick=lambda value: reports.append(dict(value)),
+    )
+    assert ticks == 2
+    assert [row["classification"] for row in reports] == [
+        "WINDOW_ALREADY_TERMINAL",
+        "WINDOW_ALREADY_TERMINAL",
+    ]
+    assert all(row["simple_operation_invocation_count"] == 0 for row in reports)
+    assert len(calls) == 2
+    assert len(memory_calls) == 2
+
+
+def test_run_forever_checkpoint_error_propagates_without_blind_retry(tmp_path):
+    calls: list[dict] = []
+    scheduler, _ = _scheduler(tmp_path, calls)
+    fixed = datetime.fromisoformat("2026-08-28T10:00:00+00:00")
+    scheduler.tick(now=fixed)
+    window_path = next(tmp_path.glob("**/window_v1.json"))
+    window_path.write_text("{}\n", encoding="utf-8")
+    scheduler._clock = lambda: fixed
+    with pytest.raises(SimpleGeminiSchedulerCheckpointError):
+        scheduler.run_forever(poll_seconds=0.001, max_ticks=3)
+    assert len(calls) == 2
+
+
+def test_run_forever_safety_error_propagates_without_semantic_retry(tmp_path):
+    calls: list[dict] = []
+    scheduler, _ = _scheduler(tmp_path, calls, ["UNSAFE"])
+    scheduler._clock = lambda: datetime.fromisoformat("2026-08-28T10:00:00+00:00")
+    with pytest.raises(SimpleGeminiSchedulerSafetyError):
+        scheduler.run_forever(poll_seconds=0.001, max_ticks=3)
+    assert len(calls) == 1
 
 
 def test_scheduler_source_contains_no_codex_automation_or_publication_dispatch_route():
