@@ -13,7 +13,7 @@ do not route current execution.
 current headline sidecars + canonical reconciled published memory + optional read-only CC context
 -> deterministic duplicate suppression and a packet of at most 32 current candidates
 -> one strict 9Router gemini-3.5-flash(high) selection admitting one useful primary and <=2 useful fallbacks
--> ordered candidate source walk under one shared deterministic maximum of 6 total GETs
+-> ordered first-party-aware candidate source walk under one shared deterministic maximum of 6 total GETs
 -> one bounded 9Router gemini-3.5-flash(high) article-writing invocation for the first source-qualified candidate
 -> deterministic material-claim/source-byte validation
 -> at most one bounded 9Router gemini-3.5-flash(high) revision without source expansion
@@ -23,6 +23,10 @@ current headline sidecars + canonical reconciled published memory + optional rea
 ```
 
 The source walk performs a maximum 6 requests total across the fixed admitted candidate plan.
+For each candidate it uses the shortest governed route: exact already-bound trustworthy source;
+existing allowlisted official/company-primary locator followed by exact accepted document bytes;
+then existing reputable-secondary locator/resolution fallback. Every route consumes the same
+ledger. Locator/search/listing bytes are discovery-only and never satisfy article evidence.
 
 Normal success uses two logical model invocations. Three is the absolute ceiling when the one
 revision is needed. Each Simple logical invocation uses only `vx/gemini-3.5-flash(high)` with one
@@ -38,8 +42,10 @@ The reset intentionally removes from the routine critical path: broad evidence-r
 semantic leaf/global checkpoint replay, native PREPARE/COMPLETE worker handoffs, deficit-driven
 multi-candidate catch-up inside one scheduled task, and any scheduled Codex repo building/debugging.
 
-`BoundedPublicSecondaryEvidenceLoader` remains the deterministic source-byte authority for the
-fixed admitted candidate walk. 9Router has no native web-search/citation authority. Model-provided source
+`SimpleFirstPartyAwareEvidenceResolver` composes the existing
+`BoundedOfficialPrimaryEvidenceLoader` and `BoundedPublicSecondaryEvidenceLoader` without creating
+another evidence schema or authority. The existing loaders remain deterministic source-byte
+authority for the fixed admitted candidate walk. 9Router has no native web-search/citation authority. Model-provided source
 timestamps are not authority. Every material fact, number, quote, or causal claim must bind to
 retrieved source bytes. Proprietary Capital Chronicle forecast/probability/scenario/regime/numeric
 claims remain unavailable in this initial reset lane unless exact publication-authorized CC
@@ -68,3 +74,14 @@ public-write owner and `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 5. Public-write enablement/readback remains a separate owner-gated step.
 
 Final target remains 5–8 useful published articles per newsroom production day without filler.
+
+## Current host proof
+
+The 2026-08-27 first-party-aware current-sidecar canary passed: 32 governed candidates, one verified
+Flash selection, three admitted candidates, two total deterministic GETs (configured NVIDIA issuer
+feed then exact current release), one verified Flash writer, deterministic validation PASS with
+seven supported material claims, zero revisions, one qualified article, and exactly eight
+UNDISPATCHED intents. Production memory was read through SQLite read-only/query-only access with
+migrations disabled and unchanged bytes. Codex runtime calls, public writes, provider publication
+writes, and `UNKNOWN_WRITE` were all zero. This proves the article path; it grants no scheduler or
+public-write authority.

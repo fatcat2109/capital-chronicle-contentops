@@ -35,6 +35,16 @@ LOCATOR_FAMILIES = frozenset(LOCATOR_ENDPOINTS)
 # Order is deterministic and an exact story may select no more than one surface.
 LOCATOR_SURFACES = (
     {
+        "surface_id": "bea_current_releases_v1",
+        "family": "official_macro",
+        "endpoint": "https://www.bea.gov/news/current-releases",
+    },
+    {
+        "surface_id": "imf_press_release_feed_v1",
+        "family": "official_macro",
+        "endpoint": "https://www.imf.org/en/news/rss",
+    },
+    {
         "surface_id": "eia_weekly_natural_gas_storage_v1",
         "family": "official_macro",
         "endpoint": "https://www.eia.gov/dnav/ng/ng_stor_wkly_s1_w.htm",
@@ -61,6 +71,17 @@ LOCATOR_SURFACES = (
         "surface_id": "waymo_company_blog_rss_v1",
         "family": "company_primary",
         "endpoint": "https://waymo.com/blog/rss.xml",
+    },
+    {
+        "surface_id": "company_investor_relations_release_feed_v1",
+        "family": "company_primary",
+        "endpoint": "https://nvidianews.nvidia.com/cats/press_release.xml",
+        "entity_pattern": r"\b(?:nvidia|nvda)\b",
+        "release_pattern": (
+            r"\b(?:earnings|financial results|quarterly results|revenue|gross margin|"
+            r"investor relations|fiscal 20\d{2}|financing platforms?|third-party capital|"
+            r"capital mobilization)\b"
+        ),
     },
 )
 
@@ -135,6 +156,24 @@ def _story_text(request: Mapping[str, Any]) -> str:
 
 def _surface_matches(surface_id: str, request: Mapping[str, Any]) -> bool:
     text = _story_text(request)
+    if surface_id == "bea_current_releases_v1":
+        return bool(
+            re.search(
+                r"\b(bea|bureau of economic analysis|personal income and outlays|"
+                r"core pce|pce price index|personal consumption expenditures|"
+                r"u\.?s\.? gdp)\b",
+                text,
+            )
+        )
+    if surface_id == "imf_press_release_feed_v1":
+        return bool(
+            re.search(r"\b(imf|international monetary fund)\b", text)
+            and re.search(
+                r"\b(executive board|flexible credit line|fcl|arrangement|"
+                r"article iv|press release|staff-level agreement)\b",
+                text,
+            )
+        )
     if surface_id == "eia_weekly_natural_gas_storage_v1":
         return bool(
             re.search(r"\b(eia|energy information administration)\b", text)
@@ -173,6 +212,21 @@ def _surface_matches(surface_id: str, request: Mapping[str, Any]) -> bool:
         return bool(
             re.search(r"\bwaymo\b", text)
             and re.search(r"\b(asic|custom silicon|compute|robotaxi|purpose-built)\b", text)
+        )
+    configured = next(
+        (
+            surface
+            for surface in LOCATOR_SURFACES
+            if str(surface.get("surface_id") or "") == surface_id
+            and surface.get("entity_pattern")
+            and surface.get("release_pattern")
+        ),
+        None,
+    )
+    if configured is not None:
+        return bool(
+            re.search(str(configured["entity_pattern"]), text, re.IGNORECASE)
+            and re.search(str(configured["release_pattern"]), text, re.IGNORECASE)
         )
     return False
 
@@ -577,10 +631,149 @@ def _candidate_for_waymo_blog(
     return candidate, published_at
 
 
+def _candidate_for_bea_current_releases(
+    body: bytes, request: Mapping[str, Any]
+) -> tuple[str, str | None] | None:
+    text = body.decode("utf-8", errors="replace")
+    terms = set(_terms(request))
+    story_text = _story_text(request)
+    matches: list[tuple[int, str, str | None]] = []
+    for row in re.findall(
+        r'<tr\b[^>]*class=["\'][^"\']*\brelease-row\b[^"\']*["\'][^>]*>'
+        r"(.*?)</tr>",
+        text,
+        re.IGNORECASE | re.DOTALL,
+    ):
+        link = re.search(
+            r'<a\b[^>]*href=["\'](/news/20\d{2}/[a-z0-9-]+)["\'][^>]*>'
+            r"(.*?)</a>",
+            row,
+            re.IGNORECASE | re.DOTALL,
+        )
+        timestamp = re.search(
+            r'<time\b[^>]*datetime=["\']([^"\']+)["\']',
+            row,
+            re.IGNORECASE,
+        )
+        if not link or not timestamp:
+            continue
+        label = html.unescape(re.sub(r"<[^>]+>", " ", link.group(2)))
+        candidate = urljoin("https://www.bea.gov/", link.group(1))
+        published_at = _parse_timestamp(timestamp.group(1))
+        if not published_at or not _within_locator_window(
+            published_at, request, days=3
+        ):
+            continue
+        haystack = f"{candidate} {label}".casefold()
+        score = sum(term in haystack for term in terms)
+        if re.search(r"\b(core pce|pce price index|personal consumption expenditures)\b", story_text) and re.search(
+            r"\bpersonal income and outlays\b", haystack
+        ):
+            score += 30
+        if score >= 2:
+            matches.append((score, candidate, published_at))
+    if not matches:
+        return None
+    _score, candidate, published_at = sorted(
+        matches, key=lambda row: (-row[0], row[1])
+    )[0]
+    return candidate, published_at
+
+
+def _candidate_for_imf_press_release_feed(
+    body: bytes, request: Mapping[str, Any]
+) -> tuple[str, str | None] | None:
+    text = body.decode("utf-8", errors="replace")
+    terms = set(_terms(request))
+    matches: list[tuple[int, str, str | None]] = []
+    for item in re.findall(r"<item\b[^>]*>(.*?)</item>", text, re.IGNORECASE | re.DOTALL):
+        title_match = re.search(
+            r"<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>",
+            item,
+            re.IGNORECASE | re.DOTALL,
+        )
+        link_match = re.search(r"<link>\s*([^<]+)\s*</link>", item, re.IGNORECASE)
+        date_match = re.search(r"<pubDate>\s*([^<]+)\s*</pubDate>", item, re.IGNORECASE)
+        if not title_match or not link_match or not date_match:
+            continue
+        candidate = html.unescape(link_match.group(1)).strip()
+        if not re.fullmatch(
+            r"https://www\.imf\.org/en/news/articles/20\d{2}/\d{2}/\d{2}/pr[a-z0-9-]+/?",
+            candidate,
+            re.IGNORECASE,
+        ):
+            continue
+        title = html.unescape(title_match.group(1))
+        published_at = _parse_timestamp(date_match.group(1))
+        if not published_at or not _within_locator_window(
+            published_at, request, days=3
+        ):
+            continue
+        score = sum(term in f"{candidate} {title}".casefold() for term in terms)
+        if score >= 2:
+            matches.append((score, candidate, published_at))
+    if not matches:
+        return None
+    _score, candidate, published_at = sorted(
+        matches, key=lambda row: (-row[0], row[1])
+    )[0]
+    return candidate, published_at
+
+
+def _candidate_for_company_release_feed(
+    body: bytes, request: Mapping[str, Any]
+) -> tuple[str, str | None] | None:
+    """Resolve one configured issuer release from exact first-party feed bytes."""
+    text = body.decode("utf-8", errors="replace")
+    terms = set(_terms(request))
+    story_text = _story_text(request)
+    matches: list[tuple[int, str, str | None]] = []
+    for item in re.findall(r"<item\b[^>]*>(.*?)</item>", text, re.IGNORECASE | re.DOTALL):
+        title_match = re.search(
+            r"<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>",
+            item,
+            re.IGNORECASE | re.DOTALL,
+        )
+        link_match = re.search(r"<link>\s*([^<]+)\s*</link>", item, re.IGNORECASE)
+        date_match = re.search(r"<pubDate>\s*([^<]+)\s*</pubDate>", item, re.IGNORECASE)
+        if not title_match or not link_match or not date_match:
+            continue
+        candidate = html.unescape(link_match.group(1)).strip().rstrip("/")
+        if not re.fullmatch(
+            r"https://[a-z0-9.-]+/news/[a-z0-9-]+",
+            candidate,
+            re.IGNORECASE,
+        ):
+            continue
+        title = html.unescape(title_match.group(1))
+        listing_text = html.unescape(re.sub(r"<[^>]+>", " ", item))
+        published_at = _parse_timestamp(date_match.group(1))
+        if not published_at or not _within_locator_window(
+            published_at, request, days=3
+        ):
+            continue
+        haystack = f"{candidate} {title} {listing_text}".casefold()
+        score = sum(term in haystack for term in terms)
+        if re.search(r"\b(earnings|financial results|quarterly results)\b", story_text) and re.search(
+            r"\bfinancial results\b", haystack
+        ):
+            score += 30
+        if score >= 2:
+            matches.append((score, candidate + "/", published_at))
+    if not matches:
+        return None
+    _score, candidate, published_at = sorted(
+        matches, key=lambda row: (-row[0], row[1])
+    )[0]
+    return candidate, published_at
+
+
 def _candidate_for_surface(
     surface_id: str, body: bytes, request: Mapping[str, Any]
 ) -> tuple[str, str | None] | None:
     parsers = {
+        "bea_current_releases_v1": _candidate_for_bea_current_releases,
+        "imf_press_release_feed_v1": _candidate_for_imf_press_release_feed,
         "federal_register_documents_v1": _candidate_for_federal_register,
         "bls_news_releases_v1": _candidate_for_bls,
         "sec_company_ticker_index_v1": _candidate_for_sec,
@@ -590,6 +783,7 @@ def _candidate_for_surface(
         "state_current_fms_press_releases_v1": _candidate_for_state_fms,
         "uscc_research_v1": _candidate_for_uscc_research,
         "waymo_company_blog_rss_v1": _candidate_for_waymo_blog,
+        "company_investor_relations_release_feed_v1": _candidate_for_company_release_feed,
     }
     return parsers[surface_id](body, request)
 

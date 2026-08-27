@@ -13,7 +13,9 @@ evidence-ready-pool, or native PREPARE/COMPLETE routing language in this file. R
 the canonical reconciled published corpus without mutation, filters up to 32 current candidates
 before one strict `vx/gemini-3.5-flash(high)` selection, admits one primary plus at most two useful
 ordered fallbacks, and walks only that plan under one shared six-GET deterministic source budget.
-One Flash writer, deterministic material-claim validation, and at most one Flash revision complete
+The current acquisition order is exact bound trustworthy source, allowlisted official/company-
+primary locator→exact document, then reputable-secondary fallback. Locator/search bytes never gain
+factual authority. One Flash writer, deterministic material-claim validation, and at most one Flash revision complete
 the article attempt. Each logical model invocation has one provider attempt and no fallback. Codex
 runtime model calls required: zero. Exactly eight zero-write derivative intents are persisted
 for a qualified article; `DurablePublicationCoordinator` remains the sole later public-write owner.
@@ -132,6 +134,13 @@ Automations must remain off; no fifth object is authorized.
 The current V1 progression order is static CI -> one isolated zero-write simple-Gemini host canary
 -> lightweight local scheduler proof -> separate public-write authority. 4/32 remains throughput
 telemetry, not a prerequisite. Final target remains 5–8 useful published articles/day.
+
+The isolated current-sidecar first-party-aware canary is now `PASS`: 32 candidates, one Flash
+selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed to
+exact NVIDIA release bytes, one Flash writer, deterministic claim validation, no revision, one
+qualified zero-write article, exactly eight UNDISPATCHED intents, and zero Codex runtime/public/
+provider/unknown writes. Preserve the prior source-routing failures as historical diagnostic
+evidence; they were implementation gaps, not external source-universe exhaustion.
 
 ## Locked V2-after-V1 sequence
 

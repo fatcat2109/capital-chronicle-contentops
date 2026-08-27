@@ -46,8 +46,8 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
     ACCEPTED,
     RetryBudget,
 )
-from live_contentops.public_secondary_evidence_loader_v1 import (
-    BoundedPublicSecondaryEvidenceLoader,
+from live_contentops.v1_simple_evidence_resolver_v1 import (
+    SimpleFirstPartyAwareEvidenceResolver,
 )
 
 SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v2"
@@ -62,7 +62,6 @@ ORDERING = (
 )
 MAX_SELECTION_CANDIDATES = 32
 MAX_SOURCE_REQUESTS = 6
-MAX_SOURCE_REQUESTS_PER_CANDIDATE = 2
 MAX_SOURCE_DOCUMENTS = 4
 MAX_SOURCE_TEXT_CHARS = 12_000
 MAX_LOGICAL_MODEL_INVOCATIONS = 3
@@ -585,20 +584,19 @@ def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any
         "evidence_enrichment_context": {"requested": True},
         "story_context": {
             "leaf_summaries": [candidate["headline_text"]],
-            "grounded_research_queries": research_queries[:MAX_SOURCE_REQUESTS_PER_CANDIDATE],
+            "grounded_research_queries": research_queries,
             "planned_research_query_count": len(research_queries),
             "planned_research_query_set_sha256": _hash(research_queries),
-            "locator_query_policy": "UP_TO_TWO_ORDERED_QUERIES_PER_CANDIDATE_UNDER_SHARED_BUDGET",
+            "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
             "public_source_url_bindings": bindings,
         },
     }
 
 
 def _default_evidence_loader(cutoff_utc: str) -> EvidenceLoader:
-    return BoundedPublicSecondaryEvidenceLoader(
+    return SimpleFirstPartyAwareEvidenceResolver(
         evaluation_as_of_utc=cutoff_utc,
         max_requests=MAX_SOURCE_REQUESTS,
-        max_requests_per_candidate=MAX_SOURCE_REQUESTS_PER_CANDIDATE,
         timeout_seconds=12.0,
     )
 
@@ -672,9 +670,12 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Every non-heading body paragraph must contain at least one exact [[SOURCE:SOURCE_N]] marker. "
         "Every material fact, number, quotation, or causal assertion in title, dek, or body must have a binding. "
         "The exact title and exact dek must each appear as a claim_text binding. support_excerpt must be an exact "
-        "substring of the cited SOURCE_PACK text. Use no proprietary Capital Chronicle numeric/forecast/scenario/"
+        "substring of the cited SOURCE_PACK text. Every claim_text and support_excerpt must be at least eight "
+        "characters and must not be a bare label, symbol, or isolated number. Use no proprietary Capital Chronicle numeric/forecast/scenario/"
         "probability/regime claim in this reset lane. Source timestamps are hints only; retrieved source provenance "
-        "remains deterministic authority. Zero media is valid. Return strict JSON only.\nOUTPUT_CONTRACT:\n"
+        "remains deterministic authority. Zero media is valid. This call has no publication tools and must not claim "
+        "a publication attempt: public_write_attempted MUST be the JSON boolean false, never true or a string. "
+        "Return strict JSON only.\nOUTPUT_CONTRACT:\n"
         + json.dumps(contract, sort_keys=True, ensure_ascii=False)
         + "\nGOVERNED_INPUT:\n"
         + json.dumps(governed, sort_keys=True, ensure_ascii=False)
@@ -809,7 +810,8 @@ def _revision_prompt(
         "Return exactly one JSON object with no markdown fence, commentary, prefix, or suffix. "
         "Revise the prior article once using only the same governed candidate and SOURCE_PACK. "
         "Fix exactly the deterministic blockers, do not add a source or expand factual scope, and return the complete strict object. "
-        "Every body paragraph remains source-marker bound. Zero public write.\nBLOCKERS:\n"
+        "Every body paragraph remains source-marker bound. Zero public write. public_write_attempted MUST be the JSON "
+        "boolean false because this call has no publication tools.\nBLOCKERS:\n"
         + json.dumps(list(blockers), sort_keys=True)
         + "\nPRIOR_OUTPUT:\n"
         + json.dumps(dict(prior), sort_keys=True, ensure_ascii=False)
@@ -1013,6 +1015,7 @@ def run_v1_simple_gemini_newsroom(
             )
             continue
         request = _evidence_request(candidate, plan_entry)
+        request["remaining_admitted_candidate_count"] = len(plan) - plan_index
         try:
             evidence = dict(loader(request) or {})
         except (OSError, RuntimeError, TypeError, ValueError) as exc:
@@ -1058,6 +1061,11 @@ def run_v1_simple_gemini_newsroom(
             "source_request_count_total": request_count,
             "accepted_source_count": len(candidate_source_pack),
             "accepted_source_urls": [row["url"] for row in candidate_source_pack],
+            "source_route_history": [
+                dict(row)
+                for row in provenance.get("route_history") or []
+                if isinstance(row, Mapping)
+            ],
         }
         candidate_attempt_history.append(history)
         evidence_attempts.append(

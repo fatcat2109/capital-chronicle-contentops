@@ -6,13 +6,14 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`SIMPLE_GEMINI_RUNTIME_RESET / ZERO_WRITE_HOST_CANARY_PENDING`
+`SIMPLE_GEMINI_RUNTIME_RESET / FIRST_PARTY_AWARE_ZERO_WRITE_HOST_CANARY_PASS`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
 current sidecars + canonical reconciled published memory -> deterministic dedupe -> <=32 candidates
 -> one strict `gemini-3.5-flash(high)` selection admitting one useful primary and at most two useful
-fallbacks -> one ordered candidate walk under a shared <=6 deterministic-GET budget -> one Flash
+fallbacks -> one first-party-aware resolver under a shared <=6 deterministic-GET budget (exact
+bound -> allowlisted official/company-primary locator and exact document -> reputable-secondary fallback) -> one Flash
 writer -> deterministic material-claim validation -> optional one Flash revision without source
 expansion -> one qualified zero-write article -> exactly eight undispatched intents. Codex runtime
 model calls are zero.
@@ -26,7 +27,7 @@ are reusable donors. PR #30/#31 and native Desktop split-phase routing are histo
 local headline sidecars + published memory
 -> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
 -> bounded 9Router/Flash selection over <=32 candidates
--> BoundedPublicSecondaryEvidenceLoader across only the fixed admitted plan under one shared <=6 GET budget
+-> SimpleFirstPartyAwareEvidenceResolver composing existing official-primary and secondary loaders under one shared <=6 GET budget
 -> bounded 9Router/Flash article writer for the first source-qualified candidate
 -> deterministic source/claim validation
 -> optional one Gemini revision
@@ -68,6 +69,8 @@ Current routine implementation areas:
 - `live_contentops/v1_simple_gemini_newsroom_v1.py` — selected-story simple runtime;
 - `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model authority;
 - `live_contentops/public_secondary_evidence_loader_v1.py` — deterministic selected-story retrieval;
+- `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger first-party-aware route arbitration;
+- `live_contentops/official_primary_source_locator_v1.py` / `official_primary_evidence_loader_v1.py` — allowlisted locator→exact official/issuer bytes;
 - `live_contentops/newsroom_production_day_v1.py` — provider-neutral qualified zero-write record;
 - `live_contentops/production_orchestrator_v1.py` — canonical public operation boundary;
 - `live_contentops/publication_coordinator_v1.py` and destination registry — sole later public-write path.
@@ -76,8 +79,8 @@ The legacy rolling-X monolith, Desktop PREPARE/COMPLETE handoff, broad ready-poo
 deficit catch-up loops remain available for historical evidence/compatibility only and do not route
 current routine V1. Use CodeGraph for donor call paths, not to revive superseded ownership.
 
-Next exact gate: one isolated zero-write current-sidecar host canary of the simple Gemini operation,
-then a lightweight local scheduler using the same entrypoint. No live/public write is authorized.
+The isolated zero-write current-sidecar first-party-aware canary passed. Next exact gate: a
+lightweight local scheduler using the same proven entrypoint. No live/public write is authorized.
 
 ## Focused test families
 

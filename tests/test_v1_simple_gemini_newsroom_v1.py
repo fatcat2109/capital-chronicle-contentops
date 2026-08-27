@@ -22,7 +22,6 @@ from live_contentops.v1_simple_gemini_newsroom_v1 import (
     ARTICLE_SCHEMA_VERSION,
     MAX_SELECTION_CANDIDATES,
     MAX_SOURCE_REQUESTS,
-    MAX_SOURCE_REQUESTS_PER_CANDIDATE,
     SELECTION_SCHEMA_VERSION,
     SimpleGeminiNewsroomError,
     _candidate_packet,
@@ -229,22 +228,32 @@ def test_simple_roles_are_flash_only_without_changing_unrelated_assignment_role(
     )
 
 
-def test_default_source_loader_reserves_shared_budget_for_candidate_continuation():
+def test_default_source_loader_uses_one_first_party_aware_shared_six_get_ledger():
     loader = _default_evidence_loader(CUTOFF)
-    assert MAX_SOURCE_REQUESTS_PER_CANDIDATE == 2
     assert loader._max_requests == MAX_SOURCE_REQUESTS
-    assert loader._max_requests_per_candidate == MAX_SOURCE_REQUESTS_PER_CANDIDATE
+    assert loader._shared_request_budget == {"limit": MAX_SOURCE_REQUESTS, "used": 0}
 
 
-def test_evidence_request_preserves_plan_hash_and_caps_ordered_locator_queries():
+def test_evidence_request_preserves_the_full_bounded_ordered_query_plan():
     candidate = _candidate_packet(_headlines(1), [])[0]
     entry = _plan_entry(candidate["candidate_id"])
     entry["research_queries"] = ["first useful query", "second useful query", "third useful query"]
     request = _evidence_request(candidate, entry)
     context = request["story_context"]
-    assert context["grounded_research_queries"] == ["first useful query", "second useful query"]
+    assert context["grounded_research_queries"] == [
+        "first useful query", "second useful query", "third useful query"
+    ]
     assert context["planned_research_query_count"] == 3
     assert len(context["planned_research_query_set_sha256"]) == 64
+
+
+def test_worker_prompt_requires_literal_false_public_write_flag():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _worker_prompt
+
+    prompt = _worker_prompt({"selected_candidate": {}, "source_pack": []})
+    assert "public_write_attempted MUST be the JSON boolean false" in prompt
+    assert "no publication tools" in prompt
+    assert "Every claim_text and support_excerpt must be at least eight characters" in prompt
 
 
 def test_primary_source_blocked_second_candidate_succeeds_without_second_selection(tmp_path: Path):

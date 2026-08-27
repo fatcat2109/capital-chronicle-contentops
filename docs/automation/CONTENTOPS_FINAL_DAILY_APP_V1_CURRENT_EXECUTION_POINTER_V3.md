@@ -12,7 +12,8 @@ Current routine execution is:
 
 `current sidecars/canonical published memory -> deterministic dedupe -> <=32 candidates -> one
 gemini-3.5-flash(high) selection admitting one primary plus <=2 useful fallbacks -> ordered walk
-under one shared <=6 deterministic-GET budget -> one Flash writer -> deterministic claim/source
+under one shared <=6 deterministic-GET budget using exact-bound, allowlisted official/company-
+primary locator→document, then reputable-secondary routes -> one Flash writer -> deterministic claim/source
 validation -> optional one Flash revision without source expansion -> one zero-write qualified
 article -> exactly eight undispatched intents`.
 
@@ -32,10 +33,14 @@ selected story with no reachable trustworthy source may truthfully abstain as
 
 ## Exact next gate
 
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED`: run one isolated zero-write current-source canary of the
-simple Gemini operation and inspect the real article, source bytes, claim bindings, request/model
-economics, and eight derivative intents. If that passes, bind the same operation to a lightweight
-local scheduler. Do not reintroduce Codex Automation as the newsroom. Public-write/readback remains
-a separate owner gate.
+The isolated zero-write first-party-aware current-source canary of the simple Gemini operation
+passed with one qualified article,
+two shared-ledger source GETs, two Flash calls, deterministic validation, and exactly eight
+UNDISPATCHED intents. The next distinct gate is binding this same proven operation to a lightweight
+local non-Codex scheduler. Do not reintroduce Codex Automation as the newsroom. Public-write/readback
+remains a separate owner gate.
+
+The prior `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` label is satisfied for this exact Simple article
+path only; it does not prove or authorize the later scheduler or public-write gates.
 
 Final V1 target remains `5–8/day` useful published articles without filler.

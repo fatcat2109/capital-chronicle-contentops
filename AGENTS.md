@@ -124,7 +124,8 @@ Current owner-approved routine V1 is `SIMPLE_GEMINI_RUNTIME`: the canonical reco
 corpus is read without migration or mutation and deterministically removes duplicates from up to 32
 current headline candidates; one strict 9Router `gemini-3.5-flash(high)` selection admits one useful
 primary and at most two independently useful ordered fallbacks; one shared deterministic source
-budget walks that fixed plan with at most six total GETs; one Flash writer returns the canonical
+budget walks that fixed plan with at most six total GETs through exact bound source, allowlisted
+official/company-primary locator→document, then reputable-secondary fallback; one Flash writer returns the canonical
 article and exact material-claim bindings; deterministic validation checks retrieved bytes; and at
 most one Flash revision may run without source expansion. Then one qualified zero-write article
 record and exactly eight UNDISPATCHED derivative intents are persisted. Normal model count is two
@@ -146,6 +147,11 @@ or public-write authority. The current simple lane does not authorize proprietar
 forecast/probability/scenario/regime claims. Public publication remains a separate owner gate.
 
 The exact current detail is `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`.
+
+The first-party-aware current-sidecar host canary passed with one 32-candidate packet, one Flash
+selection, three admitted candidates, two shared-ledger GETs to a current NVIDIA issuer feed and
+exact release, one Flash writer, deterministic validation PASS, no revision, one qualified article,
+exactly eight UNDISPATCHED intents, and zero Codex runtime/public/provider/unknown writes.
 
 ## 7. ContentOps/Core Analyzer boundary
 
