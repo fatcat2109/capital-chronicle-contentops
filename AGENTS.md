@@ -154,6 +154,26 @@ issuer feed and exact earnings release, one Flash writer, deterministic validati
 earnings-led title/dek/search-title/meta/social/body, no revision, one qualified article, exactly
 eight UNDISPATCHED intents, and zero Codex runtime/public/provider/unknown writes.
 
+The current lightweight local scheduler binds that same one-article operation to exactly the four
+owner-locked windows. Each due window derives the existing deterministic production-day/window
+identity, allocates bounded one-article slot ordinals with `bounded_deficit_work_needed()`, reloads
+canonical reconciled publication memory plus countable zero-write qualified memory before every
+slot, and persists hash-bound terminal window/slot receipts. Duplicate ticks and process restarts
+do not repeat terminal semantic/source work; idle ticks perform none. The scheduler checkpoints are
+local execution receipts, not another newsroom/store/publication database. It never routes native
+Codex Automations, the Desktop runtime, `scheduler_v6`, or `DurablePublicationCoordinator`.
+
+The current-host persistent scheduler closure is also proven. The stable production root is
+`A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`; exactly one detached local
+process owns it through an OS lock plus hash-bound PID identity. Duplicate start returns
+`ALREADY_RUNNING`; clean stop/start and restart retain the same root and terminal window/slot
+identities. Current canonical intake was resumed through the existing locked Chrome 9222 path and
+revalidated with fresh accepted sidecars. A current-production-day due tick reached the canonical
+Simple operation and truthfully abstained after each of two independent slots exhausted its own
+six-GET source budget. Production publication-store bytes and all Codex/public/provider/unknown-
+write counters remained unchanged/zero. This proves persistent zero-write host runtime, not public
+publication or final daily-output acceptance.
+
 ## 7. ContentOps/Core Analyzer boundary
 
 Capital Chronicle/Core Analyzer owns proprietary calculations, probabilities, scenarios, forecasts, regimes, decisions, paper records, realized-outcome attribution, and other analytical/numeric truth.
@@ -217,9 +237,17 @@ only and `SUPERSEDED_DO_NOT_REUSE` for current routing.
 Current progression order:
 
 1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
-2. schedule the same local operation with a lightweight non-Codex scheduler;
-3. obtain separate public-write/readback authority;
-4. then measure and optimize toward 5–8 useful published articles/day without filler.
+2. preserve the accepted lightweight local four-window scheduler plus persistent current-host,
+   current-intake, exactly-one-process, and zero-write restart proof;
+3. integrate the existing Simple Editorial Growth Edge before routine public-write enablement,
+   reusing the Institutional Edge editorial contract, `CAPITAL_CHRONICLE_VIEW`,
+   `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer authority separation, native eight-
+   destination packaging, and compatible existing discovery/retrieval capability; first investigate
+   the carried `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result before adding any new
+   discovery system;
+4. obtain separate public-write/readback authority;
+5. prove a real production day at 5–8 useful published articles without filler, then obtain the
+   explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
 
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 

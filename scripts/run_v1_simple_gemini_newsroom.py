@@ -1,9 +1,8 @@
 """CLI boundary for one zero-write simple Gemini V1 newsroom opportunity.
 
-The script is intentionally not a scheduler and never crosses a public-write boundary. A
-future local scheduler may call this exact entrypoint only after the zero-write host canary
-is accepted. Until then it is a manual/proof runner over the canonical production
-orchestrator operation.
+The script remains a manual/proof runner and never crosses a public-write boundary. The accepted
+lightweight local scheduler calls the same canonical production-orchestrator operation once per
+stable slot; it does not turn this entrypoint into a multi-article operation.
 """
 from __future__ import annotations
 
@@ -27,8 +26,9 @@ from live_contentops.daily_app_launcher_v1 import (
     CANONICAL_PRODUCTION_OUTPUT_ROOT,
     CANONICAL_PRODUCTION_STORE_PATH,
 )
-from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
-from live_contentops.published_corpus_read_model_v1 import load_published_corpus
+from live_contentops.published_corpus_read_model_v1 import (
+    load_canonical_published_memory_read_only as _load_canonical_published_memory_read_only,
+)
 
 
 def _utc_now() -> str:
@@ -38,28 +38,12 @@ def _utc_now() -> str:
 def load_canonical_published_memory_read_only(
     *, store_path: str | Path, output_root: str | Path
 ) -> tuple[list[object], dict[str, object]]:
-    """Project canonical reconciled publication memory without migration or mutation."""
-    path = Path(store_path).resolve()
-    if not path.is_file():
-        raise FileNotFoundError(f"canonical_production_store_missing:{path}")
-    before = path.stat()
-    store = ContentOpsDurableStore(path, auto_migrate=False)
-    corpus = load_published_corpus(store, output_root=Path(output_root).resolve())
-    after = path.stat()
-    unchanged = (before.st_size, before.st_mtime_ns) == (after.st_size, after.st_mtime_ns)
-    if not unchanged:
-        raise RuntimeError("canonical_production_store_changed_during_read_only_projection")
-    articles = list(corpus.get("articles") or [])
-    proof: dict[str, object] = {
-        "schema_version": "contentops.v1_simple_published_memory_access.v1",
-        "corpus_schema_version": corpus.get("schema_version"),
-        "canonical_reconciled_article_count": len(articles),
-        "store_access_mode": "SQLITE_MODE_RO_QUERY_ONLY",
-        "auto_migrate": False,
-        "production_store_unchanged_during_projection": True,
-        "second_publication_store_created": False,
-    }
-    return articles, proof
+    """Compatibility wrapper over the canonical shared read-only memory seam."""
+    articles, proof = _load_canonical_published_memory_read_only(
+        store_path=store_path,
+        output_root=output_root,
+    )
+    return list(articles), dict(proof)
 
 
 def build_parser() -> argparse.ArgumentParser:

@@ -131,9 +131,37 @@ The old Desktop-primary/SDK-fallback/native split-phase route is superseded for 
 Desktop is builder/debugger/host-proof capacity only. The four historical native newsroom
 Automations must remain off; no fifth object is authorized.
 
-The current V1 progression order is preserve exact-head CI and the final zero-write Simple host PASS
--> lightweight local scheduler proof -> separate public-write authority. 4/32 remains throughput
-telemetry, not a prerequisite. Final target remains 5–8 useful published articles/day.
+The lightweight local scheduler now reuses the exact four-window calendar, deterministic
+production-day/window identities, bounded deficit capacity, canonical reconciled published-memory
+read model, and the same one-article Simple operation. Stable slot identity includes production day,
+window, and ordinal. Hash-bound local terminal receipts suppress duplicate/restart work without
+creating another store or publication path. Each qualified slot refreshes canonical plus countable
+zero-write memory before the next independent slot. Idle/non-due ticks make zero semantic/provider/
+source calls. The scheduler has no native Codex Automation/Desktop, legacy scheduler, material-event,
+or public-write route.
+
+Current-host closure promotes the persistent scheduler/runtime seam to
+`CURRENTLY_PROVEN_AND_REUSE`: its canonical root is
+`A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`; one detached process is
+fenced by OS lock and hash-bound identity; duplicate start is `ALREADY_RUNNING`; clean stop/restart
+reuses the same root and terminal slot/window identities. The existing canonical Chrome 9222 intake
+was resumed without profile replacement and produced fresh current sidecars. A current-production-
+day Simple opportunity reached the canonical operation and abstained truthfully on exact source-
+retrieval blockers while respecting the independent 32/6/3/1 article ceilings. Production
+publication-store bytes were unchanged and all public/provider/unknown writes remained zero.
+
+The current V1 progression order is preserve exact-head CI, the final zero-write Simple host PASS,
+and the persistent current-host lightweight scheduler/current-intake zero-write/restart proof ->
+Simple Editorial Growth Edge reuse/integration -> separate public-write/readback authority -> real
+production-day 5–8 useful published/day acceptance -> explicit `V1_FINAL_PRODUCT_ACCEPTED`.
+
+The next product slice must reuse rather than rebuild the existing Institutional Edge editorial
+contract, `CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer
+authority separation, native eight-destination packaging, and compatible existing source
+discovery/retrieval capabilities. It must investigate the carried current Simple result
+`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` before adding any new discovery system. PR #36
+does not implement that slice or grant public-write authority. 4/32 remains throughput telemetry,
+not a prerequisite. Final target remains 5–8 useful published articles/day without filler.
 
 The final current-sidecar news-peg/public-metadata-integrity canary is `PASS`: 32 candidates, one
 Flash selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed
