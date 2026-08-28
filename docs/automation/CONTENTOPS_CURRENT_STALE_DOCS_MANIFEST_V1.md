@@ -105,6 +105,8 @@ When a document contains both useful historical evidence and stale current-routi
 3. rewrite actively read root/pointer files to current semantics;
 4. do not resurrect a stale route merely because its artifact is detailed.
 
+Legacy CI compatibility markers retained in current authority files are semantic regression anchors only; they do not revive the stale routes those labels historically described.
+
 ## 8. Hard current boundaries
 
 - V1 product acceptance and routine article public-write/readback authority are already granted.
