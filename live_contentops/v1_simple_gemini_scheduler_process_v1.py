@@ -22,7 +22,10 @@ from live_contentops.daily_app_launcher_v1 import (
     DETACHED_CREATION_FLAGS,
     RUNTIME_ROOT_DEFAULT,
 )
-from live_contentops.v1_simple_gemini_scheduler_v1 import _NonBlockingFileLock
+from live_contentops.v1_simple_gemini_scheduler_v1 import (
+    ROUTINE_EDITORIAL_OWNER as ROUTINE_EDITORIAL_OWNER,
+    _NonBlockingFileLock,
+)
 
 SCHEMA_VERSION = "contentops.v1_simple_gemini_scheduler_process.v1"
 IDENTITY_SCHEMA_VERSION = "contentops.v1_simple_gemini_scheduler_process_identity.v1"

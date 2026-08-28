@@ -19,6 +19,8 @@ from live_contentops.production_orchestrator_v1 import (
     CANONICAL_MODULE,
     CANONICAL_OPERATIONS,
     ContentOpsProductionOrchestrator,
+    ROUTINE_EDITORIAL_OPERATION,
+    ROUTINE_EDITORIAL_OWNER,
 )
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -618,3 +620,17 @@ def test_every_registry_proving_test_resolves_to_this_suite():
             path, _, test_name = proving_test.partition("::")
             assert path == TEST_FILE
             assert f"def {test_name}(" in source
+
+
+def test_orchestrator_marks_simple_as_the_only_current_routine_owner():
+    orchestrator = ContentOpsProductionOrchestrator()
+    assert (
+        orchestrator.routine_editorial_owner
+        == ROUTINE_EDITORIAL_OWNER
+        == "SIMPLE_GEMINI_RUNTIME"
+    )
+    assert (
+        orchestrator.routine_editorial_operation
+        == ROUTINE_EDITORIAL_OPERATION
+        == "run_v1_simple_gemini_newsroom"
+    )

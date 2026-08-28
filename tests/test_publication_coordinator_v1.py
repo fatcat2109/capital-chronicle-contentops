@@ -1114,11 +1114,41 @@ def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):
     assert smoke["readback_wiring_not_none"] is True
     assert smoke["performance_wiring_not_none"] is True
     assert smoke["learning_enabled"] is True
-    assert smoke["scheduled_editorial_owner"] == "NATIVE_DESKTOP_AUTOMATION"
+    assert smoke["scheduled_editorial_owner"] == "SIMPLE_GEMINI_RUNTIME"
+    assert smoke["exactly_one_routine_editorial_owner"] is True
+    assert smoke["routine_editorial_owner"] == "SIMPLE_GEMINI_RUNTIME"
+    assert smoke["native_desktop_routine_invocation_count"] == 0
+    assert smoke["legacy_rolling_x_routine_invocation_count"] == 0
+    assert smoke["codex_runtime_model_call_count"] == 0
+    assert smoke["codex_runtime_model_calls"] == 0
+    assert smoke["simple_semantic_model_source_call_count"] == 0
+    assert smoke["simple_semantic_model_source_calls"] == 0
+    assert smoke["public_provider_coordinator_writes"] == 0
+    assert smoke["public_provider_coordinator_write_count"] == 0
+    assert smoke["public_write_count"] == 0
+    assert smoke["provider_write_count"] == 0
+    assert smoke["coordinator_write_count"] == 0
+    assert smoke["unknown_write_count"] == 0
+    assert smoke["UNKNOWN_WRITE"] == 0
+    assert smoke["routine_scheduler"] == "SIMPLE_GEMINI_LOCAL_SCHEDULER"
     assert smoke["public_write_performed"] is False
     assert callable(runtime.execute_native_desktop_scheduled_opportunity)
     assert callable(runtime.prepare_native_desktop_scheduled_opportunity)
     assert callable(runtime.complete_native_desktop_scheduled_opportunity)
+
+
+def test_native_desktop_runtime_compatibility_seams_are_non_routing(tmp_path):
+    runtime = build_final_daily_app_production_runtime(
+        store_path=tmp_path / "store.sqlite3", output_root=tmp_path / "output",
+    )
+    result = runtime.execute_native_desktop_scheduled_opportunity(
+        automation_id="v1-newsroom-new-york-2100",
+    )
+    assert result["executed"] is False
+    assert result["reason"] == "native_desktop_non_routing_current_composition"
+    assert result["routine_editorial_owner"] == "SIMPLE_GEMINI_RUNTIME"
+    assert result["public_write_performed"] is False
+    assert result["unknown_write_detected"] is False
 
 
 def test_default_production_startup_does_not_ensure_or_navigate_edge(tmp_path, monkeypatch):

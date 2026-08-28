@@ -9,6 +9,7 @@ from live_contentops.v1_simple_gemini_scheduler_process_v1 import (
     PROCESS_IDENTITY_FILENAME,
     PROCESS_LOCK_FILENAME,
     PROCESS_RUNTIME_DIR_NAME,
+    ROUTINE_EDITORIAL_OWNER,
     RUNNER_SCRIPT,
     STATE_RUNNING,
     STATE_STOPPED,
@@ -37,6 +38,7 @@ def test_canonical_root_uses_existing_contentops_runtime_convention():
         r"A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1"
     )
     assert PROCESS_RUNTIME_DIR_NAME == "process_runtime_v1"
+    assert ROUTINE_EDITORIAL_OWNER == "SIMPLE_GEMINI_RUNTIME"
 
 
 def test_process_command_and_identity_are_bound_to_one_root(tmp_path):

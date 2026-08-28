@@ -18,6 +18,8 @@ TASK_LABEL = "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PA
 SCHEMA_VERSION = "contentops.production_orchestrator.v1"
 CANONICAL_MODULE = "live_contentops._eight_platform_substack_first_pipeline_impl_v1"
 CANONICAL_FUNCTION = "_dispatch_canonical_operation"
+ROUTINE_EDITORIAL_OWNER = "SIMPLE_GEMINI_RUNTIME"
+ROUTINE_EDITORIAL_OPERATION = "run_v1_simple_gemini_newsroom"
 CANONICAL_OPERATIONS = frozenset(
     {
         "prepare_text_image_release_candidate",
@@ -150,6 +152,8 @@ class ContentOpsProductionOrchestrator:
     canonical_module = CANONICAL_MODULE
     canonical_function = CANONICAL_FUNCTION
     canonical_operations = CANONICAL_OPERATIONS
+    routine_editorial_owner = ROUTINE_EDITORIAL_OWNER
+    routine_editorial_operation = ROUTINE_EDITORIAL_OPERATION
 
     def __init__(self, store: Any = None) -> None:
         self._dispatcher: Callable[..., Any] | None = None
