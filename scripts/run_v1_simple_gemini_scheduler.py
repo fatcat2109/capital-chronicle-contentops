@@ -1,4 +1,8 @@
-"""Run the lightweight local zero-write Simple-Gemini V1 scheduler."""
+"""Run the lightweight local Simple-Gemini V1 scheduler.
+
+The Simple semantic operation remains zero-write. Qualified production slots delegate through the
+existing canonical durable publication coordinator; no second publisher/store/scheduler is created.
+"""
 
 from __future__ import annotations
 
@@ -26,11 +30,17 @@ from live_contentops.v1_simple_gemini_scheduler_process_v1 import (
     stop_scheduler_process,
 )
 from live_contentops.v1_simple_gemini_scheduler_v1 import SimpleGeminiLocalScheduler
+from live_contentops.v1_simple_publication_handoff_v1 import (
+    build_canonical_simple_publication_handoff,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Tick the four-window local zero-write Simple-Gemini scheduler."
+        description=(
+            "Tick the four-window local Simple-Gemini scheduler with canonical durable "
+            "publication handoff for qualified production slots."
+        )
     )
     parser.add_argument(
         "--scheduler-root",
@@ -87,10 +97,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         result = restart_scheduler_process(**lifecycle_kwargs)
         print(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False))
         return 0 if result.get("outcome") == "RESTARTED" else 2
+
+    publication_handoff = build_canonical_simple_publication_handoff(
+        store_path=args.published_memory_store
+    )
     scheduler = SimpleGeminiLocalScheduler(
         scheduler_root=args.scheduler_root,
         published_memory_store=args.published_memory_store,
         published_memory_output_root=args.published_memory_output_root,
+        publication_handoff=publication_handoff,
     )
     if args.run_forever:
         result = run_owned_scheduler_forever(
