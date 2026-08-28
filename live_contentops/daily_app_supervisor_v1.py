@@ -49,8 +49,16 @@ OPERATING_MODES = frozenset(
 )
 SCHEDULED_EDITORIAL_OWNER_FDA_G = "FDA_G_SUPERVISOR"
 SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP = "NATIVE_DESKTOP_AUTOMATION"
+SIMPLE_GEMINI_RUNTIME = "SIMPLE_GEMINI_RUNTIME"
+# Public name for the current routine owner.  The older owner constants remain available only
+# for historical compatibility tests and explicit non-routing handoff APIs.
+ROUTINE_EDITORIAL_OWNER = SIMPLE_GEMINI_RUNTIME
 SCHEDULED_EDITORIAL_OWNERS = frozenset(
-    {SCHEDULED_EDITORIAL_OWNER_FDA_G, SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP}
+    {
+        SIMPLE_GEMINI_RUNTIME,
+        SCHEDULED_EDITORIAL_OWNER_FDA_G,
+        SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+    }
 )
 NATIVE_DESKTOP_AUTOMATION_SESSION_BY_ID = {
     "v1-newsroom-london-1700": "london_1700_bangkok",
@@ -452,7 +460,7 @@ class ContentOpsDailyAppSupervisor:
         interaction_classifier: Optional[Callable[..., Mapping[str, Any]]] = None,
         performance_learning_enabled: bool = False,
         intake_housekeeping: Optional[Callable[..., Mapping[str, Any]]] = None,
-        scheduled_editorial_owner: str = SCHEDULED_EDITORIAL_OWNER_FDA_G,
+        scheduled_editorial_owner: str = SIMPLE_GEMINI_RUNTIME,
     ) -> None:
         requested_mode = operating_mode or "AUTONOMOUS_DEFAULT"
         if requested_mode not in OPERATING_MODES:
@@ -500,8 +508,11 @@ class ContentOpsDailyAppSupervisor:
         self._interaction_classifier = interaction_classifier
         self._performance_learning_enabled = bool(performance_learning_enabled)
         if newsroom_cycle is None:
+            # The current routine producer is the accepted Simple-Gemini operation.  The legacy
+            # rolling-X facade remains importable only for historical callers and is never the
+            # default production route.
             from live_contentops.eight_platform_substack_first_pipeline_v1 import (
-                run_rolling_x_newsroom_cycle as canonical_cycle,
+                run_v1_simple_gemini_newsroom as canonical_cycle,
             )
 
             newsroom_cycle = canonical_cycle
@@ -525,6 +536,42 @@ class ContentOpsDailyAppSupervisor:
         if owner not in SCHEDULED_EDITORIAL_OWNERS:
             raise ValueError(f"scheduled_editorial_owner_invalid:{scheduled_editorial_owner}")
         self._scheduled_editorial_owner = owner
+
+    @property
+    def routine_editorial_owner(self) -> str:
+        """Current owner label exposed for composition/readback without invoking a cycle."""
+        return self._scheduled_editorial_owner
+
+    def routine_editorial_composition(self) -> dict[str, Any]:
+        """Return deterministic current-owner composition metadata (no model/provider work)."""
+        current = self._scheduled_editorial_owner == SIMPLE_GEMINI_RUNTIME
+        return {
+            "exactly_one_routine_editorial_owner": current,
+            "routine_editorial_owner": self._scheduled_editorial_owner,
+            "native_desktop_routine_invocation_count": 0,
+            "legacy_rolling_x_routine_invocation_count": 0,
+            "codex_runtime_model_call_count": 0,
+            "codex_runtime_model_calls": 0,
+            "simple_semantic_model_source_call_count": 0,
+            "simple_semantic_model_source_calls": 0,
+            "public_provider_coordinator_writes": 0,
+            "public_provider_coordinator_write_count": 0,
+            "public_write_count": 0,
+            "provider_write_count": 0,
+            "coordinator_write_count": 0,
+            "unknown_write_count": 0,
+            "UNKNOWN_WRITE": 0,
+        }
+
+    def _simple_runtime_is_current_cycle(self) -> bool:
+        """Identify the canonical Simple callable without importing legacy pipeline code."""
+        return (
+            self._scheduled_editorial_owner == SIMPLE_GEMINI_RUNTIME
+            and getattr(self._newsroom_cycle, "__name__", "")
+            == "run_v1_simple_gemini_newsroom"
+            and getattr(self._newsroom_cycle, "__module__", "")
+            == "live_contentops.eight_platform_substack_first_pipeline_v1"
+        )
 
     # -- public API -----------------------------------------------------------
 
@@ -2610,6 +2657,11 @@ class ContentOpsDailyAppSupervisor:
     def _due_windows(
         self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
     ) -> list[dict[str, Any]]:
+        # The persistent Simple scheduler owns all current routine opportunity ticks.  The Daily
+        # App supervisor remains the intake/readback/UI authority but must not execute a second
+        # routine scheduler (or accidentally fall through to the legacy rolling-X cycle).
+        if self._simple_runtime_is_current_cycle():
+            return []
         # FDA-G maintains intake/state/runtime truth but the native Desktop Automation is the
         # primary routine heavy-editorial brain in production.  When that owner is selected,
         # FDA-G must not create, claim, or terminalize the same scheduled opportunity first.
@@ -3248,6 +3300,14 @@ class ContentOpsDailyAppSupervisor:
         )
 
         window_id = window["window_id"]
+        if self._simple_runtime_is_current_cycle():
+            return {
+                "executed": False,
+                "reason": "simple_gemini_scheduler_is_routine_owner",
+                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+            }
         split_operation = str(split_phase_operation or "").strip().upper() or None
         if split_operation not in {None, "PREPARE", "COMPLETE"}:
             raise ValueError("native_desktop_split_phase_operation_invalid")

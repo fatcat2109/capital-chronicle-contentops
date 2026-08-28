@@ -215,11 +215,20 @@ def test_idle_tick_performs_zero_memory_model_provider_or_source_work(tmp_path):
     scheduler, memory_calls = _scheduler(tmp_path, calls)
     result = scheduler.tick(now="2026-08-30T04:30:00Z")
     assert result["classification"] == "IDLE_NOT_DUE"
+    assert result["exactly_one_routine_editorial_owner"] is True
+    assert result["routine_editorial_owner"] == "SIMPLE_GEMINI_RUNTIME"
     assert result["due_window_count"] == 0
     assert result["simple_operation_invocation_count"] == 0
     assert result["published_memory_refresh_count"] == 0
     assert result["gemini_logical_call_count"] == 0
     assert result["source_get_count"] == 0
+    assert result["codex_runtime_model_call_count"] == 0
+    assert result["native_desktop_routine_invocation_count"] == 0
+    assert result["legacy_rolling_x_routine_invocation_count"] == 0
+    assert result["public_write_performed"] is False
+    assert result["provider_publication_writes"] == 0
+    assert result["publication_coordinator_dispatched"] is False
+    assert result["unknown_write_count"] == 0
     assert calls == []
     assert memory_calls == []
 

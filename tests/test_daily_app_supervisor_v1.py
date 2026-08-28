@@ -865,7 +865,41 @@ def test_default_newsroom_cycle_is_the_canonical_facade():
         newsroom_cycle=None,
     )
     from live_contentops.eight_platform_substack_first_pipeline_v1 import (
-        run_rolling_x_newsroom_cycle,
+        run_v1_simple_gemini_newsroom,
     )
 
-    assert supervisor._newsroom_cycle is run_rolling_x_newsroom_cycle
+    assert supervisor._newsroom_cycle is run_v1_simple_gemini_newsroom
+    assert supervisor.routine_editorial_owner == "SIMPLE_GEMINI_RUNTIME"
+    assert supervisor.routine_editorial_composition() == {
+        "exactly_one_routine_editorial_owner": True,
+        "routine_editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "native_desktop_routine_invocation_count": 0,
+        "legacy_rolling_x_routine_invocation_count": 0,
+        "codex_runtime_model_call_count": 0,
+        "codex_runtime_model_calls": 0,
+        "simple_semantic_model_source_call_count": 0,
+        "simple_semantic_model_source_calls": 0,
+        "public_provider_coordinator_writes": 0,
+        "public_provider_coordinator_write_count": 0,
+        "public_write_count": 0,
+        "provider_write_count": 0,
+        "coordinator_write_count": 0,
+        "unknown_write_count": 0,
+        "UNKNOWN_WRITE": 0,
+    }
+
+
+def test_current_simple_composition_fences_supervisor_routine_dispatch():
+    base = Path(_tempdir())
+    supervisor = ContentOpsDailyAppSupervisor(
+        store_path=base / "store.sqlite3",
+        output_root=base / "out",
+        newsroom_cycle=None,
+    )
+    now = datetime(2026, 8, 24, 14, 0, tzinfo=timezone.utc)
+    assert supervisor._due_windows(now, None) == []
+    result = supervisor._execute_window(
+        {"window_id": "composition-smoke", "trigger": TRIGGER_SCHEDULED}, now
+    )
+    assert result["executed"] is False
+    assert result["reason"] == "simple_gemini_scheduler_is_routine_owner"

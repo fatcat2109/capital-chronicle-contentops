@@ -9,7 +9,10 @@ from typing import Any, Mapping, Optional
 
 from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
 from live_contentops.daily_app_supervisor_v1 import (
-    SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+    SIMPLE_GEMINI_RUNTIME,
+)
+from live_contentops.eight_platform_substack_first_pipeline_v1 import (
+    run_v1_simple_gemini_newsroom,
 )
 from live_contentops.browser_interaction_budget_v1 import (
     configure_browser_interaction_telemetry,
@@ -63,7 +66,15 @@ class FinalDailyAppProductionRuntime:
     def execute_native_desktop_scheduled_opportunity(
         self, *, automation_id: str, now: Any = None
     ) -> dict[str, Any]:
-        """Compatibility alias for the public PREPARE phase."""
+        """Compatibility-only seam; Native Desktop is non-routing in current production."""
+        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+            return {
+                "executed": False,
+                "reason": "native_desktop_non_routing_current_composition",
+                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+            }
         return self.supervisor.execute_native_desktop_scheduled_opportunity(
             automation_id=automation_id,
             now=now,
@@ -72,7 +83,15 @@ class FinalDailyAppProductionRuntime:
     def prepare_native_desktop_scheduled_opportunity(
         self, *, automation_id: str, now: Any = None
     ) -> dict[str, Any]:
-        """Run canonical discovery/evidence and return a durable XHIGH request when warranted."""
+        """Compatibility-only PREPARE seam; blocked for the current Simple owner."""
+        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+            return {
+                "executed": False,
+                "reason": "native_desktop_non_routing_current_composition",
+                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+            }
         return self.supervisor.prepare_native_desktop_scheduled_opportunity(
             automation_id=automation_id,
             now=now,
@@ -87,7 +106,15 @@ class FinalDailyAppProductionRuntime:
         coordinator_review_receipt: Mapping[str, Any],
         now: Any = None,
     ) -> dict[str, Any]:
-        """Resume the same opportunity with its exact worker and HIGH review receipts."""
+        """Compatibility-only COMPLETE seam; blocked for the current Simple owner."""
+        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+            return {
+                "executed": False,
+                "reason": "native_desktop_non_routing_current_composition",
+                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "public_write_performed": False,
+                "unknown_write_detected": False,
+            }
         return self.supervisor.complete_native_desktop_scheduled_opportunity(
             automation_id=automation_id,
             canonical_opportunity_id=canonical_opportunity_id,
@@ -98,6 +125,7 @@ class FinalDailyAppProductionRuntime:
 
     def smoke_snapshot(self) -> dict[str, Any]:
         control = self.store.get_operating_control()
+        composition = self.supervisor.routine_editorial_composition()
         return {
             "status": "PRODUCTION_COMPOSITION_READY_NO_WRITE",
             "schema_version": self.store.get_current_schema_version(),
@@ -108,7 +136,9 @@ class FinalDailyAppProductionRuntime:
             "readback_wiring_not_none": self.supervisor._publication_readback_provider is not None,
             "performance_wiring_not_none": self.supervisor._performance_collector is not None,
             "learning_enabled": self.supervisor._performance_learning_enabled,
+            **composition,
             "scheduled_editorial_owner": self.supervisor._scheduled_editorial_owner,
+            "routine_scheduler": "SIMPLE_GEMINI_LOCAL_SCHEDULER",
             "next_wake_utc": self.supervisor._next_wake(self.supervisor._clock()).isoformat().replace("+00:00", "Z"),
             "public_write_performed": False,
         }
@@ -168,7 +198,8 @@ def build_final_daily_app_production_runtime(
         performance_collector=coordinator.collect_metrics,
         interaction_classifier=classify_interactions_with_nine_router,
         performance_learning_enabled=True,
-        scheduled_editorial_owner=SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
+        newsroom_cycle=run_v1_simple_gemini_newsroom,
+        scheduled_editorial_owner=SIMPLE_GEMINI_RUNTIME,
     )
     return FinalDailyAppProductionRuntime(
         store=store, orchestrator=orchestrator, readiness_manager=readiness,

@@ -19,6 +19,7 @@ from uuid import uuid4
 
 from live_contentops.daily_app_supervisor_v1 import (
     EditorialWindowPolicy,
+    SIMPLE_GEMINI_RUNTIME,
     build_bootstrap_editorial_window_policy,
     owner_locked_editorial_opportunities,
 )
@@ -48,6 +49,7 @@ SLOT_CHECKPOINT_SCHEMA_VERSION = "contentops.v1_simple_gemini_scheduler_slot.v1"
 MEMORY_ACCESS_SCHEMA_VERSION = "contentops.v1_simple_scheduler_memory_access.v1"
 STATE_DIRECTORY_NAME = "simple_gemini_scheduler_state_v1"
 TRIGGER_SCHEDULED = "SCHEDULED"
+ROUTINE_EDITORIAL_OWNER = SIMPLE_GEMINI_RUNTIME
 TERMINAL_SLOT_STATES = frozenset(
     {"QUALIFIED", "ABSTAINED", "BLOCKED", "SAFETY_BLOCKED"}
 )
@@ -448,6 +450,8 @@ class SimpleGeminiLocalScheduler:
             "slot_capacity": 0,
             "slot_terminal_count": 0,
             "simple_operation_invocation_count": 0,
+            "exactly_one_routine_editorial_owner": True,
+            "routine_editorial_owner": ROUTINE_EDITORIAL_OWNER,
             "published_memory_refresh_count": 0,
             "gemini_logical_call_count": 0,
             "source_get_count": 0,
@@ -456,6 +460,8 @@ class SimpleGeminiLocalScheduler:
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
             "native_codex_automation_routed": False,
+            "native_desktop_routine_invocation_count": 0,
+            "legacy_rolling_x_routine_invocation_count": 0,
             "publication_coordinator_dispatched": False,
             "classification": "IDLE_NOT_DUE",
             "slots": [],
