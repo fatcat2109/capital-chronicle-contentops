@@ -269,22 +269,21 @@ Accepted/reusable foundations include:
 - canonical Substack transports, readback/reconciliation, and completed Italy nine-surface canary;
 - V5 read model/UI foundation.
 
-The Simple report-truth/event-truth epistemic adapter and attributed-publisher direct/RSS pinning
-are accepted implementation in PR #37 and are no longer current gaps. The exact gate is
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current epistemically qualified article and exactly
-eight actual owner-review previews.
+The Simple report-truth/event-truth epistemic adapter, attributed-publisher direct/RSS pinning,
+and native preview quality correction are accepted implementation in PR #37. The article/eight-
+preview runtime proof is closed by the current Al Jazeera owner-review package.
 
 The owner has now authorized one further narrow activation: an exact record from the owner-curated
 canonical X-list intake may support only a relay-of-reporting proposition (`Relay R, citing
 Publisher P, reports X`) or an explicitly marked market-rumor proposition. It remains
 `UNCONFIRMED`, never proves the cited publisher's original report or X itself, and cannot bypass
 high-harm enhanced evidence. Arbitrary social rows remain discovery-only. This activation is
-zero-GET eligible after deterministic provenance validation; the exact remaining gate is still
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` for one current article and eight actual previews.
+zero-GET eligible after deterministic provenance validation. The next distinct gate is separate
+routine public-write/readback authority.
 
 Current sequence:
 
-1. close the PR #37 early-attributed-intelligence / epistemic-state Growth Edge slice and owner-review one real current article + all eight previews with zero public write;
+1. preserve the accepted PR #37 early-attributed-intelligence / epistemic-state Growth Edge slice and its current article plus eight zero-write previews;
 2. obtain separate routine public-write/readback authority and wire the accepted Simple article to the existing publication coordinator without rebuilding transports;
 3. prove a real production day at 5–8 useful published articles without filler;
 4. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED`;

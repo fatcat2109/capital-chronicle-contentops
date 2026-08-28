@@ -175,10 +175,10 @@ retrieval blockers while respecting the independent 32/6/3/1 article ceilings. P
 publication-store bytes were unchanged and all public/provider/unknown writes remained zero.
 
 The current V1 progression order is preserve exact-head CI, the final zero-write Simple host PASS,
-and the persistent current-host lightweight scheduler/current-intake zero-write/restart proof ->
-complete the current-host acceptance of the Simple Editorial Growth Edge slice -> separate public-
+the persistent current-host lightweight scheduler/current-intake zero-write/restart proof, and the
+accepted PR #37 Editorial Growth Edge article/eight-preview package -> separate routine public-
 write/readback authority -> real production-day 5–8 useful published/day acceptance -> explicit
-`V1_FINAL_PRODUCT_ACCEPTED`.
+`V1_FINAL_PRODUCT_ACCEPTED` -> isolated V2 continuation.
 
 The Simple Editorial Growth Edge implementation now reuses the existing Institutional Edge packet,
 house-mode inference/Core-Analyzer separation, and native eight-destination compiler. Deterministic
@@ -188,13 +188,13 @@ previews. The full published-memory-deduplicated rolling universe is now determi
 by existing sourceability/reachability signals before the 32-candidate packet is frozen. Current
 proof changed seven top-32 identities in each direction across 1,212 eligible candidates with zero
 model/provider calls, zero GETs, zero authority, and exact-route rather than host-wide suppression.
-The one permitted current-host run used one selection, three admissions, two official-primary GETs,
-one writer, and one revision attempt. Exact NVIDIA publisher bytes covered a different event than
-the selected current peg, deterministic validation blocked the article, and the malformed revision
-response closed the run at the three-call ceiling. No current article or packages were manufactured.
-One genuinely current same-peg source-qualified article plus owner inspection remains the exact
-acceptance gap; routine public-write authority remains zero. 4/32 remains throughput telemetry, not
-a prerequisite. Final target remains 5–8 useful published articles/day without filler.
+The earlier permitted current-host run used one selection, three admissions, two official-primary
+GETs, one writer, and one revision attempt. Exact NVIDIA publisher bytes covered a different event
+than the selected current peg, deterministic validation blocked the article, and the malformed
+revision response closed the run at the three-call ceiling. That result is historical pre-closeout
+evidence; the current PR #37 closeout below supersedes it for routing. Routine public-write authority
+remains zero. 4/32 remains throughput telemetry, not a prerequisite. Final target remains 5–8 useful
+published articles/day without filler.
 
 The final current-sidecar news-peg/public-metadata-integrity canary is `PASS`: 32 candidates, one
 Flash selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed

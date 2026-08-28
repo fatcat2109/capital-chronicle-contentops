@@ -715,6 +715,45 @@ def test_x_and_threads_overflow_is_compiled_to_complete_ordered_replies():
         assert len(payload["reply_texts"]) == len(set(payload["reply_texts"]))
 
 
+def test_long_watch_sentence_never_creates_lowercase_orphan_replies():
+    article = {
+        "title": "Al Jazeera Reports: Caracas Mulls OPEC Exit",
+        "subtitle": "A single-source report says the deal remains unconfirmed.",
+        "social_mechanism_summary": "The reported deal could reshape energy access if it is finalized.",
+        "substack_body_markdown": (
+            "According to the report, the developments remain unconfirmed.\n\n"
+            "The reported deal, which insiders said could be signed and made public soon, is expected "
+            "to operate under a legal model where the US government would secure a group of Venezuelan "
+            "oilfields to be developed by American companies, with the resulting supply guaranteed for the US."
+        ),
+        "effective_article_mode": "BREAKING_BRIEF",
+    }
+    payload = build_native_derivative_payloads(
+        article=article,
+        selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/pending-publication-long-watch",
+        media_asset_ids=(),
+    )["x"]
+    assert payload["quality_metrics"]["sentence_boundary_pass"] is True
+    assert payload["quality_metrics"]["orphan_fragment_count"] == 0
+    assert payload["quality_metrics"]["hard_character_slicing_used"] is False
+    assert all(len(post["text"]) <= 280 for post in payload["posts"])
+    assert all(
+        not paragraph or paragraph[0].isupper() or paragraph.startswith("http")
+        for post in payload["posts"]
+        for paragraph in post["text"].split("\n\n")[1:]
+    )
+    assert any(
+        "which insiders said could be signed and made public soon" in post["text"]
+        for post in payload["posts"]
+    )
+    assert any(
+        post["text"].startswith("Under that legal model, the US government")
+        and "with the resulting supply guaranteed for the US" in post["text"]
+        for post in payload["posts"]
+    )
+
+
 def test_x_and_threads_use_three_coherent_posts_with_all_article_visuals():
     canonical_url = "https://capitalchronicle.substack.com/p/effective-fed-funds-rate-holds-at"
     payloads = build_native_derivative_payloads(article=_article(), selection=_selection(), canonical_url=canonical_url)

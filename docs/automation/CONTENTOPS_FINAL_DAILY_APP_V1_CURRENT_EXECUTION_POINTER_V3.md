@@ -32,7 +32,7 @@ The historical native Desktop Automation route is superseded and its objects mus
 selected story with no reachable trustworthy source may truthfully abstain as
 `SOURCE_DISCOVERY_REQUIRED`/source retrieval blocked; the runtime must not manufacture filler.
 
-## Exact next gate
+## Historical pre-closeout gate
 
 The final zero-write news-peg/public-metadata-integrity current-source canary of the simple Gemini
 operation passed with one genuinely current earnings-led qualified article, two shared-ledger
@@ -55,19 +55,15 @@ exact-document path under the same shared six-GET ledger. Deterministic and cont
 proof passes. The full deduplicated rolling universe is now sourceability-ranked before the 32-row
 packet through existing authority-free route signals; current proof changed seven identities in and
 out of the packet across 1,212 eligible candidates with zero semantic/network work at that stage.
-The one permitted current-host run reached exact NVIDIA publisher bytes in two official-primary
-GETs, but those bytes covered a different event than the selected current peg. Deterministic
-validation blocked the article and the single malformed revision response ended the run at three
-logical Flash calls. The exact next gate is one genuinely current same-peg source-qualified article
-plus owner inspection of the article and all eight previews. Do not add a new discovery system,
-rerun selection to hunt for success, or enable public write from the partial proof.
+The one permitted pre-closeout run reached exact NVIDIA publisher bytes for a different event than
+the selected current peg and was blocked. This is historical evidence. Do not add a new discovery
+system, rerun selection, or enable public write from that partial proof.
 
 The 2026-08-28 North Star supersedes the residual same-event official-confirmation prerequisite.
 The report/event epistemic adapter is accepted and propagated through qualification and previews.
-The attributed-publisher pinning correction is also implemented: mixed RSS results cannot spend a
-named Reuters/WSJ/etc route allowance on another publisher family. The exact next gate is now
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current article and exactly eight actual owner-review
-previews. One exact ordinary reputable report may qualify as
+The attributed-publisher pinning and native preview quality corrections are implemented: mixed RSS
+results cannot spend a named Reuters/WSJ/etc route allowance on another publisher family, and
+X/Threads quality failures fail closed. One exact ordinary reputable report may qualify as
 `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / SINGLE_SOURCE`; an unrelated official document cannot
 qualify it. High-harm claims remain enhanced-evidence cases.
 
@@ -87,6 +83,9 @@ here. It does not prove a full production day, 5–8/day acceptance, routine pub
 V1 acceptance.
 
 Final V1 target remains `5–8/day` useful published articles without filler.
+
+The exact active next gate is separate routine public-write/readback authority, followed by a real
+production day at 5–8 useful published articles and then explicit `V1_FINAL_PRODUCT_ACCEPTED`.
 
 ## PR #37 current article closeout
 

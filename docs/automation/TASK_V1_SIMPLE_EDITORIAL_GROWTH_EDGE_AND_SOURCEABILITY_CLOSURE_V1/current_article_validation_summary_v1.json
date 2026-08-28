@@ -49,6 +49,28 @@
   "source_bytes_precede_writer": true,
   "source_timestamps_are_model_authority": false,
   "native_preview_count": 8,
+  "native_preview_rematerialization": {
+    "live_runtime_rerun": false,
+    "model_calls": 0,
+    "get_count": 0,
+    "public_provider_coordinator_unknown_writes": 0,
+    "x_quality": {
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "hard_character_slicing_used": false,
+      "platform_limit": 280,
+      "post_character_counts": [210, 184, 127, 174],
+      "before_text": "SINGLE-SOURCE REPORT - ALJAZEERA | Al Jazeera Reports: Caracas Mulls OPEC Exit as Trump Closes In on Deal for Venezuela's Oil Fields\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f329db8d6c5cdb21\n\nAccording to a SINGLE-SOURCE REPORT - ALJAZEERA, the US is working on a deal to secure long-term access to Venezuelan oil fields, while Caracas is reportedly mulling an exit from OPEC.\n\nWatch: The reported deal.\n\nwhich insiders said could be signed and made public soon, is expected to operate under a legal model where the US government would secure a group of Venezuelan oilfields to be developed by American companies.\n\nwith the resulting supply guaranteed for the US.",
+      "after_text": "SINGLE-SOURCE REPORT - ALJAZEERA | Al Jazeera Reports: Caracas Mulls OPEC Exit as Trump Closes In on Deal for Venezuela's Oil Fields\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f329db8d6c5cdb21\n\nAccording to a SINGLE-SOURCE REPORT - ALJAZEERA, the US is working on a deal to secure long-term access to Venezuelan oil fields, while Caracas is reportedly mulling an exit from OPEC.\n\nWatch: The reported deal, which insiders said could be signed and made public soon, is expected to operate under a legal model.\n\nUnder that legal model, the US government would secure a group of Venezuelan oilfields to be developed by American companies, with the resulting supply guaranteed for the US."
+    },
+    "threads_quality": {
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "hard_character_slicing_used": false,
+      "platform_limit": 500,
+      "post_character_counts": [423, 291]
+    }
+  },
   "public_write_performed": false,
   "provider_publication_writes": 0,
   "publication_coordinator_dispatch_count": 0,

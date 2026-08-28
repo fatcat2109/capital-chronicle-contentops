@@ -354,6 +354,65 @@ def test_exact_eight_previews_preserve_machine_and_reader_visible_epistemic_stat
     assert all(row["dispatch_state"] == "UNDISPATCHED" for row in intents)
 
 
+@pytest.mark.parametrize("destination", ["x", "threads"])
+@pytest.mark.parametrize(
+    ("fault", "expected_blocker"),
+    [
+        ("sentence_boundary", "sentence_boundary_pass"),
+        ("orphan_fragment", "orphan_fragment_count"),
+        ("hard_slice", "hard_character_slicing_used"),
+        ("root_platform_limit", "platform_limit"),
+        ("reply_platform_limit", "platform_limit"),
+    ],
+)
+def test_native_preview_bundle_fails_closed_on_x_threads_quality_contract(
+    monkeypatch, destination, fault, expected_blocker
+):
+    state = _state()
+    article, validation = _validate_article_against_source_pack(
+        _article_output(state),
+        _source_pack(),
+        selected_candidate=_candidate(),
+        article_mode="STANDARD_NEWS_ANALYSIS",
+        epistemic_state=state,
+    )
+    assert validation["status"] == "PASS"
+    valid_bundle, _ = _native_preview_bundle(
+        article=article,
+        article_mode="STANDARD_NEWS_ANALYSIS",
+        article_identity="d" * 64,
+        epistemic_state=state,
+    )
+    payloads = json.loads(json.dumps(valid_bundle["packages"]))
+    payload = payloads[destination]
+    if fault == "sentence_boundary":
+        payload["quality_metrics"]["sentence_boundary_pass"] = False
+    elif fault == "orphan_fragment":
+        payload["quality_metrics"]["orphan_fragment_count"] = 1
+    elif fault == "hard_slice":
+        payload["quality_metrics"]["hard_character_slicing_used"] = True
+    elif fault == "root_platform_limit":
+        payload["root_text"] += "x" * (payload["platform_limit"] + 1)
+    else:
+        payload["reply_texts"] = ["x" * (payload["platform_limit"] + 1)]
+    monkeypatch.setattr(
+        "live_contentops.eight_platform_substack_first_pipeline_v1."
+        "build_native_derivative_payloads",
+        lambda **_kwargs: payloads,
+    )
+
+    with pytest.raises(SimpleGeminiNewsroomError) as exc_info:
+        _native_preview_bundle(
+            article=article,
+            article_mode="STANDARD_NEWS_ANALYSIS",
+            article_identity="d" * 64,
+            epistemic_state=state,
+        )
+
+    assert exc_info.value.code == "native_preview_quality_contract_failed"
+    assert f"{destination}:{expected_blocker}" in exc_info.value.details
+
+
 def test_no_current_x_relay_has_report_truth_authority():
     # ``financialjuice`` is an existing freshness-only professional-feed donor. Current code
     # explicitly leaves its text discovery-only, so it cannot be promoted into report truth.

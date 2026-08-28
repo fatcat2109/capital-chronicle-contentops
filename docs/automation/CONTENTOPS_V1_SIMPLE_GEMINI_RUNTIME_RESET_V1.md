@@ -150,7 +150,8 @@ article was manufactured. Production publication SQLite SHA-256 remained unchang
 calls, public writes, provider publication writes, publication-coordinator dispatch, and
 `UNKNOWN_WRITE` were all zero.
 
-The Simple Editorial Growth Edge implementation now reuses the existing Institutional Edge packet
+Historical PR #37 sourceability-acceptance epoch: the Simple Editorial Growth Edge implementation
+reuses the existing Institutional Edge packet
 and current mode mappings in selector/writer/revision input, enforces explicit qualitative house
 inference without expanding Capital Chronicle numeric authority, and compiles exactly eight native
 text-only previews from final validated truth. The full published-memory-deduplicated rolling
@@ -169,12 +170,14 @@ selected current program-pause peg; deterministic validation blocked the article
 response was malformed. The run stopped truthfully at three logical Flash calls with zero qualified
 articles or previews and no second selection or opportunity. One genuinely current story with
 same-peg exact publisher support plus a valid bounded article response remains the Growth Edge
-acceptance gap. Separate public-write/readback, real production-day 5–8 useful published/day
-acceptance, and explicit `V1_FINAL_PRODUCT_ACCEPTED` remain later gates in that order.
+acceptance gap at that epoch. The later current PR #37 closeout below supersedes that historical gap.
+Separate public-write/readback, real production-day 5–8 useful published/day acceptance, and
+explicit `V1_FINAL_PRODUCT_ACCEPTED` remain later gates in that order.
 
 The prior residual requirement for same-event official/primary confirmation before writing is
-superseded by the 2026-08-28 North Star. The current PR #37 gate is one current article and exactly
-eight previews that preserve explicit report/event epistemic state with zero public write.
+superseded by the 2026-08-28 North Star. The current PR #37 article/eight-preview gate is closed by
+the owner-review package below; the next distinct gate is separate routine public-write/readback
+authority.
 
 The selected candidate is always the current article peg. Title/dek must remain led by that event;
 older/background highlights in a current document use temporally neutral wording unless exact bytes

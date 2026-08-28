@@ -216,5 +216,59 @@
       "current_article_validation_summary_v1.json",
       "current_epistemic_state_v1.json"
     ]
+  },
+  "pr37_native_preview_quality_and_authority_closeout": {
+    "rematerialization": {
+      "result": "PASS",
+      "live_runtime_rerun": false,
+      "model_calls": 0,
+      "get_count": 0,
+      "public_provider_coordinator_unknown_writes": 0,
+      "article_identity_unchanged": true,
+      "article_content_unchanged": true,
+      "epistemic_state_unchanged": true,
+      "package_count": 8,
+      "destinations": [
+        "telegram",
+        "discord",
+        "x",
+        "linkedin",
+        "facebook_page",
+        "instagram_business",
+        "threads",
+        "youtube"
+      ],
+      "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE"
+    },
+    "x_quality_before": {
+      "sentence_boundary_pass": false,
+      "orphan_fragment_count": 2,
+      "hard_character_slicing_used": false
+    },
+    "x_quality_after": {
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "hard_character_slicing_used": false,
+      "post_character_counts": [210, 184, 127, 174],
+      "platform_limit": 280
+    },
+    "threads_quality_after": {
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "hard_character_slicing_used": false,
+      "post_character_counts": [423, 291],
+      "platform_limit": 500
+    },
+    "focused_native_quality_tests": {
+      "result": "PASS",
+      "passed": 114
+    },
+    "codegraph_check": "CODEGRAPH_CURRENT",
+    "ruff_changed_nonlegacy_files": "PASS",
+    "legacy_native_compiler_baseline": {
+      "result": "PRE_EXISTING_5_RUFF_FINDINGS_REPRODUCED_AT_PR_HEAD",
+      "changed_lines_implicated": false
+    }
   }
 }

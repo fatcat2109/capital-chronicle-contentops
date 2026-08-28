@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`SIMPLE_CANONICAL_X_RELAY_RUMOR_ACTIVATION / CURRENT_HOST_ACCEPTANCE_PENDING`
+`PR37_EDITORIAL_GROWTH_EDGE_ACCEPTED / PUBLIC_WRITE_READBACK_AUTHORITY_NEXT`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
@@ -119,19 +119,17 @@ only a completion-first three-GET candidate allocation under the same six-GET le
 deterministic full-universe sourceability ordering adapter before the 32-candidate slice. The
 adapter reuses existing official/company-primary, reputable-secondary, attribution, route-health,
 request-cost, and freshness signals with zero model/network work and zero authority. Current proof
-changed seven top-32 identities in each direction across 1,212 eligible candidates. The one
+changed seven top-32 identities in each direction across 1,212 eligible candidates. The earlier
 permitted host run reached exact publisher bytes for a different NVIDIA event, so deterministic
 current-peg validation blocked the article and the malformed single revision closed the run at the
-three-call ceiling. A genuinely current same-peg source-qualified article and owner inspection
-remain required before public-write enablement.
+three-call ceiling. That is historical pre-closeout evidence and does not route current work.
 
 Current 2026-08-28 direction supersedes that residual same-event-official prerequisite. The exact
-epistemic adapter is accepted. The existing RSS path now pins exactly one governed attributed
-publisher identity through publisher resolution, records observed/eligible/attempted publisher
-families, and never lets a more relevant different publisher consume that allowance. One ordinary
-exact reputable report may support `Publisher reports X / UNCONFIRMED`; arbitrary X remains
-discovery-only and high-harm claims retain enhanced evidence. The exact gap is
-`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current article and eight actual previews.
+epistemic adapter, publisher pinning, and native X/Threads quality correction are accepted. One
+ordinary exact reputable report may support `Publisher reports X / UNCONFIRMED`; arbitrary X remains
+discovery-only and high-harm claims retain enhanced evidence. The current Al Jazeera article and
+eight-preview runtime proof is closed. Relay-only/rumor-only runtime qualification remains an
+explicit unobserved caveat.
 
 ## Focused test families
 
@@ -150,7 +148,10 @@ Use the smallest exact tests discovered by CodeGraph around changed seams, inclu
 - `tests/test_daily_app_publication_lifecycle_v1.py`
 - `tests/test_destination_identity_pinning_v1.py`
 
-Current growth implementation must add focused coverage for official-primary narrow breaking, issuer-attribution boundaries, quiet-day mode fallback, house-view fact/opinion/Core-Analyzer separation, bounded material-event wake idempotency/spacing, and derivative-local readiness not vetoing canonical eligibility.
+Historical growth work added focused coverage for official-primary narrow breaking, issuer-
+attribution boundaries, quiet-day mode fallback, house-view fact/opinion/Core-Analyzer separation,
+bounded material-event wake idempotency/spacing, and derivative-local readiness not vetoing
+canonical eligibility. Those rows do not reopen PR #37 or route the active next gate.
 
 ## Durable state authority
 
@@ -176,9 +177,8 @@ These are identities, not permission to inspect credentials/session material.
 2. preserve the final Simple first-party/news-peg/public-metadata host PASS;
 3. preserve the lightweight local non-Codex scheduler persistent current-host/current-intake
    zero-write/restart PASS;
-4. complete current-host acceptance of the implemented Simple Editorial Growth Edge with one
-   genuinely current source-qualified article and eight owner-inspected previews;
-5. follow with separate routine public-write/readback authority;
+4. preserve the accepted current article and eight owner-review previews;
+5. obtain separate routine public-write/readback authority;
 6. prove a real production day at 5–8 useful published articles without filler, then obtain the
    explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
 

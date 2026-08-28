@@ -192,6 +192,23 @@ def _punctuate(value: str) -> str:
 
 def _split_oversized_sentence(sentence: str, *, limit: int) -> list[str]:
     """Split only an individually over-limit sentence, preferring semantic clauses."""
+    # Preserve the full meaning of a common explanatory shape without leaving ``where``
+    # or a relative/conjunctive continuation as a standalone fragment.  The second
+    # sentence remains explicitly scoped to the already stated model/framework/etc.
+    scoped_where = re.match(
+        r"^(?P<lead>.+?\b(?P<scope>(?:(?:legal|policy|commercial|contractual|operating|regulatory)\s+)?"
+        r"(?:model|framework|plan|arrangement|system|structure)))\s+where\s+(?P<detail>.+)$",
+        sentence,
+        flags=re.IGNORECASE,
+    )
+    if scoped_where:
+        lead = _punctuate(scoped_where.group("lead"))
+        detail = scoped_where.group("detail").strip()
+        scoped_detail = _punctuate(
+            f"Under that {scoped_where.group('scope')}, {detail}"
+        )
+        if len(lead) <= limit and len(scoped_detail) <= limit:
+            return [lead, scoped_detail]
     clauses = re.split(r"(?<=[,;:])\s+(?=(?:and|but|while|which|with|as)\b)", sentence)
     if len(clauses) == 1:
         clauses = re.split(r"(?<=;)\s+|(?<=:)\s+", sentence)
@@ -353,7 +370,9 @@ def _concise_semantic_sentence(value: str, *, maximum: int) -> str:
     sentence = _first_complete_sentence(value)
     if len(sentence) <= maximum:
         return sentence
-    lead = re.split(r";\s+|:\s+|,\s+(?:while|but|and|which|with|as)\b", sentence, maxsplit=1, flags=re.IGNORECASE)[0]
+    # Keep a short label prefix such as ``Watch:`` intact; only split on a semantic
+    # clause boundary, never on the label's colon.
+    lead = re.split(r";\s+|,\s+(?:while|but|and|which|with|as)\b", sentence, maxsplit=1, flags=re.IGNORECASE)[0]
     if len(_punctuate(lead)) <= maximum:
         return _punctuate(lead)
     raise ValueError("sentence_complete_semantic_summary_required")

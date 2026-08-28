@@ -254,15 +254,14 @@ Current progression order:
 1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
 2. preserve the accepted lightweight local four-window scheduler plus persistent current-host,
    current-intake, exactly-one-process, and zero-write restart proof;
-3. preserve the accepted PR #37 Simple Editorial Growth Edge and current article/eight-preview proof before routine public-write enablement,
-   reusing the Institutional Edge editorial contract, `CAPITAL_CHRONICLE_VIEW`,
-   `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer authority separation, native eight-
-   destination packaging, and compatible existing discovery/retrieval capability; first investigate
-   the carried `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result before adding any new
-   discovery system;
+3. preserve the accepted PR #37 Simple Editorial Growth Edge, current Al Jazeera article, exact
+   epistemic state, and deterministically corrected eight-preview package; the prior
+   `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result is historical evidence and does not
+   route current work;
 4. obtain separate public-write/readback authority;
 5. prove a real production day at 5–8 useful published articles without filler, then obtain the
-   explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
+   explicit `V1_FINAL_PRODUCT_ACCEPTED` decision;
+6. only then continue isolated V2 work.
 
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 

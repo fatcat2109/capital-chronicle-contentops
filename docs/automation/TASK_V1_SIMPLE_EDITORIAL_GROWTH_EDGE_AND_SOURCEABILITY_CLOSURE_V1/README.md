@@ -77,7 +77,7 @@ eight actual owner-review previews under locked 32/6/3/1 and zero public write. 
 opportunity may run after static validation; if none qualifies, stop truthfully without a second
 selection or opportunity.
 
-## PR37 attributed-publisher pinning proof and current acceptance
+## Historical attributed-publisher pinning acceptance epoch
 
 The exact RSS correction is statically proven. With mixed AP/Reuters results and a governed Reuters
 attribution, both publisher identities remain observable but only `reuters.com` is eligible and
@@ -97,11 +97,11 @@ Reuters ineligible and performed no publisher-resolution attempt because no Bloo
 was present. No article, epistemic state, or previews were manufactured, and production DB bytes
 remained unchanged.
 
-`current_publisher_pinning_acceptance_attempt_v1.json` is the safe closeout artifact. The exact
-remaining gate is still `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`: one current fixed-plan candidate
-must resolve its named publisher or same-event primary bytes inside six GETs and then produce one
+`current_publisher_pinning_acceptance_attempt_v1.json` is the safe epoch artifact. At that point the
+remaining gate was `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`: one current fixed-plan candidate needed to
+resolve its named publisher or same-event primary bytes inside six GETs and then produce one
 deterministically valid article plus exactly eight actual previews. No second runtime opportunity
-was run.
+was run in that epoch; the later Al Jazeera closeout supersedes this gap for routing.
 
 Routine public-write/readback authority, a real 5–8 published-article production day, and `V1_FINAL_PRODUCT_ACCEPTED` remain ungranted.
 
@@ -138,7 +138,7 @@ relay-only and rumor-only current-host qualification were not observed because t
 story resolved through direct reputable reporting. Separate routine public-write/readback authority,
 a real 5–8 useful published-article day, and `V1_FINAL_PRODUCT_ACCEPTED` remain ungranted.
 
-## PR37 early-attributed-intelligence implementation and current acceptance
+## Historical pre-closeout early-attributed-intelligence epoch
 
 The smallest compatible adapter is now implemented without another store or evidence system:
 
@@ -174,9 +174,28 @@ GETs. The two fallbacks likewise produced no accepted exact document. The writer
 not run. No report truth or event truth was proven, so no epistemic state, article, or previews were
 manufactured.
 
-`current_attributed_intelligence_acceptance_attempt_v1.json` records the exact current provenance
+`current_attributed_intelligence_acceptance_attempt_v1.json` records the exact epoch provenance
 and retrieval blockers, unchanged production DB hash, all model/GET/write counters, and a small
-post-run diagnostics correction. No second selection or runtime opportunity was run. Current-host
-acceptance therefore remains incomplete: one genuine current same-report or same-event source must
-resolve inside the existing six-GET ledger before a current article and all eight owner-review
-previews can exist.
+post-run diagnostics correction. No second selection or runtime opportunity was run. At that epoch,
+current-host acceptance remained incomplete because no same-report or same-event source resolved
+inside the existing six-GET ledger. The later canonical-X activation/current Al Jazeera result above
+supersedes that historical gap for routing.
+
+## Final current PR #37 truth
+
+PR #37 is accepted at the Editorial Growth Edge boundary. The current Al Jazeera article identity,
+article bytes, and `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE` epistemic
+state are unchanged. The existing native compiler now preserves the full source-bound long “what to
+watch” sentence as standalone grammatical X clauses, and the Simple preview boundary fails closed
+for X/Threads sentence-boundary, orphan-fragment, hard-slicing, and platform-limit defects.
+
+The accepted article was deterministically rematerialized into exactly eight
+`PREVIEW_ONLY_UNDISPATCHED` / `PENDING_NON_DISPATCHABLE` packages with zero model calls, zero GETs,
+and zero public/provider/coordinator/UNKNOWN writes. X and Threads both pass sentence-boundary and
+orphan-fragment quality with no hard character slicing. Relay-only and rumor-only current-host
+qualification remains unobserved because direct reporting won; this is a non-blocking caveat and
+does not authorize another live opportunity.
+
+The exact active sequence is:
+
+`PR37 ACCEPTED EDITORIAL GROWTH EDGE -> SEPARATE ROUTINE PUBLIC-WRITE/READBACK AUTHORITY -> REAL 5–8 USEFUL PUBLISHED-ARTICLE PRODUCTION DAY WITHOUT FILLER -> EXPLICIT V1_FINAL_PRODUCT_ACCEPTED -> ISOLATED V2`

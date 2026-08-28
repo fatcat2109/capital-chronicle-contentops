@@ -1380,6 +1380,28 @@ def _native_preview_bundle(
         raise SimpleGeminiNewsroomError(
             "exact_eight_native_preview_package_contract_failed"
         )
+    quality_blockers: list[str] = []
+    for destination in ("x", "threads"):
+        payload = dict(payloads.get(destination) or {})
+        metrics = dict(payload.get("quality_metrics") or {})
+        limit = int(payload.get("platform_limit") or 0)
+        posts = list(payload.get("posts") or [])
+        thread_texts = [str(payload.get("root_text") or "")]
+        thread_texts.extend(str(value) for value in payload.get("reply_texts") or [])
+        thread_texts.extend(str(row.get("text") or "") for row in posts)
+        if metrics.get("sentence_boundary_pass") is not True:
+            quality_blockers.append(f"{destination}:sentence_boundary_pass")
+        if metrics.get("orphan_fragment_count") != 0:
+            quality_blockers.append(f"{destination}:orphan_fragment_count")
+        if metrics.get("hard_character_slicing_used") is not False:
+            quality_blockers.append(f"{destination}:hard_character_slicing_used")
+        if limit <= 0 or any(len(value) > limit for value in thread_texts):
+            quality_blockers.append(f"{destination}:platform_limit")
+    if quality_blockers:
+        raise SimpleGeminiNewsroomError(
+            "native_preview_quality_contract_failed",
+            quality_blockers,
+        )
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
     for destination, payload in payloads.items():
         visible = "\n".join(
