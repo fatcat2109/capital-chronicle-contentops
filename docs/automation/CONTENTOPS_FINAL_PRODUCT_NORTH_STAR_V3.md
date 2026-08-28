@@ -229,9 +229,7 @@ During zero-write build/proof, the throughput benchmark remains:
 
 It is telemetry and a daily-output health metric, not a prerequisite for advancing one safe article.
 
-Final V1 operating target after public-write authority:
-
-`5–8 USEFUL PUBLISHED ARTICLES per newsroom production day`
+Final V1 operating target after public-write authority remains **5–8 PUBLISHED ARTICLES** per newsroom production day, with every counted article useful and non-filler.
 
 Candidate-level abstention is valid. Whole-day silent success below the active floor is not. Without an exact hard external blocker, a below-floor day is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
 
