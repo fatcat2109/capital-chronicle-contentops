@@ -33,6 +33,8 @@ Current routine owner is Simple Gemini through `SIMPLE_GEMINI_RUNTIME`.
 
 Per-opportunity ceilings stay 32/6/3/1 with <=3 logical Flash calls and zero Codex runtime model calls.
 
+The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. An admitted candidate with no governed reachable source may still close locally as `SOURCE_DISCOVERY_REQUIRED`; that does not authorize a second selection, filler, weaker evidence, or a return to broad discovery. Final live target shorthand remains `5–8/day` useful published articles.
+
 The accepted PR #37 article, sourceability, early-attributed-intelligence, canonical-X relay/explicit-rumor provenance, exact epistemic state, and X/Threads native quality correction are `CURRENTLY_PROVEN_AND_REUSE`.
 
 Native Desktop Automations, SDK/App-Server editorial fallback, broad evidence-ready pools, and legacy rolling-X ownership remain historical/non-routing for routine V1.
