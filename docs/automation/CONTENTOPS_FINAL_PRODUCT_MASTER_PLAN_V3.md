@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-Authority date: 2026-08-24
-Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
+Authority date: 2026-08-28
+Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / EARLY_ATTRIBUTED_INTELLIGENCE`
 
 North Star: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 Authority map: `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
@@ -32,6 +32,16 @@ blocker is:
 
 `DEGRADED_DAILY_OUTPUT_DEFICIT`
 
+Current V1 routine architecture is the Simple 9Router/Gemini 32/6/3/1 path, not Desktop
+Automations. Its current product doctrine is early attributed intelligence: prove the narrowest
+reporting proposition, keep report truth separate from event truth, preserve machine-readable and
+reader-visible epistemic state, and do not require universal official confirmation. The exact
+current V1 epistemic adapter through route, writer, deterministic validation, qualified record,
+and eight preview-only derivatives is accepted. PR #37 also closes attributed-publisher pinning and
+native X/Threads preview quality. The exact active next gate is separate routine public-write/
+readback authority. Conflicting Desktop-primary, Automation-enable, SDK-fallback, and official-first
+wording retained below is historical sweep evidence only and is superseded for current V1 routing.
+
 ## 1. Planning classification lock
 
 The owner-accepted architecture sweep is
@@ -53,6 +63,10 @@ Current runtime proof requirements are not permission to reimplement proven foun
 
 ### V1
 
+- current Simple Gemini selection/writer/revision, lightweight four-window scheduler, published-
+  memory dedupe, PR #37 sourceability-aware full-universe preselection, exact-route health, and
+  the existing ordinary single-reputable-secondary attributed-claim contract;
+
 - continuous zero-LLM intake, current-story universe, published memory, update chains, hierarchical
   assignment, preselection, and sourceability ordering;
 - eight editorial modes with claim/mode-proportional evidence and a narrow official-primary
@@ -62,8 +76,8 @@ Current runtime proof requirements are not permission to reimplement proven foun
 - `OfficialCodexUrlDiscoveryProvider`, same-candidate resume, and frozen worker transport as bounded
   reusable capabilities; their old per-trigger economics are not accepted production policy;
 - read-only Core Analyzer context plus exact story/use publication-authority boundaries;
-- fresh Desktop HIGH -> isolated HIGH writer -> deterministic validation, one bounded same-worker
-  repair, and Desktop-primary/SDK-fallback arbitration under one run identity;
+- historical Desktop HIGH -> isolated HIGH writer and Desktop-primary/SDK-fallback arbitration
+  evidence, retained as non-routing proof rather than current V1 ownership;
 - article/utility/source/numeric/release validation and the valid zero-canonical-media path;
 - cross-midnight `newsroom_production_day_id`, four-floor counters, the existing four-opportunity
   harness, persisted deficit state, and bounded catch-up;
@@ -76,7 +90,8 @@ Current runtime proof requirements are not permission to reimplement proven foun
   observation/immutable bounded learning, and the V5 live read model.
 
 Never rebuild production-day accounting, bounded deficit recovery, canonical transports, the
-durable store, UNKNOWN_WRITE recovery, Desktop/SDK arbitration, or the Italy canary.
+durable store, UNKNOWN_WRITE recovery, or the Italy canary. Historical Desktop/SDK arbitration may
+be inspected as evidence but does not route current V1.
 
 ### V2 current master
 
@@ -107,41 +122,40 @@ It proves material capability absent current master in `video/unattended_core_fa
 not current routing authority. Port only current-compatible capability after the V1 gate; never
 wholesale-merge its stale authority and never mutate V1 runtime/store/browser/publication state.
 
-## 4. Current host/runtime proof required
+## 4. Current host/runtime proof state
 
-Five capability rows require fresh evidence rather than new architecture after the completed prompt
-normalization/readback:
+The current Simple V1 article/eight-preview runtime row is closed by the accepted Al Jazeera package:
+`DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE`, deterministic 16-supported/
+0-unsupported validation, and exactly eight preview-only destinations under the unchanged 32/6/3/1
+ceiling. Deterministic rematerialization corrects X/Threads quality with zero model calls, zero GETs,
+and zero public/provider/coordinator/UNKNOWN writes. Relay-only and rumor-only host qualification
+remains unobserved because direct reporting won; this is a non-blocking caveat, not a rerun gate.
 
-1. exact current reliance on the four native Desktop Automations under calendar-time execution;
-2. unattended calendar-time/cold-start/missed-primary SDK fallback/late-result/cost/duplicate-
-   suppression proof;
-3. fresh current-epoch V5 desktop/mobile visual and truth acceptance;
-4. repeated qualified fresh cross-domain V2 story production after reconciliation;
-5. final V2 actual-media picture/sound/taste/pacing/novelty/publishability acceptance.
-
+The active V1 route does not require native Desktop Automation enablement, calendar-time Automation
+proof, or SDK editorial fallback proof. Those rows remain historical sweep-epoch evidence only.
 4/32 remains useful throughput/economics telemetry and daily-output health evidence, not a launch
 prerequisite or current host-proof gate.
 
-It is also never a per-window stop condition. Below five useful articles, each scheduled routine
-opportunity must walk governed candidates unless the useful universe is exhausted or an exact hard
-external blocker exists. Bounded capacity keeps five reachable through remaining windows while the
-0..4 routine-opportunity counter remains independent. Zero-write editorial eligibility is
-independent from destination readiness diagnostics; public dispatch still fails closed at its exact
-identity/readiness boundary.
-
-Accepted host truth is exactly four native V1 Automations with correct model, reasoning effort,
-schedules, and project. The 2026-08-24 21:00 evidence is
-`PASS_FDA_G_SCHEDULED_WINDOW_OBSERVED` and `FAIL_ROUTINE_OUTPUT_STARVATION_POLICY`: FDA-G created,
-claimed, executed, and terminalized the canonical scheduled opportunity while the old pacing target
-allocated zero work. Codex Desktop was not running during that window, so native Desktop Automation
-calendar execution remains `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`. All four are held paused for the
-single-owner/five-reachability/readiness-role correction. Broader unattended/cold-start/fallback
-execution remains unproven. At
-the sweep epoch the production database was opened read-only and was healthy with
-`UNKNOWN_WRITE=0`, while no Daily App process/listener was running. That at-rest observation is not
-a cold-start or unattended PASS.
+Below five useful articles, each scheduled Simple routine opportunity must walk governed candidates
+unless the useful universe is exhausted or an exact hard external blocker exists. Bounded capacity
+keeps five reachable through remaining windows while the 0..4 routine-opportunity counter remains
+independent. Zero-write editorial eligibility is independent from destination readiness diagnostics;
+public dispatch still fails closed at its exact identity/readiness boundary.
 
 ## 5. True new implementation gaps
+
+The Simple early-attributed epistemic adapter, publisher pinning, and native preview quality
+correction are accepted. The exact article/eight-preview runtime row is closed by the current
+Al Jazeera owner-review package under the locked zero-write contract.
+
+The owner-authorized canonical-X activation is also implemented as a deterministic extension of
+that seam: exact records from the locked canonical X-list may support only a relay-of-reporting or
+explicit market-rumor proposition, remain `UNCONFIRMED`, and use zero GETs. The marker never proves
+the cited publisher's original report, the underlying event, or Capital Chronicle numeric truth;
+arbitrary social rows remain discovery-only. The next distinct gate is separate routine
+public-write/readback authority; relay-only/rumor-only host qualification remains unobserved.
+
+The V2 gaps listed below remain after this V1 closure.
 
 The accepted sweep originally recorded three gaps. PR #19 closes the V1 discovery row without
 rewriting historical sweep evidence. Exactly two current implementation gaps remain:
@@ -192,7 +206,15 @@ The current sequence starts after five completed evidence events:
 
 ## 8. Final locked V1 roadmap
 
-Progression order:
+Current sequence superseding the historical Automation sequence below:
+
+1. preserve the accepted PR #37 early-attributed-intelligence article/eight-preview package;
+2. obtain separate routine public-write/readback authority and reuse existing transports;
+3. prove a real 5–8 useful published-article production day without filler;
+4. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED`;
+5. only then proceed to isolated V2 continuation.
+
+Historical Automation revalidation sequence (not current V1 routing):
 
 1. preserve accepted PR #19 discovery and PR #20 article-path evidence;
 2. preserve the completed normalization/readback of only the four existing paused Automation prompts;
@@ -205,24 +227,21 @@ Progression order:
 Do not create a fifth Automation. Do not treat prompt normalization as enablement. Do not treat
 Automation enablement as public-write permission. Do not infer V1 acceptance from this plan.
 
-## 9. Automation and public-write gates
+## 9. Historical Automation state and active public-write gate
 
-The four existing Automations are the only routine native task objects. Supported readback proves
-their paused state and matching repo-derived prompt hashes but exposes no run-now action. No fifth
-routine object exists. Enablement remains a separate exact owner decision.
+The four historical native Automation objects remain off/NOOP and do not route current V1. Their
+prior paused-state and prompt-hash readback remains historical evidence; no Automation enablement,
+calendar-time proof, SDK fallback proof, or fifth object is an active prerequisite.
 
-Automation enablement and routine public-write authority are separate owner gates. A calendar-time
-unattended proof may validly run with zero public-write authority if that is the exact grant. Any
-public-write scope must bind exact accounts/destinations, preserve canonical-first lifecycle,
+The exact active owner gate is separate routine Simple public-write/readback authority. Any granted
+scope must bind exact accounts/destinations, preserve the canonical-first lifecycle and strict
 readback/reconciliation, and keep `UNKNOWN_WRITE=0`.
 
-## 10. V5 final closure
+## 10. V5 historical/reusable foundation
 
-V5 mechanics and the live read model are accepted foundation. Final V1 closure requires a fresh
-current-source/runtime-epoch rendered desktop/mobile audit proving truthful runtime, evidence,
-authority, production-day, Automation observed-versus-intent, publication/recovery, UNKNOWN_WRITE,
-and cost state. Visual PASS cannot be inferred from tests or older screenshots. This is revalidation,
-not a mechanical V5 rebuild.
+V5 mechanics and the live read model remain accepted reusable foundation. Historical requests for
+a separate pre-publication V5 Automation-state audit do not route the current sequence. Any later UI
+quality task must still inspect actual rendered output rather than infer visual PASS from tests.
 
 ## 11. V2-after-V1 roadmap
 
@@ -246,15 +265,12 @@ publication authority remains isolated. Current V2 public-write authority is exa
 
 V1 is final only when:
 
-1. reuse PR #19's quota-efficient provider-resilient evidence acquisition and keep economics as
-   operating telemetry rather than a launch prerequisite;
-2. reuse the independently accepted canonical article path and keep 4/32/output economics as
-   operating telemetry toward the final 5–8 useful-article target without filler or weaker truth;
-3. the completed four-prompt normalization/readback is preserved and enablement scope is explicitly
-   decided;
-4. calendar-time unattended/cold-start/fallback/duplicate-suppression behavior is proven;
-5. fresh current-epoch V5 visual and truth QA passes;
-6. the owner explicitly records `V1_FINAL_PRODUCT_ACCEPTED` and freezes the product.
+1. preserve PR #37's accepted early-attributed-intelligence article/eight-preview package and the
+   reusable PR #19/PR #20 foundations;
+2. obtain separate routine public-write/readback authority and prove the existing canonical-first
+   publication/reconciliation path under that exact scope;
+3. prove a real production day at 5–8 useful published articles without filler or weaker truth;
+4. the owner explicitly records `V1_FINAL_PRODUCT_ACCEPTED` and freezes V1 before isolated V2.
 
 The real nine-surface canary, production-day accounting, publication transports, durable store,
 UNKNOWN_WRITE recovery, and Desktop/SDK arbitration are already accepted foundations and are not
@@ -269,3 +285,11 @@ wholesale V2 donor merge, V1 authority contamination, or any implied V2 public-w
 
 Protected historical `v1.0` remains immutable at
 `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+### PR #37 current-host closeout
+
+The exact current article/eight-preview row is runtime-proven under locked 32/6/3/1 economics:
+one current Al Jazeera report qualified as `DIRECT_REPUTABLE_REPORT / UNCONFIRMED /
+UNSPECIFIED / SINGLE_SOURCE`, with deterministic PASS and eight preview-only native destinations.
+The direct-report result does not constitute relay-only or rumor-only host proof; those branches are
+zero-GET statically proven. No public-write authority was granted.

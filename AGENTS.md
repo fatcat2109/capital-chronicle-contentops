@@ -124,9 +124,13 @@ Current owner-approved routine V1 is `SIMPLE_GEMINI_RUNTIME`: the canonical reco
 corpus is read without migration or mutation and deterministically removes duplicates from up to 32
 current headline candidates; one strict 9Router `gemini-3.5-flash(high)` selection admits one useful
 primary and at most two independently useful ordered fallbacks; one shared deterministic source
-budget walks that fixed plan with at most six total GETs through exact bound source, allowlisted
-official/company-primary locator→document, then reputable-secondary fallback; one Flash writer returns the canonical
-article and exact material-claim bindings; deterministic validation checks retrieved bytes; and at
+budget walks that fixed plan with at most six total GETs. An explicitly attributed reputable report
+uses the shortest route that proves report truth before generic official/company confirmation;
+otherwise the resolver uses exact bound source, correct same-event official/company-primary
+locator→document, then reputable-secondary fallback. One Flash writer receives explicit report-
+truth/event-truth epistemic state and returns the canonical article and exact material-claim
+bindings; deterministic validation checks retrieved bytes, attribution, conditionality, and
+certainty; and at
 most one Flash revision may run without source expansion. Then one qualified zero-write article
 record and exactly eight UNDISPATCHED derivative intents are persisted. Normal model count is two
 logical invocations and three is the hard ceiling with revision. Codex runtime model calls required:
@@ -147,6 +151,12 @@ or public-write authority. The current simple lane does not authorize proprietar
 forecast/probability/scenario/regime claims. Public publication remains a separate owner gate.
 
 The exact current detail is `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`.
+
+An exact record from the owner-curated canonical X-list intake may use the deterministic
+canonical-list provenance marker to support only `Relay R, citing Publisher P, reports X` or an
+explicitly marked market-rumor proposition. That path uses zero GETs, remains `UNCONFIRMED`, never
+proves the cited publisher's original report or the underlying event, and remains subject to
+high-harm enhanced evidence. Arbitrary social rows without the marker remain discovery-only.
 
 The final news-peg/public-metadata-integrity current-sidecar host canary passed with one 32-candidate
 packet, one Flash selection, three admitted candidates, two shared-ledger GETs to a current NVIDIA
@@ -203,7 +213,12 @@ V1 supports the current eight-mode spectrum:
 
 Quiet day is not silent-day permission. Lower materiality/change mode before giving up. Filler remains forbidden.
 
-One exact current official primary source may support a narrow attributed breaking fact when it directly proves that fact. Broader causal/numeric/market-impact/proprietary claims require stronger evidence/authority.
+Official confirmation is not a universal prerequisite. One exact accepted reputable newsroom
+report may support the narrow fact `Publisher reports X` while X remains visibly `UNCONFIRMED`;
+one exact current official primary may support event truth only when it directly proves that same
+event. A relayed report proves only the approved relay's attributed statement unless the original
+publisher report is separately resolved. Broader causal/numeric/market-impact/proprietary or high-
+harm claims require stronger evidence/authority.
 
 Strong evidence-backed house view and criticism are allowed. Qualitative ContentOps inference must remain distinguishable from fact and must not be presented as Core Analyzer output.
 
@@ -239,15 +254,14 @@ Current progression order:
 1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
 2. preserve the accepted lightweight local four-window scheduler plus persistent current-host,
    current-intake, exactly-one-process, and zero-write restart proof;
-3. integrate the existing Simple Editorial Growth Edge before routine public-write enablement,
-   reusing the Institutional Edge editorial contract, `CAPITAL_CHRONICLE_VIEW`,
-   `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer authority separation, native eight-
-   destination packaging, and compatible existing discovery/retrieval capability; first investigate
-   the carried `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result before adding any new
-   discovery system;
+3. preserve the accepted PR #37 Simple Editorial Growth Edge, current Al Jazeera article, exact
+   epistemic state, and deterministically corrected eight-preview package; the prior
+   `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result is historical evidence and does not
+   route current work;
 4. obtain separate public-write/readback authority;
 5. prove a real production day at 5–8 useful published articles without filler, then obtain the
-   explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
+   explicit `V1_FINAL_PRODUCT_ACCEPTED` decision;
+6. only then continue isolated V2 work.
 
 `V1_FINAL_PRODUCT_ACCEPTED` remains forbidden until the explicit owner gate is granted.
 

@@ -1,0 +1,26 @@
+{
+  "adapter_changes_proposition_not_evidence_authority": true,
+  "analysis_must_be_conditional": true,
+  "authority_granted_by_adapter": false,
+  "event_confirmation_state": "UNCONFIRMED",
+  "event_proposition": "Caracas Mulls OPEC Exit As Trump Closes In On \"Massive\" Deal For Venezuela's Oil Fields",
+  "event_truth_support_status": "UNCONFIRMED",
+  "event_truth_supported": false,
+  "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+  "origin_character": "UNSPECIFIED",
+  "primary_reporting_publisher": "Aljazeera",
+  "primary_reporting_source_identity": "www.aljazeera.com",
+  "public_write_authority": false,
+  "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - ALJAZEERA",
+  "relay_source_identity": null,
+  "report_proposition": "Aljazeera reports that caracas Mulls OPEC Exit As Trump Closes In On \"Massive\" Deal For Venezuela's Oil Fields",
+  "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+  "report_truth_supported": true,
+  "schema_version": "contentops.v1_simple_epistemic_state.v1",
+  "selected_route": "REPUTABLE_SECONDARY",
+  "source_multiplicity": "SINGLE_SOURCE",
+  "supporting_document_ids": [
+    "public-secondary-9243c10af4b3e858f06f"
+  ],
+  "underlying_event_may_be_stated_as_confirmed": false
+}

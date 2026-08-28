@@ -736,6 +736,30 @@ class BoundedPublicSecondaryEvidenceLoader:
         existing_documents: list[dict[str, Any]],
     ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
         context = request.get("story_context") or {}
+        report_profile = context.get("report_provenance")
+        report_profile = report_profile if isinstance(report_profile, Mapping) else {}
+        attributed_sources = [
+            dict(row)
+            for row in report_profile.get("attributed_reputable_sources") or []
+            if isinstance(row, Mapping)
+            and str(row.get("normalized_host") or "")
+        ]
+        attributed_report_host = str(
+            report_profile.get("primary_reporting_source_identity") or ""
+        ).casefold().removeprefix("www.")
+        pinned_report_host = (
+            attributed_report_host
+            if report_profile.get("explicit_reputable_attribution") is True
+            and len(attributed_sources) == 1
+            and str(attributed_sources[0].get("normalized_host") or "")
+            .casefold()
+            .removeprefix("www.")
+            == attributed_report_host
+            and attributed_report_host in {
+                normalized_host(value) for value in REPUTABLE_SECONDARY_HOSTS
+            }
+            else ""
+        )
         planned_queries = [
             " ".join(str(value).split())
             for value in context.get("grounded_research_queries") or []
@@ -754,6 +778,12 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "locator_candidate_count": 0,
                 "publisher_resolution_attempt_count": 0,
                 "publisher_resolution_diagnostics": [],
+                "attributed_publisher_identity": pinned_report_host or None,
+                "rss_candidate_publisher_identities_observed": [],
+                "publisher_identities_eligible_for_resolution": [],
+                "publisher_resolution_attempted_identities": [],
+                "attributed_publisher_pinning_applied": bool(pinned_report_host),
+                "publisher_pinning_grants_report_or_event_authority": False,
             }
         cutoff = datetime.fromisoformat(
             self._evaluation_as_of_utc.replace("Z", "+00:00")
@@ -763,6 +793,30 @@ class BoundedPublicSecondaryEvidenceLoader:
         source_resolution_attempts = 0
         locator_candidate_count = 0
         resolution_diagnostics: list[str] = []
+        observed_publisher_identities: set[str] = set()
+        eligible_publisher_identities: set[str] = set()
+        attempted_publisher_identities: list[str] = []
+
+        def provenance() -> dict[str, Any]:
+            return {
+                "locator_candidate_count": locator_candidate_count,
+                "publisher_resolution_attempt_count": source_resolution_attempts,
+                "publisher_resolution_diagnostics": sorted(
+                    set(resolution_diagnostics)
+                ),
+                "attributed_publisher_identity": pinned_report_host or None,
+                "rss_candidate_publisher_identities_observed": sorted(
+                    observed_publisher_identities
+                ),
+                "publisher_identities_eligible_for_resolution": sorted(
+                    eligible_publisher_identities
+                ),
+                "publisher_resolution_attempted_identities": list(
+                    attempted_publisher_identities
+                ),
+                "attributed_publisher_pinning_applied": bool(pinned_report_host),
+                "publisher_pinning_grants_report_or_event_authority": False,
+            }
         for terms in query_terms:
             url = NEWS_RSS_ENDPOINT + "?" + urlencode(
                 {"q": " ".join(terms), "hl": "en-US", "gl": "US", "ceid": "US:en"}
@@ -837,8 +891,29 @@ class BoundedPublicSecondaryEvidenceLoader:
                 ),
             )
             locator_candidate_count += len(ranked)
+            observed_publisher_identities.update(
+                normalized_host(str(row[2].get("source_identity") or ""))
+                for row in ranked
+                if str(row[2].get("source_identity") or "")
+            )
+            if pinned_report_host:
+                ranked = [
+                    row
+                    for row in ranked
+                    if normalized_host(
+                        str(row[2].get("source_identity") or "")
+                    )
+                    == pinned_report_host
+                ]
+            eligible_publisher_identities.update(
+                normalized_host(str(row[2].get("source_identity") or ""))
+                for row in ranked
+                if str(row[2].get("source_identity") or "")
+            )
             for _relevance, _observed, listing in ranked:
-                identity = str(listing.get("source_identity") or "").casefold()
+                identity = normalized_host(
+                    str(listing.get("source_identity") or "")
+                )
                 if (
                     identity in seen_publishers
                     or source_resolution_attempts
@@ -847,6 +922,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                     continue
                 seen_publishers.add(identity)
                 source_resolution_attempts += 1
+                attempted_publisher_identities.append(identity)
                 document, failures = self._resolve_listing_to_publisher_document(
                     listing
                 )
@@ -863,22 +939,10 @@ class BoundedPublicSecondaryEvidenceLoader:
                     document = listing
                 resolved.append(document)
                 if self._enough_with_existing(request, existing_documents + resolved):
-                    return resolved, {
-                        "locator_candidate_count": locator_candidate_count,
-                        "publisher_resolution_attempt_count": source_resolution_attempts,
-                        "publisher_resolution_diagnostics": sorted(
-                            set(resolution_diagnostics)
-                        ),
-                    }
+                    return resolved, provenance()
             if source_resolution_attempts >= MAX_PUBLISHER_RESOLUTION_ATTEMPTS:
                 break
-        return resolved, {
-            "locator_candidate_count": locator_candidate_count,
-            "publisher_resolution_attempt_count": source_resolution_attempts,
-            "publisher_resolution_diagnostics": sorted(
-                set(resolution_diagnostics)
-            ),
-        }
+        return resolved, provenance()
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         request_count_at_start = self._request_count
@@ -896,6 +960,11 @@ class BoundedPublicSecondaryEvidenceLoader:
             self._candidate_request_start = request_count_at_start
             self._active_story_scope_id = None
         context = request.get("story_context") or {}
+        report_profile = context.get("report_provenance")
+        report_profile = report_profile if isinstance(report_profile, Mapping) else {}
+        attributed_report_host = str(
+            report_profile.get("primary_reporting_source_identity") or ""
+        ).casefold().removeprefix("www.")
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
         rows = [
             row
@@ -928,7 +997,13 @@ class BoundedPublicSecondaryEvidenceLoader:
                 )
                 if document:
                     documents.append(document)
-                    if self._enough_with_existing(request, documents):
+                    direct_host = str(
+                        document.get("source_identity") or ""
+                    ).casefold().removeprefix("www.")
+                    if (
+                        attributed_report_host
+                        and direct_host == attributed_report_host
+                    ) or self._enough_with_existing(request, documents):
                         break
             except (OSError, RuntimeError, TypeError, ValueError) as exc:
                 diagnostics.append(str(exc) or type(exc).__name__)
@@ -936,7 +1011,17 @@ class BoundedPublicSecondaryEvidenceLoader:
                 # unchanged ledger for a reputable discovery path instead of burning the next
                 # two bound URLs before trying accessible reporting.
                 break
-        if not self._enough_with_existing(request, documents):
+        direct_attributed_report_bound = bool(
+            attributed_report_host
+            and any(
+                str(row.get("source_identity") or "").casefold().removeprefix("www.")
+                == attributed_report_host
+                for row in documents
+            )
+        )
+        if not direct_attributed_report_bound and not self._enough_with_existing(
+            request, documents
+        ):
             try:
                 rss_documents, rss_provenance = self._rss_documents(
                     request, existing_documents=documents
@@ -970,7 +1055,9 @@ class BoundedPublicSecondaryEvidenceLoader:
             "evidence_documents": documents,
             "locator_only_records": locator_only_documents,
             "provided_evidence_capabilities": (
-                ["credible_event_confirmation", "basic_attributed_facts"] if documents else []
+                ["attributed_report_provenance", "basic_attributed_facts"]
+                if documents
+                else []
             ),
             "provenance": {
                 "retrieved_at_utc": _iso_utc(retrieved),
@@ -1035,6 +1122,31 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "publisher_resolution_diagnostics": list(
                     rss_provenance.get("publisher_resolution_diagnostics") or []
                 ),
+                "attributed_publisher_identity": rss_provenance.get(
+                    "attributed_publisher_identity"
+                ),
+                "rss_candidate_publisher_identities_observed": list(
+                    rss_provenance.get(
+                        "rss_candidate_publisher_identities_observed"
+                    )
+                    or []
+                ),
+                "publisher_identities_eligible_for_resolution": list(
+                    rss_provenance.get(
+                        "publisher_identities_eligible_for_resolution"
+                    )
+                    or []
+                ),
+                "publisher_resolution_attempted_identities": list(
+                    rss_provenance.get(
+                        "publisher_resolution_attempted_identities"
+                    )
+                    or []
+                ),
+                "attributed_publisher_pinning_applied": bool(
+                    rss_provenance.get("attributed_publisher_pinning_applied")
+                ),
+                "publisher_pinning_grants_report_or_event_authority": False,
             },
             "blockers": [] if documents else sorted(set(diagnostics or ["public_source_unavailable"])),
             "publication_authority": False,

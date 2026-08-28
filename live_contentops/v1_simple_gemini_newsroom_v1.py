@@ -22,6 +22,10 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import urlsplit
 
+from live_contentops.capital_chronicle_institutional_edge_v1 import (
+    build_institutional_edge_editorial_packet,
+    validate_institutional_edge_packet,
+)
 from live_contentops.credential_redaction_policy import redact_text
 from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
@@ -36,6 +40,9 @@ from live_contentops.newsroom_production_day_v1 import (
     newsroom_production_day_id,
     persist_qualified_article_record,
 )
+from live_contentops.preselection_intelligence_v1 import (
+    rank_simple_headline_candidate_universe,
+)
 from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_V1_SIMPLE_ARTICLE_WRITING,
     ROLE_V1_SIMPLE_EDITORIAL_REVISION,
@@ -49,16 +56,22 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
 from live_contentops.v1_simple_evidence_resolver_v1 import (
     SimpleFirstPartyAwareEvidenceResolver,
 )
+from live_contentops.v1_simple_epistemic_state_v1 import (
+    candidate_report_provenance,
+    validate_epistemic_state,
+)
 
-SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v2"
+SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v5"
 SELECTION_SCHEMA_VERSION = "contentops.v1_simple_gemini_selection.v2"
 ARTICLE_SCHEMA_VERSION = "contentops.v1_simple_gemini_article.v1"
 VALIDATION_SCHEMA_VERSION = "contentops.v1_simple_gemini_validation.v1"
-DERIVATIVE_INTENTS_SCHEMA_VERSION = "contentops.v1_simple_derivative_intents.v1"
+DERIVATIVE_INTENTS_SCHEMA_VERSION = "contentops.v1_simple_derivative_intents.v2"
+NATIVE_PREVIEWS_SCHEMA_VERSION = "contentops.v1_simple_native_derivative_previews.v1"
 
 ORDERING = (
-    "GEMINI_SELECT_THEN_BOUNDED_DETERMINISTIC_RETRIEVAL_THEN_"
-    "GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE"
+    "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_"
+    "PROVENANCE_AWARE_BOUNDED_DETERMINISTIC_RETRIEVAL_THEN_"
+    "EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE"
 )
 MAX_SELECTION_CANDIDATES = 32
 MAX_SOURCE_REQUESTS = 6
@@ -101,6 +114,30 @@ _RISKY_TEMPORAL_PATTERNS = (
 )
 _SOURCE_MARKER_RE = re.compile(r"\[\[SOURCE:(SOURCE_[1-4])\]\]")
 _URL_RE = re.compile(r"https?://", re.IGNORECASE)
+_EXPLICIT_CC_INFERENCE_RE = re.compile(
+    r"\bCapital Chronicle(?:'s)?\s+(?:view|analysis|interpretation|inference)\b|"
+    r"\bCapital Chronicle\s+(?:views|infers|interprets)\b",
+    re.IGNORECASE,
+)
+_RESERVED_CC_NUMERIC_AUTHORITY_RE = re.compile(
+    r"\bCapital Chronicle(?:'s)?\s+(?:forecast|probabilit(?:y|ies)|scenario|"
+    r"regime|valuation|price target|base case)\b|"
+    r"\bCapital Chronicle\s+(?:assigns|calculates|estimates|forecasts|projects)\b"
+    r"[^.!?\n]{0,100}(?:\d+(?:\.\d+)?\s*%|\bprobabilit(?:y|ies)\b|"
+    r"\bvaluation\b|\bprice target\b)",
+    re.IGNORECASE,
+)
+
+_SIMPLE_MODE_BEHAVIOR = {
+    "BREAKING_BRIEF": "fast useful implication after the supported event; never a headline rewrite",
+    "FOLLOW_UP_UPDATE": "lead with the material supported delta; never recycle the prior story",
+    "STANDARD_NEWS_ANALYSIS": "early thesis, mechanism, consequence, counter-case, and watch condition",
+    "CAPITAL_CHRONICLE_VIEW": "explicit defensible Capital Chronicle qualitative house thesis",
+    "WHAT_THE_MARKET_IS_MISSING": "strongest supported overlooked variable or consensus challenge",
+    "EVERGREEN_EXPLAINER": "plain-English orientation followed by institutional depth",
+    "DATA_OR_DOCUMENT_LENS": "surface a non-obvious supported source or document finding",
+    "WEEK_AHEAD_OR_WATCH": "useful conditional watchpoints; never calendar filler",
+}
 
 LlmInvoke = Callable[..., tuple[dict[str, Any], dict[str, Any]]]
 EvidenceLoader = Callable[[Mapping[str, Any]], Mapping[str, Any]]
@@ -181,13 +218,31 @@ def _headline_account(row: Mapping[str, Any]) -> str:
     return str(row.get("source_account") or external.get("author_handle") or "").strip()
 
 
+def _safe_https_locator(value: Any) -> str:
+    url = str(value or "").strip()
+    try:
+        parsed = urlsplit(url)
+        port = parsed.port
+    except ValueError:
+        return ""
+    if (
+        parsed.scheme != "https"
+        or not parsed.hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or port not in {None, 443}
+    ):
+        return ""
+    return url
+
+
 def _memory_field(row: Any, key: str) -> str:
     if isinstance(row, Mapping):
         return str(row.get(key) or "")
     return str(getattr(row, key, "") or "")
 
 
-def _candidate_packet(
+def _candidate_universe(
     rolling_input: Mapping[str, Any], published_memory: Sequence[Any]
 ) -> list[dict[str, Any]]:
     published_titles = {
@@ -230,20 +285,104 @@ def _candidate_packet(
         ):
             continue
         seen_titles.add(normalized)
-        result.append(
-            {
-                "candidate_id": story_identity,
-                "story_identity": story_identity,
-                "headline_id": headline_id,
-                "headline_text": text,
-                "source_timestamp_utc": str(row.get("source_timestamp_utc") or ""),
-                "source_account": _headline_account(row),
-                "source_url": _headline_url(row),
-            }
+        external = row.get("external_content")
+        external = external if isinstance(external, Mapping) else {}
+        source_url = _safe_https_locator(_headline_url(row))
+        parsed_source = urlsplit(source_url)
+        source_host = str(parsed_source.hostname or "").casefold()
+        official_urls = list(
+            dict.fromkeys(
+                safe_url
+                for value in (
+                    list(row.get("official_source_urls") or [])
+                    + list(external.get("official_source_urls") or [])
+                )
+                if (safe_url := _safe_https_locator(value))
+            )
         )
-        if len(result) >= MAX_SELECTION_CANDIDATES:
-            break
+        public_urls = list(official_urls)
+        safe_source_url = _safe_https_locator(source_url)
+        if (
+            safe_source_url
+            and parsed_source.scheme == "https"
+            and source_host
+            and source_host not in {"x.com", "www.x.com", "t.co", "www.t.co"}
+            and safe_source_url not in public_urls
+        ):
+            public_urls.append(safe_source_url)
+        result.append({
+            "candidate_id": story_identity,
+            "story_identity": story_identity,
+            "headline_id": headline_id,
+            "headline_text": text,
+            "source_timestamp_utc": str(row.get("source_timestamp_utc") or ""),
+            "source_account": _headline_account(row),
+            "source_url": source_url,
+            "official_source_urls": official_urls,
+            "public_source_urls": public_urls,
+            "follow_up_data_need_candidates": list(
+                external.get("follow_up_data_need_candidates") or []
+            ),
+            "source_platform": str(external.get("source_platform") or ""),
+            "canonical_x_list_provenance": dict(
+                external.get("canonical_x_list_provenance") or {}
+            )
+            if isinstance(external.get("canonical_x_list_provenance"), Mapping)
+            else {},
+        })
     return result
+
+
+def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        key: row.get(key)
+        for key in (
+            "candidate_id",
+            "story_identity",
+            "headline_id",
+            "headline_text",
+            "source_timestamp_utc",
+            "source_account",
+            "source_url",
+            "official_source_urls",
+            "public_source_urls",
+            "source_platform",
+            "canonical_x_list_provenance",
+        )
+    }
+
+
+def _candidate_packet_and_preselection(
+    rolling_input: Mapping[str, Any],
+    published_memory: Sequence[Any],
+    *,
+    source_route_health: Mapping[str, Any] | None = None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    universe = _candidate_universe(rolling_input, published_memory)
+    ranked = rank_simple_headline_candidate_universe(
+        universe,
+        max_candidates=MAX_SELECTION_CANDIDATES,
+        source_route_health=source_route_health,
+    )
+    candidates = [
+        _selection_candidate(row)
+        for row in ranked["ranked_candidates"][:MAX_SELECTION_CANDIDATES]
+    ]
+    return candidates, dict(ranked["evidence"])
+
+
+def _candidate_packet(
+    rolling_input: Mapping[str, Any],
+    published_memory: Sequence[Any],
+    *,
+    source_route_health: Mapping[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    candidates, _evidence = _candidate_packet_and_preselection(
+        rolling_input,
+        published_memory,
+        source_route_health=source_route_health,
+    )
+    return candidates
 
 
 def _published_memory_summary(published_memory: Sequence[Any]) -> dict[str, Any]:
@@ -535,6 +674,49 @@ def _invoke(
     return dict(output), dict(receipt)
 
 
+def _institutional_edge_mode_guide() -> dict[str, dict[str, Any]]:
+    """Project the current Institutional Edge mode map for the Simple selector."""
+    result: dict[str, dict[str, Any]] = {}
+    for mode in ARTICLE_MODES:
+        packet = build_institutional_edge_editorial_packet(
+            article_mode=mode,
+            structured_data_supported=False,
+        )
+        blockers = validate_institutional_edge_packet(packet)
+        if blockers:
+            raise SimpleGeminiNewsroomError(
+                "institutional_edge_editorial_packet_invalid", blockers
+            )
+        result[mode] = {
+            "institutional_edge_mode": packet["article_mode"],
+            "mode_expectations": list(packet["mode_expectations"]),
+            "simple_mode_behavior": _SIMPLE_MODE_BEHAVIOR[mode],
+            "explicit_qualitative_inference_required": mode
+            in {"CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"},
+            "grants_factual_authority": False,
+            "grants_numeric_authority": False,
+        }
+    return result
+
+
+def _institutional_edge_writer_packet(
+    *, article_mode: str, source_pack: Sequence[Mapping[str, Any]]
+) -> dict[str, Any]:
+    packet = build_institutional_edge_editorial_packet(
+        article_mode=article_mode,
+        accepted_evidence_packet={
+            "evidence_documents": [dict(row) for row in source_pack]
+        },
+        structured_data_supported=False,
+    )
+    blockers = validate_institutional_edge_packet(packet)
+    if blockers:
+        raise SimpleGeminiNewsroomError(
+            "institutional_edge_editorial_packet_invalid", blockers
+        )
+    return packet
+
+
 def _selection_prompt(governed: Mapping[str, Any]) -> str:
     select_contract = {
         "schema_version": SELECTION_SCHEMA_VERSION,
@@ -564,6 +746,9 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "stories from GOVERNED_INPUT. Every fallback must be independently worth an article, not filler. "
         "Do not require evidence-ready/sourceability/readiness/media/SEO perfection before selection. "
         "Published-memory duplicates were filtered deterministically before this call. If nothing is useful, ABSTAIN. "
+        "Use institutional_edge_mode_guide to choose the mode the story genuinely warrants. Prefer the strongest "
+        "defensible tension over generic recap, and prioritize a proposition that can explain why the reader should care now. "
+        "Do not force a house view or market-missing mode when the headline does not support one. "
         "For every admitted candidate return one to three short research query texts that can locate reputable "
         "public reporting for that story. No tools, no URLs, no factual/numeric/publication authority. "
         "Do not select a proprietary Capital Chronicle forecast/probability/scenario/regime claim. "
@@ -581,15 +766,32 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
 def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any]) -> dict[str, Any]:
     bindings: list[dict[str, Any]] = []
     source_url = str(candidate.get("source_url") or "")
-    if source_url.startswith("https://"):
+    candidate_urls = list(
+        dict.fromkeys(
+            safe_url
+            for key in ("official_source_urls", "public_source_urls")
+            for value in candidate.get(key) or []
+            if (safe_url := _safe_https_locator(value))
+        )
+    )
+    source_host = str(urlsplit(source_url).hostname or "").casefold()
+    safe_source_url = _safe_https_locator(source_url)
+    if (
+        safe_source_url
+        and source_host not in {"x.com", "www.x.com", "t.co", "www.t.co"}
+        and safe_source_url not in candidate_urls
+    ):
+        candidate_urls.append(safe_source_url)
+    for url in candidate_urls:
         bindings.append(
             {
                 "headline_id": candidate["headline_id"],
-                "url": source_url,
+                "url": url,
                 "source_timestamp_utc": candidate.get("source_timestamp_utc"),
             }
         )
     research_queries = list(plan_entry["research_queries"])
+    report_provenance = candidate_report_provenance(candidate)
     material = {
         "candidate_id": candidate["candidate_id"],
         "headline_id": candidate["headline_id"],
@@ -605,17 +807,22 @@ def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any
         "requested_article_mode": plan_entry["article_mode"],
         "effective_article_mode": plan_entry["article_mode"],
         "required_evidence_capabilities": [
-            "credible_event_confirmation",
+            "credible_report_or_event_confirmation",
             "basic_attributed_facts",
         ],
         "evidence_enrichment_context": {"requested": True},
         "story_context": {
             "leaf_summaries": [candidate["headline_text"]],
+            "candidate_source_timestamp_utc": candidate.get("source_timestamp_utc"),
+            "candidate_source_account": candidate.get("source_account"),
+            "candidate_source_url": candidate.get("source_url"),
+            "report_provenance": report_provenance,
             "grounded_research_queries": research_queries,
             "planned_research_query_count": len(research_queries),
             "planned_research_query_set_sha256": _hash(research_queries),
             "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
             "public_source_url_bindings": bindings,
+            "candidate_packet_locators_grant_factual_authority": False,
         },
     }
 
@@ -649,6 +856,14 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "published_at_utc": str(document.get("published_at_utc") or ""),
                 "published_at_source": str(document.get("published_at_source") or ""),
                 "document_id": str(document.get("document_id") or ""),
+                "source_identity": str(document.get("source_identity") or ""),
+                "source_authority_class": str(
+                    document.get("source_authority_class") or ""
+                ),
+                "secondary_listing_only": bool(
+                    document.get("secondary_listing_only")
+                ),
+                "report_truth_only": bool(document.get("report_truth_only")),
                 "canonical_content_sha256": str(
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
@@ -693,6 +908,21 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Return exactly one JSON object with exactly the five top-level keys shown in OUTPUT_CONTRACT. "
         "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. "
+        "Treat epistemic_state as an immutable deterministic contract. Distinguish REPORT TRUTH from EVENT TRUTH: "
+        "report_proposition is supported, while event_proposition may remain unconfirmed. Include the exact "
+        "reader_visible_epistemic_label prominently in the dek and opening paragraph. For UNCONFIRMED or RELAYED "
+        "content, keep the named publisher or relay attribution in the title and dek, state the reporting status "
+        "in the first paragraph, and never silently rewrite 'Publisher reports X' as 'X happened'. Any mechanism, "
+        "winner/loser, market implication, criticism, or consequence that depends on X must be explicitly "
+        "conditional, using 'If the report is accurate', 'If confirmed', or equivalent. Do not call material a "
+        "leak, rumor, or internal-source report unless epistemic_state.origin_character says so. "
+        "Follow institutional_edge_editorial_packet and its exact mode expectations. Lead with the strongest defensible "
+        "tension and explain why the reader should care now. Make title, dek, and social_hook compelling, proposition-led, "
+        "and no broader than the final supported article truth. In analytical modes, include a real counter-case or exact "
+        "condition that would challenge the thesis when appropriate. Criticism or contrarian framing is welcome only when "
+        "the retrieved record supports its factual premises. For CAPITAL_CHRONICLE_VIEW, explicitly label the qualitative "
+        "house inference as Capital Chronicle's view, interpretation, analysis, or inference. For "
+        "WHAT_THE_MARKET_IS_MISSING, explicitly label the supported overlooked-variable inference the same way. "
         "Do not browse or invent URLs. Do not expand factual scope beyond retrieved source bytes. "
         "Every non-heading body paragraph must contain at least one exact [[SOURCE:SOURCE_N]] marker. "
         "The selected_candidate is the article's current news peg. Title and dek must primarily represent that "
@@ -708,9 +938,12 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "support_excerpt must be an exact "
         "substring of the cited SOURCE_PACK text. Every claim_text and support_excerpt must be at least eight "
         "characters and must not be a bare label, symbol, or isolated number. Use no proprietary Capital Chronicle numeric/forecast/scenario/"
-        "probability/regime claim in this reset lane. Source timestamps are hints only; retrieved source provenance "
+        "probability/regime/valuation/base-case claim in this reset lane. A qualitative Capital Chronicle inference does "
+        "not create numeric authority and must remain distinguishable from observed fact. Source timestamps are hints only; retrieved source provenance "
         "remains deterministic authority. Zero media is valid. This call has no publication tools and must not claim "
         "a publication attempt: public_write_attempted MUST be the JSON boolean false, never true or a string. "
+        "When epistemic_state.event_confirmation_state is not CONFIRMED, every material claim about the underlying "
+        "event must set attribution_required to true. "
         "Return strict JSON only.\nOUTPUT_CONTRACT:\n"
         + json.dumps(contract, sort_keys=True, ensure_ascii=False)
         + "\nGOVERNED_INPUT:\n"
@@ -814,11 +1047,139 @@ def _public_copy_integrity_blockers(
     return blockers
 
 
+def _editorial_growth_edge_blockers(
+    article: Mapping[str, Any], *, article_mode: str | None
+) -> list[str]:
+    mode = str(article_mode or "").upper()
+    public_copy = _public_copy(article)
+    blockers: list[str] = []
+    if mode in {"CAPITAL_CHRONICLE_VIEW", "WHAT_THE_MARKET_IS_MISSING"}:
+        if not _EXPLICIT_CC_INFERENCE_RE.search(public_copy):
+            blockers.append("house_mode_qualitative_inference_not_explicitly_labeled")
+    if _RESERVED_CC_NUMERIC_AUTHORITY_RE.search(public_copy):
+        blockers.append("capital_chronicle_reserved_numeric_authority_unavailable")
+    return blockers
+
+
+def _first_body_paragraph(body: str) -> str:
+    for paragraph in re.split(r"\n\s*\n", str(body or "")):
+        cleaned = " ".join(
+            line.strip()
+            for line in paragraph.splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        )
+        if cleaned:
+            return _SOURCE_MARKER_RE.sub("", cleaned).strip()
+    return ""
+
+
+def _epistemic_copy_blockers(
+    article: Mapping[str, Any],
+    claims: Sequence[Mapping[str, Any]],
+    epistemic_state: Mapping[str, Any] | None,
+) -> list[str]:
+    if not isinstance(epistemic_state, Mapping) or not epistemic_state:
+        return []
+    blockers = list(validate_epistemic_state(epistemic_state))
+    if blockers:
+        return blockers
+    state = str(epistemic_state.get("event_confirmation_state") or "")
+    origin = str(epistemic_state.get("origin_character") or "")
+    publisher = str(epistemic_state.get("primary_reporting_publisher") or "")
+    relay = str(epistemic_state.get("relay_source_identity") or "")
+    label = str(epistemic_state.get("reader_visible_epistemic_label") or "")
+    title = str(article.get("title") or "")
+    dek = str(article.get("dek") or "")
+    first = _first_body_paragraph(str(article.get("substack_body_markdown") or ""))
+    public_copy = _SOURCE_MARKER_RE.sub("", _public_copy(article))
+    public_normal = _normal(public_copy)
+    attribution_tokens = {
+        value
+        for value in (
+            _normal(publisher),
+            _normal(publisher).replace("the ", "", 1),
+            _normal(relay),
+            "unconfirmed",
+            "reported",
+            "reports",
+            "according to",
+        )
+        if value
+    }
+    if state != "CONFIRMED":
+        if not any(token in _normal(title) for token in attribution_tokens):
+            blockers.append("epistemic_title_attribution_or_uncertainty_missing")
+        if label.casefold() not in dek.casefold() and not any(
+            token in _normal(dek) for token in attribution_tokens
+        ):
+            blockers.append("epistemic_dek_attribution_or_label_missing")
+        if label.casefold() not in first.casefold() and not any(
+            token in _normal(first) for token in attribution_tokens
+        ):
+            blockers.append("epistemic_opening_reporting_state_missing")
+        if any(
+            claim.get("attribution_required") is not True
+            for claim in claims
+            if isinstance(claim, Mapping)
+        ):
+            blockers.append("epistemic_unconfirmed_material_claim_attribution_missing")
+        event_terms = _peg_terms(epistemic_state.get("event_proposition"))
+        for field in _PUBLIC_METADATA_FIELDS:
+            value = str(article.get(field) or "")
+            if len(event_terms.intersection(_peg_terms(value))) >= 2 and not any(
+                token in _normal(value) for token in attribution_tokens
+            ):
+                blockers.append(f"epistemic_certainty_inflation:{field}")
+        for index, paragraph in enumerate(
+            re.split(r"\n\s*\n", str(article.get("substack_body_markdown") or "")),
+            start=1,
+        ):
+            clean = _SOURCE_MARKER_RE.sub("", paragraph)
+            if len(event_terms.intersection(_peg_terms(clean))) < 2:
+                continue
+            conditional = re.search(
+                r"\b(?:if|would|could|may|might|reported|reports|according\s+to|unconfirmed)\b",
+                clean,
+                re.IGNORECASE,
+            )
+            if conditional is None and not any(
+                token in _normal(clean) for token in attribution_tokens
+            ):
+                blockers.append(f"epistemic_event_asserted_as_confirmed:{index}")
+    if str(epistemic_state.get("evidence_basis") or "") == (
+        "TRUSTED_RELAY_ATTRIBUTED_REPORT"
+    ):
+        relay_token = _normal(relay)
+        if not relay_token or any(
+            relay_token not in _normal(value)
+            for value in (title, dek, first)
+        ):
+            blockers.append("epistemic_relay_identity_not_prominent")
+        if publisher and re.search(
+            rf"\b{re.escape(publisher)}\s+(?:reports?|reported|says|said)\b",
+            public_copy,
+            re.IGNORECASE,
+        ):
+            blockers.append("epistemic_relay_impersonates_original_publisher")
+    if origin != "LEAK" and re.search(r"\b(?:leak|leaked)\b", public_normal):
+        blockers.append("epistemic_unsupported_leak_label")
+    if origin != "RUMOR" and re.search(r"\b(?:rumou?r|market chatter)\b", public_normal):
+        blockers.append("epistemic_unsupported_rumor_label")
+    if origin != "ANONYMOUS_OR_INTERNAL_SOURCES" and re.search(
+        r"\b(?:anonymous|internal sources?|people familiar|sources? familiar)\b",
+        public_normal,
+    ):
+        blockers.append("epistemic_unsupported_internal_source_label")
+    return sorted(set(blockers))
+
+
 def _validate_article_against_source_pack(
     worker_output: Mapping[str, Any],
     source_pack: Sequence[Mapping[str, Any]],
     *,
     selected_candidate: Mapping[str, Any] | None = None,
+    article_mode: str | None = None,
+    epistemic_state: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
@@ -875,6 +1236,10 @@ def _validate_article_against_source_pack(
     blockers.extend(_selected_news_peg_blockers(article, selected_candidate))
     blockers.extend(_public_copy_integrity_blockers(article, cited_by_id))
     blockers.extend(
+        _editorial_growth_edge_blockers(article, article_mode=article_mode)
+    )
+    blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state))
+    blockers.extend(
         _paragraph_marker_blockers(
             str(article.get("substack_body_markdown") or ""), set(cited_by_id)
         )
@@ -892,6 +1257,10 @@ def _validate_article_against_source_pack(
         "source_urls": [str(row.get("url") or "") for row in sources],
         "source_timestamps_are_model_authority": False,
         "source_bytes_precede_writer": True,
+        "epistemic_state": dict(epistemic_state or {}),
+        "report_truth_validated_separately_from_event_truth": bool(
+            epistemic_state
+        ),
         "public_write_performed": False,
         "unknown_write_detected": False,
     }
@@ -904,8 +1273,12 @@ def _revision_prompt(
         "Return exactly one JSON object with no markdown fence, commentary, prefix, or suffix. "
         "Revise the prior article once using only the same governed candidate and SOURCE_PACK. "
         "Fix exactly the deterministic blockers, do not add a source or expand factual scope, and return the complete strict object. "
+        "Preserve the same Institutional Edge mode expectations, labeled qualitative inference contract, reader consequence, "
+        "and real counter-case/watch condition where the selected mode warrants them. "
         "Preserve the selected candidate as the current news peg and the exact binding requirement for all five public "
         "metadata fields. Remove unsupported newness, simultaneity, or inflated terminology rather than expanding sources. "
+        "Preserve epistemic_state exactly: retain the reader-visible label and attribution, never upgrade report truth "
+        "to event truth, keep dependent analysis conditional, and remove unsupported leak/rumor/internal-source wording. "
         "Every body paragraph remains source-marker bound. Zero public write. public_write_attempted MUST be the JSON "
         "boolean false because this call has no publication tools.\nBLOCKERS:\n"
         + json.dumps(list(blockers), sort_keys=True)
@@ -954,6 +1327,136 @@ def _safe_source_blockers(values: Sequence[Any]) -> list[str]:
     )
 
 
+def _reader_safe_native_article(
+    article: Mapping[str, Any],
+    *,
+    article_mode: str,
+    epistemic_state: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Adapt only final validated article truth to the existing native compiler."""
+    body = _SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or ""))
+    body = re.sub(r"(?m)^#{1,6}\s+", "", body)
+    title = str(article.get("title") or "")
+    label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
+    if label and label.casefold() not in title.casefold():
+        title = f"{label} | {title}"
+    return {
+        "title": title,
+        "subtitle": str(article.get("dek") or ""),
+        "social_hook": str(article.get("social_hook") or ""),
+        "effective_article_mode": str(article_mode),
+        "substack_body_markdown": body,
+    }
+
+
+def _native_preview_bundle(
+    *,
+    article: Mapping[str, Any],
+    article_mode: str,
+    article_identity: str,
+    epistemic_state: Mapping[str, Any] | None = None,
+) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    from live_contentops.eight_platform_substack_first_pipeline_v1 import (
+        build_native_derivative_payloads,
+    )
+
+    pending_url = (
+        "https://capitalchronicle.substack.com/p/pending-publication-"
+        + article_identity[:16]
+    )
+    compiler_article = _reader_safe_native_article(
+        article,
+        article_mode=article_mode,
+        epistemic_state=epistemic_state,
+    )
+    payloads = build_native_derivative_payloads(
+        article=compiler_article,
+        selection={},
+        canonical_url=pending_url,
+        media_asset_ids=(),
+    )
+    expected = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
+    if len(payloads) != 8 or set(payloads) != expected:
+        raise SimpleGeminiNewsroomError(
+            "exact_eight_native_preview_package_contract_failed"
+        )
+    quality_blockers: list[str] = []
+    for destination in ("x", "threads"):
+        payload = dict(payloads.get(destination) or {})
+        metrics = dict(payload.get("quality_metrics") or {})
+        limit = int(payload.get("platform_limit") or 0)
+        posts = list(payload.get("posts") or [])
+        thread_texts = [str(payload.get("root_text") or "")]
+        thread_texts.extend(str(value) for value in payload.get("reply_texts") or [])
+        thread_texts.extend(str(row.get("text") or "") for row in posts)
+        if metrics.get("sentence_boundary_pass") is not True:
+            quality_blockers.append(f"{destination}:sentence_boundary_pass")
+        if metrics.get("orphan_fragment_count") != 0:
+            quality_blockers.append(f"{destination}:orphan_fragment_count")
+        if metrics.get("hard_character_slicing_used") is not False:
+            quality_blockers.append(f"{destination}:hard_character_slicing_used")
+        if limit <= 0 or any(len(value) > limit for value in thread_texts):
+            quality_blockers.append(f"{destination}:platform_limit")
+    if quality_blockers:
+        raise SimpleGeminiNewsroomError(
+            "native_preview_quality_contract_failed",
+            quality_blockers,
+        )
+    label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
+    for destination, payload in payloads.items():
+        visible = "\n".join(
+            str(value)
+            for key, value in dict(payload).items()
+            if key in {"text", "full_text", "root_text"}
+        )
+        if label and label.casefold() not in visible.casefold():
+            raise SimpleGeminiNewsroomError(
+                "native_preview_epistemic_state_missing", [destination]
+            )
+        if (
+            (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
+            and re.search(r"(?<!un)confirmed", visible, re.IGNORECASE)
+        ):
+            raise SimpleGeminiNewsroomError(
+                "native_preview_epistemic_certainty_inflation", [destination]
+            )
+    intents = [
+        {
+            "destination": destination,
+            "dispatch_state": "UNDISPATCHED",
+            "article_identity": article_identity,
+            "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+            "payload_sha256": _hash(payloads[destination]),
+            "native_payload": dict(payloads[destination]),
+            "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+            "rematerialization_after_real_substack_url_required": True,
+            "epistemic_state": dict(epistemic_state or {}),
+        }
+        for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
+    ]
+    bundle = {
+        "schema_version": NATIVE_PREVIEWS_SCHEMA_VERSION,
+        "article_identity": article_identity,
+        "final_validated_article_public_copy_sha256": _text_hash(
+            _public_copy(article)
+        ),
+        "compiler_input_sha256": _hash(compiler_article),
+        "canonical_url": pending_url,
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "rematerialization_after_real_substack_url_required": True,
+        "epistemic_state": dict(epistemic_state or {}),
+        "every_preview_preserves_epistemic_state": bool(epistemic_state),
+        "package_count": len(payloads),
+        "packages": payloads,
+        "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+        "public_write_performed": False,
+        "provider_publication_writes": 0,
+        "publication_coordinator_dispatch_count": 0,
+        "unknown_write_count": 0,
+    }
+    return bundle, intents
+
+
 def run_v1_simple_gemini_newsroom(
     *,
     output_dir: str | Path,
@@ -961,6 +1464,7 @@ def run_v1_simple_gemini_newsroom(
     rolling_input: Mapping[str, Any] | None = None,
     published_memory: Sequence[Any] = (),
     capital_chronicle_context: Mapping[str, Any] | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
     llm_invoke: LlmInvoke | None = None,
     evidence_loader: EvidenceLoader | None = None,
     run_id: str | None = None,
@@ -976,7 +1480,34 @@ def run_v1_simple_gemini_newsroom(
             sidecar_glob=canonical_headline_sidecar_glob(),
             window_hours=24.0,
         )
-    candidates = _candidate_packet(rolling_input, published_memory)
+    candidates, sourceability_preselection = _candidate_packet_and_preselection(
+        rolling_input,
+        published_memory,
+        source_route_health=source_route_health,
+    )
+    sourceability_path = root / "simple_sourceability_preselection_v1.json"
+    _write_json(sourceability_path, sourceability_preselection)
+    sourceability_summary = {
+        "artifact_path": str(sourceability_path),
+        "full_eligible_deduped_universe_count": sourceability_preselection[
+            "full_eligible_deduped_universe_count"
+        ],
+        "ranking_order_changed": sourceability_preselection[
+            "ranking_order_changed"
+        ],
+        "candidate_ids_entering_top_packet": list(
+            sourceability_preselection["candidate_ids_entering_top_packet"]
+        ),
+        "candidate_ids_leaving_top_packet": list(
+            sourceability_preselection["candidate_ids_leaving_top_packet"]
+        ),
+        "source_route_health_reused": sourceability_preselection[
+            "source_route_health_reused"
+        ],
+        "model_or_provider_calls": 0,
+        "network_gets": 0,
+        "authority_granted": False,
+    }
     if not candidates:
         receipt = {
             "schema_version": SCHEMA_VERSION,
@@ -985,6 +1516,7 @@ def run_v1_simple_gemini_newsroom(
             "cutoff_utc": cutoff_utc,
             "candidate_count": 0,
             "candidate_limit": MAX_SELECTION_CANDIDATES,
+            "sourceability_preselection": sourceability_summary,
             "exact_next_blocker": "NO_USEFUL_CURRENT_HEADLINE_CANDIDATES",
             "ordering": ORDERING,
             "qualified_article_count": 0,
@@ -1003,9 +1535,14 @@ def run_v1_simple_gemini_newsroom(
         "cutoff_utc": cutoff_utc,
         "candidate_count": len(candidates),
         "candidates": candidates,
+        "candidate_packet_ordering": (
+            "DETERMINISTIC_SOURCEABILITY_AWARE_WORK_ORDER_ONLY"
+        ),
+        "candidate_packet_ordering_grants_source_or_factual_authority": False,
         "published_memory_summary": memory_summary,
         "capital_chronicle_context_present": bool(capital_chronicle_context),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
+        "institutional_edge_mode_guide": _institutional_edge_mode_guide(),
     }
     candidate_ids = {row["candidate_id"] for row in candidates}
     try:
@@ -1052,6 +1589,7 @@ def run_v1_simple_gemini_newsroom(
         "candidate_packet_hash": _hash(candidates),
         "candidate_count": len(candidates),
         "candidate_limit": MAX_SELECTION_CANDIDATES,
+        "sourceability_preselection": sourceability_summary,
         "published_memory_summary": memory_summary,
         "public_write_performed": False,
     }
@@ -1089,6 +1627,7 @@ def run_v1_simple_gemini_newsroom(
     evidence_attempts: list[dict[str, Any]] = []
     selected: dict[str, Any] | None = None
     selected_plan_entry: dict[str, Any] | None = None
+    selected_epistemic_state: dict[str, Any] | None = None
     source_pack: list[dict[str, Any]] = []
     for plan_index, plan_entry_value in enumerate(plan, start=1):
         plan_entry = dict(plan_entry_value)
@@ -1136,12 +1675,39 @@ def run_v1_simple_gemini_newsroom(
             if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
         ][:MAX_SOURCE_DOCUMENTS]
         candidate_source_pack = _source_pack(documents)
+        candidate_epistemic_state = (
+            dict(evidence.get("epistemic_state") or {})
+            if isinstance(evidence.get("epistemic_state"), Mapping)
+            else {}
+        )
+        epistemic_blockers = (
+            validate_epistemic_state(candidate_epistemic_state)
+            if candidate_epistemic_state
+            else []
+        )
+        basis = str(candidate_epistemic_state.get("evidence_basis") or "")
+        if basis in {
+            "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+            "TRUSTED_MARKET_RUMOR",
+        } and plan_entry.get("article_mode") != "BREAKING_BRIEF":
+            plan_entry["model_selected_article_mode"] = plan_entry[
+                "article_mode"
+            ]
+            plan_entry["article_mode"] = "BREAKING_BRIEF"
+            plan_entry["deterministic_mode_cap_reason"] = (
+                "RELAY_OR_RUMOR_ONLY_EVIDENCE_DEPTH"
+            )
+            plan_entry["deterministic_mode_cap_uses_model_call"] = False
         status = (
             "SOURCE_QUALIFIED"
-            if evidence.get("status") == "PASS" and candidate_source_pack
+            if evidence.get("status") == "PASS"
+            and candidate_source_pack
+            and not epistemic_blockers
             else "SOURCE_BLOCKED"
         )
-        blockers = _safe_source_blockers(evidence.get("blockers") or [])
+        blockers = _safe_source_blockers(
+            [*(evidence.get("blockers") or []), *epistemic_blockers]
+        )
         if status == "SOURCE_BLOCKED" and not blockers:
             blockers = ["accepted_source_pack_empty"]
         history = {
@@ -1149,6 +1715,12 @@ def run_v1_simple_gemini_newsroom(
             "plan_role": plan_entry["plan_role"],
             "candidate_id": candidate["candidate_id"],
             "article_mode": plan_entry["article_mode"],
+            "model_selected_article_mode": plan_entry.get(
+                "model_selected_article_mode", plan_entry["article_mode"]
+            ),
+            "deterministic_mode_cap_reason": plan_entry.get(
+                "deterministic_mode_cap_reason"
+            ),
             "selection_rationale": plan_entry["selection_rationale"],
             "research_queries": list(plan_entry["research_queries"]),
             "status": status,
@@ -1157,6 +1729,7 @@ def run_v1_simple_gemini_newsroom(
             "source_request_count_total": request_count,
             "accepted_source_count": len(candidate_source_pack),
             "accepted_source_urls": [row["url"] for row in candidate_source_pack],
+            "epistemic_state": candidate_epistemic_state,
             "source_route_history": [
                 dict(row)
                 for row in provenance.get("route_history") or []
@@ -1169,12 +1742,14 @@ def run_v1_simple_gemini_newsroom(
                 **history,
                 "request": request,
                 "source_pack": candidate_source_pack,
+                "epistemic_state": candidate_epistemic_state,
                 "provenance": provenance,
             }
         )
         if status == "SOURCE_QUALIFIED":
             selected = candidate
             selected_plan_entry = plan_entry
+            selected_epistemic_state = candidate_epistemic_state or None
             source_pack = candidate_source_pack
             break
     evidence_artifact = {
@@ -1185,6 +1760,7 @@ def run_v1_simple_gemini_newsroom(
         "evidence_attempts": evidence_attempts,
         "selected_candidate_id": selected["candidate_id"] if selected else None,
         "selected_source_pack": source_pack,
+        "selected_epistemic_state": dict(selected_epistemic_state or {}),
         "request_count": request_count,
         "request_limit": MAX_SOURCE_REQUESTS,
         "model_calls_before_writer": 1,
@@ -1202,6 +1778,7 @@ def run_v1_simple_gemini_newsroom(
             "candidate_limit": MAX_SELECTION_CANDIDATES,
             "admitted_candidate_count": len(plan),
             "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED",
+            "sourceability_preselection": sourceability_summary,
             "selection": selection,
             "candidate_attempt_history": candidate_attempt_history,
             "source_request_count": request_count,
@@ -1219,14 +1796,58 @@ def run_v1_simple_gemini_newsroom(
         _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
+    if selected_epistemic_state is not None:
+        _write_json(
+            root / "simple_epistemic_state_v1.json",
+            selected_epistemic_state,
+        )
+
+    editorial_packet = _institutional_edge_writer_packet(
+        article_mode=str(selected_plan_entry["article_mode"]),
+        source_pack=source_pack,
+    )
+    _write_json(
+        root / "simple_gemini_editorial_edge_v1.json",
+        {
+            "schema_version": "contentops.v1_simple_editorial_edge_adaptation.v1",
+            "selected_product_mode": selected_plan_entry["article_mode"],
+            "institutional_edge_editorial_packet": editorial_packet,
+            "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
+            "public_write_performed": False,
+        },
+    )
     writer_governed = {
         "cutoff_utc": cutoff_utc,
         "selected_candidate": selected,
         "article_mode": selected_plan_entry["article_mode"],
         "selection_rationale": selected_plan_entry["selection_rationale"],
         "source_pack": source_pack,
+        "epistemic_state": dict(selected_epistemic_state or {}),
+        "report_truth": (
+            (selected_epistemic_state or {}).get("report_proposition")
+        ),
+        "event_truth": {
+            "proposition": (selected_epistemic_state or {}).get(
+                "event_proposition"
+            ),
+            "confirmation_state": (selected_epistemic_state or {}).get(
+                "event_confirmation_state"
+            ),
+            "may_be_stated_as_confirmed": (selected_epistemic_state or {}).get(
+                "underlying_event_may_be_stated_as_confirmed"
+            ),
+        },
+        "analysis_boundaries": {
+            "dependent_analysis_must_be_conditional": (
+                (selected_epistemic_state or {}).get(
+                    "analysis_must_be_conditional"
+                )
+            ),
+            "capital_chronicle_proprietary_numeric_authority": False,
+        },
         "capital_chronicle_context": dict(capital_chronicle_context or {}),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
+        "institutional_edge_editorial_packet": editorial_packet,
         "source_marker_contract": "every non-heading body paragraph uses [[SOURCE:SOURCE_N]]",
     }
     try:
@@ -1271,7 +1892,11 @@ def run_v1_simple_gemini_newsroom(
     revision_performed = False
     try:
         article, validation = _validate_article_against_source_pack(
-            worker_output, source_pack, selected_candidate=selected
+            worker_output,
+            source_pack,
+            selected_candidate=selected,
+            article_mode=str(selected_plan_entry["article_mode"]),
+            epistemic_state=selected_epistemic_state,
         )
     except SimpleGeminiNewsroomError as first_error:
         if first_error.code != "deterministic_article_validation_failed":
@@ -1323,7 +1948,11 @@ def run_v1_simple_gemini_newsroom(
         worker_output = revised_output
         try:
             article, validation = _validate_article_against_source_pack(
-                worker_output, source_pack, selected_candidate=selected
+                worker_output,
+                source_pack,
+                selected_candidate=selected,
+                article_mode=str(selected_plan_entry["article_mode"]),
+                epistemic_state=selected_epistemic_state,
             )
         except SimpleGeminiNewsroomError as second_error:
             receipt = {
@@ -1358,6 +1987,7 @@ def run_v1_simple_gemini_newsroom(
         "story_identity": selected["story_identity"],
         "update_chain_identity": selected["story_identity"],
         "source_document_ids": [row["document_id"] for row in source_pack],
+        "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
     }
     _write_json(root / "article_manifest_v1.json", article_manifest)
@@ -1367,26 +1997,29 @@ def run_v1_simple_gemini_newsroom(
         "revision_router_receipt": revision_receipt,
         "revision_performed": revision_performed,
         "maximum_revision_rounds": MAX_REVISION_ROUNDS,
+        "epistemic_state": dict(selected_epistemic_state or {}),
     }
     _write_json(root / "simple_gemini_validation_v1.json", validation_artifact)
 
     article_identity = _text_hash(str(article["substack_body_markdown"]))
-    intents = [
-        {
-            "destination": str(destination),
-            "dispatch_state": "UNDISPATCHED",
-            "article_identity": article_identity,
-            "payload_state": "DEFERRED_UNTIL_CANONICAL_SUBSTACK_URL",
-            "payload_sha256": None,
-        }
-        for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
-    ]
+    native_previews, intents = _native_preview_bundle(
+        article=article,
+        article_mode=str(selected_plan_entry["article_mode"]),
+        article_identity=article_identity,
+        epistemic_state=selected_epistemic_state,
+    )
+    _write_json(root / "native_derivative_previews_v1.json", native_previews)
     intents_artifact = {
         "schema_version": DERIVATIVE_INTENTS_SCHEMA_VERSION,
         "article_identity": article_identity,
         "intent_count": len(intents),
         "intents": intents,
-        "canonical_substack_url_required_before_payload_materialization": True,
+        "canonical_substack_url_required_before_dispatch_materialization": True,
+        "native_preview_package_path": str(
+            root / "native_derivative_previews_v1.json"
+        ),
+        "preview_payloads_require_real_substack_url_rematerialization": True,
+        "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
     }
     if len(intents) != 8 or {row["destination"] for row in intents} != set(
@@ -1422,6 +2055,7 @@ def run_v1_simple_gemini_newsroom(
         editorial_reasoning_effort="HIGH",
         logical_model_invocation_count=len(model_receipts),
         derivative_package_intents=intents,
+        epistemic_state=selected_epistemic_state,
     )
     persist_qualified_article_record(root, record)
 
@@ -1433,6 +2067,7 @@ def run_v1_simple_gemini_newsroom(
         "candidate_count": len(candidates),
         "candidate_limit": MAX_SELECTION_CANDIDATES,
         "admitted_candidate_count": len(plan),
+        "sourceability_preselection": sourceability_summary,
         "ordering": ORDERING,
         "selection": selection,
         "selected_candidate": selected,
@@ -1441,6 +2076,7 @@ def run_v1_simple_gemini_newsroom(
         "source_request_count": request_count,
         "source_request_limit": MAX_SOURCE_REQUESTS,
         "accepted_source_count": len(source_pack),
+        "epistemic_state": dict(selected_epistemic_state or {}),
         "supported_material_claim_count": validation["supported_material_claim_count"],
         "revision_performed": revision_performed,
         "logical_model_invocation_count": len(model_receipts),
@@ -1452,6 +2088,9 @@ def run_v1_simple_gemini_newsroom(
         "derivative_intent_count": 8,
         "article_identity": article_identity,
         "article_path": str(root / "article_manifest_v1.json"),
+        "native_derivative_preview_path": str(
+            root / "native_derivative_previews_v1.json"
+        ),
         "qualified_record_path": str(root / "qualified_article_record_v1.json"),
         "publication_coordinator_remains_sole_public_write_owner": True,
         "public_write_performed": False,

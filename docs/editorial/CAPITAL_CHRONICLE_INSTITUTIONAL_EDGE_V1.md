@@ -1,6 +1,6 @@
 # Capital Chronicle Institutional Edge V1
 
-Authority date: 2026-08-17
+Authority date: 2026-08-28
 Status: `CURRENT_OWNER_EDITORIAL_VOICE`
 Owner: Jim
 Applies to: V1 canonical articles and derivatives; V2 spoken/editorial adaptation where compatible.
@@ -34,6 +34,12 @@ A substantive article should answer, where evidence supports it:
 7. What would confirm or challenge the interpretation?
 8. What should an informed reader watch next?
 
+For early attributed intelligence, question 1 becomes two questions: what did the named source
+report, and what is independently confirmed about the underlying event? An exact reputable report
+may itself be the timely peg. The article must retain the reader-visible epistemic label in the
+headline/dek/opening and all derivatives; analysis that depends on an unconfirmed event remains
+conditional without becoming bland.
+
 No-publication remains valid. The system must not manufacture a thesis merely to fill a slot.
 
 ## Authority layers
@@ -46,6 +52,11 @@ Public prose must preserve four distinct layers:
 - `SCENARIO_OR_UNCERTAINTY`: conditional future path, never written as observed truth.
 
 Capital Chronicle-owned proprietary models, calculations, scenarios, probabilities, forecasts, regimes, Bayesian outputs, and numeric conclusions require exact Capital Chronicle authority. External models never acquire that authority.
+
+Machine-readable current-event metadata additionally preserves evidence basis, event-confirmation
+state, origin characterization, source multiplicity, primary publisher/source identity, report
+proposition, event proposition, and one reader-visible label. Report truth never silently upgrades
+to event truth. `LEAK`, `RUMOR`, and anonymous/internal-source language require exact provenance.
 
 ## Core prose rules
 
@@ -97,6 +108,10 @@ Breaking briefs may be shorter and narrower. Deep analysis may defer secondary m
 ### Breaking brief
 
 Fact-first, Reuters-dominant, normally zero humor, limited interpretation, explicit uncertainty. Do not convert a thin evidence packet into a synthetic essay.
+
+A narrow important attributed report belongs here when report truth is proven but event truth
+remains unconfirmed. Lead with who reports what, state confirmation status immediately, explain the
+market-relevant tension, and identify what would confirm or deny it.
 
 ### Data release
 

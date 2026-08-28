@@ -1,0 +1,108 @@
+{
+  "schema_version": "contentops.pr37_current_source_acceptance_attempt.v1",
+  "classification": "CURRENT_HOST_ACCEPTANCE_INCOMPLETE_TRUTHFUL_SOURCE_ABSTENTION",
+  "run_id": "pr37-current-source-acceptance-20260827T235838Z",
+  "cutoff_utc": "2026-08-27T23:58:38Z",
+  "fresh_intake": {
+    "capture_attempt_at_utc": "2026-08-27T23:50:23.266555Z",
+    "capture_state": "CAPTURED",
+    "rows_captured": 162,
+    "newest_source_event_at_utc": "2026-08-27T23:50:25Z",
+    "rolling_24h_candidate_count_after_capture": 1286,
+    "chrome_9222_readiness": "READY",
+    "auth_classification": "READY",
+    "timeline_responses_observed": 3,
+    "llm_or_provider_calls": 0
+  },
+  "simple_opportunity": {
+    "candidate_count": 32,
+    "admitted_candidate_count": 3,
+    "selection_count": 1,
+    "writer_invocation_count": 0,
+    "revision_count": 0,
+    "logical_model_invocation_count": 1,
+    "logical_model_invocation_limit": 3,
+    "source_request_count": 6,
+    "source_request_limit": 6,
+    "source_request_allocation": [3, 3, 0],
+    "qualified_article_count": 0,
+    "native_preview_count": 0,
+    "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
+  },
+  "candidate_attempts": [
+    {
+      "position": 1,
+      "candidate_id": "simple-story-93cedb92a5c6eb7164788cfb",
+      "headline_id": "cc-x-headline-7e170acb6ad83a2f94e68112",
+      "public_headline_text": "TRUMP PERSONALLY SENT CIA DIRECTOR JOHN RATCLIFFE ON A SECRET MISSION TO MOSCOW, KEEPING EVEN SOME SENIOR WHITE HOUSE AND MILITARY OFFICIALS OUT OF THE LOOP, WITH RATCLIFFE'S MAIN MESSAGE THAT THE U.S. REMAINS COMMITTED TO NATO'S ARTICLE 5 AND THAT MOSCOW SHOULD NOT TEST THE",
+      "public_source_identity_from_public_url": "FirstSquawk",
+      "public_source_url": "https://x.com/FirstSquawk/status/2093113544992862341",
+      "source_timestamp_utc": "2026-08-27T23:08:51Z",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "research_queries": [
+        "John Ratcliffe secret mission Moscow WSJ",
+        "Trump CIA director Moscow NATO Article 5",
+        "Ratcliffe Russia peace talks Ukraine WSJ"
+      ],
+      "get_count": 3,
+      "route_sequence": ["REPUTABLE_SECONDARY"],
+      "accepted_document_count": 0,
+      "safe_blockers": ["HTTP_404", "public_source_candidate_request_budget_exhausted"],
+      "stop_reason": "The active candidate used its three-GET completion allowance without obtaining an accepted exact publisher document. Lower-level RSS/publisher path telemetry is not persisted by the current resolver and is not inferred here."
+    },
+    {
+      "position": 2,
+      "candidate_id": "simple-story-b9664cc98ed24d3eba503f47",
+      "headline_id": "cc-x-headline-5e9071fb67aef419f126ec7c",
+      "public_headline_text": "FEDERAL RESERVE CHAIR KEVIN WARSH IS SET TO DELIVER HIS CLOSELY WATCHED JACKSON HOLE KEYNOTE SPEECH FRIDAY, WITH INVESTORS LOOKING FOR CLEARER GUIDANCE ON HOW THE FED WILL RESPOND TO INFLATION AND ECONOMIC DATA, AS WARSH HAS SO FAR AVOIDED DETAILED FORWARD GUIDANCE UNLIKE",
+      "public_source_identity_from_public_url": "FirstSquawk",
+      "public_source_url": "https://x.com/FirstSquawk/status/2093118709581991966",
+      "source_timestamp_utc": "2026-08-27T23:29:23Z",
+      "article_mode": "WEEK_AHEAD_OR_WATCH",
+      "research_queries": [
+        "Kevin Warsh Jackson Hole speech",
+        "Federal Reserve Chair Kevin Warsh keynote Friday",
+        "Warsh forward guidance inflation"
+      ],
+      "get_count": 3,
+      "route_sequence": ["REPUTABLE_SECONDARY"],
+      "accepted_document_count": 0,
+      "safe_blockers": ["HTTP_404", "public_source_candidate_request_budget_exhausted"],
+      "stop_reason": "The second candidate used the remaining three GETs without obtaining an accepted exact publisher document. Lower-level RSS/publisher path telemetry is not persisted by the current resolver and is not inferred here."
+    },
+    {
+      "position": 3,
+      "candidate_id": "simple-story-f986cb376bc656d768a55491",
+      "headline_id": null,
+      "public_headline_text": null,
+      "public_source_url": null,
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "research_queries": [
+        "USGS rename Lake Ontario Lake America",
+        "US Geological Survey Lake America electronic documents"
+      ],
+      "get_count": 0,
+      "route_sequence": [],
+      "accepted_document_count": 0,
+      "safe_blockers": ["shared_source_request_budget_exhausted"],
+      "stop_reason": "Not attempted because the first two candidates consumed the unchanged shared six-GET budget."
+    }
+  ],
+  "sourceability_root_cause": "Neither of the two attempted genuinely current candidates yielded an exact accepted publisher document through the existing reputable-secondary route within its three-GET completion allowance. Both observed an HTTP 404 on an unpersisted lower-level route step and exhausted their candidate allowance. The third admitted fallback was not attempted because the shared six-GET budget was exhausted.",
+  "code_correction_was_necessary": false,
+  "code_correction_was_performed": false,
+  "reason_no_code_correction": "The prior-walk audit and bounded PR19 donor revalidation showed that compact query normalization still did not expose exact publisher bytes. The fresh run likewise produced no exact document. No demonstrated false-negative admission, incorrect route-health suppression, or reachable locator-to-document completion was available to repair without weakening evidence or exceeding the budgets.",
+  "production_database_sha256_before": "7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E",
+  "production_database_sha256_after": "7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E",
+  "codex_runtime_model_call_count": 0,
+  "public_write_count": 0,
+  "provider_publication_write_count": 0,
+  "publication_coordinator_dispatch_count": 0,
+  "unknown_write_count": 0,
+  "current_article_for_owner_review_path": null,
+  "current_native_previews_for_owner_review_path": null,
+  "current_article_validation_summary_path": null,
+  "local_runtime_receipt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_EDITORIAL_GROWTH_EDGE_AND_SOURCEABILITY_CLOSURE_V1_20260827T235838Z\\simple_gemini_newsroom_receipt_v1.json",
+  "local_runtime_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_EDITORIAL_GROWTH_EDGE_AND_SOURCEABILITY_CLOSURE_V1_20260827T235838Z\\simple_gemini_evidence_v1.json",
+  "secrets_or_private_session_material_included": false
+}

@@ -1,7 +1,8 @@
 # ContentOps V1 Simple Gemini Runtime Reset V1
 
-Authority date: 2026-08-27
+Authority date: 2026-08-28
 Status: `CURRENT_V1_EXECUTION_AUTHORITY`
+Doctrine: `EARLY_ATTRIBUTED_INTELLIGENCE`
 
 This owner-approved reset supersedes routine Codex Desktop newsroom production and the legacy
 evidence-ready/split-phase worker critical path. Historical artifacts remain valid evidence; they
@@ -13,20 +14,36 @@ do not route current execution.
 current headline sidecars + canonical reconciled published memory + optional read-only CC context
 -> deterministic duplicate suppression and a packet of at most 32 current candidates
 -> one strict 9Router gemini-3.5-flash(high) selection admitting one useful primary and <=2 useful fallbacks
--> ordered first-party-aware candidate source walk under one shared deterministic maximum of 6 total GETs
+-> deterministic report provenance and epistemic candidate state
+-> provenance-aware candidate source walk under one shared deterministic maximum of 6 total GETs
 -> one bounded 9Router gemini-3.5-flash(high) article-writing invocation for the first source-qualified candidate
--> deterministic material-claim/source-byte validation
+-> deterministic report-truth/event-truth/material-claim/source-byte/epistemic validation
 -> at most one bounded 9Router gemini-3.5-flash(high) revision without source expansion
 -> one qualified zero-write canonical article record
 -> exactly eight UNDISPATCHED derivative intents
 -> separate existing DurablePublicationCoordinator only after explicit public-write authority
 ```
 
-The source walk performs a maximum 6 requests total across the fixed admitted candidate plan.
-For each candidate it uses the shortest governed route: exact already-bound trustworthy source;
-existing allowlisted official/company-primary locator followed by exact accepted document bytes;
-then existing reputable-secondary locator/resolution fallback. Every route consumes the same
-ledger. Locator/search/listing bytes are discovery-only and never satisfy article evidence.
+The source walk performs a maximum 6 requests total across the fixed admitted candidate plan. For
+an explicitly attributed reputable report it first proves report truth through the named publisher
+route, without spending scarce budget on generic issuer/government confirmation. Otherwise it uses
+the shortest governed route: exact already-bound trustworthy source; existing allowlisted
+official/company-primary locator followed by exact same-event document bytes; then existing
+reputable-secondary locator/resolution fallback. Every route consumes the same ledger. A same-
+entity/different-event document does not qualify. Locator/search/listing bytes remain discovery or
+attribution material only under their exact source contract.
+
+Every eligible current-event article carries `evidence_basis`, `event_confirmation_state`,
+`origin_character`, `source_multiplicity`, primary reporting publisher/source identity, report and
+event propositions, and one reader-visible label. `UNCONFIRMED` is publishable when report truth is
+proven; it is never permission to state event truth. Arbitrary X accounts remain discovery-only.
+An exact record from the owner-curated canonical X-list may now support a narrow relay-of-reporting
+proposition (`Relay R, citing Publisher P, reports X`) or an explicitly marked market-rumor
+proposition without resolving the original publisher. It uses zero GETs, remains `UNCONFIRMED`,
+and never proves the cited publisher's original report, the underlying event, or Capital Chronicle
+numeric truth. Arbitrary X rows remain discovery-only; the existing professional-feed handle donor
+still binds freshness only and no arbitrary handle is promoted. High-harm claims retain existing
+enhanced corroboration.
 
 Normal success uses two logical model invocations. Three is the absolute ceiling when the one
 revision is needed. Each Simple logical invocation uses only `vx/gemini-3.5-flash(high)` with one
@@ -133,15 +150,34 @@ article was manufactured. Production publication SQLite SHA-256 remained unchang
 calls, public writes, provider publication writes, publication-coordinator dispatch, and
 `UNKNOWN_WRITE` were all zero.
 
-This closes persistent current-host zero-write runtime only. The next product slice is Simple
-Editorial Growth Edge reuse/integration before routine public-write enablement. It must reuse the
-existing Institutional Edge editorial contract, `CAPITAL_CHRONICLE_VIEW`,
-`WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer authority separation, native eight-
-destination packaging, and compatible existing source discovery/retrieval capabilities. It must
-investigate the carried `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` result before adding any
-new discovery system. PR #36 does not implement that slice. Separate public-write/readback, real
-production-day 5–8 useful published/day acceptance, and explicit `V1_FINAL_PRODUCT_ACCEPTED` remain
-later gates in that order.
+Historical PR #37 sourceability-acceptance epoch: the Simple Editorial Growth Edge implementation
+reuses the existing Institutional Edge packet
+and current mode mappings in selector/writer/revision input, enforces explicit qualitative house
+inference without expanding Capital Chronicle numeric authority, and compiles exactly eight native
+text-only previews from final validated truth. The full published-memory-deduplicated rolling
+universe is now deterministically sourceability-ranked before the 32-candidate packet is frozen.
+The adapter reuses existing official/company-primary, reputable-secondary, attribution,
+exact-route health, request-cost, and freshness signals. It performs zero model/provider calls and
+zero GETs, changes work order only, grants no authority, and never applies host-wide suppression.
+
+The current before/after proof contained 1,212 eligible candidates and changed seven top-32
+identities in each direction. The selected candidate moved from freshness-only rank 79 to
+sourceability-aware rank 2 because the existing company-primary locator was applicable. The one
+permitted current-host opportunity then used one Flash selection, three admissions, two official-
+primary GETs, one Flash writer, and the single permitted revision attempt. The retrieved exact
+NVIDIA document covered a different AWS-NVIDIA infrastructure event and did not support the
+selected current program-pause peg; deterministic validation blocked the article and the revision
+response was malformed. The run stopped truthfully at three logical Flash calls with zero qualified
+articles or previews and no second selection or opportunity. One genuinely current story with
+same-peg exact publisher support plus a valid bounded article response remains the Growth Edge
+acceptance gap at that epoch. The later current PR #37 closeout below supersedes that historical gap.
+Separate public-write/readback, real production-day 5–8 useful published/day acceptance, and
+explicit `V1_FINAL_PRODUCT_ACCEPTED` remain later gates in that order.
+
+The prior residual requirement for same-event official/primary confirmation before writing is
+superseded by the 2026-08-28 North Star. The current PR #37 article/eight-preview gate is closed by
+the owner-review package below; the next distinct gate is separate routine public-write/readback
+authority.
 
 The selected candidate is always the current article peg. Title/dek must remain led by that event;
 older/background highlights in a current document use temporally neutral wording unless exact bytes
@@ -149,3 +185,12 @@ prove chronology, and co-location in one document never proves simultaneity. Eve
 dek, search title, meta description, and social hook requires an exact material-claim binding under
 the same fail-closed validator as body claims. Unsupported public terminology inflation, including
 calling financing platforms a `fund`, is blocked.
+
+## Current PR #37 article closeout
+
+The single permitted current opportunity closed the article/preview gate with one exact Al Jazeera
+report classified `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE`, one
+deterministically valid article, and exactly eight preview-only native packages. It remained within
+32 candidates, six GETs, three admissions, one writer, one revision, and three logical Flash calls;
+production DB bytes and all Codex/public/provider/coordinator/UNKNOWN counters remained unchanged or
+zero. Relay-only and rumor-only runtime qualification was not observed because direct reporting won.

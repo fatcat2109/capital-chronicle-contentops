@@ -1,0 +1,161 @@
+{
+  "schema_version": "contentops.pr37_prior_host_walk_sanitized_diagnostic.v1",
+  "classification": "PRIOR_ARTIFACT_AUDITED_WITH_BOUNDED_LABELED_REPLAY",
+  "prior_artifact": {
+    "path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_EDITORIAL_GROWTH_EDGE_AND_SOURCEABILITY_CLOSURE_V1_20260827T223801Z\\simple_gemini_evidence_v1.json",
+    "cutoff_utc": "2026-08-27T22:38:01Z",
+    "request_count": 6,
+    "request_limit": 6,
+    "status": "BLOCKED",
+    "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED",
+    "fields_not_recorded_by_prior_artifact": [
+      "source_account",
+      "rss_locator_candidate_count",
+      "selected_publisher_identity",
+      "sitemap_or_robots_urls",
+      "publisher_candidate_title",
+      "publisher_candidate_relevance",
+      "exact_document_attempt_url",
+      "exact_document_attempt_result",
+      "route_health_suppression"
+    ],
+    "missing_fields_are_not_inferred_as_prior_run_facts": true
+  },
+  "candidates": [
+    {
+      "position": 1,
+      "candidate_id": "simple-story-d71b3e1de69bdc11eddf725d",
+      "headline_id": "cc-x-headline-1aabbcd6dd0d07f052bb3059",
+      "public_headline_text": "OIL PRICES CLIMBED ON SIGNALS THAT DIPLOMATIC EFFORTS TO REACH AN AGREEMENT OVER THE STRAIT OF HORMUZ HAD MET STUMBLING BLOCKS, WITH THE WALL STREET JOURNAL REPORTING THE TRUMP ADMINISTRATION HAS WARNED MEDIATORS IT IS NOT INTERESTED IN REVERTING TO THE CONDITIONS OF THE JUNE",
+      "source_account_recorded_in_prior_artifact": null,
+      "public_source_identity_from_public_url": "FirstSquawk",
+      "public_source_url": "https://x.com/FirstSquawk/status/2093072066987925953",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "research_queries": [
+        "Trump administration Strait of Hormuz diplomatic efforts Wall Street Journal",
+        "oil prices Strait of Hormuz negotiations stumbling blocks"
+      ],
+      "prior_get_count": 3,
+      "prior_route_sequence": ["REPUTABLE_SECONDARY"],
+      "prior_safe_blockers": ["public_source_candidate_request_budget_exhausted"],
+      "prior_stop_reason": "The persisted route row reached the active candidate three-GET ceiling with no accepted exact document; lower-level locator steps were not recorded.",
+      "bounded_replay": {
+        "observed_at_utc": "2026-08-27T23:44:42Z",
+        "not_prior_run_bytes": true,
+        "rss_locator_result": "PASS",
+        "rss_loader_admitted_candidate_count": 1,
+        "selected_publisher_identity": "wsj.com",
+        "selected_publisher_candidate_title": "Trump Says U.S. Will Guide Stranded Ships Through Strait of Hormuz",
+        "selected_publisher_candidate_relevance": 0.4,
+        "attempted_paths": [
+          {"path": "GOOGLE_NEWS_RSS_QUERY", "result": "HTTP_200"},
+          {"path": "https://www.wsj.com/news-sitemap.xml", "result": "HTTP_403"},
+          {"path": "https://www.wsj.com/robots.txt", "result": "HTTP_200"}
+        ],
+        "exact_document_attempted": false,
+        "route_health_suppression": false,
+        "safe_blockers": ["public_source_candidate_request_budget_exhausted"],
+        "stop_reason": "Three GETs were consumed by RSS, the blocked news-sitemap path, and robots discovery before any declared sitemap or exact document could be fetched. The admitted RSS title was not the current headline event."
+      }
+    },
+    {
+      "position": 2,
+      "candidate_id": "simple-story-098aa962dff9ffef3ab5b4d6",
+      "headline_id": "cc-x-headline-474a3c779f31a490827104af",
+      "public_headline_text": "JAPAN PM TAKAICHI SAYS IN A YOMIURI INTERVIEW THAT SHE AIMS TO BALANCE GROWTH AND FISCAL DISCIPLINE, ADDING THAT THE CONSUMPTION TAX RATE WILL DEFINITELY RETURN TO 8% AFTER TWO YEARS",
+      "source_account_recorded_in_prior_artifact": null,
+      "public_source_identity_from_public_url": "FirstSquawk",
+      "public_source_url": "https://x.com/FirstSquawk/status/2093071923240743165",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "research_queries": [
+        "Sanae Takaichi consumption tax Yomiuri interview",
+        "Japan PM Takaichi fiscal discipline growth consumption tax 8 percent"
+      ],
+      "prior_get_count": 2,
+      "prior_route_sequence": ["REPUTABLE_SECONDARY"],
+      "prior_safe_blockers": ["public_source_unavailable"],
+      "prior_stop_reason": "Both stored research queries completed without an accepted exact source document.",
+      "bounded_replay": {
+        "observed_at_utc": "2026-08-27T23:44:42Z",
+        "not_prior_run_bytes": true,
+        "rss_query_results": [
+          {"query_position": 1, "rss_loader_admitted_candidate_count": 0},
+          {"query_position": 2, "rss_loader_admitted_candidate_count": 0}
+        ],
+        "selected_publisher_identity": null,
+        "sitemap_or_robots_attempted": false,
+        "exact_document_attempted": false,
+        "route_health_suppression": false,
+        "safe_blockers": ["public_source_unavailable"],
+        "stop_reason": "Neither RSS query produced a current allowlisted publisher candidate meeting the existing relevance boundary; no publisher-resolution path was eligible."
+      }
+    },
+    {
+      "position": 3,
+      "candidate_id": "simple-story-bb7531ab30153a3de7b8e3b5",
+      "headline_id": "cc-x-headline-a1dc30a3dd71d0527ce37987",
+      "public_headline_text": "FED'S SCHMID SAYS THE CENTRAL BANK'S RATE-SETTING ISN'T RESTRAINING THE ECONOMY WITH INFLATION ABOVE TARGET, WHILE FED'S COLLINS SAYS THEY CONTINUE TO SEE RATES AS MILDLY RESTRICTIVE AND FED'S HAMMACK TOLD CNBC NOW IS THE TIME FOR OFFICIALS TO ACT TO CONTAIN PRICE PRESSURES.",
+      "source_account_recorded_in_prior_artifact": null,
+      "public_source_identity_from_public_url": "FirstSquawk",
+      "public_source_url": "https://x.com/FirstSquawk/status/2093072048377737332",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "research_queries": [
+        "Fed Schmid Collins Hammack interest rates inflation",
+        "Federal Reserve restrictive rates Schmid Collins Hammack"
+      ],
+      "prior_get_count": 1,
+      "prior_route_sequence": ["REPUTABLE_SECONDARY"],
+      "prior_safe_blockers": ["public_source_candidate_request_budget_exhausted"],
+      "prior_stop_reason": "Only one global GET remained; it was used by the first RSS query and no accepted document could be resolved.",
+      "bounded_replay": {
+        "observed_at_utc": "2026-08-27T23:44:42Z",
+        "not_prior_run_bytes": true,
+        "rss_locator_result": "PASS",
+        "rss_loader_admitted_candidate_count": 0,
+        "current_reuters_locator_title_observed_below_gate": "As Jackson Hole conference kicks off, three Fed officials issue inflation warnings",
+        "current_reuters_locator_relevance_for_stored_query": 0.2857,
+        "selected_publisher_identity": null,
+        "sitemap_or_robots_attempted": false,
+        "exact_document_attempted": false,
+        "route_health_suppression": false,
+        "safe_blockers": ["public_source_candidate_request_budget_exhausted"],
+        "stop_reason": "The current Reuters locator title was below the existing relevance boundary and the shared six-GET ledger was exhausted after the RSS request."
+      },
+      "compact_query_diagnostic": {
+        "query": "Fed officials inflation",
+        "query_terms_all_derived_from_prior_public_headline": true,
+        "status": "BLOCKED",
+        "get_count": 6,
+        "attempted_paths": [
+          {"path": "GOOGLE_NEWS_RSS_QUERY", "result": "HTTP_200"},
+          {"path": "https://www.reuters.com/news-sitemap.xml", "result": "HTTP_401"},
+          {"path": "https://www.reuters.com/robots.txt", "result": "HTTP_200"},
+          {"path": "https://www.reuters.com/arc/outboundfeeds/news-sitemap-index/?outputType=xml", "result": "HTTP_200"},
+          {"path": "https://www.reuters.com/arc/outboundfeeds/news-sitemap/?outputType=xml", "result": "HTTP_200_NO_RELEVANT_CURRENT_CANDIDATE"},
+          {"path": "GOOGLE_NEWS_OPAQUE_DISCOVERY_URL", "result": "HTTP_200_NO_PUBLISHER_REDIRECT"}
+        ],
+        "exact_document_attempted": false,
+        "accepted_document_count": 0,
+        "safe_blockers": [
+          "HTTP_401",
+          "publisher_sitemap_relevant_candidate_unavailable",
+          "public_source_redirect_authority_invalid",
+          "public_source_candidate_request_budget_exhausted"
+        ],
+        "conclusion": "Compact query normalization alone cannot close this story inside six GETs because the existing Reuters public locator surfaces did not expose the exact document and the opaque Google News URL did not redirect to publisher bytes."
+      }
+    }
+  ],
+  "route_health": {
+    "suppression_observed": false,
+    "host_wide_suppression": false,
+    "routing_only": true,
+    "grants_factual_authority": false
+  },
+  "sourceability_root_cause": "The admitted stories were not reachable as exact governed publisher documents within the existing six-GET route: the primary selected a stale/mismatched WSJ locator and hit a blocked sitemap plus robots path; the second had no eligible current allowlisted RSS candidate; the third exposed current Reuters locator metadata but Reuters public sitemap surfaces omitted the exact article and the Google News locator did not redirect to publisher bytes.",
+  "code_correction_necessary": false,
+  "reason_no_code_correction": "The bounded compact-query donor revalidation still produced zero exact publisher documents after six GETs. Lowering relevance, reallocating the budget, or granting locator bytes authority would not have produced source-byte evidence and would weaken or bypass the accepted boundary.",
+  "secrets_or_private_session_material_included": false,
+  "public_or_provider_write_count": 0,
+  "unknown_write_count": 0
+}

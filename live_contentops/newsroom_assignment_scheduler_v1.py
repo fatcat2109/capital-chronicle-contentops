@@ -19,7 +19,10 @@ from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
 
 from live_contentops.daily_x_cdp_headline_capture_packet_v0 import parse_timestamp
-from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
+from live_contentops.headline_data_root_v1 import (
+    canonical_headline_sidecar_dir,
+    canonical_headline_sidecar_glob,
+)
 
 SCHEMA_VERSION = "capital_chronicle.newsroom_schedule_decision.v1"
 
@@ -54,6 +57,10 @@ EXPECTED_CANDIDATE_POOL_PRODUCER_COMMIT_SHA = "8c63faca0603f81bebfbb68380a0dc4ad
 DEFAULT_X_SIDECAR_GLOB = canonical_headline_sidecar_glob()
 ROLLING_X_INPUT_SCHEMA_VERSION = "capital_chronicle.rolling_x_headline_input.v1"
 UNTRUSTED_EXTERNAL_CONTENT = "UNTRUSTED_EXTERNAL_CONTENT"
+CANONICAL_X_LIST_SOURCE_PLATFORM = "x_cdp_list_latest_tweets_timeline"
+CANONICAL_X_LIST_PROVENANCE_SCHEMA_VERSION = (
+    "contentops.canonical_x_list_record_provenance.v1"
+)
 ROLLING_X_SOURCE_TIMESTAMP_FIELDS = (
     "headline_timestamp",
     "timestamp_gmt7",
@@ -351,6 +358,55 @@ def load_rolling_x_headline_sidecars(
                 continue
             seen_dedupe_identities.add(dedupe_identity)
             headline_id = f"cc-x-headline-{hashlib.sha256(dedupe_identity.encode('utf-8')).hexdigest()[:24]}"
+            source_platform = _first_external_text(
+                row, ("source_platform", "platform")
+            )
+            source_ref = _first_external_text(
+                row, ("tweet_url", "source_url_or_ref", "url")
+            )
+            canonical_x_list_provenance: dict[str, Any] = {}
+            try:
+                canonical_path = (
+                    path.resolve().parent
+                    == canonical_headline_sidecar_dir().resolve()
+                )
+            except OSError:
+                canonical_path = False
+            parsed_ref = urlsplit(source_ref)
+            if (
+                canonical_path
+                and source_platform == CANONICAL_X_LIST_SOURCE_PLATFORM
+                and parsed_ref.scheme == "https"
+                and str(parsed_ref.hostname or "").casefold()
+                in {"x.com", "www.x.com"}
+                and "/status/" in parsed_ref.path
+            ):
+                from live_contentops.x_list_ingest_capture_v1 import TARGET_LIST_ID
+
+                canonical_x_list_provenance = {
+                    "schema_version": CANONICAL_X_LIST_PROVENANCE_SCHEMA_VERSION,
+                    "owner_curated_canonical_x_list": True,
+                    "target_list_id": TARGET_LIST_ID,
+                    "source_platform": source_platform,
+                    "exact_sidecar_record": True,
+                    "report_truth_scope_only": True,
+                    "underlying_event_truth_granted": False,
+                    "capital_chronicle_numeric_authority_granted": False,
+                    "public_write_authority_granted": False,
+                }
+            authority_constraints = {
+                "discovery_and_ranking_only": True,
+                "numeric_truth_authority": False,
+                "analysis_or_forecast_authority": False,
+                "publication_authority": False,
+            }
+            if canonical_x_list_provenance:
+                authority_constraints.update(
+                    {
+                        "canonical_x_report_truth_scope_available": True,
+                        "canonical_x_underlying_event_truth_granted": False,
+                    }
+                )
             accepted.append({
                 "headline_id": headline_id,
                 "source_timestamp_utc": _iso_utc(source_dt),
@@ -360,8 +416,9 @@ def load_rolling_x_headline_sidecars(
                 "external_content": {
                     "headline_text": normalized_text,
                     "author_handle": _first_external_text(row, ("author_handle", "author", "author_name", "username", "source")),
-                    "source_platform": _first_external_text(row, ("source_platform", "platform")),
-                    "url_or_source_ref": _first_external_text(row, ("tweet_url", "source_url_or_ref", "url")),
+                    "source_platform": source_platform,
+                    "url_or_source_ref": source_ref,
+                    "canonical_x_list_provenance": canonical_x_list_provenance,
                     "tags": _rolling_x_tags(row, ("tags", "topic_tags", "candidate_catalyst_tags")),
                     "follow_up_data_need_candidates": _rolling_x_tags(row, ("follow_up_data_need_candidates",)),
                     "official_source_urls": [
@@ -370,12 +427,7 @@ def load_rolling_x_headline_sidecars(
                         if str(value).strip()
                     ],
                 },
-                "authority_constraints": {
-                    "discovery_and_ranking_only": True,
-                    "numeric_truth_authority": False,
-                    "analysis_or_forecast_authority": False,
-                    "publication_authority": False,
-                },
+                "authority_constraints": authority_constraints,
                 "source_locator": {
                     "path": path.as_posix(),
                     "line": line_number,

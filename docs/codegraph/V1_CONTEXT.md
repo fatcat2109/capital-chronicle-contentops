@@ -1,22 +1,27 @@
 # ContentOps V1 Current Context Map
 
-Authority date: 2026-08-24
+Authority date: 2026-08-28
 
 This is a curated implementation/discovery map, not product authority. Jim's latest instruction, root authority, fresh GitHub bytes, exact code/tests/evidence, and current runtime evidence outrank this map when they conflict.
 
 ## Current product state
 
-`SIMPLE_GEMINI_RUNTIME_RESET / PERSISTENT_CURRENT_HOST_SCHEDULER_INTAKE_ZERO_WRITE_PASS`
+`PR37_EDITORIAL_GROWTH_EDGE_ACCEPTED / PUBLIC_WRITE_READBACK_AUTHORITY_NEXT`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
 current sidecars + canonical reconciled published memory -> deterministic dedupe -> <=32 candidates
 -> one strict `gemini-3.5-flash(high)` selection admitting one useful primary and at most two useful
-fallbacks -> one first-party-aware resolver under a shared <=6 deterministic-GET budget (exact
-bound -> allowlisted official/company-primary locator and exact document -> reputable-secondary fallback) -> one Flash
-writer -> deterministic material-claim validation -> optional one Flash revision without source
+fallbacks -> one provenance-aware resolver under a shared <=6 deterministic-GET budget (explicit
+attributed reputable report first; otherwise exact bound -> correct same-event official/company-
+primary locator and exact document -> reputable-secondary fallback) -> explicit report/event
+epistemic state -> one Flash writer -> deterministic material-claim/source/epistemic validation -> optional one Flash revision without source
 expansion -> one qualified zero-write article -> exactly eight undispatched intents. Codex runtime
 model calls are zero.
+
+Exact owner-curated canonical-X records may support narrow `Relay R, citing Publisher P, reports X`
+or explicitly marked `MARKET RUMOR` propositions with zero GETs, while arbitrary social rows remain
+discovery-only and underlying event truth remains unconfirmed.
 
 PR #19 locator/retrieval primitives, PR #20 article/package proof, and PR #29 validate-after concepts
 are reusable donors. PR #30/#31 and native Desktop split-phase routing are historical evidence only.
@@ -43,7 +48,9 @@ owner-locked four-window local tick + production-day/window/slot identity
 -> canonical published memory + countable zero-write scheduler memory
 -> local headline sidecars
 -> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
+-> deterministic published-memory dedupe + sourceability-aware full-universe ordering
 -> bounded 9Router/Flash selection over <=32 candidates
+-> explicit attributed publisher/relay provenance and report/event epistemic state
 -> SimpleFirstPartyAwareEvidenceResolver composing existing official-primary and secondary loaders under one shared <=6 GET budget
 -> bounded 9Router/Flash article writer for the first source-qualified candidate
 -> deterministic source/claim validation
@@ -87,6 +94,7 @@ Current routine implementation areas:
 - `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model authority;
 - `live_contentops/public_secondary_evidence_loader_v1.py` — deterministic selected-story retrieval;
 - `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger first-party-aware route arbitration;
+- `live_contentops/v1_simple_epistemic_state_v1.py` — report/event proposition, provenance, claim-risk, and reader-label projection;
 - `live_contentops/official_primary_source_locator_v1.py` / `official_primary_evidence_loader_v1.py` — allowlisted locator→exact official/issuer bytes;
 - `live_contentops/newsroom_production_day_v1.py` — provider-neutral qualified zero-write record;
 - `live_contentops/v1_simple_gemini_scheduler_v1.py` — four-window local tick, bounded slots, and
@@ -104,11 +112,24 @@ The final zero-write current-sidecar canary passed with a current earnings-led a
 material bindings for title, dek, search title, meta description, social hook, and body. The
 lightweight local scheduler now uses the same proven entrypoint and passed bounded due/idle/
 duplicate/restart plus persistent current-host/current-intake proof. No live/public write is
-authorized. The next product slice is Simple Editorial Growth Edge reuse/integration before
-routine public-write enablement. It reuses the Institutional Edge editorial contract,
-`CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer separation,
-native eight-destination packaging, and compatible source discovery/retrieval capability. It must
-investigate `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` before adding a new discovery system.
+authorized. The Simple Editorial Growth Edge implementation now reuses the Institutional Edge
+packet, `CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer
+separation, and the native eight-destination compiler. It preserves the 32/6/3/1 ceilings and adds
+only a completion-first three-GET candidate allocation under the same six-GET ledger plus a
+deterministic full-universe sourceability ordering adapter before the 32-candidate slice. The
+adapter reuses existing official/company-primary, reputable-secondary, attribution, route-health,
+request-cost, and freshness signals with zero model/network work and zero authority. Current proof
+changed seven top-32 identities in each direction across 1,212 eligible candidates. The earlier
+permitted host run reached exact publisher bytes for a different NVIDIA event, so deterministic
+current-peg validation blocked the article and the malformed single revision closed the run at the
+three-call ceiling. That is historical pre-closeout evidence and does not route current work.
+
+Current 2026-08-28 direction supersedes that residual same-event-official prerequisite. The exact
+epistemic adapter, publisher pinning, and native X/Threads quality correction are accepted. One
+ordinary exact reputable report may support `Publisher reports X / UNCONFIRMED`; arbitrary X remains
+discovery-only and high-harm claims retain enhanced evidence. The current Al Jazeera article and
+eight-preview runtime proof is closed. Relay-only/rumor-only runtime qualification remains an
+explicit unobserved caveat.
 
 ## Focused test families
 
@@ -127,7 +148,10 @@ Use the smallest exact tests discovered by CodeGraph around changed seams, inclu
 - `tests/test_daily_app_publication_lifecycle_v1.py`
 - `tests/test_destination_identity_pinning_v1.py`
 
-Current growth implementation must add focused coverage for official-primary narrow breaking, issuer-attribution boundaries, quiet-day mode fallback, house-view fact/opinion/Core-Analyzer separation, bounded material-event wake idempotency/spacing, and derivative-local readiness not vetoing canonical eligibility.
+Historical growth work added focused coverage for official-primary narrow breaking, issuer-
+attribution boundaries, quiet-day mode fallback, house-view fact/opinion/Core-Analyzer separation,
+bounded material-event wake idempotency/spacing, and derivative-local readiness not vetoing
+canonical eligibility. Those rows do not reopen PR #37 or route the active next gate.
 
 ## Durable state authority
 
@@ -153,11 +177,18 @@ These are identities, not permission to inspect credentials/session material.
 2. preserve the final Simple first-party/news-peg/public-metadata host PASS;
 3. preserve the lightweight local non-Codex scheduler persistent current-host/current-intake
    zero-write/restart PASS;
-4. integrate the existing Simple Editorial Growth Edge without rebuilding proven editorial,
-   authority-separation, packaging, or compatible source capabilities;
-5. follow with separate routine public-write/readback authority;
+4. preserve the accepted current article and eight owner-review previews;
+5. obtain separate routine public-write/readback authority;
 6. prove a real production day at 5–8 useful published articles without filler, then obtain the
    explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
+
+## Current PR #37 closeout
+
+The single permitted current opportunity closed the article/eight-preview host gate with an exact
+Al Jazeera `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE` result, deterministic
+validation PASS, and eight preview-only native packages. The selected story used direct reporting;
+relay-only and rumor-only current-host qualification remains unobserved, while canonical-X zero-GET
+provenance behavior is statically covered.
 
 ## Stale traps
 

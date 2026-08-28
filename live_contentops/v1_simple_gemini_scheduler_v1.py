@@ -32,6 +32,9 @@ from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrche
 from live_contentops.published_corpus_read_model_v1 import (
     load_canonical_published_memory_read_only,
 )
+from live_contentops.source_route_health_v1 import (
+    load_source_route_health_snapshot_read_only,
+)
 from live_contentops.v1_simple_gemini_newsroom_v1 import (
     MAX_LOGICAL_MODEL_INVOCATIONS,
     MAX_REVISION_ROUNDS,
@@ -289,6 +292,12 @@ class SimpleGeminiLocalScheduler:
         self._orchestrator = ContentOpsProductionOrchestrator()
         self._simple_operation = (
             simple_operation or self._execute_canonical_simple_operation
+        )
+        self._source_route_health_path = (
+            Path(published_memory_output_root).resolve()
+            / "source_route_health_v1.json"
+            if published_memory_output_root is not None
+            else None
         )
         if published_memory_loader is None:
             if published_memory_store is None or published_memory_output_root is None:
@@ -636,6 +645,13 @@ class SimpleGeminiLocalScheduler:
                         cutoff_utc=_iso_utc(operation_cutoff),
                         run_id=slot_id,
                         published_memory=memory,
+                        source_route_health=(
+                            load_source_route_health_snapshot_read_only(
+                                self._source_route_health_path
+                            )
+                            if self._source_route_health_path is not None
+                            else {}
+                        ),
                     )
                 )
             except (

@@ -6,8 +6,10 @@ failed exact route while continuing safe same-publisher recovery and unrelated r
 """
 from __future__ import annotations
 
+import json
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
+from pathlib import Path
 from typing import Any, Callable, Mapping
 from urllib.parse import urlsplit, urlunsplit
 
@@ -17,6 +19,28 @@ DEFAULT_FAILURE_TTL_SECONDS = 6 * 60 * 60
 SUPPRESSIBLE_FAILURE_CLASSES = frozenset(
     {"HTTP_401", "HTTP_403", "HTTP_404", "ACCESS_OR_WAF", "PAYWALL", "DEAD_LINK"}
 )
+
+
+def load_source_route_health_snapshot_read_only(
+    path: str | Path,
+) -> dict[str, Any]:
+    """Read the existing routing-only projection without creating or repairing state."""
+    try:
+        value = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, TypeError, ValueError):
+        return {}
+    if (
+        not isinstance(value, Mapping)
+        or value.get("schema_version") != SCHEMA_VERSION
+        or value.get("routing_only") is not True
+        or value.get("exact_route_suppression_host_wide") is not False
+        or value.get("sourceability_or_health_grants_factual_authority") is not False
+        or value.get("sourceability_or_health_grants_numeric_authority") is not False
+        or value.get("sourceability_or_health_grants_permission_authority") is not False
+        or value.get("sourceability_or_health_grants_publication_authority") is not False
+    ):
+        return {}
+    return dict(value)
 
 
 def _utc_now() -> datetime:

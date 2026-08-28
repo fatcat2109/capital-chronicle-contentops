@@ -5,6 +5,29 @@ Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, or branch assumptions.
 
+## 2026-08-28 early-attributed-intelligence owner override
+
+`CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` at authority date 2026-08-28 is current. Official or
+primary confirmation is not a universal prerequisite. Current Simple V1 separates report truth
+from event truth and carries explicit evidence basis, confirmation state, origin characterization,
+source multiplicity, publisher identity, and reader-visible epistemic label through writing,
+validation, qualification, and all eight previews. For an explicitly attributed reputable report,
+the bounded resolver proves the reporting proposition before generic issuer/government hunting.
+One exact reputable secondary may support an ordinary narrow `Publisher reports X` proposition
+while X remains `UNCONFIRMED`; high-harm claims retain enhanced corroboration. An unrelated same-
+entity official document never confirms or disproves a different event. Arbitrary X-list accounts
+remain discovery-only; only identities already explicitly approved by current repository authority
+may act as relays, and a relay cannot impersonate the original publisher. This override supersedes
+conflicting official-first or same-event-primary-before-writer wording below.
+
+The owner-curated canonical X-list is now a record-scoped narrow report-truth authority. Only an
+exact canonical-loader marker plus exact captured text may support `Relay R, citing Publisher P,
+reports X` or an explicitly marked market-rumor proposition. Such records use zero GETs, remain
+`UNCONFIRMED`, never prove P's original report or X, never grant Capital Chronicle numeric truth,
+and cannot bypass high-harm enhanced evidence. Arbitrary social rows/list membership without that
+marker remain discovery-only. Publisher-pinned direct/RSS resolution remains accepted and direct
+bound publisher bytes still precede the relay path.
+
 ## 2026-08-27 V1 simple-Gemini architecture reset
 
 Jim explicitly approved a routine V1 architecture reset. `CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
@@ -13,9 +36,10 @@ evidence-ready-pool, or native PREPARE/COMPLETE routing language in this file. R
 the canonical reconciled published corpus without mutation, filters up to 32 current candidates
 before one strict `vx/gemini-3.5-flash(high)` selection, admits one primary plus at most two useful
 ordered fallbacks, and walks only that plan under one shared six-GET deterministic source budget.
-The current acquisition order is exact bound trustworthy source, allowlisted official/company-
-primary locator→exact document, then reputable-secondary fallback. Locator/search bytes never gain
-factual authority. One Flash writer, deterministic material-claim validation, and at most one Flash revision complete
+The current acquisition order is explicit attributed-report provenance first where present;
+otherwise exact bound trustworthy source, correct same-event official/company-primary locator→exact
+document, then reputable-secondary fallback. Locator/search bytes never gain factual authority. One
+Flash writer, deterministic material-claim and epistemic validation, and at most one Flash revision complete
 the article attempt. Each logical model invocation has one provider attempt and no fallback. Codex
 runtime model calls required: zero. Exactly eight zero-write derivative intents are persisted
 for a qualified article; `DurablePublicationCoordinator` remains the sole later public-write owner.
@@ -151,17 +175,26 @@ retrieval blockers while respecting the independent 32/6/3/1 article ceilings. P
 publication-store bytes were unchanged and all public/provider/unknown writes remained zero.
 
 The current V1 progression order is preserve exact-head CI, the final zero-write Simple host PASS,
-and the persistent current-host lightweight scheduler/current-intake zero-write/restart proof ->
-Simple Editorial Growth Edge reuse/integration -> separate public-write/readback authority -> real
-production-day 5–8 useful published/day acceptance -> explicit `V1_FINAL_PRODUCT_ACCEPTED`.
+the persistent current-host lightweight scheduler/current-intake zero-write/restart proof, and the
+accepted PR #37 Editorial Growth Edge article/eight-preview package -> separate routine public-
+write/readback authority -> real production-day 5–8 useful published/day acceptance -> explicit
+`V1_FINAL_PRODUCT_ACCEPTED` -> isolated V2 continuation.
 
-The next product slice must reuse rather than rebuild the existing Institutional Edge editorial
-contract, `CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer
-authority separation, native eight-destination packaging, and compatible existing source
-discovery/retrieval capabilities. It must investigate the carried current Simple result
-`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` before adding any new discovery system. PR #36
-does not implement that slice or grant public-write authority. 4/32 remains throughput telemetry,
-not a prerequisite. Final target remains 5–8 useful published articles/day without filler.
+The Simple Editorial Growth Edge implementation now reuses the existing Institutional Edge packet,
+house-mode inference/Core-Analyzer separation, and native eight-destination compiler. Deterministic
+regressions prove the unchanged 32/6/3/1 ceilings, a three-GET completion-first RSS->sitemap->exact-
+document path under the same six-GET ledger, and exactly eight final-truth-only non-dispatchable
+previews. The full published-memory-deduplicated rolling universe is now deterministically ranked
+by existing sourceability/reachability signals before the 32-candidate packet is frozen. Current
+proof changed seven top-32 identities in each direction across 1,212 eligible candidates with zero
+model/provider calls, zero GETs, zero authority, and exact-route rather than host-wide suppression.
+The earlier permitted current-host run used one selection, three admissions, two official-primary
+GETs, one writer, and one revision attempt. Exact NVIDIA publisher bytes covered a different event
+than the selected current peg, deterministic validation blocked the article, and the malformed
+revision response closed the run at the three-call ceiling. That result is historical pre-closeout
+evidence; the current PR #37 closeout below supersedes it for routing. Routine public-write authority
+remains zero. 4/32 remains throughput telemetry, not a prerequisite. Final target remains 5–8 useful
+published articles/day without filler.
 
 The final current-sidecar news-peg/public-metadata-integrity canary is `PASS`: 32 candidates, one
 Flash selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed
@@ -172,6 +205,18 @@ unknown writes. Preserve the prior source-routing and financing-led specimens as
 diagnostic evidence; neither is the current final editorial-quality result.
 
 ## Locked V2-after-V1 sequence
+
+### Current PR #37 closeout override (2026-08-28)
+
+The single permitted canonical-X-activation opportunity closed the current article/preview gate.
+The selected fallback resolved one exact Al Jazeera report and qualified as
+`DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE`; deterministic validation
+passed and exactly eight preview-only native packages preserved that state. It used 32 candidates,
+one selection, three admissions, six GETs, one writer, one revision, and three logical Flash calls.
+Production DB bytes were unchanged; Codex/public/provider/coordinator/UNKNOWN counts were zero.
+The selected story used direct reporting, so relay-only and rumor-only host qualification remains
+unobserved, while both zero-GET branches are statically proven. Routine public-write authority is
+still zero.
 
 Current master already owns the free-form/package/publication-control substrates. The branch
 `task/v2-native-staggered-automation-relay-shadow-correction-v1` at `10d18873e2d716dcd53b681a4370ef7726a27f9b`

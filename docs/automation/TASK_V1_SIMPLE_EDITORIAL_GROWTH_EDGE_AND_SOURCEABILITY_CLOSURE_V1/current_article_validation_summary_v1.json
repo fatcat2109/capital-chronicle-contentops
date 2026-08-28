@@ -1,0 +1,132 @@
+{
+  "schema_version": "contentops.pr37_current_article_validation_summary.v1",
+  "run_id": "pr37-canonical-x-relay-rumor-acceptance-20260828T142100Z",
+  "article_identity": "f329db8d6c5cdb21fe0a639ae726d56bef627a921ce469fdd656f97fcc316f13",
+  "status": "PASS",
+  "article_mode": "STANDARD_NEWS_ANALYSIS",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Caracas Mulls OPEC Exit As Trump Closes In On \"Massive\" Deal For Venezuela's Oil Fields",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Aljazeera",
+    "primary_reporting_source_identity": "www.aljazeera.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - ALJAZEERA",
+    "relay_source_identity": null,
+    "report_proposition": "Aljazeera reports that caracas Mulls OPEC Exit As Trump Closes In On \"Massive\" Deal For Venezuela's Oil Fields",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "REPUTABLE_SECONDARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "public-secondary-9243c10af4b3e858f06f"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "accepted_source_count": 1,
+  "source_request_count": 6,
+  "source_request_limit": 6,
+  "selection_count": 1,
+  "admitted_candidate_count": 3,
+  "writer_invocation_count": 1,
+  "revision_invocation_count": 1,
+  "revision_performed": true,
+  "logical_flash_invocation_count": 3,
+  "logical_flash_invocation_limit": 3,
+  "supported_material_claim_count": 16,
+  "unsupported_material_claim_count": 0,
+  "cited_source_count": 1,
+  "source_urls": [
+    "https://www.aljazeera.com/news/2026/8/28/us-nears-deal-to-secure-stake-in-venezuelan-oil-fields-insiders-say"
+  ],
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "native_preview_count": 8,
+  "native_preview_rematerialization": {
+    "live_runtime_rerun": false,
+    "model_calls": 0,
+    "get_count": 0,
+    "public_provider_coordinator_unknown_writes": 0,
+    "x_quality": {
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "hard_character_slicing_used": false,
+      "platform_limit": 280,
+      "post_character_counts": [210, 184, 127, 174],
+      "before_text": "SINGLE-SOURCE REPORT - ALJAZEERA | Al Jazeera Reports: Caracas Mulls OPEC Exit as Trump Closes In on Deal for Venezuela's Oil Fields\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f329db8d6c5cdb21\n\nAccording to a SINGLE-SOURCE REPORT - ALJAZEERA, the US is working on a deal to secure long-term access to Venezuelan oil fields, while Caracas is reportedly mulling an exit from OPEC.\n\nWatch: The reported deal.\n\nwhich insiders said could be signed and made public soon, is expected to operate under a legal model where the US government would secure a group of Venezuelan oilfields to be developed by American companies.\n\nwith the resulting supply guaranteed for the US.",
+      "after_text": "SINGLE-SOURCE REPORT - ALJAZEERA | Al Jazeera Reports: Caracas Mulls OPEC Exit as Trump Closes In on Deal for Venezuela's Oil Fields\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f329db8d6c5cdb21\n\nAccording to a SINGLE-SOURCE REPORT - ALJAZEERA, the US is working on a deal to secure long-term access to Venezuelan oil fields, while Caracas is reportedly mulling an exit from OPEC.\n\nWatch: The reported deal, which insiders said could be signed and made public soon, is expected to operate under a legal model.\n\nUnder that legal model, the US government would secure a group of Venezuelan oilfields to be developed by American companies, with the resulting supply guaranteed for the US."
+    },
+    "threads_quality": {
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "hard_character_slicing_used": false,
+      "platform_limit": 500,
+      "post_character_counts": [423, 291]
+    }
+  },
+  "public_write_performed": false,
+  "provider_publication_writes": 0,
+  "publication_coordinator_dispatch_count": 0,
+  "codex_runtime_model_call_count": 0,
+  "unknown_write_count": 0,
+  "source_route": [
+    {
+      "accepted_document_count": 1,
+      "attributed_publisher_identity": null,
+      "attributed_publisher_pinning_applied": false,
+      "blockers": [],
+      "locator_bytes_grant_factual_authority": false,
+      "locator_surface_id": null,
+      "publisher_identities_eligible_for_resolution": [
+        "aljazeera.com",
+        "axios.com",
+        "bbc.com",
+        "bloomberg.com",
+        "cbsnews.com",
+        "cnbc.com",
+        "ft.com",
+        "nbcnews.com",
+        "politico.com",
+        "reuters.com",
+        "theguardian.com",
+        "thehill.com",
+        "wsj.com"
+      ],
+      "publisher_pinning_grants_report_or_event_authority": false,
+      "publisher_resolution_attempted_identities": [
+        "aljazeera.com"
+      ],
+      "request_count_for_route": 3,
+      "request_count_total_after_route": 6,
+      "route": "REPUTABLE_SECONDARY",
+      "rss_candidate_publisher_identities_observed": [
+        "aljazeera.com",
+        "axios.com",
+        "bbc.com",
+        "bloomberg.com",
+        "cbsnews.com",
+        "cnbc.com",
+        "ft.com",
+        "nbcnews.com",
+        "politico.com",
+        "reuters.com",
+        "theguardian.com",
+        "thehill.com",
+        "wsj.com"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "deterministic_validation": {
+    "status": "PASS",
+    "blockers": [],
+    "exact_material_claim_count": 16
+  }
+}

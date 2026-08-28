@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from datetime import datetime, timezone
 from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
@@ -37,6 +38,9 @@ from live_contentops.editorial_portfolio_v1 import (
 
 SCHEMA_VERSION = "contentops.preselection_intelligence.v1"
 ASSIGNMENT_COMPACTION_SCHEMA_VERSION = "contentops.rolling_x_assignment_compaction.v1"
+SIMPLE_SOURCEABILITY_PRESELECTION_SCHEMA_VERSION = (
+    "contentops.v1_simple_sourceability_preselection.v1"
+)
 # Live telemetry proved that 128 headlines can consume nearly the entire 250k hard cycle cap
 # before the quality-first writer/reviewer run.  Sixty-four preserves a broad ranked universe
 # while leaving circuit-breaker headroom for the final editorial stages.
@@ -94,6 +98,59 @@ _KNOWN_ACCESS_RISK_HOSTS = frozenset(
     }
 )
 
+ATTRIBUTED_REPUTABLE_PUBLISHERS = {
+    "apnews.com": {"publisher": "Associated Press", "aliases": ("associated press", "ap")},
+    "bbc.com": {"publisher": "BBC", "aliases": ("bbc",)},
+    "bloomberg.com": {"publisher": "Bloomberg", "aliases": ("bloomberg",)},
+    "cnbc.com": {"publisher": "CNBC", "aliases": ("cnbc",)},
+    "ft.com": {"publisher": "Financial Times", "aliases": ("financial times", "ft")},
+    "theguardian.com": {"publisher": "The Guardian", "aliases": ("the guardian", "guardian")},
+    "aljazeera.com": {"publisher": "Al Jazeera", "aliases": ("al jazeera",)},
+    "npr.org": {"publisher": "NPR", "aliases": ("npr",)},
+    "politico.com": {"publisher": "Politico", "aliases": ("politico",)},
+    "reuters.com": {"publisher": "Reuters", "aliases": ("reuters",)},
+    "wsj.com": {"publisher": "The Wall Street Journal", "aliases": ("wall street journal", "wsj")},
+}
+
+
+def attributed_reputable_source_hints(text: str) -> list[dict[str, str]]:
+    """Return explicit publisher attributions for routing only.
+
+    This is the shared Simple/rolling-X publisher taxonomy. Matching an attribution changes work
+    order and the proposition to prove; it never grants source, event, or publication authority.
+    """
+    normalized = " ".join(str(text or "").split()).casefold()
+    hints: list[dict[str, str]] = []
+    for host, profile in ATTRIBUTED_REPUTABLE_PUBLISHERS.items():
+        for alias in profile["aliases"]:
+            escaped = re.escape(str(alias))
+            patterns = (
+                rf"(?:^|[\s,;:()\-])(?:per|via)\s+(?:the\s+)?{escaped}(?:\b|$)",
+                rf"(?:^|[\s,;:()\-])according\s+to\s+(?:the\s+)?{escaped}(?:\b|$)",
+                rf"(?:^|[\s,;:()\-])(?:the\s+)?{escaped}\s+(?:reports?|reported|says|said)(?:\b|$)",
+                rf"(?:^|[\s,;:()\-])reported\s+by\s+(?:the\s+)?{escaped}(?:\b|$)",
+                rf"\s+-\s+(?:the\s+)?{escaped}(?:\s|$)",
+            )
+            match = next((re.search(pattern, normalized) for pattern in patterns if re.search(pattern, normalized)), None)
+            if match is not None:
+                hints.append(
+                    {
+                        "normalized_host": host,
+                        "publisher": str(profile["publisher"]),
+                        "matched_alias": str(alias),
+                        "matched_text": match.group(0).strip(),
+                    }
+                )
+                break
+    return sorted(hints, key=lambda row: (row["normalized_host"], row["publisher"]))
+
+
+def _attributed_reputable_hosts(text: str) -> set[str]:
+    return {
+        str(row["normalized_host"])
+        for row in attributed_reputable_source_hints(text)
+    }
+
 
 def _evidence_reachability(
     cluster: Mapping[str, Any],
@@ -146,23 +203,7 @@ def _evidence_reachability(
             *(cluster.get("leaf_summaries") or []),
         )
     ).casefold()
-    attributed_hosts = {
-        host
-        for host, markers in {
-            "apnews.com": ("associated press", " - ap"),
-            "bbc.com": (" - bbc", "bbc reports"),
-            "bloomberg.com": ("bloomberg",),
-            "cnbc.com": (" - cnbc", "cnbc reports"),
-            "ft.com": ("financial times", " - ft"),
-            "theguardian.com": ("the guardian", "guardian reports"),
-            "aljazeera.com": ("al jazeera",),
-            "npr.org": (" - npr", "npr reports"),
-            "politico.com": (" - politico", "politico reports"),
-            "reuters.com": ("reuters",),
-            "wsj.com": ("wall street journal", " - wsj"),
-        }.items()
-        if any(marker in attribution_text for marker in markers)
-    }
+    attributed_hosts = _attributed_reputable_hosts(attribution_text)
     registered_official_families = sorted(
         family
         for family, family_hosts in OFFICIAL_HOSTS_BY_FAMILY.items()
@@ -298,6 +339,264 @@ def _evidence_reachability(
         "capital_chronicle_authority_granted": False,
         "publication_authority_granted": False,
     }
+
+
+def _simple_candidate_route_observations(
+    candidate: Mapping[str, Any],
+    *,
+    source_route_health: Mapping[str, Any] | None,
+) -> tuple[dict[str, Any], dict[str, Any]]:
+    """Project existing exact-route health into the donor's observation shape.
+
+    An exact URL uses only its exact route row. Host aggregates are used only for an
+    attribution-only routing hint where no exact URL exists, so a failed publisher URL never
+    suppresses an unrelated same-publisher URL.
+    """
+    from live_contentops.source_route_health_v1 import normalized_route_identity
+
+    health = source_route_health if isinstance(source_route_health, Mapping) else {}
+    routes = {
+        str(row.get("route_identity_sha256") or ""): dict(row)
+        for row in health.get("routes") or []
+        if isinstance(row, Mapping) and str(row.get("route_identity_sha256") or "")
+    }
+    hosts = {
+        str(row.get("normalized_host") or "").casefold().removeprefix("www."): dict(row)
+        for row in health.get("hosts") or []
+        if isinstance(row, Mapping) and str(row.get("normalized_host") or "")
+    }
+    urls = list(
+        dict.fromkeys(
+            str(value).strip()
+            for key in ("official_source_urls", "public_source_urls")
+            for value in candidate.get(key) or []
+            if str(value).strip().startswith("https://")
+        )
+    )
+    attributed_hosts = _attributed_reputable_hosts(
+        str(candidate.get("headline_text") or "")
+    )
+    observations: dict[str, dict[str, Any]] = {}
+    exact_route_rows: list[dict[str, Any]] = []
+    direct_hosts: set[str] = set()
+
+    def add(host: str, row: Mapping[str, Any]) -> None:
+        current = observations.setdefault(
+            host,
+            {
+                "successful_retrieval_count": 0,
+                "access_failure_count": 0,
+            },
+        )
+        current["successful_retrieval_count"] += int(row.get("success_count") or 0)
+        failure_count = int(row.get("failure_count") or 0)
+        failure_class = str(row.get("last_failure_class") or "")
+        key = {
+            "HTTP_401": "http_401_count",
+            "HTTP_403": "http_403_count",
+            "HTTP_404": "http_404_count",
+            "PAYWALL": "paywall_count",
+            "ACCESS_OR_WAF": "waf_count",
+            "DEAD_LINK": "dead_link_count",
+        }.get(failure_class, "access_failure_count")
+        current[key] = int(current.get(key) or 0) + failure_count
+
+    for url in urls:
+        try:
+            host, identity = normalized_route_identity(url)
+        except ValueError:
+            continue
+        direct_hosts.add(host)
+        route = routes.get(identity)
+        if not route or str(route.get("normalized_host") or "").removeprefix("www.") != host:
+            continue
+        add(host, route)
+        exact_route_rows.append(
+            {
+                "normalized_host": host,
+                "route_identity_sha256": identity,
+                "success_count": int(route.get("success_count") or 0),
+                "failure_count": int(route.get("failure_count") or 0),
+                "last_failure_class": route.get("last_failure_class"),
+            }
+        )
+
+    for host in sorted(attributed_hosts - direct_hosts):
+        observed = hosts.get(host)
+        if observed:
+            add(host, observed)
+
+    return (
+        {
+            "schema_version": "contentops.sourceability_observations.simple_exact_route.v1",
+            "hosts": observations,
+            "routing_only": True,
+            "exact_route_failure_never_suppresses_unrelated_same_publisher_route": True,
+            "factual_or_numeric_or_publication_authority_granted": False,
+        },
+        {
+            "exact_route_health_match_count": len(exact_route_rows),
+            "exact_route_health_matches": exact_route_rows,
+            "attribution_only_host_observation_hints": sorted(
+                attributed_hosts - direct_hosts
+            ),
+            "exact_route_suppression_applied": False,
+            "host_wide_suppression_applied": False,
+        },
+    )
+
+
+def rank_simple_headline_candidate_universe(
+    candidates: Sequence[Mapping[str, Any]],
+    *,
+    max_candidates: int,
+    source_route_health: Mapping[str, Any] | None = None,
+) -> dict[str, Any]:
+    """Reorder Simple's full deduped universe before its bounded selector packet.
+
+    This is a work-order projection only. It performs no I/O, model call, retrieval, evidence
+    admission, or eligibility filtering. Two-hour freshness bands prevent sourceability from
+    pulling a materially older story ahead of a newer current band, while compatible official,
+    reputable-secondary, exact-route success/failure, and request-cost signals order otherwise
+    current peers.
+    """
+    if int(max_candidates) < 1:
+        raise ValueError("simple_sourceability_candidate_limit_invalid")
+    rows = [dict(row) for row in candidates if isinstance(row, Mapping)]
+    old_order = sorted(
+        rows,
+        key=lambda row: (
+            _source_timestamp(row),
+            str(row.get("headline_id") or ""),
+        ),
+        reverse=True,
+    )
+    newest = max(
+        (_source_timestamp(row) for row in rows),
+        default=datetime(1970, 1, 1, tzinfo=timezone.utc),
+    )
+    profiled: list[dict[str, Any]] = []
+    for row in rows:
+        observations, route_diagnostics = _simple_candidate_route_observations(
+            row,
+            source_route_health=source_route_health,
+        )
+        reachability = _evidence_reachability(
+            {
+                "cluster_id": row.get("candidate_id"),
+                "story_type": "general_public_event",
+                "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+                "capability_article_mode": "analysis",
+                "event_topic_summary": row.get("headline_text"),
+                "why_now": row.get("headline_text"),
+                "public_source_urls": list(row.get("public_source_urls") or []),
+                "official_source_urls": list(row.get("official_source_urls") or []),
+            },
+            {},
+            sourceability_observations=observations,
+        )
+        source_time = _source_timestamp(row)
+        age_seconds = max(0.0, (newest - source_time).total_seconds())
+        freshness_band = int(age_seconds // (2 * 60 * 60))
+        expected_cost = int(reachability["expected_request_cost"])
+        cost_class = (
+            "DIRECT_OR_ALREADY_BOUND"
+            if expected_cost <= 1
+            else "BOUNDED_LOCATOR"
+            if expected_cost == 2
+            else "BOUNDED_DISCOVERY"
+            if expected_cost == 3
+            else "DEGRADED_ACCESS_PATH"
+        )
+        profile = {
+            **reachability,
+            **route_diagnostics,
+            "freshness_band_hours": 2,
+            "freshness_band_index": freshness_band,
+            "age_from_newest_eligible_seconds": int(age_seconds),
+            "expected_route_request_cost_class": cost_class,
+            "sourceability_changes_work_order_only": True,
+            "candidate_eligibility_changed": False,
+        }
+        profiled.append({**row, "sourceability_work_order": profile})
+
+    ranked = sorted(
+        profiled,
+        key=lambda row: (
+            int(row["sourceability_work_order"]["freshness_band_index"]),
+            -float(row["sourceability_work_order"]["score"]),
+            int(
+                row["sourceability_work_order"][
+                    "observed_repeated_access_failure"
+                ]
+            ),
+            int(row["sourceability_work_order"]["expected_request_cost"]),
+            -_source_timestamp(row).timestamp(),
+            str(row.get("headline_id") or ""),
+        ),
+    )
+    for index, row in enumerate(ranked, start=1):
+        row["sourceability_work_order"]["sourceability_aware_rank"] = index
+    old_rank = {
+        str(row.get("candidate_id") or ""): index
+        for index, row in enumerate(old_order, start=1)
+    }
+    for row in ranked:
+        row["sourceability_work_order"]["freshness_only_rank"] = old_rank[
+            str(row.get("candidate_id") or "")
+        ]
+
+    old_top = old_order[:max_candidates]
+    new_top = ranked[:max_candidates]
+    old_ids = [str(row.get("candidate_id") or "") for row in old_top]
+    new_ids = [str(row.get("candidate_id") or "") for row in new_top]
+    profile_by_id = {
+        str(row.get("candidate_id") or ""): row for row in ranked
+    }
+
+    def audit_row(row: Mapping[str, Any]) -> dict[str, Any]:
+        candidate_id = str(row.get("candidate_id") or "")
+        profiled_row = profile_by_id[candidate_id]
+        return {
+            "candidate_id": candidate_id,
+            "headline_id": row.get("headline_id"),
+            "headline_text": row.get("headline_text"),
+            "source_timestamp_utc": row.get("source_timestamp_utc"),
+            "source_account": row.get("source_account"),
+            "source_url": row.get("source_url"),
+            "official_source_urls": list(row.get("official_source_urls") or []),
+            "sourceability_work_order": dict(
+                profiled_row["sourceability_work_order"]
+            ),
+        }
+
+    health = source_route_health if isinstance(source_route_health, Mapping) else {}
+    evidence = {
+        "schema_version": SIMPLE_SOURCEABILITY_PRESELECTION_SCHEMA_VERSION,
+        "full_eligible_deduped_universe_count": len(rows),
+        "selection_candidate_limit": int(max_candidates),
+        "old_freshness_only_top_candidates": [audit_row(row) for row in old_top],
+        "sourceability_aware_top_candidates": [audit_row(row) for row in new_top],
+        "candidate_ids_entering_top_packet": sorted(set(new_ids) - set(old_ids)),
+        "candidate_ids_leaving_top_packet": sorted(set(old_ids) - set(new_ids)),
+        "ranking_order_changed": old_ids != new_ids,
+        "source_route_health_reused": bool(
+            health.get("schema_version") == "contentops.source_route_health.v1"
+            and health.get("routing_only") is True
+        ),
+        "source_route_health_input_sha256": _logical_hash(health) if health else None,
+        "sourceability_stage_model_or_provider_calls": 0,
+        "sourceability_stage_network_gets": 0,
+        "sourceability_stage_factual_authority_granted": False,
+        "sourceability_stage_numeric_authority_granted": False,
+        "sourceability_stage_capital_chronicle_authority_granted": False,
+        "sourceability_stage_publication_authority_granted": False,
+        "candidate_eligibility_changed": False,
+        "ranking_changes_work_order_not_truth": True,
+        "exact_route_suppression_host_wide": False,
+    }
+    evidence["preselection_logical_hash"] = _logical_hash(evidence)
+    return {"ranked_candidates": ranked, "evidence": evidence}
 
 
 def _preselection_cc_publication_authority(

@@ -1,0 +1,177 @@
+{
+  "schema_version": "contentops.pr37_current_sourceability_acceptance_diagnostic.v1",
+  "classification": "CURRENT_HOST_ACCEPTANCE_INCOMPLETE_DETERMINISTIC_VALIDATION_AND_REVISION_BLOCKED",
+  "run_id": "pr37-sourceability-acceptance-20260828T010500Z",
+  "cutoff_utc": "2026-08-28T01:05:00Z",
+  "intake": {
+    "full_rolling_eligible_after_published_memory_dedupe": 1206,
+    "newest_source_timestamp_utc": "2026-08-27T23:50:25Z",
+    "fresh_capture_performed_for_this_run": false,
+    "reason": "Existing canonical rolling universe was current; no second capture was required."
+  },
+  "sourceability_preselection": {
+    "candidate_packet_count": 32,
+    "candidate_packet_limit": 32,
+    "ranking_order_changed": true,
+    "candidate_ids_entering_top_packet": [
+      "simple-story-1d352bb27b7942ba2021a167",
+      "simple-story-2550d4b14f4ad8eb58435ddd",
+      "simple-story-4d515fdb0906fbff756ea6eb",
+      "simple-story-9eb2c7dedf9a56327066e192",
+      "simple-story-a70ff95aef2ff4639d7de539",
+      "simple-story-c421baa48c3ebd9661856f82",
+      "simple-story-ea5456e8a50117dedc2f3d53"
+    ],
+    "candidate_ids_leaving_top_packet": [
+      "simple-story-39707f2ea2ad14ea617e9615",
+      "simple-story-3d366806e0ffaf9c6eb416e7",
+      "simple-story-81e9f370824a77cbb001a589",
+      "simple-story-93cedb92a5c6eb7164788cfb",
+      "simple-story-9771d5c6b08b24fdd373d75e",
+      "simple-story-dbe8754ef49c6c3f4ff5df28",
+      "simple-story-f2b2842b149c0bb829f878e2"
+    ],
+    "source_route_health_reused": true,
+    "selected_candidate_freshness_only_rank": 79,
+    "selected_candidate_sourceability_aware_rank": 2,
+    "selected_candidate_sourceability_score": 0.49,
+    "selected_candidate_known_official_path": true,
+    "selected_candidate_context_routed_official_locator_families": [
+      "company_primary"
+    ],
+    "selected_candidate_attributed_host_routing_hints": [],
+    "selected_candidate_expected_route_request_cost_class": "BOUNDED_LOCATOR",
+    "selected_candidate_known_access_risk": false,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "authority_granted": false,
+    "ranking_changes_work_order_not_truth": true
+  },
+  "simple_opportunity": {
+    "selection_count": 1,
+    "admitted_candidate_count": 3,
+    "writer_invocation_count": 1,
+    "revision_invocation_count": 1,
+    "logical_flash_invocation_count": 3,
+    "logical_flash_invocation_limit": 3,
+    "source_request_count": 2,
+    "source_request_limit": 6,
+    "source_request_allocation": [
+      2
+    ],
+    "resolver_source_qualified_candidate_count": 1,
+    "final_current_story_support_qualified_count": 0,
+    "qualified_article_count": 0,
+    "native_preview_count": 0,
+    "exact_next_blocker": "GEMINI_REVISION_LOGICAL_INVOCATION_BLOCKED"
+  },
+  "selected_candidate": {
+    "candidate_id": "simple-story-a70ff95aef2ff4639d7de539",
+    "headline_id": "cc-x-headline-0d516838bcb157931be9da27",
+    "headline_text": "$NVDA PAUSES PART OF AI CLOUD REVENUE-SHARING PROGRAM NVIDIA has paused parts of a program designed to help smaller AI cloud providers finance GPU-heavy data center buildouts, per WSJ. Under the structure, NVIDIA could backstop unused GPU capacity and receive 50% of revenue https://t.co/ghb3ajE4ML",
+    "official_source_urls": [],
+    "public_source_urls": [],
+    "source_account": "wallstengine",
+    "source_timestamp_utc": "2026-08-27T21:51:04Z",
+    "source_url": "https://x.com/wallstengine/status/2093093967659471260",
+    "story_identity": "simple-story-a70ff95aef2ff4639d7de539"
+  },
+  "exact_source_route": {
+    "route": "OFFICIAL_PRIMARY",
+    "locator_surface_id": "company_investor_relations_release_feed_v1",
+    "accepted_document_count": 1,
+    "request_count": 2,
+    "source_url": "https://nvidianews.nvidia.com/news/aws-and-nvidia-to-deliver-2-million-additional-gpus-and-next-generation-infrastructure-for-agentic-and-physical-ai/",
+    "publisher": "nvidianews.nvidia.com",
+    "published_at_utc": "2026-08-26T21:05:00Z",
+    "canonical_content_sha256": "df74ae5aae3cc6b857692e6861f78d673cd01be77eb0056b56dd3664ab811d2f",
+    "locator_bytes_grant_factual_authority": false,
+    "retrieved_document_supports_selected_current_program_pause_peg": false
+  },
+  "deterministic_validation": {
+    "status": "BLOCKED",
+    "blockers": [
+      "material_claim_excerpt_not_verified:claim_body_backstop",
+      "material_claim_excerpt_not_verified:claim_body_pause",
+      "material_claim_excerpt_not_verified:claim_dek",
+      "material_claim_excerpt_not_verified:claim_meta_description",
+      "material_claim_excerpt_not_verified:claim_search_title",
+      "material_claim_excerpt_not_verified:claim_social_hook",
+      "material_claim_excerpt_not_verified:claim_title",
+      "selected_current_news_peg_topic_missing_from_title_dek",
+      "source_not_in_retrieved_pack:SOURCE_2",
+      "unbound_body_paragraph:1",
+      "unbound_body_paragraph:2",
+      "unbound_body_paragraph:3"
+    ],
+    "conclusion": "The retrieved AWS-NVIDIA infrastructure release did not support the selected current Nvidia cloud revenue-sharing program pause. The hard validator rejected the title, dek, public metadata, body claims, extra source, and missing current peg.",
+    "evidence_standards_changed": false
+  },
+  "model_receipts": [
+    {
+      "logical_invocation_id": "pr37-sourceability-acceptance-20260828T010500Z:select",
+      "role_task_id": "v1_simple_gemini_selection",
+      "terminal_disposition": "ACCEPTED",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_fallback_transitions": 0,
+      "total_usage": {
+        "completion_tokens": 3560.0,
+        "prompt_tokens": 12149.0,
+        "total_tokens": 15709.0
+      },
+      "failure_class": null,
+      "provider_status_class": "2xx_success",
+      "public_write_attempted": false
+    },
+    {
+      "logical_invocation_id": "pr37-sourceability-acceptance-20260828T010500Z:write",
+      "role_task_id": "v1_simple_gemini_article_writing",
+      "terminal_disposition": "ACCEPTED",
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 1,
+      "total_fallback_transitions": 0,
+      "total_usage": {
+        "completion_tokens": 19671.0,
+        "prompt_tokens": 6783.0,
+        "total_tokens": 26454.0
+      },
+      "failure_class": null,
+      "provider_status_class": "2xx_success",
+      "public_write_attempted": false
+    },
+    {
+      "logical_invocation_id": "pr37-sourceability-acceptance-20260828T010500Z:revise",
+      "role_task_id": "v1_simple_gemini_editorial_revision",
+      "terminal_disposition": "LLM_RETRY_BUDGET_EXHAUSTED",
+      "selected_model": null,
+      "total_attempts": 1,
+      "total_fallback_transitions": 0,
+      "total_usage": {},
+      "failure_class": "structured_output_malformed",
+      "provider_status_class": "2xx_success",
+      "public_write_attempted": false
+    }
+  ],
+  "high_ranked_realistically_reachable_candidate_assessment": {
+    "candidate_existed": true,
+    "candidate_id": "simple-story-a70ff95aef2ff4639d7de539",
+    "routing_assessment": "ROUTING_REACHABLE_BUT_EXACT_DOCUMENT_NOT_CURRENT_STORY_SUPPORTING",
+    "result": "An official company locator returned exact publisher bytes in two GETs, but those bytes were for a different current Nvidia event and could not qualify this article."
+  },
+  "production_database_sha256_before": "7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E",
+  "production_database_sha256_after": "7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E",
+  "codex_runtime_model_call_count": 0,
+  "public_write_count": 0,
+  "provider_publication_write_count": 0,
+  "publication_coordinator_dispatch_count": 0,
+  "unknown_write_count": 0,
+  "current_article_for_owner_review_path": null,
+  "current_native_previews_for_owner_review_path": null,
+  "current_article_validation_summary_path": null,
+  "current_sourceability_ranked_universe_path": "docs/automation/TASK_V1_SIMPLE_EDITORIAL_GROWTH_EDGE_AND_SOURCEABILITY_CLOSURE_V1/current_sourceability_ranked_universe_v1.json",
+  "local_runtime_receipt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_SOURCEABILITY_AWARE_PRESELECTION_ACCEPTANCE_20260828T010500Z\\simple_gemini_newsroom_receipt_v1.json",
+  "local_runtime_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_SOURCEABILITY_AWARE_PRESELECTION_ACCEPTANCE_20260828T010500Z\\simple_gemini_evidence_v1.json",
+  "exact_residual_blocker": "The only accepted exact document was not story-supporting for the selected current peg, deterministic validation failed, and the single allowed revision returned malformed structured output. No second selection or run is authorized.",
+  "secrets_or_private_session_material_included": false
+}

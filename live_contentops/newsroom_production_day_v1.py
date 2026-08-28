@@ -312,6 +312,7 @@ def build_current_zero_write_qualified_article_record(
     editorial_reasoning_effort: str,
     logical_model_invocation_count: int,
     derivative_package_intents: Sequence[Mapping[str, Any]],
+    epistemic_state: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build the current provider-neutral zero-write qualification record.
 
@@ -349,6 +350,13 @@ def build_current_zero_write_qualified_article_record(
     })
     if not evidence_ids:
         blockers.append("accepted_evidence_identity_missing")
+    epistemic = dict(epistemic_state or {})
+    if epistemic:
+        from live_contentops.v1_simple_epistemic_state_v1 import (
+            validate_epistemic_state,
+        )
+
+        blockers.extend(validate_epistemic_state(epistemic))
     article_identity = hashlib.sha256(body.encode("utf-8")).hexdigest() if body else ""
     evidence_material = [
         {
@@ -374,6 +382,7 @@ def build_current_zero_write_qualified_article_record(
         "article_body_sha256": article_identity,
         "accepted_evidence_ids": evidence_ids,
         "accepted_evidence_sha256": _logical_hash(evidence_material),
+        "epistemic_state": epistemic,
         "editorial_worker": {
             "provider": provider,
             "model": model,

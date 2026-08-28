@@ -53,8 +53,21 @@ Any file containing these current-looking claims is stale for routing unless exp
 - branch-proven V2 unattended/recovery/locale/native-relay systems must be rebuilt from zero;
 - V2 may write publicly; or
 - `V1_FINAL_PRODUCT_ACCEPTED` is already true.
+- official/primary confirmation is required before every attributed current report may be written;
+- a same-entity but different-event official document can confirm the selected report;
+- report truth and underlying event truth are interchangeable;
+- an arbitrary X-list account becomes an approved newsroom/relay/rumor source by list membership.
+- every exact owner-curated canonical-X record remains discovery-only even when it explicitly
+  attributes a reputable publisher or labels itself market rumor.
 
 ## 3. Current replacement semantics
+
+- Current 2026-08-28 North Star is `EARLY_ATTRIBUTED_INTELLIGENCE`: one exact reputable secondary
+  may prove a narrow ordinary attributed reporting proposition while the event remains visibly
+  unconfirmed. Epistemic state must survive canonical copy, qualification, and all eight previews.
+- Exact owner-curated canonical-X records may support only narrow relay-of-reporting or explicit-
+  rumor propositions when the canonical provenance marker is present. Arbitrary social rows remain
+  discovery-only; event truth and CC numeric authority remain zero.
 
 - The `330f` foundation is accepted and reusable: autonomous URL discovery, shared route health,
   sourceability-first funnel, four distinct governed evidence-ready candidates, and frozen
@@ -89,14 +102,13 @@ Any file containing these current-looking claims is stale for routing unless exp
   all `PAUSED`, on `gpt-5.6-sol / HIGH` at the four Bangkok windows. Their prompts now share the
   exact repo-derived FAST-SHIP hash; no enablement or fifth routine task occurred.
 - FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
-- Desktop standalone fresh-run Automations are the primary routine editorial brain; current
-  calendar-time execution proof remains required because the supported surface exposed no run-now.
-- The proven official ChatGPT-authenticated Codex App Server/SDK provider remains the bounded
-  missed/failed-primary fallback, immediate direct path, and benchmark path.
+- Desktop standalone Automations and the App Server/SDK editorial fallback remain historical
+  evidence only for routine V1. Current routine heavy editorial ownership is the Simple
+  9Router/Gemini path; the historical Automation objects remain off/NOOP.
 - The zero-write Desktop Italy slice, real nine-surface Italy canary, failed 4/32 proof, and later
   four-ready-candidate foundation remain preserved evidence. None is an unstarted routing task.
-- Prompt normalization/readback is complete. Zero-write Automation enablement/calendar-time
-  unattended proof and routine public-write authority remain separate later owner gates.
+- Historical prompt normalization/readback is complete but no longer routes current V1.
+  Routine public-write authority remains a separate later owner gate after Simple acceptance.
 - V2 starts only after the V1 gate with selective reconciliation of current-compatible donor
   capability. Historical branch authority must not be wholesale merged; V2 public-write authority
   remains zero.
