@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14019,
+    "edges": 14031,
     "entrypoints": 16,
-    "nodes": 7420,
+    "nodes": 7425,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -24,11 +24,11 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 17,
-      "python_class": 606,
-      "python_function": 4055,
+      "python_class": 608,
+      "python_function": 4056,
       "python_method": 304,
-      "python_module": 775,
-      "schema": 215,
+      "python_module": 776,
+      "schema": 216,
       "test": 739,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
@@ -40104,6 +40104,36 @@
       "to": "tests/test_v1_simple_gemini_scheduler_v1.py"
     },
     {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffError"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffV1"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_publication_handoff.v1"
+    },
+    {
       "from": "live_contentops/v6_platform_registry_contract.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -68616,6 +68646,48 @@
       "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::build_scheduler_process_command"
     },
     {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/destination_transport_registry_v1.py::DestinationReadinessManager"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/destination_transport_registry_v1.py::validate_registry"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/production_orchestrator_v1.py::ContentOpsProductionOrchestrator"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffV1"
+    },
+    {
       "from": "python_symbol:live_contentops/v6_platform_registry_contract.py::build_registry",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -84269,7 +84341,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-28T21:46:04Z",
+  "generation_timestamp_utc": "2026-08-28T22:23:50Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -88059,6 +88131,11 @@
       "id": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "kind": "python_module",
       "size_bytes": 32572
+    },
+    {
+      "id": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "kind": "python_module",
+      "size_bytes": 16044
     },
     {
       "id": "live_contentops/v6_platform_registry_contract.py",
@@ -120333,6 +120410,27 @@
       "symbol": "simple_gemini_slot_id"
     },
     {
+      "id": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffError",
+      "kind": "python_class",
+      "line": 51,
+      "path": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "symbol": "SimplePublicationHandoffError"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffV1",
+      "kind": "python_class",
+      "line": 146,
+      "path": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "symbol": "SimplePublicationHandoffV1"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "kind": "python_function",
+      "line": 340,
+      "path": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "symbol": "build_canonical_simple_publication_handoff"
+    },
+    {
       "id": "python_symbol:live_contentops/v6_platform_registry_contract.py::PlatformRegistryEntry",
       "kind": "python_class",
       "line": 53,
@@ -123854,6 +123952,11 @@
       "id": "schema:contentops.v1_simple_publication_bridge.v1",
       "kind": "schema",
       "schema_id": "contentops.v1_simple_publication_bridge.v1"
+    },
+    {
+      "id": "schema:contentops.v1_simple_publication_handoff.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v1_simple_publication_handoff.v1"
     },
     {
       "id": "schema:contentops.v1_simple_scheduler_memory_access.v1",
@@ -132411,6 +132514,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "8a65c9608026c83a827e57e5e201322b88063601",
-  "source_tree_digest": "57af3c39138549618667ceab543d8e80d61cecacb882826e4760fe43c3544c13"
+  "source_head": "29b8b58f316561728b9292a82489a082c2539a4a",
+  "source_tree_digest": "d7fca2b0f9bfb20fb42316a9d2e5e16739fb613404f3dbd993a29abb7816cbae"
 }
