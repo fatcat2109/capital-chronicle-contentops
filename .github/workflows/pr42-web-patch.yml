@@ -78,24 +78,15 @@ jobs:
               '"public_write_authority": "DELEGATED_TO_DURABLE_PUBLICATION_COORDINATOR"',
           )
           p.write_text(text, encoding='utf-8', newline='\n')
-
-          workflow_path = '.github/workflows/ci-fast.yml'
-          replace_once(
-              workflow_path,
-              "desktop_code = Path('live_contentops/codex_desktop_newsroom_operator_v1.py').read_text(encoding='utf-8').lower()",
-              "desktop_code = Path('live_contentops/codex_desktop_newsroom_operator_v1.py').read_text(encoding='utf-8')",
-          )
           PY
 
-      - name: Remove one-shot patch workflow and commit explicit paths
+      - name: Commit explicit Python and test paths
         shell: bash
         run: |
           git config user.name 'contentops-ci'
           git config user.email 'contentops-ci@users.noreply.github.com'
-          git rm .github/workflows/pr42-web-patch.yml
           git add tests/test_v1_simple_gemini_scheduler_v1.py
           git add live_contentops/v1_simple_gemini_scheduler_process_v1.py
-          git add .github/workflows/ci-fast.yml
           git diff --check --cached
           git commit -m 'fix(v1): align scheduler recovery tests and process truth'
           git push origin HEAD:codex/v1-simple-to-durable-publication-bridge-v1
