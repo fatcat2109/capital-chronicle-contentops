@@ -180,7 +180,9 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 Prefer bounded product slices over ceremony. Do not rebuild proven systems simply because they are not freshly revalidated.
 
-Ordinary reversible repository operations inside the accepted roadmap may use task branches/PRs and normal protected-branch merges after independent audit and required checks. Never force-push, mutate protected history/tag `v1.0`, expose secrets/session material, or directly expand V2 public-write/numeric/legal authority.
+Ordinary reversible repository operations inside the accepted roadmap do not require a new per-operation owner authorization after the operator hard-gate audit has passed. They may use task branches/PRs and the normal protected-branch path once required checks pass.
+
+This repository autonomy does not authorize bypassing branch protection, force-push, public/provider writes outside the already-granted V1 scope, destructive production/canonical-store mutation, Capital Chronicle proprietary/numeric-authority expansion, V2 public-write authority expansion, secrets/session access, or protected-history mutation.
 
 Stage explicit paths only. Never `git add .` or `git add -A`.
 
