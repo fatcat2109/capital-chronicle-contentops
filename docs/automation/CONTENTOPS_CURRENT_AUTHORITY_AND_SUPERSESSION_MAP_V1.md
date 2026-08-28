@@ -41,6 +41,8 @@ The accepted early-attributed-intelligence doctrine remains current: official co
 
 Native Desktop Automations, SDK/App-Server editorial fallback, legacy rolling-X ownership, broad evidence-ready pools, and split-phase PREPARE/COMPLETE routing are historical/non-routing for routine V1.
 
+The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. An admitted candidate with no governed reachable source may still close as `SOURCE_DISCOVERY_REQUIRED`; that candidate-local result does not authorize a second selection, filler, or weakened evidence. Final live target shorthand remains `5–8/day` useful published articles.
+
 ## 3. Canonical read path
 
 1. `AGENTS.md`
@@ -135,7 +137,13 @@ No fifth routine task. No filler. No blind retry after ambiguity.
 - Destination-local failure does not erase canonical truth; ambiguous writes never blind-retry.
 - Public comments/replies/DMs remain separately gated from routine article publication.
 
-## 8. Explicitly stale/non-routing semantics
+## 8. Repository execution autonomy
+
+Ordinary reversible repository operations inside the accepted roadmap do not require a new per-operation owner authorization after the operator hard-gate audit has passed. They may proceed through task branches/PRs and the normal protected-branch path once required checks pass.
+
+This autonomy does not authorize bypassing branch protection, force-push, public/provider writes outside granted scope, destructive production/canonical-store mutation, Capital Chronicle proprietary/numeric-authority expansion, V2 public-write authority expansion, secret/session access, or protected-history mutation.
+
+## 9. Explicitly stale/non-routing semantics
 
 Never route a fresh V1 task from claims that:
 
@@ -152,7 +160,7 @@ Never route a fresh V1 task from claims that:
 - `V1_FINAL_PRODUCT_ACCEPTED` remains pending;
 - V2 has public-write authority.
 
-## 9. Conflict resolution
+## 10. Conflict resolution
 
 1. Jim's latest explicit instruction.
 2. Fresh GitHub refs/commits/diffs/exact code and actual host/runtime evidence.
