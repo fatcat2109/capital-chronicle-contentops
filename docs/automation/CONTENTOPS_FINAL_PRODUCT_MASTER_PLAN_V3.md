@@ -63,6 +63,8 @@ Official confirmation is not universal prerequisite. Exact reputable reports, ap
 - canonical-X relay/explicit-rumor zero-GET branch under record-scoped provenance;
 - native exactly-eight derivative compiler and X/Threads quality correction;
 - four-window Simple scheduler mechanics and persistent exactly-one-process zero-write host proof;
+- merged PR #38 post-acceptance authority/static-safety closure plus emergency-stop/process coverage for Simple;
+- merged PR #39 single routine production-owner composition: current Final Daily App -> `SIMPLE_GEMINI_RUNTIME`, with Native Desktop/legacy rolling-X compatibility-only and non-routing;
 - durable V1 store, destination registry, canonical Substack-first publication coordinator, destination transports, strict readback/reconciliation, UNKNOWN-write recovery;
 - real historical Italy one-Substack-plus-eight-derivatives canary with all nine reconciled and `UNKNOWN_WRITE=0`;
 - V5 live read model/UI foundation.
@@ -85,18 +87,18 @@ Historical success proves capability; it does not prove today's login/session/to
 
 ## 4. True current V1 implementation gaps
 
-The current gaps are narrow integration/activation gaps, not missing product architecture:
+The current gaps are now exactly two narrow integration/accounting gaps, not missing product architecture:
 
-1. **Simple -> existing publication coordinator bridge.** A qualified Simple article/native package must enter the sole existing `DurablePublicationCoordinator` without creating a second publisher, store, scheduler, or packaging stack.
-2. **Single production owner.** Current production composition must route routine V1 through Simple and must not silently fall back to native Desktop Automations or legacy rolling-X ownership.
-3. **Published-vs-qualified accounting.** Editorial qualification remains useful telemetry, but live daily-output health/counting must be based on strictly reconciled published canonical articles. Publication failure cannot count as a successful published article.
-4. **Emergency-stop/process coverage.** The one-click stop/control-plane process inventory must recognize and safely fence the canonical Simple scheduler/runtime.
+1. **Simple -> existing publication coordinator bridge.** A qualified Simple article/native package must enter the sole existing `DurablePublicationCoordinator` without creating a second publisher, store, scheduler, or packaging stack. The bridge must publish/read back canonical Substack first, obtain the real reconciled `/p/...` identity, then rematerialize exactly eight native derivatives against that URL while preserving the exact article and epistemic state.
+2. **Published-vs-qualified accounting.** Editorial qualification remains useful telemetry, but live daily-output health/counting must be based on strictly reconciled published canonical articles. Publication failure, deferral, or ambiguity cannot count as a successful published article or prematurely satisfy the live deficit calculation.
+
+Merged PR #38 already closes emergency-stop/process coverage. Merged PR #39 already closes single-owner composition. Do not reissue either as implementation work unless fresh code demonstrates regression.
 
 No V1 transport, durable-store, native-packager, readback, or UNKNOWN-write recovery rebuild is authorized or needed.
 
 ## 5. Current host proof required before first new live write
 
-Read-only activation preflight must prove:
+After bridge/accounting implementation, read-only activation preflight must prove:
 
 - production DB integrity/schema is healthy;
 - no unresolved `UNKNOWN_WRITE`, ambiguous `DISPATCH_ATTEMPT_STARTED`, or recovery backlog blocks a new write;
@@ -112,21 +114,27 @@ Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only.
 
 Use small bounded slices, not one giant activation task.
 
-### Slice A — repository authority and static safety closure
+### Closed slice — repository authority/static safety + single owner
 
-- align active authority with the granted V1 acceptance/public-write state;
-- refresh CodeGraph from current branch/head;
-- close deterministic emergency-stop/process-ownership coverage for Simple;
-- no public writes.
+Merged PR #38 closed post-acceptance authority/static-safety, CodeGraph/static routing, and emergency-stop/process coverage for Simple. Merged PR #39 closed the current routine-owner composition. These are evidence, not current work.
 
-### Slice B — Simple publication integration
+### Slice A — Simple publication bridge
 
-- wire one accepted Simple qualified article/package into the existing publication coordinator;
-- preserve canonical Substack-first ordering;
-- rematerialize exactly eight derivatives against the real reconciled canonical `/p/...` URL;
-- preserve epistemic state and native quality invariants;
-- make live published/reconciled count distinct from qualified count;
+- build the smallest adapter from the accepted Simple qualified article/article manifest/native-preview artifacts into the existing `DurablePublicationCoordinator` plan contract;
+- preserve canonical Substack-first publication/readback;
+- obtain and validate the real canonical `/p/...` URL before derivative materialization;
+- deterministically rematerialize exactly eight derivatives through the existing native compiler, preserving article identity, epistemic state, platform limits, and native quality invariants;
 - no live write required for implementation validation.
+
+### Slice B — published/reconciled production-day accounting
+
+- preserve qualified-count telemetry for editorial economics/dedupe;
+- add/reuse a canonical read projection that counts only strictly reconciled canonical Substack publications for live production-day health;
+- make live deficit pacing/counting use reconciled published count rather than qualified count;
+- do not create a second publication store or duplicate reconciliation authority;
+- no live write required for implementation validation.
+
+If repository-native planning proves Slice A and Slice B are inseparable without duplicating code or creating unsafe intermediate semantics, they may be implemented in one PR but must remain separately testable and evidenced. Otherwise keep them as separate small PRs.
 
 ### Slice C — current-host read-only activation preflight
 
@@ -152,12 +160,10 @@ Only after Slice D is strictly reconciled, enable the four live windows toward 5
 The owner product-acceptance decision is already true. Operational activation is ready when:
 
 1. the Simple->publication bridge is current and tested;
-2. exactly one routine production owner exists;
-3. live daily-output accounting counts strictly reconciled published canonical articles, not merely qualified zero-write articles;
-4. emergency stop covers the Simple process;
-5. current-host read-only preflight passes;
-6. one fresh live article plus exactly eight derivatives strictly reconcile with `UNKNOWN_WRITE=0`;
-7. the four routine windows may then run live toward the accepted 5–8/day target.
+2. live daily-output accounting counts strictly reconciled published canonical articles, not merely qualified zero-write articles;
+3. current-host read-only preflight passes, including proof that merged single-owner/emergency-stop contracts still hold on the active host;
+4. one fresh live article plus exactly eight derivatives strictly reconcile with `UNKNOWN_WRITE=0`;
+5. the four routine windows may then run live toward the accepted 5–8/day target.
 
 Do not create another V1 acceptance gate after these activation conditions are satisfied.
 
