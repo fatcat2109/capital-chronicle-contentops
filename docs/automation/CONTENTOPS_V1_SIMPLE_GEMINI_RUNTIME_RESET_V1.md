@@ -1,7 +1,8 @@
 # ContentOps V1 Simple Gemini Runtime Reset V1
 
 Authority date: 2026-08-28
-Status: `CURRENT_V1_EXECUTION_AUTHORITY / EARLY_ATTRIBUTED_INTELLIGENCE`
+Status: `CURRENT_V1_EXECUTION_AUTHORITY`
+Doctrine: `EARLY_ATTRIBUTED_INTELLIGENCE`
 
 This owner-approved reset supersedes routine Codex Desktop newsroom production and the legacy
 evidence-ready/split-phase worker critical path. Historical artifacts remain valid evidence; they
