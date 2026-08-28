@@ -27,9 +27,13 @@ Do not route from stale wording that says routine V1 public-write/readback is un
 
 ## Current editorial path — preserve, do not reopen
 
+Current routine owner is simple Gemini through `SIMPLE_GEMINI_RUNTIME`.
+
 `current sidecars + canonical reconciled published memory -> deterministic dedupe/sourceability order -> <=32 candidates -> one gemini-3.5-flash(high) selection -> one primary + <=2 useful fallbacks -> shared <=6 deterministic source/provenance GETs -> explicit report/event epistemic state -> one Flash writer -> deterministic material-claim/source/epistemic validation -> optional one Flash revision without source expansion -> one qualified article -> exactly eight native derivative packages`.
 
 Per-opportunity ceilings stay 32/6/3/1 with <=3 logical Flash calls and zero Codex runtime model calls.
+
+The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. A candidate-local no-source result may still be `SOURCE_DISCOVERY_REQUIRED`; it does not authorize a second selection or weakened evidence. Final live target shorthand is `5–8/day` useful published articles.
 
 The accepted PR #37 article, sourceability, early-attributed-intelligence, canonical-X relay/explicit-rumor provenance, exact epistemic state, and X/Threads native quality correction are `CURRENTLY_PROVEN_AND_REUSE`.
 
@@ -50,9 +54,9 @@ The historical Italy canary already proved one Substack + exactly eight derivati
 
 These are activation/integration gaps, not a reason to rebuild the accepted newsroom or publication stack.
 
-## Current-host proof required before first new live write
+## `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-Read-only preflight must prove production DB integrity/schema, no unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge `contentops-social-main` CDP 9223, exact current destination/account identities, and fresh readiness for all nine surfaces. Do not inspect or expose secrets/session material.
+Before the first new live write, read-only preflight must prove production DB integrity/schema, no unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge `contentops-social-main` CDP 9223, exact current destination/account identities, and fresh readiness for all nine surfaces. Do not inspect or expose secrets/session material.
 
 Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only.
 
