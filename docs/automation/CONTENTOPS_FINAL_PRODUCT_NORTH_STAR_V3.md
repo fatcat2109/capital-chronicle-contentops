@@ -190,17 +190,16 @@ Epistemic lifecycle remains separate:
 
 ## 12. Accepted foundation and current activation route
 
-Accepted/reusable foundation includes current intake, published memory/dedupe, production-day accounting, Simple Gemini selection/writer/revision, PR #37 early-attributed intelligence and epistemic state, sourceability ordering, native exactly-eight compiler, canonical Substack transports, durable publication coordinator, strict readback/reconciliation, completed Italy nine-surface canary, and V5 read model/UI.
+Accepted/reusable foundation includes current intake, published memory/dedupe, production-day accounting foundation, Simple Gemini selection/writer/revision, PR #37 early-attributed intelligence and epistemic state, sourceability ordering, native exactly-eight compiler, canonical Substack transports, durable publication coordinator, strict readback/reconciliation, completed Italy nine-surface canary, V5 read model/UI, merged PR #38 emergency-stop/static-safety closure, and merged PR #39 single-owner production composition.
 
 Remaining work is activation/integration/revalidation, not a new V1 acceptance campaign:
 
-1. repository authority/static safety closure;
-2. Simple -> existing `DurablePublicationCoordinator` bridge and published-count accounting;
-3. current-host read-only activation preflight;
-4. one fresh live V1 end-to-end canary under already-granted routine authority;
-5. if strictly reconciled, enable four routine live windows toward 5–8 useful published articles/day.
+1. Simple -> existing `DurablePublicationCoordinator` bridge and published/reconciled-count accounting;
+2. current-host read-only activation preflight;
+3. one fresh live V1 end-to-end canary under already-granted routine authority;
+4. if strictly reconciled, enable four routine live windows toward 5–8 useful published articles/day.
 
-Do not rebuild transports, publication coordinator, store, native packager, Simple editorial path, or historical Italy publication proof.
+Single-owner composition and Simple emergency-stop/process coverage are already closed. Do not rebuild transports, publication coordinator, store, native packager, Simple editorial path, or historical Italy publication proof.
 
 ## 13. Hard boundaries
 

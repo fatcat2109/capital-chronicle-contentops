@@ -25,6 +25,8 @@ The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` is repository eviden
 - Exact canonical-X relay/explicit-rumor zero-GET lane under its record-scoped provenance contract.
 - Native exactly-eight derivative compiler and PR #37 X/Threads quality correction.
 - Four-window Simple scheduler mechanics, deterministic production-day/window/slot identity, persistent exactly-one-process zero-write host proof.
+- Merged PR #38: post-acceptance authority/static-safety closure and emergency-stop/process-ownership coverage for the canonical Simple scheduler/runtime.
+- Merged PR #39: current production composition has exactly one routine editorial owner, `SIMPLE_GEMINI_RUNTIME`; Native Desktop/legacy rolling-X are compatibility-only/non-routing.
 - Durable V1 store, destination registry, canonical Substack-first publication coordinator, destination transports, strict readback/reconciliation, and UNKNOWN-write recovery mechanics.
 - Historical Italy nine-surface canary as proof that the publication stack can complete one Substack + eight derivatives with strict reconciliation.
 
@@ -34,14 +36,16 @@ The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` is repository eviden
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-- A current production bridge from the accepted Simple qualified article/native package into the existing `DurablePublicationCoordinator` without rebuilding transports or creating another publisher/store.
-- One unambiguous routine production owner: current production composition must not route routine editorial work back through native Desktop Automations or legacy rolling-X ownership.
+Only two implementation gaps remain:
+
+- A current production bridge from the accepted Simple qualified article/native package into the existing `DurablePublicationCoordinator` without rebuilding transports or creating another publisher/store/package stack.
 - Live production-day accounting must distinguish qualified editorial output from strictly reconciled published output; publication failure must not count as a successful published article.
-- Emergency-stop/process-ownership coverage must include the canonical Simple scheduler/runtime process.
+
+Single-owner production composition and Simple emergency-stop/process coverage are closed. Do not reissue them unless fresh current code proves a regression.
 
 ### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-Before the first new live V1 write, prove read-only current host state: production DB integrity/schema, no unresolved UNKNOWN write or ambiguous dispatch/recovery backlog, exact Edge `contentops-social-main` publication profile on CDP 9223, exact account/destination identities, and fresh nine-destination readiness. Do not inspect or expose secrets/session material.
+After the bridge/accounting implementation and before the first new live V1 write, prove read-only current host state: production DB integrity/schema, no unresolved UNKNOWN write or ambiguous dispatch/recovery backlog, exactly one production owner/process, exact Edge `contentops-social-main` publication profile on CDP 9223, exact account/destination identities, and fresh nine-destination readiness. Do not inspect or expose secrets/session material.
 
 ### `SUPERSEDED_DO_NOT_REUSE`
 
@@ -49,16 +53,17 @@ Before the first new live V1 write, prove read-only current host state: producti
 - SDK/App-Server editorial fallback as the routine critical path.
 - Legacy rolling-X monolith or broad evidence-ready pool as current routine ownership.
 - Any authority statement that routine V1 public-write/readback remains ungranted or that V1 acceptance is still pending.
+- Pre-PR38 claims that Simple emergency-stop/process coverage is missing.
+- Pre-PR39 claims that current routine production ownership is ambiguous.
 
 ## 3. Current activation sequence
 
-The accepted V1 product is not to be rebuilt. Activation proceeds in small bounded slices:
+The accepted V1 product is not to be rebuilt. PR #38 and PR #39 already closed repository static safety/emergency-stop and single-owner composition. Activation now proceeds in the remaining bounded slices:
 
-1. **Repository authority + static safety closure.** Recompress active authority around the granted owner state; refresh CodeGraph from the current branch; close deterministic emergency-stop/process-ownership gaps. No public write.
-2. **Simple -> existing publication coordinator integration.** Wire one accepted Simple qualified article/package into the sole existing canonical publication coordinator, preserve canonical Substack-first ordering and exact eight derivatives, and make published/reconciled count distinct from qualified count. No live write required for implementation tests.
-3. **Current-host read-only activation preflight.** Revalidate production store/recovery state, current browser/account identities, destination readiness, exactly-one owner/process, and zero unresolved UNKNOWN write. No public write during preflight.
-4. **One live V1 end-to-end canary under already granted routine authority.** One fresh governed article only: Simple editorial path -> canonical Substack -> exactly eight derivative destinations -> strict readback/reconciliation. Stop immediately on wrong identity, unresolved UNKNOWN write, destructive mutation, or ambiguous public-object identity.
-5. **Routine production enablement.** Only after the canary is strictly reconciled should the four owner-locked windows run live toward 5–8 useful published articles per production day. No filler and no fifth routine task.
+1. **Simple -> existing publication coordinator integration + published accounting.** Wire one accepted Simple qualified article/package into the sole existing canonical publication coordinator, preserve canonical Substack-first ordering and exact eight derivatives, and make published/reconciled count distinct from qualified count. No live write required for implementation tests.
+2. **Current-host read-only activation preflight.** Revalidate production store/recovery state, current browser/account identities, destination readiness, exactly-one owner/process, and zero unresolved UNKNOWN write. No public write during preflight.
+3. **One live V1 end-to-end canary under already granted routine authority.** One fresh governed article only: Simple editorial path -> canonical Substack -> exactly eight derivative destinations -> strict readback/reconciliation. Stop immediately on wrong identity, unresolved UNKNOWN write, destructive mutation, or ambiguous public-object identity.
+4. **Routine production enablement.** Only after the canary is strictly reconciled should the four owner-locked windows run live toward 5–8 useful published articles per production day. No filler and no fifth routine task.
 
 ## 4. Non-negotiable invariants
 

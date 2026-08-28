@@ -102,6 +102,8 @@ Reuse, do not rebuild:
 - accepted PR #37 Editorial Growth Edge and epistemic-state logic;
 - current Simple article path and native exactly-eight compiler;
 - four-window Simple scheduling mechanics and persistent zero-write host proof;
+- PR #38 current post-acceptance authority/static-safety closure and Simple emergency-stop/process coverage;
+- PR #39 single routine production-owner composition: Final Daily App -> `SIMPLE_GEMINI_RUNTIME`, with native Desktop/legacy rolling-X fenced non-routing;
 - durable V1 store;
 - destination registry;
 - `DurablePublicationCoordinator` as the sole public-write owner;
@@ -113,9 +115,9 @@ Reuse, do not rebuild:
 Current new implementation gaps are limited to:
 
 1. Simple qualified article/package -> existing `DurablePublicationCoordinator` production bridge;
-2. one unambiguous routine production owner that does not route back through native Desktop/legacy rolling-X;
-3. published/reconciled production-day accounting distinct from zero-write qualified-count telemetry;
-4. emergency-stop/process-ownership coverage for the canonical Simple scheduler/runtime.
+2. published/reconciled production-day accounting distinct from zero-write qualified-count telemetry.
+
+Single-owner composition and Simple emergency-stop/process coverage are closed and must not be reissued as implementation tasks. Historical wording that still lists them as gaps is superseded by fresh `master` code and this contract.
 
 Before the first new live V1 write, current-host read-only proof is required for production-store integrity/recovery state, exact Edge 9223 publication profile/account identities, current destination readiness, exactly-one production owner/process, and `UNKNOWN_WRITE=0`. Do not inspect or expose secrets/session material.
 
@@ -169,12 +171,13 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 ## 11. Locked current sequence
 
-1. finish repository authority/static safety closure without public write;
-2. wire Simple into the existing publication coordinator and close published-count accounting without rebuilding transports;
-3. run current-host read-only activation preflight;
-4. run one fresh end-to-end live V1 canary under the already-granted authority and strictly reconcile all nine surfaces;
-5. only after that canary is clean, enable the four routine live windows toward 5–8 useful published articles/day;
-6. preserve V1 and continue isolated V2 work only under V2's separate authority boundaries.
+1. wire Simple into the existing publication coordinator and close published/reconciled-count accounting without rebuilding transports;
+2. run current-host read-only activation preflight;
+3. run one fresh end-to-end live V1 canary under the already-granted authority and strictly reconcile all nine surfaces;
+4. only after that canary is clean, enable the four routine live windows toward 5–8 useful published articles/day;
+5. preserve V1 and continue isolated V2 work only under V2's separate authority boundaries.
+
+Repository authority/static-safety closure, emergency-stop coverage, and single-owner composition are already closed by merged PR #38 and PR #39; do not recreate them.
 
 ## 12. Change discipline
 

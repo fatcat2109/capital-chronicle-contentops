@@ -84257,7 +84257,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-28T19:43:27Z",
+  "generation_timestamp_utc": "2026-08-28T21:08:25Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84290,7 +84290,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 10766
+      "size_bytes": 11171
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -84495,27 +84495,27 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 9705
+      "size_bytes": 10223
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 6761
+      "size_bytes": 7173
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 4986
+      "size_bytes": 5603
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 9545
+      "size_bytes": 11013
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 10727
+      "size_bytes": 10893
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -84525,7 +84525,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 8236
+      "size_bytes": 8703
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -132389,6 +132389,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "1ff6b6c7f16a1d072ffe2ae5a15b89c9cb5b14ef",
-  "source_tree_digest": "99a7778c3f641b47eeae817eca1e51b9c9cf71875921a764e20580ae9c0c0c8a"
+  "source_head": "ab52e4ebdd9348245a6b21cd538e75d639e92e49",
+  "source_tree_digest": "dcdca4c59cfd39ede0999ff06c85afbf85799e11740a897fdfd41a7701890b38"
 }

@@ -69,6 +69,8 @@ Jim's latest explicit instruction remains highest product authority.
 - Simple Gemini 32/6/3/1 article path;
 - PR #37 sourceability, early-attributed intelligence, exact epistemic state, publisher pinning, canonical-X relay/rumor static lane, native eight-destination packaging, X/Threads quality correction;
 - four-window Simple scheduler mechanics and persistent exactly-one-process zero-write host proof;
+- PR #38 post-acceptance authority/static-safety closure and emergency-stop/process coverage for Simple;
+- PR #39 single-owner production composition with `SIMPLE_GEMINI_RUNTIME` current and native Desktop/legacy rolling-X fenced non-routing;
 - durable V1 store, destination registry, `DurablePublicationCoordinator`, canonical Substack-first transports, strict readback/reconciliation, UNKNOWN-write recovery;
 - historical Italy one-canonical-plus-eight-derivatives canary as publication-stack proof;
 - V5 read model/UI foundation.
@@ -82,9 +84,9 @@ Jim's latest explicit instruction remains highest product authority.
 ### `NEW_IMPLEMENTATION_GAP`
 
 1. Simple qualified article/native package -> existing `DurablePublicationCoordinator` production bridge;
-2. one unambiguous routine production owner: Simple, not native Desktop/legacy rolling-X;
-3. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry;
-4. emergency-stop/process-ownership coverage for canonical Simple scheduler/runtime.
+2. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
+
+Single routine-owner composition and Simple emergency-stop/process coverage are closed. Do not issue implementation tasks for them again unless fresh code proves regression.
 
 ### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
@@ -110,20 +112,21 @@ Preserve, do not repeat merely for ceremony:
 - accepted PR #19 discovery donors under current Simple economics;
 - accepted PR #20 article/package proof;
 - accepted PR #37 current Al Jazeera article/eight-preview proof and static canonical-X relay/rumor proof;
-- persistent Simple scheduler zero-write current-host proof.
+- persistent Simple scheduler zero-write current-host proof;
+- merged PR #38 emergency-stop/static-safety closure;
+- merged PR #39 current single-owner composition plus exact-head and master-push CI.
 
 Missing fresh host proof does not convert a proven implementation into a new implementation gap.
 
 ## 6. Current activation sequence
 
-1. repository authority/static safety closure and CodeGraph refresh — zero public write;
-2. Simple -> existing publication coordinator bridge + published/reconciled accounting — no live write required for implementation validation;
-3. current-host read-only activation preflight — zero public write;
-4. one fresh live V1 end-to-end canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
-5. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day;
-6. continue isolated V2 only under V2's separate authority boundaries.
+1. Simple -> existing publication coordinator bridge + published/reconciled accounting — no live write required for implementation validation;
+2. current-host read-only activation preflight — zero public write;
+3. one fresh live V1 end-to-end canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
+4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day;
+5. continue isolated V2 only under V2's separate authority boundaries.
 
-No fifth routine task. No filler. No blind retry after ambiguity.
+Repository authority/static safety, emergency-stop coverage, and single-owner composition are already closed. No fifth routine task. No filler. No blind retry after ambiguity.
 
 ## 7. Growth-first rules that remain current
 
@@ -158,6 +161,8 @@ Never route a fresh V1 task from claims that:
 - official confirmation is required before every reputable attributed report;
 - routine V1 public-write/readback authority remains zero;
 - `V1_FINAL_PRODUCT_ACCEPTED` remains pending;
+- PR #38 emergency-stop/process coverage remains missing;
+- PR #39 single routine-owner composition remains missing;
 - V2 has public-write authority.
 
 ## 10. Conflict resolution
