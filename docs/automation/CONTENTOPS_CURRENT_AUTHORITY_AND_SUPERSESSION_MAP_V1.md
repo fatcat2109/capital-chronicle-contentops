@@ -20,6 +20,14 @@ remain discovery-only; only identities already explicitly approved by current re
 may act as relays, and a relay cannot impersonate the original publisher. This override supersedes
 conflicting official-first or same-event-primary-before-writer wording below.
 
+The owner-curated canonical X-list is now a record-scoped narrow report-truth authority. Only an
+exact canonical-loader marker plus exact captured text may support `Relay R, citing Publisher P,
+reports X` or an explicitly marked market-rumor proposition. Such records use zero GETs, remain
+`UNCONFIRMED`, never prove P's original report or X, never grant Capital Chronicle numeric truth,
+and cannot bypass high-harm enhanced evidence. Arbitrary social rows/list membership without that
+marker remain discovery-only. Publisher-pinned direct/RSS resolution remains accepted and direct
+bound publisher bytes still precede the relay path.
+
 ## 2026-08-27 V1 simple-Gemini architecture reset
 
 Jim explicitly approved a routine V1 architecture reset. `CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
@@ -197,6 +205,18 @@ unknown writes. Preserve the prior source-routing and financing-led specimens as
 diagnostic evidence; neither is the current final editorial-quality result.
 
 ## Locked V2-after-V1 sequence
+
+### Current PR #37 closeout override (2026-08-28)
+
+The single permitted canonical-X-activation opportunity closed the current article/preview gate.
+The selected fallback resolved one exact Al Jazeera report and qualified as
+`DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE`; deterministic validation
+passed and exactly eight preview-only native packages preserved that state. It used 32 candidates,
+one selection, three admissions, six GETs, one writer, one revision, and three logical Flash calls.
+Production DB bytes were unchanged; Codex/public/provider/coordinator/UNKNOWN counts were zero.
+The selected story used direct reporting, so relay-only and rumor-only host qualification remains
+unobserved, while both zero-GET branches are statically proven. Routine public-write authority is
+still zero.
 
 Current master already owns the free-form/package/publication-control substrates. The branch
 `task/v2-native-staggered-automation-relay-shadow-correction-v1` at `10d18873e2d716dcd53b681a4370ef7726a27f9b`

@@ -152,6 +152,12 @@ forecast/probability/scenario/regime claims. Public publication remains a separa
 
 The exact current detail is `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`.
 
+An exact record from the owner-curated canonical X-list intake may use the deterministic
+canonical-list provenance marker to support only `Relay R, citing Publisher P, reports X` or an
+explicitly marked market-rumor proposition. That path uses zero GETs, remains `UNCONFIRMED`, never
+proves the cited publisher's original report or the underlying event, and remains subject to
+high-harm enhanced evidence. Arbitrary social rows without the marker remain discovery-only.
+
 The final news-peg/public-metadata-integrity current-sidecar host canary passed with one 32-candidate
 packet, one Flash selection, three admitted candidates, two shared-ledger GETs to a current NVIDIA
 issuer feed and exact earnings release, one Flash writer, deterministic validation PASS across the
@@ -248,7 +254,7 @@ Current progression order:
 1. preserve the accepted Simple mechanics and final news-peg/public-metadata-integrity host PASS;
 2. preserve the accepted lightweight local four-window scheduler plus persistent current-host,
    current-intake, exactly-one-process, and zero-write restart proof;
-3. integrate the existing Simple Editorial Growth Edge before routine public-write enablement,
+3. preserve the accepted PR #37 Simple Editorial Growth Edge and current article/eight-preview proof before routine public-write enablement,
    reusing the Institutional Edge editorial contract, `CAPITAL_CHRONICLE_VIEW`,
    `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer authority separation, native eight-
    destination packaging, and compatible existing discovery/retrieval capability; first investigate

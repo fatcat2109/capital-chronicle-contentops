@@ -57,10 +57,9 @@ PRIMARY_AUTHORITY_CLASSES = frozenset(
 )
 SECONDARY_AUTHORITY_CLASSES = frozenset({"reputable_secondary_source"})
 TRUSTED_RELAY_AUTHORITY_CLASS = "trusted_professional_feed_relay"
-# Current V1 owns no relay identity with factual/report-truth authority. The historical
-# ``TRUSTED_PROFESSIONAL_FEED_HANDLES`` donor binds freshness only and explicitly leaves feed text
-# discovery-only, so it must not be promoted here.
-APPROVED_ATTRIBUTED_RELAY_HANDLES = frozenset()
+# Relay authority is record-scoped, not handle-scoped. The owner-curated canonical list marker is
+# derived only by the canonical sidecar loader; historical professional-feed handles remain
+# freshness-only and arbitrary social rows never enter this set.
 
 _URL_RE = re.compile(r"https?://\S+", re.IGNORECASE)
 _ORIGIN_INTERNAL_RE = re.compile(
@@ -79,6 +78,33 @@ def _normal(value: Any) -> str:
 
 def _source_account(candidate: Mapping[str, Any]) -> str:
     return str(candidate.get("source_account") or "").strip().lstrip("@").casefold()
+
+
+def _canonical_x_provenance(candidate: Mapping[str, Any]) -> dict[str, Any]:
+    value = candidate.get("canonical_x_list_provenance")
+    value = dict(value) if isinstance(value, Mapping) else {}
+    try:
+        from live_contentops.newsroom_assignment_scheduler_v1 import (
+            CANONICAL_X_LIST_PROVENANCE_SCHEMA_VERSION,
+            CANONICAL_X_LIST_SOURCE_PLATFORM,
+        )
+        from live_contentops.x_list_ingest_capture_v1 import TARGET_LIST_ID
+    except ImportError:
+        return {}
+    if (
+        value.get("schema_version") != CANONICAL_X_LIST_PROVENANCE_SCHEMA_VERSION
+        or value.get("owner_curated_canonical_x_list") is not True
+        or str(value.get("target_list_id") or "") != TARGET_LIST_ID
+        or str(value.get("source_platform") or "")
+        != CANONICAL_X_LIST_SOURCE_PLATFORM
+        or value.get("exact_sidecar_record") is not True
+        or value.get("report_truth_scope_only") is not True
+        or value.get("underlying_event_truth_granted") is not False
+        or value.get("capital_chronicle_numeric_authority_granted") is not False
+        or value.get("public_write_authority_granted") is not False
+    ):
+        return {}
+    return value
 
 
 def _event_proposition(text: str, hint: Mapping[str, Any] | None) -> str:
@@ -119,6 +145,7 @@ def candidate_report_provenance(candidate: Mapping[str, Any]) -> dict[str, Any]:
     hints = attributed_reputable_source_hints(headline)
     hint = hints[0] if len(hints) == 1 else None
     account = _source_account(candidate)
+    canonical_x = _canonical_x_provenance(candidate)
     event = _event_proposition(headline, hint)
     publisher = str((hint or {}).get("publisher") or "")
     report = (
@@ -126,9 +153,8 @@ def candidate_report_provenance(candidate: Mapping[str, Any]) -> dict[str, Any]:
         if publisher and event
         else ""
     )
-    trusted_relay = bool(
-        account in APPROVED_ATTRIBUTED_RELAY_HANDLES and hint is not None
-    )
+    trusted_relay = bool(canonical_x and hint is not None)
+    explicit_rumor = bool(canonical_x and _ORIGIN_RUMOR_RE.search(headline))
     return {
         "schema_version": "contentops.v1_simple_candidate_report_provenance.v1",
         "explicit_reputable_attribution": hint is not None,
@@ -143,9 +169,14 @@ def candidate_report_provenance(candidate: Mapping[str, Any]) -> dict[str, Any]:
         "source_account": account or None,
         "source_url": str(candidate.get("source_url") or "") or None,
         "trusted_relay_identity_approved": trusted_relay,
+        "owner_curated_canonical_x_record": bool(canonical_x),
+        "canonical_x_list_provenance": canonical_x,
+        "explicit_market_rumor": explicit_rumor,
         "preferred_route": (
             "TRUSTED_RELAY_ATTRIBUTED_REPORT"
             if trusted_relay
+            else "TRUSTED_MARKET_RUMOR"
+            if explicit_rumor
             else "ATTRIBUTED_REPUTABLE_REPORT_FIRST"
             if hint is not None
             else "DEFAULT_SHORTEST_GOVERNED_ROUTE"
@@ -158,15 +189,21 @@ def candidate_report_provenance(candidate: Mapping[str, Any]) -> dict[str, Any]:
 def trusted_relay_document(
     request: Mapping[str, Any],
 ) -> dict[str, Any] | None:
-    """Return an exact captured relay statement only for the existing approved feed identity."""
+    """Return exact canonical-list report truth, never underlying event truth."""
     context = request.get("story_context")
     context = context if isinstance(context, Mapping) else {}
     profile = context.get("report_provenance")
     profile = profile if isinstance(profile, Mapping) else {}
-    if (
-        profile.get("trusted_relay_identity_approved") is not True
-        or profile.get("explicit_reputable_attribution") is not True
-    ):
+    relay = bool(
+        profile.get("trusted_relay_identity_approved") is True
+        and profile.get("explicit_reputable_attribution") is True
+    )
+    rumor = bool(
+        profile.get("owner_curated_canonical_x_record") is True
+        and profile.get("explicit_market_rumor") is True
+        and profile.get("explicit_reputable_attribution") is not True
+    )
+    if not relay and not rumor:
         return None
     text = str((context.get("leaf_summaries") or [""])[0] or "").strip()
     url = str(profile.get("source_url") or "")
@@ -175,12 +212,17 @@ def trusted_relay_document(
     if not text or not url.startswith("https://x.com/") or not account or not published:
         return None
     digest = sha256(text.encode("utf-8")).hexdigest()
+    authority = (
+        "trusted_professional_feed_relay"
+        if relay
+        else "trusted_market_rumor_source"
+    )
     return {
-        "document_id": "trusted-relay-" + digest[:20],
+        "document_id": ("trusted-relay-" if relay else "trusted-rumor-") + digest[:20],
         "title": text,
         "publisher": account,
         "source_identity": account,
-        "source_authority_class": TRUSTED_RELAY_AUTHORITY_CLASS,
+        "source_authority_class": authority,
         "source_url": url,
         "reader_source_url": url,
         "published_at_utc": published,
@@ -191,8 +233,36 @@ def trusted_relay_document(
         "report_truth_only": True,
         "underlying_event_truth_granted": False,
         "original_publisher_report_separately_resolved": False,
-        "retrieval_method": "EXACT_GOVERNED_TRUSTED_RELAY_SIDECAR",
+        "retrieval_method": (
+            "EXACT_GOVERNED_CANONICAL_X_RELAY_SIDECAR"
+            if relay
+            else "EXACT_GOVERNED_CANONICAL_X_RUMOR_SIDECAR"
+        ),
     }
+
+
+def canonical_x_report_document(
+    request: Mapping[str, Any],
+) -> tuple[dict[str, Any] | None, list[str]]:
+    """Admit only an exact owner-curated canonical-list relay/rumor proposition.
+
+    The document proves the relay's own captured words. It never proves the cited publisher's
+    original report or the underlying event, and high-harm records retain enhanced evidence.
+    """
+    context = request.get("story_context")
+    context = context if isinstance(context, Mapping) else {}
+    profile = context.get("report_provenance")
+    profile = profile if isinstance(profile, Mapping) else {}
+    if profile.get("owner_curated_canonical_x_record") is not True:
+        return None, ["canonical_x_owner_curated_provenance_required"]
+    if requires_enhanced_evidence_review(request):
+        return None, ["canonical_x_high_harm_enhanced_evidence_required"]
+    document = trusted_relay_document(request)
+    if document is None:
+        return None, [
+            "canonical_x_explicit_attribution_or_rumor_required"
+        ]
+    return document, []
 
 
 def _origin_character(
@@ -222,11 +292,11 @@ def _reader_label(
     if event_state == "DISPUTED_OR_DENIED":
         return "DISPUTED / DENIED"
     if evidence_basis == "TRUSTED_RELAY_ATTRIBUTED_REPORT":
-        return f"RELAYED / UNCONFIRMED — {relay}, citing {publisher}"
+        return f"RELAYED / UNCONFIRMED - @{relay}, citing {publisher}"
     if evidence_basis == "TRUSTED_MARKET_RUMOR":
         return "MARKET RUMOR — UNCONFIRMED"
     prefix = "SINGLE-SOURCE REPORT" if multiplicity == "SINGLE_SOURCE" else "UNCONFIRMED REPORT"
-    return f"{prefix} — {publisher.upper()}"
+    return f"{prefix} - {publisher.upper()}"
 
 
 def validate_epistemic_state(state: Mapping[str, Any]) -> list[str]:
@@ -313,11 +383,15 @@ def build_epistemic_state(
             == attributed_host.removeprefix("www.")
         ]
     relay = TRUSTED_RELAY_AUTHORITY_CLASS in authorities
+    rumor = "trusted_market_rumor_source" in authorities
     primary = bool(authorities.intersection(PRIMARY_AUTHORITY_CLASSES))
     secondary = bool(authorities.intersection(SECONDARY_AUTHORITY_CLASSES))
     if relay:
         matching_docs = docs
         evidence_basis = "TRUSTED_RELAY_ATTRIBUTED_REPORT"
+    elif rumor:
+        matching_docs = docs
+        evidence_basis = "TRUSTED_MARKET_RUMOR"
     elif primary:
         evidence_basis = "PRIMARY_EVENT_EVIDENCE"
     elif secondary and matching_docs:
@@ -329,7 +403,7 @@ def build_epistemic_state(
         **dict(request),
         "story_context": {**dict(context), "leaf_summaries": [event]},
     }
-    if relay:
+    if relay or rumor:
         relay_text = _normal(matching_docs[0].get("canonical_content_text"))
         event_terms = {
             value
@@ -341,7 +415,13 @@ def build_epistemic_state(
         contract = {
             "status": "PASS",
             "supported_claims": [
-                {"support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION"}
+                {
+                    "support_status": (
+                        "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION"
+                        if relay
+                        else "SUPPORTED_EXACT_CANONICAL_X_MARKET_RUMOR"
+                    )
+                }
             ],
         }
     else:
@@ -361,6 +441,13 @@ def build_epistemic_state(
     )
     identity = attributed_host or str(matching_docs[0].get("source_identity") or "")
     report = str(profile.get("report_proposition") or "").strip()
+    if relay:
+        report = (
+            f"@{profile.get('source_account')}, citing {publisher}, reports "
+            f"{_report_clause(event)}"
+        )
+    if rumor and not report:
+        report = f"@{profile.get('source_account')} relays market chatter that {_report_clause(event)}"
     if not report:
         report = f"{publisher} reports that {_report_clause(event)}"
     event_state = "CONFIRMED" if primary else "UNCONFIRMED"
@@ -384,7 +471,7 @@ def build_epistemic_state(
         "source_multiplicity": multiplicity,
         "primary_reporting_publisher": publisher,
         "primary_reporting_source_identity": identity,
-        "relay_source_identity": relay_identity if relay else None,
+        "relay_source_identity": relay_identity if relay or rumor else None,
         "report_proposition": report,
         "event_proposition": event,
         "report_truth_supported": True,

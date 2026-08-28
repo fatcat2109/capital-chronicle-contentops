@@ -167,6 +167,13 @@ publisher identity is governed, only that publisher family is eligible for RSS p
 resolution attempts. The exact remaining V1 row is
 `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current article and exactly eight actual previews.
 
+The owner-authorized canonical-X activation is also implemented as a deterministic extension of
+that seam: exact records from the locked canonical X-list may support only a relay-of-reporting or
+explicit market-rumor proposition, remain `UNCONFIRMED`, and use zero GETs. The marker never proves
+the cited publisher's original report, the underlying event, or Capital Chronicle numeric truth;
+arbitrary social rows remain discovery-only. The current runtime gate remains one current article
+plus eight actual previews.
+
 The V2 gaps listed below remain after this V1 closure.
 
 The accepted sweep originally recorded three gaps. PR #19 closes the V1 discovery row without
@@ -303,3 +310,11 @@ wholesale V2 donor merge, V1 authority contamination, or any implied V2 public-w
 
 Protected historical `v1.0` remains immutable at
 `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+### PR #37 current-host closeout
+
+The exact current article/eight-preview row is runtime-proven under locked 32/6/3/1 economics:
+one current Al Jazeera report qualified as `DIRECT_REPUTABLE_REPORT / UNCONFIRMED /
+UNSPECIFIED / SINGLE_SOURCE`, with deterministic PASS and eight preview-only native destinations.
+The direct-report result does not constitute relay-only or rumor-only host proof; those branches are
+zero-GET statically proven. No public-write authority was granted.

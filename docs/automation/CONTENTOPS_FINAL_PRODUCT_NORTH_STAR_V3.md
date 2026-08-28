@@ -269,13 +269,18 @@ Accepted/reusable foundations include:
 - canonical Substack transports, readback/reconciliation, and completed Italy nine-surface canary;
 - V5 read model/UI foundation.
 
-The Simple report-truth/event-truth epistemic adapter is accepted implementation in PR #37 and is
-no longer the current gap. The remaining implementation correction is narrower: when provenance
-names exactly one reputable publisher but no direct article URL is bound, pin existing Google News
-RSS publisher resolution to that exact publisher family before consuming scarce publisher-
-resolution attempts. After that correction, the exact gate is
+The Simple report-truth/event-truth epistemic adapter and attributed-publisher direct/RSS pinning
+are accepted implementation in PR #37 and are no longer current gaps. The exact gate is
 `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current epistemically qualified article and exactly
 eight actual owner-review previews.
+
+The owner has now authorized one further narrow activation: an exact record from the owner-curated
+canonical X-list intake may support only a relay-of-reporting proposition (`Relay R, citing
+Publisher P, reports X`) or an explicitly marked market-rumor proposition. It remains
+`UNCONFIRMED`, never proves the cited publisher's original report or X itself, and cannot bypass
+high-harm enhanced evidence. Arbitrary social rows remain discovery-only. This activation is
+zero-GET eligible after deterministic provenance validation; the exact remaining gate is still
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` for one current article and eight actual previews.
 
 Current sequence:
 
@@ -308,3 +313,12 @@ Never:
 - blind-retry an ambiguous write.
 
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+## PR #37 current-host closeout (2026-08-28)
+
+The single permitted current opportunity closed the article and preview gate: one exact Al Jazeera
+report qualified as `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE`,
+deterministic validation passed, and exactly eight preview-only undispatched packages preserved the
+epistemic state. The selected story used direct reporting; relay-only and rumor-only current-host
+qualification therefore remains unobserved rather than inferred. Separate public-write/readback
+authority remains ungranted.

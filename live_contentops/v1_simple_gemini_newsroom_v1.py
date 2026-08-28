@@ -323,6 +323,12 @@ def _candidate_universe(
             "follow_up_data_need_candidates": list(
                 external.get("follow_up_data_need_candidates") or []
             ),
+            "source_platform": str(external.get("source_platform") or ""),
+            "canonical_x_list_provenance": dict(
+                external.get("canonical_x_list_provenance") or {}
+            )
+            if isinstance(external.get("canonical_x_list_provenance"), Mapping)
+            else {},
         })
     return result
 
@@ -340,6 +346,8 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
             "source_url",
             "official_source_urls",
             "public_source_urls",
+            "source_platform",
+            "canonical_x_list_provenance",
         )
     }
 
@@ -1138,6 +1146,21 @@ def _epistemic_copy_blockers(
                 token in _normal(clean) for token in attribution_tokens
             ):
                 blockers.append(f"epistemic_event_asserted_as_confirmed:{index}")
+    if str(epistemic_state.get("evidence_basis") or "") == (
+        "TRUSTED_RELAY_ATTRIBUTED_REPORT"
+    ):
+        relay_token = _normal(relay)
+        if not relay_token or any(
+            relay_token not in _normal(value)
+            for value in (title, dek, first)
+        ):
+            blockers.append("epistemic_relay_identity_not_prominent")
+        if publisher and re.search(
+            rf"\b{re.escape(publisher)}\s+(?:reports?|reported|says|said)\b",
+            public_copy,
+            re.IGNORECASE,
+        ):
+            blockers.append("epistemic_relay_impersonates_original_publisher")
     if origin != "LEAK" and re.search(r"\b(?:leak|leaked)\b", public_normal):
         blockers.append("epistemic_unsupported_leak_label")
     if origin != "RUMOR" and re.search(r"\b(?:rumou?r|market chatter)\b", public_normal):
@@ -1640,6 +1663,19 @@ def run_v1_simple_gemini_newsroom(
             if candidate_epistemic_state
             else []
         )
+        basis = str(candidate_epistemic_state.get("evidence_basis") or "")
+        if basis in {
+            "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+            "TRUSTED_MARKET_RUMOR",
+        } and plan_entry.get("article_mode") != "BREAKING_BRIEF":
+            plan_entry["model_selected_article_mode"] = plan_entry[
+                "article_mode"
+            ]
+            plan_entry["article_mode"] = "BREAKING_BRIEF"
+            plan_entry["deterministic_mode_cap_reason"] = (
+                "RELAY_OR_RUMOR_ONLY_EVIDENCE_DEPTH"
+            )
+            plan_entry["deterministic_mode_cap_uses_model_call"] = False
         status = (
             "SOURCE_QUALIFIED"
             if evidence.get("status") == "PASS"
@@ -1657,6 +1693,12 @@ def run_v1_simple_gemini_newsroom(
             "plan_role": plan_entry["plan_role"],
             "candidate_id": candidate["candidate_id"],
             "article_mode": plan_entry["article_mode"],
+            "model_selected_article_mode": plan_entry.get(
+                "model_selected_article_mode", plan_entry["article_mode"]
+            ),
+            "deterministic_mode_cap_reason": plan_entry.get(
+                "deterministic_mode_cap_reason"
+            ),
             "selection_rationale": plan_entry["selection_rationale"],
             "research_queries": list(plan_entry["research_queries"]),
             "status": status,

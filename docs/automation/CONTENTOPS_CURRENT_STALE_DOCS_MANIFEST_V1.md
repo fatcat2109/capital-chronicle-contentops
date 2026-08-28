@@ -57,12 +57,17 @@ Any file containing these current-looking claims is stale for routing unless exp
 - a same-entity but different-event official document can confirm the selected report;
 - report truth and underlying event truth are interchangeable;
 - an arbitrary X-list account becomes an approved newsroom/relay/rumor source by list membership.
+- every exact owner-curated canonical-X record remains discovery-only even when it explicitly
+  attributes a reputable publisher or labels itself market rumor.
 
 ## 3. Current replacement semantics
 
 - Current 2026-08-28 North Star is `EARLY_ATTRIBUTED_INTELLIGENCE`: one exact reputable secondary
   may prove a narrow ordinary attributed reporting proposition while the event remains visibly
   unconfirmed. Epistemic state must survive canonical copy, qualification, and all eight previews.
+- Exact owner-curated canonical-X records may support only narrow relay-of-reporting or explicit-
+  rumor propositions when the canonical provenance marker is present. Arbitrary social rows remain
+  discovery-only; event truth and CC numeric authority remain zero.
 
 - The `330f` foundation is accepted and reusable: autonomous URL discovery, shared route health,
   sourceability-first funnel, four distinct governed evidence-ready candidates, and frozen

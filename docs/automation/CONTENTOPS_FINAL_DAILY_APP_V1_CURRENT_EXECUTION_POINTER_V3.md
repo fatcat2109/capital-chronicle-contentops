@@ -71,6 +71,12 @@ previews. One exact ordinary reputable report may qualify as
 `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / SINGLE_SOURCE`; an unrelated official document cannot
 qualify it. High-harm claims remain enhanced-evidence cases.
 
+The owner-curated canonical X-list may now provide a zero-GET narrow relay/rumor record when its
+deterministic provenance marker is present and the text explicitly says `per Publisher` or rumor/
+market chatter. The result is `TRUSTED_RELAY_ATTRIBUTED_REPORT` or `TRUSTED_MARKET_RUMOR`, remains
+`UNCONFIRMED`, and never proves the cited publisher or underlying event. Arbitrary social rows
+remain discovery-only; high-harm relay/rumor cases stay enhanced-evidence blocked.
+
 After that slice, the next distinct authorization gate is separate public-write/readback authority.
 The scheduler proof grants none. A real production-day 5–8 useful published/day acceptance and
 explicit `V1_FINAL_PRODUCT_ACCEPTED` decision remain later.
@@ -81,3 +87,14 @@ here. It does not prove a full production day, 5–8/day acceptance, routine pub
 V1 acceptance.
 
 Final V1 target remains `5–8/day` useful published articles without filler.
+
+## PR #37 current article closeout
+
+The one permitted current opportunity has now satisfied the article/preview runtime gate. The
+selected candidate resolved through an exact Al Jazeera report and passed as
+`DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE`, with one qualified article
+and exactly eight preview-only, undispatched native destinations. Counters were 32 candidates,
+three admissions, six GETs, one writer, one revision, and three logical Flash calls; all Codex,
+public/provider/coordinator, and UNKNOWN-write counters were zero and the production DB hash was
+unchanged. Relay-only and rumor-only host qualification was not observed because this genuine story
+used direct reporting; static zero-GET provenance tests remain the proof for those branches.

@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`SIMPLE_EARLY_ATTRIBUTED_INTELLIGENCE / PUBLISHER_PINNING_IMPLEMENTED / CURRENT_HOST_ACCEPTANCE_PENDING`
+`SIMPLE_CANONICAL_X_RELAY_RUMOR_ACTIVATION / CURRENT_HOST_ACCEPTANCE_PENDING`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
@@ -18,6 +18,10 @@ primary locator and exact document -> reputable-secondary fallback) -> explicit 
 epistemic state -> one Flash writer -> deterministic material-claim/source/epistemic validation -> optional one Flash revision without source
 expansion -> one qualified zero-write article -> exactly eight undispatched intents. Codex runtime
 model calls are zero.
+
+Exact owner-curated canonical-X records may support narrow `Relay R, citing Publisher P, reports X`
+or explicitly marked `MARKET RUMOR` propositions with zero GETs, while arbitrary social rows remain
+discovery-only and underlying event truth remains unconfirmed.
 
 PR #19 locator/retrieval primitives, PR #20 article/package proof, and PR #29 validate-after concepts
 are reusable donors. PR #30/#31 and native Desktop split-phase routing are historical evidence only.
@@ -177,6 +181,14 @@ These are identities, not permission to inspect credentials/session material.
 5. follow with separate routine public-write/readback authority;
 6. prove a real production day at 5–8 useful published articles without filler, then obtain the
    explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
+
+## Current PR #37 closeout
+
+The single permitted current opportunity closed the article/eight-preview host gate with an exact
+Al Jazeera `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE` result, deterministic
+validation PASS, and eight preview-only native packages. The selected story used direct reporting;
+relay-only and rumor-only current-host qualification remains unobserved, while canonical-X zero-GET
+provenance behavior is statically covered.
 
 ## Stale traps
 

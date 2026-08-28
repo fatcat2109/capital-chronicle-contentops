@@ -10,6 +10,7 @@ from live_contentops.destination_transport_registry_v1 import (
 )
 from live_contentops.v1_simple_epistemic_state_v1 import (
     build_epistemic_state,
+    canonical_x_report_document,
     candidate_report_provenance,
     trusted_relay_document,
     validate_epistemic_state,
@@ -21,6 +22,7 @@ from live_contentops.v1_simple_gemini_newsroom_v1 import (
     ARTICLE_SCHEMA_VERSION,
     SimpleGeminiNewsroomError,
     _native_preview_bundle,
+    _source_pack as _runtime_source_pack,
     _validate_article_against_source_pack,
     run_v1_simple_gemini_newsroom,
 )
@@ -65,6 +67,26 @@ def _candidate(*, account: str = "wallstengine") -> dict[str, object]:
         "official_source_urls": [],
         "public_source_urls": [WSJ_URL],
     }
+
+
+def _canonical_candidate(
+    *, account: str = "wallstengine", headline: str | None = None
+) -> dict[str, object]:
+    candidate = _candidate(account=account)
+    candidate["headline_text"] = headline or candidate["headline_text"]
+    candidate["source_platform"] = "x_cdp_list_latest_tweets_timeline"
+    candidate["canonical_x_list_provenance"] = {
+        "schema_version": "contentops.canonical_x_list_record_provenance.v1",
+        "owner_curated_canonical_x_list": True,
+        "target_list_id": "1843870469143048642",
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "exact_sidecar_record": True,
+        "report_truth_scope_only": True,
+        "underlying_event_truth_granted": False,
+        "capital_chronicle_numeric_authority_granted": False,
+        "public_write_authority_granted": False,
+    }
+    return candidate
 
 
 def _request(candidate: dict[str, object], *, source_url: str = WSJ_URL):
@@ -624,6 +646,434 @@ def test_attributed_publisher_pins_mixed_rss_resolution_to_reuters_only():
     assert state["evidence_basis"] == "DIRECT_REPUTABLE_REPORT"
     assert state["event_confirmation_state"] == "UNCONFIRMED"
     assert state["source_multiplicity"] == "SINGLE_SOURCE"
+
+
+def test_canonical_x_relay_qualifies_zero_gets_without_original_publisher_resolution():
+    candidate = _canonical_candidate(
+        headline="SoftBank is seeking a new $10B loan tied to its OpenAI investment, per Bloomberg."
+    )
+    request = _request(candidate, source_url=candidate["source_url"])
+    calls: list[str] = []
+
+    def get(url, *_args):
+        calls.append(url)
+        raise AssertionError("canonical relay must not invoke Google RSS")
+
+    result = SimpleFirstPartyAwareEvidenceResolver(
+        evaluation_as_of_utc=CUTOFF,
+        http_get=get,
+        clock=lambda: NOW,
+    )(request)
+    assert result["status"] == "PASS"
+    assert calls == []
+    assert result["provenance"]["selected_route"] == (
+        "TRUSTED_RELAY_ATTRIBUTED_REPORT"
+    )
+    assert result["provenance"]["request_count_total"] == 0
+    state = result["epistemic_state"]
+    assert state["evidence_basis"] == "TRUSTED_RELAY_ATTRIBUTED_REPORT"
+    assert state["event_confirmation_state"] == "UNCONFIRMED"
+    assert state["event_truth_supported"] is False
+    assert state["relay_source_identity"] == "wallstengine"
+    assert state["primary_reporting_publisher"] == "Bloomberg"
+    assert "@wallstengine" in state["report_proposition"]
+    assert "Bloomberg reports" not in state["report_proposition"]
+    assert state["reader_visible_epistemic_label"] == (
+        "RELAYED / UNCONFIRMED - @wallstengine, citing Bloomberg"
+    )
+
+
+def test_canonical_x_with_direct_named_publisher_url_preserves_direct_route():
+    candidate = _canonical_candidate(
+        headline=f"{WSJ_EVENT}, per WSJ."
+    )
+    candidate["public_source_urls"] = [WSJ_URL]
+    request = _request(candidate, source_url=WSJ_URL)
+    calls: list[str] = []
+
+    def get(url, *_args):
+        calls.append(url)
+        assert url == WSJ_URL
+        return _response(url, WSJ_BYTES)
+
+    result = SimpleFirstPartyAwareEvidenceResolver(
+        evaluation_as_of_utc=CUTOFF,
+        http_get=get,
+        clock=lambda: NOW,
+    )(request)
+    assert result["status"] == "PASS"
+    assert calls == [WSJ_URL]
+    assert result["provenance"]["selected_route"] == "REPUTABLE_SECONDARY"
+    assert result["epistemic_state"]["evidence_basis"] == (
+        "DIRECT_REPUTABLE_REPORT"
+    )
+
+
+def test_same_canonical_x_text_without_canonical_provenance_is_discovery_only():
+    candidate = _candidate(account="wallstengine")
+    request = _request(candidate, source_url=candidate["source_url"])
+    document, blockers = canonical_x_report_document(request)
+    assert document is None
+    assert blockers == ["canonical_x_owner_curated_provenance_required"]
+
+
+def test_canonical_x_explicit_rumor_qualifies_only_as_unconfirmed_market_rumor():
+    candidate = _canonical_candidate(
+        account="financialjuice",
+        headline="Market chatter says SoftBank may refinance its OpenAI debt — rumor.",
+    )
+    request = _request(candidate, source_url=candidate["source_url"])
+    document, blockers = canonical_x_report_document(request)
+    assert blockers == []
+    assert document is not None
+    assert document["source_authority_class"] == "trusted_market_rumor_source"
+    state, state_blockers = build_epistemic_state(
+        request=request,
+        documents=[document],
+        selected_route="TRUSTED_MARKET_RUMOR",
+    )
+    assert state_blockers == []
+    assert state is not None
+    assert state["evidence_basis"] == "TRUSTED_MARKET_RUMOR"
+    assert state["event_confirmation_state"] == "UNCONFIRMED"
+    assert state["origin_character"] == "RUMOR"
+    assert state["event_truth_supported"] is False
+    assert state["reader_visible_epistemic_label"] == "MARKET RUMOR — UNCONFIRMED"
+
+
+def test_canonical_x_high_harm_relay_does_not_bypass_enhanced_evidence():
+    candidate = _canonical_candidate(
+        headline="Example Company allegedly concealed fatal defects, per Bloomberg."
+    )
+    request = _request(candidate, source_url=candidate["source_url"])
+    document, blockers = canonical_x_report_document(request)
+    assert document is None
+    assert blockers == ["canonical_x_high_harm_enhanced_evidence_required"]
+
+
+def test_relay_copy_cannot_impersonate_original_publisher_or_drop_relay():
+    candidate = _canonical_candidate(
+        headline="SoftBank is seeking a new loan tied to its OpenAI investment, per Bloomberg."
+    )
+    request = _request(candidate, source_url=candidate["source_url"])
+    relay_doc, blockers = canonical_x_report_document(request)
+    assert blockers == [] and relay_doc is not None
+    state, state_blockers = build_epistemic_state(
+        request=request,
+        documents=[relay_doc],
+        selected_route="TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    )
+    assert state_blockers == [] and state is not None
+    output = _relay_article_output(state)
+    bad_title = "Bloomberg reports SoftBank is seeking a new loan tied to OpenAI"
+    output["article"]["title"] = bad_title
+    for claim in output["material_claim_bindings"]:
+        if claim["claim_id"] == "claim-title":
+            claim["claim_text"] = bad_title
+    with pytest.raises(SimpleGeminiNewsroomError) as exc_info:
+        _validate_article_against_source_pack(
+            output,
+            _runtime_source_pack([relay_doc]),
+            selected_candidate=candidate,
+            article_mode="BREAKING_BRIEF",
+            epistemic_state=state,
+        )
+    assert "epistemic_relay_identity_not_prominent" in exc_info.value.details
+    assert (
+        "epistemic_relay_impersonates_original_publisher"
+        in exc_info.value.details
+    )
+
+
+def test_canonical_x_rumor_all_eight_previews_preserve_unconfirmed_label():
+    candidate = _canonical_candidate(
+        account="financialjuice",
+        headline="Market chatter says SoftBank may refinance its OpenAI debt — rumor.",
+    )
+    request = _request(candidate, source_url=candidate["source_url"])
+    document, blockers = canonical_x_report_document(request)
+    assert blockers == [] and document is not None
+    state, state_blockers = build_epistemic_state(
+        request=request,
+        documents=[document],
+        selected_route="TRUSTED_MARKET_RUMOR",
+    )
+    assert state_blockers == [] and state is not None
+    label = str(state["reader_visible_epistemic_label"])
+    article = {
+        "title": f"{label}: SoftBank financing chatter is circulating",
+        "dek": f"{label}: the claim remains report truth only.",
+        "search_title": f"{label}: SoftBank refinancing chatter",
+        "meta_description": f"{label}: what is circulating and unconfirmed.",
+        "social_hook": f"{label}: watch for confirmation or denial.",
+        "substack_body_markdown": (
+            f"{label}: @financialjuice relays market chatter about SoftBank financing."
+        ),
+    }
+    bundle, intents = _native_preview_bundle(
+        article=article,
+        article_mode="BREAKING_BRIEF",
+        article_identity="c" * 64,
+        epistemic_state=state,
+    )
+    assert bundle["package_count"] == 8
+    assert all(label in str(payload) for payload in bundle["packages"].values())
+    assert all(row["epistemic_state"] == state for row in intents)
+
+
+def test_rolling_loader_emits_canonical_x_provenance_only_for_locked_sidecar_root(
+    tmp_path, monkeypatch
+):
+    import live_contentops.newsroom_assignment_scheduler_v1 as scheduler
+
+    sidecar_dir = tmp_path / "intake" / "headline_sidecars"
+    sidecar_dir.mkdir(parents=True)
+    sidecar = sidecar_dir / "step1_headline_sidecar_2026_08_28.jsonl"
+    sidecar.write_text(
+        json.dumps(
+            {
+                "headline_text": "SoftBank may refinance its OpenAI debt, per Bloomberg.",
+                "headline_timestamp": "2026-08-28 08:00:00 GMT+7",
+                "dedup_key": "tweet_id:canonical-1",
+                "author_handle": "wallstengine",
+                "tweet_url": "https://x.com/wallstengine/status/1",
+                "source_platform": "x_cdp_list_latest_tweets_timeline",
+            }
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    monkeypatch.setattr(scheduler, "canonical_headline_sidecar_dir", lambda: sidecar_dir)
+    monkeypatch.setattr(
+        "live_contentops.x_list_ingest_capture_v1.TARGET_LIST_ID",
+        "1843870469143048642",
+    )
+    rolling = scheduler.load_rolling_x_headline_sidecars(
+        cutoff_utc="2026-08-28T02:00:00Z",
+        sidecar_glob=str(sidecar),
+        window_hours=24,
+    )
+    assert len(rolling["headlines"]) == 1
+    marker = rolling["headlines"][0]["external_content"][
+        "canonical_x_list_provenance"
+    ]
+    assert marker["owner_curated_canonical_x_list"] is True
+    assert marker["target_list_id"] == "1843870469143048642"
+    assert marker["report_truth_scope_only"] is True
+    assert marker["underlying_event_truth_granted"] is False
+
+    outside = tmp_path / "outside.jsonl"
+    outside.write_text(sidecar.read_text(encoding="utf-8"), encoding="utf-8")
+    rolling_outside = scheduler.load_rolling_x_headline_sidecars(
+        cutoff_utc="2026-08-28T02:00:00Z",
+        sidecar_glob=str(outside),
+        window_hours=24,
+    )
+    assert rolling_outside["headlines"][0]["external_content"][
+        "canonical_x_list_provenance"
+    ] == {}
+
+
+def _relay_article_output(state: dict[str, object]) -> dict[str, object]:
+    label = str(state["reader_visible_epistemic_label"])
+    title = (
+        f"{label}: SoftBank reportedly seeks a new loan tied to its OpenAI investment"
+    )
+    dek = (
+        f"{label}: the reported refinancing would put the cost and structure of SoftBank's OpenAI exposure under focus."
+    )
+    search = "SoftBank reportedly seeks loan tied to OpenAI investment"
+    meta = (
+        f"{label}: SoftBank reportedly seeks refinancing tied to its OpenAI investment."
+    )
+    social = (
+        f"{label}: the SoftBank report makes financing structure the story, not just the headline loan size."
+    )
+    opening = (
+        f"{label}: @wallstengine, citing Bloomberg, reports that SoftBank is seeking a new loan "
+        "tied to its OpenAI investment. [[SOURCE:SOURCE_1]]"
+    )
+    analysis = (
+        "If the report is accurate, the financing terms would show how quickly the cost of capital "
+        "can become the constraint around a large AI investment. [[SOURCE:SOURCE_1]]"
+    )
+    article = {
+        "title": title,
+        "dek": dek,
+        "search_title": search,
+        "meta_description": meta,
+        "social_hook": social,
+        "substack_body_markdown": opening + "\n\n" + analysis,
+    }
+    excerpt = "SoftBank is seeking a new loan tied to its OpenAI investment"
+    claims = [
+        {
+            "claim_id": f"claim-{field}",
+            "claim_text": value,
+            "claim_kind": "FACT",
+            "source_id": "SOURCE_1",
+            "support_excerpt": excerpt,
+            "attribution_required": True,
+        }
+        for field, value in article.items()
+        if field != "substack_body_markdown"
+    ]
+    claims.extend(
+        [
+            {
+                "claim_id": "claim-opening",
+                "claim_text": opening.replace(" [[SOURCE:SOURCE_1]]", ""),
+                "claim_kind": "FACT",
+                "source_id": "SOURCE_1",
+                "support_excerpt": excerpt,
+                "attribution_required": True,
+            },
+            {
+                "claim_id": "claim-analysis",
+                "claim_text": analysis.replace(" [[SOURCE:SOURCE_1]]", ""),
+                "claim_kind": "CAUSALITY",
+                "source_id": "SOURCE_1",
+                "support_excerpt": "loan tied to its OpenAI investment",
+                "attribution_required": True,
+            },
+        ]
+    )
+    return {
+        "schema_version": ARTICLE_SCHEMA_VERSION,
+        "article": article,
+        "cited_sources": [
+            {
+                "source_id": "SOURCE_1",
+                "url": "https://x.com/wallstengine/status/1",
+                "publisher": "wallstengine",
+                "published_at_utc": "2026-08-27T21:51:04Z",
+            }
+        ],
+        "material_claim_bindings": claims,
+        "public_write_attempted": False,
+    }
+
+
+def test_canonical_x_relay_runs_zero_get_writer_and_eight_preview_path(tmp_path):
+    candidate = _canonical_candidate(
+        headline=(
+            "SoftBank is seeking a new loan tied to its OpenAI investment, per Bloomberg."
+        )
+    )
+    rolling = {
+        "headlines": [
+            {
+                "headline_id": candidate["headline_id"],
+                "headline_text": candidate["headline_text"],
+                "source_timestamp_utc": candidate["source_timestamp_utc"],
+                "external_content": {
+                    "headline_text": candidate["headline_text"],
+                    "author_handle": candidate["source_account"],
+                    "source_platform": candidate["source_platform"],
+                    "url_or_source_ref": candidate["source_url"],
+                    "canonical_x_list_provenance": candidate[
+                        "canonical_x_list_provenance"
+                    ],
+                },
+            }
+        ]
+    }
+    request = _request(candidate, source_url=candidate["source_url"])
+    relay_doc, relay_blockers = canonical_x_report_document(request)
+    assert relay_blockers == []
+    assert relay_doc is not None
+    state, state_blockers = build_epistemic_state(
+        request=request,
+        documents=[relay_doc],
+        selected_route="TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    )
+    assert state_blockers == []
+    assert state is not None
+    roles: list[str] = []
+
+    def llm_invoke(**kwargs):
+        role = kwargs["role_task_id"]
+        roles.append(role)
+        if role == ROLE_V1_SIMPLE_SELECTION:
+            candidate_id = kwargs["governed_input"]["candidates"][0]["candidate_id"]
+            return (
+                {
+                    "schema_version": SELECTION_SCHEMA_VERSION,
+                    "status": "SELECT_CANDIDATE_PLAN",
+                    "ordered_candidate_plan": [
+                        {
+                            "candidate_id": candidate_id,
+                            "article_mode": "STANDARD_NEWS_ANALYSIS",
+                            "selection_rationale": "A timely attributed relay matters to readers.",
+                            "research_queries": ["SoftBank OpenAI financing Bloomberg"],
+                        }
+                    ],
+                    "selection_summary": "One timely attributed relay.",
+                    "public_write_attempted": False,
+                },
+                {
+                    "selected_model": "vx/gemini-3.5-flash(high)",
+                    "total_attempts": 1,
+                    "public_write_attempted": False,
+                },
+            )
+        assert role == ROLE_V1_SIMPLE_ARTICLE_WRITING
+        return (
+            _relay_article_output(state),
+            {
+                "selected_model": "vx/gemini-3.5-flash(high)",
+                "total_attempts": 1,
+                "public_write_attempted": False,
+            },
+        )
+
+    result = run_v1_simple_gemini_newsroom(
+        output_dir=tmp_path,
+        cutoff_utc=CUTOFF,
+        rolling_input=rolling,
+        llm_invoke=llm_invoke,
+        evidence_loader=lambda _request: {
+            "status": "PASS",
+            "blockers": [],
+            "evidence_documents": [relay_doc],
+            "epistemic_state": state,
+            "provenance": {
+                "request_count_for_call": 0,
+                "request_count_total": 0,
+                "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+            },
+        },
+        run_id="canonical-relay-zero-get",
+    )
+    assert result["classification"] == "PASS_V1_SIMPLE_GEMINI_ZERO_WRITE_ARTICLE"
+    assert roles == [ROLE_V1_SIMPLE_SELECTION, ROLE_V1_SIMPLE_ARTICLE_WRITING]
+    assert result["source_request_count"] == 0
+    assert result["logical_model_invocation_count"] == 2
+    assert result["qualified_article_count"] == 1
+    assert result["derivative_intent_count"] == 8
+    assert result["public_write_performed"] is False
+    assert result["unknown_write_count"] == 0
+    assert result["epistemic_state"] == state
+    assert result["selected_plan_entry"]["article_mode"] == "BREAKING_BRIEF"
+    assert result["selected_plan_entry"]["model_selected_article_mode"] == (
+        "STANDARD_NEWS_ANALYSIS"
+    )
+    assert result["selected_plan_entry"]["deterministic_mode_cap_reason"] == (
+        "RELAY_OR_RUMOR_ONLY_EVIDENCE_DEPTH"
+    )
+    assert json.loads(
+        (tmp_path / "simple_epistemic_state_v1.json").read_text()
+    ) == state
+    native = json.loads(
+        (tmp_path / "native_derivative_previews_v1.json").read_text()
+    )
+    assert native["package_count"] == 8
+    assert native["epistemic_state"] == state
+    assert native["every_preview_preserves_epistemic_state"] is True
+    label = str(state["reader_visible_epistemic_label"])
+    assert all(label in str(payload) for payload in native["packages"].values())
+    record = json.loads((tmp_path / "qualified_article_record_v1.json").read_text())
+    assert record["epistemic_state"] == state
 
 
 def test_attributed_reuters_unresolved_does_not_spend_attempt_on_ap():

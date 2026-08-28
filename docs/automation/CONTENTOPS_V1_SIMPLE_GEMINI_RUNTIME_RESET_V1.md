@@ -37,10 +37,12 @@ Every eligible current-event article carries `evidence_basis`, `event_confirmati
 `origin_character`, `source_multiplicity`, primary reporting publisher/source identity, report and
 event propositions, and one reader-visible label. `UNCONFIRMED` is publishable when report truth is
 proven; it is never permission to state event truth. Arbitrary X accounts remain discovery-only.
-No current V1 X/social identity has report-truth relay authority. The existing professional-feed
-handle donor binds freshness only and explicitly leaves feed text discovery-only. Therefore an X
-relay remains blocked until the exact original reputable report is resolved; any later approved
-relay may prove only `Relay R, citing Publisher P, reports X`. High-harm claims retain existing
+An exact record from the owner-curated canonical X-list may now support a narrow relay-of-reporting
+proposition (`Relay R, citing Publisher P, reports X`) or an explicitly marked market-rumor
+proposition without resolving the original publisher. It uses zero GETs, remains `UNCONFIRMED`,
+and never proves the cited publisher's original report, the underlying event, or Capital Chronicle
+numeric truth. Arbitrary X rows remain discovery-only; the existing professional-feed handle donor
+still binds freshness only and no arbitrary handle is promoted. High-harm claims retain existing
 enhanced corroboration.
 
 Normal success uses two logical model invocations. Three is the absolute ceiling when the one
@@ -180,3 +182,12 @@ prove chronology, and co-location in one document never proves simultaneity. Eve
 dek, search title, meta description, and social hook requires an exact material-claim binding under
 the same fail-closed validator as body claims. Unsupported public terminology inflation, including
 calling financing platforms a `fund`, is blocked.
+
+## Current PR #37 article closeout
+
+The single permitted current opportunity closed the article/preview gate with one exact Al Jazeera
+report classified `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE`, one
+deterministically valid article, and exactly eight preview-only native packages. It remained within
+32 candidates, six GETs, three admissions, one writer, one revision, and three logical Flash calls;
+production DB bytes and all Codex/public/provider/coordinator/UNKNOWN counters remained unchanged or
+zero. Relay-only and rumor-only runtime qualification was not observed because direct reporting won.

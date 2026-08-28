@@ -105,6 +105,39 @@ was run.
 
 Routine public-write/readback authority, a real 5–8 published-article production day, and `V1_FINAL_PRODUCT_ACCEPTED` remain ungranted.
 
+## Canonical-X relay/rumor activation and final current acceptance
+
+The owner-curated canonical-X activation is implemented without a new registry or evidence store.
+Trust is attached only to the exact canonical-loader record marker, never to a handle or list
+membership alone. An explicit `per Publisher` record may prove only `Relay R, citing Publisher P,
+reports X`; an explicit rumor record may prove only the captured market rumor. Both remain
+`UNCONFIRMED`, use zero GETs, cannot impersonate the original publisher, cannot grant event or
+Capital Chronicle numeric truth, and cannot bypass enhanced high-harm evidence. Direct exact
+publisher bytes retain precedence. Relay/rumor evidence is deterministically capped to
+`BREAKING_BRIEF` if the selector asks for a deeper mode.
+
+Canonical intake was stale, so it was refreshed once. The single permitted current opportunity then
+qualified the admitted fallback through an exact Al Jazeera report rather than the relay-only or
+rumor-only branch. The result was `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED /
+SINGLE_SOURCE`, one `STANDARD_NEWS_ANALYSIS` article, deterministic validation PASS, and exactly
+eight preview-only, undispatched native packages. Counters were 32 candidates, one selection, three
+admissions, six GETs, one writer, one revision, and three logical Flash calls. Production DB SHA-256
+was unchanged at `7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E`; Codex
+runtime/public/provider/coordinator/UNKNOWN counts were all zero. No second runtime opportunity was
+run.
+
+Owner-review artifacts:
+
+- `current_article_for_owner_review.md`
+- `current_native_previews_for_owner_review.json`
+- `current_article_validation_summary_v1.json`
+- `current_epistemic_state_v1.json`
+
+The exact PR #37 article/preview runtime gate is closed. The residual runtime caveat is narrower:
+relay-only and rumor-only current-host qualification were not observed because the genuine selected
+story resolved through direct reputable reporting. Separate routine public-write/readback authority,
+a real 5–8 useful published-article day, and `V1_FINAL_PRODUCT_ACCEPTED` remain ungranted.
+
 ## PR37 early-attributed-intelligence implementation and current acceptance
 
 The smallest compatible adapter is now implemented without another store or evidence system:
@@ -123,8 +156,10 @@ The smallest compatible adapter is now implemented without another store or evid
   epistemic state;
 - ordinary one-secondary attributed-report semantics and enhanced high-harm handling reuse
   `claim_evidence_contract_v1` unchanged;
-- current V1 has no approved X/social report-truth relay. `financialjuice` is freshness-binding
-  only; `FirstSquawk`, `DeItaone`, and `wallstengine` remain discovery-only.
+- historical handle-based professional-feed trust remains freshness-only. Current authority is
+  instead record-scoped: only exact owner-curated canonical-X records with the deterministic
+  provenance marker may support narrow relay/explicit-rumor propositions; arbitrary social rows
+  remain discovery-only.
 
 Focused static validation passed 214 tests plus 17 CodeGraph/current-context tests. Three unrelated
 legacy calibration assertions were independently reproduced at the verified `33ce2209` baseline
