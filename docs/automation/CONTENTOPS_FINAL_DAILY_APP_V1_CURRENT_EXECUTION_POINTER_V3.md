@@ -45,11 +45,13 @@ Merged PR #38 closes current post-acceptance authority/static-safety and emergen
 
 Merged PR #39 closes the production owner defect. Current Final Daily App composition routes routine V1 through `SIMPLE_GEMINI_RUNTIME`; Native Desktop PREPARE/COMPLETE and legacy rolling-X remain compatibility-only/non-routing. Exact PR-head CI and the master-push CI both passed.
 
-The Simple-to-durable publication bridge is implemented through the existing lifecycle plan and
-`DurablePublicationCoordinator`: strict Substack `/p/...` readback precedes exactly-eight native
-derivative rematerialization, with zero bridge model calls and zero source GETs.
+Corrected PR #42 closes the missing actual-routine handoff. The persistent Simple scheduler/runner now delegates only a qualified zero-write Simple result through one adapter to the existing `DurablePublicationCoordinator`. Stable slot identity is the durable work-item identity; the coordinator plan is persisted or deterministically reconstructed from already-qualified artifacts; coordinator recovery runs before fresh semantic/publication work; interrupted qualified slots resume without another model/source call; unresolved recovery backlog blocks current-plan registration/republication; duplicate terminal ticks do not create another semantic/public intent.
 
-Do not issue another single-owner or emergency-stop implementation task unless fresh code demonstrates an actual regression.
+The existing coordinator remains the sole public-write/readback owner: canonical Substack `/p/...` reconciliation precedes zero-model/zero-GET exactly-eight native derivative rematerialization. The scheduler does not import or instantiate another coordinator/publisher/store/packager.
+
+This closure is deterministic repository/CI proof only. It does not prove today's host account/session/destination readiness or a new real public write.
+
+Do not issue another single-owner, emergency-stop, or Simple publication-bridge implementation task unless fresh code demonstrates an actual regression.
 
 ## Current publication foundation — reuse, do not rebuild
 
@@ -59,13 +61,11 @@ The historical Italy canary already proved one Substack + exactly eight derivati
 
 ## Exact current implementation gap
 
-Count strictly reconciled published canonical articles separately from zero-write qualified-article
-telemetry; a publication failure, deferred distribution, or ambiguous write must not satisfy the
-live daily-output count.
+Count strictly reconciled published canonical articles separately from zero-write qualified-article telemetry; a publication failure, deferred distribution, or ambiguous write must not satisfy the live daily-output count. Reuse the existing production-day and durable publication/readback foundations; do not create a second ledger or publication store.
 
 ## `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-After the bridge/accounting implementation and before the first new live write, read-only preflight must prove production DB integrity/schema, no unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge `contentops-social-main` CDP 9223, exact current destination/account identities, and fresh readiness for all nine surfaces. Do not inspect or expose secrets/session material.
+After published/reconciled accounting implementation and before the first new live write, read-only preflight must prove production DB integrity/schema, no unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge `contentops-social-main` CDP 9223, exact current destination/account identities, and fresh readiness for all nine surfaces. Do not inspect or expose secrets/session material.
 
 Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only.
 
