@@ -71,10 +71,14 @@ Jim's latest explicit instruction remains highest product authority.
 - four-window Simple scheduler mechanics and persistent exactly-one-process zero-write host proof;
 - PR #38 post-acceptance authority/static-safety closure and emergency-stop/process coverage for Simple;
 - PR #39 single-owner production composition with `SIMPLE_GEMINI_RUNTIME` current and native Desktop/legacy rolling-X fenced non-routing;
-- Simple qualified-article adaptation into the existing `DurablePublicationCoordinator`: canonical Substack first, strict `/p/...` readback, then zero-model/zero-GET rematerialization of exactly eight derivatives through the existing native compiler;
+- routine Simple scheduler -> existing `DurablePublicationCoordinator` handoff: the persistent runner injects one adapter, Simple semantic work remains zero-write, the stable Simple slot identity is the durable work-item identity, the coordinator-compatible lifecycle plan is persisted or deterministically reconstructed from already-qualified artifacts without another model/source call, and recovery runs before fresh semantic/publication work;
+- restart/crash behavior for that handoff: a qualified interrupted slot resumes publication without rerunning Simple/model/source work, duplicate terminal ticks do not create another semantic/public intent, unresolved recovery backlog fails closed before current-plan registration, and ambiguous writes remain coordinator/readback recovery rather than blind retry;
+- canonical Substack first, strict reconciled `/p/...` identity, then zero-model/zero-GET rematerialization of exactly eight derivatives through the existing native compiler while preserving article identity, source/provenance binding, and epistemic state;
 - durable V1 store, destination registry, `DurablePublicationCoordinator`, canonical Substack-first transports, strict readback/reconciliation, UNKNOWN-write recovery;
 - historical Italy one-canonical-plus-eight-derivatives canary as publication-stack proof;
 - V5 read model/UI foundation.
+
+The routine bridge classification above is deterministic repository/CI proof. It does not claim fresh current-host browser/account/readiness/public-write success.
 
 ### `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY`
 
@@ -86,7 +90,7 @@ Jim's latest explicit instruction remains highest product authority.
 
 1. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
 
-Single routine-owner composition and Simple emergency-stop/process coverage are closed. Do not issue implementation tasks for them again unless fresh code proves regression.
+Single routine-owner composition, Simple emergency-stop/process coverage, and the routine Simple-to-existing-coordinator handoff are closed. Do not issue implementation tasks for them again unless fresh code proves regression.
 
 ### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
@@ -114,7 +118,8 @@ Preserve, do not repeat merely for ceremony:
 - accepted PR #37 current Al Jazeera article/eight-preview proof and static canonical-X relay/rumor proof;
 - persistent Simple scheduler zero-write current-host proof;
 - merged PR #38 emergency-stop/static-safety closure;
-- merged PR #39 current single-owner composition plus exact-head and master-push CI.
+- merged PR #39 current single-owner composition plus exact-head and master-push CI;
+- PR #42 correction repository/CI proof for the actual persistent scheduler path: qualified -> handoff exactly once, abstention -> zero handoff, recovery-before-fresh-work, deterministic slot/work-item/plan identity, pre-registration crash resume, post-qualification no-model resume, unresolved-backlog no-blind-republish, terminal duplicate no duplicate semantic/public intent, and existing coordinator canonical-first/eight-derivative behavior under disposable deterministic fixtures.
 
 Missing fresh host proof does not convert a proven implementation into a new implementation gap.
 
@@ -126,7 +131,7 @@ Missing fresh host proof does not convert a proven implementation into a new imp
 4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day;
 5. continue isolated V2 only under V2's separate authority boundaries.
 
-Repository authority/static safety, emergency-stop coverage, and single-owner composition are already closed. No fifth routine task. No filler. No blind retry after ambiguity.
+Repository authority/static safety, emergency-stop coverage, single-owner composition, and routine publication handoff are closed. No fifth routine task. No filler. No blind retry after ambiguity.
 
 ## 7. Growth-first rules that remain current
 
@@ -163,6 +168,7 @@ Never route a fresh V1 task from claims that:
 - `V1_FINAL_PRODUCT_ACCEPTED` remains pending;
 - PR #38 emergency-stop/process coverage remains missing;
 - PR #39 single routine-owner composition remains missing;
+- the actual persistent Simple scheduler still lacks the existing coordinator handoff;
 - V2 has public-write authority.
 
 ## 10. Conflict resolution
