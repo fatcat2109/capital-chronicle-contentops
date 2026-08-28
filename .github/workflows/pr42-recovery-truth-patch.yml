@@ -1,0 +1,81 @@
+name: pr42-recovery-truth-patch
+
+on:
+  push:
+    branches:
+      - 'codex/v1-simple-to-durable-publication-bridge-v1'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    if: github.event.head_commit.message != 'fix(v1): preserve exact recovery unknown-write truth'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: codex/v1-simple-to-durable-publication-bridge-v1
+          fetch-depth: 0
+      - name: Patch exact recovery telemetry
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('live_contentops/v1_simple_publication_handoff_v1.py')
+          text = p.read_text(encoding='utf-8')
+          marker = '''class SimplePublicationHandoffV1:\n    """Bind qualified Simple artifacts to the existing durable publication owner."""\n'''
+          helper = '''def _recovery_unknown_detected(recovery: Mapping[str, Any]) -> bool:\n    if int(recovery.get("marked_unknown") or 0) > 0:\n        return True\n    for row in recovery.get("backlog_remaining_obligations") or []:\n        if not isinstance(row, Mapping):\n            continue\n        if "UNKNOWN_WRITE" in {\n            str(row.get("durable_status") or ""),\n            str(row.get("blocking_status") or ""),\n        }:\n            return True\n    per_destination = recovery.get("per_destination")\n    if isinstance(per_destination, Mapping):\n        for row in per_destination.values():\n            if isinstance(row, Mapping) and str(row.get("status") or "") == "UNKNOWN_WRITE":\n                return True\n    return False\n\n\nclass SimplePublicationHandoffV1:\n    """Bind qualified Simple artifacts to the existing durable publication owner."""\n'''
+          if text.count(marker) != 1:
+              raise SystemExit('handoff class marker mismatch')
+          text = text.replace(marker, helper, 1)
+
+          old = '''        if int(recovery.get("backlog_remaining") or 0) > 0:\n            plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)\n            return {\n'''
+          new = '''        if int(recovery.get("backlog_remaining") or 0) > 0:\n            plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)\n            unknown_write_detected = _recovery_unknown_detected(recovery)\n            return {\n'''
+          if text.count(old) != 1:
+              raise SystemExit('backlog branch marker mismatch')
+          text = text.replace(old, new, 1)
+          old = '''                "public_write_performed": bool(recovery.get("publish_calls")),\n                "unknown_write_detected": True,\n                "publication_coordinator_dispatched": False,\n'''
+          new = '''                "public_write_performed": bool(recovery.get("publish_calls")),\n                "provider_publication_writes": int(recovery.get("publish_calls") or 0),\n                "unknown_write_detected": unknown_write_detected,\n                "unknown_write_count": int(unknown_write_detected),\n                "publication_coordinator_dispatched": False,\n'''
+          if text.count(old) != 1:
+              raise SystemExit('backlog telemetry marker mismatch')
+          text = text.replace(old, new, 1)
+
+          old = '''        return {\n            "schema_version": SCHEMA_VERSION,\n            "state": state,\n'''
+          new = '''        per_destination = result.get("per_destination")\n        per_destination = per_destination if isinstance(per_destination, Mapping) else {}\n        provider_publication_writes = sum(\n            1\n            for row in per_destination.values()\n            if isinstance(row, Mapping) and row.get("publish_called") is True\n        )\n        return {\n            "schema_version": SCHEMA_VERSION,\n            "state": state,\n'''
+          if text.count(old) != 1:
+              raise SystemExit('summary return marker mismatch')
+          text = text.replace(old, new, 1)
+          old = '''            "public_write_performed": bool(result.get("public_write_performed")),\n            "unknown_write_detected": unknown,\n'''
+          new = '''            "public_write_performed": bool(result.get("public_write_performed")),\n            "provider_publication_writes": provider_publication_writes,\n            "unknown_write_detected": unknown,\n            "unknown_write_count": int(unknown),\n'''
+          if text.count(old) != 1:
+              raise SystemExit('summary truth marker mismatch')
+          text = text.replace(old, new, 1)
+          p.write_text(text, encoding='utf-8', newline='\n')
+
+          t = Path('tests/test_v1_simple_publication_handoff_recovery_v1.py')
+          tests = t.read_text(encoding='utf-8')
+          old = '''        def recover_pending(self):\n            events.append("recover")\n            return {"backlog_remaining": 1, "publish_calls": 0}\n'''
+          new = '''        def recover_pending(self):\n            events.append("recover")\n            return {\n                "backlog_remaining": 1,\n                "publish_calls": 0,\n                "marked_unknown": 0,\n                "backlog_remaining_obligations": [\n                    {\n                        "durable_status": "READY",\n                        "blocking_status": "WAITING_CANONICAL_URL",\n                    }\n                ],\n            }\n'''
+          if tests.count(old) != 1:
+              raise SystemExit('recovery fake marker mismatch')
+          tests = tests.replace(old, new, 1)
+          old = '''    assert result["publication_coordinator_dispatched"] is False\n    assert result["bridge_model_call_count"] == 0\n'''
+          new = '''    assert result["publication_coordinator_dispatched"] is False\n    assert result["unknown_write_detected"] is False\n    assert result["unknown_write_count"] == 0\n    assert result["bridge_model_call_count"] == 0\n'''
+          if tests.count(old) != 1:
+              raise SystemExit('recovery assertion marker mismatch')
+          tests = tests.replace(old, new, 1)
+          t.write_text(tests, encoding='utf-8', newline='\n')
+          PY
+      - name: Commit explicit paths
+        shell: bash
+        run: |
+          git config user.name 'contentops-ci'
+          git config user.email 'contentops-ci@users.noreply.github.com'
+          git add live_contentops/v1_simple_publication_handoff_v1.py
+          git add tests/test_v1_simple_publication_handoff_recovery_v1.py
+          git diff --check --cached
+          git commit -m 'fix(v1): preserve exact recovery unknown-write truth'
+          git push origin HEAD:codex/v1-simple-to-durable-publication-bridge-v1
