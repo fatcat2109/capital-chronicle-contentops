@@ -84077,7 +84077,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-28T08:00:44Z",
+  "generation_timestamp_utc": "2026-08-28T08:03:12Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84335,7 +84335,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 17364
+      "size_bytes": 17416
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -132112,6 +132112,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "da5057c9b1282140af440af1665a7370ea1dda30",
-  "source_tree_digest": "bf395c40d20846ed9a31499c3289e227d903ae11b70ccc05280a57965c94deb0"
+  "source_head": "07bebf6d8f5a03729498593f3ed818b4df23d6aa",
+  "source_tree_digest": "b1e089fe47228de12178f2b4e06df35b99f96968c5a6b56db2f535b81a45a1fa"
 }
