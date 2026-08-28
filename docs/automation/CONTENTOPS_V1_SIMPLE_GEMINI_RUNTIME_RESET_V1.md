@@ -10,9 +10,10 @@ do not route current execution.
 
 Current owner state is post-acceptance: merge commit
 `db0befb8ad44f1080c67fcb801e5470ce7852369` records `V1_FINAL_PRODUCT_ACCEPTED = TRUE` and routine
-V1 public-write/readback authority for the accepted V1 path. This Simple operation itself remains a
-zero-write editorial producer; crossing the public-write boundary is owned only by the existing
-`DurablePublicationCoordinator` after the current production bridge and host preflight are proven.
+V1 public-write/readback authority for the accepted V1 path. The Simple semantic operation itself
+remains a zero-write editorial producer. Corrected PR #42 now binds a qualified persistent-scheduler
+slot to the existing `DurablePublicationCoordinator`; the coordinator remains the sole owner that
+may cross the public-write/readback boundary after current-host readiness/recovery proof.
 
 ## Current V1 routine editorial path
 
@@ -27,7 +28,8 @@ current headline sidecars + canonical reconciled published memory + optional rea
 -> at most one bounded 9Router gemini-3.5-flash(high) revision without source expansion
 -> one qualified zero-write canonical article record
 -> exactly eight UNDISPATCHED derivative intents/native packages
--> separate existing DurablePublicationCoordinator under the already-granted V1 publication authority
+-> deterministic persistent-scheduler publication handoff
+-> existing DurablePublicationCoordinator under the already-granted V1 publication authority
 ```
 
 The source walk performs a maximum 6 requests total across the fixed admitted candidate plan. For
@@ -75,9 +77,12 @@ scenario/regime/numeric claims remain unavailable unless exact publication-autho
 is separately present.
 
 Substack remains canonical and the eight derivative destinations remain Telegram, Discord, X,
-LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community. The Simple operation
-produces zero-write editorial output only. The existing publication coordinator remains the sole
-public-write owner and `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
+LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community. The Simple semantic
+operation produces zero-write editorial output only. The corrected persistent-scheduler handoff
+maps a stable slot to the canonical durable work item, persists or deterministically reconstructs
+the already-qualified publication plan, runs coordinator recovery before fresh work, and resumes
+interrupted qualified slots without rerunning the model/source walk. The existing publication
+coordinator remains the sole public-write owner and `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 
 ## Reuse / supersession
 
@@ -86,6 +91,7 @@ public-write owner and `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 - PR #29 material-claim/validate-after concepts: `CURRENTLY_PROVEN_AND_REUSE` as verifier donor.
 - PR #30 native split-phase redesign: `SUPERSEDED_DO_NOT_REUSE` for routing; host evidence remains valid.
 - PR #31 legacy resume/revision repair: `SUPERSEDED_DO_NOT_REUSE` for routing; runtime evidence remains valid.
+- Corrected PR #42 actual persistent Simple-scheduler publication handoff: `CURRENTLY_PROVEN_AND_REUSE` by deterministic repository/CI evidence; this is not current-host/public-write proof.
 - Codex Desktop: builder/debugger/host-proof capacity only, second-last execution lane.
 
 ## Historical Simple acceptance sequence and current activation
@@ -100,18 +106,24 @@ The historical Simple acceptance sequence was:
 
 Those Simple editorial/scheduler steps are complete. The former fifth step — separate owner-gated
 public-write enablement — was later granted by Jim and recorded in merge commit
-`db0befb8ad44f1080c67fcb801e5470ce7852369`. It is no longer a pending owner gate. Current work is
-activation/integration: one Simple production owner, Simple -> existing coordinator bridge,
-strictly reconciled published-count accounting, current-host read-only preflight, then one live
+`db0befb8ad44f1080c67fcb801e5470ce7852369`. It is no longer a pending owner gate. Corrected PR #42
+then closed the actual persistent scheduler -> existing coordinator handoff, including recover-before-
+fresh-work, deterministic slot/work-item/plan identity, no-model interrupted-publication resume,
+unresolved-backlog fail-closed behavior, and duplicate-terminal idempotency. Current work is now
+strictly reconciled published-count accounting, then current-host read-only preflight, then one live
 end-to-end canary before routine four-window enablement.
 
 The scheduler performs one independent canonical one-article invocation per bounded slot; it does
 not turn Simple into a multi-article call. Its stable identity is production day + canonical window
-+ slot ordinal. Before every slot it reloads canonical reconciled publication memory and adds only
-valid countable zero-write qualified records from the same persistent scheduler output root, so a
-PASS becomes duplicate-suppression memory before the next slot. Terminal window/slot receipts are
-hash-bound and restart-safe. No fifth window, material-event expansion, Codex Automation/Desktop
-routing, second publication store, or implicit publication dispatch was added by the Simple reset.
++ slot ordinal. Before every fresh semantic slot it reloads canonical reconciled publication memory
+and adds only valid countable zero-write qualified records from the same persistent scheduler output
+root, so a PASS becomes duplicate-suppression memory before the next slot. A qualified slot is then
+checkpointed `PUBLICATION_PENDING` before the separate handoff delegates to the existing durable
+coordinator. On restart, an interrupted qualified handoff resumes publication/recovery without
+semantic/model/source re-execution; a semantic slot with no qualified artifact remains non-rerunnable.
+Terminal window/slot receipts are hash-bound and restart-safe. No fifth window, material-event
+expansion, Codex Automation/Desktop routing, second publication store, second publisher, or second
+packaging stack is introduced.
 
 Final target remains 5–8 useful published articles per newsroom production day without filler.
 
