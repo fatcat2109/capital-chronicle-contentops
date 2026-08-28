@@ -1,135 +1,91 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
-Authority date: 2026-08-24
+Authority date: 2026-08-29
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
-Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, task-existence, canary, or sequencing assumptions.
+Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, canary, owner-gate, or sequencing assumptions.
 
 ## 1. Current routing authority
 
-Fresh work must route from:
+Fresh V1 work must route from:
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
 3. `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
-4. this stale-doc manifest
+4. this manifest
 5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-9. the current lane pointer
-10. exact current code/tests/evidence/host truth.
+8. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md`
+9. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
+10. `docs/codegraph/V1_CONTEXT.md`
+11. current V1 lane pointer
+12. exact current code/tests/evidence/host truth.
 
-## 2. Superseded semantics
+## 2. Current owner state
 
-Any file containing these current-looking claims is stale for routing unless explicitly updated to the 2026-08-23 authority lock:
+The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records:
 
-- `no mandatory post count`;
-- `no publication minimum exists`;
-- `publication minimum = 0` as whole-day success semantics;
-- `5–8 is only a target and zero is a successful whole production day`;
-- candidate-level `NO_PUBLICATION` implies whole-day healthy success while the build floor is unmet;
-- exactly four Codex tasks already exist based only on repo setup/config;
-- the four Codex tasks are `PAUSED`, `READY`, or `ENABLED` without actual host inventory evidence;
-- FDA-G directly launches native Codex Desktop without the supported Automation/runtime boundary;
-- material-event metadata directly wakes Codex;
-- P0-G3 remains the current next task;
-- the original daily-output/Codex Automation bridge remains the current next task;
-- passive wait-for-perfect-candidate is the current sole next action.
-- the 4-qualified/32-intent throughput proof is a prerequisite for one supervised MVP canary.
-- the Italy article audit is the current V1 next task;
-- the Italy nine-surface publication/readback still needs to run;
-- the 4/32 acceptance proof has never run;
-- production-day accounting or bounded deficit recovery still needs implementation;
-- the four native V1 Automations remain host-unproven;
-- first-party locator/source-family or publisher-resolution closure is the next V1 capability;
-- immediate 4/32 article/derivative generation is the current V1 next task.
-- a perfect 4/32 rehearsal is a prerequisite for proving or advancing one safe qualified article.
-- per-trigger fresh Sol/HIGH URL discovery is the routine production default.
-- PR #19 provider-resilient quota-efficient batch/tail discovery remains unimplemented.
-- PR #20's canonical article path still awaits owner audit.
-- native worker-return representation normalization remains the immediate implementation gap.
-- the four current host prompts still require normalization.
-- branch-proven V2 unattended/recovery/locale/native-relay systems must be rebuilt from zero;
-- V2 may write publicly; or
-- `V1_FINAL_PRODUCT_ACCEPTED` is already true.
-- official/primary confirmation is required before every attributed current report may be written;
-- a same-entity but different-event official document can confirm the selected report;
-- report truth and underlying event truth are interchangeable;
-- an arbitrary X-list account becomes an approved newsroom/relay/rumor source by list membership.
-- every exact owner-curated canonical-X record remains discovery-only even when it explicitly
-  attributes a reputable publisher or labels itself market rumor.
+- `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
+- routine V1 public-write/readback authority is granted for the accepted V1 path;
+- V2 public-write authority remains zero unless separately granted.
 
-## 3. Current replacement semantics
+Any file saying routine V1 public-write/readback remains ungranted or `V1_FINAL_PRODUCT_ACCEPTED` is pending is stale for current routing.
 
-- Current 2026-08-28 North Star is `EARLY_ATTRIBUTED_INTELLIGENCE`: one exact reputable secondary
-  may prove a narrow ordinary attributed reporting proposition while the event remains visibly
-  unconfirmed. Epistemic state must survive canonical copy, qualification, and all eight previews.
-- Exact owner-curated canonical-X records may support only narrow relay-of-reporting or explicit-
-  rumor propositions when the canonical provenance marker is present. Arbitrary social rows remain
-  discovery-only; event truth and CC numeric authority remain zero.
+## 3. Superseded semantics
 
-- The `330f` foundation is accepted and reusable: autonomous URL discovery, shared route health,
-  sourceability-first funnel, four distinct governed evidence-ready candidates, and frozen
-  article-envelope transport remain pre-writer capabilities.
-- The old per-trigger Sol/HIGH discovery default is
-  `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`; routine canonical execution leaves it disabled. An
-  explicit bounded tail/proof opt-in may use the existing provider, while no opt-in remains a
-  fail-closed `SOURCE_DISCOVERY_REQUIRED` abstention.
-- PR #19 provider-resilient quota-efficient batch/tail discovery is accepted and reusable: Stage A
-  produced four governed ready candidates in three batch turns with 712,842 accounted tokens. Do
-  not rebuild it or restore the historical 35-call/10,237,897-token per-trigger default.
-- PR #20's canonical worker-return normalization and single-article path are independently accepted
-  and reusable. The ordinary article plus exactly eight undispatched derivative intents cleared the
-  hard gates with zero public/provider/unknown writes.
-- The owner-scoped Italy canary is completed technical evidence: one canonical Substack article
-  plus exactly eight derivatives, all nine reconciled, `UNKNOWN_WRITE=0`. It must not be repeated
-  merely to prove publication.
-- The first real four-opportunity 4/32 proof already ran and truthfully failed at `0/4 / 0/32`
-  after 40 distinct stories. A future rerun remains a throughput/economics benchmark and daily-
-  output diagnostic, not a launch gate for one safe qualified article.
-- Production-day accounting, the four-window harness, and bounded deficit recovery are accepted
-  foundation, not implementation gaps.
-- Candidate abstention remains valid and must retain exact blockers; the task may not manufacture
-  PASS by increasing request ceilings or weakening evidence/freshness/claim gates.
-- Candidate-level semantic failure does not halt the whole production opportunity while another
-  governed candidate can qualify. Pure representation/SEO/metadata mismatches are repaired or
-  warned without weakening factual, numeric, quotation, evidence, permission, or write gates.
-- Intended 17:00/21:00/23:00/following-01:00 Bangkok windows belong to one production day.
-- Later windows may recover earlier deficit through bounded additional candidate/article work.
-- No fifth routine task merely to satisfy the floor.
-- Current hash-bound supported host observation proves exactly four native V1 routine Automations,
-  all `PAUSED`, on `gpt-5.6-sol / HIGH` at the four Bangkok windows. Their prompts now share the
-  exact repo-derived FAST-SHIP hash; no enablement or fifth routine task occurred.
-- FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
-- Desktop standalone Automations and the App Server/SDK editorial fallback remain historical
-  evidence only for routine V1. Current routine heavy editorial ownership is the Simple
-  9Router/Gemini path; the historical Automation objects remain off/NOOP.
-- The zero-write Desktop Italy slice, real nine-surface Italy canary, failed 4/32 proof, and later
-  four-ready-candidate foundation remain preserved evidence. None is an unstarted routing task.
-- Historical prompt normalization/readback is complete but no longer routes current V1.
-  Routine public-write authority remains a separate later owner gate after Simple acceptance.
-- V2 starts only after the V1 gate with selective reconciliation of current-compatible donor
-  capability. Historical branch authority must not be wholesale merged; V2 public-write authority
-  remains zero.
+Treat the following claims as stale/non-routing unless an even newer explicit owner instruction changes them:
 
-## 4. Historical/non-routing families
+- no mandatory live-output floor or zero whole-day publication is healthy success;
+- 5–8/day is merely aspirational and zero is a successful live production day;
+- candidate-level abstention makes a below-target whole day healthy;
+- a perfect 4/32 zero-write proof is required before one safe article or before V1 acceptance;
+- the Italy nine-surface canary is pending or must be repeated merely to prove transport;
+- production-day accounting/bounded deficit recovery has never existed;
+- PR #19 discovery donors, PR #20 article/package proof, or PR #37 early-attributed-intelligence/epistemic/native-preview capability are unimplemented;
+- first-party locator/publisher pinning is the next V1 implementation task;
+- per-trigger 35-call discovery is accepted routine production policy;
+- native Desktop Automations or SDK/App-Server fallback own routine V1 editorial execution;
+- legacy rolling-X split-phase ownership is the current critical path;
+- arbitrary X-list membership grants factual/relay/rumor authority;
+- official/primary confirmation is required before every reputable attributed report;
+- report truth and event truth are interchangeable;
+- routine V1 public-write/readback authority remains zero;
+- `V1_FINAL_PRODUCT_ACCEPTED` is still forbidden/pending;
+- V2 has any public-write authority.
 
-Do not delete or rewrite historical evidence merely because old conclusions were correct for the old contract. Treat these as evidence/history only unless current authority explicitly promotes them:
+## 4. Current replacement semantics
+
+- V1 is `EARLY_ATTRIBUTED_INTELLIGENCE`: one exact reputable report may support a narrow attributed proposition while the underlying event remains visibly unconfirmed.
+- Exact owner-curated canonical-X records may support only narrow relay-of-reporting or explicit-rumor propositions under the accepted record-scoped provenance contract.
+- Routine editorial ownership is Simple Gemini under the accepted 32/6/3/1 economics; Desktop/SDK/legacy rolling-X routes are historical/non-routing.
+- `DurablePublicationCoordinator` remains the sole public-write/readback/reconciliation owner. Do not build another publisher/store/scheduler/package stack.
+- Historical Italy publication proves the nine-surface transport/reconciliation stack. Current live account/session/readiness still requires read-only revalidation before the first new live write.
+- Live daily-output success is based on strictly reconciled published canonical articles, not merely zero-write qualified article records.
+- Current narrow V1 implementation gaps are Simple->existing coordinator integration, one unambiguous production owner, published-vs-qualified accounting, and emergency-stop/process coverage for Simple.
+- Current activation order is static closure -> Simple publication integration -> read-only host preflight -> one live canary -> routine four-window live enablement.
+
+## 5. Historical/non-routing families
+
+Historical evidence remains evidence. Do not delete it merely because its routing conclusion is superseded.
+
+Treat these as historical/non-routing unless current authority explicitly promotes a concrete capability:
 
 - `docs/automation/TASK_*`
-- `docs/automation/P0_G3_ZERO_WRITE_MULTIMODE_REPLAY_V1/**`
 - dated canary/rehearsal/soak/closeout packets
 - `docs/archive/**`
-- old V6 execution-plan pointers/status packets
+- old V6 execution-plan/status packets
 - old browser/design QA evidence
 - branch-specific handoffs
 - prior generated status snapshots
+- old Desktop Automation/SDK routine-editorial instructions
 - protected `v1.0` release evidence.
 
-## 5. Current-looking files explicitly demoted for routing where they conflict
+## 6. Current-looking files that may contain stale historical wording
 
-The following files/families may contain useful detail/history but must not override the current root spine:
+The active root spine listed in section 1 has been recompressed for the current post-acceptance state. Any older revision of those files is historical only.
+
+Other current-looking families may still contain useful historical detail but cannot override the root spine, including:
 
 - `docs/automation/CONTENTOPS_DAILY_LIVE_V1_NORTH_STAR.md`
 - `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/**`
@@ -138,39 +94,21 @@ The following files/families may contain useful detail/history but must not over
 - `docs/status/CONTENTOPS_V1_FINAL_PRODUCT_FOUR_WINDOW_CLOSED_LOOP_COMPLETION_EVIDENCE_V1.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_SCOPE_CLOSEOUT_AND_LAUNCH_MASTER_PLAN_V1.md`
 - historical `CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/**` conclusions about zero-output success;
-- any old task/setup packet that states native Codex tasks exist without host proof.
+- old task/setup packets that infer current host state from configuration alone.
 
-The current `docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md` has been rewritten and remains current.
+## 7. Stale-document handling rule
 
-Pre-lock revisions of the following active routing files contained exact stale claims and must not
-be recovered from history or a task branch as current authority:
+When a document contains both useful historical evidence and stale current-routing language:
 
-- `AGENTS.md` — canary-audit/current-sequence wording;
-- `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` — pending-canary sequence;
-- `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md` — pending canary, unstarted 4/32,
-  and missing accounting wording;
-- `docs/CURRENT_CONTEXT.md` — host-unproven/accounting-gap sequence;
-- `docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md` — host-unproven/accounting/canary sequence;
-- `docs/codegraph/V1_CONTEXT.md` — locator-next/four-frontier sequence;
-- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-  — missing plan link and absent donor-lineage boundary.
+1. preserve immutable historical evidence;
+2. mark the file/family non-routing here and/or in the authority map;
+3. rewrite actively read root/pointer files to current semantics;
+4. do not resurrect a stale route merely because its artifact is detailed.
 
-Their current bytes are routing authority only where they agree with the locked root spine.
+## 8. Hard current boundaries
 
-## 6. PR #12
-
-PR #12 remains frozen historical P0-G4 preflight evidence. It is not the current MVP canary slice
-and does not supply current candidate, JIT identity/readiness, or owner-gate proof.
-
-Do not merge or continue it as the current next task.
-
-## 7. Cleanup policy
-
-A stale historical artifact should normally be preserved, not deleted, when it proves what happened at a past point in time.
-
-A stale current-routing document must instead be:
-
-- rewritten to current semantics; or
-- demoted here and in the authority map to historical/non-routing status.
-
-This avoids both loss of evidence and accidental resurrection of old product rules.
+- V1 product acceptance and routine article public-write/readback authority are already granted.
+- Exact current-host account/identity/readiness/recovery proof is still required before the first new live write.
+- `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
+- V2 public-write authority remains zero.
+- Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
