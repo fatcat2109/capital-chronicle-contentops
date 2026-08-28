@@ -15,7 +15,7 @@
   "counts": {
     "edges": 14032,
     "entrypoints": 16,
-    "nodes": 7426,
+    "nodes": 7427,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -29,7 +29,7 @@
       "python_method": 304,
       "python_module": 776,
       "schema": 216,
-      "test": 740,
+      "test": 741,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -84347,7 +84347,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-28T22:38:38Z",
+  "generation_timestamp_utc": "2026-08-28T22:39:54Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -127850,6 +127850,11 @@
       "size_bytes": 20273
     },
     {
+      "id": "tests/test_v1_simple_publication_handoff_recovery_v1.py",
+      "kind": "test",
+      "size_bytes": 11043
+    },
+    {
       "id": "tests/test_v1_simple_routine_publication_handoff_v1.py",
       "kind": "test",
       "size_bytes": 16468
@@ -132525,6 +132530,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "fe27fc221bd179aebff98b33b91ffb80ed1f01ca",
-  "source_tree_digest": "fdefb9be3d2a612ad8eb3b9796c5d80d80e699ba3f62d614ff7597777f74a616"
+  "source_head": "d19015f3e699998a95f99f0895a5e84fb9710b9d",
+  "source_tree_digest": "caa7f9abfd5ae3e67e40266ce4c0728b0cd0b59525573eaaaadcef7f903e7e12"
 }
