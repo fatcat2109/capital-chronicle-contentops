@@ -43,6 +43,7 @@ owner-locked four-window local tick + production-day/window/slot identity
 -> canonical published memory + countable zero-write scheduler memory
 -> local headline sidecars
 -> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
+-> deterministic published-memory dedupe + sourceability-aware full-universe ordering
 -> bounded 9Router/Flash selection over <=32 candidates
 -> SimpleFirstPartyAwareEvidenceResolver composing existing official-primary and secondary loaders under one shared <=6 GET budget
 -> bounded 9Router/Flash article writer for the first source-qualified candidate
@@ -107,10 +108,15 @@ duplicate/restart plus persistent current-host/current-intake proof. No live/pub
 authorized. The Simple Editorial Growth Edge implementation now reuses the Institutional Edge
 packet, `CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer
 separation, and the native eight-destination compiler. It preserves the 32/6/3/1 ceilings and adds
-only a completion-first three-GET candidate allocation under the same six-GET ledger. Static and
-controlled package proof passes; fresh current-host proof still ended
-`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED`, so a current source-qualified article and owner
-inspection remain required before public-write enablement.
+only a completion-first three-GET candidate allocation under the same six-GET ledger plus a
+deterministic full-universe sourceability ordering adapter before the 32-candidate slice. The
+adapter reuses existing official/company-primary, reputable-secondary, attribution, route-health,
+request-cost, and freshness signals with zero model/network work and zero authority. Current proof
+changed seven top-32 identities in each direction across 1,212 eligible candidates. The one
+permitted host run reached exact publisher bytes for a different NVIDIA event, so deterministic
+current-peg validation blocked the article and the malformed single revision closed the run at the
+three-call ceiling. A genuinely current same-peg source-qualified article and owner inspection
+remain required before public-write enablement.
 
 ## Focused test families
 

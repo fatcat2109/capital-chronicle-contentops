@@ -136,15 +136,24 @@ calls, public writes, provider publication writes, publication-coordinator dispa
 The Simple Editorial Growth Edge implementation now reuses the existing Institutional Edge packet
 and current mode mappings in selector/writer/revision input, enforces explicit qualitative house
 inference without expanding Capital Chronicle numeric authority, and compiles exactly eight native
-text-only previews from final validated truth. The PR #36 equal two-GET allocation could not finish
-the existing RSS locator -> publisher sitemap locator -> exact document path; the active candidate
-may now use at most three GETs under the unchanged shared maximum of six. Focused deterministic and
-controlled package proof passes. A fresh current-host run nevertheless ended truthfully at
-`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` after GET allocation `3/2/1`, with no current
-article manufactured. One genuinely current source-qualified article and owner inspection remain
-the exact Growth Edge acceptance gap. Separate public-write/readback, real production-day 5–8
-useful published/day acceptance, and explicit `V1_FINAL_PRODUCT_ACCEPTED` remain later gates in
-that order.
+text-only previews from final validated truth. The full published-memory-deduplicated rolling
+universe is now deterministically sourceability-ranked before the 32-candidate packet is frozen.
+The adapter reuses existing official/company-primary, reputable-secondary, attribution,
+exact-route health, request-cost, and freshness signals. It performs zero model/provider calls and
+zero GETs, changes work order only, grants no authority, and never applies host-wide suppression.
+
+The current before/after proof contained 1,212 eligible candidates and changed seven top-32
+identities in each direction. The selected candidate moved from freshness-only rank 79 to
+sourceability-aware rank 2 because the existing company-primary locator was applicable. The one
+permitted current-host opportunity then used one Flash selection, three admissions, two official-
+primary GETs, one Flash writer, and the single permitted revision attempt. The retrieved exact
+NVIDIA document covered a different AWS-NVIDIA infrastructure event and did not support the
+selected current program-pause peg; deterministic validation blocked the article and the revision
+response was malformed. The run stopped truthfully at three logical Flash calls with zero qualified
+articles or previews and no second selection or opportunity. One genuinely current story with
+same-peg exact publisher support plus a valid bounded article response remains the Growth Edge
+acceptance gap. Separate public-write/readback, real production-day 5–8 useful published/day
+acceptance, and explicit `V1_FINAL_PRODUCT_ACCEPTED` remain later gates in that order.
 
 The selected candidate is always the current article peg. Title/dek must remain led by that event;
 older/background highlights in a current document use temporally neutral wording unless exact bytes

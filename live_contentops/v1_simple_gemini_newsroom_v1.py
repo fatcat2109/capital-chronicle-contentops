@@ -40,6 +40,9 @@ from live_contentops.newsroom_production_day_v1 import (
     newsroom_production_day_id,
     persist_qualified_article_record,
 )
+from live_contentops.preselection_intelligence_v1 import (
+    rank_simple_headline_candidate_universe,
+)
 from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_V1_SIMPLE_ARTICLE_WRITING,
     ROLE_V1_SIMPLE_EDITORIAL_REVISION,
@@ -54,7 +57,7 @@ from live_contentops.v1_simple_evidence_resolver_v1 import (
     SimpleFirstPartyAwareEvidenceResolver,
 )
 
-SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v3"
+SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v4"
 SELECTION_SCHEMA_VERSION = "contentops.v1_simple_gemini_selection.v2"
 ARTICLE_SCHEMA_VERSION = "contentops.v1_simple_gemini_article.v1"
 VALIDATION_SCHEMA_VERSION = "contentops.v1_simple_gemini_validation.v1"
@@ -62,8 +65,9 @@ DERIVATIVE_INTENTS_SCHEMA_VERSION = "contentops.v1_simple_derivative_intents.v2"
 NATIVE_PREVIEWS_SCHEMA_VERSION = "contentops.v1_simple_native_derivative_previews.v1"
 
 ORDERING = (
-    "GEMINI_SELECT_THEN_BOUNDED_DETERMINISTIC_RETRIEVAL_THEN_"
-    "GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE"
+    "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_"
+    "BOUNDED_DETERMINISTIC_RETRIEVAL_THEN_GEMINI_WRITE_THEN_"
+    "DETERMINISTIC_VALIDATE"
 )
 MAX_SELECTION_CANDIDATES = 32
 MAX_SOURCE_REQUESTS = 6
@@ -210,13 +214,31 @@ def _headline_account(row: Mapping[str, Any]) -> str:
     return str(row.get("source_account") or external.get("author_handle") or "").strip()
 
 
+def _safe_https_locator(value: Any) -> str:
+    url = str(value or "").strip()
+    try:
+        parsed = urlsplit(url)
+        port = parsed.port
+    except ValueError:
+        return ""
+    if (
+        parsed.scheme != "https"
+        or not parsed.hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or port not in {None, 443}
+    ):
+        return ""
+    return url
+
+
 def _memory_field(row: Any, key: str) -> str:
     if isinstance(row, Mapping):
         return str(row.get(key) or "")
     return str(getattr(row, key, "") or "")
 
 
-def _candidate_packet(
+def _candidate_universe(
     rolling_input: Mapping[str, Any], published_memory: Sequence[Any]
 ) -> list[dict[str, Any]]:
     published_titles = {
@@ -259,20 +281,96 @@ def _candidate_packet(
         ):
             continue
         seen_titles.add(normalized)
-        result.append(
-            {
-                "candidate_id": story_identity,
-                "story_identity": story_identity,
-                "headline_id": headline_id,
-                "headline_text": text,
-                "source_timestamp_utc": str(row.get("source_timestamp_utc") or ""),
-                "source_account": _headline_account(row),
-                "source_url": _headline_url(row),
-            }
+        external = row.get("external_content")
+        external = external if isinstance(external, Mapping) else {}
+        source_url = _safe_https_locator(_headline_url(row))
+        parsed_source = urlsplit(source_url)
+        source_host = str(parsed_source.hostname or "").casefold()
+        official_urls = list(
+            dict.fromkeys(
+                safe_url
+                for value in (
+                    list(row.get("official_source_urls") or [])
+                    + list(external.get("official_source_urls") or [])
+                )
+                if (safe_url := _safe_https_locator(value))
+            )
         )
-        if len(result) >= MAX_SELECTION_CANDIDATES:
-            break
+        public_urls = list(official_urls)
+        safe_source_url = _safe_https_locator(source_url)
+        if (
+            safe_source_url
+            and parsed_source.scheme == "https"
+            and source_host
+            and source_host not in {"x.com", "www.x.com", "t.co", "www.t.co"}
+            and safe_source_url not in public_urls
+        ):
+            public_urls.append(safe_source_url)
+        result.append({
+            "candidate_id": story_identity,
+            "story_identity": story_identity,
+            "headline_id": headline_id,
+            "headline_text": text,
+            "source_timestamp_utc": str(row.get("source_timestamp_utc") or ""),
+            "source_account": _headline_account(row),
+            "source_url": source_url,
+            "official_source_urls": official_urls,
+            "public_source_urls": public_urls,
+            "follow_up_data_need_candidates": list(
+                external.get("follow_up_data_need_candidates") or []
+            ),
+        })
     return result
+
+
+def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        key: row.get(key)
+        for key in (
+            "candidate_id",
+            "story_identity",
+            "headline_id",
+            "headline_text",
+            "source_timestamp_utc",
+            "source_account",
+            "source_url",
+            "official_source_urls",
+            "public_source_urls",
+        )
+    }
+
+
+def _candidate_packet_and_preselection(
+    rolling_input: Mapping[str, Any],
+    published_memory: Sequence[Any],
+    *,
+    source_route_health: Mapping[str, Any] | None = None,
+) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    universe = _candidate_universe(rolling_input, published_memory)
+    ranked = rank_simple_headline_candidate_universe(
+        universe,
+        max_candidates=MAX_SELECTION_CANDIDATES,
+        source_route_health=source_route_health,
+    )
+    candidates = [
+        _selection_candidate(row)
+        for row in ranked["ranked_candidates"][:MAX_SELECTION_CANDIDATES]
+    ]
+    return candidates, dict(ranked["evidence"])
+
+
+def _candidate_packet(
+    rolling_input: Mapping[str, Any],
+    published_memory: Sequence[Any],
+    *,
+    source_route_health: Mapping[str, Any] | None = None,
+) -> list[dict[str, Any]]:
+    candidates, _evidence = _candidate_packet_and_preselection(
+        rolling_input,
+        published_memory,
+        source_route_health=source_route_health,
+    )
+    return candidates
 
 
 def _published_memory_summary(published_memory: Sequence[Any]) -> dict[str, Any]:
@@ -656,11 +754,27 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
 def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any]) -> dict[str, Any]:
     bindings: list[dict[str, Any]] = []
     source_url = str(candidate.get("source_url") or "")
-    if source_url.startswith("https://"):
+    candidate_urls = list(
+        dict.fromkeys(
+            safe_url
+            for key in ("official_source_urls", "public_source_urls")
+            for value in candidate.get(key) or []
+            if (safe_url := _safe_https_locator(value))
+        )
+    )
+    source_host = str(urlsplit(source_url).hostname or "").casefold()
+    safe_source_url = _safe_https_locator(source_url)
+    if (
+        safe_source_url
+        and source_host not in {"x.com", "www.x.com", "t.co", "www.t.co"}
+        and safe_source_url not in candidate_urls
+    ):
+        candidate_urls.append(safe_source_url)
+    for url in candidate_urls:
         bindings.append(
             {
                 "headline_id": candidate["headline_id"],
-                "url": source_url,
+                "url": url,
                 "source_timestamp_utc": candidate.get("source_timestamp_utc"),
             }
         )
@@ -691,6 +805,7 @@ def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any
             "planned_research_query_set_sha256": _hash(research_queries),
             "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
             "public_source_url_bindings": bindings,
+            "candidate_packet_locators_grant_factual_authority": False,
         },
     }
 
@@ -1138,6 +1253,7 @@ def run_v1_simple_gemini_newsroom(
     rolling_input: Mapping[str, Any] | None = None,
     published_memory: Sequence[Any] = (),
     capital_chronicle_context: Mapping[str, Any] | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
     llm_invoke: LlmInvoke | None = None,
     evidence_loader: EvidenceLoader | None = None,
     run_id: str | None = None,
@@ -1153,7 +1269,34 @@ def run_v1_simple_gemini_newsroom(
             sidecar_glob=canonical_headline_sidecar_glob(),
             window_hours=24.0,
         )
-    candidates = _candidate_packet(rolling_input, published_memory)
+    candidates, sourceability_preselection = _candidate_packet_and_preselection(
+        rolling_input,
+        published_memory,
+        source_route_health=source_route_health,
+    )
+    sourceability_path = root / "simple_sourceability_preselection_v1.json"
+    _write_json(sourceability_path, sourceability_preselection)
+    sourceability_summary = {
+        "artifact_path": str(sourceability_path),
+        "full_eligible_deduped_universe_count": sourceability_preselection[
+            "full_eligible_deduped_universe_count"
+        ],
+        "ranking_order_changed": sourceability_preselection[
+            "ranking_order_changed"
+        ],
+        "candidate_ids_entering_top_packet": list(
+            sourceability_preselection["candidate_ids_entering_top_packet"]
+        ),
+        "candidate_ids_leaving_top_packet": list(
+            sourceability_preselection["candidate_ids_leaving_top_packet"]
+        ),
+        "source_route_health_reused": sourceability_preselection[
+            "source_route_health_reused"
+        ],
+        "model_or_provider_calls": 0,
+        "network_gets": 0,
+        "authority_granted": False,
+    }
     if not candidates:
         receipt = {
             "schema_version": SCHEMA_VERSION,
@@ -1162,6 +1305,7 @@ def run_v1_simple_gemini_newsroom(
             "cutoff_utc": cutoff_utc,
             "candidate_count": 0,
             "candidate_limit": MAX_SELECTION_CANDIDATES,
+            "sourceability_preselection": sourceability_summary,
             "exact_next_blocker": "NO_USEFUL_CURRENT_HEADLINE_CANDIDATES",
             "ordering": ORDERING,
             "qualified_article_count": 0,
@@ -1180,6 +1324,10 @@ def run_v1_simple_gemini_newsroom(
         "cutoff_utc": cutoff_utc,
         "candidate_count": len(candidates),
         "candidates": candidates,
+        "candidate_packet_ordering": (
+            "DETERMINISTIC_SOURCEABILITY_AWARE_WORK_ORDER_ONLY"
+        ),
+        "candidate_packet_ordering_grants_source_or_factual_authority": False,
         "published_memory_summary": memory_summary,
         "capital_chronicle_context_present": bool(capital_chronicle_context),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
@@ -1230,6 +1378,7 @@ def run_v1_simple_gemini_newsroom(
         "candidate_packet_hash": _hash(candidates),
         "candidate_count": len(candidates),
         "candidate_limit": MAX_SELECTION_CANDIDATES,
+        "sourceability_preselection": sourceability_summary,
         "published_memory_summary": memory_summary,
         "public_write_performed": False,
     }
@@ -1380,6 +1529,7 @@ def run_v1_simple_gemini_newsroom(
             "candidate_limit": MAX_SELECTION_CANDIDATES,
             "admitted_candidate_count": len(plan),
             "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED",
+            "sourceability_preselection": sourceability_summary,
             "selection": selection,
             "candidate_attempt_history": candidate_attempt_history,
             "source_request_count": request_count,
@@ -1632,6 +1782,7 @@ def run_v1_simple_gemini_newsroom(
         "candidate_count": len(candidates),
         "candidate_limit": MAX_SELECTION_CANDIDATES,
         "admitted_candidate_count": len(plan),
+        "sourceability_preselection": sourceability_summary,
         "ordering": ORDERING,
         "selection": selection,
         "selected_candidate": selected,

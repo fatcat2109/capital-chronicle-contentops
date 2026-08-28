@@ -29,6 +29,9 @@ from live_contentops.daily_app_launcher_v1 import (
 from live_contentops.published_corpus_read_model_v1 import (
     load_canonical_published_memory_read_only as _load_canonical_published_memory_read_only,
 )
+from live_contentops.source_route_health_v1 import (
+    load_source_route_health_snapshot_read_only,
+)
 
 
 def _utc_now() -> str:
@@ -75,6 +78,14 @@ def build_parser() -> argparse.ArgumentParser:
         default=str(CANONICAL_PRODUCTION_OUTPUT_ROOT),
         help="Canonical publication artifact root used by the existing corpus read model.",
     )
+    parser.add_argument(
+        "--source-route-health-path",
+        default=None,
+        help=(
+            "Existing routing-only source health snapshot. Defaults to "
+            "source_route_health_v1.json under the canonical output root."
+        ),
+    )
     return parser
 
 
@@ -87,12 +98,20 @@ def main(argv: Sequence[str] | None = None) -> int:
         store_path=args.published_memory_store,
         output_root=args.published_memory_output_root,
     )
+    source_route_health_path = Path(
+        args.source_route_health_path
+        or Path(args.published_memory_output_root) / "source_route_health_v1.json"
+    ).resolve()
+    source_route_health = load_source_route_health_snapshot_read_only(
+        source_route_health_path
+    )
     result = ContentOpsProductionOrchestrator().execute(
         "run_v1_simple_gemini_newsroom",
         output_dir=output_dir,
         cutoff_utc=cutoff_utc,
         run_id=args.run_id or output_dir.name,
         published_memory=published_memory,
+        source_route_health=source_route_health,
     )
     memory_path = output_dir / "published_memory_access_v1.json"
     memory_path.write_text(

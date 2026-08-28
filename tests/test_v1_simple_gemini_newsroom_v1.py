@@ -11,6 +11,10 @@ from live_contentops.newsroom_production_day_v1 import (
     load_qualified_article_records,
     newsroom_production_day_id,
 )
+from live_contentops.preselection_intelligence_v1 import (
+    rank_simple_headline_candidate_universe,
+)
+from live_contentops.source_route_health_v1 import normalized_route_identity
 from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_NEWSROOM_ASSIGNMENT,
     ROLE_V1_SIMPLE_ARTICLE_WRITING,
@@ -27,6 +31,7 @@ from live_contentops.v1_simple_gemini_newsroom_v1 import (
     SELECTION_SCHEMA_VERSION,
     SimpleGeminiNewsroomError,
     _candidate_packet,
+    _candidate_packet_and_preselection,
     _default_evidence_loader,
     _evidence_request,
     _institutional_edge_mode_guide,
@@ -381,6 +386,146 @@ def test_simple_32_6_3_1_economics_ceiling_is_unchanged():
     assert MAX_SOURCE_REQUESTS == 6
     assert MAX_LOGICAL_MODEL_INVOCATIONS == 3
     assert MAX_REVISION_ROUNDS == 1
+
+
+def test_simple_sourceability_preselection_reuses_official_and_exact_route_health_without_authority():
+    blocked_url = "https://www.wsj.com/articles/repeatedly-blocked"
+    unrelated_url = "https://www.wsj.com/articles/unrelated-current-story"
+    ap_url = "https://apnews.com/article/current-accessible-story"
+    company_url = "https://nvidianews.nvidia.com/news/current-company-release"
+    blocked_host, blocked_identity = normalized_route_identity(blocked_url)
+    ap_host, ap_identity = normalized_route_identity(ap_url)
+    health = {
+        "schema_version": "contentops.source_route_health.v1",
+        "routing_only": True,
+        "exact_route_suppression_host_wide": False,
+        "hosts": [
+            {
+                "normalized_host": blocked_host,
+                "success_count": 0,
+                "failure_count": 3,
+                "last_failure_class": "HTTP_403",
+            },
+            {
+                "normalized_host": ap_host,
+                "success_count": 2,
+                "failure_count": 0,
+                "last_failure_class": None,
+            },
+        ],
+        "routes": [
+            {
+                "normalized_host": blocked_host,
+                "route_identity_sha256": blocked_identity,
+                "success_count": 0,
+                "failure_count": 3,
+                "last_failure_class": "HTTP_403",
+            },
+            {
+                "normalized_host": ap_host,
+                "route_identity_sha256": ap_identity,
+                "success_count": 2,
+                "failure_count": 0,
+                "last_failure_class": None,
+            },
+        ],
+        "sourceability_or_health_grants_factual_authority": False,
+        "sourceability_or_health_grants_numeric_authority": False,
+        "sourceability_or_health_grants_permission_authority": False,
+        "sourceability_or_health_grants_publication_authority": False,
+    }
+    candidates = [
+        {
+            "candidate_id": "risky-fresh",
+            "story_identity": "risky-fresh",
+            "headline_id": "risky-fresh",
+            "headline_text": "Current market story via WSJ with a repeatedly inaccessible exact route",
+            "source_timestamp_utc": "2026-08-26T13:59:00Z",
+            "source_account": "wire",
+            "source_url": blocked_url,
+            "official_source_urls": [blocked_url],
+            "public_source_urls": [blocked_url],
+        },
+        {
+            "candidate_id": "ap-accessible",
+            "story_identity": "ap-accessible",
+            "headline_id": "ap-accessible",
+            "headline_text": "Equivalent current market story via AP on an observed accessible route",
+            "source_timestamp_utc": "2026-08-26T13:58:00Z",
+            "source_account": "wire",
+            "source_url": ap_url,
+            "official_source_urls": [ap_url],
+            "public_source_urls": [ap_url],
+        },
+        {
+            "candidate_id": "company-primary",
+            "story_identity": "company-primary",
+            "headline_id": "company-primary",
+            "headline_text": "Nvidia publishes a current company release",
+            "source_timestamp_utc": "2026-08-26T13:57:00Z",
+            "source_account": "issuer",
+            "source_url": company_url,
+            "official_source_urls": [company_url],
+            "public_source_urls": [company_url],
+        },
+        {
+            "candidate_id": "same-publisher-unrelated",
+            "story_identity": "same-publisher-unrelated",
+            "headline_id": "same-publisher-unrelated",
+            "headline_text": "Another current Wall Street Journal route remains independently eligible",
+            "source_timestamp_utc": "2026-08-26T13:56:00Z",
+            "source_account": "wire",
+            "source_url": unrelated_url,
+            "official_source_urls": [unrelated_url],
+            "public_source_urls": [unrelated_url],
+        },
+    ]
+    result = rank_simple_headline_candidate_universe(
+        candidates,
+        max_candidates=4,
+        source_route_health=health,
+    )
+    ranked = result["ranked_candidates"]
+    ranked_ids = [row["candidate_id"] for row in ranked]
+    assert ranked_ids.index("ap-accessible") < ranked_ids.index("risky-fresh")
+    company = next(row for row in ranked if row["candidate_id"] == "company-primary")
+    assert company["sourceability_work_order"][
+        "registered_official_locator_families"
+    ] == ["company_primary"]
+    unrelated = next(
+        row for row in ranked if row["candidate_id"] == "same-publisher-unrelated"
+    )
+    assert unrelated["sourceability_work_order"]["exact_route_health_match_count"] == 0
+    assert unrelated["sourceability_work_order"]["exact_route_suppression_applied"] is False
+    assert unrelated["sourceability_work_order"]["host_wide_suppression_applied"] is False
+    evidence = result["evidence"]
+    assert evidence["full_eligible_deduped_universe_count"] == 4
+    assert evidence["source_route_health_reused"] is True
+    assert evidence["sourceability_stage_model_or_provider_calls"] == 0
+    assert evidence["sourceability_stage_network_gets"] == 0
+    assert evidence["candidate_eligibility_changed"] is False
+    assert evidence["ranking_changes_work_order_not_truth"] is True
+    assert evidence["sourceability_stage_factual_authority_granted"] is False
+    assert evidence["sourceability_stage_publication_authority_granted"] is False
+
+
+def test_simple_sourceability_ranks_full_deduped_universe_before_bounded_packet():
+    rolling = _headlines(40)
+    duplicate_title = rolling["headlines"][0]["headline_text"]
+    candidates, evidence = _candidate_packet_and_preselection(
+        rolling,
+        [{"title": duplicate_title}],
+    )
+    assert len(candidates) == MAX_SELECTION_CANDIDATES
+    assert evidence["full_eligible_deduped_universe_count"] == 39
+    assert len(evidence["old_freshness_only_top_candidates"]) == 32
+    assert len(evidence["sourceability_aware_top_candidates"]) == 32
+    assert candidates[0]["headline_id"] != "headline-0"
+    assert all("sourceability_work_order" not in row for row in candidates)
+    assert evidence["sourceability_stage_model_or_provider_calls"] == 0
+    assert evidence["sourceability_stage_network_gets"] == 0
+    assert evidence["sourceability_stage_numeric_authority_granted"] is False
+    assert evidence["sourceability_stage_capital_chronicle_authority_granted"] is False
 
 
 def test_current_earnings_candidate_cannot_pivot_to_older_financing_highlight():

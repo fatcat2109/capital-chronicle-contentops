@@ -1,7 +1,7 @@
 # V1 Simple Editorial Growth Edge and Sourceability Closure V1
 
 Authority date: 2026-08-28
-Status: `PARTIAL_PASS_STATIC_CAPABILITY_PROVEN_CURRENT_HOST_SOURCE_ABSTENTION`
+Status: `PARTIAL_PASS_SOURCEABILITY_PRESELECTION_PROVEN_CURRENT_HOST_VALIDATION_ABSTENTION`
 
 ## Outcome
 
@@ -16,6 +16,15 @@ compiler through the canonical production-orchestrator boundary. It builds exact
 preview packages from final validated article truth only. The pending Substack URL is explicitly
 non-dispatchable; every intent remains `UNDISPATCHED` / `PREVIEW_ONLY_PENDING_CANONICAL_URL` and
 requires rematerialization after a real canonical URL. No publication path was added.
+
+The Simple candidate packet now closes the upstream ordering defect. After published-memory
+duplicate suppression, the complete eligible rolling universe is ranked by the existing
+authority-free official/company-primary, reputable-secondary, attribution, exact-route health,
+request-cost, and freshness signals before the packet is sliced to 32. The stage performs zero
+model/provider calls and zero GETs, changes only work order, and grants no factual, numeric,
+Capital Chronicle, permission, or publication authority. The existing routing-only source-health
+snapshot is reused read-only; exact-route failure never suppresses an unrelated same-publisher
+route.
 
 ## Exact sourceability diagnosis
 
@@ -34,13 +43,24 @@ discovery loop, second selection, model fallback, or budget increase was added.
 ## Validation and proof
 
 - focused editorial/evidence/native-boundary suite: `166 passed`;
+- latest sourceability/Simple/evidence/Institutional Edge/native/scheduler/CLI suite: `170 passed`;
+- CodeGraph/current-context freshness suite: `17 passed`;
 - controlled final-truth package proof: `1 passed`, with one validated article and exactly eight
   platform-native preview packages; selection-only sentinel text was absent from every package;
-- current-host run: 32 candidates, one Flash selection, three admitted candidates, six GETs split
-  `3 / 2 / 1`, zero writer calls, zero revisions, zero articles, and zero derivative packages;
-- current-host result: `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED`;
-- production publication SQLite SHA-256 before/after:
-  `91D02C1779E60C08049AAE334A4569C3003389E776892358E8DCA28E4063F354`;
+- pre-adapter current-host baseline: 32 candidates, one Flash selection, three admissions, six
+  GETs, zero writer calls, zero articles, and zero derivative packages;
+- current deterministic before/after proof: 1,212 eligible deduplicated candidates, seven
+  identities entering and seven leaving the top 32, existing source-route health reused, zero
+  model/provider calls, zero GETs, and zero authority granted;
+- one permitted post-adapter current-host run: 32 candidates, one Flash selection, three
+  admissions, one official-primary source walk using two GETs, one Flash writer, the single
+  permitted Flash revision attempt, three logical Flash calls total, zero qualified articles, and
+  zero native previews;
+- current-host result: `GEMINI_REVISION_LOGICAL_INVOCATION_BLOCKED` after deterministic validation
+  rejected an exact NVIDIA publisher document that did not support the selected current program-
+  pause peg; the revision response was malformed and no retry was allowed;
+- latest production publication SQLite SHA-256 before/after:
+  `7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E`;
 - Codex runtime calls, public writes, provider publication writes, publication-coordinator dispatch,
   and `UNKNOWN_WRITE`: all zero.
 
@@ -51,6 +71,12 @@ current source-qualified article plus owner inspection remains the exact residua
 
 ## Artifact locations
 
+- current sourceability before/after packet:
+  `current_sourceability_ranked_universe_v1.json`
+- current sourceability-aware acceptance diagnostic:
+  `current_sourceability_acceptance_diagnostic_v1.json`
+- current local receipt/evidence root:
+  `A:\Capital Chronicle\Runtime\ContentOps\canary_evidence\TASK_V1_SIMPLE_SOURCEABILITY_AWARE_PRESELECTION_ACCEPTANCE_20260828T010500Z`
 - current-host abstention receipt:
   `A:\Capital Chronicle\Runtime\ContentOps\canary_evidence\TASK_V1_SIMPLE_EDITORIAL_GROWTH_EDGE_AND_SOURCEABILITY_CLOSURE_V1_20260827T223801Z\simple_gemini_newsroom_receipt_v1.json`
 - current-host source walk:
@@ -63,27 +89,26 @@ current source-qualified article plus owner inspection remains the exact residua
 Routine public-write/readback authority, a real 5–8 article production day, and
 `V1_FINAL_PRODUCT_ACCEPTED` remain ungranted.
 
-## PR37 current-source acceptance continuation
+## PR37 sourceability-aware current acceptance
 
-The accepted static implementation was not changed. The required prior walk is independently
-auditable in `prior_host_walk_sanitized_diagnostic_v1.json`; it distinguishes fields actually
-persisted by the 22:38 run from a bounded labeled replay. The exact sourceability cause was not a
-validator false negative: the admitted public stories could not reach exact publisher documents
-inside six GETs. A compact headline-derived PR19 query donor revalidation found current Reuters
-locator metadata but Reuters' public sitemap surfaces did not expose the exact article and the
-opaque Google News URL did not redirect to publisher bytes. No code correction was justified.
+The current artifact `current_sourceability_ranked_universe_v1.json` proves the new seam on the
+production-shaped rolling universe before any model call. It records both top-32 orders, all
+entering/leaving identities, timestamps, compatible route signals, expected request-cost classes,
+access risk, and the zero-call/zero-authority contract. The selected post-adapter candidate moved
+from freshness-only rank 79 to sourceability-aware rank 2 because the existing company-primary
+locator was applicable.
 
-Canonical intake then completed one normal bounded capture: 162 new deduplicated headlines, newest
-source event `2026-08-27T23:50:25Z`, and 1,286 candidates in the rolling 24-hour universe. The one
-permitted fresh Simple opportunity used 32 candidates, one Flash selection, three admissions, and
-GET allocation `3/3/0`. The primary `STANDARD_NEWS_ANALYSIS` Ratcliffe/Moscow story and fallback
-`WEEK_AHEAD_OR_WATCH` Warsh/Jackson Hole story each exhausted three GETs without an exact accepted
-publisher document; the third fallback was not attempted because the shared six-GET ledger was
-exhausted. The writer and revision did not run. Production DB bytes were identical across the
-opportunity, and Codex runtime/public/provider/coordinator/UNKNOWN counters remained zero.
+The one permitted opportunity then reached exact NVIDIA publisher bytes in two GETs, proving that
+a high-ranked routing-reachable candidate existed. Those bytes described a different AWS-NVIDIA
+infrastructure expansion, not the selected current revenue-sharing program pause. The writer used
+unsupported current-peg claims and an extra source; deterministic validation rejected the title,
+dek, public metadata, and body. The one allowed revision returned malformed structured output, so
+the run stopped at the absolute three-call ceiling without another selection or opportunity.
 
-Current-host acceptance therefore remains incomplete. No real current article, eight current
-previews, or validation summary exists to copy for owner review, and their paths are explicitly
-`null` in `current_source_acceptance_attempt_v1.json`. The exact remaining blocker is one genuinely
-current story whose existing governed route returns exact publisher bytes within six GETs; another
-selection loop was not run to manufacture success.
+`current_sourceability_acceptance_diagnostic_v1.json` records the exact safe route, document hash,
+validation blockers, model/GET/revision counters, unchanged production DB hash, and zero safety
+counters. Current-host Growth Edge acceptance remains incomplete: there is no qualified current
+article, eight current previews, or owner-review validation summary. The residual blocker is a
+current selected peg whose exact retrieved publisher bytes support that same event plus a valid
+Flash article/revision response inside the unchanged 32/6/3/1 ceilings. No rerun was made to
+manufacture success.

@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13973,
+    "edges": 13987,
     "entrypoints": 16,
-    "nodes": 7396,
+    "nodes": 7403,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,10 +25,10 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 606,
-      "python_function": 4043,
-      "python_method": 299,
+      "python_function": 4047,
+      "python_method": 301,
       "python_module": 774,
-      "schema": 211,
+      "schema": 212,
       "test": 737,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
@@ -30183,6 +30183,12 @@
       "from": "live_contentops/preselection_intelligence_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_attributed_reputable_hosts"
+    },
+    {
+      "from": "live_contentops/preselection_intelligence_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_evidence_reachability"
     },
     {
@@ -30207,6 +30213,18 @@
       "from": "live_contentops/preselection_intelligence_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations"
+    },
+    {
+      "from": "live_contentops/preselection_intelligence_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations.add"
+    },
+    {
+      "from": "live_contentops/preselection_intelligence_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_source_timestamp"
     },
     {
@@ -30223,6 +30241,18 @@
     },
     {
       "from": "live_contentops/preselection_intelligence_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe"
+    },
+    {
+      "from": "live_contentops/preselection_intelligence_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe.audit_row"
+    },
+    {
+      "from": "live_contentops/preselection_intelligence_v1.py",
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.preselection_intelligence.v1"
@@ -30232,6 +30262,12 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.rolling_x_assignment_compaction.v1"
+    },
+    {
+      "from": "live_contentops/preselection_intelligence_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_sourceability_preselection.v1"
     },
     {
       "from": "live_contentops/primary_payload_classes_contract.py",
@@ -36783,6 +36819,12 @@
       "from": "live_contentops/source_route_health_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only"
+    },
+    {
+      "from": "live_contentops/source_route_health_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/source_route_health_v1.py::normalized_host"
     },
     {
@@ -39795,7 +39837,7 @@
       "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
-      "to": "schema:contentops.v1_simple_gemini_newsroom.v3"
+      "to": "schema:contentops.v1_simple_gemini_newsroom.v4"
     },
     {
       "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
@@ -62496,6 +62538,18 @@
       "to": "python_symbol:live_contentops/preselection_canary_v1.py::build_read_only_preselection_canary"
     },
     {
+      "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::_evidence_reachability",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_attributed_reputable_hosts"
+    },
+    {
+      "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_attributed_reputable_hosts"
+    },
+    {
       "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::apply_preselection_intelligence",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -62575,6 +62629,30 @@
     },
     {
       "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::compact_rolling_x_assignment_universe",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_source_timestamp"
+    },
+    {
+      "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_evidence_reachability"
+    },
+    {
+      "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_logical_hash"
+    },
+    {
+      "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations"
+    },
+    {
+      "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::_source_timestamp"
@@ -70852,6 +70930,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/production_orchestrator_v1.py::ContentOpsProductionOrchestrator"
+    },
+    {
+      "from": "python_symbol:scripts/run_v1_simple_gemini_newsroom.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only"
     },
     {
       "from": "python_symbol:scripts/run_v1_simple_gemini_newsroom.py::main",
@@ -84231,7 +84315,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 16743
+      "size_bytes": 17352
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
@@ -84241,7 +84325,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 4203
+      "size_bytes": 4707
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -84261,7 +84345,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 11675
+      "size_bytes": 12248
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -86942,7 +87026,7 @@
     {
       "id": "live_contentops/preselection_intelligence_v1.py",
       "kind": "python_module",
-      "size_bytes": 34321
+      "size_bytes": 45444
     },
     {
       "id": "live_contentops/primary_payload_classes_contract.py",
@@ -87497,7 +87581,7 @@
     {
       "id": "live_contentops/source_route_health_v1.py",
       "kind": "python_module",
-      "size_bytes": 6734
+      "size_bytes": 7717
     },
     {
       "id": "live_contentops/static_cockpit_surface_contract.py",
@@ -87767,7 +87851,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 74942
+      "size_bytes": 80362
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -87777,7 +87861,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "kind": "python_module",
-      "size_bytes": 31573
+      "size_bytes": 32258
     },
     {
       "id": "live_contentops/v6_platform_registry_contract.py",
@@ -112100,53 +112184,88 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_attributed_reputable_hosts",
+      "kind": "python_function",
+      "line": 115,
+      "path": "live_contentops/preselection_intelligence_v1.py",
+      "symbol": "_attributed_reputable_hosts"
+    },
+    {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_evidence_reachability",
       "kind": "python_function",
-      "line": 98,
+      "line": 124,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_evidence_reachability"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_logical_hash",
       "kind": "python_function",
-      "line": 382,
+      "line": 650,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_logical_hash"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_preselection_cc_publication_authority",
       "kind": "python_function",
-      "line": 303,
+      "line": 571,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_preselection_cc_publication_authority"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_raw_assignment_reachability",
       "kind": "python_function",
-      "line": 397,
+      "line": 665,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_raw_assignment_reachability"
     },
     {
+      "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations",
+      "kind": "python_function",
+      "line": 313,
+      "path": "live_contentops/preselection_intelligence_v1.py",
+      "symbol": "_simple_candidate_route_observations"
+    },
+    {
+      "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations.add",
+      "kind": "python_method",
+      "line": 352,
+      "path": "live_contentops/preselection_intelligence_v1.py",
+      "symbol": "_simple_candidate_route_observations.add"
+    },
+    {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_source_timestamp",
       "kind": "python_function",
-      "line": 388,
+      "line": 656,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_source_timestamp"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::apply_preselection_intelligence",
       "kind": "python_function",
-      "line": 501,
+      "line": 769,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "apply_preselection_intelligence"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::compact_rolling_x_assignment_universe",
       "kind": "python_function",
-      "line": 415,
+      "line": 683,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "compact_rolling_x_assignment_universe"
+    },
+    {
+      "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe",
+      "kind": "python_function",
+      "line": 418,
+      "path": "live_contentops/preselection_intelligence_v1.py",
+      "symbol": "rank_simple_headline_candidate_universe"
+    },
+    {
+      "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe.audit_row",
+      "kind": "python_method",
+      "line": 526,
+      "path": "live_contentops/preselection_intelligence_v1.py",
+      "symbol": "rank_simple_headline_candidate_universe.audit_row"
     },
     {
       "id": "python_symbol:live_contentops/primary_payload_classes_contract.py::PayloadClassEntry",
@@ -117632,28 +117751,35 @@
     {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::SourceRouteHealthState",
       "kind": "python_class",
-      "line": 63,
+      "line": 87,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "SourceRouteHealthState"
     },
     {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::classify_route_failure",
       "kind": "python_function",
-      "line": 44,
+      "line": 68,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "classify_route_failure"
     },
     {
+      "id": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only",
+      "kind": "python_function",
+      "line": 24,
+      "path": "live_contentops/source_route_health_v1.py",
+      "symbol": "load_source_route_health_snapshot_read_only"
+    },
+    {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::normalized_host",
       "kind": "python_function",
-      "line": 30,
+      "line": 54,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "normalized_host"
     },
     {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::normalized_route_identity",
       "kind": "python_function",
-      "line": 34,
+      "line": 58,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "normalized_route_identity"
     },
@@ -119837,14 +119963,14 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::SimpleGeminiNewsroomError",
       "kind": "python_class",
-      "line": 138,
+      "line": 142,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "SimpleGeminiNewsroomError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1134,
+      "line": 1249,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -119907,28 +120033,28 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiLocalScheduler",
       "kind": "python_class",
-      "line": 269,
+      "line": 272,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiLocalScheduler"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiSchedulerCheckpointError",
       "kind": "python_class",
-      "line": 66,
+      "line": 69,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiSchedulerCheckpointError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiSchedulerSafetyError",
       "kind": "python_class",
-      "line": 56,
+      "line": 59,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiSchedulerSafetyError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::simple_gemini_slot_id",
       "kind": "python_function",
-      "line": 192,
+      "line": 195,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "simple_gemini_slot_id"
     },
@@ -121783,21 +121909,21 @@
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_newsroom.py::build_parser",
       "kind": "python_function",
-      "line": 49,
+      "line": 52,
       "path": "scripts/run_v1_simple_gemini_newsroom.py",
       "symbol": "build_parser"
     },
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_newsroom.py::load_canonical_published_memory_read_only",
       "kind": "python_function",
-      "line": 38,
+      "line": 41,
       "path": "scripts/run_v1_simple_gemini_newsroom.py",
       "symbol": "load_canonical_published_memory_read_only"
     },
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_newsroom.py::main",
       "kind": "python_function",
-      "line": 81,
+      "line": 92,
       "path": "scripts/run_v1_simple_gemini_newsroom.py",
       "symbol": "main"
     },
@@ -123396,9 +123522,9 @@
       "schema_id": "contentops.v1_simple_gemini_local_scheduler.v1"
     },
     {
-      "id": "schema:contentops.v1_simple_gemini_newsroom.v3",
+      "id": "schema:contentops.v1_simple_gemini_newsroom.v4",
       "kind": "schema",
-      "schema_id": "contentops.v1_simple_gemini_newsroom.v3"
+      "schema_id": "contentops.v1_simple_gemini_newsroom.v4"
     },
     {
       "id": "schema:contentops.v1_simple_gemini_scheduler_process.v1",
@@ -123444,6 +123570,11 @@
       "id": "schema:contentops.v1_simple_scheduler_memory_access.v1",
       "kind": "schema",
       "schema_id": "contentops.v1_simple_scheduler_memory_access.v1"
+    },
+    {
+      "id": "schema:contentops.v1_simple_sourceability_preselection.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v1_simple_sourceability_preselection.v1"
     },
     {
       "id": "schema:contentops.v5_ui_source_epoch.v1",
@@ -123973,7 +124104,7 @@
     {
       "id": "scripts/run_v1_simple_gemini_newsroom.py",
       "kind": "python_module",
-      "size_bytes": 4182
+      "size_bytes": 4884
     },
     {
       "id": "scripts/run_v1_simple_gemini_scheduler.py",
@@ -127298,7 +127429,7 @@
     {
       "id": "tests/test_v1_simple_gemini_newsroom_v1.py",
       "kind": "test",
-      "size_bytes": 30736
+      "size_bytes": 37379
     },
     {
       "id": "tests/test_v1_simple_gemini_scheduler_process_v1.py",
@@ -131982,5 +132113,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "5919278e5bf2e27b4ee89ef066ef80111b5b8385",
-  "source_tree_digest": "35b2428e6145ce406002e6b3fa95355af77303c683ccb59cb6160bde89bb71aa"
+  "source_tree_digest": "a292bf14753ef3f60813cf466e974597e8641cc8c92db553e9632660ee87a7b6"
 }

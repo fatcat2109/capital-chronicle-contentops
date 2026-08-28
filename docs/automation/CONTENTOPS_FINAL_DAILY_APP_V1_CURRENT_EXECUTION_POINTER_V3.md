@@ -51,10 +51,15 @@ The Simple Editorial Growth Edge implementation now reuses the existing Institut
 house-mode fact/opinion/Core-Analyzer separation, and native eight-destination compiler. It keeps
 the 32/6/3/1 ceilings and lets an active candidate complete the existing three-GET RSS->sitemap->
 exact-document path under the same shared six-GET ledger. Deterministic and controlled package
-proof passes, but a fresh current-host run still truthfully ended
-`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` after GET allocation `3/2/1`. The exact next gate
-is one genuinely current source-qualified article plus owner inspection of the article and all
-eight previews. Do not add a new discovery system or enable public write from the partial proof.
+proof passes. The full deduplicated rolling universe is now sourceability-ranked before the 32-row
+packet through existing authority-free route signals; current proof changed seven identities in and
+out of the packet across 1,212 eligible candidates with zero semantic/network work at that stage.
+The one permitted current-host run reached exact NVIDIA publisher bytes in two official-primary
+GETs, but those bytes covered a different event than the selected current peg. Deterministic
+validation blocked the article and the single malformed revision response ended the run at three
+logical Flash calls. The exact next gate is one genuinely current same-peg source-qualified article
+plus owner inspection of the article and all eight previews. Do not add a new discovery system,
+rerun selection to hunt for success, or enable public write from the partial proof.
 
 After that slice, the next distinct authorization gate is separate public-write/readback authority.
 The scheduler proof grants none. A real production-day 5–8 useful published/day acceptance and

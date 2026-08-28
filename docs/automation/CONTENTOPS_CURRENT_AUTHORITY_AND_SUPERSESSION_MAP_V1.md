@@ -160,12 +160,17 @@ The Simple Editorial Growth Edge implementation now reuses the existing Institut
 house-mode inference/Core-Analyzer separation, and native eight-destination compiler. Deterministic
 regressions prove the unchanged 32/6/3/1 ceilings, a three-GET completion-first RSS->sitemap->exact-
 document path under the same six-GET ledger, and exactly eight final-truth-only non-dispatchable
-previews. A fresh current-host run still truthfully ended
-`ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED` after GET allocation `3/2/1`, so no current
-article or packages were manufactured. One genuinely current source-qualified article plus owner
-inspection remains the exact acceptance gap; routine public-write authority remains zero. 4/32
-remains throughput telemetry, not a prerequisite. Final target remains 5–8 useful published
-articles/day without filler.
+previews. The full published-memory-deduplicated rolling universe is now deterministically ranked
+by existing sourceability/reachability signals before the 32-candidate packet is frozen. Current
+proof changed seven top-32 identities in each direction across 1,212 eligible candidates with zero
+model/provider calls, zero GETs, zero authority, and exact-route rather than host-wide suppression.
+The one permitted current-host run used one selection, three admissions, two official-primary GETs,
+one writer, and one revision attempt. Exact NVIDIA publisher bytes covered a different event than
+the selected current peg, deterministic validation blocked the article, and the malformed revision
+response closed the run at the three-call ceiling. No current article or packages were manufactured.
+One genuinely current same-peg source-qualified article plus owner inspection remains the exact
+acceptance gap; routine public-write authority remains zero. 4/32 remains throughput telemetry, not
+a prerequisite. Final target remains 5–8 useful published articles/day without filler.
 
 The final current-sidecar news-peg/public-metadata-integrity canary is `PASS`: 32 candidates, one
 Flash selection, three admitted candidates, two shared-ledger GETs through a configured issuer feed

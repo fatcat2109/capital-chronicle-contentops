@@ -37,5 +37,42 @@
     "single_current_simple_opportunity": "NO_PUBLICATION_ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED",
     "code_correction_performed": false,
     "git_diff_check": "PASS"
+  },
+  "pr37_sourceability_aware_preselection_and_acceptance": {
+    "focused_simple_preselection_source_health_evidence_institutional_edge_native_orchestrator_scheduler_cli": {
+      "result": "PASS",
+      "passed": 170
+    },
+    "codegraph_freshness_after_sourceability_and_evidence_update": {
+      "result": "PASS",
+      "passed": 17
+    },
+    "deterministic_current_before_after_projection": {
+      "result": "PASS",
+      "full_eligible_deduped_universe_count": 1212,
+      "candidate_packet_count": 32,
+      "identities_entering": 7,
+      "identities_leaving": 7,
+      "model_or_provider_calls": 0,
+      "network_gets": 0,
+      "authority_granted": false,
+      "source_route_health_reused": true
+    },
+    "single_current_simple_opportunity": "NO_PUBLICATION_GEMINI_REVISION_LOGICAL_INVOCATION_BLOCKED",
+    "source_request_count": 2,
+    "logical_flash_invocation_count": 3,
+    "qualified_article_count": 0,
+    "native_preview_count": 0,
+    "production_database_unchanged": true,
+    "codex_runtime_public_provider_coordinator_unknown_counts_all_zero": true,
+    "no_second_selection_or_opportunity": true,
+    "ruff_changed_nonlegacy_files": "PASS_WITH_EXISTING_SCRIPT_E402_BOOTSTRAP_IGNORED",
+    "py_compile_changed_files": "PASS",
+    "git_diff_check": "PASS",
+    "pre_existing_unrelated_validation": {
+      "test_v6_north_star_authority_consistency": "4 FAIL / 1 PASS",
+      "changed_seam_implicated": false,
+      "reason": "Assertions require superseded V6 status and wording that current root authority explicitly demotes."
+    }
   }
 }
