@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 13987,
+    "edges": 14004,
     "entrypoints": 16,
-    "nodes": 7403,
+    "nodes": 7413,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 8,
       "manifest": 17,
       "python_class": 606,
-      "python_function": 4047,
+      "python_function": 4054,
       "python_method": 301,
-      "python_module": 774,
-      "schema": 212,
-      "test": 737,
+      "python_module": 775,
+      "schema": 213,
+      "test": 738,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -30237,6 +30237,12 @@
       "from": "live_contentops/preselection_intelligence_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::attributed_reputable_source_hints"
+    },
+    {
+      "from": "live_contentops/preselection_intelligence_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::compact_rolling_x_assignment_universe"
     },
     {
@@ -39780,6 +39786,60 @@
       "to": "tests/test_v1_runtime_preflight_v1.py"
     },
     {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::build_epistemic_state"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::candidate_report_provenance"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::document_host"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::publisher_for_host"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::trusted_relay_document"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::validate_epistemic_state"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_epistemic_state.v1"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_v1_simple_epistemic_state_v1.py"
+    },
+    {
       "from": "live_contentops/v1_simple_evidence_resolver_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -39837,7 +39897,7 @@
       "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
-      "to": "schema:contentops.v1_simple_gemini_newsroom.v4"
+      "to": "schema:contentops.v1_simple_gemini_newsroom.v5"
     },
     {
       "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
@@ -62538,6 +62598,12 @@
       "to": "python_symbol:live_contentops/preselection_canary_v1.py::build_read_only_preselection_canary"
     },
     {
+      "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::_attributed_reputable_hosts",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::attributed_reputable_source_hints"
+    },
+    {
       "from": "python_symbol:live_contentops/preselection_intelligence_v1.py::_evidence_reachability",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68376,6 +68442,30 @@
       "to": "python_symbol:live_contentops/v1_runtime_preflight_v1.py::run_v1_runtime_preflight"
     },
     {
+      "from": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::build_epistemic_state",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/claim_evidence_contract_v1.py::build_claim_evidence_contract"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::build_epistemic_state",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/claim_evidence_contract_v1.py::requires_enhanced_evidence_review"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::build_epistemic_state",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::validate_epistemic_state"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::candidate_report_provenance",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/preselection_intelligence_v1.py::attributed_reputable_source_hints"
+    },
+    {
       "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -68410,6 +68500,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::persist_qualified_article_record"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::validate_epistemic_state"
     },
     {
       "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
@@ -76716,6 +76812,12 @@
       "to": "live_contentops/v1_runtime_preflight_v1.py"
     },
     {
+      "from": "tests/test_v1_simple_epistemic_state_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/v1_simple_epistemic_state_v1.py"
+    },
+    {
       "from": "tests/test_v1_simple_evidence_resolver_v1.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -84110,7 +84212,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 16367
+      "size_bytes": 16957
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -84315,22 +84417,22 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 17352
+      "size_bytes": 18647
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 9892
+      "size_bytes": 10532
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 4707
+      "size_bytes": 5419
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 15485
+      "size_bytes": 17631
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
@@ -84345,7 +84447,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 12248
+      "size_bytes": 13101
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -86391,7 +86493,7 @@
     {
       "id": "live_contentops/newsroom_production_day_v1.py",
       "kind": "python_module",
-      "size_bytes": 25964
+      "size_bytes": 26295
     },
     {
       "id": "live_contentops/next_article_brief_source_pack_review_v6.py",
@@ -87026,7 +87128,7 @@
     {
       "id": "live_contentops/preselection_intelligence_v1.py",
       "kind": "python_module",
-      "size_bytes": 45444
+      "size_bytes": 47225
     },
     {
       "id": "live_contentops/primary_payload_classes_contract.py",
@@ -87136,7 +87238,7 @@
     {
       "id": "live_contentops/public_secondary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 47814
+      "size_bytes": 48761
     },
     {
       "id": "live_contentops/publication_audit_record_contract_v6.py",
@@ -87844,14 +87946,19 @@
       "size_bytes": 6411
     },
     {
+      "id": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "kind": "python_module",
+      "size_bytes": 16976
+    },
+    {
       "id": "live_contentops/v1_simple_evidence_resolver_v1.py",
       "kind": "python_module",
-      "size_bytes": 12290
+      "size_bytes": 17701
     },
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 80362
+      "size_bytes": 90890
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -106278,7 +106385,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::NewsroomProductionDaySnapshot",
       "kind": "python_class",
-      "line": 511,
+      "line": 520,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "NewsroomProductionDaySnapshot"
     },
@@ -106299,21 +106406,21 @@
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::build_production_day_snapshot",
       "kind": "python_function",
-      "line": 529,
+      "line": 538,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "build_production_day_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::load_production_day_discovery_accounting",
       "kind": "python_function",
-      "line": 598,
+      "line": 607,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "load_production_day_discovery_accounting"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::load_qualified_article_records",
       "kind": "python_function",
-      "line": 423,
+      "line": 432,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "load_qualified_article_records"
     },
@@ -106341,21 +106448,21 @@
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::persist_production_day_snapshot",
       "kind": "python_function",
-      "line": 584,
+      "line": 593,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "persist_production_day_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::persist_qualified_article_record",
       "kind": "python_function",
-      "line": 395,
+      "line": 404,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "persist_qualified_article_record"
     },
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::qualified_records_as_published_memory",
       "kind": "python_function",
-      "line": 440,
+      "line": 449,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "qualified_records_as_published_memory"
     },
@@ -106376,7 +106483,7 @@
     {
       "id": "python_symbol:live_contentops/newsroom_production_day_v1.py::routine_opportunities_used",
       "kind": "python_function",
-      "line": 464,
+      "line": 473,
       "path": "live_contentops/newsroom_production_day_v1.py",
       "symbol": "routine_opportunities_used"
     },
@@ -112186,84 +112293,91 @@
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_attributed_reputable_hosts",
       "kind": "python_function",
-      "line": 115,
+      "line": 148,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_attributed_reputable_hosts"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_evidence_reachability",
       "kind": "python_function",
-      "line": 124,
+      "line": 155,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_evidence_reachability"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_logical_hash",
       "kind": "python_function",
-      "line": 650,
+      "line": 681,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_logical_hash"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_preselection_cc_publication_authority",
       "kind": "python_function",
-      "line": 571,
+      "line": 602,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_preselection_cc_publication_authority"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_raw_assignment_reachability",
       "kind": "python_function",
-      "line": 665,
+      "line": 696,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_raw_assignment_reachability"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations",
       "kind": "python_function",
-      "line": 313,
+      "line": 344,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_simple_candidate_route_observations"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations.add",
       "kind": "python_method",
-      "line": 352,
+      "line": 383,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_simple_candidate_route_observations.add"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_source_timestamp",
       "kind": "python_function",
-      "line": 656,
+      "line": 687,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_source_timestamp"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::apply_preselection_intelligence",
       "kind": "python_function",
-      "line": 769,
+      "line": 800,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "apply_preselection_intelligence"
     },
     {
+      "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::attributed_reputable_source_hints",
+      "kind": "python_function",
+      "line": 116,
+      "path": "live_contentops/preselection_intelligence_v1.py",
+      "symbol": "attributed_reputable_source_hints"
+    },
+    {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::compact_rolling_x_assignment_universe",
       "kind": "python_function",
-      "line": 683,
+      "line": 714,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "compact_rolling_x_assignment_universe"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe",
       "kind": "python_function",
-      "line": 418,
+      "line": 449,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "rank_simple_headline_candidate_universe"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe.audit_row",
       "kind": "python_method",
-      "line": 526,
+      "line": 557,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "rank_simple_headline_candidate_universe.audit_row"
     },
@@ -119954,23 +120068,65 @@
       "symbol": "run_v1_runtime_preflight"
     },
     {
+      "id": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::build_epistemic_state",
+      "kind": "python_function",
+      "line": 270,
+      "path": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "symbol": "build_epistemic_state"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::candidate_report_provenance",
+      "kind": "python_function",
+      "line": 116,
+      "path": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "symbol": "candidate_report_provenance"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::document_host",
+      "kind": "python_function",
+      "line": 417,
+      "path": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "symbol": "document_host"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::publisher_for_host",
+      "kind": "python_function",
+      "line": 425,
+      "path": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "symbol": "publisher_for_host"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::trusted_relay_document",
+      "kind": "python_function",
+      "line": 158,
+      "path": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "symbol": "trusted_relay_document"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::validate_epistemic_state",
+      "kind": "python_function",
+      "line": 232,
+      "path": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "symbol": "validate_epistemic_state"
+    },
+    {
       "id": "python_symbol:live_contentops/v1_simple_evidence_resolver_v1.py::SimpleFirstPartyAwareEvidenceResolver",
       "kind": "python_class",
-      "line": 69,
+      "line": 73,
       "path": "live_contentops/v1_simple_evidence_resolver_v1.py",
       "symbol": "SimpleFirstPartyAwareEvidenceResolver"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::SimpleGeminiNewsroomError",
       "kind": "python_class",
-      "line": 142,
+      "line": 146,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "SimpleGeminiNewsroomError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1249,
+      "line": 1415,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -123507,6 +123663,11 @@
       "schema_id": "contentops.v1_simple_derivative_intents.v2"
     },
     {
+      "id": "schema:contentops.v1_simple_epistemic_state.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v1_simple_epistemic_state.v1"
+    },
+    {
       "id": "schema:contentops.v1_simple_first_party_aware_evidence_resolver.v1",
       "kind": "schema",
       "schema_id": "contentops.v1_simple_first_party_aware_evidence_resolver.v1"
@@ -123522,9 +123683,9 @@
       "schema_id": "contentops.v1_simple_gemini_local_scheduler.v1"
     },
     {
-      "id": "schema:contentops.v1_simple_gemini_newsroom.v4",
+      "id": "schema:contentops.v1_simple_gemini_newsroom.v5",
       "kind": "schema",
-      "schema_id": "contentops.v1_simple_gemini_newsroom.v4"
+      "schema_id": "contentops.v1_simple_gemini_newsroom.v5"
     },
     {
       "id": "schema:contentops.v1_simple_gemini_scheduler_process.v1",
@@ -127420,6 +127581,11 @@
       "id": "tests/test_v1_runtime_preflight_v1.py",
       "kind": "test",
       "size_bytes": 3056
+    },
+    {
+      "id": "tests/test_v1_simple_epistemic_state_v1.py",
+      "kind": "test",
+      "size_bytes": 19989
     },
     {
       "id": "tests/test_v1_simple_evidence_resolver_v1.py",
@@ -132113,5 +132279,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "07bebf6d8f5a03729498593f3ed818b4df23d6aa",
-  "source_tree_digest": "b1e089fe47228de12178f2b4e06df35b99f96968c5a6b56db2f535b81a45a1fa"
+  "source_tree_digest": "8dfd11d45d3bb390b4a9ffc1566fc0d5280d828a597b340e716dd63cb46d2aac"
 }

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from datetime import datetime, timezone
 from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
@@ -97,27 +98,57 @@ _KNOWN_ACCESS_RISK_HOSTS = frozenset(
     }
 )
 
-_ATTRIBUTED_REPUTABLE_HOST_MARKERS = {
-    "apnews.com": ("associated press", " - ap", " via ap"),
-    "bbc.com": (" - bbc", "bbc reports", " via bbc"),
-    "bloomberg.com": ("bloomberg",),
-    "cnbc.com": (" - cnbc", "cnbc reports", " via cnbc"),
-    "ft.com": ("financial times", " - ft", " via ft"),
-    "theguardian.com": ("the guardian", "guardian reports"),
-    "aljazeera.com": ("al jazeera",),
-    "npr.org": (" - npr", "npr reports", " via npr"),
-    "politico.com": (" - politico", "politico reports", " via politico"),
-    "reuters.com": ("reuters",),
-    "wsj.com": ("wall street journal", " - wsj", " via wsj"),
+ATTRIBUTED_REPUTABLE_PUBLISHERS = {
+    "apnews.com": {"publisher": "Associated Press", "aliases": ("associated press", "ap")},
+    "bbc.com": {"publisher": "BBC", "aliases": ("bbc",)},
+    "bloomberg.com": {"publisher": "Bloomberg", "aliases": ("bloomberg",)},
+    "cnbc.com": {"publisher": "CNBC", "aliases": ("cnbc",)},
+    "ft.com": {"publisher": "Financial Times", "aliases": ("financial times", "ft")},
+    "theguardian.com": {"publisher": "The Guardian", "aliases": ("the guardian", "guardian")},
+    "aljazeera.com": {"publisher": "Al Jazeera", "aliases": ("al jazeera",)},
+    "npr.org": {"publisher": "NPR", "aliases": ("npr",)},
+    "politico.com": {"publisher": "Politico", "aliases": ("politico",)},
+    "reuters.com": {"publisher": "Reuters", "aliases": ("reuters",)},
+    "wsj.com": {"publisher": "The Wall Street Journal", "aliases": ("wall street journal", "wsj")},
 }
 
 
-def _attributed_reputable_hosts(text: str) -> set[str]:
+def attributed_reputable_source_hints(text: str) -> list[dict[str, str]]:
+    """Return explicit publisher attributions for routing only.
+
+    This is the shared Simple/rolling-X publisher taxonomy. Matching an attribution changes work
+    order and the proposition to prove; it never grants source, event, or publication authority.
+    """
     normalized = " ".join(str(text or "").split()).casefold()
+    hints: list[dict[str, str]] = []
+    for host, profile in ATTRIBUTED_REPUTABLE_PUBLISHERS.items():
+        for alias in profile["aliases"]:
+            escaped = re.escape(str(alias))
+            patterns = (
+                rf"(?:^|[\s,;:()\-])(?:per|via)\s+(?:the\s+)?{escaped}(?:\b|$)",
+                rf"(?:^|[\s,;:()\-])according\s+to\s+(?:the\s+)?{escaped}(?:\b|$)",
+                rf"(?:^|[\s,;:()\-])(?:the\s+)?{escaped}\s+(?:reports?|reported|says|said)(?:\b|$)",
+                rf"(?:^|[\s,;:()\-])reported\s+by\s+(?:the\s+)?{escaped}(?:\b|$)",
+                rf"\s+-\s+(?:the\s+)?{escaped}(?:\s|$)",
+            )
+            match = next((re.search(pattern, normalized) for pattern in patterns if re.search(pattern, normalized)), None)
+            if match is not None:
+                hints.append(
+                    {
+                        "normalized_host": host,
+                        "publisher": str(profile["publisher"]),
+                        "matched_alias": str(alias),
+                        "matched_text": match.group(0).strip(),
+                    }
+                )
+                break
+    return sorted(hints, key=lambda row: (row["normalized_host"], row["publisher"]))
+
+
+def _attributed_reputable_hosts(text: str) -> set[str]:
     return {
-        host
-        for host, markers in _ATTRIBUTED_REPUTABLE_HOST_MARKERS.items()
-        if any(marker in normalized for marker in markers)
+        str(row["normalized_host"])
+        for row in attributed_reputable_source_hints(text)
     }
 
 

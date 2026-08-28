@@ -56,8 +56,12 @@ from live_contentops.nine_router_ordered_model_router_v2 import (
 from live_contentops.v1_simple_evidence_resolver_v1 import (
     SimpleFirstPartyAwareEvidenceResolver,
 )
+from live_contentops.v1_simple_epistemic_state_v1 import (
+    candidate_report_provenance,
+    validate_epistemic_state,
+)
 
-SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v4"
+SCHEMA_VERSION = "contentops.v1_simple_gemini_newsroom.v5"
 SELECTION_SCHEMA_VERSION = "contentops.v1_simple_gemini_selection.v2"
 ARTICLE_SCHEMA_VERSION = "contentops.v1_simple_gemini_article.v1"
 VALIDATION_SCHEMA_VERSION = "contentops.v1_simple_gemini_validation.v1"
@@ -66,8 +70,8 @@ NATIVE_PREVIEWS_SCHEMA_VERSION = "contentops.v1_simple_native_derivative_preview
 
 ORDERING = (
     "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_"
-    "BOUNDED_DETERMINISTIC_RETRIEVAL_THEN_GEMINI_WRITE_THEN_"
-    "DETERMINISTIC_VALIDATE"
+    "PROVENANCE_AWARE_BOUNDED_DETERMINISTIC_RETRIEVAL_THEN_"
+    "EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE"
 )
 MAX_SELECTION_CANDIDATES = 32
 MAX_SOURCE_REQUESTS = 6
@@ -779,6 +783,7 @@ def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any
             }
         )
     research_queries = list(plan_entry["research_queries"])
+    report_provenance = candidate_report_provenance(candidate)
     material = {
         "candidate_id": candidate["candidate_id"],
         "headline_id": candidate["headline_id"],
@@ -794,12 +799,16 @@ def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any
         "requested_article_mode": plan_entry["article_mode"],
         "effective_article_mode": plan_entry["article_mode"],
         "required_evidence_capabilities": [
-            "credible_event_confirmation",
+            "credible_report_or_event_confirmation",
             "basic_attributed_facts",
         ],
         "evidence_enrichment_context": {"requested": True},
         "story_context": {
             "leaf_summaries": [candidate["headline_text"]],
+            "candidate_source_timestamp_utc": candidate.get("source_timestamp_utc"),
+            "candidate_source_account": candidate.get("source_account"),
+            "candidate_source_url": candidate.get("source_url"),
+            "report_provenance": report_provenance,
             "grounded_research_queries": research_queries,
             "planned_research_query_count": len(research_queries),
             "planned_research_query_set_sha256": _hash(research_queries),
@@ -839,6 +848,14 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "published_at_utc": str(document.get("published_at_utc") or ""),
                 "published_at_source": str(document.get("published_at_source") or ""),
                 "document_id": str(document.get("document_id") or ""),
+                "source_identity": str(document.get("source_identity") or ""),
+                "source_authority_class": str(
+                    document.get("source_authority_class") or ""
+                ),
+                "secondary_listing_only": bool(
+                    document.get("secondary_listing_only")
+                ),
+                "report_truth_only": bool(document.get("report_truth_only")),
                 "canonical_content_sha256": str(
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
@@ -883,6 +900,14 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Return exactly one JSON object with exactly the five top-level keys shown in OUTPUT_CONTRACT. "
         "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. "
+        "Treat epistemic_state as an immutable deterministic contract. Distinguish REPORT TRUTH from EVENT TRUTH: "
+        "report_proposition is supported, while event_proposition may remain unconfirmed. Include the exact "
+        "reader_visible_epistemic_label prominently in the dek and opening paragraph. For UNCONFIRMED or RELAYED "
+        "content, keep the named publisher or relay attribution in the title and dek, state the reporting status "
+        "in the first paragraph, and never silently rewrite 'Publisher reports X' as 'X happened'. Any mechanism, "
+        "winner/loser, market implication, criticism, or consequence that depends on X must be explicitly "
+        "conditional, using 'If the report is accurate', 'If confirmed', or equivalent. Do not call material a "
+        "leak, rumor, or internal-source report unless epistemic_state.origin_character says so. "
         "Follow institutional_edge_editorial_packet and its exact mode expectations. Lead with the strongest defensible "
         "tension and explain why the reader should care now. Make title, dek, and social_hook compelling, proposition-led, "
         "and no broader than the final supported article truth. In analytical modes, include a real counter-case or exact "
@@ -909,6 +934,8 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "not create numeric authority and must remain distinguishable from observed fact. Source timestamps are hints only; retrieved source provenance "
         "remains deterministic authority. Zero media is valid. This call has no publication tools and must not claim "
         "a publication attempt: public_write_attempted MUST be the JSON boolean false, never true or a string. "
+        "When epistemic_state.event_confirmation_state is not CONFIRMED, every material claim about the underlying "
+        "event must set attribution_required to true. "
         "Return strict JSON only.\nOUTPUT_CONTRACT:\n"
         + json.dumps(contract, sort_keys=True, ensure_ascii=False)
         + "\nGOVERNED_INPUT:\n"
@@ -1026,12 +1053,110 @@ def _editorial_growth_edge_blockers(
     return blockers
 
 
+def _first_body_paragraph(body: str) -> str:
+    for paragraph in re.split(r"\n\s*\n", str(body or "")):
+        cleaned = " ".join(
+            line.strip()
+            for line in paragraph.splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        )
+        if cleaned:
+            return _SOURCE_MARKER_RE.sub("", cleaned).strip()
+    return ""
+
+
+def _epistemic_copy_blockers(
+    article: Mapping[str, Any],
+    claims: Sequence[Mapping[str, Any]],
+    epistemic_state: Mapping[str, Any] | None,
+) -> list[str]:
+    if not isinstance(epistemic_state, Mapping) or not epistemic_state:
+        return []
+    blockers = list(validate_epistemic_state(epistemic_state))
+    if blockers:
+        return blockers
+    state = str(epistemic_state.get("event_confirmation_state") or "")
+    origin = str(epistemic_state.get("origin_character") or "")
+    publisher = str(epistemic_state.get("primary_reporting_publisher") or "")
+    relay = str(epistemic_state.get("relay_source_identity") or "")
+    label = str(epistemic_state.get("reader_visible_epistemic_label") or "")
+    title = str(article.get("title") or "")
+    dek = str(article.get("dek") or "")
+    first = _first_body_paragraph(str(article.get("substack_body_markdown") or ""))
+    public_copy = _SOURCE_MARKER_RE.sub("", _public_copy(article))
+    public_normal = _normal(public_copy)
+    attribution_tokens = {
+        value
+        for value in (
+            _normal(publisher),
+            _normal(publisher).replace("the ", "", 1),
+            _normal(relay),
+            "unconfirmed",
+            "reported",
+            "reports",
+            "according to",
+        )
+        if value
+    }
+    if state != "CONFIRMED":
+        if not any(token in _normal(title) for token in attribution_tokens):
+            blockers.append("epistemic_title_attribution_or_uncertainty_missing")
+        if label.casefold() not in dek.casefold() and not any(
+            token in _normal(dek) for token in attribution_tokens
+        ):
+            blockers.append("epistemic_dek_attribution_or_label_missing")
+        if label.casefold() not in first.casefold() and not any(
+            token in _normal(first) for token in attribution_tokens
+        ):
+            blockers.append("epistemic_opening_reporting_state_missing")
+        if any(
+            claim.get("attribution_required") is not True
+            for claim in claims
+            if isinstance(claim, Mapping)
+        ):
+            blockers.append("epistemic_unconfirmed_material_claim_attribution_missing")
+        event_terms = _peg_terms(epistemic_state.get("event_proposition"))
+        for field in _PUBLIC_METADATA_FIELDS:
+            value = str(article.get(field) or "")
+            if len(event_terms.intersection(_peg_terms(value))) >= 2 and not any(
+                token in _normal(value) for token in attribution_tokens
+            ):
+                blockers.append(f"epistemic_certainty_inflation:{field}")
+        for index, paragraph in enumerate(
+            re.split(r"\n\s*\n", str(article.get("substack_body_markdown") or "")),
+            start=1,
+        ):
+            clean = _SOURCE_MARKER_RE.sub("", paragraph)
+            if len(event_terms.intersection(_peg_terms(clean))) < 2:
+                continue
+            conditional = re.search(
+                r"\b(?:if|would|could|may|might|reported|reports|according\s+to|unconfirmed)\b",
+                clean,
+                re.IGNORECASE,
+            )
+            if conditional is None and not any(
+                token in _normal(clean) for token in attribution_tokens
+            ):
+                blockers.append(f"epistemic_event_asserted_as_confirmed:{index}")
+    if origin != "LEAK" and re.search(r"\b(?:leak|leaked)\b", public_normal):
+        blockers.append("epistemic_unsupported_leak_label")
+    if origin != "RUMOR" and re.search(r"\b(?:rumou?r|market chatter)\b", public_normal):
+        blockers.append("epistemic_unsupported_rumor_label")
+    if origin != "ANONYMOUS_OR_INTERNAL_SOURCES" and re.search(
+        r"\b(?:anonymous|internal sources?|people familiar|sources? familiar)\b",
+        public_normal,
+    ):
+        blockers.append("epistemic_unsupported_internal_source_label")
+    return sorted(set(blockers))
+
+
 def _validate_article_against_source_pack(
     worker_output: Mapping[str, Any],
     source_pack: Sequence[Mapping[str, Any]],
     *,
     selected_candidate: Mapping[str, Any] | None = None,
     article_mode: str | None = None,
+    epistemic_state: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
@@ -1090,6 +1215,7 @@ def _validate_article_against_source_pack(
     blockers.extend(
         _editorial_growth_edge_blockers(article, article_mode=article_mode)
     )
+    blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state))
     blockers.extend(
         _paragraph_marker_blockers(
             str(article.get("substack_body_markdown") or ""), set(cited_by_id)
@@ -1108,6 +1234,10 @@ def _validate_article_against_source_pack(
         "source_urls": [str(row.get("url") or "") for row in sources],
         "source_timestamps_are_model_authority": False,
         "source_bytes_precede_writer": True,
+        "epistemic_state": dict(epistemic_state or {}),
+        "report_truth_validated_separately_from_event_truth": bool(
+            epistemic_state
+        ),
         "public_write_performed": False,
         "unknown_write_detected": False,
     }
@@ -1124,6 +1254,8 @@ def _revision_prompt(
         "and real counter-case/watch condition where the selected mode warrants them. "
         "Preserve the selected candidate as the current news peg and the exact binding requirement for all five public "
         "metadata fields. Remove unsupported newness, simultaneity, or inflated terminology rather than expanding sources. "
+        "Preserve epistemic_state exactly: retain the reader-visible label and attribution, never upgrade report truth "
+        "to event truth, keep dependent analysis conditional, and remove unsupported leak/rumor/internal-source wording. "
         "Every body paragraph remains source-marker bound. Zero public write. public_write_attempted MUST be the JSON "
         "boolean false because this call has no publication tools.\nBLOCKERS:\n"
         + json.dumps(list(blockers), sort_keys=True)
@@ -1173,13 +1305,20 @@ def _safe_source_blockers(values: Sequence[Any]) -> list[str]:
 
 
 def _reader_safe_native_article(
-    article: Mapping[str, Any], *, article_mode: str
+    article: Mapping[str, Any],
+    *,
+    article_mode: str,
+    epistemic_state: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Adapt only final validated article truth to the existing native compiler."""
     body = _SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or ""))
     body = re.sub(r"(?m)^#{1,6}\s+", "", body)
+    title = str(article.get("title") or "")
+    label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
+    if label and label.casefold() not in title.casefold():
+        title = f"{label} | {title}"
     return {
-        "title": str(article.get("title") or ""),
+        "title": title,
         "subtitle": str(article.get("dek") or ""),
         "social_hook": str(article.get("social_hook") or ""),
         "effective_article_mode": str(article_mode),
@@ -1188,7 +1327,11 @@ def _reader_safe_native_article(
 
 
 def _native_preview_bundle(
-    *, article: Mapping[str, Any], article_mode: str, article_identity: str
+    *,
+    article: Mapping[str, Any],
+    article_mode: str,
+    article_identity: str,
+    epistemic_state: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     from live_contentops.eight_platform_substack_first_pipeline_v1 import (
         build_native_derivative_payloads,
@@ -1199,7 +1342,9 @@ def _native_preview_bundle(
         + article_identity[:16]
     )
     compiler_article = _reader_safe_native_article(
-        article, article_mode=article_mode
+        article,
+        article_mode=article_mode,
+        epistemic_state=epistemic_state,
     )
     payloads = build_native_derivative_payloads(
         article=compiler_article,
@@ -1212,6 +1357,24 @@ def _native_preview_bundle(
         raise SimpleGeminiNewsroomError(
             "exact_eight_native_preview_package_contract_failed"
         )
+    label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
+    for destination, payload in payloads.items():
+        visible = "\n".join(
+            str(value)
+            for key, value in dict(payload).items()
+            if key in {"text", "full_text", "root_text"}
+        )
+        if label and label.casefold() not in visible.casefold():
+            raise SimpleGeminiNewsroomError(
+                "native_preview_epistemic_state_missing", [destination]
+            )
+        if (
+            (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
+            and re.search(r"(?<!un)confirmed", visible, re.IGNORECASE)
+        ):
+            raise SimpleGeminiNewsroomError(
+                "native_preview_epistemic_certainty_inflation", [destination]
+            )
     intents = [
         {
             "destination": destination,
@@ -1222,6 +1385,7 @@ def _native_preview_bundle(
             "native_payload": dict(payloads[destination]),
             "canonical_url_state": "PENDING_NON_DISPATCHABLE",
             "rematerialization_after_real_substack_url_required": True,
+            "epistemic_state": dict(epistemic_state or {}),
         }
         for destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
     ]
@@ -1235,6 +1399,8 @@ def _native_preview_bundle(
         "canonical_url": pending_url,
         "canonical_url_state": "PENDING_NON_DISPATCHABLE",
         "rematerialization_after_real_substack_url_required": True,
+        "epistemic_state": dict(epistemic_state or {}),
+        "every_preview_preserves_epistemic_state": bool(epistemic_state),
         "package_count": len(payloads),
         "packages": payloads,
         "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
@@ -1416,6 +1582,7 @@ def run_v1_simple_gemini_newsroom(
     evidence_attempts: list[dict[str, Any]] = []
     selected: dict[str, Any] | None = None
     selected_plan_entry: dict[str, Any] | None = None
+    selected_epistemic_state: dict[str, Any] | None = None
     source_pack: list[dict[str, Any]] = []
     for plan_index, plan_entry_value in enumerate(plan, start=1):
         plan_entry = dict(plan_entry_value)
@@ -1463,12 +1630,26 @@ def run_v1_simple_gemini_newsroom(
             if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
         ][:MAX_SOURCE_DOCUMENTS]
         candidate_source_pack = _source_pack(documents)
+        candidate_epistemic_state = (
+            dict(evidence.get("epistemic_state") or {})
+            if isinstance(evidence.get("epistemic_state"), Mapping)
+            else {}
+        )
+        epistemic_blockers = (
+            validate_epistemic_state(candidate_epistemic_state)
+            if candidate_epistemic_state
+            else []
+        )
         status = (
             "SOURCE_QUALIFIED"
-            if evidence.get("status") == "PASS" and candidate_source_pack
+            if evidence.get("status") == "PASS"
+            and candidate_source_pack
+            and not epistemic_blockers
             else "SOURCE_BLOCKED"
         )
-        blockers = _safe_source_blockers(evidence.get("blockers") or [])
+        blockers = _safe_source_blockers(
+            [*(evidence.get("blockers") or []), *epistemic_blockers]
+        )
         if status == "SOURCE_BLOCKED" and not blockers:
             blockers = ["accepted_source_pack_empty"]
         history = {
@@ -1484,6 +1665,7 @@ def run_v1_simple_gemini_newsroom(
             "source_request_count_total": request_count,
             "accepted_source_count": len(candidate_source_pack),
             "accepted_source_urls": [row["url"] for row in candidate_source_pack],
+            "epistemic_state": candidate_epistemic_state,
             "source_route_history": [
                 dict(row)
                 for row in provenance.get("route_history") or []
@@ -1496,12 +1678,14 @@ def run_v1_simple_gemini_newsroom(
                 **history,
                 "request": request,
                 "source_pack": candidate_source_pack,
+                "epistemic_state": candidate_epistemic_state,
                 "provenance": provenance,
             }
         )
         if status == "SOURCE_QUALIFIED":
             selected = candidate
             selected_plan_entry = plan_entry
+            selected_epistemic_state = candidate_epistemic_state or None
             source_pack = candidate_source_pack
             break
     evidence_artifact = {
@@ -1512,6 +1696,7 @@ def run_v1_simple_gemini_newsroom(
         "evidence_attempts": evidence_attempts,
         "selected_candidate_id": selected["candidate_id"] if selected else None,
         "selected_source_pack": source_pack,
+        "selected_epistemic_state": dict(selected_epistemic_state or {}),
         "request_count": request_count,
         "request_limit": MAX_SOURCE_REQUESTS,
         "model_calls_before_writer": 1,
@@ -1547,6 +1732,12 @@ def run_v1_simple_gemini_newsroom(
         _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
+    if selected_epistemic_state is not None:
+        _write_json(
+            root / "simple_epistemic_state_v1.json",
+            selected_epistemic_state,
+        )
+
     editorial_packet = _institutional_edge_writer_packet(
         article_mode=str(selected_plan_entry["article_mode"]),
         source_pack=source_pack,
@@ -1567,6 +1758,29 @@ def run_v1_simple_gemini_newsroom(
         "article_mode": selected_plan_entry["article_mode"],
         "selection_rationale": selected_plan_entry["selection_rationale"],
         "source_pack": source_pack,
+        "epistemic_state": dict(selected_epistemic_state or {}),
+        "report_truth": (
+            (selected_epistemic_state or {}).get("report_proposition")
+        ),
+        "event_truth": {
+            "proposition": (selected_epistemic_state or {}).get(
+                "event_proposition"
+            ),
+            "confirmation_state": (selected_epistemic_state or {}).get(
+                "event_confirmation_state"
+            ),
+            "may_be_stated_as_confirmed": (selected_epistemic_state or {}).get(
+                "underlying_event_may_be_stated_as_confirmed"
+            ),
+        },
+        "analysis_boundaries": {
+            "dependent_analysis_must_be_conditional": (
+                (selected_epistemic_state or {}).get(
+                    "analysis_must_be_conditional"
+                )
+            ),
+            "capital_chronicle_proprietary_numeric_authority": False,
+        },
         "capital_chronicle_context": dict(capital_chronicle_context or {}),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_editorial_packet": editorial_packet,
@@ -1618,6 +1832,7 @@ def run_v1_simple_gemini_newsroom(
             source_pack,
             selected_candidate=selected,
             article_mode=str(selected_plan_entry["article_mode"]),
+            epistemic_state=selected_epistemic_state,
         )
     except SimpleGeminiNewsroomError as first_error:
         if first_error.code != "deterministic_article_validation_failed":
@@ -1673,6 +1888,7 @@ def run_v1_simple_gemini_newsroom(
                 source_pack,
                 selected_candidate=selected,
                 article_mode=str(selected_plan_entry["article_mode"]),
+                epistemic_state=selected_epistemic_state,
             )
         except SimpleGeminiNewsroomError as second_error:
             receipt = {
@@ -1707,6 +1923,7 @@ def run_v1_simple_gemini_newsroom(
         "story_identity": selected["story_identity"],
         "update_chain_identity": selected["story_identity"],
         "source_document_ids": [row["document_id"] for row in source_pack],
+        "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
     }
     _write_json(root / "article_manifest_v1.json", article_manifest)
@@ -1716,6 +1933,7 @@ def run_v1_simple_gemini_newsroom(
         "revision_router_receipt": revision_receipt,
         "revision_performed": revision_performed,
         "maximum_revision_rounds": MAX_REVISION_ROUNDS,
+        "epistemic_state": dict(selected_epistemic_state or {}),
     }
     _write_json(root / "simple_gemini_validation_v1.json", validation_artifact)
 
@@ -1724,6 +1942,7 @@ def run_v1_simple_gemini_newsroom(
         article=article,
         article_mode=str(selected_plan_entry["article_mode"]),
         article_identity=article_identity,
+        epistemic_state=selected_epistemic_state,
     )
     _write_json(root / "native_derivative_previews_v1.json", native_previews)
     intents_artifact = {
@@ -1736,6 +1955,7 @@ def run_v1_simple_gemini_newsroom(
             root / "native_derivative_previews_v1.json"
         ),
         "preview_payloads_require_real_substack_url_rematerialization": True,
+        "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
     }
     if len(intents) != 8 or {row["destination"] for row in intents} != set(
@@ -1771,6 +1991,7 @@ def run_v1_simple_gemini_newsroom(
         editorial_reasoning_effort="HIGH",
         logical_model_invocation_count=len(model_receipts),
         derivative_package_intents=intents,
+        epistemic_state=selected_epistemic_state,
     )
     persist_qualified_article_record(root, record)
 
@@ -1791,6 +2012,7 @@ def run_v1_simple_gemini_newsroom(
         "source_request_count": request_count,
         "source_request_limit": MAX_SOURCE_REQUESTS,
         "accepted_source_count": len(source_pack),
+        "epistemic_state": dict(selected_epistemic_state or {}),
         "supported_material_claim_count": validation["supported_material_claim_count"],
         "revision_performed": revision_performed,
         "logical_model_invocation_count": len(model_receipts),

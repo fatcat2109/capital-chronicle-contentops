@@ -1,0 +1,126 @@
+{
+  "schema_version": "contentops.pr37_current_attributed_intelligence_acceptance_attempt.v1",
+  "classification": "CURRENT_HOST_ACCEPTANCE_INCOMPLETE_TRUTHFUL_PROVENANCE_ABSTENTION",
+  "run_id": "pr37-attributed-intelligence-acceptance-20260828T093600Z",
+  "cutoff_utc": "2026-08-28T09:36:00Z",
+  "fresh_intake": {
+    "initial_capture_state": "CDP_UNAVAILABLE",
+    "canonical_profile_bootstrap": "LAUNCHED_READY",
+    "auth_state": "READY",
+    "final_capture_state": "CAPTURED",
+    "new_deduplicated_headline_count": 306,
+    "timeline_responses_observed": 3,
+    "login_automation": false,
+    "browser_closed": false,
+    "llm_or_provider_calls": 0
+  },
+  "simple_opportunity": {
+    "candidate_count": 32,
+    "candidate_limit": 32,
+    "full_eligible_deduped_universe_count": 1119,
+    "selection_count": 1,
+    "admitted_candidate_count": 3,
+    "source_request_count": 6,
+    "source_request_limit": 6,
+    "source_request_allocation": [3, 2, 1],
+    "writer_invocation_count": 0,
+    "revision_invocation_count": 0,
+    "logical_flash_invocation_count": 1,
+    "logical_flash_invocation_limit": 3,
+    "qualified_article_count": 0,
+    "native_preview_count": 0,
+    "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
+  },
+  "candidate_attempts": [
+    {
+      "position": 1,
+      "candidate_id": "simple-story-62c9b0642a293bb362571efe",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "source_account": "FirstSquawk",
+      "public_headline_text": "PERSIAN GULF STATES ARE ACCELERATING BILLIONS OF DOLLARS IN INVESTMENT IN PORTS, PIPELINES AND RAILWAYS TO REDUCE THEIR DEPENDENCE ON THE STRAIT OF HORMUZ AFTER MONTHS OF DISRUPTION DURING THE IRAN WAR, REUTERS REPORTED FRIDAY.",
+      "explicit_reputable_attribution": true,
+      "primary_reporting_publisher": "Reuters",
+      "preferred_route": "ATTRIBUTED_REPUTABLE_REPORT_FIRST",
+      "trusted_relay_identity_approved": false,
+      "route_sequence": ["REPUTABLE_SECONDARY"],
+      "get_count": 3,
+      "accepted_document_count": 0,
+      "exact_route_blockers": [
+        "HTTP_404",
+        "public_source_candidate_request_budget_exhausted",
+        "epistemic_accepted_document_missing"
+      ],
+      "report_truth_proven": false,
+      "event_truth_proven": false,
+      "epistemic_state_created": false
+    },
+    {
+      "position": 2,
+      "candidate_id": "simple-story-39017d4eccadcfbdde716609",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "source_account": "FirstSquawk",
+      "public_headline_text": "CHINA TO PUSH ORDERLY SHIFT TO COMPLETED-HOME SALES TO CURB DELIVERY RISKS - XINHUA",
+      "explicit_reputable_attribution": false,
+      "trusted_relay_identity_approved": false,
+      "route_sequence": ["REPUTABLE_SECONDARY"],
+      "get_count": 2,
+      "accepted_document_count": 0,
+      "exact_route_blockers": [
+        "public_source_unavailable",
+        "epistemic_accepted_document_missing"
+      ],
+      "report_truth_proven": false,
+      "event_truth_proven": false,
+      "epistemic_state_created": false
+    },
+    {
+      "position": 3,
+      "candidate_id": "simple-story-91f756f8633e72f84bc3304a",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "source_account": "FirstSquawk",
+      "public_headline_text": "DEPUTY PENTAGON CHIEF ELBRIDGE COLBY YESTERDAY SOUNDED OUT THE SUPPORT OF NATO COUNTRIES FOR KEY U.S. DEFENSE OBJECTIVES, IN A FIRST TEST AHEAD OF A CRITICAL REVIEW OF AMERICAN FORCES IN EUROPE.",
+      "explicit_reputable_attribution": false,
+      "trusted_relay_identity_approved": false,
+      "route_sequence": ["REPUTABLE_SECONDARY"],
+      "get_count": 1,
+      "accepted_document_count": 0,
+      "exact_route_blockers": [
+        "public_source_candidate_request_budget_exhausted",
+        "epistemic_accepted_document_missing"
+      ],
+      "report_truth_proven": false,
+      "event_truth_proven": false,
+      "epistemic_state_created": false
+    }
+  ],
+  "static_diagnostics_correction_after_run": {
+    "defect": "An empty epistemic_state object was validated as a populated object, adding noisy enum/schema blockers to the terminal receipt.",
+    "runtime_outcome_changed": false,
+    "source_or_epistemic_authority_changed": false,
+    "exact_route_blockers_above_preserved": true,
+    "correction": "Empty epistemic state now adds no schema blockers; the candidate retains only exact provenance/retrieval blockers.",
+    "runtime_rerun_performed": false
+  },
+  "current_relay_authority": {
+    "approved_x_report_truth_relay_count": 0,
+    "financialjuice_existing_role": "FRESHNESS_BINDING_ONLY_DISCOVERY_TEXT_NO_FACTUAL_AUTHORITY",
+    "firstsquawk_role": "DISCOVERY_ONLY",
+    "deitaone_role": "DISCOVERY_ONLY",
+    "wallstengine_role": "DISCOVERY_ONLY"
+  },
+  "production_database_sha256_before": "7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E",
+  "production_database_sha256_after": "7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E",
+  "codex_runtime_model_call_count": 0,
+  "public_write_count": 0,
+  "provider_publication_write_count": 0,
+  "publication_coordinator_dispatch_count": 0,
+  "unknown_write_count": 0,
+  "current_article_for_owner_review_path": null,
+  "current_native_previews_for_owner_review_path": null,
+  "current_article_validation_summary_path": null,
+  "current_epistemic_state_path": null,
+  "local_runtime_receipt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_ATTRIBUTED_INTELLIGENCE_ACCEPTANCE_20260828T093600Z\\simple_gemini_newsroom_receipt_v1.json",
+  "local_runtime_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_ATTRIBUTED_INTELLIGENCE_ACCEPTANCE_20260828T093600Z\\simple_gemini_evidence_v1.json",
+  "exact_residual_blocker": "The fixed admitted plan did not resolve an exact same-report reputable publisher record or same-event primary document inside six GETs. No report truth or event truth was proven, so no epistemic state, writer call, qualified article, or preview was allowed. No second selection or opportunity was run.",
+  "secrets_or_private_session_material_included": false
+}

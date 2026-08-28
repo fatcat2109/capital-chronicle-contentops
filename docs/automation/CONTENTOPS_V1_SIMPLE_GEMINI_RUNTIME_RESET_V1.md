@@ -1,7 +1,7 @@
 # ContentOps V1 Simple Gemini Runtime Reset V1
 
-Authority date: 2026-08-27
-Status: `CURRENT_V1_EXECUTION_AUTHORITY`
+Authority date: 2026-08-28
+Status: `CURRENT_V1_EXECUTION_AUTHORITY / EARLY_ATTRIBUTED_INTELLIGENCE`
 
 This owner-approved reset supersedes routine Codex Desktop newsroom production and the legacy
 evidence-ready/split-phase worker critical path. Historical artifacts remain valid evidence; they
@@ -13,20 +13,34 @@ do not route current execution.
 current headline sidecars + canonical reconciled published memory + optional read-only CC context
 -> deterministic duplicate suppression and a packet of at most 32 current candidates
 -> one strict 9Router gemini-3.5-flash(high) selection admitting one useful primary and <=2 useful fallbacks
--> ordered first-party-aware candidate source walk under one shared deterministic maximum of 6 total GETs
+-> deterministic report provenance and epistemic candidate state
+-> provenance-aware candidate source walk under one shared deterministic maximum of 6 total GETs
 -> one bounded 9Router gemini-3.5-flash(high) article-writing invocation for the first source-qualified candidate
--> deterministic material-claim/source-byte validation
+-> deterministic report-truth/event-truth/material-claim/source-byte/epistemic validation
 -> at most one bounded 9Router gemini-3.5-flash(high) revision without source expansion
 -> one qualified zero-write canonical article record
 -> exactly eight UNDISPATCHED derivative intents
 -> separate existing DurablePublicationCoordinator only after explicit public-write authority
 ```
 
-The source walk performs a maximum 6 requests total across the fixed admitted candidate plan.
-For each candidate it uses the shortest governed route: exact already-bound trustworthy source;
-existing allowlisted official/company-primary locator followed by exact accepted document bytes;
-then existing reputable-secondary locator/resolution fallback. Every route consumes the same
-ledger. Locator/search/listing bytes are discovery-only and never satisfy article evidence.
+The source walk performs a maximum 6 requests total across the fixed admitted candidate plan. For
+an explicitly attributed reputable report it first proves report truth through the named publisher
+route, without spending scarce budget on generic issuer/government confirmation. Otherwise it uses
+the shortest governed route: exact already-bound trustworthy source; existing allowlisted
+official/company-primary locator followed by exact same-event document bytes; then existing
+reputable-secondary locator/resolution fallback. Every route consumes the same ledger. A same-
+entity/different-event document does not qualify. Locator/search/listing bytes remain discovery or
+attribution material only under their exact source contract.
+
+Every eligible current-event article carries `evidence_basis`, `event_confirmation_state`,
+`origin_character`, `source_multiplicity`, primary reporting publisher/source identity, report and
+event propositions, and one reader-visible label. `UNCONFIRMED` is publishable when report truth is
+proven; it is never permission to state event truth. Arbitrary X accounts remain discovery-only.
+No current V1 X/social identity has report-truth relay authority. The existing professional-feed
+handle donor binds freshness only and explicitly leaves feed text discovery-only. Therefore an X
+relay remains blocked until the exact original reputable report is resolved; any later approved
+relay may prove only `Relay R, citing Publisher P, reports X`. High-harm claims retain existing
+enhanced corroboration.
 
 Normal success uses two logical model invocations. Three is the absolute ceiling when the one
 revision is needed. Each Simple logical invocation uses only `vx/gemini-3.5-flash(high)` with one
@@ -154,6 +168,10 @@ articles or previews and no second selection or opportunity. One genuinely curre
 same-peg exact publisher support plus a valid bounded article response remains the Growth Edge
 acceptance gap. Separate public-write/readback, real production-day 5–8 useful published/day
 acceptance, and explicit `V1_FINAL_PRODUCT_ACCEPTED` remain later gates in that order.
+
+The prior residual requirement for same-event official/primary confirmation before writing is
+superseded by the 2026-08-28 North Star. The current PR #37 gate is one current article and exactly
+eight previews that preserve explicit report/event epistemic state with zero public write.
 
 The selected candidate is always the current article peg. Title/dek must remain led by that event;
 older/background highlights in a current document use temporally neutral wording unless exact bytes

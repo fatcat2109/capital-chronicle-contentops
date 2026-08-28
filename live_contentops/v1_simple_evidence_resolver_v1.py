@@ -23,6 +23,10 @@ from live_contentops.public_secondary_evidence_loader_v1 import (
     REPUTABLE_SECONDARY_HOSTS,
 )
 from live_contentops.source_route_health_v1 import SourceRouteHealthState
+from live_contentops.v1_simple_epistemic_state_v1 import (
+    build_epistemic_state,
+    trusted_relay_document,
+)
 
 SCHEMA_VERSION = "contentops.v1_simple_first_party_aware_evidence_resolver.v1"
 
@@ -183,13 +187,15 @@ class SimpleFirstPartyAwareEvidenceResolver:
         route_history: list[dict[str, Any]],
         call_start: int,
         selected_route: str | None,
+        epistemic_state: Mapping[str, Any] | None = None,
+        accepted_documents: list[dict[str, Any]] | None = None,
     ) -> dict[str, Any]:
         raw_documents = (
             result.get("official_source_documents")
             if selected_route == "OFFICIAL_PRIMARY"
             else result.get("evidence_documents")
         ) or []
-        documents = [
+        documents = accepted_documents if accepted_documents is not None else [
             dict(row)
             for row in raw_documents
             if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
@@ -227,16 +233,166 @@ class SimpleFirstPartyAwareEvidenceResolver:
                 "read_only_public_gets": True,
             },
             "blockers": [] if documents else blockers or ["public_source_unavailable"],
+            "epistemic_state": dict(epistemic_state or {}),
             "publication_authority": False,
         }
+
+    @staticmethod
+    def _accepted_epistemic_route(
+        request: Mapping[str, Any],
+        result: Mapping[str, Any],
+        *,
+        route: str,
+    ) -> tuple[list[dict[str, Any]], dict[str, Any] | None, list[str]]:
+        raw_documents = (
+            result.get("official_source_documents")
+            if route == "OFFICIAL_PRIMARY"
+            else result.get("evidence_documents")
+        ) or []
+        documents = [
+            dict(row)
+            for row in raw_documents
+            if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
+        ]
+        context = request.get("story_context")
+        context = context if isinstance(context, Mapping) else {}
+        if "report_provenance" not in context:
+            return documents, {}, []
+        state, blockers = build_epistemic_state(
+            request=request,
+            documents=documents,
+            selected_route=route,
+        )
+        if state is None:
+            return [], None, blockers
+        accepted_ids = set(state.get("supporting_document_ids") or [])
+        accepted = [
+            row for row in documents if str(row.get("document_id") or "") in accepted_ids
+        ]
+        return accepted, state, []
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         call_start = self.request_count
         route_history: list[dict[str, Any]] = []
         last_result: Mapping[str, Any] = {}
 
-        # An exact already-bound reputable source is the shortest trustworthy path.
-        # Otherwise, use the deterministic official family route before secondary discovery.
+        relay_document = trusted_relay_document(request)
+        if relay_document is not None:
+            last_result = {
+                "status": "PASS",
+                "evidence_documents": [relay_document],
+                "provided_evidence_capabilities": ["attributed_report_provenance"],
+                "blockers": [],
+                "provenance": {"request_count": 0},
+            }
+            accepted, state, state_blockers = self._accepted_epistemic_route(
+                request,
+                last_result,
+                route="TRUSTED_RELAY_ATTRIBUTED_REPORT",
+            )
+            route_history.append(
+                {
+                    "route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+                    "status": "PASS" if accepted else "BLOCKED",
+                    "request_count_for_route": 0,
+                    "request_count_total_after_route": self.request_count,
+                    "accepted_document_count": len(accepted),
+                    "blockers": state_blockers,
+                    "locator_surface_id": "exact_governed_trusted_relay_sidecar",
+                    "locator_bytes_grant_factual_authority": False,
+                }
+            )
+            if accepted and state is not None:
+                return self._normalized_result(
+                    request=request,
+                    result=last_result,
+                    route_history=route_history,
+                    call_start=call_start,
+                    selected_route="TRUSTED_RELAY_ATTRIBUTED_REPORT",
+                    epistemic_state=state,
+                    accepted_documents=accepted,
+                )
+            return self._normalized_result(
+                request=request,
+                result=last_result,
+                route_history=route_history,
+                call_start=call_start,
+                selected_route=None,
+                accepted_documents=[],
+            )
+
+        context = request.get("story_context")
+        context = context if isinstance(context, Mapping) else {}
+        report_profile = context.get("report_provenance")
+        report_profile = report_profile if isinstance(report_profile, Mapping) else {}
+        attributed_report_first = bool(
+            report_profile.get("explicit_reputable_attribution") is True
+        )
+
+        def try_secondary() -> dict[str, Any] | None:
+            nonlocal last_result
+            allowance = self._secondary_allowance(call_start=call_start)
+            if allowance <= 0:
+                return None
+            before = self.request_count
+            secondary = BoundedPublicSecondaryEvidenceLoader(
+                evaluation_as_of_utc=self._evaluation_as_of_utc,
+                max_requests=self._max_requests,
+                max_requests_per_candidate=allowance,
+                timeout_seconds=self._timeout_seconds,
+                http_get=self._http_get,
+                clock=self._clock,
+                source_route_health=self._source_route_health,
+                shared_request_budget=self._shared_request_budget,
+            )
+            last_result = secondary(request)
+            route_row = self._route_row(
+                "REPUTABLE_SECONDARY",
+                last_result,
+                before=before,
+                after=self.request_count,
+            )
+            accepted, state, state_blockers = self._accepted_epistemic_route(
+                request,
+                last_result,
+                route="REPUTABLE_SECONDARY",
+            )
+            if state_blockers:
+                route_row["blockers"] = sorted(
+                    set(route_row.get("blockers") or []).union(state_blockers)
+                )
+                route_row["status"] = "BLOCKED"
+                route_row["accepted_document_count"] = 0
+            route_history.append(route_row)
+            if accepted and state is not None:
+                return self._normalized_result(
+                    request=request,
+                    result=last_result,
+                    route_history=route_history,
+                    call_start=call_start,
+                    selected_route="REPUTABLE_SECONDARY",
+                    epistemic_state=state,
+                    accepted_documents=accepted,
+                )
+            return None
+
+        # For an explicitly attributed reputable report, prove report truth first and do not
+        # spend the bounded ledger hunting for generic issuer confirmation.
+        if attributed_report_first:
+            resolved = try_secondary()
+            if resolved is not None:
+                return resolved
+            return self._normalized_result(
+                request=request,
+                result=last_result,
+                route_history=route_history,
+                call_start=call_start,
+                selected_route=None,
+                accepted_documents=[],
+            )
+
+        # Otherwise retain the shortest governed route, but require exact selected-event support;
+        # a same-entity/different-event official document never qualifies the candidate.
         family = self._official_family(request)
         if family and not _has_bound_reputable_secondary(request):
             before = self.request_count
@@ -251,55 +407,31 @@ class SimpleFirstPartyAwareEvidenceResolver:
                     after=self.request_count,
                 )
             )
-            official_documents = [
-                row
-                for row in last_result.get("official_source_documents") or []
-                if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
-            ]
-            if last_result.get("status") == "PASS" and official_documents:
+            accepted, state, state_blockers = self._accepted_epistemic_route(
+                request,
+                last_result,
+                route="OFFICIAL_PRIMARY",
+            )
+            if state_blockers:
+                route_history[-1]["blockers"] = sorted(
+                    set(route_history[-1].get("blockers") or []).union(state_blockers)
+                )
+                route_history[-1]["status"] = "BLOCKED"
+                route_history[-1]["accepted_document_count"] = 0
+            if accepted and state is not None:
                 return self._normalized_result(
                     request=request,
                     result=last_result,
                     route_history=route_history,
                     call_start=call_start,
                     selected_route="OFFICIAL_PRIMARY",
+                    epistemic_state=state,
+                    accepted_documents=accepted,
                 )
 
-        allowance = self._secondary_allowance(call_start=call_start)
-        if allowance > 0:
-            before = self.request_count
-            secondary = BoundedPublicSecondaryEvidenceLoader(
-                evaluation_as_of_utc=self._evaluation_as_of_utc,
-                max_requests=self._max_requests,
-                max_requests_per_candidate=allowance,
-                timeout_seconds=self._timeout_seconds,
-                http_get=self._http_get,
-                clock=self._clock,
-                source_route_health=self._source_route_health,
-                shared_request_budget=self._shared_request_budget,
-            )
-            last_result = secondary(request)
-            route_history.append(
-                self._route_row(
-                    "REPUTABLE_SECONDARY",
-                    last_result,
-                    before=before,
-                    after=self.request_count,
-                )
-            )
-            secondary_documents = [
-                row
-                for row in last_result.get("evidence_documents") or []
-                if isinstance(row, Mapping) and row.get("public_claim_allowed") is True
-            ]
-            if last_result.get("status") == "PASS" and secondary_documents:
-                return self._normalized_result(
-                    request=request,
-                    result=last_result,
-                    route_history=route_history,
-                    call_start=call_start,
-                    selected_route="REPUTABLE_SECONDARY",
-                )
+        resolved = try_secondary()
+        if resolved is not None:
+            return resolved
 
         return self._normalized_result(
             request=request,
@@ -307,6 +439,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
             route_history=route_history,
             call_start=call_start,
             selected_route=None,
+            accepted_documents=[],
         )
 
     def source_route_health_snapshot(self) -> dict[str, Any]:

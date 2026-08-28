@@ -124,9 +124,13 @@ Current owner-approved routine V1 is `SIMPLE_GEMINI_RUNTIME`: the canonical reco
 corpus is read without migration or mutation and deterministically removes duplicates from up to 32
 current headline candidates; one strict 9Router `gemini-3.5-flash(high)` selection admits one useful
 primary and at most two independently useful ordered fallbacks; one shared deterministic source
-budget walks that fixed plan with at most six total GETs through exact bound source, allowlisted
-official/company-primary locator→document, then reputable-secondary fallback; one Flash writer returns the canonical
-article and exact material-claim bindings; deterministic validation checks retrieved bytes; and at
+budget walks that fixed plan with at most six total GETs. An explicitly attributed reputable report
+uses the shortest route that proves report truth before generic official/company confirmation;
+otherwise the resolver uses exact bound source, correct same-event official/company-primary
+locator→document, then reputable-secondary fallback. One Flash writer receives explicit report-
+truth/event-truth epistemic state and returns the canonical article and exact material-claim
+bindings; deterministic validation checks retrieved bytes, attribution, conditionality, and
+certainty; and at
 most one Flash revision may run without source expansion. Then one qualified zero-write article
 record and exactly eight UNDISPATCHED derivative intents are persisted. Normal model count is two
 logical invocations and three is the hard ceiling with revision. Codex runtime model calls required:
@@ -203,7 +207,12 @@ V1 supports the current eight-mode spectrum:
 
 Quiet day is not silent-day permission. Lower materiality/change mode before giving up. Filler remains forbidden.
 
-One exact current official primary source may support a narrow attributed breaking fact when it directly proves that fact. Broader causal/numeric/market-impact/proprietary claims require stronger evidence/authority.
+Official confirmation is not a universal prerequisite. One exact accepted reputable newsroom
+report may support the narrow fact `Publisher reports X` while X remains visibly `UNCONFIRMED`;
+one exact current official primary may support event truth only when it directly proves that same
+event. A relayed report proves only the approved relay's attributed statement unless the original
+publisher report is separately resolved. Broader causal/numeric/market-impact/proprietary or high-
+harm claims require stronger evidence/authority.
 
 Strong evidence-backed house view and criticism are allowed. Qualitative ContentOps inference must remain distinguishable from fact and must not be presented as Core Analyzer output.
 

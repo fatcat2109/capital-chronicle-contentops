@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-Authority date: 2026-08-24
-Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
+Authority date: 2026-08-28
+Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / EARLY_ATTRIBUTED_INTELLIGENCE`
 
 North Star: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 Authority map: `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
@@ -32,6 +32,15 @@ blocker is:
 
 `DEGRADED_DAILY_OUTPUT_DEFICIT`
 
+Current V1 routine architecture is the Simple 9Router/Gemini 32/6/3/1 path, not Desktop
+Automations. Its current product doctrine is early attributed intelligence: prove the narrowest
+reporting proposition, keep report truth separate from event truth, preserve machine-readable and
+reader-visible epistemic state, and do not require universal official confirmation. The exact
+current V1 implementation gap is the small PR #37 epistemic adapter through route, writer,
+deterministic validation, qualified record, and eight preview-only derivatives. Conflicting
+Desktop-primary and official-first wording retained below as architecture-sweep history is
+superseded for current V1 routing.
+
 ## 1. Planning classification lock
 
 The owner-accepted architecture sweep is
@@ -52,6 +61,10 @@ Current runtime proof requirements are not permission to reimplement proven foun
 ## 2. Already built / currently proven — reuse, do not rebuild
 
 ### V1
+
+- current Simple Gemini selection/writer/revision, lightweight four-window scheduler, published-
+  memory dedupe, PR #37 sourceability-aware full-universe preselection, exact-route health, and
+  the existing ordinary single-reputable-secondary attributed-claim contract;
 
 - continuous zero-LLM intake, current-story universe, published memory, update chains, hierarchical
   assignment, preselection, and sourceability ordering;
@@ -109,6 +122,10 @@ wholesale-merge its stale authority and never mutate V1 runtime/store/browser/pu
 
 ## 4. Current host/runtime proof required
 
+For current V1, the exact outstanding runtime proof is one genuine current article plus exactly
+eight previews under the report-truth/event-truth epistemic contract. Historical Desktop rows below
+remain sweep-epoch evidence and do not route routine V1.
+
 Five capability rows require fresh evidence rather than new architecture after the completed prompt
 normalization/readback:
 
@@ -142,6 +159,15 @@ the sweep epoch the production database was opened read-only and was healthy wit
 a cold-start or unattended PASS.
 
 ## 5. True new implementation gaps
+
+Current owner direction adds one narrow V1 gap without reopening discovery or publication:
+
+1. **Simple early-attributed epistemic adapter.** Carry evidence basis, event confirmation state,
+   origin character, multiplicity, primary publisher/source identity, report/event propositions,
+   and reader label through bounded routing, Flash writer input, deterministic validation,
+   qualified metadata, and exactly eight preview-only derivatives.
+
+The V2 gaps listed below remain after this V1 closure.
 
 The accepted sweep originally recorded three gaps. PR #19 closes the V1 discovery row without
 rewriting historical sweep evidence. Exactly two current implementation gaps remain:
@@ -191,6 +217,14 @@ The current sequence starts after five completed evidence events:
    passed independent owner audit.
 
 ## 8. Final locked V1 roadmap
+
+Current sequence superseding the historical Automation sequence below:
+
+1. close PR #37 early-attributed-intelligence static and current-host article/preview acceptance;
+2. obtain separate routine public-write/readback authority and reuse existing transports;
+3. prove a real 5–8 useful published-article production day without filler;
+4. obtain explicit `V1_FINAL_PRODUCT_ACCEPTED`;
+5. only then proceed to isolated V2 continuation.
 
 Progression order:
 

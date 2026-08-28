@@ -1,7 +1,7 @@
 # V1 Simple Editorial Growth Edge and Sourceability Closure V1
 
 Authority date: 2026-08-28
-Status: `PARTIAL_PASS_SOURCEABILITY_PROVEN / EARLY_ATTRIBUTED_INTELLIGENCE_IMPLEMENTATION_PENDING / DO_NOT_MERGE`
+Status: `PARTIAL_PASS_EARLY_ATTRIBUTED_INTELLIGENCE_STATIC_PROVEN / CURRENT_HOST_PROVENANCE_ABSTENTION / DO_NOT_MERGE`
 
 ## Accepted capability
 
@@ -74,3 +74,44 @@ For an explicitly attributed reputable report, prove the reporting proposition b
 Then run exactly one fresh production-shaped zero-write opportunity. If one genuine current article qualifies, commit the actual article, exact eight preview texts, validation summary, and epistemic-state artifact for owner/ChatGPT review. If none qualifies, stop truthfully with exact provenance blockers; do not loop to manufacture a pass.
 
 Routine public-write/readback authority, a real 5–8 published-article production day, and `V1_FINAL_PRODUCT_ACCEPTED` remain ungranted.
+
+## PR37 early-attributed-intelligence implementation and current acceptance
+
+The smallest compatible adapter is now implemented without another store or evidence system:
+
+- the existing attributed-publisher taxonomy is shared with Simple provenance routing;
+- an explicitly attributed reputable report uses the named-report route before generic official
+  confirmation hunting;
+- exact accepted evidence is classified across evidence basis, event-confirmation state, origin
+  character, multiplicity, primary publisher/source identity, report proposition, event
+  proposition, and reader-visible label;
+- the writer receives separate report/event truth and conditional-analysis boundaries;
+- deterministic validation blocks missing attribution, certainty inflation, unconditional dependent
+  analysis, unsupported leak/rumor/internal-source labels, unrelated official documents, and
+  stronger derivative certainty;
+- compatible qualified article metadata and exactly eight preview-only intents carry the full
+  epistemic state;
+- ordinary one-secondary attributed-report semantics and enhanced high-harm handling reuse
+  `claim_evidence_contract_v1` unchanged;
+- current V1 has no approved X/social report-truth relay. `financialjuice` is freshness-binding
+  only; `FirstSquawk`, `DeItaone`, and `wallstengine` remain discovery-only.
+
+Focused static validation passed 214 tests plus 17 CodeGraph/current-context tests. Three unrelated
+legacy calibration assertions were independently reproduced at the verified `33ce2209` baseline
+and remain pre-existing.
+
+Canonical intake was stale, so the exact locked Chrome 9222 profile was started through the
+existing safe bootstrap and one bounded capture appended 306 new deduplicated headlines from three
+timeline responses. The one permitted current opportunity then used 32 candidates, one Flash
+selection, three admissions, and six GETs split `3/2/1`. The primary explicitly named Reuters and
+correctly took the reputable-report route first, but no exact Reuters report resolved inside three
+GETs. The two fallbacks likewise produced no accepted exact document. The writer and revision did
+not run. No report truth or event truth was proven, so no epistemic state, article, or previews were
+manufactured.
+
+`current_attributed_intelligence_acceptance_attempt_v1.json` records the exact current provenance
+and retrieval blockers, unchanged production DB hash, all model/GET/write counters, and a small
+post-run diagnostics correction. No second selection or runtime opportunity was run. Current-host
+acceptance therefore remains incomplete: one genuine current same-report or same-event source must
+resolve inside the existing six-GET ledger before a current article and all eight owner-review
+previews can exist.

@@ -896,6 +896,11 @@ class BoundedPublicSecondaryEvidenceLoader:
             self._candidate_request_start = request_count_at_start
             self._active_story_scope_id = None
         context = request.get("story_context") or {}
+        report_profile = context.get("report_provenance")
+        report_profile = report_profile if isinstance(report_profile, Mapping) else {}
+        attributed_report_host = str(
+            report_profile.get("primary_reporting_source_identity") or ""
+        ).casefold().removeprefix("www.")
         headline_ids = {str(value) for value in (request.get("headline_ids") or [])}
         rows = [
             row
@@ -928,7 +933,13 @@ class BoundedPublicSecondaryEvidenceLoader:
                 )
                 if document:
                     documents.append(document)
-                    if self._enough_with_existing(request, documents):
+                    direct_host = str(
+                        document.get("source_identity") or ""
+                    ).casefold().removeprefix("www.")
+                    if (
+                        attributed_report_host
+                        and direct_host == attributed_report_host
+                    ) or self._enough_with_existing(request, documents):
                         break
             except (OSError, RuntimeError, TypeError, ValueError) as exc:
                 diagnostics.append(str(exc) or type(exc).__name__)
@@ -936,7 +947,17 @@ class BoundedPublicSecondaryEvidenceLoader:
                 # unchanged ledger for a reputable discovery path instead of burning the next
                 # two bound URLs before trying accessible reporting.
                 break
-        if not self._enough_with_existing(request, documents):
+        direct_attributed_report_bound = bool(
+            attributed_report_host
+            and any(
+                str(row.get("source_identity") or "").casefold().removeprefix("www.")
+                == attributed_report_host
+                for row in documents
+            )
+        )
+        if not direct_attributed_report_bound and not self._enough_with_existing(
+            request, documents
+        ):
             try:
                 rss_documents, rss_provenance = self._rss_documents(
                     request, existing_documents=documents

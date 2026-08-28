@@ -5,6 +5,21 @@ Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, or branch assumptions.
 
+## 2026-08-28 early-attributed-intelligence owner override
+
+`CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` at authority date 2026-08-28 is current. Official or
+primary confirmation is not a universal prerequisite. Current Simple V1 separates report truth
+from event truth and carries explicit evidence basis, confirmation state, origin characterization,
+source multiplicity, publisher identity, and reader-visible epistemic label through writing,
+validation, qualification, and all eight previews. For an explicitly attributed reputable report,
+the bounded resolver proves the reporting proposition before generic issuer/government hunting.
+One exact reputable secondary may support an ordinary narrow `Publisher reports X` proposition
+while X remains `UNCONFIRMED`; high-harm claims retain enhanced corroboration. An unrelated same-
+entity official document never confirms or disproves a different event. Arbitrary X-list accounts
+remain discovery-only; only identities already explicitly approved by current repository authority
+may act as relays, and a relay cannot impersonate the original publisher. This override supersedes
+conflicting official-first or same-event-primary-before-writer wording below.
+
 ## 2026-08-27 V1 simple-Gemini architecture reset
 
 Jim explicitly approved a routine V1 architecture reset. `CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
@@ -13,9 +28,10 @@ evidence-ready-pool, or native PREPARE/COMPLETE routing language in this file. R
 the canonical reconciled published corpus without mutation, filters up to 32 current candidates
 before one strict `vx/gemini-3.5-flash(high)` selection, admits one primary plus at most two useful
 ordered fallbacks, and walks only that plan under one shared six-GET deterministic source budget.
-The current acquisition order is exact bound trustworthy source, allowlisted official/company-
-primary locator→exact document, then reputable-secondary fallback. Locator/search bytes never gain
-factual authority. One Flash writer, deterministic material-claim validation, and at most one Flash revision complete
+The current acquisition order is explicit attributed-report provenance first where present;
+otherwise exact bound trustworthy source, correct same-event official/company-primary locator→exact
+document, then reputable-secondary fallback. Locator/search bytes never gain factual authority. One
+Flash writer, deterministic material-claim and epistemic validation, and at most one Flash revision complete
 the article attempt. Each logical model invocation has one provider attempt and no fallback. Codex
 runtime model calls required: zero. Exactly eight zero-write derivative intents are persisted
 for a qualified article; `DurablePublicationCoordinator` remains the sole later public-write owner.

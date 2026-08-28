@@ -53,8 +53,16 @@ Any file containing these current-looking claims is stale for routing unless exp
 - branch-proven V2 unattended/recovery/locale/native-relay systems must be rebuilt from zero;
 - V2 may write publicly; or
 - `V1_FINAL_PRODUCT_ACCEPTED` is already true.
+- official/primary confirmation is required before every attributed current report may be written;
+- a same-entity but different-event official document can confirm the selected report;
+- report truth and underlying event truth are interchangeable;
+- an arbitrary X-list account becomes an approved newsroom/relay/rumor source by list membership.
 
 ## 3. Current replacement semantics
+
+- Current 2026-08-28 North Star is `EARLY_ATTRIBUTED_INTELLIGENCE`: one exact reputable secondary
+  may prove a narrow ordinary attributed reporting proposition while the event remains visibly
+  unconfirmed. Epistemic state must survive canonical copy, qualification, and all eight previews.
 
 - The `330f` foundation is accepted and reusable: autonomous URL discovery, shared route health,
   sourceability-first funnel, four distinct governed evidence-ready candidates, and frozen

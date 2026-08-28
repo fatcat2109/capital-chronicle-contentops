@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — V1 Current Execution Pointer V3
 
-Authority date: 2026-08-27
-Status: `CURRENT_V1_LANE_POINTER / SIMPLE_GEMINI_RUNTIME_RESET`
+Authority date: 2026-08-28
+Status: `CURRENT_V1_LANE_POINTER / SIMPLE_EARLY_ATTRIBUTED_INTELLIGENCE`
 
 ## Current route
 
@@ -12,9 +12,10 @@ Current routine execution is:
 
 `current sidecars/canonical published memory -> deterministic dedupe -> <=32 candidates -> one
 gemini-3.5-flash(high) selection admitting one primary plus <=2 useful fallbacks -> ordered walk
-under one shared <=6 deterministic-GET budget using exact-bound, allowlisted official/company-
-primary locator→document, then reputable-secondary routes -> one Flash writer -> deterministic claim/source
-validation -> optional one Flash revision without source expansion -> one zero-write qualified
+under one shared <=6 deterministic-GET budget using explicit attributed-report provenance first,
+then exact-bound, correct same-event official/company-primary locator→document, and reputable-
+secondary routes -> explicit report/event epistemic state -> one Flash writer -> deterministic
+claim/source/attribution/epistemic validation -> optional one Flash revision without source expansion -> one zero-write qualified
 article -> exactly eight undispatched intents`.
 
 Codex runtime model calls are zero. Public writes are zero. The existing publication coordinator
@@ -60,6 +61,13 @@ validation blocked the article and the single malformed revision response ended 
 logical Flash calls. The exact next gate is one genuinely current same-peg source-qualified article
 plus owner inspection of the article and all eight previews. Do not add a new discovery system,
 rerun selection to hunt for success, or enable public write from the partial proof.
+
+The 2026-08-28 North Star supersedes the residual same-event official-confirmation prerequisite.
+The exact next gate is the smallest adapter carrying report truth versus event truth plus evidence
+basis, confirmation state, origin character, multiplicity, publisher/source identity, and reader
+label through routing, writing, validation, qualification, and all eight previews. One exact
+ordinary reputable report may qualify as `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / SINGLE_SOURCE`;
+an unrelated official document cannot qualify it. High-harm claims remain enhanced-evidence cases.
 
 After that slice, the next distinct authorization gate is separate public-write/readback authority.
 The scheduler proof grants none. A real production-day 5–8 useful published/day acceptance and

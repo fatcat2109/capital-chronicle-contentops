@@ -1,20 +1,21 @@
 # ContentOps V1 Current Context Map
 
-Authority date: 2026-08-24
+Authority date: 2026-08-28
 
 This is a curated implementation/discovery map, not product authority. Jim's latest instruction, root authority, fresh GitHub bytes, exact code/tests/evidence, and current runtime evidence outrank this map when they conflict.
 
 ## Current product state
 
-`SIMPLE_GEMINI_RUNTIME_RESET / PERSISTENT_CURRENT_HOST_SCHEDULER_INTAKE_ZERO_WRITE_PASS`
+`SIMPLE_EARLY_ATTRIBUTED_INTELLIGENCE / EPISTEMIC_STATE_ACCEPTANCE_PENDING`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
 current sidecars + canonical reconciled published memory -> deterministic dedupe -> <=32 candidates
 -> one strict `gemini-3.5-flash(high)` selection admitting one useful primary and at most two useful
-fallbacks -> one first-party-aware resolver under a shared <=6 deterministic-GET budget (exact
-bound -> allowlisted official/company-primary locator and exact document -> reputable-secondary fallback) -> one Flash
-writer -> deterministic material-claim validation -> optional one Flash revision without source
+fallbacks -> one provenance-aware resolver under a shared <=6 deterministic-GET budget (explicit
+attributed reputable report first; otherwise exact bound -> correct same-event official/company-
+primary locator and exact document -> reputable-secondary fallback) -> explicit report/event
+epistemic state -> one Flash writer -> deterministic material-claim/source/epistemic validation -> optional one Flash revision without source
 expansion -> one qualified zero-write article -> exactly eight undispatched intents. Codex runtime
 model calls are zero.
 
@@ -45,6 +46,7 @@ owner-locked four-window local tick + production-day/window/slot identity
 -> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
 -> deterministic published-memory dedupe + sourceability-aware full-universe ordering
 -> bounded 9Router/Flash selection over <=32 candidates
+-> explicit attributed publisher/relay provenance and report/event epistemic state
 -> SimpleFirstPartyAwareEvidenceResolver composing existing official-primary and secondary loaders under one shared <=6 GET budget
 -> bounded 9Router/Flash article writer for the first source-qualified candidate
 -> deterministic source/claim validation
@@ -88,6 +90,7 @@ Current routine implementation areas:
 - `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model authority;
 - `live_contentops/public_secondary_evidence_loader_v1.py` — deterministic selected-story retrieval;
 - `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger first-party-aware route arbitration;
+- `live_contentops/v1_simple_epistemic_state_v1.py` — report/event proposition, provenance, claim-risk, and reader-label projection;
 - `live_contentops/official_primary_source_locator_v1.py` / `official_primary_evidence_loader_v1.py` — allowlisted locator→exact official/issuer bytes;
 - `live_contentops/newsroom_production_day_v1.py` — provider-neutral qualified zero-write record;
 - `live_contentops/v1_simple_gemini_scheduler_v1.py` — four-window local tick, bounded slots, and
@@ -117,6 +120,13 @@ permitted host run reached exact publisher bytes for a different NVIDIA event, s
 current-peg validation blocked the article and the malformed single revision closed the run at the
 three-call ceiling. A genuinely current same-peg source-qualified article and owner inspection
 remain required before public-write enablement.
+
+Current 2026-08-28 direction supersedes that residual same-event-official prerequisite. The exact
+gap is carrying `evidence_basis`, `event_confirmation_state`, `origin_character`,
+`source_multiplicity`, primary publisher/source identity, report/event propositions, and reader
+label through route, writer, validation, qualified metadata, and all eight previews. One ordinary
+exact reputable report may support `Publisher reports X / UNCONFIRMED`; arbitrary X remains
+discovery-only and high-harm claims retain enhanced evidence.
 
 ## Focused test families
 
