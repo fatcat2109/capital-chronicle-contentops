@@ -22,5 +22,20 @@
   "ruff_changed_nonlegacy_files": "PASS",
   "py_compile_changed_files": "PASS",
   "git_diff_check": "PASS",
-  "codegraph_refreshed": true
+  "codegraph_refreshed": true,
+  "pr37_current_source_acceptance_continuation": {
+    "focused_simple_evidence_editorial_native_orchestrator_scheduler_and_codegraph": {
+      "result": "PASS",
+      "passed": 208
+    },
+    "codegraph_freshness_after_evidence_update": {
+      "result": "PASS",
+      "passed": 17
+    },
+    "current_authority_validation": "PASS",
+    "fresh_intake_capture": "PASS_162_NEW_HEADLINES",
+    "single_current_simple_opportunity": "NO_PUBLICATION_ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED",
+    "code_correction_performed": false,
+    "git_diff_check": "PASS"
+  }
 }

@@ -62,3 +62,28 @@ current source-qualified article plus owner inspection remains the exact residua
 
 Routine public-write/readback authority, a real 5–8 article production day, and
 `V1_FINAL_PRODUCT_ACCEPTED` remain ungranted.
+
+## PR37 current-source acceptance continuation
+
+The accepted static implementation was not changed. The required prior walk is independently
+auditable in `prior_host_walk_sanitized_diagnostic_v1.json`; it distinguishes fields actually
+persisted by the 22:38 run from a bounded labeled replay. The exact sourceability cause was not a
+validator false negative: the admitted public stories could not reach exact publisher documents
+inside six GETs. A compact headline-derived PR19 query donor revalidation found current Reuters
+locator metadata but Reuters' public sitemap surfaces did not expose the exact article and the
+opaque Google News URL did not redirect to publisher bytes. No code correction was justified.
+
+Canonical intake then completed one normal bounded capture: 162 new deduplicated headlines, newest
+source event `2026-08-27T23:50:25Z`, and 1,286 candidates in the rolling 24-hour universe. The one
+permitted fresh Simple opportunity used 32 candidates, one Flash selection, three admissions, and
+GET allocation `3/3/0`. The primary `STANDARD_NEWS_ANALYSIS` Ratcliffe/Moscow story and fallback
+`WEEK_AHEAD_OR_WATCH` Warsh/Jackson Hole story each exhausted three GETs without an exact accepted
+publisher document; the third fallback was not attempted because the shared six-GET ledger was
+exhausted. The writer and revision did not run. Production DB bytes were identical across the
+opportunity, and Codex runtime/public/provider/coordinator/UNKNOWN counters remained zero.
+
+Current-host acceptance therefore remains incomplete. No real current article, eight current
+previews, or validation summary exists to copy for owner review, and their paths are explicitly
+`null` in `current_source_acceptance_attempt_v1.json`. The exact remaining blocker is one genuinely
+current story whose existing governed route returns exact publisher bytes within six GETs; another
+selection loop was not run to manufacture success.
