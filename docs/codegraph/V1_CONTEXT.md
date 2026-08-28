@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`V1_FINAL_PRODUCT_ACCEPTED / ROUTINE_PUBLIC_WRITE_GRANTED / PUBLICATION_BRIDGE_AND_ACCOUNTING_NEXT`
+`V1_FINAL_PRODUCT_ACCEPTED / ROUTINE_PUBLIC_WRITE_GRANTED / ROUTINE_PUBLICATION_BRIDGE_CLOSED / PUBLISHED_ACCOUNTING_NEXT`
 
 Current routine editorial ownership is the Simple Gemini runtime, not Desktop Automations or the legacy rolling-X split-phase path.
 
@@ -48,15 +48,17 @@ Current routine implementation areas:
 - `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger source/provenance route arbitration;
 - `live_contentops/v1_simple_epistemic_state_v1.py` — report/event proposition, provenance, risk, and reader labels;
 - `live_contentops/public_secondary_evidence_loader_v1.py` plus accepted official-primary locator/loaders — deterministic evidence donors;
-- `live_contentops/newsroom_production_day_v1.py` — production-day/accounting foundation; current Simple pacing still consumes qualified-count telemetry and must be separated from live reconciled-published counting;
-- `live_contentops/v1_simple_gemini_scheduler_v1.py` — four-window local tick and deterministic slot checkpoints;
-- `live_contentops/v1_simple_gemini_scheduler_process_v1.py` — persistent exactly-one-process Simple scheduler control;
-- `live_contentops/production_orchestrator_v1.py` — current operation boundary;
+- `live_contentops/newsroom_production_day_v1.py` — production-day/accounting foundation; current live pacing/counting still needs strict reconciled-published truth separated from qualified telemetry;
+- `live_contentops/v1_simple_gemini_scheduler_v1.py` — actual four-window routine owner, deterministic slot checkpoints, recover-before-fresh-work, qualified publication-pending checkpoint, no-model interrupted-publication resume, and terminal idempotency;
+- `live_contentops/v1_simple_gemini_scheduler_process_v1.py` — persistent exactly-one-process Simple scheduler control; process control performs no public write itself and records public-write authority as delegated to the existing durable coordinator;
+- `scripts/run_v1_simple_gemini_scheduler.py` — actual persistent runner; injects the canonical Simple publication handoff for one-tick/run-forever production execution while status/start/stop/restart remain control-only;
+- `live_contentops/v1_simple_publication_handoff_v1.py` — narrow adapter only: validates qualified artifacts, persists/reconstructs the same coordinator plan without semantic work, maps stable slot id to durable work-item id, delegates to existing coordinator, and uses coordinator recovery/readback semantics on restart;
+- `live_contentops/production_orchestrator_v1.py` — current Simple semantic operation boundary;
 - `live_contentops/publication_coordinator_v1.py` — sole durable public-write/readback/reconciliation owner;
 - its existing canonical-first `finalize_intent` seam rematerializes the eight Simple derivatives with the reconciled `/p/...` URL and no model/source work;
 - `live_contentops/destination_transport_registry_v1.py` — canonical destination transport/readiness registry;
 - `live_contentops/durable_operational_store_v1.py` — single V1 durable state authority;
-- `live_contentops/production_runtime_v1.py` / `daily_app_supervisor_v1.py` — current production composition, closed by merged PR #39 so routine ownership is explicitly `SIMPLE_GEMINI_RUNTIME`; Native Desktop/legacy rolling-X are compatibility-only/non-routing.
+- `live_contentops/production_runtime_v1.py` / `daily_app_supervisor_v1.py` — accepted production foundations and compatibility composition; merged PR #39 keeps routine editorial ownership explicitly `SIMPLE_GEMINI_RUNTIME`, with Native Desktop/legacy rolling-X non-routing.
 
 Use CodeGraph for exact call paths and affected tests. Do not revive superseded ownership merely because historical code still exists.
 
@@ -69,12 +71,14 @@ Use CodeGraph for exact call paths and affected tests. Do not revive superseded 
 - four-window scheduler mechanics plus persistent zero-write exactly-one-process host proof;
 - PR #38 authority/static-safety closure and Simple emergency-stop/process coverage;
 - PR #39 current single-owner production composition plus exact-head and master-push CI;
-- Simple qualified-result publication bridge into the existing durable coordinator/native compiler;
+- corrected PR #42 actual persistent routine handoff into the existing durable coordinator/native compiler: deterministic slot/work-item/plan identity, recover-before-fresh-work, no-model crash resume, unresolved-backlog fail-closed behavior, terminal duplicate idempotency, canonical-first readback, and exactly-eight rematerialization;
 - durable V1 store;
 - destination registry;
 - `DurablePublicationCoordinator`, canonical Substack-first transports, strict readback/reconciliation, UNKNOWN-write recovery;
 - historical Italy nine-surface publication canary as transport/reconciliation proof;
 - V5 live read model/UI foundation.
+
+The corrected PR #42 proof is static/CI and controlled disposable-store evidence. It is not fresh host/browser/account/readiness/public-write proof.
 
 ### `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY`
 
@@ -86,7 +90,7 @@ Use CodeGraph for exact call paths and affected tests. Do not revive superseded 
 
 1. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
 
-Single-owner composition and Simple emergency-stop coverage are already merged/proven and must not route another implementation task.
+Single-owner composition, Simple emergency-stop coverage, and the routine publication bridge are already proven and must not route another implementation task.
 
 ### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
@@ -99,14 +103,16 @@ Before the first new live write: production DB integrity/schema, no unresolved U
 - legacy rolling-X monolith/broad evidence-ready pool as current owner;
 - stale pre-acceptance owner-gate wording;
 - pre-PR38 claims that Simple emergency-stop coverage is missing;
-- pre-PR39 claims that current production ownership is ambiguous.
+- pre-PR39 claims that current production ownership is ambiguous;
+- pre-correction PR #42 inference that the Daily App supervisor component seam alone proves the persistent scheduler route.
 
-## Canonical product flow after activation closure
+## Canonical product flow after accounting closure
 
 ```text
 four owner-locked routine windows
--> Simple editorial opportunity
+-> persistent Simple scheduler opportunity
 -> accepted qualified article + epistemic state
+-> deterministic slot/work-item publication handoff
 -> sole existing DurablePublicationCoordinator
 -> canonical Substack publish/readback with exact public /p/... identity
 -> exactly eight derivative packages rematerialized against the real canonical URL
@@ -130,17 +136,16 @@ These are identities, not permission to inspect credentials/session material.
 
 ## Focused test families for current activation work
 
-Use CodeGraph to refine, but likely affected families include:
+Current bridge regression evidence includes:
 
-- `tests/test_v1_simple_gemini_newsroom_v1.py`
 - `tests/test_v1_simple_gemini_scheduler_v1.py`
-- scheduler-process tests around `v1_simple_gemini_scheduler_process_v1.py`;
+- `tests/test_v1_simple_gemini_scheduler_process_v1.py`
+- `tests/test_v1_simple_durable_publication_bridge_v1.py`
+- `tests/test_v1_simple_routine_publication_handoff_v1.py`
+- `tests/test_v1_simple_publication_handoff_recovery_v1.py`
 - `tests/test_publication_coordinator_v1.py`
-- `tests/test_daily_app_publication_lifecycle_v1.py`
-- `tests/test_destination_identity_pinning_v1.py`
-- `tests/test_eight_platform_substack_first_pipeline_v1.py`
-- production-runtime/supervisor composition tests;
-- operator-control/emergency-stop tests.
+
+For the next accounting slice, use CodeGraph to refine the smallest affected production-day/read-model/store tests rather than reopening the bridge suite unnecessarily.
 
 Do not run broad historical canaries merely to prove already-accepted capability.
 
