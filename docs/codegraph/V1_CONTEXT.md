@@ -43,7 +43,7 @@ Stale wording that still says routine V1 public-write/readback is ungranted or V
 
 Current routine implementation areas:
 
-- `live_contentops/v1_simple_gemini_newsroom_v1.py` — accepted selected-story Simple runtime; currently materializes a qualified zero-write article plus eight preview-only pending-canonical-URL packages;
+- `live_contentops/v1_simple_gemini_newsroom_v1.py` — accepted selected-story Simple runtime; materializes a qualified zero-write article plus eight preview-only pending-canonical-URL packages and exposes the existing coordinator-compatible lifecycle plan only for qualified results;
 - `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model seam;
 - `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger source/provenance route arbitration;
 - `live_contentops/v1_simple_epistemic_state_v1.py` — report/event proposition, provenance, risk, and reader labels;
@@ -53,6 +53,7 @@ Current routine implementation areas:
 - `live_contentops/v1_simple_gemini_scheduler_process_v1.py` — persistent exactly-one-process Simple scheduler control;
 - `live_contentops/production_orchestrator_v1.py` — current operation boundary;
 - `live_contentops/publication_coordinator_v1.py` — sole durable public-write/readback/reconciliation owner;
+- its existing canonical-first `finalize_intent` seam rematerializes the eight Simple derivatives with the reconciled `/p/...` URL and no model/source work;
 - `live_contentops/destination_transport_registry_v1.py` — canonical destination transport/readiness registry;
 - `live_contentops/durable_operational_store_v1.py` — single V1 durable state authority;
 - `live_contentops/production_runtime_v1.py` / `daily_app_supervisor_v1.py` — current production composition, closed by merged PR #39 so routine ownership is explicitly `SIMPLE_GEMINI_RUNTIME`; Native Desktop/legacy rolling-X are compatibility-only/non-routing.
@@ -68,6 +69,7 @@ Use CodeGraph for exact call paths and affected tests. Do not revive superseded 
 - four-window scheduler mechanics plus persistent zero-write exactly-one-process host proof;
 - PR #38 authority/static-safety closure and Simple emergency-stop/process coverage;
 - PR #39 current single-owner production composition plus exact-head and master-push CI;
+- Simple qualified-result publication bridge into the existing durable coordinator/native compiler;
 - durable V1 store;
 - destination registry;
 - `DurablePublicationCoordinator`, canonical Substack-first transports, strict readback/reconciliation, UNKNOWN-write recovery;
@@ -82,8 +84,7 @@ Use CodeGraph for exact call paths and affected tests. Do not revive superseded 
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-1. Simple qualified article/native package -> existing `DurablePublicationCoordinator` bridge;
-2. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
+1. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
 
 Single-owner composition and Simple emergency-stop coverage are already merged/proven and must not route another implementation task.
 
@@ -145,7 +146,7 @@ Do not run broad historical canaries merely to prove already-accepted capability
 
 ## Current activation sequence
 
-1. Simple -> existing publication coordinator bridge + published/reconciled accounting — no live write required for implementation tests;
+1. published/reconciled accounting distinct from qualified telemetry — no live write required for implementation tests;
 2. current-host read-only activation preflight — zero public write;
 3. one fresh live V1 end-to-end canary under already-granted authority, strictly reconciled across one canonical Substack article plus exactly eight derivatives;
 4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day.

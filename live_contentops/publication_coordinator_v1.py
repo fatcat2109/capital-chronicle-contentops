@@ -524,6 +524,23 @@ class DurablePublicationCoordinator:
                 "resolved_article_mode": plan.get("resolved_article_mode"),
                 "editorial_classification": plan.get("editorial_classification"),
                 "article_identity": plan.get("article_identity"),
+                "article_content_sha256": plan.get("article_content_sha256"),
+                "compiler_input_sha256": plan.get("compiler_input_sha256"),
+                "accepted_evidence_ids": list(
+                    plan.get("accepted_evidence_ids") or []
+                ),
+                "accepted_evidence_sha256": plan.get("accepted_evidence_sha256"),
+                "source_provenance_binding_preserved": (
+                    plan.get("source_provenance_binding_preserved") is True
+                ),
+                "epistemic_state": dict(plan.get("epistemic_state") or {}),
+                "bridge_schema_version": plan.get("bridge_schema_version"),
+                "bridge_model_call_count": int(
+                    plan.get("bridge_model_call_count") or 0
+                ),
+                "bridge_source_get_count": int(
+                    plan.get("bridge_source_get_count") or 0
+                ),
                 "publication_window": plan.get("publication_window"),
                 "package_identity": plan.get("package_identity"),
                 "plan_hash": plan_hash,
@@ -1908,12 +1925,17 @@ class CanonicalDestinationTransportRuntimeV1:
         finalized = dict(intent)
         finalized["canonical_url"] = canonical_url
         data = _durable_intent_inputs(finalized)
-        payload = str((data["payloads"].get(destination) or {}).get("text") or "")
+        native_payload = dict(data["payloads"].get(destination) or {})
+        payload = str(native_payload.get("text") or "")
         destination_plan = dict(finalized["destination_plan"])
-        destination_plan["payload_hash"] = _hash(payload)
+        destination_plan["payload_hash"] = _hash(_canonical_json(native_payload))
         destination_plan["payload_hash_kind"] = "FINAL_CANONICAL_URL_BOUND_BYTES"
+        destination_plan["canonical_url_state"] = "RECONCILED_CANONICAL_URL_BOUND"
         finalized["destination_plan"] = destination_plan
         finalized["payload"] = payload
+        finalized["native_payload"] = native_payload
+        finalized["rematerialization_model_call_count"] = 0
+        finalized["rematerialization_source_get_count"] = 0
         return finalized
 
     def readback(self, *, destination: str, public_object_id: Optional[str],

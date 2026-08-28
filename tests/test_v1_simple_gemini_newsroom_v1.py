@@ -678,6 +678,24 @@ def test_primary_source_blocked_second_candidate_succeeds_without_second_selecti
     assert result["public_write_performed"] is False
     assert result["provider_publication_writes"] == 0
     assert result["unknown_write_count"] == 0
+    plan = result["publication_lifecycle_plan"]
+    assert plan["bridge_schema_version"] == "contentops.v1_simple_publication_bridge.v1"
+    assert plan["article_identity"] == result["article_identity"]
+    assert plan["epistemic_state"] == result["epistemic_state"]
+    assert plan["canonical_url_before_state"] == "PENDING_NON_DISPATCHABLE"
+    assert plan["bridge_model_call_count"] == 0
+    assert plan["bridge_source_get_count"] == 0
+    assert plan["adapter_callables_persisted"] is False
+    assert [row["destination"] for row in plan["destinations"]][0] == "substack"
+    assert {row["destination"] for row in plan["destinations"]} == {
+        "substack",
+        *V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+    }
+    assert all(
+        row["canonical_url_state"] == "PENDING_NON_DISPATCHABLE"
+        for row in plan["destinations"]
+        if row["destination"] != "substack"
+    )
     intents = json.loads((tmp_path / "derivative_intents_v1.json").read_text())
     assert {row["destination"] for row in intents["intents"]} == set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     assert all(row["dispatch_state"] == "UNDISPATCHED" for row in intents["intents"])
@@ -733,6 +751,7 @@ def test_all_candidates_blocked_returns_complete_history_with_shared_six_get_lim
         run_id="all-blocked",
     )
     assert result["classification"] == "NO_PUBLICATION"
+    assert "publication_lifecycle_plan" not in result
     assert result["exact_next_blocker"] == "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
     assert result["source_request_count"] == MAX_SOURCE_REQUESTS
     assert calls == 2

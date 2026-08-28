@@ -71,6 +71,7 @@ Jim's latest explicit instruction remains highest product authority.
 - four-window Simple scheduler mechanics and persistent exactly-one-process zero-write host proof;
 - PR #38 post-acceptance authority/static-safety closure and emergency-stop/process coverage for Simple;
 - PR #39 single-owner production composition with `SIMPLE_GEMINI_RUNTIME` current and native Desktop/legacy rolling-X fenced non-routing;
+- Simple qualified-article adaptation into the existing `DurablePublicationCoordinator`: canonical Substack first, strict `/p/...` readback, then zero-model/zero-GET rematerialization of exactly eight derivatives through the existing native compiler;
 - durable V1 store, destination registry, `DurablePublicationCoordinator`, canonical Substack-first transports, strict readback/reconciliation, UNKNOWN-write recovery;
 - historical Italy one-canonical-plus-eight-derivatives canary as publication-stack proof;
 - V5 read model/UI foundation.
@@ -83,8 +84,7 @@ Jim's latest explicit instruction remains highest product authority.
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-1. Simple qualified article/native package -> existing `DurablePublicationCoordinator` production bridge;
-2. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
+1. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
 
 Single routine-owner composition and Simple emergency-stop/process coverage are closed. Do not issue implementation tasks for them again unless fresh code proves regression.
 
@@ -120,7 +120,7 @@ Missing fresh host proof does not convert a proven implementation into a new imp
 
 ## 6. Current activation sequence
 
-1. Simple -> existing publication coordinator bridge + published/reconciled accounting — no live write required for implementation validation;
+1. implement published/reconciled accounting separately from qualified-article telemetry — no live write required for implementation validation;
 2. current-host read-only activation preflight — zero public write;
 3. one fresh live V1 end-to-end canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
 4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day;

@@ -65,6 +65,7 @@ Official confirmation is not universal prerequisite. Exact reputable reports, ap
 - four-window Simple scheduler mechanics and persistent exactly-one-process zero-write host proof;
 - merged PR #38 post-acceptance authority/static-safety closure plus emergency-stop/process coverage for Simple;
 - merged PR #39 single routine production-owner composition: current Final Daily App -> `SIMPLE_GEMINI_RUNTIME`, with Native Desktop/legacy rolling-X compatibility-only and non-routing;
+- Simple-to-durable publication bridge through the existing coordinator contract: Substack/readback first and exactly-eight native derivative rematerialization only after a real canonical URL, with zero bridge model calls/GETs;
 - durable V1 store, destination registry, canonical Substack-first publication coordinator, destination transports, strict readback/reconciliation, UNKNOWN-write recovery;
 - real historical Italy one-Substack-plus-eight-derivatives canary with all nine reconciled and `UNKNOWN_WRITE=0`;
 - V5 live read model/UI foundation.
@@ -85,12 +86,12 @@ Current V2 master keeps its existing free-form rendering/package/publication-con
 
 Historical success proves capability; it does not prove today's login/session/token/readiness state.
 
-## 4. True current V1 implementation gaps
+## 4. True current V1 implementation gap
 
-The current gaps are now exactly two narrow integration/accounting gaps, not missing product architecture:
+The Simple-to-coordinator integration is implemented through the existing publication plan,
+canonical-first coordinator, and native `finalize_intent` compiler seam. The remaining gap is:
 
-1. **Simple -> existing publication coordinator bridge.** A qualified Simple article/native package must enter the sole existing `DurablePublicationCoordinator` without creating a second publisher, store, scheduler, or packaging stack. The bridge must publish/read back canonical Substack first, obtain the real reconciled `/p/...` identity, then rematerialize exactly eight native derivatives against that URL while preserving the exact article and epistemic state.
-2. **Published-vs-qualified accounting.** Editorial qualification remains useful telemetry, but live daily-output health/counting must be based on strictly reconciled published canonical articles. Publication failure, deferral, or ambiguity cannot count as a successful published article or prematurely satisfy the live deficit calculation.
+1. **Published-vs-qualified accounting.** Editorial qualification remains useful telemetry, but live daily-output health/counting must be based on strictly reconciled published canonical articles. Publication failure, deferral, or ambiguity cannot count as a successful published article or prematurely satisfy the live deficit calculation.
 
 Merged PR #38 already closes emergency-stop/process coverage. Merged PR #39 already closes single-owner composition. Do not reissue either as implementation work unless fresh code demonstrates regression.
 

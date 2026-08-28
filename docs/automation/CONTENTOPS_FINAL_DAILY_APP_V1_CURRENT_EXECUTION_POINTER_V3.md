@@ -45,6 +45,10 @@ Merged PR #38 closes current post-acceptance authority/static-safety and emergen
 
 Merged PR #39 closes the production owner defect. Current Final Daily App composition routes routine V1 through `SIMPLE_GEMINI_RUNTIME`; Native Desktop PREPARE/COMPLETE and legacy rolling-X remain compatibility-only/non-routing. Exact PR-head CI and the master-push CI both passed.
 
+The Simple-to-durable publication bridge is implemented through the existing lifecycle plan and
+`DurablePublicationCoordinator`: strict Substack `/p/...` readback precedes exactly-eight native
+derivative rematerialization, with zero bridge model calls and zero source GETs.
+
 Do not issue another single-owner or emergency-stop implementation task unless fresh code demonstrates an actual regression.
 
 ## Current publication foundation — reuse, do not rebuild
@@ -53,12 +57,11 @@ The existing `DurablePublicationCoordinator`, durable V1 store, destination regi
 
 The historical Italy canary already proved one Substack + exactly eight derivatives across all nine surfaces with strict reconciliation and `UNKNOWN_WRITE=0`. Do not rerun Italy merely to prove transport.
 
-## Exact current implementation gaps
+## Exact current implementation gap
 
-Only two implementation gaps remain:
-
-1. Wire the accepted Simple qualified article/native package into the existing `DurablePublicationCoordinator` without a second publisher/store/scheduler/package stack. Canonical Substack must publish/read back first; only then may the existing native compiler rematerialize exactly eight derivatives against the real reconciled `/p/...` URL while preserving epistemic state.
-2. Count strictly reconciled published canonical articles separately from zero-write qualified-article telemetry; a publication failure, deferred distribution, or ambiguous write must not satisfy the live daily-output count.
+Count strictly reconciled published canonical articles separately from zero-write qualified-article
+telemetry; a publication failure, deferred distribution, or ambiguous write must not satisfy the
+live daily-output count.
 
 ## `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
@@ -68,7 +71,7 @@ Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only.
 
 ## Current activation sequence
 
-1. Simple -> existing publication coordinator bridge + published/reconciled-count accounting — no live write required for implementation proof;
+1. published/reconciled-count accounting — no live write required for implementation proof;
 2. current-host read-only activation preflight — no public write;
 3. one fresh live end-to-end V1 canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
 4. if the canary reconciles cleanly with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day.
