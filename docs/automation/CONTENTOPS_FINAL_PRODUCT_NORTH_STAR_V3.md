@@ -190,16 +190,18 @@ Epistemic lifecycle remains separate:
 
 ## 12. Accepted foundation and current activation route
 
-Accepted/reusable foundation includes current intake, published memory/dedupe, production-day accounting foundation, Simple Gemini selection/writer/revision, PR #37 early-attributed intelligence and epistemic state, sourceability ordering, native exactly-eight compiler, canonical Substack transports, durable publication coordinator, strict readback/reconciliation, completed Italy nine-surface canary, V5 read model/UI, merged PR #38 emergency-stop/static-safety closure, and merged PR #39 single-owner production composition.
+Accepted/reusable foundation includes current intake, published memory/dedupe, production-day accounting foundation, Simple Gemini selection/writer/revision, PR #37 early-attributed intelligence and epistemic state, sourceability ordering, native exactly-eight compiler, canonical Substack transports, durable publication coordinator, strict readback/reconciliation, completed Italy nine-surface canary, V5 read model/UI, merged PR #38 emergency-stop/static-safety closure, merged PR #39 single-owner production composition, and corrected PR #42 actual persistent Simple-scheduler publication handoff.
+
+The corrected routine handoff preserves this North Star rather than adding a new editorial gate: Simple semantic work remains zero-write; a qualified slot maps deterministically to the canonical durable work item; the publication plan is persisted/reconstructed from already-qualified artifacts; coordinator recovery runs before fresh work; interrupted qualified slots resume without another model/source call; unresolved backlog or ambiguous write stays in coordinator/readback recovery rather than blind retry; canonical Substack `/p/...` reconciliation still precedes exactly-eight derivative rematerialization. This is repository/CI proof, not fresh host/account/readiness or live-publication proof.
 
 Remaining work is activation/integration/revalidation, not a new V1 acceptance campaign:
 
-1. Simple -> existing `DurablePublicationCoordinator` bridge and published/reconciled-count accounting;
+1. published/reconciled-count accounting distinct from qualified telemetry;
 2. current-host read-only activation preflight;
 3. one fresh live V1 end-to-end canary under already-granted routine authority;
 4. if strictly reconciled, enable four routine live windows toward 5–8 useful published articles/day.
 
-Single-owner composition and Simple emergency-stop/process coverage are already closed. Do not rebuild transports, publication coordinator, store, native packager, Simple editorial path, or historical Italy publication proof.
+Single-owner composition, Simple emergency-stop/process coverage, and the routine Simple publication handoff are already closed. Do not rebuild transports, publication coordinator, store, native packager, Simple editorial path, or historical Italy publication proof.
 
 ## 13. Hard boundaries
 
