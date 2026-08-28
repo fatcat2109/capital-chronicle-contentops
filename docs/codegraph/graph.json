@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14017,
+    "edges": 14032,
     "entrypoints": 16,
-    "nodes": 7418,
+    "nodes": 7427,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -24,12 +24,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 17,
-      "python_class": 606,
-      "python_function": 4055,
+      "python_class": 608,
+      "python_function": 4056,
       "python_method": 304,
-      "python_module": 775,
-      "schema": 214,
-      "test": 738,
+      "python_module": 776,
+      "schema": 216,
+      "test": 741,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -39955,6 +39955,12 @@
     },
     {
       "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_publication_bridge.v1"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_v1_simple_gemini_newsroom_v1.py"
@@ -40096,6 +40102,36 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_v1_simple_gemini_scheduler_v1.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffError"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffV1"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff"
+    },
+    {
+      "from": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_publication_handoff.v1"
     },
     {
       "from": "live_contentops/v6_platform_registry_contract.py",
@@ -63735,6 +63771,12 @@
       "from": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.finalize_intent",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_canonical_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.finalize_intent",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
       "to": "python_symbol:live_contentops/publication_coordinator_v1.py::_hash"
     },
     {
@@ -68604,6 +68646,48 @@
       "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::build_scheduler_process_command"
     },
     {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/destination_transport_registry_v1.py::DestinationReadinessManager"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/destination_transport_registry_v1.py::validate_registry"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/production_orchestrator_v1.py::ContentOpsProductionOrchestrator"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffV1"
+    },
+    {
       "from": "python_symbol:live_contentops/v6_platform_registry_contract.py::build_registry",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -71146,6 +71230,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiLocalScheduler"
+    },
+    {
+      "from": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff"
     },
     {
       "from": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
@@ -84257,7 +84347,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-28T21:08:25Z",
+  "generation_timestamp_utc": "2026-08-28T22:48:56Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84290,7 +84380,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 11171
+      "size_bytes": 11779
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -84495,27 +84585,27 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 10223
+      "size_bytes": 12000
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 7173
+      "size_bytes": 8100
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 5603
+      "size_bytes": 6410
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 11013
+      "size_bytes": 12236
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 10893
+      "size_bytes": 11684
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -84525,7 +84615,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 8703
+      "size_bytes": 10395
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -87341,7 +87431,7 @@
     {
       "id": "live_contentops/publication_coordinator_v1.py",
       "kind": "python_module",
-      "size_bytes": 94874
+      "size_bytes": 96120
     },
     {
       "id": "live_contentops/publish_adapter_credential_secret_policy.py",
@@ -88036,17 +88126,22 @@
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 94012
+      "size_bytes": 101535
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "kind": "python_module",
-      "size_bytes": 16887
+      "size_bytes": 17134
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "kind": "python_module",
-      "size_bytes": 32572
+      "size_bytes": 46935
+    },
+    {
+      "id": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "kind": "python_module",
+      "size_bytes": 17476
     },
     {
       "id": "live_contentops/v6_platform_registry_contract.py",
@@ -113834,49 +113929,49 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1",
       "kind": "python_class",
-      "line": 1850,
+      "line": 1867,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.__init__",
       "kind": "python_method",
-      "line": 1853,
+      "line": 1870,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.__init__"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.collect_metrics",
       "kind": "python_method",
-      "line": 1943,
+      "line": 1965,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.collect_metrics"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.finalize_intent",
       "kind": "python_method",
-      "line": 1903,
+      "line": 1920,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.finalize_intent"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.prepare_delivery_media",
       "kind": "python_method",
-      "line": 1862,
+      "line": 1879,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.prepare_delivery_media"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.publish",
       "kind": "python_method",
-      "line": 1879,
+      "line": 1896,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.publish"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::CanonicalDestinationTransportRuntimeV1.readback",
       "kind": "python_method",
-      "line": 1919,
+      "line": 1941,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "CanonicalDestinationTransportRuntimeV1.readback"
     },
@@ -113897,7 +113992,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._confirmed_canonical_url_for_work_item",
       "kind": "python_method",
-      "line": 1416,
+      "line": 1433,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._confirmed_canonical_url_for_work_item"
     },
@@ -113911,7 +114006,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._dispatch_message",
       "kind": "python_method",
-      "line": 671,
+      "line": 688,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._dispatch_message"
     },
@@ -113925,7 +114020,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._finalize_derivative_intent",
       "kind": "python_method",
-      "line": 886,
+      "line": 903,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._finalize_derivative_intent"
     },
@@ -113981,7 +114076,7 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator._reconcile",
       "kind": "python_method",
-      "line": 566,
+      "line": 583,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator._reconcile"
     },
@@ -114044,42 +114139,42 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.collect_metrics",
       "kind": "python_method",
-      "line": 1774,
+      "line": 1791,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.collect_metrics"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.complete_derivative_after_transport_correction",
       "kind": "python_method",
-      "line": 981,
+      "line": 998,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.complete_derivative_after_transport_correction"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.execute_plan",
       "kind": "python_method",
-      "line": 1157,
+      "line": 1174,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.execute_plan"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.publish_plan",
       "kind": "python_method",
-      "line": 1767,
+      "line": 1784,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.publish_plan"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.readback",
       "kind": "python_method",
-      "line": 1770,
+      "line": 1787,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.readback"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.recover_pending",
       "kind": "python_method",
-      "line": 1439,
+      "line": 1456,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.recover_pending"
     },
@@ -114093,14 +114188,14 @@
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.replay_persisted_verified_readback",
       "kind": "python_method",
-      "line": 1104,
+      "line": 1121,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.replay_persisted_verified_readback"
     },
     {
       "id": "python_symbol:live_contentops/publication_coordinator_v1.py::DurablePublicationCoordinator.retry_reconciled_absent_substack",
       "kind": "python_method",
-      "line": 920,
+      "line": 937,
       "path": "live_contentops/publication_coordinator_v1.py",
       "symbol": "DurablePublicationCoordinator.retry_reconciled_absent_substack"
     },
@@ -120225,100 +120320,121 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::SimpleGeminiNewsroomError",
       "kind": "python_class",
-      "line": 146,
+      "line": 151,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "SimpleGeminiNewsroomError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1460,
+      "line": 1613,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::build_scheduler_process_command",
       "kind": "python_function",
-      "line": 114,
+      "line": 116,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "build_scheduler_process_command"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::is_canonical_scheduler_command_line",
       "kind": "python_function",
-      "line": 137,
+      "line": 139,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "is_canonical_scheduler_command_line"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::restart_scheduler_process",
       "kind": "python_function",
-      "line": 444,
+      "line": 446,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "restart_scheduler_process"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::run_owned_scheduler_forever",
       "kind": "python_function",
-      "line": 231,
+      "line": 233,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "run_owned_scheduler_forever"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::scheduler_process_state",
       "kind": "python_function",
-      "line": 170,
+      "line": 172,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "scheduler_process_state"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::spawn_detached_scheduler",
       "kind": "python_function",
-      "line": 289,
+      "line": 291,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "spawn_detached_scheduler"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::start_scheduler_process",
       "kind": "python_function",
-      "line": 317,
+      "line": 319,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "start_scheduler_process"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::stop_scheduler_process",
       "kind": "python_function",
-      "line": 393,
+      "line": 395,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "stop_scheduler_process"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiLocalScheduler",
       "kind": "python_class",
-      "line": 274,
+      "line": 317,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiLocalScheduler"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiSchedulerCheckpointError",
       "kind": "python_class",
-      "line": 71,
+      "line": 78,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiSchedulerCheckpointError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiSchedulerSafetyError",
       "kind": "python_class",
-      "line": 61,
+      "line": 68,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiSchedulerSafetyError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::simple_gemini_slot_id",
       "kind": "python_function",
-      "line": 197,
+      "line": 204,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "simple_gemini_slot_id"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffError",
+      "kind": "python_class",
+      "line": 51,
+      "path": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "symbol": "SimplePublicationHandoffError"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::SimplePublicationHandoffV1",
+      "kind": "python_class",
+      "line": 165,
+      "path": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "symbol": "SimplePublicationHandoffV1"
+    },
+    {
+      "id": "python_symbol:live_contentops/v1_simple_publication_handoff_v1.py::build_canonical_simple_publication_handoff",
+      "kind": "python_function",
+      "line": 371,
+      "path": "live_contentops/v1_simple_publication_handoff_v1.py",
+      "symbol": "build_canonical_simple_publication_handoff"
     },
     {
       "id": "python_symbol:live_contentops/v6_platform_registry_contract.py::PlatformRegistryEntry",
@@ -122192,14 +122308,14 @@
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::build_parser",
       "kind": "python_function",
-      "line": 31,
+      "line": 38,
       "path": "scripts/run_v1_simple_gemini_scheduler.py",
       "symbol": "build_parser"
     },
     {
       "id": "python_symbol:scripts/run_v1_simple_gemini_scheduler.py::main",
       "kind": "python_function",
-      "line": 64,
+      "line": 74,
       "path": "scripts/run_v1_simple_gemini_scheduler.py",
       "symbol": "main"
     },
@@ -123839,6 +123955,16 @@
       "schema_id": "contentops.v1_simple_native_derivative_previews.v1"
     },
     {
+      "id": "schema:contentops.v1_simple_publication_bridge.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v1_simple_publication_bridge.v1"
+    },
+    {
+      "id": "schema:contentops.v1_simple_publication_handoff.v1",
+      "kind": "schema",
+      "schema_id": "contentops.v1_simple_publication_handoff.v1"
+    },
+    {
       "id": "schema:contentops.v1_simple_scheduler_memory_access.v1",
       "kind": "schema",
       "schema_id": "contentops.v1_simple_scheduler_memory_access.v1"
@@ -124381,7 +124507,7 @@
     {
       "id": "scripts/run_v1_simple_gemini_scheduler.py",
       "kind": "python_module",
-      "size_bytes": 4605
+      "size_bytes": 5182
     },
     {
       "id": "tests/AGENTS.md",
@@ -127694,6 +127820,11 @@
       "size_bytes": 3056
     },
     {
+      "id": "tests/test_v1_simple_durable_publication_bridge_v1.py",
+      "kind": "test",
+      "size_bytes": 10726
+    },
+    {
       "id": "tests/test_v1_simple_epistemic_state_v1.py",
       "kind": "test",
       "size_bytes": 46564
@@ -127706,17 +127837,27 @@
     {
       "id": "tests/test_v1_simple_gemini_newsroom_v1.py",
       "kind": "test",
-      "size_bytes": 37379
+      "size_bytes": 38321
     },
     {
       "id": "tests/test_v1_simple_gemini_scheduler_process_v1.py",
       "kind": "test",
-      "size_bytes": 6402
+      "size_bytes": 6452
     },
     {
       "id": "tests/test_v1_simple_gemini_scheduler_v1.py",
       "kind": "test",
-      "size_bytes": 20149
+      "size_bytes": 20273
+    },
+    {
+      "id": "tests/test_v1_simple_publication_handoff_recovery_v1.py",
+      "kind": "test",
+      "size_bytes": 11459
+    },
+    {
+      "id": "tests/test_v1_simple_routine_publication_handoff_v1.py",
+      "kind": "test",
+      "size_bytes": 16468
     },
     {
       "id": "tests/test_v1_source_binding_and_evidence_depth_v1.py",
@@ -132389,6 +132530,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "ab52e4ebdd9348245a6b21cd538e75d639e92e49",
-  "source_tree_digest": "dcdca4c59cfd39ede0999ff06c85afbf85799e11740a897fdfd41a7701890b38"
+  "source_head": "9bc7e22947848fad97e1f8fd8056b0c7ba834383",
+  "source_tree_digest": "38a17d85e10697f49a1e82d077622b3dd55d828a6b7e0cb6742f6c4d19b49858"
 }

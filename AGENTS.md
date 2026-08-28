@@ -52,7 +52,7 @@ The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records Jim's explic
 
 Any subordinate current-looking wording that still says routine V1 public-write/readback is ungranted or `V1_FINAL_PRODUCT_ACCEPTED` is pending is superseded.
 
-Acceptance does not waive current-host identity/readiness/recovery proof before a new public write, and it does not authorize a missing production bridge to be assumed.
+Acceptance does not waive current-host identity/readiness/recovery proof before a new public write.
 
 ## 4. Locked V1 product contract
 
@@ -104,6 +104,7 @@ Reuse, do not rebuild:
 - four-window Simple scheduling mechanics and persistent zero-write host proof;
 - PR #38 current post-acceptance authority/static-safety closure and Simple emergency-stop/process coverage;
 - PR #39 single routine production-owner composition: Final Daily App -> `SIMPLE_GEMINI_RUNTIME`, with native Desktop/legacy rolling-X fenced non-routing;
+- corrected PR #42 actual persistent Simple scheduler -> existing `DurablePublicationCoordinator` handoff, including deterministic slot/work-item identity, immutable/reconstructable plan, recover-before-fresh-work, no-model crash resume, unresolved-backlog fail-closed behavior, and duplicate-terminal idempotency;
 - durable V1 store;
 - destination registry;
 - `DurablePublicationCoordinator` as the sole public-write owner;
@@ -112,12 +113,13 @@ Reuse, do not rebuild:
 - V5 read model/UI foundation;
 - historical Italy nine-surface canary as publication-stack proof.
 
-Current new implementation gaps are limited to:
+The corrected routine bridge preserves the Simple semantic zero-write boundary and adds no second scheduler, publisher, packager, or store. The existing coordinator remains the only public-write/readback owner; canonical Substack `/p/...` reconciliation precedes exactly-eight derivative rematerialization. Repository/CI proof of this bridge is not current-host account/readiness/public-write proof.
 
-1. Simple qualified article/package -> existing `DurablePublicationCoordinator` production bridge;
-2. published/reconciled production-day accounting distinct from zero-write qualified-count telemetry.
+Current new implementation gap is limited to:
 
-Single-owner composition and Simple emergency-stop/process coverage are closed and must not be reissued as implementation tasks. Historical wording that still lists them as gaps is superseded by fresh `master` code and this contract.
+1. published/reconciled production-day accounting distinct from zero-write qualified-count telemetry.
+
+Single-owner composition, Simple emergency-stop/process coverage, and the routine publication bridge are closed and must not be reissued as implementation tasks unless fresh code proves regression. Historical wording that still lists them as gaps is superseded by fresh branch code and this contract.
 
 Before the first new live V1 write, current-host read-only proof is required for production-store integrity/recovery state, exact Edge 9223 publication profile/account identities, current destination readiness, exactly-one production owner/process, and `UNKNOWN_WRITE=0`. Do not inspect or expose secrets/session material.
 
@@ -171,13 +173,13 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 ## 11. Locked current sequence
 
-1. wire Simple into the existing publication coordinator and close published/reconciled-count accounting without rebuilding transports;
+1. close published/reconciled-count accounting without rebuilding the durable publication/reconciliation stack;
 2. run current-host read-only activation preflight;
 3. run one fresh end-to-end live V1 canary under the already-granted authority and strictly reconcile all nine surfaces;
 4. only after that canary is clean, enable the four routine live windows toward 5–8 useful published articles/day;
 5. preserve V1 and continue isolated V2 work only under V2's separate authority boundaries.
 
-Repository authority/static-safety closure, emergency-stop coverage, and single-owner composition are already closed by merged PR #38 and PR #39; do not recreate them.
+Repository authority/static-safety closure, emergency-stop coverage, single-owner composition, and the actual routine Simple publication handoff are already closed; do not recreate them.
 
 ## 12. Change discipline
 

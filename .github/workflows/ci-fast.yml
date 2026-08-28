@@ -56,6 +56,11 @@ jobs:
         run: |
           python -m pytest -q tests/test_run_v1_simple_gemini_newsroom_cli_v1.py
           python -m pytest -q tests/test_v1_simple_gemini_newsroom_v1.py
+          python -m pytest -q tests/test_v1_simple_gemini_scheduler_v1.py
+          python -m pytest -q tests/test_v1_simple_gemini_scheduler_process_v1.py
+          python -m pytest -q tests/test_v1_simple_durable_publication_bridge_v1.py
+          python -m pytest -q tests/test_v1_simple_routine_publication_handoff_v1.py
+          python -m pytest -q tests/test_v1_simple_publication_handoff_recovery_v1.py
           python -m pytest -q tests/test_newsroom_production_day_v1.py
           python -m pytest -q tests/test_canonical_production_entrypoint_and_legacy_quarantine_v1.py
           python -m pytest -q tests/test_nine_router_ordered_model_router_v2.py tests/test_nine_router_provider_adapter_and_preflight_v2.py

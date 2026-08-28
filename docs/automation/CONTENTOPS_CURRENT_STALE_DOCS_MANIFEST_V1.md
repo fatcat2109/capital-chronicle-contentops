@@ -54,6 +54,8 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 - `V1_FINAL_PRODUCT_ACCEPTED` is still forbidden/pending;
 - PR #38 emergency-stop/process coverage for Simple remains missing;
 - PR #39 single routine-owner production composition remains missing;
+- the actual persistent Simple scheduler still lacks a production handoff into the existing durable publication coordinator;
+- a component-only supervisor bridge is sufficient proof of the current persistent scheduler route;
 - V2 has any public-write authority.
 
 ## 4. Current replacement semantics
@@ -63,11 +65,12 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 - Routine editorial ownership is Simple Gemini under the accepted 32/6/3/1 economics; Desktop/SDK/legacy rolling-X routes are historical/non-routing.
 - Merged PR #38 already closes current authority/static-safety and emergency-stop/process coverage for the canonical Simple scheduler/runtime.
 - Merged PR #39 already closes single-owner composition: current Final Daily App production composition routes routine V1 through `SIMPLE_GEMINI_RUNTIME`; Native Desktop/legacy rolling-X are compatibility-only/non-routing.
-- `DurablePublicationCoordinator` remains the sole public-write/readback/reconciliation owner. Do not build another publisher/store/scheduler/package stack.
+- Corrected PR #42 closes the actual persistent Simple scheduler -> existing `DurablePublicationCoordinator` handoff. Stable slot identity is the durable work-item identity; the publication plan is persisted/reconstructed without model/source re-execution; recovery runs before fresh work; interrupted qualified slots resume without another Simple/model/source call; unresolved backlog blocks current-plan registration/republication; terminal duplicate ticks do not duplicate semantic/public intent.
+- `DurablePublicationCoordinator` remains the sole public-write/readback/reconciliation owner. Canonical Substack `/p/...` reconciliation precedes exactly-eight derivative rematerialization. Do not build another publisher/store/scheduler/package stack.
 - Historical Italy publication proves the nine-surface transport/reconciliation stack. Current live account/session/readiness still requires read-only revalidation before the first new live write.
 - Live daily-output success is based on strictly reconciled published canonical articles, not merely zero-write qualified article records.
-- Current implementation gaps are now only Simple->existing coordinator integration and published-vs-qualified accounting.
-- Current activation order is Simple publication integration/accounting -> read-only host preflight -> one live canary -> routine four-window live enablement.
+- The only current V1 implementation gap is published-vs-qualified accounting.
+- Current activation order is published/reconciled accounting -> read-only host preflight -> one live canary -> routine four-window live enablement.
 
 ## 5. Historical/non-routing families
 
@@ -87,7 +90,7 @@ Treat these as historical/non-routing unless current authority explicitly promot
 
 ## 6. Current-looking files that may contain stale historical wording
 
-The active root spine listed in section 1 has been recompressed for the current post-PR39 state. Any older revision of those files is historical only.
+The active root spine listed in section 1 has been recompressed for the current corrected-PR42 state. Any older revision of those files is historical only.
 
 Other current-looking families may still contain useful historical detail but cannot override the root spine, including:
 
@@ -114,6 +117,7 @@ Legacy CI compatibility markers retained in current authority files are semantic
 ## 8. Hard current boundaries
 
 - V1 product acceptance and routine article public-write/readback authority are already granted.
+- Corrected PR #42 is repository/CI bridge proof only; it does not prove today's host account/session/readiness/recovery state or a new live public write.
 - Exact current-host account/identity/readiness/recovery proof is still required before the first new live write.
 - `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 - V2 public-write authority remains zero.

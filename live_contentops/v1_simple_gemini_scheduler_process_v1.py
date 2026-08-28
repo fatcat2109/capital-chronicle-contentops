@@ -1,7 +1,9 @@
 """Exactly-one detached process owner for the persistent Simple-Gemini scheduler.
 
 This module owns process lifecycle only. It never schedules editorial work, reads credentials,
-opens the publication store, calls a model/source/provider, or crosses a public-write boundary.
+calls a model/source/provider, or performs a public write itself. The child scheduler may delegate a
+qualified zero-write Simple result to the existing durable publication coordinator under current V1
+authority; publication truth remains coordinator/store-owned.
 """
 
 from __future__ import annotations
@@ -216,7 +218,7 @@ def scheduler_process_state(
         "pid": pid,
         "started_at_utc": identity.get("started_at_utc"),
         "exactly_one_process": True,
-        "public_write_authority": "ZERO",
+        "public_write_authority": "DELEGATED_TO_DURABLE_PUBLICATION_COORDINATOR",
     }
 
 
@@ -257,7 +259,7 @@ def run_owned_scheduler_forever(
                 "scheduler_root": str(root),
                 "started_at_utc": _iso_now(),
                 "runner_script": str(RUNNER_SCRIPT),
-                "public_write_authority": "ZERO",
+                "public_write_authority": "DELEGATED_TO_DURABLE_PUBLICATION_COORDINATOR",
             },
         )
         try:

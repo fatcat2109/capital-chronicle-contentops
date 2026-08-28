@@ -28,7 +28,11 @@ from live_contentops.capital_chronicle_institutional_edge_v1 import (
 )
 from live_contentops.credential_redaction_policy import redact_text
 from live_contentops.destination_transport_registry_v1 import (
+    REGISTRY_VERSION,
+    V1_QUALITY_PROBATION_POLICY_ID,
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
+    V1_REQUIRED_PUBLICATION_DESTINATIONS,
+    registration_for_destination,
 )
 from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_glob
 from live_contentops.llm_first_validate_after_v1 import ARTICLE_MODES
@@ -67,6 +71,7 @@ ARTICLE_SCHEMA_VERSION = "contentops.v1_simple_gemini_article.v1"
 VALIDATION_SCHEMA_VERSION = "contentops.v1_simple_gemini_validation.v1"
 DERIVATIVE_INTENTS_SCHEMA_VERSION = "contentops.v1_simple_derivative_intents.v2"
 NATIVE_PREVIEWS_SCHEMA_VERSION = "contentops.v1_simple_native_derivative_previews.v1"
+PUBLICATION_BRIDGE_SCHEMA_VERSION = "contentops.v1_simple_publication_bridge.v1"
 
 ORDERING = (
     "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_"
@@ -1457,6 +1462,154 @@ def _native_preview_bundle(
     return bundle, intents
 
 
+def _build_simple_publication_lifecycle_plan(
+    *,
+    run_id: str,
+    output_dir: Path,
+    selected_candidate: Mapping[str, Any],
+    selected_plan_entry: Mapping[str, Any],
+    article: Mapping[str, Any],
+    article_identity: str,
+    native_previews: Mapping[str, Any],
+    qualified_record: Mapping[str, Any],
+    epistemic_state: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    """Adapt one qualified Simple result to the existing durable coordinator contract.
+
+    The plan deliberately contains no publisher/readback callable.  Derivative preview bytes
+    remain pending and non-dispatchable; the coordinator's existing ``finalize_intent`` seam
+    recompiles them only after strict Substack readback supplies a real canonical URL.
+    """
+    compiler_article = _reader_safe_native_article(
+        article,
+        article_mode=str(selected_plan_entry.get("article_mode") or ""),
+        epistemic_state=epistemic_state,
+    )
+    context = {
+        "schema_version": "contentops.simple_durable_run_context.v1",
+        "run_id": run_id,
+        "selection": dict(selected_candidate),
+        "article": compiler_article,
+        "media": {"assets": [], "delivery_only_assets": []},
+        "epistemic_state": dict(epistemic_state or {}),
+        "article_identity": article_identity,
+        "article_content_sha256": _text_hash(_public_copy(article)),
+        "compiler_input_sha256": _hash(compiler_article),
+        "accepted_evidence_ids": list(
+            qualified_record.get("accepted_evidence_ids") or []
+        ),
+        "accepted_evidence_sha256": str(
+            qualified_record.get("accepted_evidence_sha256") or ""
+        ),
+        "public_write_performed": False,
+    }
+    _write_json(output_dir / "run_context_v1.json", context)
+
+    preview_packages = dict(native_previews.get("packages") or {})
+    destinations: list[dict[str, Any]] = []
+    for destination in V1_REQUIRED_PUBLICATION_DESTINATIONS:
+        registration = registration_for_destination(destination)
+        preview_payload = preview_packages.get(destination)
+        destinations.append(
+            {
+                "destination": destination,
+                "platform": registration.platform,
+                "surface": registration.surface,
+                "transport_type": registration.transport_type,
+                "transport_registry_version": REGISTRY_VERSION,
+                "adapter": registration.adapter,
+                "payload_hash": (
+                    article_identity
+                    if destination == "substack"
+                    else _hash(preview_payload or {})
+                ),
+                "payload_hash_kind": (
+                    "QUALIFIED_SIMPLE_ARTICLE_IDENTITY"
+                    if destination == "substack"
+                    else "PRE_CANONICAL_URL_TEMPLATE"
+                ),
+                "canonical_url": None,
+                "canonical_url_dependency": registration.canonical_url_dependency,
+                "canonical_url_state": (
+                    "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED"
+                    if destination == "substack"
+                    else "PENDING_NON_DISPATCHABLE"
+                ),
+                "expected_destination_identity": registration.expected_identity,
+                "readiness_state": "JIT_VERIFICATION_REQUIRED",
+                "text_only_supported": registration.text_only_supported,
+                "delivery_media_required": registration.delivery_media_required,
+                "rematerialization_after_real_substack_url_required": (
+                    destination != "substack"
+                ),
+            }
+        )
+
+    package_identity = _hash(
+        {
+            "article_identity": article_identity,
+            "article_content_sha256": context["article_content_sha256"],
+            "compiler_input_sha256": context["compiler_input_sha256"],
+            "epistemic_state": dict(epistemic_state or {}),
+            "required_derivative_destinations": list(
+                V1_REQUIRED_DERIVATIVE_DESTINATIONS
+            ),
+        }
+    )
+    plan_core = {
+        "schema_version": "contentops.publication_plan.v1",
+        "bridge_schema_version": PUBLICATION_BRIDGE_SCHEMA_VERSION,
+        "run_id": run_id,
+        "story_identity": str(selected_candidate.get("story_identity") or ""),
+        "update_chain_identity": str(selected_candidate.get("story_identity") or ""),
+        "resolved_article_mode": str(selected_plan_entry.get("article_mode") or ""),
+        "editorial_classification": "QUALIFIED_SIMPLE_GEMINI_ARTICLE",
+        "article_identity": article_identity,
+        "article_content_sha256": context["article_content_sha256"],
+        "compiler_input_sha256": context["compiler_input_sha256"],
+        "accepted_evidence_ids": list(context["accepted_evidence_ids"]),
+        "accepted_evidence_sha256": context["accepted_evidence_sha256"],
+        "source_provenance_binding_preserved": True,
+        "epistemic_state": dict(epistemic_state or {}),
+        "publication_window": {"window_identity": run_id},
+        "package_identity": package_identity,
+        "output_dir": str(output_dir.resolve()),
+        "artifact_refs": {
+            "article_manifest": "article_manifest_v1.json",
+            "qualified_article_record": "qualified_article_record_v1.json",
+            "native_derivative_previews": "native_derivative_previews_v1.json",
+            "derivative_intents": "derivative_intents_v1.json",
+            "epistemic_state": (
+                "simple_epistemic_state_v1.json" if epistemic_state else None
+            ),
+        },
+        "quality_probation_policy_id": V1_QUALITY_PROBATION_POLICY_ID,
+        "full_v1_distribution_required": True,
+        "required_publication_destinations": list(
+            V1_REQUIRED_PUBLICATION_DESTINATIONS
+        ),
+        "required_derivative_destinations": list(
+            V1_REQUIRED_DERIVATIVE_DESTINATIONS
+        ),
+        "destinations": destinations,
+        "skipped_derivative_destinations": [],
+        "pre_substack_blockers": [],
+        "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+        "transport_registry_version": REGISTRY_VERSION,
+        "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+        "substack_first_dependency": True,
+        "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+        "derivative_rematerialization_owner": (
+            "CanonicalDestinationTransportRuntimeV1.finalize_intent"
+        ),
+        "bridge_model_call_count": 0,
+        "bridge_source_get_count": 0,
+        "adapter_callables_persisted": False,
+        "secrets_persisted": False,
+    }
+    return {**plan_core, "plan_hash": _hash(plan_core)}
+
+
 def run_v1_simple_gemini_newsroom(
     *,
     output_dir: str | Path,
@@ -2058,6 +2211,17 @@ def run_v1_simple_gemini_newsroom(
         epistemic_state=selected_epistemic_state,
     )
     persist_qualified_article_record(root, record)
+    publication_lifecycle_plan = _build_simple_publication_lifecycle_plan(
+        run_id=run_id,
+        output_dir=root,
+        selected_candidate=selected,
+        selected_plan_entry=selected_plan_entry,
+        article=article,
+        article_identity=article_identity,
+        native_previews=native_previews,
+        qualified_record=record,
+        epistemic_state=selected_epistemic_state,
+    )
 
     receipt = {
         "schema_version": SCHEMA_VERSION,
@@ -2092,6 +2256,9 @@ def run_v1_simple_gemini_newsroom(
             root / "native_derivative_previews_v1.json"
         ),
         "qualified_record_path": str(root / "qualified_article_record_v1.json"),
+        "publication_lifecycle_plan": publication_lifecycle_plan,
+        "publication_bridge_model_call_count": 0,
+        "publication_bridge_source_get_count": 0,
         "publication_coordinator_remains_sole_public_write_owner": True,
         "public_write_performed": False,
         "provider_publication_writes": 0,

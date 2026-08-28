@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import subprocess
 import sys
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 from live_contentops.v1_simple_gemini_scheduler_process_v1 import (
     CANONICAL_SIMPLE_GEMINI_SCHEDULER_ROOT,
@@ -34,7 +34,7 @@ def _state(state: str, root: Path, *, pid: int | None = None) -> dict:
 
 
 def test_canonical_root_uses_existing_contentops_runtime_convention():
-    assert CANONICAL_SIMPLE_GEMINI_SCHEDULER_ROOT == Path(
+    assert PureWindowsPath(str(CANONICAL_SIMPLE_GEMINI_SCHEDULER_ROOT)) == PureWindowsPath(
         r"A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1"
     )
     assert PROCESS_RUNTIME_DIR_NAME == "process_runtime_v1"
