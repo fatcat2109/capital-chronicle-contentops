@@ -28,7 +28,9 @@ from live_contentops.daily_app_supervisor_v1 import (
     owner_locked_editorial_opportunities,
 )
 from live_contentops.newsroom_production_day_v1 import (
+    LIVE_OUTPUT_COUNT_BASIS,
     bounded_deficit_work_needed,
+    count_reconciled_published_articles,
     load_qualified_article_records,
     newsroom_production_day_id,
     qualified_records_as_published_memory,
@@ -583,6 +585,9 @@ class SimpleGeminiLocalScheduler:
             "exactly_one_routine_editorial_owner": True,
             "routine_editorial_owner": ROUTINE_EDITORIAL_OWNER,
             "published_memory_refresh_count": 0,
+            "published_accounting_refresh_count": 0,
+            "published_articles_before_window": None,
+            "live_output_count_basis": LIVE_OUTPUT_COUNT_BASIS,
             "gemini_logical_call_count": 0,
             "source_get_count": 0,
             "codex_runtime_model_call_count": 0,
@@ -677,6 +682,12 @@ class SimpleGeminiLocalScheduler:
             )
             return report
 
+        canonical_before_window, canonical_accounting_proof = self._published_memory_loader()
+        report["published_accounting_refresh_count"] += 1
+        published_before_window = count_reconciled_published_articles(
+            canonical_before_window, production_day_id=production_day_id
+        )
+        report["published_articles_before_window"] = published_before_window
         qualified_before_window = len(
             load_qualified_article_records(
                 self.scheduler_root,
@@ -687,7 +698,7 @@ class SimpleGeminiLocalScheduler:
             existing_window.get("slot_capacity")
             or bounded_deficit_work_needed(
                 session=session,
-                qualified_articles_today=qualified_before_window,
+                published_articles_today=published_before_window,
             )
         )
         report["slot_capacity"] = slot_capacity
@@ -702,6 +713,10 @@ class SimpleGeminiLocalScheduler:
             "end_utc": str(window["end_utc"]),
             "newsroom_production_day_id": production_day_id,
             "slot_capacity": slot_capacity,
+            "qualified_articles_before_window": qualified_before_window,
+            "published_articles_before_window": published_before_window,
+            "live_output_count_basis": LIVE_OUTPUT_COUNT_BASIS,
+            "canonical_published_accounting_proof": dict(canonical_accounting_proof),
             "state": "RUNNING",
             "terminal": False,
             "public_write_authority": (

@@ -19,6 +19,10 @@ DISPATCH_CONFIRMED = "DISPATCH_CONFIRMED"
 RECONCILED_CONFIRMED = "RECONCILED_CONFIRMED"
 CONTENT_AVAILABLE = "CONTENT_AVAILABLE"
 CONTENT_UNAVAILABLE = "CONTENT_UNAVAILABLE"
+CANONICAL_PUBLICATION_CONTRACT = (
+    "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_"
+    "AND_VALID_CANONICAL_URL"
+)
 
 
 def _sha256_text(value: str) -> str:
@@ -60,6 +64,31 @@ def _valid_canonical_substack_url(value: Any) -> bool:
         and path != "/p/pending-publication"
         and not parsed.username
         and not parsed.password
+    )
+
+
+def _field(value: Any, name: str) -> Any:
+    if isinstance(value, Mapping):
+        return value.get(name)
+    return getattr(value, name, None)
+
+
+def is_countable_canonical_published_article(value: Any) -> bool:
+    """Validate the strict canonical read-model projection shape for live counting.
+
+    Lifecycle authority remains ``load_published_corpus``: it emits a projection only after
+    Substack ``DISPATCH_CONFIRMED`` + exact ``RECONCILED_CONFIRMED`` + valid readback. This
+    predicate prevents partial/arbitrary article refs from entering live production-day counts;
+    it does not duplicate durable lifecycle queries or grant publication authority.
+    """
+    identity = _field(value, "article_identity") or _field(value, "story_identity")
+    return bool(
+        str(identity or "").strip()
+        and str(_field(value, "published_at_utc") or "").strip()
+        and str(_field(value, "public_object_id") or "").strip()
+        and str(_field(value, "canonical_url_hash") or "").strip()
+        and str(_field(value, "source_work_item_id") or "").strip()
+        and _valid_canonical_substack_url(_field(value, "canonical_url"))
     )
 
 
@@ -260,9 +289,7 @@ def load_published_corpus(
         "rejected_unreconciled_dispatch_count": rejected_dispatch_count,
         "canonical_groups_without_substack_count": canonical_groups_without_substack,
         "dedupe_key": "article_identity_else_work_item_id",
-        "canonical_publication_contract": (
-            "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_AND_VALID_CANONICAL_URL"
-        ),
+        "canonical_publication_contract": CANONICAL_PUBLICATION_CONTRACT,
         "derived_from_existing_durable_truth": True,
         "second_publication_store_created": False,
     }
@@ -296,6 +323,8 @@ def load_canonical_published_memory_read_only(
         "schema_version": "contentops.v1_simple_published_memory_access.v1",
         "corpus_schema_version": corpus.get("schema_version"),
         "canonical_reconciled_article_count": len(articles),
+        "canonical_publication_contract": CANONICAL_PUBLICATION_CONTRACT,
+        "derived_from_existing_durable_truth": True,
         "store_access_mode": "SQLITE_MODE_RO_QUERY_ONLY",
         "auto_migrate": False,
         "production_store_unchanged_during_projection": True,

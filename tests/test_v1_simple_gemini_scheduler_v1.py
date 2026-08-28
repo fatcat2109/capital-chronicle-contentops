@@ -242,7 +242,7 @@ def test_due_window_runs_independent_slots_and_refreshes_memory_after_pass(tmp_p
     assert result["slot_terminal_count"] == 2
     assert result["simple_operation_invocation_count"] == 2
     assert result["published_memory_refresh_count"] == 2
-    assert len(memory_calls) == 2
+    assert len(memory_calls) == 3
     assert calls[0]["published_memory_ids"] == []
     assert calls[1]["published_memory_ids"] == ["story-1"]
     assert len({call["run_id"] for call in calls}) == 2
@@ -307,9 +307,10 @@ def test_later_window_allocates_bounded_extra_slots_to_keep_five_reachable(tmp_p
     result = scheduler.tick(now="2026-08-28T16:00:01Z")
     assert result["newsroom_production_day_id"] == day_id
     assert result["session"] == "new_york_2300_bangkok"
-    assert result["slot_capacity"] == 3
-    assert result["simple_operation_invocation_count"] == 3
-    assert len(load_qualified_article_records(tmp_path, production_day_id=day_id)) == 4
+    assert result["slot_capacity"] == 4
+    assert result["simple_operation_invocation_count"] == 4
+    assert result["published_articles_before_window"] == 0
+    assert len(load_qualified_article_records(tmp_path, production_day_id=day_id)) == 5
 
 
 def test_following_0100_window_uses_prior_production_day(tmp_path):
@@ -473,7 +474,7 @@ def test_run_forever_terminal_window_stays_cheap_and_idempotent(tmp_path):
     fixed = datetime.fromisoformat("2026-08-28T10:00:00+00:00")
     scheduler.tick(now=fixed)
     assert len(calls) == 2
-    assert len(memory_calls) == 2
+    assert len(memory_calls) == 3
     scheduler._clock = lambda: fixed
     reports: list[dict] = []
     ticks = scheduler.run_forever(
@@ -488,7 +489,7 @@ def test_run_forever_terminal_window_stays_cheap_and_idempotent(tmp_path):
     ]
     assert all(row["simple_operation_invocation_count"] == 0 for row in reports)
     assert len(calls) == 2
-    assert len(memory_calls) == 2
+    assert len(memory_calls) == 3
 
 
 def test_run_forever_checkpoint_error_propagates_without_blind_retry(tmp_path):

@@ -17,12 +17,17 @@ from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
 )
 from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
+from live_contentops.published_corpus_read_model_v1 import (
+    CANONICAL_PUBLICATION_CONTRACT,
+    is_countable_canonical_published_article,
+)
 
 BANGKOK_TIMEZONE = ZoneInfo("Asia/Bangkok")
 BUILD_QUALIFIED_FLOOR = 4
 FINAL_PUBLISHED_TARGET_MIN = 5
 FINAL_PUBLISHED_TARGET_MAX = 8
 ROUTINE_OPPORTUNITY_LIMIT = 4
+LIVE_OUTPUT_COUNT_BASIS = CANONICAL_PUBLICATION_CONTRACT
 
 STATE_ON_TRACK = "ON_TRACK"
 STATE_DEFICIT_RECOVERABLE = "DEFICIT_RECOVERABLE"
@@ -116,23 +121,33 @@ def remaining_future_routine_windows(session: str) -> int:
     return max(0, ROUTINE_OPPORTUNITY_LIMIT - ordinal) if ordinal else 0
 
 
-def bounded_deficit_work_needed(*, session: str, qualified_articles_today: int) -> int:
-    """Allocate bounded article slots without allowing quota pacing to starve a window.
+def bounded_deficit_work_needed(
+    *,
+    session: str,
+    published_articles_today: Optional[int] = None,
+    qualified_articles_today: Optional[int] = None,
+) -> int:
+    """Allocate bounded article slots from strictly reconciled published output.
 
-    Every valid routine opportunity gets at least one real candidate walk.  Below the final
-    five-article minimum, extra capacity is allocated when needed to keep that minimum reachable
-    through the later routine windows.  Qualification still depends on the normal governed
-    candidate, evidence, truth, and authority gates; this is capacity, never a filler quota.
+    Every valid routine opportunity gets at least one real candidate walk. Below the final
+    five-published-article minimum, extra capacity keeps that minimum reachable through later
+    routine windows. ``qualified_articles_today`` is retained only as a legacy keyword shim for
+    historical callers/tests; current production callers MUST pass ``published_articles_today``.
+    Capacity never grants evidence, truth, or publication authority and never authorizes filler.
     """
     if routine_session_ordinal(session) == 0:
         return 0
-    qualified = max(0, int(qualified_articles_today))
-    if qualified >= FINAL_PUBLISHED_TARGET_MIN:
+    if published_articles_today is None:
+        if qualified_articles_today is None:
+            raise TypeError("published_articles_today_required")
+        published_articles_today = qualified_articles_today
+    published = max(0, int(published_articles_today))
+    if published >= FINAL_PUBLISHED_TARGET_MIN:
         return 1
     return max(
         1,
         FINAL_PUBLISHED_TARGET_MIN
-        - qualified
+        - published
         - remaining_future_routine_windows(session),
     )
 
@@ -497,17 +512,18 @@ def routine_opportunities_used(
     return min(ROUTINE_OPPORTUNITY_LIMIT, len(sessions))
 
 
-def _published_count(
+def count_reconciled_published_articles(
     published_corpus: Sequence[Any], *, production_day_id: str
 ) -> int:
+    """Count only strict canonical published projections for one newsroom day."""
     identities: set[str] = set()
     for value in published_corpus:
+        if not is_countable_canonical_published_article(value):
+            continue
         published_at = getattr(value, "published_at_utc", None)
         identity = getattr(value, "article_identity", None) or getattr(
             value, "story_identity", None
         )
-        if not published_at or not identity:
-            continue
         try:
             if newsroom_production_day_id(str(published_at)) == production_day_id:
                 identities.add(str(identity))
@@ -531,8 +547,19 @@ class NewsroomProductionDaySnapshot:
     routine_opportunities_remaining: int
     bounded_useful_universe_exhausted: bool = False
 
+    @property
+    def remaining_published_deficit(self) -> int:
+        return max(0, int(self.final_published_target_min) - int(self.published_articles_today))
+
+    @property
+    def live_output_count_basis(self) -> str:
+        return LIVE_OUTPUT_COUNT_BASIS
+
     def to_dict(self) -> dict[str, Any]:
-        return asdict(self)
+        payload = asdict(self)
+        payload["remaining_published_deficit"] = self.remaining_published_deficit
+        payload["live_output_count_basis"] = self.live_output_count_basis
+        return payload
 
 
 def build_production_day_snapshot(
@@ -549,7 +576,9 @@ def build_production_day_snapshot(
     qualified = len(
         load_qualified_article_records(output_root, production_day_id=day_id)
     )
-    published = _published_count(published_corpus, production_day_id=day_id)
+    published = count_reconciled_published_articles(
+        published_corpus, production_day_id=day_id
+    )
     used = (
         int(routine_opportunities_used_override)
         if routine_opportunities_used_override is not None
@@ -562,15 +591,16 @@ def build_production_day_snapshot(
     used = min(ROUTINE_OPPORTUNITY_LIMIT, max(0, used))
     remaining = ROUTINE_OPPORTUNITY_LIMIT - used
     deficit = max(0, BUILD_QUALIFIED_FLOOR - qualified)
+    published_deficit = max(0, FINAL_PUBLISHED_TARGET_MIN - published)
     reason = str(hard_external_block_reason or "").strip() or None
-    if deficit == 0:
+    if published_deficit == 0:
         state = STATE_FLOOR_MET
         reason = None
     elif reason:
         state = STATE_HARD_EXTERNAL_BLOCK
     elif bounded_useful_universe_exhausted or remaining == 0:
         state = STATE_DEGRADED_DAILY_OUTPUT_DEFICIT
-    elif qualified >= used:
+    elif published >= used:
         state = STATE_ON_TRACK
     else:
         state = STATE_DEFICIT_RECOVERABLE
