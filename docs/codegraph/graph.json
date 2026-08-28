@@ -84257,7 +84257,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-28T21:03:43Z",
+  "generation_timestamp_utc": "2026-08-28T21:05:51Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84505,7 +84505,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 5219
+      "size_bytes": 5603
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -132389,6 +132389,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "86a1be99c9889ced1c055b609ee5c5fda1351a84",
-  "source_tree_digest": "4093480cc9ca9c8baaa6125c992ec4b680ea1b24fded1b47f9ae067c57ec0b10"
+  "source_head": "406686e7f65666b3dfa38f46e70c8c1616587040",
+  "source_tree_digest": "728021bf2c366b117b3dbeafa00f9405dafdabd51075c73ebd0ff2e8b3673c50"
 }
