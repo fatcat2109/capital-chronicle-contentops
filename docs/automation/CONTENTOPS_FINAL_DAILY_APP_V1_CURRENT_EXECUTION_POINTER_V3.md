@@ -27,7 +27,7 @@ Do not route from stale wording that says routine V1 public-write/readback is un
 
 ## Current editorial path — preserve, do not reopen
 
-Current routine owner is Simple Gemini through `SIMPLE_GEMINI_RUNTIME`.
+Current routine owner is simple Gemini through `SIMPLE_GEMINI_RUNTIME`.
 
 `current sidecars + canonical reconciled published memory -> deterministic dedupe/sourceability order -> <=32 candidates -> one gemini-3.5-flash(high) selection -> one primary + <=2 useful fallbacks -> shared <=6 deterministic source/provenance GETs -> explicit report/event epistemic state -> one Flash writer -> deterministic material-claim/source/epistemic validation -> optional one Flash revision without source expansion -> one qualified article -> exactly eight native derivative packages`.
 
