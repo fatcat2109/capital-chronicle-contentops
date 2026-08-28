@@ -105,4 +105,6 @@ No fifth routine task. Do not repeat the Italy canary merely to prove transport.
 
 Codex is the repo-native builder/debugger/host-proof lane. Inspect fresh remote refs, use CodeGraph, implement only the exact current gap, run focused tests plus one relevant E2E smoke, stage explicit paths, commit/push the task branch, and return evidence.
 
+When the branch CodeGraph workflow creates a generated bot child commit, re-read the fresh remote branch head before audit or merge; never keep using the pre-refresh SHA as current truth.
+
 Do not `git add .` or `git add -A`, force-push, mutate master directly, expose secrets/session material, weaken unknown-write handling, or expand V2 public-write/numeric/legal authority.
