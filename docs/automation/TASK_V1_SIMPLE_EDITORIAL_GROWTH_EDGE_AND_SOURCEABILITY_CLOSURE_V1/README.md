@@ -1,7 +1,7 @@
 # V1 Simple Editorial Growth Edge and Sourceability Closure V1
 
 Authority date: 2026-08-28
-Status: `PARTIAL_PASS_EARLY_ATTRIBUTED_INTELLIGENCE_STATIC_PROVEN / CURRENT_HOST_PROVENANCE_ABSTENTION / DO_NOT_MERGE`
+Status: `PASS_CURRENT_ARTICLE_AND_EIGHT_PREVIEWS / RELAY_RUMOR_RUNTIME_UNOBSERVED / DO_NOT_MERGE`
 
 ## Accepted capability
 
@@ -63,7 +63,7 @@ V1 must separate **report truth** from **event truth**:
 
 Existing `reputable_secondary_source`, attribution-required claim handling, `SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY`, Institutional Edge fact/analysis separation, sourceability ranking, and native packaging are donors to reuse. Do not build a second evidence architecture.
 
-## Exact remaining PR #37 gate
+## Historical PR #37 gate before canonical-X activation
 
 The epistemic adapter is accepted. The remaining source-resolution defect is now corrected inside
 the existing public-secondary loader: when provenance names exactly one reputable publisher and no
