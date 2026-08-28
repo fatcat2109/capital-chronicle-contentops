@@ -129,7 +129,7 @@ jobs:
 
           reset = Path('docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md').read_text(encoding='utf-8')
           desktop_doc = Path('docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md').read_text(encoding='utf-8')
-          desktop_code = Path('live_contentops/codex_desktop_newsroom_operator_v1.py').read_text(encoding='utf-8').lower()
+          desktop_code = Path('live_contentops/codex_desktop_newsroom_operator_v1.py').read_text(encoding='utf-8')
           simple = Path('live_contentops/v1_simple_gemini_newsroom_v1.py').read_text(encoding='utf-8').lower()
           from live_contentops.production_orchestrator_v1 import CANONICAL_OPERATIONS
           from live_contentops.nine_router_llm_seam_v2 import integration_manifest
