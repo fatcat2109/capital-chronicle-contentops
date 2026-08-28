@@ -1,0 +1,63 @@
+name: v1-accounting-web-patch-v2
+
+on:
+  push:
+    branches:
+      - 'agent/web-v1-reconciled-published-count-accounting-v1'
+    paths:
+      - '.github/workflows/v1-accounting-web-patch-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: agent/web-v1-reconciled-published-count-accounting-v1
+          fetch-depth: 0
+
+      - name: Reuse bounded patch source with corrected scheduler-test update
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import textwrap
+
+          workflow = Path('.github/workflows/v1-accounting-web-patch.yml').read_text(encoding='utf-8')
+          start_marker = "          python - <<'PY'\n"
+          end_marker = "\n          PY\n\n      - name: Add focused accounting regressions"
+          patch = workflow.split(start_marker, 1)[1].split(end_marker, 1)[0]
+          patch = textwrap.dedent(patch)
+          old = "replace_once(path, 'assert len(memory_calls) == 2\\n', 'assert len(memory_calls) == 3\\n')"
+          new = """p = Path(path)\n          text = p.read_text(encoding='utf-8')\n          if text.count('assert len(memory_calls) == 2\\n') < 1:\n              raise SystemExit('scheduler memory-call assertions missing')\n          p.write_text(text.replace('assert len(memory_calls) == 2\\n', 'assert len(memory_calls) == 3\\n'), encoding='utf-8', newline='\\n')"""
+          if patch.count(old) != 1:
+              raise SystemExit('scheduler test patch marker mismatch')
+          patch = patch.replace(old, new, 1)
+          exec(compile(patch, '<accounting-patch>', 'exec'), {})
+
+          test_start = "          cat > tests/test_v1_reconciled_published_count_accounting_v1.py <<'PY'\n"
+          test_end = "\n          PY\n\n      - name: Commit explicit paths"
+          test_body = workflow.split(test_start, 1)[1].split(test_end, 1)[0]
+          Path('tests/test_v1_reconciled_published_count_accounting_v1.py').write_text(
+              textwrap.dedent(test_body) + '\n', encoding='utf-8', newline='\n'
+          )
+          PY
+
+      - name: Commit explicit accounting paths
+        shell: bash
+        run: |
+          git config user.name 'contentops-ci'
+          git config user.email 'contentops-ci@users.noreply.github.com'
+          git add live_contentops/published_corpus_read_model_v1.py
+          git add live_contentops/newsroom_production_day_v1.py
+          git add live_contentops/v1_simple_gemini_scheduler_v1.py
+          git add live_contentops/daily_app_supervisor_v1.py
+          git add tests/test_v1_simple_gemini_scheduler_v1.py
+          git add tests/test_v1_reconciled_published_count_accounting_v1.py
+          git diff --check --cached
+          git commit -m 'fix(v1): count reconciled canonical publications for live output'
+          git push origin HEAD:agent/web-v1-reconciled-published-count-accounting-v1
