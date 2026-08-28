@@ -143,6 +143,25 @@ def _validate_plan(plan: Mapping[str, Any], *, slot_id: str, record: Mapping[str
     return value
 
 
+def _recovery_unknown_detected(recovery: Mapping[str, Any]) -> bool:
+    if int(recovery.get("marked_unknown") or 0) > 0:
+        return True
+    for row in recovery.get("backlog_remaining_obligations") or []:
+        if not isinstance(row, Mapping):
+            continue
+        if "UNKNOWN_WRITE" in {
+            str(row.get("durable_status") or ""),
+            str(row.get("blocking_status") or ""),
+        }:
+            return True
+    per_destination = recovery.get("per_destination")
+    if isinstance(per_destination, Mapping):
+        for row in per_destination.values():
+            if isinstance(row, Mapping) and str(row.get("status") or "") == "UNKNOWN_WRITE":
+                return True
+    return False
+
+
 class SimplePublicationHandoffV1:
     """Bind qualified Simple artifacts to the existing durable publication owner."""
 
@@ -259,6 +278,13 @@ class SimplePublicationHandoffV1:
             state = "PUBLICATION_RECOVERY_REQUIRED"
         else:
             state = "PUBLICATION_BLOCKED"
+        per_destination = result.get("per_destination")
+        per_destination = per_destination if isinstance(per_destination, Mapping) else {}
+        provider_publication_writes = sum(
+            1
+            for row in per_destination.values()
+            if isinstance(row, Mapping) and row.get("publish_called") is True
+        )
         return {
             "schema_version": SCHEMA_VERSION,
             "state": state,
@@ -271,7 +297,9 @@ class SimplePublicationHandoffV1:
             "derivative_confirmed_count": int(result.get("derivative_confirmed_count") or 0),
             "derivative_attempted_count": int(result.get("derivative_attempted_count") or 0),
             "public_write_performed": bool(result.get("public_write_performed")),
+            "provider_publication_writes": provider_publication_writes,
             "unknown_write_detected": unknown,
+            "unknown_write_count": int(unknown),
             "publication_coordinator_dispatched": True,
             "bridge_model_call_count": 0,
             "bridge_source_get_count": 0,
@@ -305,6 +333,7 @@ class SimplePublicationHandoffV1:
         recovery = self.recover_preflight()
         if int(recovery.get("backlog_remaining") or 0) > 0:
             plan = self.ensure_plan(slot_id=slot_id, slot_output_dir=slot_output_dir)
+            unknown_write_detected = _recovery_unknown_detected(recovery)
             return {
                 "schema_version": SCHEMA_VERSION,
                 "state": "PUBLICATION_RECOVERY_REQUIRED",
@@ -317,7 +346,9 @@ class SimplePublicationHandoffV1:
                 "derivative_confirmed_count": 0,
                 "derivative_attempted_count": 0,
                 "public_write_performed": bool(recovery.get("publish_calls")),
-                "unknown_write_detected": True,
+                "provider_publication_writes": int(recovery.get("publish_calls") or 0),
+                "unknown_write_detected": unknown_write_detected,
+                "unknown_write_count": int(unknown_write_detected),
                 "publication_coordinator_dispatched": False,
                 "bridge_model_call_count": 0,
                 "bridge_source_get_count": 0,

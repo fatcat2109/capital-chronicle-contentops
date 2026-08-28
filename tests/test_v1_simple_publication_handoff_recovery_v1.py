@@ -165,7 +165,17 @@ def test_ambiguous_or_unresolved_recovery_backlog_never_registers_or_republishes
     class Coordinator:
         def recover_pending(self):
             events.append("recover")
-            return {"backlog_remaining": 1, "publish_calls": 0}
+            return {
+                "backlog_remaining": 1,
+                "publish_calls": 0,
+                "marked_unknown": 0,
+                "backlog_remaining_obligations": [
+                    {
+                        "durable_status": "READY",
+                        "blocking_status": "WAITING_CANONICAL_URL",
+                    }
+                ],
+            }
 
         def register_plan(self, *_args, **_kwargs):
             pytest.fail("unresolved recovery backlog must block current-plan registration")
@@ -180,6 +190,8 @@ def test_ambiguous_or_unresolved_recovery_backlog_never_registers_or_republishes
     assert result["state"] == "PUBLICATION_RECOVERY_REQUIRED"
     assert result["plan_hash"] == plan["plan_hash"]
     assert result["publication_coordinator_dispatched"] is False
+    assert result["unknown_write_detected"] is False
+    assert result["unknown_write_count"] == 0
     assert result["bridge_model_call_count"] == 0
     assert result["bridge_source_get_count"] == 0
 
