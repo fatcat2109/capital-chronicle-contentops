@@ -27,8 +27,12 @@ The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` is repository eviden
 - Four-window Simple scheduler mechanics, deterministic production-day/window/slot identity, persistent exactly-one-process zero-write host proof.
 - Merged PR #38: post-acceptance authority/static-safety closure and emergency-stop/process-ownership coverage for the canonical Simple scheduler/runtime.
 - Merged PR #39: current production composition has exactly one routine editorial owner, `SIMPLE_GEMINI_RUNTIME`; Native Desktop/legacy rolling-X are compatibility-only/non-routing.
+- Corrected PR #42 routine Simple publication handoff: the persistent scheduler/runner injects one adapter into the existing `DurablePublicationCoordinator`; Simple semantic work stays zero-write; stable slot identity is the durable work-item identity; the coordinator plan is persisted/reconstructed without model/source re-execution; recovery runs before fresh work; interrupted qualified slots resume without rerunning Gemini; unresolved backlog blocks current-plan registration/republication; terminal duplicates do not duplicate semantic/public intent.
 - Durable V1 store, destination registry, canonical Substack-first publication coordinator, destination transports, strict readback/reconciliation, and UNKNOWN-write recovery mechanics.
+- Existing canonical-first coordinator/native compiler behavior: real reconciled `/p/...` identity before zero-model/zero-GET exactly-eight derivative rematerialization while preserving article/source/provenance/epistemic identity.
 - Historical Italy nine-surface canary as proof that the publication stack can complete one Substack + eight derivatives with strict reconciliation.
+
+The corrected PR #42 classification is repository/CI proof only. It does not establish today's production DB recovery state, browser/account identity, destination readiness, or a new real public write.
 
 ### `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY`
 
@@ -36,16 +40,15 @@ The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` is repository eviden
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-Only two implementation gaps remain:
+Only one implementation gap remains:
 
-- A current production bridge from the accepted Simple qualified article/native package into the existing `DurablePublicationCoordinator` without rebuilding transports or creating another publisher/store/package stack.
-- Live production-day accounting must distinguish qualified editorial output from strictly reconciled published output; publication failure must not count as a successful published article.
+- Live production-day accounting must distinguish qualified editorial output from strictly reconciled published output; publication failure, deferral, or ambiguity must not count as a successful published article or satisfy live deficit pacing.
 
-Single-owner production composition and Simple emergency-stop/process coverage are closed. Do not reissue them unless fresh current code proves a regression.
+Single-owner production composition, Simple emergency-stop/process coverage, and the actual routine Simple publication handoff are closed. Do not reissue them unless fresh current code proves a regression.
 
 ### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-After the bridge/accounting implementation and before the first new live V1 write, prove read-only current host state: production DB integrity/schema, no unresolved UNKNOWN write or ambiguous dispatch/recovery backlog, exactly one production owner/process, exact Edge `contentops-social-main` publication profile on CDP 9223, exact account/destination identities, and fresh nine-destination readiness. Do not inspect or expose secrets/session material.
+After published/reconciled accounting implementation and before the first new live V1 write, prove read-only current host state: production DB integrity/schema, no unresolved UNKNOWN write or ambiguous dispatch/recovery backlog, exactly one production owner/process, exact Edge `contentops-social-main` publication profile on CDP 9223, exact account/destination identities, and fresh nine-destination readiness. Do not inspect or expose secrets/session material.
 
 ### `SUPERSEDED_DO_NOT_REUSE`
 
@@ -55,12 +58,13 @@ After the bridge/accounting implementation and before the first new live V1 writ
 - Any authority statement that routine V1 public-write/readback remains ungranted or that V1 acceptance is still pending.
 - Pre-PR38 claims that Simple emergency-stop/process coverage is missing.
 - Pre-PR39 claims that current routine production ownership is ambiguous.
+- Pre-correction PR #42 claims that a component-level supervisor bridge proves the actual persistent scheduler route.
 
 ## 3. Current activation sequence
 
-The accepted V1 product is not to be rebuilt. PR #38 and PR #39 already closed repository static safety/emergency-stop and single-owner composition. Activation now proceeds in the remaining bounded slices:
+The accepted V1 product is not to be rebuilt. PR #38/PR #39 and corrected PR #42 close repository static safety/emergency-stop, single-owner composition, and the actual routine Simple publication handoff. Activation now proceeds in the remaining bounded slices:
 
-1. **Simple -> existing publication coordinator integration + published accounting.** Wire one accepted Simple qualified article/package into the sole existing canonical publication coordinator, preserve canonical Substack-first ordering and exact eight derivatives, and make published/reconciled count distinct from qualified count. No live write required for implementation tests.
+1. **Published/reconciled production-day accounting.** Preserve qualified-count telemetry, but make live health/deficit/counting use only strictly reconciled canonical publications from the existing durable publication/readback truth. No second ledger/store and no live write required for implementation tests.
 2. **Current-host read-only activation preflight.** Revalidate production store/recovery state, current browser/account identities, destination readiness, exactly-one owner/process, and zero unresolved UNKNOWN write. No public write during preflight.
 3. **One live V1 end-to-end canary under already granted routine authority.** One fresh governed article only: Simple editorial path -> canonical Substack -> exactly eight derivative destinations -> strict readback/reconciliation. Stop immediately on wrong identity, unresolved UNKNOWN write, destructive mutation, or ambiguous public-object identity.
 4. **Routine production enablement.** Only after the canary is strictly reconciled should the four owner-locked windows run live toward 5–8 useful published articles per production day. No filler and no fifth routine task.
@@ -80,6 +84,6 @@ The accepted V1 product is not to be rebuilt. PR #38 and PR #39 already closed r
 
 ## 5. What acceptance means now
 
-`V1_FINAL_PRODUCT_ACCEPTED` is an owner product decision and is already true. It does not mean every current host session is proven healthy or that a missing production bridge may be assumed. Remaining work is activation/integration/revalidation of accepted capabilities, not a new V1 product-acceptance campaign.
+`V1_FINAL_PRODUCT_ACCEPTED` is an owner product decision and is already true. It does not mean every current host session is proven healthy. The routine publication bridge is now repository/CI-proven; the remaining work is published accounting, then current-host revalidation and live activation—not another product-acceptance campaign.
 
 A below-target live production day remains `DEGRADED_DAILY_OUTPUT_DEFICIT` absent an exact hard external blocker. Candidate-level abstention remains valid; whole-day silent success does not.
