@@ -166,7 +166,7 @@ Quiet day is not silent-day permission. Lower materiality or choose another mode
 
 Final live target is **5–8 PUBLISHED ARTICLES** per newsroom production day, each useful and non-filler.
 
-The historical zero-write 4/32 benchmark remains telemetry/economics evidence, not a launch or acceptance prerequisite.
+Historical zero-write benchmark: **4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS** per newsroom production day. It remains telemetry/economics evidence, not a launch or acceptance prerequisite.
 
 Candidate-level abstention is valid. Whole-day silent success below the live target without an exact hard external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
 
