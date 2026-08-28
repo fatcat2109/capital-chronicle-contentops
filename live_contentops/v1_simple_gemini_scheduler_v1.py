@@ -1,9 +1,13 @@
-"""Lightweight local scheduler for the current zero-write Simple-Gemini V1 operation.
+"""Lightweight local scheduler for the current Simple-Gemini V1 operation.
 
-The scheduler owns no newsroom, candidate frontier, publication database, or public-write path.
-It reuses the owner-locked four-window calendar, production-day accounting, canonical reconciled
-published-memory read model, and exact one-article production orchestrator operation. Durable JSON
-checkpoints are local execution receipts only; they never become publication authority.
+The scheduler owns no newsroom, candidate frontier, publication database, transport, or second
+public-write path. It reuses the owner-locked four-window calendar, production-day accounting,
+canonical reconciled published-memory read model, and exact one-article production orchestrator
+operation. The Simple semantic operation remains zero-write. When the production composition
+injects the existing publication handoff, a qualified slot is delegated to the sole existing
+``DurablePublicationCoordinator`` and its canonical store/recovery authority.
+
+Durable JSON checkpoints are execution receipts only. They never become publication authority.
 """
 
 from __future__ import annotations
@@ -51,7 +55,10 @@ STATE_DIRECTORY_NAME = "simple_gemini_scheduler_state_v1"
 TRIGGER_SCHEDULED = "SCHEDULED"
 ROUTINE_EDITORIAL_OWNER = SIMPLE_GEMINI_RUNTIME
 TERMINAL_SLOT_STATES = frozenset(
-    {"QUALIFIED", "ABSTAINED", "BLOCKED", "SAFETY_BLOCKED"}
+    {"PUBLISHED", "QUALIFIED", "ABSTAINED", "BLOCKED", "SAFETY_BLOCKED"}
+)
+PUBLICATION_NONTERMINAL_STATES = frozenset(
+    {"PUBLICATION_PENDING", "PUBLICATION_RECOVERY_REQUIRED", "PUBLICATION_BLOCKED"}
 )
 
 SimpleOperation = Callable[..., Mapping[str, Any]]
@@ -59,7 +66,7 @@ PublishedMemoryLoader = Callable[[], tuple[Sequence[Any], Mapping[str, Any]]]
 
 
 class SimpleGeminiSchedulerSafetyError(RuntimeError):
-    """A zero-write or per-article ceiling invariant was violated."""
+    """A zero-write semantic or per-article ceiling invariant was violated."""
 
     def __init__(self, blockers: Sequence[str]) -> None:
         self.blockers = tuple(sorted({str(value) for value in blockers if str(value)}))
@@ -237,6 +244,7 @@ def _dedupe_memory(values: Sequence[Any]) -> list[Any]:
 
 
 def _result_safety_blockers(result: Mapping[str, Any]) -> list[str]:
+    """Validate only the zero-write Simple semantic result, never coordinator output."""
     blockers: list[str] = []
     if int(result.get("candidate_count") or 0) > MAX_SELECTION_CANDIDATES:
         blockers.append("selection_candidate_ceiling_exceeded")
@@ -271,6 +279,41 @@ def _result_safety_blockers(result: Mapping[str, Any]) -> list[str]:
     return blockers
 
 
+def _publication_fields(result: Mapping[str, Any]) -> dict[str, Any]:
+    return {
+        "publication_state": str(result.get("state") or "PUBLICATION_RECOVERY_REQUIRED"),
+        "publication_work_item_id": str(result.get("work_item_id") or "") or None,
+        "publication_plan_hash": str(result.get("plan_hash") or "") or None,
+        "canonical_article_real_published": bool(
+            result.get("canonical_article_real_published")
+        ),
+        "canonical_url": result.get("canonical_url"),
+        "distribution_status": result.get("distribution_status"),
+        "derivative_confirmed_count": int(result.get("derivative_confirmed_count") or 0),
+        "derivative_attempted_count": int(result.get("derivative_attempted_count") or 0),
+        "publication_coordinator_dispatched": bool(
+            result.get("publication_coordinator_dispatched")
+        ),
+        "public_write_performed": bool(result.get("public_write_performed")),
+        "provider_publication_writes": int(
+            result.get("provider_publication_writes")
+            or result.get("publication_write_attempt_count")
+            or 0
+        ),
+        "unknown_write_count": int(
+            result.get("unknown_write_count")
+            or int(bool(result.get("unknown_write_detected")))
+        ),
+        "unknown_write_detected": bool(result.get("unknown_write_detected")),
+        "publication_bridge_model_call_count": int(
+            result.get("bridge_model_call_count") or 0
+        ),
+        "publication_bridge_source_get_count": int(
+            result.get("bridge_source_get_count") or 0
+        ),
+    }
+
+
 class SimpleGeminiLocalScheduler:
     """Tick-driven local owner of exactly the existing four routine opportunities."""
 
@@ -283,6 +326,7 @@ class SimpleGeminiLocalScheduler:
         policy: EditorialWindowPolicy | None = None,
         simple_operation: SimpleOperation | None = None,
         published_memory_loader: PublishedMemoryLoader | None = None,
+        publication_handoff: Any = None,
         clock: Callable[[], datetime] | None = None,
     ) -> None:
         self.scheduler_root = Path(scheduler_root).resolve()
@@ -295,6 +339,7 @@ class SimpleGeminiLocalScheduler:
         self._simple_operation = (
             simple_operation or self._execute_canonical_simple_operation
         )
+        self._publication_handoff = publication_handoff
         self._source_route_health_path = (
             Path(published_memory_output_root).resolve()
             / "source_route_health_v1.json"
@@ -340,7 +385,6 @@ class SimpleGeminiLocalScheduler:
         return self.scheduler_root / production_day_id / window_id / slot_id
 
     def _currently_due_windows(self, now: datetime) -> list[dict[str, Any]]:
-        # Kept separate from policy enumeration to make the exact due horizon obvious and testable.
         rows = owner_locked_editorial_opportunities(
             self.policy,
             reference_utc=now,
@@ -436,6 +480,92 @@ class SimpleGeminiLocalScheduler:
             "published_memory_access": dict(memory_proof),
         }
 
+    def _resume_interrupted_publication_slots(self) -> dict[str, Any]:
+        summary = {
+            "resume_attempt_count": 0,
+            "resumed_published_count": 0,
+            "pending_recovery": False,
+            "public_write_performed": False,
+            "provider_publication_writes": 0,
+            "unknown_write_count": 0,
+            "publication_coordinator_dispatched": False,
+        }
+        if self._publication_handoff is None:
+            return summary
+        state_root = self.scheduler_root / STATE_DIRECTORY_NAME
+        if not state_root.exists():
+            return summary
+        for slot_path in sorted(state_root.glob("**/slots/*.json")):
+            prior = _load_checkpoint(
+                slot_path,
+                schema_version=SLOT_CHECKPOINT_SCHEMA_VERSION,
+            )
+            if prior.get("terminal") is True:
+                continue
+            output_dir = Path(str(prior.get("output_dir") or ""))
+            if not output_dir.is_dir() or not (
+                output_dir / "qualified_article_record_v1.json"
+            ).is_file():
+                continue
+            summary["resume_attempt_count"] += 1
+            try:
+                publication = dict(
+                    self._publication_handoff.resume(
+                        slot_id=str(prior.get("slot_id") or slot_path.stem),
+                        slot_output_dir=output_dir,
+                    )
+                    or {}
+                )
+            except Exception as exc:  # recovery remains no-model and fail-closed
+                publication = {
+                    "state": "PUBLICATION_RECOVERY_REQUIRED",
+                    "publication_coordinator_dispatched": False,
+                    "public_write_performed": False,
+                    "unknown_write_detected": True,
+                    "unknown_write_count": 1,
+                    "safe_error_classification": type(exc).__name__,
+                }
+            publication_state = str(
+                publication.get("state") or "PUBLICATION_RECOVERY_REQUIRED"
+            )
+            published = publication_state == "PUBLISHED"
+            updated = {
+                **{
+                    key: value
+                    for key, value in prior.items()
+                    if key != "checkpoint_sha256"
+                },
+                "state": publication_state,
+                "terminal": published,
+                "exact_next_blocker": (
+                    None if published else "PUBLICATION_RECOVERY_REQUIRED"
+                ),
+                **_publication_fields(publication),
+            }
+            _write_checkpoint(slot_path, updated)
+            summary["resumed_published_count"] += int(published)
+            summary["public_write_performed"] = bool(
+                summary["public_write_performed"]
+                or publication.get("public_write_performed")
+            )
+            summary["provider_publication_writes"] += int(
+                publication.get("provider_publication_writes")
+                or publication.get("publication_write_attempt_count")
+                or 0
+            )
+            summary["unknown_write_count"] += int(
+                publication.get("unknown_write_count")
+                or int(bool(publication.get("unknown_write_detected")))
+            )
+            summary["publication_coordinator_dispatched"] = bool(
+                summary["publication_coordinator_dispatched"]
+                or publication.get("publication_coordinator_dispatched")
+            )
+            if not published:
+                summary["pending_recovery"] = True
+                break
+        return summary
+
     def tick(self, *, now: datetime | str | None = None) -> dict[str, Any]:
         moment = _parse_utc(now or self._clock())
         report: dict[str, Any] = {
@@ -463,9 +593,26 @@ class SimpleGeminiLocalScheduler:
             "native_desktop_routine_invocation_count": 0,
             "legacy_rolling_x_routine_invocation_count": 0,
             "publication_coordinator_dispatched": False,
+            "publication_resume": None,
+            "publication_recovery_preflight": None,
             "classification": "IDLE_NOT_DUE",
             "slots": [],
         }
+        if self._publication_handoff is not None:
+            resumed = self._resume_interrupted_publication_slots()
+            report["publication_resume"] = resumed
+            report["public_write_performed"] = bool(resumed["public_write_performed"])
+            report["provider_publication_writes"] = int(
+                resumed["provider_publication_writes"]
+            )
+            report["unknown_write_count"] = int(resumed["unknown_write_count"])
+            report["publication_coordinator_dispatched"] = bool(
+                resumed["publication_coordinator_dispatched"]
+            )
+            if resumed["pending_recovery"]:
+                report["classification"] = "PUBLICATION_RECOVERY_PENDING"
+                return report
+
         due = self._currently_due_windows(moment)
         report["due_window_count"] = len(due)
         if not due:
@@ -476,9 +623,6 @@ class SimpleGeminiLocalScheduler:
         window_id = str(window["opportunity_id"])
         production_day_id = newsroom_production_day_id(str(window["start_utc"]))
         session = str(window["session"])
-        # A grace tick after the following-01:00 window ends must still write any qualified record
-        # to that window's prior production day. Clamp the semantic cutoff inside the window while
-        # retaining the actual tick timestamp separately for observability.
         operation_cutoff = min(
             moment,
             _parse_utc(str(window["end_utc"])) - timedelta(microseconds=1),
@@ -560,12 +704,45 @@ class SimpleGeminiLocalScheduler:
             "slot_capacity": slot_capacity,
             "state": "RUNNING",
             "terminal": False,
-            "public_write_authority": "ZERO",
+            "public_write_authority": (
+                "DELEGATED_TO_DURABLE_PUBLICATION_COORDINATOR"
+                if self._publication_handoff is not None
+                else "ZERO"
+            ),
         }
         _write_checkpoint(window_path, window_claim)
 
+        if self._publication_handoff is not None:
+            recovery = dict(self._publication_handoff.recover_preflight() or {})
+            report["publication_recovery_preflight"] = recovery
+            report["public_write_performed"] = bool(
+                report["public_write_performed"] or recovery.get("publish_calls")
+            )
+            report["provider_publication_writes"] += int(
+                recovery.get("publish_calls") or 0
+            )
+            if int(recovery.get("backlog_remaining") or 0) > 0 or recovery.get(
+                "backlog_blocking_new_publication"
+            ) is True:
+                report["classification"] = "PUBLICATION_RECOVERY_PENDING"
+                _write_checkpoint(
+                    window_path,
+                    {
+                        **{
+                            key: value
+                            for key, value in window_claim.items()
+                            if key != "checkpoint_sha256"
+                        },
+                        "state": "PUBLICATION_RECOVERY_PENDING",
+                        "terminal": False,
+                        "publication_recovery_preflight": recovery,
+                    },
+                )
+                return report
+
         slot_receipts: list[dict[str, Any]] = []
         safety_error: SimpleGeminiSchedulerSafetyError | None = None
+        publication_recovery_pending = False
         for ordinal in range(1, slot_capacity + 1):
             slot_id = simple_gemini_slot_id(
                 production_day_id=production_day_id,
@@ -586,6 +763,56 @@ class SimpleGeminiLocalScheduler:
                 slot_receipts.append(prior_slot)
                 continue
             if prior_slot and prior_slot.get("terminal") is not True:
+                slot_output_dir = Path(str(prior_slot.get("output_dir") or ""))
+                can_resume_publication = bool(
+                    self._publication_handoff is not None
+                    and slot_output_dir.is_dir()
+                    and (slot_output_dir / "qualified_article_record_v1.json").is_file()
+                )
+                if can_resume_publication:
+                    try:
+                        publication = dict(
+                            self._publication_handoff.resume(
+                                slot_id=slot_id,
+                                slot_output_dir=slot_output_dir,
+                            )
+                            or {}
+                        )
+                    except Exception as exc:
+                        publication = {
+                            "state": "PUBLICATION_RECOVERY_REQUIRED",
+                            "publication_coordinator_dispatched": False,
+                            "public_write_performed": False,
+                            "unknown_write_detected": True,
+                            "unknown_write_count": 1,
+                            "safe_error_classification": type(exc).__name__,
+                        }
+                    published = str(publication.get("state") or "") == "PUBLISHED"
+                    resumed = {
+                        **{
+                            key: value
+                            for key, value in prior_slot.items()
+                            if key != "checkpoint_sha256"
+                        },
+                        "state": str(
+                            publication.get("state")
+                            or "PUBLICATION_RECOVERY_REQUIRED"
+                        ),
+                        "terminal": published,
+                        "exact_next_blocker": (
+                            None if published else "PUBLICATION_RECOVERY_REQUIRED"
+                        ),
+                        **_publication_fields(publication),
+                    }
+                    _write_checkpoint(slot_path, resumed)
+                    persisted = _load_checkpoint(
+                        slot_path, schema_version=SLOT_CHECKPOINT_SCHEMA_VERSION
+                    )
+                    slot_receipts.append(persisted)
+                    if not published:
+                        publication_recovery_pending = True
+                        break
+                    continue
                 interrupted = {
                     **{
                         key: value
@@ -628,7 +855,11 @@ class SimpleGeminiLocalScheduler:
                 "output_dir": str(slot_output_dir),
                 "state": "RUNNING",
                 "terminal": False,
-                "public_write_authority": "ZERO",
+                "public_write_authority": (
+                    "DELEGATED_TO_DURABLE_PUBLICATION_COORDINATOR"
+                    if self._publication_handoff is not None
+                    else "ZERO"
+                ),
             }
             _write_checkpoint(slot_path, claim)
             qualified_before = len(
@@ -660,9 +891,7 @@ class SimpleGeminiLocalScheduler:
                         ),
                     )
                 )
-            except (
-                Exception
-            ) as exc:  # fail closed; never blind-retry an interrupted semantic slot
+            except Exception as exc:
                 result = {
                     "classification": "BLOCKED_SIMPLE_OPERATION_EXCEPTION",
                     "exact_next_blocker": type(exc).__name__,
@@ -693,6 +922,76 @@ class SimpleGeminiLocalScheduler:
             else:
                 state = "BLOCKED"
                 blockers.append("simple_result_and_qualified_record_inconsistent")
+
+            if state == "QUALIFIED" and self._publication_handoff is not None:
+                pending = self._slot_terminal_payload(
+                    claim=claim,
+                    result=result,
+                    state="PUBLICATION_PENDING",
+                    blockers=(),
+                    qualified_count_before=qualified_before,
+                    qualified_count_after=qualified_after,
+                    memory_proof=memory_proof,
+                )
+                pending["terminal"] = False
+                pending["public_write_authority"] = (
+                    "DELEGATED_TO_DURABLE_PUBLICATION_COORDINATOR"
+                )
+                _write_checkpoint(slot_path, pending)
+                returned_plan = result.get("publication_lifecycle_plan")
+                returned_plan = (
+                    returned_plan if isinstance(returned_plan, Mapping) else None
+                )
+                try:
+                    publication = dict(
+                        self._publication_handoff.publish(
+                            slot_id=slot_id,
+                            slot_output_dir=slot_output_dir,
+                            returned_plan=returned_plan,
+                        )
+                        or {}
+                    )
+                except Exception as exc:
+                    publication = {
+                        "state": "PUBLICATION_RECOVERY_REQUIRED",
+                        "publication_coordinator_dispatched": False,
+                        "public_write_performed": False,
+                        "unknown_write_detected": True,
+                        "unknown_write_count": 1,
+                        "safe_error_classification": type(exc).__name__,
+                    }
+                published = str(publication.get("state") or "") == "PUBLISHED"
+                publication_receipt = {
+                    **{
+                        key: value
+                        for key, value in pending.items()
+                        if key != "checkpoint_sha256"
+                    },
+                    "state": (
+                        "PUBLISHED"
+                        if published
+                        else str(
+                            publication.get("state")
+                            or "PUBLICATION_RECOVERY_REQUIRED"
+                        )
+                    ),
+                    "terminal": published,
+                    "exact_next_blocker": (
+                        None if published else "PUBLICATION_RECOVERY_REQUIRED"
+                    ),
+                    **_publication_fields(publication),
+                }
+                _write_checkpoint(slot_path, publication_receipt)
+                persisted_terminal = _load_checkpoint(
+                    slot_path,
+                    schema_version=SLOT_CHECKPOINT_SCHEMA_VERSION,
+                )
+                slot_receipts.append(persisted_terminal)
+                if not published:
+                    publication_recovery_pending = True
+                    break
+                continue
+
             terminal = self._slot_terminal_payload(
                 claim=claim,
                 result=result,
@@ -720,6 +1019,8 @@ class SimpleGeminiLocalScheduler:
                 "classification": row.get("classification"),
                 "exact_next_blocker": row.get("exact_next_blocker"),
                 "article_identity": row.get("article_identity"),
+                "canonical_url": row.get("canonical_url"),
+                "distribution_status": row.get("distribution_status"),
             }
             for row in slot_receipts
         ]
@@ -735,18 +1036,30 @@ class SimpleGeminiLocalScheduler:
         report["codex_runtime_model_call_count"] = sum(
             int(row.get("codex_runtime_model_call_count") or 0) for row in slot_receipts
         )
-        report["public_write_performed"] = any(
-            row.get("public_write_performed") is True for row in slot_receipts
+        report["public_write_performed"] = bool(
+            report["public_write_performed"]
+            or any(row.get("public_write_performed") is True for row in slot_receipts)
         )
-        report["provider_publication_writes"] = sum(
+        report["provider_publication_writes"] += sum(
             int(row.get("provider_publication_writes") or 0) for row in slot_receipts
         )
-        report["unknown_write_count"] = sum(
+        report["unknown_write_count"] += sum(
             int(row.get("unknown_write_count") or 0) for row in slot_receipts
         )
+        report["publication_coordinator_dispatched"] = bool(
+            report["publication_coordinator_dispatched"]
+            or any(
+                row.get("publication_coordinator_dispatched") is True
+                for row in slot_receipts
+            )
+        )
         report["classification"] = (
-            "SAFETY_BLOCKED"
+            "PUBLICATION_RECOVERY_PENDING"
+            if publication_recovery_pending
+            else "SAFETY_BLOCKED"
             if safety_error is not None
+            else "TERMINAL_PUBLISHED"
+            if any(row.get("state") == "PUBLISHED" for row in slot_receipts)
             else "TERMINAL_QUALIFIED"
             if any(row.get("state") == "QUALIFIED" for row in slot_receipts)
             else "TERMINAL_NO_PUBLICATION"
@@ -758,7 +1071,7 @@ class SimpleGeminiLocalScheduler:
                 if key != "checkpoint_sha256"
             },
             "state": report["classification"],
-            "terminal": True,
+            "terminal": not publication_recovery_pending,
             "slot_terminal_count": report["slot_terminal_count"],
             "slot_ids": [row.get("slot_id") for row in slot_receipts],
             "qualified_article_count_before": qualified_before_window,
@@ -775,7 +1088,14 @@ class SimpleGeminiLocalScheduler:
             "provider_publication_writes": report["provider_publication_writes"],
             "unknown_write_count": report["unknown_write_count"],
             "native_codex_automation_routed": False,
-            "publication_coordinator_dispatched": False,
+            "publication_coordinator_dispatched": report[
+                "publication_coordinator_dispatched"
+            ],
+            "public_write_authority": (
+                "DELEGATED_TO_DURABLE_PUBLICATION_COORDINATOR"
+                if self._publication_handoff is not None
+                else "ZERO"
+            ),
         }
         _write_checkpoint(window_path, window_terminal)
         if safety_error is not None:
@@ -790,7 +1110,7 @@ class SimpleGeminiLocalScheduler:
         on_tick: Callable[[Mapping[str, Any]], None] | None = None,
         stop_requested: Callable[[], bool] | None = None,
     ) -> int:
-        """Run cheap local ticks; idle ticks perform no semantic/provider/source work."""
+        """Run cheap local ticks; idle ticks do no semantic/source work unless recovery is pending."""
         if float(poll_seconds) <= 0:
             raise ValueError("simple_gemini_scheduler_poll_seconds_invalid")
         ticks = 0
