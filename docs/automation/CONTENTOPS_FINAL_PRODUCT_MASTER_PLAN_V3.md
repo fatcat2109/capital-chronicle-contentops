@@ -51,6 +51,12 @@ Accepted per-opportunity editorial economics:
 
 Official confirmation is not universal prerequisite. Exact reputable reports, approved newsroom-owned social reports, record-scoped canonical-X relay records, and explicit approved rumor records may support only the narrow propositions their evidence proves. High-harm handling remains stricter.
 
+The current production path now continues from the persistent Simple scheduler into the existing durable publication owner without reopening editorial acceptance:
+
+`due Simple slot -> zero-write Simple semantic result -> qualified artifact + recoverable publication plan -> deterministic slot/work-item identity -> existing DurablePublicationCoordinator -> canonical Substack publish/readback -> real reconciled /p/... URL -> exactly eight native derivative rematerializations/dispatches/readbacks`.
+
+No bridge model call, source GET, second scheduler, second publisher, second packager, or second durable store is introduced.
+
 ## 2. Accepted foundation — reuse, do not rebuild
 
 ### V1
@@ -65,10 +71,12 @@ Official confirmation is not universal prerequisite. Exact reputable reports, ap
 - four-window Simple scheduler mechanics and persistent exactly-one-process zero-write host proof;
 - merged PR #38 post-acceptance authority/static-safety closure plus emergency-stop/process coverage for Simple;
 - merged PR #39 single routine production-owner composition: current Final Daily App -> `SIMPLE_GEMINI_RUNTIME`, with Native Desktop/legacy rolling-X compatibility-only and non-routing;
-- Simple-to-durable publication bridge through the existing coordinator contract: Substack/readback first and exactly-eight native derivative rematerialization only after a real canonical URL, with zero bridge model calls/GETs;
+- corrected routine Simple-to-durable publication bridge on the actual persistent scheduler path: deterministic slot/work-item identity, immutable/reconstructable plan, recover-before-fresh-work, no-model crash resume, duplicate-terminal idempotency, unresolved-backlog fail-closed behavior, and existing canonical-first coordinator/native compiler reuse;
 - durable V1 store, destination registry, canonical Substack-first publication coordinator, destination transports, strict readback/reconciliation, UNKNOWN-write recovery;
 - real historical Italy one-Substack-plus-eight-derivatives canary with all nine reconciled and `UNKNOWN_WRITE=0`;
 - V5 live read model/UI foundation.
+
+The corrected bridge is repository/CI proof only. It does not claim fresh current-host account/session/readiness or a new real public publication.
 
 Do not rebuild any of the above merely because current-host state must be revalidated.
 
@@ -88,18 +96,17 @@ Historical success proves capability; it does not prove today's login/session/to
 
 ## 4. True current V1 implementation gap
 
-The Simple-to-coordinator integration is implemented through the existing publication plan,
-canonical-first coordinator, and native `finalize_intent` compiler seam. The remaining gap is:
+The actual persistent Simple scheduler now delegates a qualified zero-write result through the corrected deterministic handoff into the existing publication plan/coordinator/native `finalize_intent` path. The remaining implementation gap is:
 
 1. **Published-vs-qualified accounting.** Editorial qualification remains useful telemetry, but live daily-output health/counting must be based on strictly reconciled published canonical articles. Publication failure, deferral, or ambiguity cannot count as a successful published article or prematurely satisfy the live deficit calculation.
 
-Merged PR #38 already closes emergency-stop/process coverage. Merged PR #39 already closes single-owner composition. Do not reissue either as implementation work unless fresh code demonstrates regression.
+Merged PR #38 already closes emergency-stop/process coverage. Merged PR #39 already closes single-owner composition. The routine Simple publication handoff is also closed by the corrected PR #42 path and its focused scheduler/crash-recovery tests. Do not reissue any of those as implementation work unless fresh code demonstrates regression.
 
 No V1 transport, durable-store, native-packager, readback, or UNKNOWN-write recovery rebuild is authorized or needed.
 
 ## 5. Current host proof required before first new live write
 
-After bridge/accounting implementation, read-only activation preflight must prove:
+After published/reconciled accounting implementation, read-only activation preflight must prove:
 
 - production DB integrity/schema is healthy;
 - no unresolved `UNKNOWN_WRITE`, ambiguous `DISPATCH_ATTEMPT_STARTED`, or recovery backlog blocks a new write;
@@ -119,13 +126,21 @@ Use small bounded slices, not one giant activation task.
 
 Merged PR #38 closed post-acceptance authority/static-safety, CodeGraph/static routing, and emergency-stop/process coverage for Simple. Merged PR #39 closed the current routine-owner composition. These are evidence, not current work.
 
-### Slice A — Simple publication bridge
+### Closed slice — Simple publication bridge
 
-- build the smallest adapter from the accepted Simple qualified article/article manifest/native-preview artifacts into the existing `DurablePublicationCoordinator` plan contract;
-- preserve canonical Substack-first publication/readback;
-- obtain and validate the real canonical `/p/...` URL before derivative materialization;
-- deterministically rematerialize exactly eight derivatives through the existing native compiler, preserving article identity, epistemic state, platform limits, and native quality invariants;
-- no live write required for implementation validation.
+The actual persistent Simple scheduler path now:
+
+- delegates only a qualified zero-write Simple result to the existing durable publication owner;
+- gives the stable slot identity to the canonical durable work item;
+- persists or deterministically reconstructs the same publication plan from already-qualified artifacts without rerunning selection/writer/source retrieval;
+- runs coordinator recovery before fresh semantic/publication work;
+- resumes an interrupted qualified handoff without rerunning Gemini;
+- completes crash-interrupted registration idempotently through the existing coordinator;
+- blocks current-plan registration/republication while recovery backlog remains;
+- preserves canonical Substack-first publication/readback and real `/p/...` identity before exactly-eight derivative rematerialization;
+- preserves exact article/source/provenance/epistemic identity and zero bridge model/GET work.
+
+Focused deterministic scheduler/coordinator/recovery tests prove this composition without real provider/browser/public writes. Do not reopen this slice unless fresh code regresses it.
 
 ### Slice B — published/reconciled production-day accounting
 
@@ -134,8 +149,6 @@ Merged PR #38 closed post-acceptance authority/static-safety, CodeGraph/static r
 - make live deficit pacing/counting use reconciled published count rather than qualified count;
 - do not create a second publication store or duplicate reconciliation authority;
 - no live write required for implementation validation.
-
-If repository-native planning proves Slice A and Slice B are inseparable without duplicating code or creating unsafe intermediate semantics, they may be implemented in one PR but must remain separately testable and evidenced. Otherwise keep them as separate small PRs.
 
 ### Slice C — current-host read-only activation preflight
 
@@ -160,7 +173,7 @@ Only after Slice D is strictly reconciled, enable the four live windows toward 5
 
 The owner product-acceptance decision is already true. Operational activation is ready when:
 
-1. the Simple->publication bridge is current and tested;
+1. the corrected Simple->publication bridge remains current and tested;
 2. live daily-output accounting counts strictly reconciled published canonical articles, not merely qualified zero-write articles;
 3. current-host read-only preflight passes, including proof that merged single-owner/emergency-stop contracts still hold on the active host;
 4. one fresh live article plus exactly eight derivatives strictly reconcile with `UNKNOWN_WRITE=0`;
