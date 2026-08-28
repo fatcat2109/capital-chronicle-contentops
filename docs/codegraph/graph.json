@@ -84227,7 +84227,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-28T16:33:41Z",
+  "generation_timestamp_utc": "2026-08-28T18:53:26Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84260,7 +84260,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 17282
+      "size_bytes": 10766
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -84465,27 +84465,27 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 20086
+      "size_bytes": 9705
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 10851
+      "size_bytes": 6761
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 6645
+      "size_bytes": 4986
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 17441
+      "size_bytes": 9545
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 18583
+      "size_bytes": 10727
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -84495,7 +84495,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 13727
+      "size_bytes": 8236
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -124030,7 +124030,7 @@
     {
       "id": "scripts/Stop-ContentOpsBackground.ps1",
       "kind": "manifest",
-      "size_bytes": 8176
+      "size_bytes": 8267
     },
     {
       "id": "scripts/analyze_v1_locator_aware_evidence_yield_v1.py",
@@ -124955,7 +124955,7 @@
     {
       "id": "tests/test_contentops_emergency_stop_v1.py",
       "kind": "test",
-      "size_bytes": 4589
+      "size_bytes": 4634
     },
     {
       "id": "tests/test_contentops_ingestion_bootstrap_v1.py",
@@ -132338,6 +132338,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "ba6c2755357b7ab96c7dd76f7d6e2a226d8a5c48",
-  "source_tree_digest": "4ed903fe7c9cb85d95faee8d0d57030efc8aa68d5d2e9dded6dc6ba197a775a3"
+  "source_head": "b96499ad3d074a1f82593a3ecc9aca996e122b02",
+  "source_tree_digest": "465029eeb348706ee48d9ff51a04c885d07a501750936a5570589e8a0a3c1134"
 }

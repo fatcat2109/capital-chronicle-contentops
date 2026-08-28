@@ -81,7 +81,7 @@ function Test-ProvenContentOpsBackgroundProcess($process) {
     $isCanonicalPythonWorker = (
         $name -in @('python.exe', 'pythonw.exe') -and
         $hasCanonicalPath -and
-        $commandLine -match '(?i)(live_contentops[./\\](server|nine_router_preflight_v2)|rolling_x|production_orchestrator|daily_app|tier2_video_factory|run_direct_image_bakeoff)'
+        $commandLine -match '(?i)(live_contentops[./\\](server|nine_router_preflight_v2|v1_simple_gemini_scheduler_v1|v1_simple_gemini_scheduler_process_v1)|simple_gemini_scheduler|rolling_x|production_orchestrator|daily_app|tier2_video_factory|run_direct_image_bakeoff)'
     )
     $isV5NodeWorker = (
         $name -in @('node.exe', 'cmd.exe') -and

@@ -1,218 +1,152 @@
 # ContentOps V1 Current Context Map
 
-Authority date: 2026-08-28
+Authority date: 2026-08-29
 
 This is a curated implementation/discovery map, not product authority. Jim's latest instruction, root authority, fresh GitHub bytes, exact code/tests/evidence, and current runtime evidence outrank this map when they conflict.
 
 ## Current product state
 
-`PR37_EDITORIAL_GROWTH_EDGE_ACCEPTED / PUBLIC_WRITE_READBACK_AUTHORITY_NEXT`
+`V1_FINAL_PRODUCT_ACCEPTED / ROUTINE_PUBLIC_WRITE_GRANTED / ACTIVATION_INTEGRATION_PENDING`
 
-Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
-evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
-current sidecars + canonical reconciled published memory -> deterministic dedupe -> <=32 candidates
--> one strict `gemini-3.5-flash(high)` selection admitting one useful primary and at most two useful
-fallbacks -> one provenance-aware resolver under a shared <=6 deterministic-GET budget (explicit
-attributed reputable report first; otherwise exact bound -> correct same-event official/company-
-primary locator and exact document -> reputable-secondary fallback) -> explicit report/event
-epistemic state -> one Flash writer -> deterministic material-claim/source/epistemic validation -> optional one Flash revision without source
-expansion -> one qualified zero-write article -> exactly eight undispatched intents. Codex runtime
-model calls are zero.
+Current routine editorial ownership is the Simple Gemini runtime, not Desktop Automations or the legacy rolling-X split-phase path.
 
-Exact owner-curated canonical-X records may support narrow `Relay R, citing Publisher P, reports X`
-or explicitly marked `MARKET RUMOR` propositions with zero GETs, while arbitrary social rows remain
-discovery-only and underlying event truth remains unconfirmed.
-
-PR #19 locator/retrieval primitives, PR #20 article/package proof, and PR #29 validate-after concepts
-are reusable donors. PR #30/#31 and native Desktop split-phase routing are historical evidence only.
-
-The current lightweight local scheduler enumerates only the existing four owner windows, derives
-the existing production-day/window identity, allocates stable ordinal slots from
-`bounded_deficit_work_needed()`, and calls the same Simple operation once per slot. Every slot
-reloads canonical reconciled published memory plus valid zero-write qualified records from the
-scheduler root. Hash-bound terminal window/slot checkpoints suppress duplicate/restart work. There
-is no Codex Automation/Desktop, material-event, legacy scheduler, or public-write path.
-
-The canonical persistent root is
-`A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`. One detached process owns it
-through OS lock plus hash-bound PID identity; duplicate start, clean stop/restart, same-root
-recovery, and terminal identity restoration are current-host proven. Existing Chrome 9222 intake
-was resumed and fresh current sidecars were observed. The current-production-day Simple attempt
-reached canonical selection/retrieval and abstained on exact source blockers with independent
-32/6/3/1 ceilings and zero public/provider/unknown writes.
-
-## Canonical product flow
+Accepted editorial flow:
 
 ```text
-owner-locked four-window local tick + production-day/window/slot identity
--> canonical published memory + countable zero-write scheduler memory
--> local headline sidecars
--> ContentOpsProductionOrchestrator.run_v1_simple_gemini_newsroom
--> deterministic published-memory dedupe + sourceability-aware full-universe ordering
--> bounded 9Router/Flash selection over <=32 candidates
--> explicit attributed publisher/relay provenance and report/event epistemic state
--> SimpleFirstPartyAwareEvidenceResolver composing existing official-primary and secondary loaders under one shared <=6 GET budget
--> bounded 9Router/Flash article writer for the first source-qualified candidate
--> deterministic source/claim validation
--> optional one Gemini revision
--> contentops.newsroom_qualified_article.v1
--> exactly eight UNDISPATCHED derivative intents
--> separately authorized DurablePublicationCoordinator
--> strict readback/reconciliation
+current sidecars + canonical reconciled published memory
+-> deterministic dedupe/sourceability ordering
+-> <=32 candidates
+-> one strict gemini-3.5-flash(high) selector
+-> one primary + <=2 useful fallbacks
+-> shared <=6 deterministic source/provenance GETs
+-> exact report-truth/event-truth epistemic state
+-> one Flash writer
+-> deterministic material-claim/source/epistemic validation
+-> optional one Flash revision without source expansion
+-> one qualified article
+-> exactly eight native derivative packages
 ```
 
-Final target remains 5–8 useful published articles/day without filler.
+Codex runtime model calls are zero. Exact canonical-X records may support only narrow relay-of-reporting or explicit market-rumor propositions under the accepted record-scoped provenance contract; underlying event truth remains unconfirmed unless separately proven.
 
-## Editorial modes
+## Current owner state
 
-Current root authority requires the canonical path to support:
+Merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records:
 
-- `BREAKING_BRIEF`
-- `FOLLOW_UP_UPDATE`
-- `STANDARD_NEWS_ANALYSIS`
-- `CAPITAL_CHRONICLE_VIEW`
-- `WHAT_THE_MARKET_IS_MISSING`
-- `EVERGREEN_EXPLAINER`
-- `DATA_OR_DOCUMENT_LENS`
-- `WEEK_AHEAD_OR_WATCH`
+- `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
+- routine V1 public-write/readback authority granted for the accepted V1 path;
+- V2 public-write authority remains zero unless separately granted.
 
-Evidence burden follows claim scope and mode.
-
-One exact authentic official primary source may be sufficient for a narrow attributed breaking fact when it directly proves the event. An issuer/party-authored official source establishes the existence and directly inspectable contents of its own announcement/filing/order/statement, not automatically disputed third-party allegations, misconduct, causality, or future outcomes.
-
-Broader analytical/causal/numeric claims require the stronger public evidence and/or publication-authorized CC authority appropriate to the claim.
-
-Quiet days may lower materiality or choose another mode; they may never lower factual truth, attribution, permission, rights, or numeric authority.
-
-ContentOps may make clearly labeled qualitative editorial inference from accepted public evidence; that is ContentOps editorial judgment, not Core Analyzer authority, and may not be represented as a Core Analyzer conclusion or used to invent reserved proprietary numeric/forecast/probability/scenario/regime/valuation/decision truth.
+Stale wording that still says routine V1 public-write/readback is ungranted or V1 acceptance is pending must not route current work.
 
 ## Canonical implementation path
 
 Current routine implementation areas:
 
-- `live_contentops/v1_simple_gemini_newsroom_v1.py` — selected-story simple runtime;
-- `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model authority;
-- `live_contentops/public_secondary_evidence_loader_v1.py` — deterministic selected-story retrieval;
-- `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger first-party-aware route arbitration;
-- `live_contentops/v1_simple_epistemic_state_v1.py` — report/event proposition, provenance, claim-risk, and reader-label projection;
-- `live_contentops/official_primary_source_locator_v1.py` / `official_primary_evidence_loader_v1.py` — allowlisted locator→exact official/issuer bytes;
-- `live_contentops/newsroom_production_day_v1.py` — provider-neutral qualified zero-write record;
-- `live_contentops/v1_simple_gemini_scheduler_v1.py` — four-window local tick, bounded slots, and
-  hash-bound duplicate/restart suppression;
-- `live_contentops/v1_simple_gemini_scheduler_process_v1.py` — canonical persistent root,
-  exactly-one detached process identity, and clean stop/restart control;
-- `live_contentops/production_orchestrator_v1.py` — canonical public operation boundary;
-- `live_contentops/publication_coordinator_v1.py` and destination registry — sole later public-write path.
+- `live_contentops/v1_simple_gemini_newsroom_v1.py` — accepted selected-story Simple runtime;
+- `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model seam;
+- `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger source/provenance route arbitration;
+- `live_contentops/v1_simple_epistemic_state_v1.py` — report/event proposition, provenance, risk, and reader labels;
+- `live_contentops/public_secondary_evidence_loader_v1.py` plus accepted official-primary locator/loaders — deterministic evidence donors;
+- `live_contentops/newsroom_production_day_v1.py` — qualified-record/production-day foundation;
+- `live_contentops/v1_simple_gemini_scheduler_v1.py` — four-window local tick and deterministic slot checkpoints;
+- `live_contentops/v1_simple_gemini_scheduler_process_v1.py` — persistent exactly-one-process Simple scheduler control;
+- `live_contentops/production_orchestrator_v1.py` — current operation boundary;
+- `live_contentops/publication_coordinator_v1.py` — sole durable public-write/readback/reconciliation owner;
+- `live_contentops/destination_transport_registry_v1.py` — canonical destination transport/readiness registry;
+- `live_contentops/durable_operational_store_v1.py` — single V1 durable state authority;
+- `live_contentops/production_runtime_v1.py` / `daily_app_supervisor_v1.py` — legacy/current production composition seams that must be reconciled so routine ownership is unambiguously Simple before live activation.
 
-The legacy rolling-X monolith, Desktop PREPARE/COMPLETE handoff, broad ready-pool discovery, and
-deficit catch-up loops remain available for historical evidence/compatibility only and do not route
-current routine V1. Use CodeGraph for donor call paths, not to revive superseded ownership.
+Use CodeGraph for exact call paths and affected tests. Do not revive superseded ownership merely because historical code still exists.
 
-The final zero-write current-sidecar canary passed with a current earnings-led article and exact
-material bindings for title, dek, search title, meta description, social hook, and body. The
-lightweight local scheduler now uses the same proven entrypoint and passed bounded due/idle/
-duplicate/restart plus persistent current-host/current-intake proof. No live/public write is
-authorized. The Simple Editorial Growth Edge implementation now reuses the Institutional Edge
-packet, `CAPITAL_CHRONICLE_VIEW`, `WHAT_THE_MARKET_IS_MISSING`, fact/opinion/Core-Analyzer
-separation, and the native eight-destination compiler. It preserves the 32/6/3/1 ceilings and adds
-only a completion-first three-GET candidate allocation under the same six-GET ledger plus a
-deterministic full-universe sourceability ordering adapter before the 32-candidate slice. The
-adapter reuses existing official/company-primary, reputable-secondary, attribution, route-health,
-request-cost, and freshness signals with zero model/network work and zero authority. Current proof
-changed seven top-32 identities in each direction across 1,212 eligible candidates. The earlier
-permitted host run reached exact publisher bytes for a different NVIDIA event, so deterministic
-current-peg validation blocked the article and the malformed single revision closed the run at the
-three-call ceiling. That is historical pre-closeout evidence and does not route current work.
+## Accepted capability reconciliation
 
-Current 2026-08-28 direction supersedes that residual same-event-official prerequisite. The exact
-epistemic adapter, publisher pinning, and native X/Threads quality correction are accepted. One
-ordinary exact reputable report may support `Publisher reports X / UNCONFIRMED`; arbitrary X remains
-discovery-only and high-harm claims retain enhanced evidence. The current Al Jazeera article and
-eight-preview runtime proof is closed. Relay-only/rumor-only runtime qualification remains an
-explicit unobserved caveat.
+### `CURRENTLY_PROVEN_AND_REUSE`
 
-## Focused test families
+- PR #37 sourceability, early-attributed-intelligence, epistemic-state, publisher pinning, canonical-X relay/rumor static path, native eight-destination packaging, and X/Threads quality correction;
+- Simple 32/6/3/1 economics and current article path;
+- four-window scheduler mechanics plus persistent zero-write exactly-one-process host proof;
+- durable V1 store;
+- destination registry;
+- `DurablePublicationCoordinator`, canonical Substack-first transports, strict readback/reconciliation, UNKNOWN-write recovery;
+- historical Italy nine-surface publication canary as transport/reconciliation proof;
+- V5 live read model/UI foundation.
 
-Use the smallest exact tests discovered by CodeGraph around changed seams, including as applicable:
+### `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY`
 
-- `tests/test_daily_app_supervisor_v1.py`
-- `tests/test_daily_app_operator_trigger_v1.py`
-- `tests/test_preselection_published_memory_breaking_wake_closeout_v1.py`
-- `tests/test_rolling_x_newsroom_cycle_v1.py`
-- `tests/test_rolling_x_targeted_evidence_adapter_v1.py`
-- `tests/test_official_primary_evidence_loader_v1.py`
-- `tests/test_rolling_x_evidence_viability_v1.py`
-- `tests/test_rolling_x_grounded_article_media_builder_v1.py`
-- `tests/test_rolling_x_v1_publishability_closure_v1.py`
-- `tests/test_publication_coordinator_v1.py`
-- `tests/test_daily_app_publication_lifecycle_v1.py`
-- `tests/test_destination_identity_pinning_v1.py`
+- current live destination/account/session readiness across the nine surfaces;
+- current Edge 9223 publication profile/account identity;
+- current production-store recovery/UNKNOWN state.
 
-Historical growth work added focused coverage for official-primary narrow breaking, issuer-
-attribution boundaries, quiet-day mode fallback, house-view fact/opinion/Core-Analyzer separation,
-bounded material-event wake idempotency/spacing, and derivative-local readiness not vetoing
-canonical eligibility. Those rows do not reopen PR #37 or route the active next gate.
+### `NEW_IMPLEMENTATION_GAP`
 
-## Durable state authority
+1. Simple qualified article/native package -> existing `DurablePublicationCoordinator` bridge;
+2. one unambiguous routine production owner: Simple, not native Desktop/legacy rolling-X;
+3. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry;
+4. emergency-stop/process-ownership coverage for the canonical Simple scheduler/runtime.
 
-`live_contentops.durable_operational_store_v1.ContentOpsDurableStore` remains the single V1 state authority.
+### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-Important durable concerns include operating controls, work items, windows/scheduler ticks, leases/heartbeats, operator/material-event triggers, outbox messages, platform dispatches, readbacks, reconciliations, incidents, destination readiness, performance observations, and learning-policy versions.
+Before the first new live write: production DB integrity/schema, no unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge `contentops-social-main` CDP 9223, exact account/destination identity, and fresh nine-destination readiness. Do not inspect or expose secrets/session material.
 
-Do not add a second store.
+### `SUPERSEDED_DO_NOT_REUSE`
+
+- native Desktop Automations as routine V1 editorial owner;
+- SDK/App-Server editorial fallback as routine critical path;
+- legacy rolling-X monolith/broad evidence-ready pool as current owner;
+- stale pre-acceptance owner-gate wording.
+
+## Canonical product flow after activation closure
+
+```text
+four owner-locked routine windows
+-> Simple editorial opportunity
+-> accepted qualified article + epistemic state
+-> sole existing DurablePublicationCoordinator
+-> canonical Substack publish/readback with exact public /p/... identity
+-> exactly eight derivative packages rematerialized against the real canonical URL
+-> destination-local dispatch/readback/reconciliation
+-> strictly reconciled published-count update
+-> V5 read model/performance observation
+```
+
+No second store, publisher, scheduler, or packager.
 
 ## Runtime/browser identities
 
 - production DB: `A:\Capital Chronicle\Runtime\ContentOps\contentops_daily_app_v1.sqlite3`
 - output root: `A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs`
+- canonical Simple scheduler root: `A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`
 - Capital Chronicle Main App read-only root: `A:\Capital Chronicle\Main App`
 - Chrome `CapitalChronicleBot`, CDP 9222: ingestion only
 - Edge `contentops-social-main`, CDP 9223: publication/media/readback and explicitly authorized observation only
 
 These are identities, not permission to inspect credentials/session material.
 
-## Current validation sequence
+## Focused test families for current activation work
 
-1. preserve all accepted V1 foundation, the completed Italy canary, and failed 4/32 receipt;
-2. preserve the final Simple first-party/news-peg/public-metadata host PASS;
-3. preserve the lightweight local non-Codex scheduler persistent current-host/current-intake
-   zero-write/restart PASS;
-4. preserve the accepted current article and eight owner-review previews;
-5. obtain separate routine public-write/readback authority;
-6. prove a real production day at 5–8 useful published articles without filler, then obtain the
-   explicit `V1_FINAL_PRODUCT_ACCEPTED` decision.
+Use CodeGraph to refine, but likely affected families include:
 
-## Current PR #37 closeout
+- `tests/test_v1_simple_gemini_newsroom_v1.py`
+- `tests/test_v1_simple_gemini_scheduler_v1.py`
+- scheduler-process tests around `v1_simple_gemini_scheduler_process_v1.py`;
+- `tests/test_publication_coordinator_v1.py`
+- `tests/test_daily_app_publication_lifecycle_v1.py`
+- `tests/test_destination_identity_pinning_v1.py`
+- `tests/test_eight_platform_substack_first_pipeline_v1.py`
+- production-runtime/supervisor composition tests;
+- operator-control/emergency-stop tests.
 
-The single permitted current opportunity closed the article/eight-preview host gate with an exact
-Al Jazeera `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / UNSPECIFIED / SINGLE_SOURCE` result, deterministic
-validation PASS, and eight preview-only native packages. The selected story used direct reporting;
-relay-only and rumor-only current-host qualification remains unobserved, while canonical-X zero-GET
-provenance behavior is statically covered.
+Do not run broad historical canaries merely to prove already-accepted capability.
 
-## Stale traps
+## Current activation sequence
 
-Do not route from:
+1. authority/static safety closure and CodeGraph refresh — zero public write;
+2. Simple -> existing publication coordinator bridge + published/reconciled accounting — no live write required for implementation tests;
+3. current-host read-only activation preflight — zero public write;
+4. one fresh live V1 end-to-end canary under already-granted authority, strictly reconciled across one canonical Substack article plus exactly eight derivatives;
+5. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day.
 
-- old branch/HEAD fast-forward instructions;
-- P0-1 as a current next task;
-- P0-G3 or the original daily-output/Automation bridge as the current next task;
-- old manual-GO canary text as the immediate next implementation;
-- any claim that the real Italy nine-surface canary is still pending;
-- any claim that the 4/32 proof has never run;
-- any claim that a perfect 4/32 proof gates one safe qualified article path;
-- PR #20 article audit or native worker-return normalization as pending;
-- PR #19 quota-efficient provider-resilient batch/tail discovery as unimplemented;
-- the four host prompts as still mismatched or awaiting normalization;
-- production-day accounting or bounded deficit recovery as an implementation gap;
-- the four native V1 Automations as host-unproven;
-- first-party locator/source-family or publisher-resolution closure as the next task;
-- per-trigger 35-call discovery as an accepted routine production default;
-- blanket all-nine-ready-before-any-canonical-write semantics;
-- “no yield work” language when used to block the current owner-directed growth-first behavior implementation;
-- “material events can only ever wait for the next routine window” as final V1 behavior after the accepted canary;
-- any wording that treats one-canary authorization as an implicit grant for future automatic material-event public writes;
-- historical V6 launch paths or parallel schedulers;
-- archived task handoffs/status snapshots.
+Candidate-level abstention remains valid. A below-target live production day without an exact hard external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
 
 Protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.

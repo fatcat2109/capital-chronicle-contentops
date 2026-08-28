@@ -109,6 +109,7 @@ def test_one_click_stop_activates_pause_before_inventory_and_preserves_browsers(
     termination = stop.index("Stop-Process -Id $targetPid")
     assert marker_write < inventory < termination
     assert "chrome.exe" in stop and "msedge.exe" in stop
+    assert "simple_gemini_scheduler" in stop
     assert "AMBIGUOUS PROCESSES: NOT KILLED" in stop
     assert "Stop-ContentOpsBackground.ps1" in stop_cmd
     assert "Remove-Item -LiteralPath $pauseMarker" in resume
