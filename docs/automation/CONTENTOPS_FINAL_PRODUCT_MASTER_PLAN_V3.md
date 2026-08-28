@@ -23,6 +23,12 @@ Final V1 operating target:
 
 `5–8 PUBLISHED ARTICLES per newsroom production day`
 
+Historical zero-write throughput benchmark:
+
+`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+
+That benchmark remains telemetry/economics evidence only; it is not a renewed launch or acceptance gate.
+
 A live day below target without an exact hard external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`. Candidate-level abstention remains valid; filler and weaker evidence are forbidden.
 
 ## 1. Current V1 architecture
