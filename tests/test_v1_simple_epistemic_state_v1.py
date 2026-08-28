@@ -39,6 +39,9 @@ WSJ_BYTES = f"""<html><head><title>{WSJ_EVENT}</title>
 <meta property="article:published_time" content="2026-08-27T21:30:00Z"></head>
 <body><p>{WSJ_EVENT}, according to people familiar with the matter.</p>
 <p>The change affects credit support for smaller cloud providers.</p></body></html>""".encode()
+REUTERS_REPORT_URL = "https://www.reuters.com/business/acme-financing-review"
+AP_REPORT_URL = "https://apnews.com/article/acme-financing-review"
+REUTERS_REPORT_TITLE = "Acme is reviewing its financing strategy"
 
 
 def _response(url: str, body: bytes):
@@ -532,3 +535,161 @@ def test_empty_epistemic_state_does_not_add_noisy_schema_blockers(tmp_path):
     assert result["classification"] == "NO_PUBLICATION"
     blockers = result["candidate_attempt_history"][0]["blockers"]
     assert blockers == ["epistemic_report_provenance_not_governed"]
+
+
+def _mixed_publisher_rss() -> bytes:
+    return f"""<rss><channel>
+    <item><title>Acme reviews financing strategy and capital plans - Associated Press</title>
+    <link>https://news.google.com/rss/articles/ap-acme</link>
+    <pubDate>Fri, 28 Aug 2026 00:50:00 GMT</pubDate>
+    <source url="https://apnews.com">Associated Press</source></item>
+    <item><title>{REUTERS_REPORT_TITLE} - Reuters</title>
+    <link>https://news.google.com/rss/articles/reuters-acme</link>
+    <pubDate>Fri, 28 Aug 2026 00:45:00 GMT</pubDate>
+    <source url="https://www.reuters.com">Reuters</source></item>
+    </channel></rss>""".encode()
+
+
+def _sitemap(url: str, title: str) -> bytes:
+    return f"""<urlset><url><loc>{url}</loc>
+    <publication_date>2026-08-28T00:45:00Z</publication_date>
+    <title>{title}</title></url></urlset>""".encode()
+
+
+def _publisher_article(title: str) -> bytes:
+    return f"""<html><head><title>{title}</title>
+    <meta property="article:published_time" content="2026-08-28T00:45:00Z"></head>
+    <body><article><p>{title}.</p>
+    <p>The review covers funding terms for future projects.</p></article></body></html>""".encode()
+
+
+def _rss_request(headline: str) -> dict[str, object]:
+    candidate = {
+        **_candidate(),
+        "headline_text": headline,
+        "source_timestamp_utc": "2026-08-28T00:55:00Z",
+        "public_source_urls": [],
+    }
+    request = _request(candidate)
+    request["story_context"]["public_source_url_bindings"] = []
+    request["story_context"]["grounded_research_queries"] = [
+        "Acme reviewing financing strategy"
+    ]
+    return request
+
+
+def test_attributed_publisher_pins_mixed_rss_resolution_to_reuters_only():
+    calls: list[str] = []
+
+    def get(url, *_args):
+        calls.append(url)
+        if url.startswith("https://news.google.com/rss/search"):
+            return _response(url, _mixed_publisher_rss())
+        if url == "https://www.reuters.com/news-sitemap.xml":
+            return _response(url, _sitemap(REUTERS_REPORT_URL, REUTERS_REPORT_TITLE))
+        if url == REUTERS_REPORT_URL:
+            return _response(url, _publisher_article(REUTERS_REPORT_TITLE))
+        raise AssertionError(f"unexpected publisher resolution attempt:{url}")
+
+    result = SimpleFirstPartyAwareEvidenceResolver(
+        evaluation_as_of_utc=CUTOFF,
+        http_get=get,
+        clock=lambda: NOW,
+    )(
+        _rss_request(
+            "Acme is reviewing its financing strategy, REUTERS REPORTED FRIDAY."
+        )
+    )
+    assert result["status"] == "PASS"
+    assert len(calls) == 3
+    assert not any("apnews.com" in value for value in calls)
+    route = result["provenance"]["route_history"][0]
+    assert route["attributed_publisher_identity"] == "reuters.com"
+    assert route["rss_candidate_publisher_identities_observed"] == [
+        "apnews.com",
+        "reuters.com",
+    ]
+    assert route["publisher_identities_eligible_for_resolution"] == [
+        "reuters.com"
+    ]
+    assert route["publisher_resolution_attempted_identities"] == ["reuters.com"]
+    assert result["provided_evidence_capabilities"] == [
+        "attributed_report_provenance",
+        "basic_attributed_facts",
+    ]
+    assert "credible_event_confirmation" not in result[
+        "provided_evidence_capabilities"
+    ]
+    state = result["epistemic_state"]
+    assert state["evidence_basis"] == "DIRECT_REPUTABLE_REPORT"
+    assert state["event_confirmation_state"] == "UNCONFIRMED"
+    assert state["source_multiplicity"] == "SINGLE_SOURCE"
+
+
+def test_attributed_reuters_unresolved_does_not_spend_attempt_on_ap():
+    calls: list[str] = []
+
+    def get(url, *_args):
+        calls.append(url)
+        if url.startswith("https://news.google.com/rss/search"):
+            return _response(url, _mixed_publisher_rss())
+        if url == "https://www.reuters.com/news-sitemap.xml":
+            return {"status": 404, "final_url": url, "headers": {}, "body": b""}
+        if url == "https://www.reuters.com/robots.txt":
+            return _response(url, b"User-agent: *\n")
+        raise AssertionError(f"unexpected publisher resolution attempt:{url}")
+
+    result = SimpleFirstPartyAwareEvidenceResolver(
+        evaluation_as_of_utc=CUTOFF,
+        http_get=get,
+        clock=lambda: NOW,
+    )(
+        _rss_request(
+            "Acme is reviewing its financing strategy, REUTERS REPORTED FRIDAY."
+        )
+    )
+    assert result["status"] == "BLOCKED"
+    assert len(calls) == 3
+    assert not any("apnews.com" in value for value in calls)
+    route = result["provenance"]["route_history"][0]
+    assert route["publisher_resolution_attempted_identities"] == ["reuters.com"]
+
+
+def test_non_attributed_mixed_rss_preserves_generic_relevance_ranking():
+    calls: list[str] = []
+
+    def get(url, *_args):
+        calls.append(url)
+        if url.startswith("https://news.google.com/rss/search"):
+            return _response(url, _mixed_publisher_rss())
+        if url == "https://apnews.com/news-sitemap.xml":
+            return _response(
+                url,
+                _sitemap(
+                    AP_REPORT_URL,
+                    "Acme reviews financing strategy and capital plans",
+                ),
+            )
+        if url == AP_REPORT_URL:
+            return _response(
+                url,
+                _publisher_article(
+                    "Acme reviews financing strategy and capital plans"
+                ),
+            )
+        raise AssertionError(f"unexpected publisher resolution attempt:{url}")
+
+    result = SimpleFirstPartyAwareEvidenceResolver(
+        evaluation_as_of_utc=CUTOFF,
+        http_get=get,
+        clock=lambda: NOW,
+    )(_rss_request("Acme reviews financing strategy and capital plans"))
+    assert result["status"] == "PASS"
+    assert any("apnews.com" in value for value in calls)
+    route = result["provenance"]["route_history"][0]
+    assert route["attributed_publisher_identity"] is None
+    assert route["publisher_identities_eligible_for_resolution"] == [
+        "apnews.com",
+        "reuters.com",
+    ]
+    assert route["publisher_resolution_attempted_identities"][0] == "apnews.com"

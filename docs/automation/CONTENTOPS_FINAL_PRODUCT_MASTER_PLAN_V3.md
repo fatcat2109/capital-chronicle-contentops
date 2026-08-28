@@ -36,8 +36,9 @@ Current V1 routine architecture is the Simple 9Router/Gemini 32/6/3/1 path, not 
 Automations. Its current product doctrine is early attributed intelligence: prove the narrowest
 reporting proposition, keep report truth separate from event truth, preserve machine-readable and
 reader-visible epistemic state, and do not require universal official confirmation. The exact
-current V1 implementation gap is the small PR #37 epistemic adapter through route, writer,
-deterministic validation, qualified record, and eight preview-only derivatives. Conflicting
+current V1 epistemic adapter through route, writer, deterministic validation, qualified record,
+and eight preview-only derivatives is accepted. The only remaining code correction is exact
+attributed-publisher pinning inside the existing RSS publisher-resolution path. Conflicting
 Desktop-primary and official-first wording retained below as architecture-sweep history is
 superseded for current V1 routing.
 
@@ -160,12 +161,11 @@ a cold-start or unattended PASS.
 
 ## 5. True new implementation gaps
 
-Current owner direction adds one narrow V1 gap without reopening discovery or publication:
-
-1. **Simple early-attributed epistemic adapter.** Carry evidence basis, event confirmation state,
-   origin character, multiplicity, primary publisher/source identity, report/event propositions,
-   and reader label through bounded routing, Flash writer input, deterministic validation,
-   qualified metadata, and exactly eight preview-only derivatives.
+The Simple early-attributed epistemic adapter is accepted. The narrow publisher-pinning correction
+is now implemented without reopening discovery or publication: when exactly one reputable
+publisher identity is governed, only that publisher family is eligible for RSS publisher-
+resolution attempts. The exact remaining V1 row is
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current article and exactly eight actual previews.
 
 The V2 gaps listed below remain after this V1 closure.
 

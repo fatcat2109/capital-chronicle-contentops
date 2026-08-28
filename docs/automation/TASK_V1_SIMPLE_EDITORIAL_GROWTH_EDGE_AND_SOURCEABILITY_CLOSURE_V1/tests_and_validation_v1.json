@@ -115,5 +115,49 @@
       "baseline_reproduced_same_failures": true,
       "changed_seam_implicated": false
     }
+  },
+  "pr37_attributed_publisher_pinned_resolution": {
+    "focused_source_loader_resolver_epistemic_simple_claim_native_scheduler_cli": {
+      "result": "PASS",
+      "passed": 219
+    },
+    "claim_risk_donor_checks": {
+      "result": "PASS",
+      "passed": 3
+    },
+    "codegraph_current_context": {
+      "result": "PASS",
+      "passed": 17
+    },
+    "publisher_pinning_static_proof": {
+      "mixed_rss_publishers": ["apnews.com", "reuters.com"],
+      "governed_attributed_publisher": "reuters.com",
+      "eligible_publishers": ["reuters.com"],
+      "attempted_publishers": ["reuters.com"],
+      "different_publisher_consumed_attempt": false,
+      "resolved_epistemic_state": [
+        "DIRECT_REPUTABLE_REPORT",
+        "UNCONFIRMED",
+        "SINGLE_SOURCE"
+      ],
+      "secondary_grants_credible_event_confirmation": false,
+      "request_budget_changed": false
+    },
+    "fresh_intake_capture": "PASS_75_NEW_DEDUPLICATED_HEADLINES",
+    "single_current_simple_opportunity": "NO_PUBLICATION_ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED",
+    "selection_count": 1,
+    "admitted_candidate_count": 3,
+    "source_request_count": 6,
+    "source_request_allocation": [3, 2, 1],
+    "writer_invocation_count": 0,
+    "revision_invocation_count": 0,
+    "logical_flash_invocation_count": 1,
+    "qualified_article_count": 0,
+    "native_preview_count": 0,
+    "production_database_unchanged": true,
+    "codex_runtime_public_provider_coordinator_unknown_counts_all_zero": true,
+    "no_second_selection_or_opportunity": true,
+    "ruff_changed_nonlegacy_files": "PASS",
+    "py_compile_changed_files": "PASS"
   }
 }

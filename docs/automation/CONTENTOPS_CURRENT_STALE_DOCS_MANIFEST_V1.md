@@ -97,14 +97,13 @@ Any file containing these current-looking claims is stale for routing unless exp
   all `PAUSED`, on `gpt-5.6-sol / HIGH` at the four Bangkok windows. Their prompts now share the
   exact repo-derived FAST-SHIP hash; no enablement or fifth routine task occurred.
 - FDA-G-to-Codex and immediate material-event-to-Codex execution are not proven by current repo configuration.
-- Desktop standalone fresh-run Automations are the primary routine editorial brain; current
-  calendar-time execution proof remains required because the supported surface exposed no run-now.
-- The proven official ChatGPT-authenticated Codex App Server/SDK provider remains the bounded
-  missed/failed-primary fallback, immediate direct path, and benchmark path.
+- Desktop standalone Automations and the App Server/SDK editorial fallback remain historical
+  evidence only for routine V1. Current routine heavy editorial ownership is the Simple
+  9Router/Gemini path; the historical Automation objects remain off/NOOP.
 - The zero-write Desktop Italy slice, real nine-surface Italy canary, failed 4/32 proof, and later
   four-ready-candidate foundation remain preserved evidence. None is an unstarted routing task.
-- Prompt normalization/readback is complete. Zero-write Automation enablement/calendar-time
-  unattended proof and routine public-write authority remain separate later owner gates.
+- Historical prompt normalization/readback is complete but no longer routes current V1.
+  Routine public-write authority remains a separate later owner gate after Simple acceptance.
 - V2 starts only after the V1 gate with selective reconciliation of current-compatible donor
   capability. Historical branch authority must not be wholesale merged; V2 public-write authority
   remains zero.

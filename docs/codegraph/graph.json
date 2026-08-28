@@ -84422,22 +84422,22 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 10532
+      "size_bytes": 10426
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 5419
+      "size_bytes": 5540
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 17631
+      "size_bytes": 17710
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 17416
+      "size_bytes": 17745
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -84447,7 +84447,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 13101
+      "size_bytes": 13247
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -87238,7 +87238,7 @@
     {
       "id": "live_contentops/public_secondary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 48761
+      "size_bytes": 52877
     },
     {
       "id": "live_contentops/publication_audit_record_contract_v6.py",
@@ -87953,7 +87953,7 @@
     {
       "id": "live_contentops/v1_simple_evidence_resolver_v1.py",
       "kind": "python_module",
-      "size_bytes": 17701
+      "size_bytes": 18564
     },
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
@@ -127585,7 +127585,7 @@
     {
       "id": "tests/test_v1_simple_epistemic_state_v1.py",
       "kind": "test",
-      "size_bytes": 19989
+      "size_bytes": 26310
     },
     {
       "id": "tests/test_v1_simple_evidence_resolver_v1.py",
@@ -132279,5 +132279,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "5aaf3a818be71ae01cafb0dd2ebbd450c792f525",
-  "source_tree_digest": "8dfd11d45d3bb390b4a9ffc1566fc0d5280d828a597b340e716dd63cb46d2aac"
+  "source_tree_digest": "92b211dbf1ae7acb66c7e6606cfbd2e0b52722a3b2c31c2f695c25a7cae1f010"
 }

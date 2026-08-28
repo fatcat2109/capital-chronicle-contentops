@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`SIMPLE_EARLY_ATTRIBUTED_INTELLIGENCE / EPISTEMIC_STATE_ACCEPTANCE_PENDING`
+`SIMPLE_EARLY_ATTRIBUTED_INTELLIGENCE / PUBLISHER_PINNING_IMPLEMENTED / CURRENT_HOST_ACCEPTANCE_PENDING`
 
 Current routine V1 no longer routes through Desktop Automations or the legacy rolling-X
 evidence-ready/split-phase worker critical path. Current authority is the simple Gemini runtime:
@@ -122,11 +122,12 @@ three-call ceiling. A genuinely current same-peg source-qualified article and ow
 remain required before public-write enablement.
 
 Current 2026-08-28 direction supersedes that residual same-event-official prerequisite. The exact
-gap is carrying `evidence_basis`, `event_confirmation_state`, `origin_character`,
-`source_multiplicity`, primary publisher/source identity, report/event propositions, and reader
-label through route, writer, validation, qualified metadata, and all eight previews. One ordinary
+epistemic adapter is accepted. The existing RSS path now pins exactly one governed attributed
+publisher identity through publisher resolution, records observed/eligible/attempted publisher
+families, and never lets a more relevant different publisher consume that allowance. One ordinary
 exact reputable report may support `Publisher reports X / UNCONFIRMED`; arbitrary X remains
-discovery-only and high-harm claims retain enhanced evidence.
+discovery-only and high-harm claims retain enhanced evidence. The exact gap is
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current article and eight actual previews.
 
 ## Focused test families
 

@@ -65,13 +65,43 @@ Existing `reputable_secondary_source`, attribution-required claim handling, `SUP
 
 ## Exact remaining PR #37 gate
 
-Implement the smallest current-Simple adapter that carries report truth versus event truth and an explicit epistemic state through:
+The epistemic adapter is accepted. The remaining source-resolution defect is now corrected inside
+the existing public-secondary loader: when provenance names exactly one reputable publisher and no
+direct URL is bound, Google News RSS results are filtered to that exact publisher family before
+publisher-resolution attempts. Observed, eligible, and actually attempted publisher identities are
+persisted in sanitized route diagnostics. Generic non-attributed ranking remains unchanged, and
+secondary metadata advertises attributed-report provenance rather than event confirmation.
 
-`candidate provenance -> bounded route order -> writer governed input -> deterministic validation -> qualified record -> exactly eight previews`.
+The exact remaining gate is `CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current article plus exactly
+eight actual owner-review previews under locked 32/6/3/1 and zero public write. One fresh bounded
+opportunity may run after static validation; if none qualifies, stop truthfully without a second
+selection or opportunity.
 
-For an explicitly attributed reputable report, prove the reporting proposition before spending budget on unnecessary official-confirmation hunting. Preserve the locked 32/6/3/1 economics, one selection, no frontier reopening, no broad crawler/discovery system, zero Codex runtime calls, and zero public write.
+## PR37 attributed-publisher pinning proof and current acceptance
 
-Then run exactly one fresh production-shaped zero-write opportunity. If one genuine current article qualifies, commit the actual article, exact eight preview texts, validation summary, and epistemic-state artifact for owner/ChatGPT review. If none qualifies, stop truthfully with exact provenance blockers; do not loop to manufacture a pass.
+The exact RSS correction is statically proven. With mixed AP/Reuters results and a governed Reuters
+attribution, both publisher identities remain observable but only `reuters.com` is eligible and
+attempted; AP cannot consume the two publisher-resolution attempts even when its result ranks
+higher. A resolved exact Reuters document produces
+`DIRECT_REPUTABLE_REPORT / UNCONFIRMED / SINGLE_SOURCE`. An unresolved named publisher stays
+candidate-local, while generic non-attributed ranking preserves its prior behavior. Public-
+secondary capability metadata now reports `attributed_report_provenance` plus
+`basic_attributed_facts`, never `credible_event_confirmation`.
+
+Static validation passed 219 focused tests, three exact claim-risk donor checks, and 17 CodeGraph
+tests. One current intake refresh added 75 deduplicated headlines from 14 timeline responses. The
+single permitted opportunity then used 32 candidates, one Flash selection, three admissions, and
+six GETs split `3/2/1`; no exact source resolved and the writer/revision did not run. The Bloomberg-
+attributed fallback observed a Reuters RSS publisher identity. Publisher pinning correctly kept
+Reuters ineligible and performed no publisher-resolution attempt because no Bloomberg RSS result
+was present. No article, epistemic state, or previews were manufactured, and production DB bytes
+remained unchanged.
+
+`current_publisher_pinning_acceptance_attempt_v1.json` is the safe closeout artifact. The exact
+remaining gate is still `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`: one current fixed-plan candidate
+must resolve its named publisher or same-event primary bytes inside six GETs and then produce one
+deterministically valid article plus exactly eight actual previews. No second runtime opportunity
+was run.
 
 Routine public-write/readback authority, a real 5–8 published-article production day, and `V1_FINAL_PRODUCT_ACCEPTED` remain ungranted.
 

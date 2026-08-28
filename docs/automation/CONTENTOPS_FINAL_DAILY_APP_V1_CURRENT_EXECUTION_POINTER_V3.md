@@ -63,11 +63,13 @@ plus owner inspection of the article and all eight previews. Do not add a new di
 rerun selection to hunt for success, or enable public write from the partial proof.
 
 The 2026-08-28 North Star supersedes the residual same-event official-confirmation prerequisite.
-The exact next gate is the smallest adapter carrying report truth versus event truth plus evidence
-basis, confirmation state, origin character, multiplicity, publisher/source identity, and reader
-label through routing, writing, validation, qualification, and all eight previews. One exact
-ordinary reputable report may qualify as `DIRECT_REPUTABLE_REPORT / UNCONFIRMED / SINGLE_SOURCE`;
-an unrelated official document cannot qualify it. High-harm claims remain enhanced-evidence cases.
+The report/event epistemic adapter is accepted and propagated through qualification and previews.
+The attributed-publisher pinning correction is also implemented: mixed RSS results cannot spend a
+named Reuters/WSJ/etc route allowance on another publisher family. The exact next gate is now
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current article and exactly eight actual owner-review
+previews. One exact ordinary reputable report may qualify as
+`DIRECT_REPUTABLE_REPORT / UNCONFIRMED / SINGLE_SOURCE`; an unrelated official document cannot
+qualify it. High-harm claims remain enhanced-evidence cases.
 
 After that slice, the next distinct authorization gate is separate public-write/readback authority.
 The scheduler proof grants none. A real production-day 5–8 useful published/day acceptance and

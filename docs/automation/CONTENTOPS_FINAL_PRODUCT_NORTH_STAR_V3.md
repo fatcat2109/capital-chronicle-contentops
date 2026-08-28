@@ -269,7 +269,13 @@ Accepted/reusable foundations include:
 - canonical Substack transports, readback/reconciliation, and completed Italy nine-surface canary;
 - V5 read model/UI foundation.
 
-The exact current implementation gap is not another discovery system. It is the Simple adapter that carries **report truth vs event truth** and epistemic state through routing, writing, deterministic validation, qualification, and all eight previews.
+The Simple report-truth/event-truth epistemic adapter is accepted implementation in PR #37 and is
+no longer the current gap. The remaining implementation correction is narrower: when provenance
+names exactly one reputable publisher but no direct article URL is bound, pin existing Google News
+RSS publisher resolution to that exact publisher family before consuming scarce publisher-
+resolution attempts. After that correction, the exact gate is
+`CURRENT_HOST_RUNTIME_PROOF_REQUIRED` — one current epistemically qualified article and exactly
+eight actual owner-review previews.
 
 Current sequence:
 

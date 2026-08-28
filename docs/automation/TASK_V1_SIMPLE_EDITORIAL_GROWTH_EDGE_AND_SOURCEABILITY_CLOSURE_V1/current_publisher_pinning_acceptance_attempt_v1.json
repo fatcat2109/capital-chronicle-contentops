@@ -1,0 +1,120 @@
+{
+  "schema_version": "contentops.pr37_current_publisher_pinning_acceptance_attempt.v1",
+  "classification": "CURRENT_HOST_ACCEPTANCE_INCOMPLETE_TRUTHFUL_NAMED_PUBLISHER_UNRESOLVED",
+  "run_id": "pr37-publisher-pinning-acceptance-20260828T113500Z",
+  "cutoff_utc": "2026-08-28T11:35:00Z",
+  "implementation": {
+    "attributed_publisher_pinning": "PASS_STATIC",
+    "behavior": "When report provenance names exactly one reputable publisher and no direct article URL is bound, parsed Google News RSS candidates remain observable but only the exact named publisher family is eligible for publisher-resolution attempts.",
+    "generic_non_attributed_ranking_preserved": true,
+    "direct_exact_bound_publisher_url_remains_shortest_route": true,
+    "publisher_pinning_grants_report_or_event_authority": false,
+    "request_budget_changed": false,
+    "new_store_or_discovery_system_added": false,
+    "secondary_capabilities": [
+      "attributed_report_provenance",
+      "basic_attributed_facts"
+    ],
+    "secondary_claims_credible_event_confirmation": false
+  },
+  "fresh_intake": {
+    "canonical_profile_state": "READY",
+    "capture_state": "CAPTURED",
+    "new_deduplicated_headline_count": 75,
+    "timeline_responses_observed": 14,
+    "login_automation": false,
+    "browser_closed": false,
+    "llm_or_provider_calls": 0
+  },
+  "simple_opportunity": {
+    "full_eligible_deduped_universe_count": 1096,
+    "candidate_count": 32,
+    "candidate_limit": 32,
+    "selection_count": 1,
+    "admitted_candidate_count": 3,
+    "source_request_count": 6,
+    "source_request_limit": 6,
+    "source_request_allocation": [3, 2, 1],
+    "writer_invocation_count": 0,
+    "revision_invocation_count": 0,
+    "logical_flash_invocation_count": 1,
+    "logical_flash_invocation_limit": 3,
+    "qualified_article_count": 0,
+    "native_preview_count": 0,
+    "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"
+  },
+  "candidate_attempts": [
+    {
+      "position": 1,
+      "candidate_id": "simple-story-28769360db1a3d932bd95c3c",
+      "article_mode": "WHAT_THE_MARKET_IS_MISSING",
+      "source_account": "zerohedge",
+      "attributed_publisher_identity": null,
+      "attributed_publisher_pinning_applied": false,
+      "rss_candidate_publisher_identities_observed": [],
+      "publisher_identities_eligible_for_resolution": [],
+      "publisher_resolution_attempted_identities": [],
+      "get_count": 3,
+      "accepted_document_count": 0,
+      "blockers": [
+        "epistemic_accepted_document_missing",
+        "public_source_candidate_request_budget_exhausted"
+      ]
+    },
+    {
+      "position": 2,
+      "candidate_id": "simple-story-2a46dfb7a90e15c13f1bbdc4",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "source_account": "wallstengine",
+      "public_headline_text": "SoftBank is seeking a new $10B, two-year loan to help refinance debt tied to its OpenAI investment, per Bloomberg.",
+      "attributed_publisher_identity": "bloomberg.com",
+      "attributed_publisher_pinning_applied": true,
+      "rss_candidate_publisher_identities_observed": ["reuters.com"],
+      "publisher_identities_eligible_for_resolution": [],
+      "publisher_resolution_attempted_identities": [],
+      "different_publisher_consumed_resolution_attempt": false,
+      "publisher_pinning_grants_report_or_event_authority": false,
+      "get_count": 2,
+      "accepted_document_count": 0,
+      "blockers": [
+        "epistemic_accepted_document_missing",
+        "public_source_unavailable"
+      ],
+      "conclusion": "RSS exposed Reuters but the governed proposition named Bloomberg. Reuters was correctly ineligible and consumed no publisher-resolution attempt. No Bloomberg candidate resolved within the remaining two-GET allowance."
+    },
+    {
+      "position": 3,
+      "candidate_id": "simple-story-dcbee39b9f8d1be8f6f783fa",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "source_account": "StockMKTNewz",
+      "attributed_publisher_identity": null,
+      "attributed_publisher_pinning_applied": false,
+      "rss_candidate_publisher_identities_observed": [],
+      "publisher_identities_eligible_for_resolution": [],
+      "publisher_resolution_attempted_identities": [],
+      "get_count": 1,
+      "accepted_document_count": 0,
+      "blockers": [
+        "epistemic_accepted_document_missing",
+        "public_source_candidate_request_budget_exhausted"
+      ]
+    }
+  ],
+  "epistemic_state": null,
+  "reason_epistemic_state_absent": "No exact accepted named-publisher report or same-event primary document resolved, so neither report truth nor event truth was proven.",
+  "production_database_sha256_before": "7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E",
+  "production_database_sha256_after": "7863356EEE468057E0EF476893A0C4DF2218CB7F5BBB9F761CA09740FE8E8C4E",
+  "codex_runtime_model_call_count": 0,
+  "public_write_count": 0,
+  "provider_publication_write_count": 0,
+  "publication_coordinator_dispatch_count": 0,
+  "unknown_write_count": 0,
+  "current_article_for_owner_review_path": null,
+  "current_native_previews_for_owner_review_path": null,
+  "current_article_validation_summary_path": null,
+  "current_epistemic_state_path": null,
+  "local_runtime_receipt_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_ATTRIBUTED_PUBLISHER_PINNING_ACCEPTANCE_20260828T113500Z\\simple_gemini_newsroom_receipt_v1.json",
+  "local_runtime_evidence_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\canary_evidence\\TASK_V1_SIMPLE_ATTRIBUTED_PUBLISHER_PINNING_ACCEPTANCE_20260828T113500Z\\simple_gemini_evidence_v1.json",
+  "exact_residual_blocker": "The one fixed admitted plan contained no exact accepted source proposition inside six GETs. The Bloomberg-attributed fallback observed only Reuters RSS metadata, which publisher pinning correctly excluded; no eligible Bloomberg resolution occurred. No writer, article, epistemic state, or preview was permitted, and no second selection or opportunity was run.",
+  "secrets_or_private_session_material_included": false
+}

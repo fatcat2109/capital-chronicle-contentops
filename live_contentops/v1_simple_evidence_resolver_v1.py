@@ -177,6 +177,24 @@ class SimpleFirstPartyAwareEvidenceResolver:
                 else None
             ),
             "locator_bytes_grant_factual_authority": False,
+            "attributed_publisher_identity": provenance.get(
+                "attributed_publisher_identity"
+            ),
+            "rss_candidate_publisher_identities_observed": list(
+                provenance.get("rss_candidate_publisher_identities_observed")
+                or []
+            ),
+            "publisher_identities_eligible_for_resolution": list(
+                provenance.get("publisher_identities_eligible_for_resolution")
+                or []
+            ),
+            "publisher_resolution_attempted_identities": list(
+                provenance.get("publisher_resolution_attempted_identities") or []
+            ),
+            "attributed_publisher_pinning_applied": bool(
+                provenance.get("attributed_publisher_pinning_applied")
+            ),
+            "publisher_pinning_grants_report_or_event_authority": False,
         }
 
     def _normalized_result(
