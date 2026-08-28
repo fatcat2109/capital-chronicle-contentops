@@ -513,11 +513,13 @@ def test_run_forever_safety_error_propagates_without_semantic_retry(tmp_path):
     assert len(calls) == 1
 
 
-def test_scheduler_source_contains_no_codex_automation_or_publication_dispatch_route():
+def test_scheduler_source_contains_no_codex_automation_or_direct_publication_owner():
     source = Path("live_contentops/v1_simple_gemini_scheduler_v1.py").read_text(
         encoding="utf-8"
     )
     assert "codex_desktop_newsroom_operator_v1" not in source
-    assert "DurablePublicationCoordinator" not in source
+    assert "from live_contentops.publication_coordinator_v1 import" not in source
+    assert "DurablePublicationCoordinator(" not in source
+    assert "publication_handoff" in source
     assert "scheduler_v6" not in source
     assert "fast_one_cycle" not in source
