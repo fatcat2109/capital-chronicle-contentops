@@ -94,11 +94,13 @@ Current V2 master keeps its existing free-form rendering/package/publication-con
 
 Historical success proves capability; it does not prove today's login/session/token/readiness state.
 
-## 4. True current V1 implementation gap
+## 4. True current V1 implementation gaps
 
-The actual persistent Simple scheduler now delegates a qualified zero-write result through the corrected deterministic handoff into the existing publication plan/coordinator/native `finalize_intent` path. The remaining implementation gap is:
-
-1. **Published-vs-qualified accounting.** Editorial qualification remains useful telemetry, but live daily-output health/counting must be based on strictly reconciled published canonical articles. Publication failure, deferral, or ambiguity cannot count as a successful published article or prematurely satisfy the live deficit calculation.
+The actual persistent Simple scheduler now delegates a qualified zero-write result through the
+corrected deterministic handoff into the existing publication plan/coordinator/native
+`finalize_intent` path. Published-vs-qualified accounting is now implemented: live daily-output
+health, deficit, and bounded capacity use strictly reconciled canonical publications while
+qualified count remains telemetry. The next gate is current-host read-only activation proof.
 
 Merged PR #38 already closes emergency-stop/process coverage. Merged PR #39 already closes single-owner composition. The routine Simple publication handoff is also closed by the corrected PR #42 path and its focused scheduler/crash-recovery tests. Do not reissue any of those as implementation work unless fresh code demonstrates regression.
 
@@ -142,13 +144,16 @@ The actual persistent Simple scheduler path now:
 
 Focused deterministic scheduler/coordinator/recovery tests prove this composition without real provider/browser/public writes. Do not reopen this slice unless fresh code regresses it.
 
-### Slice B — published/reconciled production-day accounting
+### Slice B — published/reconciled production-day accounting — CLOSED
 
 - preserve qualified-count telemetry for editorial economics/dedupe;
 - add/reuse a canonical read projection that counts only strictly reconciled canonical Substack publications for live production-day health;
 - make live deficit pacing/counting use reconciled published count rather than qualified count;
 - do not create a second publication store or duplicate reconciliation authority;
 - no live write required for implementation validation.
+
+The accounting slice is closed by the current branch implementation and focused deterministic
+tests. It does not establish current host readiness, deployment, activation, or live publication.
 
 ### Slice C — current-host read-only activation preflight
 

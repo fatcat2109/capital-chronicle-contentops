@@ -6,7 +6,7 @@ This is a curated implementation/discovery map, not product authority. Jim's lat
 
 ## Current product state
 
-`V1_FINAL_PRODUCT_ACCEPTED / ROUTINE_PUBLIC_WRITE_GRANTED / ROUTINE_PUBLICATION_BRIDGE_CLOSED / PUBLISHED_ACCOUNTING_NEXT`
+`V1_FINAL_PRODUCT_ACCEPTED / ROUTINE_PUBLIC_WRITE_GRANTED / ROUTINE_PUBLICATION_BRIDGE_CLOSED / CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT`
 
 Current routine editorial ownership is the Simple Gemini runtime, not Desktop Automations or the legacy rolling-X split-phase path.
 
@@ -48,7 +48,7 @@ Current routine implementation areas:
 - `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger source/provenance route arbitration;
 - `live_contentops/v1_simple_epistemic_state_v1.py` — report/event proposition, provenance, risk, and reader labels;
 - `live_contentops/public_secondary_evidence_loader_v1.py` plus accepted official-primary locator/loaders — deterministic evidence donors;
-- `live_contentops/newsroom_production_day_v1.py` — production-day/accounting foundation; current live pacing/counting still needs strict reconciled-published truth separated from qualified telemetry;
+- `live_contentops/newsroom_production_day_v1.py` — production-day/accounting foundation; live pacing/counting now uses strict reconciled-published truth while qualified telemetry remains separate;
 - `live_contentops/v1_simple_gemini_scheduler_v1.py` — actual four-window routine owner, deterministic slot checkpoints, recover-before-fresh-work, qualified publication-pending checkpoint, no-model interrupted-publication resume, and terminal idempotency;
 - `live_contentops/v1_simple_gemini_scheduler_process_v1.py` — persistent exactly-one-process Simple scheduler control; process control performs no public write itself and records public-write authority as delegated to the existing durable coordinator;
 - `scripts/run_v1_simple_gemini_scheduler.py` — actual persistent runner; injects the canonical Simple publication handoff for one-tick/run-forever production execution while status/start/stop/restart remain control-only;
@@ -88,7 +88,8 @@ The corrected PR #42 proof is static/CI and controlled disposable-store evidence
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-1. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
+None. Strictly reconciled published-count accounting is closed; the next gate is current-host
+read-only activation proof.
 
 Single-owner composition, Simple emergency-stop coverage, and the routine publication bridge are already proven and must not route another implementation task.
 
@@ -151,8 +152,7 @@ Do not run broad historical canaries merely to prove already-accepted capability
 
 ## Current activation sequence
 
-1. published/reconciled accounting distinct from qualified telemetry — no live write required for implementation tests;
-2. current-host read-only activation preflight — zero public write;
+1. current-host read-only activation preflight — zero public write;
 3. one fresh live V1 end-to-end canary under already-granted authority, strictly reconciled across one canonical Substack article plus exactly eight derivatives;
 4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day.
 

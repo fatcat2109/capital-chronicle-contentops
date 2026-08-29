@@ -101,7 +101,7 @@ def _insert_lifecycle_article(
                     f"dispatch_{suffix}", f"outbox_{suffix}", destination,
                     "DISPATCH_CONFIRMED", f"2026-08-11T02:{index:02d}:30Z",
                     f"object-{index}", public_url,
-                    hashlib.sha256(f"url-{index}".encode()).hexdigest(),
+                    hashlib.sha256(public_url.encode()).hexdigest(),
                 ),
             )
             conn.execute(

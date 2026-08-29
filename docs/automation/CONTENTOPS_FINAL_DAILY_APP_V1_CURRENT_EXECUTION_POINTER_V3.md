@@ -59,9 +59,14 @@ The existing `DurablePublicationCoordinator`, durable V1 store, destination regi
 
 The historical Italy canary already proved one Substack + exactly eight derivatives across all nine surfaces with strict reconciliation and `UNKNOWN_WRITE=0`. Do not rerun Italy merely to prove transport.
 
-## Exact current implementation gap
+## Exact current next gate
 
-Count strictly reconciled published canonical articles separately from zero-write qualified-article telemetry; a publication failure, deferred distribution, or ambiguous write must not satisfy the live daily-output count. Reuse the existing production-day and durable publication/readback foundations; do not create a second ledger or publication store.
+`CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT`
+
+Published/reconciled accounting is implemented. Live daily-output count and bounded capacity use
+strictly reconciled canonical publications; qualified-article count remains separate telemetry.
+Reuse the existing production-day and durable publication/readback foundations; do not create a
+second ledger or publication store.
 
 ## `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
@@ -71,8 +76,7 @@ Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only.
 
 ## Current activation sequence
 
-1. published/reconciled-count accounting — no live write required for implementation proof;
-2. current-host read-only activation preflight — no public write;
+1. current-host read-only activation preflight — no public write;
 3. one fresh live end-to-end V1 canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
 4. if the canary reconciles cleanly with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day.
 

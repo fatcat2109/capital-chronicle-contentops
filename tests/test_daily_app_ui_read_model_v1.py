@@ -141,6 +141,12 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     assert snapshot["today"]["final_published_target_max"] == 8
     assert snapshot["today"]["qualified_articles_today"] == 0
     assert snapshot["today"]["remaining_build_deficit"] == 4
+    assert snapshot["today"]["remaining_published_deficit"] == 5
+    assert snapshot["today"]["live_output_count_basis"] == (
+        "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_"
+        "AND_STABLE_PUBLIC_OBJECT_ID_AND_VALID_CANONICAL_URL_AND_EXACT_URL_HASH_"
+        "AND_DURABLE_SOURCE_WORK_ITEM_AND_UNIQUE_ARTICLE_IDENTITY"
+    )
     assert snapshot["automation"]["configured_intent"]["task_count"] == 4
     assert snapshot["automation"]["observed_host_state"]["state"] == (
         "AUTOMATION_STATE_UNAVAILABLE"
@@ -876,7 +882,9 @@ def test_snapshot_and_mode_api_are_bounded_and_launcher_stays_quarantined(tmp_pa
             assert changed.status == 200
             assert json.load(changed)["control"]["operating_mode"] == "SHADOW_ONLY"
     finally:
-        server.shutdown(); server.server_close(); thread.join(timeout=2)
+        server.shutdown()
+        server.server_close()
+        thread.join(timeout=2)
     after = _lifecycle_counts(store)
     assert server.server_address[0] == "127.0.0.1"
     assert before == after

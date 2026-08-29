@@ -40,9 +40,8 @@ The corrected PR #42 classification is repository/CI proof only. It does not est
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-Only one implementation gap remains:
-
-- Live production-day accounting must distinguish qualified editorial output from strictly reconciled published output; publication failure, deferral, or ambiguity must not count as a successful published article or satisfy live deficit pacing.
+The published-vs-qualified production-day accounting gap is closed by the current accounting
+slice. The next gate is current-host read-only activation proof.
 
 Single-owner production composition, Simple emergency-stop/process coverage, and the actual routine Simple publication handoff are closed. Do not reissue them unless fresh current code proves a regression.
 
@@ -64,8 +63,7 @@ After published/reconciled accounting implementation and before the first new li
 
 The accepted V1 product is not to be rebuilt. PR #38/PR #39 and corrected PR #42 close repository static safety/emergency-stop, single-owner composition, and the actual routine Simple publication handoff. Activation now proceeds in the remaining bounded slices:
 
-1. **Published/reconciled production-day accounting.** Preserve qualified-count telemetry, but make live health/deficit/counting use only strictly reconciled canonical publications from the existing durable publication/readback truth. No second ledger/store and no live write required for implementation tests.
-2. **Current-host read-only activation preflight.** Revalidate production store/recovery state, current browser/account identities, destination readiness, exactly-one owner/process, and zero unresolved UNKNOWN write. No public write during preflight.
+1. **Current-host read-only activation preflight.** Revalidate production store/recovery state, current browser/account identities, destination readiness, exactly-one owner/process, and zero unresolved UNKNOWN write. No public write during preflight.
 3. **One live V1 end-to-end canary under already granted routine authority.** One fresh governed article only: Simple editorial path -> canonical Substack -> exactly eight derivative destinations -> strict readback/reconciliation. Stop immediately on wrong identity, unresolved UNKNOWN write, destructive mutation, or ambiguous public-object identity.
 4. **Routine production enablement.** Only after the canary is strictly reconciled should the four owner-locked windows run live toward 5–8 useful published articles per production day. No filler and no fifth routine task.
 

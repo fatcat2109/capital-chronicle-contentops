@@ -88,7 +88,8 @@ The routine bridge classification above is deterministic repository/CI proof. It
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-1. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry.
+None. Strictly reconciled published-count accounting is implemented by this current slice. The
+next gate is `CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT` and remains host/runtime proof.
 
 Single routine-owner composition, Simple emergency-stop/process coverage, and the routine Simple-to-existing-coordinator handoff are closed. Do not issue implementation tasks for them again unless fresh code proves regression.
 
@@ -125,8 +126,7 @@ Missing fresh host proof does not convert a proven implementation into a new imp
 
 ## 6. Current activation sequence
 
-1. implement published/reconciled accounting separately from qualified-article telemetry — no live write required for implementation validation;
-2. current-host read-only activation preflight — zero public write;
+1. current-host read-only activation preflight — zero public write;
 3. one fresh live V1 end-to-end canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
 4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day;
 5. continue isolated V2 only under V2's separate authority boundaries.

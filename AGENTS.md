@@ -115,9 +115,9 @@ Reuse, do not rebuild:
 
 The corrected routine bridge preserves the Simple semantic zero-write boundary and adds no second scheduler, publisher, packager, or store. The existing coordinator remains the only public-write/readback owner; canonical Substack `/p/...` reconciliation precedes exactly-eight derivative rematerialization. Repository/CI proof of this bridge is not current-host account/readiness/public-write proof.
 
-Current new implementation gap is limited to:
-
-1. published/reconciled production-day accounting distinct from zero-write qualified-count telemetry.
+The published/reconciled production-day accounting gap is closed by the current accounting slice.
+The next gate is current-host read-only activation proof; it must not be inferred from repository
+or CI evidence.
 
 Single-owner composition, Simple emergency-stop/process coverage, and the routine publication bridge are closed and must not be reissued as implementation tasks unless fresh code proves regression. Historical wording that still lists them as gaps is superseded by fresh branch code and this contract.
 
@@ -173,8 +173,7 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 ## 11. Locked current sequence
 
-1. close published/reconciled-count accounting without rebuilding the durable publication/reconciliation stack;
-2. run current-host read-only activation preflight;
+1. run current-host read-only activation preflight;
 3. run one fresh end-to-end live V1 canary under the already-granted authority and strictly reconcile all nine surfaces;
 4. only after that canary is clean, enable the four routine live windows toward 5–8 useful published articles/day;
 5. preserve V1 and continue isolated V2 work only under V2's separate authority boundaries.

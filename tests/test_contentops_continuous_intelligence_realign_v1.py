@@ -677,11 +677,14 @@ def test_published_corpus_with_confirmed_publication(tmp_path):
                      " VALUES ('wi-article','story-1','Fed decision day recap','COMPLETE',1,'daily_app_editorial_window','2026-08-10T09:00:00Z','2026-08-10T09:05:00Z')")
         conn.execute(
             "INSERT INTO outbox_messages (message_id, work_item_id, destination, payload, status, created_at)"
-            " VALUES ('msg1','wi-article','substack','{}','READY','2026-08-10T09:00:00Z')"
+            " VALUES ('msg1','wi-article','substack',"
+            "'{\"article_identity\":\"article-1\"}',"
+            "'READY','2026-08-10T09:00:00Z')"
         )
         conn.execute(
-            "INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at,public_object_id,public_object_url)"
-            " VALUES ('disp1','msg1','substack','DISPATCH_CONFIRMED','2026-08-10T09:05:00Z','object-123','https://capitalchronicle.substack.com/p/fed-decision-day-recap')"
+            "INSERT INTO platform_dispatches (dispatch_id,message_id,platform,status,dispatched_at,public_object_id,public_object_url,public_object_url_hash)"
+            " VALUES ('disp1','msg1','substack','DISPATCH_CONFIRMED','2026-08-10T09:05:00Z','object-123','https://capitalchronicle.substack.com/p/fed-decision-day-recap',"
+            "'2462716a9bbb533ae3c7323a5beee0fb7e024f911d1ae12861355ccc9f7ddc88')"
         )
         conn.execute(
             "INSERT INTO reconciliations (reconciliation_id,work_item_id,status,reconciled_at)"
@@ -844,7 +847,9 @@ def test_run_now_consumes_through_same_canonical_cycle_with_fallback_sync_only(t
     assert trigger_report["state"] == "CONSUMED"
     assert trigger_report["executed"] is True
     assert trigger_report["ingestion_capture"]["detail"] == "intake_fresh_no_sync_needed"
-    assert calls[0]["publication_enabled"] is False
+    # SHADOW_ONLY still builds the real article/plan; the supervisor withholds the public
+    # lifecycle, so public_write_performed remains false below.
+    assert calls[0]["publication_enabled"] is True
     assert "operator_run_now_override" not in calls[0]
     assert report["public_write_performed"] is False
     assert report["headline_ingestion"] is not None

@@ -69,8 +69,8 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 - `DurablePublicationCoordinator` remains the sole public-write/readback/reconciliation owner. Canonical Substack `/p/...` reconciliation precedes exactly-eight derivative rematerialization. Do not build another publisher/store/scheduler/package stack.
 - Historical Italy publication proves the nine-surface transport/reconciliation stack. Current live account/session/readiness still requires read-only revalidation before the first new live write.
 - Live daily-output success is based on strictly reconciled published canonical articles, not merely zero-write qualified article records.
-- The only current V1 implementation gap is published-vs-qualified accounting.
-- Current activation order is published/reconciled accounting -> read-only host preflight -> one live canary -> routine four-window live enablement.
+- Published-vs-qualified accounting is implemented in the current master lineage.
+- Current activation order is read-only host preflight -> one live canary -> routine four-window live enablement.
 
 ## 5. Historical/non-routing families
 
