@@ -109,9 +109,9 @@ public-write enablement — was later granted by Jim and recorded in merge commi
 `db0befb8ad44f1080c67fcb801e5470ce7852369`. It is no longer a pending owner gate. Corrected PR #42
 then closed the actual persistent scheduler -> existing coordinator handoff, including recover-before-
 fresh-work, deterministic slot/work-item/plan identity, no-model interrupted-publication resume,
-unresolved-backlog fail-closed behavior, and duplicate-terminal idempotency. Current work is now
-strictly reconciled published-count accounting, then current-host read-only preflight, then one live
-end-to-end canary before routine four-window enablement.
+unresolved-backlog fail-closed behavior, and duplicate-terminal idempotency. Strictly reconciled
+published-count accounting is now closed; current work is current-host read-only preflight, then
+one live end-to-end canary before routine four-window enablement.
 
 The scheduler performs one independent canonical one-article invocation per bounded slot; it does
 not turn Simple into a multi-article call. Its stable identity is production day + canonical window

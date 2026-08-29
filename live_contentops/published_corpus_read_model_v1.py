@@ -19,6 +19,11 @@ DISPATCH_CONFIRMED = "DISPATCH_CONFIRMED"
 RECONCILED_CONFIRMED = "RECONCILED_CONFIRMED"
 CONTENT_AVAILABLE = "CONTENT_AVAILABLE"
 CONTENT_UNAVAILABLE = "CONTENT_UNAVAILABLE"
+CANONICAL_PUBLICATION_CONTRACT = (
+    "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_"
+    "AND_STABLE_PUBLIC_OBJECT_ID_AND_VALID_CANONICAL_URL_AND_EXACT_URL_HASH_"
+    "AND_DURABLE_SOURCE_WORK_ITEM_AND_UNIQUE_ARTICLE_IDENTITY"
+)
 
 
 def _sha256_text(value: str) -> str:
@@ -52,14 +57,65 @@ def _valid_canonical_substack_url(value: Any) -> bool:
     except ValueError:
         return False
     path = parsed.path.rstrip("/")
+    slug = path.removeprefix("/p/").casefold()
     return bool(
         parsed.scheme == "https"
         and (parsed.hostname or "").casefold() == "capitalchronicle.substack.com"
         and path.startswith("/p/")
-        and len(path.removeprefix("/p/")) > 0
-        and path != "/p/pending-publication"
+        and len(slug) > 0
+        and not slug.startswith("pending-publication")
         and not parsed.username
         and not parsed.password
+    )
+
+
+def _field(value: Any, name: str) -> Any:
+    if isinstance(value, Mapping):
+        return value.get(name)
+    return getattr(value, name, None)
+
+
+def _canonical_substack_lifecycle_row(value: Any) -> Mapping[str, Any] | None:
+    rows = _field(value, "derivative_public_objects") or ()
+    for row in rows:
+        if not isinstance(row, Mapping):
+            continue
+        if str(row.get("destination") or "").casefold() == "substack":
+            return row
+    return None
+
+
+def is_countable_canonical_published_article(value: Any) -> bool:
+    """Validate the strict canonical read-model projection shape for live counting.
+
+    Lifecycle authority remains ``load_published_corpus``: it emits a projection only after
+    Substack ``DISPATCH_CONFIRMED`` + exact ``RECONCILED_CONFIRMED`` + valid readback. This
+    predicate prevents partial/arbitrary article refs from entering live production-day counts;
+    it does not duplicate durable lifecycle queries or grant publication authority.
+    """
+    article_identity = str(_field(value, "article_identity") or "").strip()
+    published_at = str(_field(value, "published_at_utc") or "").strip()
+    public_object_id = str(_field(value, "public_object_id") or "").strip()
+    canonical_url = str(_field(value, "canonical_url") or "").strip()
+    canonical_url_hash = str(_field(value, "canonical_url_hash") or "").strip()
+    source_work_item_id = str(_field(value, "source_work_item_id") or "").strip()
+    canonical_row = _canonical_substack_lifecycle_row(value)
+    return bool(
+        article_identity
+        and published_at
+        and public_object_id
+        and source_work_item_id
+        and _valid_canonical_substack_url(canonical_url)
+        and canonical_url_hash == _sha256_text(canonical_url)
+        and canonical_row is not None
+        and str(canonical_row.get("dispatch_id") or "").strip()
+        and str(canonical_row.get("dispatch_status") or "") == DISPATCH_CONFIRMED
+        and str(canonical_row.get("reconciliation_status") or "")
+        == RECONCILED_CONFIRMED
+        and str(canonical_row.get("public_object_id") or "") == public_object_id
+        and str(canonical_row.get("public_object_url") or "") == canonical_url
+        and str(canonical_row.get("public_object_url_hash") or "")
+        == canonical_url_hash
     )
 
 
@@ -218,8 +274,7 @@ def load_published_corpus(
             "dispatch_status": DISPATCH_CONFIRMED,
             "reconciliation_status": RECONCILED_CONFIRMED,
         } for row in sorted(group, key=lambda value: str(value.get("destination") or "")))
-        lifecycle_confirmed_derivative_count += len(derivatives)
-        records.append(PublishedArticleRef(
+        record = PublishedArticleRef(
             story_identity=story_identity,
             title=str(article.get("title") or substack.get("work_title") or story_identity),
             published_at_utc=str(substack.get("dispatched_at") or ""),
@@ -235,14 +290,19 @@ def load_published_corpus(
                 or article.get("article_mode")
                 or ""
             ) or None,
-            article_identity=str(intent.get("article_identity") or group_key) or None,
+            article_identity=str(intent.get("article_identity") or "") or None,
             canonical_url=str(substack.get("public_object_url") or "") or None,
             full_text=recovered["full_text"],
             content_status=recovered["content_status"],
             body_source=recovered["body_source"],
             source_work_item_id=str(substack["work_item_id"]),
             derivative_public_objects=derivatives,
-        ))
+        )
+        if not is_countable_canonical_published_article(record):
+            canonical_groups_without_substack += 1
+            continue
+        lifecycle_confirmed_derivative_count += len(derivatives)
+        records.append(record)
 
     records.sort(key=lambda value: (value.published_at_utc, value.story_identity))
     return {
@@ -259,10 +319,8 @@ def load_published_corpus(
         "lifecycle_confirmed_derivative_count": lifecycle_confirmed_derivative_count,
         "rejected_unreconciled_dispatch_count": rejected_dispatch_count,
         "canonical_groups_without_substack_count": canonical_groups_without_substack,
-        "dedupe_key": "article_identity_else_work_item_id",
-        "canonical_publication_contract": (
-            "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_AND_VALID_CANONICAL_URL"
-        ),
+        "dedupe_key": "strict_article_identity",
+        "canonical_publication_contract": CANONICAL_PUBLICATION_CONTRACT,
         "derived_from_existing_durable_truth": True,
         "second_publication_store_created": False,
     }
@@ -296,6 +354,8 @@ def load_canonical_published_memory_read_only(
         "schema_version": "contentops.v1_simple_published_memory_access.v1",
         "corpus_schema_version": corpus.get("schema_version"),
         "canonical_reconciled_article_count": len(articles),
+        "canonical_publication_contract": CANONICAL_PUBLICATION_CONTRACT,
+        "derived_from_existing_durable_truth": True,
         "store_access_mode": "SQLITE_MODE_RO_QUERY_ONLY",
         "auto_migrate": False,
         "production_store_unchanged_during_projection": True,

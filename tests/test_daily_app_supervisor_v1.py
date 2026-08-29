@@ -8,7 +8,6 @@ from pathlib import Path
 
 from live_contentops.daily_app_supervisor_v1 import (
     ContentOpsDailyAppSupervisor,
-    EditorialWindowPolicy,
     build_bootstrap_editorial_window_policy,
     editorial_window_id,
     material_event_due,
@@ -544,9 +543,10 @@ def test_later_window_runs_bounded_catchup_only_after_each_qualified_article(
 
     assert report["windows_dispatched"] == 1
     assert report["newsroom_cycle_invocations"] == 1
-    assert len(calls) == 3
+    assert len(calls) == 4
     assert calls[1]["run_id"].endswith("-catchup-02")
     assert calls[2]["run_id"].endswith("-catchup-03")
+    assert calls[3]["run_id"].endswith("-catchup-04")
     assert calls[0]["newsroom_production_day_id"] == day_id
     assert calls[0]["quota_discovery_prior_accounting"][
         "deterministic_network_requests"

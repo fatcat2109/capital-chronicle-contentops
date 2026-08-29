@@ -282,7 +282,9 @@ def test_interrupted_post_qualification_handoff_resumes_without_rerunning_simple
         publication_handoff=first_handoff,
     )
     interrupted = first.tick(now="2026-08-28T10:00:00Z")
-    assert interrupted["slot_capacity"] == 1
+    # A qualified-only seed is not live published output, so the first routine slot retains
+    # bounded capacity needed to reach the published target.
+    assert interrupted["slot_capacity"] == 2
     assert interrupted["classification"] == "PUBLICATION_RECOVERY_PENDING"
     assert len(calls) == 1
     assert len(first_handoff.publish_calls) == 1

@@ -10,9 +10,9 @@ from live_contentops.destination_transport_registry_v1 import (
 )
 from live_contentops.editorial_portfolio_v1 import PublishedArticleRef
 from live_contentops.newsroom_production_day_v1 import (
+    CANONICAL_PUBLICATION_CONTRACT,
     STATE_DEFICIT_RECOVERABLE,
     STATE_DEGRADED_DAILY_OUTPUT_DEFICIT,
-    STATE_FLOOR_MET,
     STATE_HARD_EXTERNAL_BLOCK,
     STATE_ON_TRACK,
     bounded_deficit_work_needed,
@@ -215,8 +215,8 @@ def test_floor_states_and_bounded_catchup_are_deterministic(tmp_path):
     )
     assert empty.production_day_state == STATE_ON_TRACK
     assert bounded_deficit_work_needed(
-        session="new_york_2300_bangkok", qualified_articles_today=1
-    ) == 3
+        session="new_york_2300_bangkok", published_articles_today=0
+    ) == 4
     _record(tmp_path, suffix="one", day_id=day_id)
     lagging = build_production_day_snapshot(
         reference=reference, output_root=tmp_path, routine_opportunities_used_override=2
@@ -250,26 +250,27 @@ def test_floor_states_and_bounded_catchup_are_deterministic(tmp_path):
     )
     assert floor.qualified_articles_today == 4
     assert floor.remaining_build_deficit == 0
-    assert floor.production_day_state == STATE_FLOOR_MET
+    assert floor.production_day_state == STATE_DEFICIT_RECOVERABLE
+    assert floor.remaining_published_deficit == 5
 
 
 def test_final_minimum_reachability_never_starves_a_routine_opportunity():
     assert bounded_deficit_work_needed(
-        session="new_york_2100_bangkok", qualified_articles_today=2
+        session="new_york_2100_bangkok", published_articles_today=2
     ) >= 1
     assert bounded_deficit_work_needed(
-        session="new_york_2300_bangkok", qualified_articles_today=2
+        session="new_york_2300_bangkok", published_articles_today=2
     ) >= 2
     assert bounded_deficit_work_needed(
-        session="new_york_0100_bangkok", qualified_articles_today=4
+        session="new_york_0100_bangkok", published_articles_today=4
     ) >= 1
     # The build floor is telemetry; it cannot suppress work below the final minimum.
     assert bounded_deficit_work_needed(
-        session="new_york_0100_bangkok", qualified_articles_today=4
+        session="new_york_0100_bangkok", published_articles_today=4
     ) == 1
     # At 5-8, quota pressure disappears but one normal useful-story walk remains available.
     assert bounded_deficit_work_needed(
-        session="new_york_2300_bangkok", qualified_articles_today=5
+        session="new_york_2300_bangkok", published_articles_today=5
     ) == 1
 
 
@@ -281,10 +282,10 @@ def test_routine_opportunity_accounting_is_independent_from_article_pacing():
     assert remaining_future_routine_windows("new_york_2300_bangkok") == 1
     assert routine_progress_target("new_york_2300_bangkok") == 3
     assert bounded_deficit_work_needed(
-        session="new_york_2300_bangkok", qualified_articles_today=2
+        session="new_york_2300_bangkok", published_articles_today=2
     ) == 2
     assert bounded_deficit_work_needed(
-        session="not-a-routine-window", qualified_articles_today=0
+        session="not-a-routine-window", published_articles_today=0
     ) == 0
 
 
@@ -295,14 +296,35 @@ def test_published_article_count_uses_canonical_article_identity_not_derivative_
         title="Canonical article",
         published_at_utc="2026-08-21T13:59:00Z",
         public_object_id="substack-object",
-        canonical_url_hash="canonical-url-hash",
+        canonical_url_hash=hashlib.sha256(
+            "https://capitalchronicle.substack.com/p/canonical-article".encode()
+        ).hexdigest(),
         content_hash="content-hash",
         article_identity="article-1",
         update_chain_identity="chain-1",
         article_mode="STANDARD_NEWS_ANALYSIS",
         entities=(),
+        canonical_url="https://capitalchronicle.substack.com/p/canonical-article",
+        source_work_item_id="work-1",
+        derivative_public_objects=(
+            {
+                "destination": "substack",
+                "dispatch_id": "dispatch-substack",
+                "public_object_id": "substack-object",
+                "public_object_url": "https://capitalchronicle.substack.com/p/canonical-article",
+                "public_object_url_hash": hashlib.sha256(
+                    "https://capitalchronicle.substack.com/p/canonical-article".encode()
+                ).hexdigest(),
+                "dispatch_status": "DISPATCH_CONFIRMED",
+                "reconciliation_status": "RECONCILED_CONFIRMED",
+            },
+        ),
     )
-    duplicate_surface_readback = replace(article, public_object_id="derivative-object")
+    duplicate_surface_readback = replace(
+        article,
+        public_object_id="derivative-object",
+        derivative_public_objects=article.derivative_public_objects,
+    )
     prior_day = replace(
         article,
         article_identity="article-prior",
@@ -315,3 +337,4 @@ def test_published_article_count_uses_canonical_article_identity_not_derivative_
         routine_opportunities_used_override=0,
     )
     assert snapshot.published_articles_today == 1
+    assert snapshot.live_output_count_basis == CANONICAL_PUBLICATION_CONTRACT

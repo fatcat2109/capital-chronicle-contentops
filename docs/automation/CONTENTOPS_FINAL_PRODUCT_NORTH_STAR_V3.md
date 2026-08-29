@@ -196,8 +196,7 @@ The corrected routine handoff preserves this North Star rather than adding a new
 
 Remaining work is activation/integration/revalidation, not a new V1 acceptance campaign:
 
-1. published/reconciled-count accounting distinct from qualified telemetry;
-2. current-host read-only activation preflight;
+1. current-host read-only activation preflight;
 3. one fresh live V1 end-to-end canary under already-granted routine authority;
 4. if strictly reconciled, enable four routine live windows toward 5–8 useful published articles/day.
 

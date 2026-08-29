@@ -23,11 +23,11 @@ import json
 import os
 import time
 from uuid import uuid4
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, asdict
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from pathlib import Path
-from typing import Any, Callable, Mapping, Optional, Sequence
+from typing import Any, Callable, Dict, Mapping, Optional, Sequence
 
 SCHEMA_VERSION = "contentops.daily_app_supervisor.v1"
 
@@ -3527,7 +3527,7 @@ class ContentOpsDailyAppSupervisor:
             work_budget = (
                 bounded_deficit_work_needed(
                     session=str(window.get("session") or ""),
-                    qualified_articles_today=production_before.qualified_articles_today,
+                    published_articles_today=production_before.published_articles_today,
                 )
                 if managed_daily_output
                 else 1
@@ -3836,10 +3836,19 @@ class ContentOpsDailyAppSupervisor:
             result["production_day_attempts"] = attempt_results
             result["production_day_work_budget"] = work_budget
             result["production_day_deficit_before"] = (
-                production_before.remaining_build_deficit
+                production_before.remaining_published_deficit
             )
             result["production_day_deficit_after"] = (
+                production_after.remaining_published_deficit
+            )
+            result["production_day_qualified_deficit_before"] = (
+                production_before.remaining_build_deficit
+            )
+            result["production_day_qualified_deficit_after"] = (
                 production_after.remaining_build_deficit
+            )
+            result["production_day_live_output_count_basis"] = (
+                production_before.live_output_count_basis
             )
             classification = str(result.get("classification") or "")
             viable = (
