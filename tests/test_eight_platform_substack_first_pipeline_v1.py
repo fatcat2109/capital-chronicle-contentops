@@ -404,6 +404,67 @@ def test_cloudinary_precondition_runs_only_after_full_nine_and_unknown_write_zer
     ) == manifest
 
 
+def test_cloudinary_preparation_builds_existing_delivery_only_card_for_simple_text_article(
+    tmp_path, monkeypatch
+):
+    (tmp_path / "run_context_v1.json").write_text(
+        json.dumps(
+            {
+                "article": {"title": "Exact Simple article"},
+                "selection": {
+                    "source_account": "wallstengine",
+                    "source_url": "https://x.com/wallstengine/status/1",
+                    "source_timestamp_utc": "2026-08-30T20:08:24Z",
+                },
+                "epistemic_state": {
+                    "reader_visible_epistemic_label": (
+                        "RELAYED / UNCONFIRMED - @wallstengine, citing The Information"
+                    )
+                },
+                "media": {"assets": [], "delivery_only_assets": []},
+            }
+        ),
+        encoding="utf-8",
+    )
+    built = []
+    prepared = []
+
+    def build(**kwargs):
+        built.append(kwargs)
+        return {
+            "asset_id": "delivery-card",
+            "path": str(tmp_path / "delivery_only_editorial_card.png"),
+            "sha256": "a" * 64,
+            "media_role": "delivery_only",
+        }
+
+    def prepare(**kwargs):
+        prepared.append(kwargs)
+        return {
+            "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+            "provider_calls": 1,
+            "manifest": {"status": "PASS", "assets": []},
+        }
+
+    monkeypatch.setattr(pipeline, "build_delivery_only_editorial_card", build)
+    monkeypatch.setattr(pipeline, "prepare_cloudinary_delivery_media", prepare)
+
+    result = pipeline._prepare_cloudinary_delivery_media_for_plan(
+        work_item_id="simple-work",
+        plan={"output_dir": str(tmp_path)},
+        preconditions={
+            "canonical_publication_status": "RECONCILED_CONFIRMED",
+            "unknown_write_count": 0,
+        },
+    )
+
+    assert result["status"] == "CLOUDINARY_DELIVERY_MEDIA_READY"
+    assert len(built) == 1
+    assert built[0]["title"] == "Exact Simple article"
+    assert built[0]["source_page_url"] == "https://x.com/wallstengine/status/1"
+    assert prepared[0]["delivery_only_assets"][0]["asset_id"] == "delivery-card"
+
+
 def test_substack_transport_receives_only_canonical_article_media(monkeypatch, tmp_path):
     article_media = {"asset_id": "article-chart", "path": str(tmp_path / "chart.png")}
     delivery_only = {"asset_id": "delivery-card", "media_role": "delivery_only"}

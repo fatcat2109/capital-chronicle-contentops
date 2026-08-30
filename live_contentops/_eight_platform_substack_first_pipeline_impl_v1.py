@@ -3728,6 +3728,39 @@ def _prepare_cloudinary_delivery_media_for_plan(
         for row in (media.get("delivery_only_assets") or [])
         if isinstance(row, Mapping)
     ]
+    article_assets = [
+        dict(row)
+        for row in (media.get("assets") or [])
+        if isinstance(row, Mapping)
+    ]
+    if not article_assets and not delivery_only_assets:
+        # Simple's text-first qualified article intentionally has no in-body media. Reuse the
+        # accepted deterministic delivery-only card seam so Instagram can receive media without
+        # mutating the canonical article or invoking another semantic/model/source operation.
+        article = dict(context.get("article") or {})
+        selection = dict(context.get("selection") or {})
+        epistemic = dict(context.get("epistemic_state") or {})
+        source_label = str(
+            epistemic.get("reader_visible_epistemic_label")
+            or epistemic.get("primary_reporting_publisher")
+            or selection.get("source_account")
+            or "Governed source"
+        )
+        source_page_url = str(
+            selection.get("source_url")
+            or next(iter(selection.get("public_source_urls") or ()), "")
+            or next(iter(selection.get("official_source_urls") or ()), "")
+            or "https://capitalchronicle.substack.com/"
+        )
+        delivery_only_assets = [
+            build_delivery_only_editorial_card(
+                output_path=output_dir / "delivery_only_editorial_card.png",
+                title=str(article.get("title") or "Capital Chronicle newsroom brief"),
+                source_label=source_label,
+                source_page_url=source_page_url,
+                published_at=str(selection.get("source_timestamp_utc") or "") or None,
+            )
+        ]
     manifest_path = output_dir / "delivery_media_manifest_v1.json"
     existing_manifest = _read_json(manifest_path) if manifest_path.is_file() else {}
     prepared = prepare_cloudinary_delivery_media(

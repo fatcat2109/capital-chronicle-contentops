@@ -109,6 +109,10 @@ ATTRIBUTED_REPUTABLE_PUBLISHERS = {
     "npr.org": {"publisher": "NPR", "aliases": ("npr",)},
     "politico.com": {"publisher": "Politico", "aliases": ("politico",)},
     "reuters.com": {"publisher": "Reuters", "aliases": ("reuters",)},
+    "theinformation.com": {
+        "publisher": "The Information",
+        "aliases": ("the information",),
+    },
     "wsj.com": {"publisher": "The Wall Street Journal", "aliases": ("wall street journal", "wsj")},
 }
 

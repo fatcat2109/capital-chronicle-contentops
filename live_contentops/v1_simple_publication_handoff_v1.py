@@ -46,6 +46,9 @@ RECEIPT_FILENAME = "simple_gemini_newsroom_receipt_v1.json"
 QUALIFIED_FILENAME = "qualified_article_record_v1.json"
 ARTICLE_FILENAME = "article_manifest_v1.json"
 PREVIEWS_FILENAME = "native_derivative_previews_v1.json"
+OWNER_QUARANTINED_RECOVERY_WORK_ITEMS = (
+    "pr37-canonical-x-relay-rumor-acceptance-20260828T142100Z",
+)
 
 
 class SimplePublicationHandoffError(RuntimeError):
@@ -404,5 +407,6 @@ def build_canonical_simple_publication_handoff(
         transport_runtime=transport,
         readiness_provider=readiness_by_destination,
         readiness_manager=readiness,
+        recovery_quarantined_work_item_ids=OWNER_QUARANTINED_RECOVERY_WORK_ITEMS,
     )
     return SimplePublicationHandoffV1(store=store, coordinator=coordinator)

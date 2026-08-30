@@ -432,6 +432,10 @@ def test_no_current_x_relay_has_report_truth_authority():
         ("A bank is reviewing its strategy, according to Bloomberg", "Bloomberg"),
         ("A bank is reviewing its strategy, per WSJ", "The Wall Street Journal"),
         (
+            "OpenAI reportedly bought Mac minis for agent training. - The Information",
+            "The Information",
+        ),
+        (
             "Gulf states are investing in ports and pipelines, Reuters reported Friday.",
             "Reuters",
         ),
@@ -740,6 +744,28 @@ def test_canonical_x_relay_qualifies_zero_gets_without_original_publisher_resolu
     assert state["reader_visible_epistemic_label"] == (
         "RELAYED / UNCONFIRMED - @wallstengine, citing Bloomberg"
     )
+
+
+def test_canonical_x_the_information_suffix_is_exact_zero_get_relay():
+    candidate = _canonical_candidate(
+        headline=(
+            "OpenAI reportedly bought tens of thousands of Mac minis for agent training. "
+            "- The Information"
+        )
+    )
+    request = _request(candidate, source_url=candidate["source_url"])
+
+    document, blockers = canonical_x_report_document(request)
+
+    assert blockers == []
+    assert document is not None
+    profile = request["story_context"]["report_provenance"]
+    assert profile["primary_reporting_publisher"] == "The Information"
+    assert profile["trusted_relay_identity_approved"] is True
+    assert document["retrieval_method"] == (
+        "EXACT_GOVERNED_CANONICAL_X_RELAY_SIDECAR"
+    )
+    assert document["underlying_event_truth_granted"] is False
 
 
 def test_canonical_x_with_direct_named_publisher_url_preserves_direct_route():
@@ -1133,6 +1159,154 @@ def test_canonical_x_relay_runs_zero_get_writer_and_eight_preview_path(tmp_path)
     assert all(label in str(payload) for payload in native["packages"].values())
     record = json.loads((tmp_path / "qualified_article_record_v1.json").read_text())
     assert record["epistemic_state"] == state
+
+
+def test_canonical_x_zero_get_fallback_runs_after_shared_get_budget_exhausted(
+    tmp_path,
+):
+    relay = _canonical_candidate(
+        headline=(
+            "SoftBank is seeking a new loan tied to its OpenAI investment, per Bloomberg."
+        )
+    )
+
+    def rolling_row(*, headline_id, headline, account, status_id, canonical=None):
+        return {
+            "headline_id": headline_id,
+            "headline_text": headline,
+            "source_timestamp_utc": "2026-08-27T21:51:04Z",
+            "external_content": {
+                "headline_text": headline,
+                "author_handle": account,
+                "source_platform": "x_cdp_list_latest_tweets_timeline",
+                "url_or_source_ref": f"https://x.com/{account}/status/{status_id}",
+                "canonical_x_list_provenance": dict(canonical or {}),
+            },
+        }
+
+    rolling = {
+        "headlines": [
+            rolling_row(
+                headline_id="headline-unbound-one",
+                headline="A current market story requires independent public evidence.",
+                account="unbound_one",
+                status_id="11",
+            ),
+            rolling_row(
+                headline_id="headline-unbound-two",
+                headline="A second current market story also requires public evidence.",
+                account="unbound_two",
+                status_id="12",
+            ),
+            rolling_row(
+                headline_id=relay["headline_id"],
+                headline=relay["headline_text"],
+                account=relay["source_account"],
+                status_id="1",
+                canonical=relay["canonical_x_list_provenance"],
+            ),
+        ]
+    }
+    roles: list[str] = []
+    evidence_calls = 0
+    relay_state: dict[str, object] = {}
+
+    def llm_invoke(**kwargs):
+        role = kwargs["role_task_id"]
+        roles.append(role)
+        if role == ROLE_V1_SIMPLE_SELECTION:
+            candidates = kwargs["governed_input"]["candidates"]
+            ordered = sorted(
+                candidates,
+                key=lambda row: (
+                    "SoftBank" in str(row["headline_text"]),
+                    str(row["headline_text"]),
+                ),
+            )
+            return (
+                {
+                    "schema_version": SELECTION_SCHEMA_VERSION,
+                    "status": "SELECT_CANDIDATE_PLAN",
+                    "ordered_candidate_plan": [
+                        {
+                            "candidate_id": row["candidate_id"],
+                            "article_mode": "STANDARD_NEWS_ANALYSIS",
+                            "selection_rationale": "Bounded candidate walk fixture.",
+                            "research_queries": ["bounded evidence fixture"],
+                        }
+                        for row in ordered
+                    ],
+                    "selection_summary": "Two public routes then one exact relay.",
+                    "public_write_attempted": False,
+                },
+                {
+                    "selected_model": "vx/gemini-3.5-flash(high)",
+                    "total_attempts": 1,
+                    "public_write_attempted": False,
+                },
+            )
+        assert role == ROLE_V1_SIMPLE_ARTICLE_WRITING
+        return (
+            _relay_article_output(relay_state),
+            {
+                "selected_model": "vx/gemini-3.5-flash(high)",
+                "total_attempts": 1,
+                "public_write_attempted": False,
+            },
+        )
+
+    def evidence_loader(request):
+        nonlocal evidence_calls, relay_state
+        evidence_calls += 1
+        relay_doc, blockers = canonical_x_report_document(request)
+        if relay_doc is None:
+            assert blockers
+            return {
+                "status": "BLOCKED",
+                "blockers": ["public_source_candidate_request_budget_exhausted"],
+                "evidence_documents": [],
+                "provenance": {"request_count_for_call": 3},
+            }
+        state, state_blockers = build_epistemic_state(
+            request=request,
+            documents=[relay_doc],
+            selected_route="TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        )
+        assert state_blockers == [] and state is not None
+        relay_state = dict(state)
+        return {
+            "status": "PASS",
+            "blockers": [],
+            "evidence_documents": [relay_doc],
+            "epistemic_state": state,
+            "provenance": {
+                "request_count_for_call": 0,
+                "request_count_total": 6,
+                "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+            },
+        }
+
+    result = run_v1_simple_gemini_newsroom(
+        output_dir=tmp_path,
+        cutoff_utc=CUTOFF,
+        rolling_input=rolling,
+        llm_invoke=llm_invoke,
+        evidence_loader=evidence_loader,
+        run_id="relay-after-get-budget",
+    )
+
+    assert result["classification"] == "PASS_V1_SIMPLE_GEMINI_ZERO_WRITE_ARTICLE"
+    assert result["source_request_count"] == 6
+    assert evidence_calls == 3
+    assert [row["status"] for row in result["candidate_attempt_history"]] == [
+        "SOURCE_BLOCKED",
+        "SOURCE_BLOCKED",
+        "SOURCE_QUALIFIED",
+    ]
+    assert result["candidate_attempt_history"][2]["source_request_count_for_attempt"] == 0
+    assert result["candidate_attempt_history"][2]["source_request_count_total"] == 6
+    assert result["derivative_intent_count"] == 8
+    assert roles == [ROLE_V1_SIMPLE_SELECTION, ROLE_V1_SIMPLE_ARTICLE_WRITING]
 
 
 def test_attributed_reuters_unresolved_does_not_spend_attempt_on_ap():

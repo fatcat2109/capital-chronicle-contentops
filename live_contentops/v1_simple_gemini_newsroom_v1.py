@@ -61,6 +61,7 @@ from live_contentops.v1_simple_evidence_resolver_v1 import (
     SimpleFirstPartyAwareEvidenceResolver,
 )
 from live_contentops.v1_simple_epistemic_state_v1 import (
+    canonical_x_report_document,
     candidate_report_provenance,
     validate_epistemic_state,
 )
@@ -1787,7 +1788,11 @@ def run_v1_simple_gemini_newsroom(
         plan_entry.setdefault("plan_position", plan_index)
         plan_entry.setdefault("plan_role", "PRIMARY" if plan_index == 1 else "FALLBACK")
         candidate = candidate_by_id[str(plan_entry["candidate_id"])]
-        if request_count >= MAX_SOURCE_REQUESTS:
+        request = _evidence_request(candidate, plan_entry)
+        zero_request_document, _zero_request_blockers = canonical_x_report_document(
+            request
+        )
+        if request_count >= MAX_SOURCE_REQUESTS and zero_request_document is None:
             candidate_attempt_history.append(
                 {
                     "plan_position": plan_index,
@@ -1802,7 +1807,6 @@ def run_v1_simple_gemini_newsroom(
                 }
             )
             continue
-        request = _evidence_request(candidate, plan_entry)
         request["remaining_admitted_candidate_count"] = len(plan) - plan_index
         try:
             evidence = dict(loader(request) or {})
