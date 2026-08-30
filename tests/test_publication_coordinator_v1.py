@@ -396,6 +396,129 @@ def test_unresolved_quality_distribution_obligation_blocks_new_canonical(tmp_pat
     assert transport.publish_calls.count("substack") == 1
 
 
+def test_owner_quarantined_legacy_unknown_is_untouched_and_does_not_block_fresh_plan(
+    tmp_path,
+):
+    class QuarantineProofTransport(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.readback_work_items = []
+            self.prepare_calls = []
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            self.readback_work_items.append(str(intent.get("work_item_id") or ""))
+            return super().readback(
+                destination=destination,
+                public_object_id=public_object_id,
+                public_object_url=public_object_url,
+                intent=intent,
+            )
+
+        def prepare_delivery_media(self, **kwargs):
+            self.prepare_calls.append(kwargs)
+            return {
+                "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+                "provider_calls": 1,
+                "public_write_performed": False,
+            }
+
+    legacy_work_item = "legacy-owner-quarantined-unknown"
+    store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
+    for work_item_id in (legacy_work_item, "legacy-noncanonical", "fresh-work"):
+        store.create_work_item(
+            story_id=f"story-{work_item_id}",
+            title="Controlled quarantine fixture",
+            target_surface="MULTI_PLATFORM",
+            work_item_id=work_item_id,
+            actor_ref="controlled_test",
+            correlation_id=f"correlation-{work_item_id}",
+        )
+    transport = QuarantineProofTransport()
+    readiness = lambda destination: {  # noqa: E731
+        "readiness_state": (
+            "READY_AUTHENTICATED"
+            if registration_for_destination(destination).transport_type == "EDGE_CDP"
+            else "READY_NON_BROWSER_BINDING"
+        )
+    }
+    setup = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=transport,
+        readiness_provider=readiness,
+    )
+    legacy_registration = setup.register_plan(legacy_work_item, _quality_plan())
+    legacy_substack = next(
+        row
+        for row in legacy_registration["registered"]
+        if row["destination"] == "substack"
+    )
+    store.register_platform_dispatch(
+        dispatch_id=legacy_substack["dispatch_id"],
+        message_id=legacy_substack["message_id"],
+        platform="substack",
+        status=UNKNOWN_WRITE,
+        public_object_id="213355736",
+    )
+    store.set_outbox_status(legacy_substack["message_id"], UNKNOWN_WRITE)
+    store.register_reconciliation(
+        reconciliation_id=legacy_substack["reconciliation_id"],
+        work_item_id=legacy_work_item,
+        status=RECONCILIATION_PENDING,
+    )
+    store.register_outbox_message(
+        message_id="legacy-noncanonical-ready",
+        work_item_id="legacy-noncanonical",
+        destination="substack",
+        payload=json.dumps({"historical_schema": "pre_coordinator"}),
+        status="READY",
+    )
+    dispatch_before = dict(
+        store.get_platform_dispatch(legacy_substack["dispatch_id"])
+    )
+    outbox_before = [
+        dict(row)
+        for row in store.list_outbox_messages()
+        if row["work_item_id"] == legacy_work_item
+    ]
+    reconciliation_before = store.get_reconciliations_for_work_item(legacy_work_item)
+    _set_mode(store, "AUTONOMOUS_DEFAULT")
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=transport,
+        readiness_provider=readiness,
+        recovery_quarantined_work_item_ids=(legacy_work_item,),
+    )
+    fresh_plan = _quality_plan()
+    next(
+        row
+        for row in fresh_plan["destinations"]
+        if row["destination"] == "instagram_business"
+    )["delivery_media_required"] = True
+
+    recovery = coordinator.recover_pending()
+    result = coordinator.execute_plan("fresh-work", fresh_plan)
+
+    assert result["distribution_status"] == FULL_V1_NINE_SURFACE_PUBLICATION_CONFIRMED
+    assert recovery["backlog_remaining"] == 0
+    assert recovery["recovery_quarantined_obligation_count"] == 9
+    assert recovery["legacy_noncanonical_rows_skipped"] == 1
+    assert transport.prepare_calls[0]["preconditions"]["unknown_write_count"] == 0
+    assert legacy_work_item not in transport.readback_work_items
+    assert store.get_platform_dispatch(legacy_substack["dispatch_id"]) == dispatch_before
+    assert [
+        dict(row)
+        for row in store.list_outbox_messages()
+        if row["work_item_id"] == legacy_work_item
+    ] == outbox_before
+    assert store.get_reconciliations_for_work_item(legacy_work_item) == (
+        reconciliation_before
+    )
+
+    blocked = coordinator.execute_plan(legacy_work_item, _quality_plan())
+    assert blocked["distribution_status"] == "BLOCKED_RECOVERY_QUARANTINED_WORK_ITEM"
+    assert blocked["public_write_performed"] is False
+
+
 def test_stable_provider_id_confirms_distribution_with_readback_limitation(tmp_path):
     class LimitedLinkedInReadback(FixtureTransport):
         def readback(self, *, destination, public_object_id, public_object_url, intent):

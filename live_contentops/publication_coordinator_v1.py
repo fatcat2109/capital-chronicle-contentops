@@ -291,6 +291,7 @@ class DurablePublicationCoordinator:
         readiness_manager: Any = None,
         readiness_refresh_seconds: float = 300.0,
         clock: Optional[Callable[[], datetime]] = None,
+        recovery_quarantined_work_item_ids: tuple[str, ...] = (),
     ) -> None:
         self.store = store
         self.transport_runtime = transport_runtime
@@ -298,6 +299,33 @@ class DurablePublicationCoordinator:
         self.readiness_manager = readiness_manager
         self.readiness_refresh_seconds = max(30.0, float(readiness_refresh_seconds))
         self._clock = clock or (lambda: datetime.now(timezone.utc))
+        self._recovery_quarantined_work_item_ids = frozenset(
+            str(value).strip()
+            for value in recovery_quarantined_work_item_ids
+            if str(value).strip()
+        )
+
+    def _recovery_is_quarantined(self, work_item_id: Any) -> bool:
+        return str(work_item_id or "") in self._recovery_quarantined_work_item_ids
+
+    def _active_unknown_write_count(self) -> int:
+        """Count UNKNOWN writes that are allowed to participate in current recovery.
+
+        An explicitly quarantined historical lifecycle remains byte-for-byte durable evidence,
+        but it cannot poison delivery-media preconditions for a distinct fresh work item. Missing
+        message ownership remains fail-closed and is counted as active UNKNOWN.
+        """
+        count = 0
+        for dispatch in self.store.list_platform_dispatches():
+            if str(dispatch.get("status") or "") != UNKNOWN_WRITE:
+                continue
+            message = self.store.get_outbox_message(str(dispatch.get("message_id") or ""))
+            if message is not None and self._recovery_is_quarantined(
+                message.get("work_item_id")
+            ):
+                continue
+            count += 1
+        return count
 
     @staticmethod
     def _freshness_horizon(intent: Mapping[str, Any]) -> timedelta:
@@ -1296,6 +1324,20 @@ class DurablePublicationCoordinator:
         return {"status": "REPLAY_VERIFIED_READBACK_NOT_FOUND", "provider_calls": 0}
 
     def execute_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
+        if self._recovery_is_quarantined(work_item_id):
+            return {
+                "plan_hash": str(plan.get("plan_hash") or _hash(_canonical_json(plan))),
+                "registered": [],
+                "outbox_count": 0,
+                "per_destination": {},
+                "canonical_article_status": "NOT_STARTED",
+                "canonical_article_real_published": False,
+                "canonical_url": None,
+                "canonical_publication_status": "BLOCKED_RECOVERY_QUARANTINED_WORK_ITEM",
+                "distribution_status": "BLOCKED_RECOVERY_QUARANTINED_WORK_ITEM",
+                "public_write_performed": False,
+                "unknown_write_detected": True,
+            }
         recovery_preflight = self.recover_pending()
         if int(recovery_preflight.get("backlog_remaining") or 0) > 0:
             return {
@@ -1373,10 +1415,7 @@ class DurablePublicationCoordinator:
                 canonical_url = str(outcome["public_object_url"])
         delivery_preparer = getattr(self.transport_runtime, "prepare_delivery_media", None)
         if canonical_url and callable(delivery_preparer) and quality_preflight is not None:
-            unknown_write_count = sum(
-                str(row.get("status") or "") == UNKNOWN_WRITE
-                for row in self.store.list_platform_dispatches()
-            )
+            unknown_write_count = self._active_unknown_write_count()
             delivery_media_preparation = dict(
                 delivery_preparer(
                     work_item_id=work_item_id,
@@ -1589,12 +1628,23 @@ class DurablePublicationCoordinator:
         messages = self.store.list_outbox_messages()
         dispatch_by_message = {str(d["message_id"]): d for d in self.store.list_platform_dispatches()}
         ready_messages: list[tuple[Mapping[str, Any], bool]] = []
+        quarantined_obligations: set[tuple[str, str, str]] = set()
         for message in messages:
             intent = json.loads(str(message["payload"]))
             if not intent.get("work_item_id") or not intent.get("plan_hash"):
                 summary["legacy_noncanonical_rows_skipped"] = int(
                     summary.get("legacy_noncanonical_rows_skipped") or 0
                 ) + 1
+                continue
+            if self._recovery_is_quarantined(intent.get("work_item_id")):
+                dispatch = dispatch_by_message.get(str(message["message_id"]))
+                quarantined_obligations.add(
+                    (
+                        str(intent["work_item_id"]),
+                        str(message["destination"]),
+                        str((dispatch or {}).get("status") or message.get("status") or ""),
+                    )
+                )
                 continue
             dispatch = dispatch_by_message.get(str(message["message_id"]))
             if dispatch is None and str(message["status"]) == "READY":
@@ -1814,6 +1864,13 @@ class DurablePublicationCoordinator:
                 intent = json.loads(str(message["payload"]))
             except (TypeError, ValueError, KeyError):
                 continue
+            if not intent.get("work_item_id") or not intent.get("plan_hash"):
+                # The recovery pass above deliberately excludes pre-coordinator legacy rows.
+                # Do not reintroduce those same noncanonical rows as fresh-publication blockers
+                # while computing the terminal backlog summary.
+                continue
+            if self._recovery_is_quarantined(intent.get("work_item_id")):
+                continue
             dispatch = refreshed_dispatches.get(str(message["message_id"]))
             destination = str(message["destination"])
             if (
@@ -1901,6 +1958,19 @@ class DurablePublicationCoordinator:
         summary["backlog_remaining_obligations"] = sorted(
             remaining_obligations,
             key=lambda row: (row["work_item_id"], row["destination"]),
+        )
+        summary["recovery_quarantined_obligations"] = [
+            {
+                "work_item_id": work_item_id,
+                "destination": destination,
+                "durable_status": durable_status,
+            }
+            for work_item_id, destination, durable_status in sorted(
+                quarantined_obligations
+            )
+        ]
+        summary["recovery_quarantined_obligation_count"] = len(
+            quarantined_obligations
         )
         summary["backlog_blocking_new_publication"] = bool(remaining_destinations)
         return summary
