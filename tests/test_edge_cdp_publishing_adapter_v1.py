@@ -241,6 +241,24 @@ class _OutcomeResponse:
         raise AssertionError("response body must not be inspected")
 
 
+class _RequestOutcomeTransitionPage(_TransitionPage):
+    def __init__(self, *, completion_status: int | None) -> None:
+        super().__init__(confirmation_after_polls=None)
+        self.completion_status = completion_status
+
+    def handle_click(self, label):
+        super().handle_click(label)
+        if label == "Send to everyone now":
+            request = _OutcomeRequest()
+            self.emit("request", request)
+            if self.completion_status is not None:
+                self.emit("response", _OutcomeResponse(request, self.completion_status))
+
+
+def _listener_counts(page):
+    return {event: len(callbacks) for event, callbacks in page.listeners.items()}
+
+
 def _outcome_observer(page):
     timestamps = iter(
         ("2026-08-30T10:00:00+00:00", "2026-08-30T10:00:01+00:00")
@@ -345,16 +363,28 @@ def test_substack_post_write_observer_ignores_other_draft_and_endpoint() -> None
     assert outcome["status_class"] == "UNKNOWN"
 
 
-def test_final_publish_transition_returns_exact_request_outcome(monkeypatch) -> None:
-    class RequestEmittingPage(_TransitionPage):
-        def handle_click(self, label):
-            super().handle_click(label)
-            if label == "Send to everyone now":
-                request = _OutcomeRequest()
-                self.emit("request", request)
-                self.emit("response", _OutcomeResponse(request, 204))
+def test_substack_post_write_observer_multiple_exact_requests_stay_unknown() -> None:
+    page = _OutcomeEventPage()
+    first = _OutcomeRequest()
+    second = _OutcomeRequest()
+    observer = _outcome_observer(page)
+    page.emit("request", first)
+    page.emit("response", _OutcomeResponse(first, 204))
+    page.emit("request", second)
 
-    page = RequestEmittingPage(confirmation_after_polls=None)
+    outcome = observer.finish()
+
+    assert outcome["status_class"] == "UNKNOWN"
+    assert outcome["reason"] == "MULTIPLE_EXACT_REQUESTS_OBSERVED"
+    assert _listener_counts(page) == {
+        "request": 0,
+        "response": 0,
+        "requestfailed": 0,
+    }
+
+
+def test_final_publish_transition_returns_exact_request_outcome(monkeypatch) -> None:
+    page = _RequestOutcomeTransitionPage(completion_status=204)
     monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda _page: None)
     monkeypatch.setattr(adapter, "_substack_listing_matches", lambda *_a, **_k: [])
 
@@ -376,6 +406,132 @@ def test_final_publish_transition_returns_exact_request_outcome(monkeypatch) -> 
     assert result["status"] == (
         "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION"
     )
+    assert _listener_counts(page) == {
+        "request": 0,
+        "response": 0,
+        "requestfailed": 0,
+    }
+
+
+def test_post_click_exception_preserves_2xx_outcome_and_finalizes_once(
+    monkeypatch,
+) -> None:
+    page = _RequestOutcomeTransitionPage(completion_status=204)
+    raw_failure_text = "secret-bearing post-click observation detail"
+    finish_calls = []
+    original_finish = adapter._SubstackPostWriteOutcomeObserver.finish
+
+    def counting_finish(observer):
+        finish_calls.append(id(observer))
+        return original_finish(observer)
+
+    monkeypatch.setattr(
+        adapter._SubstackPostWriteOutcomeObserver,
+        "finish",
+        counting_finish,
+    )
+    monkeypatch.setattr(
+        adapter,
+        "_extract_substack_public_url",
+        lambda _page: (_ for _ in ()).throw(RuntimeError(raw_failure_text)),
+    )
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        dispatch_identity="dispatch_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == "UNKNOWN_SUBSTACK_POST_PUBLICATION_OBSERVATION_FAILED"
+    assert result["draft_id"] == "210796285"
+    assert result["public_write_attempted"] is True
+    assert result["browser_write_performed"] is True
+    assert result["error_class"] == "RuntimeError"
+    assert result["provider_outcome"]["status_class"] == "2XX"
+    assert result["provider_outcome"]["completion_observed"] is True
+    assert finish_calls and len(finish_calls) == 1
+    assert raw_failure_text not in str(result)
+    assert all(
+        value is False
+        for key, value in result["provider_outcome"].items()
+        if key.endswith("_persisted")
+    )
+    assert _listener_counts(page) == {
+        "request": 0,
+        "response": 0,
+        "requestfailed": 0,
+    }
+
+
+def test_post_click_exception_before_completion_stays_unknown_and_detaches(
+    monkeypatch,
+) -> None:
+    page = _RequestOutcomeTransitionPage(completion_status=None)
+    monkeypatch.setattr(
+        adapter,
+        "_extract_substack_public_url",
+        lambda _page: (_ for _ in ()).throw(RuntimeError("not persisted")),
+    )
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        dispatch_identity="dispatch_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    outcome = result["provider_outcome"]
+    assert result["status"] == "UNKNOWN_SUBSTACK_POST_PUBLICATION_OBSERVATION_FAILED"
+    assert result["public_write_attempted"] is True
+    assert outcome["request_observed"] is True
+    assert outcome["completion_observed"] is False
+    assert outcome["status_class"] == "UNKNOWN"
+    assert outcome["reason"] == "REQUEST_OBSERVED_COMPLETION_NOT_OBSERVED"
+    assert _listener_counts(page) == {
+        "request": 0,
+        "response": 0,
+        "requestfailed": 0,
+    }
+
+
+def test_observer_unavailable_does_not_change_fail_closed_publication(monkeypatch) -> None:
+    class ObserverUnavailablePage(_TransitionPage):
+        def on(self, event, callback):
+            del event, callback
+            raise RuntimeError("observer unavailable")
+
+    page = ObserverUnavailablePage(confirmation_after_polls=None)
+    monkeypatch.setattr(adapter, "_extract_substack_public_url", lambda _page: None)
+    monkeypatch.setattr(adapter, "_substack_listing_matches", lambda *_a, **_k: [])
+
+    result = adapter._complete_substack_publish_transition(
+        page,
+        draft_id="210796285",
+        expected_title="Exact story",
+        dispatch_identity="dispatch_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        transition_timeout_seconds=0.01,
+        listing_timeout_seconds=0.01,
+        poll_interval_seconds=0.01,
+    )
+
+    assert result["status"] == (
+        "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION"
+    )
+    assert result["provider_outcome"]["status_class"] == "UNKNOWN"
+    assert result["provider_outcome"]["reason"] == "OBSERVATION_SURFACE_UNAVAILABLE"
+    assert page.clicks == ["Continue", "Send to everyone now"]
+    assert _listener_counts(page) == {
+        "request": 0,
+        "response": 0,
+        "requestfailed": 0,
+    }
 
 
 def test_substack_publish_transition_requires_exact_draft_id_before_any_click() -> None:

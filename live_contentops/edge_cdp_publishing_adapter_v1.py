@@ -1852,13 +1852,24 @@ def _complete_substack_publish_transition(
     stages: list[dict[str, Any]] = []
     outcome_observer: _SubstackPostWriteOutcomeObserver | None = None
 
-    def _with_provider_outcome(result: dict[str, Any]) -> dict[str, Any]:
+    def _finish_provider_outcome() -> dict[str, Any] | None:
+        """Finalize and detach the request observer at most once."""
         nonlocal outcome_observer
-        if outcome_observer is not None:
-            outcome = outcome_observer.finish()
-            outcome_observer = None
-            if outcome is not None:
-                result["provider_outcome"] = outcome
+        observer = outcome_observer
+        outcome_observer = None
+        if observer is None:
+            return None
+        try:
+            return observer.finish()
+        except Exception:
+            # Observability must never change publication behavior. The observer's own finish
+            # path removes listeners before sanitizing, and raw observer errors are never kept.
+            return None
+
+    def _with_provider_outcome(result: dict[str, Any]) -> dict[str, Any]:
+        outcome = _finish_provider_outcome()
+        if outcome is not None:
+            result["provider_outcome"] = outcome
         return result
 
     draft_id = str(draft_id or "").strip()
@@ -1969,180 +1980,215 @@ def _complete_substack_publish_transition(
             "browser_write_performed": False,
             "transition_stages": stages,
         }
+    outcome_observer = _SubstackPostWriteOutcomeObserver(
+        page,
+        draft_id=draft_id,
+        dispatch_identity=dispatch_identity,
+    )
+    outcome_observer.start()
     try:
-        outcome_observer = _SubstackPostWriteOutcomeObserver(
-            page,
-            draft_id=draft_id,
-            dispatch_identity=dispatch_identity,
-        )
-        outcome_observer.start()
-        publish_button.click(timeout=6000)
-    except Exception as exc:
+        try:
+            publish_button.click(timeout=6000)
+        except Exception as exc:
+            stages.append(
+                {
+                    "stage": "PUBLISH_SETTINGS",
+                    "control_label": publish_label,
+                    "outcome": "CLICK_FAILED",
+                    "error_class": type(exc).__name__,
+                }
+            )
+            return _with_provider_outcome(
+                {
+                    "status": "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED",
+                    "draft_id": draft_id,
+                    "public_write_attempted": True,
+                    "browser_write_performed": True,
+                    "transition_stages": stages,
+                }
+            )
         stages.append(
             {
                 "stage": "PUBLISH_SETTINGS",
                 "control_label": publish_label,
-                "outcome": "CLICK_FAILED",
-                "error_class": type(exc).__name__,
+                "outcome": "PUBLIC_WRITE_CLICKED_ONCE",
             }
         )
-        return _with_provider_outcome({
-            "status": "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED",
-            "draft_id": draft_id,
-            "public_write_attempted": True,
-            "browser_write_performed": True,
-            "transition_stages": stages,
-        })
-    stages.append(
-        {
-            "stage": "PUBLISH_SETTINGS",
-            "control_label": publish_label,
-            "outcome": "PUBLIC_WRITE_CLICKED_ONCE",
-        }
-    )
-    public_write_attempted = True
+        public_write_attempted = True
 
-    confirmation_checked = False
-    deadline = time.monotonic() + max(0.0, float(transition_timeout_seconds))
-    while True:
-        public_url = _extract_substack_public_url(page)
-        if _is_public_substack_url(public_url):
-            stages.append(
-                {
-                    "stage": "PUBLIC_URL",
-                    "outcome": "OBSERVED_UNBOUND_TO_EXACT_DRAFT_ID",
-                }
-            )
-            return _with_provider_outcome({
-                "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
-                "draft_id": draft_id,
-                "public_write_attempted": public_write_attempted,
-                "browser_write_performed": True,
-                "transition_stages": stages,
-            })
-        if not confirmation_checked:
-            confirmation_button, confirmation_label = _substack_exact_enabled_button(
-                page,
-                labels=("Publish without buttons",),
-            )
-            if confirmation_button is not None:
-                confirmation_checked = True
-                try:
-                    confirmation_button.click(timeout=6000)
-                except Exception as exc:
+        confirmation_checked = False
+        deadline = time.monotonic() + max(0.0, float(transition_timeout_seconds))
+        while True:
+            public_url = _extract_substack_public_url(page)
+            if _is_public_substack_url(public_url):
+                stages.append(
+                    {
+                        "stage": "PUBLIC_URL",
+                        "outcome": "OBSERVED_UNBOUND_TO_EXACT_DRAFT_ID",
+                    }
+                )
+                return _with_provider_outcome(
+                    {
+                        "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+                        "draft_id": draft_id,
+                        "public_write_attempted": public_write_attempted,
+                        "browser_write_performed": True,
+                        "transition_stages": stages,
+                    }
+                )
+            if not confirmation_checked:
+                confirmation_button, confirmation_label = _substack_exact_enabled_button(
+                    page,
+                    labels=("Publish without buttons",),
+                )
+                if confirmation_button is not None:
+                    confirmation_checked = True
+                    try:
+                        confirmation_button.click(timeout=6000)
+                    except Exception as exc:
+                        stages.append(
+                            {
+                                "stage": "OPTIONAL_CONFIRMATION",
+                                "control_label": confirmation_label,
+                                "outcome": "CLICK_FAILED",
+                                "error_class": type(exc).__name__,
+                            }
+                        )
+                        return _with_provider_outcome(
+                            {
+                                "status": "UNKNOWN_SUBSTACK_CONFIRMATION_CLICK_FAILED",
+                                "draft_id": draft_id,
+                                "public_write_attempted": True,
+                                "browser_write_performed": True,
+                                "transition_stages": stages,
+                            }
+                        )
                     stages.append(
                         {
                             "stage": "OPTIONAL_CONFIRMATION",
                             "control_label": confirmation_label,
-                            "outcome": "CLICK_FAILED",
-                            "error_class": type(exc).__name__,
+                            "outcome": "PUBLIC_WRITE_CLICKED_ONCE",
                         }
                     )
-                    return _with_provider_outcome({
-                        "status": "UNKNOWN_SUBSTACK_CONFIRMATION_CLICK_FAILED",
+            if time.monotonic() >= deadline:
+                break
+            time.sleep(max(0.05, float(poll_interval_seconds)))
+
+        # The public route is not always exposed on the post-send screen. A published-listing
+        # title is useful diagnostic evidence, but it cannot bind that row to this exact draft
+        # id: an older article may have identical title/content. Therefore listing-only recovery
+        # always remains UNKNOWN and leaves the candidate URL unset. The coordinator will
+        # reconcile the exact draft-id editor state read-only before confirming any public object.
+        try:
+            page.goto(
+                "https://capitalchronicle.substack.com/publish/posts/published",
+                wait_until="domcontentloaded",
+                timeout=45000,
+            )
+        except Exception as exc:
+            stages.append(
+                {
+                    "stage": "EXACT_PUBLISHED_LISTING",
+                    "outcome": "NAVIGATION_FAILED",
+                    "error_class": type(exc).__name__,
+                }
+            )
+            return _with_provider_outcome(
+                {
+                    "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+                    "draft_id": draft_id,
+                    "public_write_attempted": True,
+                    "browser_write_performed": True,
+                    "transition_stages": stages,
+                }
+            )
+        listing_deadline = time.monotonic() + max(0.0, float(listing_timeout_seconds))
+        last_match_count = 0
+        while True:
+            matches = _substack_listing_matches(
+                page,
+                expected_title=expected_title,
+                href_predicate=lambda href: _is_public_substack_url(
+                    _absolute_substack_url(href)
+                ),
+            )
+            last_match_count = len(matches)
+            if len(matches) > 1:
+                stages.append(
+                    {
+                        "stage": "EXACT_PUBLISHED_LISTING",
+                        "outcome": "AMBIGUOUS",
+                        "match_count": len(matches),
+                    }
+                )
+                return _with_provider_outcome(
+                    {
+                        "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
                         "draft_id": draft_id,
                         "public_write_attempted": True,
                         "browser_write_performed": True,
+                        "published_listing_match_count": len(matches),
                         "transition_stages": stages,
-                    })
-                stages.append(
-                    {
-                        "stage": "OPTIONAL_CONFIRMATION",
-                        "control_label": confirmation_label,
-                        "outcome": "PUBLIC_WRITE_CLICKED_ONCE",
                     }
                 )
-        if time.monotonic() >= deadline:
-            break
-        time.sleep(max(0.05, float(poll_interval_seconds)))
-
-    # The public route is not always exposed on the post-send screen.  A published-listing title
-    # is useful diagnostic evidence, but it cannot bind that row to this exact draft id: an older
-    # article may have identical title/content.  Therefore listing-only recovery always remains
-    # UNKNOWN and leaves the candidate URL unset.  The coordinator will reconcile the exact
-    # draft-id editor state read-only before it can confirm any public object.
-    try:
-        page.goto(
-            "https://capitalchronicle.substack.com/publish/posts/published",
-            wait_until="domcontentloaded",
-            timeout=45000,
+            if len(matches) == 1:
+                stages.append(
+                    {
+                        "stage": "EXACT_PUBLISHED_LISTING",
+                        "outcome": "UNBOUND_UNIQUE_PUBLIC_MATCH",
+                        "match_count": 1,
+                    }
+                )
+                return _with_provider_outcome(
+                    {
+                        "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+                        "draft_id": draft_id,
+                        "public_write_attempted": True,
+                        "browser_write_performed": True,
+                        "published_listing_match_count": 1,
+                        "transition_stages": stages,
+                    }
+                )
+            if time.monotonic() >= listing_deadline:
+                break
+            time.sleep(max(0.05, float(poll_interval_seconds)))
+        stages.append(
+            {
+                "stage": "EXACT_PUBLISHED_LISTING",
+                "outcome": "NO_UNIQUE_PUBLIC_MATCH",
+                "match_count": last_match_count,
+            }
+        )
+        return _with_provider_outcome(
+            {
+                "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+                "draft_id": draft_id,
+                "public_write_attempted": True,
+                "browser_write_performed": True,
+                "published_listing_match_count": last_match_count,
+                "transition_stages": stages,
+            }
         )
     except Exception as exc:
         stages.append(
             {
-                "stage": "EXACT_PUBLISHED_LISTING",
-                "outcome": "NAVIGATION_FAILED",
+                "stage": "POST_PUBLICATION_OBSERVATION",
+                "outcome": "UNEXPECTED_EXCEPTION_AFTER_PUBLIC_WRITE",
                 "error_class": type(exc).__name__,
             }
         )
-        return _with_provider_outcome({
-            "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
-            "draft_id": draft_id,
-            "public_write_attempted": True,
-            "browser_write_performed": True,
-            "transition_stages": stages,
-        })
-    listing_deadline = time.monotonic() + max(0.0, float(listing_timeout_seconds))
-    last_match_count = 0
-    while True:
-        matches = _substack_listing_matches(
-            page,
-            expected_title=expected_title,
-            href_predicate=lambda href: _is_public_substack_url(
-                _absolute_substack_url(href)
-            ),
+        return _with_provider_outcome(
+            {
+                "status": "UNKNOWN_SUBSTACK_POST_PUBLICATION_OBSERVATION_FAILED",
+                "draft_id": draft_id,
+                "public_write_attempted": True,
+                "browser_write_performed": True,
+                "error_class": type(exc).__name__,
+                "transition_stages": stages,
+            }
         )
-        last_match_count = len(matches)
-        if len(matches) > 1:
-            stages.append(
-                {
-                    "stage": "EXACT_PUBLISHED_LISTING",
-                    "outcome": "AMBIGUOUS",
-                    "match_count": len(matches),
-                }
-            )
-            return _with_provider_outcome({
-                "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
-                "draft_id": draft_id,
-                "public_write_attempted": True,
-                "browser_write_performed": True,
-                "published_listing_match_count": len(matches),
-                "transition_stages": stages,
-            })
-        if len(matches) == 1:
-            stages.append(
-                {
-                    "stage": "EXACT_PUBLISHED_LISTING",
-                    "outcome": "UNBOUND_UNIQUE_PUBLIC_MATCH",
-                    "match_count": 1,
-                }
-            )
-            return _with_provider_outcome({
-                "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
-                "draft_id": draft_id,
-                "public_write_attempted": True,
-                "browser_write_performed": True,
-                "published_listing_match_count": 1,
-                "transition_stages": stages,
-            })
-        if time.monotonic() >= listing_deadline:
-            break
-        time.sleep(max(0.05, float(poll_interval_seconds)))
-    stages.append(
-        {
-            "stage": "EXACT_PUBLISHED_LISTING",
-            "outcome": "NO_UNIQUE_PUBLIC_MATCH",
-            "match_count": last_match_count,
-        }
-    )
-    return _with_provider_outcome({
-        "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
-        "draft_id": draft_id,
-        "public_write_attempted": True,
-        "browser_write_performed": True,
-        "published_listing_match_count": last_match_count,
-        "transition_stages": stages,
-    })
+    finally:
+        _finish_provider_outcome()
 
 
 def _complete_substack_editor_publication_transition(
