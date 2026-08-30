@@ -432,6 +432,10 @@ def test_no_current_x_relay_has_report_truth_authority():
         ("A bank is reviewing its strategy, according to Bloomberg", "Bloomberg"),
         ("A bank is reviewing its strategy, per WSJ", "The Wall Street Journal"),
         (
+            "OpenAI reportedly bought Mac minis for agent training. - The Information",
+            "The Information",
+        ),
+        (
             "Gulf states are investing in ports and pipelines, Reuters reported Friday.",
             "Reuters",
         ),
@@ -740,6 +744,28 @@ def test_canonical_x_relay_qualifies_zero_gets_without_original_publisher_resolu
     assert state["reader_visible_epistemic_label"] == (
         "RELAYED / UNCONFIRMED - @wallstengine, citing Bloomberg"
     )
+
+
+def test_canonical_x_the_information_suffix_is_exact_zero_get_relay():
+    candidate = _canonical_candidate(
+        headline=(
+            "OpenAI reportedly bought tens of thousands of Mac minis for agent training. "
+            "- The Information"
+        )
+    )
+    request = _request(candidate, source_url=candidate["source_url"])
+
+    document, blockers = canonical_x_report_document(request)
+
+    assert blockers == []
+    assert document is not None
+    profile = request["story_context"]["report_provenance"]
+    assert profile["primary_reporting_publisher"] == "The Information"
+    assert profile["trusted_relay_identity_approved"] is True
+    assert document["retrieval_method"] == (
+        "EXACT_GOVERNED_CANONICAL_X_RELAY_SIDECAR"
+    )
+    assert document["underlying_event_truth_granted"] is False
 
 
 def test_canonical_x_with_direct_named_publisher_url_preserves_direct_route():
