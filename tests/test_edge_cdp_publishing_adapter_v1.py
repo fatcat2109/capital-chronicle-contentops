@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from contextlib import contextmanager
 import inspect
+import json
 from pathlib import Path
 
 import pytest
@@ -945,6 +946,92 @@ def test_substack_listing_match_is_exact_and_deduplicates_query_variants(
     assert matches == [
         {"href": "/p/exact-story?utm_source=one", "title": "Exact story"}
     ]
+
+
+def test_substack_public_archive_resolves_exact_object_title_and_everyone_only(
+    monkeypatch,
+) -> None:
+    class Response:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return json.dumps(
+                [
+                    {
+                        "id": 213459905,
+                        "title": "Exact story",
+                        "audience": "everyone",
+                        "canonical_url": (
+                            "https://capitalchronicle.substack.com/p/exact-story?utm_source=archive"
+                        ),
+                    },
+                    {
+                        "id": 213459906,
+                        "title": "Exact story",
+                        "audience": "everyone",
+                        "canonical_url": "https://capitalchronicle.substack.com/p/other-object",
+                    },
+                ]
+            ).encode("utf-8")
+
+    monkeypatch.setattr(
+        adapter.urllib.request, "urlopen", lambda *_args, **_kwargs: Response()
+    )
+
+    assert adapter._substack_public_archive_url_by_object_id(
+        draft_id="213459905", expected_title="Exact story"
+    ) == "https://capitalchronicle.substack.com/p/exact-story"
+    assert adapter._substack_public_archive_url_by_object_id(
+        draft_id="213459906", expected_title="Wrong title"
+    ) is None
+
+
+def test_substack_public_archive_rejects_nonpublic_or_ambiguous_object(monkeypatch) -> None:
+    class Response:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return False
+
+        def read(self):
+            return json.dumps(
+                [
+                    {
+                        "id": 213459905,
+                        "title": "Exact story",
+                        "audience": "paid",
+                        "canonical_url": "https://capitalchronicle.substack.com/p/exact-story",
+                    },
+                    {
+                        "id": 213459906,
+                        "title": "Exact story",
+                        "audience": "everyone",
+                        "canonical_url": "https://capitalchronicle.substack.com/p/exact-a",
+                    },
+                    {
+                        "id": 213459906,
+                        "title": "Exact story",
+                        "audience": "everyone",
+                        "canonical_url": "https://capitalchronicle.substack.com/p/exact-b",
+                    },
+                ]
+            ).encode("utf-8")
+
+    monkeypatch.setattr(
+        adapter.urllib.request, "urlopen", lambda *_args, **_kwargs: Response()
+    )
+
+    assert adapter._substack_public_archive_url_by_object_id(
+        draft_id="213459905", expected_title="Exact story"
+    ) is None
+    assert adapter._substack_public_archive_url_by_object_id(
+        draft_id="213459906", expected_title="Exact story"
+    ) is None
 
 
 def test_substack_listing_title_preserves_punctuation_while_collapsing_whitespace(

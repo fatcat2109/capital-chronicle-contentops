@@ -1734,6 +1734,48 @@ def _substack_listing_matches(
     return list(matches_by_href.values())
 
 
+def _substack_public_archive_url_by_object_id(
+    *, draft_id: str, expected_title: str
+) -> str | None:
+    """Resolve one exact public Substack object from the publication's public archive API.
+
+    Only bounded public metadata is consumed. Response bytes, headers, query material, and any
+    browser/session state are neither returned nor persisted. The result is evidence for the
+    existing strict public article audit; it never confirms publication by itself.
+    """
+    normalized_draft_id = str(draft_id or "").strip()
+    normalized_title = str(expected_title or "").strip()
+    if not normalized_draft_id.isdigit() or not normalized_title:
+        return None
+    request = urllib.request.Request(
+        "https://capitalchronicle.substack.com/api/v1/archive"
+        "?sort=new&search=&offset=0&limit=50",
+        headers={"User-Agent": "CapitalChronicleContentOps/6.0"},
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=15) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except (OSError, TypeError, ValueError, UnicodeDecodeError, json.JSONDecodeError):
+        return None
+    if not isinstance(payload, list):
+        return None
+    matches: list[str] = []
+    for row in payload:
+        if not isinstance(row, Mapping):
+            continue
+        if str(row.get("id") or "") != normalized_draft_id:
+            continue
+        if str(row.get("title") or "").strip() != normalized_title:
+            continue
+        if str(row.get("audience") or "").strip().casefold() != "everyone":
+            continue
+        candidate = str(row.get("canonical_url") or "").strip()
+        if _is_public_substack_url(candidate):
+            matches.append(candidate.split("?", 1)[0].split("#", 1)[0])
+    unique = sorted(set(matches))
+    return unique[0] if len(unique) == 1 else None
+
+
 def _public_substack_url_from_view_post(page: Any) -> str | None:
     """Resolve the public permalink from Substack's read-only published-detail control."""
     view_post, _ = _substack_exact_enabled_button(page, labels=("View post",))
@@ -2580,6 +2622,33 @@ def reconcile_substack_publication_by_draft_id_via_edge(
                         **binding_detail,
                         "browser_write_performed": False,
                     }
+        archive_public_url = _substack_public_archive_url_by_object_id(
+            draft_id=draft_id,
+            expected_title=expected_title,
+        )
+        if archive_public_url:
+            readback = _audit_public_substack_article(
+                page,
+                archive_public_url,
+                public_screenshot_path,
+                expected_title=expected_title,
+                expected_subtitle=expected_subtitle,
+                expected_body_markdown=expected_body_markdown,
+                expected_image_assets=expected_image_assets,
+            )
+            verified = bool(readback.get("strict_content_visual_readback_verified"))
+            return {
+                "status": _strict_substack_readback_status(readback),
+                "platform": "substack",
+                "verified": verified,
+                "write_absent": False,
+                "public_object_id": draft_id,
+                "public_url": archive_public_url,
+                "readback": readback,
+                "public_url_source": "EXACT_PUBLIC_ARCHIVE_OBJECT_ID_TITLE",
+                **binding_detail,
+                "browser_write_performed": False,
+            }
         if not exact_draft_bound:
             return {
                 "status": "SUBSTACK_DRAFT_BINDING_MISMATCH",
