@@ -15,6 +15,7 @@ import urllib.parse
 import urllib.request
 from collections import Counter
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterator, Mapping, Sequence
 
@@ -55,6 +56,260 @@ _EDITORIAL_PROCESS_TEXT_RE = re.compile(
     r"manifest-bound|packet timestamp|evidence packet|public claim permission)",
     re.IGNORECASE,
 )
+
+_SUBSTACK_POST_WRITE_OUTCOME_SCHEMA = "contentops.substack_post_write_outcome.v1"
+_SUBSTACK_POST_WRITE_STATUS_CLASSES = frozenset(
+    {"2XX", "4XX", "5XX", "NETWORK_ERROR", "TIMEOUT", "ABORTED", "UNKNOWN"}
+)
+_SUBSTACK_POST_WRITE_REASONS = frozenset(
+    {
+        "HTTP_RESPONSE_OBSERVED",
+        "REQUEST_FAILED_NETWORK",
+        "REQUEST_FAILED_TIMEOUT",
+        "REQUEST_FAILED_ABORTED",
+        "REQUEST_OBSERVED_COMPLETION_NOT_OBSERVED",
+        "EXACT_REQUEST_NOT_OBSERVED",
+        "OBSERVATION_SURFACE_UNAVAILABLE",
+        "MULTIPLE_EXACT_REQUESTS_OBSERVED",
+        "HTTP_STATUS_OUTSIDE_BOUNDED_CLASSES",
+        "UNKNOWN",
+    }
+)
+_SUBSTACK_POST_WRITE_OBSERVATION_SOURCE = (
+    "PLAYWRIGHT_EXACT_SUBSTACK_PUBLISH_REQUEST_EVENTS"
+)
+_DISPATCH_IDENTITY_RE = re.compile(r"dispatch_[0-9a-f]{32}\Z")
+
+
+def _utc_observation_timestamp() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _bounded_utc_observation_timestamp(value: Any) -> str | None:
+    text = str(value or "").strip()
+    if not text or len(text) > 40:
+        return None
+    try:
+        parsed = datetime.fromisoformat(text.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    return parsed.astimezone(timezone.utc).isoformat()
+
+
+def sanitize_substack_post_write_outcome(
+    value: Mapping[str, Any] | None,
+    *,
+    draft_id: str | None = None,
+    dispatch_identity: str | None = None,
+) -> dict[str, Any] | None:
+    """Return the closed, non-sensitive provider-outcome evidence contract only."""
+    if not isinstance(value, Mapping):
+        return None
+    observed_draft_id = str(draft_id or value.get("draft_id") or "").strip()
+    if not observed_draft_id.isdigit():
+        return None
+    observed_dispatch = str(
+        dispatch_identity or value.get("dispatch_identity") or ""
+    ).strip()
+    if not _DISPATCH_IDENTITY_RE.fullmatch(observed_dispatch):
+        return None
+    status_class = str(value.get("status_class") or "UNKNOWN").strip().upper()
+    if status_class not in _SUBSTACK_POST_WRITE_STATUS_CLASSES:
+        status_class = "UNKNOWN"
+    reason = str(value.get("reason") or "UNKNOWN").strip().upper()
+    if reason not in _SUBSTACK_POST_WRITE_REASONS:
+        reason = "UNKNOWN"
+    request_observed = value.get("request_observed") is True
+    completion_observed = value.get("completion_observed") is True
+    request_started_at = _bounded_utc_observation_timestamp(
+        value.get("request_started_at")
+    )
+    completion_observed_at = _bounded_utc_observation_timestamp(
+        value.get("completion_observed_at")
+    )
+    if not request_observed:
+        request_started_at = None
+        completion_observed = False
+        completion_observed_at = None
+    elif request_started_at is None:
+        return None
+    if not completion_observed:
+        completion_observed_at = None
+    elif completion_observed_at is None:
+        return None
+    if status_class != "UNKNOWN" and not completion_observed:
+        return None
+    return {
+        "schema": _SUBSTACK_POST_WRITE_OUTCOME_SCHEMA,
+        "observation_source": _SUBSTACK_POST_WRITE_OBSERVATION_SOURCE,
+        "draft_id": observed_draft_id,
+        "dispatch_identity": observed_dispatch,
+        "request_observed": request_observed,
+        "request_started_at": request_started_at,
+        "completion_observed": completion_observed,
+        "completion_observed_at": completion_observed_at,
+        "status_class": status_class,
+        "reason": reason,
+        "request_url_persisted": False,
+        "request_query_persisted": False,
+        "request_body_persisted": False,
+        "response_body_persisted": False,
+        "headers_persisted": False,
+        "cookies_persisted": False,
+        "tokens_persisted": False,
+        "browser_storage_persisted": False,
+        "auth_material_persisted": False,
+        "raw_error_persisted": False,
+        "arbitrary_network_log_persisted": False,
+    }
+
+
+class _SubstackPostWriteOutcomeObserver:
+    """Observe one exact final Substack request without retaining network material."""
+
+    def __init__(
+        self,
+        page: Any,
+        *,
+        draft_id: str,
+        dispatch_identity: str | None,
+        now_fn: Callable[[], str] = _utc_observation_timestamp,
+    ) -> None:
+        self._page = page
+        self._draft_id = str(draft_id)
+        self._dispatch_identity = str(dispatch_identity or "")
+        self._now_fn = now_fn
+        self._surface_available = False
+        self._request_count = 0
+        self._request_started_at: str | None = None
+        self._completion_observed_at: str | None = None
+        self._status_class = "UNKNOWN"
+        self._reason = "EXACT_REQUEST_NOT_OBSERVED"
+
+    def _matches(self, request: Any) -> bool:
+        try:
+            method = str(request.method or "").upper()
+            parsed = urllib.parse.urlparse(str(request.url or ""))
+            explicit_port = parsed.port
+        except (AttributeError, TypeError, ValueError):
+            return False
+        return bool(
+            method == "POST"
+            and (parsed.hostname or "").casefold()
+            == "capitalchronicle.substack.com"
+            and explicit_port is None
+            and parsed.username is None
+            and parsed.password is None
+            and parsed.path == f"/api/v1/drafts/{self._draft_id}/publish"
+        )
+
+    def _observe_request(self, request: Any) -> None:
+        if not self._matches(request):
+            return
+        self._request_count += 1
+        if self._request_count == 1:
+            self._request_started_at = self._now_fn()
+            self._reason = "REQUEST_OBSERVED_COMPLETION_NOT_OBSERVED"
+        else:
+            self._status_class = "UNKNOWN"
+            self._reason = "MULTIPLE_EXACT_REQUESTS_OBSERVED"
+
+    def _observe_response(self, response: Any) -> None:
+        try:
+            request = response.request
+        except (AttributeError, TypeError):
+            return
+        if not self._matches(request):
+            return
+        if self._request_count == 0:
+            self._observe_request(request)
+        if self._request_count != 1:
+            return
+        try:
+            status = int(response.status)
+        except (AttributeError, TypeError, ValueError):
+            status = 0
+        self._completion_observed_at = self._now_fn()
+        if 200 <= status <= 299:
+            self._status_class = "2XX"
+            self._reason = "HTTP_RESPONSE_OBSERVED"
+        elif 400 <= status <= 499:
+            self._status_class = "4XX"
+            self._reason = "HTTP_RESPONSE_OBSERVED"
+        elif 500 <= status <= 599:
+            self._status_class = "5XX"
+            self._reason = "HTTP_RESPONSE_OBSERVED"
+        else:
+            self._status_class = "UNKNOWN"
+            self._reason = "HTTP_STATUS_OUTSIDE_BOUNDED_CLASSES"
+
+    def _observe_request_failed(self, request: Any) -> None:
+        if not self._matches(request):
+            return
+        if self._request_count == 0:
+            self._observe_request(request)
+        if self._request_count != 1:
+            return
+        # The failure text is used only for a closed in-memory classification and is never kept.
+        try:
+            failure_text = str(request.failure or "").upper()
+        except (AttributeError, TypeError):
+            failure_text = ""
+        self._completion_observed_at = self._now_fn()
+        if "ABORT" in failure_text or "CANCEL" in failure_text:
+            self._status_class = "ABORTED"
+            self._reason = "REQUEST_FAILED_ABORTED"
+        elif "TIMED_OUT" in failure_text or "TIMEOUT" in failure_text:
+            self._status_class = "TIMEOUT"
+            self._reason = "REQUEST_FAILED_TIMEOUT"
+        else:
+            self._status_class = "NETWORK_ERROR"
+            self._reason = "REQUEST_FAILED_NETWORK"
+
+    def start(self) -> None:
+        attached: list[tuple[str, Callable[[Any], None]]] = []
+        try:
+            for event, callback in (
+                ("request", self._observe_request),
+                ("response", self._observe_response),
+                ("requestfailed", self._observe_request_failed),
+            ):
+                self._page.on(event, callback)
+                attached.append((event, callback))
+        except Exception:
+            for event, callback in attached:
+                try:
+                    self._page.remove_listener(event, callback)
+                except Exception:
+                    pass
+            self._reason = "OBSERVATION_SURFACE_UNAVAILABLE"
+            return
+        self._surface_available = True
+
+    def finish(self) -> dict[str, Any] | None:
+        if self._surface_available:
+            for event, callback in (
+                ("request", self._observe_request),
+                ("response", self._observe_response),
+                ("requestfailed", self._observe_request_failed),
+            ):
+                try:
+                    self._page.remove_listener(event, callback)
+                except Exception:
+                    pass
+        raw = {
+            "draft_id": self._draft_id,
+            "dispatch_identity": self._dispatch_identity,
+            "request_observed": self._request_count > 0,
+            "request_started_at": self._request_started_at,
+            "completion_observed": self._completion_observed_at is not None,
+            "completion_observed_at": self._completion_observed_at,
+            "status_class": self._status_class,
+            "reason": self._reason,
+        }
+        return sanitize_substack_post_write_outcome(raw)
 
 
 def _is_public_substack_url(value: str | None) -> bool:
@@ -1583,6 +1838,7 @@ def _complete_substack_publish_transition(
     *,
     draft_id: str | None,
     expected_title: str,
+    dispatch_identity: str | None = None,
     transition_timeout_seconds: float = 30.0,
     listing_timeout_seconds: float = 15.0,
     poll_interval_seconds: float = 0.25,
@@ -1594,6 +1850,17 @@ def _complete_substack_publish_transition(
     coordinator can perform its normal readback-only reconciliation; this helper never retries.
     """
     stages: list[dict[str, Any]] = []
+    outcome_observer: _SubstackPostWriteOutcomeObserver | None = None
+
+    def _with_provider_outcome(result: dict[str, Any]) -> dict[str, Any]:
+        nonlocal outcome_observer
+        if outcome_observer is not None:
+            outcome = outcome_observer.finish()
+            outcome_observer = None
+            if outcome is not None:
+                result["provider_outcome"] = outcome
+        return result
+
     draft_id = str(draft_id or "").strip()
     if not draft_id.isdigit():
         stages.append({"stage": "DRAFT_ID_BINDING", "outcome": "NOT_BOUND"})
@@ -1703,6 +1970,12 @@ def _complete_substack_publish_transition(
             "transition_stages": stages,
         }
     try:
+        outcome_observer = _SubstackPostWriteOutcomeObserver(
+            page,
+            draft_id=draft_id,
+            dispatch_identity=dispatch_identity,
+        )
+        outcome_observer.start()
         publish_button.click(timeout=6000)
     except Exception as exc:
         stages.append(
@@ -1713,13 +1986,13 @@ def _complete_substack_publish_transition(
                 "error_class": type(exc).__name__,
             }
         )
-        return {
+        return _with_provider_outcome({
             "status": "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED",
             "draft_id": draft_id,
             "public_write_attempted": True,
             "browser_write_performed": True,
             "transition_stages": stages,
-        }
+        })
     stages.append(
         {
             "stage": "PUBLISH_SETTINGS",
@@ -1740,13 +2013,13 @@ def _complete_substack_publish_transition(
                     "outcome": "OBSERVED_UNBOUND_TO_EXACT_DRAFT_ID",
                 }
             )
-            return {
+            return _with_provider_outcome({
                 "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
                 "draft_id": draft_id,
                 "public_write_attempted": public_write_attempted,
                 "browser_write_performed": True,
                 "transition_stages": stages,
-            }
+            })
         if not confirmation_checked:
             confirmation_button, confirmation_label = _substack_exact_enabled_button(
                 page,
@@ -1765,13 +2038,13 @@ def _complete_substack_publish_transition(
                             "error_class": type(exc).__name__,
                         }
                     )
-                    return {
+                    return _with_provider_outcome({
                         "status": "UNKNOWN_SUBSTACK_CONFIRMATION_CLICK_FAILED",
                         "draft_id": draft_id,
                         "public_write_attempted": True,
                         "browser_write_performed": True,
                         "transition_stages": stages,
-                    }
+                    })
                 stages.append(
                     {
                         "stage": "OPTIONAL_CONFIRMATION",
@@ -1802,13 +2075,13 @@ def _complete_substack_publish_transition(
                 "error_class": type(exc).__name__,
             }
         )
-        return {
+        return _with_provider_outcome({
             "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
             "draft_id": draft_id,
             "public_write_attempted": True,
             "browser_write_performed": True,
             "transition_stages": stages,
-        }
+        })
     listing_deadline = time.monotonic() + max(0.0, float(listing_timeout_seconds))
     last_match_count = 0
     while True:
@@ -1828,14 +2101,14 @@ def _complete_substack_publish_transition(
                     "match_count": len(matches),
                 }
             )
-            return {
+            return _with_provider_outcome({
                 "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
                 "draft_id": draft_id,
                 "public_write_attempted": True,
                 "browser_write_performed": True,
                 "published_listing_match_count": len(matches),
                 "transition_stages": stages,
-            }
+            })
         if len(matches) == 1:
             stages.append(
                 {
@@ -1844,14 +2117,14 @@ def _complete_substack_publish_transition(
                     "match_count": 1,
                 }
             )
-            return {
+            return _with_provider_outcome({
                 "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
                 "draft_id": draft_id,
                 "public_write_attempted": True,
                 "browser_write_performed": True,
                 "published_listing_match_count": 1,
                 "transition_stages": stages,
-            }
+            })
         if time.monotonic() >= listing_deadline:
             break
         time.sleep(max(0.05, float(poll_interval_seconds)))
@@ -1862,14 +2135,14 @@ def _complete_substack_publish_transition(
             "match_count": last_match_count,
         }
     )
-    return {
+    return _with_provider_outcome({
         "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
         "draft_id": draft_id,
         "public_write_attempted": True,
         "browser_write_performed": True,
         "published_listing_match_count": last_match_count,
         "transition_stages": stages,
-    }
+    })
 
 
 def _complete_substack_editor_publication_transition(
@@ -1877,6 +2150,7 @@ def _complete_substack_editor_publication_transition(
     *,
     draft_id: str | None,
     expected_title: str,
+    dispatch_identity: str | None = None,
     transition_timeout_seconds: float = 30.0,
     listing_timeout_seconds: float = 15.0,
     poll_interval_seconds: float = 0.25,
@@ -1892,6 +2166,7 @@ def _complete_substack_editor_publication_transition(
                 page,
                 draft_id=draft_id,
                 expected_title=expected_title,
+                dispatch_identity=dispatch_identity,
                 transition_timeout_seconds=transition_timeout_seconds,
                 listing_timeout_seconds=listing_timeout_seconds,
                 poll_interval_seconds=poll_interval_seconds,
@@ -2410,6 +2685,7 @@ def publish_substack_article_via_edge(
     existing_draft_id: str | None = None,
     existing_public_url: str | None = None,
     publication_mode: str = "publish",
+    dispatch_identity: str | None = None,
 ) -> dict[str, Any]:
     """Publish one canonical article with source-backed images embedded in order."""
     if publication_mode not in {"publish", "draft_qa"}:
@@ -2651,6 +2927,7 @@ def publish_substack_article_via_edge(
             page,
             draft_id=draft_id,
             expected_title=title,
+            dispatch_identity=dispatch_identity,
         )
         update_mode = (
             publish_transition.get("publication_write_mode")

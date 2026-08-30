@@ -1170,6 +1170,7 @@ def test_text_only_substack_readback_preserves_delivery_only_manifest(
 def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
     monkeypatch, tmp_path
 ):
+    dispatch_identity = "dispatch_aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     publish_call = {}
     monkeypatch.setattr(
         pipeline,
@@ -1197,6 +1198,20 @@ def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
             "browser_write_performed": True,
             "payload": "must never be persisted",
             "raw_error": "secret-bearing diagnostic must never be persisted",
+            "provider_outcome": {
+                "schema": "contentops.substack_post_write_outcome.v1",
+                "draft_id": "210865567",
+                "dispatch_identity": dispatch_identity,
+                "request_observed": True,
+                "request_started_at": "2026-08-30T10:00:00+00:00",
+                "completion_observed": True,
+                "completion_observed_at": "2026-08-30T10:00:01+00:00",
+                "status_class": "2XX",
+                "reason": "HTTP_RESPONSE_OBSERVED",
+                "request_body": "must never be persisted",
+                "headers": {"authorization": "must never be persisted"},
+                "response_body": "must never be persisted",
+            },
             "transition_stages": [
                 {
                     "stage": "PUBLISH_SETTINGS",
@@ -1213,24 +1228,33 @@ def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
     result = pipeline._publish_one_destination_from_durable_intent(
         destination="substack",
         intent={
-            "attempt_identity": "dispatch-1",
+            "attempt_identity": dispatch_identity,
             "output_dir": str(tmp_path),
             "recovery_public_object_id": "210865567",
         },
         authorization_context={
             "operating_mode": "AUTONOMOUS_DEFAULT",
-            "dispatch_attempt_identity": "dispatch-1",
+            "dispatch_attempt_identity": dispatch_identity,
         },
     )
 
     assert result["status"] == "UNKNOWN_SUBSTACK_PUBLISH_CONTROL_CLICK_FAILED"
     assert publish_call["existing_draft_id"] == "210865567"
+    assert publish_call["dispatch_identity"] == dispatch_identity
     packet = json.loads(
         (tmp_path / "transport_attempt_substack_v1.json").read_text(encoding="utf-8")
     )
     assert packet["draft_id"] == "210865567"
     assert packet["public_write_attempted"] is True
     assert packet["browser_write_performed"] is True
+    assert packet["schema_version"] == "contentops.sanitized_transport_attempt.v2"
+    assert packet["provider_outcome"]["status_class"] == "2XX"
+    assert packet["provider_outcome"]["dispatch_identity"] == dispatch_identity
+    assert all(
+        value is False
+        for key, value in packet["provider_outcome"].items()
+        if key.endswith("_persisted")
+    )
     assert packet["transition_stages"] == [
         {
             "control_label": "Send to everyone now",
@@ -1244,6 +1268,25 @@ def test_substack_transport_attempt_persists_only_sanitized_transition_facts(
     assert packet["payload_persisted"] is False
     assert packet["browser_session_material_persisted"] is False
     assert packet["raw_error_text_persisted"] is False
+
+
+def test_legacy_substack_transport_attempt_keeps_v1_unknown_shape(tmp_path):
+    pipeline._persist_sanitized_substack_transport_attempt(
+        output_dir=tmp_path,
+        result={
+            "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+            "draft_id": "210865567",
+            "public_write_attempted": True,
+            "browser_write_performed": True,
+        },
+    )
+
+    packet = json.loads(
+        (tmp_path / "transport_attempt_substack_v1.json").read_text(encoding="utf-8")
+    )
+    assert packet["schema_version"] == "contentops.sanitized_transport_attempt.v1"
+    assert "provider_outcome" not in packet
+    assert packet["public_write_attempted"] is True
 
 
 def test_default_youtube_path_cannot_call_video_or_short_adapter():

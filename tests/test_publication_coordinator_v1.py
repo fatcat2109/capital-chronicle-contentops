@@ -643,6 +643,66 @@ def test_substack_without_valid_canonical_url_is_not_real_and_derivatives_wait(t
     assert transport.publish_calls == ["substack"]
 
 
+def test_substack_2xx_outcome_is_evidence_only_and_strict_unknown_still_blocks_derivatives(
+    tmp_path,
+):
+    class OutcomeEvidenceTransport(FixtureTransport):
+        def publish(self, *, destination, intent, authorization_context):
+            self.publish_calls.append(destination)
+            assert destination == "substack"
+            dispatch_identity = authorization_context["dispatch_attempt_identity"]
+            return {
+                "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+                "draft_id": "210865567",
+                "public_url": None,
+                "provider_outcome": {
+                    "schema": "contentops.substack_post_write_outcome.v1",
+                    "draft_id": "210865567",
+                    "dispatch_identity": dispatch_identity,
+                    "request_observed": True,
+                    "request_started_at": "2026-08-30T10:00:00+00:00",
+                    "completion_observed": True,
+                    "completion_observed_at": "2026-08-30T10:00:01+00:00",
+                    "status_class": "2XX",
+                    "reason": "HTTP_RESPONSE_OBSERVED",
+                },
+            }
+
+        def readback(self, *, destination, public_object_id, public_object_url, intent):
+            self.readback_calls.append(destination)
+            return {
+                "status": "AMBIGUOUS",
+                "verified": False,
+                "public_object_id": public_object_id,
+            }
+
+    runtime = OutcomeEvidenceTransport()
+    store, transport, coordinator = _coordinator(tmp_path, runtime=runtime)
+    plan = _plan("substack", "telegram")
+    for row in plan["destinations"]:
+        row.pop("canonical_url", None)
+
+    result = coordinator.execute_plan("work-1", plan)
+
+    substack = next(
+        row for row in store.list_platform_dispatches() if row["platform"] == "substack"
+    )
+    assert substack["status"] == UNKNOWN_WRITE
+    assert substack["public_object_id"] == "210865567"
+    assert substack["public_object_url"] is None
+    assert result["canonical_article_real_published"] is False
+    assert result["canonical_url"] is None
+    assert result["per_destination"]["telegram"]["status"] == "WAITING_CANONICAL_URL"
+    assert transport.publish_calls == ["substack"]
+    readbacks = store.list_readbacks_for_dispatch(substack["dispatch_id"])
+    assert len(readbacks) == 1
+    packet = json.loads(readbacks[0]["readback_data"])
+    assert packet["provider_outcome"]["status_class"] == "2XX"
+    assert packet["provider_outcome"]["dispatch_identity"] == substack["dispatch_id"]
+    assert packet["readback"]["verified"] is False
+    assert packet["readback"]["canonical_url_valid"] is False
+
+
 def test_strict_readback_can_recover_valid_substack_url_and_idempotent_status(tmp_path):
     class ReadbackRecoversCanonicalTransport(FixtureTransport):
         def publish(self, *, destination, intent, authorization_context):
@@ -1100,6 +1160,23 @@ def test_substack_pre_public_failure_normalizes_as_definite_no_write():
     assert result["public_object_id"] is None
     assert result["public_object_url"] is None
     assert result["write_outcome_certainty"] == "DEFINITE_NO_WRITE"
+
+
+def test_legacy_substack_unknown_without_outcome_remains_unknown():
+    registration = registration_for_destination("substack")
+    result = normalize_dispatch_result(
+        {
+            "status": "UNKNOWN_SUBSTACK_PUBLICATION_REQUIRES_DRAFT_ID_RECONCILIATION",
+            "draft_id": "210865567",
+        },
+        destination="substack",
+        surface=registration.surface,
+        transport_type=registration.transport_type,
+    )
+
+    assert result["status"] == UNKNOWN_WRITE
+    assert result["public_object_id"] == "210865567"
+    assert "provider_outcome" not in result
 
 
 def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):

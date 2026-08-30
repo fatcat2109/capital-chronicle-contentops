@@ -40,6 +40,7 @@ from live_contentops.edge_cdp_publishing_adapter_v1 import (
     reconcile_existing_linkedin_post_via_edge,
     repair_substack_duplicate_caption_fragment_via_edge,
     repair_substack_editorial_paragraphs_via_edge,
+    sanitize_substack_post_write_outcome,
 )
 from live_contentops.cloudinary_delivery_media_v1 import (
     NOT_REQUIRED as CLOUDINARY_DELIVERY_MEDIA_NOT_REQUIRED,
@@ -3834,8 +3835,19 @@ def _persist_sanitized_substack_transport_attempt(
     public_url = str(raw.get("public_url") or transition.get("public_url") or "")
     if not public_url.startswith("https://capitalchronicle.substack.com/p/"):
         public_url = ""
+    provider_outcome = sanitize_substack_post_write_outcome(
+        transition.get("provider_outcome")
+        if isinstance(transition.get("provider_outcome"), Mapping)
+        else raw.get("provider_outcome")
+        if isinstance(raw.get("provider_outcome"), Mapping)
+        else None
+    )
     packet = {
-        "schema_version": "contentops.sanitized_transport_attempt.v1",
+        "schema_version": (
+            "contentops.sanitized_transport_attempt.v2"
+            if provider_outcome is not None
+            else "contentops.sanitized_transport_attempt.v1"
+        ),
         "destination": "substack",
         "created_at": _utc_now(),
         "status": str(raw.get("status") or ""),
@@ -3863,6 +3875,8 @@ def _persist_sanitized_substack_transport_attempt(
         "browser_session_material_persisted": False,
         "raw_error_text_persisted": False,
     }
+    if provider_outcome is not None:
+        packet["provider_outcome"] = provider_outcome
     _write_json(output_dir / "transport_attempt_substack_v1.json", packet)
 
 
@@ -3892,6 +3906,9 @@ def _publish_one_destination_from_durable_intent(
             public_screenshot_path=output_dir / "public_substack_readback.png",
             existing_draft_id=(
                 str(intent.get("recovery_public_object_id") or "") or None
+            ),
+            dispatch_identity=str(
+                authorization_context.get("dispatch_attempt_identity") or ""
             ),
         )
         _persist_sanitized_substack_transport_attempt(output_dir=output_dir, result=result)
