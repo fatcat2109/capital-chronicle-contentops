@@ -53,6 +53,24 @@ _PUBLICATION_CONFIRMED_RECONCILIATIONS = {
     RECONCILED_CONFIRMED,
     RECONCILED_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
 }
+_SUBSTACK_POST_WRITE_OUTCOME_SCHEMA = "contentops.substack_post_write_outcome.v1"
+_SUBSTACK_POST_WRITE_STATUS_CLASSES = frozenset(
+    {"2XX", "4XX", "5XX", "NETWORK_ERROR", "TIMEOUT", "ABORTED", "UNKNOWN"}
+)
+_SUBSTACK_POST_WRITE_REASONS = frozenset(
+    {
+        "HTTP_RESPONSE_OBSERVED",
+        "REQUEST_FAILED_NETWORK",
+        "REQUEST_FAILED_TIMEOUT",
+        "REQUEST_FAILED_ABORTED",
+        "REQUEST_OBSERVED_COMPLETION_NOT_OBSERVED",
+        "EXACT_REQUEST_NOT_OBSERVED",
+        "OBSERVATION_SURFACE_UNAVAILABLE",
+        "MULTIPLE_EXACT_REQUESTS_OBSERVED",
+        "HTTP_STATUS_OUTSIDE_BOUNDED_CLASSES",
+        "UNKNOWN",
+    }
+)
 
 
 def _canonical_json(value: Any) -> str:
@@ -90,6 +108,78 @@ def _parse_utc(value: Any) -> datetime | None:
     return parsed.astimezone(timezone.utc)
 
 
+def _bounded_substack_provider_outcome(
+    value: Any,
+    *,
+    expected_dispatch_id: str | None = None,
+    expected_draft_id: str | None = None,
+) -> dict[str, Any] | None:
+    """Accept only the closed sanitized outcome contract; it is never write certainty."""
+    if not isinstance(value, Mapping):
+        return None
+    if str(value.get("schema") or "") != _SUBSTACK_POST_WRITE_OUTCOME_SCHEMA:
+        return None
+    draft_id = str(value.get("draft_id") or "").strip()
+    dispatch_identity = str(value.get("dispatch_identity") or "").strip()
+    if not draft_id.isdigit() or not dispatch_identity.startswith("dispatch_"):
+        return None
+    if expected_dispatch_id and dispatch_identity != str(expected_dispatch_id):
+        return None
+    if expected_draft_id and draft_id != str(expected_draft_id):
+        return None
+    status_class = str(value.get("status_class") or "").upper()
+    reason = str(value.get("reason") or "").upper()
+    if status_class not in _SUBSTACK_POST_WRITE_STATUS_CLASSES:
+        return None
+    if reason not in _SUBSTACK_POST_WRITE_REASONS:
+        return None
+    request_observed = value.get("request_observed") is True
+    completion_observed = value.get("completion_observed") is True
+    request_started_at = str(value.get("request_started_at") or "") or None
+    completion_observed_at = str(value.get("completion_observed_at") or "") or None
+    if request_started_at and (
+        len(request_started_at) > 40 or _parse_utc(request_started_at) is None
+    ):
+        return None
+    if completion_observed_at and (
+        len(completion_observed_at) > 40 or _parse_utc(completion_observed_at) is None
+    ):
+        return None
+    if not request_observed and (request_started_at or completion_observed):
+        return None
+    if request_observed and not request_started_at:
+        return None
+    if not completion_observed and completion_observed_at:
+        return None
+    if completion_observed and not completion_observed_at:
+        return None
+    if status_class != "UNKNOWN" and not completion_observed:
+        return None
+    return {
+        "schema": _SUBSTACK_POST_WRITE_OUTCOME_SCHEMA,
+        "observation_source": "PLAYWRIGHT_EXACT_SUBSTACK_PUBLISH_REQUEST_EVENTS",
+        "draft_id": draft_id,
+        "dispatch_identity": dispatch_identity,
+        "request_observed": request_observed,
+        "request_started_at": request_started_at,
+        "completion_observed": completion_observed,
+        "completion_observed_at": completion_observed_at,
+        "status_class": status_class,
+        "reason": reason,
+        "request_url_persisted": False,
+        "request_query_persisted": False,
+        "request_body_persisted": False,
+        "response_body_persisted": False,
+        "headers_persisted": False,
+        "cookies_persisted": False,
+        "tokens_persisted": False,
+        "browser_storage_persisted": False,
+        "auth_material_persisted": False,
+        "raw_error_persisted": False,
+        "arbitrary_network_log_persisted": False,
+    }
+
+
 def normalize_dispatch_result(
     result: Mapping[str, Any], *, destination: str, surface: str, transport_type: str
 ) -> dict[str, Any]:
@@ -124,7 +214,7 @@ def normalize_dispatch_result(
         status, certainty = DISPATCH_CONFIRMED, "PROVIDER_ACCEPTED"
     else:
         status, certainty = UNKNOWN_WRITE, "AMBIGUOUS"
-    return {
+    normalized = {
         "destination": destination,
         "surface": surface,
         "transport_type": transport_type,
@@ -140,6 +230,14 @@ def normalize_dispatch_result(
             "public_url_present": bool(object_url),
         },
     }
+    provider_outcome = (
+        _bounded_substack_provider_outcome(raw.get("provider_outcome"))
+        if destination == "substack"
+        else None
+    )
+    if provider_outcome is not None:
+        normalized["provider_outcome"] = provider_outcome
+    return normalized
 
 
 def normalize_readback_result(
@@ -580,7 +678,13 @@ class DurablePublicationCoordinator:
             registered.append({"destination": destination, **ids})
         return {"plan_hash": plan_hash, "registered": registered, "outbox_count": len(registered)}
 
-    def _reconcile(self, dispatch: Mapping[str, Any], intent: Mapping[str, Any]) -> str:
+    def _reconcile(
+        self,
+        dispatch: Mapping[str, Any],
+        intent: Mapping[str, Any],
+        *,
+        provider_outcome: Mapping[str, Any] | None = None,
+    ) -> str:
         dispatch_id = str(dispatch["dispatch_id"])
         destination = str(dispatch["platform"])
         object_id = str(dispatch.get("public_object_id") or "") or None
@@ -628,9 +732,25 @@ class DurablePublicationCoordinator:
                 normalized["verified"] = False
                 normalized["identity_match"] = False
                 normalized["error_class"] = "substack_canonical_url_missing_or_invalid"
-        readback_data = _canonical_json({
-            "dispatch_id": dispatch_id, "destination": destination, "readback": normalized,
-        })
+        readback_packet = {
+            "dispatch_id": dispatch_id,
+            "destination": destination,
+            "readback": normalized,
+        }
+        bounded_provider_outcome = (
+            _bounded_substack_provider_outcome(
+                provider_outcome,
+                expected_dispatch_id=dispatch_id,
+                expected_draft_id=object_id,
+            )
+            if destination == "substack"
+            else None
+        )
+        if bounded_provider_outcome is not None:
+            # Evidence about request completion is retained beside strict readback. It does not
+            # alter the reconciliation branch or supply public object/URL authority.
+            readback_packet["provider_outcome"] = bounded_provider_outcome
+        readback_data = _canonical_json(readback_packet)
         self.store.register_readback(
             readback_id="readback_" + _hash(readback_data)[:32],
             dispatch_id=dispatch_id,
@@ -866,7 +986,11 @@ class DurablePublicationCoordinator:
         self.store.set_outbox_status(ids["message_id"], str(result["status"]))
         dispatch = self.store.get_platform_dispatch(ids["dispatch_id"])
         if result["status"] in {DISPATCH_CONFIRMED, UNKNOWN_WRITE}:
-            reconciliation = self._reconcile(dispatch, intent)
+            reconciliation = self._reconcile(
+                dispatch,
+                intent,
+                provider_outcome=result.get("provider_outcome"),
+            )
         elif (
             result["status"] == DEFINITE_NO_WRITE
             and destination != "substack"
