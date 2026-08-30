@@ -519,6 +519,87 @@ def test_owner_quarantined_legacy_unknown_is_untouched_and_does_not_block_fresh_
     assert blocked["public_write_performed"] is False
 
 
+def test_recovery_delivery_media_ignores_only_owner_quarantined_unknown(tmp_path):
+    class PreparingTransport(FixtureTransport):
+        def __init__(self):
+            super().__init__()
+            self.prepare_calls = []
+
+        def prepare_delivery_media(self, **kwargs):
+            self.prepare_calls.append(kwargs)
+            return {
+                "status": "CLOUDINARY_DELIVERY_MEDIA_READY",
+                "provider_calls": 1,
+                "public_write_performed": False,
+            }
+
+    transport = PreparingTransport()
+    store, _transport, setup = _coordinator(tmp_path, runtime=transport)
+    legacy_work_item = "owner-quarantined-unknown"
+    recovery_work_item = "recovery-work"
+    for work_item_id in (legacy_work_item, recovery_work_item):
+        store.create_work_item(
+            story_id=f"story-{work_item_id}",
+            title="Controlled recovery quarantine fixture",
+            target_surface="MULTI_PLATFORM",
+            work_item_id=work_item_id,
+            actor_ref="controlled_test",
+            correlation_id=f"correlation-{work_item_id}",
+        )
+    legacy = setup.register_plan(legacy_work_item, _plan("substack"))["registered"][0]
+    store.register_platform_dispatch(
+        dispatch_id=legacy["dispatch_id"],
+        message_id=legacy["message_id"],
+        platform="substack",
+        status=UNKNOWN_WRITE,
+        public_object_id="213355736",
+    )
+    store.set_outbox_status(legacy["message_id"], UNKNOWN_WRITE)
+    plan = _quality_plan()
+    next(
+        row
+        for row in plan["destinations"]
+        if row["destination"] == "instagram_business"
+    )["delivery_media_required"] = True
+    registered = setup.register_plan(recovery_work_item, plan)["registered"]
+    canonical = next(row for row in registered if row["destination"] == "substack")
+    canonical_url = "https://capitalchronicle.substack.com/p/recovery-work"
+    store.register_platform_dispatch(
+        dispatch_id=canonical["dispatch_id"],
+        message_id=canonical["message_id"],
+        platform="substack",
+        status=DISPATCH_CONFIRMED,
+        public_object_id="recovery-substack-object",
+        public_object_url=canonical_url,
+    )
+    store.set_outbox_status(canonical["message_id"], DISPATCH_CONFIRMED)
+    store.register_reconciliation(
+        reconciliation_id=canonical["reconciliation_id"],
+        work_item_id=recovery_work_item,
+        status=RECONCILED_CONFIRMED,
+    )
+    coordinator = DurablePublicationCoordinator(
+        store=store,
+        transport_runtime=transport,
+        readiness_provider=lambda destination: {
+            "readiness_state": (
+                "READY_AUTHENTICATED"
+                if registration_for_destination(destination).transport_type == "EDGE_CDP"
+                else "READY_NON_BROWSER_BINDING"
+            )
+        },
+        recovery_quarantined_work_item_ids=(legacy_work_item,),
+    )
+
+    recovery = coordinator.recover_pending()
+
+    assert recovery["backlog_remaining"] == 0
+    assert recovery["publish_calls"] == 8
+    assert len(transport.prepare_calls) == 1
+    assert transport.prepare_calls[0]["preconditions"]["unknown_write_count"] == 0
+    assert store.get_platform_dispatch(legacy["dispatch_id"])["status"] == UNKNOWN_WRITE
+
+
 def test_stable_provider_id_confirms_distribution_with_readback_limitation(tmp_path):
     class LimitedLinkedInReadback(FixtureTransport):
         def readback(self, *, destination, public_object_id, public_object_url, intent):

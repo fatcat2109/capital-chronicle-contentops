@@ -1779,10 +1779,7 @@ class DurablePublicationCoordinator:
                                     "skipped_derivative_destinations": [],
                                     "pre_substack_blockers": [],
                                 }
-                                unknown_count = sum(
-                                    str(row.get("status") or "") == UNKNOWN_WRITE
-                                    for row in self.store.list_platform_dispatches()
-                                )
+                                unknown_count = self._active_unknown_write_count()
                                 if unknown_count:
                                     delivery = {
                                         "status": "DELIVERY_MEDIA_RECOVERY_BLOCKED_UNKNOWN_WRITE",
