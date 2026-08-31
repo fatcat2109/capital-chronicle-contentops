@@ -363,8 +363,19 @@ def _candidate_packet_and_preselection(
     published_memory: Sequence[Any],
     *,
     source_route_health: Mapping[str, Any] | None = None,
+    attempted_candidate_ids: Sequence[str] = (),
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
-    universe = _candidate_universe(rolling_input, published_memory)
+    attempted = {str(value) for value in attempted_candidate_ids if str(value)}
+    unfiltered_universe = _candidate_universe(rolling_input, published_memory)
+    universe_candidate_ids = {
+        str(row.get("candidate_id") or "") for row in unfiltered_universe
+    }
+    excluded = attempted.intersection(universe_candidate_ids)
+    universe = [
+        row
+        for row in unfiltered_universe
+        if str(row.get("candidate_id") or "") not in excluded
+    ]
     ranked = rank_simple_headline_candidate_universe(
         universe,
         max_candidates=MAX_SELECTION_CANDIDATES,
@@ -374,7 +385,23 @@ def _candidate_packet_and_preselection(
         _selection_candidate(row)
         for row in ranked["ranked_candidates"][:MAX_SELECTION_CANDIDATES]
     ]
-    return candidates, dict(ranked["evidence"])
+    evidence = dict(ranked["evidence"])
+    evidence.update(
+        {
+            "full_eligible_deduped_universe_count": len(unfiltered_universe),
+            "eligible_deduped_universe_count_after_same_day_retry_suppression": len(
+                universe
+            ),
+            "same_production_day_source_blocked_candidate_exclusion_count": len(
+                excluded
+            ),
+            "same_production_day_source_blocked_candidate_exclusion_sha256": _hash(
+                sorted(excluded)
+            ),
+            "same_production_day_candidate_retry_suppression_grants_authority": False,
+        }
+    )
+    return candidates, evidence
 
 
 def _candidate_packet(
@@ -382,11 +409,13 @@ def _candidate_packet(
     published_memory: Sequence[Any],
     *,
     source_route_health: Mapping[str, Any] | None = None,
+    attempted_candidate_ids: Sequence[str] = (),
 ) -> list[dict[str, Any]]:
     candidates, _evidence = _candidate_packet_and_preselection(
         rolling_input,
         published_memory,
         source_route_health=source_route_health,
+        attempted_candidate_ids=attempted_candidate_ids,
     )
     return candidates
 
@@ -1635,6 +1664,7 @@ def run_v1_simple_gemini_newsroom(
     published_memory: Sequence[Any] = (),
     capital_chronicle_context: Mapping[str, Any] | None = None,
     source_route_health: Mapping[str, Any] | None = None,
+    attempted_candidate_ids: Sequence[str] = (),
     llm_invoke: LlmInvoke | None = None,
     evidence_loader: EvidenceLoader | None = None,
     run_id: str | None = None,
@@ -1654,6 +1684,7 @@ def run_v1_simple_gemini_newsroom(
         rolling_input,
         published_memory,
         source_route_health=source_route_health,
+        attempted_candidate_ids=attempted_candidate_ids,
     )
     sourceability_path = root / "simple_sourceability_preselection_v1.json"
     _write_json(sourceability_path, sourceability_preselection)
@@ -1674,6 +1705,17 @@ def run_v1_simple_gemini_newsroom(
         "source_route_health_reused": sourceability_preselection[
             "source_route_health_reused"
         ],
+        "same_production_day_source_blocked_candidate_exclusion_count": (
+            sourceability_preselection[
+                "same_production_day_source_blocked_candidate_exclusion_count"
+            ]
+        ),
+        "same_production_day_source_blocked_candidate_exclusion_sha256": (
+            sourceability_preselection[
+                "same_production_day_source_blocked_candidate_exclusion_sha256"
+            ]
+        ),
+        "same_production_day_candidate_retry_suppression_grants_authority": False,
         "model_or_provider_calls": 0,
         "network_gets": 0,
         "authority_granted": False,

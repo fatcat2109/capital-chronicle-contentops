@@ -84555,7 +84555,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-31T17:45:00Z",
+  "generation_timestamp_utc": "2026-08-31T18:18:50Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -88339,7 +88339,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 102482
+      "size_bytes": 104278
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -88349,7 +88349,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "kind": "python_module",
-      "size_bytes": 48310
+      "size_bytes": 51025
     },
     {
       "id": "live_contentops/v1_simple_publication_handoff_v1.py",
@@ -120610,7 +120610,7 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1630,
+      "line": 1659,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -128140,7 +128140,7 @@
     {
       "id": "tests/test_v1_simple_gemini_newsroom_v1.py",
       "kind": "test",
-      "size_bytes": 41066
+      "size_bytes": 42065
     },
     {
       "id": "tests/test_v1_simple_gemini_scheduler_process_v1.py",
@@ -128150,7 +128150,7 @@
     {
       "id": "tests/test_v1_simple_gemini_scheduler_v1.py",
       "kind": "test",
-      "size_bytes": 20332
+      "size_bytes": 22396
     },
     {
       "id": "tests/test_v1_simple_publication_handoff_recovery_v1.py",
@@ -132833,6 +132833,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "52f362f8460f82d410a09b0624eed6c8e43ee77f",
-  "source_tree_digest": "d107c7b59e0582cdd68cc549453df515e4c8c73e120fe53f177420c9f5ab7e15"
+  "source_head": "f97ecc8f2cfb669d588b3b82e29d22491525997b",
+  "source_tree_digest": "f7c6845991568043b110afcbd5a7ddec92761bb3af95e0d450ca2fd19e016813"
 }

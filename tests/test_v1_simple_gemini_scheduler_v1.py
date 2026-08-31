@@ -294,6 +294,64 @@ def test_abstained_slots_terminalize_without_false_qualification(tmp_path):
     assert load_qualified_article_records(tmp_path, production_day_id=day_id) == []
 
 
+def test_source_blocked_candidate_walk_is_distinct_across_slots_and_restart(tmp_path):
+    calls: list[dict] = []
+
+    def source_blocked(**kwargs):
+        call_number = len(calls) + 1
+        calls.append(dict(kwargs))
+        return {
+            "classification": "NO_PUBLICATION",
+            "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED",
+            "candidate_count": 32,
+            "candidate_limit": 32,
+            "candidate_attempt_history": [
+                {
+                    "candidate_id": f"source-blocked-{call_number}",
+                    "status": "SOURCE_BLOCKED",
+                }
+            ],
+            "source_request_count": 1,
+            "logical_model_invocation_count": 1,
+            "qualified_article_count": 0,
+            "codex_runtime_model_call_count": 0,
+            "public_write_performed": False,
+            "provider_publication_writes": 0,
+            "unknown_write_count": 0,
+        }
+
+    scheduler = SimpleGeminiLocalScheduler(
+        scheduler_root=tmp_path,
+        simple_operation=source_blocked,
+        published_memory_loader=_memory_loader(),
+    )
+    scheduler.tick(now="2026-08-28T10:00:00Z")
+
+    assert calls[0]["attempted_candidate_ids"] == []
+    assert calls[1]["attempted_candidate_ids"] == ["source-blocked-1"]
+
+    restarted = SimpleGeminiLocalScheduler(
+        scheduler_root=tmp_path,
+        simple_operation=source_blocked,
+        published_memory_loader=_memory_loader(),
+    )
+    restarted.tick(now="2026-08-28T14:00:00Z")
+
+    for index, call in enumerate(calls, start=1):
+        assert call["attempted_candidate_ids"] == [
+            f"source-blocked-{value}" for value in range(1, index)
+        ]
+    checkpoints = [
+        json.loads(path.read_text(encoding="utf-8"))
+        for path in tmp_path.glob("**/slots/*.json")
+    ]
+    assert sorted(
+        value
+        for checkpoint in checkpoints
+        for value in checkpoint["source_blocked_candidate_ids"]
+    ) == [f"source-blocked-{value}" for value in range(1, len(calls) + 1)]
+
+
 def test_later_window_allocates_bounded_extra_slots_to_keep_five_reachable(tmp_path):
     day_id = newsroom_production_day_id("2026-08-28T16:00:00Z")
     _persist_qualified(
