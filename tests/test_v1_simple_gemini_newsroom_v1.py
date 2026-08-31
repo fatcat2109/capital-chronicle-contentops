@@ -586,6 +586,96 @@ def test_simple_sourceability_ranks_full_deduped_universe_before_bounded_packet(
     assert evidence["sourceability_stage_capital_chronicle_authority_granted"] is False
 
 
+def test_sourceability_projects_existing_canonical_x_zero_get_route_without_authority():
+    marker = {
+        "schema_version": "contentops.canonical_x_list_record_provenance.v1",
+        "owner_curated_canonical_x_list": True,
+        "target_list_id": "1843870469143048642",
+        "source_platform": "x_cdp_list_latest_tweets_timeline",
+        "exact_sidecar_record": True,
+        "report_truth_scope_only": True,
+        "underlying_event_truth_granted": False,
+        "capital_chronicle_numeric_authority_granted": False,
+        "public_write_authority_granted": False,
+    }
+    rows = [
+        {
+            "candidate_id": "newer-unresolved",
+            "story_identity": "newer-unresolved",
+            "headline_id": "newer-unresolved",
+            "headline_text": "A newer story with an ungoverned blog URL",
+            "source_timestamp_utc": "2026-08-26T14:00:00Z",
+            "source_account": "feed",
+            "source_url": "https://x.com/feed/status/1",
+            "official_source_urls": ["https://example.invalid/story"],
+            "public_source_urls": ["https://example.invalid/story"],
+            "canonical_x_list_provenance": marker,
+        },
+        {
+            "candidate_id": "relay",
+            "story_identity": "relay",
+            "headline_id": "relay",
+            "headline_text": "A consequential financing decision was reported, per Bloomberg.",
+            "source_timestamp_utc": "2026-08-26T11:30:00Z",
+            "source_account": "wallstengine",
+            "source_url": "https://x.com/wallstengine/status/2",
+            "official_source_urls": [],
+            "public_source_urls": [],
+            "canonical_x_list_provenance": marker,
+        },
+    ]
+
+    result = rank_simple_headline_candidate_universe(rows, max_candidates=2)
+    ranked = result["ranked_candidates"]
+    relay = next(row for row in ranked if row["candidate_id"] == "relay")
+    unresolved = next(
+        row for row in ranked if row["candidate_id"] == "newer-unresolved"
+    )
+
+    assert ranked[0]["candidate_id"] == "relay"
+    route = relay["sourceability_work_order"]
+    assert route["canonical_x_zero_get_route_available"] is True
+    assert route["canonical_x_zero_get_route_grants_authority"] is False
+    assert route["expected_request_cost"] == 0
+    assert route["freshness_band_index"] == 1
+    assert route["effective_work_order_freshness_band_index"] == 0
+    assert unresolved["sourceability_work_order"][
+        "governed_direct_source_candidate_count"
+    ] == 0
+
+    rolling = {
+        "headlines": [
+            {
+                "headline_id": row["headline_id"],
+                "headline_text": row["headline_text"],
+                "source_timestamp_utc": row["source_timestamp_utc"],
+                "external_content": {
+                    "headline_text": row["headline_text"],
+                    "author_handle": row["source_account"],
+                    "source_platform": "x_cdp_list_latest_tweets_timeline",
+                    "url_or_source_ref": row["source_url"],
+                    "canonical_x_list_provenance": marker,
+                },
+            }
+            for row in rows
+        ]
+    }
+    packet = _candidate_packet(rolling, [])
+    relay_packet = next(row for row in packet if "Bloomberg" in row["headline_text"])
+    assert relay_packet["sourceability_route_hint"] == {
+        "canonical_x_zero_get_route_available": True,
+        "known_official_path": False,
+        "reputable_public_secondary_path": False,
+        "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+        "known_access_risk": False,
+        "routing_hint_grants_factual_or_publication_authority": False,
+    }
+    prompt = _selection_prompt({"candidate_count": 2, "candidates": packet})
+    assert "canonical_x_zero_get_route_available is true" in prompt
+    assert "prevents all three choices from sharing the same retrieval failure" in prompt
+    assert "Never select a weak story merely because its route is easier" in prompt
+
+
 def test_current_earnings_candidate_cannot_pivot_to_older_financing_highlight():
     with pytest.raises(SimpleGeminiNewsroomError) as exc_info:
         _validate_article_against_source_pack(

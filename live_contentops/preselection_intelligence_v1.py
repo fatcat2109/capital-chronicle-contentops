@@ -208,6 +208,34 @@ def _evidence_reachability(
         )
     ).casefold()
     attributed_hosts = _attributed_reputable_hosts(attribution_text)
+    # Reuse the accepted canonical-X epistemic contract as a routing-only projection.  This
+    # changes only work order: the resolver still revalidates the exact marker and can reject
+    # high-harm or otherwise ineligible records before any source authority exists.
+    from live_contentops.v1_simple_epistemic_state_v1 import (
+        candidate_report_provenance,
+    )
+    from live_contentops.claim_evidence_contract_v1 import (
+        requires_enhanced_evidence_review,
+    )
+
+    report_profile = candidate_report_provenance(cluster)
+    enhanced_evidence_required = requires_enhanced_evidence_review(
+        {
+            "effective_article_mode": cluster.get("resolved_article_mode"),
+            "story_context": {
+                "leaf_summaries": [str(cluster.get("event_topic_summary") or "")],
+                "report_provenance": report_profile,
+            },
+        }
+    )
+    canonical_x_zero_get_route = bool(
+        report_profile.get("owner_curated_canonical_x_record") is True
+        and not enhanced_evidence_required
+        and (
+            report_profile.get("trusted_relay_identity_approved") is True
+            or report_profile.get("explicit_market_rumor") is True
+        )
+    )
     registered_official_families = sorted(
         family
         for family, family_hosts in OFFICIAL_HOSTS_BY_FAMILY.items()
@@ -255,7 +283,8 @@ def _evidence_reachability(
             {"capital_chronicle_market_state", "capital_chronicle_database"}
         )
     bounded_discovery = bool(
-        "public_secondary" in expected_families or not available_families
+        not canonical_x_zero_get_route
+        and ("public_secondary" in expected_families or not available_families)
     )
     if bounded_discovery:
         available_families.add("public_secondary")
@@ -284,11 +313,12 @@ def _evidence_reachability(
         )
     repeated_access_failure = access_failures >= 2
     known_access_risk = bool(
-        hosts.union(attributed_hosts).intersection(_KNOWN_ACCESS_RISK_HOSTS)
+        not canonical_x_zero_get_route
+        and hosts.union(attributed_hosts).intersection(_KNOWN_ACCESS_RISK_HOSTS)
     )
     expected_request_cost = (
         0
-        if exact_cc_packet
+        if exact_cc_packet or canonical_x_zero_get_route
         else 1
         if registered_official_families or reputable_secondary
         else 2
@@ -299,12 +329,13 @@ def _evidence_reachability(
         (0.38 if registered_official_families else 0.0)
         + (0.28 if routed_locator_families else 0.0)
         + (0.44 if exact_cc_packet else 0.0)
+        + (0.55 if canonical_x_zero_get_route else 0.0)
         + (0.28 if reputable_secondary else 0.0)
         + (0.12 if attributed_reputable else 0.0)
         + (0.2 if successful_retrievals else 0.0)
         + (0.18 * family_coverage)
         + (0.08 if bounded_discovery else 0.0)
-        + (0.06 if urls else 0.0)
+        + (0.06 if official or reputable_secondary else 0.0)
         + (0.05 if cc_relevant else 0.0)
         - (0.2 if repeated_access_failure else 0.0)
         - (0.08 if known_access_risk and not successful_retrievals else 0.0)
@@ -321,7 +352,13 @@ def _evidence_reachability(
         "attributed_reputable_routing_hint": attributed_reputable,
         "capital_chronicle_relevant_context": cc_relevant,
         "exact_matching_cc_publication_authorized_packet": exact_cc_packet,
+        "canonical_x_zero_get_route_available": canonical_x_zero_get_route,
+        "canonical_x_zero_get_route_grants_authority": False,
+        "enhanced_evidence_required": enhanced_evidence_required,
         "public_source_candidate_count": len(urls),
+        "governed_direct_source_candidate_count": (
+            len(urls) if official or reputable_secondary else 0
+        ),
         "expected_evidence_capabilities": list(
             capability.get("required_evidence_capabilities") or []
         ),
@@ -493,6 +530,12 @@ def rank_simple_headline_candidate_universe(
                 "capability_article_mode": "analysis",
                 "event_topic_summary": row.get("headline_text"),
                 "why_now": row.get("headline_text"),
+                "headline_text": row.get("headline_text"),
+                "source_account": row.get("source_account"),
+                "source_url": row.get("source_url"),
+                "canonical_x_list_provenance": dict(
+                    row.get("canonical_x_list_provenance") or {}
+                ),
                 "public_source_urls": list(row.get("public_source_urls") or []),
                 "official_source_urls": list(row.get("official_source_urls") or []),
             },
@@ -502,6 +545,11 @@ def rank_simple_headline_candidate_universe(
         source_time = _source_timestamp(row)
         age_seconds = max(0.0, (newest - source_time).total_seconds())
         freshness_band = int(age_seconds // (2 * 60 * 60))
+        effective_freshness_band = max(
+            0,
+            freshness_band
+            - int(reachability["canonical_x_zero_get_route_available"]),
+        )
         expected_cost = int(reachability["expected_request_cost"])
         cost_class = (
             "DIRECT_OR_ALREADY_BOUND"
@@ -517,6 +565,8 @@ def rank_simple_headline_candidate_universe(
             **route_diagnostics,
             "freshness_band_hours": 2,
             "freshness_band_index": freshness_band,
+            "effective_work_order_freshness_band_index": effective_freshness_band,
+            "zero_get_route_maximum_freshness_band_relaxation": 1,
             "age_from_newest_eligible_seconds": int(age_seconds),
             "expected_route_request_cost_class": cost_class,
             "sourceability_changes_work_order_only": True,
@@ -527,7 +577,11 @@ def rank_simple_headline_candidate_universe(
     ranked = sorted(
         profiled,
         key=lambda row: (
-            int(row["sourceability_work_order"]["freshness_band_index"]),
+            int(
+                row["sourceability_work_order"][
+                    "effective_work_order_freshness_band_index"
+                ]
+            ),
             -float(row["sourceability_work_order"]["score"]),
             int(
                 row["sourceability_work_order"][
