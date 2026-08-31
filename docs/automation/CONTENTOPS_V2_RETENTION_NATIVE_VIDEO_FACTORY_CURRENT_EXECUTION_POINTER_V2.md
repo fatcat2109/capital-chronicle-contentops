@@ -1,7 +1,19 @@
 # Capital Chronicle ContentOps — V2 Current Execution Pointer V2
 
-Authority date: 2026-08-23
-Status: `CURRENT_V2_LANE_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
+Authority date: 2026-08-31
+Status: `CURRENT_V2_LANE_POINTER / PAUSED_BY_OWNER / NO_CURRENT_V2_IMPLEMENTATION_TASK`
+
+## Owner pause override
+
+Jim's 2026-08-31 decision pauses main V2 development while V1 activation/runtime completion
+remains the immediate product priority. V1 acceptance being true does not activate this roadmap.
+
+The lightweight Speech Highlight Relay is a separate interim product lane governed by
+`docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
+It is not V2 implementation progress and does not inherit V2 creative-worker, unattended-factory,
+longform, learning, or publication scope.
+
+Current V2 task: `NONE_PAUSED_PENDING_EXPLICIT_JIM_RESUMPTION`.
 
 ## Root authority
 
@@ -12,13 +24,15 @@ Status: `CURRENT_V2_LANE_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
 - `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 - `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
+- `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`
 - `docs/codegraph/V2_CONTEXT.md`
 
 Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.
 
 ## Exact V2 lane detail
 
-These current-master files exist and may supply compatible V2 detail beneath the locked root spine:
+These current-master files remain dormant V2 design/history and may supply compatible detail only
+after an explicit V2 resumption decision:
 
 - `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 - `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
@@ -40,6 +54,10 @@ Current master already owns:
   with live writes disabled.
 
 Do not rebuild these systems or restore the failed fixed high-level compositor.
+
+The Relay may selectively reuse a small exact media/caption/package/provenance seam from this
+foundation when its own pointer calls for it. That reuse does not resume V2 or authorize wholesale
+V2 donor reconciliation.
 
 ## Exact historical donor lineage
 
@@ -74,21 +92,20 @@ historical canaries, rehearsals, or branch work grant no upload, draft, unlisted
 write permission. Any later publication expansion requires a new exact owner grant plus exact
 destination/account identity, rights, readback, reconciliation, and recovery proof.
 
-## Locked V2-after-V1 sequence
+## Paused V2 sequence
 
-There is no independently authorized V2 implementation task before explicit V1 acceptance. After
-that gate:
+The earlier V2-after-V1 sequence is dormant. Do not start donor reconciliation, unattended
+revalidation, cross-domain media production, model/mode evaluation, actual-media acceptance, soak,
+learning integration, or publication work merely because V1 acceptance has occurred.
 
-1. selectively reconcile donor capability onto the current free-form/package/publication substrate;
-2. revalidate unattended store/supervisor, Windows recovery, transcript/audio timing, locale
-   packages, read-only qualification, and native relay under current dependencies;
-3. produce fresh non-oil/non-Hormuz qualified cross-domain stories through concrete-first asset
-   discovery and story-specific native media;
-4. obtain actual-media XHIGH and Jim/ChatGPT picture/sound/taste/pacing/publishability review;
-5. prove repeated-job soak, cache/recovery, TCO, transcript/package truth, and the integrated
-   qualification/observation/bounded-learning loop;
-6. consider platform publication only under a later exact owner grant. Until then, zero public
-   write remains absolute.
+If Jim later resumes main V2, reconstruct the exact next task from fresh root authority, then reuse
+the current master and historical donor evidence above instead of rebuilding it. Do not assume the
+old first task remains optimal after the pause.
 
-Do not rebuild donor-proven unattended/recovery/locale/native-relay capabilities from zero. Do not
-infer final V2 acceptance from historical media or deterministic tests.
+Until then:
+
+- preserve V2 code/evidence without destructive cleanup or wholesale merge;
+- allow only read-only archaeology needed by another authorized product task;
+- keep V1 runtime/store/browser/publication state isolated;
+- keep V2 public-write authority at zero; and
+- route all Speech Highlight Relay work through its separate current pointer.

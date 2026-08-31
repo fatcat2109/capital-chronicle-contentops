@@ -1,7 +1,12 @@
 # Capital Chronicle ContentOps V2 — Current Execution Pointer V1
 
 Authority date: 2026-08-12
-Status: `CURRENT_V2_EXECUTION_POINTER`
+Status: `SUPERSEDED_NON_ROUTING_BY_V2_POINTER_V2_AND_2026_08_31_OWNER_PAUSE`
+
+This historical pointer authorizes no current work. Main V2 is paused, and the lightweight Speech
+Highlight Relay routes from
+`CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md` rather than this
+document.
 
 ## Canonical V2 authority
 

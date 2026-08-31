@@ -51,7 +51,10 @@ AUTHORITY_DOCS = {
     "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
     "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
     "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
+    "docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md",
+    "docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md",
     "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
+    "docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md",
     "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
     "docs/codegraph/V1_CONTEXT.md",
     "docs/codegraph/V2_CONTEXT.md",
@@ -1069,10 +1072,11 @@ task summaries.
 5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-8. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
-9. the appropriate current lane pointer
-10. the nearest scoped `AGENTS.md`
-11. exact implementation, tests, and evidence
+8. current V1 activation/Simple authority when the task touches V1
+9. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
+10. the appropriate current V1, Speech Highlight Relay, or V2 lane pointer
+11. the nearest scoped `AGENTS.md`
+12. exact implementation, tests, and evidence
 
 ## Current product boundary
 
@@ -1081,7 +1085,10 @@ task summaries.
   granted; internal, candidate, proxy, degraded, stale, or incompatible material is non-public.
 - V1 is the canonical newsroom/publication runtime. Its current lane pointer is
   `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
-- V2 is an isolated retention-native media lane with zero video public-write authority. Its
+- The lightweight Speech Highlight Relay is a separate interim source-bound lane with zero public-
+  write authority. Its current pointer is
+  `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
+- Main V2 is a paused isolated retention-native media lane with zero video public-write authority. Its
   current lane pointer is
   `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`.
 - Do not infer a current task, model route, provider, or acceptance state from this generated file;
@@ -1132,10 +1139,11 @@ def index_markdown(graph: dict[str, Any]) -> str:
         "5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`",
         "6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`",
         "7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`",
-        "8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`",
-        "9. the appropriate current V1/V2 lane pointer",
-        "10. nearest scoped `AGENTS.md`",
-        "11. exact implementation, focused tests, and task evidence",
+        "8. current V1 activation/Simple authority when the task touches V1",
+        "9. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`",
+        "10. the appropriate current V1, Speech Highlight Relay, or V2 lane pointer",
+        "11. nearest scoped `AGENTS.md`",
+        "12. exact implementation, focused tests, and task evidence",
         "",
         "This generated router is subordinate to root `AGENTS.md`. Never use it to bypass the "
         "current V3 authority spine or a newer owner decision.",
@@ -1172,15 +1180,17 @@ def index_markdown(graph: dict[str, Any]) -> str:
             "`docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`.",
             "",
             "V1 lane: `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.",
+            "Speech Highlight Relay lane: "
+            "`docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.",
             "V2 lane: `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`.",
             "Read the current pointer bytes; generated context does not declare a current task.",
             "",
-            "## Tier2 separation",
+            "## Media-lane separation",
             "",
-            "Tier2/video is isolated from the V1 runtime and has no public-write authority. Read "
-            "`docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. "
-            "Current V2 direction must come from the V3 authority spine and current V2 lane pointer, "
-            "not historical task summaries embedded in generated context.",
+            "The Speech Highlight Relay and main V2 are both isolated from V1 runtime/publication "
+            "ownership and currently have zero public-write authority. Main V2 is paused. Read "
+            "`docs/codegraph/V2_CONTEXT.md`, the exact lane pointer, and `video/AGENTS.md` before "
+            "video work; selective donor reuse does not turn Relay work into V2 progress.",
             "",
             "## Generated graph files",
             "",
@@ -1300,7 +1310,10 @@ def validate_context_contract(graph: dict[str, Any]) -> list[str]:
         "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md",
         "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
         "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
+        "docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md",
+        "docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md",
         "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
+        "docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md",
         "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
     }
     if not required_v3_anchors.issubset(set(graph.get("authority_anchor_paths") or [])):

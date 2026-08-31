@@ -281,11 +281,19 @@ Capital Chronicle/Core Analyzer exclusively owns proprietary analytical/numeric 
 
 ---
 
-## 13. V1/V2, browser, and publication boundaries
+## 13. V1, Speech Highlight Relay, V2, browser, and publication boundaries
 
-V1 is the canonical newsroom/publication product. V2 is the isolated retention-native video/channel-growth factory.
+V1 is the canonical newsroom/publication product. The lightweight Speech Highlight Relay is a
+separate interim source-bound social derivative product. Main V2 is the isolated retention-native
+video/channel-growth factory and is currently paused until Jim explicitly resumes it.
 
 Never let V2 mutate/reset V1 production runtime/store, inherit V1 browser/public-write authority, or redefine Capital Chronicle truth. Generated V2 media is never factual authority.
+
+Never let the Relay become another V1 editor, scheduler, store, publisher/publication coordinator,
+browser owner, truth system, or model-routing owner. It may selectively reuse exact V2 media seams
+without becoming V2 progress or inheriting V2 orchestration/model requirements. Current V1 article
+publication authority does not include Relay video uploads; Relay output remains on
+`PUBLICATION_HOLD` absent a later exact grant.
 
 Preserve current browser roles:
 
@@ -424,7 +432,13 @@ Otherwise:
 
 V1 must become a reliable autonomous growth newsroom capable of producing **5–8 useful canonical published articles per newsroom production day** without filler and without weakening truth.
 
-V2 must become an isolated retention-native video growth factory built on rights-safe `CONCRETE_FIRST_ABSTRACT_SECOND` media and qualified source truth.
+The interim Speech Highlight Relay must turn clearly reusable, exactly sourced public speech into a
+context-safe Capital Chronicle social package with low operator burden and no duplicate control
+plane.
+
+Main V2 remains a paused product direction. If Jim later resumes it, it must remain an isolated
+retention-native video growth factory built on rights-safe `CONCRETE_FIRST_ABSTRACT_SECOND` media
+and qualified source truth.
 
 Engineering, evidence, models, and governance exist to move those products toward real readers/viewers and measurable learning.
 

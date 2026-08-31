@@ -1,7 +1,12 @@
 # Capital Chronicle ContentOps — V2 Creative Authority Override
 
-Authority date: 2026-08-20
-Status: `CURRENT_V2_CREATIVE_POLICY`
+Authority date: 2026-08-31
+Status: `DORMANT_V2_CREATIVE_POLICY / MAIN_V2_PAUSED`
+
+Main V2 is paused by Jim's 2026-08-31 decision. This policy supplies historical/dormant V2 creative
+detail only and authorizes no current V2 task. The lightweight Speech Highlight Relay is separate,
+uses the minimum sufficient model under its own current pointer, and does not inherit this policy's
+creative-worker route.
 
 This file governs viewer-facing creative judgment only. Root product/task authority remains:
 

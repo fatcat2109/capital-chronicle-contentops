@@ -1,8 +1,12 @@
 # Current Product Direction — Editorial Edge Overlay V1
 
-Authority date: 2026-08-17
-Status: `CURRENT_OWNER_DIRECTION_OVERLAY`
+Authority date: 2026-08-31
+Status: `SUPERSEDED_NON_ROUTING_BY_CURRENT_ROOT_SPINE_AND_2026_08_31_OWNER_DIRECTION`
 Owner: Jim
+
+This overlay is historical. Its V1 Desktop route and concurrent-V2 statement are superseded. Use
+the current root authority, Simple V1 activation authority, and the separate Speech Highlight Relay
+pointer. Main V2 is paused until Jim explicitly resumes it.
 
 This overlay is additive authority and supersedes older status/pointer language where it conflicts. Historical task evidence remains historical evidence.
 
@@ -42,9 +46,10 @@ Read:
 5. `docs/automation/CONTENTOPS_FULL_AUTOMATION_FINAL_PRODUCT_INSTITUTIONAL_NORTH_STAR_V1/EDITORIAL_EDGE_OWNER_OVERLAY_V1.md`
 6. `docs/automation/V6_FINAL_PRODUCT_EXECUTION_PLAN/EDITORIAL_EDGE_MASTER_PLAN_OVERLAY_V1.md`
 
-## V2
+## Historical V2 statement — superseded
 
-V2 continues concurrently and remains isolated. Read:
+At this evidence epoch V2 continued concurrently. That statement is no longer current. Main V2 is
+paused, while the lightweight Speech Highlight Relay is a separate interim product.
 
 `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_EDITORIAL_EDGE_OVERLAY_V1.md`
 

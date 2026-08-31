@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
 Source HEAD: `1a372e0551a00489cc1006c7bb30b6e0821b448b`
-Source tree digest: `e32861b82f373bddffba5754013a908f1d3fa0314cb42b994dadfb846a4f7f1e`
+Source tree digest: `76d3f965439a7381960b56243949000461c03302d1cdcbab7e36aad5b146f5df`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.1`
 
 This generated map is descriptive, not product authority.
@@ -17,10 +17,11 @@ Read only these before the exact task files:
 5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-8. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-9. the appropriate current V1/V2 lane pointer
-10. nearest scoped `AGENTS.md`
-11. exact implementation, focused tests, and task evidence
+8. current V1 activation/Simple authority when the task touches V1
+9. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+10. the appropriate current V1, Speech Highlight Relay, or V2 lane pointer
+11. nearest scoped `AGENTS.md`
+12. exact implementation, focused tests, and task evidence
 
 This generated router is subordinate to root `AGENTS.md`. Never use it to bypass the current V3 authority spine or a newer owner decision.
 
@@ -134,12 +135,13 @@ Stale/non-routing semantics: `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANI
 Product direction: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` and `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`.
 
 V1 lane: `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
+Speech Highlight Relay lane: `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
 V2 lane: `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`.
 Read the current pointer bytes; generated context does not declare a current task.
 
-## Tier2 separation
+## Media-lane separation
 
-Tier2/video is isolated from the V1 runtime and has no public-write authority. Read `docs/codegraph/V2_CONTEXT.md` and `video/AGENTS.md` only for an authorized V2 task. Current V2 direction must come from the V3 authority spine and current V2 lane pointer, not historical task summaries embedded in generated context.
+The Speech Highlight Relay and main V2 are both isolated from V1 runtime/publication ownership and currently have zero public-write authority. Main V2 is paused. Read `docs/codegraph/V2_CONTEXT.md`, the exact lane pointer, and `video/AGENTS.md` before video work; selective donor reuse does not turn Relay work into V2 progress.
 
 ## Generated graph files
 
@@ -157,4 +159,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7437` nodes and `14062` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7440` nodes and `14062` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

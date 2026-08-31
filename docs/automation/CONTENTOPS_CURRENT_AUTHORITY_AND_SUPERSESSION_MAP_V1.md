@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Authority and Supersession Map V1
 
-Authority date: 2026-08-29
+Authority date: 2026-08-31
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, owner-gate, or branch assumptions.
@@ -12,6 +12,14 @@ Jim's latest owner state is:
 - `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
 - routine V1 public-write/readback authority is granted for the accepted V1 path;
 - V2 public-write authority remains zero unless separately granted.
+
+Jim's 2026-08-31 product decision adds:
+
+- V1 activation/runtime completion remains the immediate primary priority;
+- the lightweight Speech Highlight Relay is a separate interim social-growth capability;
+- main V2 development is paused until Jim explicitly resumes it;
+- the Relay is not V2 progress and must reuse existing ownership boundaries; and
+- Relay public-write authority remains zero unless a later exact grant says otherwise.
 
 Merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` is repository evidence of this grant.
 
@@ -43,7 +51,39 @@ Native Desktop Automations, SDK/App-Server editorial fallback, legacy rolling-X 
 
 The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. An admitted candidate with no governed reachable source may still close as `SOURCE_DISCOVERY_REQUIRED`; that candidate-local result does not authorize a second selection, filler, or weakened evidence. Final live target shorthand remains `5–8/day` useful published articles.
 
-## 3. Canonical read path
+## 3. Current Speech Highlight Relay and V2 pause
+
+Current Relay authority is
+`docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
+It governs an interim source-first product:
+
+`original speech/video -> provenance/rights -> transcript -> high-value excerpt -> minimal branded social package -> PUBLICATION_HOLD`.
+
+Capability classification:
+
+- `CURRENTLY_PROVEN_AND_REUSE`: the current-master Federal Reserve authority-clip/source ledgers;
+  free-form pipeline's bounded render/audio/mux mechanics; actual-audio caption and platform-neutral
+  package factory; V1 read-only intake/source context; and the existing publication
+  coordinator/registry ownership boundary.
+- `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY`: asset-board/provenance seams at `cfaa504b`,
+  authority-clip abstention/vertical-package seams at `edec326e`, and optional unattended/recovery/
+  narration-transcript donors at `10d18873e2d716dcd53b681a4370ef7726a27f9b`.
+- `NEW_IMPLEMENTATION_GAP`: generalized first-party source-video resolution, Relay rights packet,
+  source-speech transcript/timing lock, context-safe highlight proposal/validation, generic minimal
+  clip/reframe/caption construction, one-shot existing-owner work-order integration, and any later
+  exact authorized publication adapter.
+- `SUPERSEDED_OR_OUT_OF_SCOPE_FOR_RELAY_V1`: main V2 longform/cinematic/locale/unattended factory
+  scope, any duplicate scheduler/store/publisher/model owner, and generic virality-first clipping.
+
+Current V1 article public-write authority does not include Relay video uploads. The current
+destination registry explicitly keeps video/Short surfaces disabled, and the current V2
+publication package remains shadow/no-write. Relay output therefore stops at `PUBLICATION_HOLD`.
+
+Main V2 is `PAUSED_BY_OWNER`. Its constitutions and donor evidence remain dormant product history
+and selective reuse material, not current execution authority. The fact that V1 acceptance is now
+true does not activate the prior V2-after-V1 sequence.
+
+## 4. Canonical read path
 
 1. `AGENTS.md`
 2. `docs/codegraph/INDEX.md`
@@ -55,13 +95,15 @@ The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_
 8. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md` for current V1 activation
 9. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md` for Simple mechanics
 10. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-11. current lane pointer
+11. current lane pointer, including
+    `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`
+    for Relay work
 12. nearest scoped `AGENTS.md`
 13. exact code/tests/evidence/host truth.
 
 Jim's latest explicit instruction remains highest product authority.
 
-## 4. Capability reconciliation
+## 5. V1 capability reconciliation
 
 ### `CURRENTLY_PROVEN_AND_REUSE`
 
@@ -108,7 +150,7 @@ Before first new live V1 write: production DB integrity/schema, no unresolved UN
 
 Historical evidence remains valid at its exact epoch. Do not delete historical task evidence merely because routing changed.
 
-## 5. Accepted evidence truth
+## 6. Accepted evidence truth
 
 Preserve, do not repeat merely for ceremony:
 
@@ -124,16 +166,17 @@ Preserve, do not repeat merely for ceremony:
 
 Missing fresh host proof does not convert a proven implementation into a new implementation gap.
 
-## 6. Current activation sequence
+## 7. Current activation sequence
 
 1. current-host read-only activation preflight — zero public write;
-3. one fresh live V1 end-to-end canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
-4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day;
-5. continue isolated V2 only under V2's separate authority boundaries.
+2. one fresh live V1 end-to-end canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
+3. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day;
+4. keep main V2 paused until Jim explicitly resumes it; a separate Relay implementation may
+   advance only its bounded zero-write milestone without displacing V1 activation.
 
 Repository authority/static safety, emergency-stop coverage, single-owner composition, and routine publication handoff are closed. No fifth routine task. No filler. No blind retry after ambiguity.
 
-## 7. Growth-first rules that remain current
+## 8. Growth-first rules that remain current
 
 - V1 is an autonomous growth newsroom, not a safe-abstention engine.
 - Evidence burden is claim- and mode-specific.
@@ -145,13 +188,13 @@ Repository authority/static safety, emergency-stop coverage, single-owner compos
 - Destination-local failure does not erase canonical truth; ambiguous writes never blind-retry.
 - Public comments/replies/DMs remain separately gated from routine article publication.
 
-## 8. Repository execution autonomy
+## 9. Repository execution autonomy
 
 Ordinary reversible repository operations inside the accepted roadmap do not require a new per-operation owner authorization after the operator hard-gate audit has passed. They may proceed through task branches/PRs and the normal protected-branch path once required checks pass.
 
 This autonomy does not authorize bypassing branch protection, force-push, public/provider writes outside granted scope, destructive production/canonical-store mutation, Capital Chronicle proprietary/numeric-authority expansion, V2 public-write authority expansion, secret/session access, or protected-history mutation.
 
-## 9. Explicitly stale/non-routing semantics
+## 10. Explicitly stale/non-routing semantics
 
 Never route a fresh V1 task from claims that:
 
@@ -170,8 +213,15 @@ Never route a fresh V1 task from claims that:
 - PR #39 single routine-owner composition remains missing;
 - the actual persistent Simple scheduler still lacks the existing coordinator handoff;
 - V2 has public-write authority.
+- satisfied V1 acceptance automatically resumes the main V2 roadmap;
+- the Speech Highlight Relay is V2 implementation progress or inherits V2 model/orchestration policy;
+- public availability, platform posting, attribution, cropping, subtitles, or short duration proves
+  source-video reuse rights;
+- the Relay may create its own scheduler, durable store, publisher, publication coordinator, or
+  direct uploader; or
+- V1's granted article publication authority includes Relay video/Reel/Short uploads.
 
-## 10. Conflict resolution
+## 11. Conflict resolution
 
 1. Jim's latest explicit instruction.
 2. Fresh GitHub refs/commits/diffs/exact code and actual host/runtime evidence.

@@ -64,8 +64,8 @@ After published/reconciled accounting implementation and before the first new li
 The accepted V1 product is not to be rebuilt. PR #38/PR #39 and corrected PR #42 close repository static safety/emergency-stop, single-owner composition, and the actual routine Simple publication handoff. Activation now proceeds in the remaining bounded slices:
 
 1. **Current-host read-only activation preflight.** Revalidate production store/recovery state, current browser/account identities, destination readiness, exactly-one owner/process, and zero unresolved UNKNOWN write. No public write during preflight.
-3. **One live V1 end-to-end canary under already granted routine authority.** One fresh governed article only: Simple editorial path -> canonical Substack -> exactly eight derivative destinations -> strict readback/reconciliation. Stop immediately on wrong identity, unresolved UNKNOWN write, destructive mutation, or ambiguous public-object identity.
-4. **Routine production enablement.** Only after the canary is strictly reconciled should the four owner-locked windows run live toward 5–8 useful published articles per production day. No filler and no fifth routine task.
+2. **One live V1 end-to-end canary under already granted routine authority.** One fresh governed article only: Simple editorial path -> canonical Substack -> exactly eight derivative destinations -> strict readback/reconciliation. Stop immediately on wrong identity, unresolved UNKNOWN write, destructive mutation, or ambiguous public-object identity.
+3. **Routine production enablement.** Only after the canary is strictly reconciled should the four owner-locked windows run live toward 5–8 useful published articles per production day. No filler and no fifth routine task.
 
 ## 4. Non-negotiable invariants
 

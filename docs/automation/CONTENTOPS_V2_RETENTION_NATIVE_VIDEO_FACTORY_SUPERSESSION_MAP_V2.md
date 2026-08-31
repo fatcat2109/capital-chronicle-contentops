@@ -1,7 +1,12 @@
 # Capital Chronicle ContentOps V2 — Supersession Map V2
 
-Authority date: 2026-08-12
-Status: `CURRENT_V2_SUPERSESSION_MAP`
+Authority date: 2026-08-31
+Status: `CURRENT_V2_SUPERSESSION_MAP / MAIN_V2_PAUSED`
+
+Jim's 2026-08-31 decision pauses main V2. The documents below preserve dormant V2 product detail
+and reusable evidence, but authorize no current V2 implementation task. V1 acceptance does not
+activate them. The separate lightweight Speech Highlight Relay routes from
+`CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
 
 ## Canonical current authority
 

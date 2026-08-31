@@ -1,8 +1,13 @@
 # Capital Chronicle ContentOps V2 — Lane B Hybrid Owner Decision and A/B Audit V1
 
-Authority date: 2026-08-14
-Status: `CURRENT_OWNER_DECISION / CANONICAL_V2_PRODUCT_DIRECTION`
+Authority date: 2026-08-31
+Status: `HISTORICAL_OWNER_DECISION / DORMANT_V2_PRODUCT_DIRECTION / MAIN_V2_PAUSED`
 Owner: Jim
+
+> **2026-08-31 owner pause:** This A/B decision remains valid historical evidence about V2's
+> preferred architecture, but it authorizes no current V2 task. Main V2 is paused until Jim
+> explicitly resumes it. The lightweight Speech Highlight Relay is a separate interim product and
+> does not inherit this document's creative-brain, outbox, or unattended-factory requirements.
 
 > This document records the owner-level product decision reached after direct review of the authentic Lane A and Lane B short/midform masters, GitHub verification of the A/B implementation branch, and review of the builder execution history. It exists so that future ChatGPT sessions, Codex sessions, local workers, and worktrees do not lose the decisive context that previously lived only in chat.
 
@@ -759,11 +764,11 @@ Real-person documentary imagery must be real and rights-cleared.
 
 No secrets may be logged or committed.
 
-## 15. Current priority and exact next product task
+## 15. Historical priority and exact-next task — dormant
 
-The next work should **not** be V2-02 distribution expansion.
+At this evidence epoch, the next work was not V2-02 distribution expansion.
 
-The next bounded product task is:
+The then-next bounded product task was:
 
 `TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
 
