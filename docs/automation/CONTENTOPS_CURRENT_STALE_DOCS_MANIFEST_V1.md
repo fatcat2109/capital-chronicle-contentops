@@ -1,9 +1,10 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
-Authority date: 2026-08-29
+Authority date: 2026-08-31
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
-Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, canary, owner-gate, or sequencing assumptions.
+Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, canary, owner-gate,
+V2-resumption, Speech Highlight Relay, or sequencing assumptions.
 
 ## 1. Current routing authority
 
@@ -19,7 +20,9 @@ Fresh V1 work must route from:
 8. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md`
 9. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
 10. `docs/codegraph/V1_CONTEXT.md`
-11. current V1 lane pointer
+11. current lane pointer, including
+    `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`
+    for Relay work
 12. exact current code/tests/evidence/host truth.
 
 ## 2. Current owner state
@@ -31,6 +34,14 @@ The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records:
 - V2 public-write authority remains zero unless separately granted.
 
 Any file saying routine V1 public-write/readback remains ungranted or `V1_FINAL_PRODUCT_ACCEPTED` is pending is stale for current routing.
+
+Jim's 2026-08-31 product decision additionally makes these current:
+
+- V1 activation/runtime completion remains the immediate primary priority;
+- the lightweight Speech Highlight Relay is a separate interim capability;
+- main V2 is paused until Jim explicitly resumes it;
+- the Relay is not V2 progress and has no duplicate-owner authority; and
+- Relay public-write authority remains zero unless a later exact grant changes it.
 
 ## 3. Superseded semantics
 
@@ -56,7 +67,16 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 - PR #39 single routine-owner production composition remains missing;
 - the actual persistent Simple scheduler still lacks a production handoff into the existing durable publication coordinator;
 - a component-only supervisor bridge is sufficient proof of the current persistent scheduler route;
-- V2 has any public-write authority.
+- V2 has any public-write authority;
+- V1 acceptance automatically activates the old V2-after-V1 roadmap;
+- the Speech Highlight Relay is the V2 Retention-Native Video Factory, resumes V2, or inherits V2
+  worker/model/orchestration requirements;
+- public availability, platform posting, speaker identity, attribution, cropping, subtitles, or a
+  short excerpt establishes source-footage reuse permission;
+- the Relay may own another scheduler, durable store, publisher/publication coordinator, browser,
+  truth system, or model router;
+- current V1 article publication authority covers Relay video/Reel/Short uploads; or
+- the historical/current V2 shadow publication control plane is a live Relay publication owner.
 
 ## 4. Current replacement semantics
 
@@ -71,6 +91,11 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 - Live daily-output success is based on strictly reconciled published canonical articles, not merely zero-write qualified article records.
 - Published-vs-qualified accounting is implemented in the current master lineage.
 - Current activation order is read-only host preflight -> one live canary -> routine four-window live enablement.
+- Current Relay order is planning authority -> one later `REUSE_CLEAR`, official-timed-transcript,
+  zero-write vertical slice -> bounded generalization. It ends at `PUBLICATION_HOLD` until exact
+  Relay publication authority exists.
+- Main V2 remains paused. Its code, plans, and branch artifacts are donor evidence only unless Jim
+  explicitly resumes that product.
 
 ## 5. Historical/non-routing families
 
@@ -103,6 +128,22 @@ Other current-looking families may still contain useful historical detail but ca
 - historical `CONTENTOPS_V1_FIRST_REAL_5_8_ARTICLE_PRODUCTION_DAY_V1/**` conclusions about zero-output success;
 - old task/setup packets that infer current host state from configuration alone.
 
+While the 2026-08-31 pause is current, these V2 product-detail files remain dormant design/history
+and must not route implementation by themselves:
+
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`;
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`;
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_TASK_GRAPH_V2.md`;
+- `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`;
+- `docs/automation/CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`;
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V1.md`;
+- `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_SUPERSESSION_MAP_V1.md`;
+- `docs/status/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_DIRECTION_OVERLAY_V1.md`;
+- `docs/status/CURRENT_PRODUCT_DIRECTION_EDITORIAL_EDGE_OVERLAY_V1.md`.
+
+Their reusable technical evidence remains evidence. Their old exact-next tasks, after-V1 trigger,
+worker policy, and sequencing are non-routing until a fresh Jim V2-resumption decision.
+
 ## 7. Stale-document handling rule
 
 When a document contains both useful historical evidence and stale current-routing language:
@@ -121,4 +162,7 @@ Legacy CI compatibility markers retained in current authority files are semantic
 - Exact current-host account/identity/readiness/recovery proof is still required before the first new live write.
 - `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 - V2 public-write authority remains zero.
+- Speech Highlight Relay public-write authority remains zero; current V1 article authority does not
+  include Relay video uploads.
+- Main V2 remains paused; the Relay is separate and cannot reactivate it.
 - Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.

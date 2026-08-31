@@ -1,13 +1,16 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
-Authority date: 2026-08-29
-Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR / EARLY_ATTRIBUTED_INTELLIGENCE / V1_ACCEPTED`
+Authority date: 2026-08-31
+Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR / EARLY_ATTRIBUTED_INTELLIGENCE / V1_ACCEPTED / INTERIM_SPEECH_RELAY`
 
 This document records the current product direction. It supersedes conflicting current-looking wording that requires universal official confirmation, routes routine V1 through Desktop Automations, says routine V1 public-write/readback remains ungranted, or says `V1_FINAL_PRODUCT_ACCEPTED` is still pending.
 
 ## 1. Product role and North Star
 
-Capital Chronicle/Core Analyzer owns proprietary analytical and numeric truth. ContentOps is the autonomous early-signal financial newsroom, distribution, readback/reconciliation, organic audience-acquisition, and bounded-learning engine.
+Capital Chronicle/Core Analyzer owns proprietary analytical and numeric truth. ContentOps is the
+autonomous early-signal financial newsroom, distribution, readback/reconciliation, organic
+audience-acquisition, bounded-learning engine, and source-bound lightweight social-highlight
+producer.
 
 V1 product promise:
 
@@ -30,7 +33,46 @@ Repository merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records that 
 
 This acceptance does not bypass exact destination identity/readiness, canonical Substack identity, strict readback/reconciliation, or `UNKNOWN_WRITE` safeguards. V2 public-write authority remains zero unless separately granted.
 
-## 3. Alpha-speed doctrine
+Jim's 2026-08-31 product decision additionally establishes:
+
+- V1 activation/runtime completion remains the immediate primary product priority;
+- the lightweight Speech Highlight Relay is a separate interim social-growth capability;
+- main V2 development is paused until Jim explicitly resumes it;
+- Relay output has zero public-write authority unless a later exact grant binds its named surfaces
+  and existing publication owner; and
+- the Relay is neither V1 editorial ownership nor V2 implementation progress.
+
+## 3. Lightweight Speech Highlight Relay North Star
+
+The Relay's product promise is:
+
+> Find financially important first-party public speech/video quickly, bind the exact original
+> source and reuse basis, identify the self-contained segment worth watching, preserve what the
+> speaker actually said and the context that controls its meaning, and deliver a clean Capital
+> Chronicle-native social package that explains why it matters.
+
+Canonical Relay flow:
+
+`first-party speech/video -> provenance and rights -> transcript/timing -> high-value highlight -> minimal clip/reframe/captions -> Capital Chronicle context -> PUBLICATION_HOLD`.
+
+Source footage functions as evidence/source material. Capital Chronicle editorial selection and
+financial context are the product. Newsroom value outranks generic virality.
+
+The practical rights boundary has three states: clearly reusable material may advance to zero-write
+production; material that may only support genuinely transformative editorial use stays private and
+requires exact rights review before publication; unknown, prohibited, broadcaster/licensed, or
+inseparably third-party footage is rejected. Public availability, attribution, crop, subtitles, or
+short duration never proves permission.
+
+The Relay reuses existing source, provenance, media, caption, package, durable-owner, and
+publication-owner seams without becoming another scheduler, store, publisher, authority system, or
+general-purpose video factory. Main V2 remains paused and distinct. Current V1 publication authority
+does not include Relay video uploads.
+
+Detailed current authority and the staged plan are in
+`docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
+
+## 4. Alpha-speed doctrine
 
 Financial markets often price credible reporting before an issuer, government, regulator, or other primary actor confirms it. Therefore:
 
@@ -44,7 +86,7 @@ Financial markets often price credible reporting before an issuer, government, r
 
 Do not spend scarce GET/model budget seeking official confirmation merely to make a timely attributed report look more certain. Prove the proposition actually being published.
 
-## 4. Report truth and event truth
+## 5. Report truth and event truth
 
 Keep separate:
 
@@ -55,7 +97,7 @@ A PASS on report truth never implies a PASS on event truth.
 
 The model never upgrades report truth into event truth by judgment.
 
-## 5. First-class epistemic state
+## 6. First-class epistemic state
 
 Every current-event article carries machine-readable epistemic state through canonical writing, qualification, derivative packaging, publication/readback, and follow-up reconciliation.
 
@@ -90,7 +132,7 @@ Multiplicity:
 
 `UNCONFIRMED` is a valid publication state. It is not permission to write the event as confirmed.
 
-## 6. Public labeling contract
+## 7. Public labeling contract
 
 Reader-facing uncertainty must remain visible where material. Valid forms include `CONFIRMED`, `UNCONFIRMED REPORT — PUBLISHER`, `SINGLE-SOURCE REPORT — PUBLISHER`, `RELAYED / UNCONFIRMED — citing PUBLISHER`, `MARKET RUMOR — UNCONFIRMED`, and `DISPUTED`/`DENIED` where later evidence requires it.
 
@@ -104,7 +146,7 @@ For unconfirmed/relayed/rumor coverage:
 
 A derivative may compress wording, never certainty.
 
-## 7. Evidence and editorial edge
+## 8. Evidence and editorial edge
 
 Evidence burden follows the claim actually made. One exact accepted reputable secondary may support a narrow ordinary attributed claim while the event remains unconfirmed. Primary/official evidence is preferred when directly relevant and cheap, but is not mandatory for every attributed report.
 
@@ -121,7 +163,7 @@ Capital Chronicle analysis may be strong, critical, skeptical, or contrarian whe
 
 Engagement may improve angle, packaging, timing, and distribution. It may never change truth, epistemic state, source attribution, permissions, or CC numeric authority.
 
-## 8. Current V1 editorial architecture
+## 9. Current V1 editorial architecture
 
 Current routine V1 is `SIMPLE_GEMINI_RUNTIME`, not Desktop Automations.
 
@@ -147,7 +189,7 @@ Locked ceilings: <=32 candidates, one selector, <=3 admissions, <=6 GETs, one wr
 
 Do not revive broad ready pools, routine Codex URL discovery, Desktop PREPARE/COMPLETE, SDK editorial fallback, or official-confirmation hunts merely to increase apparent certainty.
 
-## 9. Editorial modes
+## 10. Editorial modes
 
 V1 keeps the eight-mode spectrum:
 
@@ -162,7 +204,7 @@ V1 keeps the eight-mode spectrum:
 
 Quiet day is not silent-day permission. Lower materiality or choose another mode before giving up; never lower truth or attribution standards.
 
-## 10. Output contract
+## 11. Output contract
 
 Final live target is **5–8 PUBLISHED ARTICLES** per newsroom production day, each useful and non-filler.
 
@@ -172,7 +214,7 @@ Candidate-level abstention is valid. Whole-day silent success below the live tar
 
 Routine windows remain 17:00, 21:00, 23:00, and following 01:00 Asia/Bangkok under one deterministic production day. No fifth routine task merely to chase quota.
 
-## 11. Publication and update lifecycle
+## 12. Publication and update lifecycle
 
 Substack is canonical. The eight V1 derivative destinations are Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community.
 
@@ -188,7 +230,7 @@ Epistemic lifecycle remains separate:
 
 `UNCONFIRMED/RELAYED -> CONFIRMED | PARTIALLY_CONFIRMED | DISPUTED_OR_DENIED | SUPERSEDED`
 
-## 12. Accepted foundation and current activation route
+## 13. Accepted foundation and current activation route
 
 Accepted/reusable foundation includes current intake, published memory/dedupe, production-day accounting foundation, Simple Gemini selection/writer/revision, PR #37 early-attributed intelligence and epistemic state, sourceability ordering, native exactly-eight compiler, canonical Substack transports, durable publication coordinator, strict readback/reconciliation, completed Italy nine-surface canary, V5 read model/UI, merged PR #38 emergency-stop/static-safety closure, merged PR #39 single-owner production composition, and corrected PR #42 actual persistent Simple-scheduler publication handoff.
 
@@ -202,9 +244,19 @@ Remaining work is activation/integration/revalidation, not a new V1 acceptance c
 
 Single-owner composition, Simple emergency-stop/process coverage, and the routine Simple publication handoff are already closed. Do not rebuild transports, publication coordinator, store, native packager, Simple editorial path, or historical Italy publication proof.
 
-## 13. Hard boundaries
+The Relay is a separate bounded product lane. Its first later implementation milestone is one
+`REUSE_CLEAR` first-party speech source with official timed text, one context-safe highlight, one
+deterministic vertical/caption package, actual rendered review, and zero scheduling/publication/V1
+mutation. Main V2 stays paused.
+
+## 14. Hard boundaries
 
 Never fabricate a report/source/leak/rumor/quote/number/event; present unconfirmed material as confirmed; infer leak/rumor without source support; publish unsupported high-harm allegations; promote external reporting into proprietary CC numeric authority; expose secrets/session material; destructively mutate production state; or blind-retry an ambiguous write.
+
+For the Relay, also never infer reuse permission from availability/attribution/short duration,
+misquote or context-strip a speaker, use inseparable third-party broadcast material, create a second
+runtime/publication owner, publish on V1's article grant, or treat Relay work as permission to resume
+main V2.
 
 Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only. Edge `contentops-social-main` CDP 9223 remains publication/media/readback/authorized-observation only.
 

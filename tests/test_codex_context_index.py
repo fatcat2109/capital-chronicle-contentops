@@ -233,7 +233,7 @@ def test_generated_index_routes_v1_hot_paths_and_separates_v2(graph):
         "Router / models",
         "Tests",
         "Current authority routing",
-        "Tier2 separation",
+        "Media-lane separation",
         "Generated graph files",
         "Regeneration and check",
     ):
@@ -244,6 +244,7 @@ def test_generated_index_routes_v1_hot_paths_and_separates_v2(graph):
     assert "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md" in generated
     assert "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md" in generated
     assert "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md" in generated
+    assert "CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md" in generated
     assert "V6_FINAL_PRODUCT_EXECUTION_PLAN" not in generated
     assert "TASK_CONTENTOPS_V1_HIGH_COORDINATOR_XHIGH_EDITORIAL_WORKER_ALIGNMENT_V1" not in generated
 
@@ -257,7 +258,9 @@ def test_generated_v2_context_routes_through_current_v3_authority(graph):
     assert "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md" in normalized
     assert "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md" in normalized
     assert "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md" in normalized
+    assert "CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md" in normalized
     assert "CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md" in normalized
+    assert "paused isolated retention-native media lane" in normalized
     assert "zero video public-write authority" in normalized
     assert "V6_FINAL_PRODUCT_EXECUTION_PLAN" not in normalized
     assert "TASK_CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_COORDINATOR_XHIGH_CREATIVE_OWNER_POLISH_V1" not in normalized
@@ -267,11 +270,44 @@ def test_context_contract_paths_exist_and_outputs_have_no_secret_shapes(graph):
     assert index.validate_context_contract(graph) == []
     assert "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md" in graph["authority_anchor_paths"]
     assert "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md" in graph["authority_anchor_paths"]
+    assert "docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md" in graph["authority_anchor_paths"]
     for paths in index.HOT_PATHS.values():
         assert all((index.ROOT / path).exists() for path in paths)
     for path in (index.V1_CONTEXT_PATH, index.INDEX_PATH, index.GRAPH_PATH, index.V2_CONTEXT_PATH):
         if path.exists():
             assert index.SECRET_SHAPED_RE.search(path.read_text(encoding="utf-8")) is None
+
+
+def test_current_media_authority_separates_relay_and_pauses_main_v2():
+    relay = (
+        index.ROOT
+        / "docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md"
+    ).read_text(encoding="utf-8")
+    root_agents = (index.ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    north_star = (
+        index.ROOT / "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md"
+    ).read_text(encoding="utf-8")
+    v2_pointer = (
+        index.ROOT
+        / "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md"
+    ).read_text(encoding="utf-8")
+    current_context = (index.ROOT / "docs/CURRENT_CONTEXT.md").read_text(encoding="utf-8")
+    current_overlay = (
+        index.ROOT / "docs/status/CURRENT_PRODUCT_DIRECTION_OVERLAY.md"
+    ).read_text(encoding="utf-8")
+
+    for content in (relay, root_agents, north_star, current_context, current_overlay):
+        assert "Speech Highlight Relay" in content
+        assert "main V2" in content or "Main V2" in content
+        assert "paused" in content.casefold()
+
+    assert "PUBLICATION_HOLD" in relay
+    assert "REUSE_CLEAR" in relay
+    assert "TRANSFORMATIVE_EDITORIAL_REVIEW_REQUIRED" in relay
+    assert "REJECT_NO_REUSE" in relay
+    assert "NONE_PAUSED_PENDING_EXPLICIT_JIM_RESUMPTION" in v2_pointer
+    assert "V1 acceptance being true does not activate this roadmap" in v2_pointer
+    assert "V1 article public-write authority does not include Relay video uploads" in relay
 
 
 def test_relevant_file_and_scoped_agents_changes_change_digest(monkeypatch, tmp_path):

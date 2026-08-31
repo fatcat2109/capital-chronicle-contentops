@@ -1,12 +1,19 @@
 # Capital Chronicle ContentOps V2 — Task Graph V2
 
-Authority date: 2026-08-17
-Status: `CURRENT_CANONICAL_V2_TASK_GRAPH`
+Authority date: 2026-08-31
+Status: `PAUSED_V2_TASK_GRAPH / NO_CURRENT_V2_TASK`
 Companion plan: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_MASTER_PLAN_V2.md`
 Companion North Star: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Owner decision: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
 
-> **2026-08-17 task-graph override:** Current task is
+> **2026-08-31 task-graph pause:** Current main V2 task is
+> `NONE_PAUSED_PENDING_EXPLICIT_JIM_RESUMPTION`. Every exact-next/current task below is historical
+> sequencing only. V1 acceptance does not activate it. The lightweight Speech Highlight Relay is a
+> separate product governed by
+> `CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md` and must not be
+> counted as V2 implementation.
+
+> **2026-08-17 historical task-graph record:** At that epoch the current task was
 > `TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`,
 > reconciling the historical adapter donor on fresh master and correcting the first-party
 > YouTube, TikTok, Instagram and Facebook contracts under zero-write shadow execution.
@@ -30,20 +37,20 @@ The controlled A/B and subsequent architecture-recovery proofs establish the fol
 - `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY` remains unchanged.
 - V2-02 distribution/publication expansion remains blocked.
 
-# 2. Current exact task
+# 2. Historical exact task — no longer current
 
 `TASK_CONTENTOPS_V2_PUBLICATION_ADAPTER_RECONCILIATION_AND_PROVIDER_CONTRACT_CORRECTION_V1`
 
-This is the only active V2 product task unless Jim explicitly changes direction. The accepted
+This was the active V2 product task at its evidence epoch. The accepted
 zero-rerender packages are immutable inputs. The task is HIGH-only, has no live provider or
 credential authority, and must retain six distinct surfaces plus positive and unresolved
 `UNKNOWN_WRITE` proofs.
 
-Current sequence:
+Historical sequence:
 
 `free-form creation substrate [ACCEPTED] -> zero-rerender global language sidecars [ACCEPTED] -> TikTok credential bootstrap [COMPLETED BLOCKER REMOVAL] -> official publication adapter reconciliation [CURRENT] -> TikTok draft readiness/exact owner live-canary gate [NEXT, NOT STARTED] -> unattended V2 core proof -> V1 integration/scheduling [DEFERRED]`
 
-Exact next after acceptance:
+Historical exact next after acceptance:
 `TASK_CONTENTOPS_V2_TIKTOK_UPLOAD_DRAFT_READINESS_AND_EXACT_OWNER_LIVE_CANARY_GATE_V1`.
 No current authority starts it.
 
@@ -80,9 +87,9 @@ The prior HIGH/XHIGH/ULTRA bakeoff was visually invalidated by a fixed-renderer 
 
 The next task must improve the substrate first. Once it demonstrates richer, more diverse and more publication-fit output, the owner can run a fair `MAX vs ULTRA` high-bar comparison on longer, more analytically abundant content.
 
-# 6. V2-QH1 — Asset-First Editorial Visual Quality Hardening Vertical Slice
+# 6. Historical V2-QH1 — dormant while V2 is paused
 
-Status: `CURRENT / NEXT`
+Status: `HISTORICAL / PAUSED`
 
 Task label:
 
@@ -222,7 +229,8 @@ Status: `REQUIRES_JIM_CHATGPT_ACTUAL_MEDIA_REVIEW`
 
 Jim + ChatGPT must inspect the actual short/midform and evidence.
 
-If QH1 is accepted, the next likely capability is the corrected high-bar Codex reasoning-effort bakeoff.
+At that epoch, acceptance of QH1 would have routed to a corrected high-bar Codex reasoning-effort
+bakeoff. That route is now dormant and must not be resumed without fresh owner direction.
 
 # 8. Retired V2-QH2 — MAX vs ULTRA High-Bar Bakeoff
 

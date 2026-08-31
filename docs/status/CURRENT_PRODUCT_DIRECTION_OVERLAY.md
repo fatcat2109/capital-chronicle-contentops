@@ -1,88 +1,62 @@
 # Capital Chronicle ContentOps — Current Product Direction Overlay
 
-Authority date: 2026-08-24
-Status: `CURRENT_OWNER_DIRECTION_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
+Authority date: 2026-08-31
+Status: `CURRENT_OWNER_DIRECTION_POINTER / V1_ACCEPTED / INTERIM_SPEECH_RELAY / V2_PAUSED`
 
-This is a concise owner-direction pointer. Root `AGENTS.md`, the current authority map, North Star
-V3, Master Plan V3, and the current lane pointers are stronger.
+This concise owner-direction pointer is subordinate to root `AGENTS.md`, the current authority map,
+North Star V3, Master Plan V3, and exact current lane pointers.
 
 ## Owner direction
 
-ContentOps V1 is an autonomous growth newsroom with a hard truth floor. It must produce reliable
-daily output without treating governed candidate abstention as whole-day healthy success.
+1. V1 is accepted and remains the immediate activation/runtime priority.
+2. V1 operates as the Simple Gemini early-attributed-intelligence newsroom toward 5–8 useful,
+   strictly reconciled published articles per production day without filler.
+3. Capital Chronicle should add a separate lightweight Speech Highlight Relay for financially
+   important first-party public speech/video.
+4. Main V2 Retention-Native Video Factory development remains paused until Jim explicitly resumes
+   it. The Relay is not V2 progress.
+5. V2 and Relay public-write authority remain zero unless separately granted.
 
-Throughput benchmark and daily-output health metric:
+## Current V1 route
 
-`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+Current activation order is read-only host preflight -> one fresh live V1 canary -> strict
+nine-surface reconciliation -> four routine live windows. `DurablePublicationCoordinator` remains
+the only publication/readback owner. `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 
-It is not a prerequisite for proving or advancing one safe qualified article path.
+The historical 4/32 zero-write proof remains throughput/economics telemetry, not a renewed launch or
+acceptance gate. The completed Italy canary, current Simple article path, scheduler mechanics,
+single-owner composition, publication handoff, reconciled published-count accounting, and native
+exactly-eight package compiler are reusable foundation.
 
-Final V1 target:
+## Speech Highlight Relay direction
 
-`5–8 PUBLISHED ARTICLES per newsroom production day`
+Current pointer:
+`docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
 
-No filler. Never lower factual truth, attribution, rights, freshness, permissions, identity, or
-Core Analyzer numeric authority to meet volume.
+Product flow:
 
-## Accepted evidence state
+`first-party source video -> provenance/rights -> transcript/timing -> context-safe highlight -> lightweight clip/reframe/captions -> Capital Chronicle why-it-matters package -> PUBLICATION_HOLD`.
 
-- The real Italy canary already published one canonical Substack article and exactly eight
-  derivative packages; all nine reconciled with `UNKNOWN_WRITE=0`. It is complete and must not be
-  repeated merely to prove publication.
-- The first real 4/32 proof already ran all four opportunities against 40 distinct stories and
-  failed truthfully at `0/4 / 0/32`. A future rerun remains useful throughput/economics evidence,
-  not a prerequisite for one safe qualified article.
-- Production-day accounting, four-window progress, and bounded deficit recovery are already built
-  and exercised; they are not implementation gaps.
-- The accepted later foundation produced four distinct governed evidence-ready candidates, but its
-  35 URL-discovery calls and 10,237,897 discovery tokens are not production-acceptable economics.
-- PR #19's provider-resilient quota-efficient batch/tail discovery is accepted and reusable after
-  producing four governed ready candidates in three batch turns with 712,842 accounted tokens.
-- PR #20's native worker-return normalization, source-omission protection, and ordinary zero-write
-  article path are independently accepted and reusable.
+The source footage is evidence/source material; Capital Chronicle selection and context are the
+product. Newsroom value outranks generic virality. The Relay reuses existing seams and may not own a
+second scheduler, store, publisher, publication coordinator, browser, truth system, or model router.
 
-## Current V1 implementation priority
+Its first later implementation target is one `REUSE_CLEAR` official source with official timed text,
+one deterministic vertical/captioned package, actual-media review, zero V1 mutation, and zero public/
+provider/browser writes.
 
-The native worker-return normalization gap and PR #20 article audit are closed. All four routine
-host prompts now match the repo-derived FAST-SHIP hash while remaining paused. The immediate gate is
-exact zero-write Automation enablement/calendar-time unattended runtime proof. The 4/32 exercise
-remains throughput/economics telemetry, not a launch prerequisite. Fresh V5 acceptance and separate
-routine public-write/final-product authority decisions follow.
+## Main V2 direction
 
-## Automation truth
+Current main V2 task is `NONE_PAUSED_PENDING_EXPLICIT_JIM_RESUMPTION`. Preserve current master and
+historical donor evidence; do not start donor reconciliation, media production, unattended/soak,
+model/mode, learning, or publication work because V1 acceptance is true. If Jim later resumes V2,
+fresh authority must reconstruct the exact current-compatible next task.
 
-Exactly four native V1 Desktop Automations exist and are `PAUSED` with the correct
-`gpt-5.6-sol / HIGH` model/effort and the 17:00/21:00/23:00/following-01:00 Bangkok schedules.
-Their prompts share the exact repo-derived FAST-SHIP hash. Calendar-time execution remains unproven
-because the supported surface exposes no run-now action. Never create a fifth task.
+## Hard boundaries
 
-Completed prompt normalization is not enablement. Enablement is not routine public-write authority.
-A zero-public-write unattended proof is valid when that is the exact owner grant.
-
-## Editorial and distribution doctrine
-
-- Evidence burden follows claim scope and editorial mode.
-- Quiet days evaluate useful lower-rung modes before candidate abstention.
-- Qualitative source-grounded ContentOps inference is not Core Analyzer authority.
-- Substack remains canonical with exactly eight V1 derivative destinations.
-- Destination-local failure does not erase canonical truth.
-- `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
-
-## V2-after-V1 direction
-
-V2 begins only after the explicit V1 gate. Current master already owns the free-form/package/
-publication-control substrates. The branch
-`task/v2-native-staggered-automation-relay-shadow-correction-v1@10d18873e2d716dcd53b681a4370ef7726a27f9b`
-is historical proof of unattended/recovery/locale/read-only-trigger/native-relay capability absent
-master. Selectively reconcile current-compatible capability onto one stack, revalidate it, and run
-fresh cross-domain actual-media/soak/integrated growth-learning proof. Never wholesale-merge stale
-branch authority or rebuild those proven systems from zero.
-
-V1 runtime/store/browser/publication authority remains isolated. Current V2 public-write authority
-is exactly zero.
-
-## Acceptance boundary
-
-`V1_FINAL_PRODUCT_ACCEPTED` is not yet true and may be recorded only by an explicit owner decision
-after the locked V1 roadmap passes. This overlay grants no runtime, Automation, browser, provider,
-or public-write authority.
+- Public availability, platform posting, attribution, cropping, subtitles, or short duration does
+  not prove source-footage reuse permission.
+- Core Analyzer remains the sole proprietary numeric/probability/scenario/forecast truth owner.
+- V1 article public-write authority does not include Relay or V2 video uploads.
+- No fabricated source, quote, transcript, rights state, event truth, or financial claim.
+- No secret/session exposure, destructive production mutation, wrong-account write, or blind retry.

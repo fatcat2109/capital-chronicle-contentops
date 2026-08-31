@@ -1,7 +1,10 @@
 # ContentOps V2 Retention-Native Video Factory — Current Product Direction Overlay V1
 
 Authority date: 2026-08-12
-Status: `CURRENT_OWNER_DIRECTION_OVERLAY`
+Status: `SUPERSEDED_NON_ROUTING_BY_2026_08_31_OWNER_PAUSE`
+
+This overlay remains historical V2 design evidence. Main V2 is paused until Jim explicitly resumes
+it. The lightweight Speech Highlight Relay is separate and does not route from this document.
 
 This overlay records Jim's current V2 product direction and supersedes older conflicting Tier-2 scheduling/creative assumptions.
 

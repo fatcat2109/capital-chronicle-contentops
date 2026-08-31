@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-08-29
+Authority date: 2026-08-31
 Status: `CURRENT_ROOT_AUTHORITY`
 Repository: `fatcat2109/capital-chronicle-contentops`
 
@@ -18,7 +18,9 @@ For every current implementation, audit, task framing, or owner decision, read i
 8. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md` for current V1 activation
 9. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md` for Simple V1 mechanics
 10. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
-11. current lane pointer
+11. current lane pointer, including
+    `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`
+    for Speech Highlight Relay work
 12. nearest scoped `AGENTS.md`
 13. exact current implementation/tests/evidence.
 
@@ -49,6 +51,16 @@ The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records Jim's explic
 - `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
 - routine V1 public-write/readback authority is granted for the accepted V1 path;
 - V2 public-write authority remains zero unless separately granted.
+
+Jim's 2026-08-31 explicit product decision additionally records:
+
+- V1 activation/runtime completion remains the immediate product priority;
+- the lightweight Speech Highlight Relay is a separate interim social-growth capability;
+- main V2 development is paused until Jim explicitly resumes it;
+- the Relay is not V2 progress and may not create a second scheduler, store, publisher, publication
+  coordinator, truth owner, or model-routing owner; and
+- Relay public-write authority is zero unless a later exact owner grant binds named surfaces,
+  accounts, transports, readback, and recovery.
 
 Any subordinate current-looking wording that still says routine V1 public-write/readback is ungranted or `V1_FINAL_PRODUCT_ACCEPTED` is pending is superseded.
 
@@ -123,7 +135,25 @@ Single-owner composition, Simple emergency-stop/process coverage, and the routin
 
 Before the first new live V1 write, current-host read-only proof is required for production-store integrity/recovery state, exact Edge 9223 publication profile/account identities, current destination readiness, exactly-one production owner/process, and `UNKNOWN_WRITE=0`. Do not inspect or expose secrets/session material.
 
-## 7. ContentOps/Core Analyzer boundary
+## 7. Current media product lanes
+
+The current lightweight media lane is the Speech Highlight Relay. Its authority and detailed plan
+are in
+`docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
+It binds first-party financially relevant speech/video to exact provenance and practical rights
+triage, selects a context-safe high-value excerpt, builds a minimal Capital Chronicle-native social
+package, and ends at `PUBLICATION_HOLD` unless separately authorized.
+
+The Relay may read governed V1 event/source context but does not own V1 selection, scheduling,
+durable state, publication, or truth. Reuse the current official-source clip, media, caption,
+package, and publication-owner seams selectively; do not import the full V2 factory merely because
+its historical donor is detailed.
+
+Main V2 Retention-Native Video Factory development is `PAUSED_BY_OWNER`. V1 acceptance does not
+resume it. Current-looking V2 next-task or after-V1 sequencing is dormant until a later exact Jim
+decision. V2 public-write authority remains zero.
+
+## 8. ContentOps/Core Analyzer boundary
 
 Capital Chronicle/Core Analyzer owns proprietary calculations, probabilities, scenarios, forecasts, regimes, decisions, paper records, realized-outcome attribution, and other analytical/numeric truth.
 
@@ -131,7 +161,7 @@ ContentOps owns discovery, grounded research, story selection, writing, SEO, med
 
 No external report or model output gains Capital Chronicle proprietary numeric/forecast/probability/scenario/regime/valuation/decision authority.
 
-## 8. Editorial and epistemic rules
+## 9. Editorial and epistemic rules
 
 V1 preserves eight modes:
 
@@ -148,7 +178,7 @@ Report truth and underlying event truth are separate. Official confirmation is n
 
 Strong evidence-backed criticism/contrarian framing is allowed. Fabricated outrage, unsupported allegations, and filler are not.
 
-## 9. Publication/recovery boundaries
+## 10. Publication/recovery boundaries
 
 Substack is canonical. The eight derivative destinations are Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community.
 
@@ -158,7 +188,7 @@ A counted published article requires exact canonical identity/readback under the
 
 Chrome `CapitalChronicleBot` CDP 9222 is ingestion only. Edge `contentops-social-main` CDP 9223 is publication/media/readback/authorized observation only.
 
-## 10. Execution framework
+## 11. Execution framework
 
 Use `CAPABILITY_ROUTED_HYBRID`:
 
@@ -171,16 +201,18 @@ Jim has already granted routine V1 public-write/readback authority. That grant r
 
 Use the cheapest lane that can produce evidence strong enough for the claim.
 
-## 11. Locked current sequence
+## 12. Locked current sequence
 
 1. run current-host read-only activation preflight;
-3. run one fresh end-to-end live V1 canary under the already-granted authority and strictly reconcile all nine surfaces;
-4. only after that canary is clean, enable the four routine live windows toward 5–8 useful published articles/day;
-5. preserve V1 and continue isolated V2 work only under V2's separate authority boundaries.
+2. run one fresh end-to-end live V1 canary under the already-granted authority and strictly reconcile all nine surfaces;
+3. only after that canary is clean, enable the four routine live windows toward 5–8 useful published articles/day;
+4. a later separate Relay implementation task may build only the current pointer's smallest useful
+   zero-write vertical slice when it does not displace V1 activation; and
+5. keep main V2 paused until Jim explicitly resumes it.
 
 Repository authority/static-safety closure, emergency-stop coverage, single-owner composition, and the actual routine Simple publication handoff are already closed; do not recreate them.
 
-## 12. Change discipline
+## 13. Change discipline
 
 Prefer bounded product slices over ceremony. Do not rebuild proven systems simply because they are not freshly revalidated.
 
@@ -190,7 +222,7 @@ This repository autonomy does not authorize bypassing branch protection, force-p
 
 Stage explicit paths only. Never `git add .` or `git add -A`.
 
-## 13. Hard stops
+## 14. Hard stops
 
 Stop on:
 
@@ -201,11 +233,13 @@ Stop on:
 - unresolved `UNKNOWN_WRITE` or public-object ambiguity;
 - irreconcilable ref conflict;
 - inability to prove exact publication identity/readiness before crossing a live write boundary.
+- any attempt to treat the Speech Highlight Relay as authority to resume main V2 or create duplicate
+  runtime/publication owners.
 
 Do not stop for historical noise, stale docs, unrelated dirty files, absent CI, pre-existing failures, or reversible mechanics.
 
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 
-## 14. Visual/media acceptance
+## 15. Visual/media acceptance
 
 UI/video/audio PASS requires actual rendered artifact inspection. Tests and worker judgment prove mechanics, not final viewer-facing quality.

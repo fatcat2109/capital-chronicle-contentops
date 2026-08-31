@@ -1,7 +1,10 @@
 # Capital Chronicle ContentOps V2 — Retention-Native Video Factory Supersession Map V1
 
 Authority date: 2026-08-12
-Status: `CURRENT_V2_SUPERSESSION_MAP`
+Status: `SUPERSEDED_NON_ROUTING_BY_SUPERSESSION_MAP_V2_AND_2026_08_31_OWNER_PAUSE`
+
+This map is historical. Its concurrent-V2 and exact-next claims are superseded. Main V2 is paused,
+and the lightweight Speech Highlight Relay is a separate product under its own current pointer.
 
 This map resolves conflicts between the current owner-approved retention-native V2 direction and older Tier-2 plans, rejected experiments, and historical pause/routing documents.
 

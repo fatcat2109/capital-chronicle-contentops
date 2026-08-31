@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `1a372e0551a00489cc1006c7bb30b6e0821b448b`. Source tree digest: `e32861b82f373bddffba5754013a908f1d3fa0314cb42b994dadfb846a4f7f1e`.
+Generated from source HEAD `6a07b97d632220ec4143e33fae454c3be5bda747`. Source tree digest: `76d3f965439a7381960b56243949000461c03302d1cdcbab7e36aad5b146f5df`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This generated map is descriptive repository state and is subordinate to root `AGENTS.md`.
@@ -16,10 +16,11 @@ task summaries.
 5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-8. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
-9. the appropriate current lane pointer
-10. the nearest scoped `AGENTS.md`
-11. exact implementation, tests, and evidence
+8. current V1 activation/Simple authority when the task touches V1
+9. this V2 map or curated `docs/codegraph/V1_CONTEXT.md`
+10. the appropriate current V1, Speech Highlight Relay, or V2 lane pointer
+11. the nearest scoped `AGENTS.md`
+12. exact implementation, tests, and evidence
 
 ## Current product boundary
 
@@ -28,7 +29,10 @@ task summaries.
   granted; internal, candidate, proxy, degraded, stale, or incompatible material is non-public.
 - V1 is the canonical newsroom/publication runtime. Its current lane pointer is
   `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
-- V2 is an isolated retention-native media lane with zero video public-write authority. Its
+- The lightweight Speech Highlight Relay is a separate interim source-bound lane with zero public-
+  write authority. Its current pointer is
+  `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
+- Main V2 is a paused isolated retention-native media lane with zero video public-write authority. Its
   current lane pointer is
   `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`.
 - Do not infer a current task, model route, provider, or acceptance state from this generated file;
@@ -48,7 +52,7 @@ task summaries.
 
 ## Graph inventory
 
-- Nodes: `7437`
+- Nodes: `7440`
 - Edges: `14062`
 - Entrypoints: `16`
 - Python import edges, TypeScript/JavaScript relative import edges, and determinable test-to-

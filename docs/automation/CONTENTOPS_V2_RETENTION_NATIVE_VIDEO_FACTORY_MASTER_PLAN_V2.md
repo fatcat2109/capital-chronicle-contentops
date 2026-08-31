@@ -1,10 +1,17 @@
 # Capital Chronicle ContentOps V2 — Retention-Native Video Factory Master Plan V2
 
-Authority date: 2026-08-14
+Authority date: 2026-08-31
 Product authority: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1`
-Plan status: `CURRENT_CANONICAL_V2_EXECUTION_PLAN`
+Plan status: `PAUSED_V2_EXECUTION_PLAN / DORMANT_HISTORY / NO_CURRENT_EXECUTION_TASK`
 Companion constitution: `CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_NORTH_STAR_V2.md`
 Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+
+> **2026-08-31 owner pause:**
+> Do not execute this plan until Jim explicitly resumes main V2 and fresh root authority selects a
+> current-compatible next task. V1 acceptance is not a start signal. The lightweight Speech
+> Highlight Relay is separate and routes from
+> `CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`; selective reuse of
+> a media seam does not resume this plan.
 
 > **2026-08-16 execution supersession:**
 > `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` is the current owner
@@ -1065,7 +1072,7 @@ Current invariant:
 
 `ZERO_VIDEO_PUBLIC_WRITE_AUTHORITY`
 
-Forbidden during current V2 development:
+Forbidden if main V2 development is later resumed:
 
 - YouTube/TikTok upload;
 - private/unlisted/draft upload;
@@ -1079,7 +1086,7 @@ Forbidden during current V2 development:
 
 Generated illustration must be disclosed internally and cannot act as factual evidence.
 
-# 24. Implementation phases
+# 24. Historical implementation phases — dormant while V2 is paused
 
 ## Phase 1 — Hybrid vertical slice
 
@@ -1146,9 +1153,9 @@ Then implement:
 - analytics attribution;
 - bounded learning.
 
-# 25. Next-task implementation requirements
+# 25. Historical next-task requirements — non-routing while V2 is paused
 
-The next builder task must:
+Any future builder task selected after an explicit V2 resumption must:
 
 - start from fresh verified GitHub authority;
 - reuse A/B proof only as positive/negative reference, not merge blindly;

@@ -1,7 +1,7 @@
 # Capital Chronicle ContentOps — Video Scope Instructions
 
-Authority date: 2026-08-20
-Status: `CURRENT_SCOPED_AUTHORITY`
+Authority date: 2026-08-31
+Status: `CURRENT_SCOPED_AUTHORITY / MAIN_V2_PAUSED / INTERIM_SPEECH_RELAY_RECOGNIZED`
 
 Read root authority before editing V2:
 
@@ -13,22 +13,37 @@ Read root authority before editing V2:
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 7. `docs/codegraph/V2_CONTEXT.md`
 8. `docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md`
-9. `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md`
-10. exact V2 code/tests/evidence
+9. `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`
+   for Relay work, or
+   `docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` only after
+   an explicit main-V2 resumption
+10. exact lane code/tests/evidence
 
 CodeGraph is discovery tooling. Its recorded source epoch can legitimately differ from the branch tip after generated-only or tree-identical merge commits; use the deterministic CodeGraph check/source digest to establish freshness. If that check reports indexed-source drift, treat generated context as stale until regenerated and use exact current code/evidence as authority in the interim.
 
 ## Product boundary
 
-V2 is an isolated retention-native media factory. It may consume governed V1/Capital Chronicle story authority but must never mutate or reset V1 runtime, durable store, scheduler, browser, publication state, or destination authority.
+Main V2 is an isolated retention-native media factory and is currently paused until Jim explicitly
+resumes it. It may consume governed V1/Capital Chronicle story authority but must never mutate or
+reset V1 runtime, durable store, scheduler, browser, publication state, or destination authority.
+
+The lightweight Speech Highlight Relay is a separate interim source-bound product. It may reuse
+small exact provenance/clip/render/caption/package seams under its own current pointer, but it is not
+V2 progress and may not inherit or activate the V2 factory, scheduler, store, supervisor, creative
+worker, or publication control plane.
 
 Current V2 video public-write authority is zero.
+Current Speech Highlight Relay public-write authority is also zero. V1 article publication
+authority does not include Relay video uploads.
 
 ## Execution
 
 Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`: use `WEB_STATIC` for repository-static work, `WEB_CI` when safe deterministic GitHub Actions can prove the required mechanics, `CODEX_EXECUTION` when correctness materially requires a real runtime/render/browser/environment/debug loop, and `OWNER_GATED_EXTERNAL` for secrets, live/public writes, destructive canonical changes, rights/legal release boundaries, or equivalent irreversible external actions.
 
-Fresh owner-authorized `GPT-5.6 Sol / XHIGH` workers may own bounded consequential viewer-facing creative/editorial/review judgment. Approved 9Router models may perform only already-authorized low-cost non-authority roles.
+If Jim later resumes main V2, fresh root authority must reselect its current creative execution
+route; this dormant scoped file does not start an XHIGH worker. The Relay uses the minimum sufficient
+provider/model under its own pointer and may use a weaker/cheaper selector only after bounded
+contract evaluation. Approved models perform non-authority roles only.
 
 No model receives factual, numeric, Capital Chronicle, permission, credential, destination-identity, or public-write authority.
 

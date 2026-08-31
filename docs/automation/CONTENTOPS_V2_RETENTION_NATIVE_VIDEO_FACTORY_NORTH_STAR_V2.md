@@ -1,10 +1,17 @@
 # Capital Chronicle ContentOps V2 — Retention-Native Video Factory North Star V2
 
-Authority date: 2026-08-14
+Authority date: 2026-08-31
 Product authority: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1`
-Status: `CURRENT_CANONICAL_V2_PRODUCT_CONSTITUTION`
+Status: `PAUSED_V2_PRODUCT_CONSTITUTION / DORMANT_DESIGN_AUTHORITY / NO_CURRENT_EXECUTION_TASK`
 Supersedes: all prior V2 North Star directions where they conflict, including the prior model-centric `NineRouterGPT56Brain`-default direction.
 Companion decision record: `CONTENTOPS_V2_LANE_B_HYBRID_OWNER_DECISION_AND_AB_AUDIT_V1.md`
+
+> **2026-08-31 owner pause:**
+> Main V2 development is paused until Jim explicitly resumes it. The exact-next task and execution
+> sequencing in this document are dormant planning history, not current routing. V1 acceptance does
+> not start V2. The lightweight Speech Highlight Relay is a separate interim product governed by
+> `CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`; it is not V2
+> progress and does not inherit this product's creative-worker or orchestration requirements.
 
 > **2026-08-16 current owner override:**
 > `CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md` supersedes this
@@ -881,7 +888,9 @@ No raw secrets may be printed, logged, committed, or placed in creative prompts/
 
 # 17. Current proof target before publication
 
-The next major milestone is not V2-02 distribution expansion. It is proving the Lane B Hybrid engine can repeatedly produce the demonstrated Lane B quality without interactive babysitting.
+The historical next major milestone was not V2-02 distribution expansion. It was proving the Lane B
+Hybrid engine could repeatedly produce the demonstrated Lane B quality without interactive
+babysitting. That milestone is dormant while V2 is paused.
 
 Initial shadow acceptance hypotheses:
 
@@ -897,7 +906,7 @@ Initial shadow acceptance hypotheses:
 
 These are proof thresholds, not public-write permission.
 
-# 18. Exact next product task
+# 18. Historical next product task — dormant while V2 is paused
 
 `TASK_CONTENTOPS_V2_LANE_B_HYBRID_INSTITUTIONAL_EDITORIAL_ENGINE_AND_HEADLESS_TRIGGERED_VERTICAL_SLICE_V1`
 

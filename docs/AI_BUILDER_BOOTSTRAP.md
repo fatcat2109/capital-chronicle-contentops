@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — AI Builder Bootstrap
 
-Authority date: 2026-08-29
+Authority date: 2026-08-31
 Status: `CURRENT_BUILDER_BOOTSTRAP`
 
 Start at root `AGENTS.md`. GitHub evidence controls repository state. Jim's latest explicit instruction controls product direction.
@@ -22,8 +22,10 @@ Read in this order:
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 8. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md` for current V1 activation
 9. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md` for Simple mechanics
-10. `docs/codegraph/V1_CONTEXT.md`
-11. `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`
+10. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
+11. exact current lane pointer, including
+    `docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`
+    for Relay work
 12. nearest scoped `AGENTS.md`
 13. exact task implementation/tests/evidence.
 
@@ -36,6 +38,11 @@ Merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records:
 - `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
 - routine V1 public-write/readback authority is granted for the accepted V1 path;
 - V2 public-write authority remains zero unless separately granted.
+
+Jim's 2026-08-31 direction also makes V1 activation/runtime completion the immediate priority,
+recognizes the lightweight Speech Highlight Relay as a separate interim product, and pauses main V2
+until an explicit later resumption. Relay work is not V2 progress and has zero public-write
+authority.
 
 Do not ask for a new V1 product-acceptance/public-write gate merely because an older document says it is pending.
 
@@ -59,6 +66,11 @@ ContentOps owns discovery, grounded research, story selection, writing/editing/S
 
 Engagement never changes evidence, permissions, epistemic state, or Capital Chronicle analytical/numeric authority.
 
+The Speech Highlight Relay may read governed source/event context and selectively reuse existing
+media/caption/package seams, but it may not become another V1 editor, scheduler, durable store,
+publisher/publication coordinator, browser owner, truth system, or model router. It ends at
+`PUBLICATION_HOLD` absent an exact later grant. Main V2 remains paused.
+
 ## 6. Canonical architecture to preserve
 
 Reuse, do not rebuild:
@@ -74,15 +86,15 @@ Reuse, do not rebuild:
 
 Do not create duplicate newsrooms, schedulers, stores, publishers, provider gateways, packagers, dashboards, or analytical engines.
 
-## 7. Current activation gaps
+## 7. Current activation gap
 
-Only these narrow V1 gaps route current implementation work:
+The repository implementation gaps listed in older revisions are closed: Simple-to-existing-
+coordinator handoff, single routine owner, reconciled published-count accounting, and Simple
+emergency-stop/process coverage are accepted. Current V1 work is host/runtime proof:
 
-1. Simple qualified article/native package -> existing `DurablePublicationCoordinator` bridge;
-2. one unambiguous routine production owner: Simple, not native Desktop/legacy rolling-X;
-3. strictly reconciled published-count accounting distinct from zero-write qualified-count telemetry;
-4. emergency-stop/process ownership for canonical Simple scheduler/runtime;
-5. current-host read-only identity/readiness/recovery proof before first new live write.
+1. current-host read-only identity/readiness/recovery proof before the first new live write;
+2. one strict live canary; and
+3. four-window routine enablement only after clean reconciliation.
 
 ## 8. Browser role authority
 
@@ -93,11 +105,11 @@ Never inspect/export cookies, storage, credentials, tokens, or session databases
 
 ## 9. Current activation sequence
 
-1. repository authority/static safety closure and CodeGraph refresh — zero public write;
-2. Simple -> existing publication coordinator integration + published/reconciled accounting — implementation tests only;
-3. current-host read-only activation preflight — zero public write;
-4. one fresh live end-to-end V1 canary under already-granted authority;
-5. if strictly reconciled with `UNKNOWN_WRITE=0`, enable the four routine windows toward 5–8 useful published articles/day.
+1. current-host read-only activation preflight — zero public write;
+2. one fresh live end-to-end V1 canary under already-granted authority;
+3. if strictly reconciled with `UNKNOWN_WRITE=0`, enable the four routine windows toward 5–8 useful published articles/day;
+4. permit a later separate Relay zero-write vertical slice only when it does not displace V1; and
+5. keep main V2 paused until Jim explicitly resumes it.
 
 No fifth routine task. Do not repeat the Italy canary merely to prove transport.
 

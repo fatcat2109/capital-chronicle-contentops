@@ -1,10 +1,10 @@
 # Capital Chronicle ContentOps — Current Context
 
-Authority date: 2026-08-24
-Status: `CURRENT_BOOTSTRAP_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
+Authority date: 2026-08-31
+Status: `CURRENT_BOOTSTRAP_POINTER / V1_ACCEPTED / INTERIM_SPEECH_RELAY / V2_PAUSED`
 
 This is a compact bootstrap only. Root `AGENTS.md`, the current authority/supersession map, North
-Star V3, Master Plan V3, and current lane pointer are stronger.
+Star V3, Master Plan V3, and exact current lane pointer are stronger.
 
 ## Read first
 
@@ -15,78 +15,64 @@ Star V3, Master Plan V3, and current lane pointer are stronger.
 5. `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md`
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
-8. lane CodeGraph context + current lane pointer
+8. exact current lane pointer
 9. nearest scoped `AGENTS.md`
 10. exact current code/tests/evidence/host truth.
 
-Always fetch remote master and relevant branches before trusting recorded SHAs.
+Always fetch remote master and relevant donor refs before trusting recorded SHAs.
 
-## Locked V1 truth
+## Current product truth
 
-- The real owner-scoped Italy canary is complete: one canonical Substack article plus exactly eight
-  derivative packages, all nine reconciled, `UNKNOWN_WRITE=0`. Do not repeat it to prove
-  publication.
-- The first four-opportunity 4/32 proof already ran and truthfully failed at `0 qualified articles /
-  0 derivative intents` after 40 distinct stories. It is failed acceptance evidence, not an
-  unstarted task.
-- Cross-midnight production-day accounting, the four-window harness, and bounded deficit recovery
-  are accepted current foundation.
-- The later evidence foundation produced four distinct governed evidence-ready candidates with
-  deterministic retrieval/hash/freshness, redirect repair, source-route health, same-candidate
-  resume, and frozen worker transport.
-- Its historical 35 URL-discovery calls and 10,237,897 discovery tokens are not an accepted routine
-  default. PR #19's provider-resilient quota-efficient batch/tail discovery is accepted and reusable:
-  four governed ready candidates, three batch turns, and 712,842 accounted tokens.
-- Exactly four native V1 routine Automations exist and are `PAUSED` on the correct model/effort/
-  schedules/project with one matching repo-derived FAST-SHIP prompt hash. Calendar-time unattended
-  execution remains unproven; never create a fifth task.
-- At the sweep epoch the production store was read-only healthy with `UNKNOWN_WRITE=0`, but the
-  Daily App process/listener was not running. That at-rest observation is not a cold-start PASS.
-- PR #20 independently accepted one useful `BREAKING_BRIEF` plus eight undispatched derivative
-  intents with zero public/provider/unknown writes. Reuse its native worker-return normalization and
-  source-omission hard protection.
-
-## Output contract
-
-Throughput benchmark and daily-output diagnostic:
-
-`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
-
-This benchmark is not a prerequisite for proving or advancing one safe qualified article path.
-
-Final V1 target:
-
-`5–8 PUBLISHED ARTICLES per newsroom production day`
-
-Candidate abstention is valid. Whole-day deficit is not healthy success without an exact hard
-external blocker. No filler and no weaker truth/evidence/rights/permission/numeric-authority gates.
+- `V1_FINAL_PRODUCT_ACCEPTED = TRUE`.
+- V1 routine article public-write/readback authority is granted under the accepted publication
+  owner and hard identity/readback/`UNKNOWN_WRITE` boundaries.
+- V1 activation/runtime completion is the immediate primary priority.
+- Routine V1 editorial ownership is `SIMPLE_GEMINI_RUNTIME`; old Desktop Automation/SDK/rolling-X
+  routine routes are historical/non-routing.
+- Final V1 target is 5–8 useful strictly reconciled published articles per newsroom production day,
+  without filler.
+- The lightweight Speech Highlight Relay is a separate interim social-growth product. It has zero
+  current public-write authority and is not another V1 owner.
+- Main V2 Retention-Native Video Factory development is paused until Jim explicitly resumes it.
+  V1 acceptance does not start the old V2-after-V1 roadmap.
 
 ## Current progression order
 
-1. preserve accepted PR #19 discovery and PR #20 article-path capability;
-2. preserve the completed four-prompt normalization/readback with all objects paused;
-3. obtain exact zero-write Automation enablement authority and calendar-time unattended proof;
-4. retain 4/32 as throughput/economics telemetry rather than a launch gate;
-5. complete fresh current-epoch V5 acceptance and separate routine public-write/final-product
-   authority decisions;
-6. only after explicit V1 acceptance begin authorized V2 continuation.
+1. run the current-host read-only V1 activation preflight;
+2. run one strict live V1 end-to-end canary under the already-granted authority;
+3. if all nine surfaces reconcile with `UNKNOWN_WRITE=0`, enable the four routine V1 windows;
+4. a later separate task may implement only the Relay's smallest useful zero-write vertical slice
+   when it does not displace V1 activation; and
+5. keep main V2 paused until a fresh exact Jim decision.
 
-## V2 boundary
+## Speech Highlight Relay boundary
 
-Current master already owns the free-form/package/publication-control substrates. Historical donor
-branch `task/v2-native-staggered-automation-relay-shadow-correction-v1` proves useful unattended,
-recovery, locale, read-only-trigger, and native-relay capability absent master. Reconcile it
-selectively after the V1 gate; do not wholesale-merge stale authority or rebuild proven systems
-from zero. V1 runtime/store/browser/publication authority remains isolated. Current V2 public-write
-authority is exactly zero.
+Current Relay authority is
+`docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`.
+
+The first later milestone is one real `REUSE_CLEAR` first-party speech source with official timed
+text, one context-safe highlight, one deterministic clean/captioned 1080x1920 package, actual-media
+review, and `PUBLICATION_HOLD`. It creates no scheduler, store, publisher, or direct uploader and
+does not mutate V1.
+
+Public availability, platform posting, attribution, cropping, subtitles, and short duration are
+not reuse permission. Unknown/prohibited/broadcaster/licensed footage fails closed.
+
+## Main V2 boundary
+
+V2's current pointer is
+`docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md` and
+records `NONE_PAUSED_PENDING_EXPLICIT_JIM_RESUMPTION`. Existing current-master and historical donor
+media capabilities remain reusable evidence. Selective Relay reuse does not count as V2 progress or
+activate V2 orchestration/model/publication policy. V2 public-write authority remains zero.
 
 ## Immutable safety anchors
 
 - Core Analyzer owns proprietary analytical/numeric truth;
-- internal/context Analyzer material is not public permission;
+- no model owns factual, quote, rights, permission, identity, or public-write truth;
 - `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`;
 - Chrome `CapitalChronicleBot` 9222 is ingestion only;
 - Edge `contentops-social-main` 9223 is publication/media/readback and explicitly authorized
   observation only;
 - protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`;
-- no public write, Automation mutation, or final acceptance without exact owner authority.
+- no Relay or V2 public write without exact later owner authority.

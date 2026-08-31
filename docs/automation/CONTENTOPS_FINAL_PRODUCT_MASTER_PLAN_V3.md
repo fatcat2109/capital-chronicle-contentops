@@ -1,21 +1,29 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-Authority date: 2026-08-29
-Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / V1_ACCEPTED / ACTIVATION`
+Authority date: 2026-08-31
+Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / V1_ACCEPTED / ACTIVATION / INTERIM_SPEECH_RELAY / V2_PAUSED`
 
 North Star: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 Current V1 activation authority: `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md`
 Authority map: `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md`
+Speech Highlight Relay:
+`docs/automation/CONTENTOPS_LIGHTWEIGHT_SPEECH_HIGHLIGHT_RELAY_CURRENT_EXECUTION_POINTER_V1.md`
 
 ## 0. Locked objective
 
-Operate one coherent autonomous V1 growth newsroom at 5–8 useful published articles per production day, then continue one isolated V2 retention-native video lane without rebuilding accepted systems, weakening truth, or confusing missing current-host proof with missing implementation.
+Operate one coherent autonomous V1 growth newsroom at 5–8 useful published articles per production
+day, complete its current activation/runtime work, and add one separate lightweight source-bound
+Speech Highlight Relay without rebuilding accepted systems, weakening truth, or resuming the main
+V2 Retention-Native Video Factory.
 
 Current owner state:
 
 - `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
 - routine V1 public-write/readback authority is granted for the accepted V1 path;
-- V2 public-write authority remains zero unless separately granted.
+- the lightweight Speech Highlight Relay is a current interim product direction;
+- main V2 development is paused until Jim explicitly resumes it;
+- V2 public-write authority remains zero unless separately granted; and
+- Relay public-write authority is also zero unless separately granted for exact surfaces/accounts.
 
 The repository merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records the V1 grant.
 
@@ -80,9 +88,34 @@ The corrected bridge is repository/CI proof only. It does not claim fresh curren
 
 Do not rebuild any of the above merely because current-host state must be revalidated.
 
-### V2
+### Lightweight Speech Highlight Relay
 
-Current V2 master keeps its existing free-form rendering/package/publication-control foundation. V2 is isolated from V1 runtime/store/browser/publication authority and has no public-write grant.
+`CURRENT_PRODUCT_DIRECTION / REUSE_FIRST / NOT_YET_IMPLEMENTED`:
+
+- current-master official Federal Reserve authority-clip/source ledgers already prove exact original
+  source/player/transcript/right/timecode/hash/third-party/crop/attribution handling for one real
+  source family;
+- current render/audio/mux, actual-audio caption, media-probe, and platform-neutral package seams are
+  reusable without importing the full V2 factory;
+- V1 intake/source locators may provide read-only event/source context;
+- the existing `DurablePublicationCoordinator` and destination registry remain the only publication
+  ownership boundary; current video surfaces are disabled, so Relay output stops at
+  `PUBLICATION_HOLD`;
+- exact historical asset-board, authority-clip abstention, vertical-package, unattended/recovery,
+  and transcript/package donors may be selectively reconciled only when the Relay's exact milestone
+  needs them.
+
+The true Relay gaps are a generalized first-party source-video resolver, rights triage packet,
+source-speech transcript/timing lock, context-safe highlight proposal/validation, generic minimal
+clip/reframe/caption build, one-shot existing-owner work-order integration, and any later authorized
+publication adapter. Do not create a scheduler, store, publisher, or cinematic factory to close
+these gaps.
+
+### Main V2 — dormant donor foundation
+
+Current V2 master keeps its existing free-form rendering/package/publication-control foundation. V2
+is isolated from V1 runtime/store/browser/publication authority, has no public-write grant, and is
+`PAUSED_BY_OWNER`. Its foundation remains reusable evidence, not current implementation routing.
 
 ## 3. Historical proof that requires only current revalidation
 
@@ -186,13 +219,42 @@ The owner product-acceptance decision is already true. Operational activation is
 
 Do not create another V1 acceptance gate after these activation conditions are satisfied.
 
-## 8. V2-after-V1
+## 8. Media-lane roadmap
 
-V2 remains isolated. Continue only current-compatible donor reconciliation, actual-media validation, unattended/recovery revalidation, and integrated qualification/observation/bounded-learning work. Never mutate/reset V1 runtime/store/browser/publication authority and never infer V2 public-write permission from V1 acceptance.
+### Immediate primary route — V1 activation
+
+Finish current-host read-only preflight, one strict live canary, and four-window routine enablement as
+defined above. Relay implementation must not displace or mutate this work.
+
+### Separate interim route — Speech Highlight Relay
+
+The next Relay implementation objective, when issued as a later bounded task, is exactly one
+zero-write vertical slice:
+
+`REUSE_CLEAR first-party source + official timed transcript -> one context-safe highlight -> clean and captioned 1080x1920 package -> actual rendered review -> PUBLICATION_HOLD`.
+
+It must reuse current media/caption/package seams, preserve the existing owner boundaries, create no
+scheduler/store/publisher, perform no V1 mutation, and perform no provider/browser/public write.
+
+After that slice, generalize to one different first-party source class, then evaluate bounded
+low-cost selection/discovery. ASR, multiple formats/languages, unattended cadence, analytics, richer
+authored media, and publication are optional later stages, not first-release prerequisites.
+
+### Main V2 — paused
+
+Do not continue donor reconciliation, actual-media production, unattended/recovery revalidation,
+mode/model bakeoffs, qualification/learning integration, or any other main V2 task until Jim
+explicitly resumes that product. V1 acceptance being true is not a V2 start signal. Preserve V2
+history and reusable code; do not delete or wholesale merge it. V2 public-write authority remains
+zero.
 
 ## 9. Hard stops
 
 Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-account/out-of-scope public write, destructive production-state mutation, unresolved `UNKNOWN_WRITE`, ambiguous public-object identity, irreconcilable ref conflict, duplicate production owner, or accidental V2 authority expansion.
+
+Also stop on Relay source-rights ambiguity, context-stripped or unverified quotation, third-party
+broadcast/licensed-footage reuse, duplicate Relay scheduling/storage/publication ownership, or any
+attempt to use the Relay as main V2 resumption.
 
 Substack is canonical. The eight V1 derivative destinations remain Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community.
 
