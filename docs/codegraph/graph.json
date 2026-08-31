@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14062,
-    "entrypoints": 16,
-    "nodes": 7437,
+    "edges": 14065,
+    "entrypoints": 18,
+    "nodes": 7442,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -23,13 +23,13 @@
       "durable_table": 37,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 17,
+      "manifest": 19,
       "python_class": 608,
-      "python_function": 4062,
+      "python_function": 4064,
       "python_method": 306,
       "python_module": 776,
       "schema": 217,
-      "test": 742,
+      "test": 743,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -36921,6 +36921,12 @@
       "from": "live_contentops/source_route_health_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only_value"
+    },
+    {
+      "from": "live_contentops/source_route_health_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/source_route_health_v1.py::normalized_host"
     },
     {
@@ -36928,6 +36934,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/source_route_health_v1.py::normalized_route_identity"
+    },
+    {
+      "from": "live_contentops/source_route_health_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/source_route_health_v1.py::persist_source_route_health_snapshot"
     },
     {
       "from": "live_contentops/source_route_health_v1.py",
@@ -67002,6 +67014,12 @@
       "to": "python_symbol:live_contentops/source_route_health_v1.py::normalized_host"
     },
     {
+      "from": "python_symbol:live_contentops/source_route_health_v1.py::persist_source_route_health_snapshot",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only_value"
+    },
+    {
       "from": "python_symbol:live_contentops/static_cockpit_surface_contract.py::write_artifacts",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -84410,6 +84428,11 @@
   ],
   "entrypoints": [
     {
+      "command_or_symbol": "Install_ContentOps_V1_Simple_Scheduler.cmd",
+      "kind": "operator_script",
+      "path": "Install_ContentOps_V1_Simple_Scheduler.cmd"
+    },
+    {
       "command_or_symbol": "RESUME_CONTENTOPS_LLM.cmd",
       "kind": "explicit_llm_resume",
       "path": "RESUME_CONTENTOPS_LLM.cmd"
@@ -84463,6 +84486,11 @@
       "command_or_symbol": "scripts/Install-ContentOpsV1HourlyAudit.ps1",
       "kind": "operator_script",
       "path": "scripts/Install-ContentOpsV1HourlyAudit.ps1"
+    },
+    {
+      "command_or_symbol": "scripts/Install-ContentOpsV1SimpleScheduler.ps1",
+      "kind": "operator_script",
+      "path": "scripts/Install-ContentOpsV1SimpleScheduler.ps1"
     },
     {
       "command_or_symbol": "scripts/Resolve-ContentOpsV1Runtime.ps1",
@@ -84527,7 +84555,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-30T22:02:02Z",
+  "generation_timestamp_utc": "2026-08-31T17:45:00Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84561,6 +84589,11 @@
       "id": "AGENTS.md",
       "kind": "instructions",
       "size_bytes": 11730
+    },
+    {
+      "id": "Install_ContentOps_V1_Simple_Scheduler.cmd",
+      "kind": "manifest",
+      "size_bytes": 154
     },
     {
       "id": "RESUME_CONTENTOPS_LLM.cmd",
@@ -88031,7 +88064,7 @@
     {
       "id": "live_contentops/source_route_health_v1.py",
       "kind": "python_module",
-      "size_bytes": 7717
+      "size_bytes": 9140
     },
     {
       "id": "live_contentops/static_cockpit_surface_contract.py",
@@ -88301,12 +88334,12 @@
     {
       "id": "live_contentops/v1_simple_evidence_resolver_v1.py",
       "kind": "python_module",
-      "size_bytes": 19077
+      "size_bytes": 19182
     },
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 101717
+      "size_bytes": 102482
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -88316,7 +88349,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "kind": "python_module",
-      "size_bytes": 47855
+      "size_bytes": 48310
     },
     {
       "id": "live_contentops/v1_simple_publication_handoff_v1.py",
@@ -118295,37 +118328,51 @@
     {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::SourceRouteHealthState",
       "kind": "python_class",
-      "line": 87,
+      "line": 121,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "SourceRouteHealthState"
     },
     {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::classify_route_failure",
       "kind": "python_function",
-      "line": 68,
+      "line": 102,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "classify_route_failure"
     },
     {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only",
       "kind": "python_function",
-      "line": 24,
+      "line": 25,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "load_source_route_health_snapshot_read_only"
     },
     {
+      "id": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only_value",
+      "kind": "python_function",
+      "line": 65,
+      "path": "live_contentops/source_route_health_v1.py",
+      "symbol": "load_source_route_health_snapshot_read_only_value"
+    },
+    {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::normalized_host",
       "kind": "python_function",
-      "line": 54,
+      "line": 88,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "normalized_host"
     },
     {
       "id": "python_symbol:live_contentops/source_route_health_v1.py::normalized_route_identity",
       "kind": "python_function",
-      "line": 58,
+      "line": 92,
       "path": "live_contentops/source_route_health_v1.py",
       "symbol": "normalized_route_identity"
+    },
+    {
+      "id": "python_symbol:live_contentops/source_route_health_v1.py::persist_source_route_health_snapshot",
+      "kind": "python_function",
+      "line": 47,
+      "path": "live_contentops/source_route_health_v1.py",
+      "symbol": "persist_source_route_health_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/static_cockpit_surface_contract.py::build_fixture_outputs",
@@ -120563,7 +120610,7 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1614,
+      "line": 1630,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -120626,28 +120673,28 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiLocalScheduler",
       "kind": "python_class",
-      "line": 319,
+      "line": 320,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiLocalScheduler"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiSchedulerCheckpointError",
       "kind": "python_class",
-      "line": 80,
+      "line": 81,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiSchedulerCheckpointError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::SimpleGeminiSchedulerSafetyError",
       "kind": "python_class",
-      "line": 70,
+      "line": 71,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "SimpleGeminiSchedulerSafetyError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_v1.py::simple_gemini_slot_id",
       "kind": "python_function",
-      "line": 206,
+      "line": 207,
       "path": "live_contentops/v1_simple_gemini_scheduler_v1.py",
       "symbol": "simple_gemini_slot_id"
     },
@@ -124431,6 +124478,11 @@
       "size_bytes": 1783
     },
     {
+      "id": "scripts/Install-ContentOpsV1SimpleScheduler.ps1",
+      "kind": "manifest",
+      "size_bytes": 2615
+    },
+    {
       "id": "scripts/Resolve-ContentOpsV1Runtime.ps1",
       "kind": "manifest",
       "size_bytes": 448
@@ -124748,7 +124800,7 @@
     {
       "id": "scripts/run_v1_simple_gemini_scheduler.py",
       "kind": "python_module",
-      "size_bytes": 5182
+      "size_bytes": 5433
     },
     {
       "id": "tests/AGENTS.md",
@@ -127786,6 +127838,11 @@
       "size_bytes": 2234
     },
     {
+      "id": "tests/test_source_route_health_persistence_v1.py",
+      "kind": "test",
+      "size_bytes": 1247
+    },
+    {
       "id": "tests/test_static_cockpit_surface_contract.py",
       "kind": "test",
       "size_bytes": 4155
@@ -128083,12 +128140,12 @@
     {
       "id": "tests/test_v1_simple_gemini_newsroom_v1.py",
       "kind": "test",
-      "size_bytes": 38321
+      "size_bytes": 41066
     },
     {
       "id": "tests/test_v1_simple_gemini_scheduler_process_v1.py",
       "kind": "test",
-      "size_bytes": 6452
+      "size_bytes": 7564
     },
     {
       "id": "tests/test_v1_simple_gemini_scheduler_v1.py",
@@ -132776,6 +132833,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "1a372e0551a00489cc1006c7bb30b6e0821b448b",
-  "source_tree_digest": "e32861b82f373bddffba5754013a908f1d3fa0314cb42b994dadfb846a4f7f1e"
+  "source_head": "52f362f8460f82d410a09b0624eed6c8e43ee77f",
+  "source_tree_digest": "d107c7b59e0582cdd68cc549453df515e4c8c73e120fe53f177420c9f5ab7e15"
 }
