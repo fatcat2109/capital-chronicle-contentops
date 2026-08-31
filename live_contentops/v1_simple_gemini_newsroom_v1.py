@@ -833,12 +833,28 @@ def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any
     }
 
 
-def _default_evidence_loader(cutoff_utc: str) -> EvidenceLoader:
+def _default_evidence_loader(
+    cutoff_utc: str,
+    *,
+    source_route_health: Mapping[str, Any] | None = None,
+) -> EvidenceLoader:
     return SimpleFirstPartyAwareEvidenceResolver(
         evaluation_as_of_utc=cutoff_utc,
         max_requests=MAX_SOURCE_REQUESTS,
         timeout_seconds=12.0,
+        source_route_health=source_route_health,
     )
+
+
+def _updated_source_route_health(loader: Any) -> dict[str, Any]:
+    snapshot = getattr(loader, "source_route_health_snapshot", None)
+    if not callable(snapshot):
+        return {}
+    try:
+        value = snapshot()
+    except (OSError, TypeError, ValueError):
+        return {}
+    return dict(value) if isinstance(value, Mapping) else {}
 
 
 def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]:
@@ -1775,7 +1791,10 @@ def run_v1_simple_gemini_newsroom(
 
     candidate_by_id = {row["candidate_id"]: row for row in candidates}
     plan = list(selection["ordered_candidate_plan"])
-    loader = evidence_loader or _default_evidence_loader(cutoff_utc)
+    loader = evidence_loader or _default_evidence_loader(
+        cutoff_utc,
+        source_route_health=source_route_health,
+    )
     request_count = 0
     candidate_attempt_history: list[dict[str, Any]] = []
     evidence_attempts: list[dict[str, Any]] = []
@@ -1923,6 +1942,7 @@ def run_v1_simple_gemini_newsroom(
         "model_calls_before_writer": 1,
         "codex_runtime_model_calls_before_writer": 0,
         "public_write_performed": False,
+        "updated_source_route_health": _updated_source_route_health(loader),
     }
     _write_json(root / "simple_gemini_evidence_v1.json", evidence_artifact)
     if selected is None or selected_plan_entry is None or not source_pack:
@@ -1949,6 +1969,7 @@ def run_v1_simple_gemini_newsroom(
             "public_write_performed": False,
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
+            "updated_source_route_health": _updated_source_route_health(loader),
         }
         _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
@@ -2267,6 +2288,7 @@ def run_v1_simple_gemini_newsroom(
         "public_write_performed": False,
         "provider_publication_writes": 0,
         "unknown_write_count": 0,
+        "updated_source_route_health": _updated_source_route_health(loader),
     }
     _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
     return receipt

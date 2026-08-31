@@ -81,6 +81,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
         timeout_seconds: float = 12.0,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
         clock: Callable[[], datetime] | None = None,
+        source_route_health: Mapping[str, Any] | None = None,
     ) -> None:
         if int(max_requests) != 6:
             raise ValueError("simple_evidence_global_request_limit_must_equal_six")
@@ -90,7 +91,9 @@ class SimpleFirstPartyAwareEvidenceResolver:
         self._http_get = http_get
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._shared_request_budget = {"limit": self._max_requests, "used": 0}
-        self._source_route_health = SourceRouteHealthState(clock=self._clock)
+        self._source_route_health = SourceRouteHealthState(
+            source_route_health, clock=self._clock
+        )
         self._official_loader = BoundedOfficialPrimaryEvidenceLoader(
             evaluation_as_of_utc=self._evaluation_as_of_utc,
             max_requests=self._max_requests,
