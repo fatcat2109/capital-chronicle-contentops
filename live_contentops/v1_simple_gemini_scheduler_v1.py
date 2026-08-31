@@ -387,6 +387,45 @@ class SimpleGeminiLocalScheduler:
     ) -> Path:
         return self.scheduler_root / production_day_id / window_id / slot_id
 
+    def _source_blocked_candidate_ids_for_production_day(
+        self, production_day_id: str
+    ) -> set[str]:
+        """Reuse existing daily slot artifacts to avoid repeating exhausted candidates."""
+        attempted: set[str] = set()
+        state_day_root = self.scheduler_root / STATE_DIRECTORY_NAME / production_day_id
+        if state_day_root.is_dir():
+            for slot_path in sorted(state_day_root.glob("**/slots/*.json")):
+                try:
+                    slot = _load_checkpoint(
+                        slot_path, schema_version=SLOT_CHECKPOINT_SCHEMA_VERSION
+                    )
+                except SimpleGeminiSchedulerCheckpointError:
+                    continue
+                attempted.update(
+                    str(value)
+                    for value in slot.get("source_blocked_candidate_ids") or []
+                    if str(value)
+                )
+        day_root = self.scheduler_root / production_day_id
+        if not day_root.is_dir():
+            return attempted
+        for receipt_path in sorted(
+            day_root.glob("**/simple_gemini_newsroom_receipt_v1.json")
+        ):
+            try:
+                receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
+            except (OSError, TypeError, ValueError):
+                continue
+            if not isinstance(receipt, Mapping):
+                continue
+            for row in receipt.get("candidate_attempt_history") or []:
+                if not isinstance(row, Mapping) or row.get("status") != "SOURCE_BLOCKED":
+                    continue
+                candidate_id = str(row.get("candidate_id") or "")
+                if candidate_id:
+                    attempted.add(candidate_id)
+        return attempted
+
     def _currently_due_windows(self, now: datetime) -> list[dict[str, Any]]:
         rows = owner_locked_editorial_opportunities(
             self.policy,
@@ -480,6 +519,15 @@ class SimpleGeminiLocalScheduler:
             ),
             "unknown_write_count": int(result.get("unknown_write_count") or 0),
             "article_identity": str(result.get("article_identity") or "") or None,
+            "source_blocked_candidate_ids": sorted(
+                {
+                    str(row.get("candidate_id") or "")
+                    for row in result.get("candidate_attempt_history") or []
+                    if isinstance(row, Mapping)
+                    and row.get("status") == "SOURCE_BLOCKED"
+                    and str(row.get("candidate_id") or "")
+                }
+            ),
             "published_memory_access": dict(memory_proof),
         }
 
@@ -759,6 +807,9 @@ class SimpleGeminiLocalScheduler:
         slot_receipts: list[dict[str, Any]] = []
         safety_error: SimpleGeminiSchedulerSafetyError | None = None
         publication_recovery_pending = False
+        attempted_candidate_ids = (
+            self._source_blocked_candidate_ids_for_production_day(production_day_id)
+        )
         for ordinal in range(1, slot_capacity + 1):
             slot_id = simple_gemini_slot_id(
                 production_day_id=production_day_id,
@@ -905,6 +956,7 @@ class SimpleGeminiLocalScheduler:
                             if self._source_route_health_path is not None
                             else {}
                         ),
+                        attempted_candidate_ids=sorted(attempted_candidate_ids),
                     )
                 )
             except Exception as exc:
@@ -927,6 +979,12 @@ class SimpleGeminiLocalScheduler:
                     self._source_route_health_path,
                     updated_health,
                 )
+            for row in result.get("candidate_attempt_history") or []:
+                if not isinstance(row, Mapping) or row.get("status") != "SOURCE_BLOCKED":
+                    continue
+                candidate_id = str(row.get("candidate_id") or "")
+                if candidate_id:
+                    attempted_candidate_ids.add(candidate_id)
             blockers = _result_safety_blockers(result)
             qualified_after = len(
                 load_qualified_article_records(

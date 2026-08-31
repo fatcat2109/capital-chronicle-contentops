@@ -539,6 +539,34 @@ def test_simple_sourceability_preselection_reuses_official_and_exact_route_healt
     assert evidence["sourceability_stage_publication_authority_granted"] is False
 
 
+def test_same_production_day_source_blocked_candidates_are_removed_before_model_selection():
+    rolling = _headlines(4)
+    initial, _ = _candidate_packet_and_preselection(rolling, [])
+    blocked_candidate_id = initial[0]["candidate_id"]
+
+    candidates, evidence = _candidate_packet_and_preselection(
+        rolling,
+        [],
+        attempted_candidate_ids=[blocked_candidate_id, "not-in-current-universe"],
+    )
+
+    assert blocked_candidate_id not in {row["candidate_id"] for row in candidates}
+    assert len(candidates) == len(initial) - 1
+    assert evidence["full_eligible_deduped_universe_count"] == len(initial)
+    assert (
+        evidence[
+            "eligible_deduped_universe_count_after_same_day_retry_suppression"
+        ]
+        == len(initial) - 1
+    )
+    assert evidence[
+        "same_production_day_source_blocked_candidate_exclusion_count"
+    ] == 1
+    assert evidence[
+        "same_production_day_candidate_retry_suppression_grants_authority"
+    ] is False
+
+
 def test_simple_sourceability_ranks_full_deduped_universe_before_bounded_packet():
     rolling = _headlines(40)
     duplicate_title = rolling["headlines"][0]["headline_text"]
