@@ -1,0 +1,52 @@
+{
+  "schema": "contentops.speech_highlight_relay.autonomous_discovery_manifest.v1",
+  "discovery_status": "DISCOVERED_AND_VERIFIED",
+  "total_proposals": 3,
+  "proposals": [
+    {
+      "proposal_id": "AUTO_CANDIDATE_01_LABOR_BASELINE",
+      "rank": 1,
+      "start_seconds": 0.0,
+      "end_seconds": 15.015,
+      "duration_seconds": 15.015,
+      "exact_quote": "The economy is showing impressive resilience. Even with recent shocks, the trends are positive and reveal solid growth. Job gains have kept pace with the workforce, and the unemployment rate has changed little.",
+      "financial_importance": "Establishes the Federal Reserve baseline assessment that labor supply and demand remain balanced ahead of upcoming employment reports.",
+      "editorial_takeaway": "The policy benchmark against which upcoming labor revisions are measured.",
+      "why_it_matters": "Chair Kevin Warsh framed the labor market as resilient and tracking workforce growth, establishing the policy baseline against which subsequent payroll revisions would be measured.",
+      "material_qualifiers": "Contemporaneous policy baseline as of July 29, 2026; framed as prepared opening remarks prior to subsequent August employment data.",
+      "score": 96.5,
+      "topic_category": "LABOR_BASELINE"
+    },
+    {
+      "proposal_id": "AUTO_CANDIDATE_02_DUAL_MANDATE",
+      "rank": 2,
+      "start_seconds": 15.015,
+      "end_seconds": 42.915,
+      "duration_seconds": 27.9,
+      "exact_quote": "Yeah, so let me go back to first principles, Nick. I don't believe that either part of our mandate is generally at war with the other part. I do not believe that price stability and full employment is an either-or proposition. There have been policymakers over the last several generations who have thought that there is a strict tradeoff there. That isn't my judgment.",
+      "financial_importance": "Articulates the Chair's policy philosophy that price stability and full employment are complementary rather than conflicting objectives.",
+      "editorial_takeaway": "Fed policy philosophy rejecting a strict tradeoff between inflation and jobs.",
+      "why_it_matters": "Chair Kevin Warsh rejects the historical doctrine of a strict conflict between inflation fighting and full employment.",
+      "material_qualifiers": "Stated as core policy philosophy; distinct from immediate rate adjustments.",
+      "score": 91.0,
+      "topic_category": "POLICY_PHILOSOPHY"
+    },
+    {
+      "proposal_id": "AUTO_CANDIDATE_03_EQUILIBRIUM_REACTION",
+      "rank": 3,
+      "start_seconds": 42.915,
+      "end_seconds": 63.315,
+      "duration_seconds": 20.4,
+      "exact_quote": "Any central banker, especially a central banker where the labor markets are more or less at equilibrium\u2014 any central banker, when he or she sees underlying inflation moving higher\u2014 he or she is more inclined to tighten policy.",
+      "financial_importance": "Clarifies the monetary reaction function: when labor markets are near equilibrium and inflation rises, tightening bias increases.",
+      "editorial_takeaway": "Central bank reaction function under rising inflation and balanced labor.",
+      "why_it_matters": "Chair Kevin Warsh explains how policymakers tilt toward tightening when inflation rises in a balanced labor market.",
+      "material_qualifiers": "Conditional on labor market being at equilibrium and underlying inflation moving higher.",
+      "score": 88.0,
+      "topic_category": "INFLATION_REACTION"
+    }
+  ],
+  "selected_candidate_id": "AUTO_CANDIDATE_01_LABOR_BASELINE",
+  "verification_method": "DETERMINISTIC_VERBATIM_ALIGNMENT",
+  "dynamic_clip_extracted": "extracted_clip_auto_candidate_01_labor_baseline.mp4"
+}

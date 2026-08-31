@@ -1,0 +1,56 @@
+{
+  "schema": "contentops.speech_highlight_relay.autonomous_discovery_manifest.v1",
+  "discovery_status": "DISCOVERED_AND_VERIFIED",
+  "total_proposals": 2,
+  "proposals": [
+    {
+      "proposal_id": "AUTO_CANDIDATE_01_POLICY_PHILOSOPHY",
+      "rank": 1,
+      "start_seconds": 4.485,
+      "end_seconds": 27.9,
+      "duration_seconds": 23.415,
+      "exact_quote": "I don't believe that either part of our mandate is generally at war with the other part. I do not believe that price stability and full employment is an either-or proposition. There have been policymakers over the last several generations who have thought that there is a strict tradeoff there. That isn't my judgment.",
+      "financial_importance": "This statement rejects the traditional Phillips Curve framework, signaling that the Fed under Warsh's leadership will not reflexively tighten policy or suppress employment solely on the assumption that a strong labor market inherently drives inflation.",
+      "editorial_takeaway": "Fed Chair rejects strict tradeoff between price stability and full employment.",
+      "why_it_matters": "By distancing himself from generations of policymakers who believed in a strict dual-mandate tradeoff, Warsh signals a highly flexible reaction function. This philosophy suggests the Fed may tolerate tighter labor markets for longer, fundamentally altering how market participants model interest rate paths during economic expansions.",
+      "material_qualifiers": "The speaker uses the qualifier \"generally\" (\"not generally at war\"), leaving open the possibility that exceptional macroeconomic circumstances could still force a tactical tradeoff between inflation and employment.",
+      "score": 95.0,
+      "topic_category": "POLICY_PHILOSOPHY"
+    },
+    {
+      "proposal_id": "AUTO_CANDIDATE_02_POLICY_PHILOSOPHY",
+      "rank": 2,
+      "start_seconds": 8.985,
+      "end_seconds": 27.9,
+      "duration_seconds": 18.915,
+      "exact_quote": "I do not believe that price stability and full employment is an either-or proposition. There have been policymakers over the last several generations who have thought that there is a strict tradeoff there. That isn't my judgment.",
+      "financial_importance": "Explicitly dismisses the structural policy conflict between inflation control and maximum employment, indicating a modern, non-dogmatic approach to monetary policy.",
+      "editorial_takeaway": "Warsh dismisses the traditional inflation-employment tradeoff.",
+      "why_it_matters": "This clip captures the core of Warsh's policy doctrine in a highly concise format. It tells investors that the Fed will not automatically view low unemployment as an inflation threat, potentially leading to a more dovish bias during periods of labor market strength.",
+      "material_qualifiers": "The speaker frames this as a matter of personal \"judgment\" and contrasts it with the views of \"policymakers over the last several generations,\" acknowledging that his view represents a departure from historical central banking orthodoxy.",
+      "score": 90.0,
+      "topic_category": "POLICY_PHILOSOPHY"
+    }
+  ],
+  "selected_candidate_id": "AUTO_CANDIDATE_01_POLICY_PHILOSOPHY",
+  "verification_method": "DETERMINISTIC_VERBATIM_ALIGNMENT",
+  "dynamic_clip_extracted": "extracted_clip_auto_candidate_01_policy_philosophy.mp4",
+  "model_execution_evidence": {
+    "engine": "CONTENTOPS_9ROUTER_GATEWAY",
+    "gateway": "http://localhost:20128/v1",
+    "model_requested": "vx/gemini-3.5-flash(high)",
+    "model_observed": "gemini-3.5-flash",
+    "status_code": 200,
+    "usage": {
+      "prompt_tokens": 2664,
+      "completion_tokens": 2510,
+      "total_tokens": 5174,
+      "completion_tokens_details": {
+        "reasoning_tokens": 1904
+      }
+    },
+    "latency_seconds": 16.159,
+    "disposition": "ACCEPTED",
+    "provider_call_verified": true
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "contentops.speech_highlight_relay.highlight_selection_manifest.v1",
+  "selection_status": "CHOSEN_HIGHLIGHT",
+  "candidate_id": "AUTO_CANDIDATE_01_POLICY_PHILOSOPHY",
+  "speaker": "Kevin Warsh",
+  "clip_duration_seconds": 23.415,
+  "financial_relevance": "This statement rejects the traditional Phillips Curve framework, signaling that the Fed under Warsh's leadership will not reflexively tighten policy or suppress employment solely on the assumption that a strong labor market inherently drives inflation.",
+  "editorial_takeaway": "Fed Chair rejects strict tradeoff between price stability and full employment.",
+  "material_qualifiers": "The speaker uses the qualifier \"generally\" (\"not generally at war\"), leaving open the possibility that exceptional macroeconomic circumstances could still force a tactical tradeoff between inflation and employment.",
+  "editorial_explanation": "By distancing himself from generations of policymakers who believed in a strict dual-mandate tradeoff, Warsh signals a highly flexible reaction function. This philosophy suggests the Fed may tolerate tighter labor markets for longer, fundamentally altering how market participants model interest rate paths during economic expansions."
+}

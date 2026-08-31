@@ -1,0 +1,11 @@
+{
+  "schema": "contentops.speech_highlight_relay.highlight_selection_manifest.v1",
+  "selection_status": "CHOSEN_HIGHLIGHT",
+  "candidate_id": "AUTO_CANDIDATE_01_LABOR_BASELINE",
+  "speaker": "Kevin Warsh",
+  "clip_duration_seconds": 15.015,
+  "financial_relevance": "Establishes the Federal Reserve baseline assessment that labor supply and demand remain balanced ahead of upcoming employment reports.",
+  "editorial_takeaway": "The policy benchmark against which upcoming labor revisions are measured.",
+  "material_qualifiers": "Contemporaneous policy baseline as of July 29, 2026; framed as prepared opening remarks prior to subsequent August employment data.",
+  "editorial_explanation": "Chair Kevin Warsh framed the labor market as resilient and tracking workforce growth, establishing the policy baseline against which subsequent payroll revisions would be measured."
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "contentops.speech_highlight_relay.package_manifest.v1",
+  "package_id": "speech_highlight_relay_fed_fomc_20260729_dual_mandate_raw_auto_candidate_01_policy_philosophy",
+  "source_id": "FED_FOMC_20260729_DUAL_MANDATE_RAW",
+  "candidate_id": "AUTO_CANDIDATE_01_POLICY_PHILOSOPHY",
+  "created_at": "2026-08-31T23:43:16.975888+00:00",
+  "publication_control": {
+    "publication_state": "PUBLICATION_HOLD",
+    "write_authority": "ZERO_PUBLIC_WRITE",
+    "public_writes": 0,
+    "unknown_writes": 0,
+    "network_calls_made": 0,
+    "transport_dispatched": false,
+    "destination_intents": []
+  },
+  "artifacts": {
+    "clean_master": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-lightweight-authority-highlight-bridge-v1\\video\\speech_highlight_relay_v1\\package_genuine_proof_fed_20260729\\master_vertical_clean_1080x1920.mp4",
+      "sha256": "12a2925fd41936e774feabf018f2d8cb6e3615df72ecf417a138439a55ceb2c5",
+      "size_bytes": 5364746
+    },
+    "captioned_derivative": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-lightweight-authority-highlight-bridge-v1\\video\\speech_highlight_relay_v1\\package_genuine_proof_fed_20260729\\derivative_vertical_captioned_1080x1920.mp4",
+      "sha256": "1bd5b897d344aaed3a4533b35c48fa5f193221b21f0de131b172cf10f51d1ea3",
+      "size_bytes": 5429528
+    },
+    "captions_srt": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-lightweight-authority-highlight-bridge-v1\\video\\speech_highlight_relay_v1\\package_genuine_proof_fed_20260729\\captions.srt",
+      "sha256": "d3af143351d8f77f83c7134b825e6dbca81fcd4e6fa82a75c6782e021a91c2fc",
+      "size_bytes": 465
+    },
+    "captions_vtt": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-lightweight-authority-highlight-bridge-v1\\video\\speech_highlight_relay_v1\\package_genuine_proof_fed_20260729\\captions.vtt",
+      "sha256": "0dcc25784546acf4880363b96214767078308b2b742fb93f7d5599779526d298",
+      "size_bytes": 475
+    },
+    "captions_json": {
+      "path": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-lightweight-authority-highlight-bridge-v1\\video\\speech_highlight_relay_v1\\package_genuine_proof_fed_20260729\\captions.json",
+      "sha256": "1f25575c7d915bc2c3412117a255e95de0028493814116db664bdf854453f113",
+      "size_bytes": 989
+    }
+  },
+  "manifest_hashes": {
+    "source_provenance_manifest.json": "f84b170ef794e4cf647b6f4ef3f270fdc885a21f82810ccaa802d07ba4d9b7f5",
+    "rights_triage_manifest.json": "0509f5bc39c2106f2d0a67d10c950c758f4bc07451c4c0495e5bc1b1d24a87ab",
+    "transcript_alignment_manifest.json": "5aaea02356c59a9edaae524ee4ef14eea4722115a599fcac6de1fb9d707032ad",
+    "highlight_selection_manifest.json": "923d5d6301c0a21e2ecb14829699629d845d156440fd51b1130a0bdd3311d642",
+    "render_receipt.json": "fcb55f2cb6b17e47f5d202766bcf5a20260bacc75e8414dc0572d38efded099d",
+    "autonomous_discovery_manifest.json": "f60e8d802d8da985e1a7b5d1ac18e6b4a75d8b7e7f49ccb585c31fff8df112bb"
+  }
+}

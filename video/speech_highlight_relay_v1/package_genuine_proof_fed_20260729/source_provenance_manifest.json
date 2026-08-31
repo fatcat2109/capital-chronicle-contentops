@@ -1,0 +1,22 @@
+{
+  "schema": "contentops.speech_highlight_relay.source_provenance_manifest.v1",
+  "source_id": "FED_FOMC_20260729_DUAL_MANDATE_RAW",
+  "publisher": "Board of Governors of the Federal Reserve System",
+  "event_title": "Federal Reserve FOMC Press Conference \u2014 July 29, 2026 (Dual Mandate Policy Exchange)",
+  "event_date": "2026-07-29",
+  "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260729.htm",
+  "player_url": "https://players.brightcove.net/66043936001/default_default/index.html?videoId=6402426667112",
+  "official_transcript_url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20260729.pdf",
+  "transcript_authority_class": "OFFICIAL_TIMED_TRANSCRIPT",
+  "speaker": {
+    "name": "Kevin Warsh",
+    "role": "Chairman of the Board of Governors and Chairman of the FOMC",
+    "organization": "Federal Reserve System"
+  },
+  "source_clip": {
+    "file": "A:\\Capital Chronicle\\Worktrees\\ContentOps\\v2-lightweight-authority-highlight-bridge-v1\\video\\speech_highlight_relay_v1\\package_genuine_proof_fed_20260729\\extracted_clip_auto_candidate_01_policy_philosophy.mp4",
+    "sha256": "4657d50927490b1da3a4e640f2cfd2751c8349269f45b2907f1e4dcc94088e6f",
+    "size_bytes": 4660327,
+    "duration_seconds": 23.415
+  }
+}

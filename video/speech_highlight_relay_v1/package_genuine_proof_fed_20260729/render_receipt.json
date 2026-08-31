@@ -1,0 +1,78 @@
+{
+  "schema": "contentops.speech_highlight_relay.render_receipt.v1",
+  "rendered_at": "2026-08-31T23:43:16.957563+00:00",
+  "clean_master": {
+    "file": "master_vertical_clean_1080x1920.mp4",
+    "sha256": "12a2925fd41936e774feabf018f2d8cb6e3615df72ecf417a138439a55ceb2c5",
+    "size_bytes": 5364746,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1080,
+          "height": 1920,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "23.415000",
+        "size": "5364746",
+        "bit_rate": "1832926"
+      }
+    }
+  },
+  "captioned_derivative": {
+    "file": "derivative_vertical_captioned_1080x1920.mp4",
+    "sha256": "1bd5b897d344aaed3a4533b35c48fa5f193221b21f0de131b172cf10f51d1ea3",
+    "size_bytes": 5429528,
+    "probe": {
+      "programs": [],
+      "stream_groups": [],
+      "streams": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 1080,
+          "height": 1920,
+          "r_frame_rate": "30/1"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "sample_rate": "48000",
+          "channels": 2,
+          "r_frame_rate": "0/0"
+        }
+      ],
+      "format": {
+        "duration": "23.415000",
+        "size": "5429528",
+        "bit_rate": "1855059"
+      }
+    }
+  },
+  "sidecars": {
+    "srt": {
+      "file": "captions.srt",
+      "sha256": "d3af143351d8f77f83c7134b825e6dbca81fcd4e6fa82a75c6782e021a91c2fc"
+    },
+    "vtt": {
+      "file": "captions.vtt",
+      "sha256": "0dcc25784546acf4880363b96214767078308b2b742fb93f7d5599779526d298"
+    },
+    "json": {
+      "file": "captions.json",
+      "sha256": "1f25575c7d915bc2c3412117a255e95de0028493814116db664bdf854453f113"
+    }
+  }
+}

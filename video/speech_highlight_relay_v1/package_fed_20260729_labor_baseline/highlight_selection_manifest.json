@@ -1,0 +1,19 @@
+{
+  "schema": "contentops.speech_highlight_relay.highlight_selection_manifest.v1",
+  "selection_status": "CHOSEN_HIGHLIGHT",
+  "candidate_id": "FED_20260729_LABOR_BASELINE",
+  "speaker": "Kevin Warsh",
+  "clip_duration_seconds": 15.015,
+  "financial_relevance": "Establishes the Federal Reserve's baseline assessment that labor supply and demand remain balanced ahead of upcoming employment reports, serving as the benchmark against which later economic surprises and revisions are evaluated.",
+  "material_qualifiers": "Contemporaneous policy baseline as of July 29, 2026; framed as prepared opening remarks prior to subsequent August employment data.",
+  "editorial_explanation": "On July 29, 2026, Chair Kevin Warsh framed the labor market as resilient and tracking workforce growth, establishing the policy baseline against which subsequent payroll revisions and employment data would be measured.",
+  "capital_chronicle_context": {
+    "headline": "Fed Baseline: Labor Market Tracking Workforce Growth",
+    "subheadline": "Chair Kevin Warsh on economic resilience and employment balance",
+    "why_it_matters": "On July 29, 2026, Chair Kevin Warsh framed the labor market as resilient and tracking workforce growth, establishing the policy baseline against which subsequent payroll revisions and employment data would be measured.",
+    "editorial_takeaway": "The policy benchmark against which upcoming labor revisions are measured.",
+    "source_credit": "Source: Board of Governors of the Federal Reserve System",
+    "epistemic_state": "CONFIRMED_PUBLIC_RECORD",
+    "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260729.htm"
+  }
+}

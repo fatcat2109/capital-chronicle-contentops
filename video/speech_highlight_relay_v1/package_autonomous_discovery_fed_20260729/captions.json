@@ -1,0 +1,34 @@
+[
+  {
+    "cue_id": "cue_001",
+    "start_seconds": 0.0,
+    "end_seconds": 3.8,
+    "duration_seconds": 3.8,
+    "text": "The economy is showing impressive resilience.",
+    "speaker": "Kevin Warsh"
+  },
+  {
+    "cue_id": "cue_002",
+    "start_seconds": 3.8,
+    "end_seconds": 8.6,
+    "duration_seconds": 4.8,
+    "text": "Even with recent shocks, the trends are positive and reveal solid growth.",
+    "speaker": "Kevin Warsh"
+  },
+  {
+    "cue_id": "cue_003",
+    "start_seconds": 8.6,
+    "end_seconds": 11.8,
+    "duration_seconds": 3.2,
+    "text": "Job gains have kept pace with the workforce,",
+    "speaker": "Kevin Warsh"
+  },
+  {
+    "cue_id": "cue_004",
+    "start_seconds": 11.8,
+    "end_seconds": 15.015,
+    "duration_seconds": 3.215,
+    "text": "and the unemployment rate has changed little.",
+    "speaker": "Kevin Warsh"
+  }
+]

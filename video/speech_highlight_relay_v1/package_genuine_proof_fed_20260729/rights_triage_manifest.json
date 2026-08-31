@@ -1,0 +1,15 @@
+{
+  "schema": "contentops.speech_highlight_relay.rights_triage_manifest.v1",
+  "triage_state": "REUSE_CLEAR",
+  "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+  "basis": "U.S. Government work in the public domain; official Board citation requested.",
+  "mandatory_restrictions": [
+    "Seals, logos, and official insignia of the Federal Reserve Board are restricted and must remain cropped out.",
+    "No third-party reporter question, face, voice, or outlet identifier may be included in derivative clips.",
+    "Source audio must remain authentic without voice cloning or synthetic speech substitution."
+  ],
+  "attribution_text": "Board of Governors of the Federal Reserve System, FOMC Press Conference, July 29, 2026.",
+  "third_party_materials_present": false,
+  "public_domain_speech": true,
+  "zero_public_write_enforced": true
+}

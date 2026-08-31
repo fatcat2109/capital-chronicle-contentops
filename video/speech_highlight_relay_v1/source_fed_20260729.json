@@ -1,0 +1,126 @@
+{
+  "schema": "contentops.speech_highlight_relay.source_packet.v1",
+  "source_id": "FED_FOMC_20260729",
+  "publisher": "Board of Governors of the Federal Reserve System",
+  "event_title": "FOMC Press Conference July 29, 2026",
+  "event_date": "2026-07-29",
+  "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260729.htm",
+  "player_url": "https://players.brightcove.net/66043936001/default_default/index.html?videoId=6402426667112",
+  "official_transcript_url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20260729.pdf",
+  "official_transcript_file": "video/speech_highlight_relay_v1/assets/documents/fed_fomc_2026-07-29_transcript.pdf",
+  "official_transcript_sha256": "be77d850144d99365ba8c92749ad21525e39eb3577d66d105ce0907a6656cb97",
+  "transcript_authority_class": "OFFICIAL_TIMED_TRANSCRIPT",
+  "speaker": {
+    "name": "Kevin Warsh",
+    "role": "Chairman of the Board of Governors and Chairman of the FOMC",
+    "organization": "Federal Reserve System"
+  },
+  "rights": {
+    "triage_state": "REUSE_CLEAR",
+    "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+    "basis": "U.S. Government work in the public domain; official Board citation requested.",
+    "mandatory_restrictions": [
+      "Seals, logos, and official insignia of the Federal Reserve Board are restricted and must remain cropped out.",
+      "No third-party reporter question, face, voice, or outlet identifier may be included in derivative clips.",
+      "Source audio must remain authentic without voice cloning or synthetic speech substitution."
+    ],
+    "attribution_text": "Board of Governors of the Federal Reserve System, FOMC Press Conference, July 29, 2026."
+  },
+  "highlight_candidates": [
+    {
+      "candidate_id": "FED_20260729_LABOR_BASELINE",
+      "clip_file": "video/speech_highlight_relay_v1/assets/authority/fed_fomc_2026-07-29_clip01_labor_baseline_use_640x720.mp4",
+      "clip_sha256": "cc20def7f08c405171d2d1899f52d4591899f9f810dfb3f52ae689fe7c60d5c5",
+      "official_player_start": "00:00:53.700",
+      "official_player_end": "00:01:08.650",
+      "clip_duration_seconds": 15.015,
+      "speaker": "Kevin Warsh",
+      "type": "PREPARED_REMARKS",
+      "exact_quote": "The economy is showing impressive resilience. Even with recent shocks, the trends are positive and reveal solid growth. Job gains have kept pace with the workforce, and the unemployment rate has changed little.",
+      "financial_relevance": "Establishes the Federal Reserve's baseline assessment that labor supply and demand remain balanced ahead of upcoming employment reports, serving as the benchmark against which later economic surprises and revisions are evaluated.",
+      "material_qualifiers": "Contemporaneous policy baseline as of July 29, 2026; framed as prepared opening remarks prior to subsequent August employment data.",
+      "third_party_status": "EXCLUDED_NONE_PRESENT",
+      "cues": [
+        {
+          "cue_id": "cue_01",
+          "start_seconds": 0.0,
+          "end_seconds": 3.8,
+          "text": "The economy is showing impressive resilience."
+        },
+        {
+          "cue_id": "cue_02",
+          "start_seconds": 3.8,
+          "end_seconds": 8.6,
+          "text": "Even with recent shocks, the trends are positive and reveal solid growth."
+        },
+        {
+          "cue_id": "cue_03",
+          "start_seconds": 8.6,
+          "end_seconds": 11.8,
+          "text": "Job gains have kept pace with the workforce,"
+        },
+        {
+          "cue_id": "cue_04",
+          "start_seconds": 11.8,
+          "end_seconds": 15.015,
+          "text": "and the unemployment rate has changed little."
+        }
+      ]
+    },
+    {
+      "candidate_id": "FED_20260729_DUAL_MANDATE",
+      "clip_file": "video/speech_highlight_relay_v1/assets/authority/fed_fomc_2026-07-29_clip02_dual_mandate_use_640x720.mp4",
+      "clip_sha256": "5a3e389695dbd4294f7a0009b7c1c0d5c145d11d653dce0a714d65308109821f",
+      "official_player_start": "00:24:04.050",
+      "official_player_end": "00:24:31.900",
+      "clip_duration_seconds": 27.9,
+      "speaker": "Kevin Warsh",
+      "type": "QA_RESPONSE_CHAIR_ONLY",
+      "exact_quote": "Yeah, so let me go back to first principles, Nick. I don't believe that either part of our mandate is generally at war with the other part. I do not believe that price stability and full employment is an either-or proposition. There have been policymakers over the last several generations who have thought that there is a strict tradeoff there. That isn't my judgment.",
+      "financial_relevance": "Direct articulation of Chair Warsh's policy philosophy rejecting a strict tradeoff between price stability and full employment.",
+      "material_qualifiers": "Chair's personal policy judgment and first-principles framework, not an empirical proof that policy tightening cannot affect employment.",
+      "third_party_status": "EXCLUDED_QUESTIONER_OMITTED",
+      "cues": [
+        {
+          "cue_id": "cue_01",
+          "start_seconds": 0.0,
+          "end_seconds": 5.0,
+          "text": "Yeah, so let me go back to first principles, Nick."
+        },
+        {
+          "cue_id": "cue_02",
+          "start_seconds": 5.0,
+          "end_seconds": 11.2,
+          "text": "I don't believe that either part of our mandate is generally at war with the other part."
+        },
+        {
+          "cue_id": "cue_03",
+          "start_seconds": 11.2,
+          "end_seconds": 17.5,
+          "text": "I do not believe that price stability and full employment is an either-or proposition."
+        },
+        {
+          "cue_id": "cue_04",
+          "start_seconds": 17.5,
+          "end_seconds": 24.2,
+          "text": "There have been policymakers over the last several generations who have thought that there is a strict tradeoff there."
+        },
+        {
+          "cue_id": "cue_05",
+          "start_seconds": 24.2,
+          "end_seconds": 27.9,
+          "text": "That isn't my judgment."
+        }
+      ]
+    }
+  ],
+  "capital_chronicle_context": {
+    "headline": "Fed Baseline: Labor Market Tracking Workforce Growth",
+    "subheadline": "Chair Kevin Warsh on economic resilience and employment balance",
+    "why_it_matters": "On July 29, 2026, Chair Kevin Warsh framed the labor market as resilient and tracking workforce growth, establishing the policy baseline against which subsequent payroll revisions and employment data would be measured.",
+    "editorial_takeaway": "The policy benchmark against which upcoming labor revisions are measured.",
+    "source_credit": "Source: Board of Governors of the Federal Reserve System",
+    "epistemic_state": "CONFIRMED_PUBLIC_RECORD",
+    "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260729.htm"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "contentops.speech_highlight_relay.transcript_alignment_manifest.v1",
+  "authority_class": "OFFICIAL_TIMED_TRANSCRIPT",
+  "official_pdf_url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20260729.pdf",
+  "official_pdf_sha256": "be77d850144d99365ba8c92749ad21525e39eb3577d66d105ce0907a6656cb97",
+  "candidate_id": "FED_20260729_LABOR_BASELINE",
+  "exact_quote": "The economy is showing impressive resilience. Even with recent shocks, the trends are positive and reveal solid growth. Job gains have kept pace with the workforce, and the unemployment rate has changed little.",
+  "quote_sha256": "227ea38e6f73e512f03e96c5ac6697fa2713c6c156445bb5f9afaa18c8d58934",
+  "cue_count": 4,
+  "cues": [
+    {
+      "cue_id": "cue_01",
+      "start_seconds": 0.0,
+      "end_seconds": 3.8,
+      "duration_seconds": 3.8,
+      "text": "The economy is showing impressive resilience.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_02",
+      "start_seconds": 3.8,
+      "end_seconds": 8.6,
+      "duration_seconds": 4.8,
+      "text": "Even with recent shocks, the trends are positive and reveal solid growth.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_03",
+      "start_seconds": 8.6,
+      "end_seconds": 11.8,
+      "duration_seconds": 3.2,
+      "text": "Job gains have kept pace with the workforce,",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_04",
+      "start_seconds": 11.8,
+      "end_seconds": 15.015,
+      "duration_seconds": 3.215,
+      "text": "and the unemployment rate has changed little.",
+      "speaker": "Kevin Warsh"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "contentops.speech_highlight_relay.continuous_source_packet.v1",
+  "source_id": "FED_FOMC_20260729_DUAL_MANDATE_RAW",
+  "publisher": "Board of Governors of the Federal Reserve System",
+  "event_title": "Federal Reserve FOMC Press Conference — July 29, 2026 (Dual Mandate Policy Exchange)",
+  "event_date": "2026-07-29",
+  "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260729.htm",
+  "player_url": "https://players.brightcove.net/66043936001/default_default/index.html?videoId=6402426667112",
+  "official_transcript_url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20260729.pdf",
+  "official_transcript_file": "video/speech_highlight_relay_v1/assets/documents/fed_fomc_2026-07-29_transcript.pdf",
+  "official_transcript_sha256": "be77d850144d99365ba8c92749ad21525e39eb3577d66d105ce0907a6656cb97",
+  "transcript_authority_class": "OFFICIAL_TIMED_TRANSCRIPT",
+  "speaker": {
+    "name": "Kevin Warsh",
+    "role": "Chairman of the Board of Governors and Chairman of the FOMC",
+    "organization": "Federal Reserve System"
+  },
+  "rights": {
+    "triage_state": "REUSE_CLEAR",
+    "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+    "basis": "U.S. Government work in the public domain; official Board citation requested.",
+    "mandatory_restrictions": [
+      "Seals, logos, and official insignia of the Federal Reserve Board are restricted and must remain cropped out.",
+      "No third-party reporter question, face, voice, or outlet identifier may be included in derivative clips.",
+      "Source audio must remain authentic without voice cloning or synthetic speech substitution."
+    ],
+    "attribution_text": "Board of Governors of the Federal Reserve System, FOMC Press Conference, July 29, 2026."
+  },
+  "continuous_source_media": {
+    "file": "video/speech_highlight_relay_v1/assets/authority/fed_fomc_2026-07-29_clip02_dual_mandate_official_880x720_handles.mp4",
+    "sha256": "4c2cd08ed327bec53300d8bc0bc170c16ba328a7af669b2240118fc956b7c1f9",
+    "duration_seconds": 27.9,
+    "width": 880,
+    "height": 720
+  },
+  "continuous_timed_transcript": [
+    {
+      "cue_id": "cue_001",
+      "start_seconds": 0.0,
+      "end_seconds": 4.485,
+      "text": "Yeah, so let me go back to first principles, Nick.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_002",
+      "start_seconds": 4.485,
+      "end_seconds": 8.985,
+      "text": "I don't believe that either part of our mandate is generally at war with the other part.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_003",
+      "start_seconds": 8.985,
+      "end_seconds": 13.485,
+      "text": "I do not believe that price stability and full employment is an either-or proposition.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_004",
+      "start_seconds": 13.485,
+      "end_seconds": 19.985,
+      "text": "There have been policymakers over the last several generations who have thought that there is a strict tradeoff there.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_005",
+      "start_seconds": 19.985,
+      "end_seconds": 27.9,
+      "text": "That isn't my judgment.",
+      "speaker": "Kevin Warsh"
+    }
+  ]
+}
