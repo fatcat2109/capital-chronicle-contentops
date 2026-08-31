@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `1a372e0551a00489cc1006c7bb30b6e0821b448b`
-Source tree digest: `e32861b82f373bddffba5754013a908f1d3fa0314cb42b994dadfb846a4f7f1e`
+Source HEAD: `52f362f8460f82d410a09b0624eed6c8e43ee77f`
+Source tree digest: `d107c7b59e0582cdd68cc549453df515e4c8c73e120fe53f177420c9f5ab7e15`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.1`
 
 This generated map is descriptive, not product authority.
@@ -28,6 +28,7 @@ This generated router is subordinate to root `AGENTS.md`. Never use it to bypass
 
 | Kind | Path | Command or symbol |
 |---|---|---|
+| `operator_script` | `Install_ContentOps_V1_Simple_Scheduler.cmd` | `Install_ContentOps_V1_Simple_Scheduler.cmd` |
 | `explicit_llm_resume` | `RESUME_CONTENTOPS_LLM.cmd` | `RESUME_CONTENTOPS_LLM.cmd` |
 | `one_click_emergency_stop` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` |
 | `one_click_launcher` | `Start_ContentOps_Daily_App.cmd` | `Start_ContentOps_Daily_App.cmd` |
@@ -39,6 +40,7 @@ This generated router is subordinate to root `AGENTS.md`. Never use it to bypass
 | `operator_script` | `scripts/Audit-ContentOpsV1Hourly.ps1` | `scripts/Audit-ContentOpsV1Hourly.ps1` |
 | `operator_script` | `scripts/Initialize-ContentOpsV1Runtime.ps1` | `scripts/Initialize-ContentOpsV1Runtime.ps1` |
 | `operator_script` | `scripts/Install-ContentOpsV1HourlyAudit.ps1` | `scripts/Install-ContentOpsV1HourlyAudit.ps1` |
+| `operator_script` | `scripts/Install-ContentOpsV1SimpleScheduler.ps1` | `scripts/Install-ContentOpsV1SimpleScheduler.ps1` |
 | `operator_script` | `scripts/Resolve-ContentOpsV1Runtime.ps1` | `scripts/Resolve-ContentOpsV1Runtime.ps1` |
 | `operator_script` | `scripts/Resume-ContentOpsLLM.ps1` | `scripts/Resume-ContentOpsLLM.ps1` |
 | `operator_script` | `scripts/Start-ContentOpsDailyApp.ps1` | `scripts/Start-ContentOpsDailyApp.ps1` |
@@ -157,4 +159,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7437` nodes and `14062` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7442` nodes and `14065` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

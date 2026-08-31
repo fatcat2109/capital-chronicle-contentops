@@ -7,6 +7,7 @@ failed exact route while continuing safe same-publisher recovery and unrelated r
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timedelta, timezone
 from hashlib import sha256
 from pathlib import Path
@@ -41,6 +42,39 @@ def load_source_route_health_snapshot_read_only(
     ):
         return {}
     return dict(value)
+
+
+def persist_source_route_health_snapshot(
+    path: str | Path, snapshot: Mapping[str, Any]
+) -> Path:
+    """Atomically persist only a valid routing-only health projection."""
+    value = dict(snapshot or {})
+    if not load_source_route_health_snapshot_read_only_value(value):
+        raise ValueError("source_route_health_snapshot_invalid")
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    temporary = target.with_name(f".{target.name}.{os.getpid()}.tmp")
+    with temporary.open("x", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(value, indent=2, sort_keys=True) + "\n")
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.replace(temporary, target)
+    return target
+
+
+def load_source_route_health_snapshot_read_only_value(
+    value: Mapping[str, Any]
+) -> bool:
+    return bool(
+        isinstance(value, Mapping)
+        and value.get("schema_version") == SCHEMA_VERSION
+        and value.get("routing_only") is True
+        and value.get("exact_route_suppression_host_wide") is False
+        and value.get("sourceability_or_health_grants_factual_authority") is False
+        and value.get("sourceability_or_health_grants_numeric_authority") is False
+        and value.get("sourceability_or_health_grants_permission_authority") is False
+        and value.get("sourceability_or_health_grants_publication_authority") is False
+    )
 
 
 def _utc_now() -> datetime:

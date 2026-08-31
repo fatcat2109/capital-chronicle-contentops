@@ -282,6 +282,36 @@ def test_default_source_loader_uses_one_first_party_aware_shared_six_get_ledger(
     assert loader._shared_request_budget == {"limit": MAX_SOURCE_REQUESTS, "used": 0}
 
 
+def test_default_source_loader_carries_forward_exact_route_health():
+    url = "https://www.bloomberg.com/news/articles/exact-current-story"
+    host, identity = normalized_route_identity(url)
+    health = {
+        "schema_version": "contentops.source_route_health.v1",
+        "failure_ttl_seconds": 21600,
+        "hosts": [{"normalized_host": host, "success_count": 0, "failure_count": 1}],
+        "routes": [
+            {
+                "normalized_host": host,
+                "route_identity_sha256": identity,
+                "success_count": 0,
+                "failure_count": 1,
+                "last_failure_class": "HTTP_403",
+                "last_observed_at_utc": CUTOFF,
+            }
+        ],
+        "routing_only": True,
+        "exact_route_suppression_host_wide": False,
+        "sourceability_or_health_grants_factual_authority": False,
+        "sourceability_or_health_grants_numeric_authority": False,
+        "sourceability_or_health_grants_permission_authority": False,
+        "sourceability_or_health_grants_publication_authority": False,
+    }
+    loader = _default_evidence_loader(CUTOFF, source_route_health=health)
+    snapshot = loader.source_route_health_snapshot()
+    assert snapshot["routes"][0]["route_identity_sha256"] == identity
+    assert snapshot["routes"][0]["failure_count"] == 1
+
+
 def test_evidence_request_preserves_the_full_bounded_ordered_query_plan():
     candidate = _candidate_packet(_headlines(1), [])[0]
     entry = _plan_entry(candidate["candidate_id"])
@@ -758,6 +788,45 @@ def test_all_candidates_blocked_returns_complete_history_with_shared_six_get_lim
     assert len(result["candidate_attempt_history"]) == 3
     assert result["candidate_attempt_history"][2]["status"] == "NOT_ATTEMPTED_SHARED_SOURCE_BUDGET_EXHAUSTED"
     assert roles == [ROLE_V1_SIMPLE_SELECTION]
+
+
+def test_all_candidates_blocked_returns_updated_route_health(tmp_path: Path):
+    rolling = _headlines(1)
+    candidate_id = _candidate_ids(rolling)[0]
+
+    class Loader:
+        def __call__(self, _request):
+            return _evidence_result(
+                request_count=1,
+                status="BLOCKED",
+                blocker="HTTP Error 403: Forbidden",
+            )
+
+        def source_route_health_snapshot(self):
+            return {
+                "schema_version": "contentops.source_route_health.v1",
+                "hosts": [],
+                "routes": [],
+                "routing_only": True,
+                "exact_route_suppression_host_wide": False,
+                "sourceability_or_health_grants_factual_authority": False,
+                "sourceability_or_health_grants_numeric_authority": False,
+                "sourceability_or_health_grants_permission_authority": False,
+                "sourceability_or_health_grants_publication_authority": False,
+            }
+
+    result = run_v1_simple_gemini_newsroom(
+        output_dir=tmp_path,
+        cutoff_utc=CUTOFF,
+        rolling_input=rolling,
+        llm_invoke=lambda **kwargs: (
+            _selection(candidate_id),
+            _receipt(kwargs["role_task_id"]),
+        ),
+        evidence_loader=Loader(),
+        run_id="blocked-health",
+    )
+    assert result["updated_source_route_health"]["routing_only"] is True
 
 
 def test_reported_source_budget_overrun_fails_closed_before_writer(tmp_path: Path):

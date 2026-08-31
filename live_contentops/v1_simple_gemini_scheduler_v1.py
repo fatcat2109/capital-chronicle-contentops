@@ -41,6 +41,7 @@ from live_contentops.published_corpus_read_model_v1 import (
 )
 from live_contentops.source_route_health_v1 import (
     load_source_route_health_snapshot_read_only,
+    persist_source_route_health_snapshot,
 )
 from live_contentops.v1_simple_gemini_newsroom_v1 import (
     MAX_LOGICAL_MODEL_INVOCATIONS,
@@ -916,6 +917,16 @@ class SimpleGeminiLocalScheduler:
                     "provider_publication_writes": 0,
                     "unknown_write_count": 0,
                 }
+            updated_health = result.get("updated_source_route_health")
+            if (
+                self._source_route_health_path is not None
+                and isinstance(updated_health, Mapping)
+                and updated_health
+            ):
+                persist_source_route_health_snapshot(
+                    self._source_route_health_path,
+                    updated_health,
+                )
             blockers = _result_safety_blockers(result)
             qualified_after = len(
                 load_qualified_article_records(

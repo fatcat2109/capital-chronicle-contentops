@@ -75,6 +75,12 @@ def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.run_forever and args.tick_utc:
         raise SystemExit("--tick-utc cannot be combined with --run-forever")
+    if args.tick_utc and Path(args.scheduler_root).resolve() == Path(
+        CANONICAL_SIMPLE_GEMINI_SCHEDULER_ROOT
+    ).resolve():
+        raise SystemExit(
+            "--tick-utc is forbidden on the canonical production scheduler root"
+        )
     lifecycle_kwargs = {
         "scheduler_root": args.scheduler_root,
         "published_memory_store": args.published_memory_store,
