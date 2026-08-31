@@ -623,3 +623,25 @@ def test_command_line_identity_matching():
     ) is False
     assert is_canonical_daily_app_command_line("node.exe some-server.js", PRODUCTION_STORE) is False
     assert is_canonical_daily_app_command_line("", PRODUCTION_STORE) is False
+
+
+def test_daily_app_task_installer_owns_existing_runtime_not_editorial_scheduler():
+    repo_root = Path(__file__).resolve().parents[1]
+    installer = (
+        repo_root / "scripts" / "Install-ContentOpsV1DailyAppRuntime.ps1"
+    ).read_text(encoding="utf-8")
+    wrapper = (repo_root / "Install_ContentOps_V1_Daily_App_Runtime.cmd").read_text(
+        encoding="utf-8"
+    )
+
+    assert "live_contentops.cli daily-app start" in installer
+    assert "v1_runtime_preflight_v1" in installer
+    assert "CapitalChronicle_ContentOps_V1_Daily_App_Runtime" in installer
+    assert "New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew" in installer
+    assert "RestartCount 999" in installer
+    assert "RepetitionInterval (New-TimeSpan -Minutes 5)" in installer
+    assert "routine_editorial_owner = 'SIMPLE_GEMINI_RUNTIME'" in installer
+    assert "daily_app_routine_editorial_execution = $false" in installer
+    assert "run_v1_simple_gemini_scheduler.py" not in installer
+    assert "publish" not in installer.casefold()
+    assert "Install-ContentOpsV1DailyAppRuntime.ps1" in wrapper

@@ -14,8 +14,8 @@
   ],
   "counts": {
     "edges": 14065,
-    "entrypoints": 18,
-    "nodes": 7442,
+    "entrypoints": 20,
+    "nodes": 7444,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -23,7 +23,7 @@
       "durable_table": 37,
       "http_endpoint": 6,
       "instructions": 8,
-      "manifest": 19,
+      "manifest": 21,
       "python_class": 608,
       "python_function": 4064,
       "python_method": 306,
@@ -84428,6 +84428,11 @@
   ],
   "entrypoints": [
     {
+      "command_or_symbol": "Install_ContentOps_V1_Daily_App_Runtime.cmd",
+      "kind": "operator_script",
+      "path": "Install_ContentOps_V1_Daily_App_Runtime.cmd"
+    },
+    {
       "command_or_symbol": "Install_ContentOps_V1_Simple_Scheduler.cmd",
       "kind": "operator_script",
       "path": "Install_ContentOps_V1_Simple_Scheduler.cmd"
@@ -84481,6 +84486,11 @@
       "command_or_symbol": "scripts/Initialize-ContentOpsV1Runtime.ps1",
       "kind": "operator_script",
       "path": "scripts/Initialize-ContentOpsV1Runtime.ps1"
+    },
+    {
+      "command_or_symbol": "scripts/Install-ContentOpsV1DailyAppRuntime.ps1",
+      "kind": "operator_script",
+      "path": "scripts/Install-ContentOpsV1DailyAppRuntime.ps1"
     },
     {
       "command_or_symbol": "scripts/Install-ContentOpsV1HourlyAudit.ps1",
@@ -84555,7 +84565,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-08-31T18:18:50Z",
+  "generation_timestamp_utc": "2026-08-31T19:59:00Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84589,6 +84599,11 @@
       "id": "AGENTS.md",
       "kind": "instructions",
       "size_bytes": 11730
+    },
+    {
+      "id": "Install_ContentOps_V1_Daily_App_Runtime.cmd",
+      "kind": "manifest",
+      "size_bytes": 154
     },
     {
       "id": "Install_ContentOps_V1_Simple_Scheduler.cmd",
@@ -87509,7 +87524,7 @@
     {
       "id": "live_contentops/preselection_intelligence_v1.py",
       "kind": "python_module",
-      "size_bytes": 47341
+      "size_bytes": 49808
     },
     {
       "id": "live_contentops/primary_payload_classes_contract.py",
@@ -88339,7 +88354,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 104278
+      "size_bytes": 111377
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -112728,49 +112743,49 @@
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_logical_hash",
       "kind": "python_function",
-      "line": 685,
+      "line": 739,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_logical_hash"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_preselection_cc_publication_authority",
       "kind": "python_function",
-      "line": 606,
+      "line": 660,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_preselection_cc_publication_authority"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_raw_assignment_reachability",
       "kind": "python_function",
-      "line": 700,
+      "line": 754,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_raw_assignment_reachability"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations",
       "kind": "python_function",
-      "line": 348,
+      "line": 385,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_simple_candidate_route_observations"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_simple_candidate_route_observations.add",
       "kind": "python_method",
-      "line": 387,
+      "line": 424,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_simple_candidate_route_observations.add"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::_source_timestamp",
       "kind": "python_function",
-      "line": 691,
+      "line": 745,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "_source_timestamp"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::apply_preselection_intelligence",
       "kind": "python_function",
-      "line": 804,
+      "line": 858,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "apply_preselection_intelligence"
     },
@@ -112784,21 +112799,21 @@
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::compact_rolling_x_assignment_universe",
       "kind": "python_function",
-      "line": 718,
+      "line": 772,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "compact_rolling_x_assignment_universe"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe",
       "kind": "python_function",
-      "line": 453,
+      "line": 490,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "rank_simple_headline_candidate_universe"
     },
     {
       "id": "python_symbol:live_contentops/preselection_intelligence_v1.py::rank_simple_headline_candidate_universe.audit_row",
       "kind": "python_method",
-      "line": 561,
+      "line": 615,
       "path": "live_contentops/preselection_intelligence_v1.py",
       "symbol": "rank_simple_headline_candidate_universe.audit_row"
     },
@@ -120610,7 +120625,7 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1659,
+      "line": 1771,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -124473,6 +124488,11 @@
       "size_bytes": 1348
     },
     {
+      "id": "scripts/Install-ContentOpsV1DailyAppRuntime.ps1",
+      "kind": "manifest",
+      "size_bytes": 2773
+    },
+    {
       "id": "scripts/Install-ContentOpsV1HourlyAudit.ps1",
       "kind": "manifest",
       "size_bytes": 1783
@@ -125420,7 +125440,7 @@
     {
       "id": "tests/test_contentops_daily_app_launcher_v1.py",
       "kind": "test",
-      "size_bytes": 24474
+      "size_bytes": 25565
     },
     {
       "id": "tests/test_contentops_emergency_stop_v1.py",
@@ -128130,7 +128150,7 @@
     {
       "id": "tests/test_v1_simple_epistemic_state_v1.py",
       "kind": "test",
-      "size_bytes": 53083
+      "size_bytes": 59606
     },
     {
       "id": "tests/test_v1_simple_evidence_resolver_v1.py",
@@ -128140,7 +128160,7 @@
     {
       "id": "tests/test_v1_simple_gemini_newsroom_v1.py",
       "kind": "test",
-      "size_bytes": 42065
+      "size_bytes": 46081
     },
     {
       "id": "tests/test_v1_simple_gemini_scheduler_process_v1.py",
@@ -132833,6 +132853,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "f97ecc8f2cfb669d588b3b82e29d22491525997b",
-  "source_tree_digest": "f7c6845991568043b110afcbd5a7ddec92761bb3af95e0d450ca2fd19e016813"
+  "source_head": "02fc8b72dd8e92fdf9cba79cf85daa4144355f62",
+  "source_tree_digest": "f34fbecc43a677bb5dcc23cf05c66e0e5873b7c757c253193d915e1b0111b9a6"
 }

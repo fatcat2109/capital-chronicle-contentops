@@ -340,7 +340,7 @@ def _candidate_universe(
 
 
 def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
-    return {
+    candidate = {
         key: row.get(key)
         for key in (
             "candidate_id",
@@ -356,6 +356,25 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
             "canonical_x_list_provenance",
         )
     }
+    sourceability = row.get("sourceability_work_order")
+    sourceability = sourceability if isinstance(sourceability, Mapping) else {}
+    candidate["sourceability_route_hint"] = {
+        "canonical_x_zero_get_route_available": bool(
+            sourceability.get("canonical_x_zero_get_route_available")
+        ),
+        "known_official_path": bool(sourceability.get("known_official_path")),
+        "reputable_public_secondary_path": bool(
+            sourceability.get("reputable_public_secondary_path")
+        ),
+        "expected_route_request_cost_class": str(
+            sourceability.get("expected_route_request_cost_class") or "UNKNOWN"
+        ),
+        "known_access_risk": bool(
+            sourceability.get("known_paywall_waf_or_dead_link_risk")
+        ),
+        "routing_hint_grants_factual_or_publication_authority": False,
+    }
+    return candidate
 
 
 def _candidate_packet_and_preselection(
@@ -780,6 +799,12 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "Choose one primary genuinely useful current Capital Chronicle story and at most two ordered fallback "
         "stories from GOVERNED_INPUT. Every fallback must be independently worth an article, not filler. "
         "Do not require evidence-ready/sourceability/readiness/media/SEO perfection before selection. "
+        "The sourceability_route_hint is deterministic routing-only context, never factual or publication authority. "
+        "When stories are independently similarly useful, prefer the one with the shorter governed route and lower known access risk. "
+        "If you return three candidates and GOVERNED_INPUT contains an independently useful candidate whose "
+        "sourceability_route_hint.canonical_x_zero_get_route_available is true, include at least one such candidate in the plan; "
+        "this route-diversity rule prevents all three choices from sharing the same retrieval failure. "
+        "Never select a weak story merely because its route is easier. "
         "Published-memory duplicates were filtered deterministically before this call. If nothing is useful, ABSTAIN. "
         "Use institutional_edge_mode_guide to choose the mode the story genuinely warrants. Prefer the strongest "
         "defensible tension over generic recap, and prioritize a proposition that can explain why the reader should care now. "
@@ -964,6 +989,10 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "reader_visible_epistemic_label prominently in the dek and opening paragraph. For UNCONFIRMED or RELAYED "
         "content, keep the named publisher or relay attribution in the title and dek, state the reporting status "
         "in the first paragraph, and never silently rewrite 'Publisher reports X' as 'X happened'. Any mechanism, "
+        "When epistemic_state.evidence_basis is TRUSTED_RELAY_ATTRIBUTED_REPORT, the retrieved record proves only "
+        "the relay's words: title, dek, and opening must name @relay_source_identity and say it is citing "
+        "primary_reporting_publisher. Never write 'Publisher reports/says X' because the original publisher report "
+        "was not separately resolved. "
         "winner/loser, market implication, criticism, or consequence that depends on X must be explicitly "
         "conditional, using 'If the report is accurate', 'If confirmed', or equivalent. Do not call material a "
         "leak, rumor, or internal-source report unless epistemic_state.origin_character says so. "
@@ -1014,6 +1043,59 @@ def _public_copy(article: Mapping[str, Any]) -> str:
             "substack_body_markdown",
         )
     )
+
+
+def _normalize_relay_attribution(
+    worker_output: Mapping[str, Any],
+    epistemic_state: Mapping[str, Any] | None,
+) -> tuple[dict[str, Any], int]:
+    """Normalize only forbidden original-publisher impersonation grammar.
+
+    The accepted relay document proves the relay's captured words, not the cited publisher's
+    original report.  This mechanical transform changes neither proposition nor evidence; the
+    normal deterministic validator still decides whether the complete article is admissible.
+    """
+    result = dict(worker_output)
+    state = epistemic_state if isinstance(epistemic_state, Mapping) else {}
+    if state.get("evidence_basis") != "TRUSTED_RELAY_ATTRIBUTED_REPORT":
+        return result, 0
+    relay = str(state.get("relay_source_identity") or "").strip().lstrip("@")
+    publisher = str(state.get("primary_reporting_publisher") or "").strip()
+    if not relay or not publisher:
+        return result, 0
+    pattern = re.compile(
+        rf"\b{re.escape(publisher)}\s+(reports?|reported|says|said)\b",
+        re.IGNORECASE,
+    )
+    replacement_prefix = f"@{relay}, citing {publisher}, "
+    count = 0
+
+    def normalize(value: Any) -> Any:
+        nonlocal count
+        if not isinstance(value, str):
+            return value
+        value, replacements = pattern.subn(
+            lambda match: replacement_prefix + match.group(1), value
+        )
+        count += replacements
+        return value
+
+    article = result.get("article")
+    if isinstance(article, Mapping):
+        result["article"] = {
+            key: normalize(value) for key, value in dict(article).items()
+        }
+    bindings = []
+    for row in result.get("material_claim_bindings") or []:
+        if not isinstance(row, Mapping):
+            bindings.append(row)
+            continue
+        normalized = dict(row)
+        normalized["claim_text"] = normalize(normalized.get("claim_text"))
+        bindings.append(normalized)
+    if bindings or "material_claim_bindings" in result:
+        result["material_claim_bindings"] = bindings
+    return result, count
 
 
 def _strip_duplicate_leading_h1(article: Mapping[str, Any]) -> dict[str, Any]:
@@ -1330,6 +1412,8 @@ def _revision_prompt(
         "metadata fields. Remove unsupported newness, simultaneity, or inflated terminology rather than expanding sources. "
         "Preserve epistemic_state exactly: retain the reader-visible label and attribution, never upgrade report truth "
         "to event truth, keep dependent analysis conditional, and remove unsupported leak/rumor/internal-source wording. "
+        "For epistemic_relay_impersonates_original_publisher, replace every 'Publisher reports/says' construction with "
+        "'@relay_source_identity, citing Publisher, reports' and keep @relay_source_identity prominent in title, dek, and opening. "
         "Every body paragraph remains source-marker bound. Zero public write. public_write_attempted MUST be the JSON "
         "boolean false because this call has no publication tools.\nBLOCKERS:\n"
         + json.dumps(list(blockers), sort_keys=True)
@@ -1391,13 +1475,28 @@ def _reader_safe_native_article(
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
     if label and label.casefold() not in title.casefold():
         title = f"{label} | {title}"
-    return {
+    result = {
         "title": title,
         "subtitle": str(article.get("dek") or ""),
         "social_hook": str(article.get("social_hook") or ""),
         "effective_article_mode": str(article_mode),
         "substack_body_markdown": body,
     }
+    if (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED":
+        result.update(
+            {
+                "social_mechanism_summary": (
+                    "The report has not been independently confirmed."
+                ),
+                "social_policy_summary": (
+                    "Any implications remain conditional on verification."
+                ),
+                "social_cross_asset_summary": (
+                    "Independent confirmation or denial is the next watch point."
+                ),
+            }
+        )
+    return result
 
 
 def _native_preview_bundle(
@@ -1454,6 +1553,19 @@ def _native_preview_bundle(
             quality_blockers,
         )
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
+
+    def unqualified_confirmed_assertion(text: str) -> bool:
+        for match in re.finditer(r"\bconfirmed\b", text, re.IGNORECASE):
+            prefix = text[max(0, match.start() - 80) : match.start()]
+            if re.search(
+                r"\b(?:not|never|if|unless|until|awaiting|pending|without)\b[^.!?\n]{0,60}$",
+                prefix,
+                re.IGNORECASE,
+            ):
+                continue
+            return True
+        return False
+
     for destination, payload in payloads.items():
         visible = "\n".join(
             str(value)
@@ -1466,7 +1578,7 @@ def _native_preview_bundle(
             )
         if (
             (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
-            and re.search(r"(?<!un)confirmed", visible, re.IGNORECASE)
+            and unqualified_confirmed_assertion(visible)
         ):
             raise SimpleGeminiNewsroomError(
                 "native_preview_epistemic_certainty_inflation", [destination]
@@ -2110,6 +2222,9 @@ def run_v1_simple_gemini_newsroom(
         return receipt
     revision_receipt: dict[str, Any] | None = None
     revision_performed = False
+    worker_output, relay_normalization_count = _normalize_relay_attribution(
+        worker_output, selected_epistemic_state
+    )
     try:
         article, validation = _validate_article_against_source_pack(
             worker_output,
@@ -2165,7 +2280,10 @@ def run_v1_simple_gemini_newsroom(
             _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
             return receipt
         revision_performed = True
-        worker_output = revised_output
+        worker_output, revised_normalization_count = _normalize_relay_attribution(
+            revised_output, selected_epistemic_state
+        )
+        relay_normalization_count += revised_normalization_count
         try:
             article, validation = _validate_article_against_source_pack(
                 worker_output,
@@ -2196,6 +2314,9 @@ def run_v1_simple_gemini_newsroom(
                 "public_write_performed": False,
                 "provider_publication_writes": 0,
                 "unknown_write_count": 0,
+                "deterministic_relay_attribution_normalization_count": (
+                    relay_normalization_count
+                ),
             }
             _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
             return receipt
@@ -2222,12 +2343,39 @@ def run_v1_simple_gemini_newsroom(
     _write_json(root / "simple_gemini_validation_v1.json", validation_artifact)
 
     article_identity = _text_hash(str(article["substack_body_markdown"]))
-    native_previews, intents = _native_preview_bundle(
-        article=article,
-        article_mode=str(selected_plan_entry["article_mode"]),
-        article_identity=article_identity,
-        epistemic_state=selected_epistemic_state,
-    )
+    try:
+        native_previews, intents = _native_preview_bundle(
+            article=article,
+            article_mode=str(selected_plan_entry["article_mode"]),
+            article_identity=article_identity,
+            epistemic_state=selected_epistemic_state,
+        )
+    except SimpleGeminiNewsroomError as exc:
+        receipt = {
+            "schema_version": SCHEMA_VERSION,
+            "classification": "NO_PUBLICATION",
+            "run_id": run_id,
+            "cutoff_utc": cutoff_utc,
+            "candidate_count": len(candidates),
+            "candidate_limit": MAX_SELECTION_CANDIDATES,
+            "admitted_candidate_count": len(plan),
+            "exact_next_blocker": "NATIVE_DERIVATIVE_COMPILATION_BLOCKED",
+            "validation_blockers": [exc.code, *exc.details],
+            "candidate_attempt_history": candidate_attempt_history,
+            "source_request_count": request_count,
+            "logical_model_invocation_count": 2 + int(revision_performed),
+            "codex_runtime_model_call_count": 0,
+            "qualified_article_count": 0,
+            "derivative_intent_count": 0,
+            "public_write_performed": False,
+            "provider_publication_writes": 0,
+            "unknown_write_count": 0,
+            "deterministic_relay_attribution_normalization_count": (
+                relay_normalization_count
+            ),
+        }
+        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        return receipt
     _write_json(root / "native_derivative_previews_v1.json", native_previews)
     intents_artifact = {
         "schema_version": DERIVATIVE_INTENTS_SCHEMA_VERSION,
@@ -2330,6 +2478,9 @@ def run_v1_simple_gemini_newsroom(
         "public_write_performed": False,
         "provider_publication_writes": 0,
         "unknown_write_count": 0,
+        "deterministic_relay_attribution_normalization_count": (
+            relay_normalization_count
+        ),
         "updated_source_route_health": _updated_source_route_health(loader),
     }
     _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)

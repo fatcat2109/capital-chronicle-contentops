@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `f97ecc8f2cfb669d588b3b82e29d22491525997b`
-Source tree digest: `f7c6845991568043b110afcbd5a7ddec92761bb3af95e0d450ca2fd19e016813`
+Source HEAD: `02fc8b72dd8e92fdf9cba79cf85daa4144355f62`
+Source tree digest: `f34fbecc43a677bb5dcc23cf05c66e0e5873b7c757c253193d915e1b0111b9a6`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.1`
 
 This generated map is descriptive, not product authority.
@@ -28,6 +28,7 @@ This generated router is subordinate to root `AGENTS.md`. Never use it to bypass
 
 | Kind | Path | Command or symbol |
 |---|---|---|
+| `operator_script` | `Install_ContentOps_V1_Daily_App_Runtime.cmd` | `Install_ContentOps_V1_Daily_App_Runtime.cmd` |
 | `operator_script` | `Install_ContentOps_V1_Simple_Scheduler.cmd` | `Install_ContentOps_V1_Simple_Scheduler.cmd` |
 | `explicit_llm_resume` | `RESUME_CONTENTOPS_LLM.cmd` | `RESUME_CONTENTOPS_LLM.cmd` |
 | `one_click_emergency_stop` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` | `STOP_ALL_CONTENTOPS_BACKGROUND.cmd` |
@@ -39,6 +40,7 @@ This generated router is subordinate to root `AGENTS.md`. Never use it to bypass
 | `tier2_local_factory` | `live_contentops/tier2_video_factory_v1.py` | `python -m live_contentops.cli tier2-video-local` |
 | `operator_script` | `scripts/Audit-ContentOpsV1Hourly.ps1` | `scripts/Audit-ContentOpsV1Hourly.ps1` |
 | `operator_script` | `scripts/Initialize-ContentOpsV1Runtime.ps1` | `scripts/Initialize-ContentOpsV1Runtime.ps1` |
+| `operator_script` | `scripts/Install-ContentOpsV1DailyAppRuntime.ps1` | `scripts/Install-ContentOpsV1DailyAppRuntime.ps1` |
 | `operator_script` | `scripts/Install-ContentOpsV1HourlyAudit.ps1` | `scripts/Install-ContentOpsV1HourlyAudit.ps1` |
 | `operator_script` | `scripts/Install-ContentOpsV1SimpleScheduler.ps1` | `scripts/Install-ContentOpsV1SimpleScheduler.ps1` |
 | `operator_script` | `scripts/Resolve-ContentOpsV1Runtime.ps1` | `scripts/Resolve-ContentOpsV1Runtime.ps1` |
@@ -159,4 +161,4 @@ python scripts/generate_codex_context_index.py --check
 
 ## Scope
 
-`7442` nodes and `14065` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.
+`7444` nodes and `14065` edges cover files, Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. Every inferred edge carries an `inference` label. Included/excluded roots are recorded in `graph.json`.

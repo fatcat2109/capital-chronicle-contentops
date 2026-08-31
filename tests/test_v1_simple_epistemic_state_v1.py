@@ -354,6 +354,96 @@ def test_exact_eight_previews_preserve_machine_and_reader_visible_epistemic_stat
     assert all(row["dispatch_state"] == "UNDISPATCHED" for row in intents)
 
 
+def test_native_preview_allows_explicit_nonconfirmation_but_blocks_confirmed_assertion(
+    monkeypatch,
+):
+    state = _state()
+    article, _validation = _validate_article_against_source_pack(
+        _article_output(state),
+        _source_pack(),
+        selected_candidate=_candidate(),
+        article_mode="STANDARD_NEWS_ANALYSIS",
+        epistemic_state=state,
+    )
+    original_builder = __import__(
+        "live_contentops.eight_platform_substack_first_pipeline_v1",
+        fromlist=["build_native_derivative_payloads"],
+    ).build_native_derivative_payloads
+    payloads = original_builder(
+        article={
+            "title": f"{state['reader_visible_epistemic_label']} | A report",
+            "subtitle": f"{state['reader_visible_epistemic_label']} | A report",
+            "social_hook": f"{state['reader_visible_epistemic_label']} | A report",
+            "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+            "substack_body_markdown": "The event has not been independently confirmed.",
+        },
+        selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/pending",
+        media_asset_ids=(),
+    )
+    monkeypatch.setattr(
+        "live_contentops.eight_platform_substack_first_pipeline_v1."
+        "build_native_derivative_payloads",
+        lambda **_kwargs: payloads,
+    )
+    bundle, _intents = _native_preview_bundle(
+        article=article,
+        article_mode="STANDARD_NEWS_ANALYSIS",
+        article_identity="e" * 64,
+        epistemic_state=state,
+    )
+    assert bundle["package_count"] == 8
+
+    inflated = json.loads(json.dumps(payloads))
+    inflated["linkedin"]["text"] = (
+        f"{state['reader_visible_epistemic_label']} The event is confirmed by officials."
+    )
+    monkeypatch.setattr(
+        "live_contentops.eight_platform_substack_first_pipeline_v1."
+        "build_native_derivative_payloads",
+        lambda **_kwargs: inflated,
+    )
+    with pytest.raises(SimpleGeminiNewsroomError) as exc_info:
+        _native_preview_bundle(
+            article=article,
+            article_mode="STANDARD_NEWS_ANALYSIS",
+            article_identity="e" * 64,
+            epistemic_state=state,
+        )
+    assert exc_info.value.code == "native_preview_epistemic_certainty_inflation"
+    assert exc_info.value.details == ["linkedin"]
+
+
+def test_unconfirmed_native_preview_uses_complete_conditional_watch_sentences():
+    state = _state()
+    article = {
+        "title": "A relayed leadership transition report",
+        "dek": f"{state['reader_visible_epistemic_label']}: a transition is reported.",
+        "social_hook": f"{state['reader_visible_epistemic_label']}: a transition is reported.",
+        "substack_body_markdown": (
+            "The relay quotes a long sentence, as the letter reportedly states, "
+            '"This is a moment I always knew would come one day, and yet it is still hard '
+            'to believe it has arrived and I am writing". If confirmed, readers should '
+            "wait for official details. [[SOURCE:SOURCE_1]]"
+        ),
+    }
+
+    bundle, intents = _native_preview_bundle(
+        article=article,
+        article_mode="BREAKING_BRIEF",
+        article_identity="f" * 64,
+        epistemic_state=state,
+    )
+
+    x_metrics = bundle["packages"]["x"]["quality_metrics"]
+    assert x_metrics["sentence_boundary_pass"] is True
+    assert x_metrics["orphan_fragment_count"] == 0
+    assert bundle["packages"]["x"]["reply_texts"][-1].endswith(
+        "Watch: Independent confirmation or denial is the next watch point."
+    )
+    assert len(intents) == 8
+
+
 @pytest.mark.parametrize("destination", ["x", "threads"])
 @pytest.mark.parametrize(
     ("fault", "expected_blocker"),
@@ -1159,6 +1249,84 @@ def test_canonical_x_relay_runs_zero_get_writer_and_eight_preview_path(tmp_path)
     assert all(label in str(payload) for payload in native["packages"].values())
     record = json.loads((tmp_path / "qualified_article_record_v1.json").read_text())
     assert record["epistemic_state"] == state
+
+
+def test_relay_writer_and_revision_prompts_forbid_original_publisher_impersonation():
+    candidate = _canonical_candidate(
+        headline="A consequential financing decision was reported, per Bloomberg."
+    )
+    request = _request(candidate, source_url=candidate["source_url"])
+    document, blockers = canonical_x_report_document(request)
+    assert blockers == [] and document is not None
+    state, state_blockers = build_epistemic_state(
+        request=request,
+        documents=[document],
+        selected_route="TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    )
+    assert state_blockers == [] and state is not None
+    governed = {
+        "selected_candidate": candidate,
+        "source_pack": [document],
+        "epistemic_state": state,
+    }
+
+    from live_contentops.v1_simple_gemini_newsroom_v1 import (
+        _revision_prompt,
+        _worker_prompt,
+    )
+
+    worker = _worker_prompt(governed)
+    revision = _revision_prompt(
+        governed,
+        {"article": {}},
+        ["epistemic_relay_impersonates_original_publisher"],
+    )
+    assert "Never write 'Publisher reports/says X'" in worker
+    assert "@relay_source_identity, citing Publisher, reports" in revision
+
+
+def test_relay_attribution_normalization_updates_public_copy_and_matching_claims_only():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import (
+        _normalize_relay_attribution,
+    )
+
+    state = {
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "relay_source_identity": "stockmktnewz",
+        "primary_reporting_publisher": "Bloomberg",
+    }
+    output = {
+        "article": {
+            "title": "Bloomberg reports Tim Cook sent his final CEO letter",
+            "dek": "@stockmktnewz, citing Bloomberg, reports an unconfirmed transition.",
+            "substack_body_markdown": "Bloomberg says the letter was sent. [[SOURCE:SOURCE_1]]",
+        },
+        "cited_sources": [{"publisher": "stockmktnewz"}],
+        "material_claim_bindings": [
+            {
+                "claim_text": "Bloomberg reports Tim Cook sent his final CEO letter",
+                "support_excerpt": "Bloomberg reports should remain exact source bytes",
+            }
+        ],
+    }
+
+    normalized, count = _normalize_relay_attribution(output, state)
+
+    assert count == 3
+    assert normalized["article"]["title"].startswith(
+        "@stockmktnewz, citing Bloomberg, reports"
+    )
+    assert normalized["article"]["dek"] == output["article"]["dek"]
+    assert "@stockmktnewz, citing Bloomberg, says" in normalized["article"][
+        "substack_body_markdown"
+    ]
+    assert normalized["material_claim_bindings"][0]["claim_text"].startswith(
+        "@stockmktnewz, citing Bloomberg, reports"
+    )
+    assert normalized["material_claim_bindings"][0]["support_excerpt"] == (
+        "Bloomberg reports should remain exact source bytes"
+    )
+    assert normalized["cited_sources"] == output["cited_sources"]
 
 
 def test_canonical_x_zero_get_fallback_runs_after_shared_get_budget_exhausted(
