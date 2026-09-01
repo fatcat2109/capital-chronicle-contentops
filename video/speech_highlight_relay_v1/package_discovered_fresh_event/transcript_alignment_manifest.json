@@ -1,0 +1,44 @@
+{
+  "schema": "contentops.speech_highlight_relay.transcript_alignment_manifest.v1",
+  "authority_class": "OFFICIAL_TIMED_TRANSCRIPT",
+  "official_pdf_url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20260729.pdf",
+  "official_pdf_sha256": null,
+  "candidate_id": "AUTO_CANDIDATE_01_POLICY_PHILOSOPHY",
+  "exact_quote": "I don't believe that either part of our mandate is generally at war with the other part. I do not believe that price stability and full employment is an either-or proposition. There have been policymakers over the last several generations who have thought that there is a strict tradeoff there. That isn't my judgment.",
+  "quote_sha256": "0aff7dcc58d585fd2299d5e8ddb7a18145222cea3b366246775ecfa01fa827fa",
+  "cue_count": 4,
+  "cues": [
+    {
+      "cue_id": "cue_raw_02",
+      "start_seconds": 0.0,
+      "end_seconds": 4.5,
+      "duration_seconds": 4.5,
+      "text": "I don't believe that either part of our mandate is generally at war with the other part.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_raw_03",
+      "start_seconds": 4.5,
+      "end_seconds": 9.0,
+      "duration_seconds": 4.5,
+      "text": "I do not believe that price stability and full employment is an either-or proposition.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_raw_04",
+      "start_seconds": 9.0,
+      "end_seconds": 15.5,
+      "duration_seconds": 6.5,
+      "text": "There have been policymakers over the last several generations who have thought that there is a strict tradeoff there.",
+      "speaker": "Kevin Warsh"
+    },
+    {
+      "cue_id": "cue_raw_05",
+      "start_seconds": 15.5,
+      "end_seconds": 23.415,
+      "duration_seconds": 7.915,
+      "text": "That isn't my judgment.",
+      "speaker": "Kevin Warsh"
+    }
+  ]
+}

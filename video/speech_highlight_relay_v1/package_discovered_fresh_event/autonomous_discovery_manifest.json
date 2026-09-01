@@ -1,0 +1,56 @@
+{
+  "schema": "contentops.speech_highlight_relay.autonomous_discovery_manifest.v1",
+  "discovery_status": "DISCOVERED_AND_VERIFIED",
+  "total_proposals": 2,
+  "proposals": [
+    {
+      "proposal_id": "AUTO_CANDIDATE_01_POLICY_PHILOSOPHY",
+      "rank": 1,
+      "start_seconds": 4.485,
+      "end_seconds": 27.9,
+      "duration_seconds": 23.415,
+      "exact_quote": "I don't believe that either part of our mandate is generally at war with the other part. I do not believe that price stability and full employment is an either-or proposition. There have been policymakers over the last several generations who have thought that there is a strict tradeoff there. That isn't my judgment.",
+      "financial_importance": "This statement signals a policy philosophy that rejects a rigid Phillips Curve tradeoff, suggesting the Fed under Warsh may not feel compelled to preemptively cool the labor market to achieve price stability.",
+      "editorial_takeaway": "Fed Chair rejects strict tradeoff between price stability and full employment.",
+      "why_it_matters": "By rejecting the traditional 'strict tradeoff' view of the dual mandate, the Chairman signals a more holistic, less dogmatic approach to monetary policy. This suggests the FOMC may tolerate a stronger labor market for longer without automatically raising rates, provided inflation expectations remain anchored, altering how markets model the Fed's reaction function.",
+      "material_qualifiers": "He qualifies his stance by stating the mandates are not 'generally' at war, leaving room for exceptional economic circumstances where short-term conflicts could arise.",
+      "score": 92.0,
+      "topic_category": "POLICY_PHILOSOPHY"
+    },
+    {
+      "proposal_id": "AUTO_CANDIDATE_02_POLICY_PHILOSOPHY",
+      "rank": 2,
+      "start_seconds": 8.985,
+      "end_seconds": 27.9,
+      "duration_seconds": 18.915,
+      "exact_quote": "I do not believe that price stability and full employment is an either-or proposition. There have been policymakers over the last several generations who have thought that there is a strict tradeoff there. That isn't my judgment.",
+      "financial_importance": "Clarifies the Chairman's rejection of historical policy frameworks that assume a permanent or strict tradeoff between inflation and employment.",
+      "editorial_takeaway": "Warsh rejects historical policy views of a strict dual-mandate tradeoff.",
+      "why_it_matters": "This segment directly targets the historical policy debate. By explicitly distancing himself from 'policymakers over the last several generations,' Warsh establishes a modern, flexible reaction function that could lead to less aggressive tightening cycles during periods of low unemployment.",
+      "material_qualifiers": "He frames this perspective specifically as his personal 'judgment' rather than a formal, consensus-driven change in the FOMC's official Statement on Longer-Run Goals.",
+      "score": 88.0,
+      "topic_category": "POLICY_PHILOSOPHY"
+    }
+  ],
+  "selected_candidate_id": "AUTO_CANDIDATE_01_POLICY_PHILOSOPHY",
+  "verification_method": "DETERMINISTIC_VERBATIM_ALIGNMENT",
+  "dynamic_clip_extracted": "extracted_clip_auto_candidate_01_policy_philosophy.mp4",
+  "model_execution_evidence": {
+    "engine": "CONTENTOPS_9ROUTER_GATEWAY",
+    "gateway": "http://localhost:20128/v1",
+    "model_requested": "vx/gemini-3.5-flash(high)",
+    "model_observed": "gemini-3.5-flash",
+    "status_code": 200,
+    "usage": {
+      "prompt_tokens": 2644,
+      "completion_tokens": 2836,
+      "total_tokens": 5480,
+      "completion_tokens_details": {
+        "reasoning_tokens": 2236
+      }
+    },
+    "latency_seconds": 18.701,
+    "disposition": "ACCEPTED",
+    "provider_call_verified": true
+  }
+}

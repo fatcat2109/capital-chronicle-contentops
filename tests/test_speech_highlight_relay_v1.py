@@ -10,8 +10,10 @@ from live_contentops import cli
 from live_contentops.speech_highlight_relay_v1 import (
     AutonomousHighlightDiscoveryEngine,
     AutonomousHighlightProposal,
+    AutonomousSpeechEventDiscoveryEngine,
     CaptionCue,
     DeterministicQuoteTranscriptVerifier,
+    DiscoveredOfficialEvent,
     DynamicMediaClipper,
     PublicWriteProhibitedError,
     SpeechHighlightRelayPipeline,
@@ -22,6 +24,7 @@ from live_contentops.speech_highlight_relay_v1 import (
     generate_vtt,
     probe_media,
     sha256_file,
+    speech_highlight_relay_command,
     verify_speech_highlight_relay_package,
 )
 
@@ -291,6 +294,76 @@ def test_genuine_dual_mandate_raw_source_autonomous_package_rendering(tmp_path: 
     assert disc_data["discovery_status"] == "DISCOVERED_AND_VERIFIED"
     assert "model_execution_evidence" in disc_data
     assert "AUTO_CANDIDATE" in disc_data["selected_candidate_id"]
+
+    verification = verify_speech_highlight_relay_package(output_dir)
+    assert verification["status"] == "PASS"
+    assert verification["publication_state"] == "PUBLICATION_HOLD"
+
+
+def test_autonomous_speech_event_discovery_discovers_official_event():
+    engine = AutonomousSpeechEventDiscoveryEngine()
+    result = engine.discover_fresh_official_speech_event()
+
+    assert result["status"] == "DISCOVERED_OFFICIAL_SOURCE"
+    assert result["provenance_state"] == "SOURCE_PROVENANCE_BOUND"
+    assert "FED_FOMC_20260729" in result["event_id"]
+    assert "Federal Reserve" in result["publisher"]
+    assert result["rights_triage"] == "REUSE_CLEAR"
+    assert "source_packet" in result
+    assert result["source_packet"]["schema"] == "contentops.speech_highlight_relay.continuous_source_packet.v1"
+
+
+def test_autonomous_speech_event_discovery_abstains_on_unknown_query():
+    engine = AutonomousSpeechEventDiscoveryEngine()
+    result = engine.discover_fresh_official_speech_event(query="NONEXISTENT_CENTRAL_BANK_XYZ")
+
+    assert result["status"] == "ABSTAIN_UNVERIFIED_SOURCE"
+    assert "No fresh official speech event satisfied" in result["reason"]
+    assert result["discovered_event"] is None
+
+
+def test_asset_specific_rights_evaluation_rejects_third_party_pool_materials(tmp_path: Path):
+    engine = AutonomousSpeechEventDiscoveryEngine()
+    dummy_file = tmp_path / "dummy.mp4"
+    dummy_file.write_bytes(b"dummy")
+
+    # If third-party pool materials or music are detected, must NOT be REUSE_CLEAR
+    eval_res = engine.evaluate_asset_specific_rights(
+        publisher="Federal Reserve",
+        media_file_path=dummy_file,
+        has_third_party_materials=True,
+        is_official_us_government=True,
+    )
+    assert eval_res["is_reuse_clear"] is False
+    assert eval_res["triage_state"] == "TRANSFORMATIVE_EDITORIAL_REVIEW_REQUIRED"
+
+
+def test_pipeline_from_autonomous_discovery_end_to_end(tmp_path: Path):
+    pipeline, disc_res = SpeechHighlightRelayPipeline.from_autonomous_discovery(workspace_root=tmp_path)
+    assert disc_res["status"] == "DISCOVERED_OFFICIAL_SOURCE"
+    assert disc_res["provenance_state"] == "SOURCE_PROVENANCE_BOUND"
+
+    output_dir = tmp_path / "discovered_event_package"
+    result = pipeline.render_package(candidate_id=None, output_dir=output_dir)
+
+    assert result["status"] == "SUCCESS"
+    assert result["publication_state"] == "PUBLICATION_HOLD"
+    assert result["public_writes"] == 0
+    assert result["unknown_writes"] == 0
+
+    verification = verify_speech_highlight_relay_package(output_dir)
+    assert verification["status"] == "PASS"
+    assert verification["publication_state"] == "PUBLICATION_HOLD"
+
+
+def test_cli_discover_flag_executes_autonomous_discovery(tmp_path: Path):
+    output_dir = tmp_path / "cli_discovered_package"
+    ret = speech_highlight_relay_command([
+        "--discover",
+        "--output-dir",
+        str(output_dir),
+    ])
+    assert ret == 0
 
     verification = verify_speech_highlight_relay_package(output_dir)
     assert verification["status"] == "PASS"

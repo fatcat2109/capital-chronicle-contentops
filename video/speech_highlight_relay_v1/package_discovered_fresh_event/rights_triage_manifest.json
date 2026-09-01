@@ -1,0 +1,14 @@
+{
+  "schema": "contentops.speech_highlight_relay.rights_triage_manifest.v1",
+  "triage_state": "REUSE_CLEAR",
+  "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+  "basis": "First-party official recording by Board of Governors of the Federal Reserve System; public domain under 17 U.S.C. \u00a7 105 with official attribution required and agency seals excluded.",
+  "mandatory_restrictions": [
+    "Exclude Board seals, logos, and official insignia from output framing.",
+    "Exclude third-party reporter questions and audio."
+  ],
+  "attribution_text": "Source: Board of Governors of the Federal Reserve System, FOMC Press Conference, 2026-07-29.",
+  "third_party_materials_present": false,
+  "public_domain_speech": true,
+  "zero_public_write_enforced": true
+}
