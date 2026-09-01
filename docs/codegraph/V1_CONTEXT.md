@@ -1,12 +1,12 @@
 # ContentOps V1 Current Context Map
 
-Authority date: 2026-08-29
+Authority date: 2026-09-01
 
 This is a curated implementation/discovery map, not product authority. Jim's latest instruction, root authority, fresh GitHub bytes, exact code/tests/evidence, and current runtime evidence outrank this map when they conflict.
 
 ## Current product state
 
-`V1_FINAL_PRODUCT_ACCEPTED / ROUTINE_PUBLIC_WRITE_GRANTED / ROUTINE_PUBLICATION_BRIDGE_CLOSED / CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT`
+`V1_FINAL_PRODUCT_ACCEPTED / ROUTINE_PUBLIC_WRITE_GRANTED / ROUTINE_PUBLICATION_BRIDGE_CLOSED / PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`
 
 Current routine editorial ownership is the Simple Gemini runtime, not Desktop Automations or the legacy rolling-X split-phase path.
 
@@ -88,14 +88,20 @@ The corrected PR #42 proof is static/CI and controlled disposable-store evidence
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-None. Strictly reconciled published-count accounting is closed; the next gate is current-host
-read-only activation proof.
+None. Strictly reconciled published-count accounting is closed. The current route is
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`: deploy current bytes, run natural windows, observe real
+failures, and fix them. A standalone host preflight/canary is conditional diagnosis only when
+current evidence materially raises an exact hard boundary.
 
 Single-owner composition, Simple emergency-stop coverage, and the routine publication bridge are already proven and must not route another implementation task.
 
 ### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-Before the first new live write: production DB integrity/schema, no unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge `contentops-social-main` CDP 9223, exact account/destination identity, and fresh nine-destination readiness. Do not inspect or expose secrets/session material.
+At every actual live-write boundary: production DB integrity/schema, no unresolved UNKNOWN/
+ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge
+`contentops-social-main` CDP 9223, exact account/destination identity, and destination readiness
+must remain fail-closed. A standalone preflight is conditional diagnosis only. Do not inspect or
+expose secrets/session material.
 
 ### `SUPERSEDED_DO_NOT_REUSE`
 
@@ -150,11 +156,18 @@ For the next accounting slice, use CodeGraph to refine the smallest affected pro
 
 Do not run broad historical canaries merely to prove already-accepted capability.
 
-## Current activation sequence
+## Current product sequence
 
-1. current-host read-only activation preflight — zero public write;
-3. one fresh live V1 end-to-end canary under already-granted authority, strictly reconciled across one canonical Substack article plus exactly eight derivatives;
-4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day.
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`:
+
+1. merge/deploy/load corrected current bytes;
+2. run the already-activated four natural routine windows;
+3. observe real evidence/article/publication/readback/reconciliation failures;
+4. fix measured blockers toward 5–8 useful articles/day.
+
+Use a standalone read-only preflight or one-off canary only when current evidence materially
+requires an exact hard-boundary diagnosis. Existing live-write identity/readiness/readback and
+UNKNOWN gates remain fail-closed.
 
 Candidate-level abstention remains valid. A below-target live production day without an exact hard external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
 

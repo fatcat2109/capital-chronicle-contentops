@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from pathlib import Path
 
 import pytest
 
@@ -95,6 +96,7 @@ def test_exact_publisher_render_is_hash_bound_and_read_only():
     assert len(result["canonical_content_sha256"]) == 64
     assert result["observed_at_utc"] == "2026-09-01T01:00:00Z"
     assert result["semantic_scope"] == "article"
+    assert result["content_truncated"] is False
     assert result["model_call_count"] == 0
     assert result["public_write_performed"] is False
     assert result["credential_or_session_material_read"] is False
@@ -155,6 +157,23 @@ def test_truncated_rendered_page_fails_closed():
     assert fake.closed is True
 
 
+def test_rendered_page_exceeding_byte_ceiling_fails_closed_instead_of_slicing():
+    fake = FakeTransport(
+        body=(
+            "# Oversized publisher report\n\n"
+            + "Material publisher evidence remains present and unsliced. " * 20
+        )
+    )
+
+    with pytest.raises(
+        BrowserRenderedSourceRecoveryError,
+        match="browser_rendered_content_truncated",
+    ):
+        _recovery(fake)(PUBLISHER_URL, 5.0, 256)
+
+    assert fake.closed is True
+
+
 def test_non_loopback_mcp_endpoint_is_rejected():
     with pytest.raises(
         BrowserRenderedSourceRecoveryError,
@@ -191,3 +210,50 @@ def test_default_simple_runtime_wires_browser_recovery_without_changing_owner():
         loader._rendered_source_get, BrowserOSNeoRenderedSourceRecovery
     )
     assert loader.request_count == 0
+
+
+def test_current_authority_resumes_product_first_without_mandatory_preflight_canary():
+    repo_root = Path(__file__).resolve().parents[1]
+    active_routing_docs = (
+        repo_root / "AGENTS.md",
+        repo_root / "docs" / "CURRENT_CONTEXT.md",
+        repo_root
+        / "docs"
+        / "automation"
+        / "CONTENTOPS_BROWSER_RENDERED_SOURCE_RECOVERY_V1.md",
+        repo_root
+        / "docs"
+        / "automation"
+        / "CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
+        repo_root
+        / "docs"
+        / "automation"
+        / "CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
+        repo_root
+        / "docs"
+        / "automation"
+        / "CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
+        repo_root
+        / "docs"
+        / "automation"
+        / "CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
+        repo_root
+        / "docs"
+        / "automation"
+        / "CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md",
+        repo_root
+        / "docs"
+        / "automation"
+        / "CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md",
+        repo_root / "docs" / "codegraph" / "V1_CONTEXT.md",
+        repo_root
+        / "docs"
+        / "automation"
+        / "CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
+    )
+
+    for path in active_routing_docs:
+        text = path.read_text(encoding="utf-8")
+        assert "PRODUCT_FIRST_AUTONOMOUS_V1_RESUME" in text, path
+        assert "CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT" not in text, path
+        assert "current-host read-only activation preflight\n-> one fresh live" not in text, path

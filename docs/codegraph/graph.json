@@ -84646,7 +84646,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 14187
+      "size_bytes": 14649
     },
     {
       "id": "Install_ContentOps_V1_Daily_App_Runtime.cmd",
@@ -84861,27 +84861,27 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 11942
+      "size_bytes": 12291
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 8068
+      "size_bytes": 8609
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 6330
+      "size_bytes": 6464
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 12318
+      "size_bytes": 12179
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 11608
+      "size_bytes": 11922
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -84891,7 +84891,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 10313
+      "size_bytes": 10734
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -85372,7 +85372,7 @@
     {
       "id": "live_contentops/browser_rendered_source_recovery_v1.py",
       "kind": "python_module",
-      "size_bytes": 20741
+      "size_bytes": 20498
     },
     {
       "id": "live_contentops/browser_safety_policy_v6.py",
@@ -87687,7 +87687,7 @@
     {
       "id": "live_contentops/public_secondary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 67650
+      "size_bytes": 67776
     },
     {
       "id": "live_contentops/publication_audit_record_contract_v6.py",
@@ -125126,7 +125126,7 @@
     {
       "id": "tests/test_browser_rendered_source_recovery_v1.py",
       "kind": "test",
-      "size_bytes": 6682
+      "size_bytes": 8855
     },
     {
       "id": "tests/test_browser_safety_policy_v6.py",
@@ -127481,7 +127481,7 @@
     {
       "id": "tests/test_public_secondary_evidence_loader_v1.py",
       "kind": "test",
-      "size_bytes": 36102
+      "size_bytes": 37589
     },
     {
       "id": "tests/test_publication_audit_record_contract_v6.py",
@@ -132945,5 +132945,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "3c3441a69024cb162ef8d98e5ad091519ee9c73c",
-  "source_tree_digest": "bca4cae9f4141b2619b337a56eb1572ede30f2f1e0718a1422f491422a3b5912"
+  "source_tree_digest": "1ebeb47ed513c7b0907c9d5fe33b531fd558e14e55d7238dbfef270777efa8b6"
 }

@@ -66,10 +66,12 @@ request ledger and never grants factual, numeric, publication, scheduler, store,
 credential authority. Gemini model involvement is optional and not used for deterministic
 navigation/read acquisition.
 
-Resume the main V1 objective from the locked PR #53 epoch: current-host read-only activation
-preflight, one fresh strictly reconciled live canary, then the four natural windows toward the
-5–8 useful articles/day target. This slice is not V2 progress and does not replace current CDP
-publication ownership.
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`: merge/deploy the corrected capability, run the already-
+activated four natural windows, observe real conversion/publication/reconciliation failures, and
+fix them toward the 5–8 useful articles/day target. A standalone preflight or fresh canary is
+conditional diagnostics only when current evidence materially requires it; neither is a routine
+prerequisite. Existing live-write identity/readiness/readback/UNKNOWN gates remain fail-closed.
+This slice is not V2 progress and does not replace current CDP publication ownership.
 
 ## Immutable architecture boundaries
 

@@ -184,6 +184,7 @@ def test_exact_bound_403_recovers_through_distinct_browser_rendered_provenance()
     assert document["published_at_source"] == "EXACT_BOUND_DISCOVERY_TIMESTAMP"
     assert document["browser_rendered_acquisition"]["browser_grants_factual_authority"] is False
     assert document["browser_rendered_acquisition"]["model_call_count"] == 0
+    assert document["content_truncated"] is False
     assert document["public_claim_allowed"] is True
 
 
@@ -302,6 +303,44 @@ def test_browser_response_claiming_public_write_is_rejected():
     assert result["provenance"]["browser_rendered_recovery_success_count"] == 0
     assert result["provenance"]["browser_rendered_recovery_diagnostics"] == [
         "browser_rendered_safety_boundary_invalid"
+    ]
+
+
+def test_truncated_browser_response_can_never_become_claim_authoritative():
+    url = "https://www.bloomberg.com/news/articles/2026-08-18/truncated-story"
+
+    def http_get(requested_url: str, _timeout: float, _maximum: int):
+        raise urllib.error.HTTPError(requested_url, 403, "Forbidden", {}, None)
+
+    def rendered_get(requested_url: str, _timeout: float, _maximum: int):
+        response = _rendered_response(requested_url)
+        response["content_truncated"] = True
+        return response
+
+    request = _request()
+    request["story_evidence_scope_id"] = "browser-rendered-truncated"
+    request["story_context"]["public_source_url_bindings"] = [
+        {
+            "headline_id": "headline-qatar-pilots",
+            "url": url,
+            "source_timestamp_utc": "2026-08-18T09:00:00Z",
+        }
+    ]
+
+    result = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=2,
+        max_requests_per_candidate=2,
+        http_get=http_get,
+        rendered_source_get=rendered_get,
+    )(request)
+
+    assert result["status"] == "BLOCKED"
+    assert result["evidence_documents"] == []
+    assert result["provenance"]["browser_rendered_recovery_attempt_count"] == 1
+    assert result["provenance"]["browser_rendered_recovery_success_count"] == 0
+    assert result["provenance"]["browser_rendered_recovery_diagnostics"] == [
+        "browser_rendered_content_truncated"
     ]
 
 

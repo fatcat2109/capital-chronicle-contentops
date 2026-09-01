@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Authority and Supersession Map V1
 
-Authority date: 2026-08-29
+Authority date: 2026-09-01
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, owner-gate, or branch assumptions.
@@ -88,14 +88,20 @@ The routine bridge classification above is deterministic repository/CI proof. It
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-None. Strictly reconciled published-count accounting is implemented by this current slice. The
-next gate is `CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT` and remains host/runtime proof.
+None. Strictly reconciled published-count accounting is implemented. The current route is
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`: deploy current bytes, run natural windows, observe real
+failures, and fix them.
 
 Single routine-owner composition, Simple emergency-stop/process coverage, and the routine Simple-to-existing-coordinator handoff are closed. Do not issue implementation tasks for them again unless fresh code proves regression.
 
 ### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-Before first new live V1 write: production DB integrity/schema, no unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, exact Edge `contentops-social-main` CDP 9223 profile, exact public destination/account identities, and fresh readiness for all nine surfaces. Do not inspect or expose secrets/session material.
+At every actual live-write boundary, the existing owner must fail closed on production DB
+integrity/schema, unresolved UNKNOWN/ambiguous dispatch/recovery backlog, duplicate production
+ownership, exact Edge `contentops-social-main` CDP 9223 identity, destination/account identity, and
+destination readiness. These are live boundary invariants, not a mandatory standalone preflight
+campaign. Run a bounded read-only diagnostic only when current evidence materially calls one into
+question. Do not inspect or expose secrets/session material.
 
 ### `SUPERSEDED_DO_NOT_REUSE`
 
@@ -124,12 +130,18 @@ Preserve, do not repeat merely for ceremony:
 
 Missing fresh host proof does not convert a proven implementation into a new implementation gap.
 
-## 6. Current activation sequence
+## 6. Current product sequence
 
-1. current-host read-only activation preflight — zero public write;
-3. one fresh live V1 end-to-end canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
-4. if clean with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day;
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`:
+
+1. merge/deploy/load the corrected current V1 bytes;
+2. run the already-activated four natural owner-locked windows;
+3. observe real evidence, article, publication, readback, and reconciliation failures;
+4. fix measured blockers toward 5–8 useful published articles/day;
 5. continue isolated V2 only under V2's separate authority boundaries.
+
+A new standalone current-host preflight or one-off canary is conditional diagnostics only when
+current evidence materially raises an exact hard boundary. It is not a routine prerequisite.
 
 Repository authority/static safety, emergency-stop coverage, single-owner composition, and routine publication handoff are closed. No fifth routine task. No filler. No blind retry after ambiguity.
 

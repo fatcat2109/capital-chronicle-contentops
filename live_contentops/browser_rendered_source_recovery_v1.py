@@ -471,13 +471,10 @@ class BrowserOSNeoRenderedSourceRecovery:
                     "browser_rendered_access_gate_detected"
                 )
             raw_bytes = rendered_markdown.encode("utf-8")
-            output_truncated = tool_truncated or len(raw_bytes) > int(max_bytes)
             if len(raw_bytes) > int(max_bytes):
-                rendered_markdown = raw_bytes[: int(max_bytes)].decode(
-                    "utf-8", errors="ignore"
+                raise BrowserRenderedSourceRecoveryError(
+                    "browser_rendered_content_truncated"
                 )
-                canonical_text = _canonical_rendered_text(rendered_markdown)
-                raw_bytes = rendered_markdown.encode("utf-8")
             observed = self._clock()
             heading = _MARKDOWN_H1_RE.search(rendered_markdown)
             return {
@@ -488,13 +485,13 @@ class BrowserOSNeoRenderedSourceRecovery:
                 "source_identity": final_host,
                 "title": heading.group(1).strip()[:500] if heading else "",
                 "rendered_markdown": rendered_markdown,
-                "canonical_content_text": canonical_text[:100_000],
+                "canonical_content_text": canonical_text,
                 "rendered_page_sha256": sha256(raw_bytes).hexdigest(),
                 "canonical_content_sha256": sha256(
                     canonical_text.encode("utf-8")
                 ).hexdigest(),
                 "byte_length": len(raw_bytes),
-                "content_truncated": output_truncated,
+                "content_truncated": False,
                 "retrieval_method": RETRIEVAL_METHOD,
                 "observed_at_utc": _iso_utc(observed),
                 "semantic_scope": selected_scope,

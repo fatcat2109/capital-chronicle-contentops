@@ -37,6 +37,10 @@ checks pass.
 Hard boundaries:
 
 - one browser recovery attempt per loader invocation, inside the existing six-request ledger;
+- any BrowserOS tool-reported truncation or rendered payload above the configured byte ceiling
+  fails closed before a `PASS` result exists;
+- the evidence loader independently rejects any rendered response whose `content_truncated` field
+  is absent or not exactly `false`, so truncated bytes can never set `public_claim_allowed=true`;
 - no click/type/evaluate/upload/download/login/consent interaction;
 - no cookie, token, storage, credential, or session-material read;
 - no model call in browser acquisition;
@@ -65,6 +69,8 @@ Focused coverage includes:
 - exact publisher hash-bound read-only recovery;
 - cross-publisher redirect rejection;
 - login/subscribe gate rejection;
+- tool-reported and configured-byte-ceiling truncation rejection;
+- defense-in-depth loader rejection of any truncated rendered response before claim authority;
 - 401 non-recovery and route-health-suppression recovery;
 - HTTP 403 and 200 JavaScript-shell fallback;
 - shared request ledger, one-attempt cap, distinct retrieval provenance;
@@ -118,17 +124,21 @@ is proven. It is also not current account/session readiness or live-publication 
 ## Resume state
 
 The isolated browser architecture objective is complete enough to return to the main V1
-objective. Resume from the locked PR #53 epoch (`1c0354347e51d7b84bd7e41386d7bf428709e4bf`)
-and its natural autonomous windows. The next main-product state is still:
+objective. `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME` applies from the locked PR #53 epoch
+(`1c0354347e51d7b84bd7e41386d7bf428709e4bf`) and its natural autonomous windows:
 
 ```text
-current-host read-only activation preflight
--> one fresh live Simple -> canonical Substack -> exactly eight derivatives canary
--> strict readback/reconciliation with UNKNOWN_WRITE=0
--> four routine windows toward 5–8 useful articles/day
+merge/deploy corrected source-recovery bytes
+-> four already-activated natural routine windows
+-> observe real evidence/article/publication/reconciliation failures
+-> fix the measured blockers toward 5–8 useful articles/day
 ```
 
-Do not rerun the historical Italy canary, create a second scheduler/store/coordinator, replace
-CDP publication transports, or treat this shadow proof as a public-write canary. BrowserOS Neo
-remains a source-recovery/diagnostic layer; `SIMPLE_GEMINI_RUNTIME` and
+A fresh standalone preflight or one-off canary is not a prerequisite. Use either only when current
+evidence materially requires bounded diagnosis of an exact identity/readiness ambiguity,
+unresolved `UNKNOWN_WRITE`, irreversible-risk boundary, or other hard stop. Existing inline
+live-write identity, readiness, canonical readback, and reconciliation gates remain fail-closed.
+Do not rerun the historical Italy canary, create a second scheduler/store/coordinator, replace CDP
+publication transports, or treat this shadow proof as a public-write canary. BrowserOS Neo remains
+a source-recovery/diagnostic layer; `SIMPLE_GEMINI_RUNTIME` and
 `DurablePublicationCoordinator` remain the V1 owners.

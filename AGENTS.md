@@ -211,10 +211,15 @@ The implementation is hybrid rather than a wholesale CDP replacement:
   `DurablePublicationCoordinator` remain the owners; current CDP publication transports,
   scheduler, store, and numeric authority remain unchanged.
 
-The main V1 autonomous-routine objective now resumes from the locked PR #53 epoch. First run
-current-host read-only activation preflight, then one fresh strictly reconciled live canary, then
-the four natural routine windows toward 5–8 useful articles/day. This browser shadow proof is not
-a public-write canary and does not prove the daily target.
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME` is now the repository route. Merge/deploy the corrected
+capability, let the already-activated four natural routine windows run under their existing
+owner-locked contracts, observe real intake-to-publication/reconciliation failures, and repair
+those failures toward 5–8 useful articles/day. A new standalone activation preflight or fresh
+canary is not a prerequisite unless current evidence materially raises identity/readiness
+ambiguity, an unresolved `UNKNOWN_WRITE`, a destructive/irreversible boundary, or another exact
+hard stop. Existing inline destination identity, readiness, canonical readback, and reconciliation
+gates remain fail-closed at the live-write boundary. The browser shadow proof itself is not a
+public-write result and does not prove the daily target.
 
 Do not reinterpret the architecture slice as V2 progress.
 

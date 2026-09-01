@@ -417,6 +417,8 @@ class BoundedPublicSecondaryEvidenceLoader:
     ) -> dict[str, Any]:
         if response.get("retrieval_method") != BROWSER_RENDERED_RETRIEVAL_METHOD:
             raise ValueError("browser_rendered_retrieval_method_invalid")
+        if response.get("content_truncated") is not False:
+            raise ValueError("browser_rendered_content_truncated")
         if any(
             (
                 response.get("public_write_performed") is not False,

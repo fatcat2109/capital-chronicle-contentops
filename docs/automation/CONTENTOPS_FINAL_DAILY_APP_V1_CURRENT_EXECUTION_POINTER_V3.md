@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — V1 Current Execution Pointer V3
 
-Authority date: 2026-08-29
+Authority date: 2026-09-01
 Status: `CURRENT_V1_LANE_POINTER / V1_ACCEPTED / ACTIVATION`
 
 ## Current route
@@ -59,9 +59,9 @@ The existing `DurablePublicationCoordinator`, durable V1 store, destination regi
 
 The historical Italy canary already proved one Substack + exactly eight derivatives across all nine surfaces with strict reconciliation and `UNKNOWN_WRITE=0`. Do not rerun Italy merely to prove transport.
 
-## Exact current next gate
+## Exact current product route
 
-`CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT`
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`
 
 Published/reconciled accounting is implemented. Live daily-output count and bounded capacity use
 strictly reconciled canonical publications; qualified-article count remains separate telemetry.
@@ -70,15 +70,24 @@ second ledger or publication store.
 
 ## `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-After published/reconciled accounting implementation and before the first new live write, read-only preflight must prove production DB integrity/schema, no unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge `contentops-social-main` CDP 9223, exact current destination/account identities, and fresh readiness for all nine surfaces. Do not inspect or expose secrets/session material.
+At every actual live-write boundary, existing owners must fail closed on production DB integrity/schema,
+unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge
+`contentops-social-main` CDP 9223, exact current destination/account identities, and destination
+readiness. A standalone read-only preflight is conditional diagnostics only when current evidence
+materially raises one of those hard boundaries. Do not inspect or expose secrets/session material.
 
 Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only.
 
-## Current activation sequence
+## Current product sequence
 
-1. current-host read-only activation preflight — no public write;
-3. one fresh live end-to-end V1 canary under already-granted authority: Simple -> canonical Substack -> exactly eight derivatives -> strict readback/reconciliation;
-4. if the canary reconciles cleanly with `UNKNOWN_WRITE=0`, enable the four routine live windows toward 5–8 useful published articles/day.
+1. merge/deploy/load corrected current bytes;
+2. run the already-activated four natural routine windows;
+3. observe real evidence/article/publication/readback/reconciliation failures;
+4. fix measured blockers toward 5–8 useful articles/day.
+
+A standalone preflight or one-off canary is conditional diagnostics only when fresh evidence
+materially requires an exact hard-boundary check. No fifth routine task. No filler. No blind retry
+after ambiguity.
 
 No fifth routine task. No filler. No blind retry after ambiguity.
 
