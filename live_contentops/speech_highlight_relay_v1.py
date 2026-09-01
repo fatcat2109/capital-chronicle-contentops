@@ -331,44 +331,58 @@ For each candidate provide:
                 "provider_call_verified": True,
             }
         elif os.environ.get("NINE_ROUTER_API_KEY"):
-            try:
-                from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
-                t0 = time.monotonic()
-                res = call_nine_router(
-                    prompt=prompt,
-                    model="vx/gemini-3.5-flash(high)",
-                    timeout_seconds=45.0,
-                )
-                dt = time.monotonic() - t0
-                if res.status_code == 200 and res.text:
-                    proposals = self._parse_llm_response(res.text)
+            from live_contentops.nine_router_provider_adapter_v2 import call_nine_router
+            model_pool = ["vx/gemini-3.5-flash(high)", "vx/gemini-3.1-pro-preview(high)"]
+            for model_name in model_pool:
+                try:
+                    t0 = time.monotonic()
+                    res = call_nine_router(
+                        prompt=prompt,
+                        model=model_name,
+                        timeout_seconds=45.0,
+                    )
+                    dt = time.monotonic() - t0
+                    if res.status_code == 200 and res.text:
+                        parsed = self._parse_llm_response(res.text)
+                        if parsed:
+                            proposals = parsed
+                            model_execution_evidence = {
+                                "engine": "CONTENTOPS_9ROUTER_GATEWAY",
+                                "gateway": "http://localhost:20128/v1",
+                                "model_requested": model_name,
+                                "model_observed": res.resolved_model or model_name,
+                                "status_code": res.status_code,
+                                "usage": dict(res.usage or {}),
+                                "latency_seconds": round(dt, 3),
+                                "disposition": "ACCEPTED",
+                                "provider_call_verified": True,
+                            }
+                            break
+                        else:
+                            model_execution_evidence = {
+                                "engine": "CONTENTOPS_9ROUTER_GATEWAY",
+                                "model_requested": model_name,
+                                "status_code": res.status_code,
+                                "disposition": "PARSING_FAILED",
+                                "provider_call_verified": False,
+                            }
+                    else:
+                        model_execution_evidence = {
+                            "engine": "CONTENTOPS_9ROUTER_GATEWAY",
+                            "model_requested": model_name,
+                            "status_code": res.status_code,
+                            "error": str(res.failure_class or "HTTP_NON_200"),
+                            "disposition": "REJECTED_BY_GATEWAY",
+                            "provider_call_verified": False,
+                        }
+                except Exception as e:
                     model_execution_evidence = {
                         "engine": "CONTENTOPS_9ROUTER_GATEWAY",
-                        "gateway": "http://localhost:20128/v1",
-                        "model_requested": "vx/gemini-3.5-flash(high)",
-                        "model_observed": res.resolved_model or "gemini-3.5-flash",
-                        "status_code": res.status_code,
-                        "usage": dict(res.usage or {}),
-                        "latency_seconds": round(dt, 3),
-                        "disposition": "ACCEPTED" if proposals else "PARSING_FAILED",
-                        "provider_call_verified": bool(proposals),
-                    }
-                else:
-                    model_execution_evidence = {
-                        "engine": "CONTENTOPS_9ROUTER_GATEWAY",
-                        "model_requested": "vx/gemini-3.5-flash(high)",
-                        "status_code": res.status_code,
-                        "error": str(res.failure_class or "HTTP_NON_200"),
-                        "disposition": "REJECTED_BY_GATEWAY",
+                        "model_requested": model_name,
+                        "error": str(e),
+                        "disposition": "ROUTER_CALL_EXCEPTION",
                         "provider_call_verified": False,
                     }
-            except Exception as e:
-                model_execution_evidence = {
-                    "engine": "CONTENTOPS_9ROUTER_GATEWAY",
-                    "error": str(e),
-                    "disposition": "ROUTER_CALL_EXCEPTION",
-                    "provider_call_verified": False,
-                }
 
         if not proposals:
             # Fall back to deterministic heuristic for offline tests or when network is disabled
