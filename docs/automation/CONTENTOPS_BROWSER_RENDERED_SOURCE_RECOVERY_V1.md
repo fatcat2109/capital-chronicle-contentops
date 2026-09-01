@@ -77,10 +77,12 @@ Focused coverage includes:
 - existing report/event epistemic-state integration;
 - existing scheduler/coordinator/publication regressions.
 
-The final focused run passed **210 tests** across browser recovery, secondary evidence,
-Simple resolver/epistemic/article paths, scheduler/process, publication handoff/recovery, and
-  publication coordinator suites. The final browser/evidence/epistemic subset passed **76 tests**
-  after the route-health, provenance-propagation, wrapper-removal, and truncation guards.
+The initial focused run passed **210 tests** across browser recovery, secondary evidence, Simple
+resolver/epistemic/article paths, scheduler/process, publication handoff/recovery, and
+publication coordinator suites. After the fail-closed correction, the local regression run passed
+**324 tests** (including **28** browser-rendered/evidence/authority tests) across the same product
+path. The browser/evidence subset now covers route health, provenance propagation, wrapper removal,
+tool-reported truncation, byte-ceiling overflow, and loader defense-in-depth claim blocking.
 
 ## Measured live improvement
 
