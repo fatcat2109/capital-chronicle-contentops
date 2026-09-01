@@ -1,6 +1,6 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `3c3441a69024cb162ef8d98e5ad091519ee9c73c`
+Source HEAD: `72152b859d6386748af86361c8a18b8002d3c859`
 Source tree digest: `1ebeb47ed513c7b0907c9d5fe33b531fd558e14e55d7238dbfef270777efa8b6`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.1`
 
