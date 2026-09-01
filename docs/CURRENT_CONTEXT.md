@@ -1,10 +1,10 @@
 # Capital Chronicle ContentOps — Current Context
 
-Authority date: 2026-08-24
-Status: `CURRENT_BOOTSTRAP_POINTER / AUTHORITY_LOCKED_AFTER_TRUTH_SWEEP`
+Authority date: 2026-09-01
+Status: `CURRENT_BOOTSTRAP_POINTER / MAIN_V1_STATE_LOCKED_BEFORE_BROWSER_SOURCE_ARCHITECTURE`
 
 This is a compact bootstrap only. Root `AGENTS.md`, the current authority/supersession map, North
-Star V3, Master Plan V3, and current lane pointer are stronger.
+Star V3, Master Plan V3, and exact current code/runtime evidence are stronger.
 
 ## Read first
 
@@ -19,74 +19,69 @@ Star V3, Master Plan V3, and current lane pointer are stronger.
 9. nearest scoped `AGENTS.md`
 10. exact current code/tests/evidence/host truth.
 
-Always fetch remote master and relevant branches before trusting recorded SHAs.
+Always fetch remote `master` and relevant branches before trusting recorded SHAs.
 
-## Locked V1 truth
+## Locked V1 truth before the browser-source architecture detour
 
-- The real owner-scoped Italy canary is complete: one canonical Substack article plus exactly eight
-  derivative packages, all nine reconciled, `UNKNOWN_WRITE=0`. Do not repeat it to prove
-  publication.
-- The first four-opportunity 4/32 proof already ran and truthfully failed at `0 qualified articles /
-  0 derivative intents` after 40 distinct stories. It is failed acceptance evidence, not an
-  unstarted task.
-- Cross-midnight production-day accounting, the four-window harness, and bounded deficit recovery
-  are accepted current foundation.
-- The later evidence foundation produced four distinct governed evidence-ready candidates with
-  deterministic retrieval/hash/freshness, redirect repair, source-route health, same-candidate
-  resume, and frozen worker transport.
-- Its historical 35 URL-discovery calls and 10,237,897 discovery tokens are not an accepted routine
-  default. PR #19's provider-resilient quota-efficient batch/tail discovery is accepted and reusable:
-  four governed ready candidates, three batch turns, and 712,842 accounted tokens.
-- Exactly four native V1 routine Automations exist and are `PAUSED` on the correct model/effort/
-  schedules/project with one matching repo-derived FAST-SHIP prompt hash. Calendar-time unattended
-  execution remains unproven; never create a fifth task.
-- At the sweep epoch the production store was read-only healthy with `UNKNOWN_WRITE=0`, but the
-  Daily App process/listener was not running. That at-rest observation is not a cold-start PASS.
-- PR #20 independently accepted one useful `BREAKING_BRIEF` plus eight undispatched derivative
-  intents with zero public/provider/unknown writes. Reuse its native worker-return normalization and
-  source-omission hard protection.
+Protected/deployed V1 epoch before the detour:
 
-## Output contract
+`1c0354347e51d7b84bd7e41386d7bf428709e4bf` (merged PR #53)
 
-Throughput benchmark and daily-output diagnostic:
+Confirmed current product truth:
 
-`4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES / 32 DERIVATIVE INTENTS per newsroom production day`
+- `V1_FINAL_PRODUCT_ACCEPTED = TRUE` and routine V1 public-write/readback authority is already granted.
+- `SIMPLE_GEMINI_RUNTIME` is the sole routine editorial owner.
+- `DurablePublicationCoordinator` remains the sole public-write/readback owner.
+- One current V1 product lifecycle has already completed canonical Substack plus exactly eight durable-confirmed derivative destinations.
+- Routine mode has been activated as `AUTONOMOUS_DEFAULT`.
+- One natural production day then reproduced `AUTOMATION_RUNNING_BUT_OUTPUT_STARVED`: the old detached scheduler missed 17:00/21:00; 23:00 and following 01:00 ran but produced zero new articles under `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED`.
+- PR #51 repaired persistent scheduler ownership and source-route health carry-forward.
+- PR #52 repaired repeated selection of candidates already proven `SOURCE_BLOCKED` in the same production day.
+- PR #53 proved stale continuous intake was a real root cause, restored persistent Daily App intake/state/API ownership, corrected sourceability around the existing canonical-X zero-GET relay route, improved route-diverse selection, normalized relay attribution, and repaired fail-closed exactly-eight derivative compilation for unconfirmed reporting.
+- After PR #53, a real current candidate crossed the previously universal source-retrieval blocker, reached `SOURCE_QUALIFIED` with one accepted source and zero GETs, passed deterministic article validation, and compiled exactly 8/8 derivative packages.
+- A later stochastic writer replay failed closed at `claim_fields_invalid`; it was not converted into filler or publication.
+- Current V1 is repaired and healthy-idle, but reliable `5–8/day` output is NOT runtime-proven and no natural routine opportunity has yet proven the PR #53 epoch converts fresh intake into routine public output.
+- Historical Substack object `213355736` was later reconciled by an external actor to the same object. PR #53 did not retry, publish, or mutate that incident as part of the reconciliation.
 
-This benchmark is not a prerequisite for proving or advancing one safe qualified article path.
+## Product contract
 
 Final V1 target:
 
 `5–8 PUBLISHED ARTICLES per newsroom production day`
 
-Candidate abstention is valid. Whole-day deficit is not healthy success without an exact hard
-external blocker. No filler and no weaker truth/evidence/rights/permission/numeric-authority gates.
+No filler. Candidate abstention is valid. Whole-day deficit is not healthy success without an exact hard external blocker.
 
-## Current progression order
+Routine windows remain 17:00, 21:00, 23:00, and following 01:00 Asia/Bangkok. Do not create a fifth routine scheduler/window.
 
-1. preserve accepted PR #19 discovery and PR #20 article-path capability;
-2. preserve the completed four-prompt normalization/readback with all objects paused;
-3. obtain exact zero-write Automation enablement authority and calendar-time unattended proof;
-4. retain 4/32 as throughput/economics telemetry rather than a launch gate;
-5. complete fresh current-epoch V5 acceptance and separate routine public-write/final-product
-   authority decisions;
-6. only after explicit V1 acceptance begin authorized V2 continuation.
+## Current intentional detour
 
-## V2 boundary
+The main V1 autonomous-routine objective is intentionally paused at the PR #53 epoch while the isolated side objective below is built/evaluated:
 
-Current master already owns the free-form/package/publication-control substrates. Historical donor
-branch `task/v2-native-staggered-automation-relay-shadow-correction-v1` proves useful unattended,
-recovery, locale, read-only-trigger, and native-relay capability absent master. Reconcile it
-selectively after the V1 gate; do not wholesale-merge stale authority or rebuild proven systems
-from zero. V1 runtime/store/browser/publication authority remains isolated. Current V2 public-write
-authority is exactly zero.
+`BROWSER_RENDERED_SOURCE_RECOVERY_ARCHITECTURE`
 
-## Immutable safety anchors
+Desired outcome: increase conversion of real fresh candidates into trustworthy evidence-qualified articles when ordinary deterministic HTTP retrieval cannot access useful rendered publisher content.
 
-- Core Analyzer owns proprietary analytical/numeric truth;
-- internal/context Analyzer material is not public permission;
-- `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`;
-- Chrome `CapitalChronicleBot` 9222 is ingestion only;
-- Edge `contentops-social-main` 9223 is publication/media/readback and explicitly authorized
-  observation only;
-- protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`;
-- no public write, Automation mutation, or final acceptance without exact owner authority.
+Current direction is hybrid, not a wholesale publication-browser replacement:
+
+- deterministic HTTP remains first;
+- browser-rendered acquisition may recover exact governed 403/JS/render-only sources;
+- browser-rendered evidence must have truthful distinct provenance, not masquerade as raw HTTP GET bytes;
+- Gemini through the existing 9Router route may provide browser reasoning where useful, while deterministic navigation/read should not require a model when unnecessary;
+- BrowserOS Neo is an experiment/source-recovery and diagnostic layer, not current publication authority;
+- existing scheduler/store/coordinator/publication ownership remains unchanged;
+- current CDP publication transports remain unchanged unless later product evidence justifies a different transport.
+
+After the isolated architecture work reaches a useful conclusion, return to the locked PR #53 main V1 state and resume proof toward reliable autonomous canonical Substack + exactly eight derivatives and the 5–8 useful articles/day North Star.
+
+This detour is not V2 progress.
+
+## Immutable architecture boundaries
+
+- Core Analyzer owns proprietary analytical/numeric truth.
+- ContentOps owns discovery, grounded research, selection, writing, SEO, media, distribution, readback/reconciliation, observation, and controlled learning.
+- `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
+- Chrome `CapitalChronicleBot` CDP 9222 remains ingestion only.
+- Edge `contentops-social-main` CDP 9223 remains current publication/media/readback/authorized observation owner.
+- Do not create a second routine scheduler, durable store, publisher/coordinator, or authority system.
+- Do not expose secrets/session material, perform destructive production-store/ref mutation, or blindly repeat a known ambiguous public write.
+- Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
