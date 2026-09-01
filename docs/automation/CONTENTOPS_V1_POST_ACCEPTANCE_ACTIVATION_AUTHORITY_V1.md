@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — V1 Post-Acceptance Activation Authority V1
 
-Authority date: 2026-08-29
+Authority date: 2026-09-01
 Status: `CURRENT_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY`
 Repository baseline at creation: `db0befb8ad44f1080c67fcb801e5470ce7852369`
 
@@ -40,14 +40,19 @@ The corrected PR #42 classification is repository/CI proof only. It does not est
 
 ### `NEW_IMPLEMENTATION_GAP`
 
-The published-vs-qualified production-day accounting gap is closed by the current accounting
-slice. The next gate is current-host read-only activation proof.
+The published-vs-qualified production-day accounting gap is closed. The current route is
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`, not another activation-proof campaign.
 
 Single-owner production composition, Simple emergency-stop/process coverage, and the actual routine Simple publication handoff are closed. Do not reissue them unless fresh current code proves a regression.
 
 ### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
 
-After published/reconciled accounting implementation and before the first new live V1 write, prove read-only current host state: production DB integrity/schema, no unresolved UNKNOWN write or ambiguous dispatch/recovery backlog, exactly one production owner/process, exact Edge `contentops-social-main` publication profile on CDP 9223, exact account/destination identities, and fresh nine-destination readiness. Do not inspect or expose secrets/session material.
+At every actual live-write boundary, the existing owners must prove/fail closed on production DB
+integrity/schema, unresolved UNKNOWN or ambiguous dispatch/recovery backlog, exactly-one production
+ownership, Edge `contentops-social-main` CDP 9223 identity, account/destination identity, and
+destination readiness. A standalone read-only preflight is conditional diagnostics when current
+evidence materially raises one of those risks; it is not a universal prerequisite. Do not inspect
+or expose secrets/session material.
 
 ### `SUPERSEDED_DO_NOT_REUSE`
 
@@ -59,13 +64,19 @@ After published/reconciled accounting implementation and before the first new li
 - Pre-PR39 claims that current routine production ownership is ambiguous.
 - Pre-correction PR #42 claims that a component-level supervisor bridge proves the actual persistent scheduler route.
 
-## 3. Current activation sequence
+## 3. Current product sequence
 
-The accepted V1 product is not to be rebuilt. PR #38/PR #39 and corrected PR #42 close repository static safety/emergency-stop, single-owner composition, and the actual routine Simple publication handoff. Activation now proceeds in the remaining bounded slices:
+The accepted and already-activated V1 product is not to be rebuilt or held behind renewed
+ceremony. `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME` means:
 
-1. **Current-host read-only activation preflight.** Revalidate production store/recovery state, current browser/account identities, destination readiness, exactly-one owner/process, and zero unresolved UNKNOWN write. No public write during preflight.
-3. **One live V1 end-to-end canary under already granted routine authority.** One fresh governed article only: Simple editorial path -> canonical Substack -> exactly eight derivative destinations -> strict readback/reconciliation. Stop immediately on wrong identity, unresolved UNKNOWN write, destructive mutation, or ambiguous public-object identity.
-4. **Routine production enablement.** Only after the canary is strictly reconciled should the four owner-locked windows run live toward 5–8 useful published articles per production day. No filler and no fifth routine task.
+1. merge/deploy/load corrected current bytes;
+2. run the four existing owner-locked natural windows;
+3. observe real source, article, publication, readback, and reconciliation failures;
+4. fix measured blockers toward 5–8 useful published articles per production day.
+
+Use a bounded read-only preflight or one-off canary only when fresh evidence materially requires
+diagnosis of an exact hard boundary. Stop immediately on wrong identity, unresolved UNKNOWN write,
+destructive mutation, or ambiguous public-object identity. No filler and no fifth routine task.
 
 ## 4. Non-negotiable invariants
 
@@ -82,6 +93,10 @@ The accepted V1 product is not to be rebuilt. PR #38/PR #39 and corrected PR #42
 
 ## 5. What acceptance means now
 
-`V1_FINAL_PRODUCT_ACCEPTED` is an owner product decision and is already true. It does not mean every current host session is proven healthy. The routine publication bridge is now repository/CI-proven; the remaining work is published accounting, then current-host revalidation and live activation—not another product-acceptance campaign.
+`V1_FINAL_PRODUCT_ACCEPTED` is an owner product decision and is already true. It does not mean every
+current host session is healthy, so the actual live-write boundary remains fail-closed. The routine
+publication bridge and published accounting are closed; current work is natural autonomous product
+operation and repair of observed failures, not another revalidation, live-activation, or product-
+acceptance campaign.
 
 A below-target live production day remains `DEGRADED_DAILY_OUTPUT_DEFICIT` absent an exact hard external blocker. Candidate-level abstention remains valid; whole-day silent success does not.

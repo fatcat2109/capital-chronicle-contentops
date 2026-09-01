@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14065,
+    "edges": 14073,
     "entrypoints": 20,
-    "nodes": 7444,
+    "nodes": 7451,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -24,12 +24,12 @@
       "http_endpoint": 6,
       "instructions": 8,
       "manifest": 21,
-      "python_class": 608,
+      "python_class": 612,
       "python_function": 4064,
       "python_method": 306,
-      "python_module": 776,
-      "schema": 217,
-      "test": 743,
+      "python_module": 777,
+      "schema": 218,
+      "test": 744,
       "typescript_export": 506,
       "typescript_or_javascript_module": 109
     }
@@ -3394,6 +3394,48 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_browser_interaction_budget_v1.py"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoMcpTransport"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoRenderedSourceRecovery"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoTransport"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserRenderedSourceRecoveryError"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.browser_rendered_source_recovery.v1"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_browser_rendered_source_recovery_v1.py"
     },
     {
       "from": "live_contentops/browser_safety_policy_v6.py",
@@ -73446,6 +73488,12 @@
       "to": "live_contentops/browser_interaction_budget_v1.py"
     },
     {
+      "from": "tests/test_browser_rendered_source_recovery_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/browser_rendered_source_recovery_v1.py"
+    },
+    {
       "from": "tests/test_browser_safety_policy_v6.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -84565,7 +84613,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-09-01T00:53:40Z",
+  "generation_timestamp_utc": "2026-09-01T10:13:50Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84598,7 +84646,7 @@
     {
       "id": "AGENTS.md",
       "kind": "instructions",
-      "size_bytes": 14262
+      "size_bytes": 14649
     },
     {
       "id": "Install_ContentOps_V1_Daily_App_Runtime.cmd",
@@ -84813,27 +84861,27 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 11942
+      "size_bytes": 12291
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 8068
+      "size_bytes": 8609
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 6330
+      "size_bytes": 6464
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 12318
+      "size_bytes": 12179
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 11608
+      "size_bytes": 11922
     },
     {
       "id": "docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md",
@@ -84843,7 +84891,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 10313
+      "size_bytes": 10734
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -85320,6 +85368,11 @@
       "id": "live_contentops/browser_interaction_budget_v1.py",
       "kind": "python_module",
       "size_bytes": 11705
+    },
+    {
+      "id": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "kind": "python_module",
+      "size_bytes": 20498
     },
     {
       "id": "live_contentops/browser_safety_policy_v6.py",
@@ -87634,7 +87687,7 @@
     {
       "id": "live_contentops/public_secondary_evidence_loader_v1.py",
       "kind": "python_module",
-      "size_bytes": 52877
+      "size_bytes": 67776
     },
     {
       "id": "live_contentops/publication_audit_record_contract_v6.py",
@@ -88349,12 +88402,12 @@
     {
       "id": "live_contentops/v1_simple_evidence_resolver_v1.py",
       "kind": "python_module",
-      "size_bytes": 19182
+      "size_bytes": 21310
     },
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 111377
+      "size_bytes": 112316
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -91396,6 +91449,34 @@
       "line": 128,
       "path": "live_contentops/browser_interaction_budget_v1.py",
       "symbol": "sanitize_process_metadata"
+    },
+    {
+      "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoMcpTransport",
+      "kind": "python_class",
+      "line": 152,
+      "path": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "symbol": "BrowserOSNeoMcpTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoRenderedSourceRecovery",
+      "kind": "python_class",
+      "line": 350,
+      "path": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "symbol": "BrowserOSNeoRenderedSourceRecovery"
+    },
+    {
+      "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoTransport",
+      "kind": "python_class",
+      "line": 59,
+      "path": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "symbol": "BrowserOSNeoTransport"
+    },
+    {
+      "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserRenderedSourceRecoveryError",
+      "kind": "python_class",
+      "line": 55,
+      "path": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "symbol": "BrowserRenderedSourceRecoveryError"
     },
     {
       "id": "python_symbol:live_contentops/browser_safety_policy_v6.py::get_safety_policy",
@@ -114087,7 +114168,7 @@
     {
       "id": "python_symbol:live_contentops/public_secondary_evidence_loader_v1.py::BoundedPublicSecondaryEvidenceLoader",
       "kind": "python_class",
-      "line": 230,
+      "line": 255,
       "path": "live_contentops/public_secondary_evidence_loader_v1.py",
       "symbol": "BoundedPublicSecondaryEvidenceLoader"
     },
@@ -120611,21 +120692,21 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_evidence_resolver_v1.py::SimpleFirstPartyAwareEvidenceResolver",
       "kind": "python_class",
-      "line": 73,
+      "line": 74,
       "path": "live_contentops/v1_simple_evidence_resolver_v1.py",
       "symbol": "SimpleFirstPartyAwareEvidenceResolver"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::SimpleGeminiNewsroomError",
       "kind": "python_class",
-      "line": 152,
+      "line": 159,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "SimpleGeminiNewsroomError"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1771,
+      "line": 1791,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -123483,6 +123564,11 @@
       "schema_id": "contentops.browser_interaction_telemetry.v1"
     },
     {
+      "id": "schema:contentops.browser_rendered_source_recovery.v1",
+      "kind": "schema",
+      "schema_id": "contentops.browser_rendered_source_recovery.v1"
+    },
+    {
       "id": "schema:contentops.canonical_x_list_record_provenance.v1",
       "kind": "schema",
       "schema_id": "contentops.canonical_x_list_record_provenance.v1"
@@ -125036,6 +125122,11 @@
       "id": "tests/test_browser_lab_paths_gitignore.py",
       "kind": "test",
       "size_bytes": 1038
+    },
+    {
+      "id": "tests/test_browser_rendered_source_recovery_v1.py",
+      "kind": "test",
+      "size_bytes": 8855
     },
     {
       "id": "tests/test_browser_safety_policy_v6.py",
@@ -127390,7 +127481,7 @@
     {
       "id": "tests/test_public_secondary_evidence_loader_v1.py",
       "kind": "test",
-      "size_bytes": 24222
+      "size_bytes": 37589
     },
     {
       "id": "tests/test_publication_audit_record_contract_v6.py",
@@ -128150,7 +128241,7 @@
     {
       "id": "tests/test_v1_simple_epistemic_state_v1.py",
       "kind": "test",
-      "size_bytes": 59606
+      "size_bytes": 63983
     },
     {
       "id": "tests/test_v1_simple_evidence_resolver_v1.py",
@@ -132853,6 +132944,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "c97f4060affadaa273970e1097027c69ecb17a09",
-  "source_tree_digest": "8d39254a42cd4b8aa2356af5b0f98cc9ee4b8e28f2911734f2a9a4d2d918a36a"
+  "source_head": "72152b859d6386748af86361c8a18b8002d3c859",
+  "source_tree_digest": "1ebeb47ed513c7b0907c9d5fe33b531fd558e14e55d7238dbfef270777efa8b6"
 }

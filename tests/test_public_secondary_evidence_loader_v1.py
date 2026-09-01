@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from hashlib import sha256
 import urllib.request
 import urllib.parse
 import urllib.error
@@ -14,6 +15,7 @@ from live_contentops.public_secondary_evidence_loader_v1 import (
     _default_public_http_get,
     _rss_relevance_score,
 )
+from live_contentops.browser_rendered_source_recovery_v1 import RETRIEVAL_METHOD
 
 
 AS_OF = "2026-08-19T10:23:11Z"
@@ -69,6 +71,277 @@ def _response(url: str, body: bytes, content_type: str):
         "body": body,
         "content_truncated": False,
     }
+
+
+def _rendered_response(url: str) -> dict:
+    markdown = """# Bond Investors Wary After Warsh Speech Fuels Rate-Hike Bets
+
+Bloomberg reports that bond investors at ABN AMRO Investment Solutions and Brandywine
+Global Investment Management are skeptical about speculation that Federal Reserve Chair
+Kevin Warsh is poised to raise interest rates. The rendered publisher article describes
+the disagreement, the market pricing, and the policy-sensitive Treasury move in enough
+detail to support a narrow attributed report while the broader interpretation remains
+subject to the existing claim and epistemic validators.
+""".strip()
+    canonical = " ".join(markdown.replace("# ", "", 1).split())
+    return {
+        "schema_version": "contentops.browser_rendered_source_recovery.v1",
+        "status": "PASS",
+        "requested_url": url,
+        "final_url": url,
+        "source_identity": "www.bloomberg.com",
+        "title": "Bond Investors Wary After Warsh Speech Fuels Rate-Hike Bets",
+        "rendered_markdown": markdown,
+        "canonical_content_text": canonical,
+        "rendered_page_sha256": sha256(markdown.encode()).hexdigest(),
+        "canonical_content_sha256": sha256(canonical.encode()).hexdigest(),
+        "byte_length": len(markdown.encode()),
+        "content_truncated": False,
+        "retrieval_method": RETRIEVAL_METHOD,
+        "observed_at_utc": "2026-08-19T10:20:00Z",
+        "semantic_scope": "article",
+        "browser_runtime": {
+            "server_name": "browseros-neo",
+            "server_version": "0.0.test",
+            "mcp_protocol_version": "2025-06-18",
+        },
+        "tool_policy": {
+            "allowed_tools_used": ["name_session", "tabs", "read"],
+            "act_tool_used": False,
+            "evaluate_tool_used": False,
+            "upload_tool_used": False,
+            "download_tool_used": False,
+        },
+        "persistent_browser_profile_used": True,
+        "browser_authentication_state": "NOT_INSPECTED",
+        "login_or_consent_interaction_performed": False,
+        "credential_or_session_material_read": False,
+        "paywall_or_access_control_bypass": False,
+        "model_call_count": 0,
+        "public_write_performed": False,
+        "publication_authority": False,
+        "factual_authority_granted_by_browser": False,
+        "numeric_authority_granted": False,
+    }
+
+
+def test_exact_bound_403_recovers_through_distinct_browser_rendered_provenance():
+    url = "https://www.bloomberg.com/news/articles/2026-08-18/example-story"
+    http_calls: list[str] = []
+    browser_calls: list[str] = []
+
+    def http_get(requested_url: str, _timeout: float, _maximum: int):
+        http_calls.append(requested_url)
+        raise urllib.error.HTTPError(requested_url, 403, "Forbidden", {}, None)
+
+    def rendered_get(requested_url: str, _timeout: float, _maximum: int):
+        browser_calls.append(requested_url)
+        return _rendered_response(requested_url)
+
+    request = _request()
+    request["story_evidence_scope_id"] = "browser-rendered-bloomberg"
+    request["story_context"]["public_source_url_bindings"] = [
+        {
+            "headline_id": "headline-qatar-pilots",
+            "url": url,
+            "source_timestamp_utc": "2026-08-18T09:00:00Z",
+        }
+    ]
+    request["story_context"]["report_provenance"] = {
+        "explicit_reputable_attribution": True,
+        "primary_reporting_source_identity": "bloomberg.com",
+        "attributed_reputable_sources": [
+            {"normalized_host": "bloomberg.com"}
+        ],
+    }
+
+    result = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=3,
+        max_requests_per_candidate=3,
+        http_get=http_get,
+        rendered_source_get=rendered_get,
+        clock=lambda: datetime(2026, 8, 19, 10, 20, tzinfo=timezone.utc),
+    )(request)
+
+    assert result["status"] == "PASS"
+    assert http_calls == browser_calls == [url]
+    assert result["provenance"]["request_count_for_call"] == 2
+    assert result["provenance"]["browser_rendered_recovery_attempt_count"] == 1
+    assert result["provenance"]["browser_rendered_recovery_success_count"] == 1
+    assert result["provenance"]["browser_rendered_recovery_triggers"] == [
+        "HTTP Error 403: Forbidden"
+    ]
+    assert result["provenance"]["browser_rendered_acquisitions_share_request_ledger"] is True
+    assert result["provenance"]["browser_rendered_acquisitions_are_raw_http_bytes"] is False
+    assert result["provenance"]["browser_rendered_model_call_count"] == 0
+    assert result["provenance"]["browser_rendered_public_write_count"] == 0
+    document = result["evidence_documents"][0]
+    assert document["retrieval_method"] == RETRIEVAL_METHOD
+    assert document["canonical_resolution_status"] == (
+        "DIRECT_PUBLISHER_URL_BROWSER_RENDERED"
+    )
+    assert document["published_at_source"] == "EXACT_BOUND_DISCOVERY_TIMESTAMP"
+    assert document["browser_rendered_acquisition"]["browser_grants_factual_authority"] is False
+    assert document["browser_rendered_acquisition"]["model_call_count"] == 0
+    assert document["content_truncated"] is False
+    assert document["public_claim_allowed"] is True
+
+
+def test_401_authentication_failure_never_invokes_browser_recovery():
+    url = "https://www.bloomberg.com/news/articles/2026-08-18/private-story"
+    browser_calls: list[str] = []
+
+    def http_get(requested_url: str, _timeout: float, _maximum: int):
+        raise urllib.error.HTTPError(requested_url, 401, "Unauthorized", {}, None)
+
+    def rendered_get(requested_url: str, _timeout: float, _maximum: int):
+        browser_calls.append(requested_url)
+        return _rendered_response(requested_url)
+
+    request = _request()
+    request["story_context"]["public_source_url_bindings"] = [
+        {
+            "headline_id": "headline-qatar-pilots",
+            "url": url,
+            "source_timestamp_utc": "2026-08-18T09:00:00Z",
+        }
+    ]
+
+    result = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=2,
+        max_requests_per_candidate=2,
+        http_get=http_get,
+        rendered_source_get=rendered_get,
+    )(request)
+
+    assert result["status"] == "BLOCKED"
+    assert browser_calls == []
+    assert result["provenance"]["browser_rendered_recovery_attempt_count"] == 0
+    assert "HTTP Error 401: Unauthorized" in result["blockers"]
+
+
+def test_http_200_javascript_shell_recovers_rendered_article_text():
+    url = "https://www.bloomberg.com/news/articles/2026-08-18/js-shell-story"
+    browser_calls: list[str] = []
+
+    def http_get(requested_url: str, _timeout: float, _maximum: int):
+        return _response(
+            requested_url,
+            b"<html><body><script>hydrate()</script><div id='root'></div></body></html>",
+            "text/html",
+        )
+
+    def rendered_get(requested_url: str, _timeout: float, _maximum: int):
+        browser_calls.append(requested_url)
+        return _rendered_response(requested_url)
+
+    request = _request()
+    request["story_evidence_scope_id"] = "browser-rendered-js-shell"
+    request["story_context"]["public_source_url_bindings"] = [
+        {
+            "headline_id": "headline-qatar-pilots",
+            "url": url,
+            "source_timestamp_utc": "2026-08-18T09:00:00Z",
+        }
+    ]
+    request["story_context"]["report_provenance"] = {
+        "explicit_reputable_attribution": True,
+        "primary_reporting_source_identity": "bloomberg.com",
+        "attributed_reputable_sources": [{"normalized_host": "bloomberg.com"}],
+    }
+
+    result = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=3,
+        max_requests_per_candidate=3,
+        http_get=http_get,
+        rendered_source_get=rendered_get,
+    )(request)
+
+    assert result["status"] == "PASS"
+    assert browser_calls == [url]
+    assert result["provenance"]["browser_rendered_recovery_triggers"] == [
+        "public_source_relevant_text_unavailable"
+    ]
+    assert result["evidence_documents"][0]["retrieval_method"] == RETRIEVAL_METHOD
+
+
+def test_browser_response_claiming_public_write_is_rejected():
+    url = "https://www.bloomberg.com/news/articles/2026-08-18/unsafe-story"
+
+    def http_get(requested_url: str, _timeout: float, _maximum: int):
+        raise urllib.error.HTTPError(requested_url, 403, "Forbidden", {}, None)
+
+    def rendered_get(requested_url: str, _timeout: float, _maximum: int):
+        response = _rendered_response(requested_url)
+        response["public_write_performed"] = True
+        return response
+
+    request = _request()
+    request["story_evidence_scope_id"] = "browser-rendered-unsafe"
+    request["story_context"]["public_source_url_bindings"] = [
+        {
+            "headline_id": "headline-qatar-pilots",
+            "url": url,
+            "source_timestamp_utc": "2026-08-18T09:00:00Z",
+        }
+    ]
+
+    result = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=2,
+        max_requests_per_candidate=2,
+        http_get=http_get,
+        rendered_source_get=rendered_get,
+    )(request)
+
+    assert result["status"] == "BLOCKED"
+    assert result["evidence_documents"] == []
+    assert result["provenance"]["browser_rendered_recovery_attempt_count"] == 1
+    assert result["provenance"]["browser_rendered_recovery_success_count"] == 0
+    assert result["provenance"]["browser_rendered_recovery_diagnostics"] == [
+        "browser_rendered_safety_boundary_invalid"
+    ]
+
+
+def test_truncated_browser_response_can_never_become_claim_authoritative():
+    url = "https://www.bloomberg.com/news/articles/2026-08-18/truncated-story"
+
+    def http_get(requested_url: str, _timeout: float, _maximum: int):
+        raise urllib.error.HTTPError(requested_url, 403, "Forbidden", {}, None)
+
+    def rendered_get(requested_url: str, _timeout: float, _maximum: int):
+        response = _rendered_response(requested_url)
+        response["content_truncated"] = True
+        return response
+
+    request = _request()
+    request["story_evidence_scope_id"] = "browser-rendered-truncated"
+    request["story_context"]["public_source_url_bindings"] = [
+        {
+            "headline_id": "headline-qatar-pilots",
+            "url": url,
+            "source_timestamp_utc": "2026-08-18T09:00:00Z",
+        }
+    ]
+
+    result = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=2,
+        max_requests_per_candidate=2,
+        http_get=http_get,
+        rendered_source_get=rendered_get,
+    )(request)
+
+    assert result["status"] == "BLOCKED"
+    assert result["evidence_documents"] == []
+    assert result["provenance"]["browser_rendered_recovery_attempt_count"] == 1
+    assert result["provenance"]["browser_rendered_recovery_success_count"] == 0
+    assert result["provenance"]["browser_rendered_recovery_diagnostics"] == [
+        "browser_rendered_content_truncated"
+    ]
 
 
 def test_short_exact_publisher_title_is_not_rejected_by_long_query_denominator():
@@ -228,6 +501,64 @@ def test_recent_failed_exact_route_is_reused_across_candidates_without_host_wide
     assert second_calls == [recovery_url]
     assert snapshot["routing_only"] is True
     assert snapshot["sourceability_or_health_grants_factual_authority"] is False
+
+
+def test_recent_failed_exact_route_can_trigger_browser_recovery_without_erasing_health():
+    failed_url = "https://www.bloomberg.com/news/articles/exact-failed-browser-route"
+    first = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        http_get=lambda url, *_args: {
+            "status": 403,
+            "final_url": url,
+            "headers": {},
+            "body": b"",
+        },
+        clock=lambda: datetime(2026, 8, 19, 10, 20, tzinfo=timezone.utc),
+    )
+    assert first._get(failed_url)["status"] == 403
+    snapshot = first.source_route_health_snapshot()
+    browser_calls: list[str] = []
+
+    def rendered_get(url: str, _timeout: float, _maximum: int):
+        browser_calls.append(url)
+        return _rendered_response(url)
+
+    request = _request()
+    request["story_evidence_scope_id"] = "browser-route-health-suppression"
+    request["story_context"]["public_source_url_bindings"] = [
+        {
+            "headline_id": "headline-qatar-pilots",
+            "url": failed_url,
+            "source_timestamp_utc": "2026-08-18T09:00:00Z",
+        }
+    ]
+    request["story_context"]["report_provenance"] = {
+        "explicit_reputable_attribution": True,
+        "primary_reporting_source_identity": "bloomberg.com",
+        "attributed_reputable_sources": [{"normalized_host": "bloomberg.com"}],
+    }
+    second = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=AS_OF,
+        max_requests=1,
+        max_requests_per_candidate=1,
+        http_get=lambda *_args: pytest.fail("suppressed HTTP route must not be retried"),
+        rendered_source_get=rendered_get,
+        source_route_health=snapshot,
+        clock=lambda: datetime(2026, 8, 19, 10, 21, tzinfo=timezone.utc),
+    )
+
+    result = second(request)
+
+    assert result["status"] == "PASS"
+    assert browser_calls == [failed_url]
+    assert result["provenance"]["request_count_for_call"] == 1
+    assert result["provenance"]["browser_rendered_recovery_triggers"] == [
+        "public_source_route_suppressed_by_recent_health"
+    ]
+    assert result["provenance"]["browser_rendered_recovery_success_count"] == 1
+    health = second.source_route_health_snapshot()
+    assert health["routes"][0]["failure_count"] == 1
+    assert health["routes"][0]["success_count"] == 0
 
 
 def test_public_transport_rejects_unsafe_cross_publisher_redirect(monkeypatch):
