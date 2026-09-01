@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-08-29
+Authority date: 2026-09-01
 Status: `CURRENT_ROOT_AUTHORITY`
 Repository: `fatcat2109/capital-chronicle-contentops`
 
@@ -44,15 +44,22 @@ Newer owner direction wins.
 
 ## 3. Current owner state
 
-The merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records Jim's explicit current decisions:
+Jim's current explicit decisions establish:
 
 - `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
 - routine V1 public-write/readback authority is granted for the accepted V1 path;
-- V2 public-write authority remains zero unless separately granted.
+- routine V1 editorial owner is `SIMPLE_GEMINI_RUNTIME`;
+- `DurablePublicationCoordinator` remains the sole public-write/readback owner;
+- V2 public-write authority remains zero unless separately granted;
+- product progress is `BUILD -> RUN -> OBSERVE REAL FAILURES -> FIX`; ceremony or safety architecture is not a prerequisite unless a real failure or irreversible-risk boundary requires it.
 
-Any subordinate current-looking wording that still says routine V1 public-write/readback is ungranted or `V1_FINAL_PRODUCT_ACCEPTED` is pending is superseded.
+The current protected/deployed V1 epoch before the browser-source architecture detour is PR #53 merge commit:
 
-Acceptance does not waive current-host identity/readiness/recovery proof before a new public write.
+`1c0354347e51d7b84bd7e41386d7bf428709e4bf`
+
+This epoch includes the accepted PR #51/#52/#53 runtime/intake/sourceability/output-starvation repairs.
+
+Any subordinate current-looking wording that still says routine V1 public-write/readback is ungranted, V1 acceptance is pending, or activation has not happened is superseded.
 
 ## 4. Locked V1 product contract
 
@@ -95,33 +102,41 @@ One exact owner-curated canonical-X record may support only its narrow relay-of-
 
 Native Desktop Automations, SDK/App-Server editorial fallback, legacy rolling-X ownership, broad evidence-ready pools, and split-phase PREPARE/COMPLETE handoffs are historical/non-routing for routine V1.
 
-## 6. Current V1 activation architecture
+## 6. Current V1 runtime/product truth locked on 2026-09-01
 
 Reuse, do not rebuild:
 
 - accepted PR #37 Editorial Growth Edge and epistemic-state logic;
 - current Simple article path and native exactly-eight compiler;
-- four-window Simple scheduling mechanics and persistent zero-write host proof;
-- PR #38 current post-acceptance authority/static-safety closure and Simple emergency-stop/process coverage;
-- PR #39 single routine production-owner composition: Final Daily App -> `SIMPLE_GEMINI_RUNTIME`, with native Desktop/legacy rolling-X fenced non-routing;
-- corrected PR #42 actual persistent Simple scheduler -> existing `DurablePublicationCoordinator` handoff, including deterministic slot/work-item identity, immutable/reconstructable plan, recover-before-fresh-work, no-model crash resume, unresolved-backlog fail-closed behavior, and duplicate-terminal idempotency;
+- four-window Simple scheduling mechanics;
+- single-owner composition with `SIMPLE_GEMINI_RUNTIME` as sole routine editorial owner;
 - durable V1 store;
 - destination registry;
-- `DurablePublicationCoordinator` as the sole public-write owner;
+- `DurablePublicationCoordinator` as the sole public-write/readback owner;
 - canonical Substack-first transports;
 - strict readback/reconciliation and UNKNOWN-write recovery;
-- V5 read model/UI foundation;
-- historical Italy nine-surface canary as publication-stack proof.
+- persistent scheduler ownership from PR #51;
+- production-day distinct SOURCE_BLOCKED candidate walking from PR #52;
+- persistent Daily App intake/state/API ownership, governed source-reachability correction, relay attribution normalization, and unconfirmed derivative correction from PR #53.
 
-The corrected routine bridge preserves the Simple semantic zero-write boundary and adds no second scheduler, publisher, packager, or store. The existing coordinator remains the only public-write/readback owner; canonical Substack `/p/...` reconciliation precedes exactly-eight derivative rematerialization. Repository/CI proof of this bridge is not current-host account/readiness/public-write proof.
+Current protected/deployed source before the architecture detour:
 
-The published/reconciled production-day accounting gap is closed by the current accounting slice.
-The next gate is current-host read-only activation proof; it must not be inferred from repository
-or CI evidence.
+`1c0354347e51d7b84bd7e41386d7bf428709e4bf`
 
-Single-owner composition, Simple emergency-stop/process coverage, and the routine publication bridge are closed and must not be reissued as implementation tasks unless fresh code proves regression. Historical wording that still lists them as gaps is superseded by fresh branch code and this contract.
+Confirmed product truth:
 
-Before the first new live V1 write, current-host read-only proof is required for production-store integrity/recovery state, exact Edge 9223 publication profile/account identities, current destination readiness, exactly-one production owner/process, and `UNKNOWN_WRITE=0`. Do not inspect or expose secrets/session material.
+- one current V1 lifecycle has already completed canonical Substack plus exactly eight durable-confirmed derivatives;
+- routine mode has been activated as `AUTONOMOUS_DEFAULT`;
+- one natural production day then reproduced `AUTOMATION_RUNNING_BUT_OUTPUT_STARVED`: 17:00 and 21:00 were missed by the old detached scheduler-liveness defect, while 23:00 and 01:00 executed but produced zero new articles under `ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED`;
+- PR #51 repaired persistent scheduler ownership and source-route health carry-forward;
+- PR #52 repaired repeated selection of candidates already proven SOURCE_BLOCKED in the same production day;
+- PR #53 proved the continuous intake had been stale, restored durable intake ownership, corrected sourceability around the existing canonical-X zero-GET relay route, improved route-diverse selection, and fixed deterministic downstream relay-attribution / unconfirmed-derivative defects;
+- after PR #53, a real current candidate crossed the previously universal source-retrieval blocker, reached `SOURCE_QUALIFIED` with one accepted source and zero GETs, passed deterministic article validation, and compiled exactly 8/8 derivative packages;
+- a later stochastic writer replay failed closed at `claim_fields_invalid`; this is not a publication success and was not converted into filler;
+- PR #53 exact-head CI and focused/expanded regressions passed;
+- current V1 is therefore repaired and healthy-idle, but `5–8/day` reliability is NOT runtime-proven and no natural routine opportunity has yet proven the PR #53 epoch can convert fresh intake into routine public output.
+
+The historical Substack object `213355736` was later reconciled by an external actor to the same object. PR #53 did not retry, publish, or mutate the incident as part of that reconciliation. Historical ambiguity must not be rewritten as ContentOps production proof.
 
 ## 7. ContentOps/Core Analyzer boundary
 
@@ -158,6 +173,8 @@ A counted published article requires exact canonical identity/readback under the
 
 Chrome `CapitalChronicleBot` CDP 9222 is ingestion only. Edge `contentops-social-main` CDP 9223 is publication/media/readback/authorized observation only.
 
+Do not replace the current production publication/browser ownership merely because a new browser-agent abstraction is being evaluated. Any later transport change must be justified by product evidence and must preserve exact identity/readback/reconciliation truth.
+
 ## 10. Execution framework
 
 Use `CAPABILITY_ROUTED_HYBRID`:
@@ -167,18 +184,32 @@ Use `CAPABILITY_ROUTED_HYBRID`:
 - `CODEX_EXECUTION`: real runtime/Windows/browser/stateful/debug evidence;
 - `OWNER_GATED_EXTERNAL`: secrets/session, destructive canonical mutation, material numeric-authority change, V2 public-write expansion, or external/legal/rights release decisions.
 
-Jim has already granted routine V1 public-write/readback authority. That grant remains subject to exact account/identity/readiness/reconciliation safeguards.
+Jim has already granted routine V1 public-write/readback authority. That grant remains subject to exact account/identity/readiness/reconciliation truth at the live write boundary.
 
 Use the cheapest lane that can produce evidence strong enough for the claim.
 
 ## 11. Locked current sequence
 
-1. run current-host read-only activation preflight;
-3. run one fresh end-to-end live V1 canary under the already-granted authority and strictly reconcile all nine surfaces;
-4. only after that canary is clean, enable the four routine live windows toward 5–8 useful published articles/day;
-5. preserve V1 and continue isolated V2 work only under V2's separate authority boundaries.
+Main V1 autonomous-routine objective is intentionally PAUSED at this exact state while an isolated browser-source architecture direction is built and evaluated.
 
-Repository authority/static-safety closure, emergency-stop coverage, single-owner composition, and the actual routine Simple publication handoff are already closed; do not recreate them.
+Current side objective:
+
+`BROWSER_RENDERED_SOURCE_RECOVERY_ARCHITECTURE`
+
+Desired product outcome: increase conversion of real fresh candidates into trustworthy evidence-qualified articles when deterministic HTTP/source retrieval cannot access useful rendered publisher content, while reusing the existing V1 evidence/validation path and without transferring routine editorial, publication, store, scheduler, coordinator, or numeric authority to a desktop/browser agent.
+
+Current research direction is hybrid rather than a wholesale CDP replacement:
+
+- deterministic HTTP remains the first source-retrieval path;
+- a browser-rendered acquisition capability may recover exact governed sources that fail ordinary retrieval because of 403/JS/render-only behavior;
+- browser-rendered evidence must preserve truthful distinct retrieval provenance rather than masquerading as raw HTTP bytes;
+- Gemini through the existing 9Router route may be used as browser reasoning capacity where useful, but model involvement is not required for deterministic navigation/read operations;
+- BrowserOS Neo is an experiment/source-recovery and diagnostic layer, not current publication authority;
+- current Substack/other publication transports remain unchanged unless later product evidence justifies a transport change.
+
+When this isolated architecture work reaches a useful product conclusion, resume the main V1 objective from the locked PR #53 epoch and prove whether autonomous natural windows can reliably move fresh intake through canonical Substack + exactly eight derivatives toward the 5–8 useful articles/day North Star.
+
+Do not reinterpret the architecture detour as V2 progress.
 
 ## 12. Change discipline
 
@@ -186,7 +217,7 @@ Prefer bounded product slices over ceremony. Do not rebuild proven systems simpl
 
 Ordinary reversible repository operations inside the accepted roadmap do not require a new per-operation owner authorization after the operator hard-gate audit has passed. They may use task branches/PRs and the normal protected-branch path once required checks pass.
 
-This repository autonomy does not authorize bypassing branch protection, force-push, public/provider writes outside the already-granted V1 scope, destructive production/canonical-store mutation, Capital Chronicle proprietary/numeric-authority expansion, V2 public-write authority expansion, secrets/session access, or protected-history mutation.
+This repository autonomy does not authorize bypassing branch protection, force-push, destructive production/canonical-store mutation, Capital Chronicle proprietary/numeric-authority expansion, V2 public-write authority expansion, secrets/session exposure, protected-history mutation, or blind duplicate public writes.
 
 Stage explicit paths only. Never `git add .` or `git add -A`.
 
@@ -198,11 +229,11 @@ Stop on:
 - fabricated facts or Core Analyzer truth;
 - wrong-account or out-of-scope public write;
 - destructive production-store/upstream mutation;
-- unresolved `UNKNOWN_WRITE` or public-object ambiguity;
+- blind duplicate public write under known ambiguity;
 - irreconcilable ref conflict;
-- inability to prove exact publication identity/readiness before crossing a live write boundary.
+- silent creation of a second scheduler/store/publisher/coordinator/authority owner.
 
-Do not stop for historical noise, stale docs, unrelated dirty files, absent CI, pre-existing failures, or reversible mechanics.
+Do not stop for historical noise, stale docs, unrelated dirty files, absent CI, pre-existing failures, deployment-proof ceremony, or reversible mechanics.
 
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 
