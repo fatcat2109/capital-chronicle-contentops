@@ -190,26 +190,33 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 ## 11. Locked current sequence
 
-Main V1 autonomous-routine objective is intentionally PAUSED at this exact state while an isolated browser-source architecture direction is built and evaluated.
+The isolated `BROWSER_RENDERED_SOURCE_RECOVERY_ARCHITECTURE` objective is implemented and
+live-shadow-proven. The capability is documented in
+`docs/automation/CONTENTOPS_BROWSER_RENDERED_SOURCE_RECOVERY_V1.md`.
 
-Current side objective:
-
-`BROWSER_RENDERED_SOURCE_RECOVERY_ARCHITECTURE`
-
-Desired product outcome: increase conversion of real fresh candidates into trustworthy evidence-qualified articles when deterministic HTTP/source retrieval cannot access useful rendered publisher content, while reusing the existing V1 evidence/validation path and without transferring routine editorial, publication, store, scheduler, coordinator, or numeric authority to a desktop/browser agent.
-
-Current research direction is hybrid rather than a wholesale CDP replacement:
+The implementation is hybrid rather than a wholesale CDP replacement:
 
 - deterministic HTTP remains the first source-retrieval path;
-- a browser-rendered acquisition capability may recover exact governed sources that fail ordinary retrieval because of 403/JS/render-only behavior;
-- browser-rendered evidence must preserve truthful distinct retrieval provenance rather than masquerading as raw HTTP bytes;
-- Gemini through the existing 9Router route may be used as browser reasoning capacity where useful, but model involvement is not required for deterministic navigation/read operations;
-- BrowserOS Neo is an experiment/source-recovery and diagnostic layer, not current publication authority;
-- current Substack/other publication transports remain unchanged unless later product evidence justifies a transport change.
+- one exact allowlisted publisher URL may use BrowserOS Neo only after an eligible 403/429,
+  render-only/insufficient-body failure, or exact route-health suppression;
+- rendered evidence carries distinct `READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE` provenance,
+  final-host identity, timestamp, semantic scope, and dual hashes; it never masquerades as raw
+  HTTP bytes;
+- browser acquisition uses only a task-owned tab with `name_session`, `tabs`, and `read`, with
+  no click, login, consent, storage, credential/session inspection, model call, or public write;
+- browser acquisition shares the existing six-request evidence ledger and is capped at one
+  recovery attempt per loader invocation;
+- BrowserOS Neo is a source-recovery/diagnostic layer, not V1 publication authority;
+- `SIMPLE_GEMINI_RUNTIME`, the existing evidence/claim/epistemic validators, and
+  `DurablePublicationCoordinator` remain the owners; current CDP publication transports,
+  scheduler, store, and numeric authority remain unchanged.
 
-When this isolated architecture work reaches a useful product conclusion, resume the main V1 objective from the locked PR #53 epoch and prove whether autonomous natural windows can reliably move fresh intake through canonical Substack + exactly eight derivatives toward the 5–8 useful articles/day North Star.
+The main V1 autonomous-routine objective now resumes from the locked PR #53 epoch. First run
+current-host read-only activation preflight, then one fresh strictly reconciled live canary, then
+the four natural routine windows toward 5–8 useful articles/day. This browser shadow proof is not
+a public-write canary and does not prove the daily target.
 
-Do not reinterpret the architecture detour as V2 progress.
+Do not reinterpret the architecture slice as V2 progress.
 
 ## 12. Change discipline
 

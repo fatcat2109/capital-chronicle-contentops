@@ -70,7 +70,13 @@ multi-candidate catch-up inside one scheduled task, and any scheduled Codex repo
 `SimpleFirstPartyAwareEvidenceResolver` composes the existing
 `BoundedOfficialPrimaryEvidenceLoader` and `BoundedPublicSecondaryEvidenceLoader` without creating
 another evidence schema or authority. The existing loaders remain deterministic source-byte
-authority for the fixed admitted candidate walk. 9Router has no native web-search/citation authority.
+authority for the fixed admitted candidate walk. After an eligible exact-source 403/429,
+render-only, or exact route-health suppression, the resolver may use the bounded
+`BrowserOSNeoRenderedSourceRecovery` callback. That callback is read-only, shares the same six-
+request ledger, emits the distinct `READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE` retrieval method with
+final-host and dual content hashes, and never grants browser/factual/numeric/publication authority.
+9Router has no native web-search/citation authority; deterministic browser navigation/read does
+not require a model call.
 Model-provided source timestamps are not authority. Every material fact, number, quote, or causal
 claim must bind to retrieved source bytes. Proprietary Capital Chronicle forecast/probability/
 scenario/regime/numeric claims remain unavailable unless exact publication-authorized CC authority

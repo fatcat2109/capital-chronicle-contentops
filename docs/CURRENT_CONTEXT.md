@@ -53,27 +53,23 @@ No filler. Candidate abstention is valid. Whole-day deficit is not healthy succe
 
 Routine windows remain 17:00, 21:00, 23:00, and following 01:00 Asia/Bangkok. Do not create a fifth routine scheduler/window.
 
-## Current intentional detour
+## Browser-rendered source recovery — implemented
 
-The main V1 autonomous-routine objective is intentionally paused at the PR #53 epoch while the isolated side objective below is built/evaluated:
+`BROWSER_RENDERED_SOURCE_RECOVERY_ARCHITECTURE` is implemented and live-shadow-proven. See
+`docs/automation/CONTENTOPS_BROWSER_RENDERED_SOURCE_RECOVERY_V1.md` for the architecture,
+focused tests, live measured conversion, and exact proof artifacts.
 
-`BROWSER_RENDERED_SOURCE_RECOVERY_ARCHITECTURE`
+The route remains hybrid: deterministic HTTP first; one exact allowlisted publisher URL may use
+BrowserOS Neo after an eligible access/render failure. The rendered page is a separate,
+hash-bound `READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE` evidence class. It shares the existing six-
+request ledger and never grants factual, numeric, publication, scheduler, store, coordinator, or
+credential authority. Gemini model involvement is optional and not used for deterministic
+navigation/read acquisition.
 
-Desired outcome: increase conversion of real fresh candidates into trustworthy evidence-qualified articles when ordinary deterministic HTTP retrieval cannot access useful rendered publisher content.
-
-Current direction is hybrid, not a wholesale publication-browser replacement:
-
-- deterministic HTTP remains first;
-- browser-rendered acquisition may recover exact governed 403/JS/render-only sources;
-- browser-rendered evidence must have truthful distinct provenance, not masquerade as raw HTTP GET bytes;
-- Gemini through the existing 9Router route may provide browser reasoning where useful, while deterministic navigation/read should not require a model when unnecessary;
-- BrowserOS Neo is an experiment/source-recovery and diagnostic layer, not current publication authority;
-- existing scheduler/store/coordinator/publication ownership remains unchanged;
-- current CDP publication transports remain unchanged unless later product evidence justifies a different transport.
-
-After the isolated architecture work reaches a useful conclusion, return to the locked PR #53 main V1 state and resume proof toward reliable autonomous canonical Substack + exactly eight derivatives and the 5–8 useful articles/day North Star.
-
-This detour is not V2 progress.
+Resume the main V1 objective from the locked PR #53 epoch: current-host read-only activation
+preflight, one fresh strictly reconciled live canary, then the four natural windows toward the
+5–8 useful articles/day target. This slice is not V2 progress and does not replace current CDP
+publication ownership.
 
 ## Immutable architecture boundaries
 

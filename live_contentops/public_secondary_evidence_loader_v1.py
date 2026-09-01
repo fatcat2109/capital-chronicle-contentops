@@ -1,8 +1,10 @@
 """Bounded public first-party and reputable-secondary evidence acquisition.
 
 The loader is a focused fallback inside the canonical rolling-X evidence adapter.  It performs
-read-only public GETs, rejects social/paywall bypass behaviour, and never grants publication
-authority.  Public news listings are useful only as corroborated, attributed secondary evidence.
+read-only public GETs first, may recover one exact access-blocked publisher document through a
+separately proven browser-rendered callback, rejects social/paywall bypass behaviour, and never
+grants publication authority.  Public news listings remain locator/attribution evidence until
+exact publisher content is acquired and admitted.
 """
 from __future__ import annotations
 
@@ -25,6 +27,12 @@ from live_contentops.official_primary_evidence_loader_v1 import (
     _parse_timestamp,
 )
 from live_contentops.claim_evidence_contract_v1 import summarize_evidence_substance
+from live_contentops.browser_rendered_source_recovery_v1 import (
+    BrowserRenderedSourceRecoveryError,
+    EXPECTED_SERVER_NAME as BROWSEROS_NEO_SERVER_NAME,
+    MCP_PROTOCOL_VERSION as BROWSEROS_NEO_MCP_PROTOCOL_VERSION,
+    RETRIEVAL_METHOD as BROWSER_RENDERED_RETRIEVAL_METHOD,
+)
 from live_contentops.source_route_health_v1 import (
     SourceRouteHealthState,
     normalized_host,
@@ -76,6 +84,8 @@ _RSS_TRAILING_PUBLISHER_RE = re.compile(
     r"\s+-\s+(?:AP|Associated Press|BBC|Bloomberg|CNBC|CNN|Financial Times|FT|Reuters|The Guardian|WSJ)\s*$",
     re.I,
 )
+
+RenderedSourceGet = Callable[[str, float, int], Mapping[str, Any]]
 
 
 def _public_host(url: str, *, resolve_dns: bool = True) -> str:
@@ -180,6 +190,21 @@ def _publisher_from_host(host: str) -> str:
     return core.replace("-", " ").title()
 
 
+def _browser_recovery_eligible(exc: BaseException) -> bool:
+    """Admit only access/render failures, never auth/legal/identity failures."""
+    if isinstance(exc, urllib.error.HTTPError):
+        return int(exc.code) in {403, 429}
+    message = str(exc)
+    return message in {
+        "public_source_body_invalid",
+        "public_source_relevant_text_unavailable",
+        "public_source_route_suppressed_by_recent_health",
+    } or message in {
+        "public_source_http_status_not_200:403",
+        "public_source_http_status_not_200:429",
+    }
+
+
 def _rss_query_terms(summary: str) -> list[str]:
     """Remove feed/desk metadata while retaining the event-bearing headline terms."""
     cleaned = " ".join(unescape(summary).split())
@@ -242,6 +267,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         clock: Callable[[], datetime] | None = None,
         source_route_health: SourceRouteHealthState | Mapping[str, Any] | None = None,
         shared_request_budget: dict[str, int] | None = None,
+        rendered_source_get: RenderedSourceGet | None = None,
     ) -> None:
         cutoff = datetime.fromisoformat(evaluation_as_of_utc.replace("Z", "+00:00"))
         if cutoff.utcoffset() is None:
@@ -261,6 +287,7 @@ class BoundedPublicSecondaryEvidenceLoader:
         )
         self._request_count = 0
         self._shared_request_budget = shared_request_budget
+        self._rendered_source_get = rendered_source_get
         self._candidate_request_start = 0
         self._request_count_by_story_scope: dict[str, int] = {}
         self._active_story_scope_id: str | None = None
@@ -268,6 +295,15 @@ class BoundedPublicSecondaryEvidenceLoader:
             str, dict[str, dict[str, Any]]
         ] = {}
         self._reused_request_signatures_by_story_scope: dict[str, list[str]] = {}
+        self._rendered_response_cache_by_story_scope: dict[
+            str, dict[str, dict[str, Any]]
+        ] = {}
+        self._reused_rendered_signatures_by_story_scope: dict[str, list[str]] = {}
+        self._browser_rendered_recovery_attempt_count = 0
+        self._browser_rendered_recovery_success_count = 0
+        self._browser_rendered_recovery_used = False
+        self._browser_rendered_recovery_triggers: list[str] = []
+        self._browser_rendered_recovery_diagnostics: list[str] = []
 
     def _consume_request(self) -> None:
         if self._request_count >= self._max_requests:
@@ -331,6 +367,176 @@ class BoundedPublicSecondaryEvidenceLoader:
             )[url] = dict(response)
         return response
 
+    def _get_rendered(self, url: str) -> dict[str, Any]:
+        if self._rendered_source_get is None:
+            raise BrowserRenderedSourceRecoveryError(
+                "browser_rendered_source_recovery_not_configured"
+            )
+        if self._active_story_scope_id:
+            cached = self._rendered_response_cache_by_story_scope.get(
+                self._active_story_scope_id, {}
+            ).get(url)
+            if cached is not None:
+                self._reused_rendered_signatures_by_story_scope.setdefault(
+                    self._active_story_scope_id, []
+                ).append(sha256(("browser-rendered:" + url).encode("utf-8")).hexdigest())
+                return {**dict(cached), "_browser_rendered_cache_hit": True}
+        candidate_request_count = (
+            self._request_count_by_story_scope.get(self._active_story_scope_id, 0)
+            if self._active_story_scope_id
+            else self._request_count - self._candidate_request_start
+        )
+        if candidate_request_count >= self._max_requests_per_candidate:
+            raise RuntimeError("public_source_candidate_request_budget_exhausted")
+        _public_host(url, resolve_dns=self._validate_dns)
+        self._consume_request()
+        if self._active_story_scope_id:
+            self._request_count_by_story_scope[self._active_story_scope_id] = (
+                candidate_request_count + 1
+            )
+        self._browser_rendered_recovery_attempt_count += 1
+        response = dict(
+            self._rendered_source_get(
+                url, self._timeout_seconds, self._max_response_bytes
+            )
+        )
+        if response.get("status") != "PASS":
+            raise BrowserRenderedSourceRecoveryError(
+                "browser_rendered_source_recovery_not_pass"
+            )
+        return response
+
+    def _browser_rendered_document(
+        self,
+        response: Mapping[str, Any],
+        *,
+        requested_url: str,
+        requested_host: str,
+        headline_id: str,
+        published_at_hint: str | None,
+    ) -> dict[str, Any]:
+        if response.get("retrieval_method") != BROWSER_RENDERED_RETRIEVAL_METHOD:
+            raise ValueError("browser_rendered_retrieval_method_invalid")
+        if any(
+            (
+                response.get("public_write_performed") is not False,
+                int(response.get("model_call_count") or 0) != 0,
+                response.get("credential_or_session_material_read") is not False,
+                response.get("login_or_consent_interaction_performed") is not False,
+                response.get("paywall_or_access_control_bypass") is not False,
+                response.get("factual_authority_granted_by_browser") is not False,
+                response.get("numeric_authority_granted") is not False,
+                response.get("publication_authority") is not False,
+            )
+        ):
+            raise ValueError("browser_rendered_safety_boundary_invalid")
+        browser_runtime = response.get("browser_runtime")
+        browser_runtime = browser_runtime if isinstance(browser_runtime, Mapping) else {}
+        if (
+            str(browser_runtime.get("server_name") or "")
+            != BROWSEROS_NEO_SERVER_NAME
+            or str(browser_runtime.get("mcp_protocol_version") or "")
+            != BROWSEROS_NEO_MCP_PROTOCOL_VERSION
+        ):
+            raise ValueError("browser_rendered_runtime_identity_invalid")
+        tool_policy = response.get("tool_policy")
+        tool_policy = tool_policy if isinstance(tool_policy, Mapping) else {}
+        tools_used = {str(value) for value in tool_policy.get("allowed_tools_used") or []}
+        if not tools_used or not tools_used.issubset(
+            {"name_session", "tabs", "read", "wait"}
+        ) or any(
+            tool_policy.get(key) is not False
+            for key in (
+                "act_tool_used",
+                "evaluate_tool_used",
+                "upload_tool_used",
+                "download_tool_used",
+            )
+        ):
+            raise ValueError("browser_rendered_tool_policy_invalid")
+        final_url = str(response.get("final_url") or "")
+        final_host = _public_host(final_url, resolve_dns=self._validate_dns)
+        if final_host not in REPUTABLE_SECONDARY_HOSTS:
+            raise ValueError("browser_rendered_final_host_not_reputable")
+        if normalized_host(final_host) != normalized_host(requested_host):
+            raise ValueError("browser_rendered_final_publisher_identity_mismatch")
+        if normalized_host(str(response.get("source_identity") or "")) != normalized_host(
+            final_host
+        ):
+            raise ValueError("browser_rendered_source_identity_mismatch")
+        if str(response.get("requested_url") or "") != requested_url:
+            raise ValueError("browser_rendered_requested_url_identity_mismatch")
+        text = " ".join(str(response.get("canonical_content_text") or "").split())
+        if len(text) < 80:
+            raise ValueError("browser_rendered_relevant_text_unavailable")
+        canonical_sha256 = sha256(text.encode("utf-8")).hexdigest()
+        if str(response.get("canonical_content_sha256") or "") != canonical_sha256:
+            raise ValueError("browser_rendered_canonical_content_hash_mismatch")
+        rendered_markdown = str(response.get("rendered_markdown") or "")
+        raw_sha256 = sha256(rendered_markdown.encode("utf-8")).hexdigest()
+        if str(response.get("rendered_page_sha256") or "") != raw_sha256:
+            raise ValueError("browser_rendered_page_hash_mismatch")
+        if int(response.get("byte_length") or -1) != len(
+            rendered_markdown.encode("utf-8")
+        ):
+            raise ValueError("browser_rendered_byte_length_mismatch")
+        published = _parse_timestamp(published_at_hint)
+        if not published:
+            raise ValueError("public_source_published_timestamp_unavailable")
+        if datetime.fromisoformat(published.replace("Z", "+00:00")) > datetime.fromisoformat(
+            self._evaluation_as_of_utc.replace("Z", "+00:00")
+        ):
+            raise ValueError("public_source_published_after_evaluation_cutoff")
+        title = str(response.get("title") or "").strip() or final_url.rsplit(
+            "/", 1
+        )[-1].replace("-", " ")
+        return {
+            "document_id": "public-secondary-rendered-" + raw_sha256[:20],
+            "title": title[:500],
+            "publisher": _publisher_from_host(final_host),
+            "source_identity": final_host,
+            "source_authority_class": "reputable_secondary_source",
+            "source_url": final_url,
+            "reader_source_url": final_url,
+            "requested_source_url": requested_url,
+            "discovery_path_url": None,
+            "discovery_path_is_reader_authority": False,
+            "source_headline_id": headline_id,
+            "published_at_utc": published,
+            "published_at_source": "EXACT_BOUND_DISCOVERY_TIMESTAMP",
+            "event_time_utc": published,
+            "raw_sha256": raw_sha256,
+            "canonical_content_sha256": canonical_sha256,
+            "canonical_content_text": text[:100_000],
+            "content_type": "text/markdown",
+            "byte_length": int(response.get("byte_length") or len(rendered_markdown.encode("utf-8"))),
+            "content_truncated": bool(response.get("content_truncated")),
+            "public_claim_allowed": True,
+            "retrieval_method": BROWSER_RENDERED_RETRIEVAL_METHOD,
+            "canonical_resolution_status": "DIRECT_PUBLISHER_URL_BROWSER_RENDERED",
+            "browser_rendered_acquisition": {
+                "schema_version": response.get("schema_version"),
+                "observed_at_utc": response.get("observed_at_utc"),
+                "semantic_scope": response.get("semantic_scope"),
+                "browser_runtime": dict(response.get("browser_runtime") or {}),
+                "tool_policy": dict(response.get("tool_policy") or {}),
+                "persistent_browser_profile_used": bool(
+                    response.get("persistent_browser_profile_used")
+                ),
+                "browser_authentication_state": response.get(
+                    "browser_authentication_state"
+                ),
+                "login_or_consent_interaction_performed": False,
+                "credential_or_session_material_read": False,
+                "paywall_or_access_control_bypass": False,
+                "model_call_count": 0,
+                "public_write_performed": False,
+                "browser_grants_factual_authority": False,
+                "browser_grants_numeric_authority": False,
+                "browser_grants_publication_authority": False,
+            },
+        }
+
     def _direct_document(
         self,
         url: str,
@@ -347,70 +553,112 @@ class BoundedPublicSecondaryEvidenceLoader:
             and not publisher_short_link
         ):
             return None
-        response = self._get(url)
-        if int(response.get("status") or 0) != 200:
-            raise ValueError("public_source_http_status_not_200")
-        final_url = str(response.get("final_url") or url)
-        final_host = _public_host(final_url, resolve_dns=self._validate_dns)
-        if final_host not in REPUTABLE_SECONDARY_HOSTS:
-            raise ValueError("public_source_redirect_authority_invalid")
-        if publisher_short_link and normalized_host(final_host) != (
-            SAFE_PUBLISHER_SHORT_HOST_TARGETS[normalized_host(host)]
-        ):
-            raise ValueError("public_source_redirect_authority_invalid")
-        headers = {str(k).casefold(): str(v) for k, v in (response.get("headers") or {}).items()}
-        content_type = headers.get("content-type", "").split(";", 1)[0].casefold()
-        body = response.get("body")
-        if not isinstance(body, bytes) or not body:
-            raise ValueError("public_source_body_invalid")
-        raw = body.decode("utf-8", errors="replace")
-        title = _title(raw) or final_url.rsplit("/", 1)[-1].replace("-", " ")
-        publisher_timestamp = _html_timestamp(raw) or _parse_timestamp(
-            headers.get("last-modified")
-        )
-        published = publisher_timestamp or _parse_timestamp(published_at_hint)
-        if not published:
-            raise ValueError("public_source_published_timestamp_unavailable")
-        if datetime.fromisoformat(published.replace("Z", "+00:00")) > datetime.fromisoformat(
-            self._evaluation_as_of_utc.replace("Z", "+00:00")
-        ):
-            raise ValueError("public_source_published_after_evaluation_cutoff")
-        text = _public_text(body, content_type)
-        if len(text) < 80:
-            raise ValueError("public_source_relevant_text_unavailable")
-        return {
-            "document_id": "public-secondary-" + sha256(body).hexdigest()[:20],
-            "title": title,
-            "publisher": _publisher_from_host(final_host),
-            "source_identity": final_host,
-            "source_authority_class": "reputable_secondary_source",
-            "source_url": final_url,
-            "reader_source_url": final_url,
-            "requested_source_url": url,
-            "discovery_path_url": url if discovery_redirect else None,
-            "discovery_path_is_reader_authority": False,
-            "source_headline_id": headline_id,
-            "published_at_utc": published,
-            "published_at_source": (
-                "PUBLISHER_BYTES_OR_HEADERS"
-                if publisher_timestamp
-                else "EXACT_BOUND_DISCOVERY_TIMESTAMP"
-            ),
-            "event_time_utc": published,
-            "raw_sha256": sha256(body).hexdigest(),
-            "canonical_content_sha256": sha256(text.encode("utf-8")).hexdigest(),
-            "canonical_content_text": text,
-            "content_type": content_type,
-            "byte_length": len(body),
-            "content_truncated": bool(response.get("content_truncated")),
-            "public_claim_allowed": True,
-            "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
-            "canonical_resolution_status": (
-                "RESOLVED_FROM_DISCOVERY_REDIRECT"
-                if discovery_redirect
-                else "DIRECT_PUBLISHER_URL"
-            ),
-        }
+        try:
+            response = self._get(url)
+            status = int(response.get("status") or 0)
+            if status != 200:
+                raise ValueError(f"public_source_http_status_not_200:{status}")
+            final_url = str(response.get("final_url") or url)
+            final_host = _public_host(final_url, resolve_dns=self._validate_dns)
+            if final_host not in REPUTABLE_SECONDARY_HOSTS:
+                raise ValueError("public_source_redirect_authority_invalid")
+            if publisher_short_link and normalized_host(final_host) != (
+                SAFE_PUBLISHER_SHORT_HOST_TARGETS[normalized_host(host)]
+            ):
+                raise ValueError("public_source_redirect_authority_invalid")
+            headers = {
+                str(k).casefold(): str(v)
+                for k, v in (response.get("headers") or {}).items()
+            }
+            content_type = headers.get("content-type", "").split(";", 1)[0].casefold()
+            body = response.get("body")
+            if not isinstance(body, bytes) or not body:
+                raise ValueError("public_source_body_invalid")
+            raw = body.decode("utf-8", errors="replace")
+            title = _title(raw) or final_url.rsplit("/", 1)[-1].replace("-", " ")
+            publisher_timestamp = _html_timestamp(raw) or _parse_timestamp(
+                headers.get("last-modified")
+            )
+            published = publisher_timestamp or _parse_timestamp(published_at_hint)
+            if not published:
+                raise ValueError("public_source_published_timestamp_unavailable")
+            if datetime.fromisoformat(published.replace("Z", "+00:00")) > datetime.fromisoformat(
+                self._evaluation_as_of_utc.replace("Z", "+00:00")
+            ):
+                raise ValueError("public_source_published_after_evaluation_cutoff")
+            text = _public_text(body, content_type)
+            if len(text) < 80:
+                raise ValueError("public_source_relevant_text_unavailable")
+            return {
+                "document_id": "public-secondary-" + sha256(body).hexdigest()[:20],
+                "title": title,
+                "publisher": _publisher_from_host(final_host),
+                "source_identity": final_host,
+                "source_authority_class": "reputable_secondary_source",
+                "source_url": final_url,
+                "reader_source_url": final_url,
+                "requested_source_url": url,
+                "discovery_path_url": url if discovery_redirect else None,
+                "discovery_path_is_reader_authority": False,
+                "source_headline_id": headline_id,
+                "published_at_utc": published,
+                "published_at_source": (
+                    "PUBLISHER_BYTES_OR_HEADERS"
+                    if publisher_timestamp
+                    else "EXACT_BOUND_DISCOVERY_TIMESTAMP"
+                ),
+                "event_time_utc": published,
+                "raw_sha256": sha256(body).hexdigest(),
+                "canonical_content_sha256": sha256(text.encode("utf-8")).hexdigest(),
+                "canonical_content_text": text,
+                "content_type": content_type,
+                "byte_length": len(body),
+                "content_truncated": bool(response.get("content_truncated")),
+                "public_claim_allowed": True,
+                "retrieval_method": "READ_ONLY_PUBLIC_HTTP_GET",
+                "canonical_resolution_status": (
+                    "RESOLVED_FROM_DISCOVERY_REDIRECT"
+                    if discovery_redirect
+                    else "DIRECT_PUBLISHER_URL"
+                ),
+            }
+        except (OSError, RuntimeError, TypeError, ValueError) as exc:
+            if (
+                self._rendered_source_get is None
+                or discovery_redirect
+                or publisher_short_link
+                or self._browser_rendered_recovery_used
+                or not _browser_recovery_eligible(exc)
+            ):
+                raise
+            trigger = str(exc) or type(exc).__name__
+            self._browser_rendered_recovery_triggers.append(trigger)
+            self._browser_rendered_recovery_used = True
+            try:
+                rendered = self._get_rendered(url)
+                document = self._browser_rendered_document(
+                    rendered,
+                    requested_url=url,
+                    requested_host=host,
+                    headline_id=headline_id,
+                    published_at_hint=published_at_hint,
+                )
+                if rendered.get("_browser_rendered_cache_hit") is not True:
+                    self._browser_rendered_recovery_success_count += 1
+                    if self._active_story_scope_id:
+                        self._rendered_response_cache_by_story_scope.setdefault(
+                            self._active_story_scope_id, {}
+                        )[url] = {
+                            key: value
+                            for key, value in rendered.items()
+                            if key != "_browser_rendered_cache_hit"
+                        }
+                return document
+            except (OSError, RuntimeError, TypeError, ValueError) as recovery_exc:
+                self._browser_rendered_recovery_diagnostics.append(
+                    str(recovery_exc) or type(recovery_exc).__name__
+                )
+                raise exc
 
     def _publisher_sitemap_candidate(
         self, listing: Mapping[str, Any]
@@ -946,12 +1194,21 @@ class BoundedPublicSecondaryEvidenceLoader:
 
     def __call__(self, request: Mapping[str, Any]) -> dict[str, Any]:
         request_count_at_start = self._request_count
+        browser_attempt_count_at_start = self._browser_rendered_recovery_attempt_count
+        browser_success_count_at_start = self._browser_rendered_recovery_success_count
+        browser_trigger_count_at_start = len(self._browser_rendered_recovery_triggers)
+        browser_diagnostic_count_at_start = len(
+            self._browser_rendered_recovery_diagnostics
+        )
         story_scope_id = str(request.get("story_evidence_scope_id") or "")
         story_request_count_at_start = self._request_count_by_story_scope.get(
             story_scope_id, 0
         )
         reused_signature_count_at_start = len(
             self._reused_request_signatures_by_story_scope.get(story_scope_id, [])
+        )
+        reused_rendered_signature_count_at_start = len(
+            self._reused_rendered_signatures_by_story_scope.get(story_scope_id, [])
         )
         if story_scope_id:
             self._candidate_request_start = request_count_at_start
@@ -1088,9 +1345,41 @@ class BoundedPublicSecondaryEvidenceLoader:
                         story_scope_id, []
                     )[reused_signature_count_at_start:]
                 ),
+                "reused_browser_rendered_signatures": list(
+                    self._reused_rendered_signatures_by_story_scope.get(
+                        story_scope_id, []
+                    )[reused_rendered_signature_count_at_start:]
+                ),
                 "request_limit": self._max_requests,
                 "request_limit_per_candidate": self._max_requests_per_candidate,
                 "read_only_public_gets": True,
+                "browser_rendered_source_recovery_configured": bool(
+                    self._rendered_source_get is not None
+                ),
+                "browser_rendered_recovery_attempt_count": (
+                    self._browser_rendered_recovery_attempt_count
+                    - browser_attempt_count_at_start
+                ),
+                "browser_rendered_recovery_success_count": (
+                    self._browser_rendered_recovery_success_count
+                    - browser_success_count_at_start
+                ),
+                "browser_rendered_recovery_triggers": list(
+                    self._browser_rendered_recovery_triggers[
+                        browser_trigger_count_at_start:
+                    ]
+                ),
+                "browser_rendered_recovery_diagnostics": list(
+                    self._browser_rendered_recovery_diagnostics[
+                        browser_diagnostic_count_at_start:
+                    ]
+                ),
+                "browser_rendered_acquisitions_share_request_ledger": True,
+                "browser_rendered_acquisitions_are_raw_http_bytes": False,
+                "browser_rendered_model_call_count": 0,
+                "browser_rendered_public_write_count": 0,
+                "browser_rendered_session_material_read_count": 0,
+                "browser_rendered_authority_granted": False,
                 "paywall_or_access_control_bypass": False,
                 "bounded_enrichment_requested": bool(
                     (request.get("evidence_enrichment_context") or {}).get("requested")
@@ -1103,6 +1392,7 @@ class BoundedPublicSecondaryEvidenceLoader:
                 ),
                 "acquisition_sequence": [
                     "EXACT_BOUND_PUBLIC_SOURCE_MAX_TWO_STOP_ON_INACCESSIBLE",
+                    "EXACT_BOUND_BROWSER_RENDERED_RECOVERY_AFTER_ELIGIBLE_FAILURE",
                     "RELEVANT_REPUTABLE_NEWS_LOCATOR",
                     "RELEVANCE_FIRST_ACCESSIBLE_SOURCE_NARROWING",
                     "RESOLVE_PUBLISHER_ARTICLE_OR_ATTRIBUTE_WITHOUT_LINK",
