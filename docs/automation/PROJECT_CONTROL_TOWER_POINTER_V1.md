@@ -7,7 +7,7 @@ Canonical audit projection:
 
 - Repository: `fatcat2109/Headline-Raw-data-json`
 - Control Tower path: `docs/project_control_tower/`
-- Snapshot ID observed by this pointer: `20260918T201637Z-fa54920466b4`
+- Snapshot ID observed by this pointer: `20260919T044605Z-f9dcbe752b39`
 - Observation scope: Main App, ContentOps remote master, discovered local Git stores
   and registered worktrees, database Builder read-only inputs, and paginated PR metadata.
 - Snapshot claim: `PARTIAL_AUDIT_COVERAGE_REVIEW_REQUIRED`
