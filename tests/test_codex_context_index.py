@@ -441,3 +441,18 @@ def test_parse_failure_is_visible_in_coverage(monkeypatch, tmp_path):
     monkeypatch.setattr(index, "git_commit_timestamp", lambda: "fixture")
     value = index.build_graph()
     assert value["coverage"]["parse_errors"] == [{"path": "broken.py", "error_type": "SyntaxError"}]
+
+
+def test_source_walk_excludes_nested_repositories_and_linked_checkouts(monkeypatch, tmp_path):
+    monkeypatch.setattr(index, "ROOT", tmp_path)
+    (tmp_path / "keep.py").write_text("x = 1")
+    nested = tmp_path / "other_repo"
+    nested.mkdir()
+    (nested / ".git").write_text("gitdir: elsewhere")
+    (nested / "other.py").write_text("x = 2")
+    linked = tmp_path / "linked"
+    linked.mkdir()
+    (linked / "outside.py").write_text("x = 3")
+    original = index.is_link_or_reparse
+    monkeypatch.setattr(index, "is_link_or_reparse", lambda p: p == linked or original(p))
+    assert [p.name for p in index.source_files()] == ["keep.py"]

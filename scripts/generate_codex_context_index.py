@@ -216,6 +216,10 @@ def included(path: Path) -> bool:
     )
 
 
+def is_link_or_reparse(path: Path) -> bool:
+    return path.is_symlink() or bool(getattr(path.lstat(), "st_file_attributes", 0) & 0x400)
+
+
 def source_files() -> list[Path]:
     paths: list[Path] = []
     for current, directories, filenames in os.walk(ROOT):
@@ -223,11 +227,13 @@ def source_files() -> list[Path]:
             directory
             for directory in directories
             if directory.lower() not in EXCLUDED_PARTS
+            and not is_link_or_reparse(Path(current) / directory)
+            and not ((Path(current) / directory) / ".git").exists()
         )
         base = Path(current)
         for filename in sorted(filenames):
             path = base / filename
-            if included(path):
+            if not is_link_or_reparse(path) and included(path):
                 paths.append(path)
     return sorted(paths, key=rel)
 
