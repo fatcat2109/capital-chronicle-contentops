@@ -363,3 +363,81 @@ def test_source_scope_excludes_history_data_and_generated_outputs():
     assert not any(path.startswith(".task-runtime/") for path in paths)
     assert not any("/.venv/" in path or path.startswith(".venv/") for path in paths)
     assert "docs/codegraph/V1_CONTEXT.md" in paths
+
+
+def test_absolute_and_package_relative_imports_resolve(monkeypatch, tmp_path):
+    root = tmp_path / "repo"
+    package = root / "live_contentops"
+    package.mkdir(parents=True)
+    source = package / "example.py"
+    source.write_text("from live_contentops import dependency\n", encoding="utf-8")
+    monkeypatch.setattr(index, "ROOT", root)
+    modules = {"live_contentops.dependency": "live_contentops/dependency.py"}
+    assert index.python_import_edges(source, modules)[0]["to"] == "live_contentops/dependency.py"
+    init = package / "__init__.py"
+    init.write_text("from . import dependency\n", encoding="utf-8")
+    assert index.python_import_edges(init, modules)[0]["to"] == "live_contentops/dependency.py"
+
+
+def test_shadowed_parameter_is_not_a_call_to_global_function(monkeypatch, tmp_path):
+    root = tmp_path / "repo"
+    source = root / "live_contentops" / "example.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("def target(): pass\ndef caller(target):\n    target()\n", encoding="utf-8")
+    monkeypatch.setattr(index, "ROOT", root)
+    ids = {"python_symbol:live_contentops/example.py::target", "python_symbol:live_contentops/example.py::caller"}
+    assert index.python_call_edges(source, ids) == []
+
+
+def test_call_candidate_is_not_labeled_exact(monkeypatch, tmp_path):
+    root = tmp_path / "repo"
+    source = root / "live_contentops" / "example.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("def target(): pass\ndef caller():\n    target()\n", encoding="utf-8")
+    monkeypatch.setattr(index, "ROOT", root)
+    ids = {"python_symbol:live_contentops/example.py::target", "python_symbol:live_contentops/example.py::caller"}
+    assert index.python_call_edges(source, ids)[0]["inference"] == "python_ast_named_call_candidate"
+
+
+def test_build_refuses_source_mutation(monkeypatch, tmp_path):
+    root = tmp_path / "repo"
+    source = root / "live_contentops" / "example.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("VALUE = 1\n", encoding="utf-8")
+    monkeypatch.setattr(index, "ROOT", root)
+    monkeypatch.setattr(index, "git_head", lambda: "fixture")
+    original = index.python_definitions
+    def changed(path):
+        value = original(path)
+        source.write_text("VALUE = 2\n", encoding="utf-8")
+        return value
+    monkeypatch.setattr(index, "python_definitions", changed)
+    with pytest.raises(ValueError, match="SOURCE_CHANGED_DURING_BUILD"):
+        index.build_graph()
+
+
+def test_external_output_preserves_source_checkout(monkeypatch, tmp_path):
+    root, output = tmp_path / "repo", tmp_path / "snapshot"
+    root.mkdir()
+    monkeypatch.setattr(index, "ROOT", root)
+    monkeypatch.setattr(index, "GRAPH_PATH", root / "docs/codegraph/graph.json")
+    monkeypatch.setattr(index, "OUTPUT_OVERRIDE", output)
+    monkeypatch.setattr(index, "build_outputs", lambda: {
+        "docs/codegraph/graph.json": '{"counts": {}, "source_head": "fixture"}\n'})
+    monkeypatch.setattr(index, "validate_graph", lambda graph: [])
+    monkeypatch.setattr(index, "validate_context_contract", lambda graph: [])
+    index.write_outputs()
+    assert (output / "graph.json").is_file()
+    assert not (root / "docs").exists()
+
+
+def test_parse_failure_is_visible_in_coverage(monkeypatch, tmp_path):
+    root = tmp_path / "repo"
+    source = root / "broken.py"
+    source.parent.mkdir(parents=True)
+    source.write_text("def broken(\n", encoding="utf-8")
+    monkeypatch.setattr(index, "ROOT", root)
+    monkeypatch.setattr(index, "git_head", lambda: "fixture")
+    monkeypatch.setattr(index, "git_commit_timestamp", lambda: "fixture")
+    value = index.build_graph()
+    assert value["coverage"]["parse_errors"] == [{"path": "broken.py", "error_type": "SyntaxError"}]

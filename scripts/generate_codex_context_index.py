@@ -26,8 +26,9 @@ GRAPH_PATH = OUTPUT_DIR / "graph.json"
 INDEX_PATH = OUTPUT_DIR / "INDEX.md"
 V2_CONTEXT_PATH = OUTPUT_DIR / "V2_CONTEXT.md"
 V1_CONTEXT_PATH = OUTPUT_DIR / "V1_CONTEXT.md"
+OUTPUT_OVERRIDE: Path | None = None
 SCHEMA_VERSION = "contentops.codex_context_graph.v2"
-GENERATOR_VERSION = "2.5.1"
+GENERATOR_VERSION = "2.6.0"
 
 CODE_SUFFIXES = {
     ".py",
@@ -329,7 +330,7 @@ def nearest_agents_file(relative_path: str) -> str:
 
 def read_text(path: Path) -> str:
     try:
-        return path.read_text(encoding="utf-8")
+        return path.read_text(encoding="utf-8-sig")
     except (OSError, UnicodeDecodeError):
         return ""
 
@@ -351,14 +352,14 @@ def python_import_edges(
     except SyntaxError:
         return []
     current = python_module_name(rel(path)) or ""
-    package = current.rsplit(".", 1)[0] if "." in current else ""
+    package = current if path.name == "__init__.py" else (current.rsplit(".", 1)[0] if "." in current else "")
     edges: set[tuple[str, str]] = set()
     for node in ast.walk(tree):
         names: list[str] = []
         if isinstance(node, ast.Import):
             names = [alias.name for alias in node.names]
         elif isinstance(node, ast.ImportFrom):
-            prefix = package
+            prefix = ""
             if node.level:
                 parts = package.split(".") if package else []
                 prefix = ".".join(parts[: max(0, len(parts) - node.level + 1)])
@@ -595,8 +596,8 @@ def http_endpoint_nodes(path: Path) -> tuple[list[dict[str, Any]], list[dict[str
     return nodes, edges
 
 
-class _ExactCallVisitor(ast.NodeVisitor):
-    """Emit only calls with an exact local or explicit-import target."""
+class _StaticCallVisitor(ast.NodeVisitor):
+    """Static named candidates only; rebinding and dynamic dispatch are not proven."""
 
     def __init__(
         self,
@@ -614,6 +615,7 @@ class _ExactCallVisitor(ast.NodeVisitor):
         self.imported_modules = imported_modules
         self.stack: list[str] = []
         self.calls: set[tuple[str, str]] = set()
+        self.shadowed: list[set[str]] = []
 
     def _caller(self) -> str:
         if not self.stack:
@@ -623,16 +625,20 @@ class _ExactCallVisitor(ast.NodeVisitor):
     def _target(self, node: ast.Call) -> str | None:
         if isinstance(node.func, ast.Name):
             name = node.func.id
+            if any(name in scope for scope in self.shadowed):
+                return None
             if name in self.imported_names:
                 target_module, target_name = self.imported_names[name]
                 target_path = target_module.replace(".", "/") + ".py"
                 candidate = f"python_symbol:{target_path}::{target_name}"
                 return candidate if candidate in self.symbol_ids else None
-            target_path = self.module.replace(".", "/") + ".py"
+            target_path = self.source
             candidate = f"python_symbol:{target_path}::{name}"
             return candidate if candidate in self.symbol_ids else None
         if isinstance(node.func, ast.Attribute) and isinstance(node.func.value, ast.Name):
             owner = node.func.value.id
+            if owner != "self" and any(owner in scope for scope in self.shadowed):
+                return None
             if owner == "self" and self.stack:
                 class_name = self.stack[0]
                 candidate = f"python_symbol:{self.source}::{class_name}.{node.func.attr}"
@@ -656,13 +662,19 @@ class _ExactCallVisitor(ast.NodeVisitor):
 
     def visit_FunctionDef(self, node: ast.FunctionDef) -> None:  # noqa: N802
         self.stack.append(node.name)
+        arguments = node.args.posonlyargs + node.args.args + node.args.kwonlyargs
+        names = {arg.arg for arg in arguments}
+        names.update(arg.arg for arg in (node.args.vararg, node.args.kwarg) if arg)
+        # Conservative suppression also covers stores inside nested scopes.
+        names.update(child.id for child in ast.walk(node)
+                     if isinstance(child, ast.Name) and isinstance(child.ctx, ast.Store))
+        self.shadowed.append(names)
         self.generic_visit(node)
+        self.shadowed.pop()
         self.stack.pop()
 
     def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:  # noqa: N802
-        self.stack.append(node.name)
-        self.generic_visit(node)
-        self.stack.pop()
+        self.visit_FunctionDef(node)
 
 
 def python_call_edges(path: Path, symbol_ids: set[str]) -> list[dict[str, str]]:
@@ -679,8 +691,9 @@ def python_call_edges(path: Path, symbol_ids: set[str]) -> list[dict[str, str]]:
                     imported_names[alias.asname or alias.name] = (node.module, alias.name)
         elif isinstance(node, ast.Import):
             for alias in node.names:
-                imported_modules[alias.asname or alias.name.split(".")[0]] = alias.name
-    visitor = _ExactCallVisitor(
+                imported_modules[alias.asname or alias.name.split(".")[0]] = (
+                    alias.name if alias.asname else alias.name.split(".")[0])
+    visitor = _StaticCallVisitor(
         source=rel(path),
         module=module,
         symbol_ids=symbol_ids,
@@ -693,7 +706,7 @@ def python_call_edges(path: Path, symbol_ids: set[str]) -> list[dict[str, str]]:
             "from": source,
             "to": target,
             "kind": "calls",
-            "inference": "python_ast_exact_name_call",
+            "inference": "python_ast_named_call_candidate",
         }
         for source, target in sorted(visitor.calls)
         if source in symbol_ids or source == rel(path)
@@ -844,6 +857,15 @@ CURATED_RELATIONSHIPS: tuple[tuple[str, str, str], ...] = (
 
 def build_graph() -> dict[str, Any]:
     paths = source_files()
+    initial_digest = source_digest(paths)
+    initial_epoch = git_head()
+    parse_errors = []
+    for path in paths:
+        if path.suffix == ".py":
+            try:
+                ast.parse(path.read_text(encoding="utf-8-sig"), filename=rel(path))
+            except (OSError, UnicodeError, SyntaxError, ValueError) as error:
+                parse_errors.append({"path": rel(path), "error_type": type(error).__name__})
     node_paths = {rel(path) for path in paths}
     module_paths = {
         python_module_name(path): path
@@ -964,7 +986,11 @@ def build_graph() -> dict[str, Any]:
             edge["from"], edge["to"], edge["kind"], edge.get("inference", "")
         ),
     )
-    paths_digest = source_digest(paths)
+    final_paths = source_files()
+    paths_digest = source_digest(final_paths)
+    if ([rel(p) for p in final_paths] != [rel(p) for p in paths]
+            or paths_digest != initial_digest or git_head() != initial_epoch):
+        raise ValueError("CODEGRAPH_SOURCE_CHANGED_DURING_BUILD")
     kind_counts: dict[str, int] = {}
     for node in nodes:
         kind_counts[node["kind"]] = kind_counts.get(node["kind"], 0) + 1
@@ -975,6 +1001,13 @@ def build_graph() -> dict[str, Any]:
         "generation_timestamp_utc": git_commit_timestamp(),
         "source_head": git_head(),
         "source_tree_digest": paths_digest,
+        "coverage": {
+            "parse_errors": parse_errors,
+            "semantic_completeness": "NOT_CLAIMED",
+            "call_edges": "STATIC_NAMED_CANDIDATES_NOT_RUNTIME_OR_DYNAMIC_DISPATCH_PROOF",
+            "source_scope": "INCLUDED_WORKTREE_FILES_MAY_INCLUDE_UNCOMMITTED_AND_UNTRACKED_CODE",
+            "python_symbol_scope": "PUBLIC_TOP_LEVEL_PLUS_SELECTED_HOT_PATH_METHODS",
+        },
         "authority_anchor_paths": sorted(AUTHORITY_DOCS),
         "generated_outputs": sorted(GENERATED_PATHS),
         "included_roots": list(INCLUDED_ROOTS),
@@ -1202,7 +1235,8 @@ def index_markdown(graph: dict[str, Any]) -> str:
             "Python symbols, TypeScript exports, tests, CLI commands, HTTP endpoints, durable "
             "tables, schemas, authority anchors, runtime entrypoints, and scoped instructions. "
             "Every inferred edge carries an `inference` label. Included/excluded roots are "
-            "recorded in `graph.json`.",
+            "recorded in `graph.json`. Named call edges are static candidates, not runtime proof. "
+            "See `coverage` for parse errors, untracked-source inclusion and symbol limitations.",
             "",
         ]
     )
@@ -1230,7 +1264,7 @@ def check_outputs() -> int:
     missing: list[str] = []
     mismatched: list[str] = []
     for path, content in expected.items():
-        target = ROOT / path
+        target = (OUTPUT_OVERRIDE / Path(path).name) if OUTPUT_OVERRIDE else ROOT / path
         if not target.exists():
             missing.append(path)
             continue
@@ -1249,7 +1283,8 @@ def check_outputs() -> int:
     if errors:
         print("INVALID:" + ",".join(errors))
         return 1
-    print("CODEGRAPH_CURRENT")
+    print("CODEGRAPH_CURRENT" if not graph.get("coverage", {}).get("parse_errors")
+          else "CODEGRAPH_CURRENT_WITH_PARSE_ERRORS")
     return 0
 
 
@@ -1312,15 +1347,19 @@ def validate_context_contract(graph: dict[str, Any]) -> list[str]:
 
 def write_outputs() -> None:
     outputs = build_outputs()
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    for path, content in outputs.items():
-        target = ROOT / path
-        target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(content, encoding="utf-8", newline="\n")
+    # Reject unsafe generated content before publishing any file.
+    if any(SECRET_SHAPED_RE.search(content) for content in outputs.values()):
+        raise ValueError("CODEGRAPH_SECRET_SHAPED_OUTPUT_REFUSED")
     graph = json.loads(outputs[rel(GRAPH_PATH)])
     errors = validate_graph(graph) + validate_context_contract(graph)
     if errors:
-        raise SystemExit("INVALID_GRAPH:" + ",".join(errors))
+        raise ValueError("INVALID_GRAPH:" + ",".join(errors))
+    destination = OUTPUT_OVERRIDE or OUTPUT_DIR
+    destination.mkdir(parents=True, exist_ok=True)
+    for path, content in outputs.items():
+        target = (destination / Path(path).name) if OUTPUT_OVERRIDE else ROOT / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(content, encoding="utf-8", newline="\n")
     print(
         json.dumps(
             {
@@ -1334,11 +1373,21 @@ def write_outputs() -> None:
 
 
 def main(argv: list[str] | None = None) -> int:
+    global ROOT, OUTPUT_DIR, GRAPH_PATH, INDEX_PATH, V2_CONTEXT_PATH, V1_CONTEXT_PATH, OUTPUT_OVERRIDE
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--repo", type=Path, default=ROOT, help="Source checkout; never changes its branch or index")
+    parser.add_argument("--output-dir", type=Path, help="External snapshot directory; preserve source-checkout graph")
     parser.add_argument(
         "--check", action="store_true", help="check generated files without writing"
     )
     args = parser.parse_args(argv)
+    ROOT = args.repo.resolve()
+    OUTPUT_DIR = ROOT / "docs" / "codegraph"
+    GRAPH_PATH, INDEX_PATH = OUTPUT_DIR / "graph.json", OUTPUT_DIR / "INDEX.md"
+    V2_CONTEXT_PATH, V1_CONTEXT_PATH = OUTPUT_DIR / "V2_CONTEXT.md", OUTPUT_DIR / "V1_CONTEXT.md"
+    OUTPUT_OVERRIDE = args.output_dir.resolve() if args.output_dir else None
+    if OUTPUT_OVERRIDE and OUTPUT_OVERRIDE.is_relative_to(ROOT):
+        parser.error("--output-dir must be outside the source checkout; omit it for canonical output")
     if args.check:
         return check_outputs()
     write_outputs()
