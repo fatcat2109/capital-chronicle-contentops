@@ -13,3 +13,6 @@ to context tooling. Preserve explicit exclusions for Runtime, raw headline data,
 evidence noise, caches, media, vendors, and build output. Validate generator changes with
 `tests/test_codex_context_index.py`, a real generate, then `--check`. Search graph inference types
 `entrypoint_to_implementation` and `agents_directory_scope`.
+
+For scope limits, source-first commit ordering and external WIP snapshots, follow
+`docs/codegraph/MAINTENANCE.md`.
