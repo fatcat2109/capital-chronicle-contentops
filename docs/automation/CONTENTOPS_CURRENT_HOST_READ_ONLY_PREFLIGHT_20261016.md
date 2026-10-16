@@ -114,8 +114,9 @@ readback is available.
 
 ## EVIDENCE
 
-- Branch commit: `4cdbf9d8098250479d5797ce4222c0f7680d0eb5`.
-- Remote branch and PR head read back to the same commit.
+- Browser-recovery implementation baseline: `4cdbf9d8098250479d5797ce4222c0f7680d0eb5`.
+- The packet was committed as a descendant of that baseline; remote branch and PR-head
+  readback matched after push.
 - Browser/evidence/runtime focused regression: `167 passed`.
 - The focused run covered browser-rendered recovery, public-secondary loading, epistemic-state
   preservation, Simple Gemini wiring, evidence adapters/loaders, route-health persistence, and
