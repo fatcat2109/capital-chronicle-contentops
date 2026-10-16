@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+from hashlib import sha256
+import urllib.error
 
 import pytest
 import json
@@ -8,6 +10,7 @@ import json
 from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
 )
+from live_contentops.browser_rendered_source_recovery_v1 import RETRIEVAL_METHOD
 from live_contentops.v1_simple_epistemic_state_v1 import (
     build_epistemic_state,
     canonical_x_report_document,
@@ -882,6 +885,101 @@ def test_canonical_x_with_direct_named_publisher_url_preserves_direct_route():
     assert result["epistemic_state"]["evidence_basis"] == (
         "DIRECT_REPUTABLE_REPORT"
     )
+
+
+def test_browser_rendered_recovery_enters_existing_direct_report_epistemic_lifecycle():
+    candidate = _candidate()
+    request = _request(candidate)
+    markdown = (
+        f"# {WSJ_EVENT}\n\n"
+        f"The Wall Street Journal reports that {WSJ_EVENT.lower()}, according to people "
+        "familiar with the matter. The report says the change affects credit support for "
+        "smaller cloud providers. This rendered publisher text supports the attributed "
+        "report proposition, while the event remains unconfirmed and subject to the "
+        "existing deterministic claim validation lifecycle."
+    )
+    canonical = " ".join(markdown.replace("# ", "", 1).split())
+    http_calls: list[str] = []
+    browser_calls: list[str] = []
+
+    def get(url, *_args):
+        http_calls.append(url)
+        raise urllib.error.HTTPError(url, 403, "Forbidden", {}, None)
+
+    def rendered_get(url, *_args):
+        browser_calls.append(url)
+        return {
+            "schema_version": "contentops.browser_rendered_source_recovery.v1",
+            "status": "PASS",
+            "requested_url": url,
+            "final_url": url,
+            "source_identity": "www.wsj.com",
+            "title": WSJ_EVENT,
+            "rendered_markdown": markdown,
+            "canonical_content_text": canonical,
+            "rendered_page_sha256": sha256(markdown.encode()).hexdigest(),
+            "canonical_content_sha256": sha256(canonical.encode()).hexdigest(),
+            "byte_length": len(markdown.encode()),
+            "content_truncated": False,
+            "retrieval_method": RETRIEVAL_METHOD,
+            "observed_at_utc": "2026-08-28T01:00:30Z",
+            "semantic_scope": "article",
+            "browser_runtime": {
+                "server_name": "browseros-neo",
+                "server_version": "0.0.test",
+                "mcp_protocol_version": "2025-06-18",
+            },
+            "tool_policy": {
+                "allowed_tools_used": ["name_session", "tabs", "read"],
+                "act_tool_used": False,
+                "evaluate_tool_used": False,
+                "upload_tool_used": False,
+                "download_tool_used": False,
+            },
+            "persistent_browser_profile_used": True,
+            "browser_authentication_state": "NOT_INSPECTED",
+            "login_or_consent_interaction_performed": False,
+            "credential_or_session_material_read": False,
+            "paywall_or_access_control_bypass": False,
+            "model_call_count": 0,
+            "public_write_performed": False,
+            "publication_authority": False,
+            "factual_authority_granted_by_browser": False,
+            "numeric_authority_granted": False,
+        }
+
+    result = SimpleFirstPartyAwareEvidenceResolver(
+        evaluation_as_of_utc=CUTOFF,
+        http_get=get,
+        rendered_source_get=rendered_get,
+        clock=lambda: NOW,
+    )(request)
+
+    assert result["status"] == "PASS"
+    assert http_calls == browser_calls == [WSJ_URL]
+    assert result["provenance"]["request_count_total"] == 2
+    assert result["provenance"]["browser_rendered_recovery_attempt_count"] == 1
+    assert result["provenance"]["browser_rendered_recovery_success_count"] == 1
+    assert result["provenance"]["browser_rendered_acquisitions_are_raw_http_bytes"] is False
+    document = result["evidence_documents"][0]
+    assert document["retrieval_method"] == RETRIEVAL_METHOD
+    assert document["browser_rendered_acquisition"]["model_call_count"] == 0
+    packed = _runtime_source_pack([document])
+    assert packed[0]["retrieval_method"] == RETRIEVAL_METHOD
+    assert packed[0]["canonical_resolution_status"] == (
+        "DIRECT_PUBLISHER_URL_BROWSER_RENDERED"
+    )
+    assert packed[0]["browser_rendered_acquisition"]["browser_runtime"][
+        "server_name"
+    ] == "browseros-neo"
+    assert result["provenance"]["route_history"][0][
+        "browser_rendered_recovery_triggers"
+    ] == ["HTTP Error 403: Forbidden"]
+    state = result["epistemic_state"]
+    assert state["evidence_basis"] == "DIRECT_REPUTABLE_REPORT"
+    assert state["event_confirmation_state"] == "UNCONFIRMED"
+    assert state["event_truth_supported"] is False
+    assert state["source_multiplicity"] == "SINGLE_SOURCE"
 
 
 def test_same_canonical_x_text_without_canonical_provenance_is_discovery_only():

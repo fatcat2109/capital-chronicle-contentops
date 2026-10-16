@@ -18,7 +18,7 @@ function snapshot(overrides: Partial<DailyAppSnapshot> = {}): DailyAppSnapshot {
       { dispatch_id: 'd-unknown', platform: 'x', lifecycle_classification: 'UNKNOWN_WRITE', public_object_id: null },
       { dispatch_id: 'd-pending', platform: 'linkedin', lifecycle_classification: 'CONFIRMED_DISPATCH_PENDING_READBACK', public_object_id: 'object-2' },
     ], real_publication_count: 1, controlled_no_public_write_count: 1, unknown_write_count: 1, pending_readback_count: 1, empty_reason: null },
-    performance: { observations: [{ observation_id: 'obs-1', platform: 'substack', collection_status: 'SCHEDULED', metric_availability: { shares: 'UNAVAILABLE' }, native_metrics: {} }], real_observation_count: 1, empty_reason: null, empty_detail: null },
+    performance: { observations: [{ observation_id: 'obs-1', platform: 'substack', observation_window: 'DAILY', collection_status: 'SCHEDULED', metric_availability: { shares: 'UNAVAILABLE' }, native_metrics: {} }], real_observation_count: 1, empty_reason: null, empty_detail: null },
     learning: { active_policy: null, policy_history: [], empty_reason: 'NO_LEARNING_UPDATE_YET', configured_default: { policy_version: 'bootstrap', provenance: 'CONFIGURED_DEFAULT', sample_count: 0, confidence: 'BOOTSTRAP_NOT_LEARNED' } },
     platforms: { destinations: [{ platform_id: 'substack', display_name: 'Substack', binding_class: 'BROWSER_AUTHENTICATED', readiness: 'READINESS_UNAVAILABLE_NOT_PERSISTED', write_eligible: false, last_dispatch_state: 'REAL_PUBLICATION_CONFIRMED', metrics_capability: 'OBSERVATION_RECORDED', pending_incident: false }] },
     incidents: { items: [{ incident_id: 'incident-1', severity: 'CRITICAL', what_happened: 'UNKNOWN_WRITE', safe_now: 'Automatic retry is stopped.', automatic_action: 'Read back.', operator_action: 'Do not retry blindly.', work_item_id: 'w1' }], active_count: 1, empty_reason: null },
@@ -52,6 +52,28 @@ describe('Final Daily App production console', () => {
     expect(screen.getByRole('heading', { name: 'Codex Automations' })).toBeInTheDocument();
     expect(screen.getAllByText('4').length).toBeGreaterThan(0);
     expect(screen.queryByText(/fake current success/i)).not.toBeInTheDocument();
+  });
+
+  it('surfaces current host preflight states without inferring live readiness', async () => {
+    respond(snapshot({
+      host_preflight: {
+        schema_version: 'contentops.current_host_read_only_preflight.v1',
+        status: 'PARTIAL', observed_at_utc: '2026-08-10T11:59:00Z', freshness: 'FRESH',
+        age_seconds: 60, source: 'PERSISTED_READ_ONLY_HOST_PREFLIGHT',
+        scheduler: { status: 'DISABLED', task_count: 3, tasks: [{ name: 'ContentOps Daily', status: 'Disabled' }] },
+        process: { status: 'NOT_VERIFIED', matching_process_count: 0 },
+        store: { status: 'READ_MODEL_INTEGRITY_PASS', integrity_check: 'ok', foreign_key_violation_count: 0, unknown_write_count: 0 },
+        edge: { status: 'NOT_VERIFIED', cdp_port: 9223, profile: 'contentops-social-main', destination_identity_status: 'NOT_VERIFIED' },
+        publication: { state: 'NO_PUBLIC_WRITE', public_write_performed: false },
+        blockers: ['CURRENT_EDGE_CDP_9223_UNREACHABLE'],
+      },
+    }));
+    render(<DailyAppConsole />);
+    expect(await screen.findByRole('heading', { name: 'Current host preflight' })).toBeInTheDocument();
+    expect(screen.getAllByText('Disabled').length).toBeGreaterThan(0);
+    expect(screen.getByText('No Public Write')).toBeInTheDocument();
+    expect(screen.getByText(/Current Edge Cdp 9223 Unreachable/)).toBeInTheDocument();
+    expect(screen.getByText('ContentOps Daily')).toBeInTheDocument();
   });
 
   it('keeps real, controlled, unknown, and pending publication states distinct', async () => {

@@ -492,6 +492,119 @@ def _automation_state_projection(store_path: Path, generated: datetime) -> dict[
     }
 
 
+HOST_PREFLIGHT_SCHEMA_VERSION = "contentops.current_host_read_only_preflight.v1"
+HOST_PREFLIGHT_MAX_AGE_SECONDS = 24 * 60 * 60
+
+
+def _host_preflight_projection(
+    store_path: Path,
+    generated: datetime,
+    *,
+    integrity_check: str,
+    foreign_key_violation_count: int,
+    unknown_write_count: int,
+) -> dict[str, Any]:
+    """Project one optional host receipt without turning missing proof into success.
+
+    The receipt is produced by a separate bounded read-only host probe.  This read model
+    only consumes the fixed runtime path and exposes a missing, malformed, or stale receipt
+    as explicit NOT_VERIFIED state.  It never probes processes, tasks, CDP, or destinations.
+    """
+    receipt_path = store_path.parent / "host_preflight" / "latest.json"
+    receipt = _read_json_file(receipt_path)
+    observed_at = _parse_time(receipt.get("observed_at_utc"))
+    if receipt.get("schema_version") != HOST_PREFLIGHT_SCHEMA_VERSION or observed_at is None:
+        return {
+            "schema_version": HOST_PREFLIGHT_SCHEMA_VERSION,
+            "status": "NOT_VERIFIED",
+            "observed_at_utc": None,
+            "freshness": "UNAVAILABLE",
+            "age_seconds": None,
+            "source": "PERSISTED_READ_ONLY_HOST_PREFLIGHT_NOT_AVAILABLE",
+            "scheduler": {"status": "NOT_VERIFIED", "task_count": None, "tasks": []},
+            "process": {"status": "NOT_VERIFIED", "matching_process_count": None},
+            "store": {
+                "status": "READ_MODEL_INTEGRITY_PASS",
+                "integrity_check": integrity_check,
+                "foreign_key_violation_count": int(foreign_key_violation_count),
+                "unknown_write_count": int(unknown_write_count),
+            },
+            "edge": {
+                "status": "NOT_VERIFIED",
+                "cdp_port": 9223,
+                "profile": "contentops-social-main",
+                "destination_identity_status": "NOT_VERIFIED",
+            },
+            "publication": {
+                "state": "NOT_VERIFIED",
+                "public_write_performed": None,
+            },
+            "blockers": ["CURRENT_HOST_PREFLIGHT_RECEIPT_UNAVAILABLE"],
+        }
+
+    age_seconds = max(0, int((generated - observed_at).total_seconds()))
+    freshness = "FRESH" if age_seconds <= HOST_PREFLIGHT_MAX_AGE_SECONDS else "STALE"
+    status = str(receipt.get("status") or "NOT_VERIFIED")
+    if freshness != "FRESH":
+        status = "STALE_OBSERVATION"
+
+    scheduler = receipt.get("scheduler") if isinstance(receipt.get("scheduler"), Mapping) else {}
+    tasks = [
+        {
+            "name": str(row.get("name") or "")[:160],
+            "status": str(row.get("status") or "NOT_VERIFIED")[:80],
+        }
+        for row in scheduler.get("tasks") or []
+        if isinstance(row, Mapping) and str(row.get("name") or "")
+    ]
+    process = receipt.get("process") if isinstance(receipt.get("process"), Mapping) else {}
+    edge = receipt.get("edge") if isinstance(receipt.get("edge"), Mapping) else {}
+    publication = receipt.get("publication") if isinstance(receipt.get("publication"), Mapping) else {}
+    public_write_performed = publication.get("public_write_performed")
+    if not isinstance(public_write_performed, bool):
+        public_write_performed = None
+    return {
+        "schema_version": HOST_PREFLIGHT_SCHEMA_VERSION,
+        "status": status,
+        "observed_at_utc": _iso(observed_at),
+        "freshness": freshness,
+        "age_seconds": age_seconds,
+        "source": "PERSISTED_READ_ONLY_HOST_PREFLIGHT",
+        "scheduler": {
+            "status": str(scheduler.get("status") or "NOT_VERIFIED")[:80],
+            "task_count": len(tasks) if scheduler.get("task_count") is None else scheduler.get("task_count"),
+            "tasks": tasks,
+        },
+        "process": {
+            "status": str(process.get("status") or "NOT_VERIFIED")[:80],
+            "matching_process_count": process.get("matching_process_count"),
+        },
+        "store": {
+            "status": "READ_MODEL_INTEGRITY_PASS",
+            "integrity_check": integrity_check,
+            "foreign_key_violation_count": int(foreign_key_violation_count),
+            "unknown_write_count": int(unknown_write_count),
+        },
+        "edge": {
+            "status": str(edge.get("status") or "NOT_VERIFIED")[:80],
+            "cdp_port": 9223,
+            "profile": "contentops-social-main",
+            "destination_identity_status": str(
+                edge.get("destination_identity_status") or "NOT_VERIFIED"
+            )[:80],
+        },
+        "publication": {
+            "state": "NO_PUBLIC_WRITE" if public_write_performed is False else "NOT_VERIFIED",
+            "public_write_performed": public_write_performed,
+        },
+        "blockers": [
+            str(value)[:180]
+            for value in receipt.get("blockers") or []
+            if str(value)
+        ][:12],
+    }
+
+
 def build_daily_app_snapshot(
     store_path: str | Path,
     *,
@@ -503,6 +616,8 @@ def build_daily_app_snapshot(
     if not path.is_file():
         raise DailyAppReadModelError("configured durable store does not exist")
     store = ContentOpsDurableStore(path, auto_migrate=False)
+    store_integrity_check = "UNAVAILABLE"
+    foreign_key_violation_count = 0
     hourly_audit = _read_json_file(path.parent / "hourly_audit" / "latest.json")
     if not hourly_audit:
         hourly_audit = {
@@ -513,8 +628,10 @@ def build_daily_app_snapshot(
         }
     try:
         with store.get_read_only_connection() as conn:
-            if str(conn.execute("PRAGMA integrity_check").fetchone()[0]).lower() != "ok":
+            store_integrity_check = str(conn.execute("PRAGMA integrity_check").fetchone()[0]).lower()
+            if store_integrity_check != "ok":
                 raise DailyAppReadModelError("durable store integrity check failed")
+            foreign_key_violation_count = len(conn.execute("PRAGMA foreign_key_check").fetchall())
             schema = int(conn.execute("SELECT MAX(version) FROM schema_migrations").fetchone()[0] or 0)
             if schema != REQUIRED_STORE_SCHEMA_VERSION:
                 raise DailyAppReadModelError(
@@ -1130,6 +1247,13 @@ def build_daily_app_snapshot(
     )
     published_today_count = production_day.published_articles_today
     automation_state = _automation_state_projection(path, generated)
+    host_preflight = _host_preflight_projection(
+        path,
+        generated,
+        integrity_check=store_integrity_check,
+        foreign_key_violation_count=foreign_key_violation_count,
+        unknown_write_count=len(unknown),
+    )
 
     latest_editorial_classification = "UNAVAILABLE"
     latest_article_update_mode = "UNAVAILABLE"
@@ -1611,6 +1735,7 @@ def build_daily_app_snapshot(
         },
         "hourly_audit": hourly_audit,
         "automation": automation_state,
+        "host_preflight": host_preflight,
         "controls": {
             "current_mode": controls["operating_mode"],
             "state_version": controls["state_version"],

@@ -4,7 +4,7 @@ import {
   ChevronRight, CircleOff, Database, Gauge, Menu, PanelLeftClose, RefreshCw,
   ScrollText, Shield, ShieldAlert, SlidersHorizontal, Sparkles, ExternalLink,
 } from 'lucide-react';
-import type { BackgroundLogTail, DailyAppSnapshot, DailyView, HourlyAudit, LoadState, OperatingMode, RuntimeCockpit, RuntimePrimaryState } from '../dailyAppTypes';
+import type { BackgroundLogTail, DailyAppSnapshot, DailyView, HostPreflight, HourlyAudit, LoadState, OperatingMode, RuntimeCockpit, RuntimePrimaryState } from '../dailyAppTypes';
 
 const API_ROOT = (
   (import.meta as unknown as { env: Record<string, string | undefined> }).env
@@ -163,7 +163,7 @@ export function formatUtcDateTime(value: unknown): string {
 function statusTone(value: unknown): 'good' | 'warn' | 'bad' | 'neutral' {
   const status = String(value ?? '').toUpperCase();
   if (/UNKNOWN|KILL|CRITICAL|FAILED|BLOCKED|OFFLINE|STOPPED|ACTION_REQUIRED/.test(status)) return 'bad';
-  if (/PENDING|STALE|DUE|REVIEW|UNAVAILABLE|HELD|SUPERVISED|DEGRADED/.test(status)) return 'warn';
+  if (/PENDING|STALE|DUE|REVIEW|UNAVAILABLE|NOT_VERIFIED|DISABLED|HELD|SUPERVISED|DEGRADED/.test(status)) return 'warn';
   if (/HEALTHY|READY|CONFIRMED|PUBLISHED|CURRENT|ACTIVE|RECONCILED|AVAILABLE|RUNNING|INGESTING|PREPARING|RESEARCHING|WRITING|MEDIA_BUILDING|PACKAGING|PUBLISHING|READING_BACK|RECONCILING/.test(status)) return 'good';
   return 'neutral';
 }
@@ -412,6 +412,16 @@ function RuntimeCockpitView({ data }: { data: DailyAppSnapshot }) {
 function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh: () => Promise<void>; hourlyAudit: HourlyAudit | null }) {
   const cycle = data.today.current_cycle;
   const automation = data.automation ?? { configured_intent: { state: 'CONFIGURED_INTENT_UNAVAILABLE' }, observed_host_state: { state: 'AUTOMATION_STATE_UNAVAILABLE' }, observation_timestamp_utc: null, freshness: 'UNAVAILABLE' };
+  const hostPreflight: HostPreflight = data.host_preflight ?? {
+    schema_version: 'contentops.current_host_read_only_preflight.v1', status: 'NOT_VERIFIED',
+    observed_at_utc: null, freshness: 'UNAVAILABLE', age_seconds: null,
+    source: 'PERSISTED_READ_ONLY_HOST_PREFLIGHT_NOT_AVAILABLE',
+    scheduler: { status: 'NOT_VERIFIED', task_count: null, tasks: [] },
+    process: { status: 'NOT_VERIFIED', matching_process_count: null },
+    store: { status: 'UNAVAILABLE', integrity_check: 'UNAVAILABLE', foreign_key_violation_count: 0, unknown_write_count: data.published.unknown_write_count },
+    edge: { status: 'NOT_VERIFIED', cdp_port: 9223, profile: 'contentops-social-main', destination_identity_status: 'NOT_VERIFIED' },
+    publication: { state: 'NOT_VERIFIED', public_write_performed: null }, blockers: ['CURRENT_HOST_PREFLIGHT_RECEIPT_UNAVAILABLE'],
+  };
   const configuredTasks = Array.isArray(automation.configured_intent.tasks) ? automation.configured_intent.tasks.filter((row): row is Record<string, unknown> => Boolean(row) && typeof row === 'object') : [];
   const observedTasks = Array.isArray(automation.observed_host_state.tasks) ? automation.observed_host_state.tasks.filter((row): row is Record<string, unknown> => Boolean(row) && typeof row === 'object') : [];
   const nextAction = data.incidents.active_count > 0
@@ -455,11 +465,27 @@ function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh
           <Metric label="Observed host state" value={words(automation.observed_host_state.state)} status={automation.observed_host_state.state} />
           <Metric label="Intended tasks" value={(automation.configured_intent.task_count ?? configuredTasks.length) || 'Unavailable'} />
           <Metric label="Observed tasks" value={(automation.observed_host_state.task_count ?? observedTasks.length) || 'Unavailable'} />
+          <Metric label="Next editorial window" value={words(String(data.runtime.next_editorial_window?.provenance ?? 'UNAVAILABLE'))} status={String(data.runtime.next_editorial_window?.provenance ?? 'UNAVAILABLE')} />
         </div>
         {observedTasks.length ? <div className="daily-card-list daily-automation-list">{observedTasks.map((task, index) => <article key={String(task.id ?? index)}>
           <header><strong>{String(task.name ?? task.id ?? 'Observed Automation')}</strong><Status value={task.status ?? 'UNAVAILABLE'} /></header>
           <DefinitionRows object={{ id: task.id, schedule: automationSchedule(task.rrule, task.timezone), model_reasoning: `${String(task.model ?? 'Unavailable')} / ${String(task.reasoning_effort ?? 'Unavailable').toUpperCase()}`, host_config_sha256: task.host_config_sha256 ?? null, observation_projection_sha256: task.observation_projection_sha256 ?? null }} />
         </article>)}</div> : <Empty title="Automation host state unavailable" detail="Configured intent is shown separately; the console will not infer observed task state from repository configuration." />}
+      </Panel>
+      <Panel title="Current host preflight" eyebrow={`${words(hostPreflight.status)} · ${words(hostPreflight.freshness)} · ${formatUtcDateTime(hostPreflight.observed_at_utc)}`}>
+        <div className="daily-grid-4">
+          <Metric label="Preflight" value={words(hostPreflight.status)} status={hostPreflight.status} />
+          <Metric label="Scheduler" value={words(hostPreflight.scheduler.status)} status={hostPreflight.scheduler.status} />
+          <Metric label="Process ownership" value={words(hostPreflight.process.status)} status={hostPreflight.process.status} />
+          <Metric label="Edge / CDP 9223" value={words(hostPreflight.edge.status)} status={hostPreflight.edge.status} />
+          <Metric label="Store integrity" value={words(hostPreflight.store.status)} status={hostPreflight.store.status} />
+          <Metric label="Host unknown scan" value={hostPreflight.store.unknown_write_count} status={hostPreflight.store.unknown_write_count ? 'UNKNOWN_WRITE' : 'CLEAR'} />
+          <Metric label="Public write" value={hostPreflight.publication.public_write_performed === false ? 'NO_PUBLIC_WRITE' : words(hostPreflight.publication.state)} status={hostPreflight.publication.state} />
+          <Metric label="Destination identity" value={words(hostPreflight.edge.destination_identity_status)} status={hostPreflight.edge.destination_identity_status} />
+        </div>
+        <DefinitionRows object={{ source: hostPreflight.source, edge_profile: hostPreflight.edge.profile, cdp_port: hostPreflight.edge.cdp_port, observed_age_seconds: hostPreflight.age_seconds, scheduled_task_count: hostPreflight.scheduler.task_count, matching_process_count: hostPreflight.process.matching_process_count, foreign_key_violation_count: hostPreflight.store.foreign_key_violation_count }} />
+        {hostPreflight.scheduler.tasks.length ? <div className="daily-card-list daily-automation-list">{hostPreflight.scheduler.tasks.map((task, index) => <article key={`${String(task.name ?? 'task')}:${index}`}><header><strong>{String(task.name ?? 'Scheduled task')}</strong><Status value={task.status ?? 'NOT_VERIFIED'} /></header></article>)}</div> : <Empty title="Current host task readback unavailable" detail="The console will not infer Windows task state from repository configuration or an older audit." />}
+        {hostPreflight.blockers.length > 0 && <p className="daily-callout">Blockers: {hostPreflight.blockers.map(words).join(', ')}</p>}
       </Panel>
       <div className="daily-grid-4">
         <Metric label="Latest classification" value={words(data.today.latest_editorial_classification ?? 'UNAVAILABLE')} status={data.today.latest_editorial_classification} />

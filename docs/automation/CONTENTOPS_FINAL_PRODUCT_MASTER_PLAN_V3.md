@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product Master Plan V3
 
-Authority date: 2026-08-29
+Authority date: 2026-09-01
 Status: `CURRENT_ROOT_EXECUTION_MASTER_PLAN / V1_ACCEPTED / ACTIVATION`
 
 North Star: `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
@@ -76,7 +76,7 @@ No bridge model call, source GET, second scheduler, second publisher, second pac
 - real historical Italy one-Substack-plus-eight-derivatives canary with all nine reconciled and `UNKNOWN_WRITE=0`;
 - V5 live read model/UI foundation.
 
-The corrected bridge is repository/CI proof only. It does not claim fresh current-host account/session/readiness or a new real public publication.
+The corrected bridge is repository/CI proof only. It does not claim fresh current-host account/session/readiness or a new real public publication. It also does not create a new standalone activation or canary prerequisite.
 
 Do not rebuild any of the above merely because current-host state must be revalidated.
 
@@ -100,23 +100,27 @@ The actual persistent Simple scheduler now delegates a qualified zero-write resu
 corrected deterministic handoff into the existing publication plan/coordinator/native
 `finalize_intent` path. Published-vs-qualified accounting is now implemented: live daily-output
 health, deficit, and bounded capacity use strictly reconciled canonical publications while
-qualified count remains telemetry. The next gate is current-host read-only activation proof.
+qualified count remains telemetry. No implementation gap remains; current work follows
+`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME` and repairs observed natural-window failures.
 
 Merged PR #38 already closes emergency-stop/process coverage. Merged PR #39 already closes single-owner composition. The routine Simple publication handoff is also closed by the corrected PR #42 path and its focused scheduler/crash-recovery tests. Do not reissue any of those as implementation work unless fresh code demonstrates regression.
 
 No V1 transport, durable-store, native-packager, readback, or UNKNOWN-write recovery rebuild is authorized or needed.
 
-## 5. Current host proof required before first new live write
+## 5. Live-write hard boundary (no universal ceremony)
 
-After published/reconciled accounting implementation, read-only activation preflight must prove:
+At every actual live write, the existing owner must fail closed on:
 
-- production DB integrity/schema is healthy;
-- no unresolved `UNKNOWN_WRITE`, ambiguous `DISPATCH_ATTEMPT_STARTED`, or recovery backlog blocks a new write;
-- exactly one routine production owner/process;
-- Edge `contentops-social-main` CDP 9223 is the publication/media/readback profile;
-- exact current public account/destination identities are correct;
-- all nine required destinations are freshly readiness-proven under existing contracts;
-- no secret/session material is exposed during proof.
+- production DB integrity/schema;
+- unresolved `UNKNOWN_WRITE`, ambiguous `DISPATCH_ATTEMPT_STARTED`, or recovery backlog;
+- duplicate routine production ownership/process;
+- Edge `contentops-social-main` CDP 9223 publication/media/readback identity;
+- exact current public account/destination identities;
+- destination readiness under existing contracts;
+- secret/session material exposure.
+
+These invariants are checked at the live boundary. A standalone read-only activation preflight is
+conditional diagnostics only when current evidence materially raises one of them.
 
 Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only.
 
@@ -155,24 +159,15 @@ Focused deterministic scheduler/coordinator/recovery tests prove this compositio
 The accounting slice is closed by the current branch implementation and focused deterministic
 tests. It does not establish current host readiness, deployment, activation, or live publication.
 
-### Slice C — current-host read-only activation preflight
+### Slice C — product-first autonomous resume
 
-- verify store/recovery/UNKNOWN state;
-- verify current process ownership and scheduler state;
-- verify Edge profile and exact account/destination readiness;
-- no public write.
+Merge/deploy/load corrected current bytes, run the already-activated four natural windows, observe
+real evidence/article/publication/readback/reconciliation failures, and fix measured blockers
+toward 5–8 useful published articles/day. Do not add a fifth routine task or manufacture filler.
 
-### Slice D — one live end-to-end V1 canary
-
-Under the already-granted routine authority, publish exactly one fresh governed article through:
-
-`Simple -> canonical Substack -> strict canonical readback -> exactly eight derivative destinations -> strict destination-local readback/reconciliation`.
-
-Stop immediately on wrong identity, unresolved UNKNOWN write, public-object ambiguity, destructive mutation, or loss of epistemic state.
-
-### Slice E — routine enablement
-
-Only after Slice D is strictly reconciled, enable the four live windows toward 5–8 useful published articles/day. Do not add a fifth routine task and do not manufacture filler.
+A bounded read-only preflight or one-off live canary may be opened as conditional diagnosis when
+fresh evidence materially raises an exact identity/readiness/UNKNOWN/irreversible-risk boundary;
+it is not a prerequisite for routine product work.
 
 ## 7. Definition of operationally ready V1
 
@@ -180,9 +175,10 @@ The owner product-acceptance decision is already true. Operational activation is
 
 1. the corrected Simple->publication bridge remains current and tested;
 2. live daily-output accounting counts strictly reconciled published canonical articles, not merely qualified zero-write articles;
-3. current-host read-only preflight passes, including proof that merged single-owner/emergency-stop contracts still hold on the active host;
-4. one fresh live article plus exactly eight derivatives strictly reconcile with `UNKNOWN_WRITE=0`;
-5. the four routine windows may then run live toward the accepted 5–8/day target.
+3. actual live-write boundary checks keep single-owner/emergency-stop, identity, readiness,
+   readback, and UNKNOWN invariants fail-closed;
+4. natural routine windows run and produce measured conversion/publication evidence;
+5. observed blockers are repaired toward the accepted 5–8/day target.
 
 Do not create another V1 acceptance gate after these activation conditions are satisfied.
 

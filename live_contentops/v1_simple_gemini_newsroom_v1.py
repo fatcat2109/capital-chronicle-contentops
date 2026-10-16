@@ -3,7 +3,8 @@
 This is the current low-complexity V1 editorial path. It deliberately does not run the
 legacy evidence-ready candidate pool, Codex Desktop worker handoff, daily deficit catch-up
 loop, or publication coordinator. One bounded Gemini selection chooses a useful current
-headline, deterministic public retrieval acquires only that story's source bytes, one
+headline, deterministic public retrieval (with bounded browser-rendered recovery after an
+eligible exact-source failure) acquires only that story's source record, one
 bounded Gemini writer produces a source-bound article, and deterministic validation checks
 all cited material against the already-retrieved bytes. One bounded Gemini revision is the
 only semantic retry.
@@ -22,6 +23,9 @@ from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import urlsplit
 
+from live_contentops.browser_rendered_source_recovery_v1 import (
+    BrowserOSNeoRenderedSourceRecovery,
+)
 from live_contentops.capital_chronicle_institutional_edge_v1 import (
     build_institutional_edge_editorial_packet,
     validate_institutional_edge_packet,
@@ -46,6 +50,9 @@ from live_contentops.newsroom_production_day_v1 import (
 )
 from live_contentops.preselection_intelligence_v1 import (
     rank_simple_headline_candidate_universe,
+)
+from live_contentops.public_secondary_evidence_loader_v1 import (
+    REPUTABLE_SECONDARY_HOSTS,
 )
 from live_contentops.nine_router_llm_seam_v2 import (
     ROLE_V1_SIMPLE_ARTICLE_WRITING,
@@ -76,7 +83,7 @@ PUBLICATION_BRIDGE_SCHEMA_VERSION = "contentops.v1_simple_publication_bridge.v1"
 
 ORDERING = (
     "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_"
-    "PROVENANCE_AWARE_BOUNDED_DETERMINISTIC_RETRIEVAL_THEN_"
+    "PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_"
     "EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE"
 )
 MAX_SELECTION_CANDIDATES = 32
@@ -892,10 +899,14 @@ def _default_evidence_loader(
     *,
     source_route_health: Mapping[str, Any] | None = None,
 ) -> EvidenceLoader:
+    rendered_recovery = BrowserOSNeoRenderedSourceRecovery(
+        allowed_hosts=REPUTABLE_SECONDARY_HOSTS,
+    )
     return SimpleFirstPartyAwareEvidenceResolver(
         evaluation_as_of_utc=cutoff_utc,
         max_requests=MAX_SOURCE_REQUESTS,
         timeout_seconds=12.0,
+        rendered_source_get=rendered_recovery,
         source_route_health=source_route_health,
     )
 
@@ -936,6 +947,15 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "source_authority_class": str(
                     document.get("source_authority_class") or ""
                 ),
+                "retrieval_method": str(document.get("retrieval_method") or ""),
+                "canonical_resolution_status": str(
+                    document.get("canonical_resolution_status") or ""
+                ),
+                "browser_rendered_acquisition": dict(
+                    document.get("browser_rendered_acquisition") or {}
+                )
+                if isinstance(document.get("browser_rendered_acquisition"), Mapping)
+                else None,
                 "secondary_listing_only": bool(
                     document.get("secondary_listing_only")
                 ),

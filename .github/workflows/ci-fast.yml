@@ -54,6 +54,7 @@ jobs:
       - name: Run V1 simple Gemini reset regressions
         shell: bash
         run: |
+          python -m pytest -q tests/test_browser_rendered_source_recovery_v1.py tests/test_public_secondary_evidence_loader_v1.py
           python -m pytest -q tests/test_run_v1_simple_gemini_newsroom_cli_v1.py
           python -m pytest -q tests/test_v1_simple_gemini_newsroom_v1.py
           python -m pytest -q tests/test_v1_simple_gemini_scheduler_v1.py
@@ -84,6 +85,7 @@ jobs:
           v2_pointer = Path('docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md').read_text(encoding='utf-8')
           video_agents = Path('video/AGENTS.md').read_text(encoding='utf-8')
           v2_creative = Path('docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md').read_text(encoding='utf-8')
+          browser_recovery_doc = Path('docs/automation/CONTENTOPS_BROWSER_RENDERED_SOURCE_RECOVERY_V1.md').read_text(encoding='utf-8')
           pipeline_api = Path('live_contentops/eight_platform_substack_first_pipeline_v1.py').read_text(encoding='utf-8')
           pipeline_impl = Path('live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py').read_text(encoding='utf-8')
 
@@ -158,6 +160,26 @@ jobs:
           assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_api
           assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_impl
           assert 'UNKNOWN_WRITE' in agents
+
+          active_routing_docs = (
+              agents,
+              Path('docs/CURRENT_CONTEXT.md').read_text(encoding='utf-8'),
+              browser_recovery_doc,
+              authority_map,
+              Path('docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md').read_text(encoding='utf-8'),
+              north_star,
+              master_plan,
+              Path('docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md').read_text(encoding='utf-8'),
+              reset,
+              Path('docs/codegraph/V1_CONTEXT.md').read_text(encoding='utf-8'),
+              v1_pointer,
+          )
+          for active_doc in active_routing_docs:
+              assert 'PRODUCT_FIRST_AUTONOMOUS_V1_RESUME' in active_doc
+              normalized = ' '.join(active_doc.lower().split())
+              assert 'current-host read-only activation preflight -> one fresh live' not in normalized
+          assert 'any BrowserOS tool-reported truncation' in browser_recovery_doc
+          assert 'content_truncated' in browser_recovery_doc
 
           assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.' in v2_pointer
           assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`' in video_agents

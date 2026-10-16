@@ -198,7 +198,8 @@ describe('Final Daily App local API boundary', () => {
       expect.stringMatching(/src\/views\/DailyAppConsole\.tsx$/),
     ]);
     const consoleSource = fetchFiles[0].raw;
-    expect(consoleSource).toContain("const API_ROOT = 'http://127.0.0.1:5174'");
+    expect(consoleSource).toContain("VITE_DAILY_APP_API_ROOT");
+    expect(consoleSource).toContain("'http://127.0.0.1:5174'");
     expect(consoleSource).not.toContain('/api/run-pipeline');
     expect(consoleSource).not.toMatch(/Math\.random|handleManualPost|handleSimulateDispatch|automationActive/);
   });

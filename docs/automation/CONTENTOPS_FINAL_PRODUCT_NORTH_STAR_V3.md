@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
-Authority date: 2026-08-29
+Authority date: 2026-09-01
 Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR / EARLY_ATTRIBUTED_INTELLIGENCE / V1_ACCEPTED`
 
 This document records the current product direction. It supersedes conflicting current-looking wording that requires universal official confirmation, routes routine V1 through Desktop Automations, says routine V1 public-write/readback remains ungranted, or says `V1_FINAL_PRODUCT_ACCEPTED` is still pending.
@@ -194,11 +194,17 @@ Accepted/reusable foundation includes current intake, published memory/dedupe, p
 
 The corrected routine handoff preserves this North Star rather than adding a new editorial gate: Simple semantic work remains zero-write; a qualified slot maps deterministically to the canonical durable work item; the publication plan is persisted/reconstructed from already-qualified artifacts; coordinator recovery runs before fresh work; interrupted qualified slots resume without another model/source call; unresolved backlog or ambiguous write stays in coordinator/readback recovery rather than blind retry; canonical Substack `/p/...` reconciliation still precedes exactly-eight derivative rematerialization. This is repository/CI proof, not fresh host/account/readiness or live-publication proof.
 
-Remaining work is activation/integration/revalidation, not a new V1 acceptance campaign:
+Current progression is `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`, not a new activation or acceptance
+campaign:
 
-1. current-host read-only activation preflight;
-3. one fresh live V1 end-to-end canary under already-granted routine authority;
-4. if strictly reconciled, enable four routine live windows toward 5–8 useful published articles/day.
+1. merge/deploy/load corrected current bytes;
+2. run the already-activated four natural routine windows;
+3. observe real conversion, publication, readback, and reconciliation failures;
+4. fix measured blockers toward 5–8 useful published articles/day.
+
+A fresh standalone host preflight or one-off canary is conditional diagnostics only when current
+evidence materially raises an exact identity/readiness/UNKNOWN/irreversible-risk boundary. The
+existing owner still fails closed on those invariants at every actual live write.
 
 Single-owner composition, Simple emergency-stop/process coverage, and the routine Simple publication handoff are already closed. Do not rebuild transports, publication coordinator, store, native packager, Simple editorial path, or historical Italy publication proof.
 

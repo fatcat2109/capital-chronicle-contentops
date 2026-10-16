@@ -1,9 +1,10 @@
 """First-party-aware deterministic evidence resolver for the Simple V1 lane.
 
 The resolver composes the existing official-primary and reputable-secondary loaders under
-one shared request ledger.  It creates no evidence schema or authority: locator bytes remain
-discovery-only and only the existing loaders' exact accepted document records can reach the
-Simple writer.
+one shared request ledger.  Ordinary HTTP remains first; an explicitly injected browser-rendered
+recovery callable may supply a hash-bound exact publisher document after an eligible access/render
+failure.  It creates no parallel truth or authority: locator bytes remain discovery-only and only
+the existing loaders' accepted document records can reach the Simple writer.
 """
 from __future__ import annotations
 
@@ -80,6 +81,9 @@ class SimpleFirstPartyAwareEvidenceResolver:
         max_requests: int = 6,
         timeout_seconds: float = 12.0,
         http_get: Callable[[str, float, int], Mapping[str, Any]] | None = None,
+        rendered_source_get: Callable[
+            [str, float, int], Mapping[str, Any]
+        ] | None = None,
         clock: Callable[[], datetime] | None = None,
         source_route_health: Mapping[str, Any] | None = None,
     ) -> None:
@@ -89,6 +93,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
         self._max_requests = int(max_requests)
         self._timeout_seconds = float(timeout_seconds)
         self._http_get = http_get
+        self._rendered_source_get = rendered_source_get
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._shared_request_budget = {"limit": self._max_requests, "used": 0}
         self._source_route_health = SourceRouteHealthState(
@@ -198,6 +203,19 @@ class SimpleFirstPartyAwareEvidenceResolver:
                 provenance.get("attributed_publisher_pinning_applied")
             ),
             "publisher_pinning_grants_report_or_event_authority": False,
+            "browser_rendered_recovery_attempt_count": int(
+                provenance.get("browser_rendered_recovery_attempt_count") or 0
+            ),
+            "browser_rendered_recovery_success_count": int(
+                provenance.get("browser_rendered_recovery_success_count") or 0
+            ),
+            "browser_rendered_recovery_triggers": list(
+                provenance.get("browser_rendered_recovery_triggers") or []
+            ),
+            "browser_rendered_recovery_diagnostics": list(
+                provenance.get("browser_rendered_recovery_diagnostics") or []
+            ),
+            "browser_rendered_authority_granted": False,
         }
 
     def _normalized_result(
@@ -250,8 +268,30 @@ class SimpleFirstPartyAwareEvidenceResolver:
                 "request_limit": self._max_requests,
                 "shared_request_budget": True,
                 "all_official_and_secondary_gets_share_one_ledger": True,
+                "all_source_acquisitions_share_one_ledger": True,
                 "locator_or_search_bytes_are_factual_authority": False,
                 "read_only_public_gets": True,
+                "browser_rendered_source_recovery_configured": bool(
+                    (result.get("provenance") or {}).get(
+                        "browser_rendered_source_recovery_configured"
+                    )
+                ),
+                "browser_rendered_recovery_attempt_count": int(
+                    (result.get("provenance") or {}).get(
+                        "browser_rendered_recovery_attempt_count"
+                    )
+                    or 0
+                ),
+                "browser_rendered_recovery_success_count": int(
+                    (result.get("provenance") or {}).get(
+                        "browser_rendered_recovery_success_count"
+                    )
+                    or 0
+                ),
+                "browser_rendered_acquisitions_are_raw_http_bytes": False,
+                "browser_rendered_model_call_count": 0,
+                "browser_rendered_public_write_count": 0,
+                "browser_rendered_authority_granted": False,
             },
             "blockers": [] if documents else blockers or ["public_source_unavailable"],
             "epistemic_state": dict(epistemic_state or {}),
@@ -378,6 +418,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
                 clock=self._clock,
                 source_route_health=self._source_route_health,
                 shared_request_budget=self._shared_request_budget,
+                rendered_source_get=self._rendered_source_get,
             )
             last_result = secondary(request)
             route_row = self._route_row(

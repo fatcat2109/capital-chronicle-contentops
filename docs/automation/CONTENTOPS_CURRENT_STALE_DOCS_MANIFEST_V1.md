@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
-Authority date: 2026-08-29
+Authority date: 2026-09-01
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
 Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, canary, owner-gate, or sequencing assumptions.
@@ -57,6 +57,9 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 - the actual persistent Simple scheduler still lacks a production handoff into the existing durable publication coordinator;
 - a component-only supervisor bridge is sufficient proof of the current persistent scheduler route;
 - V2 has any public-write authority.
+- a fresh standalone activation preflight and one-off canary are mandatory prerequisites before
+  the already-activated natural V1 routine may resume, absent current evidence of an exact hard
+  live-write risk.
 
 ## 4. Current replacement semantics
 
@@ -67,10 +70,14 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 - Merged PR #39 already closes single-owner composition: current Final Daily App production composition routes routine V1 through `SIMPLE_GEMINI_RUNTIME`; Native Desktop/legacy rolling-X are compatibility-only/non-routing.
 - Corrected PR #42 closes the actual persistent Simple scheduler -> existing `DurablePublicationCoordinator` handoff. Stable slot identity is the durable work-item identity; the publication plan is persisted/reconstructed without model/source re-execution; recovery runs before fresh work; interrupted qualified slots resume without another Simple/model/source call; unresolved backlog blocks current-plan registration/republication; terminal duplicate ticks do not duplicate semantic/public intent.
 - `DurablePublicationCoordinator` remains the sole public-write/readback/reconciliation owner. Canonical Substack `/p/...` reconciliation precedes exactly-eight derivative rematerialization. Do not build another publisher/store/scheduler/package stack.
-- Historical Italy publication proves the nine-surface transport/reconciliation stack. Current live account/session/readiness still requires read-only revalidation before the first new live write.
+- Historical Italy publication plus the current completed lifecycle prove the nine-surface
+  transport/reconciliation stack. Exact identity/readiness/recovery remains fail-closed at each
+  actual live-write boundary; a separate read-only revalidation campaign is conditional on current
+  evidence, not universal ceremony.
 - Live daily-output success is based on strictly reconciled published canonical articles, not merely zero-write qualified article records.
 - Published-vs-qualified accounting is implemented in the current master lineage.
-- Current activation order is read-only host preflight -> one live canary -> routine four-window live enablement.
+- Current product order is `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`: deploy current bytes -> run the
+  already-activated natural four-window routine -> observe real failures -> fix them.
 
 ## 5. Historical/non-routing families
 
@@ -118,7 +125,9 @@ Legacy CI compatibility markers retained in current authority files are semantic
 
 - V1 product acceptance and routine article public-write/readback authority are already granted.
 - Corrected PR #42 is repository/CI bridge proof only; it does not prove today's host account/session/readiness/recovery state or a new live public write.
-- Exact current-host account/identity/readiness/recovery proof is still required before the first new live write.
+- Exact current-host account/identity/readiness/recovery must pass the existing fail-closed checks
+  at an actual live-write boundary. A new standalone preflight/canary sequence is not mandatory
+  absent current evidence that materially requires it.
 - `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 - V2 public-write authority remains zero.
 - Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.

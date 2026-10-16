@@ -70,7 +70,17 @@ multi-candidate catch-up inside one scheduled task, and any scheduled Codex repo
 `SimpleFirstPartyAwareEvidenceResolver` composes the existing
 `BoundedOfficialPrimaryEvidenceLoader` and `BoundedPublicSecondaryEvidenceLoader` without creating
 another evidence schema or authority. The existing loaders remain deterministic source-byte
-authority for the fixed admitted candidate walk. 9Router has no native web-search/citation authority.
+authority for the fixed admitted candidate walk. After an eligible exact-source 403/429,
+render-only, or exact route-health suppression, the resolver may use the bounded
+`BrowserOSNeoRenderedSourceRecovery` callback. That callback is read-only, shares the same six-
+request ledger, emits the distinct `READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE` retrieval method with
+final-host and dual content hashes, and never grants browser/factual/numeric/publication authority.
+9Router has no native web-search/citation authority; deterministic browser navigation/read does
+not require a model call. Truncated rendered acquisition is never claim-authoritative: the browser
+adapter fails before `PASS` on tool-reported or byte-ceiling truncation, and the evidence loader
+independently requires `content_truncated is false` before public-claim admission. This capability
+does not create a new preflight or canary prerequisite; `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`
+remains the current route.
 Model-provided source timestamps are not authority. Every material fact, number, quote, or causal
 claim must bind to retrieved source bytes. Proprietary Capital Chronicle forecast/probability/
 scenario/regime/numeric claims remain unavailable unless exact publication-authorized CC authority
@@ -110,8 +120,10 @@ public-write enablement — was later granted by Jim and recorded in merge commi
 then closed the actual persistent scheduler -> existing coordinator handoff, including recover-before-
 fresh-work, deterministic slot/work-item/plan identity, no-model interrupted-publication resume,
 unresolved-backlog fail-closed behavior, and duplicate-terminal idempotency. Strictly reconciled
-published-count accounting is now closed; current work is current-host read-only preflight, then
-one live end-to-end canary before routine four-window enablement.
+published-count accounting is now closed; `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME` is current:
+deploy/load corrected bytes, run the already-activated natural four-window routine, observe real
+failures, and fix them. A standalone preflight or one-off canary is conditional diagnostics only
+when fresh evidence materially raises an exact hard boundary.
 
 The scheduler performs one independent canonical one-article invocation per bounded slot; it does
 not turn Simple into a multi-article call. Its stable identity is production day + canonical window

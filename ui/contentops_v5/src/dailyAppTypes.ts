@@ -30,6 +30,41 @@ export interface HourlyAudit {
   status?: string;
 }
 
+export interface HostPreflight {
+  schema_version: string;
+  status: string;
+  observed_at_utc: string | null;
+  freshness: string;
+  age_seconds?: number | null;
+  source: string;
+  scheduler: {
+    status: string;
+    task_count: number | null;
+    tasks: Array<Record<string, unknown>>;
+  };
+  process: {
+    status: string;
+    matching_process_count: number | null;
+  };
+  store: {
+    status: string;
+    integrity_check: string;
+    foreign_key_violation_count: number;
+    unknown_write_count: number;
+  };
+  edge: {
+    status: string;
+    cdp_port: number;
+    profile: string;
+    destination_identity_status: string;
+  };
+  publication: {
+    state: string;
+    public_write_performed: boolean | null;
+  };
+  blockers: string[];
+}
+
 export interface BackgroundLogTail {
   schema_version: string;
   stream: string;
@@ -242,6 +277,7 @@ export interface DailyAppSnapshot {
     empty_reason: string | null;
   };
   hourly_audit?: HourlyAudit;
+  host_preflight?: HostPreflight;
   automation?: {
     configured_intent: Record<string, unknown>;
     observed_host_state: Record<string, unknown>;

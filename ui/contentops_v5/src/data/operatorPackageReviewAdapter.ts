@@ -250,6 +250,7 @@ export const temporalAuthorityRecords =
 
 export interface CapabilityRow {
   article_mode?: string;
+  article_mode_profiles?: Record<string, CapabilityRow>;
   freshness_policy?: string;
   freshness_requirements?: Record<string, unknown>;
   market_context_required?: boolean;
@@ -444,7 +445,14 @@ function resolveStoryCapability(
     throw new Error(`Registry capability article mode invalid: ${sourceFamily}`);
   }
   if (row.article_mode && row.article_mode !== articleMode) {
-    throw new Error(`Capability article mode mismatch: ${sourceFamily}`);
+    const profile = row.article_mode_profiles?.[articleMode];
+    if (!profile) {
+      throw new Error(`Capability article mode mismatch: ${sourceFamily}`);
+    }
+    return {
+      row: { ...row, ...profile, article_mode: articleMode },
+      storyType,
+    };
   }
   return { row: { ...row, article_mode: row.article_mode ?? articleMode }, storyType };
 }
@@ -468,8 +476,14 @@ function buildReadiness(
 ): { story: CanonicalStoryReadiness; platforms: Map<string, CanonicalPlatformReadiness> } {
   const capability = resolveStoryCapability(sourceFamily, article.mode, registryInput);
   const articleVisualRequirements = capability.row.visual_requirements ?? {};
+  // The story's decision-time record is the authoritative value for whether this
+  // particular package requires a market snapshot.  The capability registry still
+  // supplies the default policy and market sensitivity, but older registry rows can
+  // legitimately lag the bound evidence packet.
   const marketSnapshotRequired = Boolean(
-    capability.row.market_snapshot_required ?? capability.row.market_context_required,
+    decisionTimeFreshness.market_snapshot_required ??
+      capability.row.market_snapshot_required ??
+      capability.row.market_context_required,
   );
   const marketSensitive = Boolean(
     capability.row.market_sensitive ?? capability.row.market_snapshot_required ?? capability.row.market_context_required,
