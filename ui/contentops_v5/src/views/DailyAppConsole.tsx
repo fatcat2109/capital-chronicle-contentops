@@ -465,6 +465,7 @@ function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh
           <Metric label="Observed host state" value={words(automation.observed_host_state.state)} status={automation.observed_host_state.state} />
           <Metric label="Intended tasks" value={(automation.configured_intent.task_count ?? configuredTasks.length) || 'Unavailable'} />
           <Metric label="Observed tasks" value={(automation.observed_host_state.task_count ?? observedTasks.length) || 'Unavailable'} />
+          <Metric label="Next editorial window" value={words(String(data.runtime.next_editorial_window?.provenance ?? 'UNAVAILABLE'))} status={String(data.runtime.next_editorial_window?.provenance ?? 'UNAVAILABLE')} />
         </div>
         {observedTasks.length ? <div className="daily-card-list daily-automation-list">{observedTasks.map((task, index) => <article key={String(task.id ?? index)}>
           <header><strong>{String(task.name ?? task.id ?? 'Observed Automation')}</strong><Status value={task.status ?? 'UNAVAILABLE'} /></header>
