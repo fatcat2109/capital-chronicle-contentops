@@ -13,23 +13,23 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14080,
+    "edges": 14130,
     "entrypoints": 20,
-    "nodes": 7454,
+    "nodes": 7477,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
-      "directory_scope": 8,
+      "directory_scope": 9,
       "durable_table": 37,
       "http_endpoint": 6,
-      "instructions": 8,
+      "instructions": 9,
       "manifest": 21,
-      "python_class": 612,
-      "python_function": 4065,
+      "python_class": 617,
+      "python_function": 4077,
       "python_method": 306,
-      "python_module": 777,
-      "schema": 219,
-      "test": 744,
+      "python_module": 778,
+      "schema": 221,
+      "test": 745,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -5866,6 +5866,12 @@
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "live_contentops/seo_metadata.py"
+    },
+    {
+      "from": "live_contentops/cli.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/speech_highlight_relay_v1.py"
     },
     {
       "from": "live_contentops/cli.py",
@@ -37002,6 +37008,138 @@
       "to": "schema:contentops.source_route_health.v1"
     },
     {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::CaptionCue"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::DynamicMediaClipper"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::PublicWriteProhibitedError"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechHighlightRelayPipeline"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechRelayError"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::artifact_identity"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::canonical_json"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::format_srt_timestamp"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::generate_srt"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::generate_vtt"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::probe_media"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::sha256_file"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::source_binding"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::speech_highlight_relay_command"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::speech_highlight_relay_command"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::write_json"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.speech_highlight_relay.package_manifest.v1"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.speech_highlight_relay.retained_source_packet.v1"
+    },
+    {
+      "from": "live_contentops/speech_highlight_relay_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_speech_highlight_relay_v1.py"
+    },
+    {
       "from": "live_contentops/static_cockpit_surface_contract.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -67098,6 +67236,156 @@
       "to": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only_value"
     },
     {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::artifact_identity",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::generate_srt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::format_srt_timestamp"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::generate_vtt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::format_srt_timestamp"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::probe_media",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechRelayError"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::sha256_file",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechRelayError"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::source_binding",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::speech_highlight_relay_command",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechHighlightRelayPipeline"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::speech_highlight_relay_command",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::CaptionCue"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::PublicWriteProhibitedError"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechRelayError"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::artifact_identity"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::source_binding"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::CaptionCue"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::PublicWriteProhibitedError"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechRelayError"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::artifact_identity"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::canonical_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::generate_srt"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::generate_vtt"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::probe_media"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::sha256_file"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet"
+    },
+    {
       "from": "python_symbol:live_contentops/static_cockpit_surface_contract.py::write_artifacts",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -76944,6 +77232,12 @@
       "to": "live_contentops/source_pack_verification_ui_v6.py"
     },
     {
+      "from": "tests/test_speech_highlight_relay_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/speech_highlight_relay_v1.py"
+    },
+    {
       "from": "tests/test_static_cockpit_surface_contract.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -84514,6 +84808,12 @@
       "inference": "typescript_export_regex",
       "kind": "defines",
       "to": "typescript_export:video/projects/frozen_without_breaking_v1/src/types.ts::ChapterProps"
+    },
+    {
+      "from": "video/speech_highlight_relay_v1/AGENTS.md",
+      "inference": "agents_directory_scope",
+      "kind": "governs",
+      "to": "directory:video/speech_highlight_relay_v1"
     }
   ],
   "entrypoints": [
@@ -84655,7 +84955,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-16T17:04:21Z",
+  "generation_timestamp_utc": "2026-10-16T18:16:36Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -84889,6 +85189,11 @@
       "id": "directory:video",
       "kind": "directory_scope",
       "path": "video"
+    },
+    {
+      "id": "directory:video/speech_highlight_relay_v1",
+      "kind": "directory_scope",
+      "path": "video/speech_highlight_relay_v1"
     },
     {
       "id": "docs/AGENTS.md",
@@ -85704,7 +86009,7 @@
     {
       "id": "live_contentops/cli.py",
       "kind": "python_module",
-      "size_bytes": 51515
+      "size_bytes": 51693
     },
     {
       "id": "live_contentops/cli_safety.py",
@@ -88175,6 +88480,11 @@
       "id": "live_contentops/source_route_health_v1.py",
       "kind": "python_module",
       "size_bytes": 9140
+    },
+    {
+      "id": "live_contentops/speech_highlight_relay_v1.py",
+      "kind": "python_module",
+      "size_bytes": 31218
     },
     {
       "id": "live_contentops/static_cockpit_surface_contract.py",
@@ -92979,658 +93289,658 @@
     {
       "id": "python_symbol:live_contentops/cli.py::alpha_wait_state_summary",
       "kind": "python_function",
-      "line": 609,
+      "line": 610,
       "path": "live_contentops/cli.py",
       "symbol": "alpha_wait_state_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::approval_queue_summary",
       "kind": "python_function",
-      "line": 215,
+      "line": 216,
       "path": "live_contentops/cli.py",
       "symbol": "approval_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::artifact_packet_bridge_summary",
       "kind": "python_function",
-      "line": 605,
+      "line": 606,
       "path": "live_contentops/cli.py",
       "symbol": "artifact_packet_bridge_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::audit_log_summary",
       "kind": "python_function",
-      "line": 237,
+      "line": 238,
       "path": "live_contentops/cli.py",
       "symbol": "audit_log_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::automation_policy_modes_summary",
       "kind": "python_function",
-      "line": 675,
+      "line": 676,
       "path": "live_contentops/cli.py",
       "symbol": "automation_policy_modes_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::build_sample_approval_queue",
       "kind": "python_function",
-      "line": 224,
+      "line": 225,
       "path": "live_contentops/cli.py",
       "symbol": "build_sample_approval_queue"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::bundle_refresh_next_phase_summary",
       "kind": "python_function",
-      "line": 601,
+      "line": 602,
       "path": "live_contentops/cli.py",
       "symbol": "bundle_refresh_next_phase_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::contracts_summary",
       "kind": "python_function",
-      "line": 152,
+      "line": 153,
       "path": "live_contentops/cli.py",
       "symbol": "contracts_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::daily_app_command",
       "kind": "python_function",
-      "line": 1038,
+      "line": 1039,
       "path": "live_contentops/cli.py",
       "symbol": "daily_app_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_preview_summary",
       "kind": "python_function",
-      "line": 509,
+      "line": 510,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_preview_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_qa_summary",
       "kind": "python_function",
-      "line": 495,
+      "line": 496,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_qa_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_selection_summary",
       "kind": "python_function",
-      "line": 521,
+      "line": 522,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_selection_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::evaluate_sample_policy",
       "kind": "python_function",
-      "line": 194,
+      "line": 195,
       "path": "live_contentops/cli.py",
       "symbol": "evaluate_sample_policy"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_editorial_packet_summary",
       "kind": "python_function",
-      "line": 586,
+      "line": 587,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_editorial_packet_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_packet_review_queue_summary",
       "kind": "python_function",
-      "line": 589,
+      "line": 590,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_packet_review_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_research_summary",
       "kind": "python_function",
-      "line": 535,
+      "line": 536,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_research_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::ide_cli_document_bundle_summary",
       "kind": "python_function",
-      "line": 611,
+      "line": 612,
       "path": "live_contentops/cli.py",
       "symbol": "ide_cli_document_bundle_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_asset_dry_run",
       "kind": "python_function",
-      "line": 397,
+      "line": 398,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_asset_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_asset_export_status",
       "kind": "python_function",
-      "line": 383,
+      "line": 384,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_asset_export_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_staging_contract",
       "kind": "python_function",
-      "line": 419,
+      "line": 420,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_adapter_status",
       "kind": "python_function",
-      "line": 340,
+      "line": 341,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_dry_run",
       "kind": "python_function",
-      "line": 352,
+      "line": 353,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_scope_verification_checklist",
       "kind": "python_function",
-      "line": 378,
+      "line": 379,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_scope_verification_checklist"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_staging_contract",
       "kind": "python_function",
-      "line": 374,
+      "line": 375,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::live_project_sources_bundle",
       "kind": "python_function",
-      "line": 491,
+      "line": 492,
       "path": "live_contentops/cli.py",
       "symbol": "live_project_sources_bundle"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::main",
       "kind": "python_function",
-      "line": 1261,
+      "line": 1263,
       "path": "live_contentops/cli.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::meta_capability_review_checklist",
       "kind": "python_function",
-      "line": 423,
+      "line": 424,
       "path": "live_contentops/cli.py",
       "symbol": "meta_capability_review_checklist"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::next_platform_account_binding_selection_gate_summary",
       "kind": "python_function",
-      "line": 882,
+      "line": 883,
       "path": "live_contentops/cli.py",
       "symbol": "next_platform_account_binding_selection_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_command_summary",
       "kind": "python_function",
-      "line": 1110,
+      "line": 1111,
       "path": "live_contentops/cli.py",
       "symbol": "operator_command_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_decision_history_summary",
       "kind": "python_function",
-      "line": 591,
+      "line": 592,
       "path": "live_contentops/cli.py",
       "symbol": "operator_decision_history_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_live_publishing_review_backlog_gate_summary",
       "kind": "python_function",
-      "line": 922,
+      "line": 923,
       "path": "live_contentops/cli.py",
       "symbol": "operator_live_publishing_review_backlog_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::packet_dashboard_handoff_summary",
       "kind": "python_function",
-      "line": 597,
+      "line": 598,
       "path": "live_contentops/cli.py",
       "symbol": "packet_dashboard_handoff_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::packet_registry_dashboard_summary",
       "kind": "python_function",
-      "line": 595,
+      "line": 596,
       "path": "live_contentops/cli.py",
       "symbol": "packet_registry_dashboard_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::pilot_prerequisites_status",
       "kind": "python_function",
-      "line": 427,
+      "line": 428,
       "path": "live_contentops/cli.py",
       "symbol": "pilot_prerequisites_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::platform_errors_summary",
       "kind": "python_function",
-      "line": 70,
+      "line": 71,
       "path": "live_contentops/cli.py",
       "symbol": "platform_errors_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::platform_requirements_account_binding_policy_gate_summary",
       "kind": "python_function",
-      "line": 930,
+      "line": 931,
       "path": "live_contentops/cli.py",
       "symbol": "platform_requirements_account_binding_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::policy_summary",
       "kind": "python_function",
-      "line": 173,
+      "line": 174,
       "path": "live_contentops/cli.py",
       "symbol": "policy_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::print_status",
       "kind": "python_function",
-      "line": 61,
+      "line": 62,
       "path": "live_contentops/cli.py",
       "symbol": "print_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::project_source_export_summary",
       "kind": "python_function",
-      "line": 599,
+      "line": 600,
       "path": "live_contentops/cli.py",
       "symbol": "project_source_export_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::prompt_injection_summary",
       "kind": "python_function",
-      "line": 563,
+      "line": 564,
       "path": "live_contentops/cli.py",
       "symbol": "prompt_injection_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::provider_dry_run",
       "kind": "python_function",
-      "line": 253,
+      "line": 254,
       "path": "live_contentops/cli.py",
       "symbol": "provider_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::provider_gateway_status",
       "kind": "python_function",
-      "line": 246,
+      "line": 247,
       "path": "live_contentops/cli.py",
       "symbol": "provider_gateway_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::real_artifact_intake_summary",
       "kind": "python_function",
-      "line": 603,
+      "line": 604,
       "path": "live_contentops/cli.py",
       "symbol": "real_artifact_intake_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::real_artifact_pipeline_trace_summary",
       "kind": "python_function",
-      "line": 607,
+      "line": 608,
       "path": "live_contentops/cli.py",
       "symbol": "real_artifact_pipeline_trace_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::review_ledger_registry_summary",
       "kind": "python_function",
-      "line": 593,
+      "line": 594,
       "path": "live_contentops/cli.py",
       "symbol": "review_ledger_registry_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_add_command",
       "kind": "python_function",
-      "line": 77,
+      "line": 78,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_add_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_command",
       "kind": "python_function",
-      "line": 142,
+      "line": 143,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_list_command",
       "kind": "python_function",
-      "line": 105,
+      "line": 106,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_list_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_tick_command",
       "kind": "python_function",
-      "line": 112,
+      "line": 113,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_tick_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::seo_metadata_summary",
       "kind": "python_function",
-      "line": 548,
+      "line": 549,
       "path": "live_contentops/cli.py",
       "symbol": "seo_metadata_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_adapter_status",
       "kind": "python_function",
-      "line": 272,
+      "line": 273,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_credential_readiness_summary",
       "kind": "python_function",
-      "line": 747,
+      "line": 748,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_credential_readiness_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_dry_run",
       "kind": "python_function",
-      "line": 281,
+      "line": 282,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_first_supervised_live_post_gate_summary",
       "kind": "python_function",
-      "line": 807,
+      "line": 808,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_first_supervised_live_post_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_getme_gate_summary",
       "kind": "python_function",
-      "line": 759,
+      "line": 760,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_getme_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_no_go_status",
       "kind": "python_function",
-      "line": 473,
+      "line": 474,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_no_go_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_pilot_design_summary",
       "kind": "python_function",
-      "line": 614,
+      "line": 615,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_pilot_design_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_pilot_execute",
       "kind": "python_function",
-      "line": 618,
+      "line": 619,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_pilot_execute"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_precheck_summary",
       "kind": "python_function",
-      "line": 642,
+      "line": 643,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_precheck_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_one_shot_execution_packet_summary",
       "kind": "python_function",
-      "line": 713,
+      "line": 714,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_one_shot_execution_packet_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_one_shot_go_gate_summary",
       "kind": "python_function",
-      "line": 731,
+      "line": 732,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_one_shot_go_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_post_pilot_ledger_gate_summary",
       "kind": "python_function",
-      "line": 827,
+      "line": 828,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_post_pilot_ledger_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_private_staging_packet_status",
       "kind": "python_function",
-      "line": 445,
+      "line": 446,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_private_staging_packet_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_readonly_channel_binding_permission_proof_summary",
       "kind": "python_function",
-      "line": 1024,
+      "line": 1025,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_readonly_channel_binding_permission_proof_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_live_post_reconciliation_gate_summary",
       "kind": "python_function",
-      "line": 914,
+      "line": 915,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_live_post_reconciliation_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_sandbox_dry_run_prep_summary",
       "kind": "python_function",
-      "line": 659,
+      "line": 660,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_sandbox_dry_run_prep_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_supervised_live_post_gate_summary",
       "kind": "python_function",
-      "line": 898,
+      "line": 899,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_supervised_live_post_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_supervised_post_dry_run_ledger_gate_summary",
       "kind": "python_function",
-      "line": 890,
+      "line": 891,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_supervised_post_dry_run_ledger_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_contract",
       "kind": "python_function",
-      "line": 300,
+      "line": 301,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_flow_dry_run",
       "kind": "python_function",
-      "line": 463,
+      "line": 464,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_flow_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_operator_rollback_drill",
       "kind": "python_function",
-      "line": 468,
+      "line": 469,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_operator_rollback_drill"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_supervised_post_dry_run_gate_summary",
       "kind": "python_function",
-      "line": 794,
+      "line": 795,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_supervised_post_dry_run_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_supervised_post_queue_summary",
       "kind": "python_function",
-      "line": 695,
+      "line": 696,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_supervised_post_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_target_binding_gate_summary",
       "kind": "python_function",
-      "line": 777,
+      "line": 778,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_target_binding_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telemetry_summary",
       "kind": "python_function",
-      "line": 65,
+      "line": 66,
       "path": "live_contentops/cli.py",
       "symbol": "telemetry_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_instagram_asset_fixtures",
       "kind": "python_function",
-      "line": 416,
+      "line": 417,
       "path": "live_contentops/cli.py",
       "symbol": "validate_instagram_asset_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_linkedin_dry_run_fixtures",
       "kind": "python_function",
-      "line": 371,
+      "line": 372,
       "path": "live_contentops/cli.py",
       "symbol": "validate_linkedin_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_provider_dry_run_fixtures",
       "kind": "python_function",
-      "line": 267,
+      "line": 268,
       "path": "live_contentops/cli.py",
       "symbol": "validate_provider_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_samples",
       "kind": "python_function",
-      "line": 163,
+      "line": 164,
       "path": "live_contentops/cli.py",
       "symbol": "validate_samples"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_telegram_dry_run_fixtures",
       "kind": "python_function",
-      "line": 297,
+      "line": 298,
       "path": "live_contentops/cli.py",
       "symbol": "validate_telegram_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_x_dry_run_fixtures",
       "kind": "python_function",
-      "line": 332,
+      "line": 333,
       "path": "live_contentops/cli.py",
       "symbol": "validate_x_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_adapter_status",
       "kind": "python_function",
-      "line": 305,
+      "line": 306,
       "path": "live_contentops/cli.py",
       "symbol": "x_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_dry_run",
       "kind": "python_function",
-      "line": 315,
+      "line": 316,
       "path": "live_contentops/cli.py",
       "symbol": "x_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_callback_pkce_dry_run_design_gate_summary",
       "kind": "python_function",
-      "line": 954,
+      "line": 955,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_callback_pkce_dry_run_design_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_callback_server_policy_gate_summary",
       "kind": "python_function",
-      "line": 978,
+      "line": 979,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_callback_server_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_credential_readiness_policy_gate_summary",
       "kind": "python_function",
-      "line": 986,
+      "line": 987,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_credential_readiness_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_live_read_only_identity_proof_gate_summary",
       "kind": "python_function",
-      "line": 1010,
+      "line": 1011,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_live_read_only_identity_proof_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_local_callback_handler_dry_run_stub_gate_summary",
       "kind": "python_function",
-      "line": 970,
+      "line": 971,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_local_callback_handler_dry_run_stub_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_redacted_credential_presence_check_design_gate_summary",
       "kind": "python_function",
-      "line": 994,
+      "line": 995,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_redacted_credential_presence_check_design_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_redirect_ledger_callback_fixture_contract_gate_summary",
       "kind": "python_function",
-      "line": 962,
+      "line": 963,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_redirect_ledger_callback_fixture_contract_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_supervised_live_readiness_bridge_bundle_gate_summary",
       "kind": "python_function",
-      "line": 1002,
+      "line": 1003,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_supervised_live_readiness_bridge_bundle_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_user_context_design_policy_gate_summary",
       "kind": "python_function",
-      "line": 946,
+      "line": 947,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_user_context_design_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_official_docs_account_binding_requirements_gate_summary",
       "kind": "python_function",
-      "line": 938,
+      "line": 939,
       "path": "live_contentops/cli.py",
       "symbol": "x_official_docs_account_binding_requirements_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_staging_contract",
       "kind": "python_function",
-      "line": 335,
+      "line": 336,
       "path": "live_contentops/cli.py",
       "symbol": "x_staging_contract"
     },
@@ -118520,6 +118830,125 @@
       "symbol": "persist_source_route_health_snapshot"
     },
     {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::CaptionCue",
+      "kind": "python_class",
+      "line": 96,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "CaptionCue"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::DynamicMediaClipper",
+      "kind": "python_class",
+      "line": 316,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "DynamicMediaClipper"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::PublicWriteProhibitedError",
+      "kind": "python_class",
+      "line": 29,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "PublicWriteProhibitedError"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechHighlightRelayPipeline",
+      "kind": "python_class",
+      "line": 421,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "SpeechHighlightRelayPipeline"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::SpeechRelayError",
+      "kind": "python_class",
+      "line": 25,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "SpeechRelayError"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::artifact_identity",
+      "kind": "python_function",
+      "line": 77,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "artifact_identity"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::canonical_json",
+      "kind": "python_function",
+      "line": 59,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "canonical_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::format_srt_timestamp",
+      "kind": "python_function",
+      "line": 104,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "format_srt_timestamp"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::generate_srt",
+      "kind": "python_function",
+      "line": 112,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "generate_srt"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::generate_vtt",
+      "kind": "python_function",
+      "line": 119,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "generate_vtt"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::probe_media",
+      "kind": "python_function",
+      "line": 161,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "probe_media"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::sha256_file",
+      "kind": "python_function",
+      "line": 63,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "sha256_file"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::source_binding",
+      "kind": "python_function",
+      "line": 81,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "source_binding"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::speech_highlight_relay_command",
+      "kind": "python_function",
+      "line": 550,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "speech_highlight_relay_command"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::validate_packet",
+      "kind": "python_function",
+      "line": 209,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "validate_packet"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_speech_highlight_relay_package",
+      "kind": "python_function",
+      "line": 488,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "verify_speech_highlight_relay_package"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::write_json",
+      "kind": "python_function",
+      "line": 73,
+      "path": "live_contentops/speech_highlight_relay_v1.py",
+      "symbol": "write_json"
+    },
+    {
       "id": "python_symbol:live_contentops/static_cockpit_surface_contract.py::build_fixture_outputs",
       "kind": "python_function",
       "line": 82,
@@ -124208,6 +124637,16 @@
       "schema_id": "contentops.source_route_health.v1"
     },
     {
+      "id": "schema:contentops.speech_highlight_relay.package_manifest.v1",
+      "kind": "schema",
+      "schema_id": "contentops.speech_highlight_relay.package_manifest.v1"
+    },
+    {
+      "id": "schema:contentops.speech_highlight_relay.retained_source_packet.v1",
+      "kind": "schema",
+      "schema_id": "contentops.speech_highlight_relay.retained_source_packet.v1"
+    },
+    {
       "id": "schema:contentops.substack_first_north_star_pipeline.v1",
       "kind": "schema",
       "schema_id": "contentops.substack_first_north_star_pipeline.v1"
@@ -128006,6 +128445,11 @@
       "id": "tests/test_source_route_health_persistence_v1.py",
       "kind": "test",
       "size_bytes": 1247
+    },
+    {
+      "id": "tests/test_speech_highlight_relay_v1.py",
+      "kind": "test",
+      "size_bytes": 3430
     },
     {
       "id": "tests/test_static_cockpit_surface_contract.py",
@@ -132940,6 +133384,11 @@
       "id": "video/projects/frozen_without_breaking_v1/tsconfig.json",
       "kind": "manifest",
       "size_bytes": 428
+    },
+    {
+      "id": "video/speech_highlight_relay_v1/AGENTS.md",
+      "kind": "instructions",
+      "size_bytes": 912
     }
   ],
   "protected_boundaries": [
@@ -133005,6 +133454,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "6218913c313bdc91b72296054f336d7416ec9b0e",
-  "source_tree_digest": "9a8962226d011099b4eacbe39a140b14b67ca584bed973bc0fdba87f69219d2e"
+  "source_head": "60437fbaa5e2247459a43f6b83228f11a9757851",
+  "source_tree_digest": "7d43504e526763bf9d36708409fc5d192719226bc5c798933d92fc15dda510c7"
 }

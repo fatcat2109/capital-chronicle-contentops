@@ -1,0 +1,32 @@
+{
+  "schema": "contentops.speech_highlight_relay.retained_source_probe.v1",
+  "source_id": "FED_FOMC_20260729_RETAINED_DUAL_MANDATE",
+  "source_binding_sha256": "9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61",
+  "media": {
+    "sha256": "4c2cd08ed327bec53300d8bc0bc170c16ba328a7af669b2240118fc956b7c1f9",
+    "duration_seconds": 27.9,
+    "streams": [
+      {"codec_name": "h264", "codec_type": "video", "width": 880, "height": 720, "r_frame_rate": "30/1"},
+      {"codec_name": "aac", "codec_type": "audio", "sample_rate": "48000", "channels": 2}
+    ],
+    "retrieval": "RETAINED_LOCAL_BYTES_NO_FRESH_FETCH"
+  },
+  "transcript": {
+    "sha256": "be77d850144d99365ba8c92749ad21525e39eb3577d66d105ce0907a6656cb97",
+    "format": "PDF",
+    "page_1based": 12,
+    "authority_class": "OFFICIAL_TEXT_LOCALLY_ALIGNED",
+    "timing_status": "PROVISIONAL_DONOR_ALIGNMENT_REVIEW_REQUIRED"
+  },
+  "audio_listening_status": "NOT_VERIFIED",
+  "legal_clearance_status": "NOT_VERIFIED",
+  "production_eligible": false,
+  "publication_control": {
+    "publication_state": "PUBLICATION_HOLD",
+    "public_writes": 0,
+    "unknown_writes": 0,
+    "provider_calls": 0,
+    "browser_calls": 0,
+    "transport_dispatched": false
+  }
+}
