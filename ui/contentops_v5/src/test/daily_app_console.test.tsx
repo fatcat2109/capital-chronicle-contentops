@@ -54,6 +54,28 @@ describe('Final Daily App production console', () => {
     expect(screen.queryByText(/fake current success/i)).not.toBeInTheDocument();
   });
 
+  it('surfaces current host preflight states without inferring live readiness', async () => {
+    respond(snapshot({
+      host_preflight: {
+        schema_version: 'contentops.current_host_read_only_preflight.v1',
+        status: 'PARTIAL', observed_at_utc: '2026-08-10T11:59:00Z', freshness: 'FRESH',
+        age_seconds: 60, source: 'PERSISTED_READ_ONLY_HOST_PREFLIGHT',
+        scheduler: { status: 'DISABLED', task_count: 3, tasks: [{ name: 'ContentOps Daily', status: 'Disabled' }] },
+        process: { status: 'NOT_VERIFIED', matching_process_count: 0 },
+        store: { status: 'READ_MODEL_INTEGRITY_PASS', integrity_check: 'ok', foreign_key_violation_count: 0, unknown_write_count: 0 },
+        edge: { status: 'NOT_VERIFIED', cdp_port: 9223, profile: 'contentops-social-main', destination_identity_status: 'NOT_VERIFIED' },
+        publication: { state: 'NO_PUBLIC_WRITE', public_write_performed: false },
+        blockers: ['CURRENT_EDGE_CDP_9223_UNREACHABLE'],
+      },
+    }));
+    render(<DailyAppConsole />);
+    expect(await screen.findByRole('heading', { name: 'Current host preflight' })).toBeInTheDocument();
+    expect(screen.getAllByText('Disabled').length).toBeGreaterThan(0);
+    expect(screen.getByText('No Public Write')).toBeInTheDocument();
+    expect(screen.getByText(/Current Edge Cdp 9223 Unreachable/)).toBeInTheDocument();
+    expect(screen.getByText('ContentOps Daily')).toBeInTheDocument();
+  });
+
   it('keeps real, controlled, unknown, and pending publication states distinct', async () => {
     respond(snapshot()); render(<DailyAppConsole />);
     await screen.findByText('No governed cycle recorded');

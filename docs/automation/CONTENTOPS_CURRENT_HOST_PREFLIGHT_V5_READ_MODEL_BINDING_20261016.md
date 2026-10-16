@@ -1,0 +1,49 @@
+# ContentOps current-host preflight to V5 read model — 2026-10-16
+
+Status: `IMPLEMENTED / READ_ONLY / NO_PUBLIC_WRITE`
+
+This receipt closes the bounded continuation from the current-host preflight packet into the
+existing ContentOps V1/V5 read model. It does not enable an Automation, attach to Edge/CDP,
+publish, dispatch, change credentials, or create a new runtime, store, scheduler, publisher, or
+authority owner.
+
+## Implemented
+
+- `live_contentops/daily_app_ui_read_model_v1.py` projects the persisted
+  `contentops.current_host_read_only_preflight.v1` receipt as `host_preflight`.
+- Missing or stale receipts remain `NOT_VERIFIED`/`STALE_OBSERVATION`; the projection never
+  infers live scheduler, process, Edge identity, or publication readiness from configuration.
+- `ui/contentops_v5/src/dailyAppTypes.ts` and
+  `ui/contentops_v5/src/views/DailyAppConsole.tsx` expose scheduler, process, store-integrity,
+  Edge/CDP, destination-identity, public-write and blocker states in the existing Today view.
+- `ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts` now resolves a declared article-mode
+  profile when a bound package uses a non-default mode, and uses the decision-time packet's
+  market-snapshot requirement for that specific story. It remains fail-closed when no profile is
+  declared. This repairs the pre-existing FOMC canonical-review fixture mismatch needed to load
+  the V5 console test surface.
+
+## Evidence
+
+- Python read-model suite: `29 passed`.
+- New host-preflight UI case: `1 passed`.
+- Canonical V5 package-review suite: `22 passed`.
+- V5 TypeScript/Vite production build: passed.
+- `git diff --check`: passed for the owned changes.
+- The full `daily_app_console.test.tsx` file still has two unrelated pre-existing fixture/renderer
+  failures: an observation fixture without `observation_window` is omitted by the performance
+  view, and a bootstrap test asks Today for `Configured Default` while its value is only supplied
+  to Queue/Learning. These are retained as separate follow-up work and are not used as evidence
+  for current-host readiness.
+
+## State boundaries
+
+- Implemented and locally tested: yes.
+- Branch pushed/open PR: to be read back after this receipt is committed.
+- Merged, deployed, current Edge identity, unattended execution, and live publication: not claimed.
+- Existing paused Automations and owner-gated V1 progression: unchanged.
+
+## Exact next phase
+
+Review this scoped PR against the current ContentOps authority. Only after an explicit owner grant
+may a separate preflight observe an eligible current host window; do not infer activation or public
+write from this read model.

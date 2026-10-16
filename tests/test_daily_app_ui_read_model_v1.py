@@ -159,6 +159,62 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     assert {name for name in after if name.endswith(".sqlite3")} == {"daily.sqlite3"}
 
 
+def test_snapshot_exposes_missing_current_host_preflight_as_not_verified(tmp_path):
+    store = _store(tmp_path)
+
+    host = build_daily_app_snapshot(store.db_path, now=NOW)["host_preflight"]
+
+    assert host["status"] == "NOT_VERIFIED"
+    assert host["freshness"] == "UNAVAILABLE"
+    assert host["scheduler"]["status"] == "NOT_VERIFIED"
+    assert host["process"]["status"] == "NOT_VERIFIED"
+    assert host["edge"]["status"] == "NOT_VERIFIED"
+    assert host["publication"]["state"] == "NOT_VERIFIED"
+    assert host["store"]["status"] == "READ_MODEL_INTEGRITY_PASS"
+    assert host["store"]["unknown_write_count"] == 0
+
+
+def test_snapshot_projects_persisted_host_preflight_without_granting_live_authority(tmp_path):
+    store = _store(tmp_path)
+    receipt_path = tmp_path / "host_preflight" / "latest.json"
+    receipt_path.parent.mkdir()
+    receipt_path.write_text(
+        json.dumps(
+            {
+                "schema_version": "contentops.current_host_read_only_preflight.v1",
+                "status": "PARTIAL",
+                "observed_at_utc": "2026-08-10T11:59:00Z",
+                "scheduler": {
+                    "status": "DISABLED",
+                    "task_count": 3,
+                    "tasks": [
+                        {"name": "ContentOps Daily", "status": "Disabled"},
+                    ],
+                },
+                "process": {"status": "NOT_VERIFIED", "matching_process_count": 0},
+                "edge": {
+                    "status": "NOT_VERIFIED",
+                    "destination_identity_status": "NOT_VERIFIED",
+                },
+                "publication": {"public_write_performed": False},
+                "blockers": ["CURRENT_EDGE_CDP_9223_UNREACHABLE"],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    host = build_daily_app_snapshot(store.db_path, now=NOW)["host_preflight"]
+
+    assert host["status"] == "PARTIAL"
+    assert host["freshness"] == "FRESH"
+    assert host["scheduler"]["status"] == "DISABLED"
+    assert host["scheduler"]["tasks"][0]["status"] == "Disabled"
+    assert host["edge"]["destination_identity_status"] == "NOT_VERIFIED"
+    assert host["publication"]["state"] == "NO_PUBLIC_WRITE"
+    assert host["publication"]["public_write_performed"] is False
+    assert host["blockers"] == ["CURRENT_EDGE_CDP_9223_UNREACHABLE"]
+
+
 def test_snapshot_keeps_supported_automation_observation_distinct_from_intent(tmp_path):
     from live_contentops.codex_desktop_newsroom_operator_v1 import (
         four_task_setup_packet,
