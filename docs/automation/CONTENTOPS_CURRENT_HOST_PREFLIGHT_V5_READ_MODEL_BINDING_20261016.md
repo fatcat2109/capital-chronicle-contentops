@@ -34,6 +34,8 @@ authority owner.
   navigation evidence only, not authority or runtime proof.
 - The later UI continuation refresh is likewise recorded at
   `827a4e1a` and remains navigation evidence only.
+- The final UI safety-test refresh is recorded at `a15ac4c8`; it is also navigation evidence
+  only and does not change runtime or publication authority.
 - The full `daily_app_console.test.tsx` file still has two unrelated pre-existing fixture/renderer
   failures: an observation fixture without `observation_window` is omitted by the performance
   view, and a bootstrap test asks Today for `Configured Default` while its value is only supplied
