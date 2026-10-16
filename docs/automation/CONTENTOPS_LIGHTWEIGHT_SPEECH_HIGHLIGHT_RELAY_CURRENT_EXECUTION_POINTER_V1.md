@@ -76,8 +76,9 @@ timing or third-party audio.
 - Implemented: retained packet, fail-closed validation, local clip extraction, clean/captioned render,
   SRT/VTT/JSON sidecars, hashes, package verification, CLI and focused CI test hook.
 - Tested: six focused boundary tests passed; local render and verifier passed.
-- Integrated: CLI and `ci-fast` hook on the current branch; not merged.
-- Merged/deployed: no.
+- Integrated: CLI and `ci-fast` hook merged into current `master` via PR58 at
+  `12666f7c9e40e8b3fce7044eef71c93120fa332d`.
+- Merged: yes, PR58 exact head `42a67df84ad3b7176411f9cfd4b20501ffae7d77`; deployed: not verified.
 - Render-reviewed: visual review complete; audio listening, timing, third-party continuity and legal
   clearance remain open.
 
