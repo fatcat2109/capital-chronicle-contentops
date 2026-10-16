@@ -1,0 +1,132 @@
+{
+  "schema": "contentops.speech_highlight_relay.retained_source_packet.v1",
+  "source_id": "FED_FOMC_20260729_RETAINED_DUAL_MANDATE",
+  "publisher": "Board of Governors of the Federal Reserve System",
+  "event_title": "Federal Reserve FOMC Press Conference — July 29, 2026 (Dual Mandate Policy Exchange)",
+  "event_date": "2026-07-29",
+  "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260729.htm",
+  "player_url": "https://players.brightcove.net/66043936001/default_default/index.html?videoId=6402426667112",
+  "speaker": {
+    "name": "Kevin Warsh",
+    "role": "Chairman (retained transcript)",
+    "identity_basis": "Retained official transcript page 12 identifies CHAIRMAN WARSH; source image inspected, no fresh identity lookup."
+  },
+  "provenance": {
+    "mode": "RETAINED_SOURCE_REPLAY",
+    "fresh_discovery": false,
+    "donor_commit": "85b70562da3c4b1502c15ac5993b526efc0f7477",
+    "donor_media_path": "video/speech_highlight_relay_v1/assets/authority/fed_fomc_2026-07-29_clip02_dual_mandate_official_880x720_handles.mp4",
+    "source_kind": "RETAINED_SINGLE_SPEECH_EXCERPT_NOT_FULL_EVENT",
+    "full_event_mapping": "Historical note: 00:24:04.050..00:24:31.900; exact full-event mapping NOT_VERIFIED in this replay.",
+    "retrieval_status": "NO_FRESH_FETCH; retained local bytes and historical source links only",
+    "excluded_asset": "continuous_full_speech_raw.mp4 concatenates separate clips and is not an uncut speech"
+  },
+  "media": {
+    "file": ".task-runtime/speech_highlight_relay_v1/retained/source.mp4",
+    "sha256": "4c2cd08ed327bec53300d8bc0bc170c16ba328a7af669b2240118fc956b7c1f9",
+    "duration_seconds": 27.9
+  },
+  "transcript": {
+    "authority_class": "OFFICIAL_TEXT_LOCALLY_ALIGNED",
+    "document": {
+      "file": ".task-runtime/speech_highlight_relay_v1/retained/transcript.pdf",
+      "sha256": "be77d850144d99365ba8c92749ad21525e39eb3577d66d105ce0907a6656cb97",
+      "format": "PDF",
+      "page_1based": 12
+    },
+    "official_document_url": "https://www.federalreserve.gov/mediacenter/files/FOMCpresconf20260729.pdf",
+    "timing_status": "PROVISIONAL_DONOR_ALIGNMENT_REVIEW_REQUIRED",
+    "audio_listening_status": "NOT_VERIFIED",
+    "alignment_basis": "Donor source cue boundaries retained; PDF page 12 is untimed. No claim that transcript matching verifies spoken timing or voice."
+  },
+  "rights": {
+    "triage_state": "TRANSFORMATIVE_EDITORIAL_REVIEW_REQUIRED",
+    "legal_clearance_status": "NOT_VERIFIED",
+    "production_eligible": false,
+    "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+    "policy_evidence_status": "HISTORICAL_PARAPHRASE_ONLY_NO_RETAINED_POLICY_BYTES",
+    "policy_snapshot": null,
+    "historical_note": {
+      "file": "video/projects/frozen_without_breaking_v1/AUTHORITY_CLIPS.md",
+      "sha256": "c443a029f36c82047cf489c4f8c970d64390b3149f464baccd47916de4416454"
+    },
+    "historical_note_date": "2026-08-15",
+    "current_policy_checked_at": null,
+    "basis": "Private local review under this task only; historical donor REUSE_CLEAR is not current legal clearance.",
+    "mandatory_restrictions": [
+      "No publication, upload, draft, unlisted or destination dispatch.",
+      "No seals/logos, third-party reporter questions, faces, voices or outlet material may inherit speech permissions.",
+      "Preserve authentic speech; no voice cloning, synthetic words, reordering or misleading context.",
+      "Retain publisher/speaker/date credit. Resolve policy and asset-specific reuse before production release."
+    ],
+    "source_binding_sha256": "9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61"
+  },
+  "selection": {
+    "candidate_id": "FROZEN_RETAINED_EXCERPT_01",
+    "method": "EXPLICIT_FROZEN_REPLAY_SPAN",
+    "is_autonomous": false,
+    "selected_by": "OPERATOR_REVIEWED_FROZEN_REPLAY_SPAN; explicit selection, not autonomous discovery",
+    "start_seconds": 4.485,
+    "end_seconds": 27.9,
+    "exact_quote": "I don't believe that either part of our mandate is generally at war with the other part. I do not believe that price stability and full employment is an either-or proposition. There have been policymakers over the last several generations who have thought that there is a strict tradeoff there. That isn't my judgment.",
+    "headline": "How the speaker sees the dual mandate",
+    "context": "The speaker describes his view of the dual mandate. This excerpt does not announce a policy-rate decision.",
+    "material_qualifiers": "Preserve the personal-belief and generally qualifiers; do not imply a universal result, a forecast or a rate decision.",
+    "protected_phrases": [
+      "I don't believe",
+      "generally",
+      "I do not believe",
+      "That isn't my judgment."
+    ],
+    "context_limitations": "Page 12 continues with equally important mandates, elevated prices and transmission tools. Full answer and reporter question are outside this excerpt; no causal or market-impact conclusion is asserted.",
+    "third_party_review": {
+      "status": "UNKNOWN_REVIEW_REQUIRED",
+      "start_seconds": 4.485,
+      "end_seconds": 27.9,
+      "scope": "Sampled visual review after the frozen 4.485s entry: speaker and flag are visible; reporter face/question material is outside the selected speech excerpt. Full-frame continuity, reporter voice and any inseparable third-party audio remain UNKNOWN_REVIEW_REQUIRED.",
+      "source_binding_sha256": "9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61"
+    },
+    "cues": [
+      {
+        "cue_id": "cue_002",
+        "start_seconds": 4.485,
+        "end_seconds": 8.985,
+        "text": "I don't believe that either part of our mandate is generally at war with the other part.",
+        "speaker": "Kevin Warsh"
+      },
+      {
+        "cue_id": "cue_003",
+        "start_seconds": 8.985,
+        "end_seconds": 13.485,
+        "text": "I do not believe that price stability and full employment is an either-or proposition.",
+        "speaker": "Kevin Warsh"
+      },
+      {
+        "cue_id": "cue_004",
+        "start_seconds": 13.485,
+        "end_seconds": 19.985,
+        "text": "There have been policymakers over the last several generations who have thought that there is a strict tradeoff there.",
+        "speaker": "Kevin Warsh"
+      },
+      {
+        "cue_id": "cue_005",
+        "start_seconds": 19.985,
+        "end_seconds": 27.9,
+        "text": "That isn't my judgment.",
+        "speaker": "Kevin Warsh"
+      }
+    ],
+    "source_binding_sha256": "9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61"
+  },
+  "publication_control": {
+    "publication_state": "PUBLICATION_HOLD",
+    "write_authority": "ZERO_PUBLIC_WRITE",
+    "public_writes": 0,
+    "unknown_writes": 0,
+    "network_calls_made": 0,
+    "provider_calls": 0,
+    "browser_calls": 0,
+    "transport_dispatched": false,
+    "destination_intents": []
+  }
+}
