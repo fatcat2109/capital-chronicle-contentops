@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14073,
+    "edges": 14080,
     "entrypoints": 20,
-    "nodes": 7451,
+    "nodes": 7454,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,12 +25,12 @@
       "instructions": 8,
       "manifest": 21,
       "python_class": 612,
-      "python_function": 4064,
+      "python_function": 4065,
       "python_method": 306,
       "python_module": 777,
-      "schema": 218,
+      "schema": 219,
       "test": 744,
-      "typescript_export": 506,
+      "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
   },
@@ -10311,6 +10311,12 @@
       "from": "live_contentops/daily_app_ui_read_model_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_host_preflight_projection"
+    },
+    {
+      "from": "live_contentops/daily_app_ui_read_model_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_iso"
     },
     {
@@ -10408,6 +10414,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::update_daily_app_mode"
+    },
+    {
+      "from": "live_contentops/daily_app_ui_read_model_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.current_host_read_only_preflight.v1"
     },
     {
       "from": "live_contentops/daily_app_ui_read_model_v1.py",
@@ -49248,6 +49260,24 @@
       "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_parse_time"
     },
     {
+      "from": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_host_preflight_projection",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_iso"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_host_preflight_projection",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_parse_time"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_host_preflight_projection",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_read_json_file"
+    },
+    {
       "from": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_latest_time",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -49318,6 +49348,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_dispatch_classification"
+    },
+    {
+      "from": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_host_preflight_projection"
     },
     {
       "from": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot",
@@ -77823,6 +77859,12 @@
       "from": "ui/contentops_v5/src/dailyAppTypes.ts",
       "inference": "typescript_export_regex",
       "kind": "defines",
+      "to": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::HostPreflight"
+    },
+    {
+      "from": "ui/contentops_v5/src/dailyAppTypes.ts",
+      "inference": "typescript_export_regex",
+      "kind": "defines",
       "to": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::HourlyAudit"
     },
     {
@@ -84613,7 +84655,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-09-01T10:13:50Z",
+  "generation_timestamp_utc": "2026-10-16T16:39:44Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -85937,7 +85979,7 @@
     {
       "id": "live_contentops/daily_app_ui_read_model_v1.py",
       "kind": "python_module",
-      "size_bytes": 85877
+      "size_bytes": 91303
     },
     {
       "id": "live_contentops/daily_article_brief_generation_v0.py",
@@ -96974,6 +97016,13 @@
       "symbol": "_duration_seconds"
     },
     {
+      "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_host_preflight_projection",
+      "kind": "python_function",
+      "line": 499,
+      "path": "live_contentops/daily_app_ui_read_model_v1.py",
+      "symbol": "_host_preflight_projection"
+    },
+    {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_iso",
       "kind": "python_function",
       "line": 102,
@@ -97053,7 +97102,7 @@
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::_sanitize_operator_trigger",
       "kind": "python_function",
-      "line": 1696,
+      "line": 1821,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "_sanitize_operator_trigger"
     },
@@ -97067,28 +97116,28 @@
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot",
       "kind": "python_function",
-      "line": 495,
+      "line": 608,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "build_daily_app_snapshot"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::build_daily_app_snapshot.editorial_history_row",
       "kind": "python_method",
-      "line": 1316,
+      "line": 1440,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "build_daily_app_snapshot.editorial_history_row"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::request_operator_cycle",
       "kind": "python_function",
-      "line": 1710,
+      "line": 1835,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "request_operator_cycle"
     },
     {
       "id": "python_symbol:live_contentops/daily_app_ui_read_model_v1.py::update_daily_app_mode",
       "kind": "python_function",
-      "line": 1672,
+      "line": 1797,
       "path": "live_contentops/daily_app_ui_read_model_v1.py",
       "symbol": "update_daily_app_mode"
     },
@@ -123714,6 +123763,11 @@
       "schema_id": "contentops.cross_domain_five_window_assignment.v1"
     },
     {
+      "id": "schema:contentops.current_host_read_only_preflight.v1",
+      "kind": "schema",
+      "schema_id": "contentops.current_host_read_only_preflight.v1"
+    },
+    {
       "id": "schema:contentops.current_oil_release_source.v1",
       "kind": "schema",
       "schema_id": "contentops.current_oil_release_source.v1"
@@ -125661,7 +125715,7 @@
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 40109
+      "size_bytes": 42436
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -128483,14 +128537,14 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::BackgroundLogTail",
       "kind": "typescript_export",
-      "line": 32,
+      "line": 67,
       "path": "ui/contentops_v5/src/dailyAppTypes.ts",
       "symbol": "BackgroundLogTail"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::DailyAppSnapshot",
       "kind": "typescript_export",
-      "line": 130,
+      "line": 165,
       "path": "ui/contentops_v5/src/dailyAppTypes.ts",
       "symbol": "DailyAppSnapshot"
     },
@@ -128502,6 +128556,13 @@
       "symbol": "DailyView"
     },
     {
+      "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::HostPreflight",
+      "kind": "typescript_export",
+      "line": 32,
+      "path": "ui/contentops_v5/src/dailyAppTypes.ts",
+      "symbol": "HostPreflight"
+    },
+    {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::HourlyAudit",
       "kind": "typescript_export",
       "line": 18,
@@ -128511,7 +128572,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::LoadState",
       "kind": "typescript_export",
-      "line": 282,
+      "line": 318,
       "path": "ui/contentops_v5/src/dailyAppTypes.ts",
       "symbol": "LoadState"
     },
@@ -128525,21 +128586,21 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::RuntimeActivityRow",
       "kind": "typescript_export",
-      "line": 49,
+      "line": 84,
       "path": "ui/contentops_v5/src/dailyAppTypes.ts",
       "symbol": "RuntimeActivityRow"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::RuntimeCockpit",
       "kind": "typescript_export",
-      "line": 65,
+      "line": 100,
       "path": "ui/contentops_v5/src/dailyAppTypes.ts",
       "symbol": "RuntimeCockpit"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::RuntimePrimaryState",
       "kind": "typescript_export",
-      "line": 43,
+      "line": 78,
       "path": "ui/contentops_v5/src/dailyAppTypes.ts",
       "symbol": "RuntimePrimaryState"
     },
@@ -129400,14 +129461,14 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::CanonicalVariantJoinInput",
       "kind": "typescript_export",
-      "line": 404,
+      "line": 405,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "CanonicalVariantJoinInput"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::CapabilityRegistry",
       "kind": "typescript_export",
-      "line": 272,
+      "line": 273,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "CapabilityRegistry"
     },
@@ -129428,7 +129489,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::PlatformVisualRule",
       "kind": "typescript_export",
-      "line": 262,
+      "line": 263,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "PlatformVisualRule"
     },
@@ -129449,7 +129510,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::ResolvedPlatformVisualExpectation",
       "kind": "typescript_export",
-      "line": 341,
+      "line": 342,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "ResolvedPlatformVisualExpectation"
     },
@@ -129463,28 +129524,28 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::buildCanonicalReviewStories",
       "kind": "typescript_export",
-      "line": 1031,
+      "line": 1045,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "buildCanonicalReviewStories"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::canonicalReviewStories",
       "kind": "typescript_export",
-      "line": 1047,
+      "line": 1061,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "canonicalReviewStories"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::canonicalReviewSummary",
       "kind": "typescript_export",
-      "line": 1049,
+      "line": 1063,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "canonicalReviewSummary"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::canonicalVariantEvidenceRecords",
       "kind": "typescript_export",
-      "line": 412,
+      "line": 413,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "canonicalVariantEvidenceRecords"
     },
@@ -129498,42 +129559,42 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::joinCanonicalVariantEvidence",
       "kind": "typescript_export",
-      "line": 849,
+      "line": 863,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "joinCanonicalVariantEvidence"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::resolvePlatformVisualExpectation",
       "kind": "typescript_export",
-      "line": 360,
+      "line": 361,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "resolvePlatformVisualExpectation"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::selectCanonicalReviewRole",
       "kind": "typescript_export",
-      "line": 1096,
+      "line": 1110,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "selectCanonicalReviewRole"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::selectCanonicalReviewStory",
       "kind": "typescript_export",
-      "line": 1077,
+      "line": 1091,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "selectCanonicalReviewStory"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::selectCanonicalReviewVariant",
       "kind": "typescript_export",
-      "line": 1114,
+      "line": 1128,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "selectCanonicalReviewVariant"
     },
     {
       "id": "typescript_export:ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts::sha256Canonical",
       "kind": "typescript_export",
-      "line": 304,
+      "line": 305,
       "path": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "symbol": "sha256Canonical"
     },
@@ -131507,7 +131568,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/views/DailyAppConsole.tsx::DailyAppConsole",
       "kind": "typescript_export",
-      "line": 630,
+      "line": 655,
       "path": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "symbol": "DailyAppConsole"
     },
@@ -132058,7 +132119,7 @@
     {
       "id": "ui/contentops_v5/src/dailyAppTypes.ts",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 9069
+      "size_bytes": 9847
     },
     {
       "id": "ui/contentops_v5/src/data/canonicalDraftFinalReviewVariantPreviewAdapter.ts",
@@ -132248,7 +132309,7 @@
     {
       "id": "ui/contentops_v5/src/data/operatorPackageReviewAdapter.ts",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 46442
+      "size_bytes": 47049
     },
     {
       "id": "ui/contentops_v5/src/data/operatorReviewQueuePacket.ts",
@@ -132353,7 +132414,7 @@
     {
       "id": "ui/contentops_v5/src/test/daily_app_console.test.tsx",
       "kind": "test",
-      "size_bytes": 17790
+      "size_bytes": 19224
     },
     {
       "id": "ui/contentops_v5/src/test/daily_app_control_plane.test.tsx",
@@ -132533,7 +132594,7 @@
     {
       "id": "ui/contentops_v5/src/views/DailyAppConsole.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 59167
+      "size_bytes": 62532
     },
     {
       "id": "ui/contentops_v5/src/views/DiscordOperatorSourceGoPhraseIntakePanel.tsx",
@@ -132944,6 +133005,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "72152b859d6386748af86361c8a18b8002d3c859",
-  "source_tree_digest": "1ebeb47ed513c7b0907c9d5fe33b531fd558e14e55d7238dbfef270777efa8b6"
+  "source_head": "5da9ec41e175b5ed8297b98c66aca9c6f14e6b2b",
+  "source_tree_digest": "2f551b0b95588646adc6288f363c7f5520adfd8531c44ba863cb649a2401f022"
 }
