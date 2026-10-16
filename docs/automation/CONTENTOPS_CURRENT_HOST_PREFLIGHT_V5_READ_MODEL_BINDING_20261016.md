@@ -1,6 +1,6 @@
 # ContentOps current-host preflight to V5 read model — 2026-10-16
 
-Status: `IMPLEMENTED / READ_ONLY / NO_PUBLIC_WRITE`
+Status: `IMPLEMENTED / TESTED / CI_PASS / READ_ONLY / NO_PUBLIC_WRITE`
 
 This receipt closes the bounded continuation from the current-host preflight packet into the
 existing ContentOps V1/V5 read model. It does not enable an Automation, attach to Edge/CDP,
@@ -24,6 +24,12 @@ authority owner.
 
 ## Evidence
 
+- Final implementation/test head: `dce7bba906461df0dfee85b0353519e787690566`.
+- PR #55 was `OPEN` at that implementation head before this receipt-only documentation commit.
+- CI run `38937220386` (`ci-fast`) completed successfully against that exact implementation
+  head; both
+  `deterministic-validation` and `branch-codegraph-refresh` completed with `SUCCESS`.
+- Full V5 UI suite: **31 test files / 280 tests passed locally**.
 - Python read-model suite: `29 passed`.
 - New host-preflight UI case: `1 passed`.
 - Canonical V5 package-review suite: `22 passed`.
@@ -36,16 +42,15 @@ authority owner.
   `827a4e1a` and remains navigation evidence only.
 - The final UI safety-test refresh is recorded at `a15ac4c8`; it is also navigation evidence
   only and does not change runtime or publication authority.
-- The full `daily_app_console.test.tsx` file still has two unrelated pre-existing fixture/renderer
-  failures: an observation fixture without `observation_window` is omitted by the performance
-  view, and a bootstrap test asks Today for `Configured Default` while its value is only supplied
-  to Queue/Learning. These are retained as separate follow-up work and are not used as evidence
-  for current-host readiness.
+- The final V5 suite result supersedes the earlier intermediate console-only fixture failures;
+  no such failure is used as current-host or live-readiness evidence.
 
 ## State boundaries
 
 - Implemented and locally tested: yes.
-- Branch pushed/open PR: to be read back after this receipt is committed.
+- Branch pushed/open PR: the implementation head above was pushed and read back; this receipt is
+  a documentation-only descendant.
+- CI: `ci-fast` run `38937220386` passed against the implementation head above.
 - Merged, deployed, current Edge identity, unattended execution, and live publication: not claimed.
 - Existing paused Automations and owner-gated V1 progression: unchanged.
 
