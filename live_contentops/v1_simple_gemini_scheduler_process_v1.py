@@ -1,9 +1,11 @@
 """Exactly-one detached process owner for the persistent Simple-Gemini scheduler.
 
-This module owns process lifecycle only. It never schedules editorial work, reads credentials,
-calls a model/source/provider, or performs a public write itself. The child scheduler may delegate a
-qualified zero-write Simple result to the existing durable publication coordinator under current V1
-authority; publication truth remains coordinator/store-owned.
+This module owns process lifecycle only. Its explicit opt-in BrowserOS dry-run seam performs a
+bounded read-only preflight/recovery contract check and exits before scheduler/store construction.
+The normal lifecycle never schedules editorial work, reads credentials, calls a model/source/provider,
+or performs a public write itself. The child scheduler may delegate a qualified zero-write Simple
+result to the existing durable publication coordinator under current V1 authority; publication truth
+remains coordinator/store-owned.
 """
 
 from __future__ import annotations
@@ -28,6 +30,13 @@ from live_contentops.v1_simple_gemini_scheduler_v1 import (
     ROUTINE_EDITORIAL_OWNER as ROUTINE_EDITORIAL_OWNER,
     _NonBlockingFileLock,
 )
+from live_contentops.browser_rendered_source_recovery_v1 import (
+    ALLOWED_MCP_TOOLS,
+    BROWSER_UNAVAILABLE,
+    EXPECTED_SERVER_NAME,
+    MCP_PROTOCOL_VERSION,
+    BrowserOSNeoReadOnlyPreflight,
+)
 
 SCHEMA_VERSION = "contentops.v1_simple_gemini_scheduler_process.v1"
 IDENTITY_SCHEMA_VERSION = "contentops.v1_simple_gemini_scheduler_process_identity.v1"
@@ -50,6 +59,20 @@ STATE_RUNNING = "RUNNING"
 STATE_STOPPED = "STOPPED"
 STATE_OWNER_UNPROVEN = "OWNER_UNPROVEN"
 
+SCHEDULED_BROWSEROS_DRY_RUN_SCHEMA_VERSION = (
+    "contentops.v1_simple_scheduled_browseros_dry_run.v1"
+)
+SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED = "FAIL_CLOSED"
+SCHEDULED_BROWSEROS_DRY_RUN_FEATURE_DISABLED = "FEATURE_DISABLED_BY_DEFAULT"
+SCHEDULED_BROWSEROS_DRY_RUN_PROFILE_AMBIGUOUS = "PROFILE_IDENTITY_AMBIGUOUS"
+SCHEDULED_BROWSEROS_DRY_RUN_PREFLIGHT_CONTRACT_INVALID = (
+    "PREFLIGHT_CONTRACT_INVALID"
+)
+SCHEDULED_BROWSEROS_DRY_RUN_RECOVERY_CONTRACT_INVALID = (
+    "RECOVERY_CONTRACT_INVALID"
+)
+SCHEDULED_BROWSEROS_DRY_RUN_MAX_RECOVERY_ATTEMPTS = 1
+
 
 def _iso_now() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
@@ -65,6 +88,291 @@ def _logical_hash(value: Any) -> str:
             default=str,
         ).encode("utf-8")
     ).hexdigest()
+
+
+def _scheduled_browseros_recovery_contract(
+    *, recovery_runner_injected: bool
+) -> dict[str, Any]:
+    return {
+        "owner": "BoundedPublicSecondaryEvidenceLoader",
+        "resolver_contract": "dry_run_browser_rendered_recovery",
+        "http_first": True,
+        "shared_request_budget": True,
+        "max_browser_rendered_recovery_attempts": (
+            SCHEDULED_BROWSEROS_DRY_RUN_MAX_RECOVERY_ATTEMPTS
+        ),
+        "recovery_runner_injected": bool(recovery_runner_injected),
+    }
+
+
+def _scheduled_browseros_result(
+    *,
+    status: str,
+    feature_enabled: bool,
+    failure_class: str | None = None,
+    failure_detail: str | None = None,
+    preflight: Mapping[str, Any] | None = None,
+    preflight_invoked: bool = False,
+    recovery: Mapping[str, Any] | None = None,
+    recovery_runner_injected: bool = False,
+) -> dict[str, Any]:
+    result: dict[str, Any] = {
+        "schema_version": SCHEDULED_BROWSEROS_DRY_RUN_SCHEMA_VERSION,
+        "status": status,
+        "dry_run": True,
+        "feature_enabled": bool(feature_enabled),
+        "fail_closed": status != "PASS",
+        "failure_class": failure_class,
+        "failure_detail": failure_detail,
+        "preflight_invocation_count": 1 if preflight_invoked or preflight is not None else 0,
+        "preflight": dict(preflight) if preflight is not None else None,
+        "recovery": dict(recovery) if recovery is not None else None,
+        "recovery_contract": _scheduled_browseros_recovery_contract(
+            recovery_runner_injected=recovery_runner_injected
+        ),
+        "scheduler_started": False,
+        "scheduler_ticks": 0,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": False,
+        "publication_authority": False,
+        "credential_or_session_material_read": False,
+    }
+    return result
+
+
+def _scheduled_browseros_profile_is_ambiguous(
+    preflight: Mapping[str, Any],
+) -> bool:
+    if bool(preflight.get("profile_identity_ambiguous")):
+        return True
+    for key in (
+        "profile_identity_status",
+        "browser_profile_identity",
+        "account_profile_identity",
+    ):
+        value = str(preflight.get(key) or "").strip().casefold()
+        if value in {"ambiguous", "profile_ambiguous", "not_unique"}:
+            return True
+    return False
+
+
+def _default_scheduled_browseros_preflight_runner(
+    **kwargs: Any,
+) -> Mapping[str, Any]:
+    return BrowserOSNeoReadOnlyPreflight().run(**kwargs)
+
+
+def _scheduled_browseros_preflight_is_valid(
+    preflight: Mapping[str, Any],
+) -> tuple[bool, str | None, str | None]:
+    if _scheduled_browseros_profile_is_ambiguous(preflight):
+        return False, SCHEDULED_BROWSEROS_DRY_RUN_PROFILE_AMBIGUOUS, (
+            "browser_profile_identity_is_ambiguous"
+        )
+    if str(preflight.get("status") or "") == BROWSER_UNAVAILABLE:
+        return False, BROWSER_UNAVAILABLE, str(
+            preflight.get("failure_detail") or "browseros_neo_unavailable"
+        )
+    if str(preflight.get("status") or "") != "PASS":
+        return False, SCHEDULED_BROWSEROS_DRY_RUN_PREFLIGHT_CONTRACT_INVALID, (
+            "browseros_preflight_status_not_pass"
+        )
+    if str(preflight.get("server_name") or "") != EXPECTED_SERVER_NAME:
+        return False, SCHEDULED_BROWSEROS_DRY_RUN_PREFLIGHT_CONTRACT_INVALID, (
+            "browseros_preflight_server_identity_invalid"
+        )
+    if str(preflight.get("mcp_protocol_version") or "") != MCP_PROTOCOL_VERSION:
+        return False, SCHEDULED_BROWSEROS_DRY_RUN_PREFLIGHT_CONTRACT_INVALID, (
+            "browseros_preflight_protocol_invalid"
+        )
+    if sorted(str(value) for value in (preflight.get("allowed_tools") or [])) != sorted(
+        ALLOWED_MCP_TOOLS
+    ):
+        return False, SCHEDULED_BROWSEROS_DRY_RUN_PREFLIGHT_CONTRACT_INVALID, (
+            "browseros_preflight_tool_allowlist_invalid"
+        )
+    if (
+        preflight.get("read_only") is not True
+        or preflight.get("credential_or_session_material_read") is not False
+        or int(preflight.get("model_call_count") or 0) != 0
+        or preflight.get("public_write_performed") is not False
+        or preflight.get("publication_authority") is not False
+    ):
+        return False, SCHEDULED_BROWSEROS_DRY_RUN_PREFLIGHT_CONTRACT_INVALID, (
+            "browseros_preflight_read_only_boundary_invalid"
+        )
+    return True, None, None
+
+
+def run_scheduled_browseros_dry_run(
+    *,
+    enabled: bool = False,
+    preflight_runner: Callable[..., Mapping[str, Any]] | None = None,
+    recovery_runner: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Run an opt-in read-only BrowserOS preflight/recovery contract check.
+
+    The default path is disabled and does not call either injected runner. When enabled, the
+    official preflight uses ``auto_open=False`` so this seam never launches a shortcut. A recovery
+    runner may wrap the existing ``dry_run_browser_rendered_recovery`` resolver contract; if it is
+    absent, the result is still a preflight PASS with recovery marked ``NOT_REQUESTED``. No
+    scheduler, store, model/provider, or publication owner is constructed here.
+    """
+
+    if not enabled:
+        return _scheduled_browseros_result(
+            status=SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED,
+            feature_enabled=False,
+            failure_class=SCHEDULED_BROWSEROS_DRY_RUN_FEATURE_DISABLED,
+            failure_detail="scheduled_browseros_dry_run_is_disabled_by_default",
+            recovery_runner_injected=recovery_runner is not None,
+        )
+
+    runner = preflight_runner
+    if runner is None:
+        runner = _default_scheduled_browseros_preflight_runner
+    try:
+        preflight = dict(runner(auto_open=False, reconnect_once=True))
+    except TimeoutError as exc:
+        return _scheduled_browseros_result(
+            status=BROWSER_UNAVAILABLE,
+            feature_enabled=True,
+            failure_class=BROWSER_UNAVAILABLE,
+            failure_detail=str(exc) or "browseros_neo_preflight_timeout",
+            preflight_invoked=True,
+            recovery_runner_injected=recovery_runner is not None,
+        )
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        detail = str(exc) or type(exc).__name__
+        unavailable = detail in {
+            BROWSER_UNAVAILABLE,
+            "browseros_neo_mcp_unavailable",
+        }
+        return _scheduled_browseros_result(
+            status=BROWSER_UNAVAILABLE if unavailable else SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED,
+            feature_enabled=True,
+            failure_class=(
+                BROWSER_UNAVAILABLE
+                if unavailable
+                else SCHEDULED_BROWSEROS_DRY_RUN_PREFLIGHT_CONTRACT_INVALID
+            ),
+            failure_detail=detail,
+            preflight_invoked=True,
+            recovery_runner_injected=recovery_runner is not None,
+        )
+
+    valid, failure_class, failure_detail = _scheduled_browseros_preflight_is_valid(
+        preflight
+    )
+    if not valid:
+        return _scheduled_browseros_result(
+            status=(
+                BROWSER_UNAVAILABLE
+                if failure_class == BROWSER_UNAVAILABLE
+                else SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED
+            ),
+            feature_enabled=True,
+            failure_class=failure_class,
+            failure_detail=failure_detail,
+            preflight=preflight,
+            recovery_runner_injected=recovery_runner is not None,
+        )
+
+    if recovery_runner is None:
+        return _scheduled_browseros_result(
+            status="PASS",
+            feature_enabled=True,
+            preflight=preflight,
+            recovery={"status": "NOT_REQUESTED", "attempt_count": 0},
+            recovery_runner_injected=False,
+        )
+
+    try:
+        recovery = dict(recovery_runner(preflight))
+    except TimeoutError as exc:
+        return _scheduled_browseros_result(
+            status=BROWSER_UNAVAILABLE,
+            feature_enabled=True,
+            failure_class=BROWSER_UNAVAILABLE,
+            failure_detail=str(exc) or "browseros_neo_recovery_timeout",
+            preflight=preflight,
+            recovery_runner_injected=True,
+        )
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        return _scheduled_browseros_result(
+            status=SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED,
+            feature_enabled=True,
+            failure_class=SCHEDULED_BROWSEROS_DRY_RUN_RECOVERY_CONTRACT_INVALID,
+            failure_detail=str(exc) or type(exc).__name__,
+            preflight=preflight,
+            recovery_runner_injected=True,
+        )
+
+    recovery_status = str(recovery.get("status") or "")
+    attempt_count = int(
+        recovery.get("browser_rendered_recovery_attempt_count")
+        or recovery.get("attempt_count")
+        or 0
+    )
+    if attempt_count > SCHEDULED_BROWSEROS_DRY_RUN_MAX_RECOVERY_ATTEMPTS:
+        return _scheduled_browseros_result(
+            status=SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED,
+            feature_enabled=True,
+            failure_class=SCHEDULED_BROWSEROS_DRY_RUN_RECOVERY_CONTRACT_INVALID,
+            failure_detail="browser_rendered_recovery_attempt_budget_exceeded",
+            preflight=preflight,
+            recovery=recovery,
+            recovery_runner_injected=True,
+        )
+    if (
+        recovery.get("http_first") is False
+        or recovery.get("shared_request_budget") is False
+        or recovery.get("public_write_performed") is True
+        or recovery.get("publication_authority") is True
+    ):
+        return _scheduled_browseros_result(
+            status=SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED,
+            feature_enabled=True,
+            failure_class=SCHEDULED_BROWSEROS_DRY_RUN_RECOVERY_CONTRACT_INVALID,
+            failure_detail="browser_rendered_recovery_safety_contract_invalid",
+            preflight=preflight,
+            recovery=recovery,
+            recovery_runner_injected=True,
+        )
+    if recovery_status == BROWSER_UNAVAILABLE:
+        return _scheduled_browseros_result(
+            status=BROWSER_UNAVAILABLE,
+            feature_enabled=True,
+            failure_class=BROWSER_UNAVAILABLE,
+            failure_detail=str(
+                recovery.get("failure_detail") or "browseros_neo_unavailable"
+            ),
+            preflight=preflight,
+            recovery=recovery,
+            recovery_runner_injected=True,
+        )
+    if recovery_status not in {
+        "HTTP_SUCCESS_NO_BROWSER",
+        "BROWSER_RENDERED_RECOVERY_DRY_RUN_PASS",
+    }:
+        return _scheduled_browseros_result(
+            status=SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED,
+            feature_enabled=True,
+            failure_class=SCHEDULED_BROWSEROS_DRY_RUN_RECOVERY_CONTRACT_INVALID,
+            failure_detail="browser_rendered_recovery_status_not_admitted",
+            preflight=preflight,
+            recovery=recovery,
+            recovery_runner_injected=True,
+        )
+    return _scheduled_browseros_result(
+        status="PASS",
+        feature_enabled=True,
+        preflight=preflight,
+        recovery=recovery,
+        recovery_runner_injected=True,
+    )
 
 
 def _runtime_dir(scheduler_root: str | Path) -> Path:
