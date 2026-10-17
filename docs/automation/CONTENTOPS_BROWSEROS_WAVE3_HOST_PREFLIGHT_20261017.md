@@ -64,4 +64,7 @@ unattended-runtime claim.
 - Implemented: durable current-epoch host readback receipt only.
 - Tested: the exact preflight command above returned `PASS` with the fields shown verbatim.
 - Integrated/merged/deployed/live-published: not yet; this docs-only branch is stacked on PR64.
+- Target update: Wave 3 dry-run PR64 is now integrated into `master` at `d54ebfa4`; PR65 now
+  targets `master`. The host evidence above remains time-qualified and does not open the scheduler
+  or publication path.
 - No scheduler/runtime/publication/database mutation occurred.
