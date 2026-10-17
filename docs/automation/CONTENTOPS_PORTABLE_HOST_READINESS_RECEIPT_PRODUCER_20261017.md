@@ -65,9 +65,9 @@ tampered-wire cases. Their portable hashes are:
 
 ## Evidence
 
-Focused new portable tests: `7 passed`.
+Focused new portable tests: `8 passed`.
 
-Focused owner compatibility set: `69 passed`:
+Focused owner compatibility set: `62 passed`:
 
 ```powershell
 python -m pytest -q tests/test_portable_host_readiness_receipt_v1.py tests/test_host_readiness_observation_consumer_v1.py tests/test_main_analysis_handoff_consumer_v1.py tests/test_scheduled_shadow_production_day_v1.py tests/test_v1_simple_gemini_scheduler_browseros_dry_run_v1.py tests/test_browser_rendered_source_recovery_v1.py
@@ -77,11 +77,11 @@ Ruff, `py_compile`, and `git diff --check` passed. No login, account selection, 
 read, provider call, task launch, store/database mutation, public write, deployment, or V2 activation
 occurred.
 
-Remote readback: [PR #73](https://github.com/fatcat2109/capital-chronicle-contentops/pull/73) is
+Remote readback snapshot at receipt generation: [PR #73](https://github.com/fatcat2109/capital-chronicle-contentops/pull/73) was
 `OPEN/CLEAN`, based on `18bcd94c908a3afcc4dc0ce156418f3a89a8e16f`, with exact head
-`27d5c0b7df9dee15d41b99ac64c08f19dd434c49`. Exact-head CI run
-[39041124272](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39041124272)
-is green for both `branch-codegraph-refresh` and `deterministic-validation`.
+`eb1c467d25532d9df065dc55e3d387eaff7bedbf`. Exact-head CI run
+[39042273075](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39042273075)
+was green for both `branch-codegraph-refresh` and `deterministic-validation`.
 
 ## Blockers
 
