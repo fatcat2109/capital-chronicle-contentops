@@ -49,6 +49,12 @@ V2 activation.
 - derivative destination shadow count: `8`
 - interruption recovery: `RESUMABLE_WITHOUT_SEMANTIC_RERUN`
 
+Remote readback at receipt generation: [PR #71](https://github.com/fatcat2109/capital-chronicle-contentops/pull/71)
+was `OPEN/CLEAN`, with base `7711debc1f0f02e5c772dca1e644fd6ac09f928e`, exact head
+`572c6b1625cd1859bc21b726ec77a4c4709986fc`, and exact-head CI run
+[39035723869](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39035723869)
+green for both `branch-codegraph-refresh` and `deterministic-validation`.
+
 Zero-live receipt fields are all closed: scheduler started `false`, durable-store writes `0`,
 database mutation `false`, model/provider calls `0`, browser actions `0`, public write `false`,
 publication authority `false`, and V2 activation `false`.
