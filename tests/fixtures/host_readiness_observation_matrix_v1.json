@@ -1,0 +1,410 @@
+{
+  "schema_version": "contentops.host_readiness_observation_fixture_matrix.v1",
+  "bridge_fixture": "tests/fixtures/main_analysis_handoff_bridge_v1.json",
+  "observation_now_utc": "2026-10-17T00:30:00Z",
+  "observations": {
+    "healthy": {
+      "schema_version": "contentops.host_readiness_observation_fixture.v1",
+      "observation_id": "obs-healthy-001",
+      "observed_at_utc": "2026-10-17T00:00:00Z",
+      "status": "HOST_OBSERVED",
+      "browseros": {
+        "status": "PASS",
+        "lifecycle_state": "HEALTHY",
+        "endpoint": "http://127.0.0.1:9010/mcp",
+        "allowed_tools": [
+          "name_session",
+          "read",
+          "tabs"
+        ],
+        "official_launcher_path": "C:\\Users\\bullw\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\BrowserOS neo.lnk",
+        "official_launcher_kind": "WINDOWS_SHORTCUT_LNK",
+        "official_launcher_invoked": false,
+        "launcher_attempts": 0,
+        "reconnect_attempts": 0,
+        "read_only": true,
+        "credential_or_session_material_read": false,
+        "model_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "server_name": "browseros-neo",
+        "server_version": "0.0.test",
+        "mcp_protocol_version": "2025-06-18"
+      },
+      "x_ingestion_cdp": {
+        "status": "REACHABLE_READ_ONLY",
+        "cdp_port": 9222,
+        "role": "INGESTION_ONLY",
+        "read_only": true,
+        "endpoint": "http://127.0.0.1:9222/json/version",
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false
+      },
+      "publication_cdp": {
+        "status": "REACHABLE_READ_ONLY",
+        "cdp_port": 9223,
+        "role": "PUBLISHING_READBACK_ONLY",
+        "read_only": true,
+        "endpoint": "http://127.0.0.1:9223/json/version",
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "profile": "contentops-social-main"
+      },
+      "scheduler_tasks": {
+        "status": "OBSERVED",
+        "task_count": 3,
+        "tasks": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ]
+      },
+      "process_filter": {
+        "status": "OBSERVED",
+        "filter_terms": [
+          "ContentOps",
+          "python",
+          "node",
+          "msedge"
+        ],
+        "matching_process_count": 0
+      },
+      "store": {
+        "status": "READ_ONLY_INTEGRITY_PASS",
+        "access_mode": "READ_ONLY",
+        "integrity_check": "ok",
+        "foreign_key_violation_count": 0,
+        "unknown_write_count": 0
+      },
+      "counters": {
+        "scheduler_started": false,
+        "database_mutation": false,
+        "model_call_performed": false,
+        "provider_call_performed": false,
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "browser_action_count": 0
+      },
+      "identity_shadow_input": {
+        "enabled": true,
+        "expected_account_label": "contentops-social-main",
+        "expected_destination": "X",
+        "visible_ui_metadata": {
+          "account": "contentops-social-main",
+          "destination": "X"
+        },
+        "snapshot_text": "Account: contentops-social-main\nDestination: X"
+      },
+      "destination_shadow_input": {
+        "enabled": true,
+        "expected_platform": "substack",
+        "expected_destination_kind": "canonical_substack_article",
+        "expected_destination_binding_id": "shadow:capitalchronicle.substack.com",
+        "expected_public_object_id": "shadow-object:host-observation",
+        "expected_public_object_url": "https://shadow.invalid/p/host-observation",
+        "expected_payload_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "readback": {
+          "status": "RECONCILED_CONFIRMED",
+          "platform": "substack",
+          "destination_kind": "canonical_substack_article",
+          "destination_binding_id": "shadow:capitalchronicle.substack.com",
+          "public_object_id": "shadow-object:host-observation",
+          "public_object_url": "https://shadow.invalid/p/host-observation",
+          "payload_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "readback_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_write_performed": false,
+          "publication_authority": false
+        }
+      },
+      "runtime_proven": false,
+      "publicly_proven": false,
+      "public_write_performed": false,
+      "publication_authority": false,
+      "packet_binding": {
+        "packet_logical_hash": "c496bb5135106202a577d167a4879ab013ae695afa537e472bee14843b5139e8",
+        "shadow_receipt_sha256": "826b54643edabcefe03ace212b8e9da51920d70624fe90d340819296d1d726bb"
+      }
+    },
+    "unavailable": {
+      "schema_version": "contentops.host_readiness_observation_fixture.v1",
+      "observation_id": "obs-unavailable-001",
+      "observed_at_utc": "2026-10-17T00:00:00Z",
+      "status": "UNAVAILABLE",
+      "browseros": {
+        "status": "BROWSER_UNAVAILABLE",
+        "lifecycle_state": "BROWSER_UNAVAILABLE",
+        "endpoint": "http://127.0.0.1:9010/mcp",
+        "allowed_tools": [
+          "name_session",
+          "read",
+          "tabs"
+        ],
+        "official_launcher_path": "C:\\Users\\bullw\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\BrowserOS neo.lnk",
+        "official_launcher_kind": "WINDOWS_SHORTCUT_LNK",
+        "official_launcher_invoked": false,
+        "launcher_attempts": 0,
+        "reconnect_attempts": 0,
+        "read_only": true,
+        "credential_or_session_material_read": false,
+        "model_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false
+      },
+      "x_ingestion_cdp": {
+        "status": "UNAVAILABLE",
+        "cdp_port": 9222,
+        "role": "INGESTION_ONLY",
+        "read_only": true,
+        "endpoint": "http://127.0.0.1:9222/json/version",
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false
+      },
+      "publication_cdp": {
+        "status": "UNAVAILABLE",
+        "cdp_port": 9223,
+        "role": "PUBLISHING_READBACK_ONLY",
+        "read_only": true,
+        "endpoint": "http://127.0.0.1:9223/json/version",
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "profile": "contentops-social-main"
+      },
+      "scheduler_tasks": {
+        "status": "UNAVAILABLE",
+        "task_count": 3,
+        "tasks": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ]
+      },
+      "process_filter": {
+        "status": "UNAVAILABLE",
+        "filter_terms": [
+          "ContentOps",
+          "python",
+          "node",
+          "msedge"
+        ],
+        "matching_process_count": 0
+      },
+      "store": {
+        "status": "READ_ONLY_INTEGRITY_PASS",
+        "access_mode": "READ_ONLY",
+        "integrity_check": "ok",
+        "foreign_key_violation_count": 0,
+        "unknown_write_count": 0
+      },
+      "counters": {
+        "scheduler_started": false,
+        "database_mutation": false,
+        "model_call_performed": false,
+        "provider_call_performed": false,
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "browser_action_count": 0
+      },
+      "identity_shadow_input": {
+        "enabled": true,
+        "expected_account_label": "contentops-social-main",
+        "expected_destination": "X",
+        "visible_ui_metadata": null,
+        "snapshot_text": null
+      },
+      "destination_shadow_input": {
+        "enabled": true,
+        "expected_platform": "substack",
+        "expected_destination_kind": "canonical_substack_article",
+        "expected_destination_binding_id": "shadow:capitalchronicle.substack.com",
+        "expected_public_object_id": "shadow-object:host-observation",
+        "expected_public_object_url": "https://shadow.invalid/p/host-observation",
+        "expected_payload_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "readback": null
+      },
+      "runtime_proven": false,
+      "publicly_proven": false,
+      "public_write_performed": false,
+      "publication_authority": false,
+      "packet_binding": {
+        "packet_logical_hash": "c496bb5135106202a577d167a4879ab013ae695afa537e472bee14843b5139e8",
+        "shadow_receipt_sha256": "826b54643edabcefe03ace212b8e9da51920d70624fe90d340819296d1d726bb"
+      }
+    },
+    "ambiguous": {
+      "schema_version": "contentops.host_readiness_observation_fixture.v1",
+      "observation_id": "obs-ambiguous-001",
+      "observed_at_utc": "2026-10-17T00:00:00Z",
+      "status": "AMBIGUOUS",
+      "browseros": {
+        "status": "PASS",
+        "lifecycle_state": "HEALTHY",
+        "endpoint": "http://127.0.0.1:9010/mcp",
+        "allowed_tools": [
+          "name_session",
+          "read",
+          "tabs"
+        ],
+        "official_launcher_path": "C:\\Users\\bullw\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\BrowserOS neo.lnk",
+        "official_launcher_kind": "WINDOWS_SHORTCUT_LNK",
+        "official_launcher_invoked": false,
+        "launcher_attempts": 0,
+        "reconnect_attempts": 0,
+        "read_only": true,
+        "credential_or_session_material_read": false,
+        "model_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "server_name": "browseros-neo",
+        "server_version": "0.0.test",
+        "mcp_protocol_version": "2025-06-18"
+      },
+      "x_ingestion_cdp": {
+        "status": "REACHABLE_READ_ONLY",
+        "cdp_port": 9222,
+        "role": "INGESTION_ONLY",
+        "read_only": true,
+        "endpoint": "http://127.0.0.1:9222/json/version",
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false
+      },
+      "publication_cdp": {
+        "status": "REACHABLE_READ_ONLY",
+        "cdp_port": 9223,
+        "role": "PUBLISHING_READBACK_ONLY",
+        "read_only": true,
+        "endpoint": "http://127.0.0.1:9223/json/version",
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "profile": "contentops-social-main"
+      },
+      "scheduler_tasks": {
+        "status": "OBSERVED",
+        "task_count": 3,
+        "tasks": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ]
+      },
+      "process_filter": {
+        "status": "OBSERVED",
+        "filter_terms": [
+          "ContentOps",
+          "python",
+          "node",
+          "msedge"
+        ],
+        "matching_process_count": 0
+      },
+      "store": {
+        "status": "READ_ONLY_INTEGRITY_PASS",
+        "access_mode": "READ_ONLY",
+        "integrity_check": "ok",
+        "foreign_key_violation_count": 0,
+        "unknown_write_count": 0
+      },
+      "counters": {
+        "scheduler_started": false,
+        "database_mutation": false,
+        "model_call_performed": false,
+        "provider_call_performed": false,
+        "browser_action_performed": false,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "browser_action_count": 0
+      },
+      "identity_shadow_input": {
+        "enabled": true,
+        "expected_account_label": "contentops-social-main",
+        "expected_destination": "X",
+        "visible_ui_metadata": null,
+        "snapshot_text": "Account: contentops-social-main\nAccount: other-profile\nDestination: X"
+      },
+      "destination_shadow_input": {
+        "enabled": true,
+        "expected_platform": "substack",
+        "expected_destination_kind": "canonical_substack_article",
+        "expected_destination_binding_id": "shadow:capitalchronicle.substack.com",
+        "expected_public_object_id": "shadow-object:host-observation",
+        "expected_public_object_url": "https://shadow.invalid/p/host-observation",
+        "expected_payload_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "readback": {
+          "status": "RECONCILED_CONFIRMED",
+          "platform": "substack",
+          "destination_kind": "canonical_substack_article",
+          "destination_binding_id": "shadow:capitalchronicle.substack.com",
+          "public_object_id": "shadow-object:host-observation",
+          "public_object_url": "https://shadow.invalid/p/host-observation",
+          "payload_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "readback_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "reconciliation_status": "RECONCILED_CONFIRMED",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "identity_ambiguous": true
+        }
+      },
+      "runtime_proven": false,
+      "publicly_proven": false,
+      "public_write_performed": false,
+      "publication_authority": false,
+      "packet_binding": {
+        "packet_logical_hash": "c496bb5135106202a577d167a4879ab013ae695afa537e472bee14843b5139e8",
+        "shadow_receipt_sha256": "826b54643edabcefe03ace212b8e9da51920d70624fe90d340819296d1d726bb"
+      }
+    }
+  }
+}
