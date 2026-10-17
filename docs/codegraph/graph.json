@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14152,
+    "edges": 14156,
     "entrypoints": 20,
-    "nodes": 7490,
+    "nodes": 7493,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,10 +25,10 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 619,
-      "python_function": 4082,
+      "python_function": 4083,
       "python_method": 306,
-      "python_module": 779,
-      "schema": 224,
+      "python_module": 780,
+      "schema": 225,
       "test": 747,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
@@ -11152,6 +11152,24 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_destination_performance_observer_v1.py"
+    },
+    {
+      "from": "live_contentops/destination_readback_shadow_gate_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/destination_readback_shadow_gate_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/destination_readback_shadow_gate_v1.py::evaluate_destination_readback_shadow"
+    },
+    {
+      "from": "live_contentops/destination_readback_shadow_gate_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.destination_readback_shadow_gate.v1"
     },
     {
       "from": "live_contentops/destination_transport_registry_v1.py",
@@ -69324,6 +69342,12 @@
       "to": "python_symbol:live_contentops/browseros_identity_shadow_gate_v1.py::evaluate_browseros_identity_shadow"
     },
     {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::run_scheduled_browseros_dry_run",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/destination_readback_shadow_gate_v1.py::evaluate_destination_readback_shadow"
+    },
+    {
       "from": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::scheduler_process_state",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -85087,7 +85111,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-17T09:05:26Z",
+  "generation_timestamp_utc": "2026-10-17T09:25:38Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -86527,6 +86551,11 @@
       "id": "live_contentops/destination_performance_observer_v1.py",
       "kind": "python_module",
       "size_bytes": 8450
+    },
+    {
+      "id": "live_contentops/destination_readback_shadow_gate_v1.py",
+      "kind": "python_module",
+      "size_bytes": 8061
     },
     {
       "id": "live_contentops/destination_transport_registry_v1.py",
@@ -88901,7 +88930,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "kind": "python_module",
-      "size_bytes": 30765
+      "size_bytes": 32796
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_v1.py",
@@ -98063,6 +98092,13 @@
       "line": 174,
       "path": "live_contentops/destination_performance_observer_v1.py",
       "symbol": "collect_current_authorized_destination_metrics"
+    },
+    {
+      "id": "python_symbol:live_contentops/destination_readback_shadow_gate_v1.py::evaluate_destination_readback_shadow",
+      "kind": "python_function",
+      "line": 81,
+      "path": "live_contentops/destination_readback_shadow_gate_v1.py",
+      "symbol": "evaluate_destination_readback_shadow"
     },
     {
       "id": "python_symbol:live_contentops/destination_transport_registry_v1.py::DestinationReadinessManager",
@@ -121370,63 +121406,63 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::build_scheduler_process_command",
       "kind": "python_function",
-      "line": 456,
+      "line": 493,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "build_scheduler_process_command"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::is_canonical_scheduler_command_line",
       "kind": "python_function",
-      "line": 479,
+      "line": 516,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "is_canonical_scheduler_command_line"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::restart_scheduler_process",
       "kind": "python_function",
-      "line": 786,
+      "line": 823,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "restart_scheduler_process"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::run_owned_scheduler_forever",
       "kind": "python_function",
-      "line": 573,
+      "line": 610,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "run_owned_scheduler_forever"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::run_scheduled_browseros_dry_run",
       "kind": "python_function",
-      "line": 216,
+      "line": 223,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "run_scheduled_browseros_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::scheduler_process_state",
       "kind": "python_function",
-      "line": 512,
+      "line": 549,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "scheduler_process_state"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::spawn_detached_scheduler",
       "kind": "python_function",
-      "line": 631,
+      "line": 668,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "spawn_detached_scheduler"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::start_scheduler_process",
       "kind": "python_function",
-      "line": 659,
+      "line": 696,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "start_scheduler_process"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::stop_scheduler_process",
       "kind": "python_function",
-      "line": 735,
+      "line": 772,
       "path": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
       "symbol": "stop_scheduler_process"
     },
@@ -124421,6 +124457,11 @@
       "id": "schema:contentops.delivery_media_manifest.v1",
       "kind": "schema",
       "schema_id": "contentops.delivery_media_manifest.v1"
+    },
+    {
+      "id": "schema:contentops.destination_readback_shadow_gate.v1",
+      "kind": "schema",
+      "schema_id": "contentops.destination_readback_shadow_gate.v1"
     },
     {
       "id": "schema:contentops.dispatch_authorization_candidate",
@@ -128960,7 +129001,7 @@
     {
       "id": "tests/test_v1_simple_gemini_scheduler_browseros_dry_run_v1.py",
       "kind": "test",
-      "size_bytes": 12169
+      "size_bytes": 17523
     },
     {
       "id": "tests/test_v1_simple_gemini_scheduler_process_v1.py",
@@ -133665,6 +133706,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "fa6ff71d9ba88e197aa6f43f3730cc07ab892142",
-  "source_tree_digest": "3adf78ddb5997a568a09052cd8d4ad51fb4bcecc5c96d8e1628336a415c14e5e"
+  "source_head": "52d2737457d834e63c0e7efbf4845a22154fdf07",
+  "source_tree_digest": "4785ad2c26a28d321b4d8ca956a69e97c6ac3c918728370bf19f944e86a90181"
 }
