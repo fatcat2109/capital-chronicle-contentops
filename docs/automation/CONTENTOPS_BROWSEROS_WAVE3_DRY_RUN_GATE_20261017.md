@@ -44,5 +44,8 @@ exercise the already accepted callback contract.
   no `.codegraph/` index, so the bounded source audit used direct source inspection.
 - Integrated/merged/deployed/live-published: not yet; this is a new branch stacked on PR63 HEAD
   `39738a2e18f1a78fb59c14ee7ee82c3094ce6120`.
+- Target update: PR63 is now integrated into `master` at `f90e7eeb`; PR64 currently targets
+  `master`. This packet remains disabled by default and does not enable the scheduler, runtime,
+  or publication path.
 - No BrowserOS session, provider/model call, runtime start, durable-store mutation, scheduler
   mutation, public write, or publication dispatch occurred.
