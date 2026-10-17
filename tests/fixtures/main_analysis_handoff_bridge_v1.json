@@ -1,0 +1,1045 @@
+{
+  "schema_version": "capital_chronicle.main_app_daily_intelligence_decision_packet.v1",
+  "packet_id": "cc-evidence-75948bfa522107feff03",
+  "packet_identity": {
+    "packet_id": "cc-evidence-75948bfa522107feff03",
+    "producer_system": "Main App DailyIntelligenceDecisionPacketV1",
+    "producer_repository": "fatcat2109/capital-chronicle-main",
+    "producer_commit": "main-fixture-commit-001",
+    "decision_id": "decision-001"
+  },
+  "packet_identity_sha256": "beea9ca1444a32a5e37e752b5a0565c361713190d86bac5c747a2eec8c315eeb",
+  "generated_at_utc": "2026-10-16T12:05:00Z",
+  "epistemic_state": "PARTIALLY_CONFIRMED",
+  "clocks": {
+    "event_time_utc": "2026-10-16T10:55:00Z",
+    "revision_at_utc": "2026-10-16T11:03:00Z",
+    "observed_at_utc": "2026-10-16T11:02:00Z",
+    "known_at_utc": "2026-10-16T11:04:00Z",
+    "pit_cutoff_utc": "2026-10-16T12:05:00Z"
+  },
+  "freshness": {
+    "status": "FRESH",
+    "age_seconds": 60,
+    "max_age_seconds": 3600,
+    "evaluated_at_utc": "2026-10-16T12:05:00Z"
+  },
+  "evidence_documents": [
+    {
+      "document_id": "doc-core-001",
+      "provider": "Main App Core Analyzer",
+      "record_type": "MAIN_CORE",
+      "source_native_id": "doc-core-001",
+      "canonical_url": "https://main.example/core/claim-001",
+      "authorized_urls": [
+        "https://main.example/core/claim-001"
+      ],
+      "content_sha256": "c1f7aaf9629f4a9ee0a7b1881e85a328212079c689aa861f5ab0ffa8a8b01441",
+      "published_at_utc": "2026-10-16T11:00:00Z",
+      "known_at_utc": "2026-10-16T11:04:00Z",
+      "rights_status": "PUBLIC_REPORTING_ALLOWED",
+      "freshness_status": "FRESH",
+      "source_kind": "MAIN_CORE"
+    },
+    {
+      "document_id": "doc-browseros-001",
+      "provider": "BROWSEROS_RENDERED",
+      "record_type": "BROWSEROS_RENDERED",
+      "source_native_id": "doc-browseros-001",
+      "canonical_url": "https://context.example/browser/001",
+      "authorized_urls": [
+        "https://context.example/browser/001"
+      ],
+      "content_sha256": "4184472d7273b20dc15c1177983bd6f34f7c7565b1d4e06f4fb934691b14363a",
+      "published_at_utc": "2026-10-16T11:00:00Z",
+      "known_at_utc": "2026-10-16T11:04:00Z",
+      "rights_status": "CONTEXT_ONLY_READ_ONLY",
+      "freshness_status": "FRESH",
+      "source_kind": "BROWSEROS_RENDERED"
+    },
+    {
+      "document_id": "doc-x-001",
+      "provider": "X_INGESTION",
+      "record_type": "X_INGESTION",
+      "source_native_id": "doc-x-001",
+      "canonical_url": "https://x.example/status/001",
+      "authorized_urls": [
+        "https://x.example/status/001"
+      ],
+      "content_sha256": "dfa8b16f1da1bd91da1cfd962de3662231adbb3189654719ea28091a2185e1c3",
+      "published_at_utc": "2026-10-16T11:00:00Z",
+      "known_at_utc": "2026-10-16T11:04:00Z",
+      "rights_status": "CONTEXT_ONLY_READ_ONLY",
+      "freshness_status": "FRESH",
+      "source_kind": "X_INGESTION"
+    }
+  ],
+  "provenance": {
+    "evidence_refs": [
+      "ev-core-001",
+      "ev-browseros-001",
+      "ev-x-001"
+    ],
+    "candidate_logical_hash": "0ba036df90298d9a84fdab7a88790040a9cac0895fe608bd1ea9aedd8a8fc39b",
+    "evidence_binding_hashes": [
+      "2e5698737c169e6f71aa65e7d3da2bdf5f88857373c35c3bbf41ede91476b0f2",
+      "ec9c43f9857b089c12f6ec2f858cb3ee9405e59ccab2813e048cfc8dcb245e52",
+      "12da15de303bcfc0847ad44aef5b69b75e5f18ba0655456d0a6865f3a3104bac"
+    ]
+  },
+  "claims": [
+    {
+      "schema_version": "contentops.universal_news_claim.v2",
+      "claim_id": "core-claim-001",
+      "claim_type": "numeric_observation",
+      "statement": "Main Core Analyzer records a 1.25 liquidity index observation.",
+      "structured_payload": {
+        "metric": "liquidity_index",
+        "value": 1.25,
+        "unit": "index",
+        "transformation": "observed_no_recalculation"
+      },
+      "source_document_ids": [
+        "doc-core-001"
+      ],
+      "evidence_refs": [
+        "ev-core-001"
+      ],
+      "authority_class": "VERIFIED_GOVERNED",
+      "permission_state": "PUBLIC_CLAIM_ALLOWED",
+      "observed_at_utc": "2026-10-16T11:00:00Z",
+      "event_time_utc": "2026-10-16T10:55:00Z",
+      "published_at_utc": "2026-10-16T11:01:00Z",
+      "known_at_utc": "2026-10-16T11:04:00Z",
+      "revision_at_utc": "2026-10-16T11:04:00Z",
+      "entities": [
+        "capital-chronicle-core"
+      ],
+      "geographies": [
+        "GLOBAL"
+      ],
+      "citations": [
+        {
+          "source_document_id": "doc-core-001",
+          "url": "https://main.example/core/claim-001",
+          "citation_state": "EXACT_SOURCE_NATIVE_URL"
+        }
+      ],
+      "limitations": [
+        "Observation only; no forecast or market-decision authority."
+      ],
+      "market_evidence_refs": [],
+      "numeric": {
+        "metric": "liquidity_index",
+        "value": 1.25,
+        "unit": "index",
+        "transformation": "observed_no_recalculation",
+        "numeric_authority_class": "MAIN_APP_CORE_ANALYZER"
+      },
+      "judgment_record": null,
+      "claim_scope": "EXACT_CORE",
+      "authority_origin": "MAIN_APP_CORE_ANALYZER",
+      "logical_hash": "b2c422c64145311b5353ad69d33c04400f263aa225c4bfb2647a4447561aeddd"
+    },
+    {
+      "schema_version": "contentops.universal_news_claim.v2",
+      "claim_id": "proxy-browseros-001",
+      "claim_type": "factual_text",
+      "statement": "BrowserOS rendered context notes a source page for read-only context.",
+      "structured_payload": {
+        "observation": "rendered source context",
+        "qualitative_only": true
+      },
+      "source_document_ids": [
+        "doc-browseros-001"
+      ],
+      "evidence_refs": [
+        "ev-browseros-001"
+      ],
+      "authority_class": "CONTEXT_ONLY",
+      "permission_state": "CONTEXT_ONLY",
+      "observed_at_utc": "2026-10-16T11:01:00Z",
+      "event_time_utc": "2026-10-16T11:01:00Z",
+      "published_at_utc": "2026-10-16T11:01:00Z",
+      "known_at_utc": "2026-10-16T11:04:00Z",
+      "revision_at_utc": "2026-10-16T11:03:00Z",
+      "entities": [
+        "context-source"
+      ],
+      "geographies": [
+        "GLOBAL"
+      ],
+      "citations": [
+        {
+          "source_document_id": "doc-browseros-001",
+          "url": "https://context.example/browser/001",
+          "citation_state": "READ_ONLY_CONTEXT"
+        }
+      ],
+      "limitations": [
+        "Context only; not event or numeric authority."
+      ],
+      "market_evidence_refs": [],
+      "numeric": null,
+      "judgment_record": null,
+      "claim_scope": "PROXY_CONTEXT",
+      "authority_origin": "BROWSEROS_READ_ONLY",
+      "qualitative_only": true,
+      "logical_hash": "5134c1a152257a25d5086687bf9b20c417dc24f706842735a3d18893729cd523"
+    },
+    {
+      "schema_version": "contentops.universal_news_claim.v2",
+      "claim_id": "proxy-x-001",
+      "claim_type": "factual_text",
+      "statement": "X ingestion context records a related headline without event authority.",
+      "structured_payload": {
+        "observation": "related headline context",
+        "qualitative_only": true
+      },
+      "source_document_ids": [
+        "doc-x-001"
+      ],
+      "evidence_refs": [
+        "ev-x-001"
+      ],
+      "authority_class": "CONTEXT_ONLY",
+      "permission_state": "CONTEXT_ONLY",
+      "observed_at_utc": "2026-10-16T11:02:00Z",
+      "event_time_utc": "2026-10-16T11:02:00Z",
+      "published_at_utc": "2026-10-16T11:02:00Z",
+      "known_at_utc": "2026-10-16T11:04:00Z",
+      "revision_at_utc": "2026-10-16T11:03:00Z",
+      "entities": [
+        "context-source"
+      ],
+      "geographies": [
+        "GLOBAL"
+      ],
+      "citations": [
+        {
+          "source_document_id": "doc-x-001",
+          "url": "https://x.example/status/001",
+          "citation_state": "CDP_9222_INGESTION_ONLY"
+        }
+      ],
+      "limitations": [
+        "Context only; not event or numeric authority."
+      ],
+      "market_evidence_refs": [],
+      "numeric": null,
+      "judgment_record": null,
+      "claim_scope": "PROXY_CONTEXT",
+      "authority_origin": "X_CDP_9222_INGESTION_ONLY",
+      "qualitative_only": true,
+      "logical_hash": "b0e24e067568d125f659ca856b070ea2d05673c1c2c8ab9dcc07c30c750fb84f"
+    }
+  ],
+  "candidate": {
+    "schema_version": "contentops.universal_news_candidate.v2",
+    "candidate_id": "main-bridge-candidate-001",
+    "story_id": "main-bridge-story-001",
+    "cluster_id": "main-bridge-cluster-001",
+    "update_chain_id": "main-bridge-chain-001",
+    "source_family_ids": [
+      "main-core-bridge"
+    ],
+    "adapter_id": "main-core-bridge",
+    "evidence_requirement_profile_id": "numeric_economic_release",
+    "claims": [
+      {
+        "schema_version": "contentops.universal_news_claim.v2",
+        "claim_id": "core-claim-001",
+        "claim_type": "numeric_observation",
+        "statement": "Main Core Analyzer records a 1.25 liquidity index observation.",
+        "structured_payload": {
+          "metric": "liquidity_index",
+          "value": 1.25,
+          "unit": "index",
+          "transformation": "observed_no_recalculation"
+        },
+        "source_document_ids": [
+          "doc-core-001"
+        ],
+        "evidence_refs": [
+          "ev-core-001"
+        ],
+        "authority_class": "VERIFIED_GOVERNED",
+        "permission_state": "PUBLIC_CLAIM_ALLOWED",
+        "observed_at_utc": "2026-10-16T11:00:00Z",
+        "event_time_utc": "2026-10-16T10:55:00Z",
+        "published_at_utc": "2026-10-16T11:01:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "revision_at_utc": "2026-10-16T11:04:00Z",
+        "entities": [
+          "capital-chronicle-core"
+        ],
+        "geographies": [
+          "GLOBAL"
+        ],
+        "citations": [
+          {
+            "source_document_id": "doc-core-001",
+            "url": "https://main.example/core/claim-001",
+            "citation_state": "EXACT_SOURCE_NATIVE_URL"
+          }
+        ],
+        "limitations": [
+          "Observation only; no forecast or market-decision authority."
+        ],
+        "market_evidence_refs": [],
+        "numeric": {
+          "metric": "liquidity_index",
+          "value": 1.25,
+          "unit": "index",
+          "transformation": "observed_no_recalculation",
+          "numeric_authority_class": "MAIN_APP_CORE_ANALYZER"
+        },
+        "judgment_record": null,
+        "claim_scope": "EXACT_CORE",
+        "authority_origin": "MAIN_APP_CORE_ANALYZER",
+        "logical_hash": "b2c422c64145311b5353ad69d33c04400f263aa225c4bfb2647a4447561aeddd"
+      },
+      {
+        "schema_version": "contentops.universal_news_claim.v2",
+        "claim_id": "proxy-browseros-001",
+        "claim_type": "factual_text",
+        "statement": "BrowserOS rendered context notes a source page for read-only context.",
+        "structured_payload": {
+          "observation": "rendered source context",
+          "qualitative_only": true
+        },
+        "source_document_ids": [
+          "doc-browseros-001"
+        ],
+        "evidence_refs": [
+          "ev-browseros-001"
+        ],
+        "authority_class": "CONTEXT_ONLY",
+        "permission_state": "CONTEXT_ONLY",
+        "observed_at_utc": "2026-10-16T11:01:00Z",
+        "event_time_utc": "2026-10-16T11:01:00Z",
+        "published_at_utc": "2026-10-16T11:01:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "revision_at_utc": "2026-10-16T11:03:00Z",
+        "entities": [
+          "context-source"
+        ],
+        "geographies": [
+          "GLOBAL"
+        ],
+        "citations": [
+          {
+            "source_document_id": "doc-browseros-001",
+            "url": "https://context.example/browser/001",
+            "citation_state": "READ_ONLY_CONTEXT"
+          }
+        ],
+        "limitations": [
+          "Context only; not event or numeric authority."
+        ],
+        "market_evidence_refs": [],
+        "numeric": null,
+        "judgment_record": null,
+        "claim_scope": "PROXY_CONTEXT",
+        "authority_origin": "BROWSEROS_READ_ONLY",
+        "qualitative_only": true,
+        "logical_hash": "5134c1a152257a25d5086687bf9b20c417dc24f706842735a3d18893729cd523"
+      },
+      {
+        "schema_version": "contentops.universal_news_claim.v2",
+        "claim_id": "proxy-x-001",
+        "claim_type": "factual_text",
+        "statement": "X ingestion context records a related headline without event authority.",
+        "structured_payload": {
+          "observation": "related headline context",
+          "qualitative_only": true
+        },
+        "source_document_ids": [
+          "doc-x-001"
+        ],
+        "evidence_refs": [
+          "ev-x-001"
+        ],
+        "authority_class": "CONTEXT_ONLY",
+        "permission_state": "CONTEXT_ONLY",
+        "observed_at_utc": "2026-10-16T11:02:00Z",
+        "event_time_utc": "2026-10-16T11:02:00Z",
+        "published_at_utc": "2026-10-16T11:02:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "revision_at_utc": "2026-10-16T11:03:00Z",
+        "entities": [
+          "context-source"
+        ],
+        "geographies": [
+          "GLOBAL"
+        ],
+        "citations": [
+          {
+            "source_document_id": "doc-x-001",
+            "url": "https://x.example/status/001",
+            "citation_state": "CDP_9222_INGESTION_ONLY"
+          }
+        ],
+        "limitations": [
+          "Context only; not event or numeric authority."
+        ],
+        "market_evidence_refs": [],
+        "numeric": null,
+        "judgment_record": null,
+        "claim_scope": "PROXY_CONTEXT",
+        "authority_origin": "X_CDP_9222_INGESTION_ONLY",
+        "qualitative_only": true,
+        "logical_hash": "b0e24e067568d125f659ca856b070ea2d05673c1c2c8ab9dcc07c30c750fb84f"
+      }
+    ],
+    "numeric_claims": [
+      {
+        "schema_version": "contentops.universal_news_claim.v2",
+        "claim_id": "core-claim-001",
+        "claim_type": "numeric_observation",
+        "statement": "Main Core Analyzer records a 1.25 liquidity index observation.",
+        "structured_payload": {
+          "metric": "liquidity_index",
+          "value": 1.25,
+          "unit": "index",
+          "transformation": "observed_no_recalculation"
+        },
+        "source_document_ids": [
+          "doc-core-001"
+        ],
+        "evidence_refs": [
+          "ev-core-001"
+        ],
+        "authority_class": "VERIFIED_GOVERNED",
+        "permission_state": "PUBLIC_CLAIM_ALLOWED",
+        "observed_at_utc": "2026-10-16T11:00:00Z",
+        "event_time_utc": "2026-10-16T10:55:00Z",
+        "published_at_utc": "2026-10-16T11:01:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "revision_at_utc": "2026-10-16T11:04:00Z",
+        "entities": [
+          "capital-chronicle-core"
+        ],
+        "geographies": [
+          "GLOBAL"
+        ],
+        "citations": [
+          {
+            "source_document_id": "doc-core-001",
+            "url": "https://main.example/core/claim-001",
+            "citation_state": "EXACT_SOURCE_NATIVE_URL"
+          }
+        ],
+        "limitations": [
+          "Observation only; no forecast or market-decision authority."
+        ],
+        "market_evidence_refs": [],
+        "numeric": {
+          "metric": "liquidity_index",
+          "value": 1.25,
+          "unit": "index",
+          "transformation": "observed_no_recalculation",
+          "numeric_authority_class": "MAIN_APP_CORE_ANALYZER"
+        },
+        "judgment_record": null,
+        "claim_scope": "EXACT_CORE",
+        "authority_origin": "MAIN_APP_CORE_ANALYZER",
+        "logical_hash": "b2c422c64145311b5353ad69d33c04400f263aa225c4bfb2647a4447561aeddd"
+      }
+    ],
+    "source_documents": [
+      {
+        "document_id": "doc-core-001",
+        "provider": "Main App Core Analyzer",
+        "record_type": "MAIN_CORE",
+        "source_native_id": "doc-core-001",
+        "canonical_url": "https://main.example/core/claim-001",
+        "authorized_urls": [
+          "https://main.example/core/claim-001"
+        ],
+        "content_sha256": "c1f7aaf9629f4a9ee0a7b1881e85a328212079c689aa861f5ab0ffa8a8b01441",
+        "published_at_utc": "2026-10-16T11:00:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "rights_status": "PUBLIC_REPORTING_ALLOWED",
+        "freshness_status": "FRESH",
+        "source_kind": "MAIN_CORE"
+      },
+      {
+        "document_id": "doc-browseros-001",
+        "provider": "BROWSEROS_RENDERED",
+        "record_type": "BROWSEROS_RENDERED",
+        "source_native_id": "doc-browseros-001",
+        "canonical_url": "https://context.example/browser/001",
+        "authorized_urls": [
+          "https://context.example/browser/001"
+        ],
+        "content_sha256": "4184472d7273b20dc15c1177983bd6f34f7c7565b1d4e06f4fb934691b14363a",
+        "published_at_utc": "2026-10-16T11:00:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "rights_status": "CONTEXT_ONLY_READ_ONLY",
+        "freshness_status": "FRESH",
+        "source_kind": "BROWSEROS_RENDERED"
+      },
+      {
+        "document_id": "doc-x-001",
+        "provider": "X_INGESTION",
+        "record_type": "X_INGESTION",
+        "source_native_id": "doc-x-001",
+        "canonical_url": "https://x.example/status/001",
+        "authorized_urls": [
+          "https://x.example/status/001"
+        ],
+        "content_sha256": "dfa8b16f1da1bd91da1cfd962de3662231adbb3189654719ea28091a2185e1c3",
+        "published_at_utc": "2026-10-16T11:00:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "rights_status": "CONTEXT_ONLY_READ_ONLY",
+        "freshness_status": "FRESH",
+        "source_kind": "X_INGESTION"
+      }
+    ],
+    "evidence_bindings": [
+      {
+        "evidence_ref": "ev-core-001",
+        "logical_hash": "2e5698737c169e6f71aa65e7d3da2bdf5f88857373c35c3bbf41ede91476b0f2"
+      },
+      {
+        "evidence_ref": "ev-browseros-001",
+        "logical_hash": "ec9c43f9857b089c12f6ec2f858cb3ee9405e59ccab2813e048cfc8dcb245e52"
+      },
+      {
+        "evidence_ref": "ev-x-001",
+        "logical_hash": "12da15de303bcfc0847ad44aef5b69b75e5f18ba0655456d0a6865f3a3104bac"
+      }
+    ],
+    "evidence_refs": [
+      "ev-core-001",
+      "ev-browseros-001",
+      "ev-x-001"
+    ],
+    "authority_state": "VERIFIED_GOVERNED",
+    "reporting_allowed": true,
+    "evidence_state": "exact",
+    "relationship": "initial_event",
+    "event_time_utc": "2026-10-16T10:55:00Z",
+    "observation_time_utc": "2026-10-16T11:00:00Z",
+    "published_at_utc": "2026-10-16T11:01:00Z",
+    "known_at_utc": "2026-10-16T11:04:00Z",
+    "revision_at_utc": "2026-10-16T11:04:00Z",
+    "limitations": [
+      "Observation only; no forecast or market-decision authority."
+    ],
+    "publication_authority": false,
+    "public_write_allowed": false,
+    "global_dqr_override": false,
+    "logical_hash": "0ba036df90298d9a84fdab7a88790040a9cac0895fe608bd1ea9aedd8a8fc39b"
+  },
+  "v2_compatibility_projection": {
+    "schema_version": "capital_chronicle_content_evidence_packet.v2",
+    "packet_id": "cc-evidence-75948bfa522107feff03",
+    "generated_at_utc": "2026-10-16T12:05:00Z",
+    "as_of_utc": "2026-10-16T12:05:00Z",
+    "story_window": {
+      "hours": 24,
+      "start_utc": null,
+      "end_utc": "2026-10-16T12:05:00Z"
+    },
+    "events": [],
+    "official_source_documents": [
+      {
+        "document_id": "doc-core-001",
+        "provider": "Main App Core Analyzer",
+        "record_type": "MAIN_CORE",
+        "source_native_id": "doc-core-001",
+        "canonical_url": "https://main.example/core/claim-001",
+        "authorized_urls": [
+          "https://main.example/core/claim-001"
+        ],
+        "content_sha256": "c1f7aaf9629f4a9ee0a7b1881e85a328212079c689aa861f5ab0ffa8a8b01441",
+        "published_at_utc": "2026-10-16T11:00:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "rights_status": "PUBLIC_REPORTING_ALLOWED",
+        "freshness_status": "FRESH",
+        "source_kind": "MAIN_CORE"
+      },
+      {
+        "document_id": "doc-browseros-001",
+        "provider": "BROWSEROS_RENDERED",
+        "record_type": "BROWSEROS_RENDERED",
+        "source_native_id": "doc-browseros-001",
+        "canonical_url": "https://context.example/browser/001",
+        "authorized_urls": [
+          "https://context.example/browser/001"
+        ],
+        "content_sha256": "4184472d7273b20dc15c1177983bd6f34f7c7565b1d4e06f4fb934691b14363a",
+        "published_at_utc": "2026-10-16T11:00:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "rights_status": "CONTEXT_ONLY_READ_ONLY",
+        "freshness_status": "FRESH",
+        "source_kind": "BROWSEROS_RENDERED"
+      },
+      {
+        "document_id": "doc-x-001",
+        "provider": "X_INGESTION",
+        "record_type": "X_INGESTION",
+        "source_native_id": "doc-x-001",
+        "canonical_url": "https://x.example/status/001",
+        "authorized_urls": [
+          "https://x.example/status/001"
+        ],
+        "content_sha256": "dfa8b16f1da1bd91da1cfd962de3662231adbb3189654719ea28091a2185e1c3",
+        "published_at_utc": "2026-10-16T11:00:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "rights_status": "CONTEXT_ONLY_READ_ONLY",
+        "freshness_status": "FRESH",
+        "source_kind": "X_INGESTION"
+      }
+    ],
+    "numeric_claims": [
+      {
+        "claim_id": "core-claim-001",
+        "metric": "liquidity_index",
+        "value": 1.25,
+        "unit": "index",
+        "observation_time_utc": "2026-10-16T11:00:00Z",
+        "source_id": "main-core-bridge",
+        "source_artifact_ref": "ev-core-001",
+        "public_claim_allowed": true,
+        "llm_numeric_authority": false
+      }
+    ],
+    "market_snapshots": [],
+    "source_state": {
+      "candidate_id": "main-bridge-candidate-001",
+      "authority_state": "VERIFIED_GOVERNED",
+      "reporting_allowed": true
+    },
+    "candidate_visual_inputs": [],
+    "citation_map": {
+      "core-claim-001": [
+        "https://main.example/core/claim-001"
+      ],
+      "proxy-browseros-001": [
+        "https://context.example/browser/001"
+      ],
+      "proxy-x-001": [
+        "https://x.example/status/001"
+      ]
+    },
+    "provenance": {
+      "candidate_logical_hash": "0ba036df90298d9a84fdab7a88790040a9cac0895fe608bd1ea9aedd8a8fc39b",
+      "evidence_refs": [
+        "ev-core-001",
+        "ev-browseros-001",
+        "ev-x-001"
+      ],
+      "evidence_binding_hashes": [
+        "2e5698737c169e6f71aa65e7d3da2bdf5f88857373c35c3bbf41ede91476b0f2",
+        "ec9c43f9857b089c12f6ec2f858cb3ee9405e59ccab2813e048cfc8dcb245e52",
+        "12da15de303bcfc0847ad44aef5b69b75e5f18ba0655456d0a6865f3a3104bac"
+      ]
+    },
+    "public_claim_permissions": {
+      "numeric_claims_allowed": true,
+      "narrative_synthesis_allowed": true,
+      "llm_numeric_authority": false,
+      "decision": "ALLOW"
+    },
+    "blockers": [],
+    "bridge_safety": {
+      "source_repo_modified": false,
+      "network_call_made": false,
+      "public_write_performed": false
+    },
+    "validation_blockers": [],
+    "status": "PASS"
+  },
+  "v2_projection_sha256": "cc11ac3ac550e877895d1de438ada7412bfa613445f846232d044b977ac7e140",
+  "claim_lineage": [
+    {
+      "relationship_id": "rel-duplicate-001",
+      "claim_id": "proxy-browseros-001",
+      "related_claim_id": "proxy-x-001",
+      "relationship": "duplicate",
+      "revision_at_utc": "2026-10-16T11:03:00Z",
+      "reason": "same context family",
+      "logical_hash": "d398f98613f65cf0eb8e4a77c7fed0a5bd8f6596f183fdba3c2ed9cbaaa3dcc4"
+    },
+    {
+      "relationship_id": "rel-revision-001",
+      "claim_id": "proxy-x-001",
+      "related_claim_id": "proxy-browseros-001",
+      "relationship": "correction",
+      "revision_at_utc": "2026-10-16T11:03:00Z",
+      "reason": "producer revision lineage",
+      "logical_hash": "f408a424bcbd1ff398bfd2e4d73143efdbf9aeab4b10b62c60159eea74d11c45"
+    }
+  ],
+  "contradictions": [
+    {
+      "contradiction_id": "contradiction-context-001",
+      "claim_ids": [
+        "proxy-browseros-001",
+        "proxy-x-001"
+      ],
+      "status": "UNRESOLVED",
+      "quarantine": "REQUIRED",
+      "reason": "context sources disagree on event wording",
+      "logical_hash": "e76d139e80858019905213902f72867ac177faf1f73ce634b1644af527f0a7f5"
+    }
+  ],
+  "authority_boundary": {
+    "authority_origin": "MAIN_APP_CORE_ANALYZER",
+    "contentops_numeric_authority": false,
+    "contentops_forecast_authority": false,
+    "contentops_market_decision_authority": false,
+    "contentops_publication_authority": false,
+    "contentops_permission_upgrade": false,
+    "contentops_recalculation_performed": false
+  },
+  "context_sources": [
+    {
+      "channel": "browseros",
+      "mode": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "read_only": true,
+      "credential_material_read": false,
+      "public_write_performed": false,
+      "browser_action_performed": false
+    },
+    {
+      "channel": "x",
+      "mode": "CDP_9222_INGESTION_ONLY",
+      "cdp_port": 9222,
+      "ingestion_only": true,
+      "public_write_performed": false,
+      "browser_action_performed": false
+    }
+  ],
+  "source_recovery": {
+    "status": "BROWSER_RENDERED_RECOVERY_DRY_RUN_PASS",
+    "http_first": true,
+    "shared_request_budget": true,
+    "browser_rendered_recovery_attempt_count": 1
+  },
+  "browser_preflight": {
+    "status": "PASS",
+    "lifecycle_state": "HEALTHY_AFTER_RECONNECT",
+    "read_only": true,
+    "credential_material_read": false,
+    "browser_action_performed": false
+  },
+  "x_ingestion": {
+    "status": "INGESTION_ONLY_READY",
+    "cdp_port": 9222,
+    "ingestion_only": true,
+    "browser_action_performed": false
+  },
+  "newsroom_pool": {
+    "schema_version": "contentops.universal_news_candidate_pool.v2",
+    "producer_version": "contentops.universal_news_candidate_pool.v2.0.0",
+    "generated_at_utc": "2026-10-16T12:05:00Z",
+    "cutoff_time_utc": "2026-10-16T13:30:00Z",
+    "candidate_only": true,
+    "global_dqr_override": false,
+    "publication_authority": false,
+    "public_write_allowed": false,
+    "calibration_state": "UNCALIBRATED_FOUNDATION",
+    "claim_registry_version": "contentops.universal_claim_capabilities.v2.0.0",
+    "evidence_profile_registry_version": "contentops.evidence_requirement_profiles.v2.0.0",
+    "source_family_registry": {
+      "schema_version": "contentops.source_family_registry.v2",
+      "registry_version": "contentops.source_family_registry.v2.0.0",
+      "records": [
+        {
+          "source_family_id": "main-core-bridge",
+          "enabled": true,
+          "authority_class": "VERIFIED_GOVERNED",
+          "permission_ceiling": "PUBLIC_CLAIM_ALLOWED"
+        }
+      ],
+      "logical_hash": "3ebd9730421dbe88a52811d5063de1717a6ee4b4fe8dd03f98dc3eef7f825d65"
+    },
+    "upstream_binding": {
+      "packet_id": "cc-evidence-75948bfa522107feff03",
+      "consumer": "contentops_shadow_only"
+    },
+    "candidates": [
+      {
+        "schema_version": "contentops.universal_news_candidate.v2",
+        "candidate_id": "main-bridge-candidate-001",
+        "story_id": "main-bridge-story-001",
+        "cluster_id": "main-bridge-cluster-001",
+        "update_chain_id": "main-bridge-chain-001",
+        "source_family_ids": [
+          "main-core-bridge"
+        ],
+        "evidence_requirement_profile_id": "numeric_economic_release",
+        "claims": [
+          {
+            "schema_version": "contentops.universal_news_claim.v2",
+            "claim_id": "core-claim-001",
+            "claim_type": "numeric_observation",
+            "statement": "Main Core Analyzer records a 1.25 liquidity index observation.",
+            "structured_payload": {
+              "metric": "liquidity_index",
+              "value": 1.25,
+              "unit": "index",
+              "transformation": "observed_no_recalculation"
+            },
+            "source_document_ids": [
+              "doc-core-001"
+            ],
+            "evidence_refs": [
+              "ev-core-001"
+            ],
+            "authority_class": "VERIFIED_GOVERNED",
+            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "observed_at_utc": "2026-10-16T11:00:00Z",
+            "event_time_utc": "2026-10-16T10:55:00Z",
+            "published_at_utc": "2026-10-16T11:01:00Z",
+            "known_at_utc": "2026-10-16T11:04:00Z",
+            "revision_at_utc": "2026-10-16T11:04:00Z",
+            "entities": [
+              "capital-chronicle-core"
+            ],
+            "geographies": [
+              "GLOBAL"
+            ],
+            "citations": [
+              {
+                "source_document_id": "doc-core-001",
+                "url": "https://main.example/core/claim-001",
+                "citation_state": "EXACT_SOURCE_NATIVE_URL"
+              }
+            ],
+            "limitations": [
+              "Observation only; no forecast or market-decision authority."
+            ],
+            "market_evidence_refs": [],
+            "numeric": {
+              "metric": "liquidity_index",
+              "value": 1.25,
+              "unit": "index",
+              "transformation": "observed_no_recalculation",
+              "numeric_authority_class": "MAIN_APP_CORE_ANALYZER"
+            },
+            "judgment_record": null,
+            "claim_scope": "EXACT_CORE",
+            "authority_origin": "MAIN_APP_CORE_ANALYZER",
+            "logical_hash": "b2c422c64145311b5353ad69d33c04400f263aa225c4bfb2647a4447561aeddd"
+          }
+        ],
+        "numeric_claims": [
+          {
+            "schema_version": "contentops.universal_news_claim.v2",
+            "claim_id": "core-claim-001",
+            "claim_type": "numeric_observation",
+            "statement": "Main Core Analyzer records a 1.25 liquidity index observation.",
+            "structured_payload": {
+              "metric": "liquidity_index",
+              "value": 1.25,
+              "unit": "index",
+              "transformation": "observed_no_recalculation"
+            },
+            "source_document_ids": [
+              "doc-core-001"
+            ],
+            "evidence_refs": [
+              "ev-core-001"
+            ],
+            "authority_class": "VERIFIED_GOVERNED",
+            "permission_state": "PUBLIC_CLAIM_ALLOWED",
+            "observed_at_utc": "2026-10-16T11:00:00Z",
+            "event_time_utc": "2026-10-16T10:55:00Z",
+            "published_at_utc": "2026-10-16T11:01:00Z",
+            "known_at_utc": "2026-10-16T11:04:00Z",
+            "revision_at_utc": "2026-10-16T11:04:00Z",
+            "entities": [
+              "capital-chronicle-core"
+            ],
+            "geographies": [
+              "GLOBAL"
+            ],
+            "citations": [
+              {
+                "source_document_id": "doc-core-001",
+                "url": "https://main.example/core/claim-001",
+                "citation_state": "EXACT_SOURCE_NATIVE_URL"
+              }
+            ],
+            "limitations": [
+              "Observation only; no forecast or market-decision authority."
+            ],
+            "market_evidence_refs": [],
+            "numeric": {
+              "metric": "liquidity_index",
+              "value": 1.25,
+              "unit": "index",
+              "transformation": "observed_no_recalculation",
+              "numeric_authority_class": "MAIN_APP_CORE_ANALYZER"
+            },
+            "judgment_record": null,
+            "claim_scope": "EXACT_CORE",
+            "authority_origin": "MAIN_APP_CORE_ANALYZER",
+            "logical_hash": "b2c422c64145311b5353ad69d33c04400f263aa225c4bfb2647a4447561aeddd"
+          }
+        ],
+        "source_documents": [
+          {
+            "document_id": "doc-core-001",
+            "provider": "Main App Core Analyzer",
+            "record_type": "MAIN_CORE",
+            "source_native_id": "doc-core-001",
+            "canonical_url": "https://main.example/core/claim-001",
+            "authorized_urls": [
+              "https://main.example/core/claim-001"
+            ],
+            "content_sha256": "c1f7aaf9629f4a9ee0a7b1881e85a328212079c689aa861f5ab0ffa8a8b01441",
+            "published_at_utc": "2026-10-16T11:00:00Z",
+            "known_at_utc": "2026-10-16T11:04:00Z",
+            "rights_status": "PUBLIC_REPORTING_ALLOWED",
+            "freshness_status": "FRESH",
+            "source_kind": "MAIN_CORE"
+          }
+        ],
+        "evidence_bindings": [
+          {
+            "evidence_ref": "ev-core-001",
+            "logical_hash": "2e5698737c169e6f71aa65e7d3da2bdf5f88857373c35c3bbf41ede91476b0f2"
+          }
+        ],
+        "evidence_refs": [
+          "ev-core-001"
+        ],
+        "adapter_id": "main-core-bridge",
+        "authority_state": "VERIFIED_GOVERNED",
+        "reporting_allowed": true,
+        "evidence_state": "exact",
+        "relationship": "initial_event",
+        "breaking_event_evidence_ref": "ev-core-001",
+        "event_time_utc": "2026-10-16T10:55:00Z",
+        "observation_time_utc": "2026-10-16T11:00:00Z",
+        "published_at_utc": "2026-10-16T11:01:00Z",
+        "known_at_utc": "2026-10-16T11:04:00Z",
+        "revision_at_utc": "2026-10-16T11:04:00Z",
+        "limitations": [
+          "Observation only; no forecast or market-decision authority."
+        ],
+        "publication_authority": false,
+        "public_write_allowed": false,
+        "global_dqr_override": false,
+        "blockers": [],
+        "ranking_inputs": {
+          "materiality": {
+            "availability": "AVAILABLE",
+            "score": 0.9,
+            "reason_codes": [
+              "producer_bound"
+            ],
+            "evidence_refs": [
+              "ev-core-001"
+            ]
+          }
+        },
+        "logical_hash": "e9029814b297140e899a65b4dea5b9dcdddcb3d64943b1f766c9ef4b0ea87cce"
+      }
+    ],
+    "clusters": [
+      {
+        "cluster_id": "main-bridge-cluster-001",
+        "story_id": "main-bridge-story-001",
+        "update_chain_id": "main-bridge-chain-001",
+        "candidate_ids": [
+          "main-bridge-candidate-001"
+        ],
+        "relationships": [],
+        "identity_hash": "56e2d6a6fef9c36c6efa2b588eb294d39ba9a6b0a916fede05b541b02a02f60c"
+      }
+    ],
+    "category_blockers": {},
+    "counts": {
+      "candidates": 1,
+      "claims": 1,
+      "numeric_claims": 1,
+      "nonnumeric_claims": 0,
+      "reporting_eligible": 1,
+      "held": 0,
+      "rejected": 0
+    },
+    "pool_id": "main-bridge-pool-580612aebefedfc2d5f7",
+    "logical_hash": "70bb7b34723a3307391c413ee1a9fd1c9600fca924dc90beabe7ef8d00962b5e"
+  },
+  "schedule_date": "2026-10-16",
+  "window": {
+    "window_id": "us_open",
+    "target_cutoff_utc": "13:30:00"
+  },
+  "visual_assets": [
+    {
+      "asset_id": "fixture-visual-1",
+      "role": "lead_contextual",
+      "modality": "official_photo",
+      "source_page_url": "https://visual.example/1",
+      "publisher": "Main App",
+      "publication_date": "2026-10-16",
+      "rights_status": "official_press_reuse",
+      "caption": "Lead context",
+      "alt_text": "Lead context",
+      "width": 1200,
+      "height": 800,
+      "sha256": "1111111111111111111111111111111111111111111111111111111111111111",
+      "article_section": "lead",
+      "relevance_rationale": "Supports the supplied context",
+      "supports_headline": true,
+      "evidence_dimension": "source_context",
+      "recency_required": true,
+      "recency_status": "fresh"
+    },
+    {
+      "asset_id": "fixture-visual-2",
+      "role": "supporting_context",
+      "modality": "map",
+      "source_page_url": "https://visual.example/2",
+      "publisher": "Main App",
+      "publication_date": "2026-10-16",
+      "rights_status": "official_press_reuse",
+      "caption": "Map context",
+      "alt_text": "Map context",
+      "width": 1200,
+      "height": 800,
+      "sha256": "2222222222222222222222222222222222222222222222222222222222222222",
+      "article_section": "context",
+      "relevance_rationale": "Adds geographic context",
+      "supports_headline": false,
+      "evidence_dimension": "geography",
+      "recency_required": true,
+      "recency_status": "fresh"
+    },
+    {
+      "asset_id": "fixture-visual-3",
+      "role": "supporting_context",
+      "modality": "contextual_image",
+      "source_page_url": "https://visual.example/3",
+      "publisher": "Main App",
+      "publication_date": "2026-10-16",
+      "rights_status": "official_press_reuse",
+      "caption": "Supporting context",
+      "alt_text": "Supporting context",
+      "width": 1200,
+      "height": 800,
+      "sha256": "3333333333333333333333333333333333333333333333333333333333333333",
+      "article_section": "context",
+      "relevance_rationale": "Adds qualitative context",
+      "supports_headline": false,
+      "evidence_dimension": "market_context",
+      "recency_required": true,
+      "recency_status": "fresh"
+    }
+  ],
+  "recovery_state": {
+    "production_day_id": "2026-10-16",
+    "interrupted": true,
+    "resume_status": "RESUMABLE",
+    "semantic_rerun_forbidden": true
+  },
+  "packet_logical_hash": "c496bb5135106202a577d167a4879ab013ae695afa537e472bee14843b5139e8"
+}
