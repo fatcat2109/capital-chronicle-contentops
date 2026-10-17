@@ -211,6 +211,8 @@ def test_default_simple_runtime_wires_browser_recovery_without_changing_owner():
     assert isinstance(
         loader._rendered_source_get, BrowserOSNeoRenderedSourceRecovery
     )
+    assert loader._browser_rendered_recovery_config.enabled is False
+    assert loader._browser_rendered_recovery_config.max_attempts == 1
     assert loader.request_count == 0
 
 

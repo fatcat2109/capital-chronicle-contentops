@@ -21,6 +21,9 @@ from live_contentops.v1_simple_epistemic_state_v1 import (
 from live_contentops.v1_simple_evidence_resolver_v1 import (
     SimpleFirstPartyAwareEvidenceResolver,
 )
+from live_contentops.public_secondary_evidence_loader_v1 import (
+    BrowserRenderedRecoveryConfig,
+)
 from live_contentops.v1_simple_gemini_newsroom_v1 import (
     ARTICLE_SCHEMA_VERSION,
     SimpleGeminiNewsroomError,
@@ -952,6 +955,7 @@ def test_browser_rendered_recovery_enters_existing_direct_report_epistemic_lifec
         evaluation_as_of_utc=CUTOFF,
         http_get=get,
         rendered_source_get=rendered_get,
+        browser_rendered_recovery_config=BrowserRenderedRecoveryConfig(enabled=True, dry_run=False),
         clock=lambda: NOW,
     )(request)
 

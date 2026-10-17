@@ -52,6 +52,7 @@ from live_contentops.preselection_intelligence_v1 import (
     rank_simple_headline_candidate_universe,
 )
 from live_contentops.public_secondary_evidence_loader_v1 import (
+    DEFAULT_BROWSER_RENDERED_RECOVERY_CONFIG,
     REPUTABLE_SECONDARY_HOSTS,
 )
 from live_contentops.nine_router_llm_seam_v2 import (
@@ -907,6 +908,7 @@ def _default_evidence_loader(
         max_requests=MAX_SOURCE_REQUESTS,
         timeout_seconds=12.0,
         rendered_source_get=rendered_recovery,
+        browser_rendered_recovery_config=DEFAULT_BROWSER_RENDERED_RECOVERY_CONFIG,
         source_route_health=source_route_health,
     )
 
