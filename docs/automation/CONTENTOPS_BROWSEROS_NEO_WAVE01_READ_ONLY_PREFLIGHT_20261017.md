@@ -1,6 +1,6 @@
 # ContentOps BrowserOS Neo Wave 0/1 Read-Only Preflight — 2026-10-17
 
-Status: `IMPLEMENTED / BOUNDED / BROWSER_UNAVAILABLE / NO_PUBLICATION_AUTHORITY`
+Status: `IMPLEMENTED / BOUNDED / BROWSER_UNAVAILABLE / HOST_PREFLIGHT_READBACK / NO_PUBLICATION_AUTHORITY`
 
 ## Scope
 
@@ -42,7 +42,7 @@ The tests cover healthy no-launch, one shortcut launch followed by reconnect, la
 non-shortcut rejection, duplicate-launch guard, identity/protocol checks, cleanup, mutating-tool
 rejection, redirect/access/truncation gates, and existing rendered-source behavior.
 
-## Current host observation
+## Current host observation — 2026-10-17T06:30:24Z
 
 The bounded local adapter preflight was run with `auto_open=false` so this Builder turn did not
 launch a desktop shortcut:
@@ -52,7 +52,7 @@ $env:PYTHONPATH=(Get-Location).Path
 python -c "import json; from live_contentops.browser_rendered_source_recovery_v1 import BrowserOSNeoReadOnlyPreflight; print(json.dumps(BrowserOSNeoReadOnlyPreflight().run(auto_open=False, reconnect_once=True), sort_keys=True))"
 ```
 
-Result:
+First result (`auto_open=false`, no launcher):
 
 ```json
 {
@@ -77,16 +77,47 @@ smoke in this task successfully named the session, listed existing tabs/windows,
 closed a temporary `about:blank` page; that tool readback did not supply a server version or MCP
 protocol identity and is not a publication or account proof.
 
+Because the first bounded check was unavailable, the owner-authorized second step ran exactly once
+with `auto_open=true,reconnect_once=true`. It invoked the allowlisted shortcut once, attempted one
+MCP reconnect/identity check, and returned:
+
+```json
+{
+  "schema_version": "contentops.browseros_neo.read_only_preflight.v1",
+  "status": "BROWSER_UNAVAILABLE",
+  "failure_class": "BROWSER_UNAVAILABLE",
+  "failure_history": [
+    "browseros_neo_mcp_unavailable",
+    "browseros_neo_mcp_unavailable"
+  ],
+  "official_launcher_invoked": true,
+  "launcher_attempts": 1,
+  "reconnect_attempts": 1,
+  "official_launcher_path": "C:\\Users\\bullw\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\BrowserOS neo.lnk",
+  "read_only": true,
+  "public_write_performed": false,
+  "publication_authority": false
+}
+```
+
+No BrowserOS server name, server version or MCP protocol identity was proven by either adapter
+run. The shortcut invocation therefore proves only that the bounded launcher path was attempted;
+it does not prove that BrowserOS started, that a session is connected, or that any account/profile/
+destination is ready. No fallback browser was tried.
+
 ## State and next command
 
 - Implemented: official shortcut path, health-first lifecycle, one-launch/reconnect bounds,
   duplicate-launch guard and `BROWSER_UNAVAILABLE` fail-closed result.
-- Tested: `15 passed`; Ruff, compileall and `git diff --check` passed.
+- Tested: `15 passed`; Ruff, compileall and `git diff --check` passed. Host adapter readback at
+  `2026-10-17T06:30:24Z`: first health-only check unavailable; one launcher/reconnect attempt also
+  unavailable.
 - Integrated/merged/deployed/live-published: not yet; this branch is the Wave 0/1 implementation
   checkpoint only.
 - No runtime/store/scheduler/browser-publication mutation occurred; no provider/model call occurred.
 
-Next bounded command, if a future owner-authorized host observation requires the one launcher attempt:
+Next bounded command, if a future owner-authorized host observation requires a fresh one-shot check
+after the current unavailable result:
 
 ```powershell
 $env:PYTHONPATH=(Get-Location).Path
