@@ -22,7 +22,7 @@ The committed packet is
 
 - retained media SHA-256 `4c2cd08ed327bec53300d8bc0bc170c16ba328a7af669b2240118fc956b7c1f9`;
 - retained transcript PDF SHA-256 `be77d850144d99365ba8c92749ad21525e39eb3577d66d105ce0907a6656cb97`;
-- source binding SHA-256 `9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61`;
+- source binding SHA-256 `7d2367fd33f5fd30c7dd56466cc7911e968a4afd0bb8f2fc83f931b4f2a780e3`;
 - the frozen 4.485–27.900 second excerpt, duration 23.415 seconds.
 
 The media and PDF remain local retained artifacts under `.task-runtime/` and are not committed.
@@ -31,6 +31,12 @@ The PDF is official text without embedded timing, so cue timing remains
 `PROVISIONAL_DONOR_ALIGNMENT_REVIEW_REQUIRED`. Text matching is not audio verification.
 The sanitized source probe is committed at
 `video/speech_highlight_relay_v1/retained_source_probe_fed_20260729.json`.
+
+The package now composes `private_review_packet.json` as one deterministic offline review record.
+Its digest and bound-file hashes cover the retained source, transcript, quote/cues, provenance
+clock, policy reference, rights/audio/timing/third-party/publication gates, extracted clip and
+both render outputs. The validator rejects drift before any private-review package can be treated
+as internally consistent; it does not promote any unresolved gate.
 
 ## Rights and third-party boundary
 
@@ -75,7 +81,7 @@ timing or third-party audio.
 
 - Implemented: retained packet, fail-closed validation, local clip extraction, clean/captioned render,
   SRT/VTT/JSON sidecars, hashes, package verification, CLI and focused CI test hook.
-- Tested: six focused boundary tests passed; local render and verifier passed.
+- Tested: nine focused Relay boundary/adversarial tests passed; local render and verifier passed.
 - Integrated: CLI and `ci-fast` hook merged into current `master` via PR58 at
   `12666f7c9e40e8b3fce7044eef71c93120fa332d`.
 - Merged: yes, PR58 exact head `42a67df84ad3b7176411f9cfd4b20501ffae7d77`; deployed: not verified.

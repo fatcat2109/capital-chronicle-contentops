@@ -18,7 +18,7 @@ import subprocess
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 from urllib.parse import urlsplit
 
 
@@ -54,6 +54,10 @@ MANIFEST_FILES = {
     "source_packet.json", "source_verification.json", "rights_triage_manifest.json",
     "transcript_alignment_manifest.json", "highlight_selection_manifest.json", "render_receipt.json",
 }
+PRIVATE_REVIEW_PACKET_FILE = "private_review_packet.json"
+REVIEW_BOUND_FILES = frozenset(
+    set(ARTIFACT_FILES.values()) | MANIFEST_FILES | {"extracted_clip.mp4"}
+)
 
 
 def canonical_json(value: Any) -> bytes:
@@ -78,17 +82,49 @@ def artifact_identity(path: Path) -> dict[str, Any]:
     return {"file": path.name, "sha256": sha256_file(path), "size_bytes": path.stat().st_size}
 
 
+def _binding_artifact(spec: Mapping[str, Any] | None) -> dict[str, Any] | None:
+    """Keep an artifact's immutable identity while omitting its worktree-local path."""
+    if spec is None:
+        return None
+    if not isinstance(spec, Mapping):
+        raise SpeechRelayError("Artifact binding must be an object")
+    return {key: value for key, value in spec.items() if key != "file"}
+
+
 def source_binding(packet: dict[str, Any]) -> str:
     """Bind review and selection to this event, speaker and exact retained bytes.
 
     A digest checks integrity/scope, not the truth of metadata or legal permission.
     Local paths are omitted so the same retained bytes can move between worktrees.
     """
-    identity = {key: packet[key] for key in (
-        "source_id", "publisher", "event_title", "event_date", "canonical_source_url", "speaker",
-    )}
-    identity["media_sha256"] = packet["media"]["sha256"]
-    identity["transcript_sha256"] = packet["transcript"]["document"]["sha256"]
+    # Bind all fields that can change source identity, clock/provenance, quote scope, rights
+    # reference, or a review gate. Local artifact paths are deliberately omitted so a retained
+    # packet can be verified in another checkout; their hashes remain bound.
+    selection = copy.deepcopy(packet["selection"])
+    selection.pop("source_binding_sha256", None)
+    if isinstance(selection.get("third_party_review"), dict):
+        selection["third_party_review"].pop("source_binding_sha256", None)
+    rights = copy.deepcopy(packet["rights"])
+    rights.pop("source_binding_sha256", None)
+    rights["historical_note"] = _binding_artifact(rights.get("historical_note"))
+    rights["policy_snapshot"] = _binding_artifact(rights.get("policy_snapshot"))
+    transcript = copy.deepcopy(packet["transcript"])
+    transcript["document"] = _binding_artifact(transcript.get("document"))
+    identity = {
+        "source_id": packet["source_id"],
+        "publisher": packet["publisher"],
+        "event_title": packet["event_title"],
+        "event_date": packet["event_date"],
+        "canonical_source_url": packet["canonical_source_url"],
+        "player_url": packet["player_url"],
+        "speaker": packet["speaker"],
+        "provenance": packet["provenance"],
+        "media": _binding_artifact(packet["media"]),
+        "transcript": transcript,
+        "rights": rights,
+        "selection": selection,
+        "publication_control": packet["publication_control"],
+    }
     return hashlib.sha256(canonical_json(identity)).hexdigest()
 
 
@@ -332,6 +368,161 @@ class DynamicMediaClipper:
         return output_clip_path
 
 
+def _read_json(path: Path) -> dict[str, Any]:
+    try:
+        value = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise SpeechRelayError(f"Cannot read JSON review artifact: {path.name}") from exc
+    if not isinstance(value, dict):
+        raise SpeechRelayError(f"JSON review artifact must be an object: {path.name}")
+    return value
+
+
+def _private_review_packet_body(package_dir: Path, repo_root: Path) -> dict[str, Any]:
+    """Compose the one offline review packet from the already written package bytes."""
+    source_packet = _read_json(package_dir / "source_packet.json")
+    expected_verification = validate_packet(source_packet, repo_root, inspect_media=False)
+    source_verification = _read_json(package_dir / "source_verification.json")
+    expected_without_probe = {key: value for key, value in expected_verification.items() if key != "source_probe"}
+    actual_without_probe = {key: value for key, value in source_verification.items() if key != "source_probe"}
+    if actual_without_probe != expected_without_probe:
+        raise SpeechRelayError("Source verification differs from the current retained packet")
+    verification = source_verification
+    rights = _read_json(package_dir / "rights_triage_manifest.json")
+    selection = _read_json(package_dir / "highlight_selection_manifest.json")
+    transcript = _read_json(package_dir / "transcript_alignment_manifest.json")
+    receipt = _read_json(package_dir / "render_receipt.json")
+    if rights != source_packet["rights"] or selection != source_packet["selection"]:
+        raise SpeechRelayError("Review manifests differ from the retained source packet")
+    expected_transcript = {
+        **source_packet["transcript"],
+        "cues": verification["relative_cues"],
+        "exact_quote": source_packet["selection"]["exact_quote"],
+        "text_match_is_audio_verification": False,
+    }
+    if transcript != expected_transcript:
+        raise SpeechRelayError("Transcript alignment manifest differs from the retained packet")
+
+    bound_files: dict[str, str] = {}
+    for filename in sorted(REVIEW_BOUND_FILES):
+        path = package_dir / filename
+        if not path.is_file():
+            raise SpeechRelayError(f"Review packet bound file is missing: {filename}")
+        bound_files[filename] = sha256_file(path)
+    artifacts = {key: artifact_identity(package_dir / filename) for key, filename in ARTIFACT_FILES.items()}
+    extracted_clip = artifact_identity(package_dir / "extracted_clip.mp4")
+    source = {
+        "source_id": source_packet["source_id"],
+        "publisher": source_packet["publisher"],
+        "event_title": source_packet["event_title"],
+        "event_date": source_packet["event_date"],
+        "canonical_source_url": source_packet["canonical_source_url"],
+        "player_url": source_packet["player_url"],
+        "speaker": source_packet["speaker"],
+        "provenance": source_packet["provenance"],
+        "media": source_packet["media"],
+        "transcript": source_packet["transcript"],
+        "rights_reference": source_packet["rights"],
+    }
+    gates = {
+        "rights": {
+            "triage_state": rights["triage_state"],
+            "legal_clearance_status": rights["legal_clearance_status"],
+            "production_eligible": rights["production_eligible"],
+            "policy_url": rights["policy_url"],
+            "policy_evidence_status": rights["policy_evidence_status"],
+            "policy_snapshot": rights.get("policy_snapshot"),
+        },
+        "audio_listening": {
+            "status": source_packet["transcript"]["audio_listening_status"],
+            "render_status": receipt["audio_listening_status"],
+        },
+        "transcript_timing": {
+            "authority_class": source_packet["transcript"]["authority_class"],
+            "status": source_packet["transcript"]["timing_status"],
+            "text_match_is_audio_verification": transcript["text_match_is_audio_verification"],
+        },
+        "third_party_continuity": selection["third_party_review"],
+        "publication": source_packet["publication_control"],
+    }
+    body = {
+        "schema": "contentops.speech_highlight_relay.private_review_packet.v1",
+        "packet_version": 1,
+        "composition_status": "IMMUTABLE_PRIVATE_REVIEW_PACKET",
+        "package_id": f"{source_packet['source_id']}:{selection['candidate_id']}",
+        "source_binding_sha256": verification["source_binding_sha256"],
+        "source": source,
+        "selection": selection,
+        "gates": gates,
+        "source_verification": verification,
+        "render_outputs": {
+            "artifacts": artifacts,
+            "extracted_clip": extracted_clip,
+            "render_receipt": receipt,
+        },
+        "bound_files": bound_files,
+    }
+    return body
+
+
+def compose_private_review_packet(package_dir: Path, repo_root: Path) -> dict[str, Any]:
+    """Write one deterministic offline packet binding source, gates and render bytes."""
+    package_dir = package_dir.resolve()
+    body = _private_review_packet_body(package_dir, repo_root.resolve())
+    packet = {**body, "packet_sha256": hashlib.sha256(canonical_json(body)).hexdigest()}
+    write_json(package_dir / PRIVATE_REVIEW_PACKET_FILE, packet)
+    return packet
+
+
+def verify_private_review_packet(package_dir: Path, repo_root: Path) -> dict[str, Any]:
+    """Fail closed when any packet field, bound file, gate, or render identity drifts."""
+    package_dir = package_dir.resolve()
+    packet = _read_json(package_dir / PRIVATE_REVIEW_PACKET_FILE)
+    packet_digest = packet.get("packet_sha256")
+    body = {key: value for key, value in packet.items() if key != "packet_sha256"}
+    if not isinstance(packet_digest, str) or hashlib.sha256(canonical_json(body)).hexdigest() != packet_digest:
+        raise SpeechRelayError("Private review packet digest mismatch")
+    expected = _private_review_packet_body(package_dir, repo_root.resolve())
+    if body != expected:
+        raise SpeechRelayError("Private review packet body does not match bound package bytes")
+    publication = packet["gates"]["publication"]
+    if canonical_json(publication) != canonical_json(PUBLICATION_CONTROL):
+        raise PublicWriteProhibitedError("Private review packet publication gate is not zero-write")
+    rights_gate = packet["gates"]["rights"]
+    if (rights_gate["triage_state"] != "TRANSFORMATIVE_EDITORIAL_REVIEW_REQUIRED"
+            or rights_gate["legal_clearance_status"] != "NOT_VERIFIED"
+            or rights_gate["production_eligible"] is not False):
+        raise SpeechRelayError("Private review packet rights gate was promoted")
+    if packet["gates"]["audio_listening"]["status"] != "NOT_VERIFIED":
+        raise SpeechRelayError("Private review packet audio gate was promoted")
+    if packet["gates"]["transcript_timing"]["status"] != "PROVISIONAL_DONOR_ALIGNMENT_REVIEW_REQUIRED":
+        raise SpeechRelayError("Private review packet timing gate was promoted")
+    if packet["gates"]["third_party_continuity"]["status"] not in {
+        "VISUAL_ONLY_REVIEW_AUDIO_PENDING", "UNKNOWN_REVIEW_REQUIRED",
+    }:
+        raise SpeechRelayError("Private review packet third-party gate was promoted")
+    package_manifest_path = package_dir / "package_manifest.json"
+    if not package_manifest_path.is_file():
+        raise SpeechRelayError("Package manifest is required to anchor private review packet bytes")
+    package_manifest = _read_json(package_manifest_path)
+    if package_manifest.get("manifest_hashes", {}).get(PRIVATE_REVIEW_PACKET_FILE) != sha256_file(
+        package_dir / PRIVATE_REVIEW_PACKET_FILE
+    ):
+        raise SpeechRelayError("Package manifest does not bind private review packet bytes")
+    return {
+        "status": "PASS_IMMUTABLE_PRIVATE_REVIEW_PACKET",
+        "packet_sha256": packet_digest,
+        "source_binding_sha256": packet["source_binding_sha256"],
+        "publication_state": "PUBLICATION_HOLD",
+        "public_writes": 0,
+        "unknown_writes": 0,
+        "legal_clearance_status": "NOT_VERIFIED",
+        "audio_listening_status": "NOT_VERIFIED",
+        "caption_timing_status": "PROVISIONAL_DONOR_ALIGNMENT_REVIEW_REQUIRED",
+        "production_eligible": False,
+    }
+
+
 def _font(bold: bool = False) -> Path:
     names = (["C:/Windows/Fonts/arialbd.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"]
              if bold else ["C:/Windows/Fonts/arial.ttf", "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"])
@@ -474,12 +665,16 @@ class SpeechHighlightRelayPipeline:
             "visual_review": "REQUIRES_ACTUAL_ARTIFACT_INSPECTION", "audio_listening_status": "NOT_VERIFIED",
             "production_eligible": False, "publication_control": PUBLICATION_CONTROL,
         })
+        compose_private_review_packet(target, self.root)
         manifest = {
             "schema": PACKAGE_SCHEMA, "source_binding_sha256": verification["source_binding_sha256"],
             "package_id": f"{self.packet['source_id']}:{selection['candidate_id']}",
             "publication_control": PUBLICATION_CONTROL, "production_eligible": False,
             "artifacts": {key: artifact_identity(target / filename) for key, filename in ARTIFACT_FILES.items()},
-            "manifest_hashes": {name: sha256_file(target / name) for name in sorted(MANIFEST_FILES)},
+            "manifest_hashes": {
+                name: sha256_file(target / name)
+                for name in sorted(MANIFEST_FILES | {PRIVATE_REVIEW_PACKET_FILE})
+            },
         }
         write_json(target / "package_manifest.json", manifest)
         return {"package_dir": str(target), **verify_speech_highlight_relay_package(target, self.root)}
@@ -495,7 +690,7 @@ def verify_speech_highlight_relay_package(package_dir: Path, repo_root: Path | N
         raise PublicWriteProhibitedError("Package must preserve exact private-review / zero-write controls")
     if set(manifest.get("artifacts", {})) != set(ARTIFACT_FILES):
         raise SpeechRelayError("Package must declare exactly the expected artifacts")
-    if set(manifest.get("manifest_hashes", {})) != MANIFEST_FILES:
+    if set(manifest.get("manifest_hashes", {})) != MANIFEST_FILES | {PRIVATE_REVIEW_PACKET_FILE}:
         raise SpeechRelayError("Package must bind every required manifest")
     for name, expected in manifest["manifest_hashes"].items():
         if sha256_file(directory / name) != expected:
@@ -509,6 +704,7 @@ def verify_speech_highlight_relay_package(package_dir: Path, repo_root: Path | N
         raise SpeechRelayError("Source verification no longer agrees with retained input bytes")
     if manifest["source_binding_sha256"] != checked["source_binding_sha256"]:
         raise SpeechRelayError("Package source scope mismatch")
+    verify_private_review_packet(directory, (repo_root or Path.cwd()).resolve())
     cues = [CaptionCue(**raw) for raw in checked["relative_cues"]]
     related = {
         "rights_triage_manifest.json": packet["rights"],

@@ -59,7 +59,7 @@
       "Preserve authentic speech; no voice cloning, synthetic words, reordering or misleading context.",
       "Retain publisher/speaker/date credit. Resolve policy and asset-specific reuse before production release."
     ],
-    "source_binding_sha256": "9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61"
+    "source_binding_sha256": "7d2367fd33f5fd30c7dd56466cc7911e968a4afd0bb8f2fc83f931b4f2a780e3"
   },
   "selection": {
     "candidate_id": "FROZEN_RETAINED_EXCERPT_01",
@@ -84,7 +84,7 @@
       "start_seconds": 4.485,
       "end_seconds": 27.9,
       "scope": "Sampled visual review after the frozen 4.485s entry: speaker and flag are visible; reporter face/question material is outside the selected speech excerpt. Full-frame continuity, reporter voice and any inseparable third-party audio remain UNKNOWN_REVIEW_REQUIRED.",
-      "source_binding_sha256": "9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61"
+      "source_binding_sha256": "7d2367fd33f5fd30c7dd56466cc7911e968a4afd0bb8f2fc83f931b4f2a780e3"
     },
     "cues": [
       {
@@ -116,7 +116,7 @@
         "speaker": "Kevin Warsh"
       }
     ],
-    "source_binding_sha256": "9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61"
+    "source_binding_sha256": "7d2367fd33f5fd30c7dd56466cc7911e968a4afd0bb8f2fc83f931b4f2a780e3"
   },
   "publication_control": {
     "publication_state": "PUBLICATION_HOLD",
