@@ -3,6 +3,7 @@
 The Simple semantic operation remains zero-write. Qualified production slots delegate through the
 existing canonical durable publication coordinator; no second publisher/store/scheduler is created.
 """
+# ruff: noqa: E402
 
 from __future__ import annotations
 
@@ -24,12 +25,15 @@ from live_contentops.daily_app_launcher_v1 import (
 from live_contentops.v1_simple_gemini_scheduler_process_v1 import (
     CANONICAL_SIMPLE_GEMINI_SCHEDULER_ROOT,
     restart_scheduler_process,
+    run_scheduled_browseros_dry_run,
     run_owned_scheduler_forever,
     scheduler_process_state,
     start_scheduler_process,
     stop_scheduler_process,
 )
-from live_contentops.v1_simple_gemini_scheduler_v1 import SimpleGeminiLocalScheduler
+from live_contentops.v1_simple_gemini_scheduler_v1 import (
+    SimpleGeminiLocalScheduler,
+)
 from live_contentops.v1_simple_publication_handoff_v1 import (
     build_canonical_simple_publication_handoff,
 )
@@ -68,6 +72,14 @@ def build_parser() -> argparse.ArgumentParser:
     lifecycle.add_argument("--restart", action="store_true")
     parser.add_argument("--poll-seconds", type=float, default=60.0)
     parser.add_argument("--max-ticks", type=int, default=None)
+    parser.add_argument(
+        "--browseros-dry-run",
+        action="store_true",
+        help=(
+            "Run the explicit read-only BrowserOS preflight/recovery contract seam and exit "
+            "without constructing the scheduler or publication handoff."
+        ),
+    )
     return parser
 
 
@@ -81,6 +93,21 @@ def main(argv: Sequence[str] | None = None) -> int:
         raise SystemExit(
             "--tick-utc is forbidden on the canonical production scheduler root"
         )
+    if args.browseros_dry_run and (
+        args.run_forever
+        or args.start_detached
+        or args.status
+        or args.stop
+        or args.restart
+        or args.tick_utc
+    ):
+        raise SystemExit(
+            "--browseros-dry-run cannot be combined with scheduler lifecycle or tick options"
+        )
+    if args.browseros_dry_run:
+        result = run_scheduled_browseros_dry_run(enabled=True)
+        print(json.dumps(result, indent=2, sort_keys=True, ensure_ascii=False))
+        return 0 if result.get("status") == "PASS" else 2
     lifecycle_kwargs = {
         "scheduler_root": args.scheduler_root,
         "published_memory_store": args.published_memory_store,
