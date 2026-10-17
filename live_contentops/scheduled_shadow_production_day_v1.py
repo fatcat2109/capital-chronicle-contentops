@@ -159,6 +159,12 @@ def run_scheduled_shadow_production_day(
             or bool(row.get("unknown_write"))
         )
     ]
+    unknown.extend(
+        f"derivative:{index}"
+        for index, row in enumerate(derivative_packages or [])
+        if isinstance(row, Mapping)
+        and (_status(row) == UNKNOWN_WRITE or bool(row.get("unknown_write")))
+    )
     if unknown:
         return _fail(result, UNKNOWN_WRITE, "unknown_write_stop_retry_readback_reconcile:" + ",".join(unknown))
     side_effects = [name for name, row in components.items() if _has_side_effect(row)]

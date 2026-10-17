@@ -153,6 +153,20 @@ def test_unknown_write_stops_before_editorial_or_package_claims():
     assert result["public_write_performed"] is False
 
 
+def test_unknown_write_in_derivative_package_stops_before_reconciliation_claims():
+    unknown = _components()
+    unknown["derivative_packages"][0] = {
+        **unknown["derivative_packages"][0],
+        "status": UNKNOWN_WRITE,
+        "unknown_write": True,
+    }
+    result = run_scheduled_shadow_production_day(enabled=True, **unknown)
+
+    assert result["status"] == UNKNOWN_WRITE
+    assert "derivative:0" in result["failure_detail"]
+    assert "stop_retry_readback_reconcile" in result["failure_detail"]
+
+
 def test_identity_or_destination_mismatch_never_becomes_shadow_success():
     mismatch = _components()
     mismatch["destination_readback"]["status"] = "MISMATCH"
