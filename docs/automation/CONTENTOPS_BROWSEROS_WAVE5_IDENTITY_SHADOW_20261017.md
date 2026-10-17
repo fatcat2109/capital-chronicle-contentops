@@ -41,3 +41,13 @@ fixtures; no live BrowserOS session is used.
 - Integrated/merged/deployed/live-published: not yet.
 - The gate remains opt-in and shadow-only; scheduler, store, runtime, provider/model, account
   selection, session state, and publication ownership remain unchanged.
+
+## Wave 6 destination readback shadow extension
+
+The existing scheduled dry-run owner now accepts one optional injected canonical destination
+readback shadow. For the named Substack destination it compares platform/kind/binding, canonical
+public object ID/URL, payload hash, readback hash, and `RECONCILED_CONFIRMED` state. It returns
+`CONFIRMED_SHADOW`, `MISMATCH`, `MISSING`, `HUMAN_REQUIRED`, `UNKNOWN_WRITE`, or
+`DISABLED_BY_DEFAULT` and hashes only redacted evidence. `UNKNOWN_WRITE` remains stop-retry-readback-
+reconcile. This extension does not claim a live write, account authority, publication success, or
+runtime readiness and does not change `DurablePublicationCoordinator` ownership.

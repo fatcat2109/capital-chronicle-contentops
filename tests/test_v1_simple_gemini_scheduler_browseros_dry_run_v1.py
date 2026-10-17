@@ -4,6 +4,15 @@ import importlib.util
 from pathlib import Path
 
 from live_contentops.browser_rendered_source_recovery_v1 import BROWSER_UNAVAILABLE
+from live_contentops.destination_readback_shadow_gate_v1 import (
+    CONFIRMED_SHADOW,
+    DISABLED_BY_DEFAULT,
+    HUMAN_REQUIRED,
+    MISMATCH,
+    MISSING,
+    UNKNOWN_WRITE,
+    evaluate_destination_readback_shadow,
+)
 from live_contentops.browseros_identity_shadow_gate_v1 import (
     STATUS_AMBIGUOUS,
     STATUS_CONFIRMED,
@@ -222,6 +231,143 @@ def test_entrypoint_flag_is_explicit_and_exits_before_scheduler_construction(mon
     )
 
     assert module.main(["--browseros-dry-run"]) == 0
+
+
+def _substack_readback(**overrides):
+    value = {
+        "platform": "substack",
+        "destination_kind": "CANONICAL_SUBSTACK",
+        "destination_binding_id": "substack:canonical",
+        "public_object_id": "post-123",
+        "public_object_url": "https://capitalchronicle.substack.com/p/market-signal",
+        "payload_sha256": "a" * 64,
+        "readback_sha256": "b" * 64,
+        "reconciliation_status": "RECONCILED_CONFIRMED",
+        "public_write_performed": False,
+    }
+    value.update(overrides)
+    return value
+
+
+def _substack_expected():
+    return {
+        "expected_platform": "substack",
+        "expected_destination_kind": "CANONICAL_SUBSTACK",
+        "expected_destination_binding_id": "substack:canonical",
+        "expected_public_object_id": "post-123",
+        "expected_public_object_url": "https://capitalchronicle.substack.com/p/market-signal",
+        "expected_payload_sha256": "a" * 64,
+    }
+
+
+def test_destination_shadow_confirms_exact_substack_readback_without_public_write_claim():
+    result = evaluate_destination_readback_shadow(
+        enabled=True,
+        readback=_substack_readback(),
+        **_substack_expected(),
+    )
+
+    assert result["status"] == CONFIRMED_SHADOW
+    assert result["shadow_only"] is True
+    assert result["account_identity_proven"] is False
+    assert result["publication_success_proven"] is False
+    assert result["public_write_performed"] is False
+    assert len(result["readback_evidence_sha256"]) == 64
+    assert len(result["reconciliation_identity_sha256"]) == 64
+
+
+def test_destination_shadow_marks_destination_and_object_payload_mismatch():
+    destination_mismatch = evaluate_destination_readback_shadow(
+        enabled=True,
+        readback=_substack_readback(platform="telegram"),
+        **_substack_expected(),
+    )
+    object_payload_mismatch = evaluate_destination_readback_shadow(
+        enabled=True,
+        readback=_substack_readback(public_object_id="post-other", payload_sha256="c" * 64),
+        **_substack_expected(),
+    )
+
+    assert destination_mismatch["status"] == MISMATCH
+    assert "platform" in destination_mismatch["failure_detail"]
+    assert object_payload_mismatch["status"] == MISMATCH
+    assert "public_object_id" in object_payload_mismatch["failure_detail"]
+    assert "payload_sha256" in object_payload_mismatch["failure_detail"]
+
+
+def test_destination_shadow_handles_missing_truncated_and_unknown_write_fail_closed():
+    missing = evaluate_destination_readback_shadow(
+        enabled=True,
+        readback={"platform": "substack"},
+        **_substack_expected(),
+    )
+    human_required = evaluate_destination_readback_shadow(
+        enabled=True,
+        readback=_substack_readback(truncated=True),
+        **_substack_expected(),
+    )
+    unknown = evaluate_destination_readback_shadow(
+        enabled=True,
+        readback=_substack_readback(status=UNKNOWN_WRITE, unknown_write=True),
+        **_substack_expected(),
+    )
+
+    assert missing["status"] == MISSING
+    assert human_required["status"] == HUMAN_REQUIRED
+    assert unknown["status"] == UNKNOWN_WRITE
+    assert unknown["retry_forbidden"] is True
+
+
+def test_destination_shadow_redacts_sensitive_fields_before_hashing():
+    result = evaluate_destination_readback_shadow(
+        enabled=True,
+        readback=_substack_readback(
+            visible_note="authorization=SECRET_TOKEN_VALUE cookie=SECRET_COOKIE_VALUE"
+        ),
+        **_substack_expected(),
+    )
+
+    assert result["status"] == CONFIRMED_SHADOW
+    assert result["redaction_applied"] is True
+    assert "SECRET_TOKEN_VALUE" not in str(result)
+    assert "SECRET_COOKIE_VALUE" not in str(result)
+
+
+def test_destination_shadow_disabled_does_not_iterate_readback():
+    class ExplodingReadback(dict):
+        def items(self):
+            raise AssertionError("disabled destination shadow must not inspect readback")
+
+    result = evaluate_destination_readback_shadow(
+        enabled=False,
+        readback=ExplodingReadback(),
+        **_substack_expected(),
+    )
+
+    assert result["status"] == DISABLED_BY_DEFAULT
+    assert result["readback_evidence_sha256"] is None
+
+
+def test_scheduled_receipt_includes_destination_shadow_without_scheduler_side_effects():
+    result = run_scheduled_browseros_dry_run(
+        enabled=True,
+        preflight_runner=_healthy_preflight,
+        destination_shadow_enabled=True,
+        destination_shadow_readback=_substack_readback(),
+        destination_shadow_expected_platform="substack",
+        destination_shadow_expected_destination_kind="CANONICAL_SUBSTACK",
+        destination_shadow_expected_binding_id="substack:canonical",
+        destination_shadow_expected_public_object_id="post-123",
+        destination_shadow_expected_public_object_url=(
+            "https://capitalchronicle.substack.com/p/market-signal"
+        ),
+        destination_shadow_expected_payload_sha256="a" * 64,
+    )
+
+    assert result["status"] == "PASS"
+    assert result["destination_shadow"]["status"] == CONFIRMED_SHADOW
+    assert result["scheduler_started"] is False
+    assert result["durable_store_write_count"] == 0
 
 
 def test_identity_shadow_confirms_exact_visible_account_and_destination():

@@ -37,6 +37,9 @@ from live_contentops.browser_rendered_source_recovery_v1 import (
     MCP_PROTOCOL_VERSION,
     BrowserOSNeoReadOnlyPreflight,
 )
+from live_contentops.destination_readback_shadow_gate_v1 import (
+    evaluate_destination_readback_shadow,
+)
 from live_contentops.browseros_identity_shadow_gate_v1 import (
     evaluate_browseros_identity_shadow,
 )
@@ -119,6 +122,7 @@ def _scheduled_browseros_result(
     recovery: Mapping[str, Any] | None = None,
     recovery_runner_injected: bool = False,
     identity_shadow: Mapping[str, Any] | None = None,
+    destination_shadow: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     result: dict[str, Any] = {
         "schema_version": SCHEDULED_BROWSEROS_DRY_RUN_SCHEMA_VERSION,
@@ -133,6 +137,9 @@ def _scheduled_browseros_result(
         "recovery": dict(recovery) if recovery is not None else None,
         "identity_shadow": (
             dict(identity_shadow) if identity_shadow is not None else None
+        ),
+        "destination_shadow": (
+            dict(destination_shadow) if destination_shadow is not None else None
         ),
         "recovery_contract": _scheduled_browseros_recovery_contract(
             recovery_runner_injected=recovery_runner_injected
@@ -223,6 +230,14 @@ def run_scheduled_browseros_dry_run(
     identity_shadow_expected_destination: str | None = None,
     identity_shadow_visible_ui_metadata: Mapping[str, Any] | None = None,
     identity_shadow_snapshot_text: str | None = None,
+    destination_shadow_enabled: bool = False,
+    destination_shadow_expected_platform: str | None = None,
+    destination_shadow_expected_destination_kind: str | None = None,
+    destination_shadow_expected_binding_id: str | None = None,
+    destination_shadow_expected_public_object_id: str | None = None,
+    destination_shadow_expected_public_object_url: str | None = None,
+    destination_shadow_expected_payload_sha256: str | None = None,
+    destination_shadow_readback: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Run an opt-in read-only BrowserOS preflight/recovery contract check.
 
@@ -240,6 +255,16 @@ def run_scheduled_browseros_dry_run(
         visible_ui_metadata=identity_shadow_visible_ui_metadata,
         snapshot_text=identity_shadow_snapshot_text,
     )
+    destination_shadow = evaluate_destination_readback_shadow(
+        enabled=destination_shadow_enabled,
+        expected_platform=destination_shadow_expected_platform,
+        expected_destination_kind=destination_shadow_expected_destination_kind,
+        expected_destination_binding_id=destination_shadow_expected_binding_id,
+        expected_public_object_id=destination_shadow_expected_public_object_id,
+        expected_public_object_url=destination_shadow_expected_public_object_url,
+        expected_payload_sha256=destination_shadow_expected_payload_sha256,
+        readback=destination_shadow_readback,
+    )
 
     if not enabled:
         return _scheduled_browseros_result(
@@ -249,6 +274,7 @@ def run_scheduled_browseros_dry_run(
             failure_detail="scheduled_browseros_dry_run_is_disabled_by_default",
             recovery_runner_injected=recovery_runner is not None,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
 
     runner = preflight_runner
@@ -265,6 +291,7 @@ def run_scheduled_browseros_dry_run(
             preflight_invoked=True,
             recovery_runner_injected=recovery_runner is not None,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
     except (OSError, RuntimeError, TypeError, ValueError) as exc:
         detail = str(exc) or type(exc).__name__
@@ -284,6 +311,7 @@ def run_scheduled_browseros_dry_run(
             preflight_invoked=True,
             recovery_runner_injected=recovery_runner is not None,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
 
     valid, failure_class, failure_detail = _scheduled_browseros_preflight_is_valid(
@@ -302,6 +330,7 @@ def run_scheduled_browseros_dry_run(
             preflight=preflight,
             recovery_runner_injected=recovery_runner is not None,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
 
     if recovery_runner is None:
@@ -312,6 +341,7 @@ def run_scheduled_browseros_dry_run(
             recovery={"status": "NOT_REQUESTED", "attempt_count": 0},
             recovery_runner_injected=False,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
 
     try:
@@ -325,6 +355,7 @@ def run_scheduled_browseros_dry_run(
             preflight=preflight,
             recovery_runner_injected=True,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
     except (OSError, RuntimeError, TypeError, ValueError) as exc:
         return _scheduled_browseros_result(
@@ -335,6 +366,7 @@ def run_scheduled_browseros_dry_run(
             preflight=preflight,
             recovery_runner_injected=True,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
 
     recovery_status = str(recovery.get("status") or "")
@@ -353,6 +385,7 @@ def run_scheduled_browseros_dry_run(
             recovery=recovery,
             recovery_runner_injected=True,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
     if (
         recovery.get("http_first") is False
@@ -369,6 +402,7 @@ def run_scheduled_browseros_dry_run(
             recovery=recovery,
             recovery_runner_injected=True,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
     if recovery_status == BROWSER_UNAVAILABLE:
         return _scheduled_browseros_result(
@@ -382,6 +416,7 @@ def run_scheduled_browseros_dry_run(
             recovery=recovery,
             recovery_runner_injected=True,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
     if recovery_status not in {
         "HTTP_SUCCESS_NO_BROWSER",
@@ -396,6 +431,7 @@ def run_scheduled_browseros_dry_run(
             recovery=recovery,
             recovery_runner_injected=True,
             identity_shadow=identity_shadow,
+            destination_shadow=destination_shadow,
         )
     return _scheduled_browseros_result(
         status="PASS",
@@ -404,6 +440,7 @@ def run_scheduled_browseros_dry_run(
         recovery=recovery,
         recovery_runner_injected=True,
         identity_shadow=identity_shadow,
+        destination_shadow=destination_shadow,
     )
 
 
