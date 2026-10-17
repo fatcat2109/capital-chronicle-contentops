@@ -16,6 +16,8 @@ from datetime import datetime, timezone
 from hashlib import sha256
 import ipaddress
 import json
+import os
+from pathlib import Path
 import re
 import socket
 from typing import Any, Callable, Mapping, Protocol, Sequence
@@ -30,6 +32,11 @@ MCP_PROTOCOL_VERSION = "2025-06-18"
 EXPECTED_SERVER_NAME = "browseros-neo"
 RETRIEVAL_METHOD = "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE"
 ALLOWED_MCP_TOOLS = frozenset({"name_session", "tabs", "read"})
+BROWSER_UNAVAILABLE = "BROWSER_UNAVAILABLE"
+READ_ONLY_PREFLIGHT_SCHEMA = "contentops.browseros_neo.read_only_preflight.v1"
+OFFICIAL_LAUNCHER_PATH = (
+    r"C:\Users\bullw\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\BrowserOS neo.lnk"
+)
 
 _PAGE_ID_RE = re.compile(r"\bopened page\s+(\d+)\b", re.I)
 _CONTENT_RE = re.compile(
@@ -320,6 +327,217 @@ class BrowserOSNeoMcpTransport:
             pass
         finally:
             self._session_id = None
+
+
+def _preflight_failure_message(exc: BaseException) -> str:
+    return str(exc) or type(exc).__name__
+
+
+def _default_browseros_neo_launcher(path: Path) -> None:
+    """Open only the installed BrowserOS Neo shortcut in the current user session."""
+    expected = Path(OFFICIAL_LAUNCHER_PATH)
+    if path != expected or path.suffix.casefold() != ".lnk":
+        raise BrowserRenderedSourceRecoveryError(
+            "browseros_neo_launcher_path_not_allowlisted"
+        )
+    if os.name != "nt" or not path.is_file():
+        raise BrowserRenderedSourceRecoveryError(
+            "browseros_neo_launcher_unavailable"
+        )
+    try:
+        os.startfile(str(path))  # type: ignore[attr-defined]
+    except (OSError, AttributeError) as exc:
+        raise BrowserRenderedSourceRecoveryError(
+            "browseros_neo_launcher_start_failed"
+        ) from exc
+
+
+class BrowserOSNeoReadOnlyPreflight:
+    """Bounded Wave 0/1 health/reconnect check for the official Neo MCP path.
+
+    The default launcher opens only the installed ``BrowserOS neo.lnk`` shortcut in the current
+    interactive user session. It never starts a server executable directly, uses another browser,
+    inspects credentials, or grants publication authority. Health is checked first; the
+    shortcut is launched at most once only when the initial health check fails, followed by one
+    bounded reconnect/identity check. Any failure is a structured ``BROWSER_UNAVAILABLE`` result.
+    """
+
+    def __init__(
+        self,
+        *,
+        endpoint: str = DEFAULT_MCP_URL,
+        timeout_seconds: float = 12.0,
+        transport_factory: Callable[[], BrowserOSNeoTransport] | None = None,
+        launcher: Callable[[Path], None] | None = None,
+        launcher_path: str = OFFICIAL_LAUNCHER_PATH,
+    ) -> None:
+        self._endpoint = endpoint
+        self._timeout_seconds = float(timeout_seconds)
+        self._transport_factory = transport_factory
+        self._launcher = launcher or _default_browseros_neo_launcher
+        self._launcher_path = Path(launcher_path)
+        self._launcher_attempted = False
+
+    def _new_transport(self) -> BrowserOSNeoTransport:
+        if self._transport_factory is not None:
+            return self._transport_factory()
+        return BrowserOSNeoMcpTransport(
+            endpoint=self._endpoint,
+            timeout_seconds=self._timeout_seconds,
+        )
+
+    def _health_check(self) -> dict[str, str]:
+        transport = self._new_transport()
+        try:
+            transport.initialize()
+            server_name = str(transport.server_info.get("name") or "")
+            protocol_version = str(transport.protocol_version or "")
+            if server_name != EXPECTED_SERVER_NAME:
+                raise BrowserRenderedSourceRecoveryError(
+                    "browseros_neo_mcp_server_identity_mismatch"
+                )
+            if protocol_version != MCP_PROTOCOL_VERSION:
+                raise BrowserRenderedSourceRecoveryError(
+                    "browseros_neo_mcp_protocol_mismatch"
+                )
+            return {
+                "server_name": server_name,
+                "server_version": str(transport.server_info.get("version") or ""),
+                "mcp_protocol_version": protocol_version,
+            }
+        finally:
+            transport.close()
+
+    def _result(
+        self,
+        *,
+        status: str,
+        lifecycle_state: str,
+        health: Mapping[str, str] | None,
+        failures: Sequence[str],
+        reconnect_attempts: int,
+        launcher_attempts: int,
+        auto_open_requested: bool,
+    ) -> dict[str, Any]:
+        result: dict[str, Any] = {
+            "schema_version": READ_ONLY_PREFLIGHT_SCHEMA,
+            "status": status,
+            "lifecycle_state": lifecycle_state,
+            "failure_class": BROWSER_UNAVAILABLE if status == BROWSER_UNAVAILABLE else None,
+            "official_launcher_path": OFFICIAL_LAUNCHER_PATH,
+            "official_launcher_kind": "WINDOWS_SHORTCUT_LNK",
+            "official_launcher_invoked": launcher_attempts == 1,
+            "endpoint": self._endpoint,
+            "reconnect_attempts": reconnect_attempts,
+            "launcher_attempts": launcher_attempts,
+            "auto_open_requested": bool(auto_open_requested),
+            "auto_open_attempts": launcher_attempts,
+            "allowed_tools": sorted(ALLOWED_MCP_TOOLS),
+            "read_only": True,
+            "credential_or_session_material_read": False,
+            "model_call_count": 0,
+            "public_write_performed": False,
+            "publication_authority": False,
+            "fail_closed_on_unavailable": True,
+        }
+        if health:
+            result.update(health)
+        if failures:
+            result["failure_detail"] = failures[-1]
+            result["failure_history"] = list(failures)
+        return result
+
+    def run(
+        self,
+        *,
+        auto_open: bool = False,
+        reconnect_once: bool = True,
+    ) -> dict[str, Any]:
+        """Run health, one optional shortcut launch, then one reconnect/identity check."""
+        failures: list[str] = []
+        reconnect_attempts = 0
+        try:
+            health = self._health_check()
+            return self._result(
+                status="PASS",
+                lifecycle_state="HEALTHY",
+                health=health,
+                failures=failures,
+                reconnect_attempts=0,
+                launcher_attempts=0,
+                auto_open_requested=auto_open,
+            )
+        except (BrowserRenderedSourceRecoveryError, OSError, TimeoutError, ValueError) as exc:
+            failures.append(_preflight_failure_message(exc))
+        if not auto_open or not reconnect_once:
+            return self._result(
+                status=BROWSER_UNAVAILABLE,
+                lifecycle_state=BROWSER_UNAVAILABLE,
+                health=None,
+                failures=failures,
+                reconnect_attempts=0,
+                launcher_attempts=0,
+                auto_open_requested=auto_open,
+            )
+        if self._launcher_attempted:
+            failures.append("browseros_neo_launcher_budget_exhausted")
+            return self._result(
+                status=BROWSER_UNAVAILABLE,
+                lifecycle_state=BROWSER_UNAVAILABLE,
+                health=None,
+                failures=failures,
+                reconnect_attempts=0,
+                launcher_attempts=0,
+                auto_open_requested=auto_open,
+            )
+        if self._launcher_path != Path(OFFICIAL_LAUNCHER_PATH) or self._launcher_path.suffix.casefold() != ".lnk":
+            failures.append("browseros_neo_launcher_path_not_allowlisted")
+            return self._result(
+                status=BROWSER_UNAVAILABLE,
+                lifecycle_state=BROWSER_UNAVAILABLE,
+                health=None,
+                failures=failures,
+                reconnect_attempts=0,
+                launcher_attempts=0,
+                auto_open_requested=auto_open,
+            )
+        self._launcher_attempted = True
+        try:
+            self._launcher(self._launcher_path)
+        except (BrowserRenderedSourceRecoveryError, OSError, TimeoutError, ValueError) as exc:
+            failures.append(_preflight_failure_message(exc))
+            return self._result(
+                status=BROWSER_UNAVAILABLE,
+                lifecycle_state=BROWSER_UNAVAILABLE,
+                health=None,
+                failures=failures,
+                reconnect_attempts=0,
+                launcher_attempts=1,
+                auto_open_requested=auto_open,
+            )
+        reconnect_attempts = 1
+        try:
+            health = self._health_check()
+            return self._result(
+                status="PASS",
+                lifecycle_state="HEALTHY_AFTER_RECONNECT",
+                health=health,
+                failures=failures,
+                reconnect_attempts=reconnect_attempts,
+                launcher_attempts=1,
+                auto_open_requested=auto_open,
+            )
+        except (BrowserRenderedSourceRecoveryError, OSError, TimeoutError, ValueError) as exc:
+            failures.append(_preflight_failure_message(exc))
+            return self._result(
+                status=BROWSER_UNAVAILABLE,
+                lifecycle_state=BROWSER_UNAVAILABLE,
+                health=None,
+                failures=failures,
+                reconnect_attempts=reconnect_attempts,
+                launcher_attempts=1,
+                auto_open_requested=auto_open,
+            )
 
 
 def _tool_text(rows: Sequence[str]) -> str:

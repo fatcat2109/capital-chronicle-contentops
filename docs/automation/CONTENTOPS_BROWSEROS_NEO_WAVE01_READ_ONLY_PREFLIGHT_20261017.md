@@ -1,0 +1,97 @@
+# ContentOps BrowserOS Neo Wave 0/1 Read-Only Preflight — 2026-10-17
+
+Status: `IMPLEMENTED / BOUNDED / BROWSER_UNAVAILABLE / NO_PUBLICATION_AUTHORITY`
+
+## Scope
+
+This receipt covers one isolated BrowserOS Neo lifecycle seam for source recovery. It does not
+enable a scheduler, start ContentOps runtime, touch the durable store, use CDP publication roles,
+call a provider/model, download media, publish, or deploy. `DurablePublicationCoordinator` remains
+the sole publication owner. V2 remains paused and separate.
+
+## Lifecycle contract
+
+`BrowserOSNeoReadOnlyPreflight` uses the official loopback MCP path:
+
+`health/identity check -> at most one Windows shortcut launch after health failure -> one bounded reconnect/identity check -> PASS or BROWSER_UNAVAILABLE`
+
+- Official launcher: `C:\Users\bullw\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\BrowserOS neo.lnk`.
+- The default launcher opens only that `.lnk` through the current interactive user session. It does
+  not start a server executable directly and does not use another browser.
+- A healthy initial endpoint does not launch the shortcut.
+- A failed health check can invoke the shortcut at most once when `auto_open=True`; a second run on
+  the same preflight object is blocked by the duplicate-launch guard.
+- Reconnect is at most one identity check. Allowed MCP tools remain exactly `name_session`, `tabs`,
+  and `read`; the preflight itself does not inspect credentials/session material.
+- Any unavailable, identity, timeout, launcher, or reconnect failure returns structured
+  `BROWSER_UNAVAILABLE` and remains fail-closed. No fallback browser is attempted.
+
+## Implementation and focused proof
+
+Implementation: `live_contentops/browser_rendered_source_recovery_v1.py`.
+
+Focused command:
+
+```powershell
+python -m pytest -q tests/test_browser_rendered_source_recovery_v1.py
+```
+
+Observed result: `15 passed`.
+
+The tests cover healthy no-launch, one shortcut launch followed by reconnect, launcher failure,
+non-shortcut rejection, duplicate-launch guard, identity/protocol checks, cleanup, mutating-tool
+rejection, redirect/access/truncation gates, and existing rendered-source behavior.
+
+## Current host observation
+
+The bounded local adapter preflight was run with `auto_open=false` so this Builder turn did not
+launch a desktop shortcut:
+
+```powershell
+$env:PYTHONPATH=(Get-Location).Path
+python -c "import json; from live_contentops.browser_rendered_source_recovery_v1 import BrowserOSNeoReadOnlyPreflight; print(json.dumps(BrowserOSNeoReadOnlyPreflight().run(auto_open=False, reconnect_once=True), sort_keys=True))"
+```
+
+Result:
+
+```json
+{
+  "schema_version": "contentops.browseros_neo.read_only_preflight.v1",
+  "status": "BROWSER_UNAVAILABLE",
+  "failure_class": "BROWSER_UNAVAILABLE",
+  "failure_detail": "browseros_neo_mcp_unavailable",
+  "endpoint": "http://127.0.0.1:9010/mcp",
+  "official_launcher_path": "C:\\Users\\bullw\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\BrowserOS neo.lnk",
+  "official_launcher_invoked": false,
+  "launcher_attempts": 0,
+  "reconnect_attempts": 0,
+  "read_only": true,
+  "public_write_performed": false,
+  "publication_authority": false
+}
+```
+
+This is an adapter/loopback availability result only. It does not prove the current account,
+profile, destination identity, login state, or publication readiness. A separate BrowserOS tool
+smoke in this task successfully named the session, listed existing tabs/windows, and opened then
+closed a temporary `about:blank` page; that tool readback did not supply a server version or MCP
+protocol identity and is not a publication or account proof.
+
+## State and next command
+
+- Implemented: official shortcut path, health-first lifecycle, one-launch/reconnect bounds,
+  duplicate-launch guard and `BROWSER_UNAVAILABLE` fail-closed result.
+- Tested: `15 passed`; Ruff, compileall and `git diff --check` passed.
+- Integrated/merged/deployed/live-published: not yet; this branch is the Wave 0/1 implementation
+  checkpoint only.
+- No runtime/store/scheduler/browser-publication mutation occurred; no provider/model call occurred.
+
+Next bounded command, if a future owner-authorized host observation requires the one launcher attempt:
+
+```powershell
+$env:PYTHONPATH=(Get-Location).Path
+python -c "import json; from live_contentops.browser_rendered_source_recovery_v1 import BrowserOSNeoReadOnlyPreflight; print(json.dumps(BrowserOSNeoReadOnlyPreflight().run(auto_open=True, reconnect_once=True), sort_keys=True))"
+```
+
+If the shortcut or interactive session is unavailable, the command must return
+`BROWSER_UNAVAILABLE`; do not fall back to another browser or infer readiness.
