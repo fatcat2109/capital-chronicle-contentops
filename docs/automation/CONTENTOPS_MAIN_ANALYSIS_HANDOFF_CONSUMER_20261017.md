@@ -51,8 +51,8 @@ V2 activation.
 
 Remote readback at receipt generation: [PR #71](https://github.com/fatcat2109/capital-chronicle-contentops/pull/71)
 was `OPEN/CLEAN`, with base `7711debc1f0f02e5c772dca1e644fd6ac09f928e`, exact head
-`572c6b1625cd1859bc21b726ec77a4c4709986fc`, and exact-head CI run
-[39035723869](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39035723869)
+`be11fa2b73ebac7d19563e71aeb34a5a22e8033a`, and exact-head CI run
+[39036179975](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39036179975)
 green for both `branch-codegraph-refresh` and `deterministic-validation`.
 
 Zero-live receipt fields are all closed: scheduler started `false`, durable-store writes `0`,
