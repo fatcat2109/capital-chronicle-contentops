@@ -4,6 +4,14 @@ import importlib.util
 from pathlib import Path
 
 from live_contentops.browser_rendered_source_recovery_v1 import BROWSER_UNAVAILABLE
+from live_contentops.browseros_identity_shadow_gate_v1 import (
+    STATUS_AMBIGUOUS,
+    STATUS_CONFIRMED,
+    STATUS_DISABLED,
+    STATUS_HUMAN_REQUIRED,
+    STATUS_MISSING,
+    evaluate_browseros_identity_shadow,
+)
 from live_contentops.v1_simple_gemini_scheduler_process_v1 import (
     SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED,
     SCHEDULED_BROWSEROS_DRY_RUN_FEATURE_DISABLED,
@@ -214,3 +222,124 @@ def test_entrypoint_flag_is_explicit_and_exits_before_scheduler_construction(mon
     )
 
     assert module.main(["--browseros-dry-run"]) == 0
+
+
+def test_identity_shadow_confirms_exact_visible_account_and_destination():
+    result = evaluate_browseros_identity_shadow(
+        enabled=True,
+        expected_account_label="contentops-social-main",
+        expected_destination="X",
+        visible_ui_metadata={
+            "account_label": "contentops-social-main",
+            "destination": "X",
+        },
+        snapshot_text="Account: contentops-social-main\nDestination: X",
+    )
+
+    assert result["status"] == STATUS_CONFIRMED
+    assert result["account_identity_proven"] is True
+    assert result["observed_account_label"] == "contentops-social-main"
+    assert result["observed_destination"] == "X"
+    assert len(result["visible_ui_sha256"]) == 64
+    assert len(result["snapshot_sha256"]) == 64
+    assert len(result["identity_evidence_sha256"]) == 64
+
+
+def test_identity_shadow_marks_visible_mismatch_ambiguous():
+    result = evaluate_browseros_identity_shadow(
+        enabled=True,
+        expected_account_label="contentops-social-main",
+        expected_destination="X",
+        visible_ui_metadata={
+            "account_label": "different-account",
+            "destination": "X",
+        },
+    )
+
+    assert result["status"] == STATUS_AMBIGUOUS
+    assert result["failure_detail"] == "visible_identity_mismatch"
+    assert result["account_identity_proven"] is False
+
+
+def test_identity_shadow_returns_missing_or_human_required_for_absent_or_truncated_ui():
+    missing = evaluate_browseros_identity_shadow(
+        enabled=True,
+        expected_account_label="contentops-social-main",
+        expected_destination="X",
+    )
+    truncated = evaluate_browseros_identity_shadow(
+        enabled=True,
+        expected_account_label="contentops-social-main",
+        expected_destination="X",
+        snapshot_text=(
+            "Account: contentops-social-main\nDestination: X\n"
+            "Content truncated at 5000 chars."
+        ),
+    )
+
+    assert missing["status"] == STATUS_MISSING
+    assert missing["account_identity_proven"] is False
+    assert truncated["status"] == STATUS_HUMAN_REQUIRED
+    assert truncated["account_identity_proven"] is False
+
+
+def test_identity_shadow_redacts_credentials_before_hashing_or_returning_evidence():
+    result = evaluate_browseros_identity_shadow(
+        enabled=True,
+        expected_account_label="contentops-social-main",
+        expected_destination="X",
+        visible_ui_metadata={
+            "account_label": "contentops-social-main",
+            "destination": "X",
+            "access_token": "SECRET_TOKEN_VALUE",
+            "cookie": "SECRET_COOKIE_VALUE",
+        },
+        snapshot_text=(
+            "Account: contentops-social-main\nDestination: X\n"
+            "authorization=SECRET_AUTH_VALUE"
+        ),
+    )
+
+    serialized = str(result)
+    assert result["status"] == STATUS_CONFIRMED
+    assert result["redaction_applied"] is True
+    assert result["credential_or_session_material_read"] is False
+    assert "SECRET_TOKEN_VALUE" not in serialized
+    assert "SECRET_COOKIE_VALUE" not in serialized
+    assert "SECRET_AUTH_VALUE" not in serialized
+
+
+def test_identity_shadow_disabled_does_not_iterate_visible_metadata():
+    class ExplodingMetadata(dict):
+        def items(self):
+            raise AssertionError("disabled identity shadow must not inspect UI metadata")
+
+    result = evaluate_browseros_identity_shadow(
+        enabled=False,
+        expected_account_label="contentops-social-main",
+        expected_destination="X",
+        visible_ui_metadata=ExplodingMetadata(),
+    )
+
+    assert result["status"] == STATUS_DISABLED
+    assert result["account_identity_proven"] is False
+    assert result["visible_ui_sha256"] is None
+
+
+def test_scheduled_dry_run_receipt_includes_optional_identity_shadow_gate():
+    result = run_scheduled_browseros_dry_run(
+        enabled=True,
+        preflight_runner=_healthy_preflight,
+        identity_shadow_enabled=True,
+        identity_shadow_expected_account_label="contentops-social-main",
+        identity_shadow_expected_destination="X",
+        identity_shadow_visible_ui_metadata={
+            "account_label": "contentops-social-main",
+            "destination": "X",
+        },
+    )
+
+    assert result["status"] == "PASS"
+    assert result["identity_shadow"]["status"] == STATUS_CONFIRMED
+    assert result["identity_shadow"]["account_identity_proven"] is True
+    assert result["scheduler_started"] is False

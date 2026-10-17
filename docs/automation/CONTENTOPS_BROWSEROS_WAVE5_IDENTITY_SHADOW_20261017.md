@@ -1,0 +1,43 @@
+# ContentOps BrowserOS Neo Wave 5 Identity Shadow Gate — 2026-10-17
+
+Status: `IMPLEMENTED / INJECTED_UI_PROVEN / DISABLED_BY_DEFAULT / ACCOUNT_IDENTITY_NOT_AUTHORITY`
+
+## Scope
+
+This slice adds a read-only visible-UI identity shadow evaluator to the existing scheduled dry-run
+owner. It consumes only caller-supplied account/destination labels and snapshot text. It never
+opens or selects a browser account, reads cookies/storage/tokens, logs in, clicks, types, publishes,
+comments, starts the scheduler, writes the durable store, or changes account/session state.
+
+The optional gate is disabled by default and normal scheduler/publication behavior is unchanged.
+Any result other than an exact visible-label match remains unproven and cannot grant account,
+publication, numeric, factual, or runtime authority.
+
+## Contract
+
+- `CONFIRMED`: one exact visible account label and one exact visible destination match the expected
+  values; `account_identity_proven=true` is limited to this visible shadow evidence.
+- `AMBIGUOUS`: conflicting visible labels or an expected-label mismatch.
+- `MISSING`: required expected/observed labels are absent.
+- `HUMAN_REQUIRED`: visible UI/snapshot text is truncated or otherwise incomplete.
+- `DISABLED_BY_DEFAULT`: no UI metadata or snapshot is inspected.
+- Every evaluated result includes SHA-256 hashes for redacted visible metadata, redacted snapshot
+  text, and the combined identity evidence. Credential/session fields are replaced before hashing;
+  no secret value is returned.
+
+## Focused proof
+
+```powershell
+python -m pytest -q tests/test_v1_simple_gemini_scheduler_browseros_dry_run_v1.py
+```
+
+The proof covers exact identity, mismatch, missing/truncated UI, credential redaction, disabled
+zero-inspection behavior, and inclusion in the scheduled dry-run receipt. All inputs are injected
+fixtures; no live BrowserOS session is used.
+
+## Integration boundary
+
+- Implemented/tested: branch only, from `master` head `3b8391e070874517a98f85a23edfe734775d2a6a`.
+- Integrated/merged/deployed/live-published: not yet.
+- The gate remains opt-in and shadow-only; scheduler, store, runtime, provider/model, account
+  selection, session state, and publication ownership remain unchanged.
