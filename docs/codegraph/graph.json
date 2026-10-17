@@ -85159,7 +85159,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-17T10:59:38Z",
+  "generation_timestamp_utc": "2026-10-17T11:05:47Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -88578,7 +88578,7 @@
     {
       "id": "live_contentops/scheduled_shadow_production_day_v1.py",
       "kind": "python_module",
-      "size_bytes": 10429
+      "size_bytes": 10970
     },
     {
       "id": "live_contentops/scheduler_v6.py",
@@ -128658,7 +128658,7 @@
     {
       "id": "tests/test_scheduled_shadow_production_day_v1.py",
       "kind": "test",
-      "size_bytes": 5053
+      "size_bytes": 5663
     },
     {
       "id": "tests/test_scheduler_v6.py",
@@ -133793,6 +133793,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "f5ff681f3bc5926d34ca8db38804ec0f36fabc7a",
-  "source_tree_digest": "7aae0bb0a5d273b482ca2de417741c7fafd5af9a48300db8c1dcca5624f9528d"
+  "source_head": "b91a9e2ed62fc5136ea03df65fa2d30af74605e2",
+  "source_tree_digest": "4b1ff53d43f6b2003b012de93c43a0e11d63fbc0d6994f9c5905a77c9c514333"
 }

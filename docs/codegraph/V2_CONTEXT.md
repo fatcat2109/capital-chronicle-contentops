@@ -1,6 +1,6 @@
 # ContentOps Codex Context Map
 
-Generated from source HEAD `f5ff681f3bc5926d34ca8db38804ec0f36fabc7a`. Source tree digest: `7aae0bb0a5d273b482ca2de417741c7fafd5af9a48300db8c1dcca5624f9528d`.
+Generated from source HEAD `b91a9e2ed62fc5136ea03df65fa2d30af74605e2`. Source tree digest: `4b1ff53d43f6b2003b012de93c43a0e11d63fbc0d6994f9c5905a77c9c514333`.
 Run `python scripts/generate_codex_context_index.py --check` to determine staleness.
 
 This generated map is descriptive repository state and is subordinate to root `AGENTS.md`.
