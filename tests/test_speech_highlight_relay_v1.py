@@ -68,6 +68,10 @@ def test_affirmative_rights_and_production_are_rejected(tmp_path):
 def test_quote_without_protected_qualifier_is_rejected(tmp_path):
     packet = _fixture_packet(tmp_path)
     packet["selection"]["exact_quote"] = packet["selection"]["exact_quote"].replace("generally ", "")
+    binding = relay.source_binding(packet)
+    packet["rights"]["source_binding_sha256"] = binding
+    packet["selection"]["source_binding_sha256"] = binding
+    packet["selection"]["third_party_review"]["source_binding_sha256"] = binding
 
     with pytest.raises(relay.SpeechRelayError, match="Protected qualifiers"):
         relay.validate_packet(packet, tmp_path, inspect_media=False)
@@ -86,3 +90,81 @@ def test_package_controls_are_immutable(tmp_path):
 
     with pytest.raises(relay.PublicWriteProhibitedError, match="PUBLICATION_HOLD"):
         relay.validate_packet(packet, tmp_path, inspect_media=False)
+
+
+def _review_package_fixture(tmp_path: Path) -> Path:
+    packet = _fixture_packet(tmp_path)
+    package = tmp_path / "package"
+    package.mkdir()
+    verification = relay.validate_packet(packet, tmp_path, inspect_media=False)
+    (package / "source_packet.json").write_text(json.dumps(packet, indent=2), encoding="utf-8")
+    (package / "source_verification.json").write_text(json.dumps(verification, indent=2), encoding="utf-8")
+    (package / "rights_triage_manifest.json").write_text(json.dumps(packet["rights"], indent=2), encoding="utf-8")
+    cues = verification["relative_cues"]
+    transcript = {
+        **packet["transcript"],
+        "cues": cues,
+        "exact_quote": packet["selection"]["exact_quote"],
+        "text_match_is_audio_verification": False,
+    }
+    (package / "transcript_alignment_manifest.json").write_text(json.dumps(transcript, indent=2), encoding="utf-8")
+    (package / "highlight_selection_manifest.json").write_text(
+        json.dumps(packet["selection"], indent=2), encoding="utf-8"
+    )
+    for filename in relay.ARTIFACT_FILES.values():
+        (package / filename).write_bytes(filename.encode("utf-8"))
+    (package / "extracted_clip.mp4").write_bytes(b"clip")
+    receipt = {
+        "created_at": "2026-10-17T00:00:00+00:00",
+        "media_probes": {"clean_master": {"fixture": "clean"}, "captioned_derivative": {"fixture": "captioned"}},
+        "extracted_clip": relay.artifact_identity(package / "extracted_clip.mp4"),
+        "audio_listening_status": "NOT_VERIFIED",
+        "production_eligible": False,
+        "publication_control": relay.PUBLICATION_CONTROL,
+    }
+    (package / "render_receipt.json").write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+    relay.compose_private_review_packet(package, tmp_path)
+    manifest = {
+        "schema": relay.PACKAGE_SCHEMA,
+        "source_binding_sha256": verification["source_binding_sha256"],
+        "package_id": f"{packet['source_id']}:{packet['selection']['candidate_id']}",
+        "publication_control": relay.PUBLICATION_CONTROL,
+        "production_eligible": False,
+        "artifacts": {key: relay.artifact_identity(package / filename) for key, filename in relay.ARTIFACT_FILES.items()},
+        "manifest_hashes": {
+            name: relay.sha256_file(package / name)
+            for name in sorted(relay.MANIFEST_FILES | {relay.PRIVATE_REVIEW_PACKET_FILE})
+        },
+    }
+    (package / "package_manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    return package
+
+
+def test_source_binding_covers_provenance_clock_and_policy_reference(tmp_path):
+    packet = _fixture_packet(tmp_path)
+    original = relay.source_binding(packet)
+    packet["provenance"]["full_event_mapping"] = "different retained clock"
+    assert relay.source_binding(packet) != original
+    packet = _fixture_packet(tmp_path)
+    original = relay.source_binding(packet)
+    packet["rights"]["policy_url"] = "https://example.test/changed-policy"
+    assert relay.source_binding(packet) != original
+
+
+def test_private_review_packet_rejects_provenance_or_policy_drift(tmp_path):
+    package = _review_package_fixture(tmp_path)
+    source_path = package / "source_packet.json"
+    source = json.loads(source_path.read_text(encoding="utf-8"))
+    source["provenance"]["full_event_mapping"] = "tampered retained clock"
+    source_path.write_text(json.dumps(source, indent=2), encoding="utf-8")
+
+    with pytest.raises(relay.SpeechRelayError, match="Rights review scope|Source verification"):
+        relay.verify_private_review_packet(package, tmp_path)
+
+
+def test_private_review_packet_rejects_render_output_hash_drift(tmp_path):
+    package = _review_package_fixture(tmp_path)
+    (package / relay.ARTIFACT_FILES["captioned_derivative"]).write_bytes(b"tampered output")
+
+    with pytest.raises(relay.SpeechRelayError, match="body does not match bound package bytes"):
+        relay.verify_private_review_packet(package, tmp_path)

@@ -1,7 +1,7 @@
 {
   "schema": "contentops.speech_highlight_relay.retained_source_probe.v1",
   "source_id": "FED_FOMC_20260729_RETAINED_DUAL_MANDATE",
-  "source_binding_sha256": "9f3300d123d44cc5598baf23917e34cc796ac37782fcac574f7d6a551273cb61",
+  "source_binding_sha256": "7d2367fd33f5fd30c7dd56466cc7911e968a4afd0bb8f2fc83f931b4f2a780e3",
   "media": {
     "sha256": "4c2cd08ed327bec53300d8bc0bc170c16ba328a7af669b2240118fc956b7c1f9",
     "duration_seconds": 27.9,
