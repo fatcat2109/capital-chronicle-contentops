@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14182,
+    "edges": 14189,
     "entrypoints": 20,
-    "nodes": 7505,
+    "nodes": 7509,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 619,
-      "python_function": 4086,
+      "python_function": 4087,
       "python_method": 306,
-      "python_module": 783,
-      "schema": 229,
-      "test": 749,
+      "python_module": 784,
+      "schema": 230,
+      "test": 750,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -17224,6 +17224,30 @@
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::consume_current_host_readiness_observation"
+    },
+    {
+      "from": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.current_host_readiness_observation.v1"
+    },
+    {
+      "from": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_host_readiness_observation_consumer_v1.py"
     },
     {
       "from": "live_contentops/hourly_runtime_audit_v1.py",
@@ -54318,6 +54342,18 @@
       "to": "python_symbol:live_contentops/historical_schema_compatibility_v1.py::recognize_lineage"
     },
     {
+      "from": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::consume_current_host_readiness_observation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/browseros_identity_shadow_gate_v1.py::evaluate_browseros_identity_shadow"
+    },
+    {
+      "from": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::consume_current_host_readiness_observation",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/destination_readback_shadow_gate_v1.py::evaluate_destination_readback_shadow"
+    },
+    {
       "from": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::build_hourly_audit",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -75540,6 +75576,12 @@
       "to": "live_contentops/headline_data_root_v1.py"
     },
     {
+      "from": "tests/test_host_readiness_observation_consumer_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/host_readiness_observation_consumer_v1.py"
+    },
+    {
       "from": "tests/test_ide_cli_document_bundle.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -85267,7 +85309,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-17T13:12:46Z",
+  "generation_timestamp_utc": "2026-10-17T13:45:26Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -87147,6 +87189,11 @@
       "id": "live_contentops/historical_schema_lineage_v1.py",
       "kind": "python_module",
       "size_bytes": 6081
+    },
+    {
+      "id": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "kind": "python_module",
+      "size_bytes": 22358
     },
     {
       "id": "live_contentops/hourly_runtime_audit_v1.py",
@@ -102869,6 +102916,13 @@
       "line": 983,
       "path": "live_contentops/historical_schema_compatibility_v1.py",
       "symbol": "upgrade_historical_database"
+    },
+    {
+      "id": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::consume_current_host_readiness_observation",
+      "kind": "python_function",
+      "line": 321,
+      "path": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "symbol": "consume_current_host_readiness_observation"
     },
     {
       "id": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::build_hourly_audit",
@@ -124626,6 +124680,11 @@
       "schema_id": "contentops.current_host_read_only_preflight.v1"
     },
     {
+      "id": "schema:contentops.current_host_readiness_observation.v1",
+      "kind": "schema",
+      "schema_id": "contentops.current_host_readiness_observation.v1"
+    },
+    {
       "id": "schema:contentops.current_oil_release_source.v1",
       "kind": "schema",
       "schema_id": "contentops.current_oil_release_source.v1"
@@ -127154,6 +127213,11 @@
       "id": "tests/test_headline_data_root_v1.py",
       "kind": "test",
       "size_bytes": 3140
+    },
+    {
+      "id": "tests/test_host_readiness_observation_consumer_v1.py",
+      "kind": "test",
+      "size_bytes": 6903
     },
     {
       "id": "tests/test_ide_cli_document_bundle.py",
@@ -133928,6 +133992,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "566e9eef2b8231eefe3e6cbaddb2500c467d813f",
-  "source_tree_digest": "624f5c54c49dc077007981705691e59864ea54d04b98570a18da12a014c01d92"
+  "source_head": "e5dd0a51c6b26fd22c51400784e883209aa1687d",
+  "source_tree_digest": "bf0040e0867cb3b9b459dba2611ff29ccde588a8620c4686bf8939076c48adff"
 }
