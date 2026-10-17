@@ -61,3 +61,34 @@ boundary. It requires the existing shared request budget/one recovery attempt an
 `RECONCILED_CONFIRMED` destination evidence; `UNKNOWN_WRITE`, missing, mismatch, or human-required
 states remain fail-closed. The packet is shadow-only and does not start scheduler/runtime, touch the
 store, call a model/provider, select an account, or publish.
+
+## Heavy-goal checkpoint
+
+### Before
+
+- BrowserOS rendered-source recovery, lifecycle preflight, identity shadow, and canonical
+  destination readback were separate bounded seams.
+- The accepted Simple scheduler/coordinator/store/registry owners existed, but no single injected
+  packet summarized the hybrid path across source recovery, BrowserOS, destination readback, and
+  X/CDP ingestion boundaries.
+
+### After
+
+- `hybrid_pipeline_shadow.v1` composes those existing owner results without creating a new owner.
+- Closed cells: HTTP/official-API-first ordering; one BrowserOS recovery attempt; shared request
+  budget; BrowserOS read-only lifecycle; redacted visible identity; canonical Substack object and
+  payload/readback reconciliation; `UNKNOWN_WRITE` stop behavior; Chrome CDP 9222 ingestion-only
+  boundary; zero scheduler/store/model/provider/public-write side effects.
+- Evidence: new pipeline fixture tests pass locally; PR68 exact-head CI passed its deterministic and
+  CodeGraph jobs; PR69 is stacked on PR68 and remains shadow-only.
+
+### Blockers
+
+- Current live account/profile/destination readiness and public-object state remain host/runtime
+  facts and are not proven by these fixtures or repository CI.
+- No live publication, scheduler activation, database/status mutation, or V2 activation occurred.
+
+### Exactly one next phase
+
+Run one owner-authorized, read-only current-host observation at the exact destination boundary and
+record the returned identity/readback packet; stop on ambiguity or `UNKNOWN_WRITE`.
