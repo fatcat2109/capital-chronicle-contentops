@@ -1,6 +1,6 @@
 # ContentOps BrowserOS Neo Wave 0/1 Read-Only Preflight — 2026-10-17
 
-Status: `IMPLEMENTED / BOUNDED / BROWSER_UNAVAILABLE / HOST_PREFLIGHT_READBACK / NO_PUBLICATION_AUTHORITY`
+Status: `IMPLEMENTED / BOUNDED / READ_ONLY_TOOL_SESSION_AVAILABLE / ADAPTER_BROWSER_UNAVAILABLE / NO_PUBLICATION_AUTHORITY`
 
 ## Scope
 
@@ -105,13 +105,31 @@ run. The shortcut invocation therefore proves only that the bounded launcher pat
 it does not prove that BrowserOS started, that a session is connected, or that any account/profile/
 destination is ready. No fallback browser was tried.
 
+## Direct BrowserOS Neo tool readback — 2026-10-17T06:41:59Z
+
+The official BrowserOS Neo direct agent tool session became available after the adapter result. A
+bounded `tabs list` returned one user tab, `chrome://newtab/ (BrowserOS neo)`, and a page-1
+snapshot succeeded. The snapshot showed the BrowserOS Neo cockpit extension page with its Cockpit,
+MCP, Skills, Audit, Settings and Diagnostics navigation, plus running-session labels. This is
+classified as:
+
+`READ_ONLY_TOOL_SESSION_AVAILABLE`
+
+The direct tool observation does **not** establish the adapter's MCP server name/version or
+protocol identity, ContentOps account/profile identity, destination readiness, login state,
+scheduler/runtime health, or publication authority. No new tab, shortcut, provider/model call,
+credential/session inspection or public action was performed in this readback. The earlier adapter
+result at `2026-10-17T06:30:24Z` remains `BROWSER_UNAVAILABLE`; the two evidence classes are kept
+separate.
+
 ## State and next command
 
 - Implemented: official shortcut path, health-first lifecycle, one-launch/reconnect bounds,
   duplicate-launch guard and `BROWSER_UNAVAILABLE` fail-closed result.
 - Tested: `15 passed`; Ruff, compileall and `git diff --check` passed. Host adapter readback at
   `2026-10-17T06:30:24Z`: first health-only check unavailable; one launcher/reconnect attempt also
-  unavailable.
+  unavailable. Direct BrowserOS tool readback at `2026-10-17T06:41:59Z`: read-only session
+  available, identity/readiness still not verified.
 - Integrated/merged/deployed/live-published: not yet; this branch is the Wave 0/1 implementation
   checkpoint only.
 - No runtime/store/scheduler/browser-publication mutation occurred; no provider/model call occurred.
