@@ -147,4 +147,3 @@ def test_proof_layer_values_are_explicit_and_do_not_promote_public_readiness():
         receipt = _fixture()["cases"][name]
         assert receipt["classification"] == expected
         assert receipt["proof_layers"]["PUBLICLY_PROVEN"] == "NOT_VERIFIED"
-
