@@ -6,7 +6,9 @@ from pathlib import Path
 import pytest
 
 from live_contentops.browser_rendered_source_recovery_v1 import (
+    BROWSER_UNAVAILABLE,
     BrowserOSNeoMcpTransport,
+    BrowserOSNeoReadOnlyPreflight,
     BrowserOSNeoRenderedSourceRecovery,
     BrowserRenderedSourceRecoveryError,
     MCP_PROTOCOL_VERSION,
@@ -257,3 +259,124 @@ def test_current_authority_resumes_product_first_without_mandatory_preflight_can
         assert "PRODUCT_FIRST_AUTONOMOUS_V1_RESUME" in text, path
         assert "CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT" not in text, path
         assert "current-host read-only activation preflight\n-> one fresh live" not in text, path
+
+
+class PreflightTransport(FakeTransport):
+    def __init__(self, *, fail_initialize: bool = False):
+        super().__init__()
+        self.fail_initialize = fail_initialize
+
+    def initialize(self) -> None:
+        if self.fail_initialize:
+            raise BrowserRenderedSourceRecoveryError("browseros_neo_mcp_unavailable")
+        super().initialize()
+
+
+def test_read_only_preflight_health_does_not_launch_healthy_endpoint():
+    fake = PreflightTransport()
+    launched: list[Path] = []
+
+    result = BrowserOSNeoReadOnlyPreflight(
+        transport_factory=lambda: fake,
+        launcher=lambda path: launched.append(path),
+    ).run(auto_open=True, reconnect_once=False)
+
+    assert result["status"] == "PASS"
+    assert result["lifecycle_state"] == "HEALTHY"
+    assert result["official_launcher_path"].endswith("BrowserOS neo.lnk")
+    assert result["auto_open_attempts"] == 0
+    assert result["official_launcher_invoked"] is False
+    assert result["allowed_tools"] == ["name_session", "read", "tabs"]
+    assert result["read_only"] is True
+    assert result["public_write_performed"] is False
+    assert result["publication_authority"] is False
+    assert launched == []
+    assert fake.calls == []
+    assert fake.closed is True
+
+
+def test_read_only_preflight_launches_shortcut_once_then_reconnects():
+    transports = [PreflightTransport(fail_initialize=True), PreflightTransport()]
+    launched: list[Path] = []
+
+    result = BrowserOSNeoReadOnlyPreflight(
+        transport_factory=lambda: transports.pop(0),
+        launcher=lambda path: launched.append(path),
+    ).run(auto_open=True, reconnect_once=True)
+
+    assert result["status"] == "PASS"
+    assert result["lifecycle_state"] == "HEALTHY_AFTER_RECONNECT"
+    assert result["failure_class"] is None
+    assert result["reconnect_attempts"] == 1
+    assert result["launcher_attempts"] == 1
+    assert result["auto_open_attempts"] == 1
+    assert result["official_launcher_invoked"] is True
+    assert launched == [Path(r"C:\Users\bullw\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\BrowserOS neo.lnk")]
+    assert result["read_only"] is True
+    assert result["public_write_performed"] is False
+    assert result["publication_authority"] is False
+    assert transports == []
+
+
+def test_read_only_preflight_launcher_failure_is_bounded_and_fails_closed():
+    fake = PreflightTransport(fail_initialize=True)
+    launched: list[Path] = []
+
+    def launcher(path: Path) -> None:
+        launched.append(path)
+        raise TimeoutError("interactive session unavailable")
+
+    preflight = BrowserOSNeoReadOnlyPreflight(
+        transport_factory=lambda: fake,
+        launcher=launcher,
+    )
+    result = preflight.run(auto_open=True, reconnect_once=True)
+
+    assert result["status"] == BROWSER_UNAVAILABLE
+    assert result["failure_class"] == BROWSER_UNAVAILABLE
+    assert result["launcher_attempts"] == 1
+    assert result["reconnect_attempts"] == 0
+    assert len(launched) == 1
+    assert fake.closed is True
+    assert "interactive session unavailable" in result["failure_detail"]
+
+
+def test_read_only_preflight_never_accepts_non_shortcut_launcher_path():
+    fake = PreflightTransport(fail_initialize=True)
+    launched: list[Path] = []
+    preflight = BrowserOSNeoReadOnlyPreflight(
+        transport_factory=lambda: fake,
+        launcher=lambda path: launched.append(path),
+        launcher_path="C:/Windows/System32/not-a-shortcut.bin",
+    )
+
+    result = preflight.run(auto_open=True, reconnect_once=True)
+
+    assert result["status"] == BROWSER_UNAVAILABLE
+    assert result["failure_detail"] == "browseros_neo_launcher_path_not_allowlisted"
+    assert result["launcher_attempts"] == 0
+    assert launched == []
+    assert fake.closed is True
+
+
+def test_read_only_preflight_duplicate_launch_guard_persists_across_runs():
+    transports = [
+        PreflightTransport(fail_initialize=True),
+        PreflightTransport(fail_initialize=True),
+        PreflightTransport(fail_initialize=True),
+    ]
+    launched: list[Path] = []
+    preflight = BrowserOSNeoReadOnlyPreflight(
+        transport_factory=lambda: transports.pop(0),
+        launcher=lambda path: launched.append(path),
+    )
+
+    first = preflight.run(auto_open=True, reconnect_once=True)
+    second = preflight.run(auto_open=True, reconnect_once=True)
+
+    assert first["status"] == BROWSER_UNAVAILABLE
+    assert first["launcher_attempts"] == 1
+    assert second["status"] == BROWSER_UNAVAILABLE
+    assert second["launcher_attempts"] == 0
+    assert second["failure_detail"] == "browseros_neo_launcher_budget_exhausted"
+    assert len(launched) == 1

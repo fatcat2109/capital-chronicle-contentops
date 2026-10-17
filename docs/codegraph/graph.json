@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14139,
+    "edges": 14141,
     "entrypoints": 20,
-    "nodes": 7479,
+    "nodes": 7481,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -24,11 +24,11 @@
       "http_endpoint": 6,
       "instructions": 9,
       "manifest": 21,
-      "python_class": 617,
+      "python_class": 618,
       "python_function": 4079,
       "python_method": 306,
       "python_module": 778,
-      "schema": 221,
+      "schema": 222,
       "test": 745,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
@@ -3411,6 +3411,12 @@
       "from": "live_contentops/browser_rendered_source_recovery_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoReadOnlyPreflight"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoRenderedSourceRecovery"
     },
     {
@@ -3430,6 +3436,12 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.browser_rendered_source_recovery.v1"
+    },
+    {
+      "from": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.browseros_neo.read_only_preflight.v1"
     },
     {
       "from": "live_contentops/browser_rendered_source_recovery_v1.py",
@@ -85009,7 +85021,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-17T04:38:15Z",
+  "generation_timestamp_utc": "2026-10-17T06:19:52Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -85773,7 +85785,7 @@
     {
       "id": "live_contentops/browser_rendered_source_recovery_v1.py",
       "kind": "python_module",
-      "size_bytes": 20498
+      "size_bytes": 29287
     },
     {
       "id": "live_contentops/browser_safety_policy_v6.py",
@@ -91859,28 +91871,35 @@
     {
       "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoMcpTransport",
       "kind": "python_class",
-      "line": 152,
+      "line": 159,
       "path": "live_contentops/browser_rendered_source_recovery_v1.py",
       "symbol": "BrowserOSNeoMcpTransport"
     },
     {
+      "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoReadOnlyPreflight",
+      "kind": "python_class",
+      "line": 355,
+      "path": "live_contentops/browser_rendered_source_recovery_v1.py",
+      "symbol": "BrowserOSNeoReadOnlyPreflight"
+    },
+    {
       "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoRenderedSourceRecovery",
       "kind": "python_class",
-      "line": 350,
+      "line": 568,
       "path": "live_contentops/browser_rendered_source_recovery_v1.py",
       "symbol": "BrowserOSNeoRenderedSourceRecovery"
     },
     {
       "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserOSNeoTransport",
       "kind": "python_class",
-      "line": 59,
+      "line": 66,
       "path": "live_contentops/browser_rendered_source_recovery_v1.py",
       "symbol": "BrowserOSNeoTransport"
     },
     {
       "id": "python_symbol:live_contentops/browser_rendered_source_recovery_v1.py::BrowserRenderedSourceRecoveryError",
       "kind": "python_class",
-      "line": 55,
+      "line": 62,
       "path": "live_contentops/browser_rendered_source_recovery_v1.py",
       "symbol": "BrowserRenderedSourceRecoveryError"
     },
@@ -124115,6 +124134,11 @@
       "schema_id": "contentops.browser_rendered_source_recovery.v1"
     },
     {
+      "id": "schema:contentops.browseros_neo.read_only_preflight.v1",
+      "kind": "schema",
+      "schema_id": "contentops.browseros_neo.read_only_preflight.v1"
+    },
+    {
       "id": "schema:contentops.canonical_x_list_record_provenance.v1",
       "kind": "schema",
       "schema_id": "contentops.canonical_x_list_record_provenance.v1"
@@ -125687,7 +125711,7 @@
     {
       "id": "tests/test_browser_rendered_source_recovery_v1.py",
       "kind": "test",
-      "size_bytes": 8855
+      "size_bytes": 13522
     },
     {
       "id": "tests/test_browser_safety_policy_v6.py",
@@ -133522,6 +133546,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "0df998e4f7a9d73965747aed6a0e62a293c66424",
-  "source_tree_digest": "e32bfead71a2200e9b63ec6429335868445b58d16f4a314b18a8b98c19c0460d"
+  "source_head": "49f1181906f28323c8307cf22d45752d085bf227",
+  "source_tree_digest": "acaf2fb38cfe5d4e6e2a25bad1ab0aff6ce8ade7001ed1f49548d158709f140c"
 }
