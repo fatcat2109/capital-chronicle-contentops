@@ -77,6 +77,12 @@ Ruff, `py_compile`, and `git diff --check` passed. No login, account selection, 
 read, provider call, task launch, store/database mutation, public write, deployment, or V2 activation
 occurred.
 
+Remote readback: [PR #73](https://github.com/fatcat2109/capital-chronicle-contentops/pull/73) is
+`OPEN/CLEAN`, based on `18bcd94c908a3afcc4dc0ce156418f3a89a8e16f`, with exact head
+`27d5c0b7df9dee15d41b99ac64c08f19dd434c49`. Exact-head CI run
+[39041124272](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39041124272)
+is green for both `branch-codegraph-refresh` and `deterministic-validation`.
+
 ## Blockers
 
 Current identity/CDP readiness remains `NOT_VERIFIED`; the portable producer preserves that state
