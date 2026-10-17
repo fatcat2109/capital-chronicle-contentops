@@ -77,14 +77,40 @@ does not claim an audiovisual PASS. Local decode and spectral inspection found a
 AAC stream (`mean_volume=-31.4 dB`, `max_volume=-13.0 dB`); that does not verify words, speaker,
 timing or third-party audio.
 
+## Post-merge readback — PR61
+
+PR61 (`Bind retained Relay private review packet`) is merged into current `master` at
+`3c86eeb8efd6d6056b1075c211c1546d8052a031`. The implementation head integrated by that merge is
+`7e6c0047d38dc087f161a6aea2f781ccf464c23d`; remote `origin/master` readback matches the merge
+commit. The docs-only closeout is anchored to this exact post-merge state.
+
+The immutable review packet evidence is:
+
+- schema: `contentops.speech_highlight_relay.private_review_packet.v1`;
+- packet digest: `fe653044339a8caae31001d516664f4626f5205e36caf73c4b48ed547a5539a4`;
+- source binding: `7d2367fd33f5fd30c7dd56466cc7911e968a4afd0bb8f2fc83f931b4f2a780e3`;
+- 12 bound files, including the source/transcript manifests, extracted clip, captions, render
+  receipt, clean master and captioned derivative;
+- `package_manifest.json` binds the `private_review_packet.json` bytes.
+
+The post-merge validation evidence is `10 passed` for the focused Relay/CLI tests, `17 passed`
+for `tests/test_codex_context_index.py`, `CODEGRAPH_CURRENT`, Ruff/compile/diff checks passed, and
+CI run `39003382730` passed both `deterministic-validation` and `branch-codegraph-refresh`.
+
+The packet still reports `PUBLICATION_HOLD`, `public_writes=0`, `unknown_writes=0`,
+`production_eligible=false`, `audio_listening_status=NOT_VERIFIED`,
+`PROVISIONAL_DONOR_ALIGNMENT_REVIEW_REQUIRED`, `UNKNOWN_REVIEW_REQUIRED` for third-party
+continuity, and `legal_clearance_status=NOT_VERIFIED`. No runtime, store, scheduler, browser,
+provider, model, media download, publication or deployment action occurred.
+
 ## State and next gate
 
 - Implemented: retained packet, fail-closed validation, local clip extraction, clean/captioned render,
   SRT/VTT/JSON sidecars, hashes, package verification, CLI and focused CI test hook.
 - Tested: nine focused Relay boundary/adversarial tests passed; local render and verifier passed.
-- Integrated: CLI and `ci-fast` hook merged into current `master` via PR58 at
-  `12666f7c9e40e8b3fce7044eef71c93120fa332d`.
-- Merged: yes, PR58 exact head `42a67df84ad3b7176411f9cfd4b20501ffae7d77`; deployed: not verified.
+- Integrated: CLI, `ci-fast` hook and the immutable private-review packet validator are merged into
+  current `master` via PR61 merge commit `3c86eeb8efd6d6056b1075c211c1546d8052a031`.
+- Merged: yes, PR61; deployed: not verified; live-published: no.
 - Render-reviewed: visual review complete; audio listening, timing, third-party continuity and legal
   clearance remain open.
 
