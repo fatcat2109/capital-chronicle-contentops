@@ -1,0 +1,623 @@
+{
+  "cases": {
+    "ambiguous": {
+      "blocker": "portable_observation_ambiguous",
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "AMBIGUOUS",
+      "clocks": {
+        "freshness_status": "FRESH",
+        "input_as_of_utc": "2026-10-17T00:30:00Z",
+        "input_known_at_utc": "2026-10-17T00:00:00Z",
+        "input_observed_at_utc": "2026-10-17T00:00:00Z",
+        "portable_as_of_utc": "2026-10-17T00:30:00Z",
+        "portable_known_at_utc": "2026-10-17T00:00:00Z",
+        "portable_observed_at_utc": "2026-10-17T00:00:00Z"
+      },
+      "current_facts": {
+        "destination_status": "HUMAN_REQUIRED",
+        "freshness_status": "FRESH",
+        "identity_status": "AMBIGUOUS",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "3634b70081d50960350a852195afea32ade485576b4c27e79775799afcaaf417",
+      "next": "STOP_RETRY_READBACK_RECONCILE_AND_REISSUE_AFTER_BLOCKER_REPAIR",
+      "portable_receipt_sha256": "2cc4fdb0053a0615c26aedfcd34ba9d08cd9480d4ae3a43c42e798268db0f5f6",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "input_validated": false,
+        "portable_receipt_validated": false,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "b16f94204cfd8389f0bd8e91f06170b6c1bfe681233270d2403085a2f894e9b5",
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_receipt.v1",
+      "shadow_only": true,
+      "source": {
+        "contentops_head": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "ce14c093096f211a6bed2e1ce33da8256d7b65e3",
+        "main_ref": "master",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "current_real": {
+      "blocker": "portable_observation_not_verified",
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "NOT_VERIFIED",
+      "clocks": {
+        "freshness_status": "FRESH",
+        "input_as_of_utc": "2026-10-17T13:43:32Z",
+        "input_known_at_utc": "2026-10-17T13:43:32Z",
+        "input_observed_at_utc": "2026-10-17T13:43:32Z",
+        "portable_as_of_utc": "2026-10-17T13:43:32Z",
+        "portable_known_at_utc": "2026-10-17T13:43:32Z",
+        "portable_observed_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "current_facts": {
+        "destination_status": "MISSING",
+        "freshness_status": "FRESH",
+        "identity_status": "MISSING",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "3344e04ea81c3151d4decf8279a12154e573defe9f8ea3e2c64ebfec3f784efe",
+      "next": "STOP_RETRY_READBACK_RECONCILE_AND_REISSUE_AFTER_BLOCKER_REPAIR",
+      "portable_receipt_sha256": "04a77221e760f3f0ee02d793db8932974c4db006c5740cc82795666302fed213",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "input_validated": false,
+        "portable_receipt_validated": false,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "6e7ca5a8254debf42b757bd9d4bb0cb6c60828ff7d0714aa2c35a6bf99afc0c1",
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_receipt.v1",
+      "shadow_only": true,
+      "source": {
+        "contentops_head": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "ce14c093096f211a6bed2e1ce33da8256d7b65e3",
+        "main_ref": "master",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "healthy": {
+      "blocker": null,
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "NONE",
+      "clocks": {
+        "freshness_status": "FRESH",
+        "input_as_of_utc": "2026-10-17T00:30:00Z",
+        "input_known_at_utc": "2026-10-17T00:00:00Z",
+        "input_observed_at_utc": "2026-10-17T00:00:00Z",
+        "portable_as_of_utc": "2026-10-17T00:30:00Z",
+        "portable_known_at_utc": "2026-10-17T00:00:00Z",
+        "portable_observed_at_utc": "2026-10-17T00:00:00Z"
+      },
+      "current_facts": {
+        "destination_status": "CONFIRMED_SHADOW",
+        "freshness_status": "FRESH",
+        "identity_status": "CONFIRMED",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "01e7f92a11bba335b34e2d8e197041c772dd2acadc118a5dab3098b401d2e59b",
+      "next": "RECONCILED_SHADOW_ONLY_NO_RUNTIME_OR_PUBLIC_PROMOTION",
+      "portable_receipt_sha256": "97d54d6e696c2201adb58f31b1a261a59ccc0ffb4436f91d20290e56726d334d",
+      "production_day_receipt_sha256": "4906cf660c42ef991e775647b2fa3a0c450f1ae82f17bfd721a9f5f8276b916d",
+      "proof_axes": {
+        "input_validated": true,
+        "portable_receipt_validated": true,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": true
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "52f5ea7e863f9de0f6c646f7883c6b62bd986827616e82767a9e7d806514b883",
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_receipt.v1",
+      "shadow_only": true,
+      "source": {
+        "contentops_head": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "ce14c093096f211a6bed2e1ce33da8256d7b65e3",
+        "main_ref": "master",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "RECONCILED",
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "mismatch": {
+      "blocker": "portable_source_repository_ref_head_mismatch",
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "SOURCE_HEAD_MISMATCH",
+      "clocks": {
+        "freshness_status": "FRESH",
+        "input_as_of_utc": "2026-10-17T00:30:00Z",
+        "input_known_at_utc": "2026-10-17T00:00:00Z",
+        "input_observed_at_utc": "2026-10-17T00:00:00Z",
+        "portable_as_of_utc": "2026-10-17T00:30:00Z",
+        "portable_known_at_utc": "2026-10-17T00:00:00Z",
+        "portable_observed_at_utc": "2026-10-17T00:00:00Z"
+      },
+      "current_facts": {
+        "destination_status": "CONFIRMED_SHADOW",
+        "freshness_status": "FRESH",
+        "identity_status": "CONFIRMED",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "973d62c93edc851b0adf670039a1cb184b88dda80a48c0bf6bda282bba198e9b",
+      "next": "STOP_RETRY_READBACK_RECONCILE_AND_REISSUE_AFTER_BLOCKER_REPAIR",
+      "portable_receipt_sha256": "97d54d6e696c2201adb58f31b1a261a59ccc0ffb4436f91d20290e56726d334d",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "input_validated": false,
+        "portable_receipt_validated": false,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "e9e1326d0a0148eda49a812a717f253aaa723c5db5207d71c5d7e1522cbcc551",
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_receipt.v1",
+      "shadow_only": true,
+      "source": {
+        "contentops_head": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "ce14c093096f211a6bed2e1ce33da8256d7b65e3",
+        "main_ref": "master",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "stale": {
+      "blocker": "portable_receipt_not_fresh;portable_clock_order_invalid",
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "RECEIPT_STALE",
+      "clocks": {
+        "freshness_status": "STALE",
+        "input_as_of_utc": "2026-10-17T00:30:00Z",
+        "input_known_at_utc": "2026-10-15T00:00:00Z",
+        "input_observed_at_utc": "2026-10-17T00:00:00Z",
+        "portable_as_of_utc": "2026-10-17T00:30:00Z",
+        "portable_known_at_utc": "2026-10-15T00:00:00Z",
+        "portable_observed_at_utc": "2026-10-17T00:00:00Z"
+      },
+      "current_facts": {
+        "destination_status": "CONFIRMED_SHADOW",
+        "freshness_status": "STALE",
+        "identity_status": "CONFIRMED",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "db95c0d91cc0189c914cd04745564f5f0a9252440e9d8362b3edb0077d281826",
+      "next": "STOP_RETRY_READBACK_RECONCILE_AND_REISSUE_AFTER_BLOCKER_REPAIR",
+      "portable_receipt_sha256": "0e7ca516c303b69d9a1ec076b8ef861c4a28a6ad785fb5ecf6321cb7a327c550",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "input_validated": false,
+        "portable_receipt_validated": false,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "4582a15aa09e2df336aa1aa8f3f91803c471c53496b8f4ce4f42cfbe72e68f22",
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_receipt.v1",
+      "shadow_only": true,
+      "source": {
+        "contentops_head": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "ce14c093096f211a6bed2e1ce33da8256d7b65e3",
+        "main_ref": "master",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "tampered": {
+      "blocker": "portable:portable_receipt_hash_invalid",
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "NOT_VERIFIED",
+      "clocks": {
+        "freshness_status": null,
+        "input_as_of_utc": "2026-10-17T00:30:00Z",
+        "input_known_at_utc": "2026-10-17T00:00:00Z",
+        "input_observed_at_utc": "2026-10-17T00:00:00Z",
+        "portable_as_of_utc": null,
+        "portable_known_at_utc": null,
+        "portable_observed_at_utc": null
+      },
+      "current_facts": {
+        "destination_status": "",
+        "freshness_status": "",
+        "identity_status": "",
+        "store": {
+          "foreign_key_violation_count": null,
+          "integrity_check": null,
+          "status": "",
+          "unknown_write_count": null
+        },
+        "task_states": [],
+        "zero_effect": {
+          "browser_action_count": null,
+          "database_mutation": null,
+          "durable_store_write_count": null,
+          "model_call_count": null,
+          "provider_call_count": null,
+          "public_write_performed": null,
+          "publication_authority": null,
+          "scheduler_started": null
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "ebee108bd3af412f9d03ffc3e9e57a0a32053cf7f06dc84eae1ae81ad8059fe6",
+      "next": "STOP_RETRY_READBACK_RECONCILE_AND_REISSUE_AFTER_BLOCKER_REPAIR",
+      "portable_receipt_sha256": null,
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "input_validated": false,
+        "portable_receipt_validated": false,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "92d55b69fdd151423b2ea329197fdc94d64ddb9603f5e4189c2c0cb73abe871e",
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_receipt.v1",
+      "shadow_only": true,
+      "source": {
+        "contentops_head": null,
+        "contentops_ref": null,
+        "contentops_repository": null,
+        "main_head": "ce14c093096f211a6bed2e1ce33da8256d7b65e3",
+        "main_ref": "master",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "portable_producer_schema": null
+      },
+      "status": "BLOCKED",
+      "zero_effect": {
+        "browser_action_count": false,
+        "database_mutation": false,
+        "durable_store_write_count": false,
+        "model_call_count": false,
+        "provider_call_count": false,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "unknown_write": {
+      "blocker": "unknown_write_stop_retry_readback_reconcile",
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "UNKNOWN_WRITE",
+      "clocks": {
+        "freshness_status": "FRESH",
+        "input_as_of_utc": "2026-10-17T00:30:00Z",
+        "input_known_at_utc": "2026-10-17T00:00:00Z",
+        "input_observed_at_utc": "2026-10-17T00:00:00Z",
+        "portable_as_of_utc": "2026-10-17T00:30:00Z",
+        "portable_known_at_utc": "2026-10-17T00:00:00Z",
+        "portable_observed_at_utc": "2026-10-17T00:00:00Z"
+      },
+      "current_facts": {
+        "destination_status": "CONFIRMED_SHADOW",
+        "freshness_status": "FRESH",
+        "identity_status": "CONFIRMED",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "2826ede34f105bbdf07b2b6994dde7d290700bc0e712a116dae214c1da7d4d73",
+      "next": "STOP_RETRY_READBACK_RECONCILE_AND_REISSUE_AFTER_BLOCKER_REPAIR",
+      "portable_receipt_sha256": "97d54d6e696c2201adb58f31b1a261a59ccc0ffb4436f91d20290e56726d334d",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "input_validated": false,
+        "portable_receipt_validated": false,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "01079731e7fe8eacc598d3707261aa5db3cd4522418c2550bebfdb26c3e086ac",
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_receipt.v1",
+      "shadow_only": true,
+      "source": {
+        "contentops_head": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "ce14c093096f211a6bed2e1ce33da8256d7b65e3",
+        "main_ref": "master",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    }
+  },
+  "input_fixture_schema": "contentops.cross_plane_shadow_cycle_input_fixture_set.v1",
+  "main_head": "ce14c093096f211a6bed2e1ce33da8256d7b65e3",
+  "receipt_schema": "contentops.cross_plane_shadow_cycle_receipt.v1",
+  "schema_version": "contentops.cross_plane_shadow_cycle_receipt_fixture_set.v1",
+  "source_head": "18bcd94c908a3afcc4dc0ce156418f3a89a8e16f"
+}
