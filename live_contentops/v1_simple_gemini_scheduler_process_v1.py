@@ -37,6 +37,9 @@ from live_contentops.browser_rendered_source_recovery_v1 import (
     MCP_PROTOCOL_VERSION,
     BrowserOSNeoReadOnlyPreflight,
 )
+from live_contentops.browseros_identity_shadow_gate_v1 import (
+    evaluate_browseros_identity_shadow,
+)
 
 SCHEMA_VERSION = "contentops.v1_simple_gemini_scheduler_process.v1"
 IDENTITY_SCHEMA_VERSION = "contentops.v1_simple_gemini_scheduler_process_identity.v1"
@@ -115,6 +118,7 @@ def _scheduled_browseros_result(
     preflight_invoked: bool = False,
     recovery: Mapping[str, Any] | None = None,
     recovery_runner_injected: bool = False,
+    identity_shadow: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     result: dict[str, Any] = {
         "schema_version": SCHEDULED_BROWSEROS_DRY_RUN_SCHEMA_VERSION,
@@ -127,6 +131,9 @@ def _scheduled_browseros_result(
         "preflight_invocation_count": 1 if preflight_invoked or preflight is not None else 0,
         "preflight": dict(preflight) if preflight is not None else None,
         "recovery": dict(recovery) if recovery is not None else None,
+        "identity_shadow": (
+            dict(identity_shadow) if identity_shadow is not None else None
+        ),
         "recovery_contract": _scheduled_browseros_recovery_contract(
             recovery_runner_injected=recovery_runner_injected
         ),
@@ -211,6 +218,11 @@ def run_scheduled_browseros_dry_run(
     enabled: bool = False,
     preflight_runner: Callable[..., Mapping[str, Any]] | None = None,
     recovery_runner: Callable[[Mapping[str, Any]], Mapping[str, Any]] | None = None,
+    identity_shadow_enabled: bool = False,
+    identity_shadow_expected_account_label: str | None = None,
+    identity_shadow_expected_destination: str | None = None,
+    identity_shadow_visible_ui_metadata: Mapping[str, Any] | None = None,
+    identity_shadow_snapshot_text: str | None = None,
 ) -> dict[str, Any]:
     """Run an opt-in read-only BrowserOS preflight/recovery contract check.
 
@@ -221,6 +233,14 @@ def run_scheduled_browseros_dry_run(
     scheduler, store, model/provider, or publication owner is constructed here.
     """
 
+    identity_shadow = evaluate_browseros_identity_shadow(
+        enabled=identity_shadow_enabled,
+        expected_account_label=identity_shadow_expected_account_label,
+        expected_destination=identity_shadow_expected_destination,
+        visible_ui_metadata=identity_shadow_visible_ui_metadata,
+        snapshot_text=identity_shadow_snapshot_text,
+    )
+
     if not enabled:
         return _scheduled_browseros_result(
             status=SCHEDULED_BROWSEROS_DRY_RUN_FAIL_CLOSED,
@@ -228,6 +248,7 @@ def run_scheduled_browseros_dry_run(
             failure_class=SCHEDULED_BROWSEROS_DRY_RUN_FEATURE_DISABLED,
             failure_detail="scheduled_browseros_dry_run_is_disabled_by_default",
             recovery_runner_injected=recovery_runner is not None,
+            identity_shadow=identity_shadow,
         )
 
     runner = preflight_runner
@@ -243,6 +264,7 @@ def run_scheduled_browseros_dry_run(
             failure_detail=str(exc) or "browseros_neo_preflight_timeout",
             preflight_invoked=True,
             recovery_runner_injected=recovery_runner is not None,
+            identity_shadow=identity_shadow,
         )
     except (OSError, RuntimeError, TypeError, ValueError) as exc:
         detail = str(exc) or type(exc).__name__
@@ -261,6 +283,7 @@ def run_scheduled_browseros_dry_run(
             failure_detail=detail,
             preflight_invoked=True,
             recovery_runner_injected=recovery_runner is not None,
+            identity_shadow=identity_shadow,
         )
 
     valid, failure_class, failure_detail = _scheduled_browseros_preflight_is_valid(
@@ -278,6 +301,7 @@ def run_scheduled_browseros_dry_run(
             failure_detail=failure_detail,
             preflight=preflight,
             recovery_runner_injected=recovery_runner is not None,
+            identity_shadow=identity_shadow,
         )
 
     if recovery_runner is None:
@@ -287,6 +311,7 @@ def run_scheduled_browseros_dry_run(
             preflight=preflight,
             recovery={"status": "NOT_REQUESTED", "attempt_count": 0},
             recovery_runner_injected=False,
+            identity_shadow=identity_shadow,
         )
 
     try:
@@ -299,6 +324,7 @@ def run_scheduled_browseros_dry_run(
             failure_detail=str(exc) or "browseros_neo_recovery_timeout",
             preflight=preflight,
             recovery_runner_injected=True,
+            identity_shadow=identity_shadow,
         )
     except (OSError, RuntimeError, TypeError, ValueError) as exc:
         return _scheduled_browseros_result(
@@ -308,6 +334,7 @@ def run_scheduled_browseros_dry_run(
             failure_detail=str(exc) or type(exc).__name__,
             preflight=preflight,
             recovery_runner_injected=True,
+            identity_shadow=identity_shadow,
         )
 
     recovery_status = str(recovery.get("status") or "")
@@ -325,6 +352,7 @@ def run_scheduled_browseros_dry_run(
             preflight=preflight,
             recovery=recovery,
             recovery_runner_injected=True,
+            identity_shadow=identity_shadow,
         )
     if (
         recovery.get("http_first") is False
@@ -340,6 +368,7 @@ def run_scheduled_browseros_dry_run(
             preflight=preflight,
             recovery=recovery,
             recovery_runner_injected=True,
+            identity_shadow=identity_shadow,
         )
     if recovery_status == BROWSER_UNAVAILABLE:
         return _scheduled_browseros_result(
@@ -352,6 +381,7 @@ def run_scheduled_browseros_dry_run(
             preflight=preflight,
             recovery=recovery,
             recovery_runner_injected=True,
+            identity_shadow=identity_shadow,
         )
     if recovery_status not in {
         "HTTP_SUCCESS_NO_BROWSER",
@@ -365,6 +395,7 @@ def run_scheduled_browseros_dry_run(
             preflight=preflight,
             recovery=recovery,
             recovery_runner_injected=True,
+            identity_shadow=identity_shadow,
         )
     return _scheduled_browseros_result(
         status="PASS",
@@ -372,6 +403,7 @@ def run_scheduled_browseros_dry_run(
         preflight=preflight,
         recovery=recovery,
         recovery_runner_injected=True,
+        identity_shadow=identity_shadow,
     )
 
 
