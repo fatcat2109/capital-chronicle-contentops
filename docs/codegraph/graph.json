@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14189,
+    "edges": 14195,
     "entrypoints": 20,
-    "nodes": 7509,
+    "nodes": 7514,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 619,
-      "python_function": 4087,
+      "python_function": 4090,
       "python_method": 306,
       "python_module": 784,
-      "schema": 230,
-      "test": 750,
+      "schema": 231,
+      "test": 751,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -17239,9 +17239,33 @@
     },
     {
       "from": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::export_portable_host_readiness_receipt"
+    },
+    {
+      "from": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::portable_receipt_sha256"
+    },
+    {
+      "from": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::validate_portable_host_readiness_receipt"
+    },
+    {
+      "from": "live_contentops/host_readiness_observation_consumer_v1.py",
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.current_host_readiness_observation.v1"
+    },
+    {
+      "from": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.portable_host_readiness_receipt.v1"
     },
     {
       "from": "live_contentops/host_readiness_observation_consumer_v1.py",
@@ -54354,6 +54378,18 @@
       "to": "python_symbol:live_contentops/destination_readback_shadow_gate_v1.py::evaluate_destination_readback_shadow"
     },
     {
+      "from": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::export_portable_host_readiness_receipt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::portable_receipt_sha256"
+    },
+    {
+      "from": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::validate_portable_host_readiness_receipt",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::portable_receipt_sha256"
+    },
+    {
       "from": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::build_hourly_audit",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -85309,7 +85345,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-17T13:45:26Z",
+  "generation_timestamp_utc": "2026-10-17T14:30:41Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -87193,7 +87229,7 @@
     {
       "id": "live_contentops/host_readiness_observation_consumer_v1.py",
       "kind": "python_module",
-      "size_bytes": 22358
+      "size_bytes": 39738
     },
     {
       "id": "live_contentops/hourly_runtime_audit_v1.py",
@@ -102920,9 +102956,30 @@
     {
       "id": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::consume_current_host_readiness_observation",
       "kind": "python_function",
-      "line": 321,
+      "line": 368,
       "path": "live_contentops/host_readiness_observation_consumer_v1.py",
       "symbol": "consume_current_host_readiness_observation"
+    },
+    {
+      "id": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::export_portable_host_readiness_receipt",
+      "kind": "python_function",
+      "line": 783,
+      "path": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "symbol": "export_portable_host_readiness_receipt"
+    },
+    {
+      "id": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::portable_receipt_sha256",
+      "kind": "python_function",
+      "line": 568,
+      "path": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "symbol": "portable_receipt_sha256"
+    },
+    {
+      "id": "python_symbol:live_contentops/host_readiness_observation_consumer_v1.py::validate_portable_host_readiness_receipt",
+      "kind": "python_function",
+      "line": 888,
+      "path": "live_contentops/host_readiness_observation_consumer_v1.py",
+      "symbol": "validate_portable_host_readiness_receipt"
     },
     {
       "id": "python_symbol:live_contentops/hourly_runtime_audit_v1.py::build_hourly_audit",
@@ -125025,6 +125082,11 @@
       "schema_id": "contentops.platform_preview_set"
     },
     {
+      "id": "schema:contentops.portable_host_readiness_receipt.v1",
+      "kind": "schema",
+      "schema_id": "contentops.portable_host_readiness_receipt.v1"
+    },
+    {
       "id": "schema:contentops.preselection_intelligence.v1",
       "kind": "schema",
       "schema_id": "contentops.preselection_intelligence.v1"
@@ -128403,6 +128465,11 @@
       "id": "tests/test_policy_engine_rules.py",
       "kind": "test",
       "size_bytes": 3441
+    },
+    {
+      "id": "tests/test_portable_host_readiness_receipt_v1.py",
+      "kind": "test",
+      "size_bytes": 6242
     },
     {
       "id": "tests/test_preselection_published_memory_breaking_wake_closeout_v1.py",
@@ -133992,6 +134059,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "e5dd0a51c6b26fd22c51400784e883209aa1687d",
-  "source_tree_digest": "bf0040e0867cb3b9b459dba2611ff29ccde588a8620c4686bf8939076c48adff"
+  "source_head": "2929e07970ffd6e1278c7321140c86632445abfc",
+  "source_tree_digest": "2cfa108c6412c23009322cab4bd37035b3d0fea48909c9e9a8a37cac223c862c"
 }
