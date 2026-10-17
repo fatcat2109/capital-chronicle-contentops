@@ -87,8 +87,9 @@ store, call a model/provider, select an account, or publish.
 - Current live account/profile/destination readiness and public-object state remain host/runtime
   facts and are not proven by these fixtures or repository CI.
 - No live publication, scheduler activation, database/status mutation, or V2 activation occurred.
-- PR69 now targets `master@9f8514c18069a918f3cf317419cdf7aea2cec1c7`; the current pipeline-shadow
-  head is `c5bd522d403c25fed64e08c5adb251131fd9a52e` and remains review-only.
+- PR69 now targets `master@9f8514c18069a918f3cf317419cdf7aea2cec1c7`; the current exact pipeline-
+  shadow head is `62f74c95ae591ba11a61484355ca8933e3b4e88c` after the generated CodeGraph refresh.
+  Exact-head CI run `39023995762` passed; the packet remains review-only.
 
 ### Exactly one next phase
 
