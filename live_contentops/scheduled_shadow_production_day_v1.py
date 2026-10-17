@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from hashlib import sha256
 import json
-from typing import Any, Mapping, Sequence
+from typing import Any, Callable, Mapping, Sequence
 
 from live_contentops.destination_transport_registry_v1 import (
     V1_REQUIRED_DERIVATIVE_DESTINATIONS,
@@ -105,6 +105,7 @@ def run_scheduled_shadow_production_day(
     enabled: bool = False,
     source_recovery: Mapping[str, Any] | None = None,
     browser_preflight: Mapping[str, Any] | None = None,
+    preflight_runner: Callable[..., Mapping[str, Any]] | None = None,
     x_ingestion: Mapping[str, Any] | None = None,
     grounded_evidence: Mapping[str, Any] | None = None,
     candidate_decision: Mapping[str, Any] | None = None,
@@ -115,6 +116,16 @@ def run_scheduled_shadow_production_day(
 ) -> dict[str, Any]:
     """Return one end-to-end shadow receipt from injected owner outputs."""
 
+    if enabled and browser_preflight is None and preflight_runner is not None:
+        try:
+            browser_preflight = dict(
+                preflight_runner(auto_open=True, reconnect_once=True)
+            )
+        except (OSError, RuntimeError, TimeoutError, TypeError, ValueError) as exc:
+            browser_preflight = {
+                "status": "BROWSER_UNAVAILABLE",
+                "failure_detail": str(exc) or type(exc).__name__,
+            }
     inputs = {
         "source_recovery": source_recovery,
         "browser_preflight": browser_preflight,

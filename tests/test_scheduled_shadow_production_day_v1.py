@@ -120,6 +120,26 @@ def test_stale_evidence_and_interrupted_resume_are_fail_closed_or_resumable():
     assert interrupted_result["interruption_recovery"] == "RESUMABLE_WITHOUT_SEMANTIC_RERUN"
 
 
+def test_shadow_invocation_can_use_existing_bounded_preflight_launcher_contract():
+    components = _components()
+    observed: list[dict] = []
+    preflight_result = components["browser_preflight"]
+
+    def preflight_runner(**kwargs):
+        observed.append(dict(kwargs))
+        return preflight_result
+
+    components.pop("browser_preflight")
+    result = run_scheduled_shadow_production_day(
+        enabled=True,
+        preflight_runner=preflight_runner,
+        **components,
+    )
+
+    assert result["status"] == SHADOW_CONFIRMED
+    assert observed == [{"auto_open": True, "reconnect_once": True}]
+
+
 def test_unknown_write_stops_before_editorial_or_package_claims():
     unknown = _components()
     unknown["destination_readback"] = {
