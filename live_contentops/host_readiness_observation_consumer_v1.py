@@ -11,6 +11,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 from hashlib import sha256
 import json
+import re
 from typing import Any, Callable, Mapping, Sequence
 
 from live_contentops.browser_rendered_source_recovery_v1 import (
@@ -51,6 +52,52 @@ STATUS_NOT_VERIFIED = "NOT_VERIFIED"
 STATUS_STALE = "STALE_OBSERVATION"
 STATUS_AMBIGUOUS = "AMBIGUOUS"
 STATUS_UNAVAILABLE = "UNAVAILABLE"
+
+PORTABLE_SCHEMA_VERSION = "contentops.portable_host_readiness_receipt.v1"
+PORTABLE_CANONICALIZATION = "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN"
+PORTABLE_PROOF_LAYERS = (
+    "IMPLEMENTED",
+    "TESTED",
+    "INTEGRATED",
+    "HOST_OBSERVED",
+    "RUNTIME_PROVEN",
+    "PUBLICLY_PROVEN",
+)
+PORTABLE_PROOF_VALUES = frozenset({
+    "IMPLEMENTED",
+    "TESTED",
+    "INTEGRATED",
+    "HOST_OBSERVED",
+    "RUNTIME_PROVEN",
+    "PUBLICLY_PROVEN",
+    "NOT_VERIFIED",
+    "STALE",
+    "BLOCKED",
+    "AMBIGUOUS",
+})
+PORTABLE_CLASSIFICATIONS = frozenset({
+    "HOST_OBSERVED",
+    "RUNTIME_PROVEN",
+    "PUBLICLY_PROVEN",
+    "NOT_VERIFIED",
+    "STALE",
+    "BLOCKED",
+    "AMBIGUOUS",
+})
+PORTABLE_RIGHTS_STATUS = "READ_ONLY_OPERATOR_OBSERVATION"
+PORTABLE_REDACTION_POLICY = "REJECT_SECRET_MATERIAL_AND_REDACT_BEFORE_EXPORT_V1"
+_PORTABLE_SENSITIVE_KEY_RE = re.compile(
+    r"(?i)(?:^|_)(?:access[_-]?token|refresh[_-]?token|cookie|password|secret|authorization|"
+    r"api[_-]?key|private[_-]?key|session[_-]?token|webhook[_-]?url)(?:$|_)",
+)
+_PORTABLE_SECRET_VALUE_RE = re.compile(
+    r"(?i)(?:bearer\s+[A-Za-z0-9._~+/=-]{8,}|(?:sk|pk|rk)-[A-Za-z0-9_-]{12,}|"
+    r"(?:access[_-]?token|refresh[_-]?token|api[_-]?key|password|secret|cookie)\s*[:=]\s*[^\s,;]{8,})"
+)
+_PORTABLE_FLAG_KEY_RE = re.compile(
+    r"(?i)(?:^|_)(?:read|allowed|performed|status|count|available|proven|authority|required)(?:$|_)",
+)
+_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
 
 MAX_OBSERVATION_AGE_SECONDS = 24 * 60 * 60
 EXPECTED_TASK_NAMES = (
@@ -503,6 +550,387 @@ def consume_current_host_readiness_observation(
     return _finish(result)
 
 
+def _portable_canonical_bytes(value: Any) -> bytes:
+    """Serialize portable receipts without Python-specific ``default=str`` coercion."""
+
+    try:
+        return json.dumps(
+            value,
+            ensure_ascii=True,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+    except (TypeError, ValueError) as exc:
+        raise ValueError("portable_receipt_non_json_value") from exc
+
+
+def portable_receipt_sha256(value: Mapping[str, Any]) -> str:
+    """Hash the canonical portable payload, excluding its self-hash field."""
+
+    body = {
+        key: item for key, item in value.items() if key != "portable_receipt_sha256"
+    }
+    return sha256(_portable_canonical_bytes(body)).hexdigest()
+
+
+def _portable_sensitive_paths(value: Any, *, path: str = "$") -> list[str]:
+    found: list[str] = []
+    if isinstance(value, Mapping):
+        for key, item in value.items():
+            key_text = str(key)
+            child_path = f"{path}.{key_text}"
+            normalized = key_text.replace("-", "_").casefold()
+            if _PORTABLE_SENSITIVE_KEY_RE.search(normalized) and not _PORTABLE_FLAG_KEY_RE.search(normalized):
+                if item not in (None, "", False, 0, [], {}):
+                    found.append(child_path)
+            found.extend(_portable_sensitive_paths(item, path=child_path))
+    elif isinstance(value, (list, tuple)):
+        for index, item in enumerate(value):
+            found.extend(_portable_sensitive_paths(item, path=f"{path}[{index}]"))
+    elif isinstance(value, str) and _PORTABLE_SECRET_VALUE_RE.search(value):
+        found.append(path)
+    return found
+
+
+def _portable_redact(value: Any, *, path: str = "$") -> tuple[Any, list[str]]:
+    redacted_paths: list[str] = []
+    if isinstance(value, Mapping):
+        output: dict[str, Any] = {}
+        for key, item in value.items():
+            key_text = str(key)
+            child_path = f"{path}.{key_text}"
+            normalized = key_text.replace("-", "_").casefold()
+            sensitive_key = (
+                _PORTABLE_SENSITIVE_KEY_RE.search(normalized) is not None
+                and _PORTABLE_FLAG_KEY_RE.search(normalized) is None
+            )
+            if sensitive_key and item not in (None, "", False, 0, [], {}):
+                output[key_text] = "<REDACTED>"
+                redacted_paths.append(child_path)
+                continue
+            safe, paths = _portable_redact(item, path=child_path)
+            output[key_text] = safe
+            redacted_paths.extend(paths)
+        return output, redacted_paths
+    if isinstance(value, (list, tuple)):
+        output = []
+        for index, item in enumerate(value):
+            safe, paths = _portable_redact(item, path=f"{path}[{index}]")
+            output.append(safe)
+            redacted_paths.extend(paths)
+        return output, redacted_paths
+    if isinstance(value, str) and _PORTABLE_SECRET_VALUE_RE.search(value):
+        return "<REDACTED>", [path]
+    return value, []
+
+
+def _portable_source_receipt_hash_valid(receipt: Mapping[str, Any]) -> bool:
+    supplied = str(receipt.get("readiness_receipt_sha256") or "")
+    return bool(_SHA256_RE.fullmatch(supplied)) and supplied == _hash(
+        {key: value for key, value in receipt.items() if key != "readiness_receipt_sha256"}
+    )
+
+
+def _portable_observation_projection(source: Mapping[str, Any]) -> dict[str, Any]:
+    """Keep the exact host/readiness observations while omitting the nested editorial packet."""
+
+    fields = (
+        "schema_version",
+        "status",
+        "readiness_classification",
+        "observation_id",
+        "observed_at_utc",
+        "observation_age_seconds",
+        "browseros",
+        "x_ingestion_cdp",
+        "publication_cdp",
+        "scheduler_tasks",
+        "process_filter",
+        "store",
+        "counters",
+        "identity_shadow",
+        "destination_shadow",
+        "shadow_status",
+        "shadow_receipt_sha256",
+        "packet_hashes",
+        "evidence_taxonomy",
+        "boundary_classes",
+        "proof_layers",
+        "host_observed",
+        "runtime_proven",
+        "publicly_proven",
+        "scheduler_started",
+        "durable_store_write_count",
+        "database_mutation",
+        "model_call_count",
+        "provider_call_count",
+        "browser_action_count",
+        "public_write_performed",
+        "publication_authority",
+        "validation_blockers",
+        "failure_detail",
+    )
+    return {field: source[field] for field in fields if field in source}
+
+
+def _portable_layer_value(
+    source: Mapping[str, Any],
+    layer: str,
+    supplied: Mapping[str, Any],
+) -> str:
+    value = supplied.get(layer)
+    if value in PORTABLE_PROOF_VALUES:
+        return str(value)
+    source_layers = source.get("proof_layers") if isinstance(source.get("proof_layers"), Mapping) else {}
+    source_value = source_layers.get(layer)
+    if source_value is True:
+        return layer
+    if source_value in PORTABLE_PROOF_VALUES:
+        return str(source_value)
+    return "NOT_VERIFIED"
+
+
+def _portable_classification(
+    source: Mapping[str, Any],
+    *,
+    freshness_status: str,
+    secret_material: bool,
+    source_hash_valid: bool,
+) -> str:
+    if secret_material or not source_hash_valid:
+        return "BLOCKED"
+    if freshness_status == "STALE":
+        return "STALE"
+    source_class = str(source.get("readiness_classification") or source.get("status") or "")
+    if source_class in {"AMBIGUOUS", "HUMAN_REQUIRED"}:
+        return "AMBIGUOUS"
+    if source_class == STATUS_HOST_OBSERVED and source.get("host_observed") is True:
+        return "HOST_OBSERVED"
+    if source_class == STATUS_RUNTIME_PROVEN and source.get("runtime_proven") is True:
+        return "RUNTIME_PROVEN"
+    if source_class == STATUS_PUBLICLY_PROVEN and source.get("publicly_proven") is True:
+        return "PUBLICLY_PROVEN"
+    return "NOT_VERIFIED"
+
+
+def _portable_base(
+    *,
+    source_repository: str,
+    source_branch: str,
+    source_head: str,
+    source_receipt_sha256: str | None,
+    observation_id: str | None,
+    observed_at_utc: str | None,
+    known_at_utc: str,
+    as_of_utc: str,
+    source_hash_valid: bool,
+) -> dict[str, Any]:
+    return {
+        "schema_version": PORTABLE_SCHEMA_VERSION,
+        "canonicalization": PORTABLE_CANONICALIZATION,
+        "export_status": "PASS" if source_hash_valid else "BLOCKED",
+        "classification": "NOT_VERIFIED" if source_hash_valid else "BLOCKED",
+        "source": {
+            "repository": source_repository,
+            "branch": source_branch,
+            "head": source_head,
+            "producer_schema": SCHEMA_VERSION,
+            "source_receipt_sha256": source_receipt_sha256,
+            "source_receipt_hash_verified": source_hash_valid,
+        },
+        "observation": {
+            "observation_id": observation_id,
+            "observed_at_utc": observed_at_utc,
+            "known_at_utc": known_at_utc,
+        },
+        "freshness": {
+            "as_of_utc": as_of_utc,
+            "known_at_utc": known_at_utc,
+            "age_seconds": None,
+            "max_age_seconds": MAX_OBSERVATION_AGE_SECONDS,
+            "status": "UNAVAILABLE",
+        },
+        "rights": {
+            "status": PORTABLE_RIGHTS_STATUS,
+            "basis": "READ_ONLY_HOST_OBSERVATION_NO_PUBLICATION_OR_ACCOUNT_AUTHORITY",
+            "redaction_policy": PORTABLE_REDACTION_POLICY,
+            "raw_payload_included": False,
+        },
+        "proof_layers": {layer: "NOT_VERIFIED" for layer in PORTABLE_PROOF_LAYERS},
+        "packet_hashes": {},
+        "zero_effect": {
+            "scheduler_started": False,
+            "durable_store_write_count": 0,
+            "database_mutation": False,
+            "model_call_count": 0,
+            "provider_call_count": 0,
+            "browser_action_count": 0,
+            "public_write_performed": False,
+            "publication_authority": False,
+        },
+        "redaction": {
+            "applied": False,
+            "secret_material_detected": False,
+            "redacted_paths": [],
+            "raw_payload_not_included": True,
+        },
+        "validation_blockers": [],
+        "portable_receipt_sha256": None,
+    }
+
+
+def export_portable_host_readiness_receipt(
+    readiness_receipt: Mapping[str, Any],
+    *,
+    source_repository: str,
+    source_branch: str,
+    source_head: str,
+    known_at_utc: str | None = None,
+    as_of_utc: str | None = None,
+    max_age_seconds: int = MAX_OBSERVATION_AGE_SECONDS,
+    producer_proof_layers: Mapping[str, str] | None = None,
+) -> dict[str, Any]:
+    """Export a deterministic, redacted receipt that a foreign consumer can validate alone."""
+
+    source = dict(readiness_receipt or {})
+    source_hash_valid = _portable_source_receipt_hash_valid(source)
+    source_hash = str(source.get("readiness_receipt_sha256") or "") or None
+    observed_at = source.get("observed_at_utc")
+    known_at = known_at_utc or str(observed_at or "")
+    as_of = as_of_utc or known_at
+    result = _portable_base(
+        source_repository=str(source_repository),
+        source_branch=str(source_branch),
+        source_head=str(source_head),
+        source_receipt_sha256=source_hash,
+        observation_id=str(source.get("observation_id") or "") or None,
+        observed_at_utc=str(observed_at or "") or None,
+        known_at_utc=known_at,
+        as_of_utc=as_of,
+        source_hash_valid=source_hash_valid,
+    )
+    blockers: list[str] = []
+    if not source_hash_valid:
+        blockers.append("source_readiness_receipt_hash_invalid")
+    if not source_repository or not source_branch or not source_head:
+        blockers.append("source_provenance_incomplete")
+    try:
+        observed_dt = _parse_utc(known_at, field="known_at_utc")
+        as_of_dt = _parse_utc(as_of, field="as_of_utc")
+        age_seconds = int((as_of_dt - observed_dt).total_seconds())
+        result["freshness"].update({
+            "age_seconds": age_seconds,
+            "max_age_seconds": int(max_age_seconds),
+            "status": "FRESH" if 0 <= age_seconds <= int(max_age_seconds) else "STALE",
+        })
+        if age_seconds < 0:
+            blockers.append("known_at_after_as_of")
+    except ValueError as exc:
+        blockers.append(str(exc))
+        result["freshness"]["status"] = "UNAVAILABLE"
+    source_projection = _portable_observation_projection(source)
+    safe_source, redacted_paths = _portable_redact(source_projection)
+    secret_paths = _portable_sensitive_paths(source_projection)
+    secret_material = bool(secret_paths)
+    result["redaction"].update({
+        "applied": bool(redacted_paths),
+        "secret_material_detected": secret_material,
+        "redacted_paths": sorted(set(redacted_paths + secret_paths)),
+    })
+    if secret_material:
+        blockers.append("secret_material_rejected_from_portable_export")
+    if blockers:
+        result["export_status"] = "BLOCKED"
+        result["validation_blockers"] = list(dict.fromkeys(blockers))
+        result["classification"] = _portable_classification(
+            source,
+            freshness_status=str(result["freshness"]["status"]),
+            secret_material=secret_material,
+            source_hash_valid=source_hash_valid,
+        )
+        if result["classification"] == "NOT_VERIFIED":
+            result["classification"] = "BLOCKED"
+    else:
+        result["observation"]["source"] = safe_source
+        supplied_layers = dict(producer_proof_layers or {})
+        result["proof_layers"] = {
+            layer: _portable_layer_value(source, layer, supplied_layers)
+            for layer in PORTABLE_PROOF_LAYERS
+        }
+        result["proof_layers"]["HOST_OBSERVED"] = (
+            "HOST_OBSERVED" if source.get("host_observed") is True else "NOT_VERIFIED"
+        )
+        result["proof_layers"]["RUNTIME_PROVEN"] = (
+            "RUNTIME_PROVEN" if source.get("runtime_proven") is True else "NOT_VERIFIED"
+        )
+        result["proof_layers"]["PUBLICLY_PROVEN"] = (
+            "PUBLICLY_PROVEN" if source.get("publicly_proven") is True else "NOT_VERIFIED"
+        )
+        result["packet_hashes"] = dict(source.get("packet_hashes") or {})
+        result["zero_effect"] = {
+            key: source.get(key, result["zero_effect"].get(key))
+            for key in result["zero_effect"]
+        }
+        result["observation"]["source"] = safe_source
+        result["classification"] = _portable_classification(
+            source,
+            freshness_status=str(result["freshness"]["status"]),
+            secret_material=False,
+            source_hash_valid=True,
+        )
+        if result["freshness"]["status"] == "STALE":
+            result["classification"] = "STALE"
+    result["portable_receipt_sha256"] = portable_receipt_sha256(result)
+    return result
+
+
+def validate_portable_host_readiness_receipt(
+    receipt: Mapping[str, Any],
+) -> list[str]:
+    """Validate the portable envelope without importing any ContentOps implementation owner."""
+
+    blockers: list[str] = []
+    if receipt.get("schema_version") != PORTABLE_SCHEMA_VERSION:
+        blockers.append("portable_schema_version_invalid")
+    if receipt.get("canonicalization") != PORTABLE_CANONICALIZATION:
+        blockers.append("portable_canonicalization_invalid")
+    supplied_hash = str(receipt.get("portable_receipt_sha256") or "")
+    if not _SHA256_RE.fullmatch(supplied_hash) or supplied_hash != portable_receipt_sha256(receipt):
+        blockers.append("portable_receipt_hash_invalid")
+    source = receipt.get("source") if isinstance(receipt.get("source"), Mapping) else {}
+    for key in ("repository", "branch", "head", "producer_schema", "source_receipt_sha256"):
+        if not source.get(key):
+            blockers.append(f"portable_source_{key}_missing")
+    source_hash = str(source.get("source_receipt_sha256") or "")
+    if source_hash and not _SHA256_RE.fullmatch(source_hash):
+        blockers.append("portable_source_receipt_hash_invalid")
+    layers = receipt.get("proof_layers") if isinstance(receipt.get("proof_layers"), Mapping) else {}
+    for layer in PORTABLE_PROOF_LAYERS:
+        if layers.get(layer) not in PORTABLE_PROOF_VALUES:
+            blockers.append(f"portable_proof_layer_invalid:{layer}")
+    classification = str(receipt.get("classification") or "")
+    if classification not in PORTABLE_CLASSIFICATIONS:
+        blockers.append("portable_classification_invalid")
+    freshness = receipt.get("freshness") if isinstance(receipt.get("freshness"), Mapping) else {}
+    if freshness.get("status") not in {"FRESH", "STALE", "UNAVAILABLE"}:
+        blockers.append("portable_freshness_status_invalid")
+    rights = receipt.get("rights") if isinstance(receipt.get("rights"), Mapping) else {}
+    if rights.get("status") != PORTABLE_RIGHTS_STATUS or rights.get("raw_payload_included") is not False:
+        blockers.append("portable_rights_boundary_invalid")
+    redaction = receipt.get("redaction") if isinstance(receipt.get("redaction"), Mapping) else {}
+    if redaction.get("raw_payload_not_included") is not True:
+        blockers.append("portable_redaction_raw_payload_boundary_invalid")
+    secret_paths = _portable_sensitive_paths(receipt)
+    if secret_paths:
+        blockers.append("portable_secret_material_present")
+    if receipt.get("export_status") == "PASS" and receipt.get("validation_blockers"):
+        blockers.append("portable_pass_contains_blockers")
+    if receipt.get("export_status") == "BLOCKED" and not receipt.get("validation_blockers"):
+        blockers.append("portable_blocked_without_blockers")
+    return list(dict.fromkeys(blockers))
+
+
 __all__ = [
     "EXPECTED_PROCESS_FILTER",
     "EXPECTED_TASK_NAMES",
@@ -516,5 +944,13 @@ __all__ = [
     "STATUS_RUNTIME_PROVEN",
     "STATUS_STALE",
     "STATUS_UNAVAILABLE",
+    "PORTABLE_CANONICALIZATION",
+    "PORTABLE_CLASSIFICATIONS",
+    "PORTABLE_PROOF_LAYERS",
+    "PORTABLE_PROOF_VALUES",
+    "PORTABLE_SCHEMA_VERSION",
     "consume_current_host_readiness_observation",
+    "export_portable_host_readiness_receipt",
+    "portable_receipt_sha256",
+    "validate_portable_host_readiness_receipt",
 ]
