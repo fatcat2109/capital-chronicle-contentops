@@ -51,3 +51,13 @@ public object ID/URL, payload hash, readback hash, and `RECONCILED_CONFIRMED` st
 `DISABLED_BY_DEFAULT` and hashes only redacted evidence. `UNKNOWN_WRITE` remains stop-retry-readback-
 reconcile. This extension does not claim a live write, account authority, publication success, or
 runtime readiness and does not change `DurablePublicationCoordinator` ownership.
+
+## End-to-end hybrid pipeline shadow packet
+
+The stacked review packet now composes injected results from the existing owners into one
+`hybrid_pipeline_shadow.v1` receipt: HTTP/official-API-first source recovery, BrowserOS preflight,
+visible identity, canonical Substack destination readback, and Chrome CDP 9222 ingestion-only
+boundary. It requires the existing shared request budget/one recovery attempt and exact
+`RECONCILED_CONFIRMED` destination evidence; `UNKNOWN_WRITE`, missing, mismatch, or human-required
+states remain fail-closed. The packet is shadow-only and does not start scheduler/runtime, touch the
+store, call a model/provider, select an account, or publish.

@@ -13,6 +13,16 @@ from live_contentops.destination_readback_shadow_gate_v1 import (
     UNKNOWN_WRITE,
     evaluate_destination_readback_shadow,
 )
+from live_contentops.hybrid_pipeline_shadow_v1 import (
+    CONFIRMED_SHADOW as PIPELINE_CONFIRMED_SHADOW,
+    DISABLED_BY_DEFAULT as PIPELINE_DISABLED,
+    FAIL_CLOSED as PIPELINE_FAIL_CLOSED,
+    HUMAN_REQUIRED as PIPELINE_HUMAN_REQUIRED,
+    MISMATCH as PIPELINE_MISMATCH,
+    MISSING as PIPELINE_MISSING,
+    UNKNOWN_WRITE as PIPELINE_UNKNOWN_WRITE,
+    evaluate_hybrid_pipeline_shadow,
+)
 from live_contentops.browseros_identity_shadow_gate_v1 import (
     STATUS_AMBIGUOUS,
     STATUS_CONFIRMED,
@@ -368,6 +378,95 @@ def test_scheduled_receipt_includes_destination_shadow_without_scheduler_side_ef
     assert result["destination_shadow"]["status"] == CONFIRMED_SHADOW
     assert result["scheduler_started"] is False
     assert result["durable_store_write_count"] == 0
+
+
+def _pipeline_components():
+    return {
+        "source_recovery": {
+            "status": "BROWSER_RENDERED_RECOVERY_DRY_RUN_PASS",
+            "http_first": True,
+            "shared_request_budget": True,
+            "browser_rendered_recovery_attempt_count": 1,
+            "public_write_performed": False,
+            "publication_authority": False,
+        },
+        "browser_preflight": {
+            "status": "PASS",
+            "read_only": True,
+            "credential_or_session_material_read": False,
+            "public_write_performed": False,
+            "publication_authority": False,
+        },
+        "identity_shadow": {
+            "status": "CONFIRMED",
+            "account_identity_proven": True,
+            "public_write_performed": False,
+            "publication_authority": False,
+        },
+        "destination_shadow": {
+            "status": "CONFIRMED_SHADOW",
+            "public_write_performed": False,
+            "publication_authority": False,
+        },
+        "x_ingestion_boundary": {
+            "status": "INGESTION_ONLY_READY",
+            "cdp_port": 9222,
+            "ingestion_only": True,
+            "public_write_performed": False,
+            "publication_authority": False,
+        },
+    }
+
+
+def test_hybrid_pipeline_shadow_confirms_all_existing_owner_contracts():
+    result = evaluate_hybrid_pipeline_shadow(enabled=True, **_pipeline_components())
+
+    assert result["status"] == PIPELINE_CONFIRMED_SHADOW
+    assert result["source_order"] == ["HTTP_OR_OFFICIAL_API", "BROWSEROS_RENDERED_RECOVERY_IF_ELIGIBLE"]
+    assert result["x_ingestion_cdp_port"] == 9222
+    assert result["x_ingestion_only"] is True
+    assert result["scheduler_started"] is False
+    assert result["durable_store_write_count"] == 0
+    assert result["public_write_performed"] is False
+    assert len(result["pipeline_identity_sha256"]) == 64
+
+
+def test_hybrid_pipeline_shadow_is_disabled_without_inspecting_components():
+    result = evaluate_hybrid_pipeline_shadow(enabled=False)
+
+    assert result["status"] == PIPELINE_DISABLED
+    assert result["evidence_sha256"]
+    assert result["pipeline_identity_sha256"] is None
+
+
+def test_hybrid_pipeline_shadow_classifies_missing_mismatch_and_unknown_write():
+    missing = evaluate_hybrid_pipeline_shadow(enabled=True)
+    mismatch_components = _pipeline_components()
+    mismatch_components["destination_shadow"] = {"status": "MISMATCH"}
+    mismatch = evaluate_hybrid_pipeline_shadow(enabled=True, **mismatch_components)
+    unknown_components = _pipeline_components()
+    unknown_components["destination_shadow"] = {"status": "UNKNOWN_WRITE"}
+    unknown = evaluate_hybrid_pipeline_shadow(enabled=True, **unknown_components)
+
+    assert missing["status"] == PIPELINE_MISSING
+    assert mismatch["status"] == PIPELINE_MISMATCH
+    assert unknown["status"] == PIPELINE_UNKNOWN_WRITE
+    assert unknown["failure_detail"]
+
+
+def test_hybrid_pipeline_shadow_rejects_human_required_and_side_effect_flags():
+    human_components = _pipeline_components()
+    human_components["identity_shadow"] = {"status": "HUMAN_REQUIRED"}
+    human = evaluate_hybrid_pipeline_shadow(enabled=True, **human_components)
+    side_effect_components = _pipeline_components()
+    side_effect_components["destination_shadow"] = {
+        "status": "CONFIRMED_SHADOW",
+        "public_write_performed": True,
+    }
+    side_effect = evaluate_hybrid_pipeline_shadow(enabled=True, **side_effect_components)
+
+    assert human["status"] == PIPELINE_HUMAN_REQUIRED
+    assert side_effect["status"] == PIPELINE_FAIL_CLOSED
 
 
 def test_identity_shadow_confirms_exact_visible_account_and_destination():
