@@ -71,8 +71,8 @@ Observation ID: `host-observation-20261017-134332z` at `2026-10-17T13:43:32Z`.
 
 Remote readback at receipt generation: [PR #72](https://github.com/fatcat2109/capital-chronicle-contentops/pull/72)
 was `OPEN/CLEAN`, with base `681e5a0c43e413f806450d46fe7e1dbebc2af192`, exact head
-`38e7741ecddf354b7155db958ba9963e70da1fac`, and exact-head CI run
-[39037962938](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39037962938)
+`462e550ac09b83fd176ef9aecef55935049dec3f`, and exact-head CI run
+[39038363595](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39038363595)
 green for both `branch-codegraph-refresh` and `deterministic-validation`.
 
 All counters remain zero: scheduler started, durable-store writes, database mutation,
