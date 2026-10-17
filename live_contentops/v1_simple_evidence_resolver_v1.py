@@ -1,10 +1,10 @@
 """First-party-aware deterministic evidence resolver for the Simple V1 lane.
 
 The resolver composes the existing official-primary and reputable-secondary loaders under
-one shared request ledger.  Ordinary HTTP remains first; an explicitly injected browser-rendered
-recovery callable may supply a hash-bound exact publisher document after an eligible access/render
-failure.  It creates no parallel truth or authority: locator bytes remain discovery-only and only
-the existing loaders' accepted document records can reach the Simple writer.
+one shared request ledger.  Ordinary HTTP remains first; an explicitly enabled, injected
+browser-rendered recovery callable may supply a hash-bound exact publisher document after an
+eligible access/render failure.  It creates no parallel truth or authority: locator bytes remain
+discovery-only and only the existing loaders' accepted document records can reach the Simple writer.
 """
 from __future__ import annotations
 
@@ -21,6 +21,7 @@ from live_contentops.official_primary_source_locator_v1 import (
 )
 from live_contentops.public_secondary_evidence_loader_v1 import (
     BoundedPublicSecondaryEvidenceLoader,
+    BrowserRenderedRecoveryConfig,
     REPUTABLE_SECONDARY_HOSTS,
 )
 from live_contentops.source_route_health_v1 import SourceRouteHealthState
@@ -86,6 +87,9 @@ class SimpleFirstPartyAwareEvidenceResolver:
         ] | None = None,
         clock: Callable[[], datetime] | None = None,
         source_route_health: Mapping[str, Any] | None = None,
+        browser_rendered_recovery_config: BrowserRenderedRecoveryConfig
+        | Mapping[str, Any]
+        | None = None,
     ) -> None:
         if int(max_requests) != 6:
             raise ValueError("simple_evidence_global_request_limit_must_equal_six")
@@ -94,6 +98,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
         self._timeout_seconds = float(timeout_seconds)
         self._http_get = http_get
         self._rendered_source_get = rendered_source_get
+        self._browser_rendered_recovery_config = browser_rendered_recovery_config
         self._clock = clock or (lambda: datetime.now(timezone.utc))
         self._shared_request_budget = {"limit": self._max_requests, "used": 0}
         self._source_route_health = SourceRouteHealthState(
@@ -419,6 +424,7 @@ class SimpleFirstPartyAwareEvidenceResolver:
                 source_route_health=self._source_route_health,
                 shared_request_budget=self._shared_request_budget,
                 rendered_source_get=self._rendered_source_get,
+                browser_rendered_recovery_config=self._browser_rendered_recovery_config,
             )
             last_result = secondary(request)
             route_row = self._route_row(

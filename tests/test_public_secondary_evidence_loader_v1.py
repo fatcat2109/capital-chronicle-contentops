@@ -11,6 +11,7 @@ import pytest
 from live_contentops import public_secondary_evidence_loader_v1 as loader_module
 from live_contentops.public_secondary_evidence_loader_v1 import (
     BoundedPublicSecondaryEvidenceLoader,
+    BrowserRenderedRecoveryConfig,
     NEWS_RSS_ENDPOINT,
     _default_public_http_get,
     _rss_relevance_score,
@@ -161,6 +162,7 @@ def test_exact_bound_403_recovers_through_distinct_browser_rendered_provenance()
         max_requests_per_candidate=3,
         http_get=http_get,
         rendered_source_get=rendered_get,
+        browser_rendered_recovery_config=BrowserRenderedRecoveryConfig(enabled=True, dry_run=False),
         clock=lambda: datetime(2026, 8, 19, 10, 20, tzinfo=timezone.utc),
     )(request)
 
@@ -214,6 +216,7 @@ def test_401_authentication_failure_never_invokes_browser_recovery():
         max_requests_per_candidate=2,
         http_get=http_get,
         rendered_source_get=rendered_get,
+        browser_rendered_recovery_config=BrowserRenderedRecoveryConfig(enabled=True, dry_run=False),
     )(request)
 
     assert result["status"] == "BLOCKED"
@@ -258,6 +261,7 @@ def test_http_200_javascript_shell_recovers_rendered_article_text():
         max_requests_per_candidate=3,
         http_get=http_get,
         rendered_source_get=rendered_get,
+        browser_rendered_recovery_config=BrowserRenderedRecoveryConfig(enabled=True, dry_run=False),
     )(request)
 
     assert result["status"] == "PASS"
@@ -295,6 +299,7 @@ def test_browser_response_claiming_public_write_is_rejected():
         max_requests_per_candidate=2,
         http_get=http_get,
         rendered_source_get=rendered_get,
+        browser_rendered_recovery_config=BrowserRenderedRecoveryConfig(enabled=True, dry_run=False),
     )(request)
 
     assert result["status"] == "BLOCKED"
@@ -333,6 +338,7 @@ def test_truncated_browser_response_can_never_become_claim_authoritative():
         max_requests_per_candidate=2,
         http_get=http_get,
         rendered_source_get=rendered_get,
+        browser_rendered_recovery_config=BrowserRenderedRecoveryConfig(enabled=True, dry_run=False),
     )(request)
 
     assert result["status"] == "BLOCKED"
@@ -543,6 +549,7 @@ def test_recent_failed_exact_route_can_trigger_browser_recovery_without_erasing_
         max_requests_per_candidate=1,
         http_get=lambda *_args: pytest.fail("suppressed HTTP route must not be retried"),
         rendered_source_get=rendered_get,
+        browser_rendered_recovery_config=BrowserRenderedRecoveryConfig(enabled=True, dry_run=False),
         source_route_health=snapshot,
         clock=lambda: datetime(2026, 8, 19, 10, 21, tzinfo=timezone.utc),
     )

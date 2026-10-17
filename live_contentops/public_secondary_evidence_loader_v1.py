@@ -8,6 +8,7 @@ exact publisher content is acquired and admitted.
 """
 from __future__ import annotations
 
+from dataclasses import dataclass
 from datetime import datetime, timezone
 from hashlib import sha256
 from html import unescape
@@ -28,6 +29,7 @@ from live_contentops.official_primary_evidence_loader_v1 import (
 )
 from live_contentops.claim_evidence_contract_v1 import summarize_evidence_substance
 from live_contentops.browser_rendered_source_recovery_v1 import (
+    BROWSER_UNAVAILABLE,
     BrowserRenderedSourceRecoveryError,
     EXPECTED_SERVER_NAME as BROWSEROS_NEO_SERVER_NAME,
     MCP_PROTOCOL_VERSION as BROWSEROS_NEO_MCP_PROTOCOL_VERSION,
@@ -86,6 +88,52 @@ _RSS_TRAILING_PUBLISHER_RE = re.compile(
 )
 
 RenderedSourceGet = Callable[[str, float, int], Mapping[str, Any]]
+
+
+BROWSER_RENDERED_RECOVERY_FEATURE_ID = "browser_rendered_source_recovery"
+BROWSER_RENDERED_RECOVERY_DISABLED = "BROWSER_RENDERED_RECOVERY_DISABLED"
+BROWSER_RENDERED_RECOVERY_DRY_RUN = "BROWSER_RENDERED_RECOVERY_DRY_RUN"
+BROWSER_RENDERED_RECOVERY_ATTEMPT_BUDGET_EXHAUSTED = (
+    "BROWSER_RENDERED_RECOVERY_ATTEMPT_BUDGET_EXHAUSTED"
+)
+
+
+@dataclass(frozen=True)
+class BrowserRenderedRecoveryConfig:
+    """Explicit gate for the existing one-attempt rendered-source callback.
+
+    The default keeps the callback present in the runtime wiring for inspection while
+    preventing an implicit BrowserOS invocation.  ``dry_run`` describes the invocation
+    seam used by offline tests and diagnostics; it does not grant authority or bypass
+    the existing callback safety checks.
+    """
+
+    enabled: bool = False
+    dry_run: bool = True
+    max_attempts: int = 1
+
+    def __post_init__(self) -> None:
+        if int(self.max_attempts) != 1:
+            raise ValueError("browser_rendered_recovery_max_attempts_must_equal_one")
+
+
+DEFAULT_BROWSER_RENDERED_RECOVERY_CONFIG = BrowserRenderedRecoveryConfig()
+
+
+def _browser_rendered_recovery_config(
+    value: BrowserRenderedRecoveryConfig | Mapping[str, Any] | None,
+) -> BrowserRenderedRecoveryConfig:
+    if value is None:
+        return DEFAULT_BROWSER_RENDERED_RECOVERY_CONFIG
+    if isinstance(value, BrowserRenderedRecoveryConfig):
+        return value
+    if isinstance(value, Mapping):
+        return BrowserRenderedRecoveryConfig(
+            enabled=bool(value.get("enabled", False)),
+            dry_run=bool(value.get("dry_run", True)),
+            max_attempts=int(value.get("max_attempts", 1)),
+        )
+    raise TypeError("browser_rendered_recovery_config_invalid")
 
 
 def _public_host(url: str, *, resolve_dns: bool = True) -> str:
@@ -268,6 +316,9 @@ class BoundedPublicSecondaryEvidenceLoader:
         source_route_health: SourceRouteHealthState | Mapping[str, Any] | None = None,
         shared_request_budget: dict[str, int] | None = None,
         rendered_source_get: RenderedSourceGet | None = None,
+        browser_rendered_recovery_config: BrowserRenderedRecoveryConfig
+        | Mapping[str, Any]
+        | None = None,
     ) -> None:
         cutoff = datetime.fromisoformat(evaluation_as_of_utc.replace("Z", "+00:00"))
         if cutoff.utcoffset() is None:
@@ -288,6 +339,9 @@ class BoundedPublicSecondaryEvidenceLoader:
         self._request_count = 0
         self._shared_request_budget = shared_request_budget
         self._rendered_source_get = rendered_source_get
+        self._browser_rendered_recovery_config = _browser_rendered_recovery_config(
+            browser_rendered_recovery_config
+        )
         self._candidate_request_start = 0
         self._request_count_by_story_scope: dict[str, int] = {}
         self._active_story_scope_id: str | None = None
@@ -371,6 +425,15 @@ class BoundedPublicSecondaryEvidenceLoader:
         if self._rendered_source_get is None:
             raise BrowserRenderedSourceRecoveryError(
                 "browser_rendered_source_recovery_not_configured"
+            )
+        if not self._browser_rendered_recovery_config.enabled:
+            raise BrowserRenderedSourceRecoveryError(BROWSER_RENDERED_RECOVERY_DISABLED)
+        if (
+            self._browser_rendered_recovery_attempt_count
+            >= self._browser_rendered_recovery_config.max_attempts
+        ):
+            raise BrowserRenderedSourceRecoveryError(
+                BROWSER_RENDERED_RECOVERY_ATTEMPT_BUDGET_EXHAUSTED
             )
         if self._active_story_scope_id:
             cached = self._rendered_response_cache_by_story_scope.get(
@@ -1358,6 +1421,17 @@ class BoundedPublicSecondaryEvidenceLoader:
                 "browser_rendered_source_recovery_configured": bool(
                     self._rendered_source_get is not None
                 ),
+                "browser_rendered_source_recovery_enabled": bool(
+                    self._browser_rendered_recovery_config.enabled
+                ),
+                "browser_rendered_source_recovery_mode": (
+                    BROWSER_RENDERED_RECOVERY_DRY_RUN
+                    if self._browser_rendered_recovery_config.dry_run
+                    else "BROWSER_RENDERED_RECOVERY_CALLBACK"
+                ),
+                "browser_rendered_recovery_max_attempts": int(
+                    self._browser_rendered_recovery_config.max_attempts
+                ),
                 "browser_rendered_recovery_attempt_count": (
                     self._browser_rendered_recovery_attempt_count
                     - browser_attempt_count_at_start
@@ -1446,3 +1520,115 @@ class BoundedPublicSecondaryEvidenceLoader:
 
     def source_route_health_snapshot(self) -> dict[str, Any]:
         return self._source_route_health.snapshot()
+
+    @property
+    def request_count(self) -> int:
+        return int(self._request_count)
+
+    @property
+    def browser_rendered_recovery_config(self) -> BrowserRenderedRecoveryConfig:
+        return self._browser_rendered_recovery_config
+
+
+def dry_run_browser_rendered_recovery(
+    *,
+    url: str,
+    evaluation_as_of_utc: str,
+    http_get: Callable[[str, float, int], Mapping[str, Any]],
+    rendered_source_get: RenderedSourceGet | None,
+    browser_rendered_recovery_config: BrowserRenderedRecoveryConfig
+    | Mapping[str, Any]
+    | None = None,
+    max_requests: int = 2,
+    max_requests_per_candidate: int = 2,
+    shared_request_budget: dict[str, int] | None = None,
+    clock: Callable[[], datetime] | None = None,
+) -> dict[str, Any]:
+    """Exercise the HTTP-first recovery ordering without a live browser session.
+
+    The callbacks are injected so tests and diagnostics can prove ordering, the shared
+    request ledger, and the one-attempt boundary offline.  A configured BrowserOS callback
+    is never created by this helper and no public write or authority is possible here.
+    """
+
+    config = _browser_rendered_recovery_config(browser_rendered_recovery_config)
+    loader = BoundedPublicSecondaryEvidenceLoader(
+        evaluation_as_of_utc=evaluation_as_of_utc,
+        max_requests=max_requests,
+        max_requests_per_candidate=max_requests_per_candidate,
+        http_get=http_get,
+        rendered_source_get=rendered_source_get,
+        browser_rendered_recovery_config=config,
+        shared_request_budget=shared_request_budget,
+        clock=clock,
+    )
+    http_error: BaseException | None = None
+    try:
+        response = loader._get(url)
+        status = int(response.get("status") or 0)
+        if status != 200:
+            raise ValueError(f"public_source_http_status_not_200:{status}")
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        http_error = exc
+    if http_error is None:
+        return {
+            "schema_version": "contentops.browser_rendered_recovery_dry_run.v1",
+            "feature_id": BROWSER_RENDERED_RECOVERY_FEATURE_ID,
+            "status": "HTTP_SUCCESS_NO_BROWSER",
+            "dry_run": True,
+            "http_failure": None,
+            "browser_rendered_recovery_enabled": bool(config.enabled),
+            "browser_rendered_recovery_attempt_count": 0,
+            "request_count": loader.request_count,
+            "public_write_performed": False,
+            "publication_authority": False,
+        }
+
+    failure = str(http_error) or type(http_error).__name__
+    base = {
+        "schema_version": "contentops.browser_rendered_recovery_dry_run.v1",
+        "feature_id": BROWSER_RENDERED_RECOVERY_FEATURE_ID,
+        "dry_run": True,
+        "http_failure": failure,
+        "browser_rendered_recovery_enabled": bool(config.enabled),
+        "browser_rendered_recovery_attempt_count": loader._browser_rendered_recovery_attempt_count,
+        "request_count": loader.request_count,
+        "public_write_performed": False,
+        "publication_authority": False,
+    }
+    if not _browser_recovery_eligible(http_error):
+        return {**base, "status": "HTTP_FAILURE_NO_BROWSER"}
+    if not config.enabled:
+        return {**base, "status": BROWSER_RENDERED_RECOVERY_DISABLED}
+    try:
+        rendered = loader._get_rendered(url)
+    except BrowserRenderedSourceRecoveryError as exc:
+        failure_detail = str(exc) or type(exc).__name__
+        status = (
+            BROWSER_UNAVAILABLE
+            if failure_detail == BROWSER_UNAVAILABLE
+            or "browseros_neo_mcp_unavailable" in failure_detail
+            else "BROWSER_RENDERED_RECOVERY_FAILED"
+        )
+        return {
+            **base,
+            "status": status,
+            "failure_detail": failure_detail,
+            "browser_rendered_recovery_attempt_count": loader._browser_rendered_recovery_attempt_count,
+            "request_count": loader.request_count,
+        }
+    except (OSError, RuntimeError, TypeError, ValueError) as exc:
+        return {
+            **base,
+            "status": "BROWSER_RENDERED_RECOVERY_FAILED",
+            "failure_detail": str(exc) or type(exc).__name__,
+            "browser_rendered_recovery_attempt_count": loader._browser_rendered_recovery_attempt_count,
+            "request_count": loader.request_count,
+        }
+    return {
+        **base,
+        "status": "BROWSER_RENDERED_RECOVERY_DRY_RUN_PASS",
+        "rendered_status": rendered.get("status"),
+        "browser_rendered_recovery_attempt_count": loader._browser_rendered_recovery_attempt_count,
+        "request_count": loader.request_count,
+    }
