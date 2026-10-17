@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14195,
+    "edges": 14200,
     "entrypoints": 20,
-    "nodes": 7514,
+    "nodes": 7519,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 619,
-      "python_function": 4090,
+      "python_function": 4093,
       "python_method": 306,
       "python_module": 784,
-      "schema": 231,
-      "test": 751,
+      "schema": 232,
+      "test": 752,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -36111,7 +36111,31 @@
       "from": "live_contentops/scheduled_shadow_production_day_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::cross_plane_input_sha256"
+    },
+    {
+      "from": "live_contentops/scheduled_shadow_production_day_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::cross_plane_receipt_sha256"
+    },
+    {
+      "from": "live_contentops/scheduled_shadow_production_day_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::reconcile_cross_plane_shadow_cycle"
+    },
+    {
+      "from": "live_contentops/scheduled_shadow_production_day_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::run_scheduled_shadow_production_day"
+    },
+    {
+      "from": "live_contentops/scheduled_shadow_production_day_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.cross_plane_shadow_cycle_receipt.v1"
     },
     {
       "from": "live_contentops/scheduled_shadow_production_day_v1.py",
@@ -67110,6 +67134,12 @@
       "to": "python_symbol:live_contentops/scd_dispatch_gate.py::canonical_json_sha256"
     },
     {
+      "from": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::reconcile_cross_plane_shadow_cycle",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::cross_plane_input_sha256"
+    },
+    {
       "from": "python_symbol:live_contentops/schema_aware_canary_evidence_v1.py::generate_evidence",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -85345,7 +85375,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-17T14:30:41Z",
+  "generation_timestamp_utc": "2026-10-17T15:35:33Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -88774,7 +88804,7 @@
     {
       "id": "live_contentops/scheduled_shadow_production_day_v1.py",
       "kind": "python_module",
-      "size_bytes": 11203
+      "size_bytes": 33938
     },
     {
       "id": "live_contentops/scheduler_v6.py",
@@ -118536,9 +118566,30 @@
       "symbol": "validate_render_golden_snapshot_report"
     },
     {
+      "id": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::cross_plane_input_sha256",
+      "kind": "python_function",
+      "line": 80,
+      "path": "live_contentops/scheduled_shadow_production_day_v1.py",
+      "symbol": "cross_plane_input_sha256"
+    },
+    {
+      "id": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::cross_plane_receipt_sha256",
+      "kind": "python_function",
+      "line": 96,
+      "path": "live_contentops/scheduled_shadow_production_day_v1.py",
+      "symbol": "cross_plane_receipt_sha256"
+    },
+    {
+      "id": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::reconcile_cross_plane_shadow_cycle",
+      "kind": "python_function",
+      "line": 263,
+      "path": "live_contentops/scheduled_shadow_production_day_v1.py",
+      "symbol": "reconcile_cross_plane_shadow_cycle"
+    },
+    {
       "id": "python_symbol:live_contentops/scheduled_shadow_production_day_v1.py::run_scheduled_shadow_production_day",
       "kind": "python_function",
-      "line": 103,
+      "line": 572,
       "path": "live_contentops/scheduled_shadow_production_day_v1.py",
       "symbol": "run_scheduled_shadow_production_day"
     },
@@ -124732,6 +124783,11 @@
       "schema_id": "contentops.cross_domain_five_window_assignment.v1"
     },
     {
+      "id": "schema:contentops.cross_plane_shadow_cycle_receipt.v1",
+      "kind": "schema",
+      "schema_id": "contentops.cross_plane_shadow_cycle_receipt.v1"
+    },
+    {
       "id": "schema:contentops.current_host_read_only_preflight.v1",
       "kind": "schema",
       "schema_id": "contentops.current_host_read_only_preflight.v1"
@@ -126690,6 +126746,11 @@
       "id": "tests/test_cross_domain_operator_ready_content_batch_v1.py",
       "kind": "test",
       "size_bytes": 5688
+    },
+    {
+      "id": "tests/test_cross_plane_shadow_cycle_v1.py",
+      "kind": "test",
+      "size_bytes": 6374
     },
     {
       "id": "tests/test_current_oil_release_source_v1.py",
@@ -134059,6 +134120,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "2929e07970ffd6e1278c7321140c86632445abfc",
-  "source_tree_digest": "2cfa108c6412c23009322cab4bd37035b3d0fea48909c9e9a8a37cac223c862c"
+  "source_head": "1145f6f50732a1132a22ebd2616255a00c6abaff",
+  "source_tree_digest": "02f61c5e54023d52ce5c40ad423ff2bab6bc86dce93893d59becb24936a2afd7"
 }
