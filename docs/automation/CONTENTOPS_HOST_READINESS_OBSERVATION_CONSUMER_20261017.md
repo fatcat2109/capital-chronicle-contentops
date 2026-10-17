@@ -69,6 +69,12 @@ Observation ID: `host-observation-20261017-134332z` at `2026-10-17T13:43:32Z`.
 - Unavailable fixture readiness receipt: `d2f3d3f2602dab96c2aa8140f826b875c312e57255ea7066fe41729104fc6ebb`
 - Ambiguous fixture readiness receipt: `80dffb71b9e75f35f676b68a9266282730233871275dd83d9f5d3318a50142c9`
 
+Remote readback at receipt generation: [PR #72](https://github.com/fatcat2109/capital-chronicle-contentops/pull/72)
+was `OPEN/CLEAN`, with base `681e5a0c43e413f806450d46fe7e1dbebc2af192`, exact head
+`38e7741ecddf354b7155db958ba9963e70da1fac`, and exact-head CI run
+[39037962938](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39037962938)
+green for both `branch-codegraph-refresh` and `deterministic-validation`.
+
 All counters remain zero: scheduler started, durable-store writes, database mutation,
 model/provider calls, browser actions, public writes, and publication authority.
 
