@@ -1,14 +1,14 @@
 {
   "analysis": {
     "closed_input_review": {
-      "assessment_sha256": "9f57fba9979ea0bef3dd97dd2dd5c32bb95c2bbaf1d107b9726b8e554f17c746",
+      "assessment_sha256": "121a626cf729ff4624a0dd6aaa8f592db847bc6213f9919ba128df73786fbb18",
       "browsing_during_final_review": false,
       "external_model_call_performed": false,
       "forecast_or_promotion_credit": false,
       "packet_sha256": "f80f7857cf58e68f5e6690a42b4e76646316fb3dced2782dfcda9ad6ca8ca72b",
       "production_primary_reviewer_pair_executed": false,
       "review_mode": "CURRENT_CODEX_SESSION_AUTHORED_RESEARCH_POLICY_CLOSED_INPUT",
-      "review_sha256": "6d4dcb60e6448f03365dbce6a5bcc0e02fc5adb69529e1b47006d4a1c11ccfbf",
+      "review_sha256": "6cd412ab544ee5aae7178ba58a33084ed30e1e4e3bd048d4b6fadb306efc0658",
       "work_type": "RESEARCH_ONLY_ASSET_REPORT"
     },
     "connectedness": {
@@ -549,14 +549,14 @@
     "contradictions": "Stocks remain 45 Bcf above the five-year average, while 143 Bcf below last year. Flow tightening and an above-average stock cushion coexist; neither establishes a shortage or an executable direction.",
     "discriminating_observations": "Next EIA storage release; weather-normalized demand; measured production/imports; current curve and a separately sourced pre-release consensus.",
     "falsifiers": "Warmer weather or restored supply can rebuild the cushion and reverse support.",
-    "mechanism": "Refilling 67 Bcf against seasonal 90 leaves a -23 Bcf marginal shortfall in the weekly balance. Conditional on comparable demand, this reduces the storage cushion and can support gas prices; a seasonal benchmark is not market consensus or a measured surprise.",
+    "mechanism": "Refilling 67 Bcf against seasonal 90 gives a -23 Bcf actual-minus-seasonal gap in the weekly balance. Conditional on comparable demand, the smaller refill reduces the storage cushion and can support gas prices; a seasonal benchmark is not market consensus or a measured surprise.",
     "priced_in": "UNOBSERVED: no admissible pre-event consensus, matched positioning or current market response. Seasonal averages are not consensus.",
     "timing": "Observed period, capture known-at and report cutoff are distinct; no pre-capture first-print or current-live claim. Causal channels may act over sessions; long-horizon timing is unmeasured."
   },
   "claims": [
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
-      "claim_hash": "d4e107983f577fd91a817014bc7594a4b590a0ecc5cb9623e5ac9778724d43e7",
+      "claim_hash": "3c374d2128c7cb648eb995dafa44df387e4ecb9d6fc9db9422c469427af0d243",
       "claim_id": "eia-storage-observed",
       "epistemic_layer": "OBSERVED_SOURCE_FACT",
       "evidence_refs": [
@@ -582,7 +582,7 @@
           "unit": "Bcf"
         }
       ],
-      "text": "EIA released October 15, 2026: storage rose 67 Bcf in the week ended October 9, versus the five-year same-week average of 90 Bcf; stocks were 3567 Bcf, 45 Bcf above that average and 143 Bcf below last year."
+      "text": "EIA release 2026-10-15: storage rose 67 Bcf in the week ended 2026-10-09, versus the five-year same-week average of 90 Bcf; stocks were 3567 Bcf, 45 Bcf above that average and 143 Bcf below last year."
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
@@ -616,7 +616,7 @@
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
-      "claim_hash": "699a747036e69dae68774002c1f2b2a58901f6831827eadbb4f8f96b28baa86d",
+      "claim_hash": "c299403bd52a5722de0d0d243827f967475c38806c5ab58bd6d089cdc546a366",
       "claim_id": "cc-gas-short",
       "epistemic_layer": "CONDITIONAL_SCENARIO",
       "evidence_refs": [
@@ -643,11 +643,11 @@
           "unit": "Bcf"
         }
       ],
-      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+      "text": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
-      "claim_hash": "bf4fe50a110185414f2468f7144103efec8a4f8e6299ab85aeec072c1fafc24a",
+      "claim_hash": "7d563d97924deabd4117613e388890bed30adeba2b8d5d1e1b63afb0c8ece890",
       "claim_id": "cc-gas-swing",
       "epistemic_layer": "CONDITIONAL_SCENARIO",
       "evidence_refs": [
@@ -674,11 +674,11 @@
           "unit": "Bcf"
         }
       ],
-      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+      "text": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
-      "claim_hash": "bb5369ddb18dd3560e700b4385c469f49c128f8ca783d0643f57f0751005e781",
+      "claim_hash": "cd362133683bee22e7ac62061b3045e57683e27fc79759f2e4a692df2338d449",
       "claim_id": "cc-gas-long",
       "epistemic_layer": "CONDITIONAL_SCENARIO",
       "evidence_refs": [
@@ -705,7 +705,7 @@
           "unit": "Bcf"
         }
       ],
-      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+      "text": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
@@ -772,7 +772,7 @@
   ],
   "contagion": [
     {
-      "channel": "Refilling 67 Bcf against seasonal 90 leaves a -23 Bcf marginal shortfall in the weekly balance",
+      "channel": "Refilling 67 Bcf against seasonal 90 gives a -23 Bcf actual-minus-seasonal gap in the weekly balance",
       "classification": "CAUSAL_HYPOTHESIS_NOT_ESTIMATED_EFFECT",
       "factor": "US gas storage, weather, supply and demand",
       "falsifier": "Next EIA storage release; weather-normalized demand; measured production/imports; current curve and a separately sourced pre-release consensus.",
@@ -841,7 +841,7 @@
     "spread_slippage": "UNKNOWN_NOT_READ",
     "swap_financing": "UNKNOWN_NOT_READ"
   },
-  "generated_at_utc": "2026-10-18T13:25:53Z",
+  "generated_at_utc": "2026-10-18T13:39:42Z",
   "holding_lifecycle": {
     "hold_conditions": [
       "Refresh current evidence and confirm the driver independently.",
@@ -855,7 +855,7 @@
   },
   "horizon_blocks": [
     {
-      "base_case": "Conditional tightening bias subject to stock cushion, weather and current-price confirmation. Window: 5 sessions; trailing return unavailable.",
+      "base_case": "Conditional tightening bias subject to stock cushion, weather and current-price confirmation. The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. Window: 5 sessions; trailing return unavailable.",
       "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
       "downside_scenario": "Warmer weather or restored supply can rebuild the cushion and reverse support. No target/probability is estimated.",
       "end_utc": "2026-10-23T13:03:41Z",
@@ -879,7 +879,7 @@
       "upside_scenario": "Supportive change in US gas storage, weather, supply and demand, independent confirmation and affordable vehicle costs sustain upside; no target/probability is estimated."
     },
     {
-      "base_case": "Conditional tightening bias subject to stock cushion, weather and current-price confirmation. Window: 21 sessions; trailing return unavailable.",
+      "base_case": "Conditional tightening bias subject to stock cushion, weather and current-price confirmation. Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. Window: 21 sessions; trailing return unavailable.",
       "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
       "downside_scenario": "Warmer weather or restored supply can rebuild the cushion and reverse support. No target/probability is estimated.",
       "end_utc": "2026-11-16T13:03:41Z",
@@ -903,7 +903,7 @@
       "upside_scenario": "Supportive change in US gas storage, weather, supply and demand, independent confirmation and affordable vehicle costs sustain upside; no target/probability is estimated."
     },
     {
-      "base_case": "Conditional tightening bias subject to stock cushion, weather and current-price confirmation. Window: 63 sessions; trailing return unavailable.",
+      "base_case": "Conditional tightening bias subject to stock cushion, weather and current-price confirmation. Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. Window: 63 sessions; trailing return unavailable.",
       "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
       "downside_scenario": "Warmer weather or restored supply can rebuild the cushion and reverse support. No target/probability is estimated.",
       "end_utc": "2027-01-13T13:03:41Z",
@@ -961,7 +961,7 @@
   },
   "parent_report_sha256": null,
   "report_id": "asset-report:XNGUSD",
-  "report_sha256": "c05d9d368679099604c5c2af3d546d267af3f6a84a04ea685a2777eb310e7706",
+  "report_sha256": "bccf9a1ce473dec8a65ecf214517d9c3714693a3f989f317cd8b934a02516186",
   "report_state": "PARTIAL",
   "report_version": 1,
   "run_id": "run-asset-report:f19dfb0fbe49933c521e4d81",

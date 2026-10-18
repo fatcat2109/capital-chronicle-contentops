@@ -10,12 +10,19 @@ P1 XNGUSD report passed the actual-clock importer with Main's two exact machine 
 7 admitted claims, 1 durable editorial input, 7 article-section mappings and 8 planned
 input intents. Drafts, writer/model calls, compiled derivatives and public writes are 0.
 
-[Actual local integration](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_local_integration.json),
-[the substantive XNGUSD input](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/XNGUSD_editorial_input.json)
-and [the CLI readback](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/cli_actual_readback.json)
-record the exact boundaries. The report includes the EIA October 15 storage release,
+[Actual final-run integration](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_final_run_integration.json),
+[the current substantive XNGUSD input](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/XNGUSD_final_editorial_input.json)
+and [the earlier CLI readback](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/cli_actual_readback.json)
+record the exact boundaries. The final-run report hash is
+`bccf9a1ce473dec8a65ecf214517d9c3714693a3f989f317cd8b934a02516186`.
+It comes from Main `docs/research/analysis_reporting/goal17/retained-run-v1/`,
+and its latest XNGUSD pointer was checked. The report includes the EIA October 15 storage release,
 CC's conditional balance interpretation, 5/21/63-session scenarios, hold and invalidation
 conditions. It does not establish a current CFD price, a market surprise or an order.
+
+The earlier local integration remains an immutable dated receipt and is recoverable
+with its exact fixtures at ContentOps commit `061b44a7d30e2ff9de87f372871809ae2cf21c82`.
+The replacement final-run fixture was revalidated with all 40 current consumer tests.
 
 Main producer source/schema/output are still local and uncommitted at this readback.
 The producer base is `a4863f1638ef6d1523c2140721f9bd9b384f7e73`; exact local source SHA-256
@@ -96,9 +103,10 @@ and zero publication backlog. The actual CLI exited successfully with `ADMITTED`
    refresh the scoped graph and read back the final remote head/CI.
 3. Leave runtime, scheduling, model invocation, publisher, merge and deployment unchanged.
 
-Exact-head CI run `39132137943` passed both jobs for the local-integration head
-`fe4b0e7753883a1619becc6718d4f156ca7167d7`. It predates the final concurrency
-repair; later head status must be read back separately.
+Exact-head CI run `39132446125` passed both jobs for consumer head
+`3701a0ad3f3beeb8a02f44f9ea0de4c597acf8ba`, including the same-receipt concurrency
+repair. This result predates the final-run fixture update; that update has 40 local
+consumer PASS and requires its own remote readback.
 
 Example read-only import after Main supplies the exact paths and binding:
 

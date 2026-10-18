@@ -38,9 +38,9 @@
   ],
   "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
   "contract_revision": "asset-analysis-report-v1.0.0",
-  "envelope_sha256": "bd7013a47abfe455062a80fdbe9d13540e4271a7145b49338b8f9490ee12f87f",
-  "event_id": "report-event:1c6dbdabf96d0fbd728052b1939df14cc8ae8999ab8e196738574025176c354c",
-  "generated_at_utc": "2026-10-18T13:25:53Z",
+  "envelope_sha256": "8fa9f1fcb90adafab8d75f81032df2710c084e21845600fc0694049e98792588",
+  "event_id": "report-event:c0380540cec5443b758d6ba5f370711d9b51b9df88179bbb44d0ad30a7afd7bd",
+  "generated_at_utc": "2026-10-18T13:39:42Z",
   "hold_conditions": [
     "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position."
   ],
@@ -49,7 +49,7 @@
       "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
       "end_utc": "2026-10-23T13:03:41Z",
       "horizon": "short",
-      "outlook": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified.",
+      "outlook": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
       "report_state": "PARTIAL",
       "scoreable_forecast": false,
       "start_utc": "2026-10-18T13:03:41Z",
@@ -59,7 +59,7 @@
       "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
       "end_utc": "2026-11-16T13:03:41Z",
       "horizon": "swing",
-      "outlook": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified.",
+      "outlook": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
       "report_state": "PARTIAL",
       "scoreable_forecast": false,
       "start_utc": "2026-10-18T13:03:41Z",
@@ -69,7 +69,7 @@
       "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
       "end_utc": "2027-01-13T13:03:41Z",
       "horizon": "long",
-      "outlook": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified.",
+      "outlook": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
       "report_state": "PARTIAL",
       "scoreable_forecast": false,
       "start_utc": "2026-10-18T13:03:41Z",
@@ -90,7 +90,7 @@
   "public_safe_claims": [
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
-      "claim_hash": "d4e107983f577fd91a817014bc7594a4b590a0ecc5cb9623e5ac9778724d43e7",
+      "claim_hash": "3c374d2128c7cb648eb995dafa44df387e4ecb9d6fc9db9422c469427af0d243",
       "claim_id": "eia-storage-observed",
       "epistemic_layer": "OBSERVED_SOURCE_FACT",
       "evidence_refs": [
@@ -116,7 +116,7 @@
           "unit": "Bcf"
         }
       ],
-      "text": "EIA released October 15, 2026: storage rose 67 Bcf in the week ended October 9, versus the five-year same-week average of 90 Bcf; stocks were 3567 Bcf, 45 Bcf above that average and 143 Bcf below last year."
+      "text": "EIA release 2026-10-15: storage rose 67 Bcf in the week ended 2026-10-09, versus the five-year same-week average of 90 Bcf; stocks were 3567 Bcf, 45 Bcf above that average and 143 Bcf below last year."
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
@@ -150,7 +150,7 @@
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
-      "claim_hash": "699a747036e69dae68774002c1f2b2a58901f6831827eadbb4f8f96b28baa86d",
+      "claim_hash": "c299403bd52a5722de0d0d243827f967475c38806c5ab58bd6d089cdc546a366",
       "claim_id": "cc-gas-short",
       "epistemic_layer": "CONDITIONAL_SCENARIO",
       "evidence_refs": [
@@ -177,11 +177,11 @@
           "unit": "Bcf"
         }
       ],
-      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+      "text": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
-      "claim_hash": "bf4fe50a110185414f2468f7144103efec8a4f8e6299ab85aeec072c1fafc24a",
+      "claim_hash": "7d563d97924deabd4117613e388890bed30adeba2b8d5d1e1b63afb0c8ece890",
       "claim_id": "cc-gas-swing",
       "epistemic_layer": "CONDITIONAL_SCENARIO",
       "evidence_refs": [
@@ -208,11 +208,11 @@
           "unit": "Bcf"
         }
       ],
-      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+      "text": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
-      "claim_hash": "bb5369ddb18dd3560e700b4385c469f49c128f8ca783d0643f57f0751005e781",
+      "claim_hash": "cd362133683bee22e7ac62061b3045e57683e27fc79759f2e4a692df2338d449",
       "claim_id": "cc-gas-long",
       "epistemic_layer": "CONDITIONAL_SCENARIO",
       "evidence_refs": [
@@ -239,7 +239,7 @@
           "unit": "Bcf"
         }
       ],
-      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+      "text": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
     },
     {
       "basis_risk": "Underlying evidence does not establish executable CFD economics.",
@@ -305,7 +305,7 @@
     }
   ],
   "report_id": "asset-report:XNGUSD",
-  "report_sha256": "c05d9d368679099604c5c2af3d546d267af3f6a84a04ea685a2777eb310e7706",
+  "report_sha256": "bccf9a1ce473dec8a65ecf214517d9c3714693a3f989f317cd8b934a02516186",
   "report_version": 1,
   "run_id": "run-asset-report:f19dfb0fbe49933c521e4d81",
   "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
