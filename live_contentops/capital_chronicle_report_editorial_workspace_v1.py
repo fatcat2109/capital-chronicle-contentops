@@ -504,13 +504,24 @@ def report_workspace_projection(
         and r.get("report_id") == content["report_id"]
         and r.get("report_version") == content["report_version"]
     ]
-    same.sort(key=lambda r: r.get("classification") == "DRAFT_READY", reverse=True)
+    same.sort(
+        key=lambda r: (
+            r.get("classification") == "DRAFT_READY",
+            str(r.get("created_at") or ""),
+        ),
+        reverse=True,
+    )
     result = same[0] if same else None
     current_input = next(
         (
             r
             for r in inputs
             if content
+            and r.get("brief", {}).get(
+                "report_id",
+                r.get("brief", {}).get("correction_lineage", {}).get("report_id"),
+            )
+            == content["report_id"]
             and r.get("brief", {}).get(
                 "report_version",
                 r.get("brief", {}).get("correction_lineage", {}).get("report_version"),

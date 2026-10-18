@@ -1,7 +1,10 @@
-# Goal 17 — latest Main report into ContentOps editorial input
+# Goals 17–18 — latest Main report into the ContentOps editorial workspace
 
 Owning plan: [latest-report bridge](CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1.md).
 Scope: ContentOps consumer only; implementation checkpoint, not a product-status owner.
+
+Current Goal 18 delivery is recorded in the continuation below. Earlier Goal 17 counts describe
+the input-only checkpoint and are not the current article/preview counts.
 
 ## Current result
 
@@ -152,12 +155,18 @@ source.
   remains present. The manual draft script consumed the v1 parent/v2 correction with published
   memory read-only, persisted one editorial input, and stopped before provider work: 0 fresh
   calls, 0 drafts, 0 previews, blocker `LLM_OPERATOR_PAUSED`. Receipt:
-  [actual paused Simple cycle](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_paused_simple_cycle.json).
-- An injected, explicitly labelled replay of the same v2 report passed the existing Simple
+  [current manual paused Simple cycle](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_manual_paused_simple_cycle.json).
+  It records one persisted input and the existing seven-article published corpus accessed with
+  `SQLITE_MODE_RO_QUERY_ONLY`, with production-store bytes unchanged. The earlier
+  `actual_paused_simple_cycle.json` is retained as pre-workspace history.
+- An earlier injected, explicitly labelled replay of the same v2 report passed the existing Simple
   selector/source/validator and native compiler: **1 qualified zero-write draft and 8 native
   preview packages**. Preview state is `PREVIEW_ONLY_UNDISPATCHED`, canonical URL is pending and
   no public write occurred. Receipt and output hashes:
   [replay_simple_v2](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/replay_simple_v2/).
+  Its `envelope_sha256` field records the raw envelope file hash `061c0e15...`; the envelope's
+  canonical self-seal is `5714d557...`. These are distinct hashes of the same pinned bytes.
+  Current workspace acceptance and identities come from `goal18_controls` below.
 - The isolated integrated acceptance ran v1 then v2 and a duplicate: 2 controlled drafts,
   16 controlled preview packages, 1 duplicate no-op, v2 remained latest, and a resealed v102
   envelope was blocked. It ran with `KILL_SWITCH` in a temporary store, 0 fresh provider calls,
@@ -181,7 +190,7 @@ content loss. Captures:
 
 ### Verification
 
-- Consumer, workspace and Daily App backend tests: **96 passed**.
+- Consumer, workspace and Daily App backend tests: **97 passed**.
 - Existing Simple newsroom and evidence resolver regressions: **44 passed**.
 - UI focused tests: **27 passed** (`report_editorial_workspace`, `daily_app_console`,
   `daily_app_runtime_cockpit`).
@@ -189,6 +198,28 @@ content loss. Captures:
 - Focused Ruff passed; `git diff --check` passed.
 - The Daily App snapshot remains read-only over the existing store. No scheduler, runtime,
   provider, browser account, database-owner, publisher, merge or deployment action occurred.
+
+### Completion audit and repository handoff
+
+| Requirement | Current proof |
+| --- | --- |
+| Exact pinned Main contract and envelope/body binding | Immutable producer readback and local machine-schema validation; consumer/workspace tests cover identity, version, parent, clocks, asset/public-claim/horizon/condition scope and resealed v102 poison. |
+| Existing selector/source/writer/validator/compiler/store/memory owners | The adapter calls the existing production orchestrator and Simple runner; immutable stages use existing artifacts/outbox/lease APIs. The manual receipt proves read-only published memory and pause before provider. |
+| Correction/invalidation, including no claims remaining | Consumer lifecycle tests plus the integrated workspace test preserve affected article/preview identities, suppress obsolete current copy and expose `CLAIMS_WITHDRAWN`. |
+| Duplicate/out-of-order/no-change/crash resume | Focused controls prove no-op behavior, frozen input reuse, successful model/source stage reuse after compiler failure and a named fail-closed blocker for an unrecorded writer return. |
+| Durable UI identity and current blocker | Final regressions select the newest blocked return regardless of input row order and prevent another report with the same version from supplying the current input; legacy Goal 17 lineage remains readable. |
+| One current qualified controlled article and eight native previews | `goal18_controls/result.json` and `snapshot.json` agree on current article/preview identities; `receipt.json` separately records 2 historical controlled drafts / 16 compiled packages, 0 fresh calls and 0 public writes. |
+| Actual rendered UI | The desktop, preview and mobile captures above were inspected. The final projection-only changes do not change that rendered layout or the accepted control's content. |
+| Scoped remote delivery and exact-head CI | Implementation commit `4bd32e7f` plus generated CodeGraph commit `de069f9b`; exact-head run [39142221752](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39142221752) passed both jobs. Final audit fixes and final head/CI readback are recorded in PR #87 after push. |
+
+The local UI build had emitted four ignored config `.js`/`.d.ts` files that affected the
+filesystem-based graph scan. Those task-generated files were moved intact to the temporary
+`goal18-generated-ui-config-backup-20261018` folder. CodeGraph is regenerated from the existing
+generator with the clean source inventory; no duplicate index or generator policy change.
+
+Control Tower scoped synchronization remains **PENDING its existing owner**, with the same
+Main/ContentOps PR and immutable handoff inputs listed above. This is a discovery follow-up,
+not permission to edit Main or the separate database/shared-registry owner.
 
 ### Exact remaining boundary
 

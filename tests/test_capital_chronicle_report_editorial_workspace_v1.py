@@ -380,9 +380,16 @@ def test_pause_result_can_resume_into_same_receipt_without_overwriting_history(
 
 
 def test_unrecorded_writer_result_fails_closed_without_duplicate_model_call(
-    tracker, tmp_path
+    tracker, tmp_path, monkeypatch
 ):
+    import live_contentops.capital_chronicle_report_editorial_workspace_v1 as workspace
+
     tracker.consume(admit(), receipt_id="v2")
+    monkeypatch.setattr(workspace, "llm_operator_pause_active", lambda: True)
+    paused = run_admitted_report_through_simple(
+        admit(), tracker=tracker, receipt_id="v2", output_dir=tmp_path / "v2", cutoff_utc=NOW
+    )
+    assert paused["exact_next_blocker"] == "LLM_OPERATOR_PAUSED"
     calls = []
     control = controlled_writer(calls)
 
@@ -404,6 +411,26 @@ def test_unrecorded_writer_result_fails_closed_without_duplicate_model_call(
     blocked = run(tracker, tmp_path, calls=calls)
     assert blocked["exact_next_blocker"] == "EDITORIAL_STEP_RESULT_NOT_RECORDED:write"
     assert len(calls) == 2
+    rows = tracker.store.list_outbox_messages()
+    for order in (rows, list(reversed(rows))):
+        assert report_workspace_projection(order)["named_blocker"] == blocked["exact_next_blocker"]
+
+
+def test_latest_input_cannot_come_from_another_report_with_the_same_version(tracker, tmp_path):
+    tracker.consume(admit(), receipt_id="v2")
+    current = tracker.prepare_input("v2", output_dir=tmp_path, cutoff_utc=NOW)
+    rows = tracker.store.list_outbox_messages()
+    input_row = next(row for row in rows if row["destination"] == "internal:cc-report-editorial-input")
+    other = json.loads(input_row["payload"])
+    other["brief"]["report_id"] = "asset-report:other"
+    foreign = {**input_row, "message_id": "other-input", "payload": json.dumps(other)}
+    view = report_workspace_projection([foreign, *rows])
+    assert view["latest_editorial_input"]["brief"] == current["brief"]
+    legacy = json.loads(input_row["payload"])
+    legacy["brief"].pop("report_id")
+    legacy_row = {**input_row, "payload": json.dumps(legacy)}
+    legacy_view = report_workspace_projection([foreign, legacy_row, *[r for r in rows if r is not input_row]])
+    assert legacy_view["latest_editorial_input"]["brief"]["correction_lineage"]["report_id"] == current["brief"]["report_id"]
 
 
 def test_source_budget_restores_consumed_requests_without_reset():
