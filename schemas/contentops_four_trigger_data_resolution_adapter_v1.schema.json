@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentops.four_trigger_data_resolution_adapter.v1",
+  "title": "ContentOps shared four-trigger data resolution adapter",
+  "description": "Consumer bindings for Main-owned CapitalChronicleV1 contracts. This schema grants no Core, broker, scheduler, store, publication, credential, or public-write authority.",
+  "type": "object",
+  "required": ["schema_version", "consumer_route", "no_write"],
+  "properties": {
+    "schema_version": {"const": "contentops.four_trigger_data_resolution_adapter.v1"},
+    "consumer_route": {"const": "CONTENTOPS_EDITORIAL"},
+    "no_write": {"const": true},
+    "public_write_performed": {"const": false},
+    "broker_write_performed": {"const": false},
+    "contract_bindings": {
+      "type": "object",
+      "required": ["trigger_request", "data_need_plan", "data_resolution_receipt", "analysis_run_receipt", "serving_coverage_projection"],
+      "properties": {
+        "trigger_request": {"const": "CapitalChronicleTriggerRequestV1"},
+        "data_need_plan": {"const": "CapitalChronicleDataNeedPlanV1"},
+        "data_resolution_receipt": {"const": "CapitalChronicleDataResolutionReceiptV1"},
+        "analysis_run_receipt": {"const": "CapitalChronicleAnalysisRunReceiptV1"},
+        "serving_coverage_projection": {"const": "CapitalChronicleServingCoverageProjectionV1"}
+      }
+    }
+  },
+  "additionalProperties": true
+}
