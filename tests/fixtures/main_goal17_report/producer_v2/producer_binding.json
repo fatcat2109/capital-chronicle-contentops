@@ -4,36 +4,43 @@
   "files": {
     "CapitalChronicleAssetAnalysisReportV1.schema.json": {
       "bytes": 20529,
+      "git_blob_oid": "795cf17482dde4070b42f5004a73bfcbb59b5a0b",
       "path": "schemas/analysis_reporting/CapitalChronicleAssetAnalysisReportV1.schema.json",
       "sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
     },
     "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
       "bytes": 11682,
+      "git_blob_oid": "022c5d8eaa32a0e82fa6590520b8806014f12575",
       "path": "schemas/analysis_reporting/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
       "sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272"
     },
     "contract-artifact-revision.json": {
       "bytes": 1941,
+      "git_blob_oid": "c8bc7c05d1a50ff021ebf3ccb83b03e268f1d2a6",
       "path": "docs/research/analysis_reporting/goal17/export/contract-artifact-revision.json",
       "sha256": "ca7621e88ee7e9deea482a23f03a6168623389436d9a66ade5afe8ed229d1cbf"
     },
     "envelope.json": {
       "bytes": 17194,
+      "git_blob_oid": "a62ec727302722eaf3fd565f94fd6824be247f3a",
       "path": "docs/research/analysis_reporting/goal17/export/latest-report-envelope.json",
       "sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608"
     },
     "parent_envelope.json": {
       "bytes": 17059,
+      "git_blob_oid": "f57b4e57fd7ea833da0719d8731decd7bb211b1b",
       "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/latest-report-envelope.json",
       "sha256": "767ac424ad1fa262f1550620ef5af610f81ff085d5343efbb4e8985f46ae8fb5"
     },
     "parent_report.json": {
       "bytes": 43084,
+      "git_blob_oid": "7e07a59254d01f0d1fdf1716688b748cc52a7de4",
       "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/report.json",
       "sha256": "79edbd1698541c35325c15f859c7a2f3c7a978e682e5eacac1808ddc9e324208"
     },
     "report.json": {
       "bytes": 43226,
+      "git_blob_oid": "26a55f7840c6cb9abd99f10e98049ebb400dc50a",
       "path": "docs/research/analysis_reporting/goal17/export/report.json",
       "sha256": "7d30bc785af2c1106eba76dea201d6e397933c061895e1310b6b354dbdf71643"
     }
@@ -51,8 +58,18 @@
     "superseded_scope": "PRE_COMMIT_LOCAL_SNAPSHOT_ONLY"
   },
   "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
-  "producer_revision": "a4863f1638ef6d1523c2140721f9bd9b384f7e73+local-source-sha256:dfe3c4311692263f6938648cb9b6f7d12ac8d73cb4dba1220b7e290f0a0a16a3",
+  "producer_branch": "task/capital-chronicle-goal17-asset-reports-20261018",
+  "producer_commit": "7c976da8688986bd95bbc536b6631b29183afb88",
+  "producer_pr_head_at_readback": "7c976da8688986bd95bbc536b6631b29183afb88",
+  "producer_pull_request": "https://github.com/fatcat2109/Headline-Raw-data-json/pull/232",
+  "producer_remote_url": "https://github.com/fatcat2109/Headline-Raw-data-json.git",
+  "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+  "producer_revision": "7c976da8688986bd95bbc536b6631b29183afb88",
+  "producer_source_git_blob": "b48403ca45ecc1dd1ab93b9f4b4b1d148aed4bcb",
   "producer_source_sha256": "dfe3c4311692263f6938648cb9b6f7d12ac8d73cb4dba1220b7e290f0a0a16a3",
+  "remote_head_at_readback": "7c976da8688986bd95bbc536b6631b29183afb88",
+  "remote_observed_at_utc": "2026-10-18T13:57:23.480039Z",
+  "remote_ref": "refs/heads/task/capital-chronicle-goal17-asset-reports-20261018",
   "report_schema_sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8",
-  "source_state": "MAIN_LOCAL_V2_CORRECTION_PENDING_COMMIT"
+  "source_state": "MAIN_REMOTE_COMMIT_BOUND"
 }

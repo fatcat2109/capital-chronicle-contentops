@@ -1,142 +1,118 @@
-# Goal 17 â€” latest Main report into ContentOps editorial input
+# Goal 17 — latest Main report into ContentOps editorial input
 
 Owning plan: [latest-report bridge](CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1.md).
 Scope: ContentOps consumer only; implementation checkpoint, not a product-status owner.
 
 ## Current result
 
-**Exact local Main output -> substantive editorial input is proven.** The replacement
-P1 XNGUSD report passed the actual-clock importer with Main's two exact machine schemas:
-7 admitted claims, 1 durable editorial input, 7 article-section mappings and 8 planned
-input intents. Drafts, writer/model calls, compiled derivatives and public writes are 0.
+**The exact Main remote producer bytes are bound to an actual substantive editorial input.**
+Main [PR #232](https://github.com/fatcat2109/Headline-Raw-data-json/pull/232), producer commit
+`7c976da8688986bd95bbc536b6631b29183afb88`, contains XNGUSD v2 / CORRECTION and its frozen
+v1 parent. All seven delivered files match their immutable Git blobs byte for byte. Main's
+latest pointer selects v2. Report hash:
+`89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47`.
 
-[Actual final-run integration](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_final_run_integration.json),
-[the current substantive XNGUSD input](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/XNGUSD_final_editorial_input.json)
-and [the earlier CLI readback](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/cli_actual_readback.json)
-record the exact boundaries. The final-run report hash is
-`bccf9a1ce473dec8a65ecf214517d9c3714693a3f989f317cd8b934a02516186`.
-It comes from Main `docs/research/analysis_reporting/goal17/retained-run-v1/`,
-and its latest XNGUSD pointer was checked. The report includes the EIA October 15 storage release,
-CC's conditional balance interpretation, 5/21/63-session scenarios, hold and invalidation
-conditions. It does not establish a current CFD price, a market surprise or an order.
+The correction distinguishes the weekly injection average from the stock-level average;
+source numbers and the 2026-10-18T13:03:41Z cutoff are unchanged. The earlier local v1
+snapshot at ContentOps `def86891344937197639df8542510a005d3c452f` predates Main's final
+closed-input/contagion projection and generated-time changes. It is historical, not the
+current latest report. The final frozen parent and correction are retained separately under
+`tests/fixtures/main_goal17_report/producer_v2/`; no old evidence was overwritten.
 
-The earlier local integration remains an immutable dated receipt and is recoverable
-with its exact fixtures at ContentOps commit `061b44a7d30e2ff9de87f372871809ae2cf21c82`.
-The replacement final-run fixture was revalidated with all 40 current consumer tests.
+[Immutable producer readback](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/immutable_producer_binding.json)
+binds the exact Main source, schema, report/envelope, artifact revision and latest pointer.
+[Actual v1-to-v2 execution](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_v2_correction_integration.json)
+records the actual-clock temporary-store integration; its local execution provenance is
+closed by the separate immutable readback, using identical bytes.
+[Current XNGUSD editorial input](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/XNGUSD_v2_editorial_input.json)
+contains all seven claims and their evidence/section mappings in the existing Simple handoff.
 
-Main producer source/schema/output are still local and uncommitted at this readback.
-The producer base is `a4863f1638ef6d1523c2140721f9bd9b384f7e73`; exact local source SHA-256
-is recorded in `tests/fixtures/main_goal17_report/producer_v1/producer_binding.json`.
-**Immutable Main commit/remote binding remains pending.** Local integration is not a
-merged/deployed/operating result.
-
-The obsolete initial scaffold remains a separate negative control and actual rejection
-receipt. It is not counted as a second admitted event.
-
-## Reused and changed
-
-- Main remains sole wire/schema/hash and analytical owner. ContentOps validates exact
-  UTF-8 bytes, duplicate JSON keys, nonfinite values, seals, scope, clocks, claim hashes,
-  supporting evidence, rights, query lineage and private-context exclusion.
-- The existing `ContentOpsDurableStore` artifact, work-item, outbox and lease APIs own
-  last-seen/version/delivery state. No schema migration, separate journal or new store.
-  Internal destinations `internal:cc-report-receipt` and
-  `internal:cc-report-editorial-input` use distinct non-public lifecycle statuses.
-- Duplicate, older, equal-version/different-bytes, correction/invalidation parent and
-  crash-resume controls retain history. A received newer eligible version prevents an
-  older pending input from being delivered. Same receipt IDs cannot bind different bytes.
-- A substantive editorial brief carries exact claim text, evidence IDs, report hashes,
-  horizon/proxy limits, what changed, uncertainty and watch conditions into the existing
-  Simple `capital_chronicle_context`. A report candidate joins the supplied current intake and retains the exact supporting
-  source locators. Published memory and existing selector/source/writer budgets retain
-  their role. The existing writer prompt consumes the report context.
-- Each claim maps to an article section and eight **planned input intents**. These are
-  not compiled derivatives or a qualified article. No model/writer was invoked.
-- Named research gaps use the existing DB-first resolver. `NeoNamedGapRecovery` calls
-  the existing installed-Neo/MCP preflight and rendered-source recovery, capped at one
-  named `rendered_context` observation. Acquisition does not prove historical PIT,
-  redistribution rights or Main analytical truth. New evidence requires a new Main
-  version; a browser row cannot repair rights or overwrite an imported claim.
-
-## Evidence boundary and counts
-
-[Actual scaffold rejection](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/scaffold_rejection.json)
-binds the initial exact Main envelope and two referenced report bodies copied under
-`tests/fixtures/main_goal17_report/`. Its producer base is
-`a4863f1638ef6d1523c2140721f9bd9b384f7e73`; the producer source and outputs were uncommitted.
-The envelope raw SHA-256 is
-`99f9f3764b9a7503c3e25849067f0bd0d42197704e5dba01c8ed5e06534e6b4f`.
-The receipt uses the actual UTC clock, not the scaffold's future 18:00 timestamp.
-
-| Replacement Main output, actual observed outcome | Count |
+| Actual observed outcome | Count |
 | --- | ---: |
-| Exact report events received / admitted | 1 / 1 |
-| Admitted claims / article-section mappings | 7 / 7 |
-| Editorial inputs / planned derivative input intents | 1 / 8 |
+| Received events, including one exact redelivery | 3 |
+| Consumed report versions / duplicate no-ops | 2 / 1 |
+| Latest editorial inputs / claims / article sections | 1 / 7 / 7 |
+| Planned derivative input intents | 8 |
 | Drafts / writer calls / compiled derivatives / public writes | 0 / 0 / 0 / 0 |
-| Blocked replacement-report results | 0 |
+| Missing claims / blocked results | 0 / 0 |
 
-The initial scaffold rejection is archived separately (1 received, 0 admitted, 1 blocked).
-Synthetic mechanics controls intentionally skip the full Main schemas. Separate tests
-consume exact Main schema/report/envelope bytes, exercise the default machine-schema
-and producer-hash binding, and prepare an actual report-derived input through the
-existing writer prompt without invoking its model.
+The parent was superseded before delivery and returned `REPORT_NOT_DELIVERABLE`. v2 reached
+the existing writer prompt in `FOLLOW_UP_UPDATE` mode with its parent hash and affected
+receipt lineage. An exact redelivery returned `DUPLICATE_NOOP`. No writer/model was invoked.
+The eight planned input intents are not compiled derivatives or a qualified article.
 
-The EIA source and rights hash declarations inherit Main's sealed provenance. ContentOps
-verified report/evidence binding and schema/hash/rights/cutoff gates; it performed no new
-independent browser capture or underlying-event confirmation. Main's source replay and
-its BrowserOS acquisition remain distinct evidence owners.
+## Reused owners and implementation
 
-Focused validation: the 39-control consumer + 27 adapter + 36 Simple bundle passed
-(**102 total**). A subsequent same-receipt concurrency repair passed all **40 current
-consumer controls**; unchanged adapter/Simple evidence remains applicable. Focused Ruff passed.
-The repair gives each operation a unique lease owner, preventing concurrent receipt
-re-entry from reacquiring another operation's lease.
-Existing coordinator recovery skipped internal outbox inputs with zero transport calls
-and zero publication backlog. The actual CLI exited successfully with `ADMITTED`.
+- Main remains sole wire/schema/hash and analytical owner. ContentOps validates exact UTF-8
+  bytes, duplicate JSON keys, nonfinite values, schema/revision, seals, scope, clocks, claim
+  hashes, supporting evidence, rights, query lineage and private-context exclusion. External
+  schema references cannot trigger hidden network retrieval.
+- The existing `ContentOpsDurableStore` artifact, work-item, outbox and lease APIs own
+  last-seen/version/delivery state. No new database, table, migration, journal or scheduler.
+  `internal:cc-report-receipt` and `internal:cc-report-editorial-input` use non-public statuses.
+- Duplicates, older versions, equal-version/different-byte conflicts, correction/invalidation
+  parent hashes and crash resume retain history. A newer received version prevents stale
+  pending delivery. Each operation uses a unique lease owner, including concurrent attempts
+  with the same receipt ID. No-material-change emits no new input/model intent.
+- The brief carries exact claims, report/evidence hashes, horizons, proxy/basis-risk limits,
+  uncertainty, what changed and watch conditions into existing Simple `capital_chronicle_context`.
+  A report candidate joins supplied intake; published memory, existing selector/source/writer
+  budgets and the sole publisher retain ownership. Input mapping is report -> claim -> evidence
+  -> article section -> eight planned derivative input intents.
+- Named research gaps reuse the DB-first resolver. `NeoNamedGapRecovery` connects the existing
+  installed-Neo/MCP preflight and rendered-source recovery for one named `rendered_context` gap.
+  This task made no Neo call. Browser context cannot grant historical PIT, public rights or
+  Main analytical truth; new evidence requires a new Main report version.
 
-## Finite remaining work
+## Verification and proof boundaries
 
-1. Bind the unchanged exact Main report/schema bytes to Main's final immutable producer
-   commit and verify its remote branch. Do not replace real artifacts with synthetic ones.
-2. Push the local integration update to existing [PR #87](https://github.com/fatcat2109/capital-chronicle-contentops/pull/87),
-   refresh the scoped graph and read back the final remote head/CI.
-3. Leave runtime, scheduling, model invocation, publisher, merge and deployment unchanged.
+All **41 current consumer tests passed** after adding the actual Main v2 correction sequence.
+The earlier 39-consumer + 27-adapter + 36-Simple bundle passed **102 tests**; unchanged adapter
+and Simple evidence was reused. Focused Ruff passed. Exact staged producer fixture bytes were
+verified against their raw SHA-256 declarations; scoped binary attributes prevent Git newline
+normalization. Existing coordinator recovery skipped the internal inputs with zero transport
+calls and publication backlog. The earlier actual CLI import returned `ADMITTED`.
 
-Exact-head CI run `39132446125` passed both jobs for consumer head
-`3701a0ad3f3beeb8a02f44f9ea0de4c597acf8ba`, including the same-receipt concurrency
-repair. This result predates the final-run fixture update; that update has 40 local
-consumer PASS and requires its own remote readback.
+The report retains OBSERVED_SOURCE_FACT / CC_ANALYSIS / CONDITIONAL_SCENARIO distinctions,
+EIA-original rights, 5/21/63-session scenarios, hold/invalidation conditions, null forecasts,
+and retrieval-time PIT limitations. It does not establish a current CFD quote, market surprise,
+order, executable economics or independent underlying-event confirmation. Source-page and
+rights acquisition hashes inherit Main's sealed provenance; ContentOps did not reacquire them.
 
-Example read-only import after Main supplies the exact paths and binding:
+Earlier receipts remain dated evidence, not current-latest status:
+[scaffold rejection](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/scaffold_rejection.json),
+[initial admitted local snapshot](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_local_integration.json),
+[pre-correction local snapshot](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_final_run_integration.json),
+and [earlier CLI readback](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/cli_actual_readback.json).
+The initial future-cutoff scaffold is a negative control, not another admitted real report.
 
-```powershell
-python -m live_contentops.capital_chronicle_latest_report_consumer_v1 `
-  --envelope MAIN_ENVELOPE_JSON --reports MAIN_REPORT_JSON `
-  --cutoff-utc ACTUAL_ADMITTED_UTC_CUTOFF `
-  --envelope-schema MAIN_ENVELOPE_SCHEMA_JSON --report-schema MAIN_REPORT_SCHEMA_JSON `
-  --producer-binding EXACT_PRODUCER_BINDING_JSON --output NEW_LOCAL_RECEIPT_JSON
-```
+## Repository delivery
 
-No runtime, scheduler, provider/model, database-owner, broker, publication, merge or
-deployment action occurred. The existing four windows, Simple budgets, publisher and
-eight-derivative compiler retain their ownership.
+Consumer [PR #87](https://github.com/fatcat2109/capital-chronicle-contentops/pull/87) contains
+implementation, focused tests, exact producer fixtures, evidence and this owning handoff.
+The final remote head and exact-head CI readback are recorded in its body after push.
+CI run `39133046040` passed both jobs at `def86891344937197639df8542510a005d3c452f`;
+that earlier result does not stand in for the later correction test or final PR head.
 
-## Discovery synchronization
+CodeGraph was regenerated with the existing generator at source commit
+`055e6e8110fefb7128cf17cfc4a474d5a8f7b931`; its documented check returned `CODEGRAPH_CURRENT`.
+Generated graph freshness is not operating or interoperability proof. Later fixture/evidence
+binding changes do not change indexed source. No duplicate index was initialized.
 
-The existing Control Tower was inspected as a dated locator. Its scoped synchronizer
-requires final Main/ContentOps PR identities and immutable handoff blobs. Those are not
-both available yet; **Control Tower synchronization is pending**. Do not overwrite its
-shared dirty checkout or use a broad collector. This checkpoint is the discoverable
-handoff for the existing Operator to run its scoped non-database synchronizer once
-the exact PR revisions exist. CodeGraph outputs were refreshed and the documented check
-returned `CODEGRAPH_CURRENT` at source commit `0c090e7dbb9c9beaf73fcbf4389fb7a087f21e1c`.
-This is source-index freshness, not operating or interoperability proof.
+No runtime, schedule, provider/model, database-owner, broker, publication, merge or deployment
+action occurred. Local/remote integration, passing tests and an open PR do not prove those states.
 
-## Exact next action
+## Discovery synchronization and bounded handoff
 
-Read the final Main P1 producer commit and compare Git blob SHA-256 values against
-`producer_v1/producer_binding.json`. If unchanged, append the immutable remote binding;
-if changed, validate the new exact export and retain the compatibility delta in this
-same slice. Then finish the scoped commit/push/PR readback. No new owner approval is
-required for this already-authorized continuation.
+**Control Tower synchronization remains PENDING.** Its existing scoped non-database synchronizer
+writes a separate shared checkout and requires selected Main/ContentOps PR heads and immutable
+handoff blobs. This task owns ContentOps only. No broad collector or shared registry overwrite
+was performed. This checkpoint is the durable discoverable input for its existing owner:
+
+- Main producer: PR #232, exact source commit `7c976da8688986bd95bbc536b6631b29183afb88`,
+  `docs/research/analysis_reporting/goal17/HANDOFF.md` and `export/contract-artifact-revision.json`.
+- ContentOps consumer: PR #87, this checkpoint, `producer_v2/producer_binding.json` and
+  `immutable_producer_binding.json`; select the final PR head from the verified PR readback.
+
+The next separately owned action is that scoped discovery synchronization. Routine runtime,
+writer execution, publication, merge and deployment remain outside this consumer delivery.
