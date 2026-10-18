@@ -192,4 +192,16 @@ Stop on secret/session exposure, fabricated factual/Core Analyzer truth, wrong-a
 
 Substack is canonical. The eight V1 derivative destinations remain Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community.
 
+## Additive operating model - shared four-trigger data resolution (2026-10-18)
+
+The next ContentOps implementation slices consume the Main App shared contracts rather than create a parallel research brain:
+
+1. Add the TriggerRequest/DataNeedPlan/DataResolutionReceipt adapter for CONTENTOPS_EDITORIAL.
+2. Bind it to existing sidecars, published memory and admitted database views without changing source ownership.
+3. Add bounded BrowserOS read-only recovery for named source gaps.
+4. Shadow one latest-intelligence request and one Jim manual request through the existing Simple path.
+5. Expose public-safe coverage/freshness/rights/exact-proxy fields in the existing read model.
+
+No fifth routine task, Desktop replacement for Simple V1, second publication store, public-write grant or private portfolio-data path is introduced. Report research-only, draft-only, publishable and DATA_BLOCKED states separately.
+
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.

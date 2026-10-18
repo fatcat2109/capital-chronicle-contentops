@@ -193,4 +193,14 @@ Never route a fresh V1 task from claims that:
 6. Compatible older detail.
 7. Historical evidence only.
 
+## Shared four-trigger data-resolution extension (2026-10-18)
+
+The shared operating model is CONTENTOPS_FOUR_TRIGGER_DATA_RESOLUTION_AND_EDITORIAL_OPERATING_MODEL_V1.md. It is subordinate to this authority map and the current V1 owner:
+
+- Simple Gemini remains the routine V1 owner and the four existing windows remain the routine schedule;
+- the shared router is an input/receipt seam, not a second scheduler or publication owner;
+- database-first resolution is required; BrowserOS is bounded read-only recovery for named gaps;
+- CDP 9222 remains ingestion-only and Edge CDP 9223 remains the existing publication/media/readback boundary;
+- no private portfolio facts, broker authority, credentials/session material or public-write permission crosses into ContentOps.
+
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
