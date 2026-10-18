@@ -76,7 +76,12 @@ input test, not an actual Gemini invocation or final-copy validation.
 2. Validate with the real clock and an admitted cutoff. If eligible, persist the actual
    report in a disposable existing store, prepare the substantive editorial input and
    record actual counts. If unavailable/blocked, retain the exact upstream blocker.
-3. Commit/push the scoped branch, create the PR and verify its remote head and CI.
+3. The scoped branch is pushed and [draft PR #87](https://github.com/fatcat2109/capital-chronicle-contentops/pull/87) is open.
+   Remote head readback: `2da1587954d89397bb045149fd156d27e5ad7220`;
+   base master remains `4ee9d64f451161a2dedc367f62f51569d7e56975`.
+   Exact-head CI run `39131241598`: branch CodeGraph and deterministic validation both
+   **PASS** for head `2da1587954d89397bb045149fd156d27e5ad7220`.
+   This dated readback is not a claim about later commits or Main integration.
 
 Example read-only import after Main supplies the exact paths and binding:
 
@@ -99,4 +104,16 @@ requires final Main/ContentOps PR identities and immutable handoff blobs. Those 
 both available yet; **Control Tower synchronization is pending**. Do not overwrite its
 shared dirty checkout or use a broad collector. This checkpoint is the discoverable
 handoff for the existing Operator to run its scoped non-database synchronizer once
-the exact PR revisions exist. CodeGraph refresh belongs to this scoped branch closeout.
+the exact PR revisions exist. CodeGraph outputs were refreshed and the documented check
+returned `CODEGRAPH_CURRENT` at source commit `0c090e7dbb9c9beaf73fcbf4389fb7a087f21e1c`.
+This is source-index freshness, not operating or interoperability proof.
+
+## Exact next action
+
+After Main P1 exports its replacement report and two machine schemas at an immutable
+producer revision, copy the exact permitted bytes into a new fixture directory, bind
+producer/schema hashes, and run the existing importer with the actual clock. Then
+persist and prepare one admitted report input through `LatestReportDeliveryTracker`
+and replace the pending integration counts with the actual readback. If any exact
+rights/PIT/cutoff/claim gate fails, retain that blocker; do not edit Main output or
+waive the gate. No further owner approval is required for this authorized continuation.
