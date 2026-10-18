@@ -1,0 +1,2287 @@
+{
+  "cases": {
+    "authority_flag": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": null,
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": true,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [
+        "authority_flags_not_all_false"
+      ],
+      "bundle_sha256": "4fa3f5a6051c3e456c3c334ebe6492cade1c5d0fdfd27bceed4a03932a8d1dc2",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "AUTHORITY_FLAG",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-authority",
+      "derivative_hashes": {
+        "count": 0,
+        "destination_readback_sha256": null,
+        "destinations": [],
+        "production_day_receipt_sha256": null
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_ATTEMPTED",
+      "next": "RETAIN_SHADOW_RECEIPT_AND_HAND_TO_MAIN_FOR_RECONCILIATION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "3d21941c0bf8ff3440fcb94a536785e7ffc1b88f10407ddabb58c1992def029e",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "BLOCKED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "3d9869f811302873a8ba5a4e3655eb794560ef82ef2dddc75619d0e39f6b9915",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "contradiction_quarantine": {
+      "abstained_claim_ids": [
+        "current-real-claim",
+        "replay-1",
+        "replay-2"
+      ],
+      "article_package": null,
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [
+        "no_eligible_exact_current_claim"
+      ],
+      "bundle_sha256": "cb9f4266b9e593baa84c5acd7572df33abfcd58017889d7ce9be8404413ace62",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "NOT_VERIFIED",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [
+        {
+          "claim_ids": [
+            "replay-1",
+            "replay-2"
+          ],
+          "group_id": "contradiction-1",
+          "reason": "CONTRADICTION_QUARANTINE",
+          "window_id": "RECENT_REPLAY"
+        }
+      ],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-contradiction",
+      "derivative_hashes": {
+        "count": 0,
+        "destination_readback_sha256": null,
+        "destinations": [],
+        "production_day_receipt_sha256": null
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_ATTEMPTED",
+      "next": "RETAIN_SHADOW_RECEIPT_AND_HAND_TO_MAIN_FOR_RECONCILIATION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "938c8a33b9702eedb7cf2b657fcde6a8b2c35992135cac3d2e1cb2d9980de24d",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "BLOCKED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "8617226d592c70367f6f2163569556f732b2da97f892678616e4da7260195130",
+          "contradiction_groups": [
+            {
+              "claim_ids": [
+                "replay-1",
+                "replay-2"
+              ],
+              "group_id": "contradiction-1",
+              "reason": "MATERIAL_CONTRADICTION"
+            }
+          ],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "current_real": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": null,
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [
+        "current_real_host_boundary_not_verified"
+      ],
+      "bundle_sha256": "c2022bc6a30e4470f13f63878b943a74c93e22c9ad865d8c63a4445ffef9bca2",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "NOT_VERIFIED",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-fixture",
+      "derivative_hashes": {
+        "count": 0,
+        "destination_readback_sha256": null,
+        "destinations": [],
+        "production_day_receipt_sha256": null
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_ATTEMPTED",
+      "next": "RETAIN_SHADOW_RECEIPT_AND_HAND_TO_MAIN_FOR_RECONCILIATION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "bcf1c7bb2d119a397444837344b0e65f431f66c2d9306748b8efb79ff200609d",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "BLOCKED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "3d9869f811302873a8ba5a4e3655eb794560ef82ef2dddc75619d0e39f6b9915",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "duplicate_collapse": {
+      "abstained_claim_ids": [
+        "current-real-claim",
+        "replay-1-duplicate"
+      ],
+      "article_package": "article-replay-1",
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [],
+      "bundle_sha256": "08b3eb9380e27551195e303586e4803798fd2733231f95b1839f4610f9b57a88",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "SHADOW_CONFIRMED",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-duplicate",
+      "derivative_hashes": {
+        "count": 8,
+        "destination_readback_sha256": "2e3b1a5d2a8446cd6bbcdec47e9e3b03d16330610099b3d3725ab0972d966d43",
+        "destinations": [
+          "discord",
+          "facebook_page",
+          "instagram_business",
+          "linkedin",
+          "telegram",
+          "threads",
+          "x",
+          "youtube"
+        ],
+        "production_day_receipt_sha256": "81d1d3e1e86b23ba6faa09cd58242568d0d010ba35e54df5143225cfc8559640"
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_INTERRUPTED",
+      "next": "MAIN_MAY_CONSUME_SHADOW_RECEIPT_WITHOUT_RUNTIME_OR_PUBLIC_PROMOTION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "529e3e7dedd10abd6101e1c91159ce61c9a806f0f668d1f1d13070bedb7f1e34",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "SHADOW_CONFIRMED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "ff3a636c146564747e10d294bd746e04b89aa9965dbfd56559053edeca7f162c",
+          "contradiction_groups": [],
+          "dedupe": [
+            {
+              "canonical_claim_id": "replay-1",
+              "decision": "COLLAPSED",
+              "duplicate_ids": [
+                "replay-1-duplicate"
+              ],
+              "reason": "same_source_claim_hash"
+            }
+          ],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "future": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": null,
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [
+        "claim_future:RECENT_REPLAY:replay-1"
+      ],
+      "bundle_sha256": "cd71461fbe1729b21e3c4666a21006e70e8c8092292f7cad13d6876f5f33ce05",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "STALE",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-future",
+      "derivative_hashes": {
+        "count": 0,
+        "destination_readback_sha256": null,
+        "destinations": [],
+        "production_day_receipt_sha256": null
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_ATTEMPTED",
+      "next": "RETAIN_SHADOW_RECEIPT_AND_HAND_TO_MAIN_FOR_RECONCILIATION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "1680b3b6759d3ae58d5009e7da8ea00d2baa9794f0995efbc47dbb56ef1661e8",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "BLOCKED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "3d9869f811302873a8ba5a4e3655eb794560ef82ef2dddc75619d0e39f6b9915",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "healthy": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": "article-replay-1",
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [],
+      "bundle_sha256": "915e886d367b6dd768d0a294c484c38e89b18463ee60cf3bde5b589edd19fc5b",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "SHADOW_CONFIRMED",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-healthy",
+      "derivative_hashes": {
+        "count": 8,
+        "destination_readback_sha256": "2e3b1a5d2a8446cd6bbcdec47e9e3b03d16330610099b3d3725ab0972d966d43",
+        "destinations": [
+          "discord",
+          "facebook_page",
+          "instagram_business",
+          "linkedin",
+          "telegram",
+          "threads",
+          "x",
+          "youtube"
+        ],
+        "production_day_receipt_sha256": "81d1d3e1e86b23ba6faa09cd58242568d0d010ba35e54df5143225cfc8559640"
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_INTERRUPTED",
+      "next": "MAIN_MAY_CONSUME_SHADOW_RECEIPT_WITHOUT_RUNTIME_OR_PUBLIC_PROMOTION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "af9d8ccacc6b4e4f4c2b2c2bb46c3bcf49ee0a7a4e57083a85b97db9168d3277",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "SHADOW_CONFIRMED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "3d9869f811302873a8ba5a4e3655eb794560ef82ef2dddc75619d0e39f6b9915",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "interruption_resume": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": "article-replay-1",
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [],
+      "bundle_sha256": "8b689528d74e1f31df8c9891a462107c0b3ff60b8adf36834980a7500b5b5a65",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "SHADOW_CONFIRMED",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-resume",
+      "derivative_hashes": {
+        "count": 8,
+        "destination_readback_sha256": "2e3b1a5d2a8446cd6bbcdec47e9e3b03d16330610099b3d3725ab0972d966d43",
+        "destinations": [
+          "discord",
+          "facebook_page",
+          "instagram_business",
+          "linkedin",
+          "telegram",
+          "threads",
+          "x",
+          "youtube"
+        ],
+        "production_day_receipt_sha256": "b5faa6e03b44608be69d1d98466b6657cca6150028c8a7a70291aaafa219e5cf"
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "RESUMABLE_WITHOUT_SEMANTIC_RERUN",
+      "next": "MAIN_MAY_CONSUME_SHADOW_RECEIPT_WITHOUT_RUNTIME_OR_PUBLIC_PROMOTION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "186b0ad06f377a5bdf16e6c11677cfbf4fed0babd168c921578994a6d85bf811",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "SHADOW_CONFIRMED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "3d9869f811302873a8ba5a4e3655eb794560ef82ef2dddc75619d0e39f6b9915",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "proxy_only": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": null,
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [
+        "current_real_host_boundary_not_verified"
+      ],
+      "bundle_sha256": "1f01a513fc91817d48ebdd1ad31beacb82b872ae3eef8f30c2dc9bdf4dffbe45",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "NOT_VERIFIED",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-proxy",
+      "derivative_hashes": {
+        "count": 0,
+        "destination_readback_sha256": null,
+        "destinations": [],
+        "production_day_receipt_sha256": null
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_ATTEMPTED",
+      "next": "RETAIN_SHADOW_RECEIPT_AND_HAND_TO_MAIN_FOR_RECONCILIATION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "fdded3ad5b4dea1f8eac98a9b6cac42d1322916461f50567bfa97d00b18a7f62",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "BLOCKED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "stale": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": null,
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [
+        "window_stale:RECENT_REPLAY"
+      ],
+      "bundle_sha256": "13df925c6683a9a3873b0407918d8e4bc7a4b592632ae3c228a917d397046161",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "STALE",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-stale",
+      "derivative_hashes": {
+        "count": 0,
+        "destination_readback_sha256": null,
+        "destinations": [],
+        "production_day_receipt_sha256": null
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_ATTEMPTED",
+      "next": "RETAIN_SHADOW_RECEIPT_AND_HAND_TO_MAIN_FOR_RECONCILIATION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "1aa63bde1ee5b1e84f5d1ab0d7cdda13ef1b3836ff773102a681612532f079a0",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "BLOCKED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "3d9869f811302873a8ba5a4e3655eb794560ef82ef2dddc75619d0e39f6b9915",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "tampered": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": null,
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [
+        "bundle_hash_invalid"
+      ],
+      "bundle_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "PACKET_HASH_MISMATCH",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-tampered",
+      "derivative_hashes": {
+        "count": 0,
+        "destination_readback_sha256": null,
+        "destinations": [],
+        "production_day_receipt_sha256": null
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_ATTEMPTED",
+      "next": "RETAIN_SHADOW_RECEIPT_AND_HAND_TO_MAIN_FOR_RECONCILIATION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "ebc182dac1a9fb6170f18b43d85bdaa24832caf2ae833120db07fbfa72704b24",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "BLOCKED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "3d9869f811302873a8ba5a4e3655eb794560ef82ef2dddc75619d0e39f6b9915",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "unknown_write": {
+      "abstained_claim_ids": [
+        "current-real-claim"
+      ],
+      "article_package": null,
+      "authority_flags": {
+        "external_effect": false,
+        "main_authority": false,
+        "model_call": false,
+        "network_call": false,
+        "provider_call": false,
+        "public_write": false,
+        "runtime_proven": false
+      },
+      "blockers": [
+        "core_zero_effect_not_zero"
+      ],
+      "bundle_sha256": "ff6197afc1cad9b076af07f7dbde53ab450a22af3f52ee8a8f7e3cb6ca1961d1",
+      "candidate_selection": {
+        "abstention_allowed": true,
+        "mode": "DETERMINISTIC_EXACT_CURRENT_ONLY",
+        "selected_candidate_id": "replay-1"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "UNKNOWN_WRITE",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "generated_at_utc": "2026-10-17T13:50:00Z",
+        "parent_known_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "contradiction_quarantine": [],
+      "current_host_facts": {
+        "browseros": {
+          "allowed_tools": [
+            "name_session",
+            "read",
+            "tabs"
+          ],
+          "credential_or_session_material_read": false,
+          "endpoint": "http://127.0.0.1:9010/mcp",
+          "mcp_protocol_version": "2025-06-18",
+          "public_write_performed": false,
+          "read_only": true,
+          "server_name": "browseros-neo",
+          "server_version": "0.0.72",
+          "status": "PASS"
+        },
+        "destination": {
+          "status": "MISSING"
+        },
+        "identity": {
+          "status": "MISSING"
+        },
+        "publication_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9223,
+          "endpoint": "http://127.0.0.1:9223/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "PUBLISHING_READBACK_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "scheduler_tasks": {
+          "status": "OBSERVED",
+          "task_count": 3,
+          "tasks": [
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+              "state_text": "Disabled",
+              "state_value": 1
+            },
+            {
+              "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+              "state_text": "Disabled",
+              "state_value": 1
+            }
+          ]
+        },
+        "store": {
+          "access_mode": "READ_ONLY",
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "x_ingestion_cdp": {
+          "browser_action_performed": false,
+          "cdp_port": 9222,
+          "endpoint": "http://127.0.0.1:9222/json/version",
+          "public_write_performed": false,
+          "publication_authority": false,
+          "read_only": true,
+          "role": "INGESTION_ONLY",
+          "status": "UNAVAILABLE"
+        },
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": true,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "cycle_id": "mw-cycle-unknown",
+      "derivative_hashes": {
+        "count": 0,
+        "destination_readback_sha256": null,
+        "destinations": [],
+        "production_day_receipt_sha256": null
+      },
+      "immutable_receipt": true,
+      "interruption_resume": "NOT_ATTEMPTED",
+      "next": "RETAIN_SHADOW_RECEIPT_AND_HAND_TO_MAIN_FOR_RECONCILIATION",
+      "parent_reconciliation_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "publicly_proven": false,
+      "qualitative_context_claim_ids": [
+        "proxy-1"
+      ],
+      "receipt_sha256": "bac6c997d6f139d095e9ecb6f92f8d824da370368648178333a58cdf3577cbd7",
+      "runtime_proven": false,
+      "schema_version": "contentops.multi_window_newsroom_cycle_receipt.v1",
+      "selected_claim_ids": [
+        "replay-1"
+      ],
+      "shadow_only": true,
+      "source_heads": {
+        "contentops": "f3fb9fb273261d94850007db19aedf4171014c19",
+        "main": "8f66238d320062e9258c893d59d2293253655f94"
+      },
+      "status": "BLOCKED",
+      "unsupported_dimensions": [
+        "account_identity",
+        "destination_readback"
+      ],
+      "version": "1.0.0",
+      "window_bindings": [
+        {
+          "blockers": [
+            "host_boundary_not_verified"
+          ],
+          "claim_hash": "710013aa3e4c69079339632551cee883c9f960346e13039c208eeb943388f51e",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "2268eb8184a5b33ed719c158176108fb65c5388d45a0579dfcecbbfefc7f6e42",
+          "unsupported_dimensions": [],
+          "window_id": "CURRENT_REAL"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "3d9869f811302873a8ba5a4e3655eb794560ef82ef2dddc75619d0e39f6b9915",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "EXACT_CORE",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "cd3dc9b4aa5738b1b0f60064cf7000f9752cfbd349717493547363ca3a70100d",
+          "unsupported_dimensions": [],
+          "window_id": "RECENT_REPLAY"
+        },
+        {
+          "blockers": [],
+          "claim_hash": "7890cbb60446084e1f3c71860b47703c90b5e40be9673280ace719a66751c7fb",
+          "contradiction_groups": [],
+          "dedupe": [],
+          "labels": {
+            "claim_class": "PROXY_CONTEXT",
+            "host_readiness": "NOT_VERIFIED"
+          },
+          "source_hash": "191efc6899c9552cd8e22febc4258cf031b7aff78ef14ea41adeb62f20532264",
+          "unsupported_dimensions": [
+            "account_identity",
+            "destination_readback"
+          ],
+          "window_id": "PROXY_CONTEXT"
+        }
+      ],
+      "zero_effect": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": true,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    }
+  },
+  "receipt_schema": "contentops.multi_window_newsroom_cycle_receipt.v1",
+  "schema_version": "contentops.multi_window_newsroom_cycle_receipt_fixture_set.v1"
+}
