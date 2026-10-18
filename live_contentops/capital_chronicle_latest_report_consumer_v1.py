@@ -12,7 +12,7 @@ import hashlib
 import json
 from copy import deepcopy
 from dataclasses import asdict, is_dataclass
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from uuid import uuid4
@@ -32,6 +32,18 @@ MAIN_REPORT_SCHEMA = "CapitalChronicleAssetAnalysisReportV1"
 MAIN_ENVELOPE_SCHEMA = "CapitalChronicleLatestAnalysisReportEnvelopeV1"
 CANONICALIZATION = "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN"
 CONTRACT_REVISION = "asset-analysis-report-v1.0.0"
+SUPPORTED_CONTRACTS = {
+    "1.0.0": {
+        "revision": CONTRACT_REVISION,
+        "envelope_schema_sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272",
+        "report_schema_sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8",
+    },
+    "1.1.0": {
+        "revision": "asset-analysis-report-v1.1.0",
+        "envelope_schema_sha256": "264a9180c3f1a523cb924af988f9288edc07112dcaba8b621f5c34abf223feb2",
+        "report_schema_sha256": "e2f4bc5fc18e10239b67fc608d0133a58d78cf4925453c0ba25e816b53e8686f",
+    },
+}
 CHANGE_KINDS = (
     "NEW_REPORT",
     "NEW_EVENT",
@@ -172,9 +184,10 @@ def _private(value: Any) -> bool:
 
 def _seal_errors(value: Mapping[str, Any], schema: str, field: str) -> list[str]:
     errors = []
-    if value.get("schema") != schema or value.get("version") != "1.0.0":
+    contract = SUPPORTED_CONTRACTS.get(value.get("version"), {})
+    if value.get("schema") != schema or not contract:
         errors.append("SCHEMA_OR_VERSION_MISMATCH")
-    if value.get("contract_revision") != CONTRACT_REVISION:
+    if not contract or value.get("contract_revision") != contract.get("revision"):
         errors.append("CONTRACT_REVISION_MISMATCH")
     if value.get("canonicalization") != CANONICALIZATION:
         errors.append("CANONICALIZATION_MISMATCH")
@@ -336,6 +349,7 @@ def validate_latest_report_bytes(
     require_machine_schema: bool = True,
     required_claim_ids: Sequence[str] = (),
     optional_claim_ids: Sequence[str] = (),
+    allow_lineage_only: bool = False,
 ) -> dict[str, Any]:
     """Validate Main's exact flat envelope and hash-addressed report bodies.
 
@@ -362,9 +376,11 @@ def validate_latest_report_bytes(
                 raw_schema
             ).hexdigest() != binding.get(key):
                 errors.append("MAIN_CONTRACT_IDENTITY_UNBOUND")
+            if binding.get(key) != SUPPORTED_CONTRACTS.get(envelope.get("version"), {}).get(key):
+                errors.append("MAIN_CONTRACT_SCHEMA_REVISION_MISMATCH")
         if (
             not _text(binding.get("producer_revision"))
-            or binding.get("contract_revision") != CONTRACT_REVISION
+            or binding.get("contract_revision") != envelope.get("contract_revision")
         ):
             errors.append("MAIN_CONTRACT_REVISION_UNBOUND")
     if _private(envelope):
@@ -438,6 +454,13 @@ def validate_latest_report_bytes(
     report_raw_hashes = []
     for raw in report_bytes:
         report = _load(raw)
+        # Main's analytical body contains non-public internal state (e.g. regime session
+        # identifiers). Only the exact public claim projection can enter ContentOps.
+        if _private([c for c in report.get("claims", []) if c.get("public_safe") is True]):
+            return {"schema_version": SCHEMA_VERSION, "status": "BLOCKED",
+                    "blockers": ["PRIVATE_CONTEXT_EXCLUDED"],
+                    "raw_sha256": hashlib.sha256(raw_bytes).hexdigest(), "claims": [],
+                    "missing_claims": [], "public_write_performed": False}
         errors.extend(
             "REPORT_" + error
             for error in _seal_errors(report, MAIN_REPORT_SCHEMA, "report_sha256")
@@ -475,6 +498,42 @@ def validate_latest_report_bytes(
         if report.get("run_id") != envelope.get("run_id"):
             errors.append("REPORT_RUN_ID_MISMATCH")
         errors.extend(_report_projection_errors(envelope, report))
+        if report.get("version") == "1.1.0":
+            policy = report.get("horizon_policy") or {}
+            declared = policy.get("horizons") or {}
+            long = declared.get("long")
+            if (
+                type(long) is not int or not 63 <= long <= 2520
+                or declared.get("short") != 5 or declared.get("swing") != 21
+                or set(declared) != {"short", "swing", "long"}
+                or policy.get("policy_sha256") != sha256_of(_without(policy, "policy_sha256"))
+                or policy.get("no_horizon_scaling_or_forecast_interpolation") is not True
+                or policy.get("scoreable_forecast") is not False
+                or [h.get("horizon") for h in report.get("horizon_blocks", [])] != ["short", "swing", "long"]
+                or any(
+                    h.get("trading_sessions") != declared.get(h.get("horizon"))
+                    or h.get("scoreable_forecast") is not False
+                    or h.get("forecast_target") is not None
+                    or h.get("probability") is not None
+                    for h in report.get("horizon_blocks", [])
+                )
+            ):
+                errors.append("MAIN_HORIZON_POLICY_BINDING_INVALID")
+            for horizon in report.get("horizon_blocks", []):
+                try:
+                    start = _time(report["known_at_cutoff_utc"])
+                    end = start
+                    sessions = horizon["trading_sessions"]
+                    if type(sessions) is not int or not 1 <= sessions <= 2520:
+                        raise LatestReportConsumerError("HORIZON_SESSION_BOUND_INVALID")
+                    remaining = sessions
+                    while remaining:
+                        end += timedelta(days=1)
+                        remaining -= int(end.weekday() < 5)
+                    if _time(horizon["start_utc"]) != start or _time(horizon["end_utc"]) != end:
+                        errors.append("MAIN_HORIZON_CLOCK_BINDING_INVALID")
+                except (LatestReportConsumerError, KeyError, TypeError):
+                    errors.append("MAIN_HORIZON_CLOCK_BINDING_INVALID")
     claims = []
     missing: list[str] = []
     gaps = []
@@ -652,10 +711,13 @@ def validate_latest_report_bytes(
         errors.append(f"{cid}:REQUIRED_CLAIM_ABSENT")
     missing.extend(optional - seen)
     withdrawal = not raw_claims and envelope.get("change_kind") == "INVALIDATION"
+    lineage_only = (allow_lineage_only and not raw_claims and not withdrawal
+                    and envelope.get("content_eligibility") == "BLOCKED_NO_PUBLIC_SAFE_CLAIM")
     if (
         not claims
         and envelope.get("change_kind") != "NO_MATERIAL_CHANGE"
         and not withdrawal
+        and not lineage_only
     ):
         errors.append("NO_ADMISSIBLE_PUBLIC_CLAIMS")
     parent = envelope.get("supersedes_report_id")
@@ -673,6 +735,8 @@ def validate_latest_report_bytes(
         and report_schema_bytes is not None
         and not any("SCHEMA" in error for error in errors),
         "producer_binding": deepcopy(dict(producer_binding or {})),
+        "contract_revision": envelope.get("contract_revision"),
+        "contract_version": envelope.get("version"),
         "raw_sha256": hashlib.sha256(raw_bytes).hexdigest(),
         "report_raw_sha256": sorted(report_raw_hashes),
         "envelope_sha256": envelope.get("envelope_sha256"),
@@ -689,6 +753,7 @@ def validate_latest_report_bytes(
         "known_at_cutoff_utc": envelope.get("known_at_cutoff_utc"),
         "claims": claims,
         "withdrawal_only": withdrawal,
+        "lineage_only": lineage_only,
         "claim_set_hash": sha256_of(
             sorted((claim["claim_id"], claim["claim_hash"]) for claim in claims)
         ),
@@ -759,6 +824,7 @@ class LatestReportDeliveryTracker:
                     "ADMITTED",
                     "NO_MATERIAL_CHANGE_NOOP",
                     "INVALIDATION_WITHDRAWAL_NOOP",
+                    "LINEAGE_ONLY_NOOP",
                 }
                 and self._related(row, validation)
             ]
@@ -794,15 +860,20 @@ class LatestReportDeliveryTracker:
                 )
             if (
                 status == "ADMITTED"
-                and validation["change_kind"] in {"CORRECTION", "INVALIDATION"}
+                and (validation["change_kind"] in {"CORRECTION", "INVALIDATION"}
+                     or validation.get("parent_report_sha256"))
                 and not any(
                     row["report_id"] == validation.get("parent_report_id")
+                    and (not validation.get("parent_report_sha256")
+                         or row.get("source_report_sha256") == validation["parent_report_sha256"])
                     for row in related
                 )
             ):
                 status = "LINEAGE_PARENT_NOT_RECEIVED"
             if status == "ADMITTED" and validation.get("withdrawal_only"):
                 status = "INVALIDATION_WITHDRAWAL_NOOP"
+            if status == "ADMITTED" and validation.get("lineage_only"):
+                status = "LINEAGE_ONLY_NOOP"
             record = {
                 **deepcopy(dict(validation)),
                 "status": status,
@@ -857,6 +928,7 @@ class LatestReportDeliveryTracker:
                 "ADMITTED",
                 "NO_MATERIAL_CHANGE_NOOP",
                 "INVALIDATION_WITHDRAWAL_NOOP",
+                "LINEAGE_ONLY_NOOP",
             }:
                 for row in related:
                     if status != "NO_MATERIAL_CHANGE_NOOP":
@@ -864,12 +936,15 @@ class LatestReportDeliveryTracker:
                             row["message_id"], "REPORT_SUPERSEDED"
                         )
                         for output in self.store.list_outbox_messages():
-                            if output["work_item_id"] == "cc-report-" + sha256_of(
-                                row["receipt_id"]
-                            ) and output["destination"] in {
+                            if output["destination"] in {
                                 EDITORIAL_INPUT,
                                 SIMPLE_RESULT,
-                            }:
+                            } and (
+                                output["work_item_id"] == "cc-report-" + sha256_of(row["receipt_id"])
+                                or (output["destination"] == SIMPLE_RESULT
+                                    and json.loads(output["payload"]).get("report_id") == row["report_id"]
+                                    and json.loads(output["payload"]).get("report_version") == row["report_version"])
+                            ):
                                 self.store.set_outbox_status(
                                     output["message_id"],
                                     "CONTENT_WITHDRAWN"
@@ -913,6 +988,7 @@ class LatestReportDeliveryTracker:
                     "ADMITTED",
                     "NO_MATERIAL_CHANGE_NOOP",
                     "INVALIDATION_WITHDRAWAL_NOOP",
+                    "LINEAGE_ONLY_NOOP",
                 }
                 and self._related(record, row)
                 and row["report_version"] > record["report_version"]
@@ -974,6 +1050,7 @@ class LatestReportDeliveryTracker:
                     "ADMITTED",
                     "NO_MATERIAL_CHANGE_NOOP",
                     "INVALIDATION_WITHDRAWAL_NOOP",
+                    "LINEAGE_ONLY_NOOP",
                 }
                 for row in rows
             ),
@@ -984,6 +1061,7 @@ class LatestReportDeliveryTracker:
                     "OUT_OF_ORDER_NOOP",
                     "NO_MATERIAL_CHANGE_NOOP",
                     "INVALIDATION_WITHDRAWAL_NOOP",
+                    "LINEAGE_ONLY_NOOP",
                 }
                 for row in rows
             ),
@@ -1191,6 +1269,13 @@ def build_report_editorial_input(
             "report_version": admission["report_version"],
             "envelope_sha256": admission["envelope_sha256"],
             "report_truth_does_not_establish_event_truth": True,
+            "report_editorial_context": {
+                "what_changed": admission.get("materiality_rationale"),
+                "mode_hint": mode,
+                "claims": [{k: c[k] for k in ("claim_id", "text", "producer_layer", "basis_risk")} for c in claims],
+                "horizons": admission["horizon_blocks"],
+                "limitations": admission["limitations"],
+            },
         },
     }
     rolling = deepcopy(dict(rolling_input or {}))

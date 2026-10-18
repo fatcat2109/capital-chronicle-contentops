@@ -1,10 +1,11 @@
-# Goals 17–18 — latest Main report into the ContentOps editorial workspace
+# Goals 17–19 — governed Main/ContentOps intelligence loop and editorial workspace
 
 Owning plan: [latest-report bridge](CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1.md).
 Scope: ContentOps consumer only; implementation checkpoint, not a product-status owner.
 
 Current Goal 18 delivery is recorded in the continuation below. Earlier Goal 17 counts describe
 the input-only checkpoint and are not the current article/preview counts.
+The Goal 19 continuation at the end is the current multi-report implementation checkpoint.
 
 ## Current result
 
@@ -229,3 +230,111 @@ operation is the existing `scripts/run_capital_chronicle_report_draft_v1.py` aga
 v2 receipt after that marker is cleared; it needs no new scheduler, store or publisher. Public
 dispatch still requires real canonical Substack readback and the existing
 `DurablePublicationCoordinator`.
+
+## Goal 19 — connected multi-asset feed and governed headline return
+
+Classification: `PARTIAL_CAPABILITY_REUSE_COMPONENTS`. Continue PR #87 from `54048406...`;
+this section supersedes the single-report-only capability description above without rewriting
+its historical evidence. No product-status, database, scheduler, publisher or model owner was added.
+
+### Main contracts and consumed sequence
+
+Main PR #232 remains the wire/schema/hash/analytical owner. Goal 19 pins commit
+`c8477a035bcb04b3d13bc4f8e26bd651dd9d957d`. Its USOIL v1.1 export was read as exact Git
+blobs; schema hashes are explicitly registered for versions `1.0.0` and `1.1.0` only. Unknown
+versions, wrong revision/schema pairings, envelope/body mismatch and poisoned latest fail closed.
+The USOIL long-horizon policy is sealed at 252 sessions; 63..2520-session qualitative long
+horizons are explicit policy inputs, not interpolated forecasts. Envelope/body/horizon clock
+and scope binding remains intact. Existing v1.0 fixture/export bytes were not changed.
+
+| Consumed real version | State |
+| --- | --- |
+| USOIL v1 / contract v1.0 | `LINEAGE_ONLY_NOOP`: no public-safe claims; retained only to prove the exact parent hash. |
+| USOIL v2 / contract v1.1 | `ADMITTED`: seven public-safe claims, 5/21/252 sessions, `THESIS_DELTA`. |
+| XNGUSD v1 / contract v1.0 | Accepted parent, superseded. |
+| XNGUSD v2 / contract v1.0 | `ADMITTED`: seven public-safe claims, 5/21/63 sessions, correction. |
+
+### Connected opportunity, resume and UI
+
+The configured immutable producer pointer is read from the existing Simple scheduler operation
+hook through `CONTENTOPS_MAIN_REPORT_FEED_POINTER`. It has no new calendar or background owner.
+One slot admits unseen report versions into the existing outbox, keeps latest per report,
+enriches independent rolling news, and spends the same one-selector/one-writer shared budgets.
+Deferred reports remain available. No-change preserves pending useful content; duplicates and
+older reports do not create another report/article intent. All-claims withdrawal suppresses
+copy/previews and preserves affected identities. A replay output never counts as fresh provider
+work. Existing successful selector/source/writer stages are reused after process restart.
+
+The existing four-window hook was exercised with an isolated store. A simulated process exit
+at compilation left the first slot resumable; restart reused its two completed model stages,
+then completed the second asset. A repeated terminal tick performed no semantic work. Existing
+calendar, publication handoff, LLM pause and source/model ceilings remain unchanged.
+
+Daily App now shows both assets, latest/prior versions, contract revisions, bounded feed
+coverage, report age at scan (not network transfer latency), selected/deferred opportunity
+history, no-op/correction/withdrawal state, drafts, eight previews and exact blockers. Internal
+feed/read-projection work items do not masquerade as the current production publication cycle.
+Private Main analytical/account/portfolio/fill state is never copied into the public claim
+projection or output. No performance/alpha claims are derived from demo data.
+The configured pointer is re-read each opportunity; unavailable or malformed exports produce
+named gaps while healthy assets and independent intake remain available. Semantic restart is
+allowed only with a durable frozen report pool; an interrupted independent-only Simple call
+retains the existing no-reinvoke boundary. The UI retains controlled artifacts separately from
+the latest provider attempt/blocker, so a later pause cannot be hidden by earlier previews.
+
+### ContentOps → Main producer handoff
+
+The owning [producer contract and exact next command](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal19/HEADLINE_PRODUCER_CONTRACT.md)
+defines one bounded incremental projection and compatible JSONL example. It reuses canonical
+sidecars plus existing outbox/cursors/leases and preserves bulk X/CDP ingestion. Missing
+permission emits hash-only gaps; canonical X membership cannot grant export rights.
+
+The actual manual read scanned **500 canonical rows**, all with named missing-permission gaps,
+and exported **2 retained EIA public source-fact projections**. Those two are explicitly Main-origin
+round trips, not newly acquired ContentOps intelligence. Main's existing headline adapter
+accepted both as `CONTEXT_UPDATE_ONLY`; no Main file/database was edited. Source permissions,
+clocks, source/reporting identities, text/source/rights hashes and report/event truth limits are
+carried in [manual_main_headline_rows.jsonl](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal19/manual_main_headline_rows.jsonl).
+The original 318-row rights gap is not relabelled resolved or zero: it was a different bounded
+sample, and unknown X permissions remain unavailable until their real owner supplies authority.
+
+### Actual counts and evidence
+
+- [Manual paused receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal19/manual_receipt.json):
+  4 consumed report versions, 2 inputs, 0 fresh calls, 0 drafts/previews/public writes;
+  `LLM_OPERATOR_PAUSED`. Existing seven-article published memory was query-only and unchanged.
+- [Integrated controlled receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal19/controlled_receipt.json):
+  2 qualified controlled drafts, 16 compiled previews, 4 injected model callbacks, 0 fresh
+  provider calls, 0 public writes; repeated opportunity added 0 callbacks.
+- [Controlled outputs](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal19/controlled_outputs.json)
+  and [Daily App snapshot](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal19/controlled_snapshot.json)
+  reconcile the report/article/preview identities. These controlled outputs prove mechanics.
+- [Main consumer readback](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal19/main_consumer_readback.json)
+  proves the two-row handoff against Main's existing adapter at the pinned commit.
+- Actual Neo desktop/mobile/native-preview render inspection found and fixed the asset-selector
+  contrast issue. Final captures are retained in `goal19/visual/`. The task-owned local preview
+  server was stopped and its listener verified absent; production runtime was not started.
+
+### Completion audit and delivery
+
+Focused local verification: **86 passed** for consumer/workspace/existing scheduler controls,
+**17 passed** for feed/headline projection controls, **28 UI tests passed**, and UI production
+build passed. The targeted Daily App report-bridge check covers exclusion of internal projection
+work from the current publication cycle. Existing Simple/evidence regression and the wider
+mandatory CI set are enforced by exact-head CI; its final readback is recorded in PR #87.
+Ruff, compilation, diff hygiene, fixture raw hashes and output/read-model identity reconciliation
+passed. Checks are scoped proof, not fresh provider or public-production proof.
+
+| Goal requirement | Evidence and boundary |
+| --- | --- |
+| Exact v1.0/v1.1 compatibility and immutable old exports | Pinned USOIL fixtures, existing XNGUSD fixtures, explicit schema revision map and focused poison/clock/horizon tests. |
+| Incremental discovery/restart/missed window/correction/multiple assets | Existing store/outbox admission, parent/hash recovery, bounded immutable pointer scan, existing four-window hook and restart test. No natural-calendar runtime claim. |
+| Multi-report substantive draft and eight native previews | Same Simple path, per-report public editorial context, two-asset controlled acceptance, durable stages and correction/withdrawal tests. Fresh provider work remains paused. |
+| Governed headline return to Main | Producer contract, exact compatible JSONL, source-rights gaps, cursor/prefix/duplicate/privacy tests and actual Main-adapter readback. No restricted X body copied. |
+| Real feed and workspace in Daily App | Multi-asset selection/lifecycle/coverage/disposition tests, read-model identity reconciliation and actual desktop/mobile/preview inspection. |
+| Scoped commit/push/exact remote/CI | Final exact head and CI are recorded in PR #87 after push; no self-merge or deployment. |
+
+Control Tower synchronization remains pending its separate owner. This existing checkpoint
+supplies the exact Main/ContentOps PRs, pinned revision, producer contract and immutable evidence;
+no shared database/status-owner file was changed. The only provider execution blocker is the
+unchanged `LLM_OPERATOR_PAUSED` marker. The bounded next command is in the producer handoff.

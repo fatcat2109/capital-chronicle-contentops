@@ -1,0 +1,35 @@
+{
+  "counts": {
+    "blocked_results": 0,
+    "compiled_derivatives": 0,
+    "controlled_drafts": 0,
+    "drafts": 0,
+    "editorial_inputs": 2,
+    "fresh_qualified_drafts": 0,
+    "missing_claims": 0,
+    "no_ops": 1,
+    "report_events_consumed": 4,
+    "report_events_received": 4,
+    "writer_calls": 0
+  },
+  "exact_next_blocker": "LLM_OPERATOR_PAUSED",
+  "headline_rows_eligible": 2,
+  "headline_rows_missing": 500,
+  "headline_rows_scanned": 500,
+  "observed_at_utc": "2026-10-18T17:03:52.212967Z",
+  "public_writes": 0,
+  "published_memory_proof": {
+    "auto_migrate": false,
+    "canonical_publication_contract": "SUBSTACK_DISPATCH_CONFIRMED_AND_EXACT_RECONCILIATION_CONFIRMED_AND_STABLE_PUBLIC_OBJECT_ID_AND_VALID_CANONICAL_URL_AND_EXACT_URL_HASH_AND_DURABLE_SOURCE_WORK_ITEM_AND_UNIQUE_ARTICLE_IDENTITY",
+    "canonical_reconciled_article_count": 7,
+    "corpus_schema_version": "contentops.published_corpus_read_model.v2",
+    "derived_from_existing_durable_truth": true,
+    "production_store_unchanged_during_projection": true,
+    "schema_version": "contentops.v1_simple_published_memory_access.v1",
+    "second_publication_store_created": false,
+    "store_access_mode": "SQLITE_MODE_RO_QUERY_ONLY"
+  },
+  "result_classification": "DRAFT_BLOCKED",
+  "schedule_activated": false,
+  "schema_version": "contentops.goal19.manual_intelligence_loop_receipt.v1"
+}

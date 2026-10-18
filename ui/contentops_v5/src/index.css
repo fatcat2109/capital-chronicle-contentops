@@ -390,6 +390,7 @@ body {
 .report-workspace h2 { margin: .4rem 0 1rem; }
 .report-workspace h3 { margin: 1.25rem 0 .5rem; }
 .report-workspace p { margin: .6rem 0; overflow-wrap: anywhere; }
+.report-workspace select { color: #f1f5f9; background: #111827; border: 1px solid #475569; border-radius: .35rem; padding: .35rem .6rem; max-width: 100%; }
 .report-summary { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
 .report-origin { display: grid; grid-template-columns: 8rem minmax(0, 1fr); gap: .4rem 1rem; margin: 1rem 0; }
 .report-origin dd { margin: 0; overflow-wrap: anywhere; font-family: monospace; font-size: .8rem; }

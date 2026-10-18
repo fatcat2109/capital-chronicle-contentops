@@ -324,6 +324,12 @@ export type LoadState =
 
 
 export interface ReportWorkspaceData {
+  latest_attempt?: { classification: string; model_execution_state?: string; exact_next_blocker?: string } | null;
+  feed?: { producer_commit: string; observed_at_utc: string; configured_bundle_count: number; new_events: number; coverage: string; events: Array<{ report_id: string; report_version: number; state: string; blockers?: string[] }>; gaps: Array<{ state: string }> } | null;
+  report_age_at_last_scan_seconds?: number | null;
+  opportunities?: Array<{ opportunity_id: string; classification: string; exact_next_blocker?: string; report_candidates: Array<{ report_id: string; report_version: number; state: string }> }>;
+  headline_export?: { source_rows_scanned: number; eligible_rows: number; missing_rows: number; coverage: string; observed_at_utc: string } | null;
+  report_history?: Array<{ report_id: string; report_version: number; status: string; change_kind?: string }>;
   schema_version: string;
   state: string;
   report_events_received: number;
@@ -339,6 +345,7 @@ export interface ReportWorkspaceData {
     withdrawal_only?: boolean;
     materiality_rationale?: string;
     producer_binding?: { producer_commit?: string; producer_pull_request?: string };
+    contract_revision?: string;
   };
   latest_editorial_input?: Record<string, unknown> | null;
   latest_simple_result?: { classification?: string; model_execution_state?: string; draft_count?: number; preview_count?: number; claim_lineage?: Array<Record<string, unknown>> } | null;

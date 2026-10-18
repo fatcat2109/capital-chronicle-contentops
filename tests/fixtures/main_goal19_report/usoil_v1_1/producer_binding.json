@@ -1,0 +1,36 @@
+{
+  "contract_revision": "asset-analysis-report-v1.1.0",
+  "envelope_schema_sha256": "264a9180c3f1a523cb924af988f9288edc07112dcaba8b621f5c34abf223feb2",
+  "files": {
+    "CapitalChronicleAssetAnalysisReportV1.schema.json": {
+      "bytes": 10890,
+      "git_blob_oid": "fe3233dcc34fc10f13be2e28bb7a6b81502f61c8",
+      "path": "docs/research/analysis_reporting/goal18/export-v1.1/CapitalChronicleAssetAnalysisReportV1.schema.json",
+      "sha256": "e2f4bc5fc18e10239b67fc608d0133a58d78cf4925453c0ba25e816b53e8686f"
+    },
+    "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
+      "bytes": 6588,
+      "git_blob_oid": "2768b82ac9cac1abc8115ecd7e9440f3a7481207",
+      "path": "docs/research/analysis_reporting/goal18/export-v1.1/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+      "sha256": "264a9180c3f1a523cb924af988f9288edc07112dcaba8b621f5c34abf223feb2"
+    },
+    "envelope.json": {
+      "bytes": 16333,
+      "git_blob_oid": "9c976fab6bf088b505026f4754305229d0e3cd94",
+      "path": "docs/research/analysis_reporting/goal18/export-v1.1/latest-report-envelope.json",
+      "sha256": "50a56c34f6568787e1e8c9c7ce11e3edbc369aa4752add90ee78c8d0698fabe4"
+    },
+    "report.json": {
+      "bytes": 64509,
+      "git_blob_oid": "699d0e4c72ce8ee7b79c905952092b1500e488eb",
+      "path": "docs/research/analysis_reporting/goal18/export-v1.1/report.json",
+      "sha256": "4980013065001050cd8b38e7d7d27553e674931c001693d5adb90a8f012914ce"
+    }
+  },
+  "observed_at_utc": "2026-10-18T16:45:00Z",
+  "producer_commit": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+  "producer_pull_request": 232,
+  "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+  "producer_revision": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+  "report_schema_sha256": "e2f4bc5fc18e10239b67fc608d0133a58d78cf4925453c0ba25e816b53e8686f"
+}

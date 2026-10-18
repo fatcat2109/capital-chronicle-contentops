@@ -1,0 +1,90 @@
+{
+  "affected_symbols": [
+    "USOIL"
+  ],
+  "as_of_utc": "2026-10-18T13:03:41Z",
+  "asset_ids": [
+    "USOIL"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "change_kind": "NEW_REPORT",
+  "changed_claim_ids": [],
+  "content_eligibility": "BLOCKED_NO_PUBLIC_SAFE_CLAIM",
+  "contract_revision": "asset-analysis-report-v1.0.0",
+  "envelope_sha256": "b5296ff141b227af2cd340f9093a1497807ad609ba98a891f3e14a3dd0420a1b",
+  "event_id": "report-event:2975f5584daaccaef486c32cb8cee7652a750a87f0c7340124df39d7f135f9dc",
+  "generated_at_utc": "2026-10-18T13:47:00Z",
+  "hold_conditions": [],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-23T13:03:41Z",
+      "horizon": "short",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-16T13:03:41Z",
+      "horizon": "swing",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-01-13T13:03:41Z",
+      "horizon": "long",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "trading_sessions": 63
+    }
+  ],
+  "invalidation_conditions": [],
+  "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "New retained-evidence report.",
+  "parent_report_sha256": null,
+  "public_safe_claims": [],
+  "report_id": "asset-report:USOIL",
+  "report_sha256": "797f3132e40f486036fc318cab8acf7b9288715035d90c4b3e82705fb17a3f1a",
+  "report_version": 1,
+  "run_id": "run-asset-report:23d3e29dfa917f03b941cdee",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "930df83b46fdc083227fadcb52fdd52a72ad1f9361b7f5c84d416193c055bfdf",
+    "evidence_snapshot_sha256": "ebe9ceda6ca257a8287bb3e33cd55f2ee56ce79d03a22dd09e561c0646506bbf"
+  },
+  "supersedes_report_id": null,
+  "version": "1.0.0"
+}

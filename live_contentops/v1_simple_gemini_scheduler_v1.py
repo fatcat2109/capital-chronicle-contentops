@@ -331,6 +331,7 @@ class SimpleGeminiLocalScheduler:
         published_memory_loader: PublishedMemoryLoader | None = None,
         publication_handoff: Any = None,
         clock: Callable[[], datetime] | None = None,
+        main_report_feed: Any = None,
     ) -> None:
         self.scheduler_root = Path(scheduler_root).resolve()
         self.scheduler_root.mkdir(parents=True, exist_ok=True)
@@ -343,6 +344,19 @@ class SimpleGeminiLocalScheduler:
             simple_operation or self._execute_canonical_simple_operation
         )
         self._publication_handoff = publication_handoff
+        self._report_feed = main_report_feed
+        if self._report_feed is None and simple_operation is None:
+            from live_contentops.capital_chronicle_report_feed_v1 import configured_pointer, MainReportFeed
+            pointer = configured_pointer()
+            if pointer is not None:
+                if published_memory_store is None:
+                    raise ValueError("main_report_feed_existing_store_required")
+                from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker
+                from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+                self._report_feed = MainReportFeed(
+                    LatestReportDeliveryTracker(ContentOpsDurableStore(published_memory_store)), pointer,
+                    pointer_loader=configured_pointer,
+                )
         self._source_route_health_path = (
             Path(published_memory_output_root).resolve()
             / "source_route_health_v1.json"
@@ -363,6 +377,8 @@ class SimpleGeminiLocalScheduler:
         self._published_memory_loader = published_memory_loader
 
     def _execute_canonical_simple_operation(self, **kwargs: Any) -> Mapping[str, Any]:
+        if self._report_feed is not None:
+            return self._report_feed.opportunity(**kwargs)
         return self._orchestrator.execute("run_v1_simple_gemini_newsroom", **kwargs)
 
     def _window_state_dir(self, production_day_id: str, window_id: str) -> Path:
@@ -829,7 +845,11 @@ class SimpleGeminiLocalScheduler:
             ):
                 slot_receipts.append(prior_slot)
                 continue
-            if prior_slot and prior_slot.get("terminal") is not True:
+            if prior_slot and prior_slot.get("terminal") is not True and not (
+                self._report_feed is not None and prior_slot.get("state") == "RUNNING"
+                and getattr(self._report_feed, "can_resume", lambda slot: False)(slot_id)
+                and not (Path(str(prior_slot.get("output_dir") or "")) / "qualified_article_record_v1.json").is_file()
+            ):
                 slot_output_dir = Path(str(prior_slot.get("output_dir") or ""))
                 can_resume_publication = bool(
                     self._publication_handoff is not None

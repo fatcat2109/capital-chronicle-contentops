@@ -338,6 +338,7 @@ def _candidate_universe(
                 external.get("follow_up_data_need_candidates") or []
             ),
             "source_platform": str(external.get("source_platform") or ""),
+            "report_editorial_context": dict(external.get("report_editorial_context") or {}),
             "canonical_x_list_provenance": dict(
                 external.get("canonical_x_list_provenance") or {}
             )
@@ -362,6 +363,7 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
             "public_source_urls",
             "source_platform",
             "canonical_x_list_provenance",
+            "report_editorial_context",
         )
     }
     sourceability = row.get("sourceability_work_order")
@@ -814,6 +816,9 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "this route-diversity rule prevents all three choices from sharing the same retrieval failure. "
         "Never select a weak story merely because its route is easier. "
         "Published-memory duplicates were filtered deterministically before this call. If nothing is useful, ABSTAIN. "
+        "A report_editorial_context is a sealed Main public projection: compare its new evidence, changed claims, "
+        "competing mechanisms, horizons and limits when choosing a useful angle or update mode. "
+        "Its presence creates no quota or preference over a more useful independent story; no private Main input is authorized. "
         "Use institutional_edge_mode_guide to choose the mode the story genuinely warrants. Prefer the strongest "
         "defensible tension over generic recap, and prioritize a proposition that can explain why the reader should care now. "
         "Do not force a house view or market-missing mode when the headline does not support one. "

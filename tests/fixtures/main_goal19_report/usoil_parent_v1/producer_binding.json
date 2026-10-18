@@ -1,0 +1,36 @@
+{
+  "contract_revision": "asset-analysis-report-v1.0.0",
+  "envelope_schema_sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272",
+  "files": {
+    "CapitalChronicleAssetAnalysisReportV1.schema.json": {
+      "bytes": 20529,
+      "git_blob_oid": "795cf17482dde4070b42f5004a73bfcbb59b5a0b",
+      "path": "docs/research/analysis_reporting/goal17/export/CapitalChronicleAssetAnalysisReportV1.schema.json",
+      "sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
+    },
+    "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
+      "bytes": 11682,
+      "git_blob_oid": "022c5d8eaa32a0e82fa6590520b8806014f12575",
+      "path": "docs/research/analysis_reporting/goal17/export/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+      "sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272"
+    },
+    "envelope.json": {
+      "bytes": 3280,
+      "git_blob_oid": "88c621a80257970d3cbead9e46f81790e035a3a6",
+      "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/USOIL-48f739dbf98a/v0001/latest-report-envelope.json",
+      "sha256": "9d00d463a0778c053d8753f7379a9f36f8bde1aa3e604c56b5fc8e3ae88d3260"
+    },
+    "report.json": {
+      "bytes": 37541,
+      "git_blob_oid": "94e3d73f2da2114636469e8ab69864cd3f79479c",
+      "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/USOIL-48f739dbf98a/v0001/report.json",
+      "sha256": "1830090da2d9efd1c060e171cdc83a3a1d721f4983ea8064e7b2bb738c51d6d5"
+    }
+  },
+  "observed_at_utc": "2026-10-18T16:45:00Z",
+  "producer_commit": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+  "producer_pull_request": 232,
+  "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+  "producer_revision": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+  "report_schema_sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
+}

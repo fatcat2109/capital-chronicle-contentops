@@ -16,6 +16,7 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import (
     canonical_bytes,
     sha256_of,
     _private,
+    build_report_editorial_input,
 )
 from live_contentops.llm_operator_control_v1 import (
     llm_operator_pause_active,
@@ -24,7 +25,7 @@ from live_contentops.llm_operator_control_v1 import (
 
 STAGE = "internal:cc-report-editorial-stage"
 SCHEMA = "contentops.cc_report_editorial_workspace.v1"
-CURRENT = {"ADMITTED", "NO_MATERIAL_CHANGE_NOOP", "INVALIDATION_WITHDRAWAL_NOOP"}
+CURRENT = {"ADMITTED", "NO_MATERIAL_CHANGE_NOOP", "INVALIDATION_WITHDRAWAL_NOOP", "LINEAGE_ONLY_NOOP"}
 
 
 def report_scope_notice(admission: Mapping[str, Any]) -> str:
@@ -132,9 +133,12 @@ def report_evidence(admission: Mapping[str, Any]) -> dict[str, Any]:
 class _Stages:
     """Existing outbox/artifact APIs hold immutable successful steps and attempt fences."""
 
-    def __init__(self, tracker: LatestReportDeliveryTracker, receipt_id: str):
+    def __init__(self, tracker: LatestReportDeliveryTracker, receipt_id: str, opportunity_id: str | None = None):
         self.store = tracker.store
-        self.work = "cc-report-" + sha256_of(receipt_id)
+        self.work = "cc-report-" + sha256_of(receipt_id) if not opportunity_id else "cc-opportunity-" + sha256_of(opportunity_id)
+        if opportunity_id:
+            self.store.create_work_item(story_id=self.work, title="Main-enriched newsroom opportunity",
+                                       target_surface="CONTENTOPS_EDITORIAL_ONLY", work_item_id=self.work)
 
     def get(self, key: str) -> dict[str, Any] | None:
         row = next(
@@ -203,6 +207,10 @@ def run_report_editorial_cycle(
     published_memory: Sequence[Any] = (),
     llm_invoke: Callable[..., Any] | None = None,
     run_id: str | None = None,
+    additional_reports: Sequence[Mapping[str, Any]] = (),
+    opportunity_id: str | None = None,
+    source_route_health: Mapping[str, Any] | None = None,
+    attempted_candidate_ids: Sequence[str] = (),
 ) -> dict[str, Any]:
     """A single bounded manual opportunity; retries replay durable successful stages."""
     record = next(
@@ -211,16 +219,16 @@ def run_report_editorial_cycle(
     if record is None or record.get("raw_sha256") != admission.get("raw_sha256"):
         raise LatestReportConsumerError("REPORT_DURABLE_RECEIPT_BINDING_REQUIRED")
     root = Path(output_dir).resolve()
-    stages = _Stages(tracker, receipt_id)
-    final_id = "cc-editorial-final-" + sha256_of(receipt_id)
+    stages = _Stages(tracker, receipt_id, opportunity_id)
+    final_id = "cc-editorial-final-" + sha256_of(opportunity_id or receipt_id)
     previous = stages.get(final_id)
     if previous:
         newer = [
             r
             for r in tracker.receipts()
             if r["status"] in CURRENT
-            and tracker._related(record, r)
-            and r["report_version"] > record["report_version"]
+            and r["report_id"] == previous.get("report_id", record["report_id"])
+            and r["report_version"] > previous.get("report_version", record["report_version"])
             and r["status"] != "NO_MATERIAL_CHANGE_NOOP"
         ]
         if newer:
@@ -235,6 +243,7 @@ def run_report_editorial_cycle(
         return previous
     if record["status"] in {
         "INVALIDATION_WITHDRAWAL_NOOP",
+        "LINEAGE_ONLY_NOOP",
         "NO_MATERIAL_CHANGE_NOOP",
         "DUPLICATE_NOOP",
         "OUT_OF_ORDER_NOOP",
@@ -255,6 +264,28 @@ def run_report_editorial_cycle(
         published_memory=published_memory,
     )
     args = prepared["simple_gemini_handoff"]["runner_arguments"]
+    pool_key = "cc-editorial-pool-" + sha256_of(opportunity_id or receipt_id)
+    frozen = stages.get(pool_key)
+    if frozen:
+        args, records = frozen["args"], frozen["reports"]
+        prepared_inputs = frozen["prepared_inputs"]
+    else:
+        records = [record, *[dict(r) for r in additional_reports]]
+        prepared_inputs = {record["report_id"]: prepared}
+        for other in records[1:]:
+            if not any(r["receipt_id"] == other["receipt_id"] and r["raw_sha256"] == other["raw_sha256"] for r in tracker.receipts()):
+                raise LatestReportConsumerError("REPORT_DURABLE_RECEIPT_BINDING_REQUIRED")
+            extra = tracker.prepare_input(other["receipt_id"], output_dir=root, cutoff_utc=cutoff_utc)
+            prepared_inputs[other["report_id"]] = extra
+            args["rolling_input"]["headlines"].insert(0, extra["simple_gemini_handoff"]["runner_arguments"]["rolling_input"]["headlines"][0])
+        args["capital_chronicle_context"]["report_editorial_briefs"] = [
+            build_report_editorial_input(r, output_dir=root, cutoff_utc=cutoff_utc)["brief"] for r in records
+        ]
+        args["source_route_health"] = dict(source_route_health or {})
+        args["attempted_candidate_ids"] = list(attempted_candidate_ids)
+        stages.put(pool_key, {"args": args, "reports": records, "prepared_inputs": prepared_inputs})
+    source_route_health = args["source_route_health"]
+    attempted_candidate_ids = args["attempted_candidate_ids"]
     # These inputs were frozen by prepare_input; never replace them with fresh intake on resume.
     cutoff_utc = str(args.get("cutoff_utc") or cutoff_utc)
     base = {
@@ -287,7 +318,7 @@ def run_report_editorial_cycle(
             "llm_operator_pause_active": True,
         }
         stages.put(
-            "cc-editorial-pause-" + sha256_of(receipt_id), blocked, SIMPLE_RESULT
+            "cc-editorial-pause-" + sha256_of(opportunity_id or receipt_id), blocked, SIMPLE_RESULT
         )
         return blocked
 
@@ -306,11 +337,11 @@ def run_report_editorial_cycle(
     try:
         if any(
             r["status"] in CURRENT
-            and tracker._related(record, r)
-            and r["report_version"] > record["report_version"]
-            and not (
-                r["status"] == "NO_MATERIAL_CHANGE_NOOP"
-                and r.get("claim_set_hash") == record.get("claim_set_hash")
+            and any(
+                tracker._related(candidate, r) and r["report_version"] > candidate["report_version"]
+                and not (r["status"] == "NO_MATERIAL_CHANGE_NOOP"
+                         and r.get("claim_set_hash") == candidate.get("claim_set_hash"))
+                for candidate in records
             )
             for r in tracker.receipts()
         ):
@@ -337,7 +368,7 @@ def run_report_editorial_cycle(
 
             return tuple(stages.call(stage, identity, invoke))
 
-        default_loader = _default_evidence_loader(cutoff_utc)
+        default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health)
         spent = sum(
             int(
                 json.loads(r["payload"])["result"]
@@ -352,16 +383,17 @@ def run_report_editorial_cycle(
             and "result" in json.loads(r["payload"])
         )
         default_loader.resume_request_count(spent)
-        report_headline = "cc-report:" + record["envelope_sha256"]
+        report_by_headline = {"cc-report:" + r["envelope_sha256"]: r for r in records}
 
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:
             stage = "source:" + str(request["cluster_id"])
+            report = next((report_by_headline[h] for h in request.get("headline_ids", []) if h in report_by_headline), None)
             return stages.call(
                 stage,
                 request,
                 lambda: (
-                    report_evidence(record)
-                    if report_headline in request.get("headline_ids", [])
+                    report_evidence(report)
+                    if report is not None
                     else default_loader(request)
                 ),
             )
@@ -376,6 +408,8 @@ def run_report_editorial_cycle(
             llm_invoke=model,
             evidence_loader=evidence,
             run_id=run_id or "cc-report-" + record["envelope_sha256"],
+            source_route_health=source_route_health,
+            attempted_candidate_ids=attempted_candidate_ids,
         )
         result = {
             **base,
@@ -391,9 +425,8 @@ def run_report_editorial_cycle(
             previews = _artifact(root, "native_derivative_previews_v1.json")
             validation = _artifact(root, "simple_gemini_validation_v1.json")
             evidence_walk = _artifact(root, "simple_gemini_evidence_v1.json")
-            selected_report = (
-                report_headline == simple["selected_candidate"]["headline_id"]
-            )
+            selected_record = report_by_headline.get(simple["selected_candidate"]["headline_id"])
+            selected_report = selected_record is not None
             if not selected_report:
                 # Independent news remains valid intake but cannot earn report-to-article credit.
                 result.update(
@@ -401,8 +434,13 @@ def run_report_editorial_cycle(
                     exact_next_blocker="REPORT_NOT_SELECTED",
                 )
             else:
+                record = selected_record
                 lineage = validation.get("supported_material_claims") or []
                 result.update(
+                    report_id=record["report_id"], report_version=record["report_version"],
+                    source_report_sha256=record["source_report_sha256"], receipt_id=record["receipt_id"],
+                    input=prepared_inputs[record["report_id"]],
+                    affected_drafts=record.get("affected_drafts", []),
                     classification="DRAFT_READY",
                     exact_next_blocker=None,
                     draft_count=1,
@@ -441,7 +479,7 @@ def run_report_editorial_cycle(
             "exact_next_blocker": blocker,
         }
         stages.put(
-            "cc-editorial-blocked-" + sha256_of([receipt_id, blocker]),
+            "cc-editorial-blocked-" + sha256_of([opportunity_id or receipt_id, blocker]),
             blocked,
             SIMPLE_RESULT,
         )
@@ -455,7 +493,17 @@ def report_workspace_projection(
 ) -> dict[str, Any]:
     """Read only durable payloads; blocked/duplicate events never poison current content."""
     admissions, inputs, results = [], [], []
+    feeds, opportunities, headline_exports = [], [], []
     for row in rows:
+        if row["destination"] in {"internal:cc-report-feed", "internal:cc-report-opportunity", "internal:contentops-main-headline-export"}:
+            value = {**json.loads(row["payload"]), "created_at": row.get("created_at")}
+            if row["destination"] == "internal:cc-report-feed":
+                feeds.append(value)
+            elif row["destination"] == "internal:cc-report-opportunity":
+                opportunities.append(value)
+            else:
+                headline_exports.append(value)
+            continue
         if row["destination"] not in {
             "internal:cc-report-receipt",
             EDITORIAL_INPUT,
@@ -512,6 +560,7 @@ def report_workspace_projection(
         reverse=True,
     )
     result = same[0] if same else None
+    latest_attempt = max(same, key=lambda r: (str(r.get("created_at") or ""), r.get("classification") == "DRAFT_READY"), default=None)
     current_input = next(
         (
             r
@@ -530,23 +579,39 @@ def report_workspace_projection(
         ),
         None,
     )
+    feed = max(feeds, key=lambda r: str(r.get("created_at") or r.get("observed_at_utc")), default=None)
+    export = max(headline_exports, key=lambda r: int(r["sequence"]), default=None)
+    lag = None
+    if latest and feed:
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
+        lag = max(0, int((_time(feed["observed_at_utc"]) - _time(latest["known_at_cutoff_utc"])).total_seconds()))
     return {
         "schema_version": SCHEMA,
         "state": "AVAILABLE" if latest else "UNAVAILABLE",
         "report_events_received": len(admissions),
         "latest_report": latest,
         "report_history": admissions,
+        "feed": feed,
+        "report_age_at_last_scan_seconds": lag,
+        "opportunities": sorted(opportunities, key=lambda r: str(r.get("created_at") or ""), reverse=True)[:32],
+        "headline_export": {k: export[k] for k in (
+            "schema_version", "observed_at_utc", "sequence", "source_rows_scanned", "eligible_rows",
+            "missing_rows", "coverage", "discovered_file_count", "gaps"
+        )} if export else None,
         "workspaces": [report_workspace_projection(rows, key) for key in sorted(ids)]
         if report_id is None and len(ids) > 1
         else [],
         "latest_editorial_input": current_input,
         "latest_simple_result": result,
+        "latest_attempt": latest_attempt,
         "article": (result or {}).get("article"),
         "previews": (result or {}).get("previews", []),
-        "named_blocker": (result or {}).get("exact_next_blocker")
+        "named_blocker": (latest_attempt or {}).get("exact_next_blocker")
         or (
             "CLAIMS_WITHDRAWN"
             if latest and latest.get("withdrawal_only")
+            else "NO_PUBLIC_SAFE_CLAIMS"
+            if latest and latest.get("lineage_only")
             else "DRAFT_NOT_CREATED"
             if not result
             else None

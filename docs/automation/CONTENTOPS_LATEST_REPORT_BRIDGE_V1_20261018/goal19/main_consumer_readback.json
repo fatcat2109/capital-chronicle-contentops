@@ -1,0 +1,29 @@
+{
+  "admitted_rows": 2,
+  "database_writes": 0,
+  "main_adapter_git_blob_sha256": "d41205e682f0afe960360f43fb7c3c10f35b6ec3114733e5cf1b1b188b415558",
+  "main_adapter_path": "tools/product/continuous_catalyst_trigger_fabric_v1.py",
+  "main_files_edited": false,
+  "main_source_commit": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+  "model_calls": 0,
+  "results": [
+    {
+      "accepted_by_existing_main_adapter": true,
+      "headline_id": "main-public-fact-4d14ebbba995b31a49bb4135dc2b65c5f07dfb2b712dd2d6e3f54034b1c4c9bb",
+      "report_truth_only": true,
+      "severity": "CONTEXT_UPDATE_ONLY",
+      "source_text_sha256": "81e274062fe0c0c4eacb70c6714a0a8e3a9b84c87ce5b9fd5178ec2ee68181e5",
+      "underlying_event_truth_granted": false
+    },
+    {
+      "accepted_by_existing_main_adapter": true,
+      "headline_id": "main-public-fact-36459640015c82ae3214ac277a0641238785630a14e685227b63695ea45e10b0",
+      "report_truth_only": true,
+      "severity": "CONTEXT_UPDATE_ONLY",
+      "source_text_sha256": "12a6eebb5a1b64d413df1b65fd754665b58554ca29ebef04ba5333d63e200f6c",
+      "underlying_event_truth_granted": false
+    }
+  ],
+  "schema_version": "contentops.goal19.main_headline_consumer_readback.v1",
+  "source_comparison": "EXACT_GIT_BLOB_MODULO_CHECKOUT_NEWLINES"
+}

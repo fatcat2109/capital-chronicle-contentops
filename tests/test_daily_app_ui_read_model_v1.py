@@ -968,3 +968,4 @@ def test_snapshot_projects_report_bridge_from_internal_outbox_without_public_aut
     assert bridge["article"] is None
     assert bridge["previews"] == []
     assert bridge["public_write_performed"] is False
+    assert snapshot["today"]["current_cycle"] is None

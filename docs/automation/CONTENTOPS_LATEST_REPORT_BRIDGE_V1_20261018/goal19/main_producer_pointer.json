@@ -1,0 +1,32 @@
+{
+  "bundles": [
+    {
+      "envelope": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/USOIL-48f739dbf98a/v0001/latest-report-envelope.json",
+      "envelope_schema": "docs/research/analysis_reporting/goal17/export/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+      "report": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/USOIL-48f739dbf98a/v0001/report.json",
+      "report_schema": "docs/research/analysis_reporting/goal17/export/CapitalChronicleAssetAnalysisReportV1.schema.json"
+    },
+    {
+      "envelope": "docs/research/analysis_reporting/goal18/export-v1.1/latest-report-envelope.json",
+      "envelope_schema": "docs/research/analysis_reporting/goal18/export-v1.1/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+      "report": "docs/research/analysis_reporting/goal18/export-v1.1/report.json",
+      "report_schema": "docs/research/analysis_reporting/goal18/export-v1.1/CapitalChronicleAssetAnalysisReportV1.schema.json"
+    },
+    {
+      "envelope": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/latest-report-envelope.json",
+      "envelope_schema": "docs/research/analysis_reporting/goal17/export/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+      "report": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/report.json",
+      "report_schema": "docs/research/analysis_reporting/goal17/export/CapitalChronicleAssetAnalysisReportV1.schema.json"
+    },
+    {
+      "envelope": "docs/research/analysis_reporting/goal17/export/latest-report-envelope.json",
+      "envelope_schema": "docs/research/analysis_reporting/goal17/export/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+      "report": "docs/research/analysis_reporting/goal17/export/report.json",
+      "report_schema": "docs/research/analysis_reporting/goal17/export/CapitalChronicleAssetAnalysisReportV1.schema.json"
+    }
+  ],
+  "checkout": "A:\\Capital Chronicle\\capital-chronicle-goal17-asset-reports-20261018",
+  "producer_commit": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+  "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+  "schema_version": "contentops.main_report_feed_pointer.v1"
+}

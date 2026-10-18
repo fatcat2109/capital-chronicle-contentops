@@ -829,7 +829,8 @@ def build_daily_app_snapshot(
             RECONCILE_PENDING_OPERATOR,
         }
     ]
-    latest_cycle = work_items[0] if work_items else None
+    latest_cycle = next((row for row in work_items
+                         if row.get("target_surface") != "CONTENTOPS_EDITORIAL_ONLY"), None)
     current_publications = [
         row for row in publications
         if latest_cycle and row["work_item_id"] == latest_cycle["work_item_id"]

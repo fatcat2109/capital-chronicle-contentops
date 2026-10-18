@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { ReportEditorialWorkspace } from '../views/ReportEditorialWorkspace';
 import type { ReportWorkspaceData } from '../dailyAppTypes';
@@ -17,6 +17,24 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('shows multi-asset feed coverage, lifecycle and exact headline permission gaps', () => {
+    const gas = data();
+    gas.report_history = [{ report_id: 'asset-report:XNGUSD', report_version: 1, status: 'ADMITTED', change_kind: 'NEW_REPORT' }];
+    const oil = data();
+    oil.latest_report = { ...oil.latest_report!, report_id: 'asset-report:USOIL', contract_revision: 'asset-analysis-report-v1.1.0' };
+    oil.article = { ...oil.article!, title: 'Oil report controlled article' };
+    const combined = { ...gas, workspaces: [gas, oil],
+      feed: { producer_commit: 'producer-control', observed_at_utc: '2026-10-18T17:00:00Z', configured_bundle_count: 4, new_events: 4,
+        coverage: 'CONFIGURED_IMMUTABLE_EXPORTS_ONLY', events: [{ report_id: 'asset-report:USOIL', report_version: 1, state: 'LINEAGE_ONLY_NOOP' }], gaps: [] },
+      headline_export: { source_rows_scanned: 500, eligible_rows: 2, missing_rows: 500, coverage: 'BOUNDED_INCREMENTAL_PREFIXES_NOT_HISTORICAL_COMPLETENESS', observed_at_utc: '2026-10-18T17:00:00Z' } };
+    render(<ReportEditorialWorkspace data={combined} />);
+    expect(screen.getByText(/500 source rows inspected/)).toHaveTextContent('2 permitted projections');
+    expect(screen.getByText(/LINEAGE_ONLY_NOOP/)).toBeInTheDocument();
+    fireEvent.change(screen.getByRole('combobox'), { target: { value: 'asset-report:USOIL' } });
+    expect(screen.getByText('Oil report controlled article')).toBeInTheDocument();
+    expect(screen.getByText('asset-analysis-report-v1.1.0')).toBeInTheDocument();
+    expect(screen.queryByText('Controlled canonical draft')).not.toBeInTheDocument();
+  });
   it('shows canonical copy, eight native previews and lineage with controlled-output label', () => {
     render(<ReportEditorialWorkspace data={data()} />);
     expect(screen.getByText('Controlled canonical draft')).toBeInTheDocument();
