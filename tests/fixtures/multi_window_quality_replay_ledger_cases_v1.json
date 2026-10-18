@@ -1,0 +1,39 @@
+{
+  "cases": {
+    "authority_flag": "authority truth cannot be introduced",
+    "clean_mixed_windows": "three ordered windows retained",
+    "contradiction_quarantine": "both contradictory source hashes retained and excluded from Core",
+    "current_real_not_verified": "current real evidence remains explicit and non-authoritative",
+    "deterministic_repeated_output": "same input yields byte-stable output",
+    "duplicate_lineage": "duplicate claim ids and source hashes retained",
+    "exact_vs_proxy": "exact replay admitted to Core; proxy remains editorial context",
+    "missing_outcome": "forecast, paper and runtime results remain NOT_VERIFIED/OUTCOME_PENDING",
+    "rights_rejection": "rights denied input fails closed",
+    "stage_transitions": "seven ordered replay stages are explicit",
+    "stale_future_rejection": "stale or future input fails closed",
+    "tampered_hash": "bundle or ledger self hash fails closed",
+    "unknown_write": "unknown write fails closed"
+  },
+  "current_bundle_sha256": "9e113fd45caf623458f7bb2adfe9b43fe204cb10d96abe62b718f6a13affaed9",
+  "current_ledger_sha256": "834d5fb73a4a299392419cde850b0adb0e5746fb6fdfc14743f13077d75c8697",
+  "ledger_schema": "CapitalChronicleMultiWindowQualityReplayLedgerV1",
+  "ledger_version": "1.0.0",
+  "outcome_status": "OUTCOME_PENDING",
+  "quality_classification": "NOT_VERIFIED",
+  "replay_stage_order": [
+    "INGESTED",
+    "NORMALIZED",
+    "DEDUPED",
+    "CONTRADICTION_QUARANTINED",
+    "CORE_PROJECTED",
+    "EDITORIAL_PROJECTED",
+    "OUTCOME_PENDING"
+  ],
+  "retained_claim_ids": [
+    "current-real-not-verified",
+    "replay-a",
+    "replay-contradiction-a",
+    "replay-contradiction-b",
+    "proxy-context"
+  ]
+}
