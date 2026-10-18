@@ -1,0 +1,705 @@
+{
+  "cases": {
+    "current_real": {
+      "artifact": {
+        "bytes": 18830,
+        "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
+        "expected_bytes": 18830,
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
+        "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
+        "ref": "main",
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "status": "SEALED_MATCH"
+      },
+      "blockers": [
+        "portable_observation_not_verified"
+      ],
+      "boundary_hashes": {
+        "goal4_readiness_packet_immutable_hash": "7827a54e144005d9a04139936c69dd64a3d181e74f50cafd612e8af14e72a2de",
+        "goal5_envelope_logical_hash": "2378755888e8e2b7b20387bed7f9d7c7a01b1a83f6056d7d97a6c4728052fd86",
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "NOT_VERIFIED",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "freshness_status": "FRESH",
+        "known_at_utc": "2026-10-17T13:43:32Z",
+        "observed_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "current_facts": {
+        "destination_status": "MISSING",
+        "freshness_status": "FRESH",
+        "identity_status": "MISSING",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "124311ccd5d3e6f87c36479a44a64114edd8531d7b08ce64497aec995b4f6ca5",
+      "next": "HAND_REPLAY_RECEIPT_HASH_TO_MAIN_FOR_NEXT_RECONCILIATION",
+      "packet_hashes": {
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "artifact_readback": true,
+        "input_validated": true,
+        "portable_receipt_validated": true,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": true
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
+      "replay_only": true,
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
+      "source": {
+        "contentops_head": "aa5dbda6c73a4f53683365ce26c6323ec57298a9",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "8f66238d320062e9258c893d59d2293253655f94",
+        "main_ref": "main",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "e5dd0a51c6b26fd22c51400784e883209aa1687d",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect_flags": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "healthy": {
+      "artifact": {
+        "bytes": 21132,
+        "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
+        "expected_bytes": 18830,
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
+        "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
+        "ref": "main",
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "sha256": "5b9338548b3567ee279360120fc3dcb7d63eb8b53e01335584fe26f436d595a6",
+        "status": "SYNTHETIC"
+      },
+      "blockers": [],
+      "boundary_hashes": {
+        "goal4_readiness_packet_immutable_hash": "7827a54e144005d9a04139936c69dd64a3d181e74f50cafd612e8af14e72a2de",
+        "goal5_envelope_logical_hash": "2378755888e8e2b7b20387bed7f9d7c7a01b1a83f6056d7d97a6c4728052fd86",
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "NONE",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "freshness_status": "FRESH",
+        "known_at_utc": "2026-10-17T13:43:32Z",
+        "observed_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "current_facts": {
+        "destination_status": "CONFIRMED_SHADOW",
+        "freshness_status": "FRESH",
+        "identity_status": "CONFIRMED",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "85b7654607620801dd92183b6246db7a5fb088efe9939339bd7f39312cf26363",
+      "next": "HAND_REPLAY_RECEIPT_HASH_TO_MAIN_FOR_NEXT_RECONCILIATION",
+      "packet_hashes": {
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "portable_receipt_sha256": "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870",
+      "production_day_receipt_sha256": "c109583c0e3328e7c03ca9553b9dae22552b5f995a371579c538294069722b78",
+      "proof_axes": {
+        "artifact_readback": false,
+        "input_validated": true,
+        "portable_receipt_validated": true,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": true
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "8ea4145c5a772326f404e0436e91a39d07c24a3b60dc2497ed59b046bc4844a7",
+      "replay_only": true,
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
+      "source": {
+        "contentops_head": "aa5dbda6c73a4f53683365ce26c6323ec57298a9",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "8f66238d320062e9258c893d59d2293253655f94",
+        "main_ref": "main",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "e5dd0a51c6b26fd22c51400784e883209aa1687d",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "RECONCILED",
+      "zero_effect_flags": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "mismatch": {
+      "artifact": {
+        "bytes": 18830,
+        "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
+        "expected_bytes": 18830,
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
+        "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
+        "ref": "main",
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "sha256": "fb08b47ba7c7ccb98d960b61d6c664babbe57b1da32c53f82a126d4b64a6f1e4",
+        "status": "SYNTHETIC"
+      },
+      "blockers": [
+        "contentops_source_head_or_producer_mismatch"
+      ],
+      "boundary_hashes": {
+        "goal4_readiness_packet_immutable_hash": "7827a54e144005d9a04139936c69dd64a3d181e74f50cafd612e8af14e72a2de",
+        "goal5_envelope_logical_hash": "2378755888e8e2b7b20387bed7f9d7c7a01b1a83f6056d7d97a6c4728052fd86",
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "SOURCE_HEAD_MISMATCH",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "freshness_status": "FRESH",
+        "known_at_utc": "2026-10-17T13:43:32Z",
+        "observed_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "current_facts": {
+        "destination_status": "MISSING",
+        "freshness_status": "FRESH",
+        "identity_status": "MISSING",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "f50f2e62b63cb427a4024807900b986d20c6df7a8c1ca54f032f4c139cbeb908",
+      "next": "HAND_REPLAY_RECEIPT_HASH_TO_MAIN_FOR_NEXT_RECONCILIATION",
+      "packet_hashes": {
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "artifact_readback": false,
+        "input_validated": true,
+        "portable_receipt_validated": true,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "708d862dca335fdc857bf5bcad6d533c463a68a5b5192dc49441e0405eec04fd",
+      "replay_only": true,
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
+      "source": {
+        "contentops_head": "aa5dbda6c73a4f53683365ce26c6323ec57298a9",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "8f66238d320062e9258c893d59d2293253655f94",
+        "main_ref": "main",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "e5dd0a51c6b26fd22c51400784e883209aa1687d",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect_flags": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "stale": {
+      "artifact": {
+        "bytes": 18832,
+        "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
+        "expected_bytes": 18830,
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
+        "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
+        "ref": "main",
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "sha256": "a4a47f63b75efd46ff523eb2a6b59f1a43b2d4c737b996126ff5c697262c2eb5",
+        "status": "SYNTHETIC"
+      },
+      "blockers": [
+        "portable_receipt_not_fresh"
+      ],
+      "boundary_hashes": {
+        "goal4_readiness_packet_immutable_hash": "7827a54e144005d9a04139936c69dd64a3d181e74f50cafd612e8af14e72a2de",
+        "goal5_envelope_logical_hash": "2378755888e8e2b7b20387bed7f9d7c7a01b1a83f6056d7d97a6c4728052fd86",
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "RECEIPT_STALE",
+      "clocks": {
+        "as_of_utc": "2026-10-18T14:00:00Z",
+        "freshness_status": "STALE",
+        "known_at_utc": "2026-10-17T13:43:32Z",
+        "observed_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "current_facts": {
+        "destination_status": "MISSING",
+        "freshness_status": "STALE",
+        "identity_status": "MISSING",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "aa6465a26f7790bfcd1d7a40f138b3375a9cbb271a32580697b0b9d1da8b7750",
+      "next": "HAND_REPLAY_RECEIPT_HASH_TO_MAIN_FOR_NEXT_RECONCILIATION",
+      "packet_hashes": {
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "portable_receipt_sha256": "b8ff6d77c83578da1ba4dc33d9281ae76b8f8b40c13479775794d63d14c215f5",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "artifact_readback": false,
+        "input_validated": true,
+        "portable_receipt_validated": true,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": true
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "aab5765695d778a561a1d5a099aa6a82eba40dc880471578027617c9466b2457",
+      "replay_only": true,
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
+      "source": {
+        "contentops_head": "aa5dbda6c73a4f53683365ce26c6323ec57298a9",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "8f66238d320062e9258c893d59d2293253655f94",
+        "main_ref": "main",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "e5dd0a51c6b26fd22c51400784e883209aa1687d",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect_flags": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "tampered": {
+      "artifact": {
+        "bytes": 18831,
+        "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
+        "expected_bytes": 18830,
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
+        "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
+        "ref": "main",
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "sha256": "e0b2f361cd2bb0cb0934acb9528e238239fa4c193575771a48d3f4dbb127c063",
+        "status": "SYNTHETIC"
+      },
+      "blockers": [
+        "portable:portable_receipt_hash_invalid"
+      ],
+      "boundary_hashes": {
+        "goal4_readiness_packet_immutable_hash": "7827a54e144005d9a04139936c69dd64a3d181e74f50cafd612e8af14e72a2de",
+        "goal5_envelope_logical_hash": "2378755888e8e2b7b20387bed7f9d7c7a01b1a83f6056d7d97a6c4728052fd86",
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "PACKET_HASH_MISMATCH",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "freshness_status": "FRESH",
+        "known_at_utc": "2026-10-17T13:43:32Z",
+        "observed_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "current_facts": {
+        "destination_status": "MISSING",
+        "freshness_status": "FRESH",
+        "identity_status": "MISSING",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": false,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "8a4e02b5a303d4f0a51e5d740a822308d5e8b33be79a14002af9c4befce4b1d3",
+      "next": "HAND_REPLAY_RECEIPT_HASH_TO_MAIN_FOR_NEXT_RECONCILIATION",
+      "packet_hashes": {
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "artifact_readback": false,
+        "input_validated": true,
+        "portable_receipt_validated": true,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "9e730679d07ae77bc240f7bb42d9f0089fdd79d287bdf478429aa14cb03023fe",
+      "replay_only": true,
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
+      "source": {
+        "contentops_head": "aa5dbda6c73a4f53683365ce26c6323ec57298a9",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "8f66238d320062e9258c893d59d2293253655f94",
+        "main_ref": "main",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "e5dd0a51c6b26fd22c51400784e883209aa1687d",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect_flags": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": false,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    },
+    "unknown_write": {
+      "artifact": {
+        "bytes": 21145,
+        "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
+        "expected_bytes": 18830,
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
+        "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
+        "ref": "main",
+        "repository": "fatcat2109/Headline-Raw-data-json",
+        "sha256": "e07daa0c461353adba0cb2a785b6b2afbdd974da78a73d5d03f1b352282c050c",
+        "status": "SYNTHETIC"
+      },
+      "blockers": [
+        "zero_effect_flags_not_zero",
+        "unknown_write_stop_retry_readback_reconcile"
+      ],
+      "boundary_hashes": {
+        "goal4_readiness_packet_immutable_hash": "7827a54e144005d9a04139936c69dd64a3d181e74f50cafd612e8af14e72a2de",
+        "goal5_envelope_logical_hash": "2378755888e8e2b7b20387bed7f9d7c7a01b1a83f6056d7d97a6c4728052fd86",
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+      "classification": "UNKNOWN_WRITE",
+      "clocks": {
+        "as_of_utc": "2026-10-17T14:00:00Z",
+        "freshness_status": "FRESH",
+        "known_at_utc": "2026-10-17T13:43:32Z",
+        "observed_at_utc": "2026-10-17T13:43:32Z"
+      },
+      "current_facts": {
+        "destination_status": "MISSING",
+        "freshness_status": "FRESH",
+        "identity_status": "MISSING",
+        "store": {
+          "foreign_key_violation_count": 0,
+          "integrity_check": "ok",
+          "status": "READ_ONLY_INTEGRITY_PASS",
+          "unknown_write_count": 0
+        },
+        "task_states": [
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Daily_App_Runtime",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Hourly_Audit",
+            "state_text": "Disabled",
+            "state_value": 1
+          },
+          {
+            "name": "CapitalChronicle_ContentOps_V1_Simple_Scheduler",
+            "state_text": "Disabled",
+            "state_value": 1
+          }
+        ],
+        "zero_effect": {
+          "browser_action_count": 0,
+          "database_mutation": false,
+          "durable_store_write_count": 0,
+          "model_call_count": 0,
+          "provider_call_count": 0,
+          "public_write_performed": true,
+          "publication_authority": false,
+          "scheduler_started": false
+        }
+      },
+      "immutable_receipt": true,
+      "input_sha256": "58a9b2727f86487b6e7abb1a74638dfa443077769c0f4b90cb5a7f92c3dc94ab",
+      "next": "HAND_REPLAY_RECEIPT_HASH_TO_MAIN_FOR_NEXT_RECONCILIATION",
+      "packet_hashes": {
+        "main_packet_logical_hash": "078bafb94c772291f24ff4068ce42571d68dda05e94641352449161c2de54a7c",
+        "shadow_receipt_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "v3_packet_logical_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "portable_receipt_sha256": "2ce96bc90ec80161dcfd2b232dcb6ae00bfd59d44cde81aa4434eb0448e7b971",
+      "production_day_receipt_sha256": null,
+      "proof_axes": {
+        "artifact_readback": false,
+        "input_validated": true,
+        "portable_receipt_validated": true,
+        "publicly_proven": false,
+        "runtime_proven": false,
+        "shadow_composition": false
+      },
+      "publicly_proven": false,
+      "receipt_sha256": "7e7ea10ec6cfc143508518f26d4a91d2148ab58e34e3f94ea5b5f4d81ede7dbd",
+      "replay_only": true,
+      "runtime_proven": false,
+      "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
+      "source": {
+        "contentops_head": "aa5dbda6c73a4f53683365ce26c6323ec57298a9",
+        "contentops_ref": "master",
+        "contentops_repository": "fatcat2109/capital-chronicle-contentops",
+        "main_head": "8f66238d320062e9258c893d59d2293253655f94",
+        "main_ref": "main",
+        "main_repository": "fatcat2109/capital-chronicle-main",
+        "portable_producer_commit": "e5dd0a51c6b26fd22c51400784e883209aa1687d",
+        "portable_producer_schema": "contentops.current_host_readiness_observation.v1"
+      },
+      "status": "BLOCKED",
+      "zero_effect_flags": {
+        "browser_action_count": 0,
+        "database_mutation": false,
+        "durable_store_write_count": 0,
+        "model_call_count": 0,
+        "provider_call_count": 0,
+        "public_write_performed": true,
+        "publication_authority": false,
+        "scheduler_started": false
+      }
+    }
+  },
+  "main_artifact": {
+    "bytes": 18830,
+    "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
+    "expected_sha256_prefix": "4b208104",
+    "input_sha256_prefix": "124311ccd5",
+    "observed_sha256_prefix": "4b208104",
+    "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
+    "ref": "main",
+    "repository": "fatcat2109/Headline-Raw-data-json"
+  },
+  "receipt_schema": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
+  "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt_fixture_set.v1"
+}
