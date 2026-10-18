@@ -176,6 +176,22 @@ Routine windows remain 17:00, 21:00, 23:00, and following 01:00 Asia/Bangkok und
 
 Substack is canonical. The eight V1 derivative destinations are Telegram, Discord, X, LinkedIn, Facebook Page, Instagram Business, Threads, and YouTube Community.
 
+## Four-trigger data-resolution extension (owner direction 2026-10-18)
+
+ContentOps uses the shared Capital Chronicle request/resolution method through consumer_route=CONTENTOPS_EDITORIAL. Foundation coverage, scheduled latest-intelligence context, scheduled portfolio-safe context and Jim manual research are entry channels into the existing editorial path; they are not a new publisher or a fifth routine scheduler.
+
+The adapter queries the governed database first. When a named editorial need is absent or stale, Codex Desktop uses the existing BrowserOS Neo research/startup seam and records source identity, clocks, rights, freshness, hash and epistemic state. X/headline ingestion remains CDP ingestion-only. Existing Simple Gemini ownership, four routine windows, Substack canonical publication, exactly-eight derivatives and UNKNOWN_WRITE recovery remain unchanged. See CONTENTOPS_FOUR_TRIGGER_DATA_RESOLUTION_AND_EDITORIAL_OPERATING_MODEL_V1.md.
+
+### Latest Capital Chronicle report as editorial input
+
+The four analytical cases now include substantive foundation asset reports, daily headline
+thesis updates, daily holdings UNION active-recommendation review and Jim manual analysis.
+ContentOps consumes their public-safe latest report envelopes through
+CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1.md. It preserves report/event/analysis/
+scenario layers and follows material changes, corrections and invalidations without rebuilding
+Core or accessing private portfolio data. A report recommendation is conditional research,
+not an executed order or independent observed fact.
+
 Accepted publication lifecycle:
 
 `qualified article -> canonical Substack publish/readback -> exactly eight derivative attempts -> destination-local recovery -> strict reconciliation`
