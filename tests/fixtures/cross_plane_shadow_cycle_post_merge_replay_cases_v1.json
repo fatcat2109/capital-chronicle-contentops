@@ -1,0 +1,21 @@
+{
+  "schema_version": "contentops.cross_plane_shadow_cycle_post_merge_replay_fixture_set.v1",
+  "main_artifact": {
+    "repository": "fatcat2109/Headline-Raw-data-json",
+    "ref": "main",
+    "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
+    "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
+    "bytes": 18830,
+    "expected_sha256_prefix": "4b208204",
+    "observed_sha256_prefix": "4b208104",
+    "input_sha256_prefix": "124311ccd5"
+  },
+  "cases": {
+    "current_real": {"kind": "REMOTE"},
+    "healthy": {"kind": "SYNTHETIC"},
+    "stale": {"kind": "SYNTHETIC"},
+    "mismatch": {"kind": "SYNTHETIC"},
+    "tampered": {"kind": "SYNTHETIC"},
+    "unknown_write": {"kind": "SYNTHETIC"}
+  }
+}

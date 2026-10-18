@@ -11,6 +11,7 @@ from datetime import datetime, timezone
 from hashlib import sha256
 import json
 import re
+from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 
 from live_contentops.destination_transport_registry_v1 import (
@@ -64,6 +65,53 @@ CROSS_PLANE_ZERO_EFFECT_KEYS = (
     "publication_authority",
 )
 _CROSS_PLANE_SHA256_RE = re.compile(r"^[0-9a-f]{64}$")
+
+POST_MERGE_REPLAY_RECEIPT_SCHEMA = "contentops.cross_plane_shadow_cycle_replay_receipt.v1"
+POST_MERGE_ARTIFACT_COMMIT = "a3bdedf29e4fc66f917d7fcf1f458821a63d043b"
+POST_MERGE_ARTIFACT_PATH = "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json"
+POST_MERGE_ARTIFACT_BYTES = 18830
+POST_MERGE_ARTIFACT_SHA256_PREFIX = "4b208204"
+POST_MERGE_INPUT_SHA256_PREFIX = "124311ccd5"
+POST_MERGE_MAIN_SOURCE_REPOSITORY = "fatcat2109/capital-chronicle-main"
+POST_MERGE_MAIN_SOURCE_REF = "main"
+POST_MERGE_MAIN_SOURCE_HEAD = "8f66238d320062e9258c893d59d2293253655f94"
+POST_MERGE_CONTENTOPS_REPOSITORY = "fatcat2109/capital-chronicle-contentops"
+POST_MERGE_CONTENTOPS_REF = "master"
+POST_MERGE_CONTENTOPS_HEAD = "aa5dbda6c73a4f53683365ce26c6323ec57298a9"
+POST_MERGE_PRODUCER_COMMIT = "e5dd0a51c6b26fd22c51400784e883209aa1687d"
+POST_MERGE_PRODUCER_PATH = "live_contentops/host_readiness_observation_consumer_v1.py"
+POST_MERGE_ALLOWED_REPLAY_CLASSIFICATIONS = frozenset(
+    {
+        "NONE",
+        "SOURCE_HEAD_MISMATCH",
+        "PACKET_HASH_MISMATCH",
+        "RECEIPT_STALE",
+        "PROOF_LAYER_MISMATCH",
+        "TASK_STATE_MISMATCH",
+        "UNKNOWN_WRITE",
+        "AUTHORITY_FLAG",
+        "AMBIGUOUS",
+        "NOT_VERIFIED",
+    }
+)
+_POST_MERGE_SHA1_RE = re.compile(r"^[0-9a-f]{40}$")
+_POST_MERGE_AUDIT_KEYS = frozenset(
+    {
+        "secret_scan_status",
+        "secrets_removed",
+        "secret_material_detected",
+        "session_material_read",
+        "credential_or_session_material_read",
+    }
+)
+_POST_MERGE_SENSITIVE_KEY_RE = re.compile(
+    r"(?i)(?:^|_)(?:access[_-]?token|refresh[_-]?token|cookie|password|secret|authorization|"
+    r"api[_-]?key|private[_-]?key|session[_-]?token|webhook[_-]?url)(?:$|_)"
+)
+_POST_MERGE_SECRET_VALUE_RE = re.compile(
+    r"(?i)(?:bearer\s+[A-Za-z0-9._~+/=-]{8,}|(?:sk|pk|rk)-[A-Za-z0-9_-]{12,}|"
+    r"(?:access[_-]?token|refresh[_-]?token|api[_-]?key|password|secret|cookie)\s*[:=]\s*[^\s,;]{8,})"
+)
 
 
 def _hash(value: Any) -> str:
@@ -196,7 +244,6 @@ def _cross_plane_base_receipt(
         ),
         "production_day_receipt_sha256": (
             production_day_receipt.get("production_day_receipt_sha256")
-            or production_day_receipt.get("receipt_sha256")
             if isinstance(production_day_receipt, Mapping)
             else None
         ),
@@ -502,6 +549,348 @@ def reconcile_cross_plane_shadow_cycle(
         blocker=blocker,
         next_action=next_action,
         portable_receipt=None if portable_blockers else portable_receipt,
+        production_day_receipt=production_day_receipt,
+    )
+
+
+def _post_merge_walk_secret(value: Any, *, path: str = "root") -> None:
+    if isinstance(value, Mapping):
+        for key, item in value.items():
+            key_text = str(key)
+            if (
+                _POST_MERGE_SENSITIVE_KEY_RE.search(key_text)
+                and key_text.casefold() not in _POST_MERGE_AUDIT_KEYS
+            ):
+                raise ValueError(f"secret_material:{path}.{key_text}")
+            _post_merge_walk_secret(item, path=f"{path}.{key_text}")
+    elif isinstance(value, Sequence) and not isinstance(value, (str, bytes, bytearray)):
+        for index, item in enumerate(value):
+            _post_merge_walk_secret(item, path=f"{path}[{index}]")
+    elif isinstance(value, str) and _POST_MERGE_SECRET_VALUE_RE.search(value):
+        raise ValueError(f"secret_material:{path}")
+
+
+def _post_merge_hash_without(value: Mapping[str, Any], field: str) -> str:
+    body = {key: item for key, item in value.items() if key != field}
+    return sha256(
+        json.dumps(
+            body,
+            ensure_ascii=True,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+    ).hexdigest()
+
+
+def _post_merge_receipt_base(
+    *,
+    artifact_bytes: bytes | None,
+    input_value: Mapping[str, Any] | None,
+    input_hash: str | None,
+    artifact_status: str,
+    classification: str,
+    blockers: Sequence[str],
+    production_day_receipt: Mapping[str, Any] | None,
+) -> dict[str, Any]:
+    portable = input_value.get("portable_receipt") if isinstance(input_value, Mapping) else None
+    portable = portable if isinstance(portable, Mapping) else {}
+    portable_source = portable.get("source") if isinstance(portable.get("source"), Mapping) else {}
+    source = input_value.get("source") if isinstance(input_value, Mapping) and isinstance(input_value.get("source"), Mapping) else {}
+    clock_state = input_value.get("clock_state") if isinstance(input_value, Mapping) and isinstance(input_value.get("clock_state"), Mapping) else {}
+    current_facts = _cross_plane_observed_facts(portable) if portable else {}
+    packet_hashes = dict(portable.get("packet_hashes") or {}) if portable else {}
+    boundary_hashes = dict(input_value.get("boundary_hashes") or {}) if isinstance(input_value, Mapping) else {}
+    zero_effect = dict(input_value.get("zero_effect_flags") or {}) if isinstance(input_value, Mapping) else {}
+    artifact_sha256 = sha256(artifact_bytes).hexdigest() if artifact_bytes is not None else None
+    output: dict[str, Any] = {
+        "schema_version": POST_MERGE_REPLAY_RECEIPT_SCHEMA,
+        "canonicalization": CROSS_PLANE_CANONICALIZATION,
+        "status": "RECONCILED" if classification == "NONE" else "BLOCKED",
+        "immutable_receipt": True,
+        "replay_only": True,
+        "artifact": {
+            "repository": "fatcat2109/Headline-Raw-data-json",
+            "ref": "main",
+            "commit": POST_MERGE_ARTIFACT_COMMIT,
+            "path": POST_MERGE_ARTIFACT_PATH,
+            "bytes": len(artifact_bytes) if artifact_bytes is not None else None,
+            "sha256": artifact_sha256,
+            "expected_bytes": POST_MERGE_ARTIFACT_BYTES,
+            "expected_sha256_prefix": POST_MERGE_ARTIFACT_SHA256_PREFIX,
+            "status": artifact_status,
+        },
+        "input_sha256": input_hash,
+        "portable_receipt_sha256": portable.get("portable_receipt_sha256"),
+        "production_day_receipt_sha256": (
+            production_day_receipt.get("production_day_receipt_sha256")
+            if isinstance(production_day_receipt, Mapping)
+            else None
+        ),
+        "source": {
+            "main_repository": source.get("repository"),
+            "main_ref": source.get("ref"),
+            "main_head": source.get("head"),
+            "contentops_repository": portable_source.get("repository"),
+            "contentops_ref": portable_source.get("branch"),
+            "contentops_head": portable_source.get("head"),
+            "portable_producer_schema": portable_source.get("producer_schema"),
+            "portable_producer_commit": (
+                input_value.get("portable_producer", {}).get("commit")
+                if isinstance(input_value, Mapping)
+                and isinstance(input_value.get("portable_producer"), Mapping)
+                else None
+            ),
+        },
+        "clocks": {
+            "observed_at_utc": clock_state.get("observed_at_utc"),
+            "known_at_utc": clock_state.get("known_at_utc"),
+            "as_of_utc": clock_state.get("as_of_utc"),
+            "freshness_status": clock_state.get("freshness_status"),
+        },
+        "classification": classification,
+        "proof_axes": {
+            "artifact_readback": artifact_status == "SEALED_MATCH",
+            "input_validated": input_hash is not None,
+            "portable_receipt_validated": bool(portable),
+            "shadow_composition": production_day_receipt is not None,
+            "runtime_proven": False,
+            "publicly_proven": False,
+        },
+        "packet_hashes": packet_hashes,
+        "boundary_hashes": boundary_hashes,
+        "current_facts": current_facts,
+        "zero_effect_flags": zero_effect,
+        "runtime_proven": False,
+        "publicly_proven": False,
+        "blockers": list(dict.fromkeys(str(item) for item in blockers)),
+        "next": "HAND_REPLAY_RECEIPT_HASH_TO_MAIN_FOR_NEXT_RECONCILIATION",
+        "receipt_sha256": None,
+    }
+    output["receipt_sha256"] = cross_plane_receipt_sha256(output)
+    return output
+
+
+def _post_merge_payload_bytes(payload: Any) -> tuple[bytes, dict[str, Any]]:
+    if isinstance(payload, Mapping):
+        value = dict(payload)
+        raw = json.dumps(
+            value,
+            ensure_ascii=True,
+            sort_keys=True,
+            separators=(",", ":"),
+            allow_nan=False,
+        ).encode("utf-8")
+        return raw, value
+    if isinstance(payload, (bytes, bytearray)):
+        raw = bytes(payload)
+    else:
+        raw = Path(str(payload)).read_bytes()
+    try:
+        value = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise ValueError("post_merge_input_json_invalid") from exc
+    if not isinstance(value, Mapping):
+        raise ValueError("post_merge_input_not_mapping")
+    return raw, dict(value)
+
+
+def _post_merge_validate_contract(value: Mapping[str, Any]) -> list[str]:
+    blockers: list[str] = []
+    if value.get("schema_version") != "CapitalChronicleCrossPlaneShadowCycleInputV1":
+        blockers.append("post_merge_schema_invalid")
+    if value.get("version") != "1.0.0-post-merge":
+        blockers.append("post_merge_version_invalid")
+    if value.get("canonicalization") != CROSS_PLANE_CANONICALIZATION:
+        blockers.append("post_merge_canonicalization_invalid")
+    supplied_hash = str(value.get("input_sha256") or "")
+    if not _CROSS_PLANE_SHA256_RE.fullmatch(supplied_hash) or supplied_hash != cross_plane_input_sha256(value):
+        blockers.append("post_merge_input_hash_invalid")
+    source = value.get("source") if isinstance(value.get("source"), Mapping) else {}
+    if (
+        source.get("repository") != POST_MERGE_MAIN_SOURCE_REPOSITORY
+        or source.get("ref") != POST_MERGE_MAIN_SOURCE_REF
+        or source.get("head") != POST_MERGE_MAIN_SOURCE_HEAD
+        or not _POST_MERGE_SHA1_RE.fullmatch(str(source.get("head") or ""))
+    ):
+        blockers.append("main_source_head_mismatch")
+    provenance = value.get("post_merge_provenance") if isinstance(value.get("post_merge_provenance"), Mapping) else {}
+    if (
+        provenance.get("contentops_repository") != POST_MERGE_CONTENTOPS_REPOSITORY
+        or provenance.get("contentops_ref") != POST_MERGE_CONTENTOPS_REF
+        or provenance.get("contentops_merged_head") != POST_MERGE_CONTENTOPS_HEAD
+        or provenance.get("portable_producer_commit") != POST_MERGE_PRODUCER_COMMIT
+    ):
+        blockers.append("contentops_source_head_or_producer_mismatch")
+    portable = value.get("portable_receipt") if isinstance(value.get("portable_receipt"), Mapping) else {}
+    try:
+        from live_contentops.host_readiness_observation_consumer_v1 import (
+            validate_portable_host_readiness_receipt,
+        )
+        blockers.extend(f"portable:{item}" for item in validate_portable_host_readiness_receipt(portable))
+    except (TypeError, ValueError, AttributeError) as exc:
+        blockers.append(f"portable_validator_error:{type(exc).__name__}")
+    portable_source = portable.get("source") if isinstance(portable.get("source"), Mapping) else {}
+    if (
+        portable_source.get("repository") != POST_MERGE_CONTENTOPS_REPOSITORY
+        or portable_source.get("branch") != POST_MERGE_CONTENTOPS_REF
+        or portable_source.get("head") != POST_MERGE_CONTENTOPS_HEAD
+        or portable_source.get("producer_schema") != "contentops.current_host_readiness_observation.v1"
+    ):
+        blockers.append("portable_source_head_or_schema_mismatch")
+    producer = value.get("portable_producer") if isinstance(value.get("portable_producer"), Mapping) else {}
+    if (
+        producer.get("commit") != POST_MERGE_PRODUCER_COMMIT
+        or producer.get("path") != POST_MERGE_PRODUCER_PATH
+        or producer.get("schema") != "contentops.portable_host_readiness_receipt.v1"
+    ):
+        blockers.append("portable_producer_identity_mismatch")
+    bindings = value.get("bindings") if isinstance(value.get("bindings"), Mapping) else {}
+    expected_source = {
+        "repository": POST_MERGE_CONTENTOPS_REPOSITORY,
+        "branch": POST_MERGE_CONTENTOPS_REF,
+        "head": POST_MERGE_CONTENTOPS_HEAD,
+    }
+    if dict(bindings.get("portable_source") or {}) != expected_source:
+        blockers.append("portable_source_binding_mismatch")
+    expected_producer = {
+        "commit": POST_MERGE_PRODUCER_COMMIT,
+        "schema": "contentops.current_host_readiness_observation.v1",
+    }
+    if dict(bindings.get("portable_producer") or {}) != expected_producer:
+        blockers.append("portable_producer_binding_mismatch")
+    packet_hashes = portable.get("packet_hashes") if isinstance(portable.get("packet_hashes"), Mapping) else {}
+    if dict(bindings.get("packet_hashes") or {}) != dict(packet_hashes):
+        blockers.append("portable_packet_hash_binding_mismatch")
+    if dict(bindings.get("proof_layers") or {}) != dict(portable.get("proof_layers") or {}):
+        blockers.append("portable_proof_layer_binding_mismatch")
+    if dict(value.get("boundary_hashes") or {}) != dict(bindings.get("boundary_hashes") or {}):
+        blockers.append("boundary_hash_binding_mismatch")
+    freshness = portable.get("freshness") if isinstance(portable.get("freshness"), Mapping) else {}
+    observation = portable.get("observation") if isinstance(portable.get("observation"), Mapping) else {}
+    actual_clocks = {
+        "observed_at_utc": observation.get("observed_at_utc"),
+        "known_at_utc": observation.get("known_at_utc"),
+        "as_of_utc": freshness.get("as_of_utc"),
+        "freshness_status": freshness.get("status"),
+    }
+    if dict(value.get("clock_state") or {}) != actual_clocks:
+        blockers.append("clock_binding_mismatch")
+    else:
+        try:
+            observed = _cross_plane_parse_utc(actual_clocks["observed_at_utc"], field="observed_at_utc")
+            known = _cross_plane_parse_utc(actual_clocks["known_at_utc"], field="known_at_utc")
+            as_of = _cross_plane_parse_utc(actual_clocks["as_of_utc"], field="as_of_utc")
+            if observed > known or known > as_of:
+                blockers.append("clock_order_invalid")
+        except ValueError as exc:
+            blockers.append(str(exc))
+    expected_facts = value.get("current_facts") if isinstance(value.get("current_facts"), Mapping) else {}
+    if dict(expected_facts) != _cross_plane_observed_facts(portable):
+        blockers.append("current_facts_mismatch")
+    authority_flags = value.get("authority_flags") if isinstance(value.get("authority_flags"), Mapping) else {}
+    if set(authority_flags) != set(CROSS_PLANE_AUTHORITY_FLAGS) or any(authority_flags.get(key) is not False for key in CROSS_PLANE_AUTHORITY_FLAGS):
+        blockers.append("authority_flags_not_all_false")
+    zero_effect = value.get("zero_effect_flags") if isinstance(value.get("zero_effect_flags"), Mapping) else {}
+    if set(zero_effect) != set(CROSS_PLANE_ZERO_EFFECT_KEYS) or any(zero_effect.get(key) not in (False, 0, None) for key in CROSS_PLANE_ZERO_EFFECT_KEYS):
+        blockers.append("zero_effect_flags_not_zero")
+    if _cross_plane_unknown_write(value):
+        blockers.append("unknown_write_stop_retry_readback_reconcile")
+    try:
+        _post_merge_walk_secret(value)
+    except ValueError as exc:
+        blockers.append(str(exc))
+    if portable.get("portable_receipt_sha256") != (value.get("post_merge_provenance") or {}).get("portable_receipt_sha256"):
+        blockers.append("portable_receipt_provenance_binding_mismatch")
+    return list(dict.fromkeys(blockers))
+
+
+def reconcile_post_merge_cross_plane_shadow_cycle_replay(
+    payload: Any,
+    *,
+    shadow_runner: Callable[..., Mapping[str, Any]] | None = None,
+    artifact_kind: str = "SEALED_REMOTE",
+) -> dict[str, Any]:
+    """Replay one sealed Main post-merge input through the existing ContentOps shadow owner."""
+
+    artifact_bytes: bytes | None = None
+    input_value: dict[str, Any] | None = None
+    blockers: list[str] = []
+    try:
+        artifact_bytes, input_value = _post_merge_payload_bytes(payload)
+    except (OSError, TypeError, ValueError) as exc:
+        return _post_merge_receipt_base(
+            artifact_bytes=None,
+            input_value=None,
+            input_hash=None,
+            artifact_status="UNAVAILABLE",
+            classification="NOT_VERIFIED",
+            blockers=[str(exc)],
+            production_day_receipt=None,
+        )
+    actual_artifact_hash = sha256(artifact_bytes).hexdigest()
+    artifact_status = "SYNTHETIC" if artifact_kind == "SYNTHETIC" else "SEALED_MATCH"
+    if artifact_kind != "SYNTHETIC":
+        if len(artifact_bytes) != POST_MERGE_ARTIFACT_BYTES:
+            artifact_status = "SIZE_MISMATCH"
+            blockers.append("main_fixture_size_mismatch")
+        if not actual_artifact_hash.startswith(POST_MERGE_ARTIFACT_SHA256_PREFIX):
+            artifact_status = "HASH_MISMATCH"
+            blockers.append("main_fixture_sha256_prefix_mismatch")
+    canonical = json.dumps(
+        input_value,
+        ensure_ascii=True,
+        sort_keys=True,
+        separators=(",", ":"),
+        allow_nan=False,
+    ).encode("utf-8")
+    if canonical != artifact_bytes:
+        blockers.append("main_fixture_bytes_not_canonical")
+    contract_blockers = _post_merge_validate_contract(input_value)
+    blockers.extend(contract_blockers)
+    supplied_input_hash = str(input_value.get("input_sha256") or "")
+    input_hash = supplied_input_hash if _CROSS_PLANE_SHA256_RE.fullmatch(supplied_input_hash) and supplied_input_hash == cross_plane_input_sha256(input_value) else None
+    classification = "NOT_VERIFIED"
+    if any(item in {"unknown_write_stop_retry_readback_reconcile", "zero_effect_flags_not_zero"} for item in blockers):
+        classification = "UNKNOWN_WRITE"
+    elif any("authority" in item for item in blockers):
+        classification = "AUTHORITY_FLAG"
+    elif any("source" in item or "producer" in item or "head" in item for item in blockers):
+        classification = "SOURCE_HEAD_MISMATCH"
+    elif any("packet" in item or "boundary" in item or "hash" in item or "portable_receipt" in item for item in blockers):
+        classification = "PACKET_HASH_MISMATCH"
+    elif any("clock" in item or "fresh" in item for item in blockers):
+        classification = "RECEIPT_STALE"
+    elif any("proof" in item for item in blockers):
+        classification = "PROOF_LAYER_MISMATCH"
+    elif any("fact" in item or "task" in item for item in blockers):
+        classification = "TASK_STATE_MISMATCH"
+    elif any("ambiguous" in item for item in blockers):
+        classification = "AMBIGUOUS"
+    production_day_receipt: Mapping[str, Any] | None = None
+    if not blockers:
+        try:
+            cross_plane = reconcile_cross_plane_shadow_cycle(input_value, shadow_runner=shadow_runner)
+        except (OSError, RuntimeError, TimeoutError, TypeError, ValueError) as exc:
+            blockers.append(f"cross_plane_replay_exception:{type(exc).__name__}")
+            cross_plane = None
+        if cross_plane is not None:
+            classification = str(cross_plane.get("classification") or "NOT_VERIFIED")
+            production_day_receipt = cross_plane
+            if cross_plane.get("status") != "RECONCILED":
+                blockers.append(str(cross_plane.get("blocker") or "cross_plane_shadow_blocked"))
+            if classification not in POST_MERGE_ALLOWED_REPLAY_CLASSIFICATIONS:
+                classification = "NOT_VERIFIED"
+                blockers.append("replay_classification_invalid")
+    if blockers and classification == "NONE":
+        classification = "NOT_VERIFIED"
+    return _post_merge_receipt_base(
+        artifact_bytes=artifact_bytes,
+        input_value=input_value,
+        input_hash=input_hash,
+        artifact_status=artifact_status,
+        classification=classification,
+        blockers=blockers,
         production_day_receipt=production_day_receipt,
     )
 
