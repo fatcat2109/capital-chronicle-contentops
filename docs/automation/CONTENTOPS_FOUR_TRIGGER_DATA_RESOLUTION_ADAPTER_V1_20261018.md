@@ -12,6 +12,8 @@ to the Main operating-model document without copying Main schemas or creating a 
 | --- | --- |
 | ContentOps base | `origin/master` at `3bcd41d9ec49d3ec217fe3865247a178ab827a7b` |
 | Implementation commit | `c9e0db655e4df9e171b1147f84b64ac5c0168b38` |
+| PR #82 | `https://github.com/fatcat2109/capital-chronicle-contentops/pull/82`, current head `5c1b0a9258062741121c381b9f883a28c1e1284b` |
+| CodeGraph refresh | `5c1b0a9258062741121c381b9f883a28c1e1284b` (`cbbc5626` plus generated graph commit) |
 | PR #81 design target | `dd03470ae06a2fce4f1c1358005f3854de904738`, `docs/automation/CONTENTOPS_FOUR_TRIGGER_DATA_RESOLUTION_AND_EDITORIAL_OPERATING_MODEL_V1.md`, 7,871 bytes, SHA-256 `2b33888f2f87111bee6f560bdfd9a6fb99caf6ddcb1477115327ec076a2686db` |
 | Main operating model | `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_FOUR_TRIGGER_ANALYSIS_AND_DATA_OPERATING_MODEL_V1.md`, 15,569 bytes, SHA-256 `b1fc4c192b1865890a3f0ad2833b4f9b7cfb654eb7dee2306fdb48abbe2ee35a` |
 
