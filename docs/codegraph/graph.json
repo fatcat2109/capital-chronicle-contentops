@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14303,
+    "edges": 14337,
     "entrypoints": 20,
-    "nodes": 7581,
+    "nodes": 7592,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -24,12 +24,12 @@
       "http_endpoint": 6,
       "instructions": 9,
       "manifest": 21,
-      "python_class": 620,
-      "python_function": 4134,
+      "python_class": 621,
+      "python_function": 4141,
       "python_method": 306,
-      "python_module": 790,
-      "schema": 239,
-      "test": 759,
+      "python_module": 791,
+      "schema": 240,
+      "test": 760,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -39540,6 +39540,72 @@
       "to": "tests/test_threads_adapter_v6.py"
     },
     {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::ThreeTriggerFlowError"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::build_article_derivative_shadow_manifest"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::derive_latest_research_question"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::flow_contract_bindings"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::persist_flow_checkpoint"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_jim_manual_trigger"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_portfolio_safe_context_trigger"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.three_trigger_editorial_flow.v1"
+    },
+    {
+      "from": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_three_trigger_editorial_flow_v1.py"
+    },
+    {
       "from": "live_contentops/tier1_editorial_quality_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -69276,6 +69342,138 @@
       "to": "python_symbol:live_contentops/threads_adapter_v6.py::compile_threads_payload"
     },
     {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::build_article_derivative_shadow_manifest",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_epistemic_derivative_manifest"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::build_article_derivative_shadow_manifest",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_existing_eight_derivative_epistemic_manifest"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::build_article_derivative_shadow_manifest",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::ThreeTriggerFlowError"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::persist_flow_checkpoint",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::write_resolution_checkpoint"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::persist_flow_checkpoint",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::ThreeTriggerFlowError"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_jim_manual_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_analysis_run_receipt"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_jim_manual_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_data_need_plan"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_jim_manual_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_trigger_request"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_jim_manual_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::resolve_data_need_plan"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_analysis_run_receipt"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_data_need_plan"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_editorial_consumer_packet"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_trigger_request"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::prepare_simple_gemini_handoff"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::resolve_data_need_plan"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::ThreeTriggerFlowError"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::derive_latest_research_question"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_portfolio_safe_context_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_analysis_run_receipt"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_portfolio_safe_context_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_data_need_plan"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_portfolio_safe_context_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::build_trigger_request"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_portfolio_safe_context_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/four_trigger_data_resolution_adapter_v1.py::resolve_data_need_plan"
+    },
+    {
+      "from": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_portfolio_safe_context_trigger",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::ThreeTriggerFlowError"
+    },
+    {
       "from": "python_symbol:live_contentops/tier1_editorial_quality_v1.py::audit_tier1_article",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -78508,6 +78706,12 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/threads_adapter_v6.py"
+    },
+    {
+      "from": "tests/test_three_trigger_editorial_flow_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/three_trigger_editorial_flow_v1.py"
     },
     {
       "from": "tests/test_tier1_editorial_quality_v1.py",
@@ -89758,6 +89962,11 @@
       "id": "live_contentops/threads_adapter_v6.py",
       "kind": "python_module",
       "size_bytes": 16559
+    },
+    {
+      "id": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "kind": "python_module",
+      "size_bytes": 33180
     },
     {
       "id": "live_contentops/tier1_editorial_quality_v1.py",
@@ -121748,6 +121957,62 @@
       "symbol": "readback_threads_post"
     },
     {
+      "id": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::ThreeTriggerFlowError",
+      "kind": "python_class",
+      "line": 96,
+      "path": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "symbol": "ThreeTriggerFlowError"
+    },
+    {
+      "id": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::build_article_derivative_shadow_manifest",
+      "kind": "python_function",
+      "line": 870,
+      "path": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "symbol": "build_article_derivative_shadow_manifest"
+    },
+    {
+      "id": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::derive_latest_research_question",
+      "kind": "python_function",
+      "line": 183,
+      "path": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "symbol": "derive_latest_research_question"
+    },
+    {
+      "id": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::flow_contract_bindings",
+      "kind": "python_function",
+      "line": 895,
+      "path": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "symbol": "flow_contract_bindings"
+    },
+    {
+      "id": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::persist_flow_checkpoint",
+      "kind": "python_function",
+      "line": 851,
+      "path": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "symbol": "persist_flow_checkpoint"
+    },
+    {
+      "id": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_jim_manual_trigger",
+      "kind": "python_function",
+      "line": 718,
+      "path": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "symbol": "run_jim_manual_trigger"
+    },
+    {
+      "id": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_latest_intelligence_trigger",
+      "kind": "python_function",
+      "line": 420,
+      "path": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "symbol": "run_latest_intelligence_trigger"
+    },
+    {
+      "id": "python_symbol:live_contentops/three_trigger_editorial_flow_v1.py::run_portfolio_safe_context_trigger",
+      "kind": "python_function",
+      "line": 623,
+      "path": "live_contentops/three_trigger_editorial_flow_v1.py",
+      "symbol": "run_portfolio_safe_context_trigger"
+    },
+    {
       "id": "python_symbol:live_contentops/tier1_editorial_quality_v1.py::audit_tier1_article",
       "kind": "python_function",
       "line": 428,
@@ -126310,6 +126575,11 @@
       "schema_id": "contentops.telegram_rendered_payload"
     },
     {
+      "id": "schema:contentops.three_trigger_editorial_flow.v1",
+      "kind": "schema",
+      "schema_id": "contentops.three_trigger_editorial_flow.v1"
+    },
+    {
       "id": "schema:contentops.three_v3_canonical_editorial_operator_packages.v1",
       "kind": "schema",
       "schema_id": "contentops.three_v3_canonical_editorial_operator_packages.v1"
@@ -130303,6 +130573,11 @@
       "id": "tests/test_threads_adapter_v6.py",
       "kind": "test",
       "size_bytes": 5998
+    },
+    {
+      "id": "tests/test_three_trigger_editorial_flow_v1.py",
+      "kind": "test",
+      "size_bytes": 18091
     },
     {
       "id": "tests/test_tier1_editorial_quality_v1.py",
@@ -135133,5 +135408,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "c9e0db655e4df9e171b1147f84b64ac5c0168b38",
-  "source_tree_digest": "d8950123a28fb0d3dcd4acf86a3bba192fb2165090544f3ab513330964e64afd"
+  "source_tree_digest": "871972d514d1ee432e60204b3cc9e1f8f17ddb54f05d9b121e2ed0fbf2689959"
 }

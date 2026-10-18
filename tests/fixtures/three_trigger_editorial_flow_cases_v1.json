@@ -1,0 +1,142 @@
+{
+  "metadata": {
+    "schema_version": "contentops.three_trigger_editorial_flow_cases.v1",
+    "authority": false,
+    "state": "SYNTHETIC_SHADOW_ONLY",
+    "operational_trigger_kinds": [
+      "SCHEDULED_LATEST_INTELLIGENCE",
+      "SCHEDULED_PORTFOLIO_CONTEXT",
+      "JIM_MANUAL_CODEX_DESKTOP"
+    ],
+    "foundation_is_data_plane": true
+  },
+  "latest_rolling_input": {
+    "headlines": [
+      {
+        "headline_id": "headline-latest-1",
+        "source_timestamp_utc": "2026-10-18T08:00:00Z",
+        "external_content": {
+          "headline_text": "The central bank held rates steady while officials kept the next move open.",
+          "source_platform": "x_cdp_list_latest_tweets_timeline",
+          "url_or_source_ref": "https://x.com/example/status/100"
+        }
+      }
+    ]
+  },
+  "latest_sidecar_row": {
+    "need_id": "latest-headline-event",
+    "source_identity": "https://x.com/example/status/100",
+    "source_class": "RETAINED_HEADLINE_SIDECAR",
+    "query_reference": "headline.sidecar.latest",
+    "source_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+    "observed_at_utc": "2026-10-18T08:00:00Z",
+    "retrieved_at_utc": "2026-10-18T08:00:01Z",
+    "known_at_utc": "2026-10-18T08:00:01Z",
+    "freshness_state": "FRESH",
+    "rights_state": "PUBLIC_READ_ONLY",
+    "pit_state": "PASS",
+    "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+    "exact_or_proxy": "EXACT",
+    "contradiction_state": "NONE",
+    "values": {"headline_text": "The central bank held rates steady while officials kept the next move open."}
+  },
+  "browser_recovery": {
+    "source_identity": "www.example.com",
+    "final_url": "https://www.example.com/event",
+    "visible_evidence_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "observed_at_utc": "2026-10-18T08:05:00Z",
+    "retrieved_at_utc": "2026-10-18T08:05:01Z",
+    "known_at_utc": "2026-10-18T08:05:01Z",
+    "rights_state": "PUBLIC_READ_ONLY",
+    "freshness_state": "FRESH",
+    "pit_state": "PASS",
+    "epistemic_state": "OBSERVED_FACT",
+    "exact_or_proxy": "EXACT",
+    "values": {"headline_text": "The official public page records the named event."},
+    "tool_policy": {"allowed_tools_used": ["name_session", "tabs", "read"], "act_tool_used": false},
+    "public_write_performed": false
+  },
+  "portfolio_context": {
+    "scope": "PUBLIC_SAFE_CONTEXT_ONLY",
+    "target_assets": ["US500"],
+    "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+  },
+  "portfolio_need": {
+    "need_id": "portfolio-regime",
+    "data_class": "market_context",
+    "required_fields": ["regime_label"],
+    "unit": "LABEL",
+    "currency": "NONE",
+    "clock": "UTC",
+    "exact_or_proxy": "PROXY_ALLOWED",
+    "permitted_routes": ["EXISTING_MARKET_READ_MODEL", "BROWSEROS_READ_ONLY"],
+    "browseros_allowed": true,
+    "browseros_url": "https://www.example.com/market-context",
+    "basis_risk": "Context is not a broker mark or private position."
+  },
+  "portfolio_read_model_row": {
+    "need_id": "portfolio-regime",
+    "source_identity": "market.read_model.us500",
+    "source_class": "EXISTING_MARKET_READ_MODEL",
+    "query_reference": "contentops.market_context.v1",
+    "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+    "observed_at_utc": "2026-10-18T07:00:00Z",
+    "retrieved_at_utc": "2026-10-18T07:00:01Z",
+    "known_at_utc": "2026-10-18T07:00:01Z",
+    "freshness_state": "FRESH",
+    "rights_state": "PUBLIC_READ_ONLY",
+    "pit_state": "PASS",
+    "epistemic_state": "CAPITAL_CHRONICLE_ANALYSIS",
+    "exact_or_proxy": "PROXY_ALLOWED",
+    "contradiction_state": "NONE",
+    "values": {"regime_label": "RANGE_WITH_RATE_SENSITIVITY"}
+  },
+  "manual_admitted_row": {
+    "need_id": "manual-document",
+    "source_identity": "official.example/document-1",
+    "source_class": "ADMITTED_OFFICIAL_FILING_PROVIDER",
+    "query_reference": "contentops.official_document.v1",
+    "source_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+    "observed_at_utc": "2026-10-18T06:00:00Z",
+    "retrieved_at_utc": "2026-10-18T06:00:01Z",
+    "known_at_utc": "2026-10-18T06:00:01Z",
+    "freshness_state": "FRESH",
+    "rights_state": "PUBLIC_READ_ONLY",
+    "pit_state": "PASS",
+    "epistemic_state": "OBSERVED_FACT",
+    "exact_or_proxy": "EXACT",
+    "contradiction_state": "NONE",
+    "values": {"document_title": "Official public document", "published_at": "2026-10-18"}
+  },
+  "manual_need": {
+    "need_id": "manual-document",
+    "data_class": "official_document",
+    "required_fields": ["document_title", "published_at"],
+    "unit": "TEXT",
+    "currency": "NONE",
+    "clock": "UTC",
+    "exact_or_proxy": "EXACT",
+    "permitted_routes": ["ADMITTED_OFFICIAL_FILING_PROVIDER", "BROWSEROS_READ_ONLY"],
+    "browseros_allowed": true,
+    "browseros_url": "https://www.example.com/document"
+  },
+  "article": {
+    "title": "A bounded source-backed update",
+    "epistemic_claims": [
+      {"claim_id": "fact-1", "layer": "OBSERVED_FACT", "source_ids": ["SOURCE_1"]},
+      {"claim_id": "report-1", "layer": "ATTRIBUTED_REPORT_OR_INTERPRETATION", "source_ids": ["SOURCE_2"]},
+      {"claim_id": "analysis-1", "layer": "CAPITAL_CHRONICLE_ANALYSIS", "source_ids": []},
+      {"claim_id": "scenario-1", "layer": "SCENARIO_OR_UNCERTAINTY", "source_ids": []}
+    ]
+  },
+  "derivative_payloads": {
+    "telegram": {"text": "Brief"},
+    "discord": {"text": "Brief"},
+    "x": {"text": "Brief"},
+    "linkedin": {"text": "Brief"},
+    "facebook_page": {"text": "Brief"},
+    "instagram_business": {"text": "Brief"},
+    "threads": {"text": "Brief"},
+    "youtube": {"text": "Brief"}
+  }
+}
