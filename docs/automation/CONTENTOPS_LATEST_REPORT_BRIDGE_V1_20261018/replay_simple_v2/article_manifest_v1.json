@@ -1,0 +1,42 @@
+{
+  "dek": "Capital Chronicle report — event unconfirmed: the weekly injection and stock cushion remain the watch.",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "The underlying event remains unconfirmed by this report import.",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:XNGUSD",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Capital Chronicle's admitted report states the cited observations and analysis.",
+    "report_truth_support_status": "SUPPORTED_HASH_BOUND_MAIN_REPORT",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "cc-report-evidence-goal17-eia-storage-actual-20261018"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "meta_description": "Capital Chronicle report: the next weekly release matters more than one isolated refill.",
+  "public_write_performed": false,
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_title": "Weekly injection: what the Capital Chronicle report leaves open",
+  "social_hook": "Capital Chronicle report: watch the next weekly release before calling a surprise.",
+  "source_document_ids": [
+    "cc-report-evidence-goal17-eia-storage-actual-20261018"
+  ],
+  "story_identity": "simple-story-50ef9f50543a8fd631c90f8f",
+  "substack_body_markdown": "CAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If in [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financ [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review [[SOURCE:SOURCE_1]]",
+  "title": "Capital Chronicle report: weekly injection",
+  "update_chain_identity": "simple-story-50ef9f50543a8fd631c90f8f"
+}

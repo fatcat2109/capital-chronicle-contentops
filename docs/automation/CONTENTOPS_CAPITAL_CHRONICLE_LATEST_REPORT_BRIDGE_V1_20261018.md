@@ -116,3 +116,85 @@ was performed. This checkpoint is the durable discoverable input for its existin
 
 The next separately owned action is that scoped discovery synchronization. Routine runtime,
 writer execution, publication, merge and deployment remain outside this consumer delivery.
+
+## Goal 18 continuation — report to article and Daily App path
+
+**The exact Main v2 report now runs through the existing durable Simple workspace and Daily App
+read model.** The importer binds report/envelope identity across report id, version, parent,
+supersession id, case, run, asset scope, source snapshot, clocks, public claim projection,
+horizons, hold/invalidation projection, changed-claim scope and content eligibility. A resealed
+envelope claiming version 102 against the sealed v2 body is `BLOCKED` with
+`REPORT_BODY_BINDING_MISMATCH:report_version`; it cannot become latest. Evidence clocks cannot
+run after the envelope cutoff or retrieval time, and a correction cannot change its parent hash
+independently of the body.
+
+The durable workspace stores immutable selector/source/writer stage requests and results in the
+existing artifact/outbox APIs. Successful stages replay by their request hash; a crash after a
+provider result but before local result recording fails closed and does not call the provider
+again. The shared <=6 source ledger can restore consumed requests. Duplicate, out-of-order,
+no-material-change, correction, invalidation and all-claims withdrawal keep durable identities.
+Old article/preview identities are marked superseded or withdrawn when a newer report arrives.
+A no-change report does not create a new article or model intent.
+
+The Daily App now has a report workspace that shows Main origin/version/hash/cutoff, claims and
+evidence locators, epistemic uncertainty, horizons and proxy/cost limits, correction lineage,
+canonical draft, eight native preview cards, preview identity and named blockers. It explicitly
+labels controlled replay, pending canonical links and unpublished state. Independent newsroom
+intake remains in the same Simple candidate pool; a report candidate does not become the only
+source.
+
+### Actual bounded runs
+
+- Main producer: PR #232 / commit `7c976da8688986bd95bbc536b6631b29183afb88`; XNGUSD v2,
+  report hash `89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47`, envelope hash
+  `5714d55767085221950384036113bf26c2f49e0ef96e2f49c2834060a4f1fc4f`.
+- The real host marker `A:\Capital Chronicle\Runtime\ContentOps\control\llm_operator_pause.flag`
+  remains present. The manual draft script consumed the v1 parent/v2 correction with published
+  memory read-only, persisted one editorial input, and stopped before provider work: 0 fresh
+  calls, 0 drafts, 0 previews, blocker `LLM_OPERATOR_PAUSED`. Receipt:
+  [actual paused Simple cycle](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/actual_paused_simple_cycle.json).
+- An injected, explicitly labelled replay of the same v2 report passed the existing Simple
+  selector/source/validator and native compiler: **1 qualified zero-write draft and 8 native
+  preview packages**. Preview state is `PREVIEW_ONLY_UNDISPATCHED`, canonical URL is pending and
+  no public write occurred. Receipt and output hashes:
+  [replay_simple_v2](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/replay_simple_v2/).
+- The isolated integrated acceptance ran v1 then v2 and a duplicate: 2 controlled drafts,
+  16 controlled preview packages, 1 duplicate no-op, v2 remained latest, and a resealed v102
+  envelope was blocked. It ran with `KILL_SWITCH` in a temporary store, 0 fresh provider calls,
+  0 public writes and no production store. Evidence:
+  [controlled receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal18_controls/receipt.json),
+  [current result](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal18_controls/result.json),
+  [Daily App snapshot](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal18_controls/snapshot.json).
+
+### Visual acceptance
+
+Neo readback of the isolated Daily App workspace was rendered and inspected at desktop and
+mobile viewport sizes. The desktop frame shows report v2, correction, Main producer commit,
+report hash, controlled-output label, draft availability and 8/8 unpublished previews. The
+previews frame shows Telegram and Discord native cards with pending canonical-link text and
+lineage controls. The mobile frame shows the same workspace responsively with no horizontal
+content loss. Captures:
+
+- [desktop workspace](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal18_controls/visual/desktop.jpg)
+- [preview cards](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal18_controls/visual/previews.jpg)
+- [mobile workspace](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal18_controls/visual/mobile.jpg)
+
+### Verification
+
+- Consumer, workspace and Daily App backend tests: **96 passed**.
+- Existing Simple newsroom and evidence resolver regressions: **44 passed**.
+- UI focused tests: **27 passed** (`report_editorial_workspace`, `daily_app_console`,
+  `daily_app_runtime_cockpit`).
+- UI production build: `npm run build` passed.
+- Focused Ruff passed; `git diff --check` passed.
+- The Daily App snapshot remains read-only over the existing store. No scheduler, runtime,
+  provider, browser account, database-owner, publisher, merge or deployment action occurred.
+
+### Exact remaining boundary
+
+The implementation and controlled acceptance are complete. A fresh provider article remains
+blocked by the existing operator pause marker and must not be bypassed. The next owner-controlled
+operation is the existing `scripts/run_capital_chronicle_report_draft_v1.py` against the admitted
+v2 receipt after that marker is cleared; it needs no new scheduler, store or publisher. Public
+dispatch still requires real canonical Substack readback and the existing
+`DurablePublicationCoordinator`.

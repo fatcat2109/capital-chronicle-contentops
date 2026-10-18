@@ -952,3 +952,19 @@ def test_snapshot_keyspace_contains_no_secret_shapes(tmp_path):
     encoded = json.dumps(snapshot).lower()
     for forbidden in ('"token"', '"password"', '"cookie"', '"authorization"', 'private_key'):
         assert forbidden not in encoded
+
+def test_snapshot_projects_report_bridge_from_internal_outbox_without_public_authority(tmp_path):
+    store = _store(tmp_path)
+    store.create_work_item(story_id="cc-report:asset-report:XNGUSD", title="Capital Chronicle report input", target_surface="CONTENTOPS_EDITORIAL_ONLY", work_item_id="cc-report-work")
+    store.register_outbox_message(message_id="cc-report-receipt-row", work_item_id="cc-report-work", destination="internal:cc-report-receipt", payload=json.dumps({"report_id":"asset-report:XNGUSD","report_version":2,"status":"ADMITTED","change_kind":"CORRECTION","source_report_sha256":"a"*64,"envelope_sha256":"b"*64,"claims":[{"claim_id":"eia-storage-observed"}],"missing_claims":[],"withdrawal_only":False,"affected_prior_inputs":["old-receipt"]}), status="REPORT_INPUT_READY")
+    store.register_outbox_message(message_id="cc-report-input-row", work_item_id="cc-report-work", destination="internal:cc-report-editorial-input", payload=json.dumps({"disposition":"EDITORIAL_INPUT_READY","brief":{"report_id":"asset-report:XNGUSD","report_version":2,"mode":"FOLLOW_UP_UPDATE","sections":[{"claim_id":"eia-storage-observed"}],"changed_claim_ids":["eia-storage-observed"],"correction_lineage":{"supersedes_report_id":"asset-report:XNGUSD"}},"derivative_intents":[{"destination":name} for name in range(8)]}), status="INPUT_READY")
+    snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+    bridge = snapshot["today"]["report_bridge"]
+    assert bridge["state"] == "AVAILABLE"
+    assert bridge["latest_report"]["report_version"] == 2
+    assert bridge["latest_report"]["change_kind"] == "CORRECTION"
+    assert len(bridge["latest_editorial_input"]["brief"]["sections"]) == 1
+    assert len(bridge["latest_editorial_input"]["derivative_intents"]) == 8
+    assert bridge["article"] is None
+    assert bridge["previews"] == []
+    assert bridge["public_write_performed"] is False

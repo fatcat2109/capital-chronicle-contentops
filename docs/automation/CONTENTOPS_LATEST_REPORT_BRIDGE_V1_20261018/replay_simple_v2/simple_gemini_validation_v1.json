@@ -1,0 +1,196 @@
+{
+  "cited_source_count": 1,
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "The underlying event remains unconfirmed by this report import.",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:XNGUSD",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Capital Chronicle's admitted report states the cited observations and analysis.",
+    "report_truth_support_status": "SUPPORTED_HASH_BOUND_MAIN_REPORT",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "cc-report-evidence-goal17-eia-storage-actual-20261018"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "maximum_revision_rounds": 1,
+  "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+  "public_write_performed": false,
+  "report_truth_validated_separately_from_event_truth": true,
+  "revision_performed": false,
+  "revision_router_receipt": null,
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "source_urls": [
+    "https://www.eia.gov/naturalgas/weekly/supplement/"
+  ],
+  "status": "PASS",
+  "supported_material_claim_count": 13,
+  "supported_material_claims": [
+    {
+      "attribution_required": true,
+      "claim_id": "replay-title",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle report: weekly injection",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "12a6eebb5a1b64d413df1b65fd754665b58554ca29ebef04ba5333d63e200f6c",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-dek",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle report — event unconfirmed: the weekly injection and stock cushion remain the watch.",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "12a6eebb5a1b64d413df1b65fd754665b58554ca29ebef04ba5333d63e200f6c",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-search_title",
+      "claim_kind": "FACT",
+      "claim_text": "Weekly injection: what the Capital Chronicle report leaves open",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "12a6eebb5a1b64d413df1b65fd754665b58554ca29ebef04ba5333d63e200f6c",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-meta_description",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle report: the next weekly release matters more than one isolated refill.",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "12a6eebb5a1b64d413df1b65fd754665b58554ca29ebef04ba5333d63e200f6c",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-social_hook",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle report: watch the next weekly release before calling a surprise.",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "12a6eebb5a1b64d413df1b65fd754665b58554ca29ebef04ba5333d63e200f6c",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-substack_body_markdown",
+      "claim_kind": "FACT",
+      "claim_text": "CAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If in [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financ [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position [[SOURCE:SOURCE_1]]\n\nCAPITAL CHRONICLE REPORT — EVENT UNCONFIRMED. Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review [[SOURCE:SOURCE_1]]",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "12a6eebb5a1b64d413df1b65fd754665b58554ca29ebef04ba5333d63e200f6c",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-body-0",
+      "claim_kind": "FACT",
+      "claim_text": "EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "12a6eebb5a1b64d413df1b65fd754665b58554ca29ebef04ba5333d63e200f6c",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-body-1",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "9a3c734ffba0d72d5fb0388588b0d316f114085a9cbaa6a38ddde03a9f8328d9",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-body-2",
+      "claim_kind": "FACT",
+      "claim_text": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If in",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "cafee354eb923b9cbe0db020348fc503989cbdcf9f85c12f3c8d1c6ca0c43e0b",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-body-3",
+      "claim_kind": "FACT",
+      "claim_text": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "78f8c984469e9ca0024dbbbdc5db1c0b8b1ccacd833fe9bd5e574ed603a26c3c",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-body-4",
+      "claim_kind": "FACT",
+      "claim_text": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financ",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "3006b95650ba601acd51a6415d808262dc2a2566bb67b539bae611f2948b2896",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-body-5",
+      "claim_kind": "FACT",
+      "claim_text": "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2ddfedc25bcd14d9ae93744dd8bcf0da199c2fab11c7a5f1b1b30603f8a53830",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "replay-body-6",
+      "claim_kind": "FACT",
+      "claim_text": "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review",
+      "document_id": "cc-report-evidence-goal17-eia-storage-actual-20261018",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "f18a74fa5e6acfe1cf53c3ba88926c50b6d735ad72c616c1a32467fd5c6a1f1f",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    }
+  ],
+  "unknown_write_detected": false,
+  "unsupported_material_claim_count": 0,
+  "worker_router_receipt": {
+    "logical_invocation_id": "goal18-replay-main-v2:write",
+    "model_identity_provider_verifiable": false,
+    "models_attempted_in_order": [
+      "vx/gemini-3.5-flash(high)"
+    ],
+    "public_write_attempted": false,
+    "replay_only": true,
+    "role_task_id": "v1_simple_gemini_article_writing",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.5-flash(high)",
+    "terminal_disposition": "ACCEPTED",
+    "total_attempts": 1,
+    "total_cost": {},
+    "total_fallback_transitions": 0,
+    "total_usage": {
+      "total_tokens": 0
+    }
+  }
+}

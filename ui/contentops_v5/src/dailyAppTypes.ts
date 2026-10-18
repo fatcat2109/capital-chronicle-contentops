@@ -237,6 +237,7 @@ export interface DailyAppSnapshot {
     latest_material_delta_status?: string;
     latest_decision_reason?: string;
     latest_stage_stopped?: string;
+    report_bridge?: ReportWorkspaceData;
   };
   queue: {
     items: Array<Record<string, unknown>>;
@@ -320,3 +321,31 @@ export type LoadState =
   | { kind: 'loading'; snapshot: null; error: null }
   | { kind: 'online'; snapshot: DailyAppSnapshot; error: null }
   | { kind: 'offline'; snapshot: DailyAppSnapshot | null; error: string };
+
+
+export interface ReportWorkspaceData {
+  schema_version: string;
+  state: string;
+  report_events_received: number;
+  latest_report: null | {
+    report_id: string;
+    report_version: number;
+    source_report_sha256?: string;
+    known_at_cutoff_utc?: string;
+    change_kind?: string;
+    claims?: Array<{ claim_id: string; text: string; producer_layer: string; basis_risk?: string; evidence: Array<{ evidence_id: string; source_url: string; pit_state?: string; rights_state?: string }> }>;
+    missing_claims?: string[];
+    horizon_blocks?: Array<{ horizon: string; trading_sessions: number; outlook: string }>;
+    withdrawal_only?: boolean;
+    materiality_rationale?: string;
+    producer_binding?: { producer_commit?: string; producer_pull_request?: string };
+  };
+  latest_editorial_input?: Record<string, unknown> | null;
+  latest_simple_result?: { classification?: string; model_execution_state?: string; draft_count?: number; preview_count?: number; claim_lineage?: Array<Record<string, unknown>> } | null;
+  article: null | { title: string; dek: string; substack_body_markdown: string };
+  previews: Array<{ destination: string; preview_id: string; article_identity: string; payload: Record<string, unknown>; claim_lineage: Array<Record<string, unknown>> }>;
+  history: Array<{ report_version: number; state: string; article_identity: string; preview_ids: string[]; superseded_by_version: number }>;
+  workspaces?: ReportWorkspaceData[];
+  named_blocker: string | null;
+  public_write_performed: boolean;
+}

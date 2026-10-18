@@ -11,6 +11,7 @@ import argparse
 import hashlib
 import json
 from copy import deepcopy
+from dataclasses import asdict, is_dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
@@ -77,6 +78,7 @@ PRIVATE_KEYS = {
 }
 INBOX = "internal:cc-report-receipt"
 EDITORIAL_INPUT = "internal:cc-report-editorial-input"
+SIMPLE_RESULT = "internal:cc-report-simple-result"
 
 
 class LatestReportConsumerError(ValueError):
@@ -243,6 +245,85 @@ def _schema_errors(
     )
 
 
+def _report_projection_errors(
+    envelope: Mapping[str, Any], report: Mapping[str, Any]
+) -> list[str]:
+    """Bind the entire Main public projection to the sealed body, not just its hash."""
+    errors = []
+    for key in (
+        "report_id",
+        "report_version",
+        "parent_report_sha256",
+        "supersedes_report_id",
+        "case",
+        "run_id",
+        "as_of_utc",
+        "generated_at_utc",
+        "known_at_cutoff_utc",
+        "source_snapshot",
+        "contract_revision",
+        "canonicalization",
+        "version",
+    ):
+        if envelope.get(key) != report.get(key):
+            errors.append("REPORT_BODY_BINDING_MISMATCH:" + key)
+    asset_id = (report.get("asset") or {}).get("asset_id")
+    if envelope.get("asset_ids") != [asset_id] or envelope.get("affected_symbols") != [
+        asset_id
+    ]:
+        errors.append("REPORT_ASSET_SCOPE_MISMATCH")
+    public = [c for c in report.get("claims", []) if c.get("public_safe") is True]
+    if envelope.get("public_safe_claims") != public:
+        errors.append("REPORT_PUBLIC_CLAIM_PROJECTION_MISMATCH")
+    horizons = [
+        {
+            **{
+                k: h.get(k)
+                for k in (
+                    "horizon",
+                    "trading_sessions",
+                    "start_utc",
+                    "end_utc",
+                    "calendar_state",
+                    "report_state",
+                    "scoreable_forecast",
+                )
+            },
+            "outlook": next(
+                (c["text"] for c in public if c.get("horizon") == h.get("horizon")),
+                "NO_PUBLIC_SAFE_OUTLOOK",
+            ),
+        }
+        for h in report.get("horizon_blocks", [])
+    ]
+    if envelope.get("horizon_blocks") != horizons:
+        errors.append("REPORT_HORIZON_PROJECTION_MISMATCH")
+    for target, kind in (
+        ("hold_conditions", "HOLD_CONDITION"),
+        ("invalidation_conditions", "INVALIDATION_CONDITION"),
+    ):
+        if envelope.get(target) != [
+            c["text"] for c in public if c.get("claim_type") == kind
+        ]:
+            errors.append("REPORT_BODY_BINDING_MISMATCH:" + target)
+    ids = {c["claim_id"] for c in public}
+    changed = envelope.get("changed_claim_ids") or []
+    if len(changed) != len(set(changed)) or set(changed) - ids:
+        errors.append("REPORT_CHANGED_CLAIMS_SCOPE_MISMATCH")
+    if envelope.get("change_kind") == "NO_MATERIAL_CHANGE" and changed:
+        errors.append("NO_CHANGE_WITH_CHANGED_CLAIMS")
+    eligibility = (
+        "NO_MATERIAL_CHANGE"
+        if envelope.get("change_kind") == "NO_MATERIAL_CHANGE"
+        else "ELIGIBLE_EDITORIAL_REVIEW"
+        if public
+        else "BLOCKED_NO_PUBLIC_SAFE_CLAIM"
+    )
+    if envelope.get("content_eligibility") != eligibility:
+        errors.append("REPORT_CONTENT_ELIGIBILITY_MISMATCH")
+    return errors
+
+
 def validate_latest_report_bytes(
     raw_bytes: bytes,
     *,
@@ -393,6 +474,7 @@ def validate_latest_report_bytes(
             errors.append("REPORT_CASE_SCOPE_MISMATCH")
         if report.get("run_id") != envelope.get("run_id"):
             errors.append("REPORT_RUN_ID_MISMATCH")
+        errors.extend(_report_projection_errors(envelope, report))
     claims = []
     missing: list[str] = []
     gaps = []
@@ -507,7 +589,12 @@ def validate_latest_report_bytes(
                 known = _time(row.get("known_at_utc"))
                 observed = _time(row.get("observation_time_utc"))
                 retrieved = _time(row.get("retrieval_time_utc"))
-                if known > cutoff or known > now or retrieved > now or observed > known:
+                if (
+                    known > min(cutoff, _time(envelope["known_at_cutoff_utc"]))
+                    or retrieved > min(now, _time(envelope["known_at_cutoff_utc"]))
+                    or observed > known
+                    or known > retrieved
+                ):
                     reasons.append("EVIDENCE_CLOCK_ORDER_INVALID")
             except LatestReportConsumerError:
                 reasons.append("EVIDENCE_PIT_CLOCK_UNAVAILABLE")
@@ -564,7 +651,12 @@ def validate_latest_report_bytes(
     for cid in required - seen:
         errors.append(f"{cid}:REQUIRED_CLAIM_ABSENT")
     missing.extend(optional - seen)
-    if not claims and envelope.get("change_kind") != "NO_MATERIAL_CHANGE":
+    withdrawal = not raw_claims and envelope.get("change_kind") == "INVALIDATION"
+    if (
+        not claims
+        and envelope.get("change_kind") != "NO_MATERIAL_CHANGE"
+        and not withdrawal
+    ):
         errors.append("NO_ADMISSIBLE_PUBLIC_CLAIMS")
     parent = envelope.get("supersedes_report_id")
     if envelope.get("change_kind") in {"CORRECTION", "INVALIDATION"} and not _text(
@@ -596,6 +688,7 @@ def validate_latest_report_bytes(
         "affected_symbols": envelope.get("affected_symbols"),
         "known_at_cutoff_utc": envelope.get("known_at_cutoff_utc"),
         "claims": claims,
+        "withdrawal_only": withdrawal,
         "claim_set_hash": sha256_of(
             sorted((claim["claim_id"], claim["claim_hash"]) for claim in claims)
         ),
@@ -661,7 +754,12 @@ class LatestReportDeliveryTracker:
             related = [
                 row
                 for row in rows
-                if row["status"] in {"ADMITTED", "NO_MATERIAL_CHANGE_NOOP"}
+                if row["status"]
+                in {
+                    "ADMITTED",
+                    "NO_MATERIAL_CHANGE_NOOP",
+                    "INVALIDATION_WITHDRAWAL_NOOP",
+                }
                 and self._related(row, validation)
             ]
             status = validation["status"]
@@ -688,7 +786,12 @@ class LatestReportDeliveryTracker:
                 status == "ADMITTED"
                 and validation["change_kind"] == "NO_MATERIAL_CHANGE"
             ):
-                status = "NO_MATERIAL_CHANGE_NOOP"
+                status = (
+                    "CONFLICT_FALSE_NO_MATERIAL_CHANGE"
+                    if latest
+                    and validation.get("claim_set_hash") != latest.get("claim_set_hash")
+                    else "NO_MATERIAL_CHANGE_NOOP"
+                )
             if (
                 status == "ADMITTED"
                 and validation["change_kind"] in {"CORRECTION", "INVALIDATION"}
@@ -698,12 +801,31 @@ class LatestReportDeliveryTracker:
                 )
             ):
                 status = "LINEAGE_PARENT_NOT_RECEIVED"
+            if status == "ADMITTED" and validation.get("withdrawal_only"):
+                status = "INVALIDATION_WITHDRAWAL_NOOP"
             record = {
                 **deepcopy(dict(validation)),
                 "status": status,
                 "receipt_id": receipt_id,
                 "affected_prior_inputs": [row["message_id"] for row in related]
                 if validation.get("change_kind") in {"CORRECTION", "INVALIDATION"}
+                else [],
+                "affected_drafts": [
+                    {
+                        "article_identity": value["article_identity"],
+                        "preview_ids": [
+                            p["preview_id"] for p in value.get("previews", [])
+                        ],
+                    }
+                    for output in self.store.list_outbox_messages()
+                    if output["destination"] == SIMPLE_RESULT
+                    for value in [json.loads(output["payload"])]
+                    if value.get("report_id") == validation.get("report_id")
+                    and value.get("report_version", 0)
+                    < validation.get("report_version", 0)
+                    and value.get("article_identity")
+                ]
+                if status in {"ADMITTED", "INVALIDATION_WITHDRAWAL_NOOP"}
                 else [],
             }
             work_id = "cc-report-" + sha256_of(receipt_id)
@@ -731,12 +853,29 @@ class LatestReportDeliveryTracker:
                 payload=canonical_bytes(record).decode(),
                 status="REPORT_PENDING" if status == "ADMITTED" else "REPORT_TERMINAL",
             )
-            if status in {"ADMITTED", "NO_MATERIAL_CHANGE_NOOP"}:
+            if status in {
+                "ADMITTED",
+                "NO_MATERIAL_CHANGE_NOOP",
+                "INVALIDATION_WITHDRAWAL_NOOP",
+            }:
                 for row in related:
-                    if row["delivery_status"] in {"REPORT_PENDING", "REPORT_FAILED"}:
+                    if status != "NO_MATERIAL_CHANGE_NOOP":
                         self.store.set_outbox_status(
                             row["message_id"], "REPORT_SUPERSEDED"
                         )
+                        for output in self.store.list_outbox_messages():
+                            if output["work_item_id"] == "cc-report-" + sha256_of(
+                                row["receipt_id"]
+                            ) and output["destination"] in {
+                                EDITORIAL_INPUT,
+                                SIMPLE_RESULT,
+                            }:
+                                self.store.set_outbox_status(
+                                    output["message_id"],
+                                    "CONTENT_WITHDRAWN"
+                                    if validation.get("withdrawal_only")
+                                    else "CONTENT_SUPERSEDED",
+                                )
             return next(
                 row for row in self.receipts() if row["message_id"] == message_id
             )
@@ -769,9 +908,18 @@ class LatestReportDeliveryTracker:
             ):
                 raise LatestReportConsumerError("REPORT_NOT_DELIVERABLE")
             if any(
-                row["status"] in {"ADMITTED", "NO_MATERIAL_CHANGE_NOOP"}
+                row["status"]
+                in {
+                    "ADMITTED",
+                    "NO_MATERIAL_CHANGE_NOOP",
+                    "INVALIDATION_WITHDRAWAL_NOOP",
+                }
                 and self._related(record, row)
                 and row["report_version"] > record["report_version"]
+                and not (
+                    row["status"] == "NO_MATERIAL_CHANGE_NOOP"
+                    and row.get("claim_set_hash") == record.get("claim_set_hash")
+                )
                 for row in rows
             ):
                 raise LatestReportConsumerError("NEWER_REPORT_ALREADY_RECEIVED")
@@ -808,21 +956,59 @@ class LatestReportDeliveryTracker:
 
     def counts(self) -> dict[str, int]:
         rows = self.receipts()
+        simple_results = []
+        for message in self.store.list_outbox_messages():
+            if message["destination"] != SIMPLE_RESULT:
+                continue
+            try:
+                value = json.loads(message["payload"])
+            except (TypeError, ValueError):
+                continue
+            if isinstance(value, dict):
+                simple_results.append(value)
         return {
             "report_events_received": len(rows),
             "report_events_consumed": sum(
-                row["status"] in {"ADMITTED", "NO_MATERIAL_CHANGE_NOOP"} for row in rows
+                row["status"]
+                in {
+                    "ADMITTED",
+                    "NO_MATERIAL_CHANGE_NOOP",
+                    "INVALIDATION_WITHDRAWAL_NOOP",
+                }
+                for row in rows
             ),
             "no_ops": sum(
                 row["status"]
-                in {"DUPLICATE_NOOP", "OUT_OF_ORDER_NOOP", "NO_MATERIAL_CHANGE_NOOP"}
+                in {
+                    "DUPLICATE_NOOP",
+                    "OUT_OF_ORDER_NOOP",
+                    "NO_MATERIAL_CHANGE_NOOP",
+                    "INVALIDATION_WITHDRAWAL_NOOP",
+                }
                 for row in rows
             ),
             "editorial_inputs": sum(
                 row["delivery_status"] == "REPORT_INPUT_READY" for row in rows
             ),
-            "drafts": 0,
-            "writer_calls": 0,
+            "drafts": sum(int(row.get("draft_count") or 0) for row in simple_results),
+            "writer_calls": sum(
+                int(row.get("writer_invoked") is True)
+                for row in simple_results
+                if row.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"
+            ),
+            "fresh_qualified_drafts": sum(
+                int(row.get("draft_count") or 0)
+                for row in simple_results
+                if row.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"
+            ),
+            "controlled_drafts": sum(
+                int(row.get("draft_count") or 0)
+                for row in simple_results
+                if row.get("model_execution_state") == "INJECTED_REPLAY_ONLY"
+            ),
+            "compiled_derivatives": sum(
+                int(row.get("compiled_derivative_count") or 0) for row in simple_results
+            ),
             "missing_claims": sum(len(row.get("missing_claims") or []) for row in rows),
             "blocked_results": sum(
                 row["status"]
@@ -832,6 +1018,7 @@ class LatestReportDeliveryTracker:
                     "LINEAGE_CONFLICT",
                     "LINEAGE_HASH_CONFLICT",
                     "LINEAGE_PARENT_NOT_RECEIVED",
+                    "CONFLICT_FALSE_NO_MATERIAL_CHANGE",
                 }
                 for row in rows
             ),
@@ -846,6 +1033,18 @@ def build_report_editorial_input(
     rolling_input: Mapping[str, Any] | None = None,
     published_memory: Sequence[Any] = (),
 ) -> dict[str, Any]:
+    def freeze(value: Any) -> Any:
+        if is_dataclass(value):
+            return freeze(asdict(value))
+        if isinstance(value, datetime):
+            return value.astimezone(timezone.utc).isoformat().replace("+00:00", "Z")
+        if isinstance(value, Mapping):
+            return {k: freeze(v) for k, v in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [freeze(v) for v in value]
+        return value
+
+    published_memory = freeze(list(published_memory))
     if (
         admission.get("status") != "ADMITTED"
         or not admission.get("claims")
@@ -932,6 +1131,8 @@ def build_report_editorial_input(
             }
         )
     brief = {
+        "report_id": admission["report_id"],
+        "report_version": admission["report_version"],
         "what_changed": admission.get("materiality_rationale"),
         "change_kind": admission.get("change_kind"),
         "correction_lineage": {
@@ -1015,6 +1216,36 @@ def build_report_editorial_input(
         "writer_invoked": False,
         "public_write_performed": False,
     }
+
+
+def run_admitted_report_through_simple(
+    admission: Mapping[str, Any],
+    *,
+    output_dir: str | Path,
+    cutoff_utc: str,
+    tracker: LatestReportDeliveryTracker,
+    receipt_id: str,
+    rolling_input: Mapping[str, Any] | None = None,
+    published_memory: Sequence[Any] = (),
+    llm_invoke: Callable[..., tuple[dict[str, Any], dict[str, Any]]] | None = None,
+    run_id: str | None = None,
+) -> dict[str, Any]:
+    """Run the durable report workspace adapter through the existing Simple owner."""
+    from live_contentops.capital_chronicle_report_editorial_workspace_v1 import (
+        run_report_editorial_cycle,
+    )
+
+    return run_report_editorial_cycle(
+        tracker,
+        receipt_id=receipt_id,
+        admission=admission,
+        output_dir=output_dir,
+        cutoff_utc=cutoff_utc,
+        rolling_input=rolling_input,
+        published_memory=published_memory,
+        llm_invoke=llm_invoke,
+        run_id=run_id,
+    )
 
 
 def resolve_report_research_gaps(

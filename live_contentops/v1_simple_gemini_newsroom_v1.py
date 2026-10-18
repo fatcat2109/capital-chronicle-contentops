@@ -966,6 +966,7 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
                 "canonical_content_text": text[:MAX_SOURCE_TEXT_CHARS],
+                **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
             }
         )
     return pack
@@ -1006,6 +1007,10 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "Return exactly one JSON object with exactly the five top-level keys shown in OUTPUT_CONTRACT. "
         "Do not use markdown code fences, commentary, prefixes, or suffixes outside the JSON object. "
         "Write one useful concise Capital Chronicle article from GOVERNED_INPUT and SOURCE_PACK only. "
+        "For GOVERNED_CAPITAL_CHRONICLE_REPORT, SOURCE_PACK is a derived Main report projection, not freshly "
+        "acquired source-page bytes. Attribute facts to that report, distinguish OBSERVED_SOURCE_FACT, CC_ANALYSIS "
+        "and CONDITIONAL_SCENARIO, keep horizons and proxy/cost limits, and include report_scope_notice verbatim "
+        "in the body. support_excerpt must come from the specific report claim, never a neighbouring claim. "
         "Treat epistemic_state as an immutable deterministic contract. Distinguish REPORT TRUTH from EVENT TRUTH: "
         "report_proposition is supported, while event_proposition may remain unconfirmed. Include the exact "
         "reader_visible_epistemic_label prominently in the dek and opening paragraph. For UNCONFIRMED or RELAYED "
@@ -1236,6 +1241,10 @@ def _epistemic_copy_blockers(
     if not isinstance(epistemic_state, Mapping) or not epistemic_state:
         return []
     blockers = list(validate_epistemic_state(epistemic_state))
+    if epistemic_state.get("evidence_basis") == "GOVERNED_CAPITAL_CHRONICLE_REPORT":
+        notice = str(epistemic_state.get("report_scope_notice") or "")
+        if not notice or notice not in str(article.get("substack_body_markdown") or ""):
+            blockers.append("report_horizon_proxy_cost_limits_missing")
     if blockers:
         return blockers
     state = str(epistemic_state.get("event_confirmation_state") or "")
@@ -1372,6 +1381,11 @@ def _validate_article_against_source_pack(
         ):
             blockers.append(f"material_claim_excerpt_not_verified:{claim_id}")
             continue
+        report_lineage = document.get("report_lineage") or {}
+        report_claims = [c for c in report_lineage.get("claims", []) if _normal(excerpt) in _normal(c["text"])]
+        if report_lineage and not report_claims:
+            blockers.append(f"report_claim_excerpt_unbound:{claim_id}")
+            continue
         supported.append(
             {
                 "claim_id": claim_id,
@@ -1379,9 +1393,14 @@ def _validate_article_against_source_pack(
                 "claim_kind": str(claim.get("claim_kind") or "FACT"),
                 "source_id": source_id,
                 "document_id": document.get("document_id"),
-                "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
+                "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION" if report_lineage else "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
                 "attribution_required": bool(claim.get("attribution_required")),
                 "support_excerpt_sha256": _text_hash(excerpt),
+                **({"report_id": report_lineage["report_id"], "report_version": report_lineage["report_version"],
+                    "report_sha256": report_lineage["report_sha256"],
+                    "report_claims": [{k: c[k] for k in ("claim_id", "claim_hash", "producer_layer", "basis_risk", "evidence")} for c in report_claims],
+                    "article_section_ids": ["paragraph:" + str(i) for i, p in enumerate(str(article.get("substack_body_markdown") or "").split("\n\n")) if _normal(claim_text) in _normal(p)]}
+                    if report_lineage else {}),
             }
         )
     bound_claim_texts = {_normal(row.get("claim_text")) for row in claims}
@@ -1503,6 +1522,8 @@ def _reader_safe_native_article(
         "social_hook": str(article.get("social_hook") or ""),
         "effective_article_mode": str(article_mode),
         "substack_body_markdown": body,
+        **({"editorial_scope_notice": epistemic_state["report_scope_notice"]}
+           if (epistemic_state or {}).get("report_scope_notice") else {}),
     }
     if (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED":
         result.update(

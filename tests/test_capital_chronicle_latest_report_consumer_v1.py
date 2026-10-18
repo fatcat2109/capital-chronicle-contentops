@@ -26,6 +26,7 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import (
     build_report_editorial_input,
     canonical_bytes,
     resolve_report_research_gaps,
+    run_admitted_report_through_simple,
     sha256_of,
     validate_latest_report_bytes,
 )
@@ -44,7 +45,13 @@ def seal(value, field):
     return value
 
 
-def make_bundle(version=1, change="NEW_REPORT", event="same-event", parent=None):
+def make_bundle(
+    version=1,
+    change="NEW_REPORT",
+    event="same-event",
+    parent=None,
+    withdraw_all=False,
+):
     evidence = {
         "evidence_id": "public-source-1",
         "source_identity": "https://www.eia.gov/naturalgas/weekly/",
@@ -86,8 +93,12 @@ def make_bundle(version=1, change="NEW_REPORT", event="same-event", parent=None)
         "known_at_cutoff_utc": "2026-10-18T12:00:00Z",
         "as_of_utc": "2026-10-18T12:00:00Z",
         "generated_at_utc": "2026-10-18T12:10:00Z",
-        "claims": [claim],
+        "claims": [] if withdraw_all else [claim],
         "evidence": [evidence],
+        "source_snapshot": {"catalog_sha256": "b" * 64},
+        "supersedes_report_id": parent,
+        "parent_report_sha256": None,
+        "horizon_blocks": [],
     }
     envelope = {
         "schema": MAIN_ENVELOPE_SCHEMA,
@@ -105,21 +116,27 @@ def make_bundle(version=1, change="NEW_REPORT", event="same-event", parent=None)
         "supersedes_envelope_id": None,
         "asset_ids": ["XNGUSD"],
         "affected_symbols": ["XNGUSD"],
-        "horizon_blocks": [
-            {"horizon": "swing", "direction": "CONDITIONAL", "trading_sessions": 5}
-        ],
+        "horizon_blocks": [],
         "as_of_utc": "2026-10-18T12:00:00Z",
         "generated_at_utc": "2026-10-18T12:10:00Z",
         "known_at_cutoff_utc": "2026-10-18T12:00:00Z",
         "source_snapshot": {"catalog_sha256": "b" * 64},
         "run_id": "test-control-run",
         "report_sha256": None,
-        "public_safe_claims": [deepcopy(claim)],
+        "public_safe_claims": [] if withdraw_all else [deepcopy(claim)],
         "limitations": ["No current CFD direction is established."],
-        "hold_conditions": ["Review if supply conditions contradict the thesis."],
+        "hold_conditions": [],
         "invalidation_conditions": [],
-        "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
-        "changed_claim_ids": [claim["claim_id"]],
+        "content_eligibility": (
+            "BLOCKED_NO_PUBLIC_SAFE_CLAIM"
+            if withdraw_all
+            else "NO_MATERIAL_CHANGE"
+            if change == "NO_MATERIAL_CHANGE"
+            else "ELIGIBLE_EDITORIAL_REVIEW"
+        ),
+        "changed_claim_ids": []
+        if withdraw_all or change == "NO_MATERIAL_CHANGE"
+        else [claim["claim_id"]],
         "materiality_rationale": "The report changes its conditional supply assessment.",
         "private_context_excluded": True,
         "publication_authority": False,
@@ -128,6 +145,7 @@ def make_bundle(version=1, change="NEW_REPORT", event="same-event", parent=None)
         envelope["parent_report_sha256"] = make_bundle(version=version - 1)[1][
             "report_sha256"
         ]
+        report["parent_report_sha256"] = envelope["parent_report_sha256"]
     return refresh(envelope, report)
 
 
@@ -367,6 +385,33 @@ def test_missing_parent_is_durable_gap_and_no_change_never_calls_writer(tracker)
     assert tracker.counts()["editorial_inputs"] == 0
 
 
+def test_invalidation_withdrawal_supersedes_existing_input_without_new_article(tracker):
+    old = tracker.consume(validate(*make_bundle()), receipt_id="withdraw-old")
+    withdrawn = tracker.consume(
+        validate(
+            *make_bundle(
+                version=2,
+                change="INVALIDATION",
+                parent="latest-report-v1",
+                withdraw_all=True,
+            )
+        ),
+        receipt_id="withdraw-v2",
+    )
+    assert withdrawn["status"] == "INVALIDATION_WITHDRAWAL_NOOP"
+    assert withdrawn["withdrawal_only"] is True
+    assert withdrawn["affected_prior_inputs"] == [old["message_id"]]
+    assert (
+        next(row for row in tracker.receipts() if row["receipt_id"] == "withdraw-old")[
+            "delivery_status"
+        ]
+        == "REPORT_SUPERSEDED"
+    )
+    with pytest.raises(LatestReportConsumerError, match="REPORT_NOT_DELIVERABLE"):
+        tracker.prepare_input("withdraw-v2", output_dir="test", cutoff_utc=CUTOFF)
+    assert tracker.counts()["editorial_inputs"] == 0
+
+
 def test_missed_delivery_and_crash_resume_uses_existing_outbox_without_writer(
     tracker, tmp_path, monkeypatch
 ):
@@ -564,12 +609,109 @@ def test_corrected_parent_hash_must_match_received_report(tracker):
     )
     envelope["parent_report_sha256"] = "f" * 64
     seal(envelope, "envelope_sha256")
-    assert (
-        tracker.consume(validate(envelope, report), receipt_id="wrong-parent-hash")[
-            "status"
-        ]
-        == "LINEAGE_HASH_CONFLICT"
+    admission = validate(envelope, report)
+    assert admission["status"] == "BLOCKED"
+    assert "REPORT_BODY_BINDING_MISMATCH:parent_report_sha256" in admission["blockers"]
+
+
+def test_poison_latest_resealed_version_cannot_replace_hash_bound_main_body():
+    root = FIXTURES / "producer_v2"
+    binding = json.loads((root / "producer_binding.json").read_bytes())
+    envelope = json.loads((root / "envelope.json").read_bytes())
+    envelope["report_version"] = 102
+    envelope["event_id"] = "report-event:" + sha256_of(
+        {
+            key: envelope[key]
+            for key in (
+                "report_id",
+                "report_version",
+                "report_sha256",
+                "change_kind",
+                "changed_claim_ids",
+            )
+        }
     )
+    envelope["envelope_sha256"] = sha256_of(
+        {key: value for key, value in envelope.items() if key != "envelope_sha256"}
+    )
+    admission = validate_latest_report_bytes(
+        canonical_bytes(envelope),
+        report_bytes=[(root / "report.json").read_bytes()],
+        expected_cutoff_utc=binding["observed_at_utc"],
+        now_utc=binding["observed_at_utc"],
+        envelope_schema_bytes=(
+            root / "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+        ).read_bytes(),
+        report_schema_bytes=(
+            root / "CapitalChronicleAssetAnalysisReportV1.schema.json"
+        ).read_bytes(),
+        producer_binding=binding,
+    )
+    assert admission["status"] == "BLOCKED"
+    assert "REPORT_BODY_BINDING_MISMATCH:report_version" in admission["blockers"]
+
+
+def test_admitted_report_simple_path_honors_operator_pause_before_provider(
+    tmp_path, monkeypatch
+):
+    admission = validate(*make_bundle())
+    tracker = LatestReportDeliveryTracker(
+        ContentOpsDurableStore(tmp_path / "paused.sqlite3")
+    )
+    tracker.consume(admission, receipt_id="paused")
+    monkeypatch.setattr(
+        "live_contentops.capital_chronicle_report_editorial_workspace_v1.llm_operator_pause_active",
+        lambda: True,
+    )
+    result = run_admitted_report_through_simple(
+        admission,
+        output_dir=tmp_path / "paused-simple",
+        cutoff_utc=CUTOFF,
+        tracker=tracker,
+        receipt_id="paused",
+    )
+    assert result["classification"] == "DRAFT_BLOCKED"
+    assert result["exact_next_blocker"] == "LLM_OPERATOR_PAUSED"
+    assert result["model_execution_state"] == "PAUSED_BEFORE_PROVIDER_CALL"
+    assert (
+        result["logical_model_invocation_count"]
+        == result["draft_count"]
+        == result["preview_count"]
+        == 0
+    )
+    assert result["input"]["disposition"] == "EDITORIAL_INPUT_READY"
+
+
+def test_simple_pause_result_uses_existing_internal_outbox_and_counts(
+    tmp_path, monkeypatch
+):
+    envelope, report = make_bundle()
+    admission = validate(envelope, report)
+    monkeypatch.setattr(
+        "live_contentops.capital_chronicle_report_editorial_workspace_v1.llm_operator_pause_active",
+        lambda: True,
+    )
+    tracker = LatestReportDeliveryTracker(
+        ContentOpsDurableStore(tmp_path / "pause.sqlite3")
+    )
+    tracker.consume(admission, receipt_id="paused-result")
+    _result = run_admitted_report_through_simple(
+        admission,
+        output_dir=tmp_path / "paused-result",
+        cutoff_utc=CUTOFF,
+        tracker=tracker,
+        receipt_id="paused-result",
+    )
+    persisted = next(
+        r
+        for r in tracker.store.list_outbox_messages()
+        if r["destination"] == "internal:cc-report-simple-result"
+    )
+    assert persisted["destination"] == "internal:cc-report-simple-result"
+    assert persisted["status"] == "EDITORIAL_INTERNAL"
+    assert tracker.counts()["drafts"] == 0
+    assert tracker.counts()["compiled_derivatives"] == 0
+    assert tracker.counts()["blocked_results"] == 0
 
 
 def test_input_is_consumable_by_existing_writer_prompt_without_model_calls(tmp_path):

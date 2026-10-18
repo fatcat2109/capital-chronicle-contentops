@@ -1,0 +1,67 @@
+{
+  "candidate_count": 1,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "4ba1c017af143979388cced7b6951e68a0e1b3bd3548c7edb4cd3d2978abe010",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 0,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 0,
+    "story_identity_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "title_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "unique_title_count": 0,
+    "update_chain_identity_count": 0,
+    "update_chain_identity_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "router_receipt": {
+    "logical_invocation_id": "goal18-replay-main-v2:select",
+    "model_identity_provider_verifiable": false,
+    "models_attempted_in_order": [
+      "vx/gemini-3.5-flash(high)"
+    ],
+    "public_write_attempted": false,
+    "replay_only": true,
+    "role_task_id": "v1_simple_gemini_selection",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.5-flash(high)",
+    "terminal_disposition": "ACCEPTED",
+    "total_attempts": 1,
+    "total_cost": {},
+    "total_fallback_transitions": 0,
+    "total_usage": {
+      "total_tokens": 0
+    }
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-50ef9f50543a8fd631c90f8f",
+        "plan_position": 1,
+        "plan_role": "PRIMARY",
+        "research_queries": [],
+        "selection_rationale": "Replay of the admitted Main report for deterministic mechanics."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Replay only; no provider call performed.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal18-replay-run-20261018-01\\test_real_main_report_replay_r0\\replay-output\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 1,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": false,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}
