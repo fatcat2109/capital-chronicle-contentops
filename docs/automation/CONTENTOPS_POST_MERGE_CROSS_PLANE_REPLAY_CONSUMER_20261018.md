@@ -68,8 +68,8 @@ Replay tests: `5 passed`. The exact current-real fixture is byte-for-byte canoni
 BrowserOS read-only PASS, CDP 9222/9223 unavailable, three Disabled tasks, missing identity and
 destination, SQLite read-only integrity and zero-effect counters.
 
-Ruff, `py_compile`, and `git diff --check` pass for the replay seam and tests. Full owner
-regressions and exact-head CI remain required after the branch is pushed.
+Ruff, `py_compile`, and `git diff --check` pass for the replay seam and tests. Focused owner
+regressions reached `135 passed`. Exact-head CI is green on the final remote branch readback.
 
 ## BLOCKERS
 
