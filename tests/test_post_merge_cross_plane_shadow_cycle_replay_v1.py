@@ -11,6 +11,7 @@ from live_contentops.scheduled_shadow_production_day_v1 import (
     POST_MERGE_ARTIFACT_BYTES,
     POST_MERGE_ARTIFACT_COMMIT,
     POST_MERGE_ARTIFACT_PATH,
+    POST_MERGE_ARTIFACT_SHA256,
     POST_MERGE_ARTIFACT_SHA256_PREFIX,
     POST_MERGE_INPUT_SHA256_PREFIX,
     _cross_plane_observed_facts,
@@ -128,17 +129,18 @@ def _synthetic(name: str) -> dict:
     return value
 
 
-def test_remote_fixture_is_exactly_read_back_and_sealed_mismatch_is_fail_closed():
+def test_remote_fixture_is_exactly_read_back_and_sealed_hash_is_bound():
     raw = FIXTURE.read_bytes()
     assert len(raw) == POST_MERGE_ARTIFACT_BYTES
-    assert hashlib.sha256(raw).hexdigest().startswith("4b208104")
-    assert not hashlib.sha256(raw).hexdigest().startswith(POST_MERGE_ARTIFACT_SHA256_PREFIX)
+    assert hashlib.sha256(raw).hexdigest() == POST_MERGE_ARTIFACT_SHA256
+    assert hashlib.sha256(raw).hexdigest().startswith(POST_MERGE_ARTIFACT_SHA256_PREFIX)
     packet = json.loads(raw)
     assert packet["input_sha256"].startswith(POST_MERGE_INPUT_SHA256_PREFIX)
     result = reconcile_post_merge_cross_plane_shadow_cycle_replay(raw)
     assert result["classification"] == "NOT_VERIFIED"
     assert result["status"] == "BLOCKED"
-    assert "main_fixture_sha256_prefix_mismatch" in result["blockers"]
+    assert result["artifact"]["status"] == "SEALED_MATCH"
+    assert "main_fixture_sha256_mismatch" not in result["blockers"]
     assert result["artifact"]["commit"] == POST_MERGE_ARTIFACT_COMMIT
     assert result["artifact"]["path"] == POST_MERGE_ARTIFACT_PATH
     assert result["current_facts"]["identity_status"] == "MISSING"

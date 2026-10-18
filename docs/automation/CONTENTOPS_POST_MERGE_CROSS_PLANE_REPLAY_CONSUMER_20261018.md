@@ -1,6 +1,6 @@
 # ContentOps Post-Merge Cross-Plane Replay Consumer — 2026-10-18
 
-Status: `IMPLEMENTED / TESTED / READ_ONLY / FAIL_CLOSED_ON_SEALED_ARTIFACT_MISMATCH`
+Status: `IMPLEMENTED / TESTED / READ_ONLY / EXACT_ARTIFACT_HASH_BOUND`
 
 ## BEFORE
 
@@ -34,10 +34,9 @@ Remote Main `origin/main@a3bdedf29e4fc66f917d7fcf1f458821a63d043b` contains:
 - exact `input_sha256` prefix: `124311ccd5`;
 - observed file SHA-256: `4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368`.
 
-The supplied sealed expectation is prefix `4b208204`. The remote bytes do not match that prefix,
-so the current-real replay receipt is `NOT_VERIFIED / BLOCKED` with blocker
-`main_fixture_sha256_prefix_mismatch`. No replay promotion is inferred from the matching size or
-input hash.
+The corrected sealed expectation is the actual full SHA-256 above, with prefix `4b208104`. The
+remote bytes match the correction exactly. Current-real still remains `NOT_VERIFIED / BLOCKED`
+because host identity/readiness and runtime/public boundaries are not proven.
 
 ## Fixture matrix
 
@@ -47,7 +46,7 @@ input hash.
 
 | Case | Result |
 |---|---|
-| `current_real` | `NOT_VERIFIED`, blocked on sealed file hash mismatch |
+| `current_real` | `NOT_VERIFIED`, artifact hash passes; blocked on host/readiness boundaries |
 | `healthy` | `NONE`, synthetic shadow composition only |
 | `stale` | `RECEIPT_STALE` |
 | `mismatch` | `SOURCE_HEAD_MISMATCH` |
@@ -73,11 +72,12 @@ regressions reached `135 passed`. Exact-head CI is green on the final remote bra
 
 ## BLOCKERS
 
-The remote Main artifact's observed SHA-256 starts `4b208104`, not the sealed contract prefix
-`4b208204`. The replay consumer intentionally stops on this discrepancy and does not promote the
-current-real input.
+The remote Main artifact's observed SHA-256 exactly matches the corrected sealed hash. The replay
+consumer still does not promote current-real because BrowserOS/CDP/task/identity/destination and
+runtime/public boundaries remain unproven.
+
+Corrected current-real replay receipt SHA-256: `c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db`.
 
 ## Exactly one NEXT
 
-Hand the deterministic replay receipt hash back to Main for the next reconciliation goal, with the
-sealed file-hash discrepancy attached for correction.
+Hand the corrected deterministic replay receipt hash back to Main for Goal 9 reconciliation.

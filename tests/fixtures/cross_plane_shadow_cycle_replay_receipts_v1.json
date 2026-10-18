@@ -5,15 +5,16 @@
         "bytes": 18830,
         "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
         "expected_bytes": 18830,
-        "expected_sha256_prefix": "4b208204",
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
         "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
         "ref": "main",
         "repository": "fatcat2109/Headline-Raw-data-json",
         "sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
-        "status": "HASH_MISMATCH"
+        "status": "SEALED_MATCH"
       },
       "blockers": [
-        "main_fixture_sha256_prefix_mismatch"
+        "portable_observation_not_verified"
       ],
       "boundary_hashes": {
         "goal4_readiness_packet_immutable_hash": "7827a54e144005d9a04139936c69dd64a3d181e74f50cafd612e8af14e72a2de",
@@ -80,15 +81,15 @@
       "portable_receipt_sha256": "aa8e165ce56ed36cfff5e79b9902f74e1cb11166a19061d6ca28e41d80431a13",
       "production_day_receipt_sha256": null,
       "proof_axes": {
-        "artifact_readback": false,
+        "artifact_readback": true,
         "input_validated": true,
         "portable_receipt_validated": true,
         "publicly_proven": false,
         "runtime_proven": false,
-        "shadow_composition": false
+        "shadow_composition": true
       },
       "publicly_proven": false,
-      "receipt_sha256": "d5e4e29ec85a31a7978c1897664e39a07023f753fe1641fdb1c745e12dd4e367",
+      "receipt_sha256": "c90d41c2471b88d65d8f0052cf396bbf7aedf6261b950e73bdf4cc04aeb2e9db",
       "replay_only": true,
       "runtime_proven": false,
       "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
@@ -119,7 +120,8 @@
         "bytes": 21132,
         "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
         "expected_bytes": 18830,
-        "expected_sha256_prefix": "4b208204",
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
         "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
         "ref": "main",
         "repository": "fatcat2109/Headline-Raw-data-json",
@@ -200,7 +202,7 @@
         "shadow_composition": true
       },
       "publicly_proven": false,
-      "receipt_sha256": "eb9e7297f9020c3bd8033e21821ca5f90514d34e95f2567595f7f67f6c8509b2",
+      "receipt_sha256": "8ea4145c5a772326f404e0436e91a39d07c24a3b60dc2497ed59b046bc4844a7",
       "replay_only": true,
       "runtime_proven": false,
       "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
@@ -231,7 +233,8 @@
         "bytes": 18830,
         "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
         "expected_bytes": 18830,
-        "expected_sha256_prefix": "4b208204",
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
         "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
         "ref": "main",
         "repository": "fatcat2109/Headline-Raw-data-json",
@@ -314,7 +317,7 @@
         "shadow_composition": false
       },
       "publicly_proven": false,
-      "receipt_sha256": "e4ef38187402c8a5d7ae83f4b5ade58e6e7d1e1af118f13878078877e4624a21",
+      "receipt_sha256": "708d862dca335fdc857bf5bcad6d533c463a68a5b5192dc49441e0405eec04fd",
       "replay_only": true,
       "runtime_proven": false,
       "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
@@ -345,7 +348,8 @@
         "bytes": 18832,
         "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
         "expected_bytes": 18830,
-        "expected_sha256_prefix": "4b208204",
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
         "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
         "ref": "main",
         "repository": "fatcat2109/Headline-Raw-data-json",
@@ -428,7 +432,7 @@
         "shadow_composition": true
       },
       "publicly_proven": false,
-      "receipt_sha256": "d7b9bc86192170838e16a56583e5d1885a46c6f171c8a09c2e78137f996c86ec",
+      "receipt_sha256": "aab5765695d778a561a1d5a099aa6a82eba40dc880471578027617c9466b2457",
       "replay_only": true,
       "runtime_proven": false,
       "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
@@ -459,7 +463,8 @@
         "bytes": 18831,
         "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
         "expected_bytes": 18830,
-        "expected_sha256_prefix": "4b208204",
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
         "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
         "ref": "main",
         "repository": "fatcat2109/Headline-Raw-data-json",
@@ -542,7 +547,7 @@
         "shadow_composition": false
       },
       "publicly_proven": false,
-      "receipt_sha256": "4e864da1b1676cce3a6e6a1ac861c5b8818b99e87ba1f51b5f2a189193789253",
+      "receipt_sha256": "9e730679d07ae77bc240f7bb42d9f0089fdd79d287bdf478429aa14cb03023fe",
       "replay_only": true,
       "runtime_proven": false,
       "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
@@ -573,7 +578,8 @@
         "bytes": 21145,
         "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
         "expected_bytes": 18830,
-        "expected_sha256_prefix": "4b208204",
+        "expected_sha256": "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368",
+        "expected_sha256_prefix": "4b208104",
         "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",
         "ref": "main",
         "repository": "fatcat2109/Headline-Raw-data-json",
@@ -657,7 +663,7 @@
         "shadow_composition": false
       },
       "publicly_proven": false,
-      "receipt_sha256": "664d62c7385b0ccf34e07818f75d072102c325ef539f93b374f7d20746252995",
+      "receipt_sha256": "7e7ea10ec6cfc143508518f26d4a91d2148ab58e34e3f94ea5b5f4d81ede7dbd",
       "replay_only": true,
       "runtime_proven": false,
       "schema_version": "contentops.cross_plane_shadow_cycle_replay_receipt.v1",
@@ -687,7 +693,7 @@
   "main_artifact": {
     "bytes": 18830,
     "commit": "a3bdedf29e4fc66f917d7fcf1f458821a63d043b",
-    "expected_sha256_prefix": "4b208204",
+    "expected_sha256_prefix": "4b208104",
     "input_sha256_prefix": "124311ccd5",
     "observed_sha256_prefix": "4b208104",
     "path": "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json",

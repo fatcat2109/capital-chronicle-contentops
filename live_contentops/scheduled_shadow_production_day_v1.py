@@ -70,7 +70,8 @@ POST_MERGE_REPLAY_RECEIPT_SCHEMA = "contentops.cross_plane_shadow_cycle_replay_r
 POST_MERGE_ARTIFACT_COMMIT = "a3bdedf29e4fc66f917d7fcf1f458821a63d043b"
 POST_MERGE_ARTIFACT_PATH = "tests/fixtures/cross_plane_shadow_cycle_post_merge_current_real_v1.json"
 POST_MERGE_ARTIFACT_BYTES = 18830
-POST_MERGE_ARTIFACT_SHA256_PREFIX = "4b208204"
+POST_MERGE_ARTIFACT_SHA256 = "4b208104274a8d02e020cdebfd90793c12f524034694d7b116330f38a4502368"
+POST_MERGE_ARTIFACT_SHA256_PREFIX = "4b208104"
 POST_MERGE_INPUT_SHA256_PREFIX = "124311ccd5"
 POST_MERGE_MAIN_SOURCE_REPOSITORY = "fatcat2109/capital-chronicle-main"
 POST_MERGE_MAIN_SOURCE_REF = "main"
@@ -617,6 +618,7 @@ def _post_merge_receipt_base(
             "bytes": len(artifact_bytes) if artifact_bytes is not None else None,
             "sha256": artifact_sha256,
             "expected_bytes": POST_MERGE_ARTIFACT_BYTES,
+            "expected_sha256": POST_MERGE_ARTIFACT_SHA256,
             "expected_sha256_prefix": POST_MERGE_ARTIFACT_SHA256_PREFIX,
             "status": artifact_status,
         },
@@ -834,9 +836,9 @@ def reconcile_post_merge_cross_plane_shadow_cycle_replay(
         if len(artifact_bytes) != POST_MERGE_ARTIFACT_BYTES:
             artifact_status = "SIZE_MISMATCH"
             blockers.append("main_fixture_size_mismatch")
-        if not actual_artifact_hash.startswith(POST_MERGE_ARTIFACT_SHA256_PREFIX):
+        if actual_artifact_hash != POST_MERGE_ARTIFACT_SHA256:
             artifact_status = "HASH_MISMATCH"
-            blockers.append("main_fixture_sha256_prefix_mismatch")
+            blockers.append("main_fixture_sha256_mismatch")
     canonical = json.dumps(
         input_value,
         ensure_ascii=True,
