@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentops.three_trigger_editorial_flow.v1",
+  "title": "ContentOps three operational trigger flow",
+  "description": "Deterministic research/editorial integration over Main-owned shared contracts. Foundation coverage remains a data plane; no scheduler, store, publisher, broker, private portfolio or public-write authority is created.",
+  "type": "object",
+  "required": ["schema_version", "trigger_kind", "request", "plan", "resolution", "disposition", "no_write"],
+  "properties": {
+    "schema_version": {"const": "contentops.three_trigger_editorial_flow.v1"},
+    "trigger_kind": {"enum": ["SCHEDULED_LATEST_INTELLIGENCE", "SCHEDULED_PORTFOLIO_CONTEXT", "JIM_MANUAL_CODEX_DESKTOP"]},
+    "disposition": {"enum": ["READY_FOR_EDITORIAL_RESEARCH", "EDITORIAL_CONTEXT_READY", "REVIEW_READY", "DRAFT_ONLY", "PUBLISHABLE", "ABSTAIN", "DEFERRED", "DATA_BLOCKED", "UNAVAILABLE", "TERMINAL_REUSED"]},
+    "no_write": {"const": true},
+    "public_write_performed": {"const": false},
+    "broker_write_performed": {"const": false},
+    "unknown_write": {"const": false},
+    "automatic_runtime_invoked": {"const": false},
+    "owner_bindings": {
+      "type": "object",
+      "required": ["editorial_owner", "editorial_operation", "publication_owner", "routine_windows", "creates_scheduler", "creates_store", "creates_publisher"],
+      "properties": {
+        "editorial_owner": {"const": "SIMPLE_GEMINI_RUNTIME"},
+        "editorial_operation": {"const": "run_v1_simple_gemini_newsroom"},
+        "publication_owner": {"const": "DurablePublicationCoordinator"},
+        "routine_windows": {"const": ["17:00", "21:00", "23:00", "01:00"]},
+        "creates_scheduler": {"const": false},
+        "creates_store": {"const": false},
+        "creates_publisher": {"const": false}
+      }
+    }
+  },
+  "additionalProperties": true
+}

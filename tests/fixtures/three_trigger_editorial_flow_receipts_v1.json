@@ -1,0 +1,3777 @@
+{
+  "cases": {
+    "latest_browser_fallback": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "research_question": {
+            "bounded_scope": "ONE_HEADLINE_EVENT_INTERVAL",
+            "headline_id": "headline-latest-1",
+            "headline_text": "The central bank held rates steady while officials kept the next move open.",
+            "question_status": "READY",
+            "research_question": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+            "source_timestamp_utc": "2026-10-18T08:00:00Z"
+          },
+          "truth_boundaries": {
+            "capital_chronicle_analysis": {
+              "authority": false,
+              "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+            },
+            "contradictions_preserved": [
+              "latest-headline-event"
+            ],
+            "report_truth": [
+              "OBSERVED_FACT"
+            ],
+            "scenario_or_uncertainty": {
+              "layer": "SCENARIO_OR_UNCERTAINTY",
+              "required_when_missing_or_contradictory": true
+            },
+            "underlying_event_truth": "NOT_ESTABLISHED"
+          }
+        },
+        "analysis_receipt_hash": "098d94bf4ea1987496dadbe9e0abcc2eb428f22d79a8a55ede44fc8ad06b7c63",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [
+          "latest-headline-event"
+        ],
+        "decision_version": "three-trigger-shadow-v1",
+        "deferred_needs": [],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          "EXACT"
+        ],
+        "no_write": true,
+        "output_class": "ANALYSIS_ONLY",
+        "plan_hash": "4250c7581aafb4265a080c294c27e91e1317d56f9d22d6267d156f3635b92ce2",
+        "public_write_performed": false,
+        "request_hash": "ebe79cf13572bd94a366f0446db7db5cb1d0306a61eeec73592a2381acf31fa1",
+        "request_id": "fixture-latest-browser",
+        "requested_output_class": "ANALYSIS_ONLY",
+        "resolution_receipt_hash": "1c0e74d9ba9fdbe8be9ab1fcf0cb056ec13c2087b5612885054a1611f7b1aebf",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "COMPLETE_SHADOW"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-latest-browser-idem",
+        "request_hash": "ebe79cf13572bd94a366f0446db7db5cb1d0306a61eeec73592a2381acf31fa1",
+        "request_id": "fixture-latest-browser",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "READY_FOR_EDITORIAL_RESEARCH",
+      "editorial_context_packet": {},
+      "editorial_packet": {
+        "article_builder_injected": false,
+        "canonical_destination": "substack",
+        "cdp_boundaries": {
+          "ingestion_only": 9222,
+          "publication_media_readback": 9223
+        },
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "dedupe_owner": "v1_simple_gemini_newsroom_v1",
+        "derivative_destinations": [
+          "telegram",
+          "discord",
+          "x",
+          "linkedin",
+          "facebook_page",
+          "instagram_business",
+          "threads",
+          "youtube"
+        ],
+        "editorial_disposition": "READY_FOR_EXISTING_OWNER",
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "missing_fields": [],
+        "no_write": true,
+        "packet_hash": "8004c442adae81e38c6cbdab98c7898178b75e440251d26d88787b7dce150d21",
+        "plan_hash": "4250c7581aafb4265a080c294c27e91e1317d56f9d22d6267d156f3635b92ce2",
+        "public_write_performed": false,
+        "publication_owner": "DurablePublicationCoordinator",
+        "request_hash": "ebe79cf13572bd94a366f0446db7db5cb1d0306a61eeec73592a2381acf31fa1",
+        "request_id": "fixture-latest-browser",
+        "resolution_receipt_hash": "1c0e74d9ba9fdbe8be9ab1fcf0cb056ec13c2087b5612885054a1611f7b1aebf",
+        "resolution_state": "RESOLVED",
+        "resolved_evidence": [
+          {
+            "attempts": [
+              {
+                "accepted": false,
+                "blockers": [
+                  "stale"
+                ],
+                "freshness_state": "STALE",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100"
+              },
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "BROWSEROS_READ_ONLY",
+                "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "source_identity": "www.example.com"
+              }
+            ],
+            "browser_runtime": {},
+            "contradiction": {
+              "source_hashes": [],
+              "state": "UNRESOLVED"
+            },
+            "epistemic_state": "OBSERVED_FACT",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": "database_missing_or_stale_required_field",
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:05:01Z",
+            "missing_fields": [],
+            "need_id": "latest-headline-event",
+            "observed_at_utc": "2026-10-18T08:05:00Z",
+            "pit_state": "PASS",
+            "query_reference": "browseros.read_only_recovery",
+            "retrieved_at_utc": "2026-10-18T08:05:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "BROWSEROS_READ_ONLY",
+            "source_class": "BROWSEROS_RENDERED_PUBLIC_SOURCE",
+            "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source_identity": "www.example.com",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "tool_policy": {
+              "act_tool_used": false,
+              "allowed_tools_used": [
+                "name_session",
+                "tabs",
+                "read"
+              ]
+            },
+            "values": {
+              "headline_text": "The official public page records the named event."
+            }
+          }
+        ],
+        "rights_blocked_fields": [],
+        "schema_version": "contentops.editorial_shared_resolution_packet.v1",
+        "selector_owner": "v1_simple_gemini_newsroom_v1",
+        "sourceability_owner": "v1_simple_gemini_newsroom_v1",
+        "stale_fields": [],
+        "validator_owner": "v1_simple_gemini_newsroom_v1",
+        "writer_owner": "v1_simple_gemini_newsroom_v1"
+      },
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "11e6f571b51fcf71ae9fc34c569b229462665502e3ac8504b858b6bd039baa94",
+      "manual_review_packet": {},
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": null,
+            "browseros_allowed": true,
+            "browseros_url": "https://www.example.com/public-event",
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "headline_event",
+            "exact_or_proxy": "EXACT",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 86400,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "latest-headline-event",
+            "permitted_routes": [
+              "ADMITTED_OFFICIAL_FILING_PROVIDER",
+              "BROWSEROS_READ_ONLY",
+              "PUBLISHED_MEMORY",
+              "RETAINED_HEADLINE_SIDECAR"
+            ],
+            "pit_required": true,
+            "query_references": [
+              "contentops.headline_event.v1"
+            ],
+            "required_fields": [
+              "headline_text"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "TEXT",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "4250c7581aafb4265a080c294c27e91e1317d56f9d22d6267d156f3635b92ce2",
+        "request_hash": "ebe79cf13572bd94a366f0446db7db5cb1d0306a61eeec73592a2381acf31fa1",
+        "request_id": "fixture-latest-browser",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+        "editorial": {
+          "audience": "PUBLIC_READER",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "RESEARCH_ONLY",
+          "requested_format": "EDITORIAL_RESEARCH_PACKET",
+          "required_epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-latest-browser-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": null,
+        "position_scope": null,
+        "request_hash": "ebe79cf13572bd94a366f0446db7db5cb1d0306a61eeec73592a2381acf31fa1",
+        "request_id": "fixture-latest-browser",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "SIMPLE_GEMINI_RUNTIME",
+        "route": {
+          "channel": "SCHEDULED_LATEST_INTELLIGENCE",
+          "creates_scheduler": false,
+          "operation": "run_v1_simple_gemini_newsroom",
+          "owner": "SIMPLE_GEMINI_RUNTIME",
+          "routine_window": true,
+          "routine_windows_reused": [
+            "17:00",
+            "21:00",
+            "23:00",
+            "01:00"
+          ]
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [],
+        "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE"
+      },
+      "research_question": {
+        "bounded_scope": "ONE_HEADLINE_EVENT_INTERVAL",
+        "headline_id": "headline-latest-1",
+        "headline_text": "The central bank held rates steady while officials kept the next move open.",
+        "question_status": "READY",
+        "research_question": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+        "source_timestamp_utc": "2026-10-18T08:00:00Z"
+      },
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "UNRESOLVED"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "4250c7581aafb4265a080c294c27e91e1317d56f9d22d6267d156f3635b92ce2",
+        "public_write_performed": false,
+        "receipt_hash": "1c0e74d9ba9fdbe8be9ab1fcf0cb056ec13c2087b5612885054a1611f7b1aebf",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "ebe79cf13572bd94a366f0446db7db5cb1d0306a61eeec73592a2381acf31fa1",
+        "request_id": "fixture-latest-browser",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": false,
+                "blockers": [
+                  "stale"
+                ],
+                "freshness_state": "STALE",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100"
+              },
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "BROWSEROS_READ_ONLY",
+                "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "source_identity": "www.example.com"
+              }
+            ],
+            "browser_runtime": {},
+            "contradiction": {
+              "source_hashes": [],
+              "state": "UNRESOLVED"
+            },
+            "epistemic_state": "OBSERVED_FACT",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": "database_missing_or_stale_required_field",
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:05:01Z",
+            "missing_fields": [],
+            "need_id": "latest-headline-event",
+            "observed_at_utc": "2026-10-18T08:05:00Z",
+            "pit_state": "PASS",
+            "query_reference": "browseros.read_only_recovery",
+            "retrieved_at_utc": "2026-10-18T08:05:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "BROWSEROS_READ_ONLY",
+            "source_class": "BROWSEROS_RENDERED_PUBLIC_SOURCE",
+            "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source_identity": "www.example.com",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "tool_policy": {
+              "act_tool_used": false,
+              "allowed_tools_used": [
+                "name_session",
+                "tabs",
+                "read"
+              ]
+            },
+            "values": {
+              "headline_text": "The official public page records the named event."
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "RESOLVED",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {
+        "disposition": "READY_FOR_EXISTING_OWNER",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "invoked": false,
+        "no_new_publisher": true,
+        "no_new_scheduler": true,
+        "no_new_store": true,
+        "operation": "run_v1_simple_gemini_newsroom",
+        "packet_hash": "8004c442adae81e38c6cbdab98c7898178b75e440251d26d88787b7dce150d21",
+        "public_write_performed": false,
+        "runner_arguments": {
+          "capital_chronicle_context": {
+            "consumer_route": "CONTENTOPS_EDITORIAL",
+            "epistemic_layers": [
+              "OBSERVED_FACT",
+              "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+              "CAPITAL_CHRONICLE_ANALYSIS",
+              "SCENARIO_OR_UNCERTAINTY"
+            ],
+            "grants_capital_chronicle_numeric_authority": false,
+            "grants_publication_authority": false,
+            "missing_fields": [],
+            "public_write_performed": false,
+            "request_id": "fixture-latest-browser",
+            "resolution_receipt_hash": "1c0e74d9ba9fdbe8be9ab1fcf0cb056ec13c2087b5612885054a1611f7b1aebf",
+            "resolved_evidence": [
+              {
+                "attempts": [
+                  {
+                    "accepted": false,
+                    "blockers": [
+                      "stale"
+                    ],
+                    "freshness_state": "STALE",
+                    "pit_state": "PASS",
+                    "rights_state": "PUBLIC_READ_ONLY",
+                    "route": "RETAINED_HEADLINE_SIDECAR",
+                    "source_hash": "headline-latest-1",
+                    "source_identity": "https://x.com/example/status/100"
+                  },
+                  {
+                    "accepted": true,
+                    "blockers": [],
+                    "freshness_state": "FRESH",
+                    "pit_state": "PASS",
+                    "rights_state": "PUBLIC_READ_ONLY",
+                    "route": "BROWSEROS_READ_ONLY",
+                    "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                    "source_identity": "www.example.com"
+                  }
+                ],
+                "browser_runtime": {},
+                "contradiction": {
+                  "source_hashes": [],
+                  "state": "UNRESOLVED"
+                },
+                "epistemic_state": "OBSERVED_FACT",
+                "exact_or_proxy": "EXACT",
+                "fallback_reason": "database_missing_or_stale_required_field",
+                "freshness_state": "FRESH",
+                "known_at_utc": "2026-10-18T08:05:01Z",
+                "missing_fields": [],
+                "need_id": "latest-headline-event",
+                "observed_at_utc": "2026-10-18T08:05:00Z",
+                "pit_state": "PASS",
+                "query_reference": "browseros.read_only_recovery",
+                "retrieved_at_utc": "2026-10-18T08:05:01Z",
+                "rights_blocked_fields": [],
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "BROWSEROS_READ_ONLY",
+                "source_class": "BROWSEROS_RENDERED_PUBLIC_SOURCE",
+                "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "source_identity": "www.example.com",
+                "stale_fields": [],
+                "state": "RESOLVED",
+                "tool_policy": {
+                  "act_tool_used": false,
+                  "allowed_tools_used": [
+                    "name_session",
+                    "tabs",
+                    "read"
+                  ]
+                },
+                "values": {
+                  "headline_text": "The official public page records the named event."
+                }
+              }
+            ],
+            "rights_blocked_fields": [],
+            "schema_version": "contentops.simple_gemini_context_adapter.v1",
+            "stale_fields": []
+          },
+          "cutoff_utc": "2026-10-18T09:00:00Z",
+          "output_dir": "shadow\\latest-intelligence"
+        },
+        "schema_version": "contentops.simple_gemini_handoff.v1"
+      },
+      "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [
+          "latest-headline-event"
+        ],
+        "report_truth": [
+          "OBSERVED_FACT"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    },
+    "latest_draft": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "research_question": {
+            "bounded_scope": "ONE_HEADLINE_EVENT_INTERVAL",
+            "headline_id": "headline-latest-1",
+            "headline_text": "The central bank held rates steady while officials kept the next move open.",
+            "question_status": "READY",
+            "research_question": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+            "source_timestamp_utc": "2026-10-18T08:00:00Z"
+          },
+          "truth_boundaries": {
+            "capital_chronicle_analysis": {
+              "authority": false,
+              "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+            },
+            "contradictions_preserved": [],
+            "report_truth": [
+              "ATTRIBUTED_REPORT_OR_INTERPRETATION"
+            ],
+            "scenario_or_uncertainty": {
+              "layer": "SCENARIO_OR_UNCERTAINTY",
+              "required_when_missing_or_contradictory": true
+            },
+            "underlying_event_truth": "NOT_ESTABLISHED"
+          }
+        },
+        "analysis_receipt_hash": "307973416d0b0a189f797383199008a42740d8da0bef6a4611109e82abd1c311",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [],
+        "decision_version": "three-trigger-shadow-v1",
+        "deferred_needs": [],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          "EXACT"
+        ],
+        "no_write": true,
+        "output_class": "EDITORIAL_DRAFT",
+        "plan_hash": "48a636a4857cf5b146343aae948c0d4f0b0cdc4dacada5c8849d134973d78b38",
+        "public_write_performed": false,
+        "request_hash": "24c6322b38a9dba79ff98d756af46aaa70653018a41c1dbad27eeeeb6f15ff29",
+        "request_id": "fixture-latest-draft",
+        "requested_output_class": "EDITORIAL_DRAFT",
+        "resolution_receipt_hash": "2773b829d3d5cb36a4f95ffffbea4b6a9a04d1fb3ee8237ad3b23817e0cbb9af",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "COMPLETE_SHADOW"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-latest-draft-idem",
+        "request_hash": "24c6322b38a9dba79ff98d756af46aaa70653018a41c1dbad27eeeeb6f15ff29",
+        "request_id": "fixture-latest-draft",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "DRAFT_ONLY",
+      "editorial_context_packet": {},
+      "editorial_packet": {
+        "article_builder_injected": false,
+        "canonical_destination": "substack",
+        "cdp_boundaries": {
+          "ingestion_only": 9222,
+          "publication_media_readback": 9223
+        },
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "dedupe_owner": "v1_simple_gemini_newsroom_v1",
+        "derivative_destinations": [
+          "telegram",
+          "discord",
+          "x",
+          "linkedin",
+          "facebook_page",
+          "instagram_business",
+          "threads",
+          "youtube"
+        ],
+        "editorial_disposition": "READY_FOR_EXISTING_OWNER",
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "missing_fields": [],
+        "no_write": true,
+        "packet_hash": "2172a2b4e8ccbd954d0b5c0a62cef95febdb1a1760ca9f1ed0c2118e4e0f5e29",
+        "plan_hash": "48a636a4857cf5b146343aae948c0d4f0b0cdc4dacada5c8849d134973d78b38",
+        "public_write_performed": false,
+        "publication_owner": "DurablePublicationCoordinator",
+        "request_hash": "24c6322b38a9dba79ff98d756af46aaa70653018a41c1dbad27eeeeb6f15ff29",
+        "request_id": "fixture-latest-draft",
+        "resolution_receipt_hash": "2773b829d3d5cb36a4f95ffffbea4b6a9a04d1fb3ee8237ad3b23817e0cbb9af",
+        "resolution_state": "RESOLVED",
+        "resolved_evidence": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:00:00Z",
+            "missing_fields": [],
+            "need_id": "latest-headline-event",
+            "observed_at_utc": "2026-10-18T08:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "headline.sidecar.latest",
+            "retrieved_at_utc": "2026-10-18T08:00:00Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "RETAINED_HEADLINE_SIDECAR",
+            "source_class": "RETAINED_HEADLINE_SIDECAR",
+            "source_hash": "headline-latest-1",
+            "source_identity": "https://x.com/example/status/100",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "headline_text": "The central bank held rates steady while officials kept the next move open."
+            }
+          }
+        ],
+        "rights_blocked_fields": [],
+        "schema_version": "contentops.editorial_shared_resolution_packet.v1",
+        "selector_owner": "v1_simple_gemini_newsroom_v1",
+        "sourceability_owner": "v1_simple_gemini_newsroom_v1",
+        "stale_fields": [],
+        "validator_owner": "v1_simple_gemini_newsroom_v1",
+        "writer_owner": "v1_simple_gemini_newsroom_v1"
+      },
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "4f63b229976c0baf926ac9db5eb445cf0b30fe57b523517fd3e0c2011c5f8af2",
+      "manual_review_packet": {},
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": null,
+            "browseros_allowed": false,
+            "browseros_url": null,
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "headline_event",
+            "exact_or_proxy": "EXACT",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 86400,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "latest-headline-event",
+            "permitted_routes": [
+              "ADMITTED_OFFICIAL_FILING_PROVIDER",
+              "BROWSEROS_READ_ONLY",
+              "PUBLISHED_MEMORY",
+              "RETAINED_HEADLINE_SIDECAR"
+            ],
+            "pit_required": true,
+            "query_references": [
+              "contentops.headline_event.v1"
+            ],
+            "required_fields": [
+              "headline_text"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "TEXT",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "48a636a4857cf5b146343aae948c0d4f0b0cdc4dacada5c8849d134973d78b38",
+        "request_hash": "24c6322b38a9dba79ff98d756af46aaa70653018a41c1dbad27eeeeb6f15ff29",
+        "request_id": "fixture-latest-draft",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+        "editorial": {
+          "audience": "PUBLIC_READER",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "PUBLISHABLE",
+          "requested_format": "EDITORIAL_RESEARCH_PACKET",
+          "required_epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-latest-draft-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": null,
+        "position_scope": null,
+        "request_hash": "24c6322b38a9dba79ff98d756af46aaa70653018a41c1dbad27eeeeb6f15ff29",
+        "request_id": "fixture-latest-draft",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "SIMPLE_GEMINI_RUNTIME",
+        "route": {
+          "channel": "SCHEDULED_LATEST_INTELLIGENCE",
+          "creates_scheduler": false,
+          "operation": "run_v1_simple_gemini_newsroom",
+          "owner": "SIMPLE_GEMINI_RUNTIME",
+          "routine_window": true,
+          "routine_windows_reused": [
+            "17:00",
+            "21:00",
+            "23:00",
+            "01:00"
+          ]
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [],
+        "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE"
+      },
+      "research_question": {
+        "bounded_scope": "ONE_HEADLINE_EVENT_INTERVAL",
+        "headline_id": "headline-latest-1",
+        "headline_text": "The central bank held rates steady while officials kept the next move open.",
+        "question_status": "READY",
+        "research_question": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+        "source_timestamp_utc": "2026-10-18T08:00:00Z"
+      },
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "48a636a4857cf5b146343aae948c0d4f0b0cdc4dacada5c8849d134973d78b38",
+        "public_write_performed": false,
+        "receipt_hash": "2773b829d3d5cb36a4f95ffffbea4b6a9a04d1fb3ee8237ad3b23817e0cbb9af",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "24c6322b38a9dba79ff98d756af46aaa70653018a41c1dbad27eeeeb6f15ff29",
+        "request_id": "fixture-latest-draft",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:00:00Z",
+            "missing_fields": [],
+            "need_id": "latest-headline-event",
+            "observed_at_utc": "2026-10-18T08:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "headline.sidecar.latest",
+            "retrieved_at_utc": "2026-10-18T08:00:00Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "RETAINED_HEADLINE_SIDECAR",
+            "source_class": "RETAINED_HEADLINE_SIDECAR",
+            "source_hash": "headline-latest-1",
+            "source_identity": "https://x.com/example/status/100",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "headline_text": "The central bank held rates steady while officials kept the next move open."
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "RESOLVED",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {
+        "disposition": "READY_FOR_EXISTING_OWNER",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "invoked": false,
+        "no_new_publisher": true,
+        "no_new_scheduler": true,
+        "no_new_store": true,
+        "operation": "run_v1_simple_gemini_newsroom",
+        "packet_hash": "2172a2b4e8ccbd954d0b5c0a62cef95febdb1a1760ca9f1ed0c2118e4e0f5e29",
+        "public_write_performed": false,
+        "runner_arguments": {
+          "capital_chronicle_context": {
+            "consumer_route": "CONTENTOPS_EDITORIAL",
+            "epistemic_layers": [
+              "OBSERVED_FACT",
+              "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+              "CAPITAL_CHRONICLE_ANALYSIS",
+              "SCENARIO_OR_UNCERTAINTY"
+            ],
+            "grants_capital_chronicle_numeric_authority": false,
+            "grants_publication_authority": false,
+            "missing_fields": [],
+            "public_write_performed": false,
+            "request_id": "fixture-latest-draft",
+            "resolution_receipt_hash": "2773b829d3d5cb36a4f95ffffbea4b6a9a04d1fb3ee8237ad3b23817e0cbb9af",
+            "resolved_evidence": [
+              {
+                "attempts": [
+                  {
+                    "accepted": true,
+                    "blockers": [],
+                    "freshness_state": "FRESH",
+                    "pit_state": "PASS",
+                    "rights_state": "PUBLIC_READ_ONLY",
+                    "route": "RETAINED_HEADLINE_SIDECAR",
+                    "source_hash": "headline-latest-1",
+                    "source_identity": "https://x.com/example/status/100"
+                  }
+                ],
+                "contradiction": {
+                  "source_hashes": [],
+                  "state": "NONE"
+                },
+                "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+                "exact_or_proxy": "EXACT",
+                "fallback_reason": null,
+                "freshness_state": "FRESH",
+                "known_at_utc": "2026-10-18T08:00:00Z",
+                "missing_fields": [],
+                "need_id": "latest-headline-event",
+                "observed_at_utc": "2026-10-18T08:00:00Z",
+                "pit_state": "PASS",
+                "query_reference": "headline.sidecar.latest",
+                "retrieved_at_utc": "2026-10-18T08:00:00Z",
+                "rights_blocked_fields": [],
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_class": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100",
+                "stale_fields": [],
+                "state": "RESOLVED",
+                "values": {
+                  "headline_text": "The central bank held rates steady while officials kept the next move open."
+                }
+              }
+            ],
+            "rights_blocked_fields": [],
+            "schema_version": "contentops.simple_gemini_context_adapter.v1",
+            "stale_fields": []
+          },
+          "cutoff_utc": "2026-10-18T09:00:00Z",
+          "output_dir": "shadow\\latest-intelligence"
+        },
+        "schema_version": "contentops.simple_gemini_handoff.v1"
+      },
+      "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [],
+        "report_truth": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    },
+    "latest_publishable": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "research_question": {
+            "bounded_scope": "ONE_HEADLINE_EVENT_INTERVAL",
+            "headline_id": "headline-latest-1",
+            "headline_text": "The central bank held rates steady while officials kept the next move open.",
+            "question_status": "READY",
+            "research_question": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+            "source_timestamp_utc": "2026-10-18T08:00:00Z"
+          },
+          "truth_boundaries": {
+            "capital_chronicle_analysis": {
+              "authority": false,
+              "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+            },
+            "contradictions_preserved": [],
+            "report_truth": [
+              "ATTRIBUTED_REPORT_OR_INTERPRETATION"
+            ],
+            "scenario_or_uncertainty": {
+              "layer": "SCENARIO_OR_UNCERTAINTY",
+              "required_when_missing_or_contradictory": true
+            },
+            "underlying_event_truth": "NOT_ESTABLISHED"
+          }
+        },
+        "analysis_receipt_hash": "d612ca8b9f3f26eb6fa397f34a7013bebe8e74cc607ddaff497d8d11c1dee545",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [],
+        "decision_version": "three-trigger-shadow-v1",
+        "deferred_needs": [],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          "EXACT"
+        ],
+        "no_write": true,
+        "output_class": "EDITORIAL_PUBLISHABLE",
+        "plan_hash": "a265ca1b39632c33f2bf210065f3b37cd740044748b19eaf014a6c7ba175b398",
+        "public_write_performed": false,
+        "request_hash": "9fa10683f1ccf38d55c51f000305d17ef93a2a5239da3b66fea1921e8c65e5fd",
+        "request_id": "fixture-latest-publishable",
+        "requested_output_class": "EDITORIAL_PUBLISHABLE",
+        "resolution_receipt_hash": "be6e5a91c0a24bc5e651c947186664839026b71662434eb1fc8493a71d37408c",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "COMPLETE_SHADOW"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-latest-publishable-idem",
+        "request_hash": "9fa10683f1ccf38d55c51f000305d17ef93a2a5239da3b66fea1921e8c65e5fd",
+        "request_id": "fixture-latest-publishable",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "PUBLISHABLE",
+      "editorial_context_packet": {},
+      "editorial_packet": {
+        "article_builder_injected": false,
+        "canonical_destination": "substack",
+        "cdp_boundaries": {
+          "ingestion_only": 9222,
+          "publication_media_readback": 9223
+        },
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "dedupe_owner": "v1_simple_gemini_newsroom_v1",
+        "derivative_destinations": [
+          "telegram",
+          "discord",
+          "x",
+          "linkedin",
+          "facebook_page",
+          "instagram_business",
+          "threads",
+          "youtube"
+        ],
+        "editorial_disposition": "READY_FOR_EXISTING_OWNER",
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "missing_fields": [],
+        "no_write": true,
+        "packet_hash": "5c6ef9368dd300debbadf9148ef87449e51e5e3751cc4b8a5140f1d068b93df5",
+        "plan_hash": "a265ca1b39632c33f2bf210065f3b37cd740044748b19eaf014a6c7ba175b398",
+        "public_write_performed": false,
+        "publication_owner": "DurablePublicationCoordinator",
+        "request_hash": "9fa10683f1ccf38d55c51f000305d17ef93a2a5239da3b66fea1921e8c65e5fd",
+        "request_id": "fixture-latest-publishable",
+        "resolution_receipt_hash": "be6e5a91c0a24bc5e651c947186664839026b71662434eb1fc8493a71d37408c",
+        "resolution_state": "RESOLVED",
+        "resolved_evidence": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:00:00Z",
+            "missing_fields": [],
+            "need_id": "latest-headline-event",
+            "observed_at_utc": "2026-10-18T08:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "headline.sidecar.latest",
+            "retrieved_at_utc": "2026-10-18T08:00:00Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "RETAINED_HEADLINE_SIDECAR",
+            "source_class": "RETAINED_HEADLINE_SIDECAR",
+            "source_hash": "headline-latest-1",
+            "source_identity": "https://x.com/example/status/100",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "headline_text": "The central bank held rates steady while officials kept the next move open."
+            }
+          }
+        ],
+        "rights_blocked_fields": [],
+        "schema_version": "contentops.editorial_shared_resolution_packet.v1",
+        "selector_owner": "v1_simple_gemini_newsroom_v1",
+        "sourceability_owner": "v1_simple_gemini_newsroom_v1",
+        "stale_fields": [],
+        "validator_owner": "v1_simple_gemini_newsroom_v1",
+        "writer_owner": "v1_simple_gemini_newsroom_v1"
+      },
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "44d4f1971d95bc9b742755d91d8d29e74ae55f74a0fc281ab53f06791042c7dc",
+      "manual_review_packet": {},
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": null,
+            "browseros_allowed": false,
+            "browseros_url": null,
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "headline_event",
+            "exact_or_proxy": "EXACT",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 86400,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "latest-headline-event",
+            "permitted_routes": [
+              "ADMITTED_OFFICIAL_FILING_PROVIDER",
+              "BROWSEROS_READ_ONLY",
+              "PUBLISHED_MEMORY",
+              "RETAINED_HEADLINE_SIDECAR"
+            ],
+            "pit_required": true,
+            "query_references": [
+              "contentops.headline_event.v1"
+            ],
+            "required_fields": [
+              "headline_text"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "TEXT",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "a265ca1b39632c33f2bf210065f3b37cd740044748b19eaf014a6c7ba175b398",
+        "request_hash": "9fa10683f1ccf38d55c51f000305d17ef93a2a5239da3b66fea1921e8c65e5fd",
+        "request_id": "fixture-latest-publishable",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+        "editorial": {
+          "audience": "PUBLIC_READER",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "PUBLISHABLE",
+          "requested_format": "EDITORIAL_RESEARCH_PACKET",
+          "required_epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-latest-publishable-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": null,
+        "position_scope": null,
+        "request_hash": "9fa10683f1ccf38d55c51f000305d17ef93a2a5239da3b66fea1921e8c65e5fd",
+        "request_id": "fixture-latest-publishable",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "SIMPLE_GEMINI_RUNTIME",
+        "route": {
+          "channel": "SCHEDULED_LATEST_INTELLIGENCE",
+          "creates_scheduler": false,
+          "operation": "run_v1_simple_gemini_newsroom",
+          "owner": "SIMPLE_GEMINI_RUNTIME",
+          "routine_window": true,
+          "routine_windows_reused": [
+            "17:00",
+            "21:00",
+            "23:00",
+            "01:00"
+          ]
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [],
+        "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE"
+      },
+      "research_question": {
+        "bounded_scope": "ONE_HEADLINE_EVENT_INTERVAL",
+        "headline_id": "headline-latest-1",
+        "headline_text": "The central bank held rates steady while officials kept the next move open.",
+        "question_status": "READY",
+        "research_question": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+        "source_timestamp_utc": "2026-10-18T08:00:00Z"
+      },
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "a265ca1b39632c33f2bf210065f3b37cd740044748b19eaf014a6c7ba175b398",
+        "public_write_performed": false,
+        "receipt_hash": "be6e5a91c0a24bc5e651c947186664839026b71662434eb1fc8493a71d37408c",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "9fa10683f1ccf38d55c51f000305d17ef93a2a5239da3b66fea1921e8c65e5fd",
+        "request_id": "fixture-latest-publishable",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:00:00Z",
+            "missing_fields": [],
+            "need_id": "latest-headline-event",
+            "observed_at_utc": "2026-10-18T08:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "headline.sidecar.latest",
+            "retrieved_at_utc": "2026-10-18T08:00:00Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "RETAINED_HEADLINE_SIDECAR",
+            "source_class": "RETAINED_HEADLINE_SIDECAR",
+            "source_hash": "headline-latest-1",
+            "source_identity": "https://x.com/example/status/100",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "headline_text": "The central bank held rates steady while officials kept the next move open."
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "RESOLVED",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {
+        "disposition": "READY_FOR_EXISTING_OWNER",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "invoked": false,
+        "no_new_publisher": true,
+        "no_new_scheduler": true,
+        "no_new_store": true,
+        "operation": "run_v1_simple_gemini_newsroom",
+        "packet_hash": "5c6ef9368dd300debbadf9148ef87449e51e5e3751cc4b8a5140f1d068b93df5",
+        "public_write_performed": false,
+        "runner_arguments": {
+          "capital_chronicle_context": {
+            "consumer_route": "CONTENTOPS_EDITORIAL",
+            "epistemic_layers": [
+              "OBSERVED_FACT",
+              "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+              "CAPITAL_CHRONICLE_ANALYSIS",
+              "SCENARIO_OR_UNCERTAINTY"
+            ],
+            "grants_capital_chronicle_numeric_authority": false,
+            "grants_publication_authority": false,
+            "missing_fields": [],
+            "public_write_performed": false,
+            "request_id": "fixture-latest-publishable",
+            "resolution_receipt_hash": "be6e5a91c0a24bc5e651c947186664839026b71662434eb1fc8493a71d37408c",
+            "resolved_evidence": [
+              {
+                "attempts": [
+                  {
+                    "accepted": true,
+                    "blockers": [],
+                    "freshness_state": "FRESH",
+                    "pit_state": "PASS",
+                    "rights_state": "PUBLIC_READ_ONLY",
+                    "route": "RETAINED_HEADLINE_SIDECAR",
+                    "source_hash": "headline-latest-1",
+                    "source_identity": "https://x.com/example/status/100"
+                  }
+                ],
+                "contradiction": {
+                  "source_hashes": [],
+                  "state": "NONE"
+                },
+                "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+                "exact_or_proxy": "EXACT",
+                "fallback_reason": null,
+                "freshness_state": "FRESH",
+                "known_at_utc": "2026-10-18T08:00:00Z",
+                "missing_fields": [],
+                "need_id": "latest-headline-event",
+                "observed_at_utc": "2026-10-18T08:00:00Z",
+                "pit_state": "PASS",
+                "query_reference": "headline.sidecar.latest",
+                "retrieved_at_utc": "2026-10-18T08:00:00Z",
+                "rights_blocked_fields": [],
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_class": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100",
+                "stale_fields": [],
+                "state": "RESOLVED",
+                "values": {
+                  "headline_text": "The central bank held rates steady while officials kept the next move open."
+                }
+              }
+            ],
+            "rights_blocked_fields": [],
+            "schema_version": "contentops.simple_gemini_context_adapter.v1",
+            "stale_fields": []
+          },
+          "cutoff_utc": "2026-10-18T09:00:00Z",
+          "output_dir": "shadow\\latest-intelligence"
+        },
+        "schema_version": "contentops.simple_gemini_handoff.v1"
+      },
+      "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [],
+        "report_truth": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    },
+    "latest_research": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "research_question": {
+            "bounded_scope": "ONE_HEADLINE_EVENT_INTERVAL",
+            "headline_id": "headline-latest-1",
+            "headline_text": "The central bank held rates steady while officials kept the next move open.",
+            "question_status": "READY",
+            "research_question": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+            "source_timestamp_utc": "2026-10-18T08:00:00Z"
+          },
+          "truth_boundaries": {
+            "capital_chronicle_analysis": {
+              "authority": false,
+              "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+            },
+            "contradictions_preserved": [],
+            "report_truth": [
+              "ATTRIBUTED_REPORT_OR_INTERPRETATION"
+            ],
+            "scenario_or_uncertainty": {
+              "layer": "SCENARIO_OR_UNCERTAINTY",
+              "required_when_missing_or_contradictory": true
+            },
+            "underlying_event_truth": "NOT_ESTABLISHED"
+          }
+        },
+        "analysis_receipt_hash": "8aa771792063a9236e0aea395ebe769033f3665e00332438e9b2d823082567a2",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [],
+        "decision_version": "three-trigger-shadow-v1",
+        "deferred_needs": [],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          "EXACT"
+        ],
+        "no_write": true,
+        "output_class": "ANALYSIS_ONLY",
+        "plan_hash": "2a47b680944baa1b06bd751dcb0890eb96fc7f37382cde2ecfd2109a72bb9f19",
+        "public_write_performed": false,
+        "request_hash": "561e55b19d935d36048f391616518ed0a921ce5f9e2a8a2f1456a5dbfed86e22",
+        "request_id": "fixture-latest",
+        "requested_output_class": "ANALYSIS_ONLY",
+        "resolution_receipt_hash": "f448f64937b38c9429d4510e4d44fa0c05bc8471b288107ef0696f85fdd0ab17",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "COMPLETE_SHADOW"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-latest-idem",
+        "request_hash": "561e55b19d935d36048f391616518ed0a921ce5f9e2a8a2f1456a5dbfed86e22",
+        "request_id": "fixture-latest",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "READY_FOR_EDITORIAL_RESEARCH",
+      "editorial_context_packet": {},
+      "editorial_packet": {
+        "article_builder_injected": false,
+        "canonical_destination": "substack",
+        "cdp_boundaries": {
+          "ingestion_only": 9222,
+          "publication_media_readback": 9223
+        },
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "dedupe_owner": "v1_simple_gemini_newsroom_v1",
+        "derivative_destinations": [
+          "telegram",
+          "discord",
+          "x",
+          "linkedin",
+          "facebook_page",
+          "instagram_business",
+          "threads",
+          "youtube"
+        ],
+        "editorial_disposition": "READY_FOR_EXISTING_OWNER",
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "missing_fields": [],
+        "no_write": true,
+        "packet_hash": "ff922c0f41b9b7e6410cb5ad3b739d46b774861ca4ff65607f98899523f672da",
+        "plan_hash": "2a47b680944baa1b06bd751dcb0890eb96fc7f37382cde2ecfd2109a72bb9f19",
+        "public_write_performed": false,
+        "publication_owner": "DurablePublicationCoordinator",
+        "request_hash": "561e55b19d935d36048f391616518ed0a921ce5f9e2a8a2f1456a5dbfed86e22",
+        "request_id": "fixture-latest",
+        "resolution_receipt_hash": "f448f64937b38c9429d4510e4d44fa0c05bc8471b288107ef0696f85fdd0ab17",
+        "resolution_state": "RESOLVED",
+        "resolved_evidence": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:00:00Z",
+            "missing_fields": [],
+            "need_id": "latest-headline-event",
+            "observed_at_utc": "2026-10-18T08:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "headline.sidecar.latest",
+            "retrieved_at_utc": "2026-10-18T08:00:00Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "RETAINED_HEADLINE_SIDECAR",
+            "source_class": "RETAINED_HEADLINE_SIDECAR",
+            "source_hash": "headline-latest-1",
+            "source_identity": "https://x.com/example/status/100",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "headline_text": "The central bank held rates steady while officials kept the next move open."
+            }
+          }
+        ],
+        "rights_blocked_fields": [],
+        "schema_version": "contentops.editorial_shared_resolution_packet.v1",
+        "selector_owner": "v1_simple_gemini_newsroom_v1",
+        "sourceability_owner": "v1_simple_gemini_newsroom_v1",
+        "stale_fields": [],
+        "validator_owner": "v1_simple_gemini_newsroom_v1",
+        "writer_owner": "v1_simple_gemini_newsroom_v1"
+      },
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "4bc02f245612dbbf14753a56443cfce5ad011116769b6bbaa0f210168078a9a8",
+      "manual_review_packet": {},
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": null,
+            "browseros_allowed": false,
+            "browseros_url": null,
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "headline_event",
+            "exact_or_proxy": "EXACT",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 86400,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "latest-headline-event",
+            "permitted_routes": [
+              "ADMITTED_OFFICIAL_FILING_PROVIDER",
+              "BROWSEROS_READ_ONLY",
+              "PUBLISHED_MEMORY",
+              "RETAINED_HEADLINE_SIDECAR"
+            ],
+            "pit_required": true,
+            "query_references": [
+              "contentops.headline_event.v1"
+            ],
+            "required_fields": [
+              "headline_text"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "TEXT",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "2a47b680944baa1b06bd751dcb0890eb96fc7f37382cde2ecfd2109a72bb9f19",
+        "request_hash": "561e55b19d935d36048f391616518ed0a921ce5f9e2a8a2f1456a5dbfed86e22",
+        "request_id": "fixture-latest",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+        "editorial": {
+          "audience": "PUBLIC_READER",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "RESEARCH_ONLY",
+          "requested_format": "EDITORIAL_RESEARCH_PACKET",
+          "required_epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-latest-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": null,
+        "position_scope": null,
+        "request_hash": "561e55b19d935d36048f391616518ed0a921ce5f9e2a8a2f1456a5dbfed86e22",
+        "request_id": "fixture-latest",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "SIMPLE_GEMINI_RUNTIME",
+        "route": {
+          "channel": "SCHEDULED_LATEST_INTELLIGENCE",
+          "creates_scheduler": false,
+          "operation": "run_v1_simple_gemini_newsroom",
+          "owner": "SIMPLE_GEMINI_RUNTIME",
+          "routine_window": true,
+          "routine_windows_reused": [
+            "17:00",
+            "21:00",
+            "23:00",
+            "01:00"
+          ]
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [],
+        "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE"
+      },
+      "research_question": {
+        "bounded_scope": "ONE_HEADLINE_EVENT_INTERVAL",
+        "headline_id": "headline-latest-1",
+        "headline_text": "The central bank held rates steady while officials kept the next move open.",
+        "question_status": "READY",
+        "research_question": "What does this retained report say, what evidence establishes the underlying event, and what remains uncertain for PUBLIC_READER: The central bank held rates steady while officials kept the next move open.",
+        "source_timestamp_utc": "2026-10-18T08:00:00Z"
+      },
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "2a47b680944baa1b06bd751dcb0890eb96fc7f37382cde2ecfd2109a72bb9f19",
+        "public_write_performed": false,
+        "receipt_hash": "f448f64937b38c9429d4510e4d44fa0c05bc8471b288107ef0696f85fdd0ab17",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "561e55b19d935d36048f391616518ed0a921ce5f9e2a8a2f1456a5dbfed86e22",
+        "request_id": "fixture-latest",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:00:00Z",
+            "missing_fields": [],
+            "need_id": "latest-headline-event",
+            "observed_at_utc": "2026-10-18T08:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "headline.sidecar.latest",
+            "retrieved_at_utc": "2026-10-18T08:00:00Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "RETAINED_HEADLINE_SIDECAR",
+            "source_class": "RETAINED_HEADLINE_SIDECAR",
+            "source_hash": "headline-latest-1",
+            "source_identity": "https://x.com/example/status/100",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "headline_text": "The central bank held rates steady while officials kept the next move open."
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "RESOLVED",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {
+        "disposition": "READY_FOR_EXISTING_OWNER",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "invoked": false,
+        "no_new_publisher": true,
+        "no_new_scheduler": true,
+        "no_new_store": true,
+        "operation": "run_v1_simple_gemini_newsroom",
+        "packet_hash": "ff922c0f41b9b7e6410cb5ad3b739d46b774861ca4ff65607f98899523f672da",
+        "public_write_performed": false,
+        "runner_arguments": {
+          "capital_chronicle_context": {
+            "consumer_route": "CONTENTOPS_EDITORIAL",
+            "epistemic_layers": [
+              "OBSERVED_FACT",
+              "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+              "CAPITAL_CHRONICLE_ANALYSIS",
+              "SCENARIO_OR_UNCERTAINTY"
+            ],
+            "grants_capital_chronicle_numeric_authority": false,
+            "grants_publication_authority": false,
+            "missing_fields": [],
+            "public_write_performed": false,
+            "request_id": "fixture-latest",
+            "resolution_receipt_hash": "f448f64937b38c9429d4510e4d44fa0c05bc8471b288107ef0696f85fdd0ab17",
+            "resolved_evidence": [
+              {
+                "attempts": [
+                  {
+                    "accepted": true,
+                    "blockers": [],
+                    "freshness_state": "FRESH",
+                    "pit_state": "PASS",
+                    "rights_state": "PUBLIC_READ_ONLY",
+                    "route": "RETAINED_HEADLINE_SIDECAR",
+                    "source_hash": "headline-latest-1",
+                    "source_identity": "https://x.com/example/status/100"
+                  }
+                ],
+                "contradiction": {
+                  "source_hashes": [],
+                  "state": "NONE"
+                },
+                "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+                "exact_or_proxy": "EXACT",
+                "fallback_reason": null,
+                "freshness_state": "FRESH",
+                "known_at_utc": "2026-10-18T08:00:00Z",
+                "missing_fields": [],
+                "need_id": "latest-headline-event",
+                "observed_at_utc": "2026-10-18T08:00:00Z",
+                "pit_state": "PASS",
+                "query_reference": "headline.sidecar.latest",
+                "retrieved_at_utc": "2026-10-18T08:00:00Z",
+                "rights_blocked_fields": [],
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_class": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "headline-latest-1",
+                "source_identity": "https://x.com/example/status/100",
+                "stale_fields": [],
+                "state": "RESOLVED",
+                "values": {
+                  "headline_text": "The central bank held rates steady while officials kept the next move open."
+                }
+              }
+            ],
+            "rights_blocked_fields": [],
+            "schema_version": "contentops.simple_gemini_context_adapter.v1",
+            "stale_fields": []
+          },
+          "cutoff_utc": "2026-10-18T09:00:00Z",
+          "output_dir": "shadow\\latest-intelligence"
+        },
+        "schema_version": "contentops.simple_gemini_handoff.v1"
+      },
+      "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [],
+        "report_truth": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    },
+    "manual_review": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "manual_review_scope": "Prepare a source-backed BTCUSD market context brief.",
+          "publication_authority": false
+        },
+        "analysis_receipt_hash": "6f4cea442d3111427cf5bab69a178ce1351c41cf378c71c3ae803dc9899217d8",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [],
+        "decision_version": "three-trigger-manual-shadow-v1",
+        "deferred_needs": [],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          "EXACT"
+        ],
+        "no_write": true,
+        "output_class": "ANALYSIS_ONLY",
+        "plan_hash": "ae53ac9424b634e64ba8eebf84cacdc11d36064d7b0deedc4b633cce679270a1",
+        "public_write_performed": false,
+        "request_hash": "bad41a60ee76afafa58fcea8d1b71f0801f9be16b7fa44270a68650d348021a1",
+        "request_id": "fixture-manual",
+        "requested_output_class": "ANALYSIS_ONLY",
+        "resolution_receipt_hash": "15e50873238d0325df8887299d9cb62f10f90012bc0c5c1c9a52ea8952e12c3c",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "COMPLETE_SHADOW"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-manual-idem",
+        "request_hash": "bad41a60ee76afafa58fcea8d1b71f0801f9be16b7fa44270a68650d348021a1",
+        "request_id": "fixture-manual",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "REVIEW_READY",
+      "editorial_context_packet": {},
+      "editorial_packet": {},
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "199c63451ef3153015b7a2f6d0958f9f021b34c7daaa0e53718b4c4de7f2ef91",
+      "manual_review_packet": {
+        "contradictions": [
+          "NONE"
+        ],
+        "disposition": "REVIEW_READY",
+        "epistemic_states": [
+          "OBSERVED_FACT"
+        ],
+        "exact_or_proxy": [
+          "EXACT"
+        ],
+        "freshness": [
+          "FRESH"
+        ],
+        "missing_fields": [],
+        "next_action": "Review source-bound evidence and unresolved fields before drafting.",
+        "no_write": true,
+        "observed_retrieved_known_at": [
+          {
+            "known_at_utc": "2026-10-18T06:00:01Z",
+            "observed_at_utc": "2026-10-18T06:00:00Z",
+            "retrieved_at_utc": "2026-10-18T06:00:01Z"
+          }
+        ],
+        "pit": [
+          "PASS"
+        ],
+        "public_write_performed": false,
+        "publication_authority": false,
+        "request_id": "fixture-manual",
+        "resolution_receipt_hash": "15e50873238d0325df8887299d9cb62f10f90012bc0c5c1c9a52ea8952e12c3c",
+        "rights": [
+          "PUBLIC_READ_ONLY"
+        ],
+        "schema_version": "contentops.jim_manual_research_review_packet.v1",
+        "scope": "Prepare a source-backed BTCUSD market context brief.",
+        "source_identity": [
+          "official.example/document-1"
+        ],
+        "stale_fields": [],
+        "target_assets": [
+          "BTCUSD"
+        ]
+      },
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": null,
+            "browseros_allowed": true,
+            "browseros_url": "https://www.example.com/document",
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "official_document",
+            "exact_or_proxy": "EXACT",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 0,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "manual-document",
+            "permitted_routes": [
+              "ADMITTED_OFFICIAL_FILING_PROVIDER",
+              "BROWSEROS_READ_ONLY"
+            ],
+            "pit_required": true,
+            "query_references": [],
+            "required_fields": [
+              "document_title",
+              "published_at"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "TEXT",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "ae53ac9424b634e64ba8eebf84cacdc11d36064d7b0deedc4b633cce679270a1",
+        "request_hash": "bad41a60ee76afafa58fcea8d1b71f0801f9be16b7fa44270a68650d348021a1",
+        "request_id": "fixture-manual",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "Prepare a source-backed BTCUSD market context brief.",
+        "editorial": {
+          "audience": "JIM_OWNER_REVIEW",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "RESEARCH_ONLY",
+          "requested_format": "MANUAL_RESEARCH_REVIEW_PACKET",
+          "required_epistemic_state": "OBSERVED_FACT",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-manual-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": null,
+        "position_scope": null,
+        "request_hash": "bad41a60ee76afafa58fcea8d1b71f0801f9be16b7fa44270a68650d348021a1",
+        "request_id": "fixture-manual",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "Jim",
+        "route": {
+          "automatic_publication": false,
+          "channel": "OWNER_MANUAL_CODEX_DESKTOP",
+          "creates_scheduler": false,
+          "owner": "JIM_MANUAL_REQUEST",
+          "routine_window": false
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [
+          "BTCUSD"
+        ],
+        "trigger_kind": "JIM_MANUAL_CODEX_DESKTOP"
+      },
+      "research_question": {},
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "ae53ac9424b634e64ba8eebf84cacdc11d36064d7b0deedc4b633cce679270a1",
+        "public_write_performed": false,
+        "receipt_hash": "15e50873238d0325df8887299d9cb62f10f90012bc0c5c1c9a52ea8952e12c3c",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "bad41a60ee76afafa58fcea8d1b71f0801f9be16b7fa44270a68650d348021a1",
+        "request_id": "fixture-manual",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "ADMITTED_OFFICIAL_FILING_PROVIDER",
+                "source_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+                "source_identity": "official.example/document-1"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "OBSERVED_FACT",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T06:00:01Z",
+            "missing_fields": [],
+            "need_id": "manual-document",
+            "observed_at_utc": "2026-10-18T06:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "contentops.official_document.v1",
+            "retrieved_at_utc": "2026-10-18T06:00:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "ADMITTED_OFFICIAL_FILING_PROVIDER",
+            "source_class": "ADMITTED_OFFICIAL_FILING_PROVIDER",
+            "source_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+            "source_identity": "official.example/document-1",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "document_title": "Official public document",
+              "published_at": "2026-10-18"
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "RESOLVED",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {},
+      "trigger_kind": "JIM_MANUAL_CODEX_DESKTOP",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [],
+        "report_truth": [
+          "OBSERVED_FACT"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    },
+    "manual_unavailable": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "manual_review_scope": "Prepare a source-backed BTCUSD market context brief.",
+          "publication_authority": false
+        },
+        "analysis_receipt_hash": "b1bffcdf670eb4d399a31016ae4eaa45758955f0624a5415b8e70675b49b6740",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [],
+        "decision_version": "three-trigger-manual-shadow-v1",
+        "deferred_needs": [
+          "manual-document"
+        ],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          ""
+        ],
+        "no_write": true,
+        "output_class": "DATA_BLOCKED",
+        "plan_hash": "5f04cc6c29b855563eedff305554b55e954a80eb7ade3126e27459d84db9951a",
+        "public_write_performed": false,
+        "request_hash": "78d3a136f266f181e681263187e673b9fbadd8b7da1ed5ffd40ac5ce73bace8e",
+        "request_id": "fixture-manual-unavailable",
+        "requested_output_class": "ANALYSIS_ONLY",
+        "resolution_receipt_hash": "ba0bf099fb54170e9d3e607d99889605168c6bf14769f414d528cb87fa2d3135",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "DATA_BLOCKED"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-manual-unavailable-idem",
+        "request_hash": "78d3a136f266f181e681263187e673b9fbadd8b7da1ed5ffd40ac5ce73bace8e",
+        "request_id": "fixture-manual-unavailable",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "ABSTAIN",
+      "editorial_context_packet": {},
+      "editorial_packet": {},
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "e7ac95e500b63c332e27326e31244ba58c511d24a56678c3a6f64cf4d5ef7ece",
+      "manual_review_packet": {
+        "contradictions": [
+          "NONE"
+        ],
+        "disposition": "ABSTAIN",
+        "epistemic_states": [
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_or_proxy": [
+          null
+        ],
+        "freshness": [
+          null
+        ],
+        "missing_fields": [
+          "document_title",
+          "published_at"
+        ],
+        "next_action": "Resolve the listed blocker before any draft or publication consideration.",
+        "no_write": true,
+        "observed_retrieved_known_at": [
+          {
+            "known_at_utc": null,
+            "observed_at_utc": null,
+            "retrieved_at_utc": null
+          }
+        ],
+        "pit": [
+          null
+        ],
+        "public_write_performed": false,
+        "publication_authority": false,
+        "request_id": "fixture-manual-unavailable",
+        "resolution_receipt_hash": "ba0bf099fb54170e9d3e607d99889605168c6bf14769f414d528cb87fa2d3135",
+        "rights": [
+          null
+        ],
+        "schema_version": "contentops.jim_manual_research_review_packet.v1",
+        "scope": "Prepare a source-backed BTCUSD market context brief.",
+        "source_identity": [],
+        "stale_fields": [],
+        "target_assets": [
+          "BTCUSD"
+        ]
+      },
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": null,
+            "browseros_allowed": true,
+            "browseros_url": "https://www.example.com/document",
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "official_document",
+            "exact_or_proxy": "EXACT",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 0,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "manual-document",
+            "permitted_routes": [
+              "ADMITTED_OFFICIAL_FILING_PROVIDER",
+              "BROWSEROS_READ_ONLY"
+            ],
+            "pit_required": true,
+            "query_references": [],
+            "required_fields": [
+              "document_title",
+              "published_at"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "TEXT",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "5f04cc6c29b855563eedff305554b55e954a80eb7ade3126e27459d84db9951a",
+        "request_hash": "78d3a136f266f181e681263187e673b9fbadd8b7da1ed5ffd40ac5ce73bace8e",
+        "request_id": "fixture-manual-unavailable",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "Prepare a source-backed BTCUSD market context brief.",
+        "editorial": {
+          "audience": "JIM_OWNER_REVIEW",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "RESEARCH_ONLY",
+          "requested_format": "MANUAL_RESEARCH_REVIEW_PACKET",
+          "required_epistemic_state": "OBSERVED_FACT",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-manual-unavailable-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": null,
+        "position_scope": null,
+        "request_hash": "78d3a136f266f181e681263187e673b9fbadd8b7da1ed5ffd40ac5ce73bace8e",
+        "request_id": "fixture-manual-unavailable",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "Jim",
+        "route": {
+          "automatic_publication": false,
+          "channel": "OWNER_MANUAL_CODEX_DESKTOP",
+          "creates_scheduler": false,
+          "owner": "JIM_MANUAL_REQUEST",
+          "routine_window": false
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [
+          "BTCUSD"
+        ],
+        "trigger_kind": "JIM_MANUAL_CODEX_DESKTOP"
+      },
+      "research_question": {},
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "5f04cc6c29b855563eedff305554b55e954a80eb7ade3126e27459d84db9951a",
+        "public_write_performed": false,
+        "receipt_hash": "ba0bf099fb54170e9d3e607d99889605168c6bf14769f414d528cb87fa2d3135",
+        "remaining_missing_fields": [
+          "document_title",
+          "published_at"
+        ],
+        "remaining_stale_fields": [],
+        "request_hash": "78d3a136f266f181e681263187e673b9fbadd8b7da1ed5ffd40ac5ce73bace8e",
+        "request_id": "fixture-manual-unavailable",
+        "resolution_state": "UNAVAILABLE",
+        "resolutions": [
+          {
+            "attempts": [],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "SCENARIO_OR_UNCERTAINTY",
+            "fallback_reason": "database_no_admissible_record",
+            "missing_fields": [
+              "document_title",
+              "published_at"
+            ],
+            "need_id": "manual-document",
+            "rights_blocked_fields": [],
+            "route": "UNAVAILABLE",
+            "source_hash": null,
+            "source_identity": null,
+            "stale_fields": [],
+            "state": "UNAVAILABLE"
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "UNAVAILABLE",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {},
+      "trigger_kind": "JIM_MANUAL_CODEX_DESKTOP",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [],
+        "report_truth": [
+          "UNAVAILABLE"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    },
+    "portfolio_browser_fallback": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "portfolio_authority": false,
+          "public_safe_context": {
+            "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+          }
+        },
+        "analysis_receipt_hash": "aa4b3b69b6746348039a81ba44081302a4c58d30feeb3b1ee81f84cb60da996a",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [
+          "portfolio-regime"
+        ],
+        "decision_version": "three-trigger-portfolio-context-shadow-v1",
+        "deferred_needs": [],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          "EXACT"
+        ],
+        "no_write": true,
+        "output_class": "ANALYSIS_ONLY",
+        "plan_hash": "c2574c0d7f16fdeab7f7fbe7ab144af633ca2e6efb30f3553f58cfec01e8e2f5",
+        "public_write_performed": false,
+        "request_hash": "9a4c0e23f9a3c9e5a9cb56710de986530d5108c95c2da5750110b38066fab6ca",
+        "request_id": "fixture-portfolio-browser",
+        "requested_output_class": "ANALYSIS_ONLY",
+        "resolution_receipt_hash": "34c0a4bfe7fd6414edbf003ee99320694eb796af16c3a5cad86ec44db742ace1",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "COMPLETE_SHADOW"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-portfolio-browser-idem",
+        "request_hash": "9a4c0e23f9a3c9e5a9cb56710de986530d5108c95c2da5750110b38066fab6ca",
+        "request_id": "fixture-portfolio-browser",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "EDITORIAL_CONTEXT_READY",
+      "editorial_context_packet": {
+        "broker_action": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "context": {
+          "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+        },
+        "contradiction_states": [
+          "UNRESOLVED"
+        ],
+        "disposition": "EDITORIAL_CONTEXT_READY",
+        "exact_or_proxy": [
+          "EXACT"
+        ],
+        "freshness_states": [
+          "FRESH"
+        ],
+        "missing_fields": [],
+        "no_write": true,
+        "pit_states": [
+          "PASS"
+        ],
+        "portfolio_decision": false,
+        "portfolio_scope": "PUBLIC_SAFE_CONTEXT_ONLY",
+        "private_portfolio_data_included": false,
+        "public_write_performed": false,
+        "request_id": "fixture-portfolio-browser",
+        "resolution_receipt_hash": "34c0a4bfe7fd6414edbf003ee99320694eb796af16c3a5cad86ec44db742ace1",
+        "rights_states": [
+          "PUBLIC_READ_ONLY"
+        ],
+        "schema_version": "contentops.public_safe_editorial_context_packet.v1",
+        "source_identity": [
+          "www.example.com"
+        ],
+        "stale_fields": []
+      },
+      "editorial_packet": {},
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "adbace0598124f916a55b6995f4ba6974c5579089a75c7d86888763c2f7229a9",
+      "manual_review_packet": {},
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": "Context is not a broker mark or private position.",
+            "browseros_allowed": true,
+            "browseros_url": "https://www.example.com/market-context",
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "market_context",
+            "exact_or_proxy": "PROXY_ALLOWED",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 0,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "portfolio-regime",
+            "permitted_routes": [
+              "BROWSEROS_READ_ONLY",
+              "EXISTING_MARKET_READ_MODEL"
+            ],
+            "pit_required": true,
+            "query_references": [],
+            "required_fields": [
+              "regime_label"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "LABEL",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "c2574c0d7f16fdeab7f7fbe7ab144af633ca2e6efb30f3553f58cfec01e8e2f5",
+        "request_hash": "9a4c0e23f9a3c9e5a9cb56710de986530d5108c95c2da5750110b38066fab6ca",
+        "request_id": "fixture-portfolio-browser",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "Provide public-safe context for editorial planning only.",
+        "editorial": {
+          "audience": "PUBLIC_READER",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "RESEARCH_ONLY",
+          "requested_format": "EDITORIAL_CONTEXT_PACKET",
+          "required_epistemic_state": "CAPITAL_CHRONICLE_ANALYSIS",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-portfolio-browser-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": "PUBLIC_SAFE_CONTEXT_ONLY",
+        "position_scope": null,
+        "request_hash": "9a4c0e23f9a3c9e5a9cb56710de986530d5108c95c2da5750110b38066fab6ca",
+        "request_id": "fixture-portfolio-browser",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "MAIN_APP_PORTFOLIO_CONTROL_PLANE",
+        "route": {
+          "channel": "SCHEDULED_PORTFOLIO_CONTEXT",
+          "creates_scheduler": false,
+          "editorial_consumer": "CONTENTOPS_EDITORIAL",
+          "owner": "MAIN_APP_PORTFOLIO_CONTROL_PLANE",
+          "private_portfolio_access": false,
+          "routine_window": true
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [
+          "US500"
+        ],
+        "trigger_kind": "SCHEDULED_PORTFOLIO_CONTEXT"
+      },
+      "research_question": {},
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "UNRESOLVED"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "c2574c0d7f16fdeab7f7fbe7ab144af633ca2e6efb30f3553f58cfec01e8e2f5",
+        "public_write_performed": false,
+        "receipt_hash": "34c0a4bfe7fd6414edbf003ee99320694eb796af16c3a5cad86ec44db742ace1",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "9a4c0e23f9a3c9e5a9cb56710de986530d5108c95c2da5750110b38066fab6ca",
+        "request_id": "fixture-portfolio-browser",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": false,
+                "blockers": [
+                  "stale"
+                ],
+                "freshness_state": "STALE",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "EXISTING_MARKET_READ_MODEL",
+                "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+                "source_identity": "market.read_model.us500"
+              },
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "BROWSEROS_READ_ONLY",
+                "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "source_identity": "www.example.com"
+              }
+            ],
+            "browser_runtime": {},
+            "contradiction": {
+              "source_hashes": [],
+              "state": "UNRESOLVED"
+            },
+            "epistemic_state": "OBSERVED_FACT",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": "database_missing_or_stale_required_field",
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:05:01Z",
+            "missing_fields": [],
+            "need_id": "portfolio-regime",
+            "observed_at_utc": "2026-10-18T08:05:00Z",
+            "pit_state": "PASS",
+            "query_reference": "browseros.read_only_recovery",
+            "retrieved_at_utc": "2026-10-18T08:05:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "BROWSEROS_READ_ONLY",
+            "source_class": "BROWSEROS_RENDERED_PUBLIC_SOURCE",
+            "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source_identity": "www.example.com",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "tool_policy": {
+              "act_tool_used": false,
+              "allowed_tools_used": [
+                "name_session",
+                "tabs",
+                "read"
+              ]
+            },
+            "values": {
+              "regime_label": "RECOVERED_PUBLIC_CONTEXT"
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "RESOLVED",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {},
+      "trigger_kind": "SCHEDULED_PORTFOLIO_CONTEXT",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [
+          "portfolio-regime"
+        ],
+        "report_truth": [
+          "OBSERVED_FACT"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    },
+    "portfolio_context": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "portfolio_authority": false,
+          "public_safe_context": {
+            "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+          }
+        },
+        "analysis_receipt_hash": "91cbdac63482c9980881c8dba36017e9424ad7b52d14c6fe1811b5aa9773ed82",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [],
+        "decision_version": "three-trigger-portfolio-context-shadow-v1",
+        "deferred_needs": [],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          "PROXY_ALLOWED"
+        ],
+        "no_write": true,
+        "output_class": "ANALYSIS_ONLY",
+        "plan_hash": "0f1fa5d01ea202494842fbffb08d849839b82b9bbba76ae4a4dafe268553a9aa",
+        "public_write_performed": false,
+        "request_hash": "81f904aff874ea126fddc0b58441bc71a74e502d04e2c251d403124d79d81ecf",
+        "request_id": "fixture-portfolio",
+        "requested_output_class": "ANALYSIS_ONLY",
+        "resolution_receipt_hash": "31162dee649bae3a5a21bb6833c190f278eebb460d3bf684ddec1896b5915628",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "COMPLETE_SHADOW"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-portfolio-idem",
+        "request_hash": "81f904aff874ea126fddc0b58441bc71a74e502d04e2c251d403124d79d81ecf",
+        "request_id": "fixture-portfolio",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "EDITORIAL_CONTEXT_READY",
+      "editorial_context_packet": {
+        "broker_action": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "context": {
+          "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+        },
+        "contradiction_states": [
+          "NONE"
+        ],
+        "disposition": "EDITORIAL_CONTEXT_READY",
+        "exact_or_proxy": [
+          "PROXY_ALLOWED"
+        ],
+        "freshness_states": [
+          "FRESH"
+        ],
+        "missing_fields": [],
+        "no_write": true,
+        "pit_states": [
+          "PASS"
+        ],
+        "portfolio_decision": false,
+        "portfolio_scope": "PUBLIC_SAFE_CONTEXT_ONLY",
+        "private_portfolio_data_included": false,
+        "public_write_performed": false,
+        "request_id": "fixture-portfolio",
+        "resolution_receipt_hash": "31162dee649bae3a5a21bb6833c190f278eebb460d3bf684ddec1896b5915628",
+        "rights_states": [
+          "PUBLIC_READ_ONLY"
+        ],
+        "schema_version": "contentops.public_safe_editorial_context_packet.v1",
+        "source_identity": [
+          "market.read_model.us500"
+        ],
+        "stale_fields": []
+      },
+      "editorial_packet": {},
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "79d4fb1ff0d254354885bbab42fd44d383429a441abb6c08ec5b4efc892cb0b0",
+      "manual_review_packet": {},
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": "Context is not a broker mark or private position.",
+            "browseros_allowed": true,
+            "browseros_url": "https://www.example.com/market-context",
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "market_context",
+            "exact_or_proxy": "PROXY_ALLOWED",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 0,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "portfolio-regime",
+            "permitted_routes": [
+              "BROWSEROS_READ_ONLY",
+              "EXISTING_MARKET_READ_MODEL"
+            ],
+            "pit_required": true,
+            "query_references": [],
+            "required_fields": [
+              "regime_label"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "LABEL",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "0f1fa5d01ea202494842fbffb08d849839b82b9bbba76ae4a4dafe268553a9aa",
+        "request_hash": "81f904aff874ea126fddc0b58441bc71a74e502d04e2c251d403124d79d81ecf",
+        "request_id": "fixture-portfolio",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "Provide public-safe context for editorial planning only.",
+        "editorial": {
+          "audience": "PUBLIC_READER",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "RESEARCH_ONLY",
+          "requested_format": "EDITORIAL_CONTEXT_PACKET",
+          "required_epistemic_state": "CAPITAL_CHRONICLE_ANALYSIS",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-portfolio-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": "PUBLIC_SAFE_CONTEXT_ONLY",
+        "position_scope": null,
+        "request_hash": "81f904aff874ea126fddc0b58441bc71a74e502d04e2c251d403124d79d81ecf",
+        "request_id": "fixture-portfolio",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "MAIN_APP_PORTFOLIO_CONTROL_PLANE",
+        "route": {
+          "channel": "SCHEDULED_PORTFOLIO_CONTEXT",
+          "creates_scheduler": false,
+          "editorial_consumer": "CONTENTOPS_EDITORIAL",
+          "owner": "MAIN_APP_PORTFOLIO_CONTROL_PLANE",
+          "private_portfolio_access": false,
+          "routine_window": true
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [
+          "US500"
+        ],
+        "trigger_kind": "SCHEDULED_PORTFOLIO_CONTEXT"
+      },
+      "research_question": {},
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "0f1fa5d01ea202494842fbffb08d849839b82b9bbba76ae4a4dafe268553a9aa",
+        "public_write_performed": false,
+        "receipt_hash": "31162dee649bae3a5a21bb6833c190f278eebb460d3bf684ddec1896b5915628",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "81f904aff874ea126fddc0b58441bc71a74e502d04e2c251d403124d79d81ecf",
+        "request_id": "fixture-portfolio",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "EXISTING_MARKET_READ_MODEL",
+                "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+                "source_identity": "market.read_model.us500"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "CAPITAL_CHRONICLE_ANALYSIS",
+            "exact_or_proxy": "PROXY_ALLOWED",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T07:00:01Z",
+            "missing_fields": [],
+            "need_id": "portfolio-regime",
+            "observed_at_utc": "2026-10-18T07:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "contentops.market_context.v1",
+            "retrieved_at_utc": "2026-10-18T07:00:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "EXISTING_MARKET_READ_MODEL",
+            "source_class": "EXISTING_MARKET_READ_MODEL",
+            "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "source_identity": "market.read_model.us500",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "RESOLVED",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {},
+      "trigger_kind": "SCHEDULED_PORTFOLIO_CONTEXT",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [],
+        "report_truth": [
+          "CAPITAL_CHRONICLE_ANALYSIS"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    },
+    "portfolio_data_blocked": {
+      "analysis_receipt": {
+        "analysis_context": {
+          "portfolio_authority": false,
+          "public_safe_context": {
+            "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+          }
+        },
+        "analysis_receipt_hash": "dc18be05e337959159f4dd4bbf61d112b9b6d300bbc2011df1f790c160fe61d0",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [],
+        "decision_version": "three-trigger-portfolio-context-shadow-v1",
+        "deferred_needs": [
+          "portfolio-regime"
+        ],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          ""
+        ],
+        "no_write": true,
+        "output_class": "DATA_BLOCKED",
+        "plan_hash": "525afd896fe9c97c1f2de79f4ff495a8a8990cea4a670f70616825f2fc44f290",
+        "public_write_performed": false,
+        "request_hash": "be8c9af5a83ffabbf551412aef30aa3940896d85819cea9f83bcc97d3ad40f2e",
+        "request_id": "fixture-portfolio-blocked",
+        "requested_output_class": "ANALYSIS_ONLY",
+        "resolution_receipt_hash": "7a6fce45e39c6ba4f0d602c36924a1b355f430e20814d64b0e83307a47d7e0da",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "DATA_BLOCKED"
+      },
+      "automatic_runtime_invoked": false,
+      "broker_write_performed": false,
+      "cdp_boundaries": {
+        "ingestion_only": 9222,
+        "publication_media_readback": 9223
+      },
+      "ceilings": {
+        "admitted_candidates_max": 3,
+        "candidate_packet_max": 32,
+        "codex_runtime_model_calls_max": 0,
+        "logical_flash_calls_max": 3,
+        "revision_max": 1,
+        "source_gets_max": 6,
+        "writer_calls_max": 1
+      },
+      "dedupe_receipt": {
+        "disposition": "NEW",
+        "idempotency_key": "fixture-portfolio-blocked-idem",
+        "request_hash": "be8c9af5a83ffabbf551412aef30aa3940896d85819cea9f83bcc97d3ad40f2e",
+        "request_id": "fixture-portfolio-blocked",
+        "schema_version": "contentops.trigger_request_dedupe_receipt.v1",
+        "terminal_request_reused": false
+      },
+      "disposition": "DATA_BLOCKED",
+      "editorial_context_packet": {
+        "broker_action": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "context": {
+          "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+        },
+        "contradiction_states": [
+          "NONE"
+        ],
+        "disposition": "DATA_BLOCKED",
+        "exact_or_proxy": [
+          null
+        ],
+        "freshness_states": [
+          null
+        ],
+        "missing_fields": [
+          "regime_label"
+        ],
+        "no_write": true,
+        "pit_states": [
+          null
+        ],
+        "portfolio_decision": false,
+        "portfolio_scope": "PUBLIC_SAFE_CONTEXT_ONLY",
+        "private_portfolio_data_included": false,
+        "public_write_performed": false,
+        "request_id": "fixture-portfolio-blocked",
+        "resolution_receipt_hash": "7a6fce45e39c6ba4f0d602c36924a1b355f430e20814d64b0e83307a47d7e0da",
+        "rights_states": [
+          null
+        ],
+        "schema_version": "contentops.public_safe_editorial_context_packet.v1",
+        "source_identity": [],
+        "stale_fields": []
+      },
+      "editorial_packet": {},
+      "epistemic_layers": [
+        "OBSERVED_FACT",
+        "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY"
+      ],
+      "flow_hash": "0d976b3ffa1dae69caa5eff4ccc91bef279149cab673c4b1cf0e7ab5b8e78ef2",
+      "manual_review_packet": {},
+      "no_write": true,
+      "owner_bindings": {
+        "creates_publisher": false,
+        "creates_scheduler": false,
+        "creates_store": false,
+        "editorial_operation": "run_v1_simple_gemini_newsroom",
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "publication_owner": "DurablePublicationCoordinator",
+        "routine_windows": [
+          "17:00",
+          "21:00",
+          "23:00",
+          "01:00"
+        ]
+      },
+      "plan": {
+        "as_of_utc": "2026-10-18T09:00:00Z",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "needs": [
+          {
+            "as_of_utc": "2026-10-18T09:00:00Z",
+            "basis_risk": "Context is not a broker mark or private position.",
+            "browseros_allowed": true,
+            "browseros_url": "https://www.example.com/market-context",
+            "clock": "UTC",
+            "currency": "NONE",
+            "data_class": "market_context",
+            "exact_or_proxy": "PROXY_ALLOWED",
+            "expected_consumer": "CONTENTOPS_EDITORIAL",
+            "freshness_budget_seconds": 0,
+            "missingness_behavior": "DATA_BLOCKED",
+            "need_id": "portfolio-regime",
+            "permitted_routes": [
+              "BROWSEROS_READ_ONLY",
+              "EXISTING_MARKET_READ_MODEL"
+            ],
+            "pit_required": true,
+            "query_references": [],
+            "required_fields": [
+              "regime_label"
+            ],
+            "revision_policy": "PRESERVE_VINTAGE",
+            "rights_class": "PUBLIC_READ_ONLY",
+            "target_instrument": null,
+            "unit": "LABEL",
+            "unsupported_dimensions": []
+          }
+        ],
+        "no_write": true,
+        "plan_hash": "525afd896fe9c97c1f2de79f4ff495a8a8990cea4a670f70616825f2fc44f290",
+        "request_hash": "be8c9af5a83ffabbf551412aef30aa3940896d85819cea9f83bcc97d3ad40f2e",
+        "request_id": "fixture-portfolio-blocked",
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "schema_version": "CapitalChronicleDataNeedPlanV1",
+        "stopping_rule": "RESOLVE_REQUIRED_FIELDS_OR_DATA_BLOCK"
+      },
+      "public_write_performed": false,
+      "request": {
+        "analysis_horizon": "CURRENT",
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "deadline_utc": null,
+        "decision_purpose": "Provide public-safe context for editorial planning only.",
+        "editorial": {
+          "audience": "PUBLIC_READER",
+          "claim_sensitivity": "ORDINARY",
+          "editorial_mode": "STANDARD_NEWS_ANALYSIS",
+          "harm_class": "ORDINARY",
+          "language": "en",
+          "publication_intent": "RESEARCH_ONLY",
+          "requested_format": "EDITORIAL_CONTEXT_PACKET",
+          "required_epistemic_state": "CAPITAL_CHRONICLE_ANALYSIS",
+          "sourceability_threshold": "GOVERNED_SOURCE_REQUIRED"
+        },
+        "exact_exness_symbols": [],
+        "idempotency_key": "fixture-portfolio-blocked-idem",
+        "max_fallback_cost": 1,
+        "no_write": true,
+        "owner_authority": "CONTENTOPS_EDITORIAL_CONSUMER_ONLY",
+        "parent_request_id": null,
+        "portfolio_scope": "PUBLIC_SAFE_CONTEXT_ONLY",
+        "position_scope": null,
+        "request_hash": "be8c9af5a83ffabbf551412aef30aa3940896d85819cea9f83bcc97d3ad40f2e",
+        "request_id": "fixture-portfolio-blocked",
+        "request_status": "ACCEPTED",
+        "requested_at_utc": "2026-10-18T09:00:00Z",
+        "requester": "MAIN_APP_PORTFOLIO_CONTROL_PLANE",
+        "route": {
+          "channel": "SCHEDULED_PORTFOLIO_CONTEXT",
+          "creates_scheduler": false,
+          "editorial_consumer": "CONTENTOPS_EDITORIAL",
+          "owner": "MAIN_APP_PORTFOLIO_CONTROL_PLANE",
+          "private_portfolio_access": false,
+          "routine_window": true
+        },
+        "schema_version": "CapitalChronicleTriggerRequestV1",
+        "target_assets": [
+          "US500"
+        ],
+        "trigger_kind": "SCHEDULED_PORTFOLIO_CONTEXT"
+      },
+      "research_question": {},
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "525afd896fe9c97c1f2de79f4ff495a8a8990cea4a670f70616825f2fc44f290",
+        "public_write_performed": false,
+        "receipt_hash": "7a6fce45e39c6ba4f0d602c36924a1b355f430e20814d64b0e83307a47d7e0da",
+        "remaining_missing_fields": [
+          "regime_label"
+        ],
+        "remaining_stale_fields": [],
+        "request_hash": "be8c9af5a83ffabbf551412aef30aa3940896d85819cea9f83bcc97d3ad40f2e",
+        "request_id": "fixture-portfolio-blocked",
+        "resolution_state": "DATA_BLOCKED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": false,
+                "blockers": [
+                  "rights_denied"
+                ],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "DENIED",
+                "route": "EXISTING_MARKET_READ_MODEL",
+                "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+                "source_identity": "market.read_model.us500"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "SCENARIO_OR_UNCERTAINTY",
+            "fallback_reason": "rights_denied",
+            "missing_fields": [
+              "regime_label"
+            ],
+            "need_id": "portfolio-regime",
+            "rights_blocked_fields": [
+              "rights_denied"
+            ],
+            "route": "UNAVAILABLE",
+            "source_hash": null,
+            "source_identity": null,
+            "stale_fields": [],
+            "state": "DATA_BLOCKED"
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [
+          "rights_denied"
+        ],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      },
+      "resolution_state": "DATA_BLOCKED",
+      "resumed": false,
+      "schema_version": "contentops.three_trigger_editorial_flow.v1",
+      "simple_gemini_handoff": {},
+      "trigger_kind": "SCHEDULED_PORTFOLIO_CONTEXT",
+      "truth_boundaries": {
+        "capital_chronicle_analysis": {
+          "authority": false,
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS"
+        },
+        "contradictions_preserved": [],
+        "report_truth": [
+          "UNAVAILABLE"
+        ],
+        "scenario_or_uncertainty": {
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "required_when_missing_or_contradictory": true
+        },
+        "underlying_event_truth": "NOT_ESTABLISHED"
+      },
+      "unknown_write": false
+    }
+  },
+  "counts": {
+    "ABSTAIN": 1,
+    "DATA_BLOCKED": 1,
+    "DRAFT_ONLY": 1,
+    "EDITORIAL_CONTEXT_READY": 2,
+    "PUBLISHABLE": 1,
+    "READY_FOR_EDITORIAL_RESEARCH": 2,
+    "REVIEW_READY": 1
+  },
+  "derivative_manifest": {
+    "all_layers_preserved": true,
+    "canonical_article_epistemic_claims": [
+      {
+        "claim_id": "fact-1",
+        "layer": "OBSERVED_FACT",
+        "source_ids": [
+          "SOURCE_1"
+        ]
+      },
+      {
+        "claim_id": "report-1",
+        "layer": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "source_ids": [
+          "SOURCE_2"
+        ]
+      },
+      {
+        "claim_id": "analysis-1",
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "source_ids": []
+      },
+      {
+        "claim_id": "scenario-1",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "source_ids": []
+      }
+    ],
+    "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+    "derivative_count": 8,
+    "derivatives": {
+      "discord": {
+        "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "discord",
+        "epistemic_claim_hash": "8ed78b66f9e5085b1cf8a188275911b4f2df5c0e2c2a6afe4ea9d531dd5dfd21",
+        "epistemic_claim_ids": [
+          "fact-1",
+          "report-1",
+          "analysis-1",
+          "scenario-1"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "facebook_page": {
+        "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "facebook_page",
+        "epistemic_claim_hash": "8ed78b66f9e5085b1cf8a188275911b4f2df5c0e2c2a6afe4ea9d531dd5dfd21",
+        "epistemic_claim_ids": [
+          "fact-1",
+          "report-1",
+          "analysis-1",
+          "scenario-1"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "instagram_business": {
+        "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "instagram_business",
+        "epistemic_claim_hash": "8ed78b66f9e5085b1cf8a188275911b4f2df5c0e2c2a6afe4ea9d531dd5dfd21",
+        "epistemic_claim_ids": [
+          "fact-1",
+          "report-1",
+          "analysis-1",
+          "scenario-1"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "linkedin": {
+        "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "linkedin",
+        "epistemic_claim_hash": "8ed78b66f9e5085b1cf8a188275911b4f2df5c0e2c2a6afe4ea9d531dd5dfd21",
+        "epistemic_claim_ids": [
+          "fact-1",
+          "report-1",
+          "analysis-1",
+          "scenario-1"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "telegram": {
+        "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "telegram",
+        "epistemic_claim_hash": "8ed78b66f9e5085b1cf8a188275911b4f2df5c0e2c2a6afe4ea9d531dd5dfd21",
+        "epistemic_claim_ids": [
+          "fact-1",
+          "report-1",
+          "analysis-1",
+          "scenario-1"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "threads": {
+        "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "threads",
+        "epistemic_claim_hash": "8ed78b66f9e5085b1cf8a188275911b4f2df5c0e2c2a6afe4ea9d531dd5dfd21",
+        "epistemic_claim_ids": [
+          "fact-1",
+          "report-1",
+          "analysis-1",
+          "scenario-1"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "x": {
+        "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "x",
+        "epistemic_claim_hash": "8ed78b66f9e5085b1cf8a188275911b4f2df5c0e2c2a6afe4ea9d531dd5dfd21",
+        "epistemic_claim_ids": [
+          "fact-1",
+          "report-1",
+          "analysis-1",
+          "scenario-1"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "youtube": {
+        "canonical_url": "https://capitalchronicle.example/p/three-trigger-shadow",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "youtube",
+        "epistemic_claim_hash": "8ed78b66f9e5085b1cf8a188275911b4f2df5c0e2c2a6afe4ea9d531dd5dfd21",
+        "epistemic_claim_ids": [
+          "fact-1",
+          "report-1",
+          "analysis-1",
+          "scenario-1"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      }
+    },
+    "manifest_hash": "f3deb1c4edc4f1e8e5a7752d1e2aae7d840077b358e37c5d2a079600cd6e06d4",
+    "public_write_performed": false,
+    "schema_version": "contentops.eight_derivative_epistemic_manifest.v1",
+    "unknown_write": false
+  },
+  "metadata": {
+    "authority": false,
+    "case_count": 9,
+    "no_write": true,
+    "schema_version": "contentops.three_trigger_editorial_flow_receipts.v1",
+    "state": "SYNTHETIC_SHADOW_ONLY"
+  }
+}
