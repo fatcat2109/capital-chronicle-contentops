@@ -1,0 +1,16 @@
+{
+  "envelope_path": "A:\\Capital Chronicle\\capital-chronicle-goal17-asset-reports-20261018\\docs\\research\\analysis_reporting\\goal17\\latest_analysis_report_envelope.json",
+  "envelope_raw_sha256": "99f9f3764b9a7503c3e25849067f0bd0d42197704e5dba01c8ed5e06534e6b4f",
+  "envelope_sha256": "2eec9d09a016e71fdb625c352172d6c25143e100a1104b90c94b3c63e0199a34",
+  "export_schema_available": false,
+  "integration_state": "NOT_ADMITTED_FUTURE_CLOCK_AND_EVIDENCE_GAPS",
+  "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
+  "producer_path": "tools/product/asset_analysis_reporting_v1.py",
+  "producer_source_sha256": "dc6a059aa85ed40b493ec691995e5a74de56f599416bc09f5507bbe8320965cf",
+  "report_raw_sha256": [
+    "8f0ffac4b8308d356c214ed15d91f768aac0d8d6690e4db590bfd53092c494c4",
+    "2b525e7ed160e9842bc27d14a83a0b8b176aecdee96235aac51da8213dd98fd0"
+  ],
+  "snapshot_observed_at_utc": "2026-10-18T12:49:27Z",
+  "source_state": "MAIN_LOCAL_UNCOMMITTED_EXPORT"
+}

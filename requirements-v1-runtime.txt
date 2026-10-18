@@ -8,3 +8,4 @@ pyee==13.0.1
 typing-extensions==4.16.0
 websocket-client==1.8.0
 openai-codex==0.147.0
+jsonschema==4.25.1

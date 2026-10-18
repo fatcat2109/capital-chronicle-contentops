@@ -1,0 +1,273 @@
+{
+  "browser_calls": 0,
+  "counts": {
+    "blocked_results": 1,
+    "drafts": 0,
+    "editorial_inputs": 0,
+    "missing_claims": 0,
+    "no_ops": 0,
+    "report_events_consumed": 0,
+    "report_events_received": 1,
+    "writer_calls": 0
+  },
+  "evidence_class": "ACTUAL_EXACT_BYTE_IMPORT_REJECTION_NOT_ADMISSION",
+  "model_calls": 0,
+  "observed_at_utc": "2026-10-18T13:04:56.775869Z",
+  "production_store_opened": false,
+  "public_writes": 0,
+  "schema_version": "contentops.latest_report_bridge.observed_rejection.v1",
+  "source_identity": {
+    "envelope_path": "A:\\Capital Chronicle\\capital-chronicle-goal17-asset-reports-20261018\\docs\\research\\analysis_reporting\\goal17\\latest_analysis_report_envelope.json",
+    "envelope_raw_sha256": "99f9f3764b9a7503c3e25849067f0bd0d42197704e5dba01c8ed5e06534e6b4f",
+    "envelope_sha256": "2eec9d09a016e71fdb625c352172d6c25143e100a1104b90c94b3c63e0199a34",
+    "export_schema_available": false,
+    "integration_state": "NOT_ADMITTED_FUTURE_CLOCK_AND_EVIDENCE_GAPS",
+    "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
+    "producer_path": "tools/product/asset_analysis_reporting_v1.py",
+    "producer_source_sha256": "dc6a059aa85ed40b493ec691995e5a74de56f599416bc09f5507bbe8320965cf",
+    "report_raw_sha256": [
+      "8f0ffac4b8308d356c214ed15d91f768aac0d8d6690e4db590bfd53092c494c4",
+      "2b525e7ed160e9842bc27d14a83a0b8b176aecdee96235aac51da8213dd98fd0"
+    ],
+    "snapshot_observed_at_utc": "2026-10-18T12:49:27Z",
+    "source_state": "MAIN_LOCAL_UNCOMMITTED_EXPORT"
+  },
+  "validation": {
+    "affected_symbols": [
+      "AAPL",
+      "XNGUSD"
+    ],
+    "asset_ids": [
+      "AAPL",
+      "XNGUSD"
+    ],
+    "blockers": [
+      "ASSET_RUN_SNAPSHOT_IDENTITY_REQUIRED",
+      "CONTRACT_REVISION_MISMATCH",
+      "ENVELOPE_MAIN_SCHEMA_EXPORT_UNAVAILABLE",
+      "EVENT_IDENTITY_MISMATCH",
+      "HASH_BOUND_REPORT_BODY_MISSING",
+      "HOLD_CONDITIONS_ARRAY_REQUIRED",
+      "INVALIDATION_CONDITIONS_ARRAY_REQUIRED",
+      "MAIN_CONTRACT_IDENTITY_UNBOUND",
+      "MAIN_CONTRACT_REVISION_UNBOUND",
+      "NO_ADMISSIBLE_PUBLIC_CLAIMS",
+      "REPORT_BODY_CLOCK_INVALID",
+      "REPORT_CLOCK_IN_FUTURE",
+      "REPORT_CONTRACT_REVISION_MISMATCH",
+      "REPORT_CUTOFF_ORDER_INVALID",
+      "REPORT_MAIN_SCHEMA_EXPORT_UNAVAILABLE",
+      "XNGUSD:browser-context:CLAIM_HASH_OR_TEXT_INVALID",
+      "XNGUSD:browser-context:CLAIM_NOT_BOUND_TO_REPORT",
+      "XNGUSD:browser-context:CLAIM_PUBLIC_RIGHTS_BLOCKED",
+      "XNGUSD:browser-context:EPISTEMIC_LAYER_UNMAPPED",
+      "XNGUSD:browser-context:EVIDENCE_MISSING_OR_CONFLICTING"
+    ],
+    "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+    "change_kind": "NEW_REPORT",
+    "changed_claim_ids": [
+      "AAPL:issuer-context",
+      "XNGUSD:browser-context"
+    ],
+    "claim_set_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "claims": [],
+    "envelope_sha256": "2eec9d09a016e71fdb625c352172d6c25143e100a1104b90c94b3c63e0199a34",
+    "event_id": "foundation:catalog-799ffb34d90bcbb4785b",
+    "hold_and_invalidation_conditions": [],
+    "horizon_blocks": [
+      {
+        "asset_id": "AAPL",
+        "base_case": "Evidence-supported continuation is not established; wait for the named missing observables.",
+        "catalysts": [],
+        "direction": "UNRESOLVED",
+        "downside_scenario": "The missing driver resolves adversely or the thesis falsifier appears.",
+        "evidence_state": "EXACT_RETAINED",
+        "falsifiers": [
+          "Current Exness quote/session/order eligibility and historical PIT price path are missing."
+        ],
+        "horizon": "short",
+        "interval": "1 trading sessions from evidence cutoff",
+        "probability": null,
+        "quantitative_target": null,
+        "review_deadline": null,
+        "score": null,
+        "status": "PARTIAL",
+        "trading_sessions": 1,
+        "upside_scenario": "A confirming driver and current price/session evidence become available."
+      },
+      {
+        "asset_id": "AAPL",
+        "base_case": "Evidence-supported continuation is not established; wait for the named missing observables.",
+        "catalysts": [],
+        "direction": "UNRESOLVED",
+        "downside_scenario": "The missing driver resolves adversely or the thesis falsifier appears.",
+        "evidence_state": "EXACT_RETAINED",
+        "falsifiers": [
+          "Current Exness quote/session/order eligibility and historical PIT price path are missing."
+        ],
+        "horizon": "swing",
+        "interval": "5 trading sessions from evidence cutoff",
+        "probability": null,
+        "quantitative_target": null,
+        "review_deadline": null,
+        "score": null,
+        "status": "PARTIAL",
+        "trading_sessions": 5,
+        "upside_scenario": "A confirming driver and current price/session evidence become available."
+      },
+      {
+        "asset_id": "AAPL",
+        "base_case": "Evidence-supported continuation is not established; wait for the named missing observables.",
+        "catalysts": [],
+        "direction": "UNRESOLVED",
+        "downside_scenario": "The missing driver resolves adversely or the thesis falsifier appears.",
+        "evidence_state": "EXACT_RETAINED",
+        "falsifiers": [
+          "Current Exness quote/session/order eligibility and historical PIT price path are missing."
+        ],
+        "horizon": "long",
+        "interval": "21 trading sessions from evidence cutoff",
+        "probability": null,
+        "quantitative_target": null,
+        "review_deadline": null,
+        "score": null,
+        "status": "PARTIAL",
+        "trading_sessions": 21,
+        "upside_scenario": "A confirming driver and current price/session evidence become available."
+      },
+      {
+        "asset_id": "XNGUSD",
+        "base_case": "Evidence-supported continuation is not established; wait for the named missing observables.",
+        "catalysts": [],
+        "direction": "CONDITIONAL",
+        "downside_scenario": "The missing driver resolves adversely or the thesis falsifier appears.",
+        "evidence_state": "PROXY_OR_MISSING",
+        "falsifiers": [
+          "Observation is stale proxy context; current price, curve, storage PIT, session and financing are missing."
+        ],
+        "horizon": "short",
+        "interval": "1 trading sessions from evidence cutoff",
+        "probability": null,
+        "quantitative_target": null,
+        "review_deadline": null,
+        "score": null,
+        "status": "PARTIAL",
+        "trading_sessions": 1,
+        "upside_scenario": "A confirming driver and current price/session evidence become available."
+      },
+      {
+        "asset_id": "XNGUSD",
+        "base_case": "Evidence-supported continuation is not established; wait for the named missing observables.",
+        "catalysts": [],
+        "direction": "CONDITIONAL",
+        "downside_scenario": "The missing driver resolves adversely or the thesis falsifier appears.",
+        "evidence_state": "PROXY_OR_MISSING",
+        "falsifiers": [
+          "Observation is stale proxy context; current price, curve, storage PIT, session and financing are missing."
+        ],
+        "horizon": "swing",
+        "interval": "5 trading sessions from evidence cutoff",
+        "probability": null,
+        "quantitative_target": null,
+        "review_deadline": null,
+        "score": null,
+        "status": "PARTIAL",
+        "trading_sessions": 5,
+        "upside_scenario": "A confirming driver and current price/session evidence become available."
+      },
+      {
+        "asset_id": "XNGUSD",
+        "base_case": "Evidence-supported continuation is not established; wait for the named missing observables.",
+        "catalysts": [],
+        "direction": "CONDITIONAL",
+        "downside_scenario": "The missing driver resolves adversely or the thesis falsifier appears.",
+        "evidence_state": "PROXY_OR_MISSING",
+        "falsifiers": [
+          "Observation is stale proxy context; current price, curve, storage PIT, session and financing are missing."
+        ],
+        "horizon": "long",
+        "interval": "21 trading sessions from evidence cutoff",
+        "probability": null,
+        "quantitative_target": null,
+        "review_deadline": null,
+        "score": null,
+        "status": "PARTIAL",
+        "trading_sessions": 21,
+        "upside_scenario": "A confirming driver and current price/session evidence become available."
+      }
+    ],
+    "known_at_cutoff_utc": "2026-10-18T18:00:00Z",
+    "limitations": [
+      "CROSS_ASSET_REACTION",
+      "CURRENT_EXNESS_QUOTE",
+      "CURRENT_HENRY_HUB_SERIES",
+      "CURRENT_SESSION",
+      "CURRENT_STORAGE_PIT",
+      "CURVE_STATE",
+      "FINANCING_SWAP",
+      "HISTORICAL_PRICE_PIT",
+      "semantic:BROAD_USD_INDEX:SOURCE_RIGHTS_BLOCKED_LEGACY_FRED_HISTORY",
+      "semantic:NASDAQ100:SOURCE_RIGHTS_BLOCKED_LEGACY_FRED_HISTORY",
+      "semantic:SP500:SOURCE_RIGHTS_BLOCKED_LEGACY_FRED_HISTORY",
+      "semantic:US_10Y_YIELD:SOURCE_RIGHTS_BLOCKED_LEGACY_FRED_HISTORY",
+      "semantic:US_2Y_YIELD:SOURCE_RIGHTS_BLOCKED_LEGACY_FRED_HISTORY",
+      "semantic:VIXCLS:SOURCE_RIGHTS_BLOCKED_LEGACY_FRED_HISTORY",
+      "semantic:WTI_SPOT_PROXY:SOURCE_RIGHTS_BLOCKED_LEGACY_FRED_HISTORY"
+    ],
+    "machine_schema_verified": false,
+    "materiality_rationale": "Initial foundation report pack with retained exact/proxy claims and explicit blocked coverage.",
+    "missing_claims": [],
+    "parent_report_id": null,
+    "parent_report_sha256": null,
+    "producer_binding": {},
+    "public_write_performed": false,
+    "raw_sha256": "99f9f3764b9a7503c3e25849067f0bd0d42197704e5dba01c8ed5e06534e6b4f",
+    "report_id": "latest-report-a8d0bf9d48e92c413d9a",
+    "report_raw_sha256": [
+      "072c46a37e378136c5df0d2857f13d251eba12f466242f1ab05cc36e525c5e3f",
+      "2f3f5fc53963a83fbbe1860d06e58468d39d9990938f8f2b78f19e21d57376de"
+    ],
+    "report_version": 1,
+    "research_gaps": [
+      {
+        "claim_id": "XNGUSD:browser-context",
+        "evidence_id": "browseros:691a6c718b6f5d59405cc7cb3bb095656e9e6bf5332c505af0d8c07a0e23595a",
+        "reason": "MISSING_OR_CONFLICTING_EVIDENCE"
+      },
+      {
+        "claim_id": "XNGUSD:browser-context",
+        "evidence_id": "semantic:BROAD_USD_INDEX",
+        "reason": "MISSING_OR_CONFLICTING_EVIDENCE"
+      },
+      {
+        "claim_id": "XNGUSD:browser-context",
+        "evidence_id": "semantic:US_10Y_YIELD",
+        "reason": "MISSING_OR_CONFLICTING_EVIDENCE"
+      },
+      {
+        "claim_id": "XNGUSD:browser-context",
+        "evidence_id": "semantic:US_2Y_YIELD",
+        "reason": "MISSING_OR_CONFLICTING_EVIDENCE"
+      },
+      {
+        "claim_id": "XNGUSD:browser-context",
+        "evidence_id": "semantic:VIXCLS",
+        "reason": "MISSING_OR_CONFLICTING_EVIDENCE"
+      },
+      {
+        "claim_id": "XNGUSD:browser-context",
+        "evidence_id": "semantic:WTI_SPOT_PROXY",
+        "reason": "MISSING_OR_CONFLICTING_EVIDENCE"
+      }
+    ],
+    "schema_diagnostics": [
+      "ENVELOPE_MAIN_SCHEMA_EXPORT_UNAVAILABLE"
+    ],
+    "schema_version": "contentops.capital_chronicle_latest_report_consumer.v1",
+    "source_report_sha256": null,
+    "status": "BLOCKED",
+    "validated_at_utc": "2026-10-18T13:04:56.776370Z",
+    "writer_invoked": false
+  },
+  "writer_invoked": false
+}

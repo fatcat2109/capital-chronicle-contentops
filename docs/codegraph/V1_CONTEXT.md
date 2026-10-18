@@ -41,6 +41,14 @@ Stale wording that still says routine V1 public-write/readback is ungranted or V
 
 ## Canonical implementation path
 
+Latest Main report input: `live_contentops/capital_chronicle_latest_report_consumer_v1.py`
+validates Main-owned exact report/envelope bytes and prepares existing Simple context.
+Version/delivery tracking reuses the durable store. Its owning plan and dated checkpoint are
+`docs/automation/CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1.md` and
+`docs/automation/CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md`.
+Consumer tests or input preparation do not prove a real admitted report, writer execution,
+compiled derivatives, deployment or public output.
+
 Current routine implementation areas:
 
 - `live_contentops/v1_simple_gemini_newsroom_v1.py` — accepted selected-story Simple runtime; materializes a qualified zero-write article plus eight preview-only pending-canonical-URL packages and exposes the existing coordinator-compatible lifecycle plan only for qualified results;

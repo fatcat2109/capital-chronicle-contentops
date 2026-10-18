@@ -47,6 +47,9 @@ jobs:
       - name: Run LLM-first Phase A focused tests
         run: python -m pytest -q tests/test_llm_first_validate_after_v1.py
 
+      - name: Run Main latest-report consumer controls and exact-byte readback
+        run: python -m pytest -q tests/test_capital_chronicle_latest_report_consumer_v1.py
+
       - name: Run LLM-first Phase B runtime-repair regressions
         shell: bash
         run: |

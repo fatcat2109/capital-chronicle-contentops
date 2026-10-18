@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "contentops.capital_chronicle_latest_report_consumer.v1",
+  "description": "ContentOps admission read projection only. Main owns upstream wire schemas.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "status",
+    "blockers",
+    "raw_sha256",
+    "claims",
+    "public_write_performed"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "contentops.capital_chronicle_latest_report_consumer.v1"
+    },
+    "status": {
+      "enum": [
+        "ADMITTED",
+        "BLOCKED"
+      ]
+    },
+    "blockers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "raw_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "claims": {
+      "type": "array"
+    },
+    "public_write_performed": {
+      "const": false
+    }
+  },
+  "additionalProperties": true
+}
