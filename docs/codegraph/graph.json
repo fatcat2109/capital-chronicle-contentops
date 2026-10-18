@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14228,
+    "edges": 14243,
     "entrypoints": 20,
-    "nodes": 7537,
+    "nodes": 7545,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 619,
-      "python_function": 4103,
+      "python_function": 4108,
       "python_method": 306,
-      "python_module": 786,
-      "schema": 235,
-      "test": 755,
+      "python_module": 787,
+      "schema": 236,
+      "test": 756,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -14758,6 +14758,66 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_editorial_selection.py"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::build_editorial_traceability_quality_pack"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::canonical_bytes"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::pack_sha256"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::sha256_without"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::verify_editorial_traceability_quality_pack"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.editorial_traceability_quality_pack.v1"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.multi_window_newsroom_cycle_receipt.v1"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.multi_window_newsroom_cycle_receipt.v2"
+    },
+    {
+      "from": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_editorial_traceability_quality_pack_v1.py"
     },
     {
       "from": "live_contentops/editorial_visual_research_v2.py",
@@ -53142,6 +53202,30 @@
       "to": "python_symbol:live_contentops/editorial_revision_contract_v2.py::build_revision_chain"
     },
     {
+      "from": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::build_editorial_traceability_quality_pack",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::pack_sha256"
+    },
+    {
+      "from": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::pack_sha256",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::sha256_without"
+    },
+    {
+      "from": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::sha256_without",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::canonical_bytes"
+    },
+    {
+      "from": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::verify_editorial_traceability_quality_pack",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::pack_sha256"
+    },
+    {
       "from": "python_symbol:live_contentops/editorial_visual_research_v2.py::evaluate_visual_composition",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -75474,6 +75558,12 @@
       "to": "live_contentops/editorial_selection.py"
     },
     {
+      "from": "tests/test_editorial_traceability_quality_pack_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/editorial_traceability_quality_pack_v1.py"
+    },
+    {
       "from": "tests/test_eight_platform_substack_first_pipeline_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -85543,7 +85633,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-18T05:21:28Z",
+  "generation_timestamp_utc": "2026-10-18T05:52:40Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -87188,6 +87278,11 @@
       "id": "live_contentops/editorial_selection.py",
       "kind": "python_module",
       "size_bytes": 4161
+    },
+    {
+      "id": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "kind": "python_module",
+      "size_bytes": 34552
     },
     {
       "id": "live_contentops/editorial_visual_research_v2.py",
@@ -101403,6 +101498,41 @@
       "line": 5,
       "path": "live_contentops/editorial_selection.py",
       "symbol": "generate_selection_packet"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::build_editorial_traceability_quality_pack",
+      "kind": "python_function",
+      "line": 449,
+      "path": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "symbol": "build_editorial_traceability_quality_pack"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::canonical_bytes",
+      "kind": "python_function",
+      "line": 104,
+      "path": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "symbol": "canonical_bytes"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::pack_sha256",
+      "kind": "python_function",
+      "line": 112,
+      "path": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "symbol": "pack_sha256"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::sha256_without",
+      "kind": "python_function",
+      "line": 108,
+      "path": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "symbol": "sha256_without"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_traceability_quality_pack_v1.py::verify_editorial_traceability_quality_pack",
+      "kind": "python_function",
+      "line": 612,
+      "path": "live_contentops/editorial_traceability_quality_pack_v1.py",
+      "symbol": "verify_editorial_traceability_quality_pack"
     },
     {
       "id": "python_symbol:live_contentops/editorial_visual_research_v2.py::GoogleImageSearchGroundingProvider",
@@ -125121,6 +125251,11 @@
       "schema_id": "contentops.editorial_revision_contract.v2"
     },
     {
+      "id": "schema:contentops.editorial_traceability_quality_pack.v1",
+      "kind": "schema",
+      "schema_id": "contentops.editorial_traceability_quality_pack.v1"
+    },
+    {
       "id": "schema:contentops.eight_platform_substack_first_pipeline.v1",
       "kind": "schema",
       "schema_id": "contentops.eight_platform_substack_first_pipeline.v1"
@@ -127359,6 +127494,11 @@
       "id": "tests/test_editorial_selection.py",
       "kind": "test",
       "size_bytes": 2206
+    },
+    {
+      "id": "tests/test_editorial_traceability_quality_pack_v1.py",
+      "kind": "test",
+      "size_bytes": 12079
     },
     {
       "id": "tests/test_eight_platform_substack_first_pipeline_v1.py",
@@ -134398,6 +134538,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "08856d933b7cd7717dc7264851586aec8dbdbd9d",
-  "source_tree_digest": "bb86137dade1f9870e896abcc6cf96f523f4574d20c41853146988cdfa6ec3df"
+  "source_head": "ab6d3b7745821c43ef13eb96e3ea95d5a2b3caf3",
+  "source_tree_digest": "38b9a605d6e0cf243e96e6469c4a62125663cae70b0dc97a6f76809a6552ca94"
 }
