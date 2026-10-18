@@ -79,11 +79,12 @@ both a raw request receipt and a complete flow receipt.
 
 | Path | Bytes | SHA-256 |
 | --- | ---: | --- |
-| `live_contentops/three_trigger_editorial_flow_v1.py` | 34,091 | `ca7938a716e7d89891395d5710d111fd8211671a5430bad315f202b5f39fa692` |
+| `live_contentops/three_trigger_editorial_flow_v1.py` | 33,180 | `d45b12e580bc744f765735453f2eecf87b25f7acb6baf563ccfb77fa58a968db` |
 | `schemas/contentops_three_trigger_editorial_flow_v1.schema.json` | 1,895 | `3253a8ed2d720c7b7506a5318a249732614d4bd728927d722e3aec826145a09a` |
 | `tests/fixtures/three_trigger_editorial_flow_cases_v1.json` | 5,683 | `549bc0d99e101a91d0a7c1d565a480d9eda391efb80613d1d4557f788b7e844c` |
-| `tests/fixtures/three_trigger_editorial_flow_receipts_v1.json` | 151,812 | `de8b59896db312fe781ac6eb93312f51905868d46b6a08adf81e575efc8f533a` |
+| `tests/fixtures/three_trigger_editorial_flow_receipts_v1.json` | 148,035 | `426b16f845662256fead9af4fe2a2ce0d1585c0b31940f9b658b7800fc4ec853` |
 | `tests/test_three_trigger_editorial_flow_v1.py` | 18,091 | `aebedc202ba7ad01fc5c5d0410b3442732c0f2184c9ca16532ffb9ce09da7d44` |
+| `docs/codegraph/graph.json` | 5,758,807 | `22593dd12915ee7030af732e563b58cae234ff3934e5c4d31309c5ff71f33f74` |
 
 The CodeGraph files are refreshed after this handoff update and their exact remote blob hashes
 are recorded after commit/remote readback.
