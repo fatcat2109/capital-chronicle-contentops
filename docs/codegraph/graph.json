@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14204,
+    "edges": 14217,
     "entrypoints": 20,
-    "nodes": 7522,
+    "nodes": 7530,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 619,
-      "python_function": 4094,
+      "python_function": 4099,
       "python_method": 306,
-      "python_module": 784,
-      "schema": 233,
-      "test": 753,
+      "python_module": 785,
+      "schema": 234,
+      "test": 754,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -22420,6 +22420,54 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_multi_story_platform_native_operator_packages_v1.py"
+    },
+    {
+      "from": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::bundle_sha256"
+    },
+    {
+      "from": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::canonical_bytes"
+    },
+    {
+      "from": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::consume_multi_window_newsroom_cycle"
+    },
+    {
+      "from": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::receipt_sha256"
+    },
+    {
+      "from": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::validate_multi_window_bundle"
+    },
+    {
+      "from": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.multi_window_newsroom_cycle_receipt.v1"
+    },
+    {
+      "from": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_multi_window_newsroom_cycle_consumer_v1.py"
     },
     {
       "from": "live_contentops/mvp_canary_acceptance_v1.py",
@@ -57762,6 +57810,30 @@
       "to": "python_symbol:live_contentops/multi_story_platform_native_operator_packages_v1.py::generate_packages"
     },
     {
+      "from": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::bundle_sha256",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::canonical_bytes"
+    },
+    {
+      "from": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::consume_multi_window_newsroom_cycle",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::validate_multi_window_bundle"
+    },
+    {
+      "from": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::receipt_sha256",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::canonical_bytes"
+    },
+    {
+      "from": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::validate_multi_window_bundle",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::bundle_sha256"
+    },
+    {
       "from": "python_symbol:live_contentops/mvp_canary_acceptance_v1.py::classify_institutional_edge_blockers",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -76218,6 +76290,12 @@
       "to": "live_contentops/multi_story_platform_native_operator_packages_v1.py"
     },
     {
+      "from": "tests/test_multi_window_newsroom_cycle_consumer_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py"
+    },
+    {
       "from": "tests/test_mvp_canary_acceptance_v1.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -85399,7 +85477,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-18T04:06:35Z",
+  "generation_timestamp_utc": "2026-10-18T04:55:09Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -87739,6 +87817,11 @@
       "id": "live_contentops/multi_story_platform_native_operator_packages_v1.py",
       "kind": "python_module",
       "size_bytes": 54715
+    },
+    {
+      "id": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "kind": "python_module",
+      "size_bytes": 23595
     },
     {
       "id": "live_contentops/mvp_canary_acceptance_v1.py",
@@ -107117,6 +107200,41 @@
       "symbol": "render_platform_native_text"
     },
     {
+      "id": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::bundle_sha256",
+      "kind": "python_function",
+      "line": 84,
+      "path": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "symbol": "bundle_sha256"
+    },
+    {
+      "id": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::canonical_bytes",
+      "kind": "python_function",
+      "line": 74,
+      "path": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "symbol": "canonical_bytes"
+    },
+    {
+      "id": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::consume_multi_window_newsroom_cycle",
+      "kind": "python_function",
+      "line": 400,
+      "path": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "symbol": "consume_multi_window_newsroom_cycle"
+    },
+    {
+      "id": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::receipt_sha256",
+      "kind": "python_function",
+      "line": 88,
+      "path": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "symbol": "receipt_sha256"
+    },
+    {
+      "id": "python_symbol:live_contentops/multi_window_newsroom_cycle_consumer_v1.py::validate_multi_window_bundle",
+      "kind": "python_function",
+      "line": 201,
+      "path": "live_contentops/multi_window_newsroom_cycle_consumer_v1.py",
+      "symbol": "validate_multi_window_bundle"
+    },
+    {
       "id": "python_symbol:live_contentops/mvp_canary_acceptance_v1.py::build_mvp_canary_launch_gate_record",
       "kind": "python_function",
       "line": 236,
@@ -125079,6 +125197,11 @@
       "schema_id": "contentops.model_assisted_judgment.v1"
     },
     {
+      "id": "schema:contentops.multi_window_newsroom_cycle_receipt.v1",
+      "kind": "schema",
+      "schema_id": "contentops.multi_window_newsroom_cycle_receipt.v1"
+    },
+    {
       "id": "schema:contentops.native_desktop_editorial_handoff.v1",
       "kind": "schema",
       "schema_id": "contentops.native_desktop_editorial_handoff.v1"
@@ -127867,6 +127990,11 @@
       "id": "tests/test_multi_story_platform_native_operator_packages_v1.py",
       "kind": "test",
       "size_bytes": 9117
+    },
+    {
+      "id": "tests/test_multi_window_newsroom_cycle_consumer_v1.py",
+      "kind": "test",
+      "size_bytes": 7051
     },
     {
       "id": "tests/test_mvp_canary_acceptance_v1.py",
@@ -134161,6 +134289,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "37200ead04cb2bf0fb54188620f76dd585d323b6",
-  "source_tree_digest": "b0c1177f8439a0b7d534a7425fb3e34cb13a8c5d96819d5432b0d6c2f6c969ce"
+  "source_head": "d990bd3472d71b8730245531d0c390fa7e057f37",
+  "source_tree_digest": "152c35a9b5268a17d5609bb193876f30ddd330a68414d206fa93b32d9b354cc7"
 }
