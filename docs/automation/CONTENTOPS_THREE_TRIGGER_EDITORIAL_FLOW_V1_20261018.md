@@ -23,6 +23,7 @@ portfolio reader, credential/session reader, runtime activation, or public write
 | Binding | Exact evidence |
 | --- | --- |
 | ContentOps base | `origin/master@a82c8be5e238c07b783ebb1461efb31ea45892a4` |
+| Goal 16 branch readback | `fbb4b6611e05232abce2f14909f58dc7b2648581`, CodeGraph refresh commit |
 | Goal 15 adapter | `live_contentops/four_trigger_data_resolution_adapter_v1.py`, 55,691 bytes, SHA-256 `e0ee21442b275e8baf6baeab26ee62816732cc25daaed9b72a5df4d5527ae1ba` |
 | Goal 15 schema | `schemas/contentops_four_trigger_data_resolution_adapter_v1.schema.json`, 1,436 bytes, SHA-256 `5b3c05c812918a36cb3d3947ac88d59f7d1a4ffbdf3fd68caef2637750779e16` |
 | PR #84 design context | head `b818bcc16e9c4677a5ea47c439f3e86f1af124cc`, operating-model path, 7,871 bytes, SHA-256 `2b33888f2f87111bee6f560bdfd9a6fb99caf6ddcb1477115327ec076a2686db`, state `OPEN` |
