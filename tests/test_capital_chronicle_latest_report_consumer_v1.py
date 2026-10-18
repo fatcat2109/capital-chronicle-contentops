@@ -773,3 +773,62 @@ def test_same_receipt_cannot_reenter_another_inflight_lease(tracker, monkeypatch
         lease["lease_id"], lease["owner_ref"], lease["fencing_token"]
     )
     assert tracker.receipts() == []
+
+
+def test_real_main_correction_supersedes_undelivered_parent(tmp_path):
+    import hashlib
+
+    root = FIXTURES / "producer_v2"
+    binding = json.loads((root / "producer_binding.json").read_bytes())
+    for name, metadata in binding["files"].items():
+        assert (
+            hashlib.sha256((root / name).read_bytes()).hexdigest() == metadata["sha256"]
+        )
+    admissions = []
+    for prefix in ("parent_", ""):
+        admission = validate_latest_report_bytes(
+            (root / (prefix + "envelope.json")).read_bytes(),
+            report_bytes=[(root / (prefix + "report.json")).read_bytes()],
+            expected_cutoff_utc=binding["observed_at_utc"],
+            now_utc=binding["observed_at_utc"],
+            envelope_schema_bytes=(
+                root / "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+            ).read_bytes(),
+            report_schema_bytes=(
+                root / "CapitalChronicleAssetAnalysisReportV1.schema.json"
+            ).read_bytes(),
+            producer_binding=binding,
+        )
+        assert admission["status"] == "ADMITTED", admission["blockers"]
+        admissions.append(admission)
+    parent, correction = admissions
+    assert correction["change_kind"] == "CORRECTION"
+    assert correction["parent_report_sha256"] == parent["source_report_sha256"]
+    tracker = LatestReportDeliveryTracker(
+        ContentOpsDurableStore(tmp_path / "real-correction.sqlite3")
+    )
+    prior = tracker.consume(parent, receipt_id="real-main-v1")
+    revised = tracker.consume(correction, receipt_id="real-main-v2")
+    assert revised["status"] == "ADMITTED"
+    with pytest.raises(LatestReportConsumerError, match="REPORT_NOT_DELIVERABLE"):
+        tracker.prepare_input(
+            "real-main-v1", output_dir=tmp_path, cutoff_utc=binding["observed_at_utc"]
+        )
+    result = tracker.prepare_input(
+        "real-main-v2",
+        output_dir=tmp_path / "latest-input",
+        cutoff_utc=binding["observed_at_utc"],
+    )
+    assert result["brief"]["mode"] == "FOLLOW_UP_UPDATE"
+    lineage = result["brief"]["correction_lineage"]
+    assert lineage["report_version"] == 2
+    assert lineage["affected_prior_inputs"] == [prior["message_id"]]
+    assert lineage["parent_report_sha256"] == parent["source_report_sha256"]
+    assert len(result["brief"]["sections"]) == 7
+    assert len(result["derivative_intents"]) == 8
+    observed = result["brief"]["sections"][0]["source_text"]
+    assert "weekly injection was 67 Bcf" in observed
+    assert "five-year stock average" in observed
+    assert tracker.counts()["editorial_inputs"] == 1
+    assert tracker.counts()["report_events_consumed"] == 2
+    assert result["writer_invoked"] is False

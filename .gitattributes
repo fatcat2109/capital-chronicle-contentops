@@ -4,3 +4,4 @@
 tests/fixtures/main_goal17_report/latest_analysis_report_envelope.json binary
 tests/fixtures/main_goal17_report/envelope_reports.jsonl binary
 tests/fixtures/main_goal17_report/producer_v1/*.json binary
+tests/fixtures/main_goal17_report/producer_v2/*.json binary

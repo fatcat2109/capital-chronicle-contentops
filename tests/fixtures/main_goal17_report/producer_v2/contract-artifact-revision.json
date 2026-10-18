@@ -1,0 +1,40 @@
+{
+  "artifact_revision": "goal17-p1-retained-real-20261018-v1",
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "change_kind": "CORRECTION",
+  "consumer_integration_state": "NOT_VERIFIED_CONTENTOPS_OWNED",
+  "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+  "contract_revision": "asset-analysis-report-v1.0.0",
+  "envelope_sha256": "5714d55767085221950384036113bf26c2f49e0ef96e2f49c2834060a4f1fc4f",
+  "event_id": "report-event:e79f42e3289023c971a2428cb3e2d4b07cc44b9aff034c6199b16d67898a0e90",
+  "files": {
+    "CapitalChronicleAssetAnalysisReportV1.schema.json": {
+      "bytes": 20529,
+      "file_sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
+    },
+    "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
+      "bytes": 11682,
+      "file_sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272"
+    },
+    "latest-report-envelope.json": {
+      "bytes": 17194,
+      "file_sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608"
+    },
+    "report.json": {
+      "bytes": 43226,
+      "file_sha256": "7d30bc785af2c1106eba76dea201d6e397933c061895e1310b6b354dbdf71643"
+    }
+  },
+  "input_snapshot_sha256": "bee1ad0c6dcc08f366a5106c4106d0715729b25266c192b5759ef303514c3e46",
+  "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+  "privacy_review": "EXPLICIT_EIA_ONLY_REPORT_NO_POSITIONS_ACCOUNTS_OR_RESTRICTED_FACTS",
+  "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
+  "producer_branch": "task/capital-chronicle-goal17-asset-reports-20261018",
+  "producer_commit_binding": "Use the Git commit containing this receipt; no self-referential commit hash is embedded.",
+  "public_safe_claim_count": 7,
+  "publication_performed": false,
+  "report_id": "asset-report:XNGUSD",
+  "report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+  "report_version": 2,
+  "schema_version": "1.0.0"
+}
