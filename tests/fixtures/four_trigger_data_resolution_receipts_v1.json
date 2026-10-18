@@ -1,0 +1,823 @@
+{
+  "cases": {
+    "browser-fallback": {
+      "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+      "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "UNRESOLVED"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+        "public_write_performed": false,
+        "receipt_hash": "3eded6784c1909cd6426cc3edb3623a256f95f905e7e7c9781dd794b6d88803c",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+        "request_id": "req-latest-1",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": false,
+                "blockers": [
+                  "stale"
+                ],
+                "freshness_state": "STALE",
+                "pit_state": "PASS",
+                "rights_state": "ALLOWED",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+                "source_identity": "x.sidecar.headline-001"
+              },
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "PUBLIC_READ_ONLY",
+                "route": "BROWSEROS_READ_ONLY",
+                "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "source_identity": "www.example.com"
+              }
+            ],
+            "browser_runtime": {},
+            "contradiction": {
+              "source_hashes": [],
+              "state": "UNRESOLVED"
+            },
+            "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": "database_missing_or_stale_required_field",
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:05:01Z",
+            "missing_fields": [],
+            "need_id": "latest-headline",
+            "observed_at_utc": "2026-10-18T08:05:00Z",
+            "pit_state": "PASS",
+            "query_reference": "browseros.read_only_recovery",
+            "retrieved_at_utc": "2026-10-18T08:05:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "PUBLIC_READ_ONLY",
+            "route": "BROWSEROS_READ_ONLY",
+            "source_class": "BROWSEROS_RENDERED_PUBLIC_SOURCE",
+            "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "source_identity": "www.example.com",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "tool_policy": {
+              "act_tool_used": false,
+              "allowed_tools_used": [
+                "name_session",
+                "tabs",
+                "read"
+              ]
+            },
+            "values": {
+              "headline_text": "The public page contains the named event detail."
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      }
+    },
+    "contradiction": {
+      "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+      "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "UNRESOLVED"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+        "public_write_performed": false,
+        "receipt_hash": "fd7876a4362b74c71e661344fe20e5d9e37a81ac3673d0a41f89dc99b94b4022",
+        "remaining_missing_fields": [
+          "headline_text"
+        ],
+        "remaining_stale_fields": [],
+        "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+        "request_id": "req-latest-1",
+        "resolution_state": "DATA_BLOCKED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "ALLOWED",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+                "source_identity": "x.sidecar.headline-001"
+              },
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "ALLOWED",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "8888888888888888888888888888888888888888888888888888888888888888",
+                "source_identity": "x.sidecar.headline-002"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [
+                "1111111111111111111111111111111111111111111111111111111111111111",
+                "8888888888888888888888888888888888888888888888888888888888888888"
+              ],
+              "state": "UNRESOLVED"
+            },
+            "epistemic_state": "SCENARIO_OR_UNCERTAINTY",
+            "fallback_reason": "contradictory_database_evidence",
+            "missing_fields": [
+              "headline_text"
+            ],
+            "need_id": "latest-headline",
+            "rights_blocked_fields": [],
+            "route": "UNAVAILABLE",
+            "source_hash": null,
+            "source_identity": null,
+            "stale_fields": [],
+            "state": "DATA_BLOCKED"
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      }
+    },
+    "data-blocked": {
+      "analysis": {
+        "analysis_context": {},
+        "analysis_receipt_hash": "3cf9b8174db11cad358b511e45fdc186bb9acfa3646709bc14c3c922e834b777",
+        "authority": {
+          "core_numeric_truth": false,
+          "forecast_authority": false,
+          "portfolio_authority": false,
+          "publication_authority": false
+        },
+        "broker_write_performed": false,
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradictory_evidence": [],
+        "decision_version": null,
+        "deferred_needs": [
+          "latest-headline"
+        ],
+        "editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "epistemic_layers": [
+          "OBSERVED_FACT",
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "exact_proxy_dimensions": [
+          ""
+        ],
+        "no_write": true,
+        "output_class": "DATA_BLOCKED",
+        "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+        "public_write_performed": false,
+        "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+        "request_id": "req-latest-1",
+        "requested_output_class": "EDITORIAL_PUBLISHABLE",
+        "resolution_receipt_hash": "18e40604f4515ee7feddcb66eac99991292e37609822ee5bdb7adf243489312a",
+        "schema_version": "CapitalChronicleAnalysisRunReceiptV1",
+        "selected_consumer": "CONTENTOPS_EDITORIAL",
+        "terminal_state": "DATA_BLOCKED"
+      },
+      "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+      "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+        "public_write_performed": false,
+        "receipt_hash": "18e40604f4515ee7feddcb66eac99991292e37609822ee5bdb7adf243489312a",
+        "remaining_missing_fields": [
+          "headline_text"
+        ],
+        "remaining_stale_fields": [],
+        "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+        "request_id": "req-latest-1",
+        "resolution_state": "UNAVAILABLE",
+        "resolutions": [
+          {
+            "attempts": [],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "SCENARIO_OR_UNCERTAINTY",
+            "fallback_reason": "database_no_admissible_record",
+            "missing_fields": [
+              "headline_text"
+            ],
+            "need_id": "latest-headline",
+            "rights_blocked_fields": [],
+            "route": "UNAVAILABLE",
+            "source_hash": null,
+            "source_identity": null,
+            "stale_fields": [],
+            "state": "UNAVAILABLE"
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      }
+    },
+    "foundation": {
+      "analysis_receipt_hash": "6d6e2b48627df65be50cd891f9b03d0d9604b49105a6da48dcf67ed759535499",
+      "editorial_packet_hash": "76dcc2a1cbeaf70d5a34034f03a3394054fc90fab40b480ed41140f40a2177f0",
+      "plan_hash": "b19a0bdd97421a5e6548700654edad491d9d9306ed667ca74c1b18362812f3c1",
+      "request_hash": "b826bf3ac0f776b59230f786fceac814591dda8e621dcad7378ef795b90ca636",
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "b19a0bdd97421a5e6548700654edad491d9d9306ed667ca74c1b18362812f3c1",
+        "public_write_performed": false,
+        "receipt_hash": "c1c25e67c8ee0ed26417c81d330130ee6a2e9f1a2d24327b29c0667bed01a487",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "b826bf3ac0f776b59230f786fceac814591dda8e621dcad7378ef795b90ca636",
+        "request_id": "req-foundation-1",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "ALLOWED",
+                "route": "EXISTING_MARKET_READ_MODEL",
+                "source_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+                "source_identity": "coverage.read_model"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "OBSERVED_FACT",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T06:00:01Z",
+            "missing_fields": [],
+            "need_id": "foundation-coverage",
+            "observed_at_utc": "2026-10-18T06:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "coverage.registry.v1",
+            "retrieved_at_utc": "2026-10-18T06:00:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "ALLOWED",
+            "route": "EXISTING_MARKET_READ_MODEL",
+            "source_class": "EXISTING_MARKET_READ_MODEL",
+            "source_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+            "source_identity": "coverage.read_model",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "freshness_state": "FRESH",
+              "rights_state": "ALLOWED"
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      }
+    },
+    "jim-manual": {
+      "analysis_receipt_hash": "527447fc25d8c36ed96d54f8861644e4b520c5c7f4fe9d6c8dc127645c783da1",
+      "editorial_packet_hash": "e592b0ef0a1f1d7ba1b3bdd9f9e1c27208e59c1de02244e9bdc6338a08c78a82",
+      "plan_hash": "857dcb32d0c572dddccade1d728bd56ba716732c3847873f5f6f91914887ae4e",
+      "request_hash": "8c0e74af3ec0de6d310267e2fa6c5ffcff78ceb38f0d2733311dad356c58ae86",
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "857dcb32d0c572dddccade1d728bd56ba716732c3847873f5f6f91914887ae4e",
+        "public_write_performed": false,
+        "receipt_hash": "f2cecc2f18416e6a6aebfe3e7164528eadc33fc364ac2aab33ed865b4c89df18",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "8c0e74af3ec0de6d310267e2fa6c5ffcff78ceb38f0d2733311dad356c58ae86",
+        "request_id": "req-jim-1",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "ALLOWED",
+                "route": "ADMITTED_OFFICIAL_FILING_PROVIDER",
+                "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+                "source_identity": "official.example/filing-001"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "OBSERVED_FACT",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T07:00:02Z",
+            "missing_fields": [],
+            "need_id": "manual-filing",
+            "observed_at_utc": "2026-10-18T07:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "official.document.lookup.v1",
+            "retrieved_at_utc": "2026-10-18T07:00:02Z",
+            "rights_blocked_fields": [],
+            "rights_state": "ALLOWED",
+            "route": "ADMITTED_OFFICIAL_FILING_PROVIDER",
+            "source_class": "ADMITTED_OFFICIAL_FILING_PROVIDER",
+            "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+            "source_identity": "official.example/filing-001",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "document_title": "Quarterly filing",
+              "published_at": "2026-10-18"
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      }
+    },
+    "latest-intelligence": {
+      "analysis_receipt_hash": "dcf508a9f1bcf9cfd0ab41da93e933dfc15765eaecd43f779e7711bcf5a89598",
+      "editorial_packet_hash": "e7eb67ea21f47e48b341057d42c36d840f9f4219f02f9f41d7c4b1a0bef4b0b5",
+      "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+      "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "5f86b6bb34fc2563159fbde03f705d49071e99828c1df3dfe3ac892a63f78d36",
+        "public_write_performed": false,
+        "receipt_hash": "316cab569090477d6bf38bc6bff7fe85649527eb82c8d469d8c29fa47b7e7354",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "ec9b81bd240c20244738626b373067d01e66995a34026129c3ac266eaa3db110",
+        "request_id": "req-latest-1",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "ALLOWED",
+                "route": "RETAINED_HEADLINE_SIDECAR",
+                "source_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+                "source_identity": "x.sidecar.headline-001"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+            "exact_or_proxy": "EXACT",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T08:00:01Z",
+            "missing_fields": [],
+            "need_id": "latest-headline",
+            "observed_at_utc": "2026-10-18T08:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "headline.sidecar.latest",
+            "retrieved_at_utc": "2026-10-18T08:00:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "ALLOWED",
+            "route": "RETAINED_HEADLINE_SIDECAR",
+            "source_class": "RETAINED_HEADLINE_SIDECAR",
+            "source_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+            "source_identity": "x.sidecar.headline-001",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "headline_text": "The central bank held its policy rate steady."
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      }
+    },
+    "portfolio-context": {
+      "analysis_receipt_hash": "5b08f5ab7b8cbfa417cb92e82f9a8a414c6c8cc1b1b9f98a87ce24377e332ac4",
+      "editorial_packet_hash": "59ea5aeab28f5b42b0668778de19a8df57ab7d2801fd7fb6240416dacdd10296",
+      "plan_hash": "6f7de305211cc113a4c8201f036a749c8862e71a969e04f6264e666225d0e739",
+      "request_hash": "25463268dc0cc471e17c23015c686720e556ab55c9f930d0a4a5ac928c6ef3a5",
+      "resolution": {
+        "consumer_route": "CONTENTOPS_EDITORIAL",
+        "contradiction_states": [
+          "NONE"
+        ],
+        "database_first_order": [
+          "RETAINED_HEADLINE_SIDECAR",
+          "PUBLISHED_MEMORY",
+          "ADMITTED_OFFICIAL_FILING_PROVIDER",
+          "EXISTING_MARKET_READ_MODEL",
+          "BROWSEROS_READ_ONLY",
+          "UNAVAILABLE"
+        ],
+        "no_write": true,
+        "plan_hash": "6f7de305211cc113a4c8201f036a749c8862e71a969e04f6264e666225d0e739",
+        "public_write_performed": false,
+        "receipt_hash": "98daef38345442439d75325e638a2a370bb63864d3a7ff9d8820aec59b54ba42",
+        "remaining_missing_fields": [],
+        "remaining_stale_fields": [],
+        "request_hash": "25463268dc0cc471e17c23015c686720e556ab55c9f930d0a4a5ac928c6ef3a5",
+        "request_id": "req-portfolio-1",
+        "resolution_state": "RESOLVED",
+        "resolutions": [
+          {
+            "attempts": [
+              {
+                "accepted": true,
+                "blockers": [],
+                "freshness_state": "FRESH",
+                "pit_state": "PASS",
+                "rights_state": "ALLOWED",
+                "route": "EXISTING_MARKET_READ_MODEL",
+                "source_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+                "source_identity": "market.read_model.us500"
+              }
+            ],
+            "contradiction": {
+              "source_hashes": [],
+              "state": "NONE"
+            },
+            "epistemic_state": "CAPITAL_CHRONICLE_ANALYSIS",
+            "exact_or_proxy": "PROXY_ALLOWED",
+            "fallback_reason": null,
+            "freshness_state": "FRESH",
+            "known_at_utc": "2026-10-18T06:00:01Z",
+            "missing_fields": [],
+            "need_id": "portfolio-context",
+            "observed_at_utc": "2026-10-18T06:00:00Z",
+            "pit_state": "PASS",
+            "query_reference": "portfolio.public_safe_context.v1",
+            "retrieved_at_utc": "2026-10-18T06:00:01Z",
+            "rights_blocked_fields": [],
+            "rights_state": "ALLOWED",
+            "route": "EXISTING_MARKET_READ_MODEL",
+            "source_class": "EXISTING_MARKET_READ_MODEL",
+            "source_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+            "source_identity": "market.read_model.us500",
+            "stale_fields": [],
+            "state": "RESOLVED",
+            "values": {
+              "regime_label": "RANGE_WITH_RATE_SENSITIVITY"
+            }
+          }
+        ],
+        "resolver_version": "contentops.four_trigger_resolver.v1",
+        "resume_mode": "INITIAL",
+        "rights_blocked_fields": [],
+        "schema_version": "CapitalChronicleDataResolutionReceiptV1"
+      }
+    }
+  },
+  "coverage": {
+    "as_of_utc": "2026-10-18T09:00:00Z",
+    "consumer_route": "CONTENTOPS_EDITORIAL",
+    "no_write": true,
+    "private_portfolio_fields_included": false,
+    "projection_hash": "c5bbb25606300f7b701aa178aec2efea9768f4d26e04b2db0b6b68b64321f8d5",
+    "public_safe": true,
+    "rows": [
+      {
+        "admissible": true,
+        "asset_class": "macro",
+        "capability_id": "macro.fed.rate",
+        "deployed": null,
+        "exact_or_proxy": "EXACT",
+        "freshness_state": "FRESH",
+        "implemented": true,
+        "instrument_or_underlying": null,
+        "last_known_at_utc": null,
+        "missing_dimensions": [],
+        "naturally_demonstrated": null,
+        "operating_state": "UNKNOWN",
+        "pit_state": "PASS",
+        "proxy_basis_risk": null,
+        "query_reference": null,
+        "queryable": true,
+        "rights_state": "ALLOWED",
+        "source_hash": null
+      }
+    ],
+    "schema_version": "CapitalChronicleServingCoverageProjectionV1",
+    "snapshot_id": "coverage-shadow-1",
+    "unknown_denominators": null
+  },
+  "derivative_manifest": {
+    "all_layers_preserved": true,
+    "canonical_article_epistemic_claims": [
+      {
+        "claim_id": "claim-fact",
+        "layer": "OBSERVED_FACT",
+        "source_ids": [
+          "SOURCE_1"
+        ]
+      },
+      {
+        "claim_id": "claim-report",
+        "layer": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "source_ids": [
+          "SOURCE_2"
+        ]
+      },
+      {
+        "claim_id": "claim-analysis",
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "source_ids": []
+      },
+      {
+        "claim_id": "claim-scenario",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "source_ids": []
+      }
+    ],
+    "canonical_url": "https://capitalchronicle.example/p/source-bound",
+    "derivative_count": 8,
+    "derivatives": {
+      "discord": {
+        "canonical_url": "https://capitalchronicle.example/p/source-bound",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "discord",
+        "epistemic_claim_hash": "376ae2cb70b0204dfb54b3d24960ca4a18a6f31709a3df17f2a2b432e827955d",
+        "epistemic_claim_ids": [
+          "claim-fact",
+          "claim-report",
+          "claim-analysis",
+          "claim-scenario"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "facebook_page": {
+        "canonical_url": "https://capitalchronicle.example/p/source-bound",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "facebook_page",
+        "epistemic_claim_hash": "376ae2cb70b0204dfb54b3d24960ca4a18a6f31709a3df17f2a2b432e827955d",
+        "epistemic_claim_ids": [
+          "claim-fact",
+          "claim-report",
+          "claim-analysis",
+          "claim-scenario"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "instagram_business": {
+        "canonical_url": "https://capitalchronicle.example/p/source-bound",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "instagram_business",
+        "epistemic_claim_hash": "376ae2cb70b0204dfb54b3d24960ca4a18a6f31709a3df17f2a2b432e827955d",
+        "epistemic_claim_ids": [
+          "claim-fact",
+          "claim-report",
+          "claim-analysis",
+          "claim-scenario"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "linkedin": {
+        "canonical_url": "https://capitalchronicle.example/p/source-bound",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "linkedin",
+        "epistemic_claim_hash": "376ae2cb70b0204dfb54b3d24960ca4a18a6f31709a3df17f2a2b432e827955d",
+        "epistemic_claim_ids": [
+          "claim-fact",
+          "claim-report",
+          "claim-analysis",
+          "claim-scenario"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "telegram": {
+        "canonical_url": "https://capitalchronicle.example/p/source-bound",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "telegram",
+        "epistemic_claim_hash": "376ae2cb70b0204dfb54b3d24960ca4a18a6f31709a3df17f2a2b432e827955d",
+        "epistemic_claim_ids": [
+          "claim-fact",
+          "claim-report",
+          "claim-analysis",
+          "claim-scenario"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "threads": {
+        "canonical_url": "https://capitalchronicle.example/p/source-bound",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "threads",
+        "epistemic_claim_hash": "376ae2cb70b0204dfb54b3d24960ca4a18a6f31709a3df17f2a2b432e827955d",
+        "epistemic_claim_ids": [
+          "claim-fact",
+          "claim-report",
+          "claim-analysis",
+          "claim-scenario"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "x": {
+        "canonical_url": "https://capitalchronicle.example/p/source-bound",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "x",
+        "epistemic_claim_hash": "376ae2cb70b0204dfb54b3d24960ca4a18a6f31709a3df17f2a2b432e827955d",
+        "epistemic_claim_ids": [
+          "claim-fact",
+          "claim-report",
+          "claim-analysis",
+          "claim-scenario"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      },
+      "youtube": {
+        "canonical_url": "https://capitalchronicle.example/p/source-bound",
+        "canonical_url_state": "RECONCILED_CANONICAL_URL_REQUIRED",
+        "destination": "youtube",
+        "epistemic_claim_hash": "376ae2cb70b0204dfb54b3d24960ca4a18a6f31709a3df17f2a2b432e827955d",
+        "epistemic_claim_ids": [
+          "claim-fact",
+          "claim-report",
+          "claim-analysis",
+          "claim-scenario"
+        ],
+        "epistemic_layers": [
+          "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+          "CAPITAL_CHRONICLE_ANALYSIS",
+          "OBSERVED_FACT",
+          "SCENARIO_OR_UNCERTAINTY"
+        ],
+        "intent_status": "SHADOW_ONLY",
+        "payload_hash": "77bdff4e979a877e5ce7ae9fe613a8bf5ddeb9e520a82777bc5cc1aae39b017a",
+        "public_write_performed": false,
+        "unknown_write": false
+      }
+    },
+    "manifest_hash": "65c2cdc40423068928a097f118b620fdda26e77b1abbee49a36dd6799797e2e3",
+    "public_write_performed": false,
+    "schema_version": "contentops.eight_derivative_epistemic_manifest.v1",
+    "unknown_write": false
+  },
+  "metadata": {
+    "authority": false,
+    "case_count": 7,
+    "generated_from": "tests/fixtures/four_trigger_data_resolution_cases_v1.json",
+    "no_write": true,
+    "schema_version": "contentops.four_trigger_data_resolution_receipts.v1"
+  }
+}

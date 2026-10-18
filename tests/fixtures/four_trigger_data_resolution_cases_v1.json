@@ -1,0 +1,223 @@
+{
+  "metadata": {
+    "schema_version": "contentops.four_trigger_data_resolution_cases.v1",
+    "purpose": "deterministic shadow fixtures only",
+    "authority": false,
+    "main_contracts": [
+      "CapitalChronicleTriggerRequestV1",
+      "CapitalChronicleDataNeedPlanV1",
+      "CapitalChronicleDataResolutionReceiptV1",
+      "CapitalChronicleAnalysisRunReceiptV1",
+      "CapitalChronicleServingCoverageProjectionV1"
+    ],
+    "source_identity": "fixture://contentops/four-trigger-v1"
+  },
+  "request_cases": [
+    {
+      "case_id": "foundation",
+      "request_id": "req-foundation-1",
+      "idempotency_key": "idem-foundation-1",
+      "trigger_kind": "FOUNDATION_COVERAGE_SERVING",
+      "requester": "system",
+      "target_assets": ["macro", "energy"],
+      "decision_purpose": "Expose public-safe coverage and freshness fields",
+      "needs": [
+        {
+          "need_id": "foundation-coverage",
+          "data_class": "coverage_projection",
+          "required_fields": ["freshness_state", "rights_state"],
+          "unit": "STATE",
+          "currency": "NONE",
+          "clock": "UTC",
+          "exact_or_proxy": "EXACT",
+          "query_references": ["coverage.registry.v1"],
+          "permitted_routes": ["EXISTING_MARKET_READ_MODEL"]
+        }
+      ]
+    },
+    {
+      "case_id": "latest-intelligence",
+      "request_id": "req-latest-1",
+      "idempotency_key": "idem-latest-1",
+      "trigger_kind": "SCHEDULED_LATEST_INTELLIGENCE",
+      "requester": "SIMPLE_GEMINI_RUNTIME",
+      "target_assets": ["US500"],
+      "decision_purpose": "Research the latest event interval for an editorial question",
+      "needs": [
+        {
+          "need_id": "latest-headline",
+          "data_class": "headline_event",
+          "required_fields": ["headline_text"],
+          "unit": "TEXT",
+          "currency": "NONE",
+          "clock": "UTC",
+          "exact_or_proxy": "EXACT",
+          "query_references": ["headline.sidecar.latest"],
+          "permitted_routes": ["RETAINED_HEADLINE_SIDECAR", "BROWSEROS_READ_ONLY"],
+          "browseros_allowed": true,
+          "browseros_url": "https://www.example.com/public-event"
+        }
+      ]
+    },
+    {
+      "case_id": "portfolio-context",
+      "request_id": "req-portfolio-1",
+      "idempotency_key": "idem-portfolio-1",
+      "trigger_kind": "SCHEDULED_PORTFOLIO_CONTEXT",
+      "requester": "MAIN_APP_PORTFOLIO_CONTROL_PLANE",
+      "portfolio_scope": "PUBLIC_SAFE_CONTEXT_ONLY",
+      "target_assets": ["US500"],
+      "decision_purpose": "Provide public-safe context for editorial planning",
+      "needs": [
+        {
+          "need_id": "portfolio-context",
+          "data_class": "market_context",
+          "required_fields": ["regime_label"],
+          "unit": "LABEL",
+          "currency": "NONE",
+          "clock": "UTC",
+          "exact_or_proxy": "PROXY_ALLOWED",
+          "query_references": ["portfolio.public_safe_context.v1"],
+          "permitted_routes": ["EXISTING_MARKET_READ_MODEL"],
+          "basis_risk": "Directional context is not a broker mark or private position."
+        }
+      ]
+    },
+    {
+      "case_id": "jim-manual",
+      "request_id": "req-jim-1",
+      "idempotency_key": "idem-jim-1",
+      "trigger_kind": "JIM_MANUAL_CODEX_DESKTOP",
+      "requester": "Jim",
+      "target_assets": ["BTCUSD"],
+      "decision_purpose": "Prepare a source-backed manual research brief",
+      "needs": [
+        {
+          "need_id": "manual-filing",
+          "data_class": "official_document",
+          "required_fields": ["document_title", "published_at"],
+          "unit": "TEXT",
+          "currency": "NONE",
+          "clock": "UTC",
+          "exact_or_proxy": "EXACT",
+          "query_references": ["official.document.lookup.v1"],
+          "permitted_routes": ["ADMITTED_OFFICIAL_FILING_PROVIDER", "BROWSEROS_READ_ONLY"],
+          "browseros_allowed": true,
+          "browseros_url": "https://www.example.com/filing"
+        }
+      ]
+    }
+  ],
+  "source_rows": {
+    "sidecars": [
+      {
+        "need_id": "latest-headline",
+        "source_identity": "x.sidecar.headline-001",
+        "source_class": "RETAINED_HEADLINE_SIDECAR",
+        "query_reference": "headline.sidecar.latest",
+        "source_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+        "observed_at_utc": "2026-10-18T08:00:00Z",
+        "retrieved_at_utc": "2026-10-18T08:00:01Z",
+        "known_at_utc": "2026-10-18T08:00:01Z",
+        "freshness_state": "FRESH",
+        "rights_state": "ALLOWED",
+        "pit_state": "PASS",
+        "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+        "exact_or_proxy": "EXACT",
+        "contradiction_state": "NONE",
+        "values": {"headline_text": "The central bank held its policy rate steady."}
+      }
+    ],
+    "published_memory": [],
+    "admitted_records": [
+      {
+        "need_id": "manual-filing",
+        "source_identity": "official.example/filing-001",
+        "source_class": "ADMITTED_OFFICIAL_FILING_PROVIDER",
+        "query_reference": "official.document.lookup.v1",
+        "source_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+        "observed_at_utc": "2026-10-18T07:00:00Z",
+        "retrieved_at_utc": "2026-10-18T07:00:02Z",
+        "known_at_utc": "2026-10-18T07:00:02Z",
+        "freshness_state": "FRESH",
+        "rights_state": "ALLOWED",
+        "pit_state": "PASS",
+        "epistemic_state": "OBSERVED_FACT",
+        "exact_or_proxy": "EXACT",
+        "contradiction_state": "NONE",
+        "values": {"document_title": "Quarterly filing", "published_at": "2026-10-18"}
+      }
+    ],
+    "read_models": [
+      {
+        "need_id": "portfolio-context",
+        "source_identity": "market.read_model.us500",
+        "source_class": "EXISTING_MARKET_READ_MODEL",
+        "query_reference": "portfolio.public_safe_context.v1",
+        "source_hash": "3333333333333333333333333333333333333333333333333333333333333333",
+        "observed_at_utc": "2026-10-18T06:00:00Z",
+        "retrieved_at_utc": "2026-10-18T06:00:01Z",
+        "known_at_utc": "2026-10-18T06:00:01Z",
+        "freshness_state": "FRESH",
+        "rights_state": "ALLOWED",
+        "pit_state": "PASS",
+        "epistemic_state": "CAPITAL_CHRONICLE_ANALYSIS",
+        "exact_or_proxy": "PROXY_ALLOWED",
+        "contradiction_state": "NONE",
+        "values": {"regime_label": "RANGE_WITH_RATE_SENSITIVITY"}
+      },
+      {
+        "need_id": "foundation-coverage",
+        "source_identity": "coverage.read_model",
+        "source_class": "EXISTING_MARKET_READ_MODEL",
+        "query_reference": "coverage.registry.v1",
+        "source_hash": "4444444444444444444444444444444444444444444444444444444444444444",
+        "observed_at_utc": "2026-10-18T06:00:00Z",
+        "retrieved_at_utc": "2026-10-18T06:00:01Z",
+        "known_at_utc": "2026-10-18T06:00:01Z",
+        "freshness_state": "FRESH",
+        "rights_state": "ALLOWED",
+        "pit_state": "PASS",
+        "epistemic_state": "OBSERVED_FACT",
+        "exact_or_proxy": "EXACT",
+        "contradiction_state": "NONE",
+        "values": {"freshness_state": "FRESH", "rights_state": "ALLOWED"}
+      }
+    ]
+  },
+  "browser_recovery": {
+    "source_identity": "www.example.com",
+    "final_url": "https://www.example.com/public-event",
+    "visible_evidence_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "observed_at_utc": "2026-10-18T08:05:00Z",
+    "retrieved_at_utc": "2026-10-18T08:05:01Z",
+    "known_at_utc": "2026-10-18T08:05:01Z",
+    "rights_state": "PUBLIC_READ_ONLY",
+    "freshness_state": "FRESH",
+    "pit_state": "PASS",
+    "epistemic_state": "ATTRIBUTED_REPORT_OR_INTERPRETATION",
+    "exact_or_proxy": "EXACT",
+    "values": {"headline_text": "The public page contains the named event detail."},
+    "tool_policy": {"allowed_tools_used": ["name_session", "tabs", "read"], "act_tool_used": false},
+    "public_write_performed": false
+  },
+  "article": {
+    "title": "A source-bound market update",
+    "epistemic_claims": [
+      {"claim_id": "claim-fact", "layer": "OBSERVED_FACT", "source_ids": ["SOURCE_1"]},
+      {"claim_id": "claim-report", "layer": "ATTRIBUTED_REPORT_OR_INTERPRETATION", "source_ids": ["SOURCE_2"]},
+      {"claim_id": "claim-analysis", "layer": "CAPITAL_CHRONICLE_ANALYSIS", "source_ids": []},
+      {"claim_id": "claim-scenario", "layer": "SCENARIO_OR_UNCERTAINTY", "source_ids": []}
+    ]
+  },
+  "derivative_payloads": {
+    "telegram": {"text": "Brief"},
+    "discord": {"text": "Brief"},
+    "x": {"text": "Brief"},
+    "linkedin": {"text": "Brief"},
+    "facebook_page": {"text": "Brief"},
+    "instagram_business": {"text": "Brief"},
+    "threads": {"text": "Brief"},
+    "youtube": {"text": "Brief"}
+  }
+}
