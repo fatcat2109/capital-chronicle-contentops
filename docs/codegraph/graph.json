@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14243,
+    "edges": 14258,
     "entrypoints": 20,
-    "nodes": 7545,
+    "nodes": 7553,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 619,
-      "python_function": 4108,
+      "python_function": 4113,
       "python_method": 306,
-      "python_module": 787,
-      "schema": 236,
-      "test": 756,
+      "python_module": 788,
+      "schema": 237,
+      "test": 757,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -14110,6 +14110,66 @@
       "inference": "test_exact_import",
       "kind": "covered_by",
       "to": "tests/test_publication_coordinator_v1.py"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::build_editorial_adjudication_prioritization_pack"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::canonical_bytes"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::pack_sha256"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::sha256_without"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::verify_editorial_adjudication_prioritization_pack"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.editorial_adjudication_prioritization_pack.v1"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.multi_window_newsroom_cycle_receipt.v1"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.multi_window_newsroom_cycle_receipt.v2"
+    },
+    {
+      "from": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_editorial_adjudication_prioritization_pack_v1.py"
     },
     {
       "from": "live_contentops/editorial_brief_ai_writer_output_contract.py",
@@ -52956,6 +53016,30 @@
       "to": "python_symbol:live_contentops/edge_cdp_publishing_adapter_v1.py::canonical_edge_page"
     },
     {
+      "from": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::build_editorial_adjudication_prioritization_pack",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::pack_sha256"
+    },
+    {
+      "from": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::pack_sha256",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::sha256_without"
+    },
+    {
+      "from": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::sha256_without",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::canonical_bytes"
+    },
+    {
+      "from": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::verify_editorial_adjudication_prioritization_pack",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::pack_sha256"
+    },
+    {
       "from": "python_symbol:live_contentops/editorial_brief_ai_writer_output_contract.py::build_contract_packet",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -75492,6 +75576,12 @@
       "to": "live_contentops/edge_cdp_publishing_adapter_v1.py"
     },
     {
+      "from": "tests/test_editorial_adjudication_prioritization_pack_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/editorial_adjudication_prioritization_pack_v1.py"
+    },
+    {
       "from": "tests/test_editorial_brief_ai_writer_output_contract.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -85633,7 +85723,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-18T05:52:40Z",
+  "generation_timestamp_utc": "2026-10-18T06:36:37Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -87213,6 +87303,11 @@
       "id": "live_contentops/edge_cdp_publishing_adapter_v1.py",
       "kind": "python_module",
       "size_bytes": 267694
+    },
+    {
+      "id": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "kind": "python_module",
+      "size_bytes": 34162
     },
     {
       "id": "live_contentops/editorial_brief_ai_writer_output_contract.py",
@@ -101036,6 +101131,41 @@
       "line": 1628,
       "path": "live_contentops/edge_cdp_publishing_adapter_v1.py",
       "symbol": "verify_threads_post_unavailable_via_edge"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::build_editorial_adjudication_prioritization_pack",
+      "kind": "python_function",
+      "line": 381,
+      "path": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "symbol": "build_editorial_adjudication_prioritization_pack"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::canonical_bytes",
+      "kind": "python_function",
+      "line": 105,
+      "path": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "symbol": "canonical_bytes"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::pack_sha256",
+      "kind": "python_function",
+      "line": 113,
+      "path": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "symbol": "pack_sha256"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::sha256_without",
+      "kind": "python_function",
+      "line": 109,
+      "path": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "symbol": "sha256_without"
+    },
+    {
+      "id": "python_symbol:live_contentops/editorial_adjudication_prioritization_pack_v1.py::verify_editorial_adjudication_prioritization_pack",
+      "kind": "python_function",
+      "line": 528,
+      "path": "live_contentops/editorial_adjudication_prioritization_pack_v1.py",
+      "symbol": "verify_editorial_adjudication_prioritization_pack"
     },
     {
       "id": "python_symbol:live_contentops/editorial_brief_ai_writer_output_contract.py::AIWriterOutputPacket",
@@ -125236,6 +125366,11 @@
       "schema_id": "contentops.dual_lane_core_v0_shadow_newsroom.v1"
     },
     {
+      "id": "schema:contentops.editorial_adjudication_prioritization_pack.v1",
+      "kind": "schema",
+      "schema_id": "contentops.editorial_adjudication_prioritization_pack.v1"
+    },
+    {
       "id": "schema:contentops.editorial_decision_record",
       "kind": "schema",
       "schema_id": "contentops.editorial_decision_record"
@@ -127441,6 +127576,11 @@
       "size_bytes": 67689
     },
     {
+      "id": "tests/test_editorial_adjudication_prioritization_pack_v1.py",
+      "kind": "test",
+      "size_bytes": 10817
+    },
+    {
       "id": "tests/test_editorial_brief_ai_writer_output_contract.py",
       "kind": "test",
       "size_bytes": 9937
@@ -127498,7 +127638,7 @@
     {
       "id": "tests/test_editorial_traceability_quality_pack_v1.py",
       "kind": "test",
-      "size_bytes": 12079
+      "size_bytes": 12076
     },
     {
       "id": "tests/test_eight_platform_substack_first_pipeline_v1.py",
@@ -134538,6 +134678,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "ab6d3b7745821c43ef13eb96e3ea95d5a2b3caf3",
-  "source_tree_digest": "38b9a605d6e0cf243e96e6469c4a62125663cae70b0dc97a6f76809a6552ca94"
+  "source_head": "c26856e1c334978abe33009b0ce25186872f54b8",
+  "source_tree_digest": "b0917fb3a8cc97aa0f5e416dc95cbd07d23e0d0516c2dd03134a535270ab3707"
 }
