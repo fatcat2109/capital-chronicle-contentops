@@ -1,0 +1,15 @@
+{
+  "contract_revision": "asset-analysis-report-v1.0.0",
+  "files": {
+    "CapitalChronicleAssetAnalysisReportV1.schema.json": {
+      "bytes": 20529,
+      "sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
+    },
+    "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
+      "bytes": 11682,
+      "sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272"
+    }
+  },
+  "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
+  "state": "EXACT_MAIN_LOCAL_SCHEMA_BYTES_NOT_FINAL_PRODUCER_REVISION"
+}

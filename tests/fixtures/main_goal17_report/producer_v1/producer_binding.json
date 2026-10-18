@@ -1,0 +1,32 @@
+{
+  "contract_revision": "asset-analysis-report-v1.0.0",
+  "envelope_schema_sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272",
+  "files": {
+    "CapitalChronicleAssetAnalysisReportV1.schema.json": {
+      "bytes": 20529,
+      "path": "schemas/analysis_reporting/CapitalChronicleAssetAnalysisReportV1.schema.json",
+      "sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
+    },
+    "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
+      "bytes": 11682,
+      "path": "schemas/analysis_reporting/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+      "sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272"
+    },
+    "envelope.json": {
+      "bytes": 16275,
+      "path": "docs/research/analysis_reporting/goal17/retained-run/reports/XNGUSD-364814ea5e2e/v0001/latest-report-envelope.json",
+      "sha256": "4b836e1c241fc817bd6c744f616e5ab6114f2fe4e6ef330a92fd93459d47c1cb"
+    },
+    "report.json": {
+      "bytes": 41911,
+      "path": "docs/research/analysis_reporting/goal17/retained-run/reports/XNGUSD-364814ea5e2e/v0001/report.json",
+      "sha256": "db46b5b26e58e835733db3d8322d344b0439132b9c45ed426cb6a863632a2f07"
+    }
+  },
+  "observed_at_utc": "2026-10-18T13:30:17.574896Z",
+  "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
+  "producer_revision": "a4863f1638ef6d1523c2140721f9bd9b384f7e73+local-source-sha256:a62c7fdfadc8a79f20a62ed35ee67fde6ca2a17a9e092b54eb1f782ee543fcf6",
+  "producer_source_sha256": "a62c7fdfadc8a79f20a62ed35ee67fde6ca2a17a9e092b54eb1f782ee543fcf6",
+  "report_schema_sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8",
+  "source_state": "MAIN_LOCAL_UNCOMMITTED_EXPORT"
+}

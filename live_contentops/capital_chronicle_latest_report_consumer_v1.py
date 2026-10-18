@@ -932,6 +932,18 @@ def build_report_editorial_input(
         )
     brief = {
         "what_changed": admission.get("materiality_rationale"),
+        "change_kind": admission.get("change_kind"),
+        "correction_lineage": {
+            "report_id": admission.get("report_id"),
+            "report_version": admission.get("report_version"),
+            "supersedes_report_id": admission.get("parent_report_id"),
+            "parent_report_sha256": admission.get("parent_report_sha256"),
+            "affected_prior_inputs": deepcopy(
+                admission.get("affected_prior_inputs") or []
+            ),
+            "workflow_owner": "existing published-memory/update-chain and DurablePublicationCoordinator",
+            "automatic_public_update": False,
+        },
         "changed_claim_ids": admission.get("changed_claim_ids"),
         "angle": "Explain the documented change and its causal limits for readers.",
         "mode": mode,

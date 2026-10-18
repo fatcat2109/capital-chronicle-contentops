@@ -1,6 +1,6 @@
 """Synthetic controls plus an exact local Main export rejection/readback.
 
-Synthetic success cases deliberately disable the absent upstream machine schema.
+Synthetic mechanics controls deliberately skip the full upstream machine schema.
 They establish consumer mechanics, never real Main admission or writer execution.
 """
 
@@ -629,3 +629,125 @@ def test_schema_verifier_never_resolves_remote_references():
     assert _schema_errors({}, schema, "ENVELOPE") == [
         "ENVELOPE_EXTERNAL_SCHEMA_REFERENCE_FORBIDDEN"
     ]
+
+
+def test_exact_main_machine_schemas_are_local_and_fail_incomplete_controls():
+    import hashlib
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import (
+        _schema_errors,
+    )
+
+    root = FIXTURES / "producer_v1"
+    identity = json.loads((root / "schema_identity.json").read_text(encoding="utf-8"))
+    for name, metadata in identity["files"].items():
+        raw = (root / name).read_bytes()
+        assert hashlib.sha256(raw).hexdigest() == metadata["sha256"]
+        assert _schema_errors({}, raw, "CONTROL") == [
+            "CONTROL_MAIN_SCHEMA_VALIDATION_FAILED"
+        ]
+
+
+def test_correction_input_preserves_prior_report_and_affected_input_lineage(
+    tracker, tmp_path
+):
+    prior = tracker.consume(validate(*make_bundle()), receipt_id="prior-lineage")
+    revised = tracker.consume(
+        validate(
+            *make_bundle(version=2, change="CORRECTION", parent="latest-report-v1")
+        ),
+        receipt_id="correction-lineage",
+    )
+    result = tracker.prepare_input(
+        "correction-lineage", output_dir=tmp_path, cutoff_utc=CUTOFF
+    )
+    lineage = result["brief"]["correction_lineage"]
+    assert lineage["parent_report_sha256"] == revised["parent_report_sha256"]
+    assert lineage["affected_prior_inputs"] == [prior["message_id"]]
+    assert lineage["automatic_public_update"] is False
+
+
+def test_exact_real_main_export_schema_to_durable_editorial_input(tmp_path):
+    import hashlib
+
+    root = FIXTURES / "producer_v1"
+    binding = json.loads((root / "producer_binding.json").read_text(encoding="utf-8"))
+    for name, metadata in binding["files"].items():
+        assert (
+            hashlib.sha256((root / name).read_bytes()).hexdigest() == metadata["sha256"]
+        )
+    admission = validate_latest_report_bytes(
+        (root / "envelope.json").read_bytes(),
+        report_bytes=[(root / "report.json").read_bytes()],
+        expected_cutoff_utc=binding["observed_at_utc"],
+        now_utc=binding["observed_at_utc"],
+        envelope_schema_bytes=(
+            root / "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+        ).read_bytes(),
+        report_schema_bytes=(
+            root / "CapitalChronicleAssetAnalysisReportV1.schema.json"
+        ).read_bytes(),
+        producer_binding=binding,
+    )
+    assert admission["status"] == "ADMITTED", admission["blockers"]
+    assert admission["machine_schema_verified"] is True
+    assert len(admission["claims"]) == 7
+    assert {claim["layer"] for claim in admission["claims"]} == {
+        "OBSERVED_FACT",
+        "CAPITAL_CHRONICLE_ANALYSIS",
+        "SCENARIO_OR_UNCERTAINTY",
+    }
+    assert all(
+        claim["evidence"][0]["rights_state"]
+        == "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION"
+        for claim in admission["claims"]
+    )
+    tracker = LatestReportDeliveryTracker(
+        ContentOpsDurableStore(tmp_path / "exact-main.sqlite3")
+    )
+    tracker.consume(admission, receipt_id="exact-main-XNGUSD")
+    result = tracker.prepare_input(
+        "exact-main-XNGUSD",
+        output_dir=tmp_path / "writer-input",
+        cutoff_utc=binding["observed_at_utc"],
+    )
+    assert len(result["brief"]["sections"]) == 7
+    assert len(result["derivative_intents"]) == 8
+    assert tracker.counts()["editorial_inputs"] == 1
+    assert tracker.counts()["drafts"] == 0
+    from live_contentops.v1_simple_gemini_newsroom_v1 import (
+        _worker_prompt,
+        _candidate_packet,
+    )
+
+    args = result["simple_gemini_handoff"]["runner_arguments"]
+    assert len(_candidate_packet(args["rolling_input"], [])) == 1
+    prompt = _worker_prompt(
+        {"capital_chronicle_context": args["capital_chronicle_context"]}
+    )
+    assert "storage rose 67 Bcf" in prompt
+    assert "It does not measure a market surprise" in prompt
+    assert "not an instruction to hold a position" in prompt
+    assert result["writer_invoked"] is False
+
+
+def test_real_claim_evidence_hash_cannot_be_changed_after_main_sealing():
+    root = FIXTURES / "producer_v1"
+    binding = json.loads((root / "producer_binding.json").read_text(encoding="utf-8"))
+    raw = (root / "envelope.json").read_bytes()
+    report = json.loads((root / "report.json").read_bytes())
+    report["evidence"][-1]["source_hash"] = "f" * 64
+    admission = validate_latest_report_bytes(
+        raw,
+        report_bytes=[canonical_bytes(report)],
+        expected_cutoff_utc=binding["observed_at_utc"],
+        now_utc=binding["observed_at_utc"],
+        envelope_schema_bytes=(
+            root / "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+        ).read_bytes(),
+        report_schema_bytes=(
+            root / "CapitalChronicleAssetAnalysisReportV1.schema.json"
+        ).read_bytes(),
+        producer_binding=binding,
+    )
+    assert admission["status"] == "BLOCKED"
+    assert "REPORT_SEALED_HASH_MISMATCH" in admission["blockers"]

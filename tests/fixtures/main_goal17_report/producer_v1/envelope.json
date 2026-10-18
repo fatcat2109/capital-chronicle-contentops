@@ -1,0 +1,318 @@
+{
+  "affected_symbols": [
+    "XNGUSD"
+  ],
+  "as_of_utc": "2026-10-18T13:03:41Z",
+  "asset_ids": [
+    "XNGUSD"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "change_kind": "NEW_REPORT",
+  "changed_claim_ids": [
+    "cc-gas-balance",
+    "cc-gas-hold",
+    "cc-gas-invalidate",
+    "cc-gas-long",
+    "cc-gas-short",
+    "cc-gas-swing",
+    "eia-storage-observed"
+  ],
+  "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+  "contract_revision": "asset-analysis-report-v1.0.0",
+  "envelope_sha256": "bd7013a47abfe455062a80fdbe9d13540e4271a7145b49338b8f9490ee12f87f",
+  "event_id": "report-event:1c6dbdabf96d0fbd728052b1939df14cc8ae8999ab8e196738574025176c354c",
+  "generated_at_utc": "2026-10-18T13:25:53Z",
+  "hold_conditions": [
+    "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position."
+  ],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-23T13:03:41Z",
+      "horizon": "short",
+      "outlook": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-16T13:03:41Z",
+      "horizon": "swing",
+      "outlook": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-01-13T13:03:41Z",
+      "horizon": "long",
+      "outlook": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "trading_sessions": 63
+    }
+  ],
+  "invalidation_conditions": [
+    "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review."
+  ],
+  "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "New retained-evidence report.",
+  "parent_report_sha256": null,
+  "public_safe_claims": [
+    {
+      "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+      "claim_hash": "d4e107983f577fd91a817014bc7594a4b590a0ecc5cb9623e5ac9778724d43e7",
+      "claim_id": "eia-storage-observed",
+      "epistemic_layer": "OBSERVED_SOURCE_FACT",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "EIA released October 15, 2026: storage rose 67 Bcf in the week ended October 9, versus the five-year same-week average of 90 Bcf; stocks were 3567 Bcf, 45 Bcf above that average and 143 Bcf below last year."
+    },
+    {
+      "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+      "claim_hash": "0cc35e5a7691fe653370feb77a7a43832a4d288095146d27eccd17baaa9b4e85",
+      "claim_id": "cc-gas-balance",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It does not measure a market surprise or predict the CFD price."
+    },
+    {
+      "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+      "claim_hash": "699a747036e69dae68774002c1f2b2a58901f6831827eadbb4f8f96b28baa86d",
+      "claim_id": "cc-gas-short",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+    },
+    {
+      "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+      "claim_hash": "bf4fe50a110185414f2468f7144103efec8a4f8e6299ab85aeec072c1fafc24a",
+      "claim_id": "cc-gas-swing",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+    },
+    {
+      "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+      "claim_hash": "bb5369ddb18dd3560e700b4385c469f49c128f8ca783d0643f57f0751005e781",
+      "claim_id": "cc-gas-long",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "If below-seasonal refills persist and weather-normalized demand confirms tightening, gas may face upward pressure; warmer weather or supply recovery can reverse it. Current prices, expectations and vehicle costs remain unverified."
+    },
+    {
+      "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+      "claim_hash": "84fef0091132f2bf3a96af24351e06ad2591bea83b1df538bab7e59fba2927b3",
+      "claim_id": "cc-gas-hold",
+      "claim_type": "HOLD_CONDITION",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position."
+    },
+    {
+      "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+      "claim_hash": "b74c289bdafff8fb105f3898b960fa8ad87a445bf7b14a2847d98e38c28f8b04",
+      "claim_id": "cc-gas-invalidate",
+      "claim_type": "INVALIDATION_CONDITION",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review."
+    }
+  ],
+  "report_id": "asset-report:XNGUSD",
+  "report_sha256": "c05d9d368679099604c5c2af3d546d267af3f6a84a04ea685a2777eb310e7706",
+  "report_version": 1,
+  "run_id": "run-asset-report:f19dfb0fbe49933c521e4d81",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "930df83b46fdc083227fadcb52fdd52a72ad1f9361b7f5c84d416193c055bfdf",
+    "evidence_snapshot_sha256": "5bbcedc52a248ed1a00a3513b9e9c33a21f7b2a30afb475ae59b325b9d9110d1"
+  },
+  "supersedes_report_id": null,
+  "version": "1.0.0"
+}
