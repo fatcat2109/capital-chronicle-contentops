@@ -62,9 +62,9 @@ window. Chrome CDP `9222` remains ingestion-only and Edge CDP `9223` remains pub
 | `live_contentops/four_trigger_data_resolution_adapter_v1.py` | 55,691 | `e0ee21442b275e8baf6baeab26ee62816732cc25daaed9b72a5df4d5527ae1ba` |
 | `schemas/contentops_four_trigger_data_resolution_adapter_v1.schema.json` | 1,436 | `5b3c05c812918a36cb3d3947ac88d59f7d1a4ffbdf3fd68caef2637750779e16` |
 | `tests/fixtures/four_trigger_data_resolution_cases_v1.json` | 8,780 | `a03f7c2b6097f5faa70e32e618cb491904640f392794063909496f5d75ff3b96` |
-| `tests/fixtures/four_trigger_data_resolution_receipts_v1.json` | 33,215 | `e214bf78c0090d7a466d3995e1d5ad3d24e6c96148cb3499fa158ac0d4f88199` |
+| `tests/fixtures/four_trigger_data_resolution_receipts_v1.json` | 32,392 | `37fd2f62c3e43b01e04a14afa97360f3c54b3d93d1db9448ec07178332ecaa1d` |
 | `tests/test_four_trigger_data_resolution_adapter_v1.py` | 24,265 | `0255f47735a319970fd25efab08a22f216b845f23d8a1de2edf4d69e7e3a67ad` |
-| `docs/codegraph/graph.json` | 5,746,291 | `e9b2a6a37bf30dd649a18e5ac993562377ef2b0e1d392a3f01b068ecc1d33690` |
+| `docs/codegraph/graph.json` | 5,746,291 | `1888890d2abf0d812a140585a8051570143a5a80f940cbd09d3a0d85c746f396` |
 
 The schema file identifies the ContentOps adapter and the five Main-owned contract names; it does
 not redefine their field authority.
