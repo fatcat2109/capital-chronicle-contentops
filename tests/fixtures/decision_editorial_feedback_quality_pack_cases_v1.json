@@ -1,0 +1,95 @@
+{
+  "cases": {
+    "all_candidates_accounted": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "authority": {
+      "expected_classification": "AUTHORITY_FLAG",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "complete_synthetic": {
+      "expected_classification": "SHADOW_CONFIRMED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "contradiction_mismatch": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "current_real_not_verified": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "deterministic_repeat": {
+      "expected_classification": "SHADOW_CONFIRMED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "duplicate_payload": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "exact_merged_main": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "MERGED_MAIN_ARCHIVE"
+    },
+    "fixture_only_fallback": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "future": {
+      "expected_classification": "STALE",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "interruption_resume": {
+      "expected_classification": "SHADOW_CONFIRMED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "missing_candidate": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "orphan_derivative": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "orphan_draft_section": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "pack_hash_mismatch": {
+      "expected_classification": "PACKET_HASH_MISMATCH",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "proxy_promotion": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "rights": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "secret": {
+      "expected_classification": "NOT_VERIFIED",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "source_head_mismatch": {
+      "expected_classification": "SOURCE_HEAD_MISMATCH",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "stale": {
+      "expected_classification": "STALE",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "tampered": {
+      "expected_classification": "PACKET_HASH_MISMATCH",
+      "source": "SYNTHETIC_OR_MUTATED"
+    },
+    "unknown_write": {
+      "expected_classification": "UNKNOWN_WRITE",
+      "source": "SYNTHETIC_OR_MUTATED"
+    }
+  },
+  "main_head": "1bbb21dc1e2c9dbf6b09ada84fc45d98101b6e62",
+  "schema_version": "contentops.decision_editorial_feedback_quality_pack.cases.v1",
+  "source": "MERGED_MAIN_ARCHIVE"
+}

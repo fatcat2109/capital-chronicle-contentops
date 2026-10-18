@@ -1,0 +1,602 @@
+{
+  "abstention_ledger": [],
+  "as_of_utc": "2026-10-18T14:00:00Z",
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "outcome_authority": false,
+    "paper_authority": false,
+    "promotion_authorized": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "ranking_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "core_admission": {
+    "authority": false,
+    "candidate_ids": [
+      "decision:replay-a",
+      "decision:replay-b"
+    ],
+    "count": 2,
+    "exact_current_rights_pit_only": true
+  },
+  "decision_candidates": [
+    {
+      "abstention_reasons": [],
+      "authority": false,
+      "candidate_id": "decision:replay-a",
+      "claim_identity": {
+        "claim_fingerprint": "same claim-fingerprint",
+        "claim_text": "same claim"
+      },
+      "cohort_compatible": true,
+      "cohort_id": "cohort-d9d3693206534e72",
+      "contradiction": {
+        "basis": [],
+        "group_id": null,
+        "reason": null,
+        "state": "NONE_DECLARED"
+      },
+      "core_eligibility": {
+        "admitted_to_core_shaped_projection": true,
+        "authority": false,
+        "blockers": [],
+        "status": "ADMITTED"
+      },
+      "dedupe_lineage": {
+        "dedupe_key": "contentops-recent-replay:event-a",
+        "duplicate_claim_ids": [
+          "replay-a"
+        ],
+        "duplicate_count": 1,
+        "source_lineage": [
+          {
+            "claim_id": "replay-a",
+            "source_hashes": [
+              "46b265fe695ffdac11ca77c9c8d10ddab405f9e47852a117c22db3f5aeb6a792",
+              "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870"
+            ],
+            "source_identity": "contentops-recent-replay",
+            "source_ref": "fixture://contentops-recent-replay/replay-a"
+          }
+        ]
+      },
+      "editorial_relevance": {
+        "authority": false,
+        "basis_risk_explicit": true,
+        "qualitative_context_allowed": true,
+        "status": "ADMITTED",
+        "unsupported_dimensions": [
+          "PUBLIC_AUTHORITY",
+          "RUNTIME_PROOF"
+        ]
+      },
+      "evaluation_status": "COMPARABLE_EVALUATED",
+      "evidence_hashes": [
+        "46b265fe695ffdac11ca77c9c8d10ddab405f9e47852a117c22db3f5aeb6a792",
+        "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870"
+      ],
+      "exact_proxy_context": {
+        "basis": null,
+        "proxy_label": null,
+        "state": "EXACT"
+      },
+      "freshness": {
+        "age_seconds": null,
+        "state": "CURRENT"
+      },
+      "horizon_unit_currency_clock_compatibility": {
+        "clock": {
+          "known_at_utc_values": [
+            "2026-10-18T12:30:00Z",
+            "2026-10-18T13:00:00Z"
+          ],
+          "missingness_reason": null,
+          "state": "COMPATIBLE"
+        },
+        "currency": {
+          "missingness_reason": null,
+          "state": "COMPATIBLE",
+          "values": []
+        },
+        "horizon": {
+          "missingness_reason": null,
+          "state": "COMPATIBLE",
+          "values": [
+            "1D"
+          ]
+        },
+        "unit": {
+          "missingness_reason": null,
+          "state": "COMPATIBLE",
+          "values": [
+            "direction"
+          ]
+        }
+      },
+      "outcome_link_ids": [
+        "replay-a:FORECAST",
+        "replay-a:PAPER_SIMULATION",
+        "replay-a:RUNTIME_PROVEN",
+        "replay-a:REALIZED_OUTCOME"
+      ],
+      "pit_state": "PIT_VISIBLE_AT_CUTOFF",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "rights": {
+        "internal_analysis_allowed": true,
+        "state": {
+          "internal_analysis_allowed": true
+        }
+      },
+      "source_hashes": [
+        "46b265fe695ffdac11ca77c9c8d10ddab405f9e47852a117c22db3f5aeb6a792",
+        "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870"
+      ],
+      "thesis_claim_ids": [
+        "replay-a"
+      ],
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_id": "RECENT_REPLAY"
+    },
+    {
+      "abstention_reasons": [],
+      "authority": false,
+      "candidate_id": "decision:replay-b",
+      "claim_identity": {
+        "claim_fingerprint": "second-synthetic-fingerprint",
+        "claim_text": "second synthetic exact claim"
+      },
+      "cohort_compatible": true,
+      "cohort_id": "cohort-d9d3693206534e72",
+      "contradiction": {
+        "basis": [],
+        "group_id": null,
+        "reason": null,
+        "state": "NONE_DECLARED"
+      },
+      "core_eligibility": {
+        "admitted_to_core_shaped_projection": true,
+        "authority": false,
+        "blockers": [],
+        "status": "ADMITTED"
+      },
+      "dedupe_lineage": {
+        "dedupe_key": "synthetic-source-b:event-b",
+        "duplicate_claim_ids": [
+          "replay-b"
+        ],
+        "duplicate_count": 1,
+        "source_lineage": [
+          {
+            "claim_id": "replay-b",
+            "source_hashes": [
+              "46b265fe695ffdac11ca77c9c8d10ddab405f9e47852a117c22db3f5aeb6a792",
+              "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+              "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870"
+            ],
+            "source_identity": "synthetic-source-b",
+            "source_ref": "fixture://synthetic-source-b/replay-b"
+          }
+        ]
+      },
+      "editorial_relevance": {
+        "authority": false,
+        "basis_risk_explicit": true,
+        "qualitative_context_allowed": true,
+        "status": "ADMITTED",
+        "unsupported_dimensions": [
+          "PUBLIC_AUTHORITY",
+          "RUNTIME_PROOF"
+        ]
+      },
+      "evaluation_status": "COMPARABLE_EVALUATED",
+      "evidence_hashes": [
+        "46b265fe695ffdac11ca77c9c8d10ddab405f9e47852a117c22db3f5aeb6a792",
+        "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870"
+      ],
+      "exact_proxy_context": {
+        "basis": null,
+        "proxy_label": null,
+        "state": "EXACT"
+      },
+      "freshness": {
+        "age_seconds": null,
+        "state": "CURRENT"
+      },
+      "horizon_unit_currency_clock_compatibility": {
+        "clock": {
+          "known_at_utc_values": [
+            "2026-10-18T12:30:00Z",
+            "2026-10-18T13:00:00Z"
+          ],
+          "missingness_reason": null,
+          "state": "COMPATIBLE"
+        },
+        "currency": {
+          "missingness_reason": null,
+          "state": "COMPATIBLE",
+          "values": []
+        },
+        "horizon": {
+          "missingness_reason": null,
+          "state": "COMPATIBLE",
+          "values": [
+            "1D"
+          ]
+        },
+        "unit": {
+          "missingness_reason": null,
+          "state": "COMPATIBLE",
+          "values": [
+            "direction"
+          ]
+        }
+      },
+      "outcome_link_ids": [
+        "replay-b:FORECAST",
+        "replay-b:PAPER_SIMULATION",
+        "replay-b:RUNTIME_PROVEN",
+        "replay-b:REALIZED_OUTCOME"
+      ],
+      "pit_state": "PIT_VISIBLE_AT_CUTOFF",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "rights": {
+        "internal_analysis_allowed": true,
+        "state": {
+          "internal_analysis_allowed": true
+        }
+      },
+      "source_hashes": [
+        "46b265fe695ffdac11ca77c9c8d10ddab405f9e47852a117c22db3f5aeb6a792",
+        "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+        "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870"
+      ],
+      "thesis_claim_ids": [
+        "replay-b"
+      ],
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_id": "RECENT_REPLAY"
+    }
+  ],
+  "editorial_admission": {
+    "authority": false,
+    "candidate_ids": [
+      "decision:replay-a",
+      "decision:replay-b"
+    ],
+    "count": 2,
+    "qualitative_context_only_for_proxy": true
+  },
+  "exact_blocker": null,
+  "exact_next_action": "Continue deterministic cohort review; no score or runtime/publication promotion.",
+  "generated_at_utc": "2026-10-18T14:00:00Z",
+  "limitations": [
+    "Ordinal ranking is only within comparable cohorts and is not a forecast, score, return, or promotion signal.",
+    "Missing outcomes, proxy/context evidence, stale evidence and unresolved contradictions remain explicit abstentions.",
+    "This pack grants no runtime, database, broker, account, paper, publication or external-effect authority."
+  ],
+  "outcome_links": [
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-a",
+      "claim_id": "replay-a",
+      "comparability_class": "COMPARABLE",
+      "evidence_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "outcome_state": "OBSERVED",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "slot_id": "replay-a:FORECAST",
+      "slot_name": "FORECAST"
+    },
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-a",
+      "claim_id": "replay-a",
+      "comparability_class": "PENDING",
+      "evidence_hash": null,
+      "outcome_state": "OUTCOME_PENDING",
+      "proof_layer": "PAPER_SIMULATION",
+      "slot_id": "replay-a:PAPER_SIMULATION",
+      "slot_name": "PAPER_SIMULATION"
+    },
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-a",
+      "claim_id": "replay-a",
+      "comparability_class": "PENDING",
+      "evidence_hash": null,
+      "outcome_state": "OUTCOME_PENDING",
+      "proof_layer": "RUNTIME_PROVEN",
+      "slot_id": "replay-a:RUNTIME_PROVEN",
+      "slot_name": "RUNTIME_PROVEN"
+    },
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-a",
+      "claim_id": "replay-a",
+      "comparability_class": "COMPARABLE",
+      "evidence_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "outcome_state": "OBSERVED",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "slot_id": "replay-a:REALIZED_OUTCOME",
+      "slot_name": "REALIZED_OUTCOME"
+    },
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-b",
+      "claim_id": "replay-b",
+      "comparability_class": "COMPARABLE",
+      "evidence_hash": "1111111111111111111111111111111111111111111111111111111111111111",
+      "outcome_state": "OBSERVED",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "slot_id": "replay-b:FORECAST",
+      "slot_name": "FORECAST"
+    },
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-b",
+      "claim_id": "replay-b",
+      "comparability_class": "PENDING",
+      "evidence_hash": null,
+      "outcome_state": "OUTCOME_PENDING",
+      "proof_layer": "PAPER_SIMULATION",
+      "slot_id": "replay-b:PAPER_SIMULATION",
+      "slot_name": "PAPER_SIMULATION"
+    },
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-b",
+      "claim_id": "replay-b",
+      "comparability_class": "PENDING",
+      "evidence_hash": null,
+      "outcome_state": "OUTCOME_PENDING",
+      "proof_layer": "RUNTIME_PROVEN",
+      "slot_id": "replay-b:RUNTIME_PROVEN",
+      "slot_name": "RUNTIME_PROVEN"
+    },
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-b",
+      "claim_id": "replay-b",
+      "comparability_class": "COMPARABLE",
+      "evidence_hash": "2222222222222222222222222222222222222222222222222222222222222222",
+      "outcome_state": "OBSERVED",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "slot_id": "replay-b:REALIZED_OUTCOME",
+      "slot_name": "REALIZED_OUTCOME"
+    }
+  ],
+  "pack_id": "decision-evidence-prioritization-pack-464cae8c4de0aafd26613aea",
+  "pack_sha256": "9d30616167ea1dfd4d026ec50b52d27d9e0782d25fed1fba24356f4067be62b8",
+  "parent_bindings": {
+    "contentops_editorial_pack_sha256": null,
+    "goal10_bundle": {
+      "bundle_id": "multi-window-cycle-9079d06f493510be3760e57b",
+      "bundle_sha256": "8534b78394106dc199a0ce06008edb3ca82c89b517676683c83f9f98e8168bd8",
+      "schema": "CapitalChronicleMultiWindowIntelligenceCycleBundleV1",
+      "version": "1.0.0"
+    },
+    "goal11_quality_ledger": {
+      "ledger_id": "multi-window-quality-replay-ledger-e7d60eeb932cf839bfa06b76",
+      "quality_ledger_sha256": "55be21abaf449b8f38226ac121ee7e0daffe0975db7cd27a9f4d887d10801f17",
+      "schema": "CapitalChronicleMultiWindowQualityReplayLedgerV1",
+      "version": "1.0.0"
+    },
+    "goal12_outcome_evaluation": {
+      "evaluation_id": "outcome-evaluation-bundle-3af293f3226af618028cd52e",
+      "evaluation_sha256": "bdc907cb0689af5d1819debc1074f136165b1804deaaf90be0376fff609f19b4",
+      "schema": "CapitalChronicleOutcomeEvaluationBundleV1",
+      "version": "1.0.0"
+    },
+    "goal9_reconciliation": {
+      "classification": "NONE",
+      "receipt_sha256": "313631f2c3c16ce8fa0de5de7d08aefe961caecbfa4d1e95842c7e43a3cddc29"
+    },
+    "main_source": {
+      "head": "8f66238d320062e9258c893d59d2293253655f94",
+      "repository": "fatcat2109/capital-chronicle-main"
+    },
+    "owners": {
+      "core_owner": "tools/product/unified_analyzer_data_fabric_v1.py",
+      "daily_brief_owner": "tools/product/daily_decision_brief_v1.py",
+      "decision_owner": "tools/product/daily_intelligence_decision_packet_v1.py",
+      "dossier_owner": "tools/product/daily_intelligence_handoff_v1.py",
+      "outcome_owner": "tools/product/governed_shadow_outcome_resolution_v1.py",
+      "replay_owner": "tools/product/current_decision_path_sealed_retrospective_replay_v1.py"
+    }
+  },
+  "prioritization_matrix": [
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-a",
+      "cohort_compatible": true,
+      "cohort_id": "cohort-d9d3693206534e72",
+      "cohort_rank_count": 2,
+      "components": {
+        "basis_risk": {
+          "basis": "EXACT_PROXY_CONTEXT_BASIS_RISK_0_EXACT_5_CONTEXT",
+          "missingness_reason": null,
+          "points": 0,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "causal_coherence": {
+          "basis": "CAUSAL_COHERENCE_REQUIRES_EXPLICIT_OWNER_EVIDENCE",
+          "missingness_reason": "NO_EXPLICIT_CAUSAL_BINDING_IN_PARENT_CONTRACT",
+          "points": null,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "NOT_COMPARABLE"
+        },
+        "contradiction_burden": {
+          "basis": "CONTRADICTION_GROUP_PRESENCE_BURDEN_0_CLEAR_5_PRESENT",
+          "missingness_reason": null,
+          "points": 0,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "editorial_usefulness": {
+          "basis": "EXPLICIT_EDITORIAL_ELIGIBILITY_STATUS",
+          "missingness_reason": null,
+          "points": 3,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "evidence_quality": {
+          "basis": "EXACT_SOURCE_HASH_PIT_FRESHNESS_RIGHTS_BINDINGS",
+          "missingness_reason": null,
+          "points": 5,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "outcome_comparability": {
+          "basis": "GOAL12_EVALUATION_COMPARABILITY_ONLY",
+          "missingness_reason": null,
+          "points": 5,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "timeliness": {
+          "basis": "EXPLICIT_FRESHNESS_AND_PIT_STATE",
+          "missingness_reason": null,
+          "points": 5,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        }
+      },
+      "missing_components": [
+        "causal_coherence"
+      ],
+      "no_total_score": true,
+      "ordinal_only": true,
+      "rank": 1,
+      "rank_status": "RANKED_ORDINAL_WITH_EXPLICIT_COMPONENTS",
+      "ranking_basis_components": [
+        "evidence_quality",
+        "timeliness",
+        "contradiction_burden",
+        "basis_risk",
+        "editorial_usefulness",
+        "outcome_comparability"
+      ]
+    },
+    {
+      "authority": false,
+      "candidate_id": "decision:replay-b",
+      "cohort_compatible": true,
+      "cohort_id": "cohort-d9d3693206534e72",
+      "cohort_rank_count": 2,
+      "components": {
+        "basis_risk": {
+          "basis": "EXACT_PROXY_CONTEXT_BASIS_RISK_0_EXACT_5_CONTEXT",
+          "missingness_reason": null,
+          "points": 0,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "causal_coherence": {
+          "basis": "CAUSAL_COHERENCE_REQUIRES_EXPLICIT_OWNER_EVIDENCE",
+          "missingness_reason": "NO_EXPLICIT_CAUSAL_BINDING_IN_PARENT_CONTRACT",
+          "points": null,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "NOT_COMPARABLE"
+        },
+        "contradiction_burden": {
+          "basis": "CONTRADICTION_GROUP_PRESENCE_BURDEN_0_CLEAR_5_PRESENT",
+          "missingness_reason": null,
+          "points": 0,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "editorial_usefulness": {
+          "basis": "EXPLICIT_EDITORIAL_ELIGIBILITY_STATUS",
+          "missingness_reason": null,
+          "points": 3,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "evidence_quality": {
+          "basis": "EXACT_SOURCE_HASH_PIT_FRESHNESS_RIGHTS_BINDINGS",
+          "missingness_reason": null,
+          "points": 5,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "outcome_comparability": {
+          "basis": "GOAL12_EVALUATION_COMPARABILITY_ONLY",
+          "missingness_reason": null,
+          "points": 5,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        },
+        "timeliness": {
+          "basis": "EXPLICIT_FRESHNESS_AND_PIT_STATE",
+          "missingness_reason": null,
+          "points": 5,
+          "scale": "INTEGER_0_TO_5_WHERE_AVAILABLE_NO_TOTAL_SCORE",
+          "state": "AVAILABLE"
+        }
+      },
+      "missing_components": [
+        "causal_coherence"
+      ],
+      "no_total_score": true,
+      "ordinal_only": true,
+      "rank": 2,
+      "rank_status": "RANKED_ORDINAL_WITH_EXPLICIT_COMPONENTS",
+      "ranking_basis_components": [
+        "evidence_quality",
+        "timeliness",
+        "contradiction_burden",
+        "basis_risk",
+        "editorial_usefulness",
+        "outcome_comparability"
+      ]
+    }
+  ],
+  "quality_counts": {
+    "classification": "NONE",
+    "counts": {
+      "cohort_count": 1,
+      "core_admitted_count": 2,
+      "deduped_count": 2,
+      "editorial_relevant_count": 2,
+      "not_comparable_count": 0,
+      "not_verified_count": 0,
+      "outcome_pending_count": 0,
+      "proxy_context_count": 0,
+      "quarantined_count": 0,
+      "ranked_count": 2,
+      "retained_count": 2,
+      "rights_invalid_count": 0,
+      "stale_future_count": 0,
+      "unranked_count": 0
+    },
+    "exact_blocker": null,
+    "exact_next_action": "Continue deterministic cohort review; no score or runtime/publication promotion.",
+    "quality_state": "CLEAR",
+    "reasons": [],
+    "unsupported_dimensions": [
+      "PUBLIC_AUTHORITY",
+      "RUNTIME_PROOF"
+    ]
+  },
+  "schema": "CapitalChronicleDecisionEvidencePrioritizationPackV1",
+  "version": "1.0.0"
+}

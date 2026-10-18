@@ -1,0 +1,22 @@
+{
+  "cases": {
+    "authority_flag": "Authority flags fail closed",
+    "contradiction_quarantine": "Both contradiction sides remain preserved and Core-excluded",
+    "current_real_not_verified": "Current-real NOT_VERIFIED remains abstained",
+    "deterministic_cohort_ranking": "Clean comparable cohort receives deterministic ordinal ranks only",
+    "duplicate_lineage": "Duplicate claim lineage points to all source hashes",
+    "exact_proxy_basis_risk": "Exact enters Core-shaped projection; proxy/context carry basis risk and editorial-only routing",
+    "five_candidates_three_windows": "Current fixture retains five decision candidates across ordered windows",
+    "incompatible_horizon_unit_clock": "Incompatible cohort dimensions abstain from rank",
+    "outcome_pending_not_comparable": "Pending and incomparable outcomes remain first-class",
+    "proof_layer_promotion_rejection": "Replay cannot promote to runtime or realized authority",
+    "repeated_output": "Repeated output is byte-stable",
+    "stale_future_rights_rejection": "Stale, future and rights-invalid inputs fail closed",
+    "tampered_hash": "Tampered parent hash fails closed",
+    "unknown_write": "UNKNOWN_WRITE fails closed"
+  },
+  "clean_synthetic_pack_sha256": "9d30616167ea1dfd4d026ec50b52d27d9e0782d25fed1fba24356f4067be62b8",
+  "current_pack_sha256": "9f42139c1f188eda32051d0dfc1aa5786ee2b1743ba7fb7f9794e82804d420ed",
+  "schema": "CapitalChronicleDecisionEvidencePrioritizationPackV1",
+  "version": "1.0.0"
+}

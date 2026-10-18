@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14258,
+    "edges": 14272,
     "entrypoints": 20,
-    "nodes": 7553,
+    "nodes": 7561,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 619,
-      "python_function": 4113,
+      "python_function": 4118,
       "python_method": 306,
-      "python_module": 788,
-      "schema": 237,
-      "test": 757,
+      "python_module": 789,
+      "schema": 238,
+      "test": 758,
       "typescript_export": 507,
       "typescript_or_javascript_module": 109
     }
@@ -10828,6 +10828,54 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_dashboard_handoff.py"
+    },
+    {
+      "from": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::build_decision_editorial_feedback_quality_pack"
+    },
+    {
+      "from": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::canonical_bytes"
+    },
+    {
+      "from": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::pack_sha256"
+    },
+    {
+      "from": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::sha256_without"
+    },
+    {
+      "from": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::verify_decision_editorial_feedback_quality_pack"
+    },
+    {
+      "from": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.decision_editorial_feedback_quality_pack.v1"
+    },
+    {
+      "from": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_decision_editorial_feedback_quality_pack_v1.py"
     },
     {
       "from": "live_contentops/decision_time_operator_readiness_v1.py",
@@ -50166,6 +50214,36 @@
       "to": "python_symbol:live_contentops/dashboard_handoff.py::build_handoff_export"
     },
     {
+      "from": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::build_decision_editorial_feedback_quality_pack",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::pack_sha256"
+    },
+    {
+      "from": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::build_decision_editorial_feedback_quality_pack",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::sha256_without"
+    },
+    {
+      "from": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::pack_sha256",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::sha256_without"
+    },
+    {
+      "from": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::sha256_without",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::canonical_bytes"
+    },
+    {
+      "from": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::verify_decision_editorial_feedback_quality_pack",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::pack_sha256"
+    },
+    {
       "from": "python_symbol:live_contentops/decision_time_operator_readiness_v1.py::build_decision_time_freshness_records",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -75312,6 +75390,12 @@
       "to": "live_contentops/dashboard_handoff.py"
     },
     {
+      "from": "tests/test_decision_editorial_feedback_quality_pack_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/decision_editorial_feedback_quality_pack_v1.py"
+    },
+    {
       "from": "tests/test_destination_binding_outbox_draft_v6.py",
       "inference": "test_filename_convention",
       "kind": "tests",
@@ -85723,7 +85807,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-18T06:36:37Z",
+  "generation_timestamp_utc": "2026-10-18T09:32:37Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -87133,6 +87217,11 @@
       "id": "live_contentops/dashboard_handoff.py",
       "kind": "python_module",
       "size_bytes": 12316
+    },
+    {
+      "id": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "kind": "python_module",
+      "size_bytes": 27243
     },
     {
       "id": "live_contentops/decision_time_operator_readiness_v1.py",
@@ -98492,6 +98581,41 @@
       "line": 223,
       "path": "live_contentops/dashboard_handoff.py",
       "symbol": "validate_handoff_export"
+    },
+    {
+      "id": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::build_decision_editorial_feedback_quality_pack",
+      "kind": "python_function",
+      "line": 367,
+      "path": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "symbol": "build_decision_editorial_feedback_quality_pack"
+    },
+    {
+      "id": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::canonical_bytes",
+      "kind": "python_function",
+      "line": 106,
+      "path": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "symbol": "canonical_bytes"
+    },
+    {
+      "id": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::pack_sha256",
+      "kind": "python_function",
+      "line": 118,
+      "path": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "symbol": "pack_sha256"
+    },
+    {
+      "id": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::sha256_without",
+      "kind": "python_function",
+      "line": 112,
+      "path": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "symbol": "sha256_without"
+    },
+    {
+      "id": "python_symbol:live_contentops/decision_editorial_feedback_quality_pack_v1.py::verify_decision_editorial_feedback_quality_pack",
+      "kind": "python_function",
+      "line": 677,
+      "path": "live_contentops/decision_editorial_feedback_quality_pack_v1.py",
+      "symbol": "verify_decision_editorial_feedback_quality_pack"
     },
     {
       "id": "python_symbol:live_contentops/decision_time_operator_readiness_v1.py::build_decision_time_freshness_records",
@@ -125336,6 +125460,11 @@
       "schema_id": "contentops.daily_app_ui_snapshot.v1"
     },
     {
+      "id": "schema:contentops.decision_editorial_feedback_quality_pack.v1",
+      "kind": "schema",
+      "schema_id": "contentops.decision_editorial_feedback_quality_pack.v1"
+    },
+    {
       "id": "schema:contentops.delivery_media_manifest.v1",
       "kind": "schema",
       "schema_id": "contentops.delivery_media_manifest.v1"
@@ -127409,6 +127538,11 @@
       "id": "tests/test_dashboard_handoff.py",
       "kind": "test",
       "size_bytes": 7000
+    },
+    {
+      "id": "tests/test_decision_editorial_feedback_quality_pack_v1.py",
+      "kind": "test",
+      "size_bytes": 11297
     },
     {
       "id": "tests/test_decision_time_freshness_and_current_operator_readiness_v1.py",
@@ -134678,6 +134812,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "c26856e1c334978abe33009b0ce25186872f54b8",
-  "source_tree_digest": "b0917fb3a8cc97aa0f5e416dc95cbd07d23e0d0516c2dd03134a535270ab3707"
+  "source_head": "2352500e61d2f40519f5d24346c096e77c841c98",
+  "source_tree_digest": "5b0b087b24c9057333955fbda7f677da093d500e6596619b779ab33f3705ac4d"
 }
