@@ -80,8 +80,11 @@ verified report/evidence binding and schema/hash/rights/cutoff gates; it perform
 independent browser capture or underlying-event confirmation. Main's source replay and
 its BrowserOS acquisition remain distinct evidence owners.
 
-Focused validation: 39 consumer controls, 27 existing resolution-adapter regressions and
-36 existing Simple newsroom regressions passed (**102 total**); focused Ruff passed.
+Focused validation: the 39-control consumer + 27 adapter + 36 Simple bundle passed
+(**102 total**). A subsequent same-receipt concurrency repair passed all **40 current
+consumer controls**; unchanged adapter/Simple evidence remains applicable. Focused Ruff passed.
+The repair gives each operation a unique lease owner, preventing concurrent receipt
+re-entry from reacquiring another operation's lease.
 Existing coordinator recovery skipped internal outbox inputs with zero transport calls
 and zero publication backlog. The actual CLI exited successfully with `ADMITTED`.
 
@@ -93,9 +96,9 @@ and zero publication backlog. The actual CLI exited successfully with `ADMITTED`
    refresh the scoped graph and read back the final remote head/CI.
 3. Leave runtime, scheduling, model invocation, publisher, merge and deployment unchanged.
 
-Previous exact-head CI run `39131461639` passed both jobs at
-`782ca11297d1cb9e208b61bad76901448bff28f7`; it predates this local integration update and
-does not establish its CI result.
+Exact-head CI run `39132137943` passed both jobs for the local-integration head
+`fe4b0e7753883a1619becc6718d4f156ca7167d7`. It predates the final concurrency
+repair; later head status must be read back separately.
 
 Example read-only import after Main supplies the exact paths and binding:
 

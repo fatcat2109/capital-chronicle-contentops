@@ -751,3 +751,25 @@ def test_real_claim_evidence_hash_cannot_be_changed_after_main_sealing():
     )
     assert admission["status"] == "BLOCKED"
     assert "REPORT_SEALED_HASH_MISMATCH" in admission["blockers"]
+
+
+def test_same_receipt_cannot_reenter_another_inflight_lease(tracker, monkeypatch):
+    original = tracker.store.acquire_lease
+    held = []
+
+    def intercept(key, owner, **kwargs):
+        if not held:
+            held.append(original(key, owner, **kwargs))
+            # A second operation for the same receipt must use a distinct owner,
+            # otherwise the existing store would permit it to reacquire this lease.
+            tracker.consume(validate(*make_bundle()), receipt_id="same-inflight")
+        return original(key, owner, **kwargs)
+
+    monkeypatch.setattr(tracker.store, "acquire_lease", intercept)
+    with pytest.raises(LeaseConflictError):
+        tracker.consume(validate(*make_bundle()), receipt_id="same-inflight")
+    lease = held[0]
+    tracker.store.release_lease(
+        lease["lease_id"], lease["owner_ref"], lease["fencing_token"]
+    )
+    assert tracker.receipts() == []

@@ -14,6 +14,7 @@ from copy import deepcopy
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
+from uuid import uuid4
 
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.four_trigger_data_resolution_adapter_v1 import (
@@ -643,7 +644,7 @@ class LatestReportDeliveryTracker:
     ) -> dict[str, Any]:
         if not _text(receipt_id) or _private(validation):
             raise LatestReportConsumerError("RECEIPT_ID_OR_PRIVACY_INVALID")
-        owner = "cc-report-consumer-" + sha256_of(receipt_id)[:20]
+        owner = "cc-report-consumer-" + uuid4().hex
         lease = self.store.acquire_lease(
             "internal:cc-report-consume", owner, ttl_seconds=60
         )
@@ -752,7 +753,7 @@ class LatestReportDeliveryTracker:
         published_memory: Sequence[Any] = (),
     ) -> dict[str, Any]:
         """Persist reconstructable writer input once; never invoke its writer."""
-        owner = "cc-report-delivery-" + sha256_of(receipt_id)[:20]
+        owner = "cc-report-delivery-" + uuid4().hex
         lease = self.store.acquire_lease(
             "internal:cc-report-consume", owner, ttl_seconds=60
         )
