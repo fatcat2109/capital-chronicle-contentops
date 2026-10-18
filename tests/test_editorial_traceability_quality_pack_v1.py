@@ -281,5 +281,3 @@ def test_fixture_matrix_and_receipts_round_trip_exactly():
             artifact_bytes=LEDGER.read_bytes() if spec.get("exact_artifact") else None,
         )
         assert actual == expected
-
-\n

@@ -1,0 +1,23 @@
+{
+  "cases": {
+    "authority_flag": "Authority and promotion flags cannot become true",
+    "clean_synthetic_offline": "One clean exact retrospective replay is comparable with two observed slots",
+    "contradiction_quarantine": "Contradiction group and both source hashes remain non-comparable",
+    "current_real_pending": "Current real rows retain NOT_COMPARABLE or OUTCOME_PENDING without invented results",
+    "duplicate_lineage": "Duplicate claim ids and source hashes remain attached",
+    "incompatible_horizon": "Incompatible horizon or unit is NOT_COMPARABLE",
+    "missing_outcome": "Missing forecast, paper, runtime and realized evidence remains explicit",
+    "mixed_exact_replay_proxy_windows": "Ordered current, replay and proxy windows remain distinct",
+    "proof_layer_promotion_rejection": "Replay evidence cannot promote to runtime-proven or realized authority",
+    "repeated_byte_stable": "Repeated builds have identical canonical output",
+    "stale_future_rejection": "Stale, future and rights-invalid parent rows fail closed",
+    "tampered_hash": "Tampered bundle or evaluation hash fails verification",
+    "unknown_write": "UNKNOWN_WRITE fails closed"
+  },
+  "clean_synthetic_evaluation_sha256": "2cf596631d0402dc2274be5395134c3e72289ccfe284a5f782badee2457d7d1e",
+  "current_bundle_sha256": "9e113fd45caf623458f7bb2adfe9b43fe204cb10d96abe62b718f6a13affaed9",
+  "current_evaluation_sha256": "ae67ad70a7a692a7c92003a3fb3d4869fd3898ee3dc5b0ed07166c39c960a043",
+  "current_quality_ledger_sha256": "834d5fb73a4a299392419cde850b0adb0e5746fb6fdfc14743f13077d75c8697",
+  "schema": "CapitalChronicleOutcomeEvaluationBundleV1",
+  "version": "1.0.0"
+}

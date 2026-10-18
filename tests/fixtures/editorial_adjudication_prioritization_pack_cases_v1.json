@@ -1,0 +1,109 @@
+{
+  "cases": {
+    "authority_flag": {
+      "exact": false,
+      "expected_classification": "AUTHORITY_FLAG",
+      "trace_name": "exact_merged_current"
+    },
+    "contradiction_quarantine": {
+      "exact": false,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "current_real_not_verified": {
+      "exact": true,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "deterministic_repeat": {
+      "exact": false,
+      "expected_classification": "SHADOW_CONFIRMED",
+      "trace_name": "synthetic_complete"
+    },
+    "duplicate_lineage": {
+      "exact": false,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "eight_derivative_shadow": {
+      "exact": false,
+      "expected_classification": "SHADOW_CONFIRMED",
+      "trace_name": "synthetic_complete"
+    },
+    "evaluation_hash_mismatch": {
+      "exact": false,
+      "expected_classification": "PACKET_HASH_MISMATCH",
+      "trace_name": "exact_merged_current"
+    },
+    "exact_merged_main": {
+      "exact": true,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "five_candidate_mixed_windows": {
+      "exact": false,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "future": {
+      "exact": false,
+      "expected_classification": "STALE",
+      "trace_name": "exact_merged_current"
+    },
+    "horizon_unit_mismatch": {
+      "exact": false,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "interruption_resume": {
+      "exact": false,
+      "expected_classification": "SHADOW_CONFIRMED",
+      "trace_name": "interruption_resume"
+    },
+    "proxy_only_context": {
+      "exact": false,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "rights_invalid": {
+      "exact": false,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "secret_marker": {
+      "exact": false,
+      "expected_classification": "NOT_VERIFIED",
+      "trace_name": "exact_merged_current"
+    },
+    "source_head_mismatch": {
+      "exact": false,
+      "expected_classification": "SOURCE_HEAD_MISMATCH",
+      "trace_name": "exact_merged_current"
+    },
+    "stale": {
+      "exact": false,
+      "expected_classification": "STALE",
+      "trace_name": "exact_merged_current"
+    },
+    "synthetic_complete": {
+      "exact": false,
+      "expected_classification": "SHADOW_CONFIRMED",
+      "trace_name": "synthetic_complete"
+    },
+    "tampered": {
+      "exact": false,
+      "expected_classification": "PACKET_HASH_MISMATCH",
+      "trace_name": "exact_merged_current"
+    },
+    "unknown_write": {
+      "exact": false,
+      "expected_classification": "UNKNOWN_WRITE",
+      "trace_name": "exact_merged_current"
+    }
+  },
+  "main_head": "dcbeb56608672a7b17ec1bb084ee6863c9c2a10c",
+  "observed_main_schema": "CapitalChronicleOutcomeEvaluationBundleV1",
+  "requested_main_schema": "CapitalChronicleDecisionEvidencePrioritizationPackV1",
+  "schema_version": "contentops.editorial_adjudication_prioritization_pack.cases.v1",
+  "source": "MERGED_MAIN_ARCHIVE"
+}

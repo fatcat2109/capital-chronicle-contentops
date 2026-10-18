@@ -1,0 +1,479 @@
+{
+  "as_of_utc": "2026-10-18T14:00:00Z",
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "evaluation_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "outcome_authority": false,
+    "paper_authority": false,
+    "promotion_authorized": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "claim_evaluations": [
+    {
+      "authority": false,
+      "claim_id": "replay-a",
+      "claim_identity": {
+        "claim_fingerprint": "same claim-fingerprint",
+        "claim_text": "same claim"
+      },
+      "contradiction": {
+        "basis": [],
+        "group_id": null,
+        "reason": null,
+        "state": "NONE_DECLARED"
+      },
+      "core_eligibility": {
+        "blockers": [],
+        "exact_input_required": true,
+        "status": "ADMITTED"
+      },
+      "dedupe_lineage": {
+        "dedupe_key": "contentops-recent-replay:event-a",
+        "duplicate_claim_ids": [
+          "replay-a"
+        ],
+        "duplicate_count": 1,
+        "source_lineage": [
+          {
+            "claim_id": "replay-a",
+            "source_hashes": [
+              "46b265fe695ffdac11ca77c9c8d10ddab405f9e47852a117c22db3f5aeb6a792",
+              "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870"
+            ],
+            "source_identity": "contentops-recent-replay",
+            "source_ref": "fixture://contentops-recent-replay/replay-a"
+          }
+        ]
+      },
+      "editorial_eligibility": {
+        "authority": false,
+        "proxy_is_context_only": false,
+        "status": "ADMITTED"
+      },
+      "evaluation_eligibility": {
+        "authority": false,
+        "blockers": [],
+        "eligible_for_comparison": true,
+        "status": "COMPARABLE_EVALUATED"
+      },
+      "event_identity": {
+        "event_id": "event-a"
+      },
+      "exact_proxy_context": {
+        "basis": null,
+        "proxy_label": null,
+        "state": "EXACT"
+      },
+      "freshness": {
+        "age_seconds": null,
+        "state": "CURRENT"
+      },
+      "outcome_slot_ids": [
+        "replay-a:FORECAST",
+        "replay-a:PAPER_SIMULATION",
+        "replay-a:RUNTIME_PROVEN",
+        "replay-a:REALIZED_OUTCOME"
+      ],
+      "pit_state": "PIT_VISIBLE_AT_CUTOFF",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "rights": {
+        "internal_analysis_allowed": true,
+        "state": {
+          "internal_analysis_allowed": true
+        }
+      },
+      "source_hashes": [
+        "46b265fe695ffdac11ca77c9c8d10ddab405f9e47852a117c22db3f5aeb6a792",
+        "d054ac8d439cfc69127eef58d7360c362fafeb8aa7b00caba05f061b3b61c870"
+      ],
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_id": "RECENT_REPLAY"
+    }
+  ],
+  "evaluation_id": "outcome-evaluation-bundle-22ac26051e3876acdd05bc14",
+  "evaluation_sha256": "2cf596631d0402dc2274be5395134c3e72289ccfe284a5f782badee2457d7d1e",
+  "evaluation_windows": [
+    {
+      "bundle_window_sha256": "4db015cf38e37a28b699fe76314405fa684db2964db53c19a3addec2b77e8dcb",
+      "claim_count": 0,
+      "claim_ids": [],
+      "evaluation_status_counts": {
+        "COMPARABLE_EVALUATED": 0,
+        "NOT_COMPARABLE": 0,
+        "NOT_VERIFIED": 0,
+        "OUTCOME_PENDING": 0
+      },
+      "proof_layer": "PROSPECTIVE_NATURAL_OBSERVATION",
+      "unsupported_dimensions": [],
+      "window_id": "CURRENT_REAL",
+      "window_order": 0,
+      "window_sha256": "2c78be67c00ca9d984a0dfd46ff8628fdd6a44ae82136dd8e7b96a48101f843b"
+    },
+    {
+      "bundle_window_sha256": "bb999c06dc11ccf1e1477dd0572816b483111a3d641bea9132bc56c44b83cd18",
+      "claim_count": 1,
+      "claim_ids": [
+        "replay-a"
+      ],
+      "evaluation_status_counts": {
+        "COMPARABLE_EVALUATED": 1,
+        "NOT_COMPARABLE": 0,
+        "NOT_VERIFIED": 0,
+        "OUTCOME_PENDING": 0
+      },
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_id": "RECENT_REPLAY",
+      "window_order": 1,
+      "window_sha256": "55280bd69739110148489b9089a588ca9dadb81674d57e0091875a7d6aad69f4"
+    },
+    {
+      "bundle_window_sha256": "aecfb57aea95ee22fcb1bf751c66dc1abd571ce00e7dac7c81f166878f058116",
+      "claim_count": 0,
+      "claim_ids": [],
+      "evaluation_status_counts": {
+        "COMPARABLE_EVALUATED": 0,
+        "NOT_COMPARABLE": 0,
+        "NOT_VERIFIED": 0,
+        "OUTCOME_PENDING": 0
+      },
+      "proof_layer": "PROXY_CONTEXT",
+      "unsupported_dimensions": [],
+      "window_id": "PROXY_CONTEXT",
+      "window_order": 2,
+      "window_sha256": "520a24842989ceeb2161e4317798d9c023ac7f7b2d528737f5419e9db84eac75"
+    }
+  ],
+  "generated_at_utc": "2026-10-18T14:00:00Z",
+  "outcome_slots": [
+    {
+      "authority": false,
+      "claim_id": "replay-a",
+      "comparability_class": "COMPARABLE",
+      "evidence_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "horizon": "1D",
+      "known_at_utc": "2026-10-18T12:30:00Z",
+      "missingness_reason": null,
+      "observed_value": "forecast-placeholder",
+      "outcome_state": "OBSERVED",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "slot_name": "FORECAST",
+      "unit": "direction",
+      "window_id": "RECENT_REPLAY"
+    },
+    {
+      "authority": false,
+      "claim_id": "replay-a",
+      "comparability_class": "PENDING",
+      "evidence_hash": null,
+      "horizon": null,
+      "known_at_utc": null,
+      "missingness_reason": "NO_DEFENSIBLE_OUTCOME_EVIDENCE",
+      "observed_value": null,
+      "outcome_state": "OUTCOME_PENDING",
+      "proof_layer": "PAPER_SIMULATION",
+      "slot_name": "PAPER_SIMULATION",
+      "unit": null,
+      "window_id": "RECENT_REPLAY"
+    },
+    {
+      "authority": false,
+      "claim_id": "replay-a",
+      "comparability_class": "PENDING",
+      "evidence_hash": null,
+      "horizon": null,
+      "known_at_utc": null,
+      "missingness_reason": "NO_DEFENSIBLE_OUTCOME_EVIDENCE",
+      "observed_value": null,
+      "outcome_state": "OUTCOME_PENDING",
+      "proof_layer": "RUNTIME_PROVEN",
+      "slot_name": "RUNTIME_PROVEN",
+      "unit": null,
+      "window_id": "RECENT_REPLAY"
+    },
+    {
+      "authority": false,
+      "claim_id": "replay-a",
+      "comparability_class": "COMPARABLE",
+      "evidence_hash": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "horizon": "1D",
+      "known_at_utc": "2026-10-18T13:00:00Z",
+      "missingness_reason": null,
+      "observed_value": "realized-placeholder",
+      "outcome_state": "OBSERVED",
+      "proof_layer": "RETROSPECTIVE_REPLAY",
+      "slot_name": "REALIZED_OUTCOME",
+      "unit": "direction",
+      "window_id": "RECENT_REPLAY"
+    }
+  ],
+  "parent_bindings": {
+    "contentops_consumer": {
+      "head": "f3fb9fb273261d94850007db19aedf4171014c19",
+      "repository": "fatcat2109/capital-chronicle-contentops"
+    },
+    "contentops_input": {
+      "head": "aa5dbda6c73a4f53683365ce26c6323ec57298a9",
+      "repository": "fatcat2109/capital-chronicle-contentops"
+    },
+    "contentops_v2_receipt_sha256": null,
+    "goal10_bundle": {
+      "bundle_id": "multi-window-cycle-9e062836a4e4fdb91474228e",
+      "bundle_sha256": "a82a49a00a31180358c36b06dc2fdf8173598ec031de9d44cf032ff05fc41fcb",
+      "schema": "CapitalChronicleMultiWindowIntelligenceCycleBundleV1",
+      "version": "1.0.0"
+    },
+    "goal11_quality_ledger": {
+      "ledger_id": "multi-window-quality-replay-ledger-e6e6ff567d47323992276603",
+      "quality_ledger_sha256": "b0b078cd1a47e71d6839e1f1f3e48b3554efe2d96375c9233ea7effff8782608",
+      "schema": "CapitalChronicleMultiWindowQualityReplayLedgerV1",
+      "version": "1.0.0"
+    },
+    "goal9_reconciliation": {
+      "classification": "NONE",
+      "receipt_sha256": "313631f2c3c16ce8fa0de5de7d08aefe961caecbfa4d1e95842c7e43a3cddc29"
+    },
+    "main_source": {
+      "head": "8f66238d320062e9258c893d59d2293253655f94",
+      "repository": "fatcat2109/capital-chronicle-main"
+    },
+    "owners": {
+      "decision_owner": "tools/product/daily_intelligence_decision_packet_v1.py",
+      "dossier_owner": "tools/product/daily_intelligence_handoff_v1.py",
+      "outcome_owner": "tools/product/governed_shadow_outcome_resolution_v1.py",
+      "replay_owner": "tools/product/current_decision_path_sealed_retrospective_replay_v1.py"
+    }
+  },
+  "quality_counts": {
+    "classification": "NONE",
+    "counts": {
+      "comparable_evaluated_count": 1,
+      "core_admitted_count": 1,
+      "deduped_count": 1,
+      "editorial_context_count": 0,
+      "not_comparable_count": 0,
+      "observed_slot_count": 2,
+      "pending_count": 1,
+      "proof_layer_promotion_rejected_count": 0,
+      "proxy_only_count": 0,
+      "quarantined_count": 0,
+      "retained_count": 1,
+      "rights_invalid_count": 0,
+      "stale_future_count": 0
+    },
+    "exact_blocker": null,
+    "exact_next_action": "Continue deterministic outcome review; no score or runtime/publication promotion.",
+    "quality_state": "CLEAR",
+    "reasons": [],
+    "unsupported_dimensions": [
+      "PUBLIC_AUTHORITY",
+      "RUNTIME_PROOF"
+    ]
+  },
+  "replay_quality_matrix": [
+    {
+      "authority": false,
+      "claim_ids": [
+        "replay-a"
+      ],
+      "counts": {
+        "blocked_count": 0,
+        "claim_count": 1,
+        "comparable_count": 1
+      },
+      "order": 0,
+      "proof_layers": [
+        "RETROSPECTIVE_REPLAY"
+      ],
+      "stage_id": "INGESTED",
+      "state": "COMPLETED",
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_ids": [
+        "RECENT_REPLAY"
+      ]
+    },
+    {
+      "authority": false,
+      "claim_ids": [
+        "replay-a"
+      ],
+      "counts": {
+        "blocked_count": 0,
+        "claim_count": 1,
+        "comparable_count": 1
+      },
+      "order": 1,
+      "proof_layers": [
+        "RETROSPECTIVE_REPLAY"
+      ],
+      "stage_id": "QUALITY_VERIFIED",
+      "state": "COMPLETED",
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_ids": [
+        "RECENT_REPLAY"
+      ]
+    },
+    {
+      "authority": false,
+      "claim_ids": [
+        "replay-a"
+      ],
+      "counts": {
+        "blocked_count": 0,
+        "claim_count": 1,
+        "comparable_count": 1
+      },
+      "order": 2,
+      "proof_layers": [
+        "RETROSPECTIVE_REPLAY"
+      ],
+      "stage_id": "DEDUPED",
+      "state": "COMPLETED",
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_ids": [
+        "RECENT_REPLAY"
+      ]
+    },
+    {
+      "authority": false,
+      "claim_ids": [],
+      "counts": {
+        "blocked_count": 0,
+        "claim_count": 0,
+        "comparable_count": 0
+      },
+      "order": 3,
+      "proof_layers": [],
+      "stage_id": "CONTRADICTION_QUARANTINED",
+      "state": "COMPLETED",
+      "unsupported_dimensions": [],
+      "window_ids": []
+    },
+    {
+      "authority": false,
+      "claim_ids": [
+        "replay-a"
+      ],
+      "counts": {
+        "blocked_count": 0,
+        "claim_count": 1,
+        "comparable_count": 1
+      },
+      "order": 4,
+      "proof_layers": [
+        "RETROSPECTIVE_REPLAY"
+      ],
+      "stage_id": "EVALUATION_ELIGIBLE",
+      "state": "COMPLETED",
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_ids": [
+        "RECENT_REPLAY"
+      ]
+    },
+    {
+      "authority": false,
+      "claim_ids": [
+        "replay-a"
+      ],
+      "counts": {
+        "blocked_count": 0,
+        "claim_count": 1,
+        "comparable_count": 1
+      },
+      "order": 5,
+      "proof_layers": [
+        "RETROSPECTIVE_REPLAY"
+      ],
+      "stage_id": "OUTCOME_CLASSIFIED",
+      "state": "COMPLETED",
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_ids": [
+        "RECENT_REPLAY"
+      ]
+    },
+    {
+      "authority": false,
+      "claim_ids": [
+        "replay-a"
+      ],
+      "counts": {
+        "blocked_count": 0,
+        "claim_count": 1,
+        "comparable_count": 1
+      },
+      "order": 6,
+      "proof_layers": [
+        "RETROSPECTIVE_REPLAY"
+      ],
+      "stage_id": "COMPARABILITY_CHECKED",
+      "state": "COMPLETED",
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_ids": [
+        "RECENT_REPLAY"
+      ]
+    },
+    {
+      "authority": false,
+      "claim_ids": [
+        "replay-a"
+      ],
+      "counts": {
+        "blocked_count": 0,
+        "claim_count": 1,
+        "comparable_count": 1
+      },
+      "order": 7,
+      "proof_layers": [
+        "RETROSPECTIVE_REPLAY"
+      ],
+      "stage_id": "OUTCOME_PENDING",
+      "state": "COMPLETED",
+      "unsupported_dimensions": [
+        "PUBLIC_AUTHORITY",
+        "RUNTIME_PROOF"
+      ],
+      "window_ids": [
+        "RECENT_REPLAY"
+      ]
+    }
+  ],
+  "schema": "CapitalChronicleOutcomeEvaluationBundleV1",
+  "version": "1.0.0"
+}
