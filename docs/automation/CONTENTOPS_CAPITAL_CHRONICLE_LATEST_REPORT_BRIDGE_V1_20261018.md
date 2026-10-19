@@ -341,7 +341,7 @@ unchanged `LLM_OPERATOR_PAUSED` marker. The bounded next command is in the produ
 
 ## Goal 20 — independent evidence and Main public outbox continuation
 
-Current status: `IMPLEMENTED_LOCAL_PROOF_MAIN_IMMUTABLE_HANDOFF_PENDING`.
+Current status: `IMPLEMENTED_MAIN_PARENT_LINEAGE_BLOCKED`.
 See [Goal20 release handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/RELEASE_HANDOFF.md)
 for the requirement-by-requirement evidence, source permissions, exact local controls and four-window
 integration command. Actual counts: **3 independent admitted items; 2 Main-origin recirculations;
@@ -350,5 +350,4 @@ integration command. Actual counts: **3 independent admitted items; 2 Main-origi
 projections. BLS's HTTP 403 was recovered through the existing bounded BrowserOS source owner.
 
 Main's evolving public file manifest consumer and withdrawal/restart mechanics are implemented and
-locally verified. The immutable Main Goal20 producer handoff is still required before cross-owner
-completion credit. LLM pause and runtime remain unchanged. No self-merge or deployment is claimed.
+locally verified. Exact Main remote `01abd50fbaf5db2b8a989f758d7e617f92d109f4` and all five public example files are verified. Its USOIL v2 still lacks the exact parent `61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d`, so admission remains `LINEAGE_PARENT_NOT_RECEIVED`. This parent dependency must close before cross-owner completion credit. LLM pause and runtime remain unchanged. No self-merge or deployment is claimed.

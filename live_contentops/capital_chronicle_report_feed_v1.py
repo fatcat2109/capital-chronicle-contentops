@@ -335,6 +335,7 @@ class MainReportFeed:
                         "receipt_id": receipt_id,
                         "state": record["status"],
                         "blockers": record.get("blockers", []),
+                        "required_parent_report_sha256": record.get("parent_report_sha256"),
                     }
                 )
             for withdrawal in withdrawals:

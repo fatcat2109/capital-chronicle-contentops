@@ -624,6 +624,7 @@ def report_workspace_projection(
     )
     feed = max(feeds, key=lambda r: str(r.get("created_at") or r.get("observed_at_utc")), default=None)
     export = max(headline_exports, key=lambda r: int(r["sequence"]), default=None)
+    parent_gaps = [e for e in (feed or {}).get("events", []) if e.get("state") in {"LINEAGE_PARENT_NOT_RECEIVED", "LINEAGE_HASH_CONFLICT"}]
     lag = None
     if latest and feed:
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
@@ -656,7 +657,8 @@ def report_workspace_projection(
                        "main_drafts": sum(r.get("classification") == "DRAFT_READY" for r in results),
                        "fresh_provider_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"),
                        "controlled_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "INJECTED_REPLAY_ONLY")},
-        "next_operation": "Resume the existing Simple route only after actual pause release; consume the configured public export manifest at the next existing window.",
+        "next_operation": ("Main must supply or restore the exact public parent " + str(parent_gaps[0].get("required_parent_report_sha256") or "identified by the manifest") + "; replay manifest admission without a model call. Independent news remains available.")
+                          if parent_gaps else "Resume the existing Simple route only after actual pause release; consume the configured public export manifest at the next existing window.",
         "workspaces": [report_workspace_projection(rows, key) for key in sorted(ids)]
         if report_id is None and len(ids) > 1
         else [],
@@ -666,6 +668,7 @@ def report_workspace_projection(
         "article": None if latest and latest.get("withdrawal_only") else (result or {}).get("article"),
         "previews": [] if latest and latest.get("withdrawal_only") else (result or {}).get("previews", []),
         "named_blocker": (latest_attempt or {}).get("exact_next_blocker")
+        or (parent_gaps[0]["state"] if parent_gaps else None)
         or (
             "CLAIMS_WITHDRAWN"
             if latest and latest.get("withdrawal_only")

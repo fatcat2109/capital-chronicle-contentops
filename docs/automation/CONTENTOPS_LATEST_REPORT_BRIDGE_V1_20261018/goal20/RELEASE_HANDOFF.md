@@ -1,6 +1,6 @@
 # Goal 20 â€” original evidence and evolving public report feed
 
-Status: `IMPLEMENTED_LOCAL_PROOF_MAIN_IMMUTABLE_HANDOFF_PENDING`.
+Status: `IMPLEMENTED_MAIN_PARENT_LINEAGE_BLOCKED`.
 Owning checkpoint: [existing bridge handoff](../../CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md).
 Base: merged PR87, master `45f9b0ebf209930e904085cf56bd4470a99c6501`.
 
@@ -61,22 +61,18 @@ accepted parents must be retained/restored, or Main must include their lawful pu
 its handoff. The existing incremental XNGUSD v1→v2 and missed-window controls already pass; no
 missing parent is silently fabricated or waived.
 
-Required remaining handoff: Main's immutable producer revision + schema-valid example bytes/hashes + stable
-export-root id and configured public root. Then consume that exact handoff, verify current
-producer/consumer compatibility and record actual new manifest events. Until then Goal20 remains
+Required remaining handoff: the matching public parent/lineage for its USOIL v2. The immutable producer and exact schema/example bytes have now been read back from the pushed Main revision `01abd50fbaf5db2b8a989f758d7e617f92d109f4`. The configured root is `A:/Capital Chronicle/Runtime/MainPublicReports-v1`. Replay admission after the parent is supplied; record actual newly admitted manifest events. Until then Goal20 remains
 active; `goal20_new_main_manifest_events=0` is intentional and truthful.
 
 ### Exact committed producer readback
 
-Main locally committed `eeb42979f708e0aa8b0c12994c3935a02152fecf`. The consumer read only the
+Main pushed `01abd50fbaf5db2b8a989f758d7e617f92d109f4`, containing implementation `eeb42979f708e0aa8b0c12994c3935a02152fecf`. The consumer read only the
 five public compatibility files and the public manifest schema through exact Git blobs; all
 declared byte hashes match. [Immutable local-commit readback](immutable_main_handoff_readback.json)
 still returns `LINEAGE_PARENT_NOT_RECEIVED` for its USOIL v2. The exact required parent is
 `61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d`; the previously accepted
 Goal19 parent is `797f3132e40f486036fc318cab8acf7b9288715035d90c4b3e82705fb17a3f1a` and is
-correctly rejected as `LINEAGE_HASH_CONFLICT`. Main's remote branch was still at `b6f05d2dc`
-at this readback. The concrete remaining action is for the Main owner to push the exact producer
-and provide the matching public parent/lineage chain. Then replay this consumer against that
+correctly rejected as `LINEAGE_HASH_CONFLICT`. The latest readback verifies the exact remote head and all five immutable example files. The concrete remaining action is for Main to provide the matching public parent/lineage chain. Then replay this consumer against that
 exact handoff; no model call or runtime restart is needed to establish admission.
 
 ## Four existing windows and release
@@ -94,7 +90,7 @@ points only to explicitly retained newsroom evidence. Configuration and runtime 
   "schema_version": "contentops.main_public_export_binding.v1",
   "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
   "export_root_id": "capital-chronicle-public-analysis-reports-v1",
-  "public_export_root": "A:\\Capital Chronicle\\Runtime\\MainPublicReports",
+  "public_export_root": "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1",
   "research_root": "<reviewed retained research directory>"
 }
 ```

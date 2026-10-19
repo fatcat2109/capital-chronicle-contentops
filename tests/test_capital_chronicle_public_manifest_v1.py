@@ -184,3 +184,15 @@ def test_withdrawal_receipt_survives_crash_before_status_projection(tmp_path, mo
     resumed = MainReportFeed(tracker, pointer, headline_paths=[])
     assert resumed.apply_withdrawal(event)["state"] == "DUPLICATE_WITHDRAWAL_NOOP"
     assert all(r["delivery_status"] == "CONTENT_WITHDRAWN" for r in tracker.receipts() if r["source_report_sha256"] == event["report_sha256"])
+
+
+def test_missing_parent_is_named_in_workspace_with_exact_next_action(tmp_path):
+    root, pointer, manifest, tracker = setup(tmp_path)
+    control_manifest(root, manifest, manifest["entries"][1:])
+    feed = MainReportFeed(tracker, pointer, headline_paths=[])
+    scan = feed.poll(cutoff_utc=NOW)
+    assert scan["events"][0]["state"] == "LINEAGE_PARENT_NOT_RECEIVED"
+    view = report_workspace_projection(tracker.store.list_outbox_messages())
+    assert view["named_blocker"] == "LINEAGE_PARENT_NOT_RECEIVED"
+    assert manifest["entries"][1]["parent_report_sha256"] in view["next_operation"]
+    assert not feed.pending()
