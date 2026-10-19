@@ -165,3 +165,15 @@ and fresh explicit isolated output/store paths. Do not replace source evidence o
 Goal22 remains active until final delivery/CI and the actual receiving evidence are verified.
 Control Tower synchronization stays with its serial owner; this existing owning handoff/PR is the
 durable discovery path while sync is pending. No Main/database/operator/builder messages were sent.
+
+
+### Final affected-media repair
+
+A final direct source audit tightened the reuse switch: an unchanged-media request also requires
+an exact dependent source-binding match. If that binding changes, the existing renderer rebuilds
+the affected media rather than carrying an old source card into a new source revision.
+[Focused control](media_revision_reuse_tests.txt) proves both unchanged reuse and refusal of a stale
+source binding; no new acquisition or seven-image campaign. Actual delivered seven package/media
+bytes and current editorial decisions are unchanged by this future-change correction.
+CodeGraph was locally current at source `4ca27701302b323c9d701a55f92e0f787a22e033`; the normal
+branch refresh and final CI must bind the following small renderer/test delta before delivery.

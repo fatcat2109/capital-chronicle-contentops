@@ -108,7 +108,8 @@ def render(root, output, store_path, reuse_packages=None, brief_ids=(), apply_to
                       "validator": "existing_grounded_article_validator", "material_claim_lineage": lineage,
                       "semantic_editorial_review": "REQUIRED", "qualified_simple_article": False}
         prior = previous.get(brief["brief_id"])
-        if prior and brief.get("reuse_unchanged_media"):
+        binding = source_binding([i for i in library["items"] if i["item_id"] in brief["source_item_ids"]])
+        if prior and brief.get("reuse_unchanged_media") and prior.get("source_binding_sha256") == binding:
             media = prior["media_assets"]
             for asset in media:
                 raw = base64.b64decode(asset["preview_data_url"].split(",", 1)[1])
@@ -132,7 +133,7 @@ def render(root, output, store_path, reuse_packages=None, brief_ids=(), apply_to
         dump(folder / "native_previews.json", previews)
         dump(folder / "media.json", media)
         packages.append({"brief_id": brief["brief_id"], "brief_sha256": brief["brief_sha256"], "article_identity": sha256_of(article),
-                         "source_binding_sha256": source_binding([i for i in library["items"] if i["item_id"] in brief["source_item_ids"]]),
+                         "source_binding_sha256": binding,
                          "main_report_bindings": brief.get("main_report_bindings", []),
                          "stage": "EDITOR_AUTHORED_RESEARCH_PACKAGE", "article": article,
                          "validation": validation, "media_assets": media, "previews": previews,

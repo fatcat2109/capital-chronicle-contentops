@@ -181,3 +181,14 @@ def test_affected_render_applies_one_package_preserving_other_exact_revisions(tm
     assert all(before[k] == after[k] for k in before if k != "metals-exposure")
     assert list(target.parent.glob("packages.previous-*.json"))
     assert not list((tmp_path / "rendered").rglob("*.png"))  # exact unchanged media reused
+    stale = list(before.values())
+    next(p for p in stale if p["brief_id"] == "metals-exposure")["source_binding_sha256"] = "f" * 64
+    stale_path = tmp_path / "stale-media-binding.json"
+    stale_path.write_text(json.dumps(stale), encoding="utf-8")
+
+    def must_rebuild(*_args, **_kwargs):
+        raise ValueError("SOURCE_CHANGED_MEDIA_REBUILD_REQUIRED")
+
+    monkeypatch.setattr("scripts.render_contentops_research_library_v1.build_source_backed_media_assets", must_rebuild)
+    with pytest.raises(ValueError, match="SOURCE_CHANGED_MEDIA_REBUILD_REQUIRED"):
+        render(root, tmp_path / "changed-source", tmp_path / "changed.sqlite", stale_path, ["metals-exposure"])
