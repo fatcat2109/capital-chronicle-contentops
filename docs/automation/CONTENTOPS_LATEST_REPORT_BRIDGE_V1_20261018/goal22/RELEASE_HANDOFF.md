@@ -1,6 +1,6 @@
 # Goal22 — editorial decision desk and reciprocal Main research
 
-Status: `EDITORIAL_DESK_AND_RECIPROCAL_READBACK_DELIVERED_FINAL_CI_PENDING`.
+Status: `SCOPED_GOAL22_DELIVERY_COMPLETE_EXACT_HEAD_CI_RECORDED_IN_PR90`.
 Existing owning checkpoint: [latest-report bridge](../../CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md).
 Continue the same worktree/branch/PR90; source base `92ab3136ac7ede44fe9e5ffae76631546279bb0f`.
 Native Goal22 is active. Model/effort unchanged, not inferred from product identifiers.
@@ -26,8 +26,8 @@ and **5 undated background dispositions**, exact hashes, original-source lineage
 and rights clocks, correction semantics and non-numeric/context-only scope. Wire remains
 `contentops.main_headline_projection.v1`; `headlines.jsonl` is the existing adapter input.
 This is a durable export from the existing outbox, not a new ingestion service.
-Main receipt is `NOT_VERIFIED` until actual immutable Main evidence arrives. No production
-ingestion is activated. Initial JSONL SHA-256:
+The initial receipt state below is historical; final isolated Main owner-code readback is **9/9**
+at revision3 in the final section. No production ingestion is activated. Initial JSONL SHA-256:
 `a357e2586101fefa8484897a62a828be23a3049ef380c2c01fb2d1175cdb7579`.
 
 ## Current implementation findings
@@ -223,4 +223,26 @@ Final delivery chain: desk source `4ca27701302b323c9d701a55f92e0f787a22e033`, af
 `8b93b8c0cd1d2079951a4b37e36eac07502a7b85`, host-independent pause test
 `a59ad50c5c119a536ab2eceb011d2085563c8fff`, graph commit
 `523989af62fd6682a70541a70194ae4b93790677` passed both checks in CI `39267024773`.
-The following wire repair and evidence must have its own final graph/exact-head CI, recorded in PR90.
+The wire repair is source `8959d6d8d3f389a5d9a3b090ba426b7e0bc9e49a`; final source/graph/exact-head CI readback is recorded in PR90 after this documentation closeout.
+
+
+## Final requirement closeout
+
+All independently authorized Goal22 product and reciprocal-handoff requirements have current
+inspectable evidence above. Required final source delivery uses implementation
+`8959d6d8d3f389a5d9a3b090ba426b7e0bc9e49a` and graph
+`3997252d093f1216c56f28a89bf209cb9e542b9b`, digest
+`6cb82402278b8512633f08a896b1d5653feaf8c85dfc39de15f36be416f8f52d`.
+This following closeout changes owning documentation only. Exact final remote/PR/CI head and
+results are retained in PR90's Final exact-head delivery section before native goal completion;
+no previous green head is substituted. CodeGraph source remains the final implementation epoch.
+
+Completed requirement audit: existing desk/decision/restart; exact dependent revision invalidation;
+seven semantic repairs; current packages/native previews/media; affected renderer and feed adoption;
+independent versus Main input preservation in existing four-window/Simple composition; fixed
+nine-dated/five-undated public-safe context handoff; actual unchanged Main receiver 9/9; permitted
+public Main output reuse; focused tests, actual desktop/mobile render; precise paused draft command;
+normal CodeGraph and durable existing checkpoint/PR. External states excluded from this scoped
+completion are full North Star reliability, fresh provider execution, production ingestion/natural
+operation, audience outcomes, publication/merge/deployment, and serial Control Tower synchronization.
+They are not claimed and are not silently substituted by research decisions or passing CI.

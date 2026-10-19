@@ -388,7 +388,7 @@ contacts database chats. LLM pause remains active.
 
 ## Goal22 — revision-bound editorial desk and reciprocal research
 
-Status: `DESK_AND_RECIPROCAL_READBACK_DELIVERED_FINAL_CI_PENDING`. [Owning Goal22 handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/RELEASE_HANDOFF.md)
+Status: `SCOPED_GOAL22_DELIVERY_COMPLETE_EXACT_HEAD_CI_IN_PR90`. [Owning Goal22 handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/RELEASE_HANDOFF.md)
 retains the full objective and requirement audit. Existing `review_records` now serves reasoned
 KEEP/REVISE/HOLD for exact source/brief/article/media/preview/Main revisions, with selective
 invalidation and existing-outbox affected work; no second owner. All seven research packages
@@ -414,3 +414,11 @@ ContentOps-operator invocation of Main's exact receiver, not Main production ing
 public/native-calendar result. [Corrected exact receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/main_receiver/corrected_nine_row_receipt.json)
 supersedes the earlier NOT_VERIFIED receiving state. Final corrected-wire commit/CodeGraph/CI
 will be recorded in PR90; no further product scope, merge, deployment or activation is implied.
+
+
+Goal22 closeout: final implementation `8959d6d8d3f389a5d9a3b090ba426b7e0bc9e49a` and
+CodeGraph `3997252d093f1216c56f28a89bf209cb9e542b9b` are delivered; the full requirement audit
+is in the owning handoff. Exact final remote/PR/head CI result is recorded in PR90 before native
+goal completion. Current 5 KEEP/2 HOLD, seven research packages, 56 previews/seven media and
+actual isolated Main 9/9 + five undated dispositions remain the useful scoped result. No full
+North Star, deployment, merge, provider/public-write or production-ingestion claim is made.
