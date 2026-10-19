@@ -231,3 +231,29 @@ Never fabricate a report/source/leak/rumor/quote/number/event; present unconfirm
 Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only. Edge `contentops-social-main` CDP 9223 remains publication/media/readback/authorized-observation only.
 
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+## Evolving Main intelligence, original research and demo privacy (owner update 2026-10-19)
+
+ContentOps serves two complementary inputs: eligible public-safe Main report updates and
+independently acquired, rights-checked newsroom evidence. Retain exact source/capture/known-at,
+revision, permission and epistemic state. A Main report returning through the context feed is
+recirculated analysis, not independent confirmation or a new factual observation.
+
+Consume Main's versioned immutable public manifest and lawful parent chain through the existing
+latest-report feed. Missed-history/cold-start/restart, corrections and withdrawals must preserve
+lineage without per-report manual Git pointers. A non-editorial ancestor may establish lineage
+under the Main-owned contract; it cannot create a writer intent or become publishable content.
+A fixture, copied schema or valid hash alone is not real cross-repository admission proof.
+
+Capital Chronicle's designated demo is private portfolio/learning infrastructure. Account IDs,
+balances, positions, fills and demo performance stay outside public packets, copy and media.
+No demo result establishes public alpha claims or real-money authority. Main's newer policy
+requires credible prospective paper/demo alpha evidence and fresh Jim authorization before any
+real-account transition; ContentOps cannot grant or perform that transition.
+
+Use the existing Simple writer/validator, source-backed chart/media owners, Daily App and
+canonical publication/recovery path. Research, controlled previews, fresh provider output,
+validated copy, publication and natural production results remain distinct. Preserve the current
+operator LLM pause and runtime state; this update does not restart them or extend V2 authority.
+See [the bridge plan](CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1.md) and
+[dated reconciliation](CONTENTOPS_OWNER_UPDATE_RECONCILIATION_20261019.md).
