@@ -144,8 +144,9 @@ def test_review_api_origin_exact_revision_and_daily_app_readback(tmp_path):
         server.server_close()
 
 
-def test_configured_feed_adopts_current_packages_and_holds_only_their_exclusive_candidates(tmp_path):
+def test_configured_feed_adopts_current_packages_and_holds_only_their_exclusive_candidates(tmp_path, monkeypatch):
     from tests.test_capital_chronicle_report_feed_v1 import feed
+    monkeypatch.setattr("live_contentops.capital_chronicle_report_editorial_workspace_v1.llm_operator_pause_active", lambda: True)
     runtime = feed(tmp_path)
     runtime.retained_research = RetainedSourceResearch(ROOT / "retained_research")
     runtime.refresh_research_library(cutoff_utc=CUTOFF)
