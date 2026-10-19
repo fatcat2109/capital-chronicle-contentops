@@ -87571,7 +87571,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-19T14:02:52Z",
+  "generation_timestamp_utc": "2026-10-19T14:07:01Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -128964,7 +128964,7 @@
     {
       "id": "scripts/render_contentops_research_library_v1.py",
       "kind": "python_module",
-      "size_bytes": 13717
+      "size_bytes": 13793
     },
     {
       "id": "scripts/repair_v1_rehearsal_same_worker_source_identity_v1.py",
@@ -129754,7 +129754,7 @@
     {
       "id": "tests/test_contentops_editorial_desk_v1.py",
       "kind": "test",
-      "size_bytes": 11287
+      "size_bytes": 11964
     },
     {
       "id": "tests/test_contentops_emergency_stop_v1.py",
@@ -137322,6 +137322,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "4ca27701302b323c9d701a55f92e0f787a22e033",
-  "source_tree_digest": "9305c807525e5550294cc21e1645a6f1acbeb88d889e94ca87fa3236b536adf9"
+  "source_head": "8b93b8c0cd1d2079951a4b37e36eac07502a7b85",
+  "source_tree_digest": "6c1a48dc2c23b2782083deb8433eeb448c9cfae11a115ff99affe5f27a399e1b"
 }
