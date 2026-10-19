@@ -384,3 +384,22 @@ source/remote/exact-head CI readback and CodeGraph epoch; the owning handoff inc
 completion matrix and actual final Main render inspection. Merge/deploy are excluded. Exness data is Builder 3's
 exclusive producer lane; ContentOps neither reads private Main catalog/account/portfolio nor
 contacts database chats. LLM pause remains active.
+
+
+## Goal22 — revision-bound editorial desk and reciprocal research
+
+Status: `DESK_DELIVERED_FINAL_CI_AND_MAIN_RECEIPT_PENDING`. [Owning Goal22 handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/RELEASE_HANDOFF.md)
+retains the full objective and requirement audit. Existing `review_records` now serves reasoned
+KEEP/REVISE/HOLD for exact source/brief/article/media/preview/Main revisions, with selective
+invalidation and existing-outbox affected work; no second owner. All seven research packages
+were substantively repaired: **5 KEEP / 2 HOLD**, **15 propositions / 9 documents**, **7 packages /
+56 previews / 7 media**. Six images reused, one changed gas source card. Twenty-one historical
+review rows describe seven unique packages; publication/qualified/fresh-provider counts are zero.
+
+The same isolated store reuses eight Main receipts and three current public reports; restart and
+one paused four-window composition retain decisions. Actual final Neo desktop/mobile inspection
+passed after repairing one label overflow (430px == scroll width). Nine dated context-only/non-numeric
+Main export rows plus five undated dispositions are pinned in revision2 at PR90. **Actual Main
+receiver receipt remains NOT_VERIFIED**. CodeGraph/final source/CI delivery is being closed on the
+same PR; no self-merge/deploy, production tick, pause release, public/provider writes, private
+Main/DB/broker reads or database/operator/builder messages. Full North Star remains unfinished.

@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "blockers": [],
+  "validator": "existing_grounded_article_validator",
+  "material_claim_lineage": [
+    {
+      "item_id": "goal21-futures-option",
+      "source_id": "SOURCE_1",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+      "text_sha256": "881885cceffcf51108c8a8b099ed65dff8517cfdf54aef50c90b817ad371e11f",
+      "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "permission_sha256": "ab46d3625fe7f7d333997b1fe3adea40392a2f10fb1127e9159a978932766308",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-futures-hedgers",
+      "source_id": "SOURCE_2",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+      "text_sha256": "85c2f8aad59c459ea6b4c4818c71f6aab2a7d9350e1eaa120d5489e237f362e7",
+      "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "permission_sha256": "03e6f6aa2d2f9eb21b925de8a3ff3a3f3d13abc46dbfc28bb664a1570cb94d9c",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    }
+  ],
+  "semantic_editorial_review": "REQUIRED",
+  "qualified_simple_article": false
+}

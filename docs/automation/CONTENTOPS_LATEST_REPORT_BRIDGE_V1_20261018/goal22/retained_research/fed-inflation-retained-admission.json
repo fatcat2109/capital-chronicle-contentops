@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal21-fed-inflation",
+      "title": "Federal Reserve Board - Federal Reserve issues FOMC statement",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "publisher": "www.federalreserve.gov",
+      "source_identity": "www.federalreserve.gov",
+      "raw_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "canonical_content_text": "Home News & Events Press Releases Press Release PDF September 16, 2026 Federal Reserve issues FOMC statement For release at 2:00 p.m. EDT Share The Federal Open Market Committee approved the following statement for release by a 12 – 0 vote: The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate. The Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a solid pace. While uncertainty remains elevated owing, in part, to geopolitical developments, domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. Today's policy action will support a timelier return to the Committee's 2 percent goal. The Committee will deliver price stability. For media inquiries, please email media@frb.gov or call 202-452-2955. Implementation Note issued September 16, 2026 Last Update: September 16, 2026",
+      "canonical_content_sha256": "292cd306b6124beb20693f75736da9514e8766048d4eddf6b024c81c2ff481c7",
+      "source_adapter_family": "official_policy",
+      "source_authority_class": "official_public_primary_source",
+      "published_at_utc": "2026-09-16T18:00:00Z",
+      "publication_time_precision": "SOURCE_RECORDED",
+      "published_at_source": "RETAINED_SOURCE_VISIBLE_DATE",
+      "source_modified_at_utc": null,
+      "content_truncated": false,
+      "retrieval_method": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-19T09:14:51.352Z",
+    "capture_operation": "EDITORIAL_READ_ONLY_VISIBLE_TEXT",
+    "network_calls_by_materializer": 0
+  }
+}

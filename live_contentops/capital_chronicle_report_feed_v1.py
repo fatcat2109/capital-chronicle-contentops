@@ -181,7 +181,7 @@ class MainReportFeed:
     def refresh_research_library(self, *, cutoff_utc):
         if self.retained_research is None:
             return None
-        from live_contentops.contentops_foundation_library_v1 import persist_library
+        from live_contentops.contentops_foundation_library_v1 import persist_library, persist_research_package, source_binding
         briefs = []
         brief_path = self.retained_research.root / "editorial_briefs.json"
         if brief_path.is_file() and brief_path.stat().st_size <= 1_000_000:
@@ -189,7 +189,24 @@ class MainReportFeed:
                 briefs = json.loads(brief_path.read_bytes())["briefs"][:32]
             except (ValueError, KeyError, TypeError):
                 self.research_error = "EDITORIAL_BRIEFS_UNAVAILABLE_OR_INVALID"
-        return persist_library(self.tracker, self.retained_research, cutoff_utc=cutoff_utc, briefs=briefs)
+        snapshot = persist_library(self.tracker, self.retained_research, cutoff_utc=cutoff_utc, briefs=briefs)
+        package_path = self.retained_research.root / "packages.json"
+        if package_path.is_file() and package_path.stat().st_size <= 4_000_000:
+            try:
+                packages = json.loads(package_path.read_bytes())
+                if not isinstance(packages, list) or len(packages) > 32:
+                    raise ValueError("RESEARCH_PACKAGE_BOUND_INVALID")
+                for package in packages:
+                    brief = next((b for b in snapshot["briefs"] if b["brief_id"] == package.get("brief_id")), None)
+                    if not brief or package.get("brief_sha256") != brief["brief_sha256"]:
+                        continue
+                    dependencies = [i for i in snapshot["items"] if i["item_id"] in brief["source_item_ids"]]
+                    if package.get("source_binding_sha256") != source_binding(dependencies):
+                        continue
+                    persist_research_package(self.tracker, package, research_revision=self.retained_research.revision)
+            except (ValueError, KeyError, TypeError):
+                self.research_error = "CONFIGURED_RESEARCH_PACKAGES_INVALID_OR_UNAVAILABLE"
+        return snapshot
 
     def poll(self, *, cutoff_utc: str) -> dict[str, Any]:
         owner = "cc-feed-" + uuid4().hex
@@ -408,6 +425,8 @@ class MainReportFeed:
             _persist(
                 self.tracker.store, "cc-feed-scan-" + sha256_of(summary), summary, FEED
             )
+            from live_contentops.contentops_foundation_library_v1 import reconcile_affected_work
+            reconcile_affected_work(self.tracker)
             return summary
         finally:
             self.tracker.store.release_lease(
@@ -568,7 +587,15 @@ class MainReportFeed:
 
             rolling_input = load_rolling_x_headline_sidecars(cutoff_utc=cutoff_utc)
         if self.retained_research and not pool:
-            rolling_input = {**rolling_input, "headlines": [*self.retained_research.headlines(cutoff_utc=cutoff_utc), *rolling_input.get("headlines", [])]}
+            from live_contentops.contentops_foundation_library_v1 import library_projection
+            from live_contentops.contentops_editorial_desk_v1 import read_reviews
+            desk = library_projection(self.tracker.store.list_outbox_messages(), read_reviews(self.tracker.store))
+            held = {p["brief_id"] for p in (desk or {}).get("packages", []) if p["review"]["state"] == "HOLD"}
+            held_ids = {i for b in (desk or {}).get("briefs", []) if b["brief_id"] in held for i in b["source_item_ids"]}
+            active_ids = {i for b in (desk or {}).get("briefs", []) if b["brief_id"] not in held for i in b["source_item_ids"]}
+            excluded = held_ids - active_ids
+            headlines = [r for r in self.retained_research.headlines(cutoff_utc=cutoff_utc) if r["headline_id"] not in excluded]
+            rolling_input = {**rolling_input, "headlines": [*headlines, *rolling_input.get("headlines", [])]}
         result = run_report_editorial_cycle(
             self.tracker,
             receipt_id=pending[0]["receipt_id"] if pending else "independent-" + sha256_of(run_id),

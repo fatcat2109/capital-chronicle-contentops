@@ -135,9 +135,9 @@ def _rows(conn: Any, sql: str, params: Iterable[Any] = ()) -> list[dict[str, Any
 
 
 
-def _report_bridge_projection(outbox: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
+def _report_bridge_projection(outbox: Mapping[str, Mapping[str, Any]], reviews=()) -> dict[str, Any]:
     from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
-    return report_workspace_projection(list(outbox.values()))
+    return report_workspace_projection(list(outbox.values()), review_records=reviews)
 
 def _latest_time(rows: Iterable[Mapping[str, Any]], fields: Iterable[str]) -> Optional[datetime]:
     values = [
@@ -662,6 +662,7 @@ def build_daily_app_snapshot(
             readiness_rows = _rows(conn, "SELECT * FROM destination_readiness ORDER BY platform,surface")
             operator_trigger_rows = _rows(conn, "SELECT * FROM operator_cycle_triggers ORDER BY requested_at_utc DESC, trigger_id DESC")
             review_count = int(conn.execute("SELECT COUNT(*) FROM review_records").fetchone()[0])
+            editorial_reviews = _rows(conn, "SELECT * FROM review_records ORDER BY rowid")
             artifact_count = int(conn.execute("SELECT COUNT(*) FROM artifact_references").fetchone()[0])
             event_count = len(transitions)
     except DailyAppReadModelError:
@@ -1670,7 +1671,7 @@ def build_daily_app_snapshot(
             "latest_material_delta_status": latest_material_delta_status,
             "latest_decision_reason": latest_decision_reason,
             "latest_stage_stopped": latest_stage_stopped,
-            "report_bridge": _report_bridge_projection(outbox),
+            "report_bridge": _report_bridge_projection(outbox, editorial_reviews),
             "current_cycle": ({
                 "work_item_id": latest_cycle["work_item_id"],
                 "state": latest_cycle["current_state"],

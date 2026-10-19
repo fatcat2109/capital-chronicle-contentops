@@ -17,7 +17,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker, sha256_of
 from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
-from live_contentops.contentops_foundation_library_v1 import persist_library, persist_research_package
+from live_contentops.contentops_foundation_library_v1 import persist_library, persist_research_package, source_binding
 from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
 from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.eight_platform_substack_first_pipeline_v1 import build_native_derivative_payloads
@@ -29,7 +29,7 @@ def dump(path, value):
     path.write_text(json.dumps(value, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
 
-def render(root, output, store_path):
+def render(root, output, store_path, reuse_packages=None, brief_ids=(), apply_to=None):
     if output.exists() or store_path.exists():
         raise ValueError("NEW_ISOLATED_OUTPUT_AND_STORE_REQUIRED")
     if not llm_operator_pause_active():
@@ -40,8 +40,11 @@ def render(root, output, store_path):
     tracker = LatestReportDeliveryTracker(ContentOpsDurableStore(store_path))
     cutoff = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     library = persist_library(tracker, research, cutoff_utc=cutoff, briefs=briefs)
+    previous = {p["brief_id"]: p for p in json.loads(reuse_packages.read_bytes())} if reuse_packages else {}
     packages = []
     for brief in library["briefs"]:
+        if brief_ids and brief["brief_id"] not in brief_ids:
+            continue
         folder = output / brief["brief_id"]
         folder.mkdir()
         records = [research.records[i] for i in brief["source_item_ids"]]
@@ -78,6 +81,7 @@ def render(root, output, store_path):
             lineage.append({"item_id": r["headline_id"], "source_id": marker, "source_url": r["source_url"],
                             "text_sha256": r["text_sha256"], "source_capture_sha256": r["source_capture_sha256"],
                             "permission_sha256": r["source_permission_record_sha256"], "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"})
+        body.extend("## " + section["heading"] + "\n\n" + section["text"] for section in brief.get("article_sections", []))
         for title, value in [("Vì sao đáng đọc", brief["audience_value"]), ("Cơ chế cần kiểm tra", brief["mechanism"]),
                              ("Giải thích cạnh tranh", brief["competing_explanation"]),
                              ("Kịch bản điều kiện", "\n".join(brief["scenarios"])),
@@ -88,6 +92,7 @@ def render(root, output, store_path):
         article = {"title": "Nghiên cứu: " + brief["title"], "dek": brief["audience_value"], "subtitle": brief["audience_value"],
                    "market_mechanism": brief["mechanism"], "policy_context": "Nghiên cứu biên tập chưa duyệt. " + brief["competing_explanation"],
                    "cross_asset_implications": brief["next_question"],
+                   "social_cross_asset_summary": brief.get("social_watch", brief["next_question"]),
                    "substack_body_markdown": "\n\n".join(body), "authoring_origin": "EDITOR_AUTHORED_RESEARCH",
                    "article_mode": "DATA_OR_DOCUMENT_LENS", "cluster_id": brief["brief_id"],
                    "headline_ids": brief["source_item_ids"], "evidence_document_ids": [d["document_id"] for d in docs],
@@ -102,12 +107,21 @@ def render(root, output, store_path):
         validation = {"status": "PASS" if not blockers else "BLOCKED", "blockers": blockers,
                       "validator": "existing_grounded_article_validator", "material_claim_lineage": lineage,
                       "semantic_editorial_review": "REQUIRED", "qualified_simple_article": False}
-        media = ([build_source_comparison_card([docs[0], docs[-1]], output_dir=folder,
+        prior = previous.get(brief["brief_id"])
+        if prior and brief.get("reuse_unchanged_media"):
+            media = prior["media_assets"]
+            for asset in media:
+                raw = base64.b64decode(asset["preview_data_url"].split(",", 1)[1])
+                if hashlib.sha256(raw).hexdigest() != asset["sha256"]:
+                    raise ValueError("REUSED_MEDIA_HASH_MISMATCH")
+        else:
+            media = ([build_source_comparison_card([docs[0], docs[-1]], output_dir=folder,
                     title="Policy rates and custody proposals answer different questions")]
                  if brief["brief_id"] == "cross-asset-price-versus-custody"
                  else build_source_backed_media_assets(context, output_dir=folder, required_asset_count=1))
         for asset in media:
-            raw = Path(asset["path"]).read_bytes()
+            raw = (base64.b64decode(asset["preview_data_url"].split(",", 1)[1]) if asset.get("preview_data_url")
+                   else Path(asset["path"]).read_bytes())
             if len(raw) <= 1_500_000 and hashlib.sha256(raw).hexdigest() == asset["sha256"]:
                 asset["preview_data_url"] = "data:image/png;base64," + base64.b64encode(raw).decode()
         previews = build_native_derivative_payloads(article=article, selection={},
@@ -118,6 +132,8 @@ def render(root, output, store_path):
         dump(folder / "native_previews.json", previews)
         dump(folder / "media.json", media)
         packages.append({"brief_id": brief["brief_id"], "brief_sha256": brief["brief_sha256"], "article_identity": sha256_of(article),
+                         "source_binding_sha256": source_binding([i for i in library["items"] if i["item_id"] in brief["source_item_ids"]]),
+                         "main_report_bindings": brief.get("main_report_bindings", []),
                          "stage": "EDITOR_AUTHORED_RESEARCH_PACKAGE", "article": article,
                          "validation": validation, "media_assets": media, "previews": previews,
                          "qualified": False, "published": False, "fresh_provider_draft": False})
@@ -127,6 +143,19 @@ def render(root, output, store_path):
         batch_id="goal21-library-independent-research", paths=[], cutoff_utc=cutoff)
     dump(output / "independent_main_context_projection.json", exported)
     dump(output / "packages.json", packages)
+    if apply_to is not None:
+        # Only the explicit retained research package projection is replaced, never
+        # source bytes, a durable store, review decisions, provider or publication state.
+        if apply_to.resolve() != (root / "retained_research/packages.json").resolve():
+            raise ValueError("APPLY_ONLY_EXPLICIT_RETAINED_RESEARCH_PACKAGES")
+        existing = json.loads(apply_to.read_bytes()) if apply_to.is_file() else []
+        merged = {p["brief_id"]: p for p in existing}
+        merged.update({p["brief_id"]: p for p in packages})
+        if apply_to.exists():
+            backup = apply_to.with_name("packages.previous-" + hashlib.sha256(apply_to.read_bytes()).hexdigest()[:16] + ".json")
+            if not backup.exists():
+                backup.write_bytes(apply_to.read_bytes())
+        dump(apply_to, list(merged.values()))
     dump(output / "workspace.json", report_workspace_projection(tracker.store.list_outbox_messages()))
     receipt = {"status": "RENDERED_EDITORIAL_RESEARCH_REVIEW_REQUIRED", "observed_at_utc": cutoff,
                "useful_families": library["counts"]["useful_families"], "independent_items": library["counts"]["independent_items"],
@@ -150,5 +179,8 @@ if __name__ == "__main__":
     p.add_argument("--root", type=Path, required=True)
     p.add_argument("--output-dir", type=Path, required=True)
     p.add_argument("--store", type=Path, required=True)
+    p.add_argument("--reuse-packages", type=Path, help="Reuse only explicitly selected unchanged hash-verified media, no rerender")
+    p.add_argument("--brief-id", action="append", default=[], help="Render only named affected briefs; other package revisions are not rebuilt")
+    p.add_argument("--apply-to", type=Path, help="Explicit retained_research/packages.json; preserve prior exact bytes and apply affected package revisions")
     a = p.parse_args()
-    print(json.dumps(render(a.root, a.output_dir, a.store)))
+    print(json.dumps(render(a.root, a.output_dir, a.store, a.reuse_packages, a.brief_id, a.apply_to)))

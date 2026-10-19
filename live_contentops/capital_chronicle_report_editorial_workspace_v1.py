@@ -293,12 +293,17 @@ def run_report_editorial_cycle(
         args["capital_chronicle_context"]["report_editorial_briefs"] = [
             build_report_editorial_input(r, output_dir=root, cutoff_utc=cutoff_utc)["brief"] for r in records
         ]
-        library = library_projection(tracker.store.list_outbox_messages())
+        from live_contentops.contentops_editorial_desk_v1 import read_reviews
+        library = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
         if library:
             args["capital_chronicle_context"]["foundation_library"] = {
                 "research_revision": library["research_revision"],
-                "briefs": library["briefs"][:16],
+                "briefs": [b for b in library["briefs"] if not any(p["brief_id"] == b["brief_id"] and
+                    p["review"]["state"] == "HOLD" for p in library["packages"])][:16],
                 "families": library["families"],
+                "editorial_desk": library["desk"],
+                "research_packages": [{k: p.get(k) for k in ("brief_id", "package_revision", "editorial_kind", "review", "source_revision_current")}
+                                      for p in library["packages"]],
                 "scope": "PUBLIC_RESEARCH_QUESTIONS_NOT_MAIN_NUMERIC_AUTHORITY",
             }
         args["source_route_health"] = dict(source_route_health or {})
@@ -538,7 +543,7 @@ def run_report_editorial_cycle(
 
 
 def report_workspace_projection(
-    rows: Sequence[Mapping[str, Any]], report_id: str | None = None
+    rows: Sequence[Mapping[str, Any]], report_id: str | None = None, *, review_records=()
 ) -> dict[str, Any]:
     """Read only durable payloads; blocked/duplicate events never poison current content."""
     admissions, inputs, results = [], [], []
@@ -641,7 +646,7 @@ def report_workspace_projection(
     return {
         "schema_version": SCHEMA,
         "state": "AVAILABLE" if latest else "UNAVAILABLE",
-        "foundation_library": library_projection(rows) if report_id is None else None,
+        "foundation_library": library_projection(rows, review_records) if report_id is None else None,
         "report_events_received": len(admissions),
         "latest_report": latest,
         "report_history": admissions,

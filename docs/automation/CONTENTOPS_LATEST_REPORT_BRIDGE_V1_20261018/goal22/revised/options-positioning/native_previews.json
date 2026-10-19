@@ -1,0 +1,136 @@
+{
+  "telegram": {
+    "format": "channel_brief",
+    "text": "NEWSROOM BRIEF\n\nNghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nChuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.\n\nWhat to watch: Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1024,
+    "hard_truncation_used": false,
+    "media_asset_ids": []
+  },
+  "x": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe",
+    "reply_texts": [
+      "Chuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.",
+      "Watch: Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe\n\nChuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.\n\nWatch: Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 280,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "Chuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.",
+        "media_asset_ids": []
+      },
+      {
+        "order": 2,
+        "role": "reply",
+        "text": "Watch: Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 2,
+      "post_character_counts": [
+        156,
+        128,
+        194
+      ],
+      "per_post_character_utilization": [
+        0.557,
+        0.457,
+        0.693
+      ],
+      "shortest_longest_reply_ratio": 0.66,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "linkedin": {
+    "format": "professional_brief",
+    "text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nWhy it matters: Suy luận ContentOps: cùng một vị thế có thể thuộc giao dịch đầu cơ hoặc một phần phòng hộ tài sản khác.\n\nContext: Nghiên cứu biên tập chưa duyệt.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 3000,
+    "hard_truncation_used": false
+  },
+  "discord": {
+    "format": "newsroom_brief",
+    "text": "**Newsroom brief: Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào**\n\nChuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.\n\n**Context:** Nghiên cứu biên tập chưa duyệt.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2000,
+    "hard_truncation_used": false
+  },
+  "facebook_page": {
+    "format": "page_brief",
+    "text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nChuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.\n\nWhy it matters: Suy luận ContentOps: cùng một vị thế có thể thuộc giao dịch đầu cơ hoặc một phần phòng hộ tài sản khác.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 63206,
+    "hard_truncation_used": false
+  },
+  "instagram_business": {
+    "format": "brief_caption",
+    "text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nChuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.\n\nIn focus: Nghiên cứu biên tập chưa duyệt.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe\n\n#CapitalChronicle\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2200,
+    "hard_truncation_used": false
+  },
+  "threads": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe",
+    "reply_texts": [
+      "What to watch: Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe\n\nWhat to watch: Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 500,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "What to watch: Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        189,
+        202
+      ],
+      "per_post_character_utilization": [
+        0.378,
+        0.404
+      ],
+      "shortest_longest_reply_ratio": 0.936,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "youtube": {
+    "format": "community_brief",
+    "text": "Update: Nghiên cứu: Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào\n\nChuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.\n\nWhat to watch: Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-a79197c7978fd2fe\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1000,
+    "hard_truncation_used": false
+  }
+}

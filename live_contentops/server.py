@@ -1,9 +1,9 @@
 """Loopback-only API for the Final Daily App operating console.
 
 The snapshot endpoint is a query-only projection over one explicitly configured canonical
-store.  The mutations exposed here are exactly two: the compare-and-swap operating-mode
-update, and the durable operator "run editorial cycle now" trigger (which records a durable
-request only; it never executes a pipeline and never claims publication).  The historical
+store. Controls record mode/trigger/shutdown requests under their existing owners. The
+editorial-review route records an exact research decision in existing review_records;
+it cannot call a provider, release pause, qualify an article or publish. The historical
 HTTP pipeline launcher remains fail-closed and quarantined.
 """
 from __future__ import annotations
@@ -23,7 +23,6 @@ from live_contentops.daily_app_ui_read_model_v1 import (
 )
 from live_contentops.durable_operational_store_v1 import (
     OperatingModeConflictError,
-    OperatorTriggerAlreadyPendingError,
 )
 from live_contentops.live_entrypoint_registry_v1 import HTTP_LAUNCH_QUARANTINED
 from live_contentops.operator_control_plane_v1 import (
@@ -228,6 +227,31 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
 
     def do_POST(self) -> None:
         route = urlparse(self.path).path
+        if route == "/api/daily-app/editorial-review":
+            if self.headers.get("Origin") not in ALLOWED_ORIGINS:
+                self._send_json(403, {"error": "ORIGIN_NOT_ALLOWED"})
+                return
+            try:
+                from live_contentops.contentops_editorial_desk_v1 import record_review
+                from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+                length = self.headers.get("Content-Length", "")
+                if not length.isdigit() or not 1 <= int(length) <= 16_384:
+                    raise ValueError("REVIEW_BODY_SIZE_INVALID")
+                if not self.headers.get("Content-Type", "").startswith("application/json"):
+                    raise ValueError("JSON_CONTENT_TYPE_REQUIRED")
+                payload = json.loads(self.rfile.read(int(length)))
+                if not isinstance(payload, dict) or set(payload) != {"brief_id", "package_revision", "decision", "rationale", "expected_review_id"}:
+                    raise ValueError("EXACT_REVIEW_FIELDS_REQUIRED")
+                if not all(isinstance(payload[k], str) for k in ("brief_id", "package_revision", "decision", "rationale")):
+                    raise ValueError("REVIEW_FIELD_TYPES_INVALID")
+                if payload["expected_review_id"] is not None and not isinstance(payload["expected_review_id"], str):
+                    raise ValueError("REVIEW_VERSION_INVALID")
+                result = record_review(ContentOpsDurableStore(self._require_store()), **payload)
+            except (ValueError, TypeError) as exc:
+                self._send_json(409 if "CONFLICT" in str(exc) else 400, {"error": str(exc)})
+                return
+            self._send_json(200, result)
+            return
         if route == "/api/run-pipeline":
             self._send_json(423, {
                 "status": HTTP_LAUNCH_QUARANTINED,

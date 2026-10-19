@@ -1,3 +1,4 @@
+import { ResearchPackageDecision } from './ResearchPackageDecision';
 import { useState } from 'react';
 import type { ReportWorkspaceData } from '../dailyAppTypes';
 
@@ -29,9 +30,15 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
     <header><span>Editorial workspace</span><h2>Capital Chronicle report → article → previews</h2></header>
     {library && <section aria-label="Foundation research library">
       <h3>Thư viện nghiên cứu đa tài sản</h3>
+      {library.desk && <section aria-label="Bàn quyết định biên tập"><h4>Bàn quyết định biên tập</h4>
+        <p>{library.desk.useful_research_packages} gói giữ dùng · {library.desk.decisions.HOLD} giữ chờ · {library.desk.decisions.REVISE} cần sửa · {library.desk.decisions.STALE} hết hiệu lực · {library.desk.decisions.UNREVIEWED} chưa đọc duyệt.</p>
+        <p>{library.desk.kind_counts.NEWS} tin có ngày · {library.desk.kind_counts.BACKGROUND} bài nền · {library.desk.kind_counts.ANALYSIS} phân tích. Các loại không cộng thêm vào số gói.</p>
+        <p>{library.desk.missing_current_input_coordinates.length} đầu vào hiện tại còn thiếu; {library.desk.affected_work.length} gói có việc cần xử lý qua owner hiện có.</p>
+        {library.desk.affected_work.map(w => <p key={w.brief_id}>{w.brief_id}: {w.reason}</p>)}
+      </section>}
       <p>{library.counts.useful_families} nhóm · {library.counts.independent_items} luận điểm từ {library.counts.independent_documents ?? 'các'} tài liệu độc lập · {library.counts.briefs} brief biên tập.</p>
       <p>Research-ready · {library.counts.fresh_provider_drafts} fresh-provider drafts · {library.counts.qualified} qualified · {library.counts.published} published. LLM pause giữ nguyên.</p>
-      <p>{library.counts.editor_authored_packages ?? 0} gói nghiên cứu do biên tập soạn · {library.counts.native_previews ?? 0} native previews · {library.counts.media ?? 0} media. Cần đọc duyệt; không tính là bài Simple.</p>
+      <p>{library.counts.editor_authored_packages ?? 0} gói nghiên cứu do biên tập soạn · {library.counts.native_previews ?? 0} native previews · {library.counts.media ?? 0} media. Quyết định nghiên cứu hiển thị riêng; chưa duyệt xuất bản, không tính là bài Simple.</p>
       <label>Nhóm chủ đề <select value={family} onChange={e => setFamily(e.target.value)}>
         <option value="ALL">Tất cả</option>{library.families.map(f => <option key={f.family} value={f.family}>{display(f.family)}</option>)}
       </select></label>
@@ -59,7 +66,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
       </details>)}
       {!!library.packages?.length && <details><summary>Đọc các gói bài nghiên cứu và native previews</summary>
         {library.packages.filter(p => family === 'ALL' || library.briefs.find(b => b.brief_id === p.brief_id)?.families.includes(family)).map(p => <article className="report-copy" key={p.article_identity}>
-          <h4>{p.article.title}</h4><p>Do biên tập soạn · chưa duyệt/chưa xuất bản · {p.source_revision_current ? 'khớp bản nguồn hiện tại' : 'nguồn đã đổi, phải xem lại'}.</p>
+          <h4>{p.article.title}</h4><ResearchPackageDecision item={p} /><p>Do biên tập soạn · chưa duyệt xuất bản · {p.source_revision_current ? 'khớp bản nguồn hiện tại' : 'nguồn đã đổi, phải xem lại'}.</p>
           <p>Kiểm tra cơ học: {p.validation.status}. Đọc duyệt ngữ nghĩa: {p.validation.semantic_editorial_review}.</p>
           <div className="report-body">{p.article.substack_body_markdown.replace(/\[\[SOURCE:(SOURCE_\d+)\]\]/g, '[$1]')}</div>
           {p.media_assets.map(m => <figure key={m.asset_id}>{m.preview_data_url?.startsWith('data:image/png;base64,') && m.preview_data_url.length < 2_000_030 && <img src={m.preview_data_url} alt={m.alt_text ?? m.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption style={{ overflowWrap: 'anywhere' }}>{m.caption} · {m.sha256}</figcaption></figure>)}

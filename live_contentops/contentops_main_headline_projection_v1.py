@@ -126,6 +126,9 @@ def project_headline(
         "upstream_report_lineage": row.get("upstream_report_lineage"),
         "originality": "MAIN_ORIGIN_RECIRCULATION" if row.get("upstream_report_lineage") else "INDEPENDENT_CONTENTOPS_ACQUISITION",
         "correction_of": row.get("correction_of"),
+        "research_context": {k: (row.get("research_metadata") or {}).get(k)
+                             for k in ("family", "assets", "context_kind", "source_modified_at_utc")},
+        "revision_clock_basis": row.get("revision_clock_basis", "RETAINED_RECORD_REVISION"),
         "source_permission_record_sha256": sha256_of(permissions),
     }
     return {**output, "projection_sha256": sha256_of(output)}, None
@@ -241,6 +244,8 @@ class MainHeadlineExporter:
                         r["text_sha256"],
                         r["revision_at_utc"],
                         r["rights_evidence_sha256"],
+                        r.get("research_context"), r.get("correction_of"), r.get("upstream_report_lineage"),
+                        r.get("source_capture_sha256"),
                     ]
                 )
 
@@ -360,14 +365,15 @@ class MainHeadlineExporter:
                 projected, reason = project_headline(
                     row,
                     cutoff_utc=cutoff_utc,
-                    locator={"retained_authority": "SEALED_MAIN_PUBLIC_REPORT"},
+                    locator={"retained_authority": "SEALED_MAIN_PUBLIC_REPORT" if row.get("upstream_report_lineage")
+                             else "INDEPENDENT_RETAINED_SOURCE", "source_capture_sha256": row.get("source_capture_sha256")},
                     permission_resolver=self.permission_for,
                 )
                 if projected and content_identity(projected) not in seen:
                     rows.append(projected)
                     seen.add(content_identity(projected))
                 elif reason:
-                    gaps.append({"state": reason, "record_sha256": sha256_of(row)})
+                    gaps.append({"state": reason, "headline_id": row.get("headline_id"), "record_sha256": sha256_of(row)})
             page = {
                 "schema_version": SCHEMA,
                 "sequence": int(last.get("sequence", 0)) + 1,

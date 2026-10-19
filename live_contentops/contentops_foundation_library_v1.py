@@ -7,6 +7,8 @@ from __future__ import annotations
 
 import json
 import re
+import base64
+import hashlib
 from typing import Mapping, Sequence
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private, _time, sha256_of
@@ -69,16 +71,21 @@ def research_library(research, *, cutoff_utc: str, briefs: Sequence[Mapping] = (
                                            "source_url": by_id[ref]["source_url"]} for ref in refs],
                                 "inference_authority": "CONTENTOPS_QUALITATIVE_INFERENCE_NOT_CORE_OUTPUT",
                                 "brief_sha256": sha256_of(brief)})
+    resume_binding = research.root.parent / "provider_resume_binding.json"
+    next_operation = ("python scripts/run_contentops_report_feed_opportunity_v1.py --pointer '" + str(resume_binding)
+        + "' --store '<explicit-draft-store>' --output-dir '<explicit-output>' --run-id '<stable-run-id>' --published-memory-store '<existing-memory-store>' --published-memory-output-root '<existing-memory-output-root>'"
+        if resume_binding.is_file() else "python scripts/build_contentops_research_wave_v1.py --root '" + str(research.root.parent) + "'")
     return {"schema_version": "contentops.foundation_library.v1", "observed_at_utc": cutoff_utc,
             "research_revision": research.revision, "items": items, "briefs": accepted_briefs,
             "gaps": gaps, "families": [{"family": family,
                 "useful_items": sum(item["family"] == family for item in by_id.values()),
                 "briefs": sum(family in b.get("families", []) for b in accepted_briefs),
-                "missing_inputs": [SOURCE_GAPS[family]]} for family in FAMILIES],
+                "missing_inputs": sorted({g for b in accepted_briefs if family in b.get("families", []) for g in b.get("missing_inputs", [])})
+                    or [SOURCE_GAPS[family]]} for family in FAMILIES],
             "counts": {"independent_items": len(by_id), "useful_families": len({i["family"] for i in by_id.values()}),
                        "independent_documents": len({i["source_capture_sha256"] for i in by_id.values()}),
                        "briefs": len(accepted_briefs), "fresh_provider_drafts": 0, "qualified": 0, "published": 0},
-            "next_operation": "python scripts/build_contentops_research_wave_v1.py --root '" + str(research.root.parent) + "'",
+            "next_operation": next_operation,
             "model_execution_state": "LLM_OPERATOR_PAUSED_RESEARCH_CONTINUES", "public_write_performed": False}
 
 
@@ -86,10 +93,12 @@ def persist_library(tracker, research, *, cutoff_utc, briefs=()):
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     snapshot = research_library(research, cutoff_utc=cutoff_utc, briefs=briefs)
     # Identical research/brief revision is stored once. Scan clocks remain in feed telemetry.
-    identity = sha256_of([snapshot["research_revision"], snapshot["items"], snapshot["briefs"], snapshot["gaps"]])
+    identity = sha256_of([snapshot["research_revision"], snapshot["items"], snapshot["briefs"], snapshot["gaps"], snapshot["next_operation"]])
     key = "cc-library-" + identity
     if not tracker.store.get_outbox_message(key):
-        _persist(tracker.store, key, snapshot, LIBRARY)
+        prior = [json.loads(r["payload"]).get("library_sequence", 0) for r in tracker.store.list_outbox_messages() if r["destination"] == LIBRARY]
+        _persist(tracker.store, key, {**snapshot, "library_sequence": max(prior, default=0) + 1}, LIBRARY)
+    reconcile_affected_work(tracker)
     return snapshot
 
 
@@ -99,7 +108,51 @@ def persist_research_package(tracker, package, *, research_revision):
             or package.get("fresh_provider_draft") is not False or package.get("published") is not False):
         raise ValueError("RESEARCH_PACKAGE_STATE_INVALID")
     payload = {**package, "research_revision": research_revision}
-    _persist(tracker.store, "cc-library-package-" + sha256_of(payload), payload, PACKAGE)
+    if sha256_of(payload.get("article")) != payload.get("article_identity"):
+        raise ValueError("RESEARCH_ARTICLE_IDENTITY_MISMATCH")
+    for media in payload.get("media_assets", []):
+        encoded = media.get("preview_data_url")
+        if encoded and (not encoded.startswith("data:image/png;base64,") or len(encoded) > 2_000_030
+                or hashlib.sha256(base64.b64decode(encoded.split(",", 1)[1], validate=True)).hexdigest() != media.get("sha256")):
+            raise ValueError("RESEARCH_MEDIA_BYTES_HASH_MISMATCH")
+    key = "cc-library-package-" + sha256_of({k: v for k, v in payload.items()
+        if k != "research_revision" or not payload.get("source_binding_sha256")})
+    if not tracker.store.get_outbox_message(key):
+        prior = [json.loads(r["payload"]).get("package_sequence", 0) for r in tracker.store.list_outbox_messages() if r["destination"] == PACKAGE]
+        _persist(tracker.store, key, {**payload, "package_sequence": max(prior, default=0) + 1}, PACKAGE)
+    reconcile_affected_work(tracker)
+
+
+def reconcile_affected_work(tracker):
+    """Register only changed/revision-requested dependencies in the existing internal outbox.
+
+    Requests are consumed as context by the existing four-window owner. Never dispatch
+    an LLM, schedule another window, or mark an old approval valid during a read.
+    """
+    from live_contentops.capital_chronicle_report_feed_v1 import _persist
+    from live_contentops.contentops_editorial_desk_v1 import read_reviews
+    projection = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+    if not projection:
+        return
+    for p in projection["packages"]:
+        if p["source_revision_current"] and p["review"]["state"] not in {"REVISE", "STALE"}:
+            continue
+        brief = next((b for b in projection["briefs"] if b["brief_id"] == p["brief_id"]), {})
+        request = {"brief_id": p["brief_id"], "previous_package_revision": p["package_revision"],
+                   "target_brief_sha256": brief.get("brief_sha256"),
+                   "target_source_binding_sha256": source_binding([i for i in projection["items"] if i["item_id"] in brief.get("source_item_ids", [])]),
+                   "reason": "DEPENDENT_INPUT_CHANGED" if not p["source_revision_current"] else "EDITOR_REQUESTED_REVISION",
+                   "action": "RENDER_AFFECTED_RESEARCH" if not p["source_revision_current"] or p["review"]["state"] == "REVISE" else "REVIEW_REVISED_PACKAGE",
+                   "owner": "EXISTING_RESEARCH_RENDERER_THEN_SIMPLE_GEMINI_RUNTIME",
+                   "routine_window_count": 4, "provider_call_allowed_now": False, "public_write_performed": False}
+        _persist(tracker.store, "cc-research-revision-" + sha256_of(request), request, "internal:cc-foundation-revision-request")
+
+
+def source_binding(items):
+    """Only dependent source/claim/rights revisions invalidate a package, not a global scan."""
+    keys = ("item_id", "text_sha256", "source_capture_sha256", "permission_sha256", "context_kind",
+            "published_at_utc", "known_at_utc", "revision_at_utc", "correction_of", "stage")
+    return sha256_of([{k: i.get(k) for k in keys} for i in sorted(items, key=lambda i: i["item_id"])])
 
 
 def _asset_family(asset):
@@ -116,21 +169,31 @@ def _asset_family(asset):
     return "UNCLASSIFIED_PUBLIC_ASSET"
 
 
-def library_projection(rows):
+def library_projection(rows, review_records=()):
     snapshots = [json.loads(row["payload"]) for row in rows if row["destination"] == LIBRARY]
-    snapshot = dict(snapshots[-1]) if snapshots else None
+    snapshot = dict(max(enumerate(snapshots), key=lambda pair: (pair[1].get("library_sequence", 0), pair[0]))[1]) if snapshots else None
     if snapshot is None:
         return None
     packages = {}
     for row in rows:
         if row["destination"] == PACKAGE:
             value = json.loads(row["payload"])
+            if packages.get(value["brief_id"], {}).get("package_sequence", -1) > value.get("package_sequence", 0):
+                continue
             packages[value["brief_id"]] = {**value, "source_revision_current": value.get("research_revision") == snapshot["research_revision"]}
     brief_hashes = {b["brief_id"]: b["brief_sha256"] for b in snapshot["briefs"]}
+    brief_map = {b["brief_id"]: b for b in snapshot["briefs"]}
     for package in packages.values():
+        brief = brief_map.get(package["brief_id"], {})
+        dependencies = [i for i in snapshot["items"] if i["item_id"] in brief.get("source_item_ids", [])]
+        if package.get("source_binding_sha256"):
+            package["source_revision_current"] = (len(dependencies) == len(brief.get("source_item_ids", []))
+                and package["source_binding_sha256"] == source_binding(dependencies))
         package["source_revision_current"] = (package["source_revision_current"]
             and package.get("brief_sha256") == brief_hashes.get(package["brief_id"]))
-    current_packages = [p for p in packages.values() if p["source_revision_current"]]
+        package["package_revision"] = sha256_of([package["article_identity"], package.get("brief_sha256"),
+            package.get("source_binding_sha256", package.get("research_revision")), package.get("previews"),
+            [{k: v for k, v in m.items() if k not in {"path", "preview_data_url"}} for m in package.get("media_assets", [])]])
     reports, counts = {}, {}
     withdrawn = {json.loads(r["payload"])["source_report_sha256"] for r in rows
                  if r["destination"] == "internal:cc-report-withdrawal"}
@@ -168,7 +231,15 @@ def library_projection(rows):
                                             for e in c.get("evidence", [])]}
                               for c in report.get("claims", [])],
             "next_editorial_question": "Which exact public claims changed, and what independent evidence tests their mechanism?"}
-    return {**snapshot, "main_reports": list(reports.values()), "report_admissions_and_noops": counts,
+    for p in packages.values():
+        expected_reports = p.get("main_report_bindings", [])
+        p["main_report_bindings_current"] = all(
+            reports.get(b["report_id"], {}).get("source_report_sha256") == b["source_report_sha256"]
+            and not reports.get(b["report_id"], {}).get("withdrawn", True) for b in expected_reports)
+        p["source_revision_current"] = p["source_revision_current"] and p["main_report_bindings_current"]
+        p["package_revision"] = sha256_of([p["package_revision"], expected_reports])
+    current_packages = [p for p in packages.values() if p["source_revision_current"]]
+    result = {**snapshot, "main_reports": list(reports.values()), "report_admissions_and_noops": counts,
             "input_composition": {"independent_research_items": snapshot["counts"]["independent_items"],
                 "evidence_complete_briefs": len(snapshot["briefs"]),
                 "main_editorial_reports": sum(r["status"] == "ADMITTED" and not r["withdrawn"] for r in reports.values()),
@@ -180,3 +251,5 @@ def library_projection(rows):
                 "editor_authored_packages": len(current_packages),
                 "native_previews": sum(len(p.get("previews", {})) for p in current_packages),
                 "media": sum(len(p.get("media_assets", [])) for p in current_packages)}}
+    from live_contentops.contentops_editorial_desk_v1 import desk_projection
+    return desk_projection(result, review_records)

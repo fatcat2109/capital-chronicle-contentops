@@ -1,0 +1,16 @@
+
+> contentops-v5@0.0.0 test
+> vitest run --run src/test/research_package_decision.test.tsx src/test/foundation_library.test.tsx src/test/report_editorial_workspace.test.tsx
+
+
+ RUN  v2.1.8 C:/Users/bullw/.codex/worktrees/latest-report-editorial-bridge/ContentOps/ui/contentops_v5
+
+ ✓ src/test/foundation_library.test.tsx (1 test) 177ms
+ ✓ src/test/research_package_decision.test.tsx (1 test) 214ms
+ ✓ src/test/report_editorial_workspace.test.tsx (5 tests) 312ms
+
+ Test Files  3 passed (3)
+      Tests  7 passed (7)
+   Start at  19:51:42
+   Duration  3.66s (transform 260ms, setup 950ms, collect 1.12s, tests 702ms, environment 3.71s, prepare 825ms)
+

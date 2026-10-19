@@ -58,6 +58,11 @@ POLICIES = {
             "/petroleum/supply/weekly/",
         ),
     ),
+    "ir.eia.gov": (
+        "https://www.eia.gov/about/copyrights_reuse.php",
+        ("public domain", "you may use and/or distribute", "protected materials"),
+        ("/secure/ngs/ngs.html", "/ngs/ngs.html"),
+    ),
 }
 
 
@@ -171,7 +176,7 @@ class RetainedSourceResearch:
             or capture_hash != spec["source_capture_sha256"]
         ):
             raise ValueError("SOURCE_CAPTURE_HASH_MISMATCH")
-        authored_family = {"www.bls.gov": "official_macro", "www.eia.gov": "official_macro",
+        authored_family = {"www.bls.gov": "official_macro", "www.eia.gov": "official_macro", "ir.eia.gov": "official_macro",
                            "www.federalreserve.gov": "official_policy", "www.sec.gov": "sec_regulatory",
                            "www.cftc.gov": "official_regulatory_fiscal"}
         if (

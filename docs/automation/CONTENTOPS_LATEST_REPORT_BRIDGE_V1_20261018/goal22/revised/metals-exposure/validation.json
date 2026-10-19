@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "blockers": [],
+  "validator": "existing_grounded_article_validator",
+  "material_claim_lineage": [
+    {
+      "item_id": "goal21-metals-leverage",
+      "source_id": "SOURCE_1",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_preciousmetals.html",
+      "text_sha256": "ded6ce6c10de13af839d61b649919824c960e790543be040b40bf6dfacc4f6ba",
+      "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc",
+      "permission_sha256": "87868196632fa46c130708d5ca21bff9bb7667e8989d47994f51abd421e3252f",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-metals-custody",
+      "source_id": "SOURCE_2",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_preciousmetals.html",
+      "text_sha256": "26137cfcb7091f0c8cccbd0e6780232894738df2eef19f4765846d1273fd5e23",
+      "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc",
+      "permission_sha256": "9880b6d431f11dd8001c38fdbd431422731e7ad1d69a0e4f78d0cdbd8747163e",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    }
+  ],
+  "semantic_editorial_review": "REQUIRED",
+  "qualified_simple_article": false
+}
