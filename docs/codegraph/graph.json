@@ -87253,7 +87253,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-19T11:29:52Z",
+  "generation_timestamp_utc": "2026-10-19T11:52:24Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -88462,7 +88462,7 @@
     {
       "id": "live_contentops/contentops_foundation_library_v1.py",
       "kind": "python_module",
-      "size_bytes": 11513
+      "size_bytes": 12066
     },
     {
       "id": "live_contentops/contentops_main_headline_projection_v1.py",
@@ -126312,7 +126312,7 @@
     {
       "id": "python_symbol:scripts/verify_capital_chronicle_public_handoff_v1.py::main",
       "kind": "python_function",
-      "line": 33,
+      "line": 34,
       "path": "scripts/verify_capital_chronicle_public_handoff_v1.py",
       "symbol": "main"
     },
@@ -128699,7 +128699,7 @@
     {
       "id": "scripts/verify_capital_chronicle_public_handoff_v1.py",
       "kind": "python_module",
-      "size_bytes": 9108
+      "size_bytes": 12977
     },
     {
       "id": "tests/AGENTS.md",
@@ -129359,7 +129359,7 @@
     {
       "id": "tests/test_contentops_foundation_library_v1.py",
       "kind": "test",
-      "size_bytes": 7059
+      "size_bytes": 10417
     },
     {
       "id": "tests/test_contentops_ingestion_bootstrap_v1.py",
@@ -135987,7 +135987,7 @@
     {
       "id": "ui/contentops_v5/src/dailyAppTypes.ts",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 15928
+      "size_bytes": 16206
     },
     {
       "id": "ui/contentops_v5/src/data/canonicalDraftFinalReviewVariantPreviewAdapter.ts",
@@ -136547,7 +136547,7 @@
     {
       "id": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 18036
+      "size_bytes": 18478
     },
     {
       "id": "ui/contentops_v5/src/views/SubstackArticleStudioCard.tsx",
@@ -136893,6 +136893,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "649bcb7a4adb856bd73da688324f72feb6bb97d4",
-  "source_tree_digest": "0e21e3476079a9e8cad075c4bdb5e6d3091299f98f82e156b20d7441507cded8"
+  "source_head": "6e846f772dd38120b843906be4679fd2a245fcab",
+  "source_tree_digest": "c2107cd7cff4561907947ba1181bfb8af54fd899514809e58ef6942389ace096"
 }
