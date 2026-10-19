@@ -388,7 +388,7 @@ contacts database chats. LLM pause remains active.
 
 ## Goal22 — revision-bound editorial desk and reciprocal research
 
-Status: `DESK_DELIVERED_FINAL_CI_AND_MAIN_RECEIPT_PENDING`. [Owning Goal22 handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/RELEASE_HANDOFF.md)
+Status: `DESK_AND_RECIPROCAL_READBACK_DELIVERED_FINAL_CI_PENDING`. [Owning Goal22 handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/RELEASE_HANDOFF.md)
 retains the full objective and requirement audit. Existing `review_records` now serves reasoned
 KEEP/REVISE/HOLD for exact source/brief/article/media/preview/Main revisions, with selective
 invalidation and existing-outbox affected work; no second owner. All seven research packages
@@ -403,3 +403,14 @@ Main export rows plus five undated dispositions are pinned in revision2 at PR90.
 receiver receipt remains NOT_VERIFIED**. CodeGraph/final source/CI delivery is being closed on the
 same PR; no self-merge/deploy, production tick, pause release, public/provider writes, private
 Main/DB/broker reads or database/operator/builder messages. Full North Star remains unfinished.
+
+
+Goal22 final reciprocal repair: independent Main receipt initially accepted 8/9 from Goal21;
+Main's existing native UTF-8 row canonicalization differed for a curly apostrophe. ContentOps
+wire revision3 fixes only that seal and preserves source text/clocks/rights. Actual unchanged Main
+receiver code at `9fcb917d698f92b284195d8d248c40a5ae75b382` now accepts **9/9**, zero rejected,
+all context-only/non-numeric; five undated backgrounds remain separate. This is an isolated
+ContentOps-operator invocation of Main's exact receiver, not Main production ingestion or a
+public/native-calendar result. [Corrected exact receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/main_receiver/corrected_nine_row_receipt.json)
+supersedes the earlier NOT_VERIFIED receiving state. Final corrected-wire commit/CodeGraph/CI
+will be recorded in PR90; no further product scope, merge, deployment or activation is implied.

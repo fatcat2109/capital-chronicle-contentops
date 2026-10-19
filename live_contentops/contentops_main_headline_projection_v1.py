@@ -24,6 +24,16 @@ SCHEMA = "contentops.main_headline_projection.v1"
 DESTINATION = "internal:contentops-main-headline-export"
 
 
+def projection_sha256(value):
+    """Match Main's existing mwp canonical UTF-8 (unescaped Unicode) row seal.
+
+    This wire-specific rule never changes the report/manifest canonicalization owner.
+    ASCII-only rows coincide under both encodings; curly quotes exposed the mismatch.
+    """
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"),
+                                     ensure_ascii=False, allow_nan=False).encode("utf-8")).hexdigest()
+
+
 def project_headline(
     row: Mapping[str, Any], *, cutoff_utc: str, locator: Mapping[str, Any], permission_resolver=None
 ) -> tuple[dict[str, Any] | None, str | None]:
@@ -131,7 +141,7 @@ def project_headline(
         "revision_clock_basis": row.get("revision_clock_basis", "RETAINED_RECORD_REVISION"),
         "source_permission_record_sha256": sha256_of(permissions),
     }
-    return {**output, "projection_sha256": sha256_of(output)}, None
+    return {**output, "projection_sha256": projection_sha256(output)}, None
 
 
 def permitted_report_headlines(
@@ -216,7 +226,7 @@ class MainHeadlineExporter:
     ) -> dict[str, Any]:
         if not 1 <= max_rows <= 1000 or not 1 <= max_files <= 16:
             raise ValueError("headline_export_bound_invalid")
-        authority_revision += ":verified-permission-records-v2:" + (self.research.revision if self.research else "sealed-main-only")
+        authority_revision += ":verified-permission-records-v2:main-native-utf8-seal-v1:" + (self.research.revision if self.research else "sealed-main-only")
         identity = "headline-export-" + sha256_of(batch_id)
         previous = self.store.get_outbox_message(identity)
         if previous:
@@ -246,6 +256,7 @@ class MainHeadlineExporter:
                         r["rights_evidence_sha256"],
                         r.get("research_context"), r.get("correction_of"), r.get("upstream_report_lineage"),
                         r.get("source_capture_sha256"),
+                        r.get("projection_sha256"),
                     ]
                 )
 

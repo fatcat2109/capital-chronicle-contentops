@@ -1,6 +1,6 @@
 # Goal22 — editorial decision desk and reciprocal Main research
 
-Status: `EDITORIAL_DESK_DELIVERED_FINAL_CI_AND_MAIN_RECEIPT_PENDING`.
+Status: `EDITORIAL_DESK_AND_RECIPROCAL_READBACK_DELIVERED_FINAL_CI_PENDING`.
 Existing owning checkpoint: [latest-report bridge](../../CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md).
 Continue the same worktree/branch/PR90; source base `92ab3136ac7ede44fe9e5ffae76631546279bb0f`.
 Native Goal22 is active. Model/effort unchanged, not inferred from product identifiers.
@@ -156,13 +156,13 @@ and fresh explicit isolated output/store paths. Do not replace source evidence o
 | Usable desk in existing Daily App/store with reasoned persistent decisions | Implemented/tested; exact API controls and current rendered source/history/decision surface inspected. No deployment claim. |
 | Exact revision binding and affected work through existing owners | Source/brief/article/media/preview/Main bindings; selective change + CAS + subset apply tests; existing four-window input proof. |
 | Semantic review/repair of all seven packages | Completed as scoped research; five KEEP/two HOLD, explicit counter-spans and precise missing current inputs. |
-| Reciprocal nine-dated/five-undated handoff delivered | Exact immutable revision2 at PR90; **actual Main receipt still NOT_VERIFIED**. No production ingestion. |
+| Reciprocal nine-dated/five-undated handoff delivered | Exact immutable revision2 at PR90; **actual isolated Main receiver now 9/9 at corrected wire revision3; see final section**. No production ingestion. |
 | Available public Main batches consumed | Goal21 exact three-asset/eight-receipt proof reused in same store; no private company/DB input read or waited upon. |
 | Full change-to-decision-to-revised-package/preview/media flow and runnable resume | Existing store + selective renderer/application + feed + frozen Simple context, exact paused runner; fresh-provider/public output both zero. |
 | CodeGraph, owning checkpoint, scoped commit/push and final exact-head CI | Source/artifacts being committed now; graph and final CI recorded in PR90 after push. |
 | Current full North Star | UNFINISHED; no claim of 5–8/day, natural operation, audience results, merge, deployment or publication. |
 
-Goal22 remains active until final delivery/CI and the actual receiving evidence are verified.
+Goal22 remains active until final corrected-wire source/CodeGraph/exact-head CI delivery is verified. Actual isolated Main receiver proof is now retained below.
 Control Tower synchronization stays with its serial owner; this existing owning handoff/PR is the
 durable discovery path while sync is pending. No Main/database/operator/builder messages were sent.
 
@@ -177,3 +177,50 @@ source binding; no new acquisition or seven-image campaign. Actual delivered sev
 bytes and current editorial decisions are unchanged by this future-change correction.
 CodeGraph was locally current at source `4ca27701302b323c9d701a55f92e0f787a22e033`; the normal
 branch refresh and final CI must bind the following small renderer/test delta before delivery.
+
+
+## Actual reciprocal receiving evidence and final wire repair
+
+The independently produced Main receipt at commit
+`43b853ae4a41c1313827f7ec0a687bc59e8fcf6e` consumed ContentOps Goal21 source
+`92ab3136ac7ede44fe9e5ffae76631546279bb0f`: **8 accepted context rows / 1 rejected**,
+with five background dispositions. [Original receipt](main_receiver/Main_RECIPROCAL_CONTENTOPS_PROOF.json).
+It rejected the SEC cross-trading row as `CONTENTOPS_PROJECTION_HASH_OR_SCHEMA_INVALID`.
+Direct source comparison proved Main's existing `mwp_common_v1.canonical` uses unescaped Unicode,
+while ContentOps' report canonical helper uses ASCII escapes. A curly apostrophe exposed that
+row-seal mismatch. The source text, dates, capture and rights bytes were valid and were not rewritten.
+
+The outgoing **wire-specific** row seal now matches Main's existing UTF-8 canonicalization;
+the report/manifest/global hash owner remains unchanged. [Unicode regression](unicode_wire_tests.txt)
+uses the actual retained SEC proposition. Existing durable export revisioning recognizes the
+corrected seal. Handoff revision3 pins predecessor revision2/commit and exact new JSONL SHA-256:
+`5d6b6bbeb90c5c315dce7a65d681495c7a9dc227583bc4639c213a5d4600d0fb`.
+This is a serialization correction, not nine newly observed stories.
+
+[Actual corrected Main-owner readback](main_receiver/corrected_nine_row_receipt.json) invokes the
+unchanged `tools.product.primary_demo_workspace_v1.load_headline_context` from Main's exact
+implementation commit `9fcb917d698f92b284195d8d248c40a5ae75b382`. The invoked source files were
+verified against pinned Git bytes first. Actor is the ContentOps operator calling the existing
+Main receiver in an isolated process; it is **not** a claim that Main production ingestion ran.
+Python `-B` and an audit guard prohibit file writes, Runtime/private reads, SQLite, network and
+subprocess operations during this call. Only the public-safe nine-row input is loaded.
+
+Actual results: **9 accepted / 0 rejected**, all `CONTEXT_UPDATE_ONLY`, all report-truth-only,
+zero numeric authority/fresh catalyst/provider/broker/database/public-write calls. A prior cutoff
+rejects all nine. Five undated/background dispositions remain outside the dated wire. No Main
+files, accounts, private company library or production ingestion were read/mutated. The original
+Main public package remains unchanged; [public-safe Main handoff](main_receiver/Main_PUBLIC_SAFE_HANDOFF.json)
+confirms zero new public company events and the same lawful three-asset manifest. No private
+SEC/report data is promoted into public authority.
+
+The two-way Goal22 research handoff is therefore proven at an isolated exact-input/owner-code
+boundary. Natural operation, production ingestion and audience results remain unclaimed.
+The existing integrated desk/store proof and its seven revised package/media bytes are reused;
+only the receiving serialization seam needed correction. All earlier `NOT_VERIFIED` receipt wording
+in this document describes the earlier epoch and is superseded by this exact final section.
+
+Final delivery chain: desk source `4ca27701302b323c9d701a55f92e0f787a22e033`, affected-media repair
+`8b93b8c0cd1d2079951a4b37e36eac07502a7b85`, host-independent pause test
+`a59ad50c5c119a536ab2eceb011d2085563c8fff`, graph commit
+`523989af62fd6682a70541a70194ae4b93790677` passed both checks in CI `39267024773`.
+The following wire repair and evidence must have its own final graph/exact-head CI, recorded in PR90.

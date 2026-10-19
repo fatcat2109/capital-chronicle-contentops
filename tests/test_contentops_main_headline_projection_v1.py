@@ -22,6 +22,18 @@ def official():
     return RESEARCH.headlines(cutoff_utc=NOW)[0]
 
 
+def test_real_unicode_SEC_proposition_matches_Main_native_utf8_wire_hash():
+    root = Path(__file__).parents[1] / "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research"
+    research = RetainedSourceResearch(root)
+    row = next(r for r in research.headlines(cutoff_utc="2026-10-19T12:00:00Z") if r["headline_id"] == "goal21-sec-cross-trading")
+    projected, reason = project_headline(row, cutoff_utc="2026-10-19T12:00:00Z", locator={}, permission_resolver=research.permission_for)
+    assert reason is None and "\u2019" in projected["headline_text"]
+    unsigned = {k: v for k, v in projected.items() if k != "projection_sha256"}
+    native = hashlib.sha256(json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode()).hexdigest()
+    escaped = hashlib.sha256(json.dumps(unsigned, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False).encode()).hexdigest()
+    assert native != escaped and projected["projection_sha256"] == native
+
+
 def test_unknown_x_permissions_remain_gap_even_with_canonical_marker():
     row = {
         **official(),
