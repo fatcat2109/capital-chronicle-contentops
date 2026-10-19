@@ -1,0 +1,323 @@
+{
+  "affected_symbols": [
+    "XNGUSD"
+  ],
+  "as_of_utc": "2026-10-19T09:14:42.517584Z",
+  "asset_ids": [
+    "XNGUSD"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "change_kind": "INVALIDATION",
+  "changed_claim_ids": [
+    "xngusd-hold",
+    "xngusd-invalidate",
+    "xngusd-long",
+    "xngusd-mechanism",
+    "xngusd-short",
+    "xngusd-source",
+    "xngusd-swing"
+  ],
+  "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+  "contract_revision": "asset-analysis-report-v1.1.0",
+  "envelope_sha256": "018a43d05d9224b592c76324dface973cbf343253dc70c9e65a4ad0b47e975f5",
+  "event_id": "report-event:ac391ae795ec3390038131ded74480803707bbb0c4deeaf8a1bb7b51eebbede0",
+  "generated_at_utc": "2026-10-19T09:31:57Z",
+  "hold_conditions": [
+    "Retain the XNGUSD analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision."
+  ],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-26T09:14:42.517584Z",
+      "horizon": "short",
+      "outlook": "XNGUSD conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T09:14:42.517584Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-17T09:14:42.517584Z",
+      "horizon": "swing",
+      "outlook": "XNGUSD conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T09:14:42.517584Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-01-14T09:14:42.517584Z",
+      "horizon": "long",
+      "outlook": "XNGUSD conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T09:14:42.517584Z",
+      "trading_sessions": 63
+    }
+  ],
+  "invalidation_conditions": [
+    "Invalidate the XNGUSD analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+  ],
+  "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "Comparison of retained claim hashes and evidence snapshots; a case change alone creates no new event.",
+  "parent_report_sha256": "e553c7b40dc72135873c2c9645cdb2e5e951223e007e5529d9fdbcb7fbfba4e1",
+  "public_safe_claims": [
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "065607e3ad473f787b751fb1073dca726f475d4a2d7afff733f12e417d0d9cd4",
+      "claim_id": "xngusd-source",
+      "claim_type": "SOURCE_FACT",
+      "epistemic_layer": "OBSERVED_SOURCE_FACT",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "The retained original EIA storage release records a 67 Bcf weekly injection, versus the 90 Bcf five-year same-week injection average. Stocks were 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year level."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+      "claim_id": "xngusd-mechanism",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Capital Chronicle conditional analysis: The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Weather, supply/import variation and shoulder-season demand may explain the small injection; a seasonal comparison is not market consensus or a measured surprise."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "78861c6a2fbcc8ce4e8459fa51dd1400193f5c0cb2b94171e969f7d873845684",
+      "claim_id": "xngusd-short",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "XNGUSD conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "383451c6f4480461a8ccc17e4f69516c55b0958b46c50f5978e44752e7763294",
+      "claim_id": "xngusd-swing",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "XNGUSD conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "55388fcb3a1b173122ac151a0a7af63e87bb3d1bbf497e1e47ca4ba51aae64b8",
+      "claim_id": "xngusd-long",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "XNGUSD conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "02118936e81065430ed4640b5f82f95782e0fc1450f102ebdf086e2a56159b40",
+      "claim_id": "xngusd-hold",
+      "claim_type": "HOLD_CONDITION",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Retain the XNGUSD analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "c92a82b870fe4aa7a88d9f112f025b1bf07bb6bf7d38e6ee3359165c9d970a4a",
+      "claim_id": "xngusd-invalidate",
+      "claim_type": "INVALIDATION_CONDITION",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Invalidate the XNGUSD analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+    }
+  ],
+  "report_id": "asset-report:XNGUSD",
+  "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+  "report_version": 2,
+  "run_id": "run-asset-report:52d9f3060d4883d3889ec89a",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "d5810d21c573addaffa33ff16710d8c1c16a30defbe29277f5e49b625f559e4f",
+    "evidence_snapshot_sha256": "5bbcedc52a248ed1a00a3513b9e9c33a21f7b2a30afb475ae59b325b9d9110d1"
+  },
+  "supersedes_report_id": "asset-report:XNGUSD",
+  "version": "1.1.0"
+}

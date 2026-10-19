@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "asset-analysis-report-v1.1.0/CapitalChroniclePublicReportExportManifestV1.schema.json",
+  "title": "Main public report manifest with exact noneditorial ancestry",
+  "type": "object",
+  "required": [
+    "schema",
+    "version",
+    "producer_owner",
+    "export_root_id",
+    "emitted_at_utc",
+    "parent_manifest_sha256",
+    "entries",
+    "latest_by_asset",
+    "public_account_export_allowed",
+    "publication_authority",
+    "manifest_sha256"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "CapitalChroniclePublicReportExportManifestV1"
+    },
+    "version": {
+      "const": "1.1.0"
+    },
+    "producer_owner": {
+      "const": "Main App"
+    },
+    "export_root_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "emitted_at_utc": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "parent_manifest_sha256": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "$ref": "#/$defs/report"
+          },
+          {
+            "$ref": "#/$defs/withdrawal"
+          },
+          {
+            "$ref": "#/$defs/ancestor"
+          }
+        ]
+      }
+    },
+    "latest_by_asset": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/report"
+      }
+    },
+    "public_account_export_allowed": {
+      "const": false
+    },
+    "publication_authority": {
+      "const": false
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    }
+  },
+  "$defs": {
+    "artifact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "bytes_sha256",
+        "schema"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "pattern": "^(outbox/[a-f0-9]{64}/(latest-report-envelope|public-report)\\.json|schemas/1\\.[01]\\.0/envelope\\.json)$"
+        },
+        "bytes_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "schema": {
+          "type": "string"
+        }
+      }
+    },
+    "report": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_type",
+        "asset_id",
+        "report_id",
+        "report_version",
+        "report_sha256",
+        "parent_report_sha256",
+        "known_at_cutoff_utc",
+        "generated_at_utc",
+        "contract_revision",
+        "envelope_sha256",
+        "envelope",
+        "public_report",
+        "schema_ref",
+        "content_eligibility",
+        "change_kind",
+        "public_account_export_allowed"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "event_type": {
+          "const": "REPORT_VERSION"
+        },
+        "asset_id": {
+          "type": "string"
+        },
+        "report_id": {
+          "type": "string"
+        },
+        "report_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "report_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "parent_report_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "known_at_cutoff_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "generated_at_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "contract_revision": {
+          "enum": [
+            "asset-analysis-report-v1.0.0",
+            "asset-analysis-report-v1.1.0"
+          ]
+        },
+        "envelope_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "envelope": {
+          "$ref": "#/$defs/artifact"
+        },
+        "public_report": {
+          "$ref": "#/$defs/artifact"
+        },
+        "schema_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "content_eligibility": {
+          "const": "ELIGIBLE_EDITORIAL_REVIEW"
+        },
+        "change_kind": {
+          "type": "string"
+        },
+        "public_account_export_allowed": {
+          "const": false
+        }
+      }
+    },
+    "withdrawal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_type",
+        "asset_id",
+        "report_sha256",
+        "reason",
+        "known_at_cutoff_utc"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "event_type": {
+          "const": "WITHDRAWAL"
+        },
+        "asset_id": {
+          "type": "string"
+        },
+        "report_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "known_at_cutoff_utc": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "ancestor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "event_type",
+        "asset_id",
+        "report_id",
+        "report_version",
+        "report_sha256",
+        "parent_report_sha256",
+        "known_at_cutoff_utc",
+        "generated_at_utc",
+        "contract_revision",
+        "envelope_sha256",
+        "envelope",
+        "public_report",
+        "schema_ref",
+        "content_eligibility",
+        "change_kind",
+        "public_account_export_allowed",
+        "envelope_event_id",
+        "editorial_intent",
+        "publication_intent"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string",
+          "pattern": "^report-ancestor:[a-f0-9]{64}$"
+        },
+        "event_type": {
+          "const": "REPORT_ANCESTOR"
+        },
+        "asset_id": {
+          "type": "string"
+        },
+        "report_id": {
+          "type": "string"
+        },
+        "report_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "report_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "parent_report_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "known_at_cutoff_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "generated_at_utc": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "contract_revision": {
+          "enum": [
+            "asset-analysis-report-v1.0.0",
+            "asset-analysis-report-v1.1.0"
+          ]
+        },
+        "envelope_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "envelope": {
+          "$ref": "#/$defs/artifact"
+        },
+        "public_report": {
+          "$ref": "#/$defs/artifact"
+        },
+        "schema_ref": {
+          "$ref": "#/$defs/artifact"
+        },
+        "content_eligibility": {
+          "enum": [
+            "ELIGIBLE_EDITORIAL_REVIEW",
+            "BLOCKED_NO_PUBLIC_SAFE_CLAIM",
+            "NO_MATERIAL_CHANGE"
+          ]
+        },
+        "change_kind": {
+          "type": "string"
+        },
+        "public_account_export_allowed": {
+          "const": false
+        },
+        "envelope_event_id": {
+          "type": "string",
+          "pattern": "^report-event:[a-f0-9]{64}$"
+        },
+        "editorial_intent": {
+          "const": false
+        },
+        "publication_intent": {
+          "const": false
+        }
+      }
+    }
+  }
+}

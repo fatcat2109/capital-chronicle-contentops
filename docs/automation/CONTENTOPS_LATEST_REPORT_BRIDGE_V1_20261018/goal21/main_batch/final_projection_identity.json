@@ -1,0 +1,16 @@
+{
+  "basis": "Same isolated receipt store; projection only, no additional admission/provider/runtime. Original acceptance receipt and its source identity are preserved separately.",
+  "source_blobs": {
+    "live_contentops/contentops_foundation_library_v1.py": "35c05e838ecdf7df1053264da2ce487a7e543986",
+    "ui/contentops_v5/src/dailyAppTypes.ts": "e057fb332b2f5b3bfc1867d0ddca8ab78643aa22",
+    "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx": "caca0e1c9d5b549997b566bce901e538847fb730"
+  },
+  "final_workspace_sha256": "1c5063e5b7dfe53cb5bca9534dd60aa99469993d02eb2ac1da441e35c34368c6",
+  "initial_receipt_sha256": "8e10f67bd54f115e231530829de0813f5f90180c31efcf8cad45c6d895857046",
+  "main_public_assets": [
+    "UKOIL",
+    "USOIL",
+    "XNGUSD"
+  ],
+  "fresh_provider_calls": 0
+}

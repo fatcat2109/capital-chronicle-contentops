@@ -1,0 +1,667 @@
+{
+  "status": "PASS_REAL_IMMUTABLE_COLD_START_AND_RESTART",
+  "observed_at_utc": "2026-10-19T11:35:35.810001Z",
+  "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+  "producer_handoff_sha256": "2d0a21d0bb1e930488383005474846a989b95daeaec4e895d1cf29abdfcafe2c",
+  "manifest_schema_sha256": "bcc960b58953980de704e52b58f43611e52d6a6a83d73d0b65663ec60ac0f954",
+  "manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+  "declared_latest_assets_match": true,
+  "configured_public_root": "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1",
+  "exact_public_files_verified": 22,
+  "first_scan": {
+    "schema_version": "contentops.main_report_feed.v1",
+    "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+    "observed_at_utc": "2026-10-19T11:35:35.810001Z",
+    "configured_bundle_count": 8,
+    "new_events": 8,
+    "events": [
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72",
+        "state": "LINEAGE_ONLY_NOOP",
+        "blockers": [],
+        "required_parent_report_sha256": null
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba",
+        "state": "LINEAGE_ONLY_NOOP",
+        "blockers": [],
+        "required_parent_report_sha256": null
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 1,
+        "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed",
+        "state": "LINEAGE_ONLY_NOOP",
+        "blockers": [],
+        "required_parent_report_sha256": null
+      },
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23",
+        "state": "ADMITTED",
+        "blockers": [],
+        "required_parent_report_sha256": "8f6f738f20e23fa4c4b0b4ccae565e66d476ad4c63c3d9ac7a4985f5e45922dd"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd",
+        "state": "ADMITTED",
+        "blockers": [],
+        "required_parent_report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 2,
+        "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b",
+        "state": "ADMITTED",
+        "blockers": [],
+        "required_parent_report_sha256": "e553c7b40dc72135873c2c9645cdb2e5e951223e007e5529d9fdbcb7fbfba4e1"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 3,
+        "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7",
+        "state": "LINEAGE_ONLY_NOOP",
+        "blockers": [],
+        "required_parent_report_sha256": "709b20e83caa5c01f94f21f05ef83adcff219b5a94373e8c9782cba9b01cd43d"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 4,
+        "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d",
+        "state": "ADMITTED",
+        "blockers": [],
+        "required_parent_report_sha256": "09d8c39f7bfc3087c25e9476e5319c584b05aa2bc8f01800c6d73864aa34e812"
+      }
+    ],
+    "gaps": [],
+    "artifact_cache": {
+      "dbea3eb11aa4751deb58a2542be93bb450708e54cf61d339964d2e9e759b2c1c": {
+        "fingerprint": "0190d4694a4ec9fd332c07400bf6308b3695561646f0e733b7e8bcbf9a8cf2f0",
+        "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72"
+      },
+      "924ab832fc3e40f5a632d64df4327dee9350eb930b80cabfd51e8de9bd33ef1c": {
+        "fingerprint": "bb3c3465b589e9c0fa2a658410966839958c91abb71b5df29727366a90d04a46",
+        "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba"
+      },
+      "644b81751cb6d535edcc09caa5befff61d4dd6044cddf024db6b61b2b3e4a203": {
+        "fingerprint": "54d49df7473779083cbd0696fe1415642b879836acb85d7938dd51457b3a7131",
+        "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed"
+      },
+      "385ebd7da0c1dab46279dc626d75384f671573c359dd983ef1f4dd6382f6e9f3": {
+        "fingerprint": "2a568a7331d37a063d0d10a2b69526a7fe0aaf1b7517a3ec2e42d94d80ba3c72",
+        "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23"
+      },
+      "336cdaddffcabaa9a0f3cf77f9b22945093745181fdeca824492286c55ee9c94": {
+        "fingerprint": "17b2680c34246068e33a00b57ec8b295a58895ed5ea6706b3b0d5b594b1861f8",
+        "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd"
+      },
+      "d758e702fa271fc82f5e2f1e59d47437a69159c279679faf151b7c2dec658130": {
+        "fingerprint": "033407f8113cd1312c8f8bf4be479e3eb1625cfbd084527d7109638b27c0b6e6",
+        "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b"
+      },
+      "502a49a99faef1ef30dce43f3c50c8a7235c31b2da1d63d56325b5e306cdf3d4": {
+        "fingerprint": "135ac25d06b596bf1883e17717f5e7cc47895132f5041585853940123bf00802",
+        "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7"
+      },
+      "05f46f28602c7ee17466073287ef10abf8267d4f3768740b502df7220e38e4a8": {
+        "fingerprint": "99c44328e120417b52d1276c273e7c35d8129b17b2103231dd69df52b70af446",
+        "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d"
+      }
+    },
+    "unchanged_artifact_bundles_reused": 0,
+    "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+    "manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+    "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+    "public_write_performed": false
+  },
+  "restart_scan": {
+    "schema_version": "contentops.main_report_feed.v1",
+    "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+    "observed_at_utc": "2026-10-19T11:35:35.810001Z",
+    "configured_bundle_count": 8,
+    "new_events": 0,
+    "events": [
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 1,
+        "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 2,
+        "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 3,
+        "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 4,
+        "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d",
+        "state": "DUPLICATE_NOOP"
+      }
+    ],
+    "gaps": [],
+    "artifact_cache": {
+      "336cdaddffcabaa9a0f3cf77f9b22945093745181fdeca824492286c55ee9c94": {
+        "fingerprint": "17b2680c34246068e33a00b57ec8b295a58895ed5ea6706b3b0d5b594b1861f8",
+        "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd"
+      },
+      "924ab832fc3e40f5a632d64df4327dee9350eb930b80cabfd51e8de9bd33ef1c": {
+        "fingerprint": "bb3c3465b589e9c0fa2a658410966839958c91abb71b5df29727366a90d04a46",
+        "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba"
+      },
+      "dbea3eb11aa4751deb58a2542be93bb450708e54cf61d339964d2e9e759b2c1c": {
+        "fingerprint": "0190d4694a4ec9fd332c07400bf6308b3695561646f0e733b7e8bcbf9a8cf2f0",
+        "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72"
+      },
+      "502a49a99faef1ef30dce43f3c50c8a7235c31b2da1d63d56325b5e306cdf3d4": {
+        "fingerprint": "135ac25d06b596bf1883e17717f5e7cc47895132f5041585853940123bf00802",
+        "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7"
+      },
+      "644b81751cb6d535edcc09caa5befff61d4dd6044cddf024db6b61b2b3e4a203": {
+        "fingerprint": "54d49df7473779083cbd0696fe1415642b879836acb85d7938dd51457b3a7131",
+        "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed"
+      },
+      "385ebd7da0c1dab46279dc626d75384f671573c359dd983ef1f4dd6382f6e9f3": {
+        "fingerprint": "2a568a7331d37a063d0d10a2b69526a7fe0aaf1b7517a3ec2e42d94d80ba3c72",
+        "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23"
+      },
+      "05f46f28602c7ee17466073287ef10abf8267d4f3768740b502df7220e38e4a8": {
+        "fingerprint": "99c44328e120417b52d1276c273e7c35d8129b17b2103231dd69df52b70af446",
+        "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d"
+      },
+      "d758e702fa271fc82f5e2f1e59d47437a69159c279679faf151b7c2dec658130": {
+        "fingerprint": "033407f8113cd1312c8f8bf4be479e3eb1625cfbd084527d7109638b27c0b6e6",
+        "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b"
+      }
+    },
+    "unchanged_artifact_bundles_reused": 8,
+    "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+    "manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+    "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+    "public_write_performed": false
+  },
+  "ancestor_only_events": 4,
+  "editorial_ready_events": 4,
+  "receipt_count_before_restart": 8,
+  "receipt_count_after_restart": 8,
+  "admitted_receipts": [
+    {
+      "report_id": "asset-report:UKOIL",
+      "report_version": 1,
+      "source_report_sha256": "8f6f738f20e23fa4c4b0b4ccae565e66d476ad4c63c3d9ac7a4985f5e45922dd",
+      "parent_report_sha256": null,
+      "known_at_cutoff_utc": "2026-10-18T17:05:18.499399Z",
+      "status": "LINEAGE_ONLY_NOOP",
+      "lineage_only": true,
+      "delivery_status": "REPORT_SUPERSEDED"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 1,
+      "source_report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d",
+      "parent_report_sha256": null,
+      "known_at_cutoff_utc": "2026-10-18T17:05:18.499399Z",
+      "status": "LINEAGE_ONLY_NOOP",
+      "lineage_only": true,
+      "delivery_status": "REPORT_SUPERSEDED"
+    },
+    {
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 1,
+      "source_report_sha256": "e553c7b40dc72135873c2c9645cdb2e5e951223e007e5529d9fdbcb7fbfba4e1",
+      "parent_report_sha256": null,
+      "known_at_cutoff_utc": "2026-10-18T17:05:18.499399Z",
+      "status": "LINEAGE_ONLY_NOOP",
+      "lineage_only": true,
+      "delivery_status": "REPORT_SUPERSEDED"
+    },
+    {
+      "report_id": "asset-report:UKOIL",
+      "report_version": 2,
+      "source_report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810",
+      "parent_report_sha256": "8f6f738f20e23fa4c4b0b4ccae565e66d476ad4c63c3d9ac7a4985f5e45922dd",
+      "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+      "status": "ADMITTED",
+      "lineage_only": false,
+      "delivery_status": "REPORT_PENDING"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 2,
+      "source_report_sha256": "709b20e83caa5c01f94f21f05ef83adcff219b5a94373e8c9782cba9b01cd43d",
+      "parent_report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d",
+      "known_at_cutoff_utc": "2026-10-19T05:56:21.511006Z",
+      "status": "ADMITTED",
+      "lineage_only": false,
+      "delivery_status": "REPORT_SUPERSEDED"
+    },
+    {
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 2,
+      "source_report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "parent_report_sha256": "e553c7b40dc72135873c2c9645cdb2e5e951223e007e5529d9fdbcb7fbfba4e1",
+      "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+      "status": "ADMITTED",
+      "lineage_only": false,
+      "delivery_status": "REPORT_PENDING"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 3,
+      "source_report_sha256": "09d8c39f7bfc3087c25e9476e5319c584b05aa2bc8f01800c6d73864aa34e812",
+      "parent_report_sha256": "709b20e83caa5c01f94f21f05ef83adcff219b5a94373e8c9782cba9b01cd43d",
+      "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+      "status": "LINEAGE_ONLY_NOOP",
+      "lineage_only": true,
+      "delivery_status": "REPORT_SUPERSEDED"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 4,
+      "source_report_sha256": "1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453",
+      "parent_report_sha256": "09d8c39f7bfc3087c25e9476e5319c584b05aa2bc8f01800c6d73864aa34e812",
+      "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+      "status": "ADMITTED",
+      "lineage_only": false,
+      "delivery_status": "REPORT_PENDING"
+    }
+  ],
+  "pending_editorial_reports": [
+    {
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 2
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 4
+    },
+    {
+      "report_id": "asset-report:UKOIL",
+      "report_version": 2
+    }
+  ],
+  "latest_assets": [
+    "UKOIL",
+    "USOIL",
+    "XNGUSD"
+  ],
+  "joined_library": {
+    "counts": {
+      "briefs": 7,
+      "fresh_provider_drafts": 0,
+      "independent_documents": 8,
+      "independent_items": 14,
+      "published": 0,
+      "qualified": 0,
+      "useful_families": 6,
+      "editor_authored_packages": 7,
+      "native_previews": 56,
+      "media": 7
+    },
+    "input_composition": {
+      "independent_research_items": 14,
+      "evidence_complete_briefs": 7,
+      "main_editorial_reports": 3,
+      "main_unchanged_reports": 0,
+      "main_history_only_reports": 0,
+      "owner": "EXISTING_SIMPLE_GEMINI_RUNTIME",
+      "routine_window_count": 4,
+      "model_execution_state": "LLM_OPERATOR_PAUSED",
+      "current_market_state_verified": false
+    },
+    "main_reports": [
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 2,
+        "asset_ids": [
+          "UKOIL"
+        ],
+        "families": [
+          "ENERGY"
+        ],
+        "family_basis": "EDITORIAL_SYMBOL_TAXONOMY_NOT_MAIN_ANALYTICAL_CLASSIFICATION",
+        "status": "ADMITTED",
+        "change_kind": "THESIS_DELTA",
+        "source_report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810",
+        "parent_report_sha256": "8f6f738f20e23fa4c4b0b4ccae565e66d476ad4c63c3d9ac7a4985f5e45922dd",
+        "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+        "originality": "MAIN_ORIGIN_RECIRCULATION",
+        "horizons": [
+          {
+            "horizon": "short",
+            "trading_sessions": 5,
+            "outlook": "UKOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+          },
+          {
+            "horizon": "swing",
+            "trading_sessions": 21,
+            "outlook": "UKOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+          },
+          {
+            "horizon": "long",
+            "trading_sessions": 63,
+            "outlook": "UKOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+          }
+        ],
+        "withdrawn": false,
+        "current_market_state_verified": false,
+        "context_kind": "DATED_MAIN_REPORT_NOT_CURRENT_MARKET_STATE",
+        "changed_claim_ids": [
+          "ukoil-hold",
+          "ukoil-invalidate",
+          "ukoil-long",
+          "ukoil-mechanism",
+          "ukoil-short",
+          "ukoil-source",
+          "ukoil-swing"
+        ],
+        "public_claims": [
+          {
+            "claim_id": "ukoil-source",
+            "producer_layer": "OBSERVED_SOURCE_FACT",
+            "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "ukoil-mechanism",
+            "producer_layer": "CC_ANALYSIS",
+            "text": "Capital Chronicle conditional analysis: The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. US import timing can lower US stocks without global scarcity; Brent-specific supply/transport and spreads may move independently.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "ukoil-short",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "UKOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "ukoil-swing",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "UKOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "ukoil-long",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "UKOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "ukoil-hold",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "Retain the UKOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "ukoil-invalidate",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "Invalidate the UKOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          }
+        ],
+        "next_editorial_question": "Which exact public claims changed, and what independent evidence tests their mechanism?"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 4,
+        "asset_ids": [
+          "USOIL"
+        ],
+        "families": [
+          "ENERGY"
+        ],
+        "family_basis": "EDITORIAL_SYMBOL_TAXONOMY_NOT_MAIN_ANALYTICAL_CLASSIFICATION",
+        "status": "ADMITTED",
+        "change_kind": "FRESHNESS_REPAIR",
+        "source_report_sha256": "1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453",
+        "parent_report_sha256": "09d8c39f7bfc3087c25e9476e5319c584b05aa2bc8f01800c6d73864aa34e812",
+        "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+        "originality": "MAIN_ORIGIN_RECIRCULATION",
+        "horizons": [
+          {
+            "horizon": "short",
+            "trading_sessions": 5,
+            "outlook": "USOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated."
+          },
+          {
+            "horizon": "swing",
+            "trading_sessions": 21,
+            "outlook": "USOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated."
+          },
+          {
+            "horizon": "long",
+            "trading_sessions": 63,
+            "outlook": "USOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated."
+          }
+        ],
+        "withdrawn": false,
+        "current_market_state_verified": false,
+        "context_kind": "DATED_MAIN_REPORT_NOT_CURRENT_MARKET_STATE",
+        "changed_claim_ids": [],
+        "public_claims": [
+          {
+            "claim_id": "usoil-source",
+            "producer_layer": "OBSERVED_SOURCE_FACT",
+            "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate."
+          },
+          {
+            "claim_id": "usoil-mechanism",
+            "producer_layer": "CC_ANALYSIS",
+            "text": "Capital Chronicle conditional analysis: The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Import timing, refinery throughput and product imbalances can generate a crude draw without sustained end-demand strength. The Sep22 WTI price panel predates the original release.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate."
+          },
+          {
+            "claim_id": "usoil-short",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "USOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate."
+          },
+          {
+            "claim_id": "usoil-swing",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "USOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate."
+          },
+          {
+            "claim_id": "usoil-long",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "USOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate."
+          },
+          {
+            "claim_id": "usoil-hold",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "Retain the USOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate."
+          },
+          {
+            "claim_id": "usoil-invalidate",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "Invalidate the USOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate."
+          }
+        ],
+        "next_editorial_question": "Which exact public claims changed, and what independent evidence tests their mechanism?"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 2,
+        "asset_ids": [
+          "XNGUSD"
+        ],
+        "families": [
+          "ENERGY"
+        ],
+        "family_basis": "EDITORIAL_SYMBOL_TAXONOMY_NOT_MAIN_ANALYTICAL_CLASSIFICATION",
+        "status": "ADMITTED",
+        "change_kind": "INVALIDATION",
+        "source_report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+        "parent_report_sha256": "e553c7b40dc72135873c2c9645cdb2e5e951223e007e5529d9fdbcb7fbfba4e1",
+        "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+        "originality": "MAIN_ORIGIN_RECIRCULATION",
+        "horizons": [
+          {
+            "horizon": "short",
+            "trading_sessions": 5,
+            "outlook": "XNGUSD conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+          },
+          {
+            "horizon": "swing",
+            "trading_sessions": 21,
+            "outlook": "XNGUSD conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+          },
+          {
+            "horizon": "long",
+            "trading_sessions": 63,
+            "outlook": "XNGUSD conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+          }
+        ],
+        "withdrawn": false,
+        "current_market_state_verified": false,
+        "context_kind": "DATED_MAIN_REPORT_NOT_CURRENT_MARKET_STATE",
+        "changed_claim_ids": [
+          "xngusd-hold",
+          "xngusd-invalidate",
+          "xngusd-long",
+          "xngusd-mechanism",
+          "xngusd-short",
+          "xngusd-source",
+          "xngusd-swing"
+        ],
+        "public_claims": [
+          {
+            "claim_id": "xngusd-source",
+            "producer_layer": "OBSERVED_SOURCE_FACT",
+            "text": "The retained original EIA storage release records a 67 Bcf weekly injection, versus the 90 Bcf five-year same-week injection average. Stocks were 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year level.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "xngusd-mechanism",
+            "producer_layer": "CC_ANALYSIS",
+            "text": "Capital Chronicle conditional analysis: The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Weather, supply/import variation and shoulder-season demand may explain the small injection; a seasonal comparison is not market consensus or a measured surprise.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "xngusd-short",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "XNGUSD conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "xngusd-swing",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "XNGUSD conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "xngusd-long",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "XNGUSD conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "xngusd-hold",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "Retain the XNGUSD analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          },
+          {
+            "claim_id": "xngusd-invalidate",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "text": "Invalidate the XNGUSD analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable.",
+            "freshness_state": null,
+            "exact_or_proxy": "EXACT",
+            "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics."
+          }
+        ],
+        "next_editorial_question": "Which exact public claims changed, and what independent evidence tests their mechanism?"
+      }
+    ]
+  },
+  "fresh_model_calls": 0,
+  "private_main_paths_read": false,
+  "public_writes": 0,
+  "llm_pause_active_and_unchanged": true,
+  "llm_pause_marker_sha256": "b0be68980cbfc2dd1a7fa80ac7eb2bfcfda7aa3b45b462dfd0a11788587e94de",
+  "runtime_started": false,
+  "schedule_started": false
+}

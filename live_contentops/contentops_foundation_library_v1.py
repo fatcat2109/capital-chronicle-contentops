@@ -160,7 +160,12 @@ def library_projection(rows):
             "current_market_state_verified": False,
             "context_kind": "DATED_MAIN_REPORT_NOT_CURRENT_MARKET_STATE",
             "changed_claim_ids": report.get("changed_claim_ids", []),
-            "public_claims": [{k: c.get(k) for k in ("claim_id", "producer_layer", "text", "freshness_state", "exact_or_proxy", "basis_risk")}
+            "limitations": report.get("limitations", []),
+            "public_claims": [{**{k: c.get(k) for k in ("claim_id", "producer_layer", "text", "exact_or_proxy", "basis_risk")},
+                               "freshness_state": ", ".join(sorted({e.get("freshness_state") or "NOT_PROVIDED" for e in c.get("evidence", [])})) or "NOT_PROVIDED",
+                               "evidence": [{k: e.get(k) for k in ("evidence_id", "source_url", "observation_time_utc", "known_at_utc",
+                                            "retrieval_time_utc", "freshness_state", "pit_state", "exact_or_proxy", "rights_state")}
+                                            for e in c.get("evidence", [])]}
                               for c in report.get("claims", [])],
             "next_editorial_question": "Which exact public claims changed, and what independent evidence tests their mechanism?"}
     return {**snapshot, "main_reports": list(reports.values()), "report_admissions_and_noops": counts,

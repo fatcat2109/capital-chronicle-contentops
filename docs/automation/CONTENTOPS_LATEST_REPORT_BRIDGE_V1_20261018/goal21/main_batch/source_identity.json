@@ -1,0 +1,15 @@
+{
+  "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+  "producer_remote_head_at_readback": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+  "producer_pr": "https://github.com/fatcat2109/Headline-Raw-data-json/pull/232",
+  "consumer_base_commit": "8eec932c362d1b78e9b99fda309bb85da3de0409",
+  "consumer_source_blobs": {
+    "scripts/verify_capital_chronicle_public_handoff_v1.py": "3b8b7fdc39f35f35af91b62b941104360cafc118",
+    "live_contentops/capital_chronicle_report_feed_v1.py": "cd9d3c66423d09dd583e6aa0070dc47d5050b995",
+    "live_contentops/capital_chronicle_public_manifest_v1.py": "3574f16a76b3b3e2f4a9d6a16094ecbd4e455535",
+    "live_contentops/contentops_foundation_library_v1.py": "aa874c81bb5b95987f66d28275cac6be045323cb"
+  },
+  "receipt_sha256": "8e10f67bd54f115e231530829de0813f5f90180c31efcf8cad45c6d895857046",
+  "scope": "EXACT_PUBLIC_MAIN_FILES_ONLY_NO_MT5_OR_PRIVATE_REPORT_CATALOG_ACCOUNT",
+  "source_identity_basis": "Fresh remote branch, exact Git public blobs and configured public root bytes all matched during acceptance."
+}

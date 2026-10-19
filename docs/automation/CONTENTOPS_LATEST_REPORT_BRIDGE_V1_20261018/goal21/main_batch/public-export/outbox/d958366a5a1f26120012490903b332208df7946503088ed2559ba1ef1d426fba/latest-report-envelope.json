@@ -1,0 +1,323 @@
+{
+  "affected_symbols": [
+    "UKOIL"
+  ],
+  "as_of_utc": "2026-10-19T09:14:42.517584Z",
+  "asset_ids": [
+    "UKOIL"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "change_kind": "THESIS_DELTA",
+  "changed_claim_ids": [
+    "ukoil-hold",
+    "ukoil-invalidate",
+    "ukoil-long",
+    "ukoil-mechanism",
+    "ukoil-short",
+    "ukoil-source",
+    "ukoil-swing"
+  ],
+  "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+  "contract_revision": "asset-analysis-report-v1.1.0",
+  "envelope_sha256": "7639f6d5b64cc74c51b302377f2b71552442791da81455949d36c9bd931f99b8",
+  "event_id": "report-event:78d94190dfe3f7f71ddc63d63d72d1b8a4ad6f4d5c8f136cdbd143e3ddbbd3d0",
+  "generated_at_utc": "2026-10-19T09:31:57Z",
+  "hold_conditions": [
+    "Retain the UKOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision."
+  ],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-26T09:14:42.517584Z",
+      "horizon": "short",
+      "outlook": "UKOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T09:14:42.517584Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-17T09:14:42.517584Z",
+      "horizon": "swing",
+      "outlook": "UKOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T09:14:42.517584Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-01-14T09:14:42.517584Z",
+      "horizon": "long",
+      "outlook": "UKOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T09:14:42.517584Z",
+      "trading_sessions": 63
+    }
+  ],
+  "invalidation_conditions": [
+    "Invalidate the UKOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+  ],
+  "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "Comparison of retained claim hashes and evidence snapshots; a case change alone creates no new event.",
+  "parent_report_sha256": "8f6f738f20e23fa4c4b0b4ccae565e66d476ad4c63c3d9ac7a4985f5e45922dd",
+  "public_safe_claims": [
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "431462c5fd8bfe3e05369538592cef414052100ec0f5417c4d7503384ce10c74",
+      "claim_id": "ukoil-source",
+      "claim_type": "SOURCE_FACT",
+      "epistemic_layer": "OBSERVED_SOURCE_FACT",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "d0deb736305c94671412ed7a5fda6c34dc891b62cd2d886671060a5b09d0126f",
+      "claim_id": "ukoil-mechanism",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Capital Chronicle conditional analysis: The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. US import timing can lower US stocks without global scarcity; Brent-specific supply/transport and spreads may move independently."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "450d9ae0ef72de26d6ca7723e5710aa2634c16c030f9995507140d72941f933c",
+      "claim_id": "ukoil-short",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "UKOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "8202e7b59ff46c66b54072cf1904c90bafc3b64fe3ad20bc6649791a8381a832",
+      "claim_id": "ukoil-swing",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "UKOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "cf29c2dc6f7ee6d17080e32409fb75571f02ec1b4b01f23e6be3ed4487f26f7e",
+      "claim_id": "ukoil-long",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "UKOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "115cbc84c35634a31737677fca68085ec3bf7bcbc5401ef72df0c5378bdd3894",
+      "claim_id": "ukoil-hold",
+      "claim_type": "HOLD_CONDITION",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Retain the UKOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision."
+    },
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "584a525c6aeaaedc9ed5c5d87afc3763e2dd8b858fa5ce032144e6c7ebf86f61",
+      "claim_id": "ukoil-invalidate",
+      "claim_type": "INVALIDATION_CONDITION",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Invalidate the UKOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+    }
+  ],
+  "report_id": "asset-report:UKOIL",
+  "report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810",
+  "report_version": 2,
+  "run_id": "run-asset-report:fc80a134644ee7a78c2d83c2",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "d5810d21c573addaffa33ff16710d8c1c16a30defbe29277f5e49b625f559e4f",
+    "evidence_snapshot_sha256": "e1f9e322e61f21833d94e66364acaa81973d10bceab717c282d91444f9991b69"
+  },
+  "supersedes_report_id": "asset-report:UKOIL",
+  "version": "1.1.0"
+}

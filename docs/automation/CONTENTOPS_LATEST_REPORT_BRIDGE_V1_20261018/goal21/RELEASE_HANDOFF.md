@@ -1,6 +1,6 @@
 # Goal21 — useful multi-asset newsroom research library
 
-Status: `INDEPENDENT_LIBRARY_IMPLEMENTED_MAIN_MULTI_ASSET_HANDOFF_PENDING`.
+Status: `REAL_MULTI_ASSET_LIBRARY_VERIFIED_SCOPED_DELIVERY`.
 Classification: `PARTIAL_CAPABILITY_REUSE_COMPONENTS`.
 Existing owner: [latest-report bridge checkpoint](../../CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md).
 Base: PR88 merged at `bc79e30c8088a9deb47f3942aa15914a59b69799`, including PR89 planning.
@@ -82,7 +82,7 @@ or a new wire contract. Focused controls cover 140 manifests and unchanged/tampe
 ## Current evidence and remaining work
 
 Completed source/research/feed tests: [32 focused checks](focused_tests.txt). UI [6 focused checks](ui_tests.txt)
-and its prior production build passed. Subsequent changed seams receive proportional checks;
+and its [final production build](final_ui_build.txt) passed. Subsequent changed seams receive proportional checks;
 prior Goal20 ancestry/correction/withdrawal mechanics and rendered prior articles are reused.
 Desktop/mobile library filtering and package/native-preview text were actually inspected;
 mobile width and scroll width were 430, with both filtered crypto images loaded. All **7 final
@@ -95,10 +95,42 @@ unique tests or useful output. Main context export prepared **9 permitted dated 
 5 undated items remain useful background but retain `HEADLINE_CLOCK_UNAVAILABLE` for that
 existing wire. This goal does not invent publication times or claim Main received those rows.
 
-Required remaining integration: **one exact immutable Main multi-asset public batch**, with its
-producer/schema/files identity, admitted/no-op/gap counts and restart readback through the existing
-feed. The old USOIL chain is not substituted or rerun as new Goal21 evidence. Main is actively
-preparing public-compatible output; no private report/catalog is read to fill this gap.
+### Final real multi-asset integration
+
+Main handoff commit **`a50d8c6e8620cbf2e45aa93beee9e1b557484b30`** matched the fresh remote
+branch and PR232 head during readback. [Exact identity](main_batch/source_identity.json).
+All **22 public files**, the known manifest schema and configured root bytes match their exact
+committed bytes. No private source/catalog/account/history was read. The existing manifest
+1.0/1.1 compatibility remains; this handoff adds no competing wire.
+
+[Actual joined receipt](main_batch/receipt.json): **8 accepted report records = 4 lineage-only
+ancestors + 4 editorial records**. Of those editorial records, **3 are the latest pending assets**:
+UKOIL v2 `THESIS_DELTA`, USOIL v4 `FRESHNESS_REPAIR`, XNGUSD v2 `INVALIDATION` with retained public
+claims. The remaining editorial record is historical. No report-count-to-article credit.
+Same-store restart adds **0** receipts/events; the count stays 8 with zero gaps. All eight
+unchanged bundles use their verified-artifact cache on replay. Current manifest:
+`36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68`.
+
+The **same isolated proof store** joins the 14 independent propositions / 7 briefs / 7 research
+packages / 56 previews / 7 media to those 3 current Main reports. The four-window composition
+shows 14 independent research inputs and 3 Main editorial reports with zero independent credit
+for Main recirculation. The read model preserves Main's public fact/analysis/scenario distinctions,
+changed-claim IDs, three horizon panels, exact/proxy basis, source observation/known/retrieval
+clocks, PIT/rights limitations and explicit absence of current executable-market authority.
+[Final joined workspace](main_batch/final_workspace.json) was projected from the same receipt
+store without another admission campaign or model invocation. [Retained real regression](real_batch_regression.txt)
+and the [paused input-composition check](paused_composition_test.txt) cover those seams.
+
+The exact no-provider public-batch command used was:
+
+```powershell
+python scripts/verify_capital_chronicle_public_handoff_v1.py --goal21 --producer-checkout 'A:\Capital Chronicle\capital-chronicle-goal17-asset-reports-20261018' --producer-commit a50d8c6e8620cbf2e45aa93beee9e1b557484b30 --library-root docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21 --output-dir 'C:\Users\bullw\AppData\Local\Temp\goal21-main-multiasset-a50d8c6e'
+```
+
+A repeat must use a new output directory. Public inputs and receipt are retained under
+`main_batch/`; SQLite is isolated and uncommitted. The earlier oil-only Goal20 proof was reused
+as foundation and was not substituted for this real three-asset batch. Main's full private
+104-report library or database completion is neither consumed nor claimed by ContentOps.
 
 The exact next standalone research refresh from this worktree is:
 
@@ -108,8 +140,36 @@ python scripts/build_contentops_research_wave_v1.py --root docs/automation/CONTE
 
 Existing stable-root binding remains `CONTENTOPS_MAIN_REPORT_FEED_POINTER`, selecting
 `A:/Capital Chronicle/Runtime/MainPublicReports-v1` plus the explicit retained `research_root`.
-This task does not install/activate the binding. The final public-batch command, scoped PR/head,
-CodeGraph source identity and exact CI will be recorded here after the producer handoff exists.
+This task does not install/activate the binding. [Draft PR90](https://github.com/fatcat2109/capital-chronicle-contentops/pull/90)
+contains independent implementation `649bcb7a4adb856bd73da688324f72feb6bb97d4` and graph refresh
+`8eec932c362d1b78e9b99fda309bb85da3de0409`; that exact head passed both checks in
+[CI 39245324687](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39245324687).
+The final multi-asset source/artifact slice is delivered on this same PR. Its final exact-head
+CI, remote/PR identity and CodeGraph source epoch are recorded in PR90's final verification
+section after push; the earlier green run above is not substituted for those final checks.
+
+Final Main UI inspection actually opened UKOIL, USOIL and XNGUSD, read their evidence clocks,
+PIT/rights limits and three horizons, and found no console errors or horizontal overflow at
+1280px. [Exact visual receipt](visual/final_main_inspection.json) and [rendered Main panel](visual/final_main.png).
+BrowserOS neo MCP became unavailable after the research capture/first UI proof; the operator
+explicitly disclosed using one task-owned Codex in-app browser tab for this final local inspection.
+That tab and the exact task-local hidden preview process were closed; port 4178 was verified absent.
+No new natural-calendar, production-runtime, provider or publication proof is inferred.
+
+## Scoped Goal21 completion matrix
+
+| Original requirement | Delivered evidence | Practical limit |
+| --- | --- | --- |
+| Incremental asset/topic foundation | Existing durable outbox/read model, six family filters, asset/horizon/clock/originality/changes and explicit gaps | Foundation/context; no claim of a complete current market dataset. |
+| Bounded independent six-family research | 14 exact admitted propositions, 8 independent documents, concrete rights adapters, seven briefs | Index-specific chain, issuer-specific filing, current gas replacement/quotes and other missing inputs remain named above. |
+| Substantive evidence-bound packages and a new connected piece | Seven editor-authored articles, 56 native text previews, seven actual inspected media, mechanism/countercase/scenario/falsifiers | Research for editorial review; zero qualified Simple/fresh-provider/published credit. |
+| Emerging real Main batches and restart/scaling | Exact public commit + 22 files; four lineage-only/four editorial records, three latest assets; restart zero additions; retained regression | No private Main/Exness/database read; cumulative manifest parsing remains bounded and explicit. |
+| Useful board and existing four-window input composition | Same isolated store joins 14 research inputs, seven briefs/packages and three Main inputs; paused composition control | No scheduler activation, fifth window or provider invocation. |
+| Reviewable delivery and discoverable handoff | Existing checkpoint, scoped PR90, CodeGraph refresh, rendered evidence, focused tests and final exact-head CI recorded in PR | Draft/open; no self-merge or deployment. Control Tower sync remains pending its serial owner. |
+
+All independently authorized Goal21 sections are delivered within these limits. Missing market
+inputs, semantic editorial approval, provider execution, runtime activation, merge/deployment and
+Control Tower owner synchronization are explicit later states, not concealed completion claims.
 
 LLM pause and runtime remain unchanged; no fresh providers, paid fallback, broker/public/social
 writes, deployment, self-merge or V2 expansion. Task-local hidden preview process was used for

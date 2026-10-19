@@ -107,3 +107,47 @@ def test_source_policy_tampering_does_not_inherit_rights_from_an_official_hostna
     research = RetainedSourceResearch(copied)
     assert len(research.records) < 14
     assert any(g["state"] == "SOURCE_PERMISSION_CAPTURE_MISMATCH" for g in research.gaps)
+
+
+def test_existing_paused_opportunity_freezes_library_questions_with_its_single_input_pool(tmp_path, monkeypatch):
+    from tests.test_capital_chronicle_report_feed_v1 import feed
+    monkeypatch.setattr("live_contentops.capital_chronicle_report_editorial_workspace_v1.llm_operator_pause_active", lambda: True)
+    runtime = feed(tmp_path)
+    runtime.retained_research = RetainedSourceResearch(ROOT / "retained_research")
+    result = runtime.opportunity(output_dir=tmp_path / "paused", cutoff_utc=CUTOFF,
+                                 run_id="library-composition-control", rolling_input={"headlines": [], "cutoff_utc": CUTOFF})
+    stages = [json.loads(r["payload"]) for r in runtime.tracker.store.list_outbox_messages()
+              if r["destination"] == "internal:cc-report-editorial-stage"]
+    pool = next(s for s in stages if "args" in s)
+    library = pool["args"]["capital_chronicle_context"]["foundation_library"]
+    assert len(library["briefs"]) == 7 and library["research_revision"] == runtime.retained_research.revision
+    assert len(pool["args"]["rolling_input"]["headlines"]) >= 14
+    assert result["report_workspace_result"]["exact_next_blocker"] == "LLM_OPERATOR_PAUSED"
+
+
+def test_retained_real_Main_multiasset_batch_and_independent_library_share_existing_read_model(tmp_path):
+    import hashlib
+    from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
+    from live_contentops.capital_chronicle_public_manifest_v1 import CONFIG_SCHEMA, REPOSITORY
+    batch = ROOT / "main_batch"
+    handoff = json.loads((batch / "producer-handoff.json").read_bytes())
+    receipt = json.loads((batch / "receipt.json").read_bytes())
+    for f in handoff["files"]:
+        assert hashlib.sha256((batch / "public-export" / f["path"]).read_bytes()).hexdigest() == f["bytes_sha256"]
+    pointer = {"schema_version": CONFIG_SCHEMA, "producer_repository": REPOSITORY,
+               "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+               "producer_commit": receipt["producer_commit"], "public_export_root": str((batch / "public-export").resolve())}
+    runtime = MainReportFeed(LatestReportDeliveryTracker(ContentOpsDurableStore(tmp_path / "isolated.sqlite")),
+                             pointer, headline_paths=[], retained_research=RetainedSourceResearch(ROOT / "retained_research"))
+    first = runtime.poll(cutoff_utc=receipt["observed_at_utc"])
+    assert not first["gaps"] and len(runtime.tracker.receipts()) == 8
+    assert sum(e["state"] == "LINEAGE_ONLY_NOOP" for e in first["events"]) == 4
+    assert {a for r in runtime.pending() for a in r["asset_ids"]} == {"UKOIL", "USOIL", "XNGUSD"}
+    replay = runtime.poll(cutoff_utc=receipt["observed_at_utc"])
+    assert replay["new_events"] == 0 and replay["unchanged_artifact_bundles_reused"] == 8
+    view = report_workspace_projection(runtime.tracker.store.list_outbox_messages())["foundation_library"]
+    assert view["counts"]["independent_items"] == 14 and len(view["main_reports"]) == 3
+    assert view["input_composition"]["main_editorial_reports"] == 3
+    assert all(r["originality"] == "MAIN_ORIGIN_RECIRCULATION" and not r["current_market_state_verified"] for r in view["main_reports"])
+    assert all(c["freshness_state"] and c["evidence"] and c["basis_risk"]
+               for r in view["main_reports"] for c in r["public_claims"])

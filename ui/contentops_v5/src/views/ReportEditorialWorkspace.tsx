@@ -71,7 +71,11 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
           <summary>{r.asset_ids.join(', ')} · v{r.report_version} · {r.change_kind} · {r.withdrawn ? 'WITHDRAWN' : r.status}</summary>
           <p>{display(r.context_kind)}. Không xác minh trạng thái thị trường hiện tại.</p>
           <p>Claim đã đổi: {r.changed_claim_ids.join(', ') || 'Main không chỉ định claim thay đổi'}.</p>
-          {r.public_claims.map(c => <p key={c.claim_id}>{c.producer_layer}: {c.text} · {c.exact_or_proxy} · {c.freshness_state} {c.basis_risk}</p>)}
+          {r.public_claims.map(c => <article key={c.claim_id}><p>{c.producer_layer}: {c.text} · {c.exact_or_proxy} · {c.freshness_state} {c.basis_risk}</p>
+            {c.evidence?.map(e => <p key={e.evidence_id}>Nguồn quan sát: {e.observation_time_utc ?? 'không ghi'} · biết lúc {e.known_at_utc ?? 'không ghi'} · {e.pit_state} · {e.rights_state}{' '}
+              {e.source_url?.startsWith('https://') && <a href={e.source_url} target="_blank" rel="noreferrer">Nguồn</a>}</p>)}
+          </article>)}
+          {r.limitations?.map(l => <p key={l}>Giới hạn Main: {l}</p>)}
           {r.horizons.map(h => <p key={h.horizon}>{h.horizon} · {h.trading_sessions} phiên: {h.outlook}</p>)}
           <p>{r.next_editorial_question}</p>
         </details>)}

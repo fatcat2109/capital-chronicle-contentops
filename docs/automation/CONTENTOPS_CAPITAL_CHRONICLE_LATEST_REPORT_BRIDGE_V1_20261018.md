@@ -363,7 +363,7 @@ runtime remain unchanged. Fresh provider/natural-calendar runtime proof, merge a
 
 ## Goal21 — multi-asset newsroom research library
 
-Status: `INDEPENDENT_LIBRARY_IMPLEMENTED_MAIN_MULTI_ASSET_HANDOFF_PENDING`.
+Status: `REAL_MULTI_ASSET_LIBRARY_VERIFIED_SCOPED_DELIVERY`.
 [Owning Goal21 handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/RELEASE_HANDOFF.md)
 retains the full goal and Jim's Exness ownership amendment. Actual independent result:
 **6 families, 14 propositions from 8 documents, 7 substantive briefs, 7 editor-authored research
@@ -374,7 +374,13 @@ Current market and source-family gaps remain explicit; no numerical historical b
 
 The existing feed now continues history beyond 128 manifests using a verified checkpoint and
 avoids repeated content reads for unchanged hash-verified public bundles. The existing Daily App,
-store and four-window owner are extended; no parallel authority. One final real immutable Main
-multi-asset handoff/readback and scoped source/CI delivery remain. Exness data is Builder 3's
+store and four-window owner are extended; no parallel authority. Main commit
+`a50d8c6e8620cbf2e45aa93beee9e1b557484b30` and all 22 public files match exact committed and
+configured-root bytes. The same-store real readback received **4 ancestors + 4 editorial records,
+including 3 latest assets** (UKOIL v2, USOIL v4, XNGUSD v2); restart added **0**, with zero gaps.
+The joined library preserves clocks, PIT, rights, proxy limits and fact/analysis/scenario labels.
+Scoped [PR90](https://github.com/fatcat2109/capital-chronicle-contentops/pull/90) retains the final
+source/remote/exact-head CI readback and CodeGraph epoch; the owning handoff includes the full
+completion matrix and actual final Main render inspection. Merge/deploy are excluded. Exness data is Builder 3's
 exclusive producer lane; ContentOps neither reads private Main catalog/account/portfolio nor
 contacts database chats. LLM pause remains active.
