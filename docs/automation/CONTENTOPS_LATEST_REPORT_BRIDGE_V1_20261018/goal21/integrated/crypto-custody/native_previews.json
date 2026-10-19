@@ -1,0 +1,127 @@
+{
+  "telegram": {
+    "format": "channel_brief",
+    "text": "NEWSROOM BRIEF\n\nNghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\nWhat to watch: Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1024,
+    "hard_truncation_used": false,
+    "media_asset_ids": []
+  },
+  "x": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a",
+    "reply_texts": [
+      "Watch: Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a\n\nWatch: Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 280,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "Watch: Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        277,
+        188
+      ],
+      "per_post_character_utilization": [
+        0.989,
+        0.671
+      ],
+      "shortest_longest_reply_ratio": 0.679,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "linkedin": {
+    "format": "professional_brief",
+    "text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nWhy it matters: Suy luận ContentOps: thay đổi điều kiện lưu ký có thể thay đổi cách trung gian tổ chức vận hành.\n\nContext: Nghiên cứu biên tập chưa duyệt.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 3000,
+    "hard_truncation_used": false
+  },
+  "discord": {
+    "format": "newsroom_brief",
+    "text": "**Newsroom brief: Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá**\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\n**Context:** Nghiên cứu biên tập chưa duyệt.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2000,
+    "hard_truncation_used": false
+  },
+  "facebook_page": {
+    "format": "page_brief",
+    "text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\nWhy it matters: Suy luận ContentOps: thay đổi điều kiện lưu ký có thể thay đổi cách trung gian tổ chức vận hành.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 63206,
+    "hard_truncation_used": false
+  },
+  "instagram_business": {
+    "format": "brief_caption",
+    "text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\nIn focus: Nghiên cứu biên tập chưa duyệt.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a\n\n#CapitalChronicle\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2200,
+    "hard_truncation_used": false
+  },
+  "threads": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a",
+    "reply_texts": [
+      "What to watch: Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a\n\nWhat to watch: Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 500,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "What to watch: Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        189,
+        196
+      ],
+      "per_post_character_utilization": [
+        0.378,
+        0.392
+      ],
+      "shortest_longest_reply_ratio": 0.964,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "youtube": {
+    "format": "community_brief",
+    "text": "Update: Nghiên cứu: Đề xuất lưu ký crypto: phạm vi áp dụng quan trọng hơn phản ứng giá\n\nPhân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.\n\nWhat to watch: Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-6b2fbbcfcaa03e2a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1000,
+    "hard_truncation_used": false
+  }
+}

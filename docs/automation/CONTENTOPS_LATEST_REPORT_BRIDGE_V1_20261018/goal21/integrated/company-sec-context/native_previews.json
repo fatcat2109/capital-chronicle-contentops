@@ -1,0 +1,127 @@
+{
+  "telegram": {
+    "format": "channel_brief",
+    "text": "NEWSROOM BRIEF\n\nNghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nWhat to watch: Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1024,
+    "hard_truncation_used": false,
+    "media_asset_ids": []
+  },
+  "x": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91",
+    "reply_texts": [
+      "Watch: Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91\n\nWatch: Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 280,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "Watch: Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        263,
+        191
+      ],
+      "per_post_character_utilization": [
+        0.939,
+        0.682
+      ],
+      "shortest_longest_reply_ratio": 0.726,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "linkedin": {
+    "format": "professional_brief",
+    "text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nWhy it matters: Suy luận ContentOps: chi phí giao dịch và cơ chế định giá có thể ảnh hưởng việc thực hiện giao dịch của quỹ; hồ sơ doanh nghiệp lại trả lời câu hỏi về hoạt động, rủi ro và kết quả kinh doanh.\n\nContext: Nghiên cứu biên tập chưa duyệt.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 3000,
+    "hard_truncation_used": false
+  },
+  "discord": {
+    "format": "newsroom_brief",
+    "text": "**Newsroom brief: Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ**\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\n**Context:** Nghiên cứu biên tập chưa duyệt.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2000,
+    "hard_truncation_used": false
+  },
+  "facebook_page": {
+    "format": "page_brief",
+    "text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nWhy it matters: Suy luận ContentOps: chi phí giao dịch và cơ chế định giá có thể ảnh hưởng việc thực hiện giao dịch của quỹ; hồ sơ doanh nghiệp lại trả lời câu hỏi về hoạt động, rủi ro và kết quả kinh doanh.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 63206,
+    "hard_truncation_used": false
+  },
+  "instagram_business": {
+    "format": "brief_caption",
+    "text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nIn focus: Nghiên cứu biên tập chưa duyệt.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91\n\n#CapitalChronicle\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2200,
+    "hard_truncation_used": false
+  },
+  "threads": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91",
+    "reply_texts": [
+      "What to watch: Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91\n\nWhat to watch: Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 500,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "What to watch: Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        189,
+        199
+      ],
+      "per_post_character_utilization": [
+        0.378,
+        0.398
+      ],
+      "shortest_longest_reply_ratio": 0.95,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "youtube": {
+    "format": "community_brief",
+    "text": "Update: Nghiên cứu: Tách hồ sơ doanh nghiệp khỏi đề xuất thay đổi cơ chế giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nWhat to watch: Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-e1a5b300a0c24c91\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1000,
+    "hard_truncation_used": false
+  }
+}

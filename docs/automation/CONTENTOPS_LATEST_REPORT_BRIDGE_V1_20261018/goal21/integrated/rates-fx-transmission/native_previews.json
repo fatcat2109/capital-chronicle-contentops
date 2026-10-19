@@ -1,0 +1,127 @@
+{
+  "telegram": {
+    "format": "channel_brief",
+    "text": "NEWSROOM BRIEF\n\nNghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\nWhat to watch: Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1024,
+    "hard_truncation_used": false,
+    "media_asset_ids": []
+  },
+  "x": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a",
+    "reply_texts": [
+      "Watch: Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a\n\nWatch: Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 280,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "Watch: Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        270,
+        178
+      ],
+      "per_post_character_utilization": [
+        0.964,
+        0.636
+      ],
+      "shortest_longest_reply_ratio": 0.659,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "linkedin": {
+    "format": "professional_brief",
+    "text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nWhy it matters: Suy luận ContentOps: thay đổi kỳ vọng chênh lệch lãi suất có thể thay đổi sức hấp dẫn tương đối của tiền tệ.\n\nContext: Nghiên cứu biên tập chưa duyệt.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 3000,
+    "hard_truncation_used": false
+  },
+  "discord": {
+    "format": "newsroom_brief",
+    "text": "**Newsroom brief: Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá**\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\n**Context:** Nghiên cứu biên tập chưa duyệt.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2000,
+    "hard_truncation_used": false
+  },
+  "facebook_page": {
+    "format": "page_brief",
+    "text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\nWhy it matters: Suy luận ContentOps: thay đổi kỳ vọng chênh lệch lãi suất có thể thay đổi sức hấp dẫn tương đối của tiền tệ.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 63206,
+    "hard_truncation_used": false
+  },
+  "instagram_business": {
+    "format": "brief_caption",
+    "text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\nIn focus: Nghiên cứu biên tập chưa duyệt.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a\n\n#CapitalChronicle\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2200,
+    "hard_truncation_used": false
+  },
+  "threads": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a",
+    "reply_texts": [
+      "What to watch: Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a\n\nWhat to watch: Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 500,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "What to watch: Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        182,
+        186
+      ],
+      "per_post_character_utilization": [
+        0.364,
+        0.372
+      ],
+      "shortest_longest_reply_ratio": 0.978,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "youtube": {
+    "format": "community_brief",
+    "text": "Update: Nghiên cứu: Đọc USD sau quyết định lãi suất: bắt đầu từ đúng cặp tỷ giá\n\nGiúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.\n\nWhat to watch: Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-dbdca86b37bb106a\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1000,
+    "hard_truncation_used": false
+  }
+}

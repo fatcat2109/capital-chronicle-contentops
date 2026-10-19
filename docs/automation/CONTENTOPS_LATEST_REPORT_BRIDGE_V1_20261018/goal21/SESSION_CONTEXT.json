@@ -1,0 +1,23 @@
+{
+  "goal": 21,
+  "classification": "PARTIAL_CAPABILITY_REUSE_COMPONENTS",
+  "base_commit": "bc79e30c8088a9deb47f3942aa15914a59b69799",
+  "branch": "codex/goal21-multi-asset-research-library",
+  "model_setting_changed": false,
+  "reasoning_setting_changed": false,
+  "actual_model_identifier": "NOT_EXPOSED_BY_CURRENT_TOOL_SURFACE",
+  "actual_reasoning_effort": "NOT_EXPOSED_BY_CURRENT_TOOL_SURFACE",
+  "llm_pause_preserved": true,
+  "control_tower_discovery": "Existing dated Control Tower maps official evidence and asset-pricing owners; status not promoted from that map. Current public Treasury packet dated 2026-07-13 is retained context only, not current market authority. No private Main catalog/demo/portfolio read.",
+  "owner_boundary_amendment": {
+    "source": "Jim via operator, 2026-10-19",
+    "Exness_data_owner": "Database Builder 3, 01a1038d-2fc7-7620-a8cb-d712ec726127",
+    "forbidden_in_ContentOps": [
+      "MT5/Exness history/quotes/account access",
+      "private raw catalog/portfolio reads",
+      "database acquisition/normalization/query-engine work",
+      "numeric SEC/macro/options history backfill"
+    ],
+    "allowed": "Existing public-safe Main manifest and bounded independently permitted editorial propositions, research briefs, source-backed media and library. No database chat contact; no wait for full database."
+  }
+}

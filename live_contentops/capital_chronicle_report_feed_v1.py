@@ -178,12 +178,26 @@ class MainReportFeed:
         if not hasattr(self.source, "refresh") and not 0 < len(pointer.get("bundles", [])) <= 64:
             raise LatestReportConsumerError("MAIN_FEED_BUNDLE_BOUND_INVALID")
 
+    def refresh_research_library(self, *, cutoff_utc):
+        if self.retained_research is None:
+            return None
+        from live_contentops.contentops_foundation_library_v1 import persist_library
+        briefs = []
+        brief_path = self.retained_research.root / "editorial_briefs.json"
+        if brief_path.is_file() and brief_path.stat().st_size <= 1_000_000:
+            try:
+                briefs = json.loads(brief_path.read_bytes())["briefs"][:32]
+            except (ValueError, KeyError, TypeError):
+                self.research_error = "EDITORIAL_BRIEFS_UNAVAILABLE_OR_INVALID"
+        return persist_library(self.tracker, self.retained_research, cutoff_utc=cutoff_utc, briefs=briefs)
+
     def poll(self, *, cutoff_utc: str) -> dict[str, Any]:
         owner = "cc-feed-" + uuid4().hex
         lease = self.tracker.store.acquire_lease(
             "internal:cc-report-feed", owner, ttl_seconds=120
         )
         try:
+            self.refresh_research_library(cutoff_utc=cutoff_utc)
             bundles, gaps = [], []
             if self.pointer_loader is not None:
                 try:
@@ -220,24 +234,38 @@ class MainReportFeed:
                         FEED,
                     )
                     return summary
-            manifest = None
+            manifest, previous, history_checkpoint = None, None, None
+            artifact_cache, reused = {}, 0
             specs = self.pointer.get("bundles", [])
             if hasattr(self.source, "refresh"):
                 scans = [json.loads(r["payload"]) for r in self.tracker.store.list_outbox_messages() if r["destination"] == FEED]
-                previous = next((s for s in reversed(scans) if s.get("manifest_sha256") and s.get("export_root_id") == self.pointer.get("export_root_id")), None)
+                previous = next((s for s in reversed(scans) if (s.get("manifest_sha256") or s.get("history_checkpoint")) and s.get("export_root_id") == self.pointer.get("export_root_id")), None)
                 try:
                     manifest = self.source.refresh(cutoff_utc=cutoff_utc, previous=previous)
                     specs = manifest["entries"]
                 except (OSError, ValueError, KeyError, TypeError) as exc:
                     gaps.append({"state": str(exc) if isinstance(exc, LatestReportConsumerError) else "MAIN_PUBLIC_EXPORT_UNAVAILABLE"})
+                    history_checkpoint = getattr(exc, "checkpoint", None)
                     specs = []
             withdrawals = []
+            received_by_id = {r["receipt_id"]: r for r in self.tracker.receipts()}
             for spec in specs:
                 try:
                     if spec.get("event_type") == "WITHDRAWAL":
                         withdrawals.append(spec)
                         continue
+                    event_key = sha256_of(spec)
+                    fingerprint = self.source.artifact_fingerprint(spec) if manifest else None
+                    cached = (previous or {}).get("artifact_cache", {}).get(event_key)
+                    existing_cached = received_by_id.get(cached["receipt_id"]) if cached else None
+                    if (cached and fingerprint == cached.get("fingerprint") and existing_cached
+                            and existing_cached["status"] in CURRENT
+                            and _time(previous["observed_at_utc"]) <= _time(cutoff_utc)):
+                        artifact_cache[event_key] = cached
+                        reused += 1
+                        continue
                     b = self.source.bundle(spec)
+                    b["cache_key"], b["fingerprint"] = event_key, fingerprint
                     e = json.loads(b["envelope"])
                     if _private(e):
                         gaps.append({"state": "PRIVATE_CONTEXT_EXCLUDED"})
@@ -288,6 +316,8 @@ class MainReportFeed:
                 )
                 if existing:
                     self.tracker.consume(existing, receipt_id=existing["receipt_id"])
+                    if b.get("fingerprint"):
+                        artifact_cache[b["cache_key"]] = {"fingerprint": b["fingerprint"], "receipt_id": existing["receipt_id"]}
                     events.append(
                         {
                             "report_id": existing["report_id"],
@@ -328,6 +358,8 @@ class MainReportFeed:
                     r["receipt_id"] == receipt_id for r in self.tracker.receipts()
                 )
                 record = self.tracker.consume(validation, receipt_id=receipt_id)
+                if b.get("fingerprint") and record["status"] in CURRENT:
+                    artifact_cache[b["cache_key"]] = {"fingerprint": b["fingerprint"], "receipt_id": receipt_id}
                 new += int(not was_seen)
                 events.append(
                     {
@@ -349,6 +381,14 @@ class MainReportFeed:
                     new += int(event["state"] == "CLAIMS_WITHDRAWN")
                 except (ValueError, KeyError, TypeError):
                     gaps.append({"state": "MAIN_PUBLIC_WITHDRAWAL_INVALID"})
+            if reused:
+                seen_receipts = {e.get("receipt_id") for e in events}
+                events.extend({"report_id": r["report_id"], "report_version": r["report_version"],
+                               "receipt_id": r["receipt_id"], "state": "DUPLICATE_NOOP"}
+                              for cached in artifact_cache.values()
+                              for r in [received_by_id.get(cached["receipt_id"])]
+                              if r and r["receipt_id"] not in seen_receipts)
+                events.sort(key=lambda e: ("WITHDRAW" in e.get("state", ""), e.get("report_version", 10**9), e.get("report_id", "")))
             summary = {
                 "schema_version": SCHEMA,
                 "producer_commit": self.pointer.get("producer_commit"),
@@ -357,6 +397,10 @@ class MainReportFeed:
                 "new_events": new,
                 "events": events,
                 "gaps": gaps,
+                "artifact_cache": artifact_cache,
+                "unchanged_artifact_bundles_reused": reused,
+                **({"history_checkpoint": history_checkpoint, "export_root_id": self.pointer.get("export_root_id"),
+                    "manifest_sha256": (previous or {}).get("manifest_sha256")} if history_checkpoint else {}),
                 "coverage": "MAIN_PUBLIC_FILE_OUTBOX" if manifest else "CONFIGURED_IMMUTABLE_EXPORTS_ONLY",
                 **({"manifest_sha256": manifest["manifest_sha256"], "export_root_id": manifest["export_root_id"]} if manifest else {}),
                 "public_write_performed": False,
@@ -453,6 +497,7 @@ class MainReportFeed:
             MainHeadlineExporter,
             permitted_report_headlines,
         )
+        self.refresh_research_library(cutoff_utc=cutoff_utc)
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_dir
 
         export = MainHeadlineExporter(self.tracker.store, research=self.retained_research).export(

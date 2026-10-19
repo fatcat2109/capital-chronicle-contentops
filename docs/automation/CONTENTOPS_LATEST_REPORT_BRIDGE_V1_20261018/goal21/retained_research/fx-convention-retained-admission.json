@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal21-fx-convention",
+      "title": "Federal Reserve Board - Foreign Exchange Rates - H.10 - October 13, 2026",
+      "source_url": "https://www.federalreserve.gov/releases/h10/current/",
+      "publisher": "www.federalreserve.gov",
+      "source_identity": "www.federalreserve.gov",
+      "raw_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "canonical_content_text": "Home Data Foreign Exchange Rates - H.10 Current Release Release Dates Country Data Nominal/Real Indexes Currency Weights G.5 G.5A About Announcements Technical Q&As During the week of November 9, the “Build Your Package” feature in the Data Download Program (DDP) will be removed in preparation for the eventual retirement of the DDP. Users can access data and expanded download options through the Federal Reserve Bank of St. Louis's Federal Reserve Economic Data (FRED). Learn more about the DDP and FRED partnership. RSS Data Download FRED XML Effective June 24, 2019, the Federal Reserve Board staff will make a change to the indexation of the daily Broad, AFE, and EME dollar indexes. For more information, see the \"Technical Q&As\". Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk) COUNTRY CURRENCY Oct. 5 Oct. 6 Oct. 7 Oct. 8 Oct. 9 *AUSTRALIA DOLLAR 0.6969 0.6984 0.6962 0.6949 0.6979 BRAZIL REAL 4.9879 4.9739 4.9983 5.0067 4.9790 CANADA DOLLAR 1.4244 1.4219 1.4255 1.4246 1.4269 CHINA, P.R. YUAN 6.7038 6.7038 6.7038 6.7021 6.6920 DENMARK KRONE 6.6665 6.6373 6.6806 6.6786 6.6780 *EMU MEMBERS EURO 1.1211 1.1262 1.1187 1.1192 1.1193 HONG KONG DOLLAR 7.8469 7.8475 7.8478 7.8484 7.8476 INDIA RUPEE 96.2900 96.4200 96.7600 96.7800 96.7300 JAPAN YEN 157.9700 158.1200 158.1100 158.3300 158.3400 MALAYSIA RINGGIT 4.0850 4.0825 4.0860 4.0890 4.0830 MEXICO PESO 18.1315 17.9578 17.9879 18.1709 18.3990 *NEW ZEALAND DOLLAR 0.5598 0.5626 0.5597 0.5594 0.5611 NORWAY KRONE 9.5867 9.5593 9.5753 9.5823 9.5665 SINGAPORE DOLLAR 1.2797 1.2770 1.2798 1.2819 1.2811 SOUTH AFRICA RAND 16.6615 16.5136 16.6377 16.6514 16.5320 SOUTH KOREA WON 1341.7000 1337.8800 1339.1200 1343.3400 1342.1300 SRI LANKA RUPEE 330.5000 330.6000 330.8500 330.9800 330.8000 SWEDEN KRONA 10.0408 9.9800 10.0123 10.0097 10.0039 SWITZERLAND FRANC 0.8313 0.8306 0.8338 0.8335 0.8308 TAIWAN DOLLAR 31.7700 31.7900 31.8800 31.9400 31.9400 THAILAND BAHT 33.6800 33.6000 33.6600 33.6900 33.5500 *UNITED KINGDOM POUND 1.3217 1.3281 1.3213 1.3211 1.3229 VENEZUELA BOLIVAR 869.1905 870.2117 871.6823 872.5453 873.4614 Memo: UNITED STATES DOLLAR 1) BROAD JAN06=100 121.2708 120.8976 121.2558 121.4469 121.6023 2) AFE JAN06=100 115.1068 114.7623 115.2698 115.2510 115.2410 3) EME JAN06=100 129.2213 128.8131 129.0128 129.4339 129.7715 * U.S. dollars per currency unit. ND = No data for this date. Please visit the Currency Weights page (http://www.federalreserve.gov/releases/H10/Weights) for current weights and country composition of the Broad Index. 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners. 2) A weighted average of the foreign exchange value of the U.S. dollar against a subset of the broad index currencies that are advanced foreign economies. 3) A weighted average of the foreign exchange value of the U.S. dollar against a subset of the broad index currencies that are emerging market economies. Last Update: October 13, 2026 Back to Top",
+      "canonical_content_sha256": "67e76d5c5e13e0c96d2245e87f9c028c17528a838a5a595d2f9a491034174f55",
+      "source_adapter_family": "official_policy",
+      "source_authority_class": "official_public_primary_source",
+      "published_at_utc": "2026-10-13T00:00:00Z",
+      "publication_time_precision": "DATE_ONLY",
+      "published_at_source": "RETAINED_SOURCE_VISIBLE_DATE",
+      "source_modified_at_utc": null,
+      "content_truncated": false,
+      "retrieval_method": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-19T09:17:57.384Z",
+    "capture_operation": "EDITORIAL_READ_ONLY_VISIBLE_TEXT",
+    "network_calls_by_materializer": 0
+  }
+}

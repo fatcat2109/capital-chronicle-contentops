@@ -1,0 +1,23 @@
+{
+  "title": "Nghiên cứu: Một vị thế phái sinh có thể là phòng hộ, không phải dự báo hướng giá",
+  "dek": "Chuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.",
+  "subtitle": "Chuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.",
+  "market_mechanism": "Suy luận ContentOps: cùng một vị thế có thể thuộc giao dịch đầu cơ hoặc một phần phòng hộ tài sản khác. Quyền chọn gắn với hợp đồng cơ sở và điều kiện thực hiện cụ thể.",
+  "policy_context": "Nghiên cứu biên tập chưa duyệt. Dịch chuyển vị thế có thể đến từ chuyển kỳ hạn, đóng giao dịch hoặc tái cân bằng, thay vì thay đổi niềm tin về thị trường.",
+  "cross_asset_implications": "Dữ liệu nào phân biệt được phòng hộ với đầu cơ trong trường hợp cụ thể?",
+  "substack_body_markdown": "## Phạm vi\n\nBản nghiên cứu nền do biên tập soạn. Không phải kết quả Simple mới, dự báo Core, bài đã duyệt hay bản tin giá hiện tại.\n\n## Dữ kiện từ nguồn\n\nA commodity futures option gives the purchaser the right to buy or sell a particular futures contract at a future date for a particular price [[SOURCE:SOURCE_1]]\n\nNgày nguồn: chưa xác minh. Tình trạng: UNDATED_FOUNDATION_BACKGROUND.\n\n## Dữ kiện từ nguồn\n\nMost participants are “hedgers” who trade futures to maximize the value of their assets, and to reduce the risk of financial losses from price changes Other participants are “speculators” who attempt to profit from price changes in futures contracts [[SOURCE:SOURCE_2]]\n\nNgày nguồn: chưa xác minh. Tình trạng: UNDATED_FOUNDATION_BACKGROUND.\n\n## Vì sao đáng đọc\n\nChuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.\n\n## Cơ chế cần kiểm tra\n\nSuy luận ContentOps: cùng một vị thế có thể thuộc giao dịch đầu cơ hoặc một phần phòng hộ tài sản khác. Quyền chọn gắn với hợp đồng cơ sở và điều kiện thực hiện cụ thể.\n\n## Giải thích cạnh tranh\n\nDịch chuyển vị thế có thể đến từ chuyển kỳ hạn, đóng giao dịch hoặc tái cân bằng, thay vì thay đổi niềm tin về thị trường.\n\n## Kịch bản điều kiện\n\nNếu có chuỗi hợp đồng và kỳ hạn đầy đủ, so sánh cùng cơ sở trước và sau thay đổi.\nNếu chỉ có tổng vị thế, mô tả giới hạn và giữ câu hỏi về động cơ mở.\n\n## Điều kiện bác bỏ\n\nThiếu kỳ hạn, cách thanh toán hoặc contract multiplier: không tổng hợp thành một tín hiệu định lượng.\nCFTC mô tả commodity futures; không tự động suy rộng quy định sang mọi index option.\n\n## Còn thiếu\n\nNguồn chuỗi index option có quyền dùng; Expiry, settlement, IV, OI và cơ sở so sánh cùng hợp đồng\n\n## Câu hỏi tiếp\n\nDữ liệu nào phân biệt được phòng hộ với đầu cơ trong trường hợp cụ thể?\n\n## Nguồn\n\n[1] https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm\n[2] https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+  "authoring_origin": "EDITOR_AUTHORED_RESEARCH",
+  "article_mode": "DATA_OR_DOCUMENT_LENS",
+  "cluster_id": "options-positioning",
+  "headline_ids": [
+    "goal21-futures-option",
+    "goal21-futures-hedgers"
+  ],
+  "evidence_document_ids": [
+    "goal21-futures-option",
+    "goal21-futures-hedgers"
+  ],
+  "x_content_grants_factual_authority": false,
+  "publication_authority": false,
+  "editorial_scope_notice": "Nghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+}

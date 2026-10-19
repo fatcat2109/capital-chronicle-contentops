@@ -1,0 +1,486 @@
+{
+  "schema_version": "contentops.main_headline_projection.v1",
+  "sequence": 1,
+  "parent_page_sha256": null,
+  "authority_revision": "retained-record-permissions-v1:verified-permission-records-v2:3bfc2e0c77feae1002cac4601b8746f05277baebdcef0a6f180634349de2ec69",
+  "batch_id": "goal21-library-independent-research",
+  "observed_at_utc": "2026-10-19T11:19:55.582307Z",
+  "rows": [
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-fed-policy",
+      "headline_text": "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate. The Committee is continuing its policy of maintaining ample reserves in the banking system.",
+      "text_sha256": "f3c2b2dba81a9c74413e075145026a0e08611a45353dc94bddfa82977fb9ba9a",
+      "source_identity": "www.federalreserve.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.federalreserve.gov",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "claimed_origins": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+      ],
+      "headline_timestamp": "2026-09-16T18:00:00Z",
+      "captured_at_utc": "2026-10-19T09:14:51.352Z",
+      "known_at_utc": "2026-10-19T09:14:51.352Z",
+      "retrieval_time_utc": "2026-10-19T09:14:51.352Z",
+      "revision_at_utc": "2026-10-19T09:14:51.352Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "b2695d3dfaa57540d20b0fb50a3eb708ce7c016b61b61caa29946336d9faf363",
+      "projection_sha256": "c3170f4c6bd826cb3df7077d02a087c52997d3f34b44b1ac23ab92f3651fcb03"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-fed-inflation",
+      "headline_text": "Inflation remains elevated. Today's policy action will support a timelier return to the Committee's 2 percent goal. The Committee will deliver price stability.",
+      "text_sha256": "b7f0dbc8ffe5b459eda07719fd59c38344144b80c0a7386720f9b958895c8466",
+      "source_identity": "www.federalreserve.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.federalreserve.gov",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "claimed_origins": [
+        "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+      ],
+      "headline_timestamp": "2026-09-16T18:00:00Z",
+      "captured_at_utc": "2026-10-19T09:14:51.352Z",
+      "known_at_utc": "2026-10-19T09:14:51.352Z",
+      "retrieval_time_utc": "2026-10-19T09:14:51.352Z",
+      "revision_at_utc": "2026-10-19T09:14:51.352Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "8c8fa9aef23bbeec98e095219d31b69e55733746a5d4d9df9b4f18ea74341563",
+      "projection_sha256": "2c8eb47dbd9495f8bd39dd33f77446fc7ff1aa1a673e4e30ddc6d7bd8b01e980"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-fx-convention",
+      "headline_text": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+      "text_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "source_identity": "www.federalreserve.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.federalreserve.gov",
+      "source_url": "https://www.federalreserve.gov/releases/h10/current/",
+      "claimed_origins": [
+        "https://www.federalreserve.gov/releases/h10/current/"
+      ],
+      "headline_timestamp": "2026-10-13T00:00:00Z",
+      "captured_at_utc": "2026-10-19T09:17:57.384Z",
+      "known_at_utc": "2026-10-19T09:17:57.384Z",
+      "retrieval_time_utc": "2026-10-19T09:17:57.384Z",
+      "revision_at_utc": "2026-10-19T09:17:57.384Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "e3060a6ac87a3122a68f536a7dfbefdb12a27ba9260502e2f2407ccc61d485ff",
+      "projection_sha256": "4e6baa97ac1e7269b31b6abcda1275a3655b98ef82e8609a11d0233c91bf05e4"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-fx-broad-index",
+      "headline_text": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners.",
+      "text_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "source_identity": "www.federalreserve.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.federalreserve.gov",
+      "source_url": "https://www.federalreserve.gov/releases/h10/current/",
+      "claimed_origins": [
+        "https://www.federalreserve.gov/releases/h10/current/"
+      ],
+      "headline_timestamp": "2026-10-13T00:00:00Z",
+      "captured_at_utc": "2026-10-19T09:17:57.384Z",
+      "known_at_utc": "2026-10-19T09:17:57.384Z",
+      "retrieval_time_utc": "2026-10-19T09:17:57.384Z",
+      "revision_at_utc": "2026-10-19T09:17:57.384Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "b39e81252d6155960fb9b58acd5b3c267c5f653f64d3095afdf2d0e58e4b8868",
+      "projection_sha256": "92a2227ddb88ef28284b7e490ab595943a128c8cd9018f6652c55f162fcdd3b4"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-sec-cross-trading",
+      "headline_text": "The proposed amendments would restore the ability to cross trade most fixed-income securities and modernize the rule’s conditions, including those related to pricing and oversight of cross trades. These modernizations would, among other things, recognize market developments that have led to pricing that is more verifiable and transparent. The proposal would also require aggregated reporting of trading activity and cross trades by registered funds that engage in cross trading to provide additional transparency.",
+      "text_sha256": "d5d8038c797f1b4e45054db2a97d1f9b7ba325b77cb1938657dc75873e586405",
+      "source_identity": "www.sec.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.sec.gov",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds",
+      "claimed_origins": [
+        "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds"
+      ],
+      "headline_timestamp": "2026-10-09T00:00:00Z",
+      "captured_at_utc": "2026-10-19T09:18:00.277Z",
+      "known_at_utc": "2026-10-19T09:18:00.277Z",
+      "retrieval_time_utc": "2026-10-19T09:18:00.277Z",
+      "revision_at_utc": "2026-10-19T09:18:00.277Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "9357e7a9299740d1b09dbe2ab838118e7adf7a5e08928eeffe5c825372dd1669",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "0236ca231541cba54dc489e1b4d0b9a858d4f666d97eb359bf2db6cbaf0294f8",
+      "projection_sha256": "a509072d51ae2165278ef8dc7ba3a6649ddbacce3ceb04cf725de57d66fde637"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-crypto-custody-proposal",
+      "headline_text": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies.",
+      "text_sha256": "ed8a76101f6816ab13ba13eb7f60ede5d791b56bfdc79de58f24455b74cdaa44",
+      "source_identity": "www.sec.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.sec.gov",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal",
+      "claimed_origins": [
+        "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal"
+      ],
+      "headline_timestamp": "2026-10-01T00:00:00Z",
+      "captured_at_utc": "2026-10-19T09:18:00.480Z",
+      "known_at_utc": "2026-10-19T09:18:00.480Z",
+      "retrieval_time_utc": "2026-10-19T09:18:00.480Z",
+      "revision_at_utc": "2026-10-19T09:18:00.480Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "crypto"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "1cb0e665e5afce0cfd2aaa943967ee7bd3def126d171c63d5891071c0e53ad06",
+      "projection_sha256": "61ddf6770908c5a931e57d25aa9d720c2cd8134d79140604e8472b488edc3d2c"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-crypto-custody-conditions",
+      "headline_text": "The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets.",
+      "text_sha256": "0afcda60cf97045687f94138f0cf961ced15427c8c27c8f340c6ee970ad9e657",
+      "source_identity": "www.sec.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.sec.gov",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal",
+      "claimed_origins": [
+        "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal"
+      ],
+      "headline_timestamp": "2026-10-01T00:00:00Z",
+      "captured_at_utc": "2026-10-19T09:18:00.480Z",
+      "known_at_utc": "2026-10-19T09:18:00.480Z",
+      "retrieval_time_utc": "2026-10-19T09:18:00.480Z",
+      "revision_at_utc": "2026-10-19T09:18:00.480Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "crypto"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "7c20b104e65f4c0a3a4f6e50a8836954d61f63bd96dffc5cf41b236a73b8c9d0",
+      "projection_sha256": "50271702a61ad60ac6ba9a68840b3fc2cf40fb7d6f85af3d6fafa463674dbff5"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-gas-storage",
+      "headline_text": "Working natural gas stocks totaled 3,065 Bcf, which is 177 Bcf (6%) more than the five-year average and 141 Bcf (5%) more than last year at this time.",
+      "text_sha256": "85ce6732bce3a3189b2ceaf250ec54bcb3f335c4580e1a77bd597bd866abac2b",
+      "source_identity": "www.eia.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.eia.gov",
+      "source_url": "https://www.eia.gov/naturalgas/weekly/",
+      "claimed_origins": [
+        "https://www.eia.gov/naturalgas/weekly/"
+      ],
+      "headline_timestamp": "2026-01-22T00:00:00Z",
+      "captured_at_utc": "2026-10-19T09:17:58.714Z",
+      "known_at_utc": "2026-10-19T09:17:58.714Z",
+      "retrieval_time_utc": "2026-10-19T09:17:58.714Z",
+      "revision_at_utc": "2026-10-19T09:17:58.714Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "energy"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "849e46d39da75591ab71a50784d3be38bbf780e13149ef4a42ed4b989e089029",
+      "projection_sha256": "502d62a4a7c7e70ccd0fe5723eace5c12de6d00681efe4135aa03a5c616ecfd9"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-gas-series-migration",
+      "headline_text": "This week is the final publication of the Natural Gas Weekly Update. On January 29, we are launching the Weekly Natural Gas Storage Report (WNGSR) Supplement on EIA's Beta site. This supplement will be published every Thursday afternoon. You can find information on our upcoming releases and how to contact us on our website.",
+      "text_sha256": "946c283627f3fcc1eb6a800157a8d8fdb5ff046b57274a8b8a1e96722a8797b8",
+      "source_identity": "www.eia.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.eia.gov",
+      "source_url": "https://www.eia.gov/naturalgas/weekly/",
+      "claimed_origins": [
+        "https://www.eia.gov/naturalgas/weekly/"
+      ],
+      "headline_timestamp": "2026-01-22T00:00:00Z",
+      "captured_at_utc": "2026-10-19T09:17:58.714Z",
+      "known_at_utc": "2026-10-19T09:17:58.714Z",
+      "retrieval_time_utc": "2026-10-19T09:17:58.714Z",
+      "revision_at_utc": "2026-10-19T09:17:58.714Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "energy"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "SEALED_MAIN_PUBLIC_REPORT"
+      },
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "source_permission_record_sha256": "f885072034c037eba764aa0cbb41ca4d118f31cad544f4bd93141ae040265651",
+      "projection_sha256": "71e75c7382b8e56a22e40714fe311f490d4954dc465482418f19a35c71f60ee9"
+    }
+  ],
+  "gaps": [
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "record_sha256": "f124e2b3a669914fab1938f722bce52909ccc842edd1d8baf7a398edd09dd55f"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "record_sha256": "5c60f4aeea8bfc2ebde03875846c7d7cad14a551c7d759b65571635256620658"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "record_sha256": "aa2028bfa0dcabde1063f6fdd278f44659281ca02bc4ac8905e211e583a33b2c"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "record_sha256": "5370a37e57bb3ea957a10a1ce92c3e3922f417ee3fcadfc74f4493dd2c37b4c3"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "record_sha256": "2e473aabdd2db7ae03395ed7b734c32b3b67a131fc38bc61d2ac4ba1c6b78ef7"
+    }
+  ],
+  "source_rows_scanned": 0,
+  "eligible_rows": 9,
+  "missing_rows": 5,
+  "independent_items": 9,
+  "main_origin_recirculated_items": 0,
+  "cursors": {},
+  "deferred": {},
+  "files": [],
+  "discovered_file_count": 0,
+  "coverage": "BOUNDED_INCREMENTAL_PREFIXES_NOT_HISTORICAL_COMPLETENESS",
+  "bulk_capture_mutated": false,
+  "public_write_performed": false,
+  "page_sha256": "59b5290cfab2e2d41609f70db34362abea567a8026cb5a1202003d1c64660399"
+}

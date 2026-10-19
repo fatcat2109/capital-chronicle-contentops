@@ -15,3 +15,7 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/grid_acquisit
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/retained_research/** binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/acceptance/**/*.json binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/bls_browser/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/acquisition/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/integrated/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/main_batch/**/*.json binary

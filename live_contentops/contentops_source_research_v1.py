@@ -25,6 +25,21 @@ from live_contentops.official_primary_evidence_loader_v1 import (
 SCHEMA = "contentops.retained_source_research.v1"
 # These are authorship-specific policies, not an allowlist granting all .gov content rights.
 POLICIES = {
+    "www.federalreserve.gov": (
+        "https://www.federalreserve.gov/disclaimer.htm",
+        ("public domain", "copied and distributed without permission", "non-board"),
+        ("/newsevents/pressreleases/monetary", "/releases/h10/"),
+    ),
+    "www.sec.gov": (
+        "https://www.sec.gov/about/privacy-information",
+        ("information presented on sec.gov", "copied or further distributed", "please do not use the sec seal"),
+        ("/answers/reada10k.htm", "/newsroom/press-releases/"),
+    ),
+    "www.cftc.gov": (
+        "https://www.cftc.gov/WebPolicy/index.htm",
+        ("public domain", "freely distributed and copied", "written permission of the copyright owners"),
+        ("/LearnAndProtect/AdvisoriesAndArticles/",),
+    ),
     "www.bls.gov": (
         "https://www.bls.gov/bls/linksite.htm",
         (
@@ -139,6 +154,7 @@ class RetainedSourceResearch:
         )
         if rendered_source:
             capture = _rendered(raw, doc["source_url"])
+        if spec.get("policy_capture_class", spec.get("capture_class")) == "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE":
             policy_capture = _rendered(policy, rule[0])
             policy_text = _normalize(policy_capture["canonical_content_text"]).lower()
         else:
@@ -155,8 +171,11 @@ class RetainedSourceResearch:
             or capture_hash != spec["source_capture_sha256"]
         ):
             raise ValueError("SOURCE_CAPTURE_HASH_MISMATCH")
+        authored_family = {"www.bls.gov": "official_macro", "www.eia.gov": "official_macro",
+                           "www.federalreserve.gov": "official_policy", "www.sec.gov": "sec_regulatory",
+                           "www.cftc.gov": "official_regulatory_fiscal"}
         if (
-            doc["source_adapter_family"] != "official_macro"
+            doc["source_adapter_family"] != authored_family.get(url.hostname)
             or doc["source_authority_class"] != "official_public_primary_source"
         ):
             raise ValueError("SOURCE_AUTHORSHIP_NOT_SUPPORTED")
@@ -193,7 +212,8 @@ class RetainedSourceResearch:
             context_texts.append(_normalize(canonical[context_start:context_end]))
         known = loader["provenance"]["retrieved_at_utc"]
         revision = spec.get("revision_at_utc") or known
-        if not _time(doc["published_at_utc"]) <= _time(known) <= _time(revision):
+        published = doc.get("published_at_utc")
+        if (published is not None and _time(published) > _time(known)) or _time(known) > _time(revision):
             raise ValueError("RESEARCH_CLOCK_ORDER_INVALID")
         if _time(spec["policy_retrieved_at_utc"]) > _time(revision):
             raise ValueError("SOURCE_PERMISSION_NOT_KNOWN_AT_REVISION")
@@ -241,6 +261,7 @@ class RetainedSourceResearch:
             "supporting_headline_ids": list(spec.get("supporting_headline_ids", []))[
                 :2
             ],
+            "research_metadata": dict(spec.get("research_metadata") or {}),
         }
         return record
 

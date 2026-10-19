@@ -294,3 +294,37 @@ def test_retained_exact_committed_main_chain_cold_start_and_restart(tmp_path):
     second = restarted.poll(cutoff_utc=receipt["observed_at_utc"])
     assert second["new_events"] == 0 and not second["gaps"]
     assert len(restarted.tracker.receipts()) == 2
+
+
+def test_cold_start_over_128_manifests_resumes_verified_history_without_admitting_early(tmp_path):
+    from datetime import datetime, timedelta, timezone
+    root, pointer, template, tracker = setup(tmp_path)
+    parent = None
+    for n in range(140):
+        value = control_manifest(root, template, template["entries"], parent,
+                                 (datetime(2026, 10, 19, 1, tzinfo=timezone.utc) + timedelta(minutes=n)).isoformat().replace("+00:00", "Z"))
+        parent = value["manifest_sha256"]
+    first = MainReportFeed(tracker, pointer, headline_paths=[]).poll(cutoff_utc=NOW)
+    assert first["history_checkpoint"]["verified_links"] == 128
+    assert not first["events"] and not tracker.receipts()
+    resumed = MainReportFeed(tracker, pointer, headline_paths=[])
+    assert resumed.poll(cutoff_utc=NOW)["new_events"] == 2
+    assert resumed.pending()[0]["report_version"] == 2
+
+
+def test_repeat_manifest_reuses_unchanged_artifacts_but_rechecks_modified_bytes(tmp_path, monkeypatch):
+    root, pointer, _, tracker = setup(tmp_path)
+    feed = MainReportFeed(tracker, pointer, headline_paths=[])
+    assert feed.poll(cutoff_utc=NOW)["new_events"] == 2
+    monkeypatch.setattr(feed.source, "bundle", lambda _: (_ for _ in ()).throw(AssertionError("unchanged bundle was reread")))
+    scan = feed.poll(cutoff_utc=NOW)
+    assert scan["unchanged_artifact_bundles_reused"] == 2 and scan["new_events"] == 0
+
+
+def test_cached_admission_cannot_claim_a_future_report_at_an_earlier_scan_cutoff(tmp_path):
+    _, pointer, _, tracker = setup(tmp_path)
+    feed = MainReportFeed(tracker, pointer, headline_paths=[])
+    feed.poll(cutoff_utc=NOW)
+    scan = feed.poll(cutoff_utc="2026-10-19T00:00:00Z")
+    assert scan["unchanged_artifact_bundles_reused"] == 0
+    assert scan["gaps"][0]["state"] == "MAIN_PUBLIC_MANIFEST_FUTURE_DEFERRED"

@@ -324,6 +324,18 @@ export type LoadState =
 
 
 export interface ReportWorkspaceData {
+  foundation_library?: {
+    research_revision: string; observed_at_utc: string;
+    counts: { independent_items: number; independent_documents?: number; useful_families: number; briefs: number; fresh_provider_drafts: number; qualified: number; published: number; editor_authored_packages?: number; native_previews?: number; media?: number };
+    input_composition?: { independent_research_items: number; evidence_complete_briefs: number; main_editorial_reports: number; main_unchanged_reports: number; main_history_only_reports: number; owner: string; routine_window_count: number; model_execution_state: string };
+    packages?: Array<{ brief_id: string; article_identity: string; stage: string; source_revision_current: boolean; article: NonNullable<ReportWorkspaceData['article']>; validation: { status: string; semantic_editorial_review: string; blockers: string[] }; previews: Record<string, Record<string, unknown>>; media_assets: Array<{ asset_id: string; caption: string; preview_data_url?: string; alt_text?: string; sha256: string }> }>;
+    families: Array<{ family: string; useful_items: number; briefs: number; missing_inputs: string[] }>;
+    items: Array<{ item_id: string; family: string; assets: string[]; horizons: string[]; proposition: string; context_kind: string; source_url: string; source_identity: string; rights_state: string; permission_sha256: string; source_capture_sha256: string; originality: string; known_at_utc: string; published_at_utc: string | null; source_modified_at_utc?: string | null; next_editorial_question: string; correction_of?: string | null }>;
+    briefs: Array<{ brief_id: string; title: string; families: string[]; stage: string; source_item_ids: string[]; audience_value: string; mechanism: string; competing_explanation: string; scenarios: string[]; falsifiers: string[]; missing_inputs: string[]; next_question: string; facts: Array<{ item_id: string; text: string; source_url: string; text_sha256: string }> }>;
+    gaps: Array<{ state: string }>; next_operation: string;
+    main_reports?: Array<{ report_id: string; report_version: number; asset_ids: string[]; families: string[]; status: string; change_kind: string; withdrawn: boolean; originality: string; next_editorial_question: string; context_kind: string; changed_claim_ids: string[]; horizons: Array<{ horizon: string; trading_sessions: number; outlook: string }>; public_claims: Array<{ claim_id: string; producer_layer: string; text: string; freshness_state: string; exact_or_proxy: string; basis_risk?: string | null }> }>;
+    report_admissions_and_noops?: Record<string, number>;
+  } | null;
   source_inventory?: { independent_items: number; main_origin_recirculated_items: number; scope: string };
   freshness?: { report_age_at_last_scan_seconds: number | null; claims: string[]; current_market_refresh_verified: boolean; scope: string };
   independent_results?: Array<{ classification: string; model_execution_state: string; article_identity: string; article: ReportWorkspaceData['article']; previews: ReportWorkspaceData['previews']; evidence?: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string }>; media_assets?: Array<{ asset_id: string; caption: string; path: string; sha256: string; underlying_source_rights_status: string; preview_data_url?: string; alt_text?: string }> }>;

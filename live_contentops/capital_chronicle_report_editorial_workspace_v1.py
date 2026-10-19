@@ -22,6 +22,7 @@ from live_contentops.llm_operator_control_v1 import (
     llm_operator_pause_active,
     LLMOperatorPausedError,
 )
+from live_contentops.contentops_foundation_library_v1 import library_projection
 
 STAGE = "internal:cc-report-editorial-stage"
 SCHEMA = "contentops.cc_report_editorial_workspace.v1"
@@ -292,6 +293,14 @@ def run_report_editorial_cycle(
         args["capital_chronicle_context"]["report_editorial_briefs"] = [
             build_report_editorial_input(r, output_dir=root, cutoff_utc=cutoff_utc)["brief"] for r in records
         ]
+        library = library_projection(tracker.store.list_outbox_messages())
+        if library:
+            args["capital_chronicle_context"]["foundation_library"] = {
+                "research_revision": library["research_revision"],
+                "briefs": library["briefs"][:16],
+                "families": library["families"],
+                "scope": "PUBLIC_RESEARCH_QUESTIONS_NOT_MAIN_NUMERIC_AUTHORITY",
+            }
         args["source_route_health"] = dict(source_route_health or {})
         args["attempted_candidate_ids"] = list(attempted_candidate_ids)
         stages.put(pool_key, {"args": args, "reports": records, "prepared_inputs": prepared_inputs,
@@ -632,6 +641,7 @@ def report_workspace_projection(
     return {
         "schema_version": SCHEMA,
         "state": "AVAILABLE" if latest else "UNAVAILABLE",
+        "foundation_library": library_projection(rows) if report_id is None else None,
         "report_events_received": len(admissions),
         "latest_report": latest,
         "report_history": admissions,
