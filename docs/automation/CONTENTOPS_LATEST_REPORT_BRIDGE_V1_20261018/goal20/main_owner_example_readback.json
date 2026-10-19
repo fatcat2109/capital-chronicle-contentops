@@ -85,5 +85,32 @@
   "consumer_gate_weakened": false,
   "private_data_read": false,
   "model_calls": 0,
-  "public_writes": 0
+  "public_writes": 0,
+  "corrected_uncommitted_example": {
+    "manifest_sha256": "45434bfec0f2ab9afca2afaa9be2ab384aa1dea80220f6b5892a87f8e51702f4",
+    "source_schema_version": "1.1.0",
+    "file_hashes_verified": 5,
+    "scan": {
+      "schema_version": "contentops.main_report_feed.v1",
+      "producer_commit": null,
+      "observed_at_utc": "2026-10-19T06:49:19.737581Z",
+      "configured_bundle_count": 1,
+      "new_events": 1,
+      "events": [
+        {
+          "report_id": "asset-report:USOIL",
+          "report_version": 2,
+          "receipt_id": "main-feed-d53d340ce6c24a808727b54965acfaa317ac4782adfd8c4e7defe055ef36f619",
+          "state": "LINEAGE_PARENT_NOT_RECEIVED",
+          "blockers": []
+        }
+      ],
+      "gaps": [],
+      "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+      "manifest_sha256": "45434bfec0f2ab9afca2afaa9be2ab384aa1dea80220f6b5892a87f8e51702f4",
+      "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+      "public_write_performed": false
+    },
+    "state": "SCHEMA_FIXED_LOCAL_PARENT_REQUIRED"
+  }
 }

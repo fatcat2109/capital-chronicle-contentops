@@ -54,6 +54,13 @@ this is a producer envelope/schema mismatch, not file corruption. The consumer c
 Main must emit a schema-valid immutable example under its existing contract. ContentOps does not
 rewrite Main claims, relax the schema, or manufacture a parent report to admit this example.
 
+The producer subsequently corrected its **local uncommitted** example to v1.1. Exact hash readback
+now passes its schema and reaches `LINEAGE_PARENT_NOT_RECEIVED`: the example is USOIL v2 and its
+exact parent is not in the one-event export. This is a named cold-start dependency. Existing
+accepted parents must be retained/restored, or Main must include their lawful public lineage in
+its handoff. The existing incremental XNGUSD v1→v2 and missed-window controls already pass; no
+missing parent is silently fabricated or waived.
+
 Required remaining handoff: Main's immutable producer revision + schema-valid example bytes/hashes + stable
 export-root id and configured public root. Then consume that exact handoff, verify current
 producer/consumer compatibility and record actual new manifest events. Until then Goal20 remains
