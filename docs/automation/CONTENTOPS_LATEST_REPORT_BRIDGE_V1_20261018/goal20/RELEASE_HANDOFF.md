@@ -95,13 +95,21 @@ Fresh provider, natural-calendar runtime and deployment remain unproven and outs
 
 ## Delivery and synchronization
 
+Final contract audit also reproduced an unchanged-ancestor ordering defect: an explicit
+`REPORT_ANCESTOR` with `NO_MATERIAL_CHANGE` could bypass the required-parent check as a generic
+no-op. The one-condition repair keeps it in the lineage path: missing parent stays blocked;
+after that parent arrives it becomes `LINEAGE_ONLY_NOOP` and cannot be prepared for writing.
+The new regression and the retained exact real-chain regression both pass in
+`resumed_unchanged_ancestor_tests.txt`. The earlier actual acceptance and its source identity
+remain immutable; the final source adds only this ancestor-specific condition.
+
 Source/evidence commit `a8894effa44d72950e4e91868c33bdfdd4fad7c9` was pushed to PR88.
 The staged/committed consumer Git blobs and all nine public evidence hashes match the actual
 acceptance. The existing CI owner refreshed CodeGraph in commit
 `bfae9d308edd717363cd46a599429549ec9db9f7`; its source epoch is `a8894effa44d72950e4e91868c33bdfdd4fad7c9`
 and source digest is `585bc7d4ad18c0b5705004ddb7c1fd2b49e14d25e099935040d582867ebd706c`.
-Final exact remote/PR head and its CI run are recorded in PR88's final verification section;
-that check must be green before the goal is closed. This handoff's final update changes docs only.
+Final exact remote/PR head, subsequent ancestor-condition fix, current CodeGraph identity and CI
+run are recorded in PR88's final verification section; that check must be green before goal closure.
 The real producer-to-consumer receipt above establishes admission independently of CI.
 Control Tower synchronization remains pending its separate serial owner; this checkpoint/PR supplies a
 durable, discoverable handoff and claims no shared database/status-owner mutation or credit.

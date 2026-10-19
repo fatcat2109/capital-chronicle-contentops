@@ -943,6 +943,7 @@ class LatestReportDeliveryTracker:
             if (
                 status == "ADMITTED"
                 and validation["change_kind"] == "NO_MATERIAL_CHANGE"
+                and not validation.get("lineage_only")
             ):
                 status = (
                     "CONFLICT_FALSE_NO_MATERIAL_CHANGE"
