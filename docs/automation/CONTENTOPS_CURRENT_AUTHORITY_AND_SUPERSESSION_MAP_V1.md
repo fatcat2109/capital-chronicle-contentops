@@ -209,3 +209,11 @@ editorial and publication owners retain their roles. Foundation asset analysis i
 report case, not another ContentOps runtime task.
 
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+## Owner update discovery (2026-10-19)
+
+The North Star and master plan now describe original newsroom evidence plus Main's evolving
+public-manifest feed, with the dedicated Main demo remaining private and outside ContentOps
+control. See CONTENTOPS_OWNER_UPDATE_RECONCILIATION_20261019.md for dated accepted/unmerged
+source; the existing owning handoffs establish subsequent implementation state. This amendment
+does not change Simple/publication ownership, the current LLM pause, schedules or V2 authority.
