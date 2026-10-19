@@ -614,6 +614,15 @@ def test_corrected_parent_hash_must_match_received_report(tracker):
     assert "REPORT_BODY_BINDING_MISMATCH:parent_report_sha256" in admission["blockers"]
 
 
+def test_consistent_child_wire_cannot_substitute_a_different_received_parent(tracker):
+    tracker.consume(validate(*make_bundle()), receipt_id="real-parent")
+    envelope, report = make_bundle(version=2, change="CORRECTION", parent="latest-report-v1")
+    envelope["parent_report_sha256"] = report["parent_report_sha256"] = "f" * 64
+    admission = validate(*refresh(envelope, report))
+    assert admission["status"] == "ADMITTED"  # Internal bytes agree; durable history must still agree.
+    assert tracker.consume(admission, receipt_id="contradictory-parent")["status"] == "LINEAGE_HASH_CONFLICT"
+
+
 def test_poison_latest_resealed_version_cannot_replace_hash_bound_main_body():
     root = FIXTURES / "producer_v2"
     binding = json.loads((root / "producer_binding.json").read_bytes())

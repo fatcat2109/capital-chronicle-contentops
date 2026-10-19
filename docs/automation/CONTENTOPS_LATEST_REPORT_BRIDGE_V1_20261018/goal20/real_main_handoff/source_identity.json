@@ -1,0 +1,16 @@
+{
+  "consumer_base_commit": "914d3e2c737db3d35f8b5e7201c3e0629f1e8dc7",
+  "consumer_source_git_blobs": {
+    "live_contentops/capital_chronicle_latest_report_consumer_v1.py": "82f903f45b853745324582a9ca1c863db98fa054",
+    "live_contentops/capital_chronicle_public_manifest_v1.py": "e8040976a9c1a8fe0a9dd4a09a7f38e7842f8b1a",
+    "live_contentops/capital_chronicle_report_feed_v1.py": "2262f709d3a63c8946ded105308f0432b6eab465",
+    "scripts/verify_capital_chronicle_public_handoff_v1.py": "a43dad0e24213c02110d121e0fb06b861500b1b1"
+  },
+  "main_remote_branch": "task/capital-chronicle-goal17-asset-reports-20261018",
+  "main_remote_head": "c27b88db396adce2f78d96b33331fccc2925cd0c",
+  "main_pr_head": "c27b88db396adce2f78d96b33331fccc2925cd0c",
+  "main_pr": "https://github.com/fatcat2109/Headline-Raw-data-json/pull/232",
+  "public_files_match_configured_root_and_exact_commit": true,
+  "receipt_sha256": "5dcf99c4924a1249caf511df5d1953e25086b0fd5dac1cff2ee62d46c560890c",
+  "basis": "Fresh git ls-remote and gh pr view observed during the exact real acceptance; source blobs bind the accepted consumer worktree."
+}

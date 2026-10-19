@@ -275,7 +275,7 @@ class MainReportFeed:
             events, new = [], 0
             for e, b in sorted(
                 bundles,
-                key=lambda pair: (pair[0]["report_id"], pair[0]["report_version"]),
+                key=lambda pair: (pair[0]["report_version"], pair[0]["report_id"]),
             ):
                 raw_hash = hashlib.sha256(b["envelope"]).hexdigest()
                 existing = next(
@@ -287,6 +287,7 @@ class MainReportFeed:
                     None,
                 )
                 if existing:
+                    self.tracker.consume(existing, receipt_id=existing["receipt_id"])
                     events.append(
                         {
                             "report_id": existing["report_id"],

@@ -488,6 +488,12 @@ def validate_latest_report_bytes(
                     errors.append("PUBLIC_REPORT_ENVELOPE_BINDING_MISMATCH:" + field)
             if public_row.get("previous_report_sha256") not in (None, envelope.get("parent_report_sha256")):
                 errors.append("PUBLIC_REPORT_PARENT_PROJECTION_MISMATCH")
+            if binding.get("public_lineage_only") is True and (
+                public_row.get("lineage_only") is not True
+                or public_row.get("editorial_intent") is not False
+                or public_row.get("publication_intent") is not False
+            ):
+                errors.append("PUBLIC_ANCESTOR_INTENT_INVALID")
             for h in envelope.get("horizon_blocks", []):
                 sessions = h.get("trading_sessions")
                 if (type(sessions) is not int or not 2 <= sessions <= 2520
@@ -771,9 +777,11 @@ def validate_latest_report_bytes(
     for cid in required - seen:
         errors.append(f"{cid}:REQUIRED_CLAIM_ABSENT")
     missing.extend(optional - seen)
-    withdrawal = not raw_claims and envelope.get("change_kind") == "INVALIDATION"
-    lineage_only = (allow_lineage_only and not raw_claims and not withdrawal
-                    and envelope.get("content_eligibility") == "BLOCKED_NO_PUBLIC_SAFE_CLAIM")
+    explicit_ancestor = (allow_lineage_only and public_export_bytes is not None
+                         and binding.get("public_lineage_only") is True)
+    withdrawal = not raw_claims and envelope.get("change_kind") == "INVALIDATION" and not explicit_ancestor
+    lineage_only = explicit_ancestor or (allow_lineage_only and not raw_claims and not withdrawal
+                                        and envelope.get("content_eligibility") == "BLOCKED_NO_PUBLIC_SAFE_CLAIM")
     if (
         not claims
         and envelope.get("change_kind") != "NO_MATERIAL_CHANGE"
@@ -858,6 +866,28 @@ class LatestReportDeliveryTracker:
             or left.get("report_id") == right.get("parent_report_id")
         )
 
+    def _reconcile_superseded(self, record: Mapping[str, Any]) -> None:
+        """Finish the derived status projection after an accepted receipt survives a crash."""
+        if record["status"] not in {"ADMITTED", "INVALIDATION_WITHDRAWAL_NOOP", "LINEAGE_ONLY_NOOP"}:
+            return
+        for row in self.receipts():
+            if (row["status"] not in {"ADMITTED", "NO_MATERIAL_CHANGE_NOOP", "INVALIDATION_WITHDRAWAL_NOOP", "LINEAGE_ONLY_NOOP"}
+                    or not self._related(row, record)
+                    or row["report_version"] >= record["report_version"]):
+                continue
+            if row["delivery_status"] != "CONTENT_WITHDRAWN":
+                self.store.set_outbox_status(row["message_id"], "REPORT_SUPERSEDED")
+            for output in self.store.list_outbox_messages():
+                if output["destination"] not in {EDITORIAL_INPUT, SIMPLE_RESULT}:
+                    continue
+                payload = json.loads(output["payload"])
+                if (output["work_item_id"] == "cc-report-" + sha256_of(row["receipt_id"])
+                        or (output["destination"] == SIMPLE_RESULT
+                            and payload.get("report_id") == row["report_id"]
+                            and payload.get("report_version") == row["report_version"])):
+                    if output["status"] != "CONTENT_WITHDRAWN":
+                        self.store.set_outbox_status(output["message_id"], "CONTENT_WITHDRAWN" if record.get("withdrawal_only") else "CONTENT_SUPERSEDED")
+
     def consume(
         self, validation: Mapping[str, Any], *, receipt_id: str
     ) -> dict[str, Any]:
@@ -876,6 +906,7 @@ class LatestReportDeliveryTracker:
             if same_receipt:
                 if same_receipt["raw_sha256"] != validation["raw_sha256"]:
                     raise LatestReportConsumerError("RECEIPT_ID_CONFLICT")
+                self._reconcile_superseded(same_receipt)
                 return same_receipt
             related = [
                 row
@@ -985,33 +1016,7 @@ class LatestReportDeliveryTracker:
                 payload=canonical_bytes(record).decode(),
                 status="REPORT_PENDING" if status == "ADMITTED" else "REPORT_TERMINAL",
             )
-            if status in {
-                "ADMITTED",
-                "NO_MATERIAL_CHANGE_NOOP",
-                "INVALIDATION_WITHDRAWAL_NOOP",
-                "LINEAGE_ONLY_NOOP",
-            }:
-                for row in related:
-                    if status != "NO_MATERIAL_CHANGE_NOOP":
-                        self.store.set_outbox_status(
-                            row["message_id"], "REPORT_SUPERSEDED"
-                        )
-                        for output in self.store.list_outbox_messages():
-                            if output["destination"] in {
-                                EDITORIAL_INPUT,
-                                SIMPLE_RESULT,
-                            } and (
-                                output["work_item_id"] == "cc-report-" + sha256_of(row["receipt_id"])
-                                or (output["destination"] == SIMPLE_RESULT
-                                    and json.loads(output["payload"]).get("report_id") == row["report_id"]
-                                    and json.loads(output["payload"]).get("report_version") == row["report_version"])
-                            ):
-                                self.store.set_outbox_status(
-                                    output["message_id"],
-                                    "CONTENT_WITHDRAWN"
-                                    if validation.get("withdrawal_only")
-                                    else "CONTENT_SUPERSEDED",
-                                )
+            self._reconcile_superseded(record)
             return next(
                 row for row in self.receipts() if row["message_id"] == message_id
             )

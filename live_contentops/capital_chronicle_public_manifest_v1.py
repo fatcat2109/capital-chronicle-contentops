@@ -25,17 +25,20 @@ REPOSITORY = "https://github.com/fatcat2109/Headline-Raw-data-json"
 PATH = re.compile(
     r"(?:manifests/[a-f0-9]{64}\.json|outbox/[a-f0-9]{64}/(?:latest-report-envelope|public-report|withdrawal)\.json|schemas/1\.[01]\.0/envelope\.json)"
 )
-MANIFEST_SCHEMA_SHA256 = (
-    "a37ae594346a2b3a436bef0b1e89629767a01626ec9223a6958e2d000b4ccbc1"
-)
+MANIFEST_SCHEMAS = {
+    "1.0.0": ("CapitalChroniclePublicReportExportManifestV1.schema.json",
+              "a37ae594346a2b3a436bef0b1e89629767a01626ec9223a6958e2d000b4ccbc1"),
+    "1.1.0": ("main_public_manifest/v1.1/CapitalChroniclePublicReportExportManifestV1.schema.json",
+              "bcc960b58953980de704e52b58f43611e52d6a6a83d73d0b65663ec60ac0f954"),
+}
 
 
-def _schema():
-    raw = (
-        Path(__file__).resolve().parents[1]
-        / "schemas/CapitalChroniclePublicReportExportManifestV1.schema.json"
-    ).read_bytes()
-    if hashlib.sha256(raw).hexdigest() != MANIFEST_SCHEMA_SHA256:
+def _schema(version):
+    if version not in MANIFEST_SCHEMAS:
+        raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_VERSION_UNSUPPORTED")
+    path, digest = MANIFEST_SCHEMAS[version]
+    raw = (Path(__file__).resolve().parents[1] / "schemas" / path).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != digest:
         raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_SCHEMA_BYTES_CHANGED")
     return _load(raw)
 
@@ -57,13 +60,12 @@ class PublicMainFileSource:
         self.manifest: dict[str, Any] = {}
         from jsonschema import Draft202012Validator
 
-        self._schema = _schema()
-        self._row_validator = Draft202012Validator(
-            {
-                "$defs": self._schema["$defs"],
-                **self._schema["properties"]["entries"]["items"],
-            }
-        )
+        self._schemas = {version: _schema(version) for version in MANIFEST_SCHEMAS}
+        self._row_validators = {
+            version: Draft202012Validator({"$defs": schema["$defs"],
+                                           **schema["properties"]["entries"]["items"]})
+            for version, schema in self._schemas.items()
+        }
 
     def _read(self, path: str, digest: str | None = None) -> bytes:
         if path != "latest-manifest.json" and not PATH.fullmatch(path):
@@ -82,17 +84,19 @@ class PublicMainFileSource:
     def _manifest(self, value):
         from jsonschema import Draft202012Validator
 
+        if value.get("version") not in self._schemas:
+            raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_VERSION_UNSUPPORTED")
+        schema = self._schemas[value["version"]]
         header = {
-            **self._schema,
+            **schema,
             "properties": {
-                **self._schema["properties"],
+                **schema["properties"],
                 "entries": {"type": "array"},
                 "latest_by_asset": {"type": "object"},
             },
         }
         if (
             value.get("schema") != MANIFEST_SCHEMA
-            or value.get("version") != "1.0.0"
             or value.get("producer_owner") != "Main App"
             or value.get("export_root_id") != self.pointer["export_root_id"]
             or value.get("public_account_export_allowed") is not False
@@ -149,10 +153,10 @@ class PublicMainFileSource:
         return manifest
 
     def bundle(self, spec: Mapping[str, Any]) -> dict[str, Any]:
-        if not self._row_validator.is_valid(spec):
+        if not self._row_validators[self.manifest["version"]].is_valid(spec):
             raise LatestReportConsumerError("MAIN_PUBLIC_EVENT_SCHEMA_INVALID")
         if (
-            spec.get("event_type") != "REPORT_VERSION"
+            spec.get("event_type") not in {"REPORT_VERSION", "REPORT_ANCESTOR"}
             or spec.get("public_account_export_allowed") is not False
         ):
             raise LatestReportConsumerError("MAIN_PUBLIC_REPORT_EVENT_INVALID")
@@ -166,6 +170,14 @@ class PublicMainFileSource:
             spec["schema_ref"]["path"], spec["schema_ref"]["bytes_sha256"]
         )
         e = _load(envelope)
+        ancestor = spec["event_type"] == "REPORT_ANCESTOR"
+        if ancestor and (
+            spec["event_id"] != "report-ancestor:" + str(e.get("report_sha256"))
+            or spec.get("envelope_event_id") != e.get("event_id")
+            or spec.get("editorial_intent") is not False
+            or spec.get("publication_intent") is not False
+        ):
+            raise LatestReportConsumerError("MAIN_PUBLIC_ANCESTOR_IDENTITY_OR_INTENT_INVALID")
         for key in (
             "event_id",
             "report_id",
@@ -179,6 +191,8 @@ class PublicMainFileSource:
             "content_eligibility",
             "change_kind",
         ):
+            if key == "event_id" and ancestor:
+                continue
             if spec.get(key) != e.get(key):
                 raise LatestReportConsumerError("MAIN_PUBLIC_EVENT_ENVELOPE_MISMATCH")
         if e.get("asset_ids") != [spec["asset_id"]]:
@@ -190,6 +204,7 @@ class PublicMainFileSource:
             "contract_revision": e["contract_revision"],
             "manifest_sha256": self.manifest["manifest_sha256"],
             "public_export_manifest_verified": True,
+            "public_lineage_only": ancestor,
             "public_report_raw_sha256": hashlib.sha256(public).hexdigest(),
             "public_report_locator": "urn:cc-public-report:"
             + self.pointer["export_root_id"]

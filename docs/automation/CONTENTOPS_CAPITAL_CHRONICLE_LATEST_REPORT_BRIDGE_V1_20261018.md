@@ -341,13 +341,20 @@ unchanged `LLM_OPERATOR_PAUSED` marker. The bounded next command is in the produ
 
 ## Goal 20 — independent evidence and Main public outbox continuation
 
-Current status: `IMPLEMENTED_MAIN_PARENT_LINEAGE_BLOCKED`.
+Current status: `REAL_MAIN_HANDOFF_VERIFIED_SCOPED_DELIVERY_IN_PROGRESS`.
 See [Goal20 release handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/RELEASE_HANDOFF.md)
 for the requirement-by-requirement evidence, source permissions, exact local controls and four-window
 integration command. Actual counts: **3 independent admitted items; 2 Main-origin recirculations;
 5 controlled drafts; 40 native previews; 4 rendered media; 0 fresh model calls/public writes;
-0 new Main Goal20 manifest events**. The existing Main adapter accepted all 5 context-only return
+2 real Main Goal20 manifest records = 1 ancestor-only + 1 editorial-ready child**. The existing Main adapter accepted all 5 context-only return
 projections. BLS's HTTP 403 was recovered through the existing bounded BrowserOS source owner.
 
-Main's evolving public file manifest consumer and withdrawal/restart mechanics are implemented and
-locally verified. Exact Main remote `01abd50fbaf5db2b8a989f758d7e617f92d109f4` and all five public example files are verified. Its USOIL v2 still lacks the exact parent `61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d`, so admission remains `LINEAGE_PARENT_NOT_RECEIVED`. This parent dependency must close before cross-owner completion credit. LLM pause and runtime remain unchanged. No self-merge or deployment is claimed.
+Main repair `c27b88db396adce2f78d96b33331fccc2925cd0c` matches its fresh remote branch/PR head.
+All nine immutable public files match the configured root. The real USOIL v1 ancestor
+`61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d` is admitted only as
+`LINEAGE_ONLY_NOOP`; USOIL v2 is `ADMITTED` and is the only pending editorial input.
+[Actual cold-start/restart receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/real_main_handoff/receipt.json):
+2 initial receipts, 0 restart additions, no gaps. Exact known manifest 1.0/1.1 schemas remain pinned;
+unknown versions and contradictory parents stay blocked. Interrupted supersession projection is repaired.
+The source/evidence delivery and exact-head CI readback are being completed in PR88. LLM pause and
+runtime remain unchanged. Fresh provider/natural-calendar runtime proof, merge and deployment are not claimed.

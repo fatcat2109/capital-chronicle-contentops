@@ -1,89 +1,71 @@
-# Goal 20 â€” original evidence and evolving public report feed
+# Goal 20 — original evidence and evolving public report feed
 
-Status: `IMPLEMENTED_MAIN_PARENT_LINEAGE_BLOCKED`.
+Status: `REAL_MAIN_HANDOFF_VERIFIED_SCOPED_DELIVERY_IN_PROGRESS`.
 Owning checkpoint: [existing bridge handoff](../../CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md).
 Base: merged PR87, master `45f9b0ebf209930e904085cf56bd4470a99c6501`.
+Scoped draft PR: [#88](https://github.com/fatcat2109/capital-chronicle-contentops/pull/88).
 
-## Delivered, with exact proof boundaries
+## Current result and proof boundaries
 
-| Required result | Current evidence |
+| Required result | Direct evidence and limit |
 | --- | --- |
-| Independent useful evidence | Three retained propositions: EIA small-scale solar, EIA grid peaks, and BLS CPI. Exact source/policy bytes or separately identified BrowserOS rendered bytes, text spans, source identity, publication/capture/admission clocks and permission hashes are verified by `RetainedSourceResearch`. |
-| Verified source permissions | A caller-supplied hostname, rights string or permission flags cannot authorize Main export. Two supported agency-authored text policies are verified from retained captures; photographs, trademarks and third-party works are excluded. Accepted Main public claims inherit only their exact durable Main contract. |
-| Main context return | [Main readback](main_consumer_readback.json): existing Main adapter accepted 5 context-only projections: **3 independent, 2 Main-origin recirculations**. Zero model calls, DB writes or Main edits. Recirculation earns zero independent credit. |
-| Incremental headline recovery | Existing outbox/cursor owner now keeps future records as hash-bound bookmarks, continues later useful records, recovers delayed arrivals after restart, and preserves local malformed/unknown-rights gaps. Permission-index revisions reopen bounded scanning. |
-| Evolving public Main feed | `capital_chronicle_public_manifest_v1.py` reads the Main-owned `CapitalChroniclePublicReportExportManifestV1`: exact bytes/logical hashes, bounded parent chain, stable configured root, strict public paths, new versions, per-asset lineage, withdrawal and restart. v1.0/v1.1 pinned Git compatibility remains. |
-| Producer/consumer proof | Three focused public-manifest tests exercise exact Main-produced **local compatibility control** bytes, incremental discovery without pointer edits, poisoned paths/bytes, parent/fork rejection, URN source identity, draft and withdrawal. The producer was still uncommitted at this proof; this is **not the requested immutable Main Goal20 handoff**. |
-| Existing single newsroom | [Connected receipt](acceptance/receipt.json): **5 controlled drafts, 40 native previews, 4 source-backed media artifacts, 10 injected callbacks, 0 fresh provider calls, 0 public writes**. Three independent stories and two Main assets compete in the same existing Simple selection/writer/validator/compiler. The grid article uses two independently captured documents with separate source markers. Repeat opportunities add zero callbacks. |
-| Substantive media | Existing source-backed renderer produces three actual source cards; its new bounded chart compiler renders six source-reported grid values with per-point quotes, periods, units and retained source/rights hashes. No forecast, trading result or private account field enters copy/media. |
-| Daily App workspace | Existing report workspace shows source originality/inventory, conversion, controlled/provider distinction, dated freshness, source links, actual image previews, current pause, version/withdrawal and 8 native previews. [Workspace](acceptance/workspace.json), [desktop](visual/desktop.jpg), [mobile](visual/mobile.jpg), [native previews](visual/native-previews.jpg). All four rendered media were inspected directly. Mobile width 430 had scroll width 430; all four images loaded. |
-| Focused validation | [108-test changed-owner set](focused_tests.txt), [12 focused seam tests](changed_seam_tests.txt), 5 UI tests, UI build, Ruff and compilation passed locally. These are scoped engineering proof. Exact remote CI is recorded in the PR after push. |
+| Immutable Main handoff | Main PR232 repair commit `c27b88db396adce2f78d96b33331fccc2925cd0c` matches fresh remote branch and PR head. [Source identity](real_main_handoff/source_identity.json). All **9** declared public example files match their exact Git blobs and the configured public root. Manifest/schema/handoff bytes are retained in [real_main_handoff](real_main_handoff/producer-handoff.json). No private Main report/account path was read. |
+| Real cold start and restart | [Actual receipt](real_main_handoff/receipt.json), observed `2026-10-19T08:38:34.420849Z`: **2 newly received manifest records = 1 ancestor-only + 1 editorial-ready child**. USOIL v1 is `LINEAGE_ONLY_NOOP`; USOIL v2 is `ADMITTED` and is the only pending editorial report. Reopening the same isolated store yields **0 new records**, two `DUPLICATE_NOOP` events, unchanged receipt count 2 and zero gaps. No fresh draft/provider proof is claimed. |
+| Explicit compatibility | Main manifest schemas **1.0.0 and 1.1.0** have distinct pinned exact byte hashes. Unknown versions fail closed. `REPORT_ANCESTOR` binds `report-ancestor:<original hash>` to the original `envelope_event_id`; both manifest and public projection forbid editorial/publication intent. Ancestors never enter the writer queue, even if they contain public claims. Original report/envelope bytes, hashes and cutoffs remain unchanged. |
+| Changed-seam recovery | Fixed the reproduced interruption after an accepted receipt but before supersession status projection. Duplicate scanning finishes that projection without another receipt/draft/provider call. Controls cover descendant-before-parent arrival, append-only 1.0→1.1 history upgrade, missing/contradictory parent, withdrawal, interrupted withdrawal and interrupted admission. **68 focused tests passed**; the revised nine-test manifest subset and [retained exact Main regression](real_main_handoff/exact_main_regression.txt) passed. Exact-head CI covers the final source. |
+| Independent useful evidence | Three retained propositions: EIA small-scale solar, EIA grid peaks and BLS CPI. Exact source/policy bytes or separately identified BrowserOS rendered bytes, text spans, identity, clocks and permission hashes are verified by `RetainedSourceResearch`. [Existing retained research](retained_research/index.json). |
+| Verified source permissions | Caller-supplied hostnames/rights/flags cannot authorize Main export. Two supported agency-authored text policies are verified from retained captures; photographs, trademarks and third-party works are excluded. Main claims inherit only their exact durable public contract. Unknown X rights remain blocked. |
+| Main context return | [Existing Main adapter readback](main_consumer_readback.json): **5 context-only projections = 3 independent + 2 Main-origin recirculations**. Zero model/DB calls or Main edits by this consumer work. Recirculation earns zero independent credit. |
+| Existing single newsroom | [Existing connected receipt](acceptance/receipt.json): **5 controlled drafts, 40 native previews, 4 source-backed media artifacts, 10 injected callbacks, 0 fresh provider calls, 0 public writes**. Independent and Main asset inputs share the established Simple selection/writer/validator/compiler. The grid article uses two independently captured documents. Repeat opportunities add no callbacks. This earlier controlled proof is reused, not relabelled as a fresh Main draft. |
+| Substantive media and workspace | Three source cards and one source-bound chart of six reported grid observations. [Workspace](acceptance/workspace.json), [desktop](visual/desktop.jpg), [mobile](visual/mobile.jpg), [native previews](visual/native-previews.jpg). All four rendered media were inspected. Mobile width and scroll width were both 430. Originality, conversion, dated freshness, controlled/provider state, permissions, pause and withdrawal remain visible. Existing UI tests/build and render proof are reused because this continuation changes no UI/media source. |
+| Existing scheduler and release | The existing Simple scheduler invokes `MainReportFeed.opportunity` through the four existing windows. No new scheduler/store/writer/publication owner. Runtime configuration, schedule and pause were not changed. The exact continuation command and stable root binding are below. |
+
+## Exact real public lineage
+
+Main owns the wire and public export. Current manifest:
+`af7b7eb84e2ff17a66236a2e2311f19b62878309f2a46cbc2722e2869c3af911`.
+New manifest schema byte hash:
+`bcc960b58953980de704e52b58f43611e52d6a6a83d73d0b65663ec60ac0f954`.
+The old 1.0 schema remains unchanged and separately supported.
+
+- Ancestor USOIL v1: `61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d`, original cutoff `2026-10-18T17:05:18.499399Z`, no public claims and no editorial intent.
+- Child USOIL v2: `709b20e83caa5c01f94f21f05ef83adcff219b5a94373e8c9782cba9b01cd43d`, original cutoff `2026-10-19T05:56:21.511006Z`, exact parent hash above, editorial-ready.
+- The historical Goal19 parent `797f3132e40f486036fc318cab8acf7b9288715035d90c4b3e82705fb17a3f1a` was not substituted.
+
+`goal20_new_main_manifest_records=2`; `goal20_ancestor_only_records=1`;
+`goal20_new_main_editorial_events=1`; `restart_new_records=0`.
+These are manifest admission counts, not fresh articles, model calls or publication counts.
+The actual isolated SQLite store remains at
+`C:/Users/bullw/AppData/Local/Temp/goal20-real-main-c27b88db/isolated-proof.sqlite3`;
+its public inputs and receipt are retained here for replay. SQLite itself is not committed.
+
+Earlier [schema mismatch](main_owner_example_readback.json) and
+[missing-parent readback](immutable_main_handoff_readback.json) remain historical evidence of the
+pre-repair failure. They are superseded for current admission by the actual receipt above.
+The original local compatibility control fixture remains labelled as a control, not a real handoff.
 
 ## Acquisition and authority limits
 
-EIA documents were acquired through `BoundedOfficialPrimaryEvidenceLoader`; its existing locator
-remains the discovery owner. BLS HTTP returned 403. The existing
-`BrowserOSNeoRenderedSourceRecovery` recovered only the registered BLS release `pre` subtree;
-its policy was captured separately. Rendered Markdown and canonical text have distinct hashes
-and never masquerade as raw HTTP bytes. No login, click, storage/session read, model call or
-public action was performed by acquisition.
+EIA documents used the existing bounded official evidence loader. BLS returned HTTP 403; the
+existing BrowserOS recovery captured only its registered release `pre` subtree, with policy
+captured separately. Rendered Markdown and canonical text have distinct hashes and never stand
+in for raw HTTP bytes. No login/session/cookie/model/public action was used.
 
-`revision_at_utc` in this retained research adapter is the capture/admission clock. A publisher
-revision clock was not independently established and is explicitly labelled. Historical official
-observations do not become current market state. The chart compares source-reported peaks on
-different dates; it establishes no causal attribution, forecast or market-price inference.
+Retained research revision time is the capture/admission clock; the publisher revision clock is
+not independently verified. Historical observations do not establish current market state. The
+chart compares peaks from different dates and proves no causal attribution, forecast or price view.
+The existing attributed-report and canonical-X epistemic routes and bulk CDP owner remain in place.
 
-The existing reputable-attributed-report and canonical-X epistemic routes remain available in
-Simple. Official confirmation is not a universal factual requirement. Unknown redistribution or
-model-input rights still prohibit exporting that source body to Main; no X rights were invented.
-The existing bulk CDP capture was neither replaced nor changed.
+The bounded [canonical sidecar scan](manual/receipt.json) inspected 500 rows with 500 retained
+missing-permission gaps. Independent verified acquisition and exact Main facts still supplied
+5 permitted projections. Seven-article published memory was query-only and unchanged.
 
-## Main manifest dependency â€” still open
+## Four existing windows and exact continuation
 
-Main owns the wire, schemas and export production. Its current `goal20/README.md` and local
-`analysis_report_outbox_v1.py` supplied the matching contract. The local control fixture is
-labelled `UNCOMMITTED_WORKTREE_BYTES`; it contains only public projection/envelope/schema
-artifacts. This checkpoint does not claim that Main pushed a producer commit, supplied its
-immutable compatibility example, or emitted new current-data report events.
-
-Fresh exact local producer example readback found **9 schema errors** in its USOIL v2 v1.0
-envelope: `SOURCE_FACT`, `CAUSAL_HYPOTHESIS`, `HORIZON_OUTLOOK` and explicit null horizons are
-not accepted by the emitted v1.0 schema. All five handoff file hashes match Main's manifest;
-this is a producer envelope/schema mismatch, not file corruption. The consumer correctly returns
-`ENVELOPE_MAIN_SCHEMA_VALIDATION_FAILED`. [Exact dependency receipt](main_owner_example_readback.json).
-Main must emit a schema-valid immutable example under its existing contract. ContentOps does not
-rewrite Main claims, relax the schema, or manufacture a parent report to admit this example.
-
-The producer subsequently corrected its **local uncommitted** example to v1.1. Exact hash readback
-now passes its schema and reaches `LINEAGE_PARENT_NOT_RECEIVED`: the example is USOIL v2 and its
-exact parent is not in the one-event export. This is a named cold-start dependency. Existing
-accepted parents must be retained/restored, or Main must include their lawful public lineage in
-its handoff. The existing incremental XNGUSD v1→v2 and missed-window controls already pass; no
-missing parent is silently fabricated or waived.
-
-Required remaining handoff: the matching public parent/lineage for its USOIL v2. The immutable producer and exact schema/example bytes have now been read back from the pushed Main revision `01abd50fbaf5db2b8a989f758d7e617f92d109f4`. The configured root is `A:/Capital Chronicle/Runtime/MainPublicReports-v1`. Replay admission after the parent is supplied; record actual newly admitted manifest events. Until then Goal20 remains
-active; `goal20_new_main_manifest_events=0` is intentional and truthful.
-
-### Exact committed producer readback
-
-Main pushed `01abd50fbaf5db2b8a989f758d7e617f92d109f4`, containing implementation `eeb42979f708e0aa8b0c12994c3935a02152fecf`. The consumer read only the
-five public compatibility files and the public manifest schema through exact Git blobs; all
-declared byte hashes match. [Immutable local-commit readback](immutable_main_handoff_readback.json)
-still returns `LINEAGE_PARENT_NOT_RECEIVED` for its USOIL v2. The exact required parent is
-`61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d`; the previously accepted
-Goal19 parent is `797f3132e40f486036fc318cab8acf7b9288715035d90c4b3e82705fb17a3f1a` and is
-correctly rejected as `LINEAGE_HASH_CONFLICT`. The latest readback verifies the exact remote head and all five immutable example files. The concrete remaining action is for Main to provide the matching public parent/lineage chain. Then replay this consumer against that
-exact handoff; no model call or runtime restart is needed to establish admission.
-
-## Four existing windows and release
-
-The existing Simple scheduler invokes `MainReportFeed.opportunity` once per existing slot. No
-second scheduler, writer, store or publication owner was introduced. The four existing routine
-windows remain 17:00, 21:00, 23:00 and following 01:00 Bangkok under the existing production day.
-
-One reviewed configuration file, referenced by existing `CONTENTOPS_MAIN_REPORT_FEED_POINTER`,
-may select the public manifest binding below after the Main handoff is accepted. `research_root`
-points only to explicitly retained newsroom evidence. Configuration and runtime were not changed.
+The four existing windows remain 17:00, 21:00, 23:00 and following 01:00 Bangkok under the existing
+production day. One reviewed configuration selected by `CONTENTOPS_MAIN_REPORT_FEED_POINTER`
+can use the stable root below; future report events require no manual per-article Git pointer edit.
+This continuation did not install or activate that binding.
 
 ```json
 {
@@ -95,33 +77,26 @@ points only to explicitly retained newsroom evidence. Configuration and runtime 
 }
 ```
 
-The bounded next command after Main supplies that exact binding is:
+The exact command used for the real acceptance was:
 
 ```powershell
-python scripts/run_capital_chronicle_intelligence_loop_v1.py --pointer <verified-main-public-binding.json> --store <new-isolated-proof.sqlite3> --output-dir <new-proof-output> --opportunity-id goal20-main-immutable-handoff --scan-only --research-root docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/retained_research
+python scripts/verify_capital_chronicle_public_handoff_v1.py --producer-checkout 'A:\Capital Chronicle\capital-chronicle-goal17-asset-reports-20261018' --producer-commit c27b88db396adce2f78d96b33331fccc2925cd0c --output-dir 'C:\Users\bullw\AppData\Local\Temp\goal20-real-main-c27b88db'
 ```
 
-The manual command is draft/scan only and refuses the canonical production-store path. Existing
-LLM pause remains in force. No deployment, self-merge, schedule start, provider spend, public post,
-V2 expansion or transport migration occurred. The task-local hidden preview server was stopped;
-its listener was verified absent. Main, Cockpit, MT5 and user terminal sessions were not changed.
+A replay requires a **new** output directory; earlier evidence is preserved. The verifier reads
+only fixed public Git paths and their exact matching configured export files, checks the known
+schema, cold-starts one isolated store and reconstructs its consumer for restart replay. It also
+checks the existing pause marker remains active with unchanged bytes.
 
-Control Tower synchronization remains pending its separate owner. This existing owning checkpoint
-and scoped PR are the discoverable handoff; no global refresh or shared database status credit is
-claimed. CodeGraph is refreshed once after the implementation commit, with its source identity
-recorded in the generated files.
+Persistent LLM pause was active and unchanged. Fresh provider calls, broker/public writes and
+runtime/schedule starts are all zero. No self-merge/deployment or private Main/DB-owner change.
+Prior task-local preview server cleanup/render proof is reused; user applications were untouched.
+Fresh provider, natural-calendar runtime and deployment remain unproven and outside this continuation.
 
-## Real canonical sidecar scan
+## Delivery and synchronization
 
-The bounded [manual scan receipt](manual/receipt.json) inspected 500 canonical sidecar rows; all 500 retained missing-permission gaps. The independent verified acquisition and exact Main facts continued: 5 permitted projections, comprising 3 independent and 2 recirculated. Existing seven-article published memory was read with SQLite query-only and remained unchanged. This scan invoked no model and started no schedule.
-
-## Delivery
-
-Implementation commit `9b57a3a4760012a0f5e9a25c88a62987e4f624d6`, followed by pinned schema and
-interrupted-withdrawal recovery. CodeGraph source epoch is `2be420d809d247d84a3a1097bc65202940a75dee`.
-Scoped draft PR: [#88](https://github.com/fatcat2109/capital-chronicle-contentops/pull/88).
-Exact remote head `27b424d813f86c8071d4132c58495c831ddb3cf4` passed both deterministic-validation
-and branch-codegraph-refresh in [run 39212212545](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39212212545).
-Four focused manifest tests also prove recovery after a durable withdrawal receipt but interrupted
-status projection. The final docs-only readback is pushed separately; current PR CI remains the
-authority for its exact head. Goal20 is not complete while Main's exact parent handoff is missing.
+The exact source/evidence commit, remote/PR head and CI readback are recorded after scoped push.
+No completion is claimed from tests alone; the real producer-to-consumer receipt is required above.
+CodeGraph is maintained by the existing branch refresh owner after the source commit. Control
+Tower synchronization remains pending its separate serial owner; this checkpoint/PR supplies a
+durable, discoverable handoff and claims no shared database/status-owner mutation or credit.

@@ -1,0 +1,44 @@
+{
+  "broker_or_order_actions": 0,
+  "display_profile": "PUBLIC_RESEARCH_REDISTRIBUTION_SAFE",
+  "frontend_may_not_infer_numeric_truth": true,
+  "incremental": {
+    "admitted_headline_count": null,
+    "changed_claim_ids": null,
+    "dossier_state_counts": null,
+    "duplicate_rows_skipped": null,
+    "future_rows_deferred": null,
+    "no_change_reason": null,
+    "rejected_headline_count": null,
+    "state": "NOT_RUN"
+  },
+  "latest_reports": [
+    {
+      "asset_id": "USOIL",
+      "change_kind": "NEW_REPORT",
+      "changed_claim_ids": [],
+      "editorial_intent": false,
+      "known_at_cutoff_utc": "2026-10-18T17:05:18.499399Z",
+      "lineage_only": true,
+      "parent_report_sha256": null,
+      "previous_report_sha256": null,
+      "public_safe_claims": [],
+      "publication_intent": false,
+      "report_id": "asset-report:USOIL",
+      "report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d",
+      "report_version": 1
+    }
+  ],
+  "portfolio": {
+    "position_proof": "NOT_EXPOSED",
+    "reason": "Holdings, account context and internal recommendation detail are not public-safe.",
+    "state": "UNAVAILABLE_PUBLIC_PROFILE"
+  },
+  "projection_sha256": "45988a2cead19259f09521aadd35fea1e62fc5d077fa0bae33c3af00dfb44bde",
+  "projection_version": "1.0.0",
+  "provider_or_model_calls": 0,
+  "read_only": true,
+  "runtime_or_canonical_mutations": 0,
+  "schema": "CapitalChronicleOperationalReportServingProjectionV1",
+  "source_projection_sha256": "5fa9c615861f2dcc325e42be36247f19d6f09d90b3e31d6461091ecd3497fd28"
+}
