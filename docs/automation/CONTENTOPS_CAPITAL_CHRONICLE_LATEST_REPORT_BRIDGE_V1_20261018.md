@@ -338,3 +338,17 @@ Control Tower synchronization remains pending its separate owner. This existing 
 supplies the exact Main/ContentOps PRs, pinned revision, producer contract and immutable evidence;
 no shared database/status-owner file was changed. The only provider execution blocker is the
 unchanged `LLM_OPERATOR_PAUSED` marker. The bounded next command is in the producer handoff.
+
+## Goal 20 — independent evidence and Main public outbox continuation
+
+Current status: `IMPLEMENTED_LOCAL_PROOF_MAIN_IMMUTABLE_HANDOFF_PENDING`.
+See [Goal20 release handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/RELEASE_HANDOFF.md)
+for the requirement-by-requirement evidence, source permissions, exact local controls and four-window
+integration command. Actual counts: **3 independent admitted items; 2 Main-origin recirculations;
+5 controlled drafts; 40 native previews; 4 rendered media; 0 fresh model calls/public writes;
+0 new Main Goal20 manifest events**. The existing Main adapter accepted all 5 context-only return
+projections. BLS's HTTP 403 was recovered through the existing bounded BrowserOS source owner.
+
+Main's evolving public file manifest consumer and withdrawal/restart mechanics are implemented and
+locally verified. The immutable Main Goal20 producer handoff is still required before cross-owner
+completion credit. LLM pause and runtime remain unchanged. No self-merge or deployment is claimed.

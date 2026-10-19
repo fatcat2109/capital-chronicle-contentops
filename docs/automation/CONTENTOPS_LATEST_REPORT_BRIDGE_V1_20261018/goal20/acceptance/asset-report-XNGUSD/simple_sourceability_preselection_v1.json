@@ -1,0 +1,168 @@
+{
+  "candidate_eligibility_changed": false,
+  "candidate_ids_entering_top_packet": [],
+  "candidate_ids_leaving_top_packet": [],
+  "eligible_deduped_universe_count_after_same_day_retry_suppression": 1,
+  "exact_route_suppression_host_wide": false,
+  "full_eligible_deduped_universe_count": 1,
+  "old_freshness_only_top_candidates": [
+    {
+      "candidate_id": "simple-story-50ef9f50543a8fd631c90f8f",
+      "headline_id": "cc-report:5714d55767085221950384036113bf26c2f49e0ef96e2f49c2834060a4f1fc4f",
+      "headline_text": "Capital Chronicle report update: EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year stock level.",
+      "official_source_urls": [
+        "https://www.eia.gov/naturalgas/weekly/supplement/"
+      ],
+      "source_account": "Capital Chronicle analysis report",
+      "source_timestamp_utc": "2026-10-18T13:03:41Z",
+      "source_url": "",
+      "sourceability_work_order": {
+        "adapter_family_coverage": 1.0,
+        "age_from_newest_eligible_seconds": 0,
+        "attributed_host_hints_grant_source_or_factual_authority": false,
+        "attributed_host_routing_hints": [],
+        "attributed_reputable_routing_hint": false,
+        "attribution_only_host_observation_hints": [],
+        "available_adapter_families": [
+          "official_macro",
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "candidate_eligibility_changed": false,
+        "canonical_x_zero_get_route_available": false,
+        "canonical_x_zero_get_route_grants_authority": false,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "effective_work_order_freshness_band_index": 0,
+        "enhanced_evidence_required": false,
+        "exact_matching_cc_publication_authorized_packet": false,
+        "exact_route_health_match_count": 0,
+        "exact_route_health_matches": [],
+        "exact_route_suppression_applied": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 1,
+        "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+        "factual_authority_granted": false,
+        "freshness_band_hours": 2,
+        "freshness_band_index": 0,
+        "freshness_only_rank": 1,
+        "governed_direct_source_candidate_count": 1,
+        "host_wide_suppression_applied": false,
+        "known_official_path": true,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [
+          "official_macro"
+        ],
+        "reputable_public_secondary_path": false,
+        "score": 0.675,
+        "sourceability_aware_rank": 1,
+        "sourceability_changes_work_order_only": true,
+        "unregistered_official_suffix_candidate": false,
+        "zero_get_route_maximum_freshness_band_relaxation": 1
+      }
+    }
+  ],
+  "preselection_logical_hash": "e2cf2fd5158397889315deb691e6d147416b575b939c7fa953e46fbccbcd8cbd",
+  "ranking_changes_work_order_not_truth": true,
+  "ranking_order_changed": false,
+  "same_production_day_candidate_retry_suppression_grants_authority": false,
+  "same_production_day_source_blocked_candidate_exclusion_count": 0,
+  "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "schema_version": "contentops.v1_simple_sourceability_preselection.v1",
+  "selection_candidate_limit": 32,
+  "source_route_health_input_sha256": null,
+  "source_route_health_reused": false,
+  "sourceability_aware_top_candidates": [
+    {
+      "candidate_id": "simple-story-50ef9f50543a8fd631c90f8f",
+      "headline_id": "cc-report:5714d55767085221950384036113bf26c2f49e0ef96e2f49c2834060a4f1fc4f",
+      "headline_text": "Capital Chronicle report update: EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year stock level.",
+      "official_source_urls": [
+        "https://www.eia.gov/naturalgas/weekly/supplement/"
+      ],
+      "source_account": "Capital Chronicle analysis report",
+      "source_timestamp_utc": "2026-10-18T13:03:41Z",
+      "source_url": "",
+      "sourceability_work_order": {
+        "adapter_family_coverage": 1.0,
+        "age_from_newest_eligible_seconds": 0,
+        "attributed_host_hints_grant_source_or_factual_authority": false,
+        "attributed_host_routing_hints": [],
+        "attributed_reputable_routing_hint": false,
+        "attribution_only_host_observation_hints": [],
+        "available_adapter_families": [
+          "official_macro",
+          "public_secondary"
+        ],
+        "bounded_discovery_recovery_available": true,
+        "candidate_eligibility_changed": false,
+        "canonical_x_zero_get_route_available": false,
+        "canonical_x_zero_get_route_grants_authority": false,
+        "capital_chronicle_authority_granted": false,
+        "capital_chronicle_relevant_context": false,
+        "context_routed_official_locator_families": [],
+        "effective_work_order_freshness_band_index": 0,
+        "enhanced_evidence_required": false,
+        "exact_matching_cc_publication_authorized_packet": false,
+        "exact_route_health_match_count": 0,
+        "exact_route_health_matches": [],
+        "exact_route_suppression_applied": false,
+        "expected_adapter_families": [
+          "public_secondary"
+        ],
+        "expected_evidence_capabilities": [
+          "credible_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "expected_request_cost": 1,
+        "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+        "factual_authority_granted": false,
+        "freshness_band_hours": 2,
+        "freshness_band_index": 0,
+        "freshness_only_rank": 1,
+        "governed_direct_source_candidate_count": 1,
+        "host_wide_suppression_applied": false,
+        "known_official_path": true,
+        "known_paywall_waf_or_dead_link_risk": false,
+        "mode_downgrade_viable": true,
+        "numeric_authority_granted": false,
+        "observed_access_failure_count": 0,
+        "observed_repeated_access_failure": false,
+        "observed_same_day_host_success_count": 0,
+        "public_source_candidate_count": 1,
+        "publication_authority_granted": false,
+        "ranking_only": true,
+        "registered_official_locator_families": [
+          "official_macro"
+        ],
+        "reputable_public_secondary_path": false,
+        "score": 0.675,
+        "sourceability_aware_rank": 1,
+        "sourceability_changes_work_order_only": true,
+        "unregistered_official_suffix_candidate": false,
+        "zero_get_route_maximum_freshness_band_relaxation": 1
+      }
+    }
+  ],
+  "sourceability_stage_capital_chronicle_authority_granted": false,
+  "sourceability_stage_factual_authority_granted": false,
+  "sourceability_stage_model_or_provider_calls": 0,
+  "sourceability_stage_network_gets": 0,
+  "sourceability_stage_numeric_authority_granted": false,
+  "sourceability_stage_publication_authority_granted": false
+}

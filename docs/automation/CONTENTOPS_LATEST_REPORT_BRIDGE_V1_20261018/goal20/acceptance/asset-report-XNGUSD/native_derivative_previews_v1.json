@@ -1,0 +1,165 @@
+{
+  "article_identity": "4d877850adda8b3318c3d56cac2ef7e5bb4ea5faa0f70aa133bc6e34e1229d33",
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33",
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "compiler_input_sha256": "22782423325bb3e5b71aadad499df624644dbc4ba3c4c8b02e29659b8ce17cf4",
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:XNGUSD",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "every_preview_preserves_epistemic_state": true,
+  "final_validated_article_public_copy_sha256": "6c882faa2b51228c020ac1860c9b5021be16bcc8b16999acf5491023258060f5",
+  "package_count": 8,
+  "packages": {
+    "discord": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance**\n\nCC REPORT / EVENT UNCONFIRMED.\n\n**Context:** Any implications remain conditional on verification.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+    },
+    "facebook_page": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 63206,
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nCC REPORT / EVENT UNCONFIRMED.\n\nWhy it matters: The report has not been independently confirmed.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+    },
+    "instagram_business": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "platform_limit": 2200,
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nCC REPORT / EVENT UNCONFIRMED.\n\nIn focus: Any implications remain conditional on verification.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33\n\n#CapitalChronicle\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+    },
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 3000,
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nWhy it matters: The report has not been independently confirmed.\n\nContext: Any implications remain conditional on verification.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+    },
+    "telegram": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nCC REPORT / EVENT UNCONFIRMED.\n\nWhat to watch: Independent confirmation or denial is the next watch point.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+    },
+    "threads": {
+      "format": "text_brief",
+      "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nAny implications remain conditional on verification.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33\n\nWhat to watch: Independent confirmation or denial is the next watch point.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nAny implications remain conditional on verification.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: Independent confirmation or denial is the next watch point.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.448,
+          0.444
+        ],
+        "post_character_counts": [
+          224,
+          222
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.991,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: Independent confirmation or denial is the next watch point.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order."
+      ],
+      "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nAny implications remain conditional on verification.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33",
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nAny implications remain conditional on verification.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33"
+    },
+    "x": {
+      "format": "text_brief",
+      "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nCC REPORT / EVENT UNCONFIRMED.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33\n\nWatch: Independent confirmation or denial is the next watch point.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nCC REPORT / EVENT UNCONFIRMED.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: Independent confirmation or denial is the next watch point.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 1,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.721,
+          0.764
+        ],
+        "post_character_counts": [
+          202,
+          214
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.944,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: Independent confirmation or denial is the next watch point.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order."
+      ],
+      "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nCC REPORT / EVENT UNCONFIRMED.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33",
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nCC REPORT / EVENT UNCONFIRMED.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33"
+    },
+    "youtube": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 1000,
+      "text": "Update: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance\n\nCC REPORT / EVENT UNCONFIRMED.\n\nWhat to watch: Independent confirmation or denial is the next watch point.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-4d877850adda8b33\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+    }
+  },
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_coordinator_dispatch_count": 0,
+  "rematerialization_after_real_substack_url_required": true,
+  "schema_version": "contentops.v1_simple_native_derivative_previews.v1",
+  "unknown_write_count": 0
+}

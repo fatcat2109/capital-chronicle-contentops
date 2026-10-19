@@ -38,6 +38,11 @@ POINTER_ENV = "CONTENTOPS_MAIN_REPORT_FEED_POINTER"
 MAIN_REPOSITORY = "https://github.com/fatcat2109/Headline-Raw-data-json"
 
 
+def _source(pointer):
+    from live_contentops.capital_chronicle_public_manifest_v1 import CONFIG_SCHEMA, PublicMainFileSource
+    return PublicMainFileSource(pointer) if pointer.get("schema_version") == CONFIG_SCHEMA else PinnedMainGitSource(pointer)
+
+
 def configured_pointer() -> dict[str, Any] | None:
     path = os.environ.get(POINTER_ENV)
     return json.loads(Path(path).read_bytes()) if path else None
@@ -155,13 +160,22 @@ class MainReportFeed:
         source=None,
         headline_paths=None,
         pointer_loader=None,
+        retained_research=None,
     ):
         self.tracker = tracker
         self.pointer = dict(pointer)
-        self.source = source or PinnedMainGitSource(pointer)
+        self.source = source or _source(pointer)
         self.headline_paths = headline_paths
         self.pointer_loader = pointer_loader
-        if not 0 < len(pointer.get("bundles", [])) <= 64:
+        self.research_error = None
+        if retained_research is None and pointer.get("research_root"):
+            from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+            try:
+                retained_research = RetainedSourceResearch(pointer["research_root"])
+            except (OSError, ValueError, KeyError, TypeError):
+                self.research_error = "CONFIGURED_RESEARCH_INDEX_UNAVAILABLE_OR_INVALID"
+        self.retained_research = retained_research
+        if not hasattr(self.source, "refresh") and not 0 < len(pointer.get("bundles", [])) <= 64:
             raise LatestReportConsumerError("MAIN_FEED_BUNDLE_BOUND_INVALID")
 
     def poll(self, *, cutoff_utc: str) -> dict[str, Any]:
@@ -175,11 +189,11 @@ class MainReportFeed:
                 try:
                     current = self.pointer_loader()
                     if current != self.pointer:
-                        if not current or not 0 < len(current.get("bundles", [])) <= 64:
+                        if not current or (not current.get("public_export_root") and not 0 < len(current.get("bundles", [])) <= 64):
                             raise LatestReportConsumerError(
                                 "MAIN_FEED_BUNDLE_BOUND_INVALID"
                             )
-                        source = PinnedMainGitSource(current)
+                        source = _source(current)
                         self.pointer, self.source = dict(current), source
                 except (
                     OSError,
@@ -190,7 +204,7 @@ class MainReportFeed:
                 ):
                     summary = {
                         "schema_version": SCHEMA,
-                        "producer_commit": self.pointer["producer_commit"],
+                        "producer_commit": self.pointer.get("producer_commit"),
                         "observed_at_utc": cutoff_utc,
                         "configured_bundle_count": 0,
                         "new_events": 0,
@@ -206,8 +220,23 @@ class MainReportFeed:
                         FEED,
                     )
                     return summary
-            for spec in self.pointer["bundles"]:
+            manifest = None
+            specs = self.pointer.get("bundles", [])
+            if hasattr(self.source, "refresh"):
+                scans = [json.loads(r["payload"]) for r in self.tracker.store.list_outbox_messages() if r["destination"] == FEED]
+                previous = next((s for s in reversed(scans) if s.get("manifest_sha256") and s.get("export_root_id") == self.pointer.get("export_root_id")), None)
                 try:
+                    manifest = self.source.refresh(cutoff_utc=cutoff_utc, previous=previous)
+                    specs = manifest["entries"]
+                except (OSError, ValueError, KeyError, TypeError) as exc:
+                    gaps.append({"state": str(exc) if isinstance(exc, LatestReportConsumerError) else "MAIN_PUBLIC_EXPORT_UNAVAILABLE"})
+                    specs = []
+            withdrawals = []
+            for spec in specs:
+                try:
+                    if spec.get("event_type") == "WITHDRAWAL":
+                        withdrawals.append(spec)
+                        continue
                     b = self.source.bundle(spec)
                     e = json.loads(b["envelope"])
                     if _private(e):
@@ -270,12 +299,13 @@ class MainReportFeed:
                 try:
                     validation = validate_latest_report_bytes(
                         b["envelope"],
-                        report_bytes=[b["report"]],
+                        report_bytes=[b["report"]] if b["report"] else [],
                         expected_cutoff_utc=cutoff_utc,
                         envelope_schema_bytes=b["envelope_schema"],
                         report_schema_bytes=b["report_schema"],
                         producer_binding=b["binding"],
                         allow_lineage_only=True,
+                        public_export_bytes=b.get("public_export"),
                     )
                 except (ValueError, KeyError, TypeError):
                     gaps.append(
@@ -307,15 +337,26 @@ class MainReportFeed:
                         "blockers": record.get("blockers", []),
                     }
                 )
+            for withdrawal in withdrawals:
+                try:
+                    if _time(withdrawal["known_at_cutoff_utc"]) > _time(cutoff_utc):
+                        gaps.append({"state": "FUTURE_WITHDRAWAL_DEFERRED"})
+                        continue
+                    event = self.apply_withdrawal(withdrawal)
+                    events.append(event)
+                    new += int(event["state"] == "CLAIMS_WITHDRAWN")
+                except (ValueError, KeyError, TypeError):
+                    gaps.append({"state": "MAIN_PUBLIC_WITHDRAWAL_INVALID"})
             summary = {
                 "schema_version": SCHEMA,
-                "producer_commit": self.pointer["producer_commit"],
+                "producer_commit": self.pointer.get("producer_commit"),
                 "observed_at_utc": cutoff_utc,
-                "configured_bundle_count": len(self.pointer["bundles"]),
+                "configured_bundle_count": len(specs),
                 "new_events": new,
                 "events": events,
                 "gaps": gaps,
-                "coverage": "CONFIGURED_IMMUTABLE_EXPORTS_ONLY",
+                "coverage": "MAIN_PUBLIC_FILE_OUTBOX" if manifest else "CONFIGURED_IMMUTABLE_EXPORTS_ONLY",
+                **({"manifest_sha256": manifest["manifest_sha256"], "export_root_id": manifest["export_root_id"]} if manifest else {}),
                 "public_write_performed": False,
             }
             _persist(
@@ -326,6 +367,25 @@ class MainReportFeed:
             self.tracker.store.release_lease(
                 lease["lease_id"], owner, lease["fencing_token"]
             )
+
+    def apply_withdrawal(self, event):
+        identity = "cc-public-withdrawal-" + sha256_of(event)
+        if self.tracker.store.get_outbox_message(identity):
+            return {"state": "DUPLICATE_WITHDRAWAL_NOOP", "event_id": event["event_id"]}
+        candidates = [r for r in self.tracker.receipts() if r.get("source_report_sha256") == event["report_sha256"] and event["asset_id"] in r.get("asset_ids", []) and r["status"] in CURRENT]
+        if not candidates:
+            return {"state": "WITHDRAWAL_TARGET_NOT_RECEIVED", "event_id": event["event_id"]}
+        expected = "withdrawal:" + sha256_of({k:v for k,v in event.items() if k != "event_id"})
+        if event.get("event_id") != expected or not event.get("reason") or _private(event):
+            raise LatestReportConsumerError("PUBLIC_WITHDRAWAL_IDENTITY_INVALID")
+        record = candidates[0]
+        value = {**event, "report_id": record["report_id"], "report_version": record["report_version"], "source_report_sha256": event["report_sha256"], "state": "CLAIMS_WITHDRAWN"}
+        _persist(self.tracker.store, identity, value, "internal:cc-report-withdrawal")
+        for row in self.tracker.store.list_outbox_messages():
+            payload = json.loads(row["payload"])
+            if row["destination"] in {"internal:cc-report-receipt", "internal:cc-report-editorial-input", "internal:cc-report-simple-result"} and payload.get("source_report_sha256") == event["report_sha256"]:
+                self.tracker.store.set_outbox_status(row["message_id"], "CONTENT_WITHDRAWN")
+        return {"state": "CLAIMS_WITHDRAWN", "event_id": event["event_id"], "report_id": record["report_id"], "report_version": record["report_version"]}
 
     def pending(self, *, include_controlled: bool = True) -> list[dict[str, Any]]:
         latest = {}
@@ -349,7 +409,7 @@ class MainReportFeed:
                 key=lambda v: (v["known_at_cutoff_utc"], v["report_id"]),
                 reverse=True,
             )
-            if r["status"] == "ADMITTED"
+            if r["status"] == "ADMITTED" and r.get("delivery_status") != "CONTENT_WITHDRAWN"
             and not any(
                 v.get("report_id") == r["report_id"]
                 and v.get("report_version") == r["report_version"]
@@ -376,13 +436,23 @@ class MainReportFeed:
     ) -> dict[str, Any]:
         """One existing newsroom slot; all reports compete with normal news in one Simple call."""
         scan = self.poll(cutoff_utc=cutoff_utc)
+        if self.pointer.get("research_root") and not self.can_resume(run_id):
+            from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+            try:
+                self.retained_research = RetainedSourceResearch(self.pointer["research_root"])
+                self.research_error = None
+            except (OSError, ValueError, KeyError, TypeError):
+                # Do not turn an unavailable configured evidence index into a
+                # blanket source grant or block unaffected Main/normal news.
+                self.retained_research = None
+                self.research_error = "CONFIGURED_RESEARCH_INDEX_UNAVAILABLE_OR_INVALID"
         from live_contentops.contentops_main_headline_projection_v1 import (
             MainHeadlineExporter,
             permitted_report_headlines,
         )
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_dir
 
-        export = MainHeadlineExporter(self.tracker.store).export(
+        export = MainHeadlineExporter(self.tracker.store, research=self.retained_research).export(
             batch_id=run_id,
             paths=(
                 self.headline_paths
@@ -395,6 +465,7 @@ class MainReportFeed:
             ),
             cutoff_utc=cutoff_utc,
             permitted_rows=permitted_report_headlines(self.tracker),
+            additional_gaps=[{"state": self.research_error}] if self.research_error else [],
         )
         export_root = Path(output_dir)
         export_root.mkdir(parents=True, exist_ok=True)
@@ -411,13 +482,13 @@ class MainReportFeed:
         if previous:
             cached = json.loads(previous["payload"])
             record = next(
-                r
+                (r
                 for r in self.tracker.receipts()
-                if r["receipt_id"] == cached["receipt_id"]
+                if r["receipt_id"] == cached["receipt_id"]), None
             )
             cached = run_report_editorial_cycle(
                 self.tracker,
-                receipt_id=record["receipt_id"],
+                receipt_id=cached["receipt_id"],
                 admission=record,
                 output_dir=output_dir,
                 cutoff_utc=cutoff_utc,
@@ -448,28 +519,12 @@ class MainReportFeed:
             )
 
             rolling_input = load_rolling_x_headline_sidecars(cutoff_utc=cutoff_utc)
-        if not pending:
-            from live_contentops.production_orchestrator_v1 import (
-                ContentOpsProductionOrchestrator,
-            )
-
-            return dict(
-                ContentOpsProductionOrchestrator().execute(
-                    "run_v1_simple_gemini_newsroom",
-                    output_dir=output_dir,
-                    cutoff_utc=cutoff_utc,
-                    run_id=run_id,
-                    published_memory=published_memory,
-                    rolling_input=rolling_input,
-                    llm_invoke=llm_invoke,
-                    source_route_health=source_route_health,
-                    attempted_candidate_ids=attempted_candidate_ids,
-                )
-            )
+        if self.retained_research and not pool:
+            rolling_input = {**rolling_input, "headlines": [*self.retained_research.headlines(cutoff_utc=cutoff_utc), *rolling_input.get("headlines", [])]}
         result = run_report_editorial_cycle(
             self.tracker,
-            receipt_id=pending[0]["receipt_id"],
-            admission=pending[0],
+            receipt_id=pending[0]["receipt_id"] if pending else "independent-" + sha256_of(run_id),
+            admission=pending[0] if pending else None,
             output_dir=output_dir,
             cutoff_utc=cutoff_utc,
             rolling_input=rolling_input,
@@ -480,6 +535,7 @@ class MainReportFeed:
             opportunity_id=run_id,
             source_route_health=source_route_health,
             attempted_candidate_ids=attempted_candidate_ids,
+            retained_research=self.retained_research,
         )
         disposition = {
             "schema_version": SCHEMA,

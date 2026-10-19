@@ -471,6 +471,7 @@ def _render_text_card(
     body_lines: Sequence[tuple[str, str]],
     footer_lines: Sequence[str],
     accent: str = "#11263d",
+    wrap_body: bool = False,
 ) -> None:
     from PIL import Image, ImageDraw
 
@@ -487,8 +488,15 @@ def _render_text_card(
     for label, value in body_lines[:8]:
         draw.rectangle((64, y, 72, y + 54), fill=accent)
         draw.text((88, y), _bounded_text(label, maximum=36), font=heading_font, fill="#37424e")
-        draw.text((88, y + 30), _bounded_text(value, maximum=108), font=body_font, fill="#101820")
-        y += 82
+        if wrap_body:
+            import textwrap
+            value_lines = textwrap.wrap(value, width=100)[:5]
+            for index, value_line in enumerate(value_lines):
+                draw.text((88, y + 30 + index * 30), value_line, font=body_font, fill="#101820")
+            y += 52 + len(value_lines) * 30
+        else:
+            draw.text((88, y + 30), _bounded_text(value, maximum=108), font=body_font, fill="#101820")
+            y += 82
     footer_y = 800
     for index, line in enumerate(footer_lines[:2]):
         draw.text((64, footer_y + index * 26), _bounded_text(line, maximum=140), font=small_font, fill="#4a5560")
@@ -658,6 +666,11 @@ def build_source_backed_media_assets(
     published = str(primary.get("published_at_utc") or primary.get("event_time_utc") or "")
     document_title = str(primary.get("title") or "Official primary source document")
     content_text = sanitize_source_text(str(primary.get("canonical_content_text") or ""))
+    if primary.get("render_excerpt_text"):
+        requested_excerpt = str(primary["render_excerpt_text"])
+        if " ".join(requested_excerpt.split()) not in " ".join(content_text.split()):
+            raise GroundedArticleBuilderError("media_excerpt_not_bound_to_source")
+        content_text = requested_excerpt
     story_type = str(context.get("story_type") or "story")
     underlying_rights, reuse_basis = _underlying_source_rights(primary)
     # Excerpt rendering is only permitted where the underlying source has an established
@@ -670,19 +683,21 @@ def build_source_backed_media_assets(
     # 1. SOURCE_DOCUMENT_CARD — official publisher, title, date, bounded excerpt (only where
     #    reuse is permitted), source URL. Metadata-only fields otherwise.
     lead_path = media_root / "source_document_card.png"
-    excerpt = _bounded_text(content_text, maximum=180) if excerpt_permitted else ""
+    excerpt = _bounded_text(content_text, maximum=500 if primary.get("render_excerpt_text") else 180) if excerpt_permitted else ""
     doc_body_lines = [
         ("Publisher", publisher),
         ("Published", published or "date as recorded"),
     ]
     if excerpt:
         doc_body_lines.append(("Record", excerpt))
+    import textwrap
     _render_text_card(
         path=lead_path,
         header="Official Source Document",
-        title_lines=[document_title],
+        title_lines=textwrap.wrap(document_title, width=76)[:2] if primary.get("render_excerpt_text") else [document_title],
         body_lines=doc_body_lines,
         footer_lines=[f"Source: {source_url or 'official primary source'}", "Capital Chronicle source-backed render. Underlying source rights recorded separately."],
+        wrap_body=bool(primary.get("render_excerpt_text")),
     )
     assets.append(
         _base_asset_record(
@@ -704,6 +719,9 @@ def build_source_backed_media_assets(
             supports_headline=True,
         )
     )
+
+    if required_asset_count == 1:
+        return assets
 
     # 2. DECISION_FACT_CARD — exact evidence-backed factual fields only. Editorial framing
     #    (entities_topics / why_now / selection_case / SEO intent / leaf summaries) is NEVER
@@ -776,6 +794,66 @@ def build_source_backed_media_assets(
     ):
         raise GroundedArticleBuilderError("excerpt_rendered_without_established_reuse_basis")
     return assets[:required_asset_count]
+
+
+def build_source_value_comparison_chart(
+    document: Mapping[str, Any], *, rows: Sequence[Mapping[str, Any]],
+    title: str, unit: str, output_dir: Path,
+) -> dict[str, Any]:
+    """Plot quoted source values; never calculate a forecast or infer source rights.
+
+    Each bar binds its label, period and exact numeric spelling to one retained
+    source excerpt. The caller retains responsibility for editorial usefulness;
+    this compiler rejects unbound values and unsupported source reuse.
+    """
+    rights, basis = _underlying_source_rights(document)
+    text = " ".join(str(document.get("canonical_content_text") or "").split())
+    if rights != UNDERLYING_RIGHTS_PUBLIC_DOMAIN or not document.get("rights_evidence_sha256"):
+        raise GroundedArticleBuilderError("chart_source_reuse_not_established")
+    if not 2 <= len(rows) <= 12 or unit not in {"GW", "GWh", "%", "million barrels"}:
+        raise GroundedArticleBuilderError("chart_series_scope_invalid")
+    values, labels = [], []
+    for row in rows:
+        excerpt = " ".join(str(row["support_excerpt"]).split())
+        value_text = str(row["value_text"])
+        if (excerpt not in text or str(row["label"]) not in excerpt
+                or str(row["period"]) not in excerpt or unit not in excerpt
+                or not re.search(r"(?<![\d.])" + re.escape(value_text) + r"(?![\d.])", excerpt)
+                or not re.fullmatch(r"\d+(?:\.\d+)?", value_text)):
+            raise GroundedArticleBuilderError("chart_value_not_bound_to_source")
+        values.append(float(value_text))
+        labels.append(str(row["label"]) + "\n" + str(row["period"]))
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    path = Path(output_dir) / "media_assets" / "source_value_comparison.png"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with plt.rc_context({"font.family": "DejaVu Sans", "font.size": 12}):
+        fig, ax = plt.subplots(figsize=(12, 7), dpi=120)
+        fig.patch.set_facecolor("#f5f2eb")
+        ax.set_facecolor("#f5f2eb")
+        bars = ax.bar(labels, values, color=["#12666a" if i % 2 == 0 else "#aeb7b2" for i in range(len(rows))], width=.64)
+        ax.bar_label(bars, labels=[str(r["value_text"]) for r in rows], padding=7)
+        ax.set_ylim(0, max(values) * 1.18)
+        ax.set_ylabel(unit)
+        ax.set_title(title, loc="left", fontsize=20, fontweight="bold", pad=30)
+        ax.spines[["top", "right", "bottom"]].set_visible(False)
+        ax.grid(axis="y", alpha=.15)
+        ax.set_axisbelow(True)
+        fig.text(.08, .05, "Source: " + str(document["publisher"]) + " · " + str(document["published_at_utc"])[:10] +
+                 "\nSource-reported values; different dates. No forecast or market-price inference.", fontsize=10)
+        fig.subplots_adjust(left=.08, right=.97, top=.84, bottom=.22)
+        fig.savefig(path, facecolor=fig.get_facecolor())
+        plt.close(fig)
+    return {**_base_asset_record(asset_id="source_value_comparison", path=path, role="supporting_fact_context",
+             media_role="source_value_comparison", modality="source_backed_chart", evidence_dimension="source_value_comparison",
+             caption=title, alt_text="; ".join(label.replace("\n", " ") + ": " + str(r["value_text"]) + " " + unit for label, r in zip(labels, rows)),
+             source_label=str(document["publisher"]), source_page_url=str(document["source_url"]),
+             publication_date=str(document["published_at_utc"]), article_section="key_facts",
+             relevance_rationale="Compares exact dated observations retained in the cited source.",
+             underlying_source_rights_status=rights, source_reuse_basis=basis),
+            "source_content_sha256": document.get("raw_sha256"),
+            "rights_evidence_sha256": document["rights_evidence_sha256"], "source_value_bindings": list(rows)}
 
 
 def _build_third_asset(
@@ -2647,7 +2725,6 @@ def _minimum_evidence_news_brief(
     if packet.get("status") != "PASS" or packet.get("risk_tier") != "ORDINARY":
         raise GroundedArticleBuilderError("ordinary_minimum_evidence_packet_missing")
     proposition = " ".join(str(packet.get("core_factual_proposition") or "").split())
-    publisher = " ".join(str(packet.get("publisher") or "the reporting source").split())
     bindings = _source_bindings(context)
     evidence_id = str(packet.get("evidence_document_id") or "")
     binding = next(

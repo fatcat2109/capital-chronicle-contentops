@@ -116,6 +116,20 @@ def test_exact_publisher_render_is_hash_bound_and_read_only():
     assert fake.calls[2][1]["selector"] == "article"
 
 
+def test_registered_bls_release_pre_scope_and_no_arbitrary_selector():
+    url = "https://www.bls.gov/news.release/cpi.nr0.htm"
+    fake = FakeTransport(final_url=url)
+    recovery = BrowserOSNeoRenderedSourceRecovery(allowed_hosts=["www.bls.gov"], transport_factory=lambda: fake, resolve_dns=False)
+    result = recovery(url, 5.0, 20_000, semantic_selectors=["pre"])
+    assert result["semantic_scope"] == "pre"
+    assert fake.calls[2][1]["selector"] == "pre"
+    invalid = FakeTransport(final_url=url)
+    recovery = BrowserOSNeoRenderedSourceRecovery(allowed_hosts=["www.bls.gov"], transport_factory=lambda: invalid, resolve_dns=False)
+    with pytest.raises(BrowserRenderedSourceRecoveryError, match="semantic_scope_not_registered"):
+        recovery(url, 5.0, 20_000, semantic_selectors=["body"])
+    assert invalid.closed
+
+
 def test_cross_publisher_redirect_fails_closed_and_closes_task_tab():
     fake = FakeTransport(final_url="https://www.reuters.com/world/example")
 

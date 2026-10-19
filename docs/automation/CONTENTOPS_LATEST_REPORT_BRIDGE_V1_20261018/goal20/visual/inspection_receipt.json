@@ -1,0 +1,19 @@
+{
+  "scope": "CANONICAL_REPORT_COMPONENT_CONTROLLED_OUTPUT_ONLY",
+  "desktop_inspected": true,
+  "mobile_inspected": true,
+  "native_preview_sample_inspected": true,
+  "rendered_media_inspected": 4,
+  "mobile_width": 430,
+  "mobile_scroll_width": 430,
+  "loaded_image_count": 4,
+  "production_runtime_started": false,
+  "task_preview_pid": 34584,
+  "preview_process_stopped": true,
+  "preview_listener_absent": true,
+  "files": {
+    "desktop.jpg": "7140f084ff2711ee2cd5b54fdc78b16e9c2479fd3708c7bfbd2888e79efa634b",
+    "mobile.jpg": "f2b32c81e324efc3c54260479dbe7fe8aa0e148b9a0bbec936edc15ed732db2b",
+    "native-previews.jpg": "6ce7c1c5615701c0c92eabe2085dca813b106f3b3d1386e404316c34c159bf3f"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "producer_source_status": "UNCOMMITTED_WORKTREE_BYTES",
+  "producer_git_head": "b6f05d2dc271b9c7f5097c5b8cb7152eb373d176",
+  "producer_source_path": "tools/product/analysis_report_outbox_v1.py",
+  "producer_source_raw_sha256": "021e6796bf334b57fba8e2418d93cabea1351a56c2b72faff0a4342c05881e1c",
+  "purpose": "LOCAL_COMPATIBILITY_CONTROL_NOT_IMMUTABLE_MAIN_HANDOFF"
+}

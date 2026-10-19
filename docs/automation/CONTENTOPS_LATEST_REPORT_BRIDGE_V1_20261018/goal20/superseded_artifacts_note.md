@@ -1,0 +1,1 @@
+Earlier task-owned exploratory outputs were preserved outside the worktree at C:\Users\bullw\AppData\Local\Temp\goal20-superseded-owned-artifacts-64t34opj. Only acceptance/ is the current connected proof. No shared or Main work was moved.

@@ -603,7 +603,8 @@ def _validate_worker_text(text: str) -> tuple[bool, str | None, Any, str | None]
             return False, "structured_output_schema_invalid", None, "cited_source_fields_invalid"
         if str(source.get("source_id") or "") != f"SOURCE_{index}":
             return False, "structured_output_schema_invalid", None, "cited_source_order_invalid"
-        if not str(source.get("url") or "").startswith("https://"):
+        if not (str(source.get("url") or "").startswith("https://")
+                or re.fullmatch(r"urn:cc-public-report:[a-zA-Z0-9_-]{1,100}:[a-f0-9]{64}", str(source.get("url") or ""))):
             return False, "structured_output_schema_invalid", None, "cited_source_https_required"
     for claim in claims:
         if not isinstance(claim, Mapping):
@@ -934,7 +935,10 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
     for document in documents[:MAX_SOURCE_DOCUMENTS]:
         url = str(document.get("reader_source_url") or document.get("source_url") or "")
         text = str(document.get("canonical_content_text") or "")
-        if not url.startswith("https://") or len(text.strip()) < 40:
+        retained_main = (document.get("source_authority_class") == "governed_capital_chronicle_report_only"
+                         and document.get("report_lineage")
+                         and re.fullmatch(r"urn:cc-public-report:[a-zA-Z0-9_-]{1,100}:[a-f0-9]{64}", url))
+        if not (url.startswith("https://") or retained_main) or len(text.strip()) < 40:
             continue
         source_id = f"SOURCE_{len(pack) + 1}"
         pack.append(

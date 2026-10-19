@@ -1,0 +1,75 @@
+{
+  "accepted_evidence_ids": [
+    "official-primary-6752404e61026d28602d"
+  ],
+  "accepted_evidence_sha256": "1a28a94979113786722ce19bec0eeaf307944c4be146d50c0e4bfb60ada49c4d",
+  "article": {
+    "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "social_hook": "EIA: small-scale solar generation grew over the past decade. What the dated evidence can and cannot tell us.",
+    "substack_body_markdown": "EIA reports: We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade. ",
+    "subtitle": "EIA: small-scale solar generation grew over the past decade. The source describes a historical observation.",
+    "title": "CONFIRMED | EIA: small-scale solar generation grew over the past decade"
+  },
+  "article_content_sha256": "2c9bf1c3b164427780363e4f468bce1108312ae332d724d42f25fbab83023802",
+  "article_identity": "2f7bc83529277253bc70e277c036109585fdb597ab9544f40da6e5b13f0a8a82",
+  "compiler_input_sha256": "e8e0a5c5754db9d8ed3a1ea0449c5dee357c2702e5df2f279405c839d56b382f",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.eia.gov",
+    "primary_reporting_source_identity": "www.eia.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.eia.gov reports that we estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "official-primary-6752404e61026d28602d"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "media": {
+    "assets": [],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "goal20-controlled-goal20-eia-smallscale-solar",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-e5a153343d44fa2fdd9fe791",
+    "canonical_x_list_provenance": {},
+    "headline_id": "goal20-eia-smallscale-solar",
+    "headline_text": "We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade.",
+    "official_source_urls": [
+      "https://www.eia.gov/todayinenergy/detail.php?id=68324"
+    ],
+    "public_source_urls": [
+      "https://www.eia.gov/todayinenergy/detail.php?id=68324"
+    ],
+    "report_editorial_context": {},
+    "source_account": "www.eia.gov",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-16T00:00:00Z",
+    "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=68324",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": false,
+      "known_official_path": true,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-e5a153343d44fa2fdd9fe791"
+  }
+}

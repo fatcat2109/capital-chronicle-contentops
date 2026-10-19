@@ -1,0 +1,149 @@
+{
+  "article_identity": "2f7bc83529277253bc70e277c036109585fdb597ab9544f40da6e5b13f0a8a82",
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253",
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "compiler_input_sha256": "e8e0a5c5754db9d8ed3a1ea0449c5dee357c2702e5df2f279405c839d56b382f",
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.eia.gov",
+    "primary_reporting_source_identity": "www.eia.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.eia.gov reports that we estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "official-primary-6752404e61026d28602d"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "every_preview_preserves_epistemic_state": true,
+  "final_validated_article_public_copy_sha256": "2c9bf1c3b164427780363e4f468bce1108312ae332d724d42f25fbab83023802",
+  "package_count": 8,
+  "packages": {
+    "discord": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: CONFIRMED | EIA: small-scale solar generation grew over the past decade**\n\nWhat the dated evidence can and cannot tell us.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+    },
+    "facebook_page": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 63206,
+      "text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nWhy it matters: EIA reports: We estimate that U.S.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+    },
+    "instagram_business": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "platform_limit": 2200,
+      "text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253\n\n#CapitalChronicle"
+    },
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 3000,
+      "text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhy it matters: EIA reports: We estimate that U.S.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+    },
+    "telegram": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nCONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+    },
+    "threads": {
+      "format": "text_brief",
+      "full_text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253",
+      "hard_truncation_used": false,
+      "overflow_strategy": "single_root",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.396
+        ],
+        "post_character_counts": [
+          198
+        ],
+        "reply_count": 0,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 1.0,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [],
+      "root_text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253",
+      "text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+    },
+    "x": {
+      "format": "text_brief",
+      "full_text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253",
+      "hard_truncation_used": false,
+      "overflow_strategy": "single_root",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.707
+        ],
+        "post_character_counts": [
+          198
+        ],
+        "reply_count": 0,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 1.0,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [],
+      "root_text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253",
+      "text": "CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+    },
+    "youtube": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 1000,
+      "text": "Update: CONFIRMED | EIA: small-scale solar generation grew over the past decade\n\nWhat the dated evidence can and cannot tell us.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2f7bc83529277253"
+    }
+  },
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_coordinator_dispatch_count": 0,
+  "rematerialization_after_real_substack_url_required": true,
+  "schema_version": "contentops.v1_simple_native_derivative_previews.v1",
+  "unknown_write_count": 0
+}

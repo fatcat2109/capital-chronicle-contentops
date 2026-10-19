@@ -1,0 +1,464 @@
+{
+  "accepted_evidence_ids": [
+    "official-rendered-d957271d5ef1b45b59e8"
+  ],
+  "accepted_evidence_sha256": "576f5d64f20ecb2ef5d9ab81f0f007bd17bb6d01bd1fc1277d9d715fc5f1a795",
+  "article_body_sha256": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+  "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+  "article_path": null,
+  "attempt_run_id": "goal20-controlled-goal20-bls-cpi-september",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.bls.gov",
+        "primary_reporting_source_identity": "www.bls.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-rendered-d957271d5ef1b45b59e8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCONFIRMED | BLS: Consumer Price Index increased in September\n\nWhat the dated evidence can and cannot tell us.\n\nWhat to watch: Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+      },
+      "payload_sha256": "d398792ad1336ba6bb088e3fa8424b105a5e42e6121dde88eadb0f657aeb6f1b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.bls.gov",
+        "primary_reporting_source_identity": "www.bls.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-rendered-d957271d5ef1b45b59e8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-df2daac576339622\n\nWatch: Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.668,
+            0.361
+          ],
+          "post_character_counts": [
+            187,
+            101
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.54,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment."
+        ],
+        "root_text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-df2daac576339622",
+        "text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+      },
+      "payload_sha256": "50569474a2e8b13b06fb3c6552c5dd69e859df9a53bd81a12b32f4882e1b883d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.bls.gov",
+        "primary_reporting_source_identity": "www.bls.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-rendered-d957271d5ef1b45b59e8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CONFIRMED | BLS: Consumer Price Index increased in September**\n\nWhat the dated evidence can and cannot tell us.\n\n**Context:** Bureau of Labor Statistics reported today.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+      },
+      "payload_sha256": "a76dabf9d85ff1763df459c759d772dac39e924f9e8db4442dce6c67132f2c2e",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.bls.gov",
+        "primary_reporting_source_identity": "www.bls.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-rendered-d957271d5ef1b45b59e8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nWhy it matters: BLS reports: The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S.\n\nContext: Bureau of Labor Statistics reported today.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+      },
+      "payload_sha256": "a9e15e3a68272a840945c1d261ac780e2a1cadb7ccd500a92d2aa6bf144aff73",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.bls.gov",
+        "primary_reporting_source_identity": "www.bls.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-rendered-d957271d5ef1b45b59e8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nWhat the dated evidence can and cannot tell us.\n\nWhy it matters: BLS reports: The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+      },
+      "payload_sha256": "baf67856be5fcfdd30f7cd37b4324308d0e36c7e309fccbf54d963dd934ba78a",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.bls.gov",
+        "primary_reporting_source_identity": "www.bls.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-rendered-d957271d5ef1b45b59e8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nWhat the dated evidence can and cannot tell us.\n\nIn focus: Bureau of Labor Statistics reported today.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-df2daac576339622\n\n#CapitalChronicle"
+      },
+      "payload_sha256": "8fdd5b0741801a268bc3683900f2946c6092f21453792340786c5b55826e7288",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.bls.gov",
+        "primary_reporting_source_identity": "www.bls.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-rendered-d957271d5ef1b45b59e8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nBureau of Labor Statistics reported today.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-df2daac576339622\n\nWhat to watch: Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nBureau of Labor Statistics reported today.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.364,
+            0.218
+          ],
+          "post_character_counts": [
+            182,
+            109
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.599,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment."
+        ],
+        "root_text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nBureau of Labor Statistics reported today.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-df2daac576339622",
+        "text": "CONFIRMED | BLS: Consumer Price Index increased in September\n\nBureau of Labor Statistics reported today.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+      },
+      "payload_sha256": "6e1e4280902bc20f631270683cf79b9e59b67295fb48de719661a9d66ccacd02",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "df2daac576339622cc45a441b2484a6feb4e17b849cdd2a8e53da1fff41da1eb",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.bls.gov",
+        "primary_reporting_source_identity": "www.bls.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "official-rendered-d957271d5ef1b45b59e8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CONFIRMED | BLS: Consumer Price Index increased in September\n\nWhat the dated evidence can and cannot tell us.\n\nWhat to watch: Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-df2daac576339622"
+      },
+      "payload_sha256": "0be5d7c50d0021c1611e67a5e0e5842baa47c5d79d37695c3a4045d1a0fe99b8",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": 0,
+    "logical_model_invocation_count": 2,
+    "model": "vx/gemini-3.5-flash(high)",
+    "provider": "9router",
+    "public_write_attempted": false,
+    "reasoning_effort": "HIGH"
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.bls.gov",
+    "primary_reporting_source_identity": "www.bls.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.bls.gov reports that the Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "official-rendered-d957271d5ef1b45b59e8"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-19-bangkok",
+  "parent_window_id": "goal20-controlled-goal20-bls-cpi-september",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "42613ef8dbe270141d89500660b6a5e554c0a68b366243d7428f1674d6df5277",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-217599eb47302d738f8ef60b",
+  "title": "BLS: Consumer Price Index increased in September",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-217599eb47302d738f8ef60b"
+}

@@ -1,0 +1,16 @@
+{
+  "network_gets": 3,
+  "acquired_documents": 1,
+  "admitted_independent_items": 1,
+  "gaps": [
+    {
+      "headline_id": "goal20-bls-cpi-september",
+      "state": "SOURCE_ACQUISITION_BLOCKED",
+      "blockers": [
+        "HTTP Error 403: Forbidden"
+      ]
+    }
+  ],
+  "fresh_model_calls": 0,
+  "public_writes": 0
+}

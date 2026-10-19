@@ -497,6 +497,7 @@ def test_independent_intake_stays_in_simple_selection_and_uses_its_own_evidence(
         llm_invoke=model,
     )
     assert result["classification"] == "INDEPENDENT_NEWS_DRAFT"
-    assert result["exact_next_blocker"] == "REPORT_NOT_SELECTED"
-    assert result["draft_count"] == 0  # no report-to-article credit
+    assert result["exact_next_blocker"] is None
+    assert result["draft_count"] == 1 and result["report_id"] is None
+    assert len(result["previews"]) == 8  # independent draft, zero Main report credit
     assert len(evidence_requests) == 1

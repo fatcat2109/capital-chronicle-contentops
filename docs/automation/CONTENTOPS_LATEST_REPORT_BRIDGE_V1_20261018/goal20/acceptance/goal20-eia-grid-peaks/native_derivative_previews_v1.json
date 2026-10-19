@@ -1,0 +1,169 @@
+{
+  "article_identity": "046a68e4f81618fe9b4e29269f33f912280148c4c69d6dc8e171a74e699e8de1",
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe",
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "compiler_input_sha256": "78a0d0073e89b4cc808c76e7667a93fca14f9f6678f663c4279e8832efffa39a",
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025. The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024. The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.eia.gov",
+    "primary_reporting_source_identity": "www.eia.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.eia.gov reports that PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025. The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024. The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "official-primary-50e024dd01b717622483"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "every_preview_preserves_epistemic_state": true,
+  "final_validated_article_public_copy_sha256": "344e4b299f1130e7a7c36dcf32436f64606d4a87a159bbbf180bddb20207ca38",
+  "package_count": 8,
+  "packages": {
+    "discord": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records**\n\nWhat the dated evidence can and cannot tell us.\n\n**Context:** The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+    },
+    "facebook_page": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 63206,
+      "text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhat the dated evidence can and cannot tell us.\n\nWhy it matters: EIA reports: PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+    },
+    "instagram_business": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "platform_limit": 2200,
+      "text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhat the dated evidence can and cannot tell us.\n\nIn focus: The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe\n\n#CapitalChronicle"
+    },
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 3000,
+      "text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhy it matters: EIA reports: PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025.\n\nContext: The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+    },
+    "telegram": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nCONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhat the dated evidence can and cannot tell us.\n\nWhat to watch: The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+    },
+    "threads": {
+      "format": "text_brief",
+      "full_text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nThe Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe\n\nWhat to watch: The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nThe Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.582,
+          0.296
+        ],
+        "post_character_counts": [
+          291,
+          148
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.509,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023."
+      ],
+      "root_text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nThe Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe",
+      "text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nThe Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+    },
+    "x": {
+      "format": "text_brief",
+      "full_text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe\n\nWatch: The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.661,
+          0.5
+        ],
+        "post_character_counts": [
+          185,
+          140
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.757,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023."
+      ],
+      "root_text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe",
+      "text": "CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhat the dated evidence can and cannot tell us.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+    },
+    "youtube": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 1000,
+      "text": "Update: CONFIRMED | EIA: PJM, ERCOT and SWPP set peak load records\n\nWhat the dated evidence can and cannot tell us.\n\nWhat to watch: The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-046a68e4f81618fe"
+    }
+  },
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_coordinator_dispatch_count": 0,
+  "rematerialization_after_real_substack_url_required": true,
+  "schema_version": "contentops.v1_simple_native_derivative_previews.v1",
+  "unknown_write_count": 0
+}

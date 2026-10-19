@@ -1,0 +1,113 @@
+{
+  "cited_source_count": 1,
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.eia.gov",
+    "primary_reporting_source_identity": "www.eia.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.eia.gov reports that we estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "official-primary-6752404e61026d28602d"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "maximum_revision_rounds": 1,
+  "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+  "public_write_performed": false,
+  "report_truth_validated_separately_from_event_truth": true,
+  "revision_performed": false,
+  "revision_router_receipt": null,
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "source_urls": [
+    "https://www.eia.gov/todayinenergy/detail.php?id=68324"
+  ],
+  "status": "PASS",
+  "supported_material_claim_count": 6,
+  "supported_material_claims": [
+    {
+      "attribution_required": true,
+      "claim_id": "metadata-title",
+      "claim_kind": "FACT",
+      "claim_text": "EIA: small-scale solar generation grew over the past decade",
+      "document_id": "official-primary-6752404e61026d28602d",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1dfc38fde387568f5579d0e13238f835e438acff1fcdbb86aedfcda0ad9774fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "metadata-dek",
+      "claim_kind": "FACT",
+      "claim_text": "EIA: small-scale solar generation grew over the past decade. The source describes a historical observation.",
+      "document_id": "official-primary-6752404e61026d28602d",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1dfc38fde387568f5579d0e13238f835e438acff1fcdbb86aedfcda0ad9774fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "metadata-search_title",
+      "claim_kind": "FACT",
+      "claim_text": "EIA: small-scale solar generation grew over the past decade",
+      "document_id": "official-primary-6752404e61026d28602d",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1dfc38fde387568f5579d0e13238f835e438acff1fcdbb86aedfcda0ad9774fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "metadata-meta_description",
+      "claim_kind": "FACT",
+      "claim_text": "EIA: small-scale solar generation grew over the past decade. Read the source, context and limits.",
+      "document_id": "official-primary-6752404e61026d28602d",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1dfc38fde387568f5579d0e13238f835e438acff1fcdbb86aedfcda0ad9774fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "metadata-social_hook",
+      "claim_kind": "FACT",
+      "claim_text": "EIA: small-scale solar generation grew over the past decade. What the dated evidence can and cannot tell us.",
+      "document_id": "official-primary-6752404e61026d28602d",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1dfc38fde387568f5579d0e13238f835e438acff1fcdbb86aedfcda0ad9774fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "retained-observation",
+      "claim_kind": "FACT",
+      "claim_text": "We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade.",
+      "document_id": "official-primary-6752404e61026d28602d",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1dfc38fde387568f5579d0e13238f835e438acff1fcdbb86aedfcda0ad9774fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    }
+  ],
+  "unknown_write_detected": false,
+  "unsupported_material_claim_count": 0,
+  "worker_router_receipt": {
+    "model_identity_provider_verifiable": false,
+    "replay_only": true,
+    "selected_model": "vx/gemini-3.5-flash(high)",
+    "total_attempts": 0
+  }
+}

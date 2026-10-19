@@ -17,6 +17,19 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('keeps independent evidence, recirculation, controlled conversion and media visible', () => {
+    const snapshot = data();
+    snapshot.headline_export = { source_rows_scanned: 0, eligible_rows: 4, missing_rows: 1, coverage: 'bounded', observed_at_utc: '2026-10-19T06:30:00Z', independent_items: 2, main_origin_recirculated_items: 2, gaps: [{ state: 'SOURCE_RIGHTS_MISSING' }] };
+    snapshot.conversion = { independent_drafts: 1, main_drafts: 1, fresh_provider_drafts: 0, controlled_drafts: 2 };
+    snapshot.independent_results = [{ classification: 'INDEPENDENT_NEWS_DRAFT', model_execution_state: 'INJECTED_REPLAY_ONLY', article_identity: 'independent-1', article: { title: 'EIA grid source-backed draft', dek: 'Dated observation', substack_body_markdown: 'Attributed source context' }, previews: snapshot.previews, media_assets: [{ asset_id: 'chart', caption: 'Grid source comparison', path: '/retained/chart.png', sha256: 'bound-chart', underlying_source_rights_status: 'public_domain' }] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    expect(screen.getByText(/Independent acquired items: 2/)).toHaveTextContent('Main-origin recirculation: 2');
+    expect(screen.getByText(/Draft conversion/)).toHaveTextContent('0 fresh provider');
+    expect(screen.getByText('EIA grid source-backed draft')).toBeInTheDocument();
+    expect(screen.getByText(/1 rendered media artifacts/)).toBeInTheDocument();
+    expect(screen.getByText(/Grid source comparison/)).toHaveTextContent('public_domain');
+    expect(screen.getByText('SOURCE RIGHTS MISSING')).toBeInTheDocument();
+  });
   it('shows multi-asset feed coverage, lifecycle and exact headline permission gaps', () => {
     const gas = data();
     gas.report_history = [{ report_id: 'asset-report:XNGUSD', report_version: 1, status: 'ADMITTED', change_kind: 'NEW_REPORT' }];

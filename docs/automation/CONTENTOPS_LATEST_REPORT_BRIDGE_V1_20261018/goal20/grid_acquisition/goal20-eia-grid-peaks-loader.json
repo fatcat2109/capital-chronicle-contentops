@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "rolling_x_story_binding": {
+    "cluster_id": "goal20-eia-grid-peaks",
+    "headline_ids": [
+      "goal20-eia-grid-peaks"
+    ],
+    "request_logical_hash": null
+  },
+  "provided_evidence_capabilities": [],
+  "official_source_documents": [
+    {
+      "document_id": "official-primary-50e024dd01b717622483",
+      "title": "PJM, ERCOT, and SWPP all set peak load records this summer - U.S. Energy Information Administration (EIA)",
+      "publisher": "www.eia.gov",
+      "source_authority_class": "official_public_primary_source",
+      "source_adapter_family": "official_macro",
+      "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=68305",
+      "requested_source_url": "https://www.eia.gov/todayinenergy/detail.php?id=68305",
+      "source_headline_id": "goal20-eia-grid-peaks",
+      "published_at_utc": "2026-10-15T00:00:00Z",
+      "published_at_source": "EXACT_BOUND_DISCOVERY_TIMESTAMP",
+      "event_time_utc": "2026-10-15T00:00:00Z",
+      "raw_sha256": "50e024dd01b7176224830dff73f79abc8ce1365daa8f0139d928e14e86767009",
+      "canonical_content_sha256": "50e024dd01b7176224830dff73f79abc8ce1365daa8f0139d928e14e86767009",
+      "content_type": "text/html",
+      "byte_length": 53018,
+      "canonical_content_text": "PJM, ERCOT, and SWPP all set peak load records this summer - U.S. Energy Information Administration (EIA) Skip to sub-navigation U.S. Energy Information Administration - EIA - Independent Statistics and Analysis Menu Statistics Analysis Tools Education News Search Today in Energy Skip to page content Recent articles Browse by tag liquid fuels natural gas electricity oil/petroleum production/supply crude oil consumption/demand generation prices map states exports/imports international coal renewables weather forecasts/projections gasoline capacity steo (short-term energy outlook) Prices Archive About Glossary FAQS In-brief analysis October 15, 2026 PJM, ERCOT, and SWPP all set peak load records this summer Data source: U.S. Energy Information Administration, Hourly Electric Grid Monitor Note: Data are the highest hourly load for a given day. ISO=independent system operator, ERCOT=Electric Reliability Council of Texas, SWPP=Southwest Power Pool Three regional transmission organizations (RTOs) set records for peak hourly load this past summer, according to data reported on Form EIA-930 and presented in the Hourly Electric Grid Monitor : PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025. The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024. The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023. Most of these peaks occurred during regional heat waves, amid the hottest summer on record nationally, which drove up cooling demand. Data source: U.S. Energy Information Administration, Hourly Electric Grid Monitor Note: : ISO=independent system operator, MISO=Midcontinent Independent System Operator, CAISO=California Independent System Operator, NYISO=New York Independent System Operator, and ISO-NE=Independent System Operator New England The California Independent System Operator (CAISO) and the Independent System Operator for New England (ISO-NE) came within 2% of their previous records. The New York Independent System Operator (NYISO) was within 3% of its previous record load, and the Midcontinent Independent System Operator (MISO) was within 4%, according to Form EIA-930: CAISO reached 50.0 GW on September 9, 2026, below its record high of 51.1 GW reached on September 6, 2022. ISO-NE reached 25.3 GW on July 2, 2026, below its record of 25.9 GW on June 24, 2025. NYISO reached 31.1 GW on July 2, 2026, below its previous record of 31.9 GW on June 24, 2025 ( NYISO reports a record of 34.0 GW set in 2013, before we collected hourly data). MISO peaked at 121.5 gigawatts (GW) on June 30, 2026, the highest in our Hourly Electric Grid Monitor but below the previous peak of 127.1 GW on July 20, 2011, as reported by MISO . Data from Form EIA-930 is reported to us by each balancing authority (BA) and is made available \"as-is\". The data BAs report on the Form EIA-930 represent best values at the time of reporting, but various reporting issues may limit the quality of these data . Data published directly by BAs may differ from the data in Form EIA-930. Principal contributor: Alex Mey Tags: electricity , electric power grid , ISO (independent system operator) More recent articles \u203a About EIA Open Data Legacy Contact Us U.S. Energy Information Administration 1000 Independence Ave., SW Washington, DC 20585 Policies Privacy/Security Copyright & Reuse Accessibility Information Quality Freedom of Information Act (FOIA) Related Sites usa.gov U.S. Department of Energy Stay Connected Facebook X Youtube LinkedIn Email Updates RSS Feeds Statistics Analysis Tools Education News Petroleum & Other Liquids Crude oil, gasoline, heating oil, diesel, propane, and other liquids including biofuels and natural gas liquids. Natural Gas Exploration and reserves, storage, imports and exports, production, prices, sales. Electricity Sales, revenue and prices, power plants, fuel use, stocks, generation, trade, demand & emissions. Coal Reserves, production, prices, employment and productivity, distribution, stocks, imports and exports. Nuclear & Uranium Uranium fuel, nuclear reactors, generation, spent fuel. Renewable & Alternative Fuels Includes hydropower, solar, wind, geothermal, biomass and ethanol. EIA Survey Forms Forms EIA uses to collect energy data including descriptions, links to survey instructions, and additional information. Total Energy Comprehensive data summaries, comparisons, analysis, and projections integrated across all energy sources. Monthly Energy Review Consumption & Efficiency Energy use in homes, commercial buildings, manufacturing, and transportation. Residential Energy Consumption Survey (RECS) Commercial Buildings Energy Consumption Survey (CBECS) Manufacturing Energy Consumption Survey (MECS) U.S. States State energy information, including overviews, rankings, data, and analyses. International International energy information, including overviews, rankings, data, and analyses. Environment Greenhouse gas data, voluntary reporting, electric power plant emissions. U.S. Energy-Related Carbon Dioxide Emissions Energy-Related Carbon Dioxide Emissions at the State Level Analysis and Projections Monthly and yearly energy forecasts, analysis of energy topics, financial analysis, congressional reports. Short-Term Energy Outlook Annual Energy Outlook Special Reports Special market analysis and/or data requests. EIA-112 Residential Utility Disconnections SHIP Act Energy & Financial Markets: What Drives Crude Oil Prices? International International energy analyses. Regional Analysis Briefs Country Analysis Briefs World Oil Transit Chokepoints OPEC Revenue Global Energy Security Data Data Tools, Apps, & Maps Tools to customize searches, view specific data sets, study detailed documentation, and access time-series data. Open Data EIA's free and open data available as API, Excel add-in, bulk files, and widgets EIA Beta Come test out some of the products still in development and let us know what you think! Open Source Code EIA's open source code, available on GitHub. All Reports & Products Email Updates Sign up for email subscriptions to receive messages about specific EIA products RSS Feeds Subscribe to feeds for updates on EIA products including Today in Energy and What's New. Follow us. . . A-Z Index A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | XYZ Energy Explained What is Energy? Units & Calculators U.S. Energy Facts Use of Energy Energy & Environment Petroleum Hydrocarbon Gas Liquids Natural Gas Coal Nuclear Electricity Hydrogen Hydropower Biofuels Biomass Wind Geothermal Solar For Teachers Lesson plans, science fair experiments, field trips, teacher guide, and career corner. Glossary FAQs Coal Conversion & Equivalents Oil/Petroleum Diesel Electricity Environment Gasoline General Energy Natural Gas Nuclear Prices Renewables What's New? Wholesale Electricity Market Data Oct 15, 2026 Monthly Densified Biomass Fuel Report Oct 08, 2026 Final 2025 Annual Electric Sales and Revenue Data Oct 07, 2026 Press Room Press Releases Congressional Testimony Presentations Events",
+      "source_excerpt": null,
+      "scheduled_event_rows": [],
+      "schedule_extraction_grants_factual_numeric_permission_or_publication_authority": false,
+      "public_claim_allowed": true,
+      "discovery_only_source_index": false,
+      "source_index_grants_event_fact_or_numeric_authority": false,
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "content_truncated": false,
+      "bounded_section_byte_length": 53018
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-19T05:48:41.968967Z",
+    "evaluation_as_of_utc": "2026-10-19T05:48:41.298315Z",
+    "locator": null,
+    "locator_request_count": 0,
+    "official_evidence_get_count": 1,
+    "request_count": 1,
+    "request_count_for_call": 1,
+    "story_evidence_scope_id": null,
+    "acquisition_cache_reused": false,
+    "network_reads_avoided_for_call": 0,
+    "request_signature": "ed6211ff553e05f0cb16de662d60238735fd2f8bf8ca3cf650cf799666deb5f5",
+    "request_limit": 3,
+    "timeout_seconds": 12.0,
+    "read_only_http_get_only": true,
+    "bounded_truncation_allowed": true
+  },
+  "blockers": [],
+  "publication_authority": false
+}

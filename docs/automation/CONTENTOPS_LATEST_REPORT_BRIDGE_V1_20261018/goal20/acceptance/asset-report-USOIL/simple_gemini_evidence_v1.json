@@ -1,0 +1,676 @@
+{
+  "admitted_candidate_count": 1,
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://github.com/fatcat2109/Headline-Raw-data-json/blob/c8477a035bcb04b3d13bc4f8e26bd651dd9d957d/docs/research/analysis_reporting/goal18/export-v1.1/report.json"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-0647258fc9517784565fde6b",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Examine the dated report and its limitations"
+      ],
+      "selection_rationale": "Synthetic output tests the pinned Main input path.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "codex_runtime_model_calls_before_writer": 0,
+  "evidence_attempts": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://github.com/fatcat2109/Headline-Raw-data-json/blob/c8477a035bcb04b3d13bc4f8e26bd651dd9d957d/docs/research/analysis_reporting/goal18/export-v1.1/report.json"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-0647258fc9517784565fde6b",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "provenance": {
+        "new_external_acquisition": false,
+        "request_count_for_call": 0,
+        "retrieval_method": "DERIVED_SEALED_MAIN_PUBLIC_PROJECTION"
+      },
+      "request": {
+        "cluster_id": "simple-story-0647258fc9517784565fde6b",
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "evidence_enrichment_context": {
+          "requested": true
+        },
+        "headline_ids": [
+          "cc-report:2c0a6f4a165f3a77c4c0964fc144e24df4c79688be78f84ff56a42ef2cb85ee9"
+        ],
+        "remaining_admitted_candidate_count": 0,
+        "request_logical_hash": "d0d55a9cf58b7fab8912108c4600f13b51f86f540797574de0ed1f372ff80b97",
+        "requested_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "required_evidence_capabilities": [
+          "credible_report_or_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "story_context": {
+          "candidate_packet_locators_grant_factual_authority": false,
+          "candidate_source_account": "Capital Chronicle analysis report",
+          "candidate_source_timestamp_utc": "2026-10-18T15:20:24Z",
+          "candidate_source_url": "",
+          "grounded_research_queries": [
+            "Examine the dated report and its limitations"
+          ],
+          "leaf_summaries": [
+            "Capital Chronicle report update: Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate."
+          ],
+          "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
+          "planned_research_query_count": 1,
+          "planned_research_query_set_sha256": "1b01546a39513f46a1a61731cd5e92877c9d6f12cc24b82dfe53c576c10e7a89",
+          "public_source_url_bindings": [
+            {
+              "headline_id": "cc-report:2c0a6f4a165f3a77c4c0964fc144e24df4c79688be78f84ff56a42ef2cb85ee9",
+              "source_timestamp_utc": "2026-10-18T15:20:24Z",
+              "url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "report_provenance": {
+            "arbitrary_x_list_membership_grants_authority": false,
+            "attributed_reputable_sources": [],
+            "canonical_x_list_provenance": {},
+            "event_proposition": "Capital Chronicle report update: Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate",
+            "explicit_market_rumor": false,
+            "explicit_reputable_attribution": false,
+            "owner_curated_canonical_x_record": false,
+            "preferred_route": "DEFAULT_SHORTEST_GOVERNED_ROUTE",
+            "primary_reporting_publisher": null,
+            "primary_reporting_source_identity": null,
+            "report_or_event_authority_granted": false,
+            "report_proposition": null,
+            "schema_version": "contentops.v1_simple_candidate_report_provenance.v1",
+            "source_account": "capital chronicle analysis report",
+            "source_url": null,
+            "trusted_relay_identity_approved": false
+          }
+        },
+        "story_evidence_scope_id": "simple-story-0647258fc9517784565fde6b",
+        "story_type": "selected_current_news"
+      },
+      "research_queries": [
+        "Examine the dated report and its limitations"
+      ],
+      "selection_rationale": "Synthetic output tests the pinned Main input path.",
+      "source_pack": [
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "a41c60a913713ebf80e9e83f38e7a473d1e9dfb584fb5ca4b675a6d3907c4b11",
+          "canonical_content_text": "OBSERVED_SOURCE_FACT: Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCC_ANALYSIS: Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Qualified physical-tightness watch over 5 sessions; no current directional entry.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Over 21 sessions, require several consistent balances before extending the weekly thesis.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+          "canonical_resolution_status": "",
+          "document_id": "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20",
+          "published_at_source": "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME",
+          "published_at_utc": "2026-10-18T15:20:24Z",
+          "publisher": "Capital Chronicle",
+          "report_lineage": {
+            "claims": [
+              {
+                "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+                "claim_hash": "c05530c173dbdb5e7281c45cba7018929abef83bffb4e11210185a958c7cf1e4",
+                "claim_id": "oil-balance-observed",
+                "context_only": true,
+                "evidence": [
+                  {
+                    "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                    "exact_or_proxy": "EXACT",
+                    "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                    "known_at_utc": "2026-10-18T15:13:09.289Z",
+                    "observation_time_utc": "2026-10-09T00:00:00Z",
+                    "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                    "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                    "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                    "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                    "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                    "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                    "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                    "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+                  }
+                ],
+                "exact_or_proxy": "EXACT",
+                "layer": "OBSERVED_FACT",
+                "producer_layer": "OBSERVED_SOURCE_FACT",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_report_ids": [
+                  "asset-report:USOIL"
+                ],
+                "text": "Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate."
+              },
+              {
+                "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+                "claim_hash": "75d5ad13011c51658c18747d576451acc88869b8f480c88e27bafe3f438a62b3",
+                "claim_id": "oil-balance-mechanism",
+                "context_only": true,
+                "evidence": [
+                  {
+                    "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                    "exact_or_proxy": "EXACT",
+                    "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                    "known_at_utc": "2026-10-18T15:13:09.289Z",
+                    "observation_time_utc": "2026-10-09T00:00:00Z",
+                    "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                    "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                    "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                    "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                    "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                    "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                    "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                    "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+                  }
+                ],
+                "exact_or_proxy": "EXACT",
+                "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+                "producer_layer": "CC_ANALYSIS",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_report_ids": [
+                  "asset-report:USOIL"
+                ],
+                "text": "Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved."
+              },
+              {
+                "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+                "claim_hash": "cc265c4a10db3fb17a15ee2c533af357b93f46179e408a6eee5e85d16df45f56",
+                "claim_id": "oil-short",
+                "context_only": true,
+                "evidence": [
+                  {
+                    "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                    "exact_or_proxy": "EXACT",
+                    "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                    "known_at_utc": "2026-10-18T15:13:09.289Z",
+                    "observation_time_utc": "2026-10-09T00:00:00Z",
+                    "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                    "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                    "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                    "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                    "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                    "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                    "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                    "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+                  }
+                ],
+                "exact_or_proxy": "EXACT",
+                "layer": "SCENARIO_OR_UNCERTAINTY",
+                "producer_layer": "CONDITIONAL_SCENARIO",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_report_ids": [
+                  "asset-report:USOIL"
+                ],
+                "text": "Qualified physical-tightness watch over 5 sessions; no current directional entry."
+              },
+              {
+                "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+                "claim_hash": "e3a3db6fb60967cc3c8ca321dfa6971c2e9d565a278ade326a7e0e7487c1dbe3",
+                "claim_id": "oil-swing",
+                "context_only": true,
+                "evidence": [
+                  {
+                    "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                    "exact_or_proxy": "EXACT",
+                    "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                    "known_at_utc": "2026-10-18T15:13:09.289Z",
+                    "observation_time_utc": "2026-10-09T00:00:00Z",
+                    "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                    "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                    "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                    "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                    "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                    "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                    "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                    "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+                  }
+                ],
+                "exact_or_proxy": "EXACT",
+                "layer": "SCENARIO_OR_UNCERTAINTY",
+                "producer_layer": "CONDITIONAL_SCENARIO",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_report_ids": [
+                  "asset-report:USOIL"
+                ],
+                "text": "Over 21 sessions, require several consistent balances before extending the weekly thesis."
+              },
+              {
+                "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+                "claim_hash": "828b30c55c9c56d3b3d6fc7f528fdf67350dfa2ffad54d1ec42dbb018d85b2e8",
+                "claim_id": "oil-long",
+                "context_only": true,
+                "evidence": [
+                  {
+                    "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                    "exact_or_proxy": "EXACT",
+                    "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                    "known_at_utc": "2026-10-18T15:13:09.289Z",
+                    "observation_time_utc": "2026-10-09T00:00:00Z",
+                    "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                    "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                    "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                    "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                    "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                    "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                    "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                    "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+                  }
+                ],
+                "exact_or_proxy": "EXACT",
+                "layer": "SCENARIO_OR_UNCERTAINTY",
+                "producer_layer": "CONDITIONAL_SCENARIO",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_report_ids": [
+                  "asset-report:USOIL"
+                ],
+                "text": "Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios."
+              },
+              {
+                "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+                "claim_hash": "2bdf62bb63a20595916952d452a46c26043edd3c69fa0b55777558b82bb625a3",
+                "claim_id": "oil-watch",
+                "context_only": true,
+                "evidence": [
+                  {
+                    "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                    "exact_or_proxy": "EXACT",
+                    "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                    "known_at_utc": "2026-10-18T15:13:09.289Z",
+                    "observation_time_utc": "2026-10-09T00:00:00Z",
+                    "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                    "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                    "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                    "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                    "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                    "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                    "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                    "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+                  }
+                ],
+                "exact_or_proxy": "EXACT",
+                "layer": "SCENARIO_OR_UNCERTAINTY",
+                "producer_layer": "CONDITIONAL_SCENARIO",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_report_ids": [
+                  "asset-report:USOIL"
+                ],
+                "text": "Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition."
+              },
+              {
+                "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+                "claim_hash": "3d88208ba0e2fb7f5916c20df1305a993d5106ac4d155cbe23847ce604999025",
+                "claim_id": "oil-invalidation",
+                "context_only": true,
+                "evidence": [
+                  {
+                    "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                    "exact_or_proxy": "EXACT",
+                    "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                    "known_at_utc": "2026-10-18T15:13:09.289Z",
+                    "observation_time_utc": "2026-10-09T00:00:00Z",
+                    "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                    "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                    "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                    "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                    "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                    "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                    "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                    "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+                  }
+                ],
+                "exact_or_proxy": "EXACT",
+                "layer": "SCENARIO_OR_UNCERTAINTY",
+                "producer_layer": "CONDITIONAL_SCENARIO",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_report_ids": [
+                  "asset-report:USOIL"
+                ],
+                "text": "Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied."
+              }
+            ],
+            "report_id": "asset-report:USOIL",
+            "report_sha256": "576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20",
+            "report_version": 2,
+            "scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order."
+          },
+          "report_truth_only": true,
+          "retrieval_method": "DERIVED_SEALED_MAIN_PUBLIC_PROJECTION",
+          "secondary_listing_only": false,
+          "source_authority_class": "governed_capital_chronicle_report_only",
+          "source_id": "SOURCE_1",
+          "source_identity": "asset-report:USOIL",
+          "url": "https://github.com/fatcat2109/Headline-Raw-data-json/blob/c8477a035bcb04b3d13bc4f8e26bd651dd9d957d/docs/research/analysis_reporting/goal18/export-v1.1/report.json"
+        }
+      ],
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "model_calls_before_writer": 1,
+  "public_write_performed": false,
+  "request_count": 0,
+  "request_limit": 6,
+  "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
+  "selected_candidate_id": "simple-story-0647258fc9517784565fde6b",
+  "selected_epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:USOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "a41c60a913713ebf80e9e83f38e7a473d1e9dfb584fb5ca4b675a6d3907c4b11",
+      "canonical_content_text": "OBSERVED_SOURCE_FACT: Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCC_ANALYSIS: Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Qualified physical-tightness watch over 5 sessions; no current directional entry.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Over 21 sessions, require several consistent balances before extending the weekly thesis.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCONDITIONAL_SCENARIO: Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied.\nUS physical-balance context is not the price or execution economics of the USOIL CFD.\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+      "canonical_resolution_status": "",
+      "document_id": "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20",
+      "published_at_source": "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME",
+      "published_at_utc": "2026-10-18T15:20:24Z",
+      "publisher": "Capital Chronicle",
+      "report_lineage": {
+        "claims": [
+          {
+            "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+            "claim_hash": "c05530c173dbdb5e7281c45cba7018929abef83bffb4e11210185a958c7cf1e4",
+            "claim_id": "oil-balance-observed",
+            "context_only": true,
+            "evidence": [
+              {
+                "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                "exact_or_proxy": "EXACT",
+                "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                "known_at_utc": "2026-10-18T15:13:09.289Z",
+                "observation_time_utc": "2026-10-09T00:00:00Z",
+                "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+              }
+            ],
+            "exact_or_proxy": "EXACT",
+            "layer": "OBSERVED_FACT",
+            "producer_layer": "OBSERVED_SOURCE_FACT",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_report_ids": [
+              "asset-report:USOIL"
+            ],
+            "text": "Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate."
+          },
+          {
+            "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+            "claim_hash": "75d5ad13011c51658c18747d576451acc88869b8f480c88e27bafe3f438a62b3",
+            "claim_id": "oil-balance-mechanism",
+            "context_only": true,
+            "evidence": [
+              {
+                "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                "exact_or_proxy": "EXACT",
+                "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                "known_at_utc": "2026-10-18T15:13:09.289Z",
+                "observation_time_utc": "2026-10-09T00:00:00Z",
+                "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+              }
+            ],
+            "exact_or_proxy": "EXACT",
+            "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+            "producer_layer": "CC_ANALYSIS",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_report_ids": [
+              "asset-report:USOIL"
+            ],
+            "text": "Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved."
+          },
+          {
+            "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+            "claim_hash": "cc265c4a10db3fb17a15ee2c533af357b93f46179e408a6eee5e85d16df45f56",
+            "claim_id": "oil-short",
+            "context_only": true,
+            "evidence": [
+              {
+                "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                "exact_or_proxy": "EXACT",
+                "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                "known_at_utc": "2026-10-18T15:13:09.289Z",
+                "observation_time_utc": "2026-10-09T00:00:00Z",
+                "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+              }
+            ],
+            "exact_or_proxy": "EXACT",
+            "layer": "SCENARIO_OR_UNCERTAINTY",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_report_ids": [
+              "asset-report:USOIL"
+            ],
+            "text": "Qualified physical-tightness watch over 5 sessions; no current directional entry."
+          },
+          {
+            "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+            "claim_hash": "e3a3db6fb60967cc3c8ca321dfa6971c2e9d565a278ade326a7e0e7487c1dbe3",
+            "claim_id": "oil-swing",
+            "context_only": true,
+            "evidence": [
+              {
+                "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                "exact_or_proxy": "EXACT",
+                "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                "known_at_utc": "2026-10-18T15:13:09.289Z",
+                "observation_time_utc": "2026-10-09T00:00:00Z",
+                "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+              }
+            ],
+            "exact_or_proxy": "EXACT",
+            "layer": "SCENARIO_OR_UNCERTAINTY",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_report_ids": [
+              "asset-report:USOIL"
+            ],
+            "text": "Over 21 sessions, require several consistent balances before extending the weekly thesis."
+          },
+          {
+            "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+            "claim_hash": "828b30c55c9c56d3b3d6fc7f528fdf67350dfa2ffad54d1ec42dbb018d85b2e8",
+            "claim_id": "oil-long",
+            "context_only": true,
+            "evidence": [
+              {
+                "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                "exact_or_proxy": "EXACT",
+                "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                "known_at_utc": "2026-10-18T15:13:09.289Z",
+                "observation_time_utc": "2026-10-09T00:00:00Z",
+                "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+              }
+            ],
+            "exact_or_proxy": "EXACT",
+            "layer": "SCENARIO_OR_UNCERTAINTY",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_report_ids": [
+              "asset-report:USOIL"
+            ],
+            "text": "Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios."
+          },
+          {
+            "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+            "claim_hash": "2bdf62bb63a20595916952d452a46c26043edd3c69fa0b55777558b82bb625a3",
+            "claim_id": "oil-watch",
+            "context_only": true,
+            "evidence": [
+              {
+                "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                "exact_or_proxy": "EXACT",
+                "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                "known_at_utc": "2026-10-18T15:13:09.289Z",
+                "observation_time_utc": "2026-10-09T00:00:00Z",
+                "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+              }
+            ],
+            "exact_or_proxy": "EXACT",
+            "layer": "SCENARIO_OR_UNCERTAINTY",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_report_ids": [
+              "asset-report:USOIL"
+            ],
+            "text": "Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition."
+          },
+          {
+            "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+            "claim_hash": "3d88208ba0e2fb7f5916c20df1305a993d5106ac4d155cbe23847ce604999025",
+            "claim_id": "oil-invalidation",
+            "context_only": true,
+            "evidence": [
+              {
+                "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+                "exact_or_proxy": "EXACT",
+                "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+                "known_at_utc": "2026-10-18T15:13:09.289Z",
+                "observation_time_utc": "2026-10-09T00:00:00Z",
+                "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+                "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+                "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+                "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+                "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+                "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+                "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+                "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+              }
+            ],
+            "exact_or_proxy": "EXACT",
+            "layer": "SCENARIO_OR_UNCERTAINTY",
+            "producer_layer": "CONDITIONAL_SCENARIO",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_report_ids": [
+              "asset-report:USOIL"
+            ],
+            "text": "Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied."
+          }
+        ],
+        "report_id": "asset-report:USOIL",
+        "report_sha256": "576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20",
+        "report_version": 2,
+        "scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      },
+      "report_truth_only": true,
+      "retrieval_method": "DERIVED_SEALED_MAIN_PUBLIC_PROJECTION",
+      "secondary_listing_only": false,
+      "source_authority_class": "governed_capital_chronicle_report_only",
+      "source_id": "SOURCE_1",
+      "source_identity": "asset-report:USOIL",
+      "url": "https://github.com/fatcat2109/Headline-Raw-data-json/blob/c8477a035bcb04b3d13bc4f8e26bd651dd9d957d/docs/research/analysis_reporting/goal18/export-v1.1/report.json"
+    }
+  ],
+  "status": "PASS",
+  "updated_source_route_health": {}
+}

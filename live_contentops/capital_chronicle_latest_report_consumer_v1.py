@@ -44,6 +44,10 @@ SUPPORTED_CONTRACTS = {
         "report_schema_sha256": "e2f4bc5fc18e10239b67fc608d0133a58d78cf4925453c0ba25e816b53e8686f",
     },
 }
+PUBLIC_ENVELOPE_SCHEMA_SEMANTIC_HASHES = {
+    "1.0.0": "e312c8bb54cb516742a0a79764bf8b9b6d4e76aad8d397ab089b053154bbe0b4",
+    "1.1.0": "64009df469edf9df3d1d446e4e6fa79b6c6119b24ec413e23c0cd820d342fa1c",
+}
 CHANGE_KINDS = (
     "NEW_REPORT",
     "NEW_EVENT",
@@ -124,8 +128,8 @@ def _constant(_value: str) -> None:
     raise LatestReportConsumerError("NONFINITE_JSON_NUMBER")
 
 
-def _load(raw: bytes) -> dict[str, Any]:
-    if not isinstance(raw, bytes) or not raw or len(raw) > 4_000_000:
+def _load(raw: bytes, *, max_bytes: int = 4_000_000) -> dict[str, Any]:
+    if not isinstance(raw, bytes) or not raw or len(raw) > max_bytes:
         raise LatestReportConsumerError("BYTES_EMPTY_OR_OVERSIZED")
     try:
         value = json.loads(
@@ -350,6 +354,7 @@ def validate_latest_report_bytes(
     required_claim_ids: Sequence[str] = (),
     optional_claim_ids: Sequence[str] = (),
     allow_lineage_only: bool = False,
+    public_export_bytes: bytes | None = None,
 ) -> dict[str, Any]:
     """Validate Main's exact flat envelope and hash-addressed report bodies.
 
@@ -368,16 +373,24 @@ def validate_latest_report_bytes(
     if require_machine_schema:
         errors.extend(schema_errors)
         binding = producer_binding or {}
-        for key, raw_schema in (
+        for key, raw_schema in (() if public_export_bytes is not None else (
             ("envelope_schema_sha256", envelope_schema_bytes),
             ("report_schema_sha256", report_schema_bytes),
-        ):
+        )):
             if raw_schema is None or hashlib.sha256(
                 raw_schema
             ).hexdigest() != binding.get(key):
                 errors.append("MAIN_CONTRACT_IDENTITY_UNBOUND")
             if binding.get(key) != SUPPORTED_CONTRACTS.get(envelope.get("version"), {}).get(key):
                 errors.append("MAIN_CONTRACT_SCHEMA_REVISION_MISMATCH")
+        if public_export_bytes is not None and (
+            envelope_schema_bytes is None
+            or sha256_of(_load(envelope_schema_bytes)) != PUBLIC_ENVELOPE_SCHEMA_SEMANTIC_HASHES.get(envelope.get("version"))
+            or binding.get("public_export_manifest_verified") is not True
+            or not _hash(binding.get("manifest_sha256"))
+            or binding.get("public_report_raw_sha256") != hashlib.sha256(public_export_bytes).hexdigest()
+        ):
+            errors.append("PUBLIC_EXPORT_CONTRACT_OR_BYTES_UNBOUND")
         if (
             not _text(binding.get("producer_revision"))
             or binding.get("contract_revision") != envelope.get("contract_revision")
@@ -452,6 +465,47 @@ def validate_latest_report_bytes(
         errors.append("REPORT_CLOCK_INVALID")
     reports: dict[str, dict[str, Any]] = {}
     report_raw_hashes = []
+    public_row = None
+    if public_export_bytes is not None:
+        public = _load(public_export_bytes, max_bytes=8 * 1024 * 1024)
+        if (_private(public) or public.get("schema") != "CapitalChronicleOperationalReportServingProjectionV1"
+                or public.get("display_profile") != "PUBLIC_RESEARCH_REDISTRIBUTION_SAFE"
+                or public.get("projection_sha256") != sha256_of(_without(public, "projection_sha256"))
+                or public.get("read_only") is not True
+                or public.get("runtime_or_canonical_mutations") != 0
+                or public.get("provider_or_model_calls") != 0
+                or public.get("broker_or_order_actions") != 0
+                or (public.get("portfolio") or {}).get("state") != "UNAVAILABLE_PUBLIC_PROFILE"
+                or len(public.get("latest_reports", [])) != 1):
+            errors.append("PUBLIC_REPORT_PROJECTION_INVALID")
+        else:
+            public_row = public["latest_reports"][0]
+            for field, value in (("report_id", envelope.get("report_id")), ("report_version", envelope.get("report_version")),
+                                 ("report_sha256", envelope.get("report_sha256")), ("asset_id", (envelope.get("asset_ids") or [None])[0]),
+                                 ("public_safe_claims", envelope.get("public_safe_claims")), ("change_kind", envelope.get("change_kind")),
+                                 ("changed_claim_ids", envelope.get("changed_claim_ids"))):
+                if public_row.get(field) != value:
+                    errors.append("PUBLIC_REPORT_ENVELOPE_BINDING_MISMATCH:" + field)
+            if public_row.get("previous_report_sha256") not in (None, envelope.get("parent_report_sha256")):
+                errors.append("PUBLIC_REPORT_PARENT_PROJECTION_MISMATCH")
+            for h in envelope.get("horizon_blocks", []):
+                sessions = h.get("trading_sessions")
+                if (type(sessions) is not int or not 2 <= sessions <= 2520
+                        or h.get("scoreable_forecast") is not False):
+                    errors.append("PUBLIC_REPORT_HORIZON_INVALID")
+                    continue
+                if envelope.get("version") == "1.1.0":
+                    expected = {"short": 5, "swing": 21}.get(h.get("horizon"))
+                    if (expected and sessions != expected) or (h.get("horizon") == "long" and sessions < 63):
+                        errors.append("PUBLIC_REPORT_HORIZON_INVALID")
+                    start = _time(envelope["known_at_cutoff_utc"])
+                    end, remaining = start, sessions
+                    while remaining:
+                        end += timedelta(days=1)
+                        remaining -= int(end.weekday() < 5)
+                    if _time(h["start_utc"]) != start or _time(h["end_utc"]) != end:
+                        errors.append("MAIN_HORIZON_CLOCK_BINDING_INVALID")
+            report_raw_hashes.append(hashlib.sha256(public_export_bytes).hexdigest())
     for raw in report_bytes:
         report = _load(raw)
         # Main's analytical body contains non-public internal state (e.g. regime session
@@ -481,9 +535,9 @@ def validate_latest_report_bytes(
         except LatestReportConsumerError:
             errors.append("REPORT_BODY_CLOCK_INVALID")
     wanted_hashes = [envelope.get("report_sha256")]
-    if not wanted_hashes or any(
+    if public_export_bytes is None and (not wanted_hashes or any(
         not _hash(item) or item not in reports for item in wanted_hashes
-    ):
+    )):
         errors.append("HASH_BOUND_REPORT_BODY_MISSING")
     for digest, report in reports.items():
         if digest not in wanted_hashes:
@@ -582,7 +636,7 @@ def validate_latest_report_bytes(
             for digest, report in reports.items()
             if digest in wanted_hashes and claim in (report.get("claims") or [])
         ]
-        if not owning:
+        if not owning and public_export_bytes is None:
             local_errors.append("CLAIM_NOT_BOUND_TO_REPORT")
         evidence = []
         for ref in refs:
@@ -592,6 +646,13 @@ def validate_latest_report_bytes(
                 for row in report.get("evidence") or []
                 if isinstance(row, dict) and row.get("evidence_id") == ref
             ]
+            if public_row is not None:
+                # The Main public wire carries exact evidence projections inside
+                # each sealed claim; no private report reconstruction is performed.
+                rows = [{**e, "rights_state": claim.get("rights_state"), "public_claim_use": claim.get("public_safe"),
+                         "freshness_state": claim.get("freshness_state"), "pit_state": claim.get("pit_state"),
+                         "exact_or_proxy": claim.get("exact_or_proxy"), "query_id": "public-claim:" + str(claim.get("claim_id"))}
+                        for e in claim.get("supporting_evidence", []) if e.get("evidence_id") == ref]
             if not rows or len({sha256_of(row) for row in rows}) != 1:
                 local_errors.append("EVIDENCE_MISSING_OR_CONFLICTING")
                 gaps.append(
@@ -732,7 +793,7 @@ def validate_latest_report_bytes(
         "blockers": sorted(set(errors)),
         "schema_diagnostics": schema_errors,
         "machine_schema_verified": envelope_schema_bytes is not None
-        and report_schema_bytes is not None
+        and (report_schema_bytes is not None or public_export_bytes is not None)
         and not any("SCHEMA" in error for error in errors),
         "producer_binding": deepcopy(dict(producer_binding or {})),
         "contract_revision": envelope.get("contract_revision"),
@@ -1270,6 +1331,8 @@ def build_report_editorial_input(
             "envelope_sha256": admission["envelope_sha256"],
             "report_truth_does_not_establish_event_truth": True,
             "report_editorial_context": {
+                "report_id": admission["report_id"],
+                "report_version": admission["report_version"],
                 "what_changed": admission.get("materiality_rationale"),
                 "mode_hint": mode,
                 "claims": [{k: c[k] for k in ("claim_id", "text", "producer_layer", "basis_risk")} for c in claims],

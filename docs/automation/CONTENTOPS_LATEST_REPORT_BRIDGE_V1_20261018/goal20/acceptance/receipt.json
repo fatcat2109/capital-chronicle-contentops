@@ -1,0 +1,56 @@
+{
+  "observed_at_utc": "2026-10-19T06:29:00.557781Z",
+  "isolated_store": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal20-connected-m1_kbibc\\isolated.sqlite3",
+  "main_contract_scan": {
+    "schema_version": "contentops.main_report_feed.v1",
+    "producer_commit": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+    "observed_at_utc": "2026-10-19T06:29:00.557781Z",
+    "configured_bundle_count": 4,
+    "new_events": 4,
+    "events": [
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-20a96924f5fab5336d13ad6dfbfcd42d9d46dd9062866d63e0c4f95e42d9d080",
+        "state": "LINEAGE_ONLY_NOOP",
+        "blockers": []
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-65ff5c61a6c9f55b8c4e390a14ebacb001b7164ef379b20b84565b66b50bdd56",
+        "state": "ADMITTED",
+        "blockers": []
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 1,
+        "receipt_id": "main-feed-93b2c55c0ffe1ced2d73ac5e2ce87084f5e1ddb8099d0626c7a76b7d4ecce60f",
+        "state": "ADMITTED",
+        "blockers": []
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 2,
+        "receipt_id": "main-feed-f7a6c6698d3a544a99a4ae812f99b03a41d113c00fa801d3adcbfe6fafcc6dc7",
+        "state": "ADMITTED",
+        "blockers": []
+      }
+    ],
+    "gaps": [],
+    "coverage": "CONFIGURED_IMMUTABLE_EXPORTS_ONLY",
+    "public_write_performed": false
+  },
+  "independent_acquired_admitted": 3,
+  "compatibility_main_events": 4,
+  "goal20_new_main_manifest_events": 0,
+  "controlled_drafts": 5,
+  "native_previews": 40,
+  "rendered_media": 4,
+  "injected_callbacks": 10,
+  "fresh_provider_calls": 0,
+  "public_writes": 0,
+  "runtime_started": false,
+  "pause_state": "PAUSED_BEFORE_PROVIDER_CALL",
+  "main_manifest_state": "MAIN_OWNER_IMMUTABLE_HANDOFF_PENDING"
+}

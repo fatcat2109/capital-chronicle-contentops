@@ -47,6 +47,7 @@ def report_scope_notice(admission: Mapping[str, Any]) -> str:
 def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
     """Distinct derived report bytes/hash/locator, never a relabelled EIA capture."""
     binding = admission.get("producer_binding") or {}
+    public_locator = str(binding.get("public_report_locator") or "")
     revision = str(binding.get("producer_commit") or "")
     repository = str(binding.get("producer_repository") or "").removesuffix("/")
     raw_hashes = admission.get("report_raw_sha256") or []
@@ -58,7 +59,7 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
         ),
         None,
     )
-    if (
+    if not public_locator and (
         not repository.startswith("https://github.com/")
         or len(revision) != 40
         or not path
@@ -69,7 +70,7 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
         for c in admission["claims"]
     )
     text += "\n\n" + report_scope_notice(admission)
-    url = repository + "/blob/" + revision + "/" + path
+    url = public_locator or repository + "/blob/" + revision + "/" + path
     return {
         "document_id": "main-report-" + admission["source_report_sha256"],
         "publisher": "Capital Chronicle",
@@ -200,7 +201,7 @@ def run_report_editorial_cycle(
     tracker: LatestReportDeliveryTracker,
     *,
     receipt_id: str,
-    admission: Mapping[str, Any],
+    admission: Mapping[str, Any] | None,
     output_dir: str | Path,
     cutoff_utc: str,
     rolling_input: Mapping[str, Any] | None = None,
@@ -211,24 +212,30 @@ def run_report_editorial_cycle(
     opportunity_id: str | None = None,
     source_route_health: Mapping[str, Any] | None = None,
     attempted_candidate_ids: Sequence[str] = (),
+    retained_research=None,
 ) -> dict[str, Any]:
     """A single bounded manual opportunity; retries replay durable successful stages."""
     record = next(
         (r for r in tracker.receipts() if r["receipt_id"] == receipt_id), None
     )
-    if record is None or record.get("raw_sha256") != admission.get("raw_sha256"):
+    if admission is not None and (record is None or record.get("raw_sha256") != admission.get("raw_sha256")):
         raise LatestReportConsumerError("REPORT_DURABLE_RECEIPT_BINDING_REQUIRED")
+    record = record or {}
     root = Path(output_dir).resolve()
     stages = _Stages(tracker, receipt_id, opportunity_id)
     final_id = "cc-editorial-final-" + sha256_of(opportunity_id or receipt_id)
     previous = stages.get(final_id)
     if previous:
+        if any(r["destination"] == "internal:cc-report-withdrawal"
+               and json.loads(r["payload"]).get("source_report_sha256") == previous.get("source_report_sha256")
+               for r in tracker.store.list_outbox_messages()):
+            return {**previous, "classification": "DRAFT_WITHDRAWN", "draft_count": 0, "preview_count": 0, "previews": [], "article": None}
         newer = [
             r
             for r in tracker.receipts()
             if r["status"] in CURRENT
-            and r["report_id"] == previous.get("report_id", record["report_id"])
-            and r["report_version"] > previous.get("report_version", record["report_version"])
+            and r["report_id"] == previous.get("report_id", record.get("report_id"))
+            and r["report_version"] > (previous.get("report_version") or record.get("report_version", 0))
             and r["status"] != "NO_MATERIAL_CHANGE_NOOP"
         ]
         if newer:
@@ -241,7 +248,7 @@ def run_report_editorial_cycle(
                 "superseded_by_version": latest["report_version"],
             }
         return previous
-    if record["status"] in {
+    if record.get("status") in {
         "INVALIDATION_WITHDRAWAL_NOOP",
         "LINEAGE_ONLY_NOOP",
         "NO_MATERIAL_CHANGE_NOOP",
@@ -262,16 +269,20 @@ def run_report_editorial_cycle(
         cutoff_utc=cutoff_utc,
         rolling_input=rolling_input,
         published_memory=published_memory,
-    )
-    args = prepared["simple_gemini_handoff"]["runner_arguments"]
+    ) if record else {}
+    args = prepared["simple_gemini_handoff"]["runner_arguments"] if record else {
+        "rolling_input": dict(rolling_input or {}), "published_memory": list(published_memory),
+        "capital_chronicle_context": {}, "cutoff_utc": cutoff_utc}
     pool_key = "cc-editorial-pool-" + sha256_of(opportunity_id or receipt_id)
     frozen = stages.get(pool_key)
     if frozen:
+        if frozen.get("research_revision") != (retained_research.revision if retained_research else None):
+            raise LatestReportConsumerError("FROZEN_RESEARCH_REVISION_CHANGED")
         args, records = frozen["args"], frozen["reports"]
         prepared_inputs = frozen["prepared_inputs"]
     else:
-        records = [record, *[dict(r) for r in additional_reports]]
-        prepared_inputs = {record["report_id"]: prepared}
+        records = [record, *[dict(r) for r in additional_reports]] if record else []
+        prepared_inputs = {record["report_id"]: prepared} if record else {}
         for other in records[1:]:
             if not any(r["receipt_id"] == other["receipt_id"] and r["raw_sha256"] == other["raw_sha256"] for r in tracker.receipts()):
                 raise LatestReportConsumerError("REPORT_DURABLE_RECEIPT_BINDING_REQUIRED")
@@ -283,16 +294,17 @@ def run_report_editorial_cycle(
         ]
         args["source_route_health"] = dict(source_route_health or {})
         args["attempted_candidate_ids"] = list(attempted_candidate_ids)
-        stages.put(pool_key, {"args": args, "reports": records, "prepared_inputs": prepared_inputs})
+        stages.put(pool_key, {"args": args, "reports": records, "prepared_inputs": prepared_inputs,
+                              "research_revision": retained_research.revision if retained_research else None})
     source_route_health = args["source_route_health"]
     attempted_candidate_ids = args["attempted_candidate_ids"]
     # These inputs were frozen by prepare_input; never replace them with fresh intake on resume.
     cutoff_utc = str(args.get("cutoff_utc") or cutoff_utc)
     base = {
         "schema_version": SCHEMA,
-        "report_id": record["report_id"],
-        "report_version": record["report_version"],
-        "source_report_sha256": record["source_report_sha256"],
+        "report_id": record.get("report_id"),
+        "report_version": record.get("report_version"),
+        "source_report_sha256": record.get("source_report_sha256"),
         "receipt_id": receipt_id,
         "input": prepared,
         "model_execution_state": "INJECTED_REPLAY_ONLY"
@@ -394,7 +406,7 @@ def run_report_editorial_cycle(
                 lambda: (
                     report_evidence(report)
                     if report is not None
-                    else default_loader(request)
+                    else (retained_research.evidence(request, cutoff_utc=cutoff_utc) if retained_research else None) or default_loader(request)
                 ),
             )
 
@@ -407,7 +419,7 @@ def run_report_editorial_cycle(
             capital_chronicle_context=args["capital_chronicle_context"],
             llm_invoke=model,
             evidence_loader=evidence,
-            run_id=run_id or "cc-report-" + record["envelope_sha256"],
+            run_id=run_id or "cc-report-" + record.get("envelope_sha256", sha256_of(receipt_id)),
             source_route_health=source_route_health,
             attempted_candidate_ids=attempted_candidate_ids,
         )
@@ -431,8 +443,36 @@ def run_report_editorial_cycle(
                 # Independent news remains valid intake but cannot earn report-to-article credit.
                 result.update(
                     classification="INDEPENDENT_NEWS_DRAFT",
-                    exact_next_blocker="REPORT_NOT_SELECTED",
+                    exact_next_blocker=None,
+                    report_id=None, report_version=None, source_report_sha256=None,
+                    draft_count=1, qualified_article_count=1, preview_count=8, compiled_derivative_count=8,
+                    article=article, article_identity=simple["article_identity"],
+                    replay_writer_used=llm_invoke is not None, writer_invoked=llm_invoke is None,
+                    evidence=evidence_walk["selected_source_pack"],
+                    previews=[{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([simple["article_identity"], k, v]),
+                               "article_identity": simple["article_identity"], "claim_lineage": validation.get("supported_material_claims") or []}
+                              for k, v in previews["packages"].items()],
                 )
+                selected_headline = simple["selected_candidate"]["headline_id"]
+                retained = retained_research.records.get(selected_headline) if retained_research else None
+                if retained:
+                    from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_source_backed_media_assets
+                    document = {**retained["document"], "known_at_utc": retained["known_at_utc"],
+                                "rights_evidence_sha256": retained["rights_evidence_sha256"],
+                                "render_excerpt_text": retained["headline_text"],
+                                "underlying_reuse_classification": "governed_government_public_domain"}
+                    media = build_source_backed_media_assets(
+                        {"evidence_documents": [document], "story_type": "DATA_OR_DOCUMENT_LENS"}, output_dir=root, required_asset_count=1)
+                    result["media_assets"] = media
+                    if retained.get("source_chart"):
+                        from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_source_value_comparison_chart
+                        chart = retained["source_chart"]
+                        media.append(build_source_value_comparison_chart(document, rows=chart["rows"], title=chart["title"], unit=chart["unit"], output_dir=root))
+                    import base64
+                    for asset in media:
+                        raw_media = Path(asset["path"]).read_bytes()
+                        if len(raw_media) <= 1_500_000 and hashlib.sha256(raw_media).hexdigest() == asset["sha256"] and raw_media.startswith(b"\x89PNG\r\n\x1a\n"):
+                            asset["preview_data_url"] = "data:image/png;base64," + base64.b64encode(raw_media).decode("ascii")
             else:
                 record = selected_record
                 lineage = validation.get("supported_material_claims") or []
@@ -493,6 +533,7 @@ def report_workspace_projection(
 ) -> dict[str, Any]:
     """Read only durable payloads; blocked/duplicate events never poison current content."""
     admissions, inputs, results = [], [], []
+    withdrawals = [json.loads(r["payload"]) for r in rows if r["destination"] == "internal:cc-report-withdrawal"]
     feeds, opportunities, headline_exports = [], [], []
     for row in rows:
         if row["destination"] in {"internal:cc-report-feed", "internal:cc-report-opportunity", "internal:contentops-main-headline-export"}:
@@ -535,6 +576,8 @@ def report_workspace_projection(
     if len(ids) == 1:
         accepted.sort(key=lambda r: int(r["report_version"]), reverse=True)
     latest = accepted[0] if accepted else None
+    if latest and any(w["source_report_sha256"] == latest["source_report_sha256"] for w in withdrawals):
+        latest = {**latest, "withdrawal_only": True, "claims": []}
     content = next(
         (
             r
@@ -593,19 +636,35 @@ def report_workspace_projection(
         "report_history": admissions,
         "feed": feed,
         "report_age_at_last_scan_seconds": lag,
+        "freshness": {"report_age_at_last_scan_seconds": lag,
+                      "claims": sorted({c.get("freshness_state", "UNKNOWN") for c in (latest or {}).get("claims", [])}),
+                      "current_market_refresh_verified": False,
+                      "scope": "DATED_RETAINED_REPORT_NOT_CURRENT_MARKET_STATE"},
         "opportunities": sorted(opportunities, key=lambda r: str(r.get("created_at") or ""), reverse=True)[:32],
         "headline_export": {k: export[k] for k in (
             "schema_version", "observed_at_utc", "sequence", "source_rows_scanned", "eligible_rows",
             "missing_rows", "coverage", "discovered_file_count", "gaps"
-        )} if export else None,
+        ) if k in export} | {k: export.get(k, 0) for k in ("independent_items", "main_origin_recirculated_items")} if export else None,
+        "source_inventory": {
+            "independent_items": len({r["projection_sha256"] for p in headline_exports for r in p["rows"] if r.get("originality") == "INDEPENDENT_CONTENTOPS_ACQUISITION"}),
+            "main_origin_recirculated_items": len({r["projection_sha256"] for p in headline_exports for r in p["rows"] if r.get("originality") == "MAIN_ORIGIN_RECIRCULATION"}),
+            "scope": "DISTINCT_ACCEPTED_PROJECTIONS_NOT_SOURCE_COMPLETENESS",
+        },
+        "independent_results": [{k: r.get(k) for k in ("classification", "model_execution_state", "article_identity", "article", "previews", "media_assets", "evidence", "created_at")}
+                                for r in results if r.get("classification") == "INDEPENDENT_NEWS_DRAFT"][-16:],
+        "conversion": {"independent_drafts": sum(r.get("classification") == "INDEPENDENT_NEWS_DRAFT" for r in results),
+                       "main_drafts": sum(r.get("classification") == "DRAFT_READY" for r in results),
+                       "fresh_provider_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"),
+                       "controlled_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "INJECTED_REPLAY_ONLY")},
+        "next_operation": "Resume the existing Simple route only after actual pause release; consume the configured public export manifest at the next existing window.",
         "workspaces": [report_workspace_projection(rows, key) for key in sorted(ids)]
         if report_id is None and len(ids) > 1
         else [],
         "latest_editorial_input": current_input,
         "latest_simple_result": result,
         "latest_attempt": latest_attempt,
-        "article": (result or {}).get("article"),
-        "previews": (result or {}).get("previews", []),
+        "article": None if latest and latest.get("withdrawal_only") else (result or {}).get("article"),
+        "previews": [] if latest and latest.get("withdrawal_only") else (result or {}).get("previews", []),
         "named_blocker": (latest_attempt or {}).get("exact_next_blocker")
         or (
             "CLAIMS_WITHDRAWN"

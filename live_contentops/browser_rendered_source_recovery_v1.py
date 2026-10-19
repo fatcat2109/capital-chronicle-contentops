@@ -596,6 +596,8 @@ class BrowserOSNeoRenderedSourceRecovery:
         url: str,
         timeout_seconds: float,
         max_bytes: int,
+        *,
+        semantic_selectors: Sequence[str] | None = None,
     ) -> dict[str, Any]:
         requested_url, requested_host = _validated_public_url(
             url,
@@ -634,7 +636,12 @@ class BrowserOSNeoRenderedSourceRecovery:
             page_id = int(page_match.group(1))
             read_failures: list[str] = []
             rendered_envelope = ""
-            for selector in ("article", "main", None):
+            if semantic_selectors is not None and not (
+                requested_host == "www.bls.gov" and urlsplit(requested_url).path.startswith("/news.release/")
+                and tuple(semantic_selectors) == ("pre",)
+            ):
+                raise BrowserRenderedSourceRecoveryError("browser_rendered_semantic_scope_not_registered")
+            for selector in (semantic_selectors or ("article", "main", None)):
                 arguments: dict[str, Any] = {
                     "page": page_id,
                     "format": "markdown",
@@ -703,6 +710,7 @@ class BrowserOSNeoRenderedSourceRecovery:
                 "source_identity": final_host,
                 "title": heading.group(1).strip()[:500] if heading else "",
                 "rendered_markdown": rendered_markdown,
+                "rendered_envelope_text": rendered_envelope,
                 "canonical_content_text": canonical_text,
                 "rendered_page_sha256": sha256(raw_bytes).hexdigest(),
                 "canonical_content_sha256": sha256(

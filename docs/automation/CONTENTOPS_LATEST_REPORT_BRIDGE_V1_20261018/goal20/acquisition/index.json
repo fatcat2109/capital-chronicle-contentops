@@ -1,0 +1,26 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "headline_id": "goal20-eia-smallscale-solar",
+      "capture_path": "goal20-eia-smallscale-solar-source.html",
+      "loader_result_path": "goal20-eia-smallscale-solar-loader.json",
+      "policy_capture_path": "goal20-eia-smallscale-solar-policy.html",
+      "policy_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "policy_capture_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "policy_retrieved_at_utc": "2026-10-19T05:47:50.347840Z",
+      "source_capture_sha256": "6752404e61026d28602deff05657e7eb440a79897b48dfc9d3e69cc3380e55ba",
+      "revision_at_utc": "2026-10-19T05:47:50.347840Z",
+      "proposition_span": [
+        824,
+        1031
+      ],
+      "headline_text": "We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade.",
+      "candidate_catalyst_tags": [
+        "energy",
+        "electricity",
+        "solar"
+      ]
+    }
+  ]
+}

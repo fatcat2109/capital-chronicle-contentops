@@ -1,0 +1,18 @@
+[
+  {
+    "headline_id": "goal20-bls-cpi-september",
+    "url": "https://www.bls.gov/news.release/cpi.nr0.htm",
+    "published_at_utc": "2026-10-14T12:30:00Z",
+    "proposition_start": "The Consumer Price Index for All Urban Consumers",
+    "proposition_end": "before seasonal adjustment.",
+    "candidate_catalyst_tags": ["inflation", "USD", "gold"]
+  },
+  {
+    "headline_id": "goal20-eia-smallscale-solar",
+    "url": "https://www.eia.gov/todayinenergy/detail.php?id=68324",
+    "published_at_utc": "2026-10-16T00:00:00Z",
+    "proposition_start": "We estimate that U.S. generation",
+    "proposition_end": "over the last decade.",
+    "candidate_catalyst_tags": ["energy", "electricity", "solar"]
+  }
+]

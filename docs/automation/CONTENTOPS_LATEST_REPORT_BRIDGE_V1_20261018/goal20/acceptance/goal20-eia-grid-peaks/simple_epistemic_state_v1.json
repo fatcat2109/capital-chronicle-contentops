@@ -1,0 +1,26 @@
+{
+  "adapter_changes_proposition_not_evidence_authority": true,
+  "analysis_must_be_conditional": false,
+  "authority_granted_by_adapter": false,
+  "event_confirmation_state": "CONFIRMED",
+  "event_proposition": "PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025. The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024. The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023",
+  "event_truth_support_status": "SUPPORTED_PRIMARY",
+  "event_truth_supported": true,
+  "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+  "origin_character": "ON_RECORD",
+  "primary_reporting_publisher": "www.eia.gov",
+  "primary_reporting_source_identity": "www.eia.gov",
+  "public_write_authority": false,
+  "reader_visible_epistemic_label": "CONFIRMED",
+  "relay_source_identity": null,
+  "report_proposition": "www.eia.gov reports that PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025. The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024. The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023",
+  "report_truth_support_status": "SUPPORTED_PRIMARY",
+  "report_truth_supported": true,
+  "schema_version": "contentops.v1_simple_epistemic_state.v1",
+  "selected_route": "OFFICIAL_PRIMARY",
+  "source_multiplicity": "SINGLE_SOURCE",
+  "supporting_document_ids": [
+    "official-primary-50e024dd01b717622483"
+  ],
+  "underlying_event_may_be_stated_as_confirmed": true
+}
