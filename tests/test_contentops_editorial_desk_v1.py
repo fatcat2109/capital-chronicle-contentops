@@ -92,6 +92,40 @@ def test_exact_preview_revision_and_concurrent_review_fail_closed(tmp_path):
     assert len(latest["review"]["history"]) == 1
 
 
+def test_story_delta_keeps_unpublished_history_and_scopes_changed_work(tmp_path):
+    store, tracker, research, briefs = seeded(tmp_path)
+    for p in view(store)["packages"]:
+        decide(store, p)
+    before_rows = len(store.list_outbox_messages())
+    persist_library(tracker, research, cutoff_utc="2026-10-20T14:00:00Z", briefs=briefs)
+    assert len(store.list_outbox_messages()) == before_rows
+    changed = deepcopy(research)
+    changed.records["goal21-fed-policy"]["headline_text"] += " Controlled corrected proposition."
+    changed.records["goal21-fed-policy"]["text_sha256"] = "d" * 64
+    persist_library(tracker, changed, cutoff_utc=CUTOFF, briefs=briefs)
+    stories = {s["brief_id"]: s for s in view(store)["stories"]}
+    assert {s["brief_id"] for s in stories.values() if s["work_required"] and s["prior_package"]} == {"rates-fx-transmission", "cross-asset-price-versus-custody"}
+    s = stories["rates-fx-transmission"]
+    assert s["disposition"] == "FOLLOW_UP" and s["changed_source_count"] == 1
+    delta = next(d for d in s["evidence_delta"] if d["material"])
+    assert delta["state"] == "CORRECTED" and delta["before"]["text_sha256"] != delta["after"]["text_sha256"]
+    assert s["prior_package"]["stage"] == "UNPUBLISHED_RESEARCH_PACKAGE" and s["published_prior"] is None
+    assert not s["independent_confirmation_from_main"]
+
+
+def test_exact_update_chain_beats_unrelated_entity_overlap_for_prior_memory():
+    from live_contentops.editorial_portfolio_v1 import PublishedArticleRef, classify_story_novelty, build_material_follow_up_context
+    shared = dict(published_at_utc=CUTOFF, public_object_id="1", canonical_url_hash="a" * 64,
+                  content_hash="b" * 64, article_mode="BREAKING_BRIEF")
+    unrelated = PublishedArticleRef(story_identity="unrelated", title="High entity overlap", entities=("Energy",), update_chain_identity="other", **shared)
+    exact = PublishedArticleRef(story_identity="exact", title="Exact chain with changed topic", entities=("Gas",), update_chain_identity="existing-story-chain", **shared)
+    cluster = {"cluster_id": "new-update", "update_chain_identity": "existing-story-chain", "entities_topics": ["Energy"], "leaf_summaries": ["corrects prior reporting"]}
+    novelty = classify_story_novelty(cluster, published_corpus=[unrelated, exact])
+    assert novelty["best_prior_article"] == "exact" and novelty["update_chain_match"]
+    follow = build_material_follow_up_context(cluster, novelty, [unrelated, exact])
+    assert follow["previous_story_identity"] == "exact" and not follow["grants_factual_or_numeric_authority"]
+
+
 def test_public_Main_claim_revision_invalidates_only_bound_package(tmp_path):
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     store, tracker, research, briefs = seeded(tmp_path)

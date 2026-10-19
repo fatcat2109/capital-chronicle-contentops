@@ -51,6 +51,14 @@ compiled derivatives, deployment or public output.
 
 Current routine implementation areas:
 
+- `contentops_editorial_desk_v1.py` and `contentops_foundation_library_v1.py` project evolving
+  story/package/source/Main history and revision-bound review over existing outbox/review rows.
+  `capital_chronicle_report_editorial_workspace_v1.py` binds current intake and canonical
+  memory to one frozen MainReportFeed/Simple opportunity; selector and writer share exact
+  story context. `EvolvingStoryWorkspace.tsx` extends the existing Daily App desk.
+  Owning Goal23 handoff: `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/RELEASE_HANDOFF.md`.
+  Research KEEP, qualified Simple output, publication and natural routine runtime remain separate.
+
 - `live_contentops/v1_simple_gemini_newsroom_v1.py` — accepted selected-story Simple runtime; materializes a qualified zero-write article plus eight preview-only pending-canonical-URL packages and exposes the existing coordinator-compatible lifecycle plan only for qualified results;
 - `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model seam;
 - `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger source/provenance route arbitration;

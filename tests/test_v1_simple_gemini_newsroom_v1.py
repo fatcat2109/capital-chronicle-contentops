@@ -820,6 +820,31 @@ def test_primary_source_blocked_second_candidate_succeeds_without_second_selecti
     assert [row["status"] for row in result["candidate_attempt_history"]] == ["SOURCE_BLOCKED", "SOURCE_QUALIFIED"]
     assert roles == [ROLE_V1_SIMPLE_SELECTION, ROLE_V1_SIMPLE_ARTICLE_WRITING]
     assert result["logical_model_invocation_count"] == 2
+
+
+def test_existing_story_context_reaches_one_selector_and_one_writer_with_chain_identity(tmp_path):
+    rolling = _headlines(1)
+    story = {"brief_id": "existing-brief", "update_chain_identity": "existing-chain", "disposition": "FOLLOW_UP",
+             "reason": "New attributable source revises the previous statement", "publication_state": "UNPUBLISHED_RESEARCH"}
+    rolling["headlines"][0]["external_content"] = {"evolving_story_context": [story]}
+    ids = _candidate_ids(rolling)
+    roles = []
+    def invoke(**kwargs):
+        role, packet = kwargs["role_task_id"], kwargs["governed_input"]
+        roles.append(role)
+        if role == ROLE_V1_SIMPLE_SELECTION:
+            assert packet["candidates"][0]["evolving_story_context"] == [story]
+            assert packet["candidates"][0]["update_chain_identity"] == "existing-chain"
+            return _selection(ids[0]), _receipt(role)
+        assert packet["evolving_story_context"] == [story]
+        return _article_output(), _receipt(role)
+    result = run_v1_simple_gemini_newsroom(output_dir=tmp_path, cutoff_utc=CUTOFF,
+        rolling_input=rolling, llm_invoke=invoke, evidence_loader=lambda r: _evidence_result(request_count=1),
+        capital_chronicle_context={"foundation_library": {"stories": [story]}}, run_id="story-context-unit-control")
+    assert roles == [ROLE_V1_SIMPLE_SELECTION, ROLE_V1_SIMPLE_ARTICLE_WRITING]
+    assert result["qualified_article_count"] == 1
+    record = json.loads(Path(result["qualified_record_path"]).read_bytes())
+    assert record["update_chain_identity"] == "existing-chain"
     assert result["codex_runtime_model_call_count"] == 0
     assert result["qualified_article_count"] == 1
     assert result["derivative_intent_count"] == 8

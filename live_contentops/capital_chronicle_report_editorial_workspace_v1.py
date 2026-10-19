@@ -281,7 +281,16 @@ def run_report_editorial_cycle(
             raise LatestReportConsumerError("FROZEN_RESEARCH_REVISION_CHANGED")
         args, records = frozen["args"], frozen["reports"]
         prepared_inputs = frozen["prepared_inputs"]
+        prepared = prepared_inputs.get(record.get("report_id"), {})
     else:
+        # Report evidence may be cached across opportunities. Intake and canonical
+        # publication memory belong to THIS new opportunity, not that old receipt.
+        primary_headlines = [h for h in args["rolling_input"].get("headlines", [])
+            if h.get("headline_id") == "cc-report:" + record.get("envelope_sha256", "")]
+        args["rolling_input"] = {**dict(rolling_input or {}),
+            "headlines": [*primary_headlines, *dict(rolling_input or {}).get("headlines", [])]}
+        args["published_memory"] = [m.to_dict() if hasattr(m, "to_dict") else dict(m) for m in published_memory]
+        args["cutoff_utc"] = cutoff_utc
         records = [record, *[dict(r) for r in additional_reports]] if record else []
         prepared_inputs = {record["report_id"]: prepared} if record else {}
         for other in records[1:]:
@@ -293,15 +302,23 @@ def run_report_editorial_cycle(
         args["capital_chronicle_context"]["report_editorial_briefs"] = [
             build_report_editorial_input(r, output_dir=root, cutoff_utc=cutoff_utc)["brief"] for r in records
         ]
-        from live_contentops.contentops_editorial_desk_v1 import read_reviews
+        from live_contentops.contentops_editorial_desk_v1 import read_reviews, publication_story_context, selection_story_context
         library = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
         if library:
+            stories = publication_story_context(library["stories"], args["published_memory"], cutoff_utc=cutoff_utc)
+            for headline in args["rolling_input"].get("headlines", []):
+                external = dict(headline.get("external_content") or {})
+                report_id = (external.get("report_editorial_context") or {}).get("report_id")
+                matches = [s for s in stories if headline.get("headline_id") in s["source_item_ids"] or report_id in s["main_report_ids"]]
+                if matches:
+                    headline["external_content"] = {**external, "evolving_story_context": [selection_story_context(s) for s in matches]}
             args["capital_chronicle_context"]["foundation_library"] = {
                 "research_revision": library["research_revision"],
                 "briefs": [b for b in library["briefs"] if not any(p["brief_id"] == b["brief_id"] and
                     p["review"]["state"] == "HOLD" for p in library["packages"])][:16],
                 "families": library["families"],
                 "editorial_desk": library["desk"],
+                "stories": stories,
                 "research_packages": [{k: p.get(k) for k in ("brief_id", "package_revision", "editorial_kind", "review", "source_revision_current")}
                                       for p in library["packages"]],
                 "scope": "PUBLIC_RESEARCH_QUESTIONS_NOT_MAIN_NUMERIC_AUTHORITY",

@@ -1,0 +1,36 @@
+{
+  "actual_neo_render_inspected": true,
+  "desktop": "desktop_story.jpg",
+  "mobile": "mobile_story.jpg",
+  "article_review": "mobile_article_review.jpg",
+  "mobile_viewport_width": 430,
+  "mobile_scroll_width": 430,
+  "changed_article_prose_read": [
+    "gas-vintage",
+    "energy-balance-transmission"
+  ],
+  "affected_native_previews_read": 16,
+  "energy_native_eight_opened_in_render": true,
+  "research_save_disabled_in_file_preview": true,
+  "loaded_source_image_width": 1600,
+  "source_media_sha256": "e9c12f6b971774e50e51e37c35073034d9e6b1f1e5aac01e7a0770b9d1ba5fa7",
+  "unchanged_media_rebuilt": false,
+  "files": {
+    "desktop_story.jpg": "0fc1dfdf6c6917592fc0a9f4f741d59258be16ed87a7aabe73978a3286eaadbf",
+    "energy_gas_source_card.png": "e9c12f6b971774e50e51e37c35073034d9e6b1f1e5aac01e7a0770b9d1ba5fa7",
+    "mobile_article_review.jpg": "8a310039746a0ddf7e54273d5d4a8b77dd7301385fcab67abfb7bed469327547",
+    "mobile_story.jpg": "e69b28125ae738612013f5cc5ddef963bab70759c2c27ee66dbf61c1a44e71b2",
+    "native_render_readback.json": "d097776153172fc7cf2ea2bb8a994fa6b0f91705f09e7abebbb846ec19a3dcde"
+  },
+  "article_identities": {
+    "rates-fx-transmission": "67734a17004e8be6ddd63e93b617924b086819bd3ce34de0281b7fb2bc1547c2",
+    "metals-exposure": "08dc47c15d6cab36aedd85356131a2ceacd5b7d2f5158bd70953eaf886c83892",
+    "gas-vintage": "296f38ba500d5e6e2eaa6271acb5a1baee2c267e15008d2d4ca540570feadcf8",
+    "options-positioning": "a79197c7978fd2fed8588b0ddb67e40d91f0abd0fafb296049e809aafbbb531d",
+    "company-sec-context": "625a97fb0fd68d9349b0c3c253c6ea5f346245e06ae640db5e10266833ce494d",
+    "crypto-custody": "c338b8db04da1073468513a81f0c2922e69a743fcf2138fca7539442da0f6bb0",
+    "cross-asset-price-versus-custody": "33778c48cf4e966135fe5393e2e5bc64604e4c9621c3fba3ce51f8c33ee29ad4",
+    "energy-balance-transmission": "0198031ae6fffae30f1ec966450527c0faaf5eb0f419f832f177c7b9fd4ab746"
+  },
+  "stage": "EDITOR_AUTHORED_RESEARCH_NOT_SIMPLE_OR_PUBLICATION"
+}

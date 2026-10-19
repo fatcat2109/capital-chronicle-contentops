@@ -1,4 +1,5 @@
 import { ResearchPackageDecision } from './ResearchPackageDecision';
+import { EvolvingStoryWorkspace } from './EvolvingStoryWorkspace';
 import { useState } from 'react';
 import type { ReportWorkspaceData } from '../dailyAppTypes';
 
@@ -29,6 +30,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
   return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace">
     <header><span>Editorial workspace</span><h2>Capital Chronicle report → article → previews</h2></header>
     {library && <section aria-label="Foundation research library">
+      {library.stories?.length ? <EvolvingStoryWorkspace stories={library.stories} /> : null}
       <h3>Thư viện nghiên cứu đa tài sản</h3>
       {library.desk && <section aria-label="Bàn quyết định biên tập"><h4>Bàn quyết định biên tập</h4>
         <p>{library.desk.useful_research_packages} gói giữ dùng · {library.desk.decisions.HOLD} giữ chờ · {library.desk.decisions.REVISE} cần sửa · {library.desk.decisions.STALE} hết hiệu lực · {library.desk.decisions.UNREVIEWED} chưa đọc duyệt.</p>

@@ -327,6 +327,8 @@ def _candidate_universe(
         result.append({
             "candidate_id": story_identity,
             "story_identity": story_identity,
+            "update_chain_identity": (external.get("evolving_story_context") or [{}])[0].get("update_chain_identity", story_identity)
+                if len(external.get("evolving_story_context") or []) == 1 else story_identity,
             "headline_id": headline_id,
             "headline_text": text,
             "source_timestamp_utc": str(row.get("source_timestamp_utc") or ""),
@@ -339,6 +341,7 @@ def _candidate_universe(
             ),
             "source_platform": str(external.get("source_platform") or ""),
             "report_editorial_context": dict(external.get("report_editorial_context") or {}),
+            "evolving_story_context": list(external.get("evolving_story_context") or []),
             "canonical_x_list_provenance": dict(
                 external.get("canonical_x_list_provenance") or {}
             )
@@ -354,6 +357,7 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
         for key in (
             "candidate_id",
             "story_identity",
+            "update_chain_identity",
             "headline_id",
             "headline_text",
             "source_timestamp_utc",
@@ -364,6 +368,7 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
             "source_platform",
             "canonical_x_list_provenance",
             "report_editorial_context",
+            "evolving_story_context",
         )
     }
     sourceability = row.get("sourceability_work_order")
@@ -820,6 +825,10 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "A report_editorial_context is a sealed Main public projection: compare its new evidence, changed claims, "
         "competing mechanisms, horizons and limits when choosing a useful angle or update mode. "
         "Its presence creates no quota or preference over a more useful independent story; no private Main input is authorized. "
+        "An evolving_story_context binds existing story/update identities, prior unpublished research, exact evidence delta, "
+        "current review and missing inputs. A prior research package is not a published article. Prefer a follow-up only "
+        "when its stated delta adds reader value; an identical rescan or Main recirculation is not independent confirmation. "
+        "A HOLD applies to its exact scope; missing option-chain data does not veto a narrow attributable index announcement. "
         "Use institutional_edge_mode_guide to choose the mode the story genuinely warrants. Prefer the strongest "
         "defensible tension over generic recap, and prioritize a proposition that can explain why the reader should care now. "
         "Do not force a house view or market-missing mode when the headline does not support one. "
@@ -1060,6 +1069,9 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "a publication attempt: public_write_attempted MUST be the JSON boolean false, never true or a string. "
         "When epistemic_state.event_confirmation_state is not CONFIRMED, every material claim about the underlying "
         "event must set attribution_required to true. "
+        "Use evolving_story_context to explain what the prior article/package said and what changed. Keep unpublished "
+        "research history distinct from exact reconciled published history. Mark corrections, withdrawals, disputes and "
+        "unchanged evidence explicitly; previous copy and Main recirculation never provide independent factual support. "
         "Return strict JSON only.\nOUTPUT_CONTRACT:\n"
         + json.dumps(contract, sort_keys=True, ensure_ascii=False)
         + "\nGOVERNED_INPUT:\n"
@@ -1771,7 +1783,7 @@ def _build_simple_publication_lifecycle_plan(
         "bridge_schema_version": PUBLICATION_BRIDGE_SCHEMA_VERSION,
         "run_id": run_id,
         "story_identity": str(selected_candidate.get("story_identity") or ""),
-        "update_chain_identity": str(selected_candidate.get("story_identity") or ""),
+        "update_chain_identity": str(selected_candidate.get("update_chain_identity") or selected_candidate.get("story_identity") or ""),
         "resolved_article_mode": str(selected_plan_entry.get("article_mode") or ""),
         "editorial_classification": "QUALIFIED_SIMPLE_GEMINI_ARTICLE",
         "article_identity": article_identity,
@@ -2203,6 +2215,8 @@ def run_v1_simple_gemini_newsroom(
     writer_governed = {
         "cutoff_utc": cutoff_utc,
         "selected_candidate": selected,
+        "evolving_story_context": [s for s in ((capital_chronicle_context or {}).get("foundation_library") or {}).get("stories", [])
+            if s["brief_id"] in {c["brief_id"] for c in selected.get("evolving_story_context", [])}],
         "article_mode": selected_plan_entry["article_mode"],
         "selection_rationale": selected_plan_entry["selection_rationale"],
         "source_pack": source_pack,
@@ -2378,7 +2392,7 @@ def run_v1_simple_gemini_newsroom(
         **article,
         "resolved_article_mode": selected_plan_entry["article_mode"],
         "story_identity": selected["story_identity"],
-        "update_chain_identity": selected["story_identity"],
+        "update_chain_identity": selected.get("update_chain_identity") or selected["story_identity"],
         "source_document_ids": [row["document_id"] for row in source_pack],
         "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
@@ -2467,7 +2481,7 @@ def run_v1_simple_gemini_newsroom(
         attempt_run_id=run_id,
         article=article_manifest,
         story_identity=selected["story_identity"],
-        update_chain_identity=selected["story_identity"],
+        update_chain_identity=selected.get("update_chain_identity") or selected["story_identity"],
         resolved_article_mode=selected_plan_entry["article_mode"],
         accepted_evidence_documents=accepted_documents,
         editorial_provider="9router",

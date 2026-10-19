@@ -15,6 +15,152 @@ SCHEMA = "contentops.editorial_desk_review.v1"
 ENDPOINT = "/api/daily-app/editorial-review"
 
 
+def _source_delta(before, after):
+    """Propositions/rights/corrections change work; a scan clock alone is not news."""
+    old, new = {i["item_id"]: i for i in before}, {i["item_id"]: i for i in after}
+    changes = []
+    keys = ("text_sha256", "permission_sha256", "context_kind", "correction_of", "stage")
+    for identity in sorted(old.keys() | new.keys()):
+        a, b = old.get(identity), new.get(identity)
+        kind = "ADDED" if not a else "REMOVED" if not b else "CORRECTED" if any(a.get(k) != b.get(k) for k in keys) else "UNCHANGED"
+        changes.append({"item_id": identity, "state": kind, "before": a, "after": b,
+                        "material": kind != "UNCHANGED"})
+    return changes
+
+
+def story_projection(library, rows):
+    """Evolving-story read model over existing library/package/report outbox identities.
+
+    Package history is explicitly unpublished. No independent story ledger, approval,
+    source authority, scheduler or publication memory is created here.
+    """
+    from live_contentops.contentops_foundation_library_v1 import LIBRARY, PACKAGE, source_binding
+    snapshots, packages, reports = [], {}, {}
+    withdrawals = {json.loads(r["payload"]).get("source_report_sha256") for r in rows
+                   if r["destination"] == "internal:cc-report-withdrawal"}
+    for row in rows:
+        dest = row["destination"]
+        if dest not in {LIBRARY, PACKAGE, "internal:cc-report-receipt"}:
+            continue
+        value = json.loads(row["payload"])
+        if dest == LIBRARY:
+            snapshots.append(value)
+        elif dest == PACKAGE:
+            packages.setdefault(value["brief_id"], []).append(value)
+        else:
+            reports.setdefault(value["report_id"], []).append(value)
+    snapshots.sort(key=lambda s: s.get("library_sequence", 0))
+    stories = []
+    current_packages = {p["brief_id"]: p for p in library["packages"]}
+    for brief in library["briefs"]:
+        identity = brief["brief_id"]
+        package = current_packages.get(identity, {})
+        history = sorted(packages.get(identity, []), key=lambda p: p.get("package_sequence", 0))
+        distinct = []
+        for p in history:
+            if not distinct or p["article_identity"] != distinct[-1]["article_identity"]:
+                distinct.append(p)
+        current = bool(package.get("source_revision_current"))
+        prior = distinct[-2] if current and len(distinct) > 1 else distinct[-1] if distinct and not current else None
+        baseline = next((s for s in reversed(snapshots) if any(
+            b["brief_id"] == identity and b["brief_sha256"] == (prior or {}).get("brief_sha256")
+            and (not (prior or {}).get("source_binding_sha256") or source_binding([
+                i for i in s["items"] if i["item_id"] in b["source_item_ids"]]) == prior["source_binding_sha256"])
+            for b in s["briefs"])), {})
+        old_brief = next((b for b in baseline.get("briefs", []) if b["brief_id"] == identity), {})
+        before = [i for i in baseline.get("items", []) if i["item_id"] in old_brief.get("source_item_ids", [])]
+        after = [i for i in library["items"] if i["item_id"] in brief["source_item_ids"]]
+        delta = _source_delta(before, after) if prior else []
+        state = package.get("review", {}).get("state", "UNREVIEWED")
+        changed = [d for d in delta if d["material"]]
+        updated_brief = bool(prior and prior.get("brief_sha256") != brief["brief_sha256"])
+        disposition = "HOLD" if state == "HOLD" or brief.get("hold_reason") else (
+            "FOLLOW_UP" if prior and (changed or updated_brief) else "NEW" if len(distinct) <= 1 else "NO_MATERIAL_CHANGE")
+        reason = (brief.get("hold_reason") or package.get("review", {}).get("rationale")) if disposition == "HOLD" else (
+            brief.get("update_reason") or "Luận điểm hoặc cách giải thích của bản trước đã thay đổi; xem so sánh và nguồn." if disposition == "FOLLOW_UP" else
+            "Bản nghiên cứu đầu tiên của câu chuyện; chưa có bài trước trong chuỗi này." if disposition == "NEW" else
+            "Không có thay đổi nội dung kể từ gói hiện tại; giữ bài và media, không gọi lại model.")
+        main_history = []
+        for binding in brief.get("main_report_bindings", []):
+            chain = sorted(reports.get(binding["report_id"], []), key=lambda r: r["report_version"])
+            for index, r in enumerate(chain):
+                previous = chain[index - 1] if index else {}
+                old_claims = {c["claim_id"]: c for c in previous.get("claims", [])}
+                new_claims = {c["claim_id"]: c for c in r.get("claims", [])}
+                main_history.append({**{k: r.get(k) for k in ("report_id", "report_version", "source_report_sha256", "parent_report_sha256", "status", "change_kind", "known_at_cutoff_utc", "withdrawal_only")},
+                    "withdrawn": r.get("source_report_sha256") in withdrawals or bool(r.get("withdrawal_only")),
+                    "originality": "MAIN_ORIGIN_RECIRCULATION", "independent_confirmation": False,
+                    "changed_claims": [{"claim_id": key, "before": old_claims.get(key), "after": new_claims.get(key)}
+                        for key in sorted(old_claims.keys() | new_claims.keys()) if old_claims.get(key) != new_claims.get(key)]})
+        stories.append({"story_identity": (package.get("article") or {}).get("cluster_id") or identity,
+            "update_chain_identity": (package.get("article") or {}).get("cluster_id") or identity,
+            "brief_id": identity, "title": brief["title"], "families": brief.get("families", []),
+            "entities_topics": brief.get("entities_topics") or sorted({a for i in after for a in i.get("assets", [])}
+                | ({"EIA", "Natural Gas"} if "ENERGY" in brief.get("families", []) else set())),
+            "source_item_ids": brief["source_item_ids"], "main_report_ids": [b["report_id"] for b in brief.get("main_report_bindings", [])],
+            "disposition": disposition, "reason": reason, "reader_question": brief["next_question"],
+            "follow_up_value": brief.get("update_reason") or brief["audience_value"],
+            "evidence_delta": delta, "changed_source_count": len(changed), "brief_changed": updated_brief,
+            "prior_package": {"article_identity": prior["article_identity"], "title": prior["article"]["title"],
+                "full_text": prior["article"]["substack_body_markdown"], "stage": "UNPUBLISHED_RESEARCH_PACKAGE"} if prior else None,
+            "package_history": [{"article_identity": p["article_identity"], "title": p["article"]["title"],
+                "package_sequence": p.get("package_sequence"), "full_text": p["article"]["substack_body_markdown"],
+                "stage": "UNPUBLISHED_RESEARCH_PACKAGE"} for p in distinct],
+            "main_history": main_history, "current_review": package.get("review"),
+            "work_required": not current or state in {"STALE", "REVISE", "UNREVIEWED"},
+            "missing_inputs": brief.get("missing_inputs", []), "counterevidence": brief.get("counterevidence", []),
+            "confirmation_state": "ATTRIBUTED_RETAINED_SOURCE_FACTS_CONDITIONAL_ANALYSIS",
+            "epistemic_states": [{"item_id": i["item_id"], "state": "SUPERSEDED" if i.get("stage") == "RESEARCH_SUPERSEDED"
+                else (brief.get("source_epistemic_states") or {}).get(i["item_id"], "CONFIRMED_AS_ATTRIBUTED_SOURCE_TEXT"),
+                "scope": "SOURCE_REPORT_NOT_MARKET_IMPACT", "context_kind": i["context_kind"]} for i in after],
+            "publication_state": "UNPUBLISHED_RESEARCH", "published_prior": None,
+            "independent_confirmation_from_main": False})
+    return stories
+
+
+def publication_story_context(stories, published_memory, *, cutoff_utc):
+    """Reuse canonical portfolio novelty and prior article context; no draft as published."""
+    from live_contentops.editorial_portfolio_v1 import PublishedArticleRef, classify_story_novelty, build_material_follow_up_context
+    from live_contentops.published_corpus_read_model_v1 import is_countable_canonical_published_article
+    corpus = []
+    fields = PublishedArticleRef.__dataclass_fields__
+    for row in published_memory:
+        if is_countable_canonical_published_article(row):
+            corpus.append(row if isinstance(row, PublishedArticleRef) else PublishedArticleRef(**{k: v for k, v in row.items() if k in fields}))
+    result = []
+    for story in stories:
+        changed = [d["after"] for d in story["evidence_delta"] if d["material"] and d["after"]]
+        cluster = {"cluster_id": story["story_identity"], "update_chain_identity": story["update_chain_identity"],
+            "entities_topics": story["entities_topics"],
+            "headline_ids": story["source_item_ids"], "leaf_summaries": [i["proposition"] for i in changed],
+            "official_source_urls": [i["source_url"] for i in changed]}
+        novelty = classify_story_novelty(cluster, published_corpus=corpus, now=datetime.fromisoformat(cutoff_utc.replace("Z", "+00:00")))
+        follow_up = build_material_follow_up_context(cluster, novelty, corpus)
+        result.append({**story, "published_novelty": novelty, "material_follow_up_context": follow_up,
+            "published_prior": follow_up, "canonical_memory_article_count": len(corpus),
+            "canonical_memory_scope": "EXACT_RECONCILED_PUBLICATION_MEMORY_RELATEDNESS_IS_NOT_NEW_FACTUAL_AUTHORITY"})
+    return result
+
+
+def selection_story_context(story):
+    """Compact selector view; the writer retains the full exact bound history."""
+    result = {k: story.get(k) for k in ("story_identity", "update_chain_identity", "brief_id", "disposition", "reason",
+        "reader_question", "follow_up_value", "changed_source_count", "work_required", "missing_inputs", "confirmation_state", "publication_state")}
+    result["current_review"] = {k: (story.get("current_review") or {}).get(k) for k in ("state", "rationale")}
+    result["changed_evidence"] = [{"item_id": d["item_id"], "state": d["state"],
+        "before": (d.get("before") or {}).get("proposition"), "after": (d.get("after") or {}).get("proposition"),
+        "source_url": (d.get("after") or d.get("before") or {}).get("source_url"),
+        "rights_state": (d.get("after") or d.get("before") or {}).get("rights_state")}
+        for d in story["evidence_delta"] if d["material"]]
+    result["previous_unpublished_package"] = {k: story["prior_package"][k] for k in ("article_identity", "title", "stage")} if story.get("prior_package") else None
+    result["published_novelty"] = story.get("published_novelty")
+    result["previous_published_article"] = {k: story["published_prior"].get(k) for k in (
+        "previous_story_identity", "previous_article_identity", "previous_title", "previous_canonical_url", "previous_body_sha256")
+    } if story.get("published_prior") else None
+    result["main_changed_claim_ids"] = sorted({c["claim_id"] for h in story["main_history"] for c in h["changed_claims"]})
+    return result
+
+
 def read_reviews(store):
     with store.get_read_only_connection() as conn:
         return [dict(r) for r in conn.execute("SELECT * FROM review_records ORDER BY rowid")]

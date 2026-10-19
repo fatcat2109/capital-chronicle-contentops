@@ -1,0 +1,947 @@
+[
+  {
+    "affected_drafts": [],
+    "affected_prior_inputs": [],
+    "affected_symbols": [
+      "UKOIL"
+    ],
+    "asset_ids": [
+      "UKOIL"
+    ],
+    "blockers": [],
+    "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+    "change_kind": "THESIS_DELTA",
+    "changed_claim_ids": [
+      "ukoil-hold",
+      "ukoil-invalidate",
+      "ukoil-long",
+      "ukoil-mechanism",
+      "ukoil-short",
+      "ukoil-source",
+      "ukoil-swing"
+    ],
+    "claim_set_hash": "18922a843a83f8086642c810cbdf7eecbaafc31bda103eda5be540fefb96afad",
+    "claims": [
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "431462c5fd8bfe3e05369538592cef414052100ec0f5417c4d7503384ce10c74",
+        "claim_id": "ukoil-source",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "OBSERVED_FACT",
+        "producer_layer": "OBSERVED_SOURCE_FACT",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "d0deb736305c94671412ed7a5fda6c34dc891b62cd2d886671060a5b09d0126f",
+        "claim_id": "ukoil-mechanism",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "producer_layer": "CC_ANALYSIS",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Capital Chronicle conditional analysis: The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. US import timing can lower US stocks without global scarcity; Brent-specific supply/transport and spreads may move independently."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "450d9ae0ef72de26d6ca7723e5710aa2634c16c030f9995507140d72941f933c",
+        "claim_id": "ukoil-short",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "UKOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "8202e7b59ff46c66b54072cf1904c90bafc3b64fe3ad20bc6649791a8381a832",
+        "claim_id": "ukoil-swing",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "UKOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "cf29c2dc6f7ee6d17080e32409fb75571f02ec1b4b01f23e6be3ed4487f26f7e",
+        "claim_id": "ukoil-long",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "UKOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "115cbc84c35634a31737677fca68085ec3bf7bcbc5401ef72df0c5378bdd3894",
+        "claim_id": "ukoil-hold",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Retain the UKOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "584a525c6aeaaedc9ed5c5d87afc3763e2dd8b858fa5ce032144e6c7ebf86f61",
+        "claim_id": "ukoil-invalidate",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Invalidate the UKOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+      }
+    ],
+    "contract_revision": "asset-analysis-report-v1.1.0",
+    "contract_version": "1.1.0",
+    "created_at": "2026-10-19T11:35:36.840217+00:00",
+    "delivery_status": "REPORT_INPUT_READY",
+    "envelope_sha256": "7639f6d5b64cc74c51b302377f2b71552442791da81455949d36c9bd931f99b8",
+    "event_id": "report-event:78d94190dfe3f7f71ddc63d63d72d1b8a4ad6f4d5c8f136cdbd143e3ddbbd3d0",
+    "hold_and_invalidation_conditions": [
+      "Retain the UKOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision.",
+      "Invalidate the UKOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+    ],
+    "horizon_blocks": [
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2026-10-26T09:14:42.517584Z",
+        "horizon": "short",
+        "outlook": "UKOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 5
+      },
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2026-11-17T09:14:42.517584Z",
+        "horizon": "swing",
+        "outlook": "UKOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 21
+      },
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2027-01-14T09:14:42.517584Z",
+        "horizon": "long",
+        "outlook": "UKOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The US EIA crude draw is a regional balance proxy for Brent-related UKOIL; a global support channel requires transmission through seaborne trade and the Brent-WTI basis. Confirmation required: Current Brent curve and WTI-Brent spread, global production/exports and subsequent product balances; no admitted UKOIL price panel. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 63
+      }
+    ],
+    "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+    "limitations": [
+      "CC analysis is not external confirmation or an order.",
+      "No private holdings/account context is included.",
+      "Exact execution economics are unavailable."
+    ],
+    "lineage_only": false,
+    "machine_schema_verified": true,
+    "materiality_rationale": "Comparison of retained claim hashes and evidence snapshots; a case change alone creates no new event.",
+    "message_id": "cc-receipt-0aeb6b5bd91b538a98538a02dc6f421cb6e5ddffc497b67a29ed5ce7fd8dd56d",
+    "missing_claims": [],
+    "parent_report_id": "asset-report:UKOIL",
+    "parent_report_sha256": "8f6f738f20e23fa4c4b0b4ccae565e66d476ad4c63c3d9ac7a4985f5e45922dd",
+    "producer_binding": {
+      "contract_revision": "asset-analysis-report-v1.1.0",
+      "envelope_schema_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+      "files": {
+        "report.json": {
+          "path": "outbox/d958366a5a1f26120012490903b332208df7946503088ed2559ba1ef1d426fba/public-report.json",
+          "sha256": "50437428ab0a6e6baf04115e3d21a83d3c1583f04f379e58216cdb9334c6e9e2"
+        }
+      },
+      "manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+      "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+      "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+      "producer_revision": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+      "public_export_manifest_verified": true,
+      "public_lineage_only": false,
+      "public_report_locator": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:50437428ab0a6e6baf04115e3d21a83d3c1583f04f379e58216cdb9334c6e9e2",
+      "public_report_raw_sha256": "50437428ab0a6e6baf04115e3d21a83d3c1583f04f379e58216cdb9334c6e9e2"
+    },
+    "public_write_performed": false,
+    "raw_sha256": "d913fabf7e4e8235372b0da2ca534d85a16af6b16a98dd8099bb66fd7506bf39",
+    "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23",
+    "report_id": "asset-report:UKOIL",
+    "report_raw_sha256": [
+      "50437428ab0a6e6baf04115e3d21a83d3c1583f04f379e58216cdb9334c6e9e2"
+    ],
+    "report_version": 2,
+    "research_gaps": [],
+    "schema_diagnostics": [],
+    "schema_version": "contentops.capital_chronicle_latest_report_consumer.v1",
+    "source_report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810",
+    "status": "ADMITTED",
+    "validated_at_utc": "2026-10-19T11:35:36.740714Z",
+    "withdrawal_only": false,
+    "writer_invoked": false
+  },
+  {
+    "affected_drafts": [],
+    "affected_prior_inputs": [],
+    "affected_symbols": [
+      "USOIL"
+    ],
+    "asset_ids": [
+      "USOIL"
+    ],
+    "blockers": [],
+    "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+    "change_kind": "FRESHNESS_REPAIR",
+    "changed_claim_ids": [],
+    "claim_set_hash": "4889205b0eaa3e79328a0619bc8d4241822fe614248d96c72db2efa867670ec4",
+    "claims": [
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+        "claim_id": "usoil-source",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "OBSERVED_FACT",
+        "producer_layer": "OBSERVED_SOURCE_FACT",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+      },
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "6d08e695e43a64d435660f98861213048754deb2cb17a98833fdc868b568ee29",
+        "claim_id": "usoil-mechanism",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "producer_layer": "CC_ANALYSIS",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Capital Chronicle conditional analysis: The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Import timing, refinery throughput and product imbalances can generate a crude draw without sustained end-demand strength. The Sep22 WTI price panel predates the original release."
+      },
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "3bb2c21df88755cbece5f85fa75979774144d9f4b8b46586a50294fcd552b01a",
+        "claim_id": "usoil-short",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "USOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "4b8858b556c6c7d8b113d63a5ba960dfe935daae068fe95b76ef70259d6d2d0a",
+        "claim_id": "usoil-swing",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "USOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "7dcdd631ea4973e0a3dd0f908dc60d84eab8dea87abb3741d123d5996f9e57fb",
+        "claim_id": "usoil-long",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "USOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "27df4624bd44694589d89cf2355c0c817fa97e9b4416467174d8ee53f08b7224",
+        "claim_id": "usoil-hold",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Retain the USOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision."
+      },
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "67b247f5dfd250ab9c089afd5691c253e631be620f2f95655e28eb1ab82a4b8c",
+        "claim_id": "usoil-invalidate",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Invalidate the USOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+      }
+    ],
+    "contract_revision": "asset-analysis-report-v1.1.0",
+    "contract_version": "1.1.0",
+    "created_at": "2026-10-19T11:35:37.523739+00:00",
+    "delivery_status": "REPORT_INPUT_READY",
+    "envelope_sha256": "5e9e962ad775bbafc49d04943cc56742efbcbb4b1a0cf2c7f9b369a0d3bc895c",
+    "event_id": "report-event:4b307230009679144c2b5fd33bde076f5bf65d9adc2458dd8ae20049775f7d91",
+    "hold_and_invalidation_conditions": [
+      "Retain the USOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision.",
+      "Invalidate the USOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+    ],
+    "horizon_blocks": [
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2026-10-26T09:14:42.517584Z",
+        "horizon": "short",
+        "outlook": "USOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 5
+      },
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2026-11-17T09:14:42.517584Z",
+        "horizon": "swing",
+        "outlook": "USOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 21
+      },
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2027-01-14T09:14:42.517584Z",
+        "horizon": "long",
+        "outlook": "USOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 63
+      }
+    ],
+    "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+    "limitations": [
+      "CC analysis is not external confirmation or an order.",
+      "No private holdings/account context is included.",
+      "Exact execution economics are unavailable."
+    ],
+    "lineage_only": false,
+    "machine_schema_verified": true,
+    "materiality_rationale": "Comparison of retained claim hashes and evidence snapshots; a case change alone creates no new event.",
+    "message_id": "cc-receipt-76ccbd33870562568ac169caaaf14fb862227692971f3755321d8df314bea119",
+    "missing_claims": [],
+    "parent_report_id": "asset-report:USOIL",
+    "parent_report_sha256": "09d8c39f7bfc3087c25e9476e5319c584b05aa2bc8f01800c6d73864aa34e812",
+    "producer_binding": {
+      "contract_revision": "asset-analysis-report-v1.1.0",
+      "envelope_schema_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+      "files": {
+        "report.json": {
+          "path": "outbox/890074308215542fafc915c3cd5f1ee607f725db0214c8ea3433275377304673/public-report.json",
+          "sha256": "87d4c78d4d921d07aefe4beb99c47d8b0ef427db2b96c6b4461008bd0b568ee8"
+        }
+      },
+      "manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+      "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+      "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+      "producer_revision": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+      "public_export_manifest_verified": true,
+      "public_lineage_only": false,
+      "public_report_locator": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:87d4c78d4d921d07aefe4beb99c47d8b0ef427db2b96c6b4461008bd0b568ee8",
+      "public_report_raw_sha256": "87d4c78d4d921d07aefe4beb99c47d8b0ef427db2b96c6b4461008bd0b568ee8"
+    },
+    "public_write_performed": false,
+    "raw_sha256": "d54e3ca15857aee821e9a4fcb5edead77efd7c8455a4e858bcdff94a7ed5cd4c",
+    "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d",
+    "report_id": "asset-report:USOIL",
+    "report_raw_sha256": [
+      "87d4c78d4d921d07aefe4beb99c47d8b0ef427db2b96c6b4461008bd0b568ee8"
+    ],
+    "report_version": 4,
+    "research_gaps": [],
+    "schema_diagnostics": [],
+    "schema_version": "contentops.capital_chronicle_latest_report_consumer.v1",
+    "source_report_sha256": "1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453",
+    "status": "ADMITTED",
+    "validated_at_utc": "2026-10-19T11:35:37.416760Z",
+    "withdrawal_only": false,
+    "writer_invoked": false
+  },
+  {
+    "affected_drafts": [],
+    "affected_prior_inputs": [
+      "cc-receipt-271e716f360befdf6f19d160894048569b65ee34bb2b4b3a49c9c91b7eee4ccd"
+    ],
+    "affected_symbols": [
+      "XNGUSD"
+    ],
+    "asset_ids": [
+      "XNGUSD"
+    ],
+    "blockers": [],
+    "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+    "change_kind": "INVALIDATION",
+    "changed_claim_ids": [
+      "xngusd-hold",
+      "xngusd-invalidate",
+      "xngusd-long",
+      "xngusd-mechanism",
+      "xngusd-short",
+      "xngusd-source",
+      "xngusd-swing"
+    ],
+    "claim_set_hash": "d916f0cefef64ea41decb62c3e87211412bef1def23344d79b00df8517422d6d",
+    "claims": [
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "065607e3ad473f787b751fb1073dca726f475d4a2d7afff733f12e417d0d9cd4",
+        "claim_id": "xngusd-source",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "OBSERVED_FACT",
+        "producer_layer": "OBSERVED_SOURCE_FACT",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "The retained original EIA storage release records a 67 Bcf weekly injection, versus the 90 Bcf five-year same-week injection average. Stocks were 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year level."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+        "claim_id": "xngusd-mechanism",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "producer_layer": "CC_ANALYSIS",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Capital Chronicle conditional analysis: The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Weather, supply/import variation and shoulder-season demand may explain the small injection; a seasonal comparison is not market consensus or a measured surprise."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "78861c6a2fbcc8ce4e8459fa51dd1400193f5c0cb2b94171e969f7d873845684",
+        "claim_id": "xngusd-short",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "XNGUSD conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "383451c6f4480461a8ccc17e4f69516c55b0958b46c50f5978e44752e7763294",
+        "claim_id": "xngusd-swing",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "XNGUSD conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "55388fcb3a1b173122ac151a0a7af63e87bb3d1bbf497e1e47ca4ba51aae64b8",
+        "claim_id": "xngusd-long",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "XNGUSD conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "02118936e81065430ed4640b5f82f95782e0fc1450f102ebdf086e2a56159b40",
+        "claim_id": "xngusd-hold",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Retain the XNGUSD analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision."
+      },
+      {
+        "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+        "claim_hash": "c92a82b870fe4aa7a88d9f112f025b1bf07bb6bf7d38e6ee3359165c9d970a4a",
+        "claim_id": "xngusd-invalidate",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [],
+        "text": "Invalidate the XNGUSD analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+      }
+    ],
+    "contract_revision": "asset-analysis-report-v1.1.0",
+    "contract_version": "1.1.0",
+    "created_at": "2026-10-19T11:35:37.192164+00:00",
+    "delivery_status": "REPORT_INPUT_READY",
+    "envelope_sha256": "018a43d05d9224b592c76324dface973cbf343253dc70c9e65a4ad0b47e975f5",
+    "event_id": "report-event:ac391ae795ec3390038131ded74480803707bbb0c4deeaf8a1bb7b51eebbede0",
+    "hold_and_invalidation_conditions": [
+      "Retain the XNGUSD analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision.",
+      "Invalidate the XNGUSD analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable."
+    ],
+    "horizon_blocks": [
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2026-10-26T09:14:42.517584Z",
+        "horizon": "short",
+        "outlook": "XNGUSD conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 5
+      },
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2026-11-17T09:14:42.517584Z",
+        "horizon": "swing",
+        "outlook": "XNGUSD conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 21
+      },
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2027-01-14T09:14:42.517584Z",
+        "horizon": "long",
+        "outlook": "XNGUSD conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA injection of 67 Bcf versus a 90 Bcf same-week seasonal average tightens the weekly refill by 23 Bcf; stocks still sit 45 Bcf above the five-year level. Confirmation required: Next storage releases, weather-normalized demand, production/LNG exports, current gas curve and pre-release consensus; no admitted exact gas price history. No target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-19T09:14:42.517584Z",
+        "trading_sessions": 63
+      }
+    ],
+    "known_at_cutoff_utc": "2026-10-19T09:14:42.517584Z",
+    "limitations": [
+      "CC analysis is not external confirmation or an order.",
+      "No private holdings/account context is included.",
+      "Exact execution economics are unavailable."
+    ],
+    "lineage_only": false,
+    "machine_schema_verified": true,
+    "materiality_rationale": "Comparison of retained claim hashes and evidence snapshots; a case change alone creates no new event.",
+    "message_id": "cc-receipt-3d251602e1f8679bd1e8e3ea336f2bb9d9cf7ac3cd62db600bfe4c09bcba5795",
+    "missing_claims": [],
+    "parent_report_id": "asset-report:XNGUSD",
+    "parent_report_sha256": "e553c7b40dc72135873c2c9645cdb2e5e951223e007e5529d9fdbcb7fbfba4e1",
+    "producer_binding": {
+      "contract_revision": "asset-analysis-report-v1.1.0",
+      "envelope_schema_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+      "files": {
+        "report.json": {
+          "path": "outbox/2d2f70f06af837f642130fd754a89f6cb2ee0c1dcacf5dbf2dabc6c3074c778b/public-report.json",
+          "sha256": "738a70d837faf2a72c7f5f98d8c5a713496c5f61e94445564544faac05d74646"
+        }
+      },
+      "manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+      "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+      "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+      "producer_revision": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+      "public_export_manifest_verified": true,
+      "public_lineage_only": false,
+      "public_report_locator": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:738a70d837faf2a72c7f5f98d8c5a713496c5f61e94445564544faac05d74646",
+      "public_report_raw_sha256": "738a70d837faf2a72c7f5f98d8c5a713496c5f61e94445564544faac05d74646"
+    },
+    "public_write_performed": false,
+    "raw_sha256": "437224725426f85bef69083c98354532d2ed2d9147115ca223e69e2125074638",
+    "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b",
+    "report_id": "asset-report:XNGUSD",
+    "report_raw_sha256": [
+      "738a70d837faf2a72c7f5f98d8c5a713496c5f61e94445564544faac05d74646"
+    ],
+    "report_version": 2,
+    "research_gaps": [],
+    "schema_diagnostics": [],
+    "schema_version": "contentops.capital_chronicle_latest_report_consumer.v1",
+    "source_report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+    "status": "ADMITTED",
+    "validated_at_utc": "2026-10-19T11:35:37.058122Z",
+    "withdrawal_only": false,
+    "writer_invoked": false
+  }
+]

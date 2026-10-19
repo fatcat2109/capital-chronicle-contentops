@@ -336,8 +336,25 @@ export interface ResearchPackage {
   missing_current_inputs?: string[];
 }
 
+export interface EvolvingStory {
+  story_identity: string; update_chain_identity: string; brief_id: string; title: string; families: string[];
+  disposition: string; reason: string; reader_question: string; follow_up_value: string;
+  changed_source_count: number; brief_changed: boolean; work_required: boolean; missing_inputs: string[];
+  publication_state: string; confirmation_state: string;
+  epistemic_states?: Array<{ item_id: string; state: string; context_kind: string; scope: string }>;
+  current_review?: ResearchPackage['review'];
+  prior_package: null | { article_identity: string; title: string; full_text: string; stage: string };
+  package_history: Array<{ article_identity: string; title: string; full_text?: string; package_sequence: number; stage: string }>;
+  evidence_delta: Array<{ item_id: string; state: string; material: boolean; before: null | { proposition: string; source_url: string; rights_state: string }; after: null | { proposition: string; source_url: string; rights_state: string } }>;
+  main_history: Array<{ report_id: string; report_version: number; change_kind: string; status: string; withdrawal_only?: boolean; withdrawn?: boolean; known_at_cutoff_utc: string; changed_claims: Array<{ claim_id: string; before: null | { text: string; producer_layer: string }; after: null | { text: string; producer_layer: string } }> }>;
+  published_prior?: null | { previous_title: string; previous_canonical_url: string; previous_full_text: string; previous_published_at_utc: string };
+  canonical_memory_article_count?: number;
+}
+
 export interface ReportWorkspaceData {
   foundation_library?: {
+    stories?: EvolvingStory[];
+    publication_memory?: { observed_at_utc: string; article_count: number; source: string };
     research_revision: string; observed_at_utc: string;
     desk?: { decisions: Record<string, number>; useful_research_packages: number; missing_current_input_coordinates: string[]; kind_counts: Record<string, number>; affected_work: Array<{ brief_id: string; reason: string }> };
     counts: { independent_items: number; independent_documents?: number; useful_families: number; briefs: number; fresh_provider_drafts: number; qualified: number; published: number; editor_authored_packages?: number; native_previews?: number; media?: number };

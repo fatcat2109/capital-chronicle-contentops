@@ -24,3 +24,7 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/**/*.json bin
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/**/*.jsonl binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/retained_research/** binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/**/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/**/*.jsonl binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/retained_research/** binary

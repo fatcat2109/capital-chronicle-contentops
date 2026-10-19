@@ -81,6 +81,24 @@ def render(root, output, store_path, reuse_packages=None, brief_ids=(), apply_to
             lineage.append({"item_id": r["headline_id"], "source_id": marker, "source_url": r["source_url"],
                             "text_sha256": r["text_sha256"], "source_capture_sha256": r["source_capture_sha256"],
                             "permission_sha256": r["source_permission_record_sha256"], "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"})
+        if brief.get("include_main_public_context"):
+            from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_document
+            retained_reports = json.loads((root / "main_public_reports.json").read_bytes())
+            for binding in brief.get("main_report_bindings", []):
+                report = next(r for r in retained_reports if r["report_id"] == binding["report_id"]
+                    and r["source_report_sha256"] == binding["source_report_sha256"]
+                    and r["report_version"] == binding["report_version"])
+                if report.get("withdrawal_only") or report.get("status") != "ADMITTED":
+                    raise ValueError("MAIN_PUBLIC_CONTEXT_NOT_CURRENT_ADMISSION")
+                doc = report_document(report)
+                marker = "SOURCE_" + str(len(docs) + 1)
+                docs.append(doc)
+                body.append("## Main đã nói gì: " + report["report_id"] + " v" + str(report["report_version"]) +
+                    "\n\nPhân tích Main quay về; không phải xác nhận độc lập. [[SOURCE:" + marker + "]]" +
+                    "\n\n" + "\n\n".join(c["producer_layer"] + ": " + c["text"] + " [[SOURCE:" + marker + "]]"
+                        for c in report["claims"] if c["producer_layer"] in {"OBSERVED_SOURCE_FACT", "CC_ANALYSIS"}))
+                lineage.append({"source_id": marker, "claim_kind": "ATTRIBUTED_MAIN_PUBLIC_ANALYSIS_NOT_INDEPENDENT",
+                    "report_id": report["report_id"], "source_report_sha256": report["source_report_sha256"], "source_url": doc["source_url"]})
         body.extend("## " + section["heading"] + "\n\n" + section["text"] for section in brief.get("article_sections", []))
         for title, value in [("Vì sao đáng đọc", brief["audience_value"]), ("Cơ chế cần kiểm tra", brief["mechanism"]),
                              ("Giải thích cạnh tranh", brief["competing_explanation"]),
@@ -88,13 +106,13 @@ def render(root, output, store_path, reuse_packages=None, brief_ids=(), apply_to
                              ("Điều kiện bác bỏ", "\n".join(brief["falsifiers"])),
                              ("Còn thiếu", "; ".join(brief["missing_inputs"])), ("Câu hỏi tiếp", brief["next_question"])]:
             body.append("## " + title + "\n\n" + value)
-        body.append("## Nguồn\n\n" + "\n".join("[" + str(n) + "] " + r["source_url"] for n, r in enumerate(records, 1)))
+        body.append("## Nguồn\n\n" + "\n".join("[" + str(n) + "] " + r["source_url"] for n, r in enumerate(docs, 1)))
         article = {"title": "Nghiên cứu: " + brief["title"], "dek": brief["audience_value"], "subtitle": brief["audience_value"],
-                   "market_mechanism": brief["mechanism"], "policy_context": "Nghiên cứu biên tập chưa duyệt. " + brief["competing_explanation"],
+                   "market_mechanism": brief["mechanism"], "policy_context": brief["competing_explanation"],
                    "cross_asset_implications": brief["next_question"],
                    "social_cross_asset_summary": brief.get("social_watch", brief["next_question"]),
                    "substack_body_markdown": "\n\n".join(body), "authoring_origin": "EDITOR_AUTHORED_RESEARCH",
-                   "article_mode": "DATA_OR_DOCUMENT_LENS", "cluster_id": brief["brief_id"],
+                   "article_mode": brief.get("article_mode", "DATA_OR_DOCUMENT_LENS"), "cluster_id": brief["brief_id"],
                    "headline_ids": brief["source_item_ids"], "evidence_document_ids": [d["document_id"] for d in docs],
                    "x_content_grants_factual_authority": False, "publication_authority": False,
                    "editorial_scope_notice": "Nghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."}

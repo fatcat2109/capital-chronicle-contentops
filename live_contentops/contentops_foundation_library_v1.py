@@ -75,6 +75,11 @@ def research_library(research, *, cutoff_utc: str, briefs: Sequence[Mapping] = (
     next_operation = ("python scripts/run_contentops_report_feed_opportunity_v1.py --pointer '" + str(resume_binding)
         + "' --store '<explicit-draft-store>' --output-dir '<explicit-output>' --run-id '<stable-run-id>' --published-memory-store '<existing-memory-store>' --published-memory-output-root '<existing-memory-output-root>'"
         if resume_binding.is_file() else "python scripts/build_contentops_research_wave_v1.py --root '" + str(research.root.parent) + "'")
+    draft_operation = research.root.parent / "draft_operation.json"
+    if draft_operation.is_file():
+        operation = json.loads(draft_operation.read_bytes())
+        if operation.get("schema_version") == "contentops.existing_report_feed_draft_operation.v1" and not _private(operation):
+            next_operation = operation["command"]
     return {"schema_version": "contentops.foundation_library.v1", "observed_at_utc": cutoff_utc,
             "research_revision": research.revision, "items": items, "briefs": accepted_briefs,
             "gaps": gaps, "families": [{"family": family,
@@ -93,7 +98,9 @@ def persist_library(tracker, research, *, cutoff_utc, briefs=()):
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     snapshot = research_library(research, cutoff_utc=cutoff_utc, briefs=briefs)
     # Identical research/brief revision is stored once. Scan clocks remain in feed telemetry.
-    identity = sha256_of([snapshot["research_revision"], snapshot["items"], snapshot["briefs"], snapshot["gaps"], snapshot["next_operation"]])
+    identity = sha256_of([snapshot["research_revision"],
+        [{k: v for k, v in i.items() if k != "age_days_at_scan"} for i in snapshot["items"]],
+        snapshot["briefs"], snapshot["gaps"], snapshot["next_operation"]])
     key = "cc-library-" + identity
     if not tracker.store.get_outbox_message(key):
         prior = [json.loads(r["payload"]).get("library_sequence", 0) for r in tracker.store.list_outbox_messages() if r["destination"] == LIBRARY]
@@ -251,5 +258,15 @@ def library_projection(rows, review_records=()):
                 "editor_authored_packages": len(current_packages),
                 "native_previews": sum(len(p.get("previews", {})) for p in current_packages),
                 "media": sum(len(p.get("media_assets", [])) for p in current_packages)}}
-    from live_contentops.contentops_editorial_desk_v1 import desk_projection
-    return desk_projection(result, review_records)
+    from live_contentops.contentops_editorial_desk_v1 import desk_projection, story_projection, publication_story_context
+    result = desk_projection(result, review_records)
+    result["stories"] = story_projection(result, rows)
+    for row in reversed(rows):
+        if row["destination"] == "internal:cc-report-editorial-stage":
+            frozen_args = json.loads(row["payload"]).get("args")
+            if frozen_args:
+                result["stories"] = publication_story_context(result["stories"], frozen_args.get("published_memory", []), cutoff_utc=frozen_args["cutoff_utc"])
+                result["publication_memory"] = {"source": "EXISTING_FROZEN_SIMPLE_POOL_CANONICAL_MEMORY",
+                    "observed_at_utc": frozen_args["cutoff_utc"], "article_count": max((s["canonical_memory_article_count"] for s in result["stories"]), default=0)}
+                break
+    return result

@@ -1,0 +1,33 @@
+{
+  "schema_version": "contentops.existing_report_feed_draft_operation.v1",
+  "command": "& 'C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe' 'C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\scripts\\run_contentops_report_feed_opportunity_v1.py' --pointer 'C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal23\\provider_resume_binding.json' --store 'C:/Users/bullw/AppData/Local/Temp/goal23-draft-operation/draft.sqlite3' --output-dir 'C:/Users/bullw/AppData/Local/Temp/goal23-draft-operation/output' --run-id 'goal23-existing-report-feed-draft-v1' --published-memory-store 'A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3' --published-memory-output-root 'A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs'",
+  "argv": [
+    "C:\\Users\\bullw\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+    "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\scripts\\run_contentops_report_feed_opportunity_v1.py",
+    "--pointer",
+    "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal23\\provider_resume_binding.json",
+    "--store",
+    "C:/Users/bullw/AppData/Local/Temp/goal23-draft-operation/draft.sqlite3",
+    "--output-dir",
+    "C:/Users/bullw/AppData/Local/Temp/goal23-draft-operation/output",
+    "--run-id",
+    "goal23-existing-report-feed-draft-v1",
+    "--published-memory-store",
+    "A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3",
+    "--published-memory-output-root",
+    "A:/Capital Chronicle/Runtime/ContentOps/daily_app_outputs"
+  ],
+  "current_pause": "ACTIVE_COMMAND_EXITS_BEFORE_STORE_PROVIDER",
+  "execution": "PREPARED_NOT_EXECUTED",
+  "production_pointer_environment": "NOT_SET_NOT_ACTIVATED",
+  "existing_four_window_delegate": "SimpleGeminiLocalScheduler._execute_canonical_simple_operation -> MainReportFeed.opportunity",
+  "read_only_resolved": {
+    "production_memory_store_exists": true,
+    "production_memory_output_exists": true,
+    "public_pointer_sha256": "553f08973e13b4bc433a930774ae23b0cb8f9842f63bec0c5f07c999e12fb0c0",
+    "public_manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+    "public_export_root": "A:/Capital Chronicle/Runtime/MainPublicReports-v1"
+  },
+  "public_writes": 0,
+  "provider_calls": 0
+}

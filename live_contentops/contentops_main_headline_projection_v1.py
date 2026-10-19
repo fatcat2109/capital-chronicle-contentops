@@ -385,6 +385,21 @@ class MainHeadlineExporter:
                     seen.add(content_identity(projected))
                 elif reason:
                     gaps.append({"state": reason, "headline_id": row.get("headline_id"), "record_sha256": sha256_of(row)})
+            # Wire resealing/locator repair is delivery supersession, never nine new
+            # observations. Keep this on the existing page, outside Main's sealed row.
+            prior_by_id = {r["headline_id"]: r for p in sorted(pages, key=lambda p: p["sequence"]) for r in p["rows"]}
+            dispositions = []
+            for row in rows:
+                old = prior_by_id.get(row["headline_id"])
+                changed_fact = bool(old and (old["text_sha256"] != row["text_sha256"] or old.get("correction_of") != row.get("correction_of")))
+                changed_context = bool(old and any(old.get(k) != row.get(k) for k in (
+                    "research_context", "upstream_report_lineage", "rights_evidence_sha256", "revision_at_utc", "source_capture_sha256")))
+                kind = "NEW_PROPOSITION" if not old else "PROPOSITION_CORRECTION" if changed_fact else "CONTEXT_REVISION" if changed_context else "REPRESENTATION_SUPERSESSION"
+                dispositions.append({"headline_id": row["headline_id"], "change_kind": kind,
+                    "previous_projection_sha256": old.get("projection_sha256") if old else None,
+                    "projection_sha256": row["projection_sha256"], "originality": row["originality"],
+                    "new_independent_observation": not old and row["originality"] == "INDEPENDENT_CONTENTOPS_ACQUISITION",
+                    "material_context_change": not old or changed_fact or changed_context})
             page = {
                 "schema_version": SCHEMA,
                 "sequence": int(last.get("sequence", 0)) + 1,
@@ -399,6 +414,9 @@ class MainHeadlineExporter:
                 "missing_rows": len(gaps),
                 "independent_items": sum(r["originality"] == "INDEPENDENT_CONTENTOPS_ACQUISITION" for r in rows),
                 "main_origin_recirculated_items": sum(r["originality"] == "MAIN_ORIGIN_RECIRCULATION" for r in rows),
+                "change_dispositions": dispositions,
+                "new_independent_observations": sum(d["new_independent_observation"] for d in dispositions),
+                "representation_supersessions": sum(d["change_kind"] == "REPRESENTATION_SUPERSESSION" for d in dispositions),
                 "cursors": cursors,
                 "deferred": deferred,
                 "files": files,
