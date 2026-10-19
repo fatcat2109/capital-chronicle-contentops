@@ -217,3 +217,28 @@ validation result or synthetic report alone is insufficient integration evidence
 Simple V1 ownership/call budget/windows and existing publication/recovery authority unchanged.
 
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+## Original evidence and operational report-feed continuation (2026-10-19)
+
+Extend the existing latest-report integration without rebuilding its accepted owners:
+
+1. Acquire useful independent source propositions with exact retained bytes/spans, rights,
+   identity, revision and clocks; return admitted context to Main. Preserve reputable attributed
+   reporting. Main-origin round trips receive no independent-evidence count.
+2. Consume Main's immutable public export manifest/schema, complete lawful ancestry and
+   correction/withdrawal events. Verify a real retained chain in an empty disposable store and
+   on replay/restart. Non-editorial ancestors create no draft/writer intent; private account or
+   full private report reads are excluded.
+3. Route useful eligible changes through the existing opportunity, Simple writer/validator,
+   native eight-preview compiler, source-backed media owners and Daily App. Keep controlled
+   artifacts distinct from fresh provider output and published/readback results.
+4. Expose independent versus recirculated items, Main events admitted/rejected/no-op, useful
+   story conversion, draft/preview/media readiness, rights gaps and one exact next operation.
+   Do not count all delivered events as articles or evidence of daily operating reliability.
+
+The Main designated demo is not a ContentOps account or dataset. Consume only public-safe
+analysis; no account/position/fill facts, demo alpha claim or broker authority crosses this seam.
+No real-money transition is available through ContentOps. Preserve the active LLM pause,
+existing four windows and V2 isolation; no new scheduled owner or publication permission.
+The [dated reconciliation](CONTENTOPS_OWNER_UPDATE_RECONCILIATION_20261019.md) separates merged
+foundation from open Goal20 work. It is evidence, not a second current-state ledger.

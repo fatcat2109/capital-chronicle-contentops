@@ -138,3 +138,23 @@ Implementation and exact-source evidence are tracked in
 [the Goal 17 checkpoint](CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md).
 That checkpoint distinguishes tested consumer controls, actual rejected/admitted Main bytes,
 editorial inputs, writer execution and remote integration; it is not a second status owner.
+
+## Immutable manifest and reciprocal evidence continuation (2026-10-19)
+
+Main owns the public export root, manifest/schema revisions, canonical hashes and original
+report identities. Consume only explicitly configured public paths/artifacts. A cold-start or
+missed-history consumer must receive the lawful parent chain, including a non-editorial
+ancestor only when its producer contract explicitly permits that role. Preserve original
+cutoffs/hashes and reject missing/conflicting parents; never manufacture a root or fetch private
+Main portfolio/report files to repair a public chain. Ancestor receipt is not editorial intent.
+
+Use the existing durable feed/receipt owner for replay, correction, withdrawal and interrupted
+supersession recovery. Prove interoperability against the exact real committed Main handoff;
+synthetic controls and earlier unrelated parents do not substitute for it. A producer repair
+requires a compatible consumer update with pinned schema evidence, not a weakened validator.
+
+Reciprocal newsroom evidence uses the existing rights/provenance/context owners. Keep independent
+sources distinct from Main-origin recirculation. Source-backed articles/media retain the exact
+claim spans and four epistemic layers; private demo/account/portfolio learning is excluded.
+See [the dated owner reconciliation](CONTENTOPS_OWNER_UPDATE_RECONCILIATION_20261019.md) before
+assuming this continuation has merged or passed real consumer admission.
