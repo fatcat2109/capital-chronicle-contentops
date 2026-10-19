@@ -32,6 +32,7 @@ def main(argv=None):
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--opportunity-id", required=True)
     parser.add_argument("--scan-only", action="store_true")
+    parser.add_argument("--research-root", type=Path)
     parser.add_argument(
         "--headline-root", type=Path, default=canonical_headline_sidecar_dir()
     )
@@ -60,9 +61,10 @@ def main(argv=None):
     cutoff = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
     tracker = LatestReportDeliveryTracker(ContentOpsDurableStore(args.store))
     paths = sorted(args.headline_root.glob("step1_headline_sidecar_*.jsonl"))[-4:]
-    feed = MainReportFeed(
-        tracker, json.loads(args.pointer.read_bytes()), headline_paths=paths
-    )
+    pointer = json.loads(args.pointer.read_bytes())
+    if args.research_root:
+        pointer["research_root"] = str(args.research_root.resolve())
+    feed = MainReportFeed(tracker, pointer, headline_paths=paths)
     scan = feed.poll(cutoff_utc=cutoff)
     memory, proof = load_canonical_published_memory_read_only(
         store_path=args.published_memory_store,
@@ -78,7 +80,7 @@ def main(argv=None):
             published_memory=memory,
         )
     )
-    export = MainHeadlineExporter(tracker.store).export(
+    export = MainHeadlineExporter(tracker.store, research=feed.retained_research).export(
         batch_id=args.opportunity_id,
         paths=paths,
         cutoff_utc=cutoff,
@@ -104,6 +106,8 @@ def main(argv=None):
         "headline_rows_scanned": export["source_rows_scanned"],
         "headline_rows_eligible": export["eligible_rows"],
         "headline_rows_missing": export["missing_rows"],
+        "independent_items": export["independent_items"],
+        "main_origin_recirculated_items": export["main_origin_recirculated_items"],
         "published_memory_proof": proof,
         "exact_next_blocker": (result or {}).get("exact_next_blocker"),
         "public_writes": 0,

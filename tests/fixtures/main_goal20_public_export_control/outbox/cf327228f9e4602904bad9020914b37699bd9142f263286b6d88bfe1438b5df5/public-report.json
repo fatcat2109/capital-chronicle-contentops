@@ -1,0 +1,328 @@
+{
+  "broker_or_order_actions": 0,
+  "display_profile": "PUBLIC_RESEARCH_REDISTRIBUTION_SAFE",
+  "frontend_may_not_infer_numeric_truth": true,
+  "incremental": {
+    "admitted_headline_count": null,
+    "changed_claim_ids": null,
+    "dossier_state_counts": null,
+    "duplicate_rows_skipped": null,
+    "future_rows_deferred": null,
+    "no_change_reason": null,
+    "rejected_headline_count": null,
+    "state": "NOT_RUN"
+  },
+  "latest_reports": [
+    {
+      "asset_id": "XNGUSD",
+      "change_kind": "CORRECTION",
+      "changed_claim_ids": [
+        "eia-storage-observed"
+      ],
+      "exactness": [
+        "EXACT"
+      ],
+      "freshness": [
+        "LATEST_WEEKLY_RELEASE_RETAINED"
+      ],
+      "horizon_blocks": [
+        {
+          "base_case": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "downside_scenario": "See conditional public claims.",
+          "end_utc": "2026-10-23T13:03:41Z",
+          "horizon": "short",
+          "invalidation": "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review.",
+          "outlook": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T13:03:41Z",
+          "trading_sessions": 5,
+          "upside_scenario": "See conditional public claims."
+        },
+        {
+          "base_case": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "downside_scenario": "See conditional public claims.",
+          "end_utc": "2026-11-16T13:03:41Z",
+          "horizon": "swing",
+          "invalidation": "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review.",
+          "outlook": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T13:03:41Z",
+          "trading_sessions": 21,
+          "upside_scenario": "See conditional public claims."
+        },
+        {
+          "base_case": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "downside_scenario": "See conditional public claims.",
+          "end_utc": "2027-01-13T13:03:41Z",
+          "horizon": "long",
+          "invalidation": "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review.",
+          "outlook": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T13:03:41Z",
+          "trading_sessions": 63,
+          "upside_scenario": "See conditional public claims."
+        }
+      ],
+      "invalidation_conditions": [
+        "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review."
+      ],
+      "owner_summary": {
+        "current_thesis": "Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It does not measure a market surprise or predict the CFD price.",
+        "recommendation": "RESEARCH_ONLY",
+        "what_changed": "EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year stock level."
+      },
+      "previous": null,
+      "previous_report_sha256": null,
+      "public_claim_count": 7,
+      "public_safe_claims": [
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_hash": "c42d4c016adca6213ce414c69303969e9eb87ed2b951faa8bcc787cdea9b4200",
+          "claim_id": "eia-storage-observed",
+          "epistemic_layer": "OBSERVED_SOURCE_FACT",
+          "evidence_refs": [
+            "goal17-eia-storage-actual-20261018"
+          ],
+          "exact_or_proxy": "EXACT",
+          "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+          "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+          "public_safe": true,
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "supporting_evidence": [
+            {
+              "currency": null,
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+              "unit": "Bcf"
+            }
+          ],
+          "text": "EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year stock level."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_hash": "0cc35e5a7691fe653370feb77a7a43832a4d288095146d27eccd17baaa9b4e85",
+          "claim_id": "cc-gas-balance",
+          "epistemic_layer": "CC_ANALYSIS",
+          "evidence_refs": [
+            "goal17-eia-storage-actual-20261018"
+          ],
+          "exact_or_proxy": "EXACT",
+          "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+          "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+          "public_safe": true,
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "supporting_evidence": [
+            {
+              "currency": null,
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+              "unit": "Bcf"
+            }
+          ],
+          "text": "Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It does not measure a market surprise or predict the CFD price."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_hash": "c299403bd52a5722de0d0d243827f967475c38806c5ab58bd6d089cdc546a366",
+          "claim_id": "cc-gas-short",
+          "epistemic_layer": "CONDITIONAL_SCENARIO",
+          "evidence_refs": [
+            "goal17-eia-storage-actual-20261018"
+          ],
+          "exact_or_proxy": "EXACT",
+          "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+          "horizon": "short",
+          "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+          "public_safe": true,
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "supporting_evidence": [
+            {
+              "currency": null,
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+              "unit": "Bcf"
+            }
+          ],
+          "text": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_hash": "7d563d97924deabd4117613e388890bed30adeba2b8d5d1e1b63afb0c8ece890",
+          "claim_id": "cc-gas-swing",
+          "epistemic_layer": "CONDITIONAL_SCENARIO",
+          "evidence_refs": [
+            "goal17-eia-storage-actual-20261018"
+          ],
+          "exact_or_proxy": "EXACT",
+          "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+          "horizon": "swing",
+          "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+          "public_safe": true,
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "supporting_evidence": [
+            {
+              "currency": null,
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+              "unit": "Bcf"
+            }
+          ],
+          "text": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_hash": "cd362133683bee22e7ac62061b3045e57683e27fc79759f2e4a692df2338d449",
+          "claim_id": "cc-gas-long",
+          "epistemic_layer": "CONDITIONAL_SCENARIO",
+          "evidence_refs": [
+            "goal17-eia-storage-actual-20261018"
+          ],
+          "exact_or_proxy": "EXACT",
+          "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+          "horizon": "long",
+          "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+          "public_safe": true,
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "supporting_evidence": [
+            {
+              "currency": null,
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+              "unit": "Bcf"
+            }
+          ],
+          "text": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_hash": "84fef0091132f2bf3a96af24351e06ad2591bea83b1df538bab7e59fba2927b3",
+          "claim_id": "cc-gas-hold",
+          "claim_type": "HOLD_CONDITION",
+          "epistemic_layer": "CONDITIONAL_SCENARIO",
+          "evidence_refs": [
+            "goal17-eia-storage-actual-20261018"
+          ],
+          "exact_or_proxy": "EXACT",
+          "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+          "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+          "public_safe": true,
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "supporting_evidence": [
+            {
+              "currency": null,
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+              "unit": "Bcf"
+            }
+          ],
+          "text": "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_hash": "b74c289bdafff8fb105f3898b960fa8ad87a445bf7b14a2847d98e38c28f8b04",
+          "claim_id": "cc-gas-invalidate",
+          "claim_type": "INVALIDATION_CONDITION",
+          "epistemic_layer": "CONDITIONAL_SCENARIO",
+          "evidence_refs": [
+            "goal17-eia-storage-actual-20261018"
+          ],
+          "exact_or_proxy": "EXACT",
+          "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+          "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+          "public_safe": true,
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "supporting_evidence": [
+            {
+              "currency": null,
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+              "unit": "Bcf"
+            }
+          ],
+          "text": "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review."
+        }
+      ],
+      "remaining_gaps": [
+        "CC analysis is not external confirmation or an order.",
+        "No private holdings/account context is included.",
+        "Exact execution economics are unavailable."
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+      "report_version": 2,
+      "rights": [
+        "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION"
+      ],
+      "watch_conditions": [
+        "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position."
+      ]
+    }
+  ],
+  "portfolio": {
+    "position_proof": "NOT_EXPOSED",
+    "reason": "Holdings, account context and internal recommendation detail are not public-safe.",
+    "state": "UNAVAILABLE_PUBLIC_PROFILE"
+  },
+  "projection_sha256": "e12f68b18fabc38157bc6aa86ed2288c4fda2221da8f41b1c114564fe4cf93ef",
+  "projection_version": "1.0.0",
+  "provider_or_model_calls": 0,
+  "read_only": true,
+  "runtime_or_canonical_mutations": 0,
+  "schema": "CapitalChronicleOperationalReportServingProjectionV1",
+  "source_projection_sha256": "c1d8d65c10d48a6c29b2873973cb19a215584aa7f8ebb850ed42a65870041e63"
+}

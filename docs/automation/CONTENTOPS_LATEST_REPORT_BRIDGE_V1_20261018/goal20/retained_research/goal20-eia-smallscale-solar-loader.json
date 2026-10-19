@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "rolling_x_story_binding": {
+    "cluster_id": "goal20-eia-smallscale-solar",
+    "headline_ids": [
+      "goal20-eia-smallscale-solar"
+    ],
+    "request_logical_hash": null
+  },
+  "provided_evidence_capabilities": [],
+  "official_source_documents": [
+    {
+      "document_id": "official-primary-6752404e61026d28602d",
+      "title": "U.S. small-scale solar generation has quadrupled in the last decade - U.S. Energy Information Administration (EIA)",
+      "publisher": "www.eia.gov",
+      "source_authority_class": "official_public_primary_source",
+      "source_adapter_family": "official_macro",
+      "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=68324",
+      "requested_source_url": "https://www.eia.gov/todayinenergy/detail.php?id=68324",
+      "source_headline_id": "goal20-eia-smallscale-solar",
+      "published_at_utc": "2026-10-16T00:00:00Z",
+      "published_at_source": "EXACT_BOUND_DISCOVERY_TIMESTAMP",
+      "event_time_utc": "2026-10-16T00:00:00Z",
+      "raw_sha256": "6752404e61026d28602deff05657e7eb440a79897b48dfc9d3e69cc3380e55ba",
+      "canonical_content_sha256": "6752404e61026d28602deff05657e7eb440a79897b48dfc9d3e69cc3380e55ba",
+      "content_type": "text/html",
+      "byte_length": 54222,
+      "canonical_content_text": "U.S. small-scale solar generation has quadrupled in the last decade - U.S. Energy Information Administration (EIA) Skip to sub-navigation U.S. Energy Information Administration - EIA - Independent Statistics and Analysis Menu Statistics Analysis Tools Education News Search Today in Energy Skip to page content Recent articles Browse by tag liquid fuels natural gas electricity oil/petroleum production/supply crude oil consumption/demand generation prices map states exports/imports international coal renewables weather forecasts/projections gasoline capacity steo (short-term energy outlook) Prices Archive About Glossary FAQS In-brief analysis October 16, 2026 U.S. small-scale solar generation has quadrupled in the last decade Data source: U.S. Energy Information Administration, Annual Electric Power Industry Report We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade. The four states with the highest generation of small-scale solar in the country\u2014California, Arizona, Texas, and Florida\u2014are in regions with more abundant solar resources . Even though it is in a region with lower solar resources, New York ranks as the fifth-largest rooftop solar generation producer as a result of capacity growth supported by technology improvements and state incentives. The year-over-year change in generation was particularly high in 2022, when total generation grew by 25% compared with the previous year amid record capacity growth . Changes in different programs supporting rooftop solar partly explain this increase in generation. For example, California\u2019s Net Energy Metering (NEM) 2.0 program was available through April 2023. This net metering program offered higher export compensation than the subsequent Net Billing Tariff, or NEM 3.0 . All the capacity built under the NEM 2.0 program was grandfathered in, incentivizing higher capacity installation before the current NEM 3.0 took effect. California accounted for 37% (34,411 GWh) of total U.S. small-scale solar generation in 2025. Between 2024 and 2025, rooftop solar generation in the state grew by 8%, largely due to an increase in capacity. Small-scale solar capacity in California increased from 18 gigawatts in 2024 to 20 gigawatts in 2025. The state with the next largest amount of small-scale solar power generation is Arizona, accounting for over 6% of total U.S. generation, or 5,795 GWh. Year-over-year generation in Arizona grew only 6% in 2025. The largest increase happened between 2022 and 2023 when generation from small-scale solar grew by 22% in the state. Arizona customers can access a 25% state income-tax credit and other incentives for adding rooftop solar to their properties. States such as Florida and Texas have seen rapid growth in small-scale solar generation in the last decade as more capacity has been added. Generation in Texas grew from 391 GWh in 2016 to 5,408 GWh last year. Over the same period, Florida\u2019s generation grew from 205 GWh in 2016 to 5,198 GWh in 2025. These two states provide incentives through property tax exemptions and other programs specific to each state and, in some cases, utility. Programs in states with lower irradiance levels are also supporting growth in rooftop solar generation. New York offers incentives, which have encouraged small-scale solar growth in the state. Other states with similar programs include New Jersey , Massachusetts , and Illinois . Although generation from small-scale solar continues to grow year over year, the rate of growth has declined since 2022. EIA uses its surveys of electric utilities to collect information on the number of customers with small-scale solar systems and the aggregated capacity. Electric utilities do not necessarily know how much electricity is generated by rooftop solar on their distribution systems, so generation must be estimated. To develop estimates of generation, we rely on tools such as the National Renewable Energy Laboratory's System Advisor Model and PVWatts . Data on commonly used tilt angles and orientations for small-scale solar systems in California were used as inputs to be representative of tilt angles and orientations in other states. Principal contributors: Lindsay Aramayo, Marc Harnish Tags: solar , electricity , capacity More recent articles \u203a About EIA Open Data Legacy Contact Us U.S. Energy Information Administration 1000 Independence Ave., SW Washington, DC 20585 Policies Privacy/Security Copyright & Reuse Accessibility Information Quality Freedom of Information Act (FOIA) Related Sites usa.gov U.S. Department of Energy Stay Connected Facebook X Youtube LinkedIn Email Updates RSS Feeds Statistics Analysis Tools Education News Petroleum & Other Liquids Crude oil, gasoline, heating oil, diesel, propane, and other liquids including biofuels and natural gas liquids. Natural Gas Exploration and reserves, storage, imports and exports, production, prices, sales. Electricity Sales, revenue and prices, power plants, fuel use, stocks, generation, trade, demand & emissions. Coal Reserves, production, prices, employment and productivity, distribution, stocks, imports and exports. Nuclear & Uranium Uranium fuel, nuclear reactors, generation, spent fuel. Renewable & Alternative Fuels Includes hydropower, solar, wind, geothermal, biomass and ethanol. EIA Survey Forms Forms EIA uses to collect energy data including descriptions, links to survey instructions, and additional information. Total Energy Comprehensive data summaries, comparisons, analysis, and projections integrated across all energy sources. Monthly Energy Review Consumption & Efficiency Energy use in homes, commercial buildings, manufacturing, and transportation. Residential Energy Consumption Survey (RECS) Commercial Buildings Energy Consumption Survey (CBECS) Manufacturing Energy Consumption Survey (MECS) U.S. States State energy information, including overviews, rankings, data, and analyses. International International energy information, including overviews, rankings, data, and analyses. Environment Greenhouse gas data, voluntary reporting, electric power plant emissions. U.S. Energy-Related Carbon Dioxide Emissions Energy-Related Carbon Dioxide Emissions at the State Level Analysis and Projections Monthly and yearly energy forecasts, analysis of energy topics, financial analysis, congressional reports. Short-Term Energy Outlook Annual Energy Outlook Special Reports Special market analysis and/or data requests. EIA-112 Residential Utility Disconnections SHIP Act Energy & Financial Markets: What Drives Crude Oil Prices? International International energy analyses. Regional Analysis Briefs Country Analysis Briefs World Oil Transit Chokepoints OPEC Revenue Global Energy Security Data Data Tools, Apps, & Maps Tools to customize searches, view specific data sets, study detailed documentation, and access time-series data. Open Data EIA's free and open data available as API, Excel add-in, bulk files, and widgets EIA Beta Come test out some of the products still in development and let us know what you think! Open Source Code EIA's open source code, available on GitHub. All Reports & Products Email Updates Sign up for email subscriptions to receive messages about specific EIA products RSS Feeds Subscribe to feeds for updates on EIA products including Today in Energy and What's New. Follow us. . . A-Z Index A | B | C | D | E | F | G | H | I | J | K | L | M | N | O | P | Q | R | S | T | U | V | W | XYZ Energy Explained What is Energy? Units & Calculators U.S. Energy Facts Use of Energy Energy & Environment Petroleum Hydrocarbon Gas Liquids Natural Gas Coal Nuclear Electricity Hydrogen Hydropower Biofuels Biomass Wind Geothermal Solar For Teachers Lesson plans, science fair experiments, field trips, teacher guide, and career corner. Glossary FAQs Coal Conversion & Equivalents Oil/Petroleum Diesel Electricity Environment Gasoline General Energy Natural Gas Nuclear Prices Renewables What's New? Wholesale Electricity Market Data Oct 15, 2026 Monthly Densified Biomass Fuel Report Oct 08, 2026 Final 2025 Annual Electric Sales and Revenue Data Oct 07, 2026 Press Room Press Releases Congressional Testimony Presentations Events",
+      "source_excerpt": null,
+      "scheduled_event_rows": [],
+      "schedule_extraction_grants_factual_numeric_permission_or_publication_authority": false,
+      "public_claim_allowed": true,
+      "discovery_only_source_index": false,
+      "source_index_grants_event_fact_or_numeric_authority": false,
+      "retrieval_method": "READ_ONLY_HTTP_GET",
+      "content_truncated": false,
+      "bounded_section_byte_length": 54222
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-19T05:47:49.640228Z",
+    "evaluation_as_of_utc": "2026-10-19T05:47:48.685912Z",
+    "locator": null,
+    "locator_request_count": 0,
+    "official_evidence_get_count": 1,
+    "request_count": 2,
+    "request_count_for_call": 1,
+    "story_evidence_scope_id": null,
+    "acquisition_cache_reused": false,
+    "network_reads_avoided_for_call": 0,
+    "request_signature": "1b91d44e1ae23d1434d39f2ebb3c623909351671d3b6aaa83c850e7948c46196",
+    "request_limit": 3,
+    "timeout_seconds": 12.0,
+    "read_only_http_get_only": true,
+    "bounded_truncation_allowed": true
+  },
+  "blockers": [],
+  "publication_authority": false
+}

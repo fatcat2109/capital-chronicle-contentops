@@ -324,11 +324,16 @@ export type LoadState =
 
 
 export interface ReportWorkspaceData {
+  source_inventory?: { independent_items: number; main_origin_recirculated_items: number; scope: string };
+  freshness?: { report_age_at_last_scan_seconds: number | null; claims: string[]; current_market_refresh_verified: boolean; scope: string };
+  independent_results?: Array<{ classification: string; model_execution_state: string; article_identity: string; article: ReportWorkspaceData['article']; previews: ReportWorkspaceData['previews']; evidence?: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string }>; media_assets?: Array<{ asset_id: string; caption: string; path: string; sha256: string; underlying_source_rights_status: string; preview_data_url?: string; alt_text?: string }> }>;
+  conversion?: { independent_drafts: number; main_drafts: number; fresh_provider_drafts: number; controlled_drafts: number };
+  next_operation?: string;
   latest_attempt?: { classification: string; model_execution_state?: string; exact_next_blocker?: string } | null;
   feed?: { producer_commit: string; observed_at_utc: string; configured_bundle_count: number; new_events: number; coverage: string; events: Array<{ report_id: string; report_version: number; state: string; blockers?: string[] }>; gaps: Array<{ state: string }> } | null;
   report_age_at_last_scan_seconds?: number | null;
   opportunities?: Array<{ opportunity_id: string; classification: string; exact_next_blocker?: string; report_candidates: Array<{ report_id: string; report_version: number; state: string }> }>;
-  headline_export?: { source_rows_scanned: number; eligible_rows: number; missing_rows: number; coverage: string; observed_at_utc: string } | null;
+  headline_export?: { source_rows_scanned: number; eligible_rows: number; missing_rows: number; coverage: string; observed_at_utc: string; independent_items?: number; main_origin_recirculated_items?: number; gaps?: Array<{ state: string }> } | null;
   report_history?: Array<{ report_id: string; report_version: number; status: string; change_kind?: string }>;
   schema_version: string;
   state: string;

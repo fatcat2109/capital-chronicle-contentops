@@ -1,0 +1,48 @@
+{
+  "accepted_rows": 5,
+  "independent_items": 3,
+  "main_origin_recirculated_items": 2,
+  "results": [
+    {
+      "headline_id": "main-public-fact-4d14ebbba995b31a49bb4135dc2b65c5f07dfb2b712dd2d6e3f54034b1c4c9bb",
+      "originality": "MAIN_ORIGIN_RECIRCULATION",
+      "accepted": true,
+      "severity": "CONTEXT_UPDATE_ONLY",
+      "projection_sha256": "4ba24ca9b370ecec2c471a4738ee8584ea5292ae76281350c35de5d285a85899"
+    },
+    {
+      "headline_id": "main-public-fact-36459640015c82ae3214ac277a0641238785630a14e685227b63695ea45e10b0",
+      "originality": "MAIN_ORIGIN_RECIRCULATION",
+      "accepted": true,
+      "severity": "CONTEXT_UPDATE_ONLY",
+      "projection_sha256": "14248de4cb6b729eb1599fe23b010594e5513313dc158f6bae4a2cf875b741dc"
+    },
+    {
+      "headline_id": "goal20-eia-smallscale-solar",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "accepted": true,
+      "severity": "CONTEXT_UPDATE_ONLY",
+      "projection_sha256": "fcfbfbe3bc5ae677dc716178bd7e97c48d8b7da004afa2eaba134d8994517cfa"
+    },
+    {
+      "headline_id": "goal20-eia-grid-peaks",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "accepted": true,
+      "severity": "CONTEXT_UPDATE_ONLY",
+      "projection_sha256": "6920ca870e16907bb8c1b926b519c3089c4d9bd3b7d2d97d82870426f45d7e2a"
+    },
+    {
+      "headline_id": "goal20-bls-cpi-september",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "accepted": true,
+      "severity": "CONTEXT_UPDATE_ONLY",
+      "projection_sha256": "a2a5d1c00614736fb4be8cbba6ad991ee1116c5ad372a297df1813e4dba51900"
+    }
+  ],
+  "model_calls": 0,
+  "database_writes": 0,
+  "main_files_edited": false,
+  "main_adapter_git_blob_sha256": "d41205e682f0afe960360f43fb7c3c10f35b6ec3114733e5cf1b1b188b415558",
+  "main_source_commit": "b6f05d2dc271b9c7f5097c5b8cb7152eb373d176",
+  "source_comparison": "EXACT_GIT_BLOB_MODULO_CHECKOUT_NEWLINES"
+}

@@ -6,3 +6,12 @@ tests/fixtures/main_goal17_report/envelope_reports.jsonl binary
 tests/fixtures/main_goal17_report/producer_v1/*.json binary
 tests/fixtures/main_goal17_report/producer_v2/*.json binary
 tests/fixtures/main_goal19_report/**/*.json binary
+tests/fixtures/main_goal20_public_export_control/**/*.json binary
+schemas/CapitalChroniclePublicReportExportManifestV1.schema.json binary
+schemas/main_public_manifest/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/real_main_handoff/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/acquisition/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/grid_acquisition/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/retained_research/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/acceptance/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/bls_browser/**/*.json binary

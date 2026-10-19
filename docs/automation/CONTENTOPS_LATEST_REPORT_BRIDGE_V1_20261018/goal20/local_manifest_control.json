@@ -1,0 +1,10 @@
+{
+  "root": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal20-main-export-control-m4m9xa19",
+  "pointer": {
+    "schema_version": "contentops.main_public_export_binding.v1",
+    "public_export_root": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal20-main-export-control-m4m9xa19\\public",
+    "export_root_id": "goal20-compatibility-control",
+    "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json"
+  },
+  "producer_state": "LOCAL_MAIN_UNCOMMITTED_CONTROL_ONLY"
+}

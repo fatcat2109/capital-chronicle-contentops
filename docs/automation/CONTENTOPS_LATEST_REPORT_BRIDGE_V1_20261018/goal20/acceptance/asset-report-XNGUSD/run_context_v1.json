@@ -1,0 +1,161 @@
+{
+  "accepted_evidence_ids": [
+    "main-report-89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47"
+  ],
+  "accepted_evidence_sha256": "e1431853c32db995104de293cee986d4a31698f4d15b55beabe4d60feaafeade",
+  "article": {
+    "editorial_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "social_cross_asset_summary": "Independent confirmation or denial is the next watch point.",
+    "social_hook": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle report: gas injection and seasonal balance. Proxy and cost limits remain unresolved.",
+    "social_mechanism_summary": "The report has not been independently confirmed.",
+    "social_policy_summary": "Any implications remain conditional on verification.",
+    "substack_body_markdown": "CC REPORT / EVENT UNCONFIRMED. EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year stock level. \n\nCC REPORT / EVENT UNCONFIRMED. Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It does not measure a market surprise or predict the CFD price. \n\nCC REPORT / EVENT UNCONFIRMED. The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated. \n\nCC REPORT / EVENT UNCONFIRMED. Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated. \n\nCC REPORT / EVENT UNCONFIRMED. Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated. \n\nCC REPORT / EVENT UNCONFIRMED. Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position. \n\nCC REPORT / EVENT UNCONFIRMED. Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review. \n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. ",
+    "subtitle": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle report: gas injection and seasonal balance. Proxy and cost limits remain unresolved.",
+    "title": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: gas injection and seasonal balance"
+  },
+  "article_content_sha256": "6c882faa2b51228c020ac1860c9b5021be16bcc8b16999acf5491023258060f5",
+  "article_identity": "4d877850adda8b3318c3d56cac2ef7e5bb4ea5faa0f70aa133bc6e34e1229d33",
+  "compiler_input_sha256": "22782423325bb3e5b71aadad499df624644dbc4ba3c4c8b02e29659b8ce17cf4",
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:XNGUSD",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "media": {
+    "assets": [],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "goal20-controlled-asset-report-XNGUSD",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-50ef9f50543a8fd631c90f8f",
+    "canonical_x_list_provenance": {},
+    "headline_id": "cc-report:5714d55767085221950384036113bf26c2f49e0ef96e2f49c2834060a4f1fc4f",
+    "headline_text": "Capital Chronicle report update: EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year stock level.",
+    "official_source_urls": [
+      "https://www.eia.gov/naturalgas/weekly/supplement/"
+    ],
+    "public_source_urls": [
+      "https://www.eia.gov/naturalgas/weekly/supplement/"
+    ],
+    "report_editorial_context": {
+      "claims": [
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_id": "eia-storage-observed",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "text": "EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year stock level."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_id": "cc-gas-balance",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It does not measure a market surprise or predict the CFD price."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_id": "cc-gas-short",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_id": "cc-gas-swing",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_id": "cc-gas-long",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_id": "cc-gas-hold",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position."
+        },
+        {
+          "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+          "claim_id": "cc-gas-invalidate",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review."
+        }
+      ],
+      "horizons": [
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-10-23T13:03:41Z",
+          "horizon": "short",
+          "outlook": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T13:03:41Z",
+          "trading_sessions": 5
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-11-16T13:03:41Z",
+          "horizon": "swing",
+          "outlook": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T13:03:41Z",
+          "trading_sessions": 21
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2027-01-13T13:03:41Z",
+          "horizon": "long",
+          "outlook": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T13:03:41Z",
+          "trading_sessions": 63
+        }
+      ],
+      "limitations": [
+        "CC analysis is not external confirmation or an order.",
+        "No private holdings/account context is included.",
+        "Exact execution economics are unavailable."
+      ],
+      "mode_hint": "FOLLOW_UP_UPDATE",
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 2,
+      "what_changed": "Wording clarification: distinguish the five-year weekly injection average from the five-year stock-level average. Source values and cutoff are unchanged."
+    },
+    "source_account": "Capital Chronicle analysis report",
+    "source_platform": "CAPITAL_CHRONICLE_REPORT_INPUT",
+    "source_timestamp_utc": "2026-10-18T13:03:41Z",
+    "source_url": "",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": false,
+      "known_official_path": true,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-50ef9f50543a8fd631c90f8f"
+  }
+}

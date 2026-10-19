@@ -614,6 +614,27 @@ def test_corrected_parent_hash_must_match_received_report(tracker):
     assert "REPORT_BODY_BINDING_MISMATCH:parent_report_sha256" in admission["blockers"]
 
 
+def test_consistent_child_wire_cannot_substitute_a_different_received_parent(tracker):
+    tracker.consume(validate(*make_bundle()), receipt_id="real-parent")
+    envelope, report = make_bundle(version=2, change="CORRECTION", parent="latest-report-v1")
+    envelope["parent_report_sha256"] = report["parent_report_sha256"] = "f" * 64
+    admission = validate(*refresh(envelope, report))
+    assert admission["status"] == "ADMITTED"  # Internal bytes agree; durable history must still agree.
+    assert tracker.consume(admission, receipt_id="contradictory-parent")["status"] == "LINEAGE_HASH_CONFLICT"
+
+
+def test_unchanged_ancestor_checks_parent_then_stays_lineage_only(tracker):
+    # Lifecycle control for a flag set only by the separately tested public manifest binding.
+    child = validate(*make_bundle(version=2, change="NO_MATERIAL_CHANGE", parent="latest-report-v1"))
+    child["lineage_only"] = True
+    assert tracker.consume(child, receipt_id="missing-unchanged-ancestor")["status"] == "LINEAGE_PARENT_NOT_RECEIVED"
+    tracker.consume(validate(*make_bundle()), receipt_id="required-ancestor")
+    record = tracker.consume(child, receipt_id="resolved-unchanged-ancestor")
+    assert record["status"] == "LINEAGE_ONLY_NOOP"
+    with pytest.raises(LatestReportConsumerError, match="REPORT_NOT_DELIVERABLE"):
+        tracker.prepare_input("resolved-unchanged-ancestor", output_dir="unused", cutoff_utc=CUTOFF)
+
+
 def test_poison_latest_resealed_version_cannot_replace_hash_bound_main_body():
     root = FIXTURES / "producer_v2"
     binding = json.loads((root / "producer_binding.json").read_bytes())

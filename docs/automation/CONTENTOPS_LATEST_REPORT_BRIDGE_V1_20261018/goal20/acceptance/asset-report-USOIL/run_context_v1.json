@@ -1,0 +1,161 @@
+{
+  "accepted_evidence_ids": [
+    "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+  ],
+  "accepted_evidence_sha256": "6140ba3d8d6c89783a95bf59614cd89f6a9b980e54e158b1f81cfea29b0d1798",
+  "article": {
+    "editorial_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "social_cross_asset_summary": "Independent confirmation or denial is the next watch point.",
+    "social_hook": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle report: oil stocks and conflicting product signals. Proxy and cost limits remain unresolved.",
+    "social_mechanism_summary": "The report has not been independently confirmed.",
+    "social_policy_summary": "Any implications remain conditional on verification.",
+    "substack_body_markdown": "CC REPORT / EVENT UNCONFIRMED. Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate. \n\nCC REPORT / EVENT UNCONFIRMED. Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved. \n\nCC REPORT / EVENT UNCONFIRMED. Qualified physical-tightness watch over 5 sessions; no current directional entry. \n\nCC REPORT / EVENT UNCONFIRMED. Over 21 sessions, require several consistent balances before extending the weekly thesis. \n\nCC REPORT / EVENT UNCONFIRMED. Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios. \n\nCC REPORT / EVENT UNCONFIRMED. Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition. \n\nCC REPORT / EVENT UNCONFIRMED. Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied. \n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order. ",
+    "subtitle": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle report: oil stocks and conflicting product signals. Proxy and cost limits remain unresolved.",
+    "title": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle report: oil stocks and conflicting product signals"
+  },
+  "article_content_sha256": "50bca2cd1da4964f3a92ecc46d232985107b2f76b724271b22376080d9942a79",
+  "article_identity": "774fc37f227658659b0b6907b797b72345816fb4be09e3a444410c1b228721a6",
+  "compiler_input_sha256": "4cb3068b2aa38b58a84c54b5decce84053a8c3cebcfb95f1005b1e5d97c0fea5",
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:USOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "media": {
+    "assets": [],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "goal20-controlled-asset-report-USOIL",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-0647258fc9517784565fde6b",
+    "canonical_x_list_provenance": {},
+    "headline_id": "cc-report:2c0a6f4a165f3a77c4c0964fc144e24df4c79688be78f84ff56a42ef2cb85ee9",
+    "headline_text": "Capital Chronicle report update: Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate.",
+    "official_source_urls": [
+      "https://ir.eia.gov/wpsr/summary.txt"
+    ],
+    "public_source_urls": [
+      "https://ir.eia.gov/wpsr/summary.txt"
+    ],
+    "report_editorial_context": {
+      "claims": [
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-balance-observed",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "text": "Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-balance-mechanism",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-short",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Qualified physical-tightness watch over 5 sessions; no current directional entry."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-swing",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Over 21 sessions, require several consistent balances before extending the weekly thesis."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-long",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-watch",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-invalidation",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied."
+        }
+      ],
+      "horizons": [
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-10-23T15:20:24Z",
+          "horizon": "short",
+          "outlook": "Qualified physical-tightness watch over 5 sessions; no current directional entry.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T15:20:24Z",
+          "trading_sessions": 5
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-11-16T15:20:24Z",
+          "horizon": "swing",
+          "outlook": "Over 21 sessions, require several consistent balances before extending the weekly thesis.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T15:20:24Z",
+          "trading_sessions": 21
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2027-10-05T15:20:24Z",
+          "horizon": "long",
+          "outlook": "Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T15:20:24Z",
+          "trading_sessions": 252
+        }
+      ],
+      "limitations": [
+        "CC analysis is not external confirmation or an order.",
+        "No private holdings/account context is included.",
+        "Exact execution economics are unavailable."
+      ],
+      "mode_hint": "DATA_OR_DOCUMENT_LENS",
+      "report_id": "asset-report:USOIL",
+      "report_version": 2,
+      "what_changed": "Comparison of retained claim hashes and evidence snapshots; a case change alone creates no new event."
+    },
+    "source_account": "Capital Chronicle analysis report",
+    "source_platform": "CAPITAL_CHRONICLE_REPORT_INPUT",
+    "source_timestamp_utc": "2026-10-18T15:20:24Z",
+    "source_url": "",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "BOUNDED_DISCOVERY",
+      "known_access_risk": false,
+      "known_official_path": false,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-0647258fc9517784565fde6b"
+  }
+}

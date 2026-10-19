@@ -1,0 +1,108 @@
+{
+  "emitted_at_utc": "2026-10-19T06:30:00Z",
+  "entries": [
+    {
+      "asset_id": "XNGUSD",
+      "change_kind": "NEW_REPORT",
+      "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+      "contract_revision": "asset-analysis-report-v1.0.0",
+      "envelope": {
+        "bytes_sha256": "767ac424ad1fa262f1550620ef5af610f81ff085d5343efbb4e8985f46ae8fb5",
+        "path": "outbox/559e76d1c6e9574e2d8a2b6f0298517856906325e8a1a1077a3443476b038be7/latest-report-envelope.json",
+        "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1"
+      },
+      "envelope_sha256": "a08df5d8679cc62825a01d69971cd28d3e18c64c8bab3c36883b86d86c0f226c",
+      "event_id": "report-event:073ae9805754e439575b02ec5462f3de23c89a735034bcf724c6094ceedd317f",
+      "event_type": "REPORT_VERSION",
+      "generated_at_utc": "2026-10-18T13:47:00Z",
+      "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+      "parent_report_sha256": null,
+      "public_account_export_allowed": false,
+      "public_report": {
+        "bytes_sha256": "8fefaf69e0af4e11fe4e31aae665e357aa0a002a3b0b3f54c397c623dedb1168",
+        "path": "outbox/559e76d1c6e9574e2d8a2b6f0298517856906325e8a1a1077a3443476b038be7/public-report.json",
+        "schema": "CapitalChronicleOperationalReportServingProjectionV1"
+      },
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "c8f85d4d231f337fe7a05a65bb922d33c74c846efc4f58e87cd0917613bc505b",
+      "report_version": 1,
+      "schema_ref": {
+        "bytes_sha256": "ebcc59ea082549d01dacae464e886b0f35d155dcbd214cfcdcaf1a836067d483",
+        "path": "schemas/1.0.0/envelope.json",
+        "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+      }
+    },
+    {
+      "asset_id": "XNGUSD",
+      "change_kind": "CORRECTION",
+      "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+      "contract_revision": "asset-analysis-report-v1.0.0",
+      "envelope": {
+        "bytes_sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608",
+        "path": "outbox/cf327228f9e4602904bad9020914b37699bd9142f263286b6d88bfe1438b5df5/latest-report-envelope.json",
+        "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1"
+      },
+      "envelope_sha256": "5714d55767085221950384036113bf26c2f49e0ef96e2f49c2834060a4f1fc4f",
+      "event_id": "report-event:e79f42e3289023c971a2428cb3e2d4b07cc44b9aff034c6199b16d67898a0e90",
+      "event_type": "REPORT_VERSION",
+      "generated_at_utc": "2026-10-18T13:50:10Z",
+      "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+      "parent_report_sha256": "c8f85d4d231f337fe7a05a65bb922d33c74c846efc4f58e87cd0917613bc505b",
+      "public_account_export_allowed": false,
+      "public_report": {
+        "bytes_sha256": "c004e2abaaa5a2235c6e26e577a181829e5ee073c0d1167e78a0af3856dadda8",
+        "path": "outbox/cf327228f9e4602904bad9020914b37699bd9142f263286b6d88bfe1438b5df5/public-report.json",
+        "schema": "CapitalChronicleOperationalReportServingProjectionV1"
+      },
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+      "report_version": 2,
+      "schema_ref": {
+        "bytes_sha256": "ebcc59ea082549d01dacae464e886b0f35d155dcbd214cfcdcaf1a836067d483",
+        "path": "schemas/1.0.0/envelope.json",
+        "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+      }
+    }
+  ],
+  "export_root_id": "goal20-compatibility-control",
+  "latest_by_asset": {
+    "XNGUSD": {
+      "asset_id": "XNGUSD",
+      "change_kind": "CORRECTION",
+      "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+      "contract_revision": "asset-analysis-report-v1.0.0",
+      "envelope": {
+        "bytes_sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608",
+        "path": "outbox/cf327228f9e4602904bad9020914b37699bd9142f263286b6d88bfe1438b5df5/latest-report-envelope.json",
+        "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1"
+      },
+      "envelope_sha256": "5714d55767085221950384036113bf26c2f49e0ef96e2f49c2834060a4f1fc4f",
+      "event_id": "report-event:e79f42e3289023c971a2428cb3e2d4b07cc44b9aff034c6199b16d67898a0e90",
+      "event_type": "REPORT_VERSION",
+      "generated_at_utc": "2026-10-18T13:50:10Z",
+      "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+      "parent_report_sha256": "c8f85d4d231f337fe7a05a65bb922d33c74c846efc4f58e87cd0917613bc505b",
+      "public_account_export_allowed": false,
+      "public_report": {
+        "bytes_sha256": "c004e2abaaa5a2235c6e26e577a181829e5ee073c0d1167e78a0af3856dadda8",
+        "path": "outbox/cf327228f9e4602904bad9020914b37699bd9142f263286b6d88bfe1438b5df5/public-report.json",
+        "schema": "CapitalChronicleOperationalReportServingProjectionV1"
+      },
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+      "report_version": 2,
+      "schema_ref": {
+        "bytes_sha256": "ebcc59ea082549d01dacae464e886b0f35d155dcbd214cfcdcaf1a836067d483",
+        "path": "schemas/1.0.0/envelope.json",
+        "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+      }
+    }
+  },
+  "manifest_sha256": "7a4dce92221e0c7eb56ceb473ea78e603480be052c80b63209229fd29d34115f",
+  "parent_manifest_sha256": null,
+  "producer_owner": "Main App",
+  "public_account_export_allowed": false,
+  "publication_authority": false,
+  "schema": "CapitalChroniclePublicReportExportManifestV1",
+  "version": "1.0.0"
+}

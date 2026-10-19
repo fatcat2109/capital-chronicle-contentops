@@ -1,0 +1,33 @@
+{
+  "status": "BLOCKED",
+  "rolling_x_story_binding": {
+    "cluster_id": "goal20-bls-cpi-september",
+    "headline_ids": [
+      "goal20-bls-cpi-september"
+    ],
+    "request_logical_hash": null
+  },
+  "provided_evidence_capabilities": [],
+  "official_source_documents": [],
+  "provenance": {
+    "retrieved_at_utc": null,
+    "evaluation_as_of_utc": "2026-10-19T05:47:48.685912Z",
+    "locator": null,
+    "locator_request_count": 0,
+    "official_evidence_get_count": 1,
+    "request_count": 1,
+    "request_count_for_call": 1,
+    "story_evidence_scope_id": null,
+    "acquisition_cache_reused": false,
+    "network_reads_avoided_for_call": 0,
+    "request_signature": "3c50ec393c314b3f0f8521c41274cac29ae18cac2a7446bfe9da20b41b3d169f",
+    "request_limit": 3,
+    "timeout_seconds": 12.0,
+    "read_only_http_get_only": true,
+    "bounded_truncation_allowed": true
+  },
+  "blockers": [
+    "HTTP Error 403: Forbidden"
+  ],
+  "publication_authority": false
+}

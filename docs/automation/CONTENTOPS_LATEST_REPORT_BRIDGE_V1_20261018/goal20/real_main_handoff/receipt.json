@@ -1,0 +1,105 @@
+{
+  "status": "PASS_REAL_IMMUTABLE_COLD_START_AND_RESTART",
+  "observed_at_utc": "2026-10-19T08:38:34.420849Z",
+  "producer_commit": "c27b88db396adce2f78d96b33331fccc2925cd0c",
+  "producer_handoff_sha256": "bbf56cce27b86f9bc793cb94fd84fe58de6d3d7e9f4888ce7ee58ee74592fcc4",
+  "manifest_schema_sha256": "bcc960b58953980de704e52b58f43611e52d6a6a83d73d0b65663ec60ac0f954",
+  "manifest_sha256": "af7b7eb84e2ff17a66236a2e2311f19b62878309f2a46cbc2722e2869c3af911",
+  "configured_public_root": "A:\\Capital Chronicle\\Runtime\\MainPublicReports-v1",
+  "exact_public_files_verified": 9,
+  "first_scan": {
+    "schema_version": "contentops.main_report_feed.v1",
+    "producer_commit": "c27b88db396adce2f78d96b33331fccc2925cd0c",
+    "observed_at_utc": "2026-10-19T08:38:34.420849Z",
+    "configured_bundle_count": 2,
+    "new_events": 2,
+    "events": [
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-8c00db5706e77a806bf81b74588de2b035b065e6e02fae2f3b525447b1b444c7",
+        "state": "LINEAGE_ONLY_NOOP",
+        "blockers": [],
+        "required_parent_report_sha256": null
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-061bc5a00dcd3ef461f5c8e0c754bf449a271319c1ce93ccaf28105bfd41e2b9",
+        "state": "ADMITTED",
+        "blockers": [],
+        "required_parent_report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d"
+      }
+    ],
+    "gaps": [],
+    "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+    "manifest_sha256": "af7b7eb84e2ff17a66236a2e2311f19b62878309f2a46cbc2722e2869c3af911",
+    "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+    "public_write_performed": false
+  },
+  "restart_scan": {
+    "schema_version": "contentops.main_report_feed.v1",
+    "producer_commit": "c27b88db396adce2f78d96b33331fccc2925cd0c",
+    "observed_at_utc": "2026-10-19T08:38:34.420849Z",
+    "configured_bundle_count": 2,
+    "new_events": 0,
+    "events": [
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-8c00db5706e77a806bf81b74588de2b035b065e6e02fae2f3b525447b1b444c7",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-061bc5a00dcd3ef461f5c8e0c754bf449a271319c1ce93ccaf28105bfd41e2b9",
+        "state": "DUPLICATE_NOOP"
+      }
+    ],
+    "gaps": [],
+    "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+    "manifest_sha256": "af7b7eb84e2ff17a66236a2e2311f19b62878309f2a46cbc2722e2869c3af911",
+    "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+    "public_write_performed": false
+  },
+  "ancestor_only_events": 1,
+  "editorial_ready_events": 1,
+  "receipt_count_before_restart": 2,
+  "receipt_count_after_restart": 2,
+  "admitted_receipts": [
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 1,
+      "source_report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d",
+      "parent_report_sha256": null,
+      "known_at_cutoff_utc": "2026-10-18T17:05:18.499399Z",
+      "status": "LINEAGE_ONLY_NOOP",
+      "lineage_only": true,
+      "delivery_status": "REPORT_SUPERSEDED"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 2,
+      "source_report_sha256": "709b20e83caa5c01f94f21f05ef83adcff219b5a94373e8c9782cba9b01cd43d",
+      "parent_report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d",
+      "known_at_cutoff_utc": "2026-10-19T05:56:21.511006Z",
+      "status": "ADMITTED",
+      "lineage_only": false,
+      "delivery_status": "REPORT_PENDING"
+    }
+  ],
+  "pending_editorial_reports": [
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 2
+    }
+  ],
+  "fresh_model_calls": 0,
+  "private_main_paths_read": false,
+  "public_writes": 0,
+  "llm_pause_active_and_unchanged": true,
+  "llm_pause_marker_sha256": "b0be68980cbfc2dd1a7fa80ac7eb2bfcfda7aa3b45b462dfd0a11788587e94de",
+  "runtime_started": false,
+  "schedule_started": false
+}

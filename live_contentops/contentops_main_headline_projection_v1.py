@@ -11,11 +11,9 @@ import json
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 from uuid import uuid4
-from urllib.parse import urlsplit
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import (
     LatestReportDeliveryTracker,
-    PUBLIC_RIGHTS,
     _private,
     _time,
     sha256_of,
@@ -27,25 +25,21 @@ DESTINATION = "internal:contentops-main-headline-export"
 
 
 def project_headline(
-    row: Mapping[str, Any], *, cutoff_utc: str, locator: Mapping[str, Any]
+    row: Mapping[str, Any], *, cutoff_utc: str, locator: Mapping[str, Any], permission_resolver=None
 ) -> tuple[dict[str, Any] | None, str | None]:
+    if not isinstance(row, Mapping):
+        return None, "MALFORMED_HEADLINE_ROW"
     if _private(row):
         return None, "PRIVATE_CONTEXT_EXCLUDED"
-    permissions = row.get("source_permissions") or {}
+    permissions = permission_resolver(row, cutoff_utc) if permission_resolver else None
     rights = row.get("rights_state")
     # Explicit official-public-domain rows or record-bound internal grants only.
     source_url = str(row.get("source_url") or row.get("tweet_url") or "")
-    source_host = str(urlsplit(source_url).hostname or "").lower()
-    official = (
-        isinstance(rights, str)
-        and rights in PUBLIC_RIGHTS
-        and (source_host == "eia.gov" or source_host.endswith(".eia.gov"))
-    )
     text = " ".join(str(row.get("headline_text") or "").split())
     text_hash = hashlib.sha256(text.encode()).hexdigest()
     scoped = (
-        permissions.get("content_sha256") == text_hash
-        and permissions.get("source_identity") == row.get("source_identity")
+        isinstance(permissions, Mapping)
+        and permissions.get("content_sha256") == text_hash
         and permissions.get("INTERNAL_ANALYSIS_ALLOWED") is True
         and permissions.get("MODEL_INPUT_ALLOWED") is True
         and permissions.get("LLM_INPUT_ALLOWED") is True
@@ -58,7 +52,7 @@ def project_headline(
     )
     proof = str(
         row.get("rights_evidence_sha256")
-        or permissions.get("rights_evidence_sha256")
+        or (permissions or {}).get("rights_evidence_sha256")
         or ""
     )
     if isinstance(rights, str) and any(
@@ -66,7 +60,7 @@ def project_headline(
     ):
         return None, "SOURCE_RIGHTS_FORBID_INTERNAL_ANALYSIS"
     if (
-        not (official or scoped)
+        not scoped
         or len(proof) != 64
         or any(c not in "0123456789abcdef" for c in proof)
     ):
@@ -105,9 +99,7 @@ def project_headline(
         "known_at_utc": known,
         "retrieval_time_utc": retrieved,
         "revision_at_utc": revision,
-        "rights_state": rights
-        if official
-        else {
+        "rights_state": {
             k: permissions[k]
             for k in (
                 "INTERNAL_ANALYSIS_ALLOWED",
@@ -117,9 +109,7 @@ def project_headline(
             )
         },
         "rights_evidence_sha256": proof,
-        "allowed_consumers": ["internal_research", "narrative_context"]
-        if official
-        else sorted(
+        "allowed_consumers": sorted(
             {"internal_research", "narrative_context"}.intersection(
                 permissions["permitted_consumers"]
             )
@@ -134,6 +124,9 @@ def project_headline(
         "source_record_locator": dict(locator),
         "source_capture_sha256": row.get("source_capture_sha256"),
         "upstream_report_lineage": row.get("upstream_report_lineage"),
+        "originality": "MAIN_ORIGIN_RECIRCULATION" if row.get("upstream_report_lineage") else "INDEPENDENT_CONTENTOPS_ACQUISITION",
+        "correction_of": row.get("correction_of"),
+        "source_permission_record_sha256": sha256_of(permissions),
     }
     return {**output, "projection_sha256": sha256_of(output)}, None
 
@@ -186,8 +179,25 @@ def permitted_report_headlines(
 
 
 class MainHeadlineExporter:
-    def __init__(self, store):
+    def __init__(self, store, *, research=None):
         self.store = store
+        self.research = research
+
+    def permission_for(self, row, cutoff):
+        if self.research:
+            permission = self.research.permission_for(row, cutoff)
+            if permission:
+                return permission
+        # Only exact rows reconstructed from accepted durable Main receipts inherit
+        # the Main wire contract. A caller's lookalike row cannot grant itself rights.
+        for retained in permitted_report_headlines(LatestReportDeliveryTracker(self.store)):
+            if sha256_of(retained) == sha256_of(row):
+                return {"content_sha256": hashlib.sha256(" ".join(row["headline_text"].split()).encode()).hexdigest(),
+                        "INTERNAL_ANALYSIS_ALLOWED": True, "MODEL_INPUT_ALLOWED": True,
+                        "LLM_INPUT_ALLOWED": True, "provider_safe": True,
+                        "permitted_consumers": ["internal_research", "narrative_context"],
+                        "authority": "EXACT_ACCEPTED_MAIN_PUBLIC_SOURCE_FACT"}
+        return None
 
     def export(
         self,
@@ -199,9 +209,11 @@ class MainHeadlineExporter:
         max_files: int = 4,
         permitted_rows: Sequence[Mapping[str, Any]] = (),
         authority_revision: str = "retained-record-permissions-v1",
+        additional_gaps: Sequence[Mapping[str, Any]] = (),
     ) -> dict[str, Any]:
         if not 1 <= max_rows <= 1000 or not 1 <= max_files <= 16:
             raise ValueError("headline_export_bound_invalid")
+        authority_revision += ":verified-permission-records-v2:" + (self.research.revision if self.research else "sealed-main-only")
         identity = "headline-export-" + sha256_of(batch_id)
         previous = self.store.get_outbox_message(identity)
         if previous:
@@ -220,6 +232,7 @@ class MainHeadlineExporter:
                 if last.get("authority_revision") == authority_revision
                 else {}
             )
+            deferred = dict(last.get("deferred", {})) if last.get("authority_revision") == authority_revision else {}
 
             def content_identity(r):
                 return sha256_of(
@@ -232,7 +245,7 @@ class MainHeadlineExporter:
                 )
 
             seen = {content_identity(r) for p in pages for r in p["rows"]}
-            rows, gaps, scanned, files = [], [], 0, []
+            rows, gaps, scanned, files = [], [*list(self.research.gaps if self.research else []), *additional_gaps], 0, []
             candidates = sorted({Path(p).resolve() for p in paths}, key=str)
             for path in candidates:
                 if len(files) >= max_files or scanned >= max_rows:
@@ -260,7 +273,31 @@ class MainHeadlineExporter:
                                 }
                             )
                             continue
+                        bookmark_limit = max_rows - scanned
+                        deferred_rows = list(deferred.get(key, [])[bookmark_limit:])
+                        for bookmark in deferred.get(key, [])[:bookmark_limit]:
+                            handle.seek(bookmark["offset"])
+                            raw = handle.readline(1_048_577)
+                            scanned += 1
+                            if hashlib.sha256(raw).hexdigest() != bookmark["record_raw_sha256"]:
+                                gaps.append({"source_locator_sha256": key, "state": "DEFERRED_HEADLINE_BYTES_CHANGED"})
+                                continue
+                            try:
+                                projected, reason = project_headline(json.loads(raw), cutoff_utc=cutoff_utc,
+                                    locator={"source_file_sha256_id": key, **bookmark}, permission_resolver=self.permission_for)
+                            except (ValueError, TypeError, AttributeError):
+                                projected, reason = None, "MALFORMED_HEADLINE_ROW"
+                            if reason == "FUTURE_HEADLINE_DEFERRED":
+                                deferred_rows.append(bookmark)
+                            elif projected and content_identity(projected) not in seen:
+                                rows.append(projected)
+                                seen.add(content_identity(projected))
+                            elif reason:
+                                gaps.append({"source_locator_sha256": key, "state": reason})
+                        deferred[key] = deferred_rows
+                        handle.seek(cursor["offset"])
                         if handle.tell() == path.stat().st_size:
+                            files.append({"source_locator_sha256": key, "snapshot_bytes": path.stat().st_size, "committed_offset": cursor["offset"]})
                             continue
                         digest = hashlib.sha256(prefix)
                         line = cursor["line"]
@@ -287,19 +324,13 @@ class MainHeadlineExporter:
                             try:
                                 value = json.loads(raw)
                                 projected, reason = project_headline(
-                                    value, cutoff_utc=cutoff_utc, locator=locator
+                                    value, cutoff_utc=cutoff_utc, locator=locator, permission_resolver=self.permission_for
                                 )
                             except (ValueError, TypeError, AttributeError):
                                 projected, reason = None, "MALFORMED_HEADLINE_ROW"
                             if reason == "FUTURE_HEADLINE_DEFERRED":
-                                # Keep future rows pending rather than committing past their clock.
-                                line -= 1
-                                handle.seek(-len(raw), 1)
-                                digest = hashlib.sha256(prefix)
-                                with path.open("rb") as restore:
-                                    digest = hashlib.sha256(restore.read(handle.tell()))
-                                gaps.append({**locator, "state": reason})
-                                break
+                                deferred[key].append({"offset": handle.tell() - len(raw), "line": line,
+                                                      "record_raw_sha256": hashlib.sha256(raw).hexdigest()})
                             if projected and content_identity(projected) not in seen:
                                 rows.append(projected)
                                 seen.add(content_identity(projected))
@@ -324,11 +355,13 @@ class MainHeadlineExporter:
                             "state": "HEADLINE_SOURCE_UNAVAILABLE",
                         }
                     )
-            for row in permitted_rows[:100]:
+            retained_rows = [*permitted_rows, *(self.research.headlines(cutoff_utc=cutoff_utc) if self.research else [])]
+            for row in retained_rows[:200]:
                 projected, reason = project_headline(
                     row,
                     cutoff_utc=cutoff_utc,
                     locator={"retained_authority": "SEALED_MAIN_PUBLIC_REPORT"},
+                    permission_resolver=self.permission_for,
                 )
                 if projected and content_identity(projected) not in seen:
                     rows.append(projected)
@@ -347,7 +380,10 @@ class MainHeadlineExporter:
                 "source_rows_scanned": scanned,
                 "eligible_rows": len(rows),
                 "missing_rows": len(gaps),
+                "independent_items": sum(r["originality"] == "INDEPENDENT_CONTENTOPS_ACQUISITION" for r in rows),
+                "main_origin_recirculated_items": sum(r["originality"] == "MAIN_ORIGIN_RECIRCULATION" for r in rows),
                 "cursors": cursors,
+                "deferred": deferred,
                 "files": files,
                 "discovered_file_count": len(candidates),
                 "coverage": "BOUNDED_INCREMENTAL_PREFIXES_NOT_HISTORICAL_COMPLETENESS",

@@ -1,0 +1,38 @@
+{
+  "dek": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle report: oil stocks and conflicting product signals. Proxy and cost limits remain unresolved.",
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:USOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "meta_description": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle report: oil stocks and conflicting product signals. Proxy and cost limits remain unresolved.",
+  "public_write_performed": false,
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_title": "Capital Chronicle report: oil stocks and conflicting product signals",
+  "social_hook": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle report: oil stocks and conflicting product signals. Proxy and cost limits remain unresolved.",
+  "source_document_ids": [
+    "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+  ],
+  "story_identity": "simple-story-0647258fc9517784565fde6b",
+  "substack_body_markdown": "CC REPORT / EVENT UNCONFIRMED. Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate. [[SOURCE:SOURCE_1]]\n\nCC REPORT / EVENT UNCONFIRMED. Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved. [[SOURCE:SOURCE_1]]\n\nCC REPORT / EVENT UNCONFIRMED. Qualified physical-tightness watch over 5 sessions; no current directional entry. [[SOURCE:SOURCE_1]]\n\nCC REPORT / EVENT UNCONFIRMED. Over 21 sessions, require several consistent balances before extending the weekly thesis. [[SOURCE:SOURCE_1]]\n\nCC REPORT / EVENT UNCONFIRMED. Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios. [[SOURCE:SOURCE_1]]\n\nCC REPORT / EVENT UNCONFIRMED. Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition. [[SOURCE:SOURCE_1]]\n\nCC REPORT / EVENT UNCONFIRMED. Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied. [[SOURCE:SOURCE_1]]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order. [[SOURCE:SOURCE_1]]",
+  "title": "Capital Chronicle report: oil stocks and conflicting product signals",
+  "update_chain_identity": "simple-story-0647258fc9517784565fde6b"
+}

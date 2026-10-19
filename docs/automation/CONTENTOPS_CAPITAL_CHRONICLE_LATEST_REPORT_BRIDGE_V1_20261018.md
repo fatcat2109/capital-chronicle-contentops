@@ -338,3 +338,25 @@ Control Tower synchronization remains pending its separate owner. This existing 
 supplies the exact Main/ContentOps PRs, pinned revision, producer contract and immutable evidence;
 no shared database/status-owner file was changed. The only provider execution blocker is the
 unchanged `LLM_OPERATOR_PAUSED` marker. The bounded next command is in the producer handoff.
+
+## Goal 20 — independent evidence and Main public outbox continuation
+
+Current status: `REAL_MAIN_HANDOFF_VERIFIED_SCOPED_DELIVERY`.
+See [Goal20 release handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/RELEASE_HANDOFF.md)
+for the requirement-by-requirement evidence, source permissions, exact local controls and four-window
+integration command. Actual counts: **3 independent admitted items; 2 Main-origin recirculations;
+5 controlled drafts; 40 native previews; 4 rendered media; 0 fresh model calls/public writes;
+2 real Main Goal20 manifest records = 1 ancestor-only + 1 editorial-ready child**. The existing Main adapter accepted all 5 context-only return
+projections. BLS's HTTP 403 was recovered through the existing bounded BrowserOS source owner.
+
+Main repair `c27b88db396adce2f78d96b33331fccc2925cd0c` matches its fresh remote branch/PR head.
+All nine immutable public files match the configured root. The real USOIL v1 ancestor
+`61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d` is admitted only as
+`LINEAGE_ONLY_NOOP`; USOIL v2 is `ADMITTED` and is the only pending editorial input.
+[Actual cold-start/restart receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/real_main_handoff/receipt.json):
+2 initial receipts, 0 restart additions, no gaps. Exact known manifest 1.0/1.1 schemas remain pinned;
+unknown versions and contradictory parents stay blocked. Interrupted supersession projection is repaired.
+Source/evidence continuation `a8894effa44d72950e4e91868c33bdfdd4fad7c9` is pushed; CodeGraph
+refresh `bfae9d308edd717363cd46a599429549ec9db9f7` binds that source epoch. Final remote/PR head
+and exact-head CI readback are in PR88's final verification section. LLM pause and
+runtime remain unchanged. Fresh provider/natural-calendar runtime proof, merge and deployment are not claimed.

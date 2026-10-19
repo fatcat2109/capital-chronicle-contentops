@@ -1,0 +1,517 @@
+{
+  "accepted_source_count": 1,
+  "admitted_candidate_count": 1,
+  "article_identity": "774fc37f227658659b0b6907b797b72345816fb4be09e3a444410c1b228721a6",
+  "article_path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal20\\acceptance\\asset-report-USOIL\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://github.com/fatcat2109/Headline-Raw-data-json/blob/c8477a035bcb04b3d13bc4f8e26bd651dd9d957d/docs/research/analysis_reporting/goal18/export-v1.1/report.json"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-0647258fc9517784565fde6b",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Examine the dated report and its limitations"
+      ],
+      "selection_rationale": "Synthetic output tests the pinned Main input path.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 5,
+  "candidate_limit": 32,
+  "classification": "PASS_V1_SIMPLE_GEMINI_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": 0,
+  "cutoff_utc": "2026-10-19T06:29:00.557781Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:USOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "logical_model_invocation_count": 2,
+  "logical_model_invocation_limit": 3,
+  "model_receipts": [
+    {
+      "model_identity_provider_verifiable": false,
+      "replay_only": true,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 0
+    },
+    {
+      "model_identity_provider_verifiable": false,
+      "replay_only": true,
+      "selected_model": "vx/gemini-3.5-flash(high)",
+      "total_attempts": 0
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal20\\acceptance\\asset-report-USOIL\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+  "provider_attempt_count": 2,
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+    ],
+    "accepted_evidence_sha256": "6140ba3d8d6c89783a95bf59614cd89f6a9b980e54e158b1f81cfea29b0d1798",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "50bca2cd1da4964f3a92ecc46d232985107b2f76b724271b22376080d9942a79",
+    "article_identity": "774fc37f227658659b0b6907b797b72345816fb4be09e3a444410c1b228721a6",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "4cb3068b2aa38b58a84c54b5decce84053a8c3cebcfb95f1005b1e5d97c0fea5",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "edge_cdp_publishing_adapter_v1.publish_substack_article_via_edge",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "774fc37f227658659b0b6907b797b72345816fb4be09e3a444410c1b228721a6",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "EDGE_CDP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "7cdff4fb6459fc7c91116917c561a82fd06d85040cf9b5365b53027c1778b33b",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge+publish_x_reply_via_edge",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "6e5fadc7e64203264c61f2462a44ffbd28f07b5604648c5bb1348666f51058a2",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "EDGE_CDP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "b1017ffec256d8efe604a37012d879d288f265cfd38e93474db793d04a9f9462",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "41a72e0b2b12ac4b9ae6e21f79881813533a1d45147e67ddb6d4f1951c394350",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "e718feb029722bdbc4915f032d00329b830592511e7a80a24985461272730d8f",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "7b86cdd71be0ddf69ba2797a4742790dbde8ccd4d5d542f016b9b6ccde24c0a2",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "4c2757fe189958482dec479438faeaa0ae98089a3a225c9ec65ab34c74ececa8",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "edge_cdp_publishing_adapter_v1.publish_youtube_community_post_via_edge",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "69aa78f0f971f2abb8a6c9cac41f75465d9bbf2f0ace18094e0ff4696b6b6682",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v2",
+        "transport_type": "EDGE_CDP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_SIMPLE_GEMINI_ARTICLE",
+    "epistemic_state": {
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "This report import does not independently verify the underlying events.",
+      "event_truth_supported": false,
+      "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "Capital Chronicle",
+      "primary_reporting_source_identity": "asset-report:USOIL",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+      "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+      "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/252 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "main-report-576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal20\\acceptance\\asset-report-USOIL",
+    "package_identity": "87c8da0b7020d49f575a615ffa59d49f367767f07a892fab953af69e556c3c4d",
+    "plan_hash": "707a09a62371dd6a5e38e300c2c1edb30590767c98d0f91243d5b5cd44ca9611",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal20-controlled-asset-report-USOIL"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "run_id": "goal20-controlled-asset-report-USOIL",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-0647258fc9517784565fde6b",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v2",
+    "update_chain_identity": "simple-story-0647258fc9517784565fde6b"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal20\\acceptance\\asset-report-USOIL\\qualified_article_record_v1.json",
+  "revision_performed": false,
+  "run_id": "goal20-controlled-asset-report-USOIL",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-0647258fc9517784565fde6b",
+    "canonical_x_list_provenance": {},
+    "headline_id": "cc-report:2c0a6f4a165f3a77c4c0964fc144e24df4c79688be78f84ff56a42ef2cb85ee9",
+    "headline_text": "Capital Chronicle report update: Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate.",
+    "official_source_urls": [
+      "https://ir.eia.gov/wpsr/summary.txt"
+    ],
+    "public_source_urls": [
+      "https://ir.eia.gov/wpsr/summary.txt"
+    ],
+    "report_editorial_context": {
+      "claims": [
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-balance-observed",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "text": "Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-balance-mechanism",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-short",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Qualified physical-tightness watch over 5 sessions; no current directional entry."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-swing",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Over 21 sessions, require several consistent balances before extending the weekly thesis."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-long",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-watch",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition."
+        },
+        {
+          "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+          "claim_id": "oil-invalidation",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied."
+        }
+      ],
+      "horizons": [
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-10-23T15:20:24Z",
+          "horizon": "short",
+          "outlook": "Qualified physical-tightness watch over 5 sessions; no current directional entry.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T15:20:24Z",
+          "trading_sessions": 5
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-11-16T15:20:24Z",
+          "horizon": "swing",
+          "outlook": "Over 21 sessions, require several consistent balances before extending the weekly thesis.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T15:20:24Z",
+          "trading_sessions": 21
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2027-10-05T15:20:24Z",
+          "horizon": "long",
+          "outlook": "Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-18T15:20:24Z",
+          "trading_sessions": 252
+        }
+      ],
+      "limitations": [
+        "CC analysis is not external confirmation or an order.",
+        "No private holdings/account context is included.",
+        "Exact execution economics are unavailable."
+      ],
+      "mode_hint": "DATA_OR_DOCUMENT_LENS",
+      "report_id": "asset-report:USOIL",
+      "report_version": 2,
+      "what_changed": "Comparison of retained claim hashes and evidence snapshots; a case change alone creates no new event."
+    },
+    "source_account": "Capital Chronicle analysis report",
+    "source_platform": "CAPITAL_CHRONICLE_REPORT_INPUT",
+    "source_timestamp_utc": "2026-10-18T15:20:24Z",
+    "source_url": "",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "BOUNDED_DISCOVERY",
+      "known_access_risk": false,
+      "known_official_path": false,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-0647258fc9517784565fde6b"
+  },
+  "selected_plan_entry": {
+    "article_mode": "DATA_OR_DOCUMENT_LENS",
+    "candidate_id": "simple-story-0647258fc9517784565fde6b",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "research_queries": [
+      "Examine the dated report and its limitations"
+    ],
+    "selection_rationale": "Synthetic output tests the pinned Main input path."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-0647258fc9517784565fde6b",
+        "research_queries": [
+          "Examine the dated report and its limitations"
+        ],
+        "selection_rationale": "Synthetic output tests the pinned Main input path."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Synthetic control only.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal20\\acceptance\\asset-report-USOIL\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 5,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": false,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 12,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

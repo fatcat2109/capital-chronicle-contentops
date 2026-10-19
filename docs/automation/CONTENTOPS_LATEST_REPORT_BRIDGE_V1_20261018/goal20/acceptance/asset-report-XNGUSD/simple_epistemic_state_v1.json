@@ -1,0 +1,22 @@
+{
+  "analysis_must_be_conditional": true,
+  "authority_granted_by_adapter": false,
+  "event_confirmation_state": "UNCONFIRMED",
+  "event_proposition": "This report import does not independently verify the underlying events.",
+  "event_truth_supported": false,
+  "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+  "origin_character": "ON_RECORD",
+  "primary_reporting_publisher": "Capital Chronicle",
+  "primary_reporting_source_identity": "asset-report:XNGUSD",
+  "public_write_authority": false,
+  "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+  "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+  "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+  "report_truth_supported": true,
+  "schema_version": "contentops.v1_simple_epistemic_state.v1",
+  "source_multiplicity": "SINGLE_SOURCE",
+  "supporting_document_ids": [
+    "main-report-89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47"
+  ],
+  "underlying_event_may_be_stated_as_confirmed": false
+}

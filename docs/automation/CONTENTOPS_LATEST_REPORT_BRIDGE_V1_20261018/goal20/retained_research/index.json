@@ -1,0 +1,120 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "headline_id": "goal20-eia-smallscale-solar",
+      "capture_path": "goal20-eia-smallscale-solar-source.html",
+      "loader_result_path": "goal20-eia-smallscale-solar-loader.json",
+      "policy_capture_path": "goal20-eia-smallscale-solar-policy.html",
+      "policy_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "policy_capture_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "policy_retrieved_at_utc": "2026-10-19T05:47:50.347840Z",
+      "source_capture_sha256": "6752404e61026d28602deff05657e7eb440a79897b48dfc9d3e69cc3380e55ba",
+      "revision_at_utc": "2026-10-19T05:47:50.347840Z",
+      "proposition_span": [
+        824,
+        1031
+      ],
+      "headline_text": "We estimate that U.S. generation from small-scale or rooftop solar photovoltaic systems (smaller than 1 megawatt of capacity) has increased from 18,812 gigawatthours (GWh) to 92,979 GWh over the last decade.",
+      "candidate_catalyst_tags": [
+        "energy",
+        "electricity",
+        "solar"
+      ]
+    },
+    {
+      "headline_id": "goal20-eia-grid-peaks",
+      "capture_path": "goal20-eia-grid-peaks-source.html",
+      "loader_result_path": "goal20-eia-grid-peaks-loader.json",
+      "policy_capture_path": "goal20-eia-grid-peaks-policy.html",
+      "policy_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "policy_capture_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "policy_retrieved_at_utc": "2026-10-19T05:48:43.900609Z",
+      "source_capture_sha256": "50e024dd01b7176224830dff73f79abc8ce1365daa8f0139d928e14e86767009",
+      "revision_at_utc": "2026-10-19T05:48:43.900609Z",
+      "proposition_span": [
+        1152,
+        1556
+      ],
+      "headline_text": "PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025. The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024. The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023.",
+      "candidate_catalyst_tags": [
+        "energy",
+        "electricity",
+        "gas"
+      ],
+      "source_chart": {
+        "title": "Regional grid peaks: 2026 and earlier records",
+        "unit": "GW",
+        "rows": [
+          {
+            "label": "PJM",
+            "period": "2026",
+            "value_text": "162.6",
+            "support_excerpt": "PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025."
+          },
+          {
+            "label": "PJM",
+            "period": "2025",
+            "value_text": "160.6",
+            "support_excerpt": "PJM peaked at 162.6 gigawatts (GW) on July 2, 2026, 1.3% higher than the pre-2026 peak of 160.6 GW on June 23, 2025."
+          },
+          {
+            "label": "ERCOT",
+            "period": "2026",
+            "value_text": "91.1",
+            "support_excerpt": "The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024."
+          },
+          {
+            "label": "ERCOT",
+            "period": "2024",
+            "value_text": "85.5",
+            "support_excerpt": "The Electric Reliability Council of Texas (ERCOT) peaked at 91.1 GW on July 22, 2026, 6.5% higher than the pre-2026 record of 85.5 GW on August 20, 2024."
+          },
+          {
+            "label": "SWPP",
+            "period": "2026",
+            "value_text": "58.0",
+            "support_excerpt": "The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023."
+          },
+          {
+            "label": "SWPP",
+            "period": "2023",
+            "value_text": "56.0",
+            "support_excerpt": "The Southwest Power Pool (SWPP) peaked at 58.0 GW on July 27, 2026, 3.5% higher than the pre-2026 peak of 56.0 GW on August 21, 2023."
+          }
+        ]
+      },
+      "context_spans": [
+        [
+          2897,
+          3229
+        ]
+      ],
+      "supporting_headline_ids": [
+        "goal20-eia-smallscale-solar"
+      ]
+    },
+    {
+      "headline_id": "goal20-bls-cpi-september",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "capture_path": "goal20-bls-cpi-september-source-rendered.json",
+      "loader_result_path": "goal20-bls-cpi-september-loader.json",
+      "policy_capture_path": "goal20-bls-cpi-september-policy-rendered.json",
+      "policy_url": "https://www.bls.gov/bls/linksite.htm",
+      "policy_capture_sha256": "07e57e3372791ba042aa02b5c5abf60da3241ea67c0dddacbe88a501062ac465",
+      "policy_retrieved_at_utc": "2026-10-19T06:13:50.392474Z",
+      "source_capture_sha256": "f2f92477128ae2a731985dc8f9ba74d80e6710c4cb110e1951dcdad204739301",
+      "revision_at_utc": "2026-10-19T06:13:50.392474Z",
+      "proposition_span": [
+        285,
+        590
+      ],
+      "headline_text": "The Consumer Price Index for All Urban Consumers (CPI-U) increased 0.6 percent on a seasonally adjusted basis in September after rising 0.4 percent in August, the U.S. Bureau of Labor Statistics reported today. Over the last 12 months, the all items index increased 3.7 percent before seasonal adjustment.",
+      "candidate_catalyst_tags": [
+        "inflation",
+        "USD",
+        "gold"
+      ]
+    }
+  ]
+}
