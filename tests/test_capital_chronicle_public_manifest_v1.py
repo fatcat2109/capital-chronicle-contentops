@@ -165,3 +165,22 @@ def test_public_manifest_urn_draft_withdrawal_no_provider_replay(tmp_path):
         repeated["report_workspace_result"]["classification"] == "DRAFT_WITHDRAWN"
         and len(calls) == 2
     )
+
+
+def test_withdrawal_receipt_survives_crash_before_status_projection(tmp_path, monkeypatch):
+    root, pointer, manifest, tracker = setup(tmp_path)
+    feed = MainReportFeed(tracker, pointer, headline_paths=[])
+    feed.poll(cutoff_utc=NOW)
+    report = feed.pending()[0]
+    event = {"event_type": "WITHDRAWAL", "asset_id": "XNGUSD", "report_sha256": report["source_report_sha256"],
+             "reason": "Controlled interrupted withdrawal", "known_at_cutoff_utc": NOW}
+    event["event_id"] = "withdrawal:" + sha256_of(event)
+    original = tracker.store.set_outbox_status
+    monkeypatch.setattr(tracker.store, "set_outbox_status", lambda *a, **k: (_ for _ in ()).throw(RuntimeError("interrupted status projection")))
+    with pytest.raises(RuntimeError, match="interrupted status"):
+        feed.apply_withdrawal(event)
+    assert not feed.pending()  # durable withdrawal already excludes further editorial work
+    monkeypatch.setattr(tracker.store, "set_outbox_status", original)
+    resumed = MainReportFeed(tracker, pointer, headline_paths=[])
+    assert resumed.apply_withdrawal(event)["state"] == "DUPLICATE_WITHDRAWAL_NOOP"
+    assert all(r["delivery_status"] == "CONTENT_WITHDRAWN" for r in tracker.receipts() if r["source_report_sha256"] == event["report_sha256"])

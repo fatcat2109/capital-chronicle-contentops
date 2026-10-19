@@ -370,8 +370,7 @@ class MainReportFeed:
 
     def apply_withdrawal(self, event):
         identity = "cc-public-withdrawal-" + sha256_of(event)
-        if self.tracker.store.get_outbox_message(identity):
-            return {"state": "DUPLICATE_WITHDRAWAL_NOOP", "event_id": event["event_id"]}
+        existing = self.tracker.store.get_outbox_message(identity)
         candidates = [r for r in self.tracker.receipts() if r.get("source_report_sha256") == event["report_sha256"] and event["asset_id"] in r.get("asset_ids", []) and r["status"] in CURRENT]
         if not candidates:
             return {"state": "WITHDRAWAL_TARGET_NOT_RECEIVED", "event_id": event["event_id"]}
@@ -380,14 +379,16 @@ class MainReportFeed:
             raise LatestReportConsumerError("PUBLIC_WITHDRAWAL_IDENTITY_INVALID")
         record = candidates[0]
         value = {**event, "report_id": record["report_id"], "report_version": record["report_version"], "source_report_sha256": event["report_sha256"], "state": "CLAIMS_WITHDRAWN"}
-        _persist(self.tracker.store, identity, value, "internal:cc-report-withdrawal")
+        if not existing:
+            _persist(self.tracker.store, identity, value, "internal:cc-report-withdrawal")
         for row in self.tracker.store.list_outbox_messages():
             payload = json.loads(row["payload"])
             if row["destination"] in {"internal:cc-report-receipt", "internal:cc-report-editorial-input", "internal:cc-report-simple-result"} and payload.get("source_report_sha256") == event["report_sha256"]:
                 self.tracker.store.set_outbox_status(row["message_id"], "CONTENT_WITHDRAWN")
-        return {"state": "CLAIMS_WITHDRAWN", "event_id": event["event_id"], "report_id": record["report_id"], "report_version": record["report_version"]}
+        return {"state": "DUPLICATE_WITHDRAWAL_NOOP" if existing else "CLAIMS_WITHDRAWN", "event_id": event["event_id"], "report_id": record["report_id"], "report_version": record["report_version"]}
 
     def pending(self, *, include_controlled: bool = True) -> list[dict[str, Any]]:
+        withdrawn_hashes = {json.loads(r["payload"])["source_report_sha256"] for r in self.tracker.store.list_outbox_messages() if r["destination"] == "internal:cc-report-withdrawal"}
         latest = {}
         for record in self.tracker.receipts():
             if record["status"] not in CURRENT:
@@ -409,7 +410,7 @@ class MainReportFeed:
                 key=lambda v: (v["known_at_cutoff_utc"], v["report_id"]),
                 reverse=True,
             )
-            if r["status"] == "ADMITTED" and r.get("delivery_status") != "CONTENT_WITHDRAWN"
+            if r["status"] == "ADMITTED" and r.get("delivery_status") != "CONTENT_WITHDRAWN" and r["source_report_sha256"] not in withdrawn_hashes
             and not any(
                 v.get("report_id") == r["report_id"]
                 and v.get("report_version") == r["report_version"]
