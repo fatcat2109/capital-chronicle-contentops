@@ -25,6 +25,19 @@ REPOSITORY = "https://github.com/fatcat2109/Headline-Raw-data-json"
 PATH = re.compile(
     r"(?:manifests/[a-f0-9]{64}\.json|outbox/[a-f0-9]{64}/(?:latest-report-envelope|public-report|withdrawal)\.json|schemas/1\.[01]\.0/envelope\.json)"
 )
+MANIFEST_SCHEMA_SHA256 = (
+    "a37ae594346a2b3a436bef0b1e89629767a01626ec9223a6958e2d000b4ccbc1"
+)
+
+
+def _schema():
+    raw = (
+        Path(__file__).resolve().parents[1]
+        / "schemas/CapitalChroniclePublicReportExportManifestV1.schema.json"
+    ).read_bytes()
+    if hashlib.sha256(raw).hexdigest() != MANIFEST_SCHEMA_SHA256:
+        raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_SCHEMA_BYTES_CHANGED")
+    return _load(raw)
 
 
 class PublicMainFileSource:
@@ -42,12 +55,24 @@ class PublicMainFileSource:
         self.pointer = dict(pointer)
         self.root = root.resolve()
         self.manifest: dict[str, Any] = {}
+        from jsonschema import Draft202012Validator
+
+        self._schema = _schema()
+        self._row_validator = Draft202012Validator(
+            {
+                "$defs": self._schema["$defs"],
+                **self._schema["properties"]["entries"]["items"],
+            }
+        )
 
     def _read(self, path: str, digest: str | None = None) -> bytes:
         if path != "latest-manifest.json" and not PATH.fullmatch(path):
             raise LatestReportConsumerError("MAIN_PUBLIC_EXPORT_PATH_OUTSIDE_CONTRACT")
         target = (self.root / path).resolve()
-        if not target.is_relative_to(self.root) or target.stat().st_size > 8 * 1024 * 1024:
+        if (
+            not target.is_relative_to(self.root)
+            or target.stat().st_size > 8 * 1024 * 1024
+        ):
             raise LatestReportConsumerError("MAIN_PUBLIC_EXPORT_PATH_OR_SIZE_INVALID")
         raw = target.read_bytes()
         if digest and hashlib.sha256(raw).hexdigest() != digest:
@@ -55,6 +80,16 @@ class PublicMainFileSource:
         return raw
 
     def _manifest(self, value):
+        from jsonschema import Draft202012Validator
+
+        header = {
+            **self._schema,
+            "properties": {
+                **self._schema["properties"],
+                "entries": {"type": "array"},
+                "latest_by_asset": {"type": "object"},
+            },
+        }
         if (
             value.get("schema") != MANIFEST_SCHEMA
             or value.get("version") != "1.0.0"
@@ -67,6 +102,7 @@ class PublicMainFileSource:
             or _private(value)
             or not isinstance(value.get("entries"), list)
             or len(value["entries"]) > 4096
+            or not Draft202012Validator(header).is_valid(value)
         ):
             raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_INVALID")
         return value
@@ -93,7 +129,10 @@ class PublicMainFileSource:
             if not re.fullmatch(r"[0-9a-f]{64}", str(parent)) or len(chain) > 128:
                 raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_HISTORY_BOUND")
             parent_value = self._manifest(
-                _load(self._read("manifests/" + parent + ".json"), max_bytes=8 * 1024 * 1024)
+                _load(
+                    self._read("manifests/" + parent + ".json"),
+                    max_bytes=8 * 1024 * 1024,
+                )
             )
             if (
                 parent_value["manifest_sha256"] != parent
@@ -110,6 +149,8 @@ class PublicMainFileSource:
         return manifest
 
     def bundle(self, spec: Mapping[str, Any]) -> dict[str, Any]:
+        if not self._row_validator.is_valid(spec):
+            raise LatestReportConsumerError("MAIN_PUBLIC_EVENT_SCHEMA_INVALID")
         if (
             spec.get("event_type") != "REPORT_VERSION"
             or spec.get("public_account_export_allowed") is not False

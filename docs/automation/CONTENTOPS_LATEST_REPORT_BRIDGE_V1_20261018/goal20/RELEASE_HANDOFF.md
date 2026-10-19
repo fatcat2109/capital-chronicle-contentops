@@ -46,7 +46,15 @@ labelled `UNCOMMITTED_WORKTREE_BYTES`; it contains only public projection/envelo
 artifacts. This checkpoint does not claim that Main pushed a producer commit, supplied its
 immutable compatibility example, or emitted new current-data report events.
 
-Required remaining handoff: Main's immutable producer revision + example bytes/hashes + stable
+Fresh exact local producer example readback found **9 schema errors** in its USOIL v2 v1.0
+envelope: `SOURCE_FACT`, `CAUSAL_HYPOTHESIS`, `HORIZON_OUTLOOK` and explicit null horizons are
+not accepted by the emitted v1.0 schema. All five handoff file hashes match Main's manifest;
+this is a producer envelope/schema mismatch, not file corruption. The consumer correctly returns
+`ENVELOPE_MAIN_SCHEMA_VALIDATION_FAILED`. [Exact dependency receipt](main_owner_example_readback.json).
+Main must emit a schema-valid immutable example under its existing contract. ContentOps does not
+rewrite Main claims, relax the schema, or manufacture a parent report to admit this example.
+
+Required remaining handoff: Main's immutable producer revision + schema-valid example bytes/hashes + stable
 export-root id and configured public root. Then consume that exact handoff, verify current
 producer/consumer compatibility and record actual new manifest events. Until then Goal20 remains
 active; `goal20_new_main_manifest_events=0` is intentional and truthful.
@@ -86,3 +94,11 @@ Control Tower synchronization remains pending its separate owner. This existing 
 and scoped PR are the discoverable handoff; no global refresh or shared database status credit is
 claimed. CodeGraph is refreshed once after the implementation commit, with its source identity
 recorded in the generated files.
+
+## Real canonical sidecar scan
+
+The bounded [manual scan receipt](manual/receipt.json) inspected 500 canonical sidecar rows; all 500 retained missing-permission gaps. The independent verified acquisition and exact Main facts continued: 5 permitted projections, comprising 3 independent and 2 recirculated. Existing seven-article published memory was read with SQLite query-only and remained unchanged. This scan invoked no model and started no schedule.
+
+## Delivery
+
+Implementation commit `9b57a3a4760012a0f5e9a25c88a62987e4f624d6`; CodeGraph source identity matches that commit. Scoped draft PR: [#88](https://github.com/fatcat2109/capital-chronicle-contentops/pull/88). Remote source head was verified after push. Exact-head CI and Main immutable-handoff readback remain in progress.

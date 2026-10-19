@@ -1,0 +1,89 @@
+{
+  "observed_producer_head": "b6f05d2dc271b9c7f5097c5b8cb7152eb373d176",
+  "producer_handoff_state": "UNCOMMITTED_LOCAL_BYTES_ONLY",
+  "handoff_raw_sha256": "5b28a748279574d1f73853a2687a634f04e544fb02d05dbd5ed353eed1d9ea0f",
+  "example_files_byte_hash_verified": 5,
+  "example_manifest_sha256": "e25d4ec2ef2af2ca81557e1c3b914113cc46f2bf4aab678f6e6c9ba68dbbe028",
+  "envelope_raw_sha256": "7a97d473bce4ee8a016008c159db7209ec952840c0b970fb62aef6fb521ea6ea",
+  "schema_raw_sha256": "ebcc59ea082549d01dacae464e886b0f35d155dcbd214cfcdcaf1a836067d483",
+  "status": "BLOCKED_ENVELOPE_MAIN_SCHEMA_VALIDATION_FAILED",
+  "errors": [
+    {
+      "path": [
+        "public_safe_claims",
+        0,
+        "claim_type"
+      ],
+      "message": "'SOURCE_FACT' is not one of ['HOLD_CONDITION', 'INVALIDATION_CONDITION']"
+    },
+    {
+      "path": [
+        "public_safe_claims",
+        0,
+        "horizon"
+      ],
+      "message": "None is not one of ['short', 'swing', 'long']"
+    },
+    {
+      "path": [
+        "public_safe_claims",
+        1,
+        "claim_type"
+      ],
+      "message": "'CAUSAL_HYPOTHESIS' is not one of ['HOLD_CONDITION', 'INVALIDATION_CONDITION']"
+    },
+    {
+      "path": [
+        "public_safe_claims",
+        1,
+        "horizon"
+      ],
+      "message": "None is not one of ['short', 'swing', 'long']"
+    },
+    {
+      "path": [
+        "public_safe_claims",
+        2,
+        "claim_type"
+      ],
+      "message": "'HORIZON_OUTLOOK' is not one of ['HOLD_CONDITION', 'INVALIDATION_CONDITION']"
+    },
+    {
+      "path": [
+        "public_safe_claims",
+        3,
+        "claim_type"
+      ],
+      "message": "'HORIZON_OUTLOOK' is not one of ['HOLD_CONDITION', 'INVALIDATION_CONDITION']"
+    },
+    {
+      "path": [
+        "public_safe_claims",
+        4,
+        "claim_type"
+      ],
+      "message": "'HORIZON_OUTLOOK' is not one of ['HOLD_CONDITION', 'INVALIDATION_CONDITION']"
+    },
+    {
+      "path": [
+        "public_safe_claims",
+        5,
+        "horizon"
+      ],
+      "message": "None is not one of ['short', 'swing', 'long']"
+    },
+    {
+      "path": [
+        "public_safe_claims",
+        6,
+        "horizon"
+      ],
+      "message": "None is not one of ['short', 'swing', 'long']"
+    }
+  ],
+  "expected_next_action": "Main owner must emit a schema-valid immutable compatibility example under its unchanged v1.0/v1.1 contract; ContentOps must then read exact committed bytes.",
+  "consumer_gate_weakened": false,
+  "private_data_read": false,
+  "model_calls": 0,
+  "public_writes": 0
+}
