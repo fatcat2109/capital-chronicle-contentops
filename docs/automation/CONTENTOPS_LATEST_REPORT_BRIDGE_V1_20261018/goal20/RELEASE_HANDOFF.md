@@ -66,6 +66,19 @@ export-root id and configured public root. Then consume that exact handoff, veri
 producer/consumer compatibility and record actual new manifest events. Until then Goal20 remains
 active; `goal20_new_main_manifest_events=0` is intentional and truthful.
 
+### Exact committed producer readback
+
+Main locally committed `eeb42979f708e0aa8b0c12994c3935a02152fecf`. The consumer read only the
+five public compatibility files and the public manifest schema through exact Git blobs; all
+declared byte hashes match. [Immutable local-commit readback](immutable_main_handoff_readback.json)
+still returns `LINEAGE_PARENT_NOT_RECEIVED` for its USOIL v2. The exact required parent is
+`61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d`; the previously accepted
+Goal19 parent is `797f3132e40f486036fc318cab8acf7b9288715035d90c4b3e82705fb17a3f1a` and is
+correctly rejected as `LINEAGE_HASH_CONFLICT`. Main's remote branch was still at `b6f05d2dc`
+at this readback. The concrete remaining action is for the Main owner to push the exact producer
+and provide the matching public parent/lineage chain. Then replay this consumer against that
+exact handoff; no model call or runtime restart is needed to establish admission.
+
 ## Four existing windows and release
 
 The existing Simple scheduler invokes `MainReportFeed.opportunity` once per existing slot. No
@@ -108,4 +121,11 @@ The bounded [manual scan receipt](manual/receipt.json) inspected 500 canonical s
 
 ## Delivery
 
-Implementation commit `9b57a3a4760012a0f5e9a25c88a62987e4f624d6`; CodeGraph source identity matches that commit. Scoped draft PR: [#88](https://github.com/fatcat2109/capital-chronicle-contentops/pull/88). Remote source head was verified after push. Exact-head CI and Main immutable-handoff readback remain in progress.
+Implementation commit `9b57a3a4760012a0f5e9a25c88a62987e4f624d6`, followed by pinned schema and
+interrupted-withdrawal recovery. CodeGraph source epoch is `2be420d809d247d84a3a1097bc65202940a75dee`.
+Scoped draft PR: [#88](https://github.com/fatcat2109/capital-chronicle-contentops/pull/88).
+Exact remote head `27b424d813f86c8071d4132c58495c831ddb3cf4` passed both deterministic-validation
+and branch-codegraph-refresh in [run 39212212545](https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39212212545).
+Four focused manifest tests also prove recovery after a durable withdrawal receipt but interrupted
+status projection. The final docs-only readback is pushed separately; current PR CI remains the
+authority for its exact head. Goal20 is not complete while Main's exact parent handoff is missing.

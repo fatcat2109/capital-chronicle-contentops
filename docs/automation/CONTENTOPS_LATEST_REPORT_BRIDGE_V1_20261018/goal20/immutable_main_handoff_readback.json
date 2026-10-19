@@ -1,0 +1,36 @@
+{
+  "observed_at_utc": "2026-10-19T06:55:13.151778Z",
+  "producer_commit": "eeb42979f708e0aa8b0c12994c3935a02152fecf",
+  "producer_remote_head_observed": "b6f05d2dc271b9c7f5097c5b8cb7152eb373d176",
+  "producer_remote_head_matches": false,
+  "producer_handoff_raw_sha256": "63b41237b57c82b4c59800e93e102cb667ef466516deebf16e7d3a0cb6cd6bf5",
+  "exact_export_files_verified": 5,
+  "manifest_schema_exact_bytes_verified": true,
+  "isolated_public_root": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal20-immutable-main-public-31kxc7bm",
+  "scan": {
+    "schema_version": "contentops.main_report_feed.v1",
+    "producer_commit": "eeb42979f708e0aa8b0c12994c3935a02152fecf",
+    "observed_at_utc": "2026-10-19T06:55:13.151778Z",
+    "configured_bundle_count": 1,
+    "new_events": 1,
+    "events": [
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-22865b3dbe49065ef318a1db5f8faca5cfc0476561171659d48e023ef0cc3493",
+        "state": "LINEAGE_PARENT_NOT_RECEIVED",
+        "blockers": []
+      }
+    ],
+    "gaps": [],
+    "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+    "manifest_sha256": "45434bfec0f2ab9afca2afaa9be2ab384aa1dea80220f6b5892a87f8e51702f4",
+    "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+    "public_write_performed": false
+  },
+  "new_main_events_admitted": 0,
+  "model_calls": 0,
+  "public_writes": 0,
+  "private_paths_read": false,
+  "parent_not_fabricated": true
+}
