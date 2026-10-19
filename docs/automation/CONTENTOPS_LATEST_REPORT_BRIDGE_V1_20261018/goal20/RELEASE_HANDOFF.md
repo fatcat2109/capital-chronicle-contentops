@@ -1,6 +1,6 @@
 # Goal 20 — original evidence and evolving public report feed
 
-Status: `REAL_MAIN_HANDOFF_VERIFIED_SCOPED_DELIVERY_IN_PROGRESS`.
+Status: `REAL_MAIN_HANDOFF_VERIFIED_SCOPED_DELIVERY`.
 Owning checkpoint: [existing bridge handoff](../../CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md).
 Base: merged PR87, master `45f9b0ebf209930e904085cf56bd4470a99c6501`.
 Scoped draft PR: [#88](https://github.com/fatcat2109/capital-chronicle-contentops/pull/88).
@@ -95,8 +95,13 @@ Fresh provider, natural-calendar runtime and deployment remain unproven and outs
 
 ## Delivery and synchronization
 
-The exact source/evidence commit, remote/PR head and CI readback are recorded after scoped push.
-No completion is claimed from tests alone; the real producer-to-consumer receipt is required above.
-CodeGraph is maintained by the existing branch refresh owner after the source commit. Control
-Tower synchronization remains pending its separate serial owner; this checkpoint/PR supplies a
+Source/evidence commit `a8894effa44d72950e4e91868c33bdfdd4fad7c9` was pushed to PR88.
+The staged/committed consumer Git blobs and all nine public evidence hashes match the actual
+acceptance. The existing CI owner refreshed CodeGraph in commit
+`bfae9d308edd717363cd46a599429549ec9db9f7`; its source epoch is `a8894effa44d72950e4e91868c33bdfdd4fad7c9`
+and source digest is `585bc7d4ad18c0b5705004ddb7c1fd2b49e14d25e099935040d582867ebd706c`.
+Final exact remote/PR head and its CI run are recorded in PR88's final verification section;
+that check must be green before the goal is closed. This handoff's final update changes docs only.
+The real producer-to-consumer receipt above establishes admission independently of CI.
+Control Tower synchronization remains pending its separate serial owner; this checkpoint/PR supplies a
 durable, discoverable handoff and claims no shared database/status-owner mutation or credit.

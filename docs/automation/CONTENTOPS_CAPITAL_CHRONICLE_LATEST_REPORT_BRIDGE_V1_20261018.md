@@ -341,7 +341,7 @@ unchanged `LLM_OPERATOR_PAUSED` marker. The bounded next command is in the produ
 
 ## Goal 20 — independent evidence and Main public outbox continuation
 
-Current status: `REAL_MAIN_HANDOFF_VERIFIED_SCOPED_DELIVERY_IN_PROGRESS`.
+Current status: `REAL_MAIN_HANDOFF_VERIFIED_SCOPED_DELIVERY`.
 See [Goal20 release handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/RELEASE_HANDOFF.md)
 for the requirement-by-requirement evidence, source permissions, exact local controls and four-window
 integration command. Actual counts: **3 independent admitted items; 2 Main-origin recirculations;
@@ -356,5 +356,7 @@ All nine immutable public files match the configured root. The real USOIL v1 anc
 [Actual cold-start/restart receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/real_main_handoff/receipt.json):
 2 initial receipts, 0 restart additions, no gaps. Exact known manifest 1.0/1.1 schemas remain pinned;
 unknown versions and contradictory parents stay blocked. Interrupted supersession projection is repaired.
-The source/evidence delivery and exact-head CI readback are being completed in PR88. LLM pause and
+Source/evidence continuation `a8894effa44d72950e4e91868c33bdfdd4fad7c9` is pushed; CodeGraph
+refresh `bfae9d308edd717363cd46a599429549ec9db9f7` binds that source epoch. Final remote/PR head
+and exact-head CI readback are in PR88's final verification section. LLM pause and
 runtime remain unchanged. Fresh provider/natural-calendar runtime proof, merge and deployment are not claimed.
