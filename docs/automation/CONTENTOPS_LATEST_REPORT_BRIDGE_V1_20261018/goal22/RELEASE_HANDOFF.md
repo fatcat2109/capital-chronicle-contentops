@@ -42,3 +42,14 @@ news service. A bounded Neo check found a replacement EIA gas storage release da
 for week ending Oct 9, and the crypto announcement still explicitly describes a proposal.
 These observations are being retained with exact permitted spans before admission. The SEC
 announcement alone does not prove the absence of a later final rule.
+
+
+## Pinned handoff revision 2
+
+The exact original export remains recoverable at commit `76b1aad61a1b493b3958b1a0b13d50a5ec83ab40`.
+The current manifest supersedes only its misleading legacy locator label: all nine original
+source propositions/clocks/rights remain unchanged, while `retained_authority` now accurately
+says `INDEPENDENT_RETAINED_SOURCE`. This metadata correction is hash-bound and retains the
+previous commit/hash. It is not nine new independent observations. Main receipt is still
+`NOT_VERIFIED` until Main provides actual evidence. The new EIA observation stays a separate
+tenth research input and does not inflate this fixed nine-row handoff.
