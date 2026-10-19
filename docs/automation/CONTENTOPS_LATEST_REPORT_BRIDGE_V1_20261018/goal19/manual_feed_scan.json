@@ -1,0 +1,40 @@
+{
+  "configured_bundle_count": 4,
+  "coverage": "CONFIGURED_IMMUTABLE_EXPORTS_ONLY",
+  "events": [
+    {
+      "blockers": [],
+      "receipt_id": "main-feed-f45b25fc74213010cae1f8ea9e4b2c83c52b6a7915eb20106371da849f479d65",
+      "report_id": "asset-report:USOIL",
+      "report_version": 1,
+      "state": "LINEAGE_ONLY_NOOP"
+    },
+    {
+      "blockers": [],
+      "receipt_id": "main-feed-94e70244a998ba14ca2946660f8f78f9cdf95ac573fd5adad65c7c07591868f1",
+      "report_id": "asset-report:USOIL",
+      "report_version": 2,
+      "state": "ADMITTED"
+    },
+    {
+      "blockers": [],
+      "receipt_id": "main-feed-a61e749cf36eb876d73b6b87f6dbba87cf190b053ba66c59167a51a16c2b459f",
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 1,
+      "state": "ADMITTED"
+    },
+    {
+      "blockers": [],
+      "receipt_id": "main-feed-b75ce201fc908b35e54759f775c25387b0abdce27e42b5ce04164e46f6dae7f3",
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 2,
+      "state": "ADMITTED"
+    }
+  ],
+  "gaps": [],
+  "new_events": 4,
+  "observed_at_utc": "2026-10-18T17:03:52.212967Z",
+  "producer_commit": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+  "public_write_performed": false,
+  "schema_version": "contentops.main_report_feed.v1"
+}

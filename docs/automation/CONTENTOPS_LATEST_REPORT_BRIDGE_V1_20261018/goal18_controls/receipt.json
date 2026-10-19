@@ -1,0 +1,32 @@
+{
+  "canonical_public_url": null,
+  "controlled_model_callbacks": 4,
+  "counts": {
+    "blocked_results": 1,
+    "compiled_derivatives": 16,
+    "controlled_drafts": 2,
+    "drafts": 2,
+    "editorial_inputs": 1,
+    "fresh_qualified_drafts": 0,
+    "missing_claims": 0,
+    "no_ops": 1,
+    "report_events_consumed": 2,
+    "report_events_received": 4,
+    "writer_calls": 0
+  },
+  "current_article_identity": "4d877850adda8b3318c3d56cac2ef7e5bb4ea5faa0f70aa133bc6e34e1229d33",
+  "current_preview_count": 8,
+  "execution_kind": "INJECTED_SYNTHETIC_OUTPUT_CONTROL",
+  "fresh_model_calls": 0,
+  "historical_preview_count": 8,
+  "latest_report_version": 2,
+  "observed_at_utc": "2026-10-18T15:26:23.913143Z",
+  "poison_blockers": [
+    "REPORT_BODY_BINDING_MISMATCH:report_version"
+  ],
+  "production_store_opened": false,
+  "public_writes": 0,
+  "runtime_started": false,
+  "schema_version": "contentops.goal18.controlled_integrated_acceptance.v2",
+  "store_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal18-ui-workspace-20261018-03\\store.sqlite3"
+}

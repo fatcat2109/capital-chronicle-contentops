@@ -1,0 +1,60 @@
+{
+  "artifact_hashes": {
+    "controlled_outputs.json": "b79d354005bc0c1c9b3e3b22160ec04f4cf5904e23a4686a30dc94100e73df47",
+    "controlled_snapshot.json": "0527fc2d35ddf63424327a08b315f661f679660705406efb3d15344266fea17c"
+  },
+  "controlled_callbacks": 4,
+  "counts": {
+    "blocked_results": 0,
+    "compiled_derivatives": 16,
+    "controlled_drafts": 2,
+    "drafts": 2,
+    "editorial_inputs": 2,
+    "fresh_qualified_drafts": 0,
+    "missing_claims": 0,
+    "no_ops": 1,
+    "report_events_consumed": 4,
+    "report_events_received": 4,
+    "writer_calls": 0
+  },
+  "current_previews": 16,
+  "current_report_count": 2,
+  "duplicate_opportunity_additional_callbacks": 0,
+  "evidence_copy_line_endings": "LF_NORMALIZED_FOR_REPOSITORY",
+  "fresh_provider_calls": 0,
+  "headline_readback_reused_for_render": true,
+  "internal_projection_is_publication_cycle": false,
+  "llm_pause_bypassed": false,
+  "observed_at_utc": "2026-10-18T17:02:43.466499Z",
+  "producer_commit": "c8477a035bcb04b3d13bc4f8e26bd651dd9d957d",
+  "production_store_mutated": false,
+  "public_writes": 0,
+  "report_versions": [
+    {
+      "contract_version": "1.0.0",
+      "report_id": "asset-report:USOIL",
+      "report_version": 1,
+      "status": "LINEAGE_ONLY_NOOP"
+    },
+    {
+      "contract_version": "1.1.0",
+      "report_id": "asset-report:USOIL",
+      "report_version": 2,
+      "status": "ADMITTED"
+    },
+    {
+      "contract_version": "1.0.0",
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 1,
+      "status": "ADMITTED"
+    },
+    {
+      "contract_version": "1.0.0",
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 2,
+      "status": "ADMITTED"
+    }
+  ],
+  "schema_version": "contentops.goal19.multiasset_acceptance.v1",
+  "store_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal19-multiasset-acceptance-8zgf_ce6\\store.sqlite3"
+}

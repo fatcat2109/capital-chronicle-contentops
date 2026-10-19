@@ -1,0 +1,459 @@
+{
+  "compiled_derivatives": 0,
+  "correction_lineage": {
+    "affected_prior_inputs": [
+      "cc-receipt-d15bed899e1eb9ddcdf529112dc97b1506d3cdfebe9fcafe9a6eb35611c400c9"
+    ],
+    "automatic_public_update": false,
+    "parent_report_sha256": "c8f85d4d231f337fe7a05a65bb922d33c74c846efc4f58e87cd0917613bc505b",
+    "report_id": "asset-report:XNGUSD",
+    "report_version": 2,
+    "supersedes_report_id": "asset-report:XNGUSD",
+    "workflow_owner": "existing published-memory/update-chain and DurablePublicationCoordinator"
+  },
+  "correction_receipt_status": "ADMITTED",
+  "counts": {
+    "blocked_results": 0,
+    "drafts": 0,
+    "editorial_inputs": 1,
+    "missing_claims": 0,
+    "no_ops": 1,
+    "report_events_consumed": 2,
+    "report_events_received": 3,
+    "writer_calls": 0
+  },
+  "duplicate_receipt_status": "DUPLICATE_NOOP",
+  "integration_state": "EXACT_MAIN_LOCAL_V2_CORRECTION_TO_EDITORIAL_INPUT_PROVEN",
+  "latest_input_claims": 7,
+  "latest_input_planned_derivative_intents": 8,
+  "observed_at_utc": "2026-10-18T13:56:26.842861Z",
+  "parent_delivery": "REPORT_NOT_DELIVERABLE",
+  "parent_validation": {
+    "blockers": [],
+    "raw_sha256": "767ac424ad1fa262f1550620ef5af610f81ff085d5343efbb4e8985f46ae8fb5",
+    "report_id": "asset-report:XNGUSD",
+    "report_version": 1,
+    "source_report_sha256": "c8f85d4d231f337fe7a05a65bb922d33c74c846efc4f58e87cd0917613bc505b",
+    "status": "ADMITTED"
+  },
+  "prior_snapshot_preserved_at_contentops_commit": "def86891344937197639df8542510a005d3c452f",
+  "production_store_opened": false,
+  "public_writes": 0,
+  "schema_version": "contentops.latest_report_bridge.actual_v2_correction_integration.v1",
+  "underlying_event_independently_reacquired_by_contentops": false,
+  "upstream_binding": {
+    "contract_revision": "asset-analysis-report-v1.0.0",
+    "envelope_schema_sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272",
+    "files": {
+      "CapitalChronicleAssetAnalysisReportV1.schema.json": {
+        "bytes": 20529,
+        "path": "schemas/analysis_reporting/CapitalChronicleAssetAnalysisReportV1.schema.json",
+        "sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
+      },
+      "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
+        "bytes": 11682,
+        "path": "schemas/analysis_reporting/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+        "sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272"
+      },
+      "contract-artifact-revision.json": {
+        "bytes": 1941,
+        "path": "docs/research/analysis_reporting/goal17/export/contract-artifact-revision.json",
+        "sha256": "ca7621e88ee7e9deea482a23f03a6168623389436d9a66ade5afe8ed229d1cbf"
+      },
+      "envelope.json": {
+        "bytes": 17194,
+        "path": "docs/research/analysis_reporting/goal17/export/latest-report-envelope.json",
+        "sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608"
+      },
+      "parent_envelope.json": {
+        "bytes": 17059,
+        "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/latest-report-envelope.json",
+        "sha256": "767ac424ad1fa262f1550620ef5af610f81ff085d5343efbb4e8985f46ae8fb5"
+      },
+      "parent_report.json": {
+        "bytes": 43084,
+        "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/report.json",
+        "sha256": "79edbd1698541c35325c15f859c7a2f3c7a978e682e5eacac1808ddc9e324208"
+      },
+      "report.json": {
+        "bytes": 43226,
+        "path": "docs/research/analysis_reporting/goal17/export/report.json",
+        "sha256": "7d30bc785af2c1106eba76dea201d6e397933c061895e1310b6b354dbdf71643"
+      }
+    },
+    "latest_pointer": {
+      "path": "reports/XNGUSD-364814ea5e2e/v0002/report.json",
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+      "report_version": 2
+    },
+    "observed_at_utc": "2026-10-18T13:52:54.851664Z",
+    "previous_local_snapshot": {
+      "contentops_commit": "def86891344937197639df8542510a005d3c452f",
+      "report_sha256": "bccf9a1ce473dec8a65ecf214517d9c3714693a3f989f317cd8b934a02516186",
+      "superseded_scope": "PRE_COMMIT_LOCAL_SNAPSHOT_ONLY"
+    },
+    "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
+    "producer_revision": "a4863f1638ef6d1523c2140721f9bd9b384f7e73+local-source-sha256:dfe3c4311692263f6938648cb9b6f7d12ac8d73cb4dba1220b7e290f0a0a16a3",
+    "producer_source_sha256": "dfe3c4311692263f6938648cb9b6f7d12ac8d73cb4dba1220b7e290f0a0a16a3",
+    "report_schema_sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8",
+    "source_state": "MAIN_LOCAL_V2_CORRECTION_PENDING_COMMIT"
+  },
+  "upstream_immutable_remote_binding": "PENDING",
+  "validation": {
+    "affected_symbols": [
+      "XNGUSD"
+    ],
+    "asset_ids": [
+      "XNGUSD"
+    ],
+    "blockers": [],
+    "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+    "change_kind": "CORRECTION",
+    "changed_claim_ids": [
+      "eia-storage-observed"
+    ],
+    "claim_set_hash": "17183ab7ceb7ba5a03ef913c9f16144f846113fc30457f1f35ac1e50331dacec",
+    "claims": [
+      {
+        "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+        "claim_hash": "c42d4c016adca6213ce414c69303969e9eb87ed2b951faa8bcc787cdea9b4200",
+        "claim_id": "eia-storage-observed",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "OBSERVED_FACT",
+        "producer_layer": "OBSERVED_SOURCE_FACT",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [
+          "asset-report:XNGUSD"
+        ],
+        "text": "EIA release 2026-10-15: the weekly injection was 67 Bcf for the week ended 2026-10-09, versus the five-year same-week injection average of 90 Bcf. The stock level was 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year stock level."
+      },
+      {
+        "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+        "claim_hash": "0cc35e5a7691fe653370feb77a7a43832a4d288095146d27eccd17baaa9b4e85",
+        "claim_id": "cc-gas-balance",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+        "producer_layer": "CC_ANALYSIS",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [
+          "asset-report:XNGUSD"
+        ],
+        "text": "Capital Chronicle analysis: the smaller seasonal refill tightens the weekly balance at the margin, while the above-average stock cushion limits a simple shortage interpretation. It does not measure a market surprise or predict the CFD price."
+      },
+      {
+        "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+        "claim_hash": "c299403bd52a5722de0d0d243827f967475c38806c5ab58bd6d089cdc546a366",
+        "claim_id": "cc-gas-short",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [
+          "asset-report:XNGUSD"
+        ],
+        "text": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+      },
+      {
+        "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+        "claim_hash": "7d563d97924deabd4117613e388890bed30adeba2b8d5d1e1b63afb0c8ece890",
+        "claim_id": "cc-gas-swing",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [
+          "asset-report:XNGUSD"
+        ],
+        "text": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+      },
+      {
+        "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+        "claim_hash": "cd362133683bee22e7ac62061b3045e57683e27fc79759f2e4a692df2338d449",
+        "claim_id": "cc-gas-long",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [
+          "asset-report:XNGUSD"
+        ],
+        "text": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated."
+      },
+      {
+        "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+        "claim_hash": "84fef0091132f2bf3a96af24351e06ad2591bea83b1df538bab7e59fba2927b3",
+        "claim_id": "cc-gas-hold",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [
+          "asset-report:XNGUSD"
+        ],
+        "text": "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position."
+      },
+      {
+        "basis_risk": "Underlying evidence does not establish executable CFD economics.",
+        "claim_hash": "b74c289bdafff8fb105f3898b960fa8ad87a445bf7b14a2847d98e38c28f8b04",
+        "claim_id": "cc-gas-invalidate",
+        "context_only": true,
+        "evidence": [
+          {
+            "evidence_id": "goal17-eia-storage-actual-20261018",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T13:03:41Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+            "retrieval_time_utc": "2026-10-18T13:03:41Z",
+            "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+            "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+            "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+          }
+        ],
+        "exact_or_proxy": "EXACT",
+        "layer": "SCENARIO_OR_UNCERTAINTY",
+        "producer_layer": "CONDITIONAL_SCENARIO",
+        "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+        "source_report_ids": [
+          "asset-report:XNGUSD"
+        ],
+        "text": "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review."
+      }
+    ],
+    "envelope_sha256": "5714d55767085221950384036113bf26c2f49e0ef96e2f49c2834060a4f1fc4f",
+    "event_id": "report-event:e79f42e3289023c971a2428cb3e2d4b07cc44b9aff034c6199b16d67898a0e90",
+    "hold_and_invalidation_conditions": [
+      "Retain the analytical tightening watch only while subsequent storage and weather-normalized balance evidence supports it; this is not an instruction to hold a position.",
+      "Invalidate the tightening watch if seasonal refills recover and the storage cushion widens, or required evidence remains unavailable at the next review."
+    ],
+    "horizon_blocks": [
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2026-10-23T13:03:41Z",
+        "horizon": "short",
+        "outlook": "The next weekly EIA release can test whether the small refill persisted; weather and a pre-release consensus are required to distinguish seasonality from a tradable surprise. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-18T13:03:41Z",
+        "trading_sessions": 5
+      },
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2026-11-16T13:03:41Z",
+        "horizon": "swing",
+        "outlook": "Several weekly storage releases and weather-normalized balances must show the cushion narrowing; one small refill cannot establish a sustained deficit through the shoulder season. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-18T13:03:41Z",
+        "trading_sessions": 21
+      },
+      {
+        "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+        "end_utc": "2027-01-13T13:03:41Z",
+        "horizon": "long",
+        "outlook": "Winter heating demand, supply response and export demand determine the inventory draw path; an October stock surplus can coexist with winter tightness, but the curve and CFD financing/roll are missing. If independent balance evidence confirms tightening, upward pressure is possible; warmer weather or supply recovery can reverse it. No price target or probability is estimated.",
+        "report_state": "PARTIAL",
+        "scoreable_forecast": false,
+        "start_utc": "2026-10-18T13:03:41Z",
+        "trading_sessions": 63
+      }
+    ],
+    "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+    "limitations": [
+      "CC analysis is not external confirmation or an order.",
+      "No private holdings/account context is included.",
+      "Exact execution economics are unavailable."
+    ],
+    "machine_schema_verified": true,
+    "materiality_rationale": "Wording clarification: distinguish the five-year weekly injection average from the five-year stock-level average. Source values and cutoff are unchanged.",
+    "missing_claims": [],
+    "parent_report_id": "asset-report:XNGUSD",
+    "parent_report_sha256": "c8f85d4d231f337fe7a05a65bb922d33c74c846efc4f58e87cd0917613bc505b",
+    "producer_binding": {
+      "contract_revision": "asset-analysis-report-v1.0.0",
+      "envelope_schema_sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272",
+      "files": {
+        "CapitalChronicleAssetAnalysisReportV1.schema.json": {
+          "bytes": 20529,
+          "path": "schemas/analysis_reporting/CapitalChronicleAssetAnalysisReportV1.schema.json",
+          "sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
+        },
+        "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
+          "bytes": 11682,
+          "path": "schemas/analysis_reporting/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+          "sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272"
+        },
+        "contract-artifact-revision.json": {
+          "bytes": 1941,
+          "path": "docs/research/analysis_reporting/goal17/export/contract-artifact-revision.json",
+          "sha256": "ca7621e88ee7e9deea482a23f03a6168623389436d9a66ade5afe8ed229d1cbf"
+        },
+        "envelope.json": {
+          "bytes": 17194,
+          "path": "docs/research/analysis_reporting/goal17/export/latest-report-envelope.json",
+          "sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608"
+        },
+        "parent_envelope.json": {
+          "bytes": 17059,
+          "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/latest-report-envelope.json",
+          "sha256": "767ac424ad1fa262f1550620ef5af610f81ff085d5343efbb4e8985f46ae8fb5"
+        },
+        "parent_report.json": {
+          "bytes": 43084,
+          "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/report.json",
+          "sha256": "79edbd1698541c35325c15f859c7a2f3c7a978e682e5eacac1808ddc9e324208"
+        },
+        "report.json": {
+          "bytes": 43226,
+          "path": "docs/research/analysis_reporting/goal17/export/report.json",
+          "sha256": "7d30bc785af2c1106eba76dea201d6e397933c061895e1310b6b354dbdf71643"
+        }
+      },
+      "latest_pointer": {
+        "path": "reports/XNGUSD-364814ea5e2e/v0002/report.json",
+        "report_id": "asset-report:XNGUSD",
+        "report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+        "report_version": 2
+      },
+      "observed_at_utc": "2026-10-18T13:52:54.851664Z",
+      "previous_local_snapshot": {
+        "contentops_commit": "def86891344937197639df8542510a005d3c452f",
+        "report_sha256": "bccf9a1ce473dec8a65ecf214517d9c3714693a3f989f317cd8b934a02516186",
+        "superseded_scope": "PRE_COMMIT_LOCAL_SNAPSHOT_ONLY"
+      },
+      "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
+      "producer_revision": "a4863f1638ef6d1523c2140721f9bd9b384f7e73+local-source-sha256:dfe3c4311692263f6938648cb9b6f7d12ac8d73cb4dba1220b7e290f0a0a16a3",
+      "producer_source_sha256": "dfe3c4311692263f6938648cb9b6f7d12ac8d73cb4dba1220b7e290f0a0a16a3",
+      "report_schema_sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8",
+      "source_state": "MAIN_LOCAL_V2_CORRECTION_PENDING_COMMIT"
+    },
+    "public_write_performed": false,
+    "raw_sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608",
+    "report_id": "asset-report:XNGUSD",
+    "report_raw_sha256": [
+      "7d30bc785af2c1106eba76dea201d6e397933c061895e1310b6b354dbdf71643"
+    ],
+    "report_version": 2,
+    "research_gaps": [],
+    "schema_diagnostics": [],
+    "schema_version": "contentops.capital_chronicle_latest_report_consumer.v1",
+    "source_report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+    "status": "ADMITTED",
+    "validated_at_utc": "2026-10-18T13:56:26.842861Z",
+    "writer_invoked": false
+  },
+  "writer_calls": 0
+}

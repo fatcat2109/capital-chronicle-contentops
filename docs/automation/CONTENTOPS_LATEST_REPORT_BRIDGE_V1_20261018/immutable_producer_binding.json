@@ -1,0 +1,106 @@
+{
+  "article_sections": 7,
+  "claims": 7,
+  "compiled_derivatives": 0,
+  "counts": {
+    "blocked_results": 0,
+    "drafts": 0,
+    "editorial_inputs": 1,
+    "missing_claims": 0,
+    "no_ops": 1,
+    "report_events_consumed": 2,
+    "report_events_received": 3,
+    "writer_calls": 0
+  },
+  "editorial_input": "XNGUSD_v2_editorial_input.json",
+  "editorial_input_sha256": "a20f2afda238e259cb44ae1649327691ec09f19d58a36977540f416867d846f4",
+  "file_bytes_identical_to_actual_integration": true,
+  "git_blob_comparisons_passed": 7,
+  "integration_state": "EXACT_MAIN_REMOTE_BLOB_V2_CORRECTION_TO_EDITORIAL_INPUT_PROVEN",
+  "latest_pointer_verified_from_commit": true,
+  "local_execution_receipt": "actual_v2_correction_integration.json",
+  "local_execution_receipt_sha256": "89afbd9b38c06a4fe81c90f72aedc773c4f85b9d9e47cc9a25b31ebe5df4d862",
+  "main_ci_or_merge_required_for_byte_identity": false,
+  "merged_or_deployed_or_natural_runtime_claimed": false,
+  "observed_at_utc": "2026-10-18T13:57:23.480039Z",
+  "planned_derivative_input_intents": 8,
+  "production_store_opened": false,
+  "public_writes": 0,
+  "schema_version": "contentops.latest_report_bridge.immutable_producer_binding.v1",
+  "upstream_binding": {
+    "contract_revision": "asset-analysis-report-v1.0.0",
+    "envelope_schema_sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272",
+    "files": {
+      "CapitalChronicleAssetAnalysisReportV1.schema.json": {
+        "bytes": 20529,
+        "git_blob_oid": "795cf17482dde4070b42f5004a73bfcbb59b5a0b",
+        "path": "schemas/analysis_reporting/CapitalChronicleAssetAnalysisReportV1.schema.json",
+        "sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8"
+      },
+      "CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json": {
+        "bytes": 11682,
+        "git_blob_oid": "022c5d8eaa32a0e82fa6590520b8806014f12575",
+        "path": "schemas/analysis_reporting/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json",
+        "sha256": "a9bdf3e93023c021c3464aebdfacfc4d5e13b340c775f2dfbab798e76c797272"
+      },
+      "contract-artifact-revision.json": {
+        "bytes": 1941,
+        "git_blob_oid": "c8bc7c05d1a50ff021ebf3ccb83b03e268f1d2a6",
+        "path": "docs/research/analysis_reporting/goal17/export/contract-artifact-revision.json",
+        "sha256": "ca7621e88ee7e9deea482a23f03a6168623389436d9a66ade5afe8ed229d1cbf"
+      },
+      "envelope.json": {
+        "bytes": 17194,
+        "git_blob_oid": "a62ec727302722eaf3fd565f94fd6824be247f3a",
+        "path": "docs/research/analysis_reporting/goal17/export/latest-report-envelope.json",
+        "sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608"
+      },
+      "parent_envelope.json": {
+        "bytes": 17059,
+        "git_blob_oid": "f57b4e57fd7ea833da0719d8731decd7bb211b1b",
+        "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/latest-report-envelope.json",
+        "sha256": "767ac424ad1fa262f1550620ef5af610f81ff085d5343efbb4e8985f46ae8fb5"
+      },
+      "parent_report.json": {
+        "bytes": 43084,
+        "git_blob_oid": "7e07a59254d01f0d1fdf1716688b748cc52a7de4",
+        "path": "docs/research/analysis_reporting/goal17/retained-run-v1/reports/XNGUSD-364814ea5e2e/v0001/report.json",
+        "sha256": "79edbd1698541c35325c15f859c7a2f3c7a978e682e5eacac1808ddc9e324208"
+      },
+      "report.json": {
+        "bytes": 43226,
+        "git_blob_oid": "26a55f7840c6cb9abd99f10e98049ebb400dc50a",
+        "path": "docs/research/analysis_reporting/goal17/export/report.json",
+        "sha256": "7d30bc785af2c1106eba76dea201d6e397933c061895e1310b6b354dbdf71643"
+      }
+    },
+    "latest_pointer": {
+      "path": "reports/XNGUSD-364814ea5e2e/v0002/report.json",
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+      "report_version": 2
+    },
+    "observed_at_utc": "2026-10-18T13:52:54.851664Z",
+    "previous_local_snapshot": {
+      "contentops_commit": "def86891344937197639df8542510a005d3c452f",
+      "report_sha256": "bccf9a1ce473dec8a65ecf214517d9c3714693a3f989f317cd8b934a02516186",
+      "superseded_scope": "PRE_COMMIT_LOCAL_SNAPSHOT_ONLY"
+    },
+    "producer_base_commit": "a4863f1638ef6d1523c2140721f9bd9b384f7e73",
+    "producer_branch": "task/capital-chronicle-goal17-asset-reports-20261018",
+    "producer_commit": "7c976da8688986bd95bbc536b6631b29183afb88",
+    "producer_pr_head_at_readback": "7c976da8688986bd95bbc536b6631b29183afb88",
+    "producer_pull_request": "https://github.com/fatcat2109/Headline-Raw-data-json/pull/232",
+    "producer_remote_url": "https://github.com/fatcat2109/Headline-Raw-data-json.git",
+    "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+    "producer_revision": "7c976da8688986bd95bbc536b6631b29183afb88",
+    "producer_source_git_blob": "b48403ca45ecc1dd1ab93b9f4b4b1d148aed4bcb",
+    "producer_source_sha256": "dfe3c4311692263f6938648cb9b6f7d12ac8d73cb4dba1220b7e290f0a0a16a3",
+    "remote_head_at_readback": "7c976da8688986bd95bbc536b6631b29183afb88",
+    "remote_observed_at_utc": "2026-10-18T13:57:23.480039Z",
+    "remote_ref": "refs/heads/task/capital-chronicle-goal17-asset-reports-20261018",
+    "report_schema_sha256": "1291f152523325990070d52976fe004f5c5c1858e7dfe76f1f65d0da7776bfc8",
+    "source_state": "MAIN_REMOTE_COMMIT_BOUND"
+  },
+  "writer_calls": 0
+}

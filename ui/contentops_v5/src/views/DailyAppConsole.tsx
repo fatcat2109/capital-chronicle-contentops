@@ -1,3 +1,4 @@
+import { ReportEditorialWorkspace } from './ReportEditorialWorkspace';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Activity, AlertTriangle, Archive, BarChart3, BookOpenCheck, CalendarClock,
@@ -433,6 +434,7 @@ function Today({ data, refresh, hourlyAudit }: { data: DailyAppSnapshot; refresh
     <Panel title="Current cycle" eyebrow="Today">
       {cycle ? <DefinitionRows object={cycle} /> : <Empty title="No governed cycle recorded" detail="The durable store has no current cycle. The console will not invent one." />}
     </Panel>
+    <ReportEditorialWorkspace data={data.today.report_bridge} />
     <Panel title="Continuous intelligence" eyebrow="Newsroom input truth">
       <div className="daily-grid-4">
         <Metric label="Headline ingestion" value={words(data.runtime.headline_ingestion?.lane_state ?? 'UNAVAILABLE')} status={data.runtime.headline_ingestion?.lane_state} />

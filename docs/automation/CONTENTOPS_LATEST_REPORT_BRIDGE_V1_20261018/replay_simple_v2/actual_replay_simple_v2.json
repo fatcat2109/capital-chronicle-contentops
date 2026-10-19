@@ -1,0 +1,120 @@
+{
+  "article_identity": "26f466d9673627dd2943ebe382ecbc8695ba9d1034ac8d200f5a41a249aa774a",
+  "artifact_hashes": {
+    "article_manifest_v1.json": "61a1ad60a1bb2825afe17176e521907e7b5fd5437c13e52ae538abefc76c553d",
+    "derivative_intents_v1.json": "89503c3f816fba004880780b332ae245e989bd1951abe1759bb8bc944d556b0b",
+    "native_derivative_previews_v1.json": "fc6e02abfbf0555ba2e01c5761685294c7d1ad2730d18987f2cb7a9a75b48b32",
+    "qualified_article_record_v1.json": "f1f626f419150f87d7a3eaf231f578035d657fc5e17665c443f3c9add90d2af3",
+    "run_context_v1.json": "4f442227e98570903b8c1a458b46002f3968702dcbce188fecd93e5651552944",
+    "simple_gemini_evidence_v1.json": "dc308f53cd52816aae66cb0947b8815ccf0b2de3813050547d47c34e976fdb76",
+    "simple_gemini_newsroom_receipt_v1.json": "1d9503db62a0b81f9ea96f771f2de18ece99eaac7d475263a094add6207c83f0",
+    "simple_gemini_selection_v1.json": "ec4042173257c146bb1ed86e41d0099f7ae9171804bce223566ae8c09698d5e3",
+    "simple_gemini_validation_v1.json": "49ae127b36b8881261b3657c67855250190cdf46442d35bbde029d4819b81c6f"
+  },
+  "browser_recovery_calls": 0,
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "compiled_derivative_count": 8,
+  "copied_artifacts_root": "docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\replay_simple_v2",
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "draft_count": 1,
+  "envelope_sha256": "061c0e15864a2239414fa1de93b9b1c8589d7e62bfa364da3887c8df7df94608",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "The underlying event remains unconfirmed by this report import.",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:XNGUSD",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CAPITAL CHRONICLE REPORT \u2014 EVENT UNCONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Capital Chronicle's admitted report states the cited observations and analysis.",
+    "report_truth_support_status": "SUPPORTED_HASH_BOUND_MAIN_REPORT",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "cc-report-evidence-goal17-eia-storage-actual-20261018"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "execution_kind": "INJECTED_MODEL_OUTPUT_REPLAY_ONLY",
+  "fresh_provider_call_performed": false,
+  "integration_state": "EXACT_MAIN_V2_TO_SIMPLE_REPLAY_ARTICLE_AND_EIGHT_PREVIEWS_PROVEN",
+  "limitations": [
+    "Injected replay proves mechanics only; it is not a fresh provider execution.",
+    "Preview payloads carry pending non-dispatchable canonical URL and require real Substack readback before dispatch.",
+    "Main report truth remains distinct from underlying event truth."
+  ],
+  "llm_operator_pause_remained_active": true,
+  "logical_model_invocation_count": 2,
+  "preview_count": 8,
+  "preview_destinations": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "telegram",
+    "threads",
+    "x",
+    "youtube"
+  ],
+  "preview_links_bound": false,
+  "private_context_included": false,
+  "producer_commit": "7c976da8688986bd95bbc536b6631b29183afb88",
+  "public_write_performed": false,
+  "qualified_article_count": 1,
+  "report_id": "asset-report:XNGUSD",
+  "report_sha256": "89a4db7efe3b476d0ca5a1a5c8d5dfdc5af7f4170a63deed501bce718a836b47",
+  "report_version": 2,
+  "schema_version": "contentops.goal18.actual_replay_simple_v2.v1",
+  "selection_model_receipt": {
+    "logical_invocation_id": "goal18-replay-main-v2:select",
+    "model_identity_provider_verifiable": false,
+    "models_attempted_in_order": [
+      "vx/gemini-3.5-flash(high)"
+    ],
+    "public_write_attempted": false,
+    "replay_only": true,
+    "role_task_id": "v1_simple_gemini_selection",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.5-flash(high)",
+    "terminal_disposition": "ACCEPTED",
+    "total_attempts": 1,
+    "total_cost": {},
+    "total_fallback_transitions": 0,
+    "total_usage": {
+      "total_tokens": 0
+    }
+  },
+  "source_request_count": 0,
+  "source_run_output_root": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal18-replay-run-20261018-01\\test_real_main_report_replay_r0\\replay-output",
+  "supported_material_claim_count": 13,
+  "unknown_write_count": 0,
+  "validation_status": "PASS",
+  "writer_model_receipt": {
+    "logical_invocation_id": "goal18-replay-main-v2:write",
+    "model_identity_provider_verifiable": false,
+    "models_attempted_in_order": [
+      "vx/gemini-3.5-flash(high)"
+    ],
+    "public_write_attempted": false,
+    "replay_only": true,
+    "role_task_id": "v1_simple_gemini_article_writing",
+    "schema_version": "contentops.nine_router_ordered_model_router.v2",
+    "selected_model": "vx/gemini-3.5-flash(high)",
+    "terminal_disposition": "ACCEPTED",
+    "total_attempts": 1,
+    "total_cost": {},
+    "total_fallback_transitions": 0,
+    "total_usage": {
+      "total_tokens": 0
+    }
+  }
+}

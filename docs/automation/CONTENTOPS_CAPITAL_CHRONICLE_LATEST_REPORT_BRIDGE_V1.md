@@ -133,3 +133,8 @@ is a durable handoff condition, not permission to declare a synthetic consumer i
 
 No repeated full historical audit, provider cycle, public canary or runtime activation is required
 to implement and verify this consumer. Actual schedule/publication proof remains separate.
+
+Implementation and exact-source evidence are tracked in
+[the Goal 17 checkpoint](CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md).
+That checkpoint distinguishes tested consumer controls, actual rejected/admitted Main bytes,
+editorial inputs, writer execution and remote integration; it is not a second status owner.

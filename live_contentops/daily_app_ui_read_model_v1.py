@@ -19,7 +19,6 @@ from urllib.parse import urlsplit
 from live_contentops.daily_app_supervisor_v1 import (
     OPERATING_MODES,
     RECONCILE_CONFIRMED,
-    RECONCILE_CONTROLLED_NO_WRITE,
     RECONCILE_PENDING_OPERATOR,
     RECONCILE_PENDING_READBACK,
     RECONCILE_PUBLIC_OBJECT_CONTENT_INCOMPLETE,
@@ -134,6 +133,11 @@ def _read_json_file(path: Path) -> dict[str, Any]:
 def _rows(conn: Any, sql: str, params: Iterable[Any] = ()) -> list[dict[str, Any]]:
     return [dict(row) for row in conn.execute(sql, tuple(params)).fetchall()]
 
+
+
+def _report_bridge_projection(outbox: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
+    from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
+    return report_workspace_projection(list(outbox.values()))
 
 def _latest_time(rows: Iterable[Mapping[str, Any]], fields: Iterable[str]) -> Optional[datetime]:
     values = [
@@ -647,7 +651,7 @@ def build_daily_app_snapshot(
             transitions = _rows(conn, "SELECT event_id,work_item_id,event_kind,event_seq,from_state,to_state,reason_code,policy_version,model_version,timestamp_utc,event_hash FROM transition_events ORDER BY timestamp_utc DESC,event_id DESC")
             heartbeats = _rows(conn, "SELECT heartbeat_id,worker_id,last_seen_at,status FROM heartbeats ORDER BY last_seen_at DESC")
             invocations = _rows(conn, "SELECT invocation_id,work_item_id,model_id,prompt_tokens,completion_tokens,invoked_at FROM model_invocations ORDER BY invoked_at DESC")
-            outbox = {row["message_id"]: row for row in _rows(conn, "SELECT message_id,work_item_id,destination,status,created_at FROM outbox_messages")}
+            outbox = {row["message_id"]: row for row in _rows(conn, "SELECT message_id,work_item_id,destination,status,payload,created_at FROM outbox_messages")}
             dispatch_rows = _rows(conn, "SELECT * FROM platform_dispatches ORDER BY dispatched_at DESC,dispatch_id DESC")
             readbacks = _rows(conn, "SELECT readback_id,dispatch_id,readback_data,read_at FROM readbacks ORDER BY read_at DESC")
             reconciliations = _rows(conn, "SELECT * FROM reconciliations ORDER BY reconciled_at DESC")
@@ -825,7 +829,8 @@ def build_daily_app_snapshot(
             RECONCILE_PENDING_OPERATOR,
         }
     ]
-    latest_cycle = work_items[0] if work_items else None
+    latest_cycle = next((row for row in work_items
+                         if row.get("target_surface") != "CONTENTOPS_EDITORIAL_ONLY"), None)
     current_publications = [
         row for row in publications
         if latest_cycle and row["work_item_id"] == latest_cycle["work_item_id"]
@@ -965,7 +970,8 @@ def build_daily_app_snapshot(
     platform_models = []
     for platform_id, display_name, binding_class in TIER1_DESTINATIONS:
         aliases = {platform_id}
-        if platform_id == "youtube": aliases.add("youtube_community")
+        if platform_id == "youtube":
+            aliases.add("youtube_community")
         last = next((dispatch_by_platform[a] for a in aliases if a in dispatch_by_platform), None)
         readiness = readiness_by_surface.get(DESTINATION_TO_SURFACE.get(platform_id, ""), {})
         readiness_state = str(readiness.get("readiness_state") or "READINESS_NOT_PROBED")
@@ -1664,6 +1670,7 @@ def build_daily_app_snapshot(
             "latest_material_delta_status": latest_material_delta_status,
             "latest_decision_reason": latest_decision_reason,
             "latest_stage_stopped": latest_stage_stopped,
+            "report_bridge": _report_bridge_projection(outbox),
             "current_cycle": ({
                 "work_item_id": latest_cycle["work_item_id"],
                 "state": latest_cycle["current_state"],

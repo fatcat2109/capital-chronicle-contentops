@@ -1,0 +1,327 @@
+{
+  "affected_symbols": [
+    "USOIL"
+  ],
+  "as_of_utc": "2026-10-18T15:20:24Z",
+  "asset_ids": [
+    "USOIL"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "JIM_MANUAL_ANALYSIS",
+  "change_kind": "THESIS_DELTA",
+  "changed_claim_ids": [
+    "oil-balance-mechanism",
+    "oil-balance-observed",
+    "oil-invalidation",
+    "oil-long",
+    "oil-short",
+    "oil-swing",
+    "oil-watch"
+  ],
+  "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+  "contract_revision": "asset-analysis-report-v1.1.0",
+  "envelope_sha256": "2c0a6f4a165f3a77c4c0964fc144e24df4c79688be78f84ff56a42ef2cb85ee9",
+  "event_id": "report-event:d2821872d3e9e38dadb461a50468d402360c60a043f1a25810b28b87e2121179",
+  "generated_at_utc": "2026-10-18T15:53:00Z",
+  "hold_conditions": [
+    "Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition."
+  ],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-23T15:20:24Z",
+      "horizon": "short",
+      "outlook": "Qualified physical-tightness watch over 5 sessions; no current directional entry.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T15:20:24Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-16T15:20:24Z",
+      "horizon": "swing",
+      "outlook": "Over 21 sessions, require several consistent balances before extending the weekly thesis.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T15:20:24Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-10-05T15:20:24Z",
+      "horizon": "long",
+      "outlook": "Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T15:20:24Z",
+      "trading_sessions": 252
+    }
+  ],
+  "invalidation_conditions": [
+    "Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied."
+  ],
+  "known_at_cutoff_utc": "2026-10-18T15:20:24Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "Comparison of retained claim hashes and evidence snapshots; a case change alone creates no new event.",
+  "parent_report_sha256": "797f3132e40f486036fc318cab8acf7b9288715035d90c4b3e82705fb17a3f1a",
+  "public_safe_claims": [
+    {
+      "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+      "claim_hash": "c05530c173dbdb5e7281c45cba7018929abef83bffb4e11210185a958c7cf1e4",
+      "claim_id": "oil-balance-observed",
+      "claim_type": "SOURCE_FACT",
+      "epistemic_layer": "OBSERVED_SOURCE_FACT",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Source: U.S. Energy Information Administration, 15 October 2026; week ending 9 October. Commercial crude inventories fell 8.6 million barrels to 415.6 million, while imports fell 791,000 barrels per day. Gasoline stocks rose 3.5 million barrels; distillate stocks fell 2.5 million. These are original EIA balance data retained on 18 October, not a release-time surprise estimate."
+    },
+    {
+      "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+      "claim_hash": "75d5ad13011c51658c18747d576451acc88869b8f480c88e27bafe3f438a62b3",
+      "claim_id": "oil-balance-mechanism",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Capital Chronicle analysis: the crude and distillate draws support a qualified supply-buffer watch. Lower imports, a gasoline build and softer four-week gasoline demand oppose a simple broad-demand-boom interpretation. Persistence needs further releases; current market pricing is unobserved."
+    },
+    {
+      "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+      "claim_hash": "cc265c4a10db3fb17a15ee2c533af357b93f46179e408a6eee5e85d16df45f56",
+      "claim_id": "oil-short",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Qualified physical-tightness watch over 5 sessions; no current directional entry."
+    },
+    {
+      "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+      "claim_hash": "e3a3db6fb60967cc3c8ca321dfa6971c2e9d565a278ade326a7e0e7487c1dbe3",
+      "claim_id": "oil-swing",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Over 21 sessions, require several consistent balances before extending the weekly thesis."
+    },
+    {
+      "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+      "claim_hash": "828b30c55c9c56d3b3d6fc7f528fdf67350dfa2ffad54d1ec42dbb018d85b2e8",
+      "claim_id": "oil-long",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Over 252 sessions, no directional conclusion follows from this weekly draw; evaluate seasonal supply and demand scenarios."
+    },
+    {
+      "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+      "claim_hash": "2bdf62bb63a20595916952d452a46c26043edd3c69fa0b55777558b82bb625a3",
+      "claim_id": "oil-watch",
+      "claim_type": "HOLD_CONDITION",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Retain a research WATCH while subsequent original EIA balances can test persistence; refresh after the next scheduled edition."
+    },
+    {
+      "basis_risk": "US physical-balance context is not the price or execution economics of the USOIL CFD.",
+      "claim_hash": "3d88208ba0e2fb7f5916c20df1305a993d5106ac4d155cbe23847ce604999025",
+      "claim_id": "oil-invalidation",
+      "claim_type": "INVALIDATION_CONDITION",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Withdraw the physical-tightness watch if repeated inventory rebuilding accompanies weak product supplied."
+    }
+  ],
+  "report_id": "asset-report:USOIL",
+  "report_sha256": "576daacb8834144c37443ab2cc5d693acdbb0c9c896921157e44dde813e0ff20",
+  "report_version": 2,
+  "run_id": "run-asset-report:a90725e89a52c7aa902ec51f",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "d8f9b5e97823932d3012c4147a1cdf8e814e7f72616b76137c50a24f9a6a24dc",
+    "evidence_snapshot_sha256": "93fa11a5d8c7eef1f89d94cd70bb0b5152e60231567d70d9ca7251a4b8fe1095"
+  },
+  "supersedes_report_id": "asset-report:USOIL",
+  "version": "1.1.0"
+}

@@ -24,6 +24,7 @@ EVIDENCE_BASES = frozenset(
     {
         "PRIMARY_EVENT_EVIDENCE",
         "DIRECT_REPUTABLE_REPORT",
+        "GOVERNED_CAPITAL_CHRONICLE_REPORT",
         "DIRECT_NEWSROOM_SOCIAL_REPORT",
         "TRUSTED_RELAY_ATTRIBUTED_REPORT",
         "TRUSTED_MARKET_RUMOR",
@@ -295,6 +296,8 @@ def _reader_label(
         return f"RELAYED / UNCONFIRMED - @{relay}, citing {publisher}"
     if evidence_basis == "TRUSTED_MARKET_RUMOR":
         return "MARKET RUMOR — UNCONFIRMED"
+    if evidence_basis == "GOVERNED_CAPITAL_CHRONICLE_REPORT":
+        return "CC REPORT / EVENT UNCONFIRMED"
     prefix = "SINGLE-SOURCE REPORT" if multiplicity == "SINGLE_SOURCE" else "UNCONFIRMED REPORT"
     return f"{prefix} - {publisher.upper()}"
 

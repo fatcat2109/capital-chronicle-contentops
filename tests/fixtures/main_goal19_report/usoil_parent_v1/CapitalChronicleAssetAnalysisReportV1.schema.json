@@ -1,0 +1,897 @@
+{
+  "$id": "CapitalChronicleAssetAnalysisReportV1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Main-owned asset-analysis-report-v1.0.0. Hash validation and evidence/rights linkage are additionally mandatory.",
+  "properties": {
+    "analysis": {
+      "required": [
+        "executed_consumers"
+      ],
+      "type": "object"
+    },
+    "as_of_utc": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "asset": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_class": {
+          "type": "string"
+        },
+        "asset_id": {
+          "type": "string"
+        },
+        "catalog_sources": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "description": {
+          "type": [
+            "string",
+            "object"
+          ]
+        },
+        "exness_contracts": {
+          "items": {
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "identity_state": {
+          "type": "string"
+        },
+        "listing_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "underlying": {
+          "type": [
+            "string",
+            "object",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "asset_id",
+        "asset_class",
+        "underlying",
+        "listing_id",
+        "description",
+        "exness_contracts",
+        "identity_state",
+        "catalog_sources"
+      ],
+      "type": "object"
+    },
+    "authority_flags": {
+      "additionalProperties": false,
+      "properties": {
+        "account_authority": {
+          "const": false
+        },
+        "broker_authority": {
+          "const": false
+        },
+        "database_authority": {
+          "const": false
+        },
+        "decision_authority": {
+          "const": false
+        },
+        "external_effects": {
+          "const": 0
+        },
+        "forecast_authority": {
+          "const": false
+        },
+        "model_call_performed": {
+          "const": false
+        },
+        "mutable_status_owner": {
+          "const": false
+        },
+        "network_call_performed": {
+          "const": false
+        },
+        "numeric_truth_authority": {
+          "const": false
+        },
+        "paper_authority": {
+          "const": false
+        },
+        "provider_call_performed": {
+          "const": false
+        },
+        "publication_authority": {
+          "const": false
+        },
+        "runtime_authority": {
+          "const": false
+        },
+        "runtime_mutation_performed": {
+          "const": false
+        },
+        "score_authority": {
+          "const": false
+        }
+      },
+      "required": [
+        "decision_authority",
+        "forecast_authority",
+        "numeric_truth_authority",
+        "score_authority",
+        "paper_authority",
+        "broker_authority",
+        "publication_authority",
+        "runtime_authority",
+        "database_authority",
+        "account_authority",
+        "provider_call_performed",
+        "model_call_performed",
+        "network_call_performed",
+        "runtime_mutation_performed",
+        "mutable_status_owner",
+        "external_effects"
+      ],
+      "type": "object"
+    },
+    "canonicalization": {
+      "const": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN"
+    },
+    "case": {
+      "enum": [
+        "FOUNDATION_DEEP_ASSET_ANALYSIS",
+        "LATEST_DATA_HEADLINE_UPDATE",
+        "PORTFOLIO_MANAGEMENT_REVIEW",
+        "JIM_MANUAL_ANALYSIS"
+      ]
+    },
+    "catalog_snapshot_id": {
+      "type": "string"
+    },
+    "causal_assessment": {
+      "additionalProperties": false,
+      "properties": {
+        "competing_explanations": {
+          "type": [
+            "string",
+            "array",
+            "null"
+          ]
+        },
+        "contradictions": {
+          "type": [
+            "string",
+            "array",
+            "null"
+          ]
+        },
+        "discriminating_observations": {
+          "type": [
+            "string",
+            "array",
+            "null"
+          ]
+        },
+        "falsifiers": {
+          "type": [
+            "string",
+            "array",
+            "null"
+          ]
+        },
+        "mechanism": {
+          "type": [
+            "string",
+            "array",
+            "null"
+          ]
+        },
+        "priced_in": {
+          "type": [
+            "string",
+            "array",
+            "null"
+          ]
+        },
+        "timing": {
+          "type": [
+            "string",
+            "array",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "mechanism",
+        "timing",
+        "competing_explanations",
+        "contradictions",
+        "priced_in",
+        "discriminating_observations",
+        "falsifiers"
+      ],
+      "type": "object"
+    },
+    "claims": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "basis_risk": {
+            "type": "string"
+          },
+          "claim_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "claim_id": {
+            "type": "string"
+          },
+          "claim_type": {
+            "enum": [
+              "HOLD_CONDITION",
+              "INVALIDATION_CONDITION"
+            ]
+          },
+          "epistemic_layer": {
+            "enum": [
+              "OBSERVED_SOURCE_FACT",
+              "CC_ANALYSIS",
+              "CONDITIONAL_SCENARIO"
+            ]
+          },
+          "evidence_refs": {
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "exact_or_proxy": {
+            "enum": [
+              "EXACT",
+              "PROXY"
+            ]
+          },
+          "freshness_state": {
+            "type": "string"
+          },
+          "horizon": {
+            "enum": [
+              "short",
+              "swing",
+              "long"
+            ]
+          },
+          "pit_state": {
+            "type": "string"
+          },
+          "public_safe": {
+            "type": "boolean"
+          },
+          "rights_state": {
+            "type": "string"
+          },
+          "supporting_evidence": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "currency": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "evidence_id": {
+                  "type": "string"
+                },
+                "known_at_utc": {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                "observation_time_utc": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "query_sha256": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "retrieval_time_utc": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "rights_evidence_sha256": {
+                  "anyOf": [
+                    {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                },
+                "source_hash": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "source_identity": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "source_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "unit": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "source_identity",
+                "source_url",
+                "observation_time_utc",
+                "retrieval_time_utc",
+                "unit",
+                "currency",
+                "evidence_id",
+                "source_hash",
+                "query_sha256",
+                "known_at_utc",
+                "rights_evidence_sha256"
+              ],
+              "type": "object"
+            },
+            "minItems": 1,
+            "type": "array"
+          },
+          "text": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "claim_id",
+          "text",
+          "epistemic_layer",
+          "evidence_refs",
+          "basis_risk",
+          "public_safe",
+          "rights_state",
+          "freshness_state",
+          "pit_state",
+          "exact_or_proxy",
+          "supporting_evidence",
+          "claim_hash"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "contagion": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "type": "string"
+          },
+          "classification": {
+            "type": "string"
+          },
+          "factor": {
+            "type": "string"
+          },
+          "falsifier": {
+            "type": "string"
+          },
+          "lag": {
+            "type": "string"
+          },
+          "sign": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "factor",
+          "channel",
+          "classification",
+          "sign",
+          "lag",
+          "falsifier"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "contract_revision": {
+      "const": "asset-analysis-report-v1.0.0"
+    },
+    "contracts": {
+      "additionalProperties": false,
+      "properties": {
+        "analysis_run_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "plan_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "request_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "resolution_receipt_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "request_sha256",
+        "plan_sha256",
+        "resolution_receipt_sha256",
+        "analysis_run_sha256"
+      ],
+      "type": "object"
+    },
+    "evidence": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "currency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "evidence_id": {
+            "type": "string"
+          },
+          "exact_or_proxy": {
+            "enum": [
+              "EXACT",
+              "PROXY"
+            ]
+          },
+          "facts": {
+            "type": "object"
+          },
+          "freshness_state": {
+            "type": "string"
+          },
+          "known_at_utc": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "observation_time_utc": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "pit_state": {
+            "type": "string"
+          },
+          "public_claim_use": {
+            "type": "boolean"
+          },
+          "publication_date": {
+            "format": "date",
+            "type": "string"
+          },
+          "query_id": {
+            "type": "string"
+          },
+          "query_sha256": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "retrieval_time_utc": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "rights_evidence_sha256": {
+            "anyOf": [
+              {
+                "pattern": "^[0-9a-f]{64}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "rights_state": {
+            "type": "string"
+          },
+          "route": {
+            "enum": [
+              "DATABASE",
+              "BROWSEROS_READ_ONLY",
+              "PROXY"
+            ]
+          },
+          "semantic_id": {
+            "type": "string"
+          },
+          "source_hash": {
+            "pattern": "^[0-9a-f]{64}$",
+            "type": "string"
+          },
+          "source_identity": {
+            "type": [
+              "string",
+              "object"
+            ]
+          },
+          "source_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "evidence_id",
+          "semantic_id",
+          "query_id",
+          "query_sha256",
+          "source_hash",
+          "known_at_utc",
+          "source_identity",
+          "source_url",
+          "observation_time_utc",
+          "retrieval_time_utc",
+          "rights_state",
+          "public_claim_use",
+          "rights_evidence_sha256",
+          "exact_or_proxy",
+          "freshness_state",
+          "pit_state",
+          "unit",
+          "currency",
+          "summary",
+          "facts",
+          "route"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "execution_readiness": {
+      "const": "BLOCKED"
+    },
+    "financing_and_vehicle_limits": {
+      "additionalProperties": false,
+      "properties": {
+        "conclusion": {
+          "type": "string"
+        },
+        "margin": {
+          "type": "string"
+        },
+        "roll_expiry": {
+          "type": "string"
+        },
+        "spread_slippage": {
+          "type": "string"
+        },
+        "swap_financing": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "swap_financing",
+        "roll_expiry",
+        "spread_slippage",
+        "margin",
+        "conclusion"
+      ],
+      "type": "object"
+    },
+    "generated_at_utc": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "holding_lifecycle": {
+      "additionalProperties": false,
+      "properties": {
+        "hold_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "recommendation_expires_at_utc": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "stop_holding_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "hold_conditions",
+        "stop_holding_conditions",
+        "recommendation_expires_at_utc"
+      ],
+      "type": "object"
+    },
+    "horizon_blocks": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "base_case": {
+            "type": "string"
+          },
+          "calendar_state": {
+            "type": "string"
+          },
+          "downside_scenario": {
+            "type": "string"
+          },
+          "end_utc": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "forecast_target": {
+            "type": "null"
+          },
+          "horizon": {
+            "enum": [
+              "short",
+              "swing",
+              "long"
+            ]
+          },
+          "invalidation": {
+            "type": "string"
+          },
+          "outlook": {
+            "type": "string"
+          },
+          "probability": {
+            "type": "null"
+          },
+          "quant_support": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "report_state": {
+            "enum": [
+              "FULL",
+              "PROXY",
+              "PARTIAL",
+              "BLOCKED",
+              "PENDING",
+              "NOT_APPLICABLE"
+            ]
+          },
+          "review_deadline_utc": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "scoreable_forecast": {
+            "const": false
+          },
+          "start_utc": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "time_zone": {
+            "const": "UTC"
+          },
+          "trading_sessions": {
+            "enum": [
+              5,
+              21,
+              63
+            ]
+          },
+          "upside_scenario": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "horizon",
+          "trading_sessions",
+          "start_utc",
+          "end_utc",
+          "time_zone",
+          "calendar_state",
+          "report_state",
+          "outlook",
+          "base_case",
+          "upside_scenario",
+          "downside_scenario",
+          "invalidation",
+          "quant_support",
+          "forecast_target",
+          "probability",
+          "scoreable_forecast",
+          "review_deadline_utc"
+        ],
+        "type": "object"
+      },
+      "maxItems": 3,
+      "minItems": 3,
+      "type": "array"
+    },
+    "horizon_policy": {
+      "type": "object"
+    },
+    "known_at_cutoff_utc": {
+      "format": "date-time",
+      "type": "string"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "owner_summary": {
+      "additionalProperties": false,
+      "properties": {
+        "current_thesis": {
+          "type": "string"
+        },
+        "recommendation": {
+          "enum": [
+            "WATCH",
+            "HOLD_IF",
+            "AVOID_NEW_RISK",
+            "REDUCE_RISK_PROPOSAL",
+            "CLOSE_PROPOSAL",
+            "NO_TRADE",
+            "ABSTAIN",
+            "DATA_BLOCKED"
+          ]
+        },
+        "what_changed": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "what_changed",
+        "current_thesis",
+        "recommendation"
+      ],
+      "type": "object"
+    },
+    "parent_report_sha256": {
+      "anyOf": [
+        {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "report_id": {
+      "pattern": "^asset-report:.+",
+      "type": "string"
+    },
+    "report_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "report_state": {
+      "enum": [
+        "FULL",
+        "PROXY",
+        "PARTIAL",
+        "BLOCKED",
+        "PENDING",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "report_version": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "schema": {
+      "const": "CapitalChronicleAssetAnalysisReportV1"
+    },
+    "source_snapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "catalog_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "evidence_snapshot_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "catalog_sha256",
+        "evidence_snapshot_sha256"
+      ],
+      "type": "object"
+    },
+    "supersedes_report_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "version": {
+      "const": "1.0.0"
+    }
+  },
+  "required": [
+    "schema",
+    "version",
+    "contract_revision",
+    "canonicalization",
+    "report_id",
+    "report_version",
+    "parent_report_sha256",
+    "supersedes_report_id",
+    "case",
+    "as_of_utc",
+    "generated_at_utc",
+    "known_at_cutoff_utc",
+    "source_snapshot",
+    "run_id",
+    "authority_flags",
+    "asset",
+    "catalog_snapshot_id",
+    "report_state",
+    "contracts",
+    "owner_summary",
+    "evidence",
+    "analysis",
+    "causal_assessment",
+    "horizon_policy",
+    "horizon_blocks",
+    "contagion",
+    "holding_lifecycle",
+    "financing_and_vehicle_limits",
+    "limitations",
+    "claims",
+    "execution_readiness",
+    "report_sha256"
+  ],
+  "title": "CapitalChronicleAssetAnalysisReportV1",
+  "type": "object"
+}

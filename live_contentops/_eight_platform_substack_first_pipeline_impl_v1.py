@@ -518,9 +518,10 @@ def build_native_derivative_payloads(
     ).upper()
     media_ids = [str(value) for value in media_asset_ids if str(value)]
     text_only_package = not media_ids
+    scope_notice = str(article.get("editorial_scope_notice") or "")
     if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package:
         def native_brief_text(*parts: str, limit: int, platform: str) -> str:
-            text = "\n\n".join(part for part in parts if part)
+            text = "\n\n".join(part for part in (*parts, scope_notice) if part)
             if len(text) > limit:
                 raise ValueError(f"{platform}_native_brief_exceeds_platform_limit")
             return text
@@ -569,7 +570,7 @@ def build_native_derivative_payloads(
                 title=title,
                 dek=detail,
                 canonical_url=canonical_url,
-                continuation_parts=(continuation,) if continuation else (),
+                continuation_parts=tuple(p for p in (continuation, scope_notice) if p),
                 limit=limit,
             )
             posts = [

@@ -117,6 +117,12 @@ class SimpleFirstPartyAwareEvidenceResolver:
     def request_count(self) -> int:
         return int(self._shared_request_budget["used"])
 
+    def resume_request_count(self, used: int) -> None:
+        """Restore the shared opportunity ledger from durable completed source steps."""
+        if type(used) is not int or not self.request_count <= used <= self._max_requests:
+            raise ValueError("simple_evidence_resume_budget_invalid")
+        self._shared_request_budget["used"] = used
+
     def _official_family(self, request: Mapping[str, Any]) -> str | None:
         bound = _bound_official_families(request)
         if len(bound) == 1:

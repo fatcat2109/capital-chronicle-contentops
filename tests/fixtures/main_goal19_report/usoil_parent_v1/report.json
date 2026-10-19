@@ -1,0 +1,984 @@
+{
+  "analysis": {
+    "closed_input_review": {
+      "assessment_sha256": "a0cf19d4343b822f6b36b3f22764462db7ed3f362e70d01b40d95dc522f2a7be",
+      "browsing_during_final_review": false,
+      "external_model_call_performed": false,
+      "forecast_or_promotion_credit": false,
+      "packet_sha256": "28b0fb338bbcf546688e01aa5719d12cba4c1e78e84e871f6aa515f362135417",
+      "production_primary_reviewer_pair_executed": false,
+      "review_mode": "CURRENT_CODEX_SESSION_AUTHORED_RESEARCH_POLICY_CLOSED_INPUT",
+      "review_sha256": "85dcb76694d827b1f5ce7e36160f2eb0f5b7b3720cae0fbeea76c9e4b59054b4",
+      "work_type": "RESEARCH_ONLY_ASSET_REPORT"
+    },
+    "connectedness": {
+      "aligned_dates_sha256": "83b49d0f60321a74a99440cddc8ea913cb56367e77f7e30fa6ca75ac9f62e59d",
+      "alignment": "INTERSECTION_OF_ACTUAL_OBSERVATION_DATES_BEFORE_RETURNS",
+      "causal_proof": false,
+      "classification": "ASSOCIATIONAL_DIAGNOSTIC",
+      "companion_modulus": 0.14422975,
+      "current_freshness": "STALE_RETAINED_NOT_CURRENT_CAUSAL_PROOF",
+      "directional": [
+        {
+          "from_others": 0.58093859,
+          "instrument": "US500",
+          "net": 0.05032807,
+          "state": "TRANSMITTER",
+          "to_others": 0.63126666
+        },
+        {
+          "from_others": 0.57884129,
+          "instrument": "USTEC",
+          "net": 0.04344038,
+          "state": "TRANSMITTER",
+          "to_others": 0.62228167
+        },
+        {
+          "from_others": 0.32968763,
+          "instrument": "XAUUSD",
+          "net": -0.0493128,
+          "state": "RECEIVER",
+          "to_others": 0.28037484
+        },
+        {
+          "from_others": 0.02426432,
+          "instrument": "USOIL",
+          "net": -0.01194729,
+          "state": "RECEIVER",
+          "to_others": 0.01231703
+        },
+        {
+          "from_others": 0.39347723,
+          "instrument": "EURUSD",
+          "net": 0.00757146,
+          "state": "TRANSMITTER",
+          "to_others": 0.40104869
+        },
+        {
+          "from_others": 0.29761924,
+          "instrument": "USDJPY",
+          "net": -0.0307126,
+          "state": "RECEIVER",
+          "to_others": 0.26690664
+        },
+        {
+          "from_others": 0.52975438,
+          "instrument": "BTCUSD",
+          "net": -0.00693505,
+          "state": "RECEIVER",
+          "to_others": 0.52281933
+        },
+        {
+          "from_others": 0.53543448,
+          "instrument": "ETHUSD",
+          "net": -0.00243218,
+          "state": "RECEIVER",
+          "to_others": 0.5330023
+        }
+      ],
+      "fevd": [
+        [
+          0.41906141,
+          0.37977431,
+          0.02143479,
+          0.00033696,
+          0.02374389,
+          0.00089364,
+          0.0722777,
+          0.08247731
+        ],
+        [
+          0.38153889,
+          0.42115871,
+          0.02210204,
+          0.000165,
+          0.02230971,
+          0.00088879,
+          0.0710611,
+          0.08077577
+        ],
+        [
+          0.03494131,
+          0.03545749,
+          0.67031237,
+          0.0002916,
+          0.12260488,
+          0.07860248,
+          0.03262792,
+          0.02516195
+        ],
+        [
+          0.00123975,
+          0.00099116,
+          0.00412182,
+          0.97573568,
+          0.0068626,
+          0.01024926,
+          0.00059463,
+          0.0002051
+        ],
+        [
+          0.03708785,
+          0.03342977,
+          0.11043715,
+          0.00515741,
+          0.60652277,
+          0.17261032,
+          0.0193913,
+          0.01536344
+        ],
+        [
+          0.00201436,
+          0.00187922,
+          0.08208359,
+          0.00606499,
+          0.19964227,
+          0.70238076,
+          0.00401929,
+          0.00191552
+        ],
+        [
+          0.08229741,
+          0.08041984,
+          0.02282396,
+          0.00028836,
+          0.01452531,
+          0.00229628,
+          0.47024562,
+          0.32710321
+        ],
+        [
+          0.0921471,
+          0.09032988,
+          0.01737147,
+          1.271e-05,
+          0.01136003,
+          0.00136589,
+          0.3228474,
+          0.46456552
+        ]
+      ],
+      "horizon": 10,
+      "last_observation_date": "2026-09-22",
+      "method": "FIXED_SMALL_VAR1_GENERALIZED_FEVD",
+      "observations": 1289,
+      "status": "ACTIVE",
+      "total_connectedness": 0.40875215,
+      "universe": [
+        "US500",
+        "USTEC",
+        "XAUUSD",
+        "USOIL",
+        "EURUSD",
+        "USDJPY",
+        "BTCUSD",
+        "ETHUSD"
+      ]
+    },
+    "core_conditional_strategy": {
+      "broker_execution_authorized": false,
+      "cost_state": "UNOBSERVED",
+      "deterministic_blockers": [],
+      "event_name_specific_rule_used": false,
+      "fundamental_direction": "UNOBSERVED",
+      "headline_polarity_directly_selected_direction": false,
+      "liquidity_state": "UNOBSERVED",
+      "paper_only": true,
+      "policy_event": false,
+      "policy_event_basis": [],
+      "pricing_inference_state": "AMBIGUOUS",
+      "prior_pricing_state": "AMBIGUOUS",
+      "reaction_class": "NO_TRADE_WAIT",
+      "reason": "expectation, residual surprise or prior-pricing evidence is insufficient for a fresh paper expression",
+      "regime_alignment": "UNOBSERVED",
+      "regime_state": {
+        "asset_horizon_applicability": [],
+        "asset_horizon_applicability_catalog": {
+          "COMMOD": {
+            "axes": [
+              "growth_inflation",
+              "risk_stress",
+              "trend",
+              "tail_contagion"
+            ],
+            "horizons": [
+              "event",
+              "1d",
+              "1w",
+              "1m",
+              "quarterly"
+            ]
+          },
+          "CREDIT": {
+            "axes": [
+              "growth_inflation",
+              "risk_stress",
+              "tail_contagion",
+              "correlation_break"
+            ],
+            "horizons": [
+              "event",
+              "1d",
+              "1w",
+              "1m"
+            ]
+          },
+          "EQUITY": {
+            "axes": [
+              "growth_inflation",
+              "policy_liquidity",
+              "risk_stress",
+              "volatility",
+              "trend"
+            ],
+            "horizons": [
+              "event",
+              "1d",
+              "1w",
+              "1m",
+              "quarterly"
+            ]
+          },
+          "FX": {
+            "axes": [
+              "policy_liquidity",
+              "risk_stress",
+              "volatility",
+              "trend"
+            ],
+            "horizons": [
+              "event",
+              "1d",
+              "1w",
+              "1m"
+            ]
+          },
+          "MACRO": {
+            "axes": [
+              "growth_inflation",
+              "policy_liquidity"
+            ],
+            "horizons": [
+              "monthly",
+              "quarterly"
+            ]
+          },
+          "OPTIONS": {
+            "axes": [
+              "volatility",
+              "tail_contagion",
+              "correlation_break"
+            ],
+            "horizons": [
+              "event",
+              "1d",
+              "1w",
+              "1m"
+            ]
+          },
+          "PORTFOLIO": {
+            "axes": [
+              "risk_stress",
+              "volatility",
+              "correlation_break",
+              "tail_contagion"
+            ],
+            "horizons": [
+              "1d",
+              "1w",
+              "1m",
+              "quarterly"
+            ]
+          },
+          "RATES": {
+            "axes": [
+              "growth_inflation",
+              "policy_liquidity",
+              "risk_stress",
+              "volatility"
+            ],
+            "horizons": [
+              "event",
+              "1d",
+              "1w",
+              "1m",
+              "quarterly"
+            ]
+          }
+        },
+        "authority_boundaries": {
+          "lane3_calibration_authority": false,
+          "live_execution_authority": false,
+          "numeric_truth": "DETERMINISTIC_STATISTICAL_CODE_ONLY",
+          "paper_authority": false,
+          "regime_may_override_observed_numeric_truth": false,
+          "regime_may_route_models": true
+        },
+        "axis_authority": {
+          "correlation_break": {
+            "authorities": [],
+            "authority_state": "GOVERNED_STANDARDIZED_FEATURES",
+            "broad_market_truth": false,
+            "features": [
+              "correlation_break"
+            ],
+            "governed_non_proxy": true,
+            "proxy_scopes": [],
+            "supported_assets": [
+              "COMMOD",
+              "CREDIT",
+              "EQUITY",
+              "FX",
+              "MACRO",
+              "OPTIONS",
+              "PORTFOLIO",
+              "RATES"
+            ],
+            "truth_scope": "CROSS_ASSET_MACRO_OR_GOVERNED_FEATURE"
+          },
+          "growth_inflation": {
+            "authorities": [],
+            "authority_state": "GOVERNED_STANDARDIZED_FEATURES",
+            "broad_market_truth": false,
+            "features": [
+              "growth_momentum",
+              "inflation_momentum"
+            ],
+            "governed_non_proxy": true,
+            "proxy_scopes": [],
+            "supported_assets": [
+              "COMMOD",
+              "CREDIT",
+              "EQUITY",
+              "FX",
+              "MACRO",
+              "OPTIONS",
+              "PORTFOLIO",
+              "RATES"
+            ],
+            "truth_scope": "CROSS_ASSET_MACRO_OR_GOVERNED_FEATURE"
+          },
+          "policy_liquidity": {
+            "authorities": [],
+            "authority_state": "GOVERNED_STANDARDIZED_FEATURES",
+            "broad_market_truth": false,
+            "features": [
+              "policy_stance",
+              "liquidity_impulse"
+            ],
+            "governed_non_proxy": true,
+            "proxy_scopes": [],
+            "supported_assets": [
+              "COMMOD",
+              "CREDIT",
+              "EQUITY",
+              "FX",
+              "MACRO",
+              "OPTIONS",
+              "PORTFOLIO",
+              "RATES"
+            ],
+            "truth_scope": "CROSS_ASSET_MACRO_OR_GOVERNED_FEATURE"
+          },
+          "risk_stress": {
+            "authorities": [],
+            "authority_state": "GOVERNED_STANDARDIZED_FEATURES",
+            "broad_market_truth": false,
+            "features": [
+              "risk_stress"
+            ],
+            "governed_non_proxy": true,
+            "proxy_scopes": [],
+            "supported_assets": [
+              "COMMOD",
+              "CREDIT",
+              "EQUITY",
+              "FX",
+              "MACRO",
+              "OPTIONS",
+              "PORTFOLIO",
+              "RATES"
+            ],
+            "truth_scope": "CROSS_ASSET_MACRO_OR_GOVERNED_FEATURE"
+          },
+          "tail_contagion": {
+            "authorities": [],
+            "authority_state": "GOVERNED_STANDARDIZED_FEATURES",
+            "broad_market_truth": false,
+            "features": [
+              "tail_contagion"
+            ],
+            "governed_non_proxy": true,
+            "proxy_scopes": [],
+            "supported_assets": [
+              "COMMOD",
+              "CREDIT",
+              "EQUITY",
+              "FX",
+              "MACRO",
+              "OPTIONS",
+              "PORTFOLIO",
+              "RATES"
+            ],
+            "truth_scope": "CROSS_ASSET_MACRO_OR_GOVERNED_FEATURE"
+          },
+          "trend": {
+            "authorities": [],
+            "authority_state": "GOVERNED_STANDARDIZED_FEATURES",
+            "broad_market_truth": false,
+            "features": [
+              "trend_strength"
+            ],
+            "governed_non_proxy": true,
+            "proxy_scopes": [],
+            "supported_assets": [
+              "COMMOD",
+              "CREDIT",
+              "EQUITY",
+              "FX",
+              "MACRO",
+              "OPTIONS",
+              "PORTFOLIO",
+              "RATES"
+            ],
+            "truth_scope": "CROSS_ASSET_MACRO_OR_GOVERNED_FEATURE"
+          },
+          "volatility": {
+            "authorities": [],
+            "authority_state": "GOVERNED_STANDARDIZED_FEATURES",
+            "broad_market_truth": false,
+            "features": [
+              "volatility_state"
+            ],
+            "governed_non_proxy": true,
+            "proxy_scopes": [],
+            "supported_assets": [
+              "COMMOD",
+              "CREDIT",
+              "EQUITY",
+              "FX",
+              "MACRO",
+              "OPTIONS",
+              "PORTFOLIO",
+              "RATES"
+            ],
+            "truth_scope": "CROSS_ASSET_MACRO_OR_GOVERNED_FEATURE"
+          }
+        },
+        "baseline": {
+          "model_id": "MEASURED_DIRECTIONAL_STATE_V1",
+          "semantic": "FIXED_MAPPING_OF_CALLER_SUPPLIED_STANDARDIZED_FEATURES_NO_VALUE_REWRITE",
+          "state": null,
+          "state_duration": null,
+          "status": "BLOCKED_DATA"
+        },
+        "challengers": {
+          "hmm": {
+            "economic_labels_assigned": false,
+            "model_id": "HMM_LATENT_REGIME",
+            "reason": "REJECTED_FROM_ACTIVE_L03_BASELINE_DUE_LABEL_NONIDENTIFICATION_AND_REFIT_INSTABILITY",
+            "status": "NOT_RELEVANT_THIS_CYCLE"
+          },
+          "pca_kalman": {
+            "model_id": "PCA_KALMAN_STATE_SPACE_V1",
+            "reason": "BASELINE_NOT_ACTIVE",
+            "status": "INSUFFICIENT_EVIDENCE"
+          },
+          "structural_break": {
+            "model_id": "BOCPD_NORMAL_MEAN_V1",
+            "reason": "BASELINE_NOT_ACTIVE",
+            "status": "INSUFFICIENT_EVIDENCE"
+          }
+        },
+        "disagreement": {
+          "absolute_difference": null,
+          "baseline_growth_expansion_probability": null,
+          "numeric_truth_override_allowed": false,
+          "pca_kalman_growth_expansion_probability": null,
+          "status": "INSUFFICIENT_EVIDENCE"
+        },
+        "freshness": {
+          "correlation_break": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          },
+          "growth_momentum": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          },
+          "inflation_momentum": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          },
+          "liquidity_impulse": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          },
+          "policy_stance": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          },
+          "risk_stress": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          },
+          "tail_contagion": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          },
+          "trend_strength": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          },
+          "volatility_state": {
+            "reason": "LATEST_FEATURE_MISSING",
+            "status": "BLOCKED_DATA"
+          }
+        },
+        "frozen_state_hash": "3009b5bb66ca72cebd2228744a590f8504bd35f154d7ea4a5cca391b92e7b094",
+        "input_audit": {
+          "admitted": 0,
+          "aggregate_input_hash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+          "complete_frames": 0,
+          "historical_pit_complete_frames": 0,
+          "input_hashes": [],
+          "missing_latest_features": [
+            "correlation_break",
+            "growth_momentum",
+            "inflation_momentum",
+            "liquidity_impulse",
+            "policy_stance",
+            "risk_stress",
+            "tail_contagion",
+            "trend_strength",
+            "volatility_state"
+          ],
+          "received": 0,
+          "rejected": [],
+          "stale_latest_features": []
+        },
+        "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+        "model_version": "world_state_regime_router_v1.1.0",
+        "schema": "WorldStateRegimeRouterV1",
+        "session_id": "goal17-retained",
+        "state_id": "l03_862ef9635a2921e717980a0a",
+        "status": "BLOCKED_DATA",
+        "uncertainty": null
+      },
+      "residual_information_state": "UNOBSERVED",
+      "selected_strategy": "ABSTAIN",
+      "uncertainties": [
+        "actual_evidence_ref_unobserved",
+        "actual_known_at_unobserved_or_invalid",
+        "actual_value_unobserved",
+        "anticipated_market_direction_unobserved",
+        "expectation_evidence_ref_unobserved",
+        "expectation_known_at_unobserved_or_invalid",
+        "expectation_value_unobserved",
+        "release_clock_unobserved_or_invalid"
+      ]
+    },
+    "core_prior_pricing": {
+      "cross_asset_confirmation": "UNOBSERVED",
+      "independent_pricing_corroboration_admitted": false,
+      "limitations": [
+        "anticipated_market_direction_unobserved"
+      ],
+      "maximum_volatility_normalized_absolute_move": 1.420186098141206,
+      "numeric_authority": "deterministic_code_from_admitted_pit_evidence",
+      "percent_priced_in": null,
+      "positioning_evidence": {
+        "admitted_for_pricing_inference": false
+      },
+      "positioning_state": "UNOBSERVED",
+      "pre_event_paths": [
+        {
+          "direction_alignment": "UNOBSERVED",
+          "evidence_ref": "query:RETAINED_NATIVE_D1:USOIL",
+          "horizon_days": 1,
+          "known_at_utc": "2026-09-23T13:34:42Z",
+          "return_fraction": -0.0295107683,
+          "volatility_normalized_absolute_move": 1.1423104293368147
+        },
+        {
+          "direction_alignment": "UNOBSERVED",
+          "evidence_ref": "query:RETAINED_NATIVE_D1:USOIL",
+          "horizon_days": 5,
+          "known_at_utc": "2026-09-23T13:34:42Z",
+          "return_fraction": -0.0820401855,
+          "volatility_normalized_absolute_move": 1.420186098141206
+        },
+        {
+          "direction_alignment": "UNOBSERVED",
+          "evidence_ref": "query:RETAINED_NATIVE_D1:USOIL",
+          "horizon_days": 10,
+          "known_at_utc": "2026-09-23T13:34:42Z",
+          "return_fraction": -0.1143981868,
+          "volatility_normalized_absolute_move": 1.4003054097497099
+        },
+        {
+          "direction_alignment": "UNOBSERVED",
+          "evidence_ref": "query:RETAINED_NATIVE_D1:USOIL",
+          "horizon_days": 21,
+          "known_at_utc": "2026-09-23T13:34:42Z",
+          "return_fraction": 0.076631177,
+          "volatility_normalized_absolute_move": 0.6472908594969565
+        }
+      ],
+      "precise_percent_priced_in_claimed": false,
+      "price_movement_proves_market_knowledge": false,
+      "pricing_corroboration_evidence": {
+        "admitted_for_pricing_inference": false
+      },
+      "pricing_corroboration_state": "UNOBSERVED",
+      "pricing_inference_basis": [
+        "prior_move:AMBIGUOUS"
+      ],
+      "pricing_inference_state": "AMBIGUOUS",
+      "prior_move_evidence_state": "AMBIGUOUS",
+      "realized_volatility_21_annualized": 0.4101064925,
+      "refused_inputs": [],
+      "schema": "MarketBeliefAndPriorPricingStateV1",
+      "state": "AMBIGUOUS"
+    },
+    "core_residual_information": {
+      "actual_evidence_ref": null,
+      "actual_minus_expectation": null,
+      "blockers": [
+        "actual_evidence_ref_unobserved",
+        "actual_known_at_unobserved_or_invalid",
+        "actual_value_unobserved",
+        "expectation_evidence_ref_unobserved",
+        "expectation_known_at_unobserved_or_invalid",
+        "expectation_value_unobserved",
+        "release_clock_unobserved_or_invalid"
+      ],
+      "expectation_evidence_ref": null,
+      "lookahead_used": false,
+      "numeric_authority": "deterministic_code",
+      "standardized_gap": null,
+      "state": "UNOBSERVED"
+    },
+    "data_need_plan_sha256": "0fe88cb5d59c3f38f254c5ad0fe7cb3d4b7b111c1b57153780d161f2d89335f4",
+    "executed_consumers": [
+      "unified_analyzer_data_fabric_v1.query",
+      "integrated_evidence_fabric_v1.build_evidence_fabric",
+      "integrated_market_scan_v1.build_market_scan/build_data_need_plan",
+      "core_analyzer_market_mechanics_v1.build_prior_pricing_state/build_residual_information_state/select_conditional_reaction_and_strategy",
+      "world_state_regime_router_v1.build_world_state_regime_router",
+      "quant_challenger_v1.build_feature_panel",
+      "core_wave3_equity_contagion_portfolio_execution_v1.generalized_fevd_connectedness"
+    ],
+    "features": {
+      "long": {
+        "as_of_date": "2026-09-22",
+        "forecast": false,
+        "known_at_utc": "2026-09-23T13:34:42Z",
+        "trailing_observed_return_fraction": 0.2479058692
+      },
+      "short": {
+        "as_of_date": "2026-09-22",
+        "forecast": false,
+        "known_at_utc": "2026-09-23T13:34:42Z",
+        "trailing_observed_return_fraction": -0.0820401855
+      },
+      "swing": {
+        "as_of_date": "2026-09-22",
+        "forecast": false,
+        "known_at_utc": "2026-09-23T13:34:42Z",
+        "trailing_observed_return_fraction": 0.076631177
+      }
+    },
+    "latest_feature_record": {
+      "asset_class": "COMMODITIES_AND_FUTURES",
+      "date": "2026-09-22",
+      "feature_timestamp": "2026-09-22",
+      "features": {
+        "breadth_positive_return_21": 0.45,
+        "cross_section_rank_return_21": 0.9797979798,
+        "dispersion_return_21": 0.0268128739,
+        "drawdown_252": -0.1571219074,
+        "log_return_1": -0.0299549721,
+        "momentum_21_5": 0.1586713624,
+        "realized_vol_21": 0.4101064925,
+        "realized_vol_63": 0.4368998359,
+        "return_1": -0.0295107683,
+        "return_10": -0.1143981868,
+        "return_126": -0.0814154912,
+        "return_21": 0.076631177,
+        "return_252": 0.4985870004,
+        "return_5": -0.0820401855,
+        "return_63": 0.2479058692,
+        "reversal_5": 0.0820401855,
+        "zscore_21": -0.8431181119,
+        "zscore_63": 0.5375373913
+      },
+      "instrument": "USOIL",
+      "known_at": "2026-09-23T13:34:42Z",
+      "numeric_authority": "deterministic_code",
+      "observation_cutoff_utc": "2026-10-18T13:03:41Z",
+      "price_like": true,
+      "sector": null,
+      "source_artifact": null,
+      "source_authority": "broker_trading_platform_proxy_approved_for_internal_research",
+      "source_hash": "597b49b5eebb5512cdddd4b1c41d96fcaec1978b71f2dee122dc0f1f66f5b564",
+      "source_identity": null,
+      "source_lineage_kind": "caller_supplied_numeric_source",
+      "source_observation_id": "mt5_d1:USOIL:2026-09-22:1790035200",
+      "value": 89.088
+    },
+    "market_scan_sha256": "d2165be5882cdc6ec5f74f72a9f1401e0756fac13174e4553014a4a80c02cf2f",
+    "regime_state_sha256": "342770ef1548a661aae031b0964e884ee6c9b53d374a2ee554dde729233b342d",
+    "regime_status": "BLOCKED_DATA"
+  },
+  "as_of_utc": "2026-10-18T13:03:41Z",
+  "asset": {
+    "asset_class": "Energies",
+    "asset_id": "USOIL",
+    "catalog_sources": [
+      "EXNESS_CFD_LAUNCH_MANIFEST_W192_V1"
+    ],
+    "description": "Crude Oil",
+    "exness_contracts": [
+      {
+        "broker_symbol": "USOIL",
+        "contract_id": "EXNESS_DEMO:USOIL",
+        "currency_base": "USD",
+        "currency_profit": "USD",
+        "disposition_reason": "SEMANTIC_UNDERLYING_AND_CONSUMER_DEPENDENCIES_PENDING",
+        "metadata_observed_at_utc": "2026-09-17T17:14:14Z",
+        "trade_contract_size": 1000.0,
+        "trade_mode_at_frozen_observation": "FULL"
+      }
+    ],
+    "identity_state": "RETAINED_BROKER_CONTRACT_ONLY",
+    "listing_id": null,
+    "underlying": null
+  },
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "catalog_snapshot_id": "catalog-e68577cfb2bf0642e4da",
+  "causal_assessment": {
+    "competing_explanations": "Position adjustment, temporary liquidity or unrelated common news can generate the same co-movement.",
+    "contradictions": "Momentum, mean reversion and a shared market factor can fit the same trailing observations. Current fundamentals and exposure decomposition are unavailable. Observed path: 5 observations -8.20%; 21 observations +7.66%; 63 observations +24.79%. Opposite signs across 5/21-observation windows expose a horizon conflict; a short counter-move does not by itself reverse the longer thesis.",
+    "discriminating_observations": "Current observations for Oil supply disruptions, inventory, global demand and USD; independent driver evidence; positioning; current price response and cost data.",
+    "falsifiers": "A changed driver, loss of trend confirmation or liquidity shock would invalidate extrapolation.",
+    "mechanism": "USOIL: Supply losses and stronger demand can tighten physical balances, but inventories and spare capacity may absorb them. The retained path (5 observations -8.20%; 21 observations +7.66%; 63 observations +24.79%) describes repricing without identifying its cause.",
+    "priced_in": "UNOBSERVED: no admissible pre-event consensus, matched positioning or current market response. Seasonal averages are not consensus.",
+    "timing": "Observed period, capture known-at and report cutoff are distinct; no pre-capture first-print or current-live claim. Causal channels may act over sessions; long-horizon timing is unmeasured."
+  },
+  "claims": [],
+  "contagion": [
+    {
+      "channel": "USOIL: Supply losses and stronger demand can tighten physical balances, but inventories and spare capacity may absorb them",
+      "classification": "CAUSAL_HYPOTHESIS_NOT_ESTIMATED_EFFECT",
+      "factor": "Oil supply disruptions, inventory, global demand and USD",
+      "falsifier": "Current observations for Oil supply disruptions, inventory, global demand and USD; independent driver evidence; positioning; current price response and cost data.",
+      "lag": "SHORT_TO_SWING_UNMEASURED",
+      "sign": "CONDITIONAL_EXPOSURE_DEPENDENT"
+    },
+    {
+      "channel": "Shared discount rates, USD and margin constraints can transmit shocks to other assets; measured FEVD, where present, is associational.",
+      "classification": "HYPOTHESIS_WITH_ASSOCIATIONAL_DIAGNOSTIC_ONLY",
+      "factor": "Cross-market risk/financing",
+      "falsifier": "Out-of-sample conditional response fails after controlling for shared factors.",
+      "lag": "NOT_ESTIMATED",
+      "sign": "UNKNOWN_WITHOUT_EXPOSURE"
+    }
+  ],
+  "contract_revision": "asset-analysis-report-v1.0.0",
+  "contracts": {
+    "analysis_run_sha256": "3698b611289288db7a69f3023c0a5c217a71c2a510581adb584c33297ba0fd16",
+    "plan_sha256": "77bdbb1eb59da2788b877aa8dcfe8f88977583e442e61c0e6c50943592b7b949",
+    "request_sha256": "1a6d7037f060392863d40561875fddf6629f6017cdaaecee1b4de7b0c8c4fdff",
+    "resolution_receipt_sha256": "f0b72413c408e546e30c9c14d7904ee23224e88322664e9ae7fd6ef1219c60c7"
+  },
+  "evidence": [
+    {
+      "currency": null,
+      "evidence_id": "query:RETAINED_NATIVE_D1:USOIL",
+      "exact_or_proxy": "EXACT",
+      "facts": {
+        "age_days": 26,
+        "latest_date": "2026-09-22",
+        "latest_value": 89.088,
+        "row_count": 1290
+      },
+      "freshness_state": "STALE_RETAINED_SNAPSHOT",
+      "known_at_utc": "2026-09-23T13:34:42.378571Z",
+      "observation_time_utc": "2026-09-22T00:00:00Z",
+      "pit_state": "CAPTURE_KNOWN_AT_CURRENT_EDITION_NOT_HISTORICAL_FIRST_PRINT",
+      "public_claim_use": false,
+      "query_id": "RETAINED_NATIVE_D1:USOIL:cheap_context_scan",
+      "query_sha256": "93d99a6b9e305044c7c7ea7a8a540901c2649ba6912495a6784201f181702755",
+      "retrieval_time_utc": "2026-09-23T13:34:42.378571Z",
+      "rights_evidence_sha256": null,
+      "rights_state": "INTERNAL_RESEARCH_ONLY_NO_RAW_REDISTRIBUTION_AUTHORITY",
+      "route": "DATABASE",
+      "semantic_id": "RETAINED_NATIVE_D1:USOIL",
+      "source_hash": "597b49b5eebb5512cdddd4b1c41d96fcaec1978b71f2dee122dc0f1f66f5b564",
+      "source_identity": "retained_exness_mt5:USOIL:D1:460a0599acb3c7a86757f6a08acfe69dce4c1ca151ad1631b1526660a1cf9fa4",
+      "source_url": null,
+      "summary": "RETAINED_NATIVE_D1:USOIL: 1290 admitted records; latest 2026-09-22 value 89.088; 26 calendar days old.",
+      "unit": "usd_per_barrel"
+    }
+  ],
+  "execution_readiness": "BLOCKED",
+  "financing_and_vehicle_limits": {
+    "conclusion": "Directional underlying analysis cannot establish suitability of a leveraged CFD held for this horizon.",
+    "margin": "UNKNOWN_NOT_READ",
+    "roll_expiry": "UNKNOWN_NOT_READ",
+    "spread_slippage": "UNKNOWN_NOT_READ",
+    "swap_financing": "UNKNOWN_NOT_READ"
+  },
+  "generated_at_utc": "2026-10-18T13:47:00Z",
+  "holding_lifecycle": {
+    "hold_conditions": [
+      "Refresh current evidence and confirm the driver independently.",
+      "Holding thesis, capital/risk budget and total financing/roll costs must pass the existing portfolio/execution owners."
+    ],
+    "recommendation_expires_at_utc": "2026-10-23T13:03:41Z",
+    "stop_holding_conditions": [
+      "A changed driver, loss of trend confirmation or liquidity shock would invalidate extrapolation.",
+      "Recommendation expires at the review deadline; missing current evidence is grounds for review/abstention, not an automatic order."
+    ]
+  },
+  "horizon_blocks": [
+    {
+      "base_case": "Observe driver confirmation before assigning a direction; refresh stale observations first. Repricing/position adjustment can dominate over five sessions; use same-clock current-price and expectation evidence before acting on a retained trend. Window: 5 sessions; trailing return -8.20%.",
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "downside_scenario": "A changed driver, loss of trend confirmation or liquidity shock would invalidate extrapolation. No target/probability is estimated.",
+      "end_utc": "2026-10-23T13:03:41Z",
+      "forecast_target": null,
+      "horizon": "short",
+      "invalidation": "Evidence contradicts the proposed driver, fails the next review, or current data cannot be refreshed. Long horizons additionally require financing/roll viability.",
+      "outlook": "CURRENT_DIRECTION_UNRESOLVED",
+      "probability": null,
+      "quant_support": {
+        "as_of_date": "2026-09-22",
+        "forecast": false,
+        "known_at_utc": "2026-09-23T13:34:42Z",
+        "trailing_observed_return_fraction": -0.0820401855
+      },
+      "report_state": "PARTIAL",
+      "review_deadline_utc": "2026-10-23T13:03:41Z",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "time_zone": "UTC",
+      "trading_sessions": 5,
+      "upside_scenario": "Supportive change in Oil supply disruptions, inventory, global demand and USD, independent confirmation and affordable vehicle costs sustain upside; no target/probability is estimated."
+    },
+    {
+      "base_case": "Observe driver confirmation before assigning a direction; refresh stale observations first. Over 21 sessions, require persistence across new releases and distinguish a common factor from an asset-specific change; price continuation alone does not identify the mechanism. Window: 21 sessions; trailing return +7.66%.",
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "downside_scenario": "A changed driver, loss of trend confirmation or liquidity shock would invalidate extrapolation. No target/probability is estimated.",
+      "end_utc": "2026-11-16T13:03:41Z",
+      "forecast_target": null,
+      "horizon": "swing",
+      "invalidation": "Evidence contradicts the proposed driver, fails the next review, or current data cannot be refreshed. Long horizons additionally require financing/roll viability.",
+      "outlook": "CURRENT_DIRECTION_UNRESOLVED",
+      "probability": null,
+      "quant_support": {
+        "as_of_date": "2026-09-22",
+        "forecast": false,
+        "known_at_utc": "2026-09-23T13:34:42Z",
+        "trailing_observed_return_fraction": 0.076631177
+      },
+      "report_state": "PARTIAL",
+      "review_deadline_utc": "2026-11-16T13:03:41Z",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "time_zone": "UTC",
+      "trading_sessions": 21,
+      "upside_scenario": "Supportive change in Oil supply disruptions, inventory, global demand and USD, independent confirmation and affordable vehicle costs sustain upside; no target/probability is estimated."
+    },
+    {
+      "base_case": "Observe driver confirmation before assigning a direction; refresh stale observations first. Over 63 sessions, reassess structural cash-flow/supply-demand assumptions and discount rates; annualized financing, contract roll/expiry and basis changes can dominate a correct underlying view. Window: 63 sessions; trailing return +24.79%.",
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "downside_scenario": "A changed driver, loss of trend confirmation or liquidity shock would invalidate extrapolation. No target/probability is estimated.",
+      "end_utc": "2027-01-13T13:03:41Z",
+      "forecast_target": null,
+      "horizon": "long",
+      "invalidation": "Evidence contradicts the proposed driver, fails the next review, or current data cannot be refreshed. Long horizons additionally require financing/roll viability.",
+      "outlook": "CURRENT_DIRECTION_UNRESOLVED",
+      "probability": null,
+      "quant_support": {
+        "as_of_date": "2026-09-22",
+        "forecast": false,
+        "known_at_utc": "2026-09-23T13:34:42Z",
+        "trailing_observed_return_fraction": 0.2479058692
+      },
+      "report_state": "PARTIAL",
+      "review_deadline_utc": "2027-01-13T13:03:41Z",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T13:03:41Z",
+      "time_zone": "UTC",
+      "trading_sessions": 63,
+      "upside_scenario": "Supportive change in Oil supply disruptions, inventory, global demand and USD, independent confirmation and affordable vehicle costs sustain upside; no target/probability is estimated."
+    }
+  ],
+  "horizon_policy": {
+    "calendar": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+    "horizons": {
+      "long": 63,
+      "short": 5,
+      "swing": 21
+    },
+    "intraday_monitoring": "SEPARATE_NOT_INCLUDED",
+    "no_horizon_scaling_or_forecast_interpolation": true,
+    "owner_projection_hash": "8221f3af3e6d3485529a7b6cf18a34a32369dc7a6cbef419c05f030024982708",
+    "policy_id": "ASSET_REPORT_5_21_63_SESSIONS_V1",
+    "policy_sha256": "18a51b7eb5839ba92cdf5407b31d3af3ed7aec50ccef175e83108be94388930d",
+    "scope": "GREATER_THAN_ONE_TRADING_DAY_QUALITATIVE_ANALYSIS",
+    "scoreable_forecast": false,
+    "time_zone": "UTC",
+    "version": "1.0.0"
+  },
+  "known_at_cutoff_utc": "2026-10-18T13:03:41Z",
+  "limitations": [
+    "63_SESSION_FORECAST_NOT_ADMITTED",
+    "CAUSAL_ATTRIBUTION_UNIDENTIFIED",
+    "CURRENT_EXPECTATIONS_UNOBSERVED",
+    "CURRENT_PRICE_OR_CURVE_NOT_VERIFIED",
+    "EXECUTION_ECONOMICS_UNVERIFIED",
+    "NO_FORECAST_QUALITY_OR_NATURAL_PROOF",
+    "REGIME_STANDARDIZED_INPUTS_MISSING",
+    "STALE_RETAINED_INPUTS"
+  ],
+  "owner_summary": {
+    "current_thesis": "Retained USOIL path: 5 observations -8.20%; 21 observations +7.66%; 63 observations +24.79% No current directional thesis is established.",
+    "recommendation": "WATCH",
+    "what_changed": "Retained evidence re-read for USOIL; 5 observations -8.20%; 21 observations +7.66%; 63 observations +24.79%"
+  },
+  "parent_report_sha256": null,
+  "report_id": "asset-report:USOIL",
+  "report_sha256": "797f3132e40f486036fc318cab8acf7b9288715035d90c4b3e82705fb17a3f1a",
+  "report_state": "PARTIAL",
+  "report_version": 1,
+  "run_id": "run-asset-report:23d3e29dfa917f03b941cdee",
+  "schema": "CapitalChronicleAssetAnalysisReportV1",
+  "source_snapshot": {
+    "catalog_sha256": "930df83b46fdc083227fadcb52fdd52a72ad1f9361b7f5c84d416193c055bfdf",
+    "evidence_snapshot_sha256": "ebe9ceda6ca257a8287bb3e33cd55f2ee56ce79d03a22dd09e561c0646506bbf"
+  },
+  "supersedes_report_id": null,
+  "version": "1.0.0"
+}
