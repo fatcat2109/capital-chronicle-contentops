@@ -7,6 +7,7 @@ in ContentOpsDurableStore; the existing newsroom/compiler and publisher retain o
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 from typing import Any, Mapping
 
@@ -18,6 +19,20 @@ EFFORT = "low"
 DESTINATION = "internal:native-desktop-editorial"
 SCHEMA = "contentops.native_desktop_editorial.v1"
 STAGES = ("select", "write", "revise")
+ROLE_ASSIGNMENTS = {
+    "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
+    "select": {"model": MODEL, "reasoning_effort": "low"},
+    "write": {"model": MODEL, "reasoning_effort": "max"},
+    "revise": {"model": MODEL, "reasoning_effort": "max"},
+}
+
+
+def native_role(stage):
+    if stage in STAGES:
+        return stage
+    if re.fullmatch(r"filter-[a-f0-9]{64}", stage):
+        return "filter"
+    raise ValueError("NATIVE_DESKTOP_STAGE_INVALID")
 
 
 class DesktopInputRequired(Exception):
@@ -43,8 +58,7 @@ class NativeDesktopTurn:
             assert_llm_operator_execution_enabled()
 
     def _key(self, stage: str, kind: str) -> str:
-        if stage not in STAGES:
-            raise ValueError("NATIVE_DESKTOP_STAGE_INVALID")
+        native_role(stage)
         return "native-desktop-" + sha256_of([self.work, stage, kind])
 
     def _get(self, stage: str, kind: str) -> dict[str, Any] | None:
@@ -70,6 +84,8 @@ class NativeDesktopTurn:
     def __call__(self, **kwargs):
         self._check_pause()
         stage = str(kwargs["logical_invocation_id"]).rsplit(":", 1)[-1]
+        role = native_role(stage)
+        target = ROLE_ASSIGNMENTS[role]
         native_guidance = (
             "\nNATIVE_DESKTOP_PRODUCT_RULES: Use one consistent reader language. Include dated observation "
             "and report/retrieval clocks prominently when present in SOURCE_PACK; never confuse report generation "
@@ -83,7 +99,8 @@ class NativeDesktopTurn:
         ) if stage in {"write", "revise"} else ""
         request = {
             "schema_version": SCHEMA, "stage": stage, "run_id": self.run_id,
-            "requested_model": MODEL, "requested_reasoning_effort": EFFORT,
+            "role": role, "role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2",
+            "requested_model": target["model"], "requested_reasoning_effort": target["reasoning_effort"],
             "speed": "standard", "prompt": kwargs["prompt"] + native_guidance,
             "governed_input": kwargs["governed_input"],
             "public_write_performed": False,
@@ -106,7 +123,8 @@ class NativeDesktopTurn:
         return response["output"], {
             "provider": OWNER, "selected_model": observation.get("model"),
             "reasoning_effort": observation.get("reasoning_effort"),
-            "requested_model": MODEL, "requested_reasoning_effort": EFFORT,
+            "role": role, "stage": stage,
+            "requested_model": target["model"], "requested_reasoning_effort": target["reasoning_effort"],
             "observation": observation, "request_sha256": request["request_sha256"],
             "response_sha256": sha256_of(response["output"]),
             "external_provider_attempt_count": 0, "public_write_attempted": False,
@@ -120,17 +138,37 @@ class NativeDesktopTurn:
         observation = dict(response.get("invocation_observation") or {})
         if observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}:
             raise ValueError("NATIVE_DESKTOP_SURFACE_REQUIRED")
-        if observation.get("model") not in {None, MODEL}:
+        target = ROLE_ASSIGNMENTS[native_role(stage)]
+        if observation.get("model") not in {None, target["model"]}:
             raise ValueError("NATIVE_DESKTOP_MODEL_MISMATCH")
         effort = observation.get("reasoning_effort")
-        if effort not in {None, "low", "medium", "high"}:
-            raise ValueError("NATIVE_DESKTOP_EFFORT_INVALID")
-        if effort in {"medium", "high"} and not observation.get("escalation_reason"):
-            raise ValueError("NAMED_DIFFICULT_CONTRADICTION_OR_HIGH_HARM_REQUIRED")
+        if effort not in {None, target["reasoning_effort"]}:
+            raise ValueError("NATIVE_DESKTOP_ROLE_EFFORT_MISMATCH")
         if not observation.get("invocation_id") or not observation.get("observation_source"):
             raise ValueError("NATIVE_DESKTOP_INVOCATION_OBSERVATION_REQUIRED")
         if observation.get("speed", "standard") != "standard":
             raise ValueError("PAID_SPEED_NOT_AUTHORIZED")
+        role = native_role(stage)
+        if role == "filter":
+            from live_contentops.native_headline_filter_v1 import _validate
+            expected = {r["input_sha256"]: r["original_record"]["headline_id"]
+                        for r in request["governed_input"]["records"]}
+            ok, _, _, reason = _validate(json.dumps(response["output"]), expected)
+        elif role == "select":
+            from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_selection_text
+            governed = request["governed_input"]
+            # Thin protocol controls may use custom schemas; the actual newsroom request
+            # declares this exact contract and must be valid before sealing a return.
+            if "candidates" in governed and governed.get("native_role_plan_required"):
+                ok, _, _, reason = _validate_selection_text(json.dumps(response["output"]),
+                    candidate_ids={r["candidate_id"] for r in governed["candidates"]}, native_plan=True)
+            else:
+                ok, reason = True, None
+        else:
+            from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text
+            ok, _, _, reason = _validate_worker_text(json.dumps(response["output"]))
+        if not ok:
+            raise ValueError("NATIVE_DESKTOP_RETURN_SCHEMA:" + str(reason))
         value = {
             "request_sha256": request["request_sha256"], "output": response["output"],
             "invocation_observation": observation,
@@ -139,11 +177,16 @@ class NativeDesktopTurn:
         return {"stage": stage, "response_sha256": sha256_of(value), "public_write_performed": False}
 
     def telemetry(self) -> dict[str, Any]:
-        responses = [r for s in STAGES if (r := self._get(s, "response"))]
-        observations = [r["invocation_observation"] for r in responses]
+        requests = [json.loads(r["payload"]) for r in self.store.list_outbox_messages()
+                    if r["work_item_id"] == self.work and r["destination"] == DESTINATION
+                    and '"requested_model"' in r["payload"]]
+        responses = [(q, r) for q in requests if (r := self._get(q["stage"], "response"))]
+        observations = [{**r["invocation_observation"], "stage": q["stage"], "role": native_role(q["stage"])}
+                        for q, r in responses]
         ids = {r["invocation_id"] for r in observations}
         return {
             "owner": OWNER, "requested_model": MODEL, "requested_reasoning_effort": EFFORT,
+            "role_assignments": ROLE_ASSIGNMENTS,
             "observed_models": sorted({o["model"] for o in observations if o.get("model")}),
             "observed_efforts": sorted({o["reasoning_effort"] for o in observations if o.get("reasoning_effort")}),
             "native_invocation_count_observed": len(ids) if ids else None,
@@ -154,14 +197,23 @@ class NativeDesktopTurn:
             "observations": observations,
         }
 
+    def filter_headlines(self, rolling_input):
+        from live_contentops.native_headline_filter_v1 import filter_native_headlines
+        return filter_native_headlines(self, rolling_input)
+
 
 def run_native_desktop_newsroom(**kwargs):
     """Reuse the existing deterministic newsroom, with no provider fallback possible."""
     caller = kwargs.get("llm_invoke")
     if not getattr(caller, "native_desktop_protocol", False):
         raise ValueError("NATIVE_DESKTOP_REQUEST_RETURN_PROTOCOL_REQUIRED")
+    filtered, receipt = caller.filter_headlines(kwargs["rolling_input"])
+    kwargs["rolling_input"] = filtered
+    Path(kwargs["output_dir"]).joinpath("native_headline_filter_receipt.json").write_bytes(canonical_bytes(receipt))
     from live_contentops.v1_simple_gemini_newsroom_v1 import run_v1_simple_gemini_newsroom
-    return run_v1_simple_gemini_newsroom(**kwargs)
+    result = run_v1_simple_gemini_newsroom(**kwargs)
+    result["native_headline_filter"] = receipt
+    return result
 
 
 def normalize_native_receipt(value: dict[str, Any], telemetry: Mapping[str, Any] | None) -> None:

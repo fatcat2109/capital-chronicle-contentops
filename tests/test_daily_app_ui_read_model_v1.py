@@ -123,6 +123,12 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     before = {path.name for path in tmp_path.iterdir()}
     snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
     after = {path.name for path in tmp_path.iterdir()}
+    target = snapshot["editorial_execution_target"]
+    assert target["editorial_roles"]["filter"] == {"model": "gpt-6-luna", "reasoning_effort": "max"}
+    assert target["editorial_roles"]["select"]["reasoning_effort"] == "low"
+    assert target["editorial_roles"]["write"]["reasoning_effort"] == "max"
+    assert target["role_settings_state"] == "CONFIGURED_TARGET_NOT_INVOCATION_PROOF"
+    assert target["public_write_authority"] is False
     assert snapshot["runtime"]["controller_health"] == "HEALTHY"
     assert snapshot["freshness"]["state"] == "LIVE_CURRENT"
     cockpit = snapshot["runtime"]["operator_cockpit"]

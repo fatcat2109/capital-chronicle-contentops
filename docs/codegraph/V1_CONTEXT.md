@@ -25,7 +25,7 @@ The App-owned four windows are prepared and PAUSED; production pause/deployed by
 Current owner policy/paused rollout: `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md`
 and `config/native_desktop_rollout_v1.json`. Current lane pointer:
 `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
-Owning checkpoint: `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal24/RELEASE_HANDOFF.md`.
+Owning checkpoint: `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal25/RELEASE_HANDOFF.md`.
 Goal20–23 evidence, old Simple publication/scheduler proofs and old Desktop HIGH/SDK proofs remain
 historical provenance, not current invocation instructions. No duplicate index/store/scheduler/publisher.
 
@@ -38,3 +38,9 @@ Canonical Substack `/p/...` readback precedes exactly eight rematerialized deriv
 Natural 5–8/day reliability, current destination readiness and unattended calendar proof require
 future actual execution. Git/CI/configuration do not establish those states.
 Protected v1.0 remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+Goal25 extends the same native seam with `native_headline_filter_v1.py` (resumable exact-record
+semantic judgments) and `native_neo_executor_v1.py` / `scripts/run_native_neo_executor.py`
+(active Desktop tool requests, begin/return binding and existing coordinator readback).
+The source default remains executor-unbound and definite-no-write; an active operation binds
+the concrete executor explicitly. Target settings are not deployed/host execution proof.

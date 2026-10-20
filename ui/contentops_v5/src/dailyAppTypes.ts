@@ -164,7 +164,12 @@ export interface RuntimeCockpit {
 }
 
 export interface DailyAppSnapshot {
-  editorial_execution_target?: { owner: string; model: string; reasoning_effort: string; target_status: string; deployed_state: string; public_write_authority: boolean };
+  editorial_execution_target?: {
+    owner: string; model: string; reasoning_effort: string; target_status: string;
+    deployed_state: string; public_write_authority: boolean;
+    editorial_roles?: Record<string, { model: string; reasoning_effort: string }>;
+    role_settings_state?: string;
+  };
   schema_version: string;
   generated_at_utc: string;
   freshness: {

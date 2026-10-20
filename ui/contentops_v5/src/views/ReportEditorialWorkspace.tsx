@@ -28,7 +28,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
   const result = workspace?.latest_simple_result;
   const controlled = result?.model_execution_state === 'INJECTED_REPLAY_ONLY';
   return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace">
-    <p>Luồng biên tập: Codex Desktop · 6.1 Sol Light. Lịch production giữ pause; kết quả native, nghiên cứu và bài đã xuất bản được ghi riêng.</p>
+    <p>Luồng biên tập đích: Luna MAX lọc headline → 6.1 Sol Light chọn góc và chuẩn bị nguồn → 6.1 Sol MAX viết bài và SEO, tối đa một lượt sửa cùng writer. Lịch production giữ pause; chỉ bằng chứng thực thi mới xác nhận model đã chạy.</p>
     <header><span>Editorial workspace</span><h2>Capital Chronicle report → article → previews</h2></header>
     {!!data?.native_article_reviews?.length && <section aria-label="Đọc duyệt bài native Codex"><h3>Đọc duyệt bài native Codex</h3>
       {data.native_article_reviews.map(r => <p key={r.package_revision}>{r.decision}: {r.rationale} · quyết định gắn đúng bản bài; chưa cấp quyền xuất bản.</p>)}
@@ -111,7 +111,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
     {!!data?.headline_export?.gaps?.length && <details><summary>Source and permission gaps</summary><ul>{Array.from(new Set(data.headline_export.gaps.map(g => g.state))).map(g => <li key={g}>{display(g)}</li>)}</ul></details>}
     {!!data?.independent_results?.length && <details open><summary>Independent source-backed drafts ({data.independent_results.length})</summary>
       {data.independent_results.map(item => <article className="report-copy" key={item.article_identity}>
-        <p>{item.model_execution_state === 'INJECTED_REPLAY_ONLY' ? 'Controlled output — no fresh provider execution' : 'Provider output recorded'} · unpublished</p>
+        <p>{item.model_execution_state === 'INJECTED_REPLAY_ONLY' ? 'Controlled output — no fresh provider execution' : item.model_execution_state === 'NATIVE_DESKTOP_REQUEST_RETURN' ? 'Native Codex output recorded' : 'Provider output recorded'} · unpublished</p>
         <h3>{item.article?.title}</h3><p>{item.article?.dek}</p><div className="report-body">{item.article?.substack_body_markdown.replace(/\[\[SOURCE:(SOURCE_\d+)\]\]/g, '[$1]')}</div>
         {item.evidence?.map(source => <p key={source.source_id}>{source.source_id} · {source.publisher} · {source.published_at_utc} · {source.url.startsWith('https://') ? <a href={source.url} target="_blank" rel="noreferrer">Read retained source locator</a> : 'Retained internal report identity'}</p>)}
         <p>{item.previews.length} / 8 native previews · {item.media_assets?.length ?? 0} rendered media artifacts · review required before publication</p>

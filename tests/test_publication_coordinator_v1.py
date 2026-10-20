@@ -1266,7 +1266,8 @@ def test_neo_identity_must_be_current_and_does_not_bootstrap_edge(tmp_path):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
     manager = DestinationReadinessManager(store=store, env={},
         edge_runtime_ensurer=lambda: pytest.fail("Neo must never bootstrap Edge"),
-        neo_readiness_provider=lambda surface: {"public_handle": "@Capitalnicle", "authenticated": True, "native_executor_bound": True})
+        neo_readiness_provider=lambda surface: {"public_handle": "@Capitalnicle", "authenticated": True,
+            "native_executor_bound": True, "proof_fresh": True, "observation_sha256": "controlled-test-observation"})
     assert manager.probe_surface("X_THREAD")["readiness_state"] == "READY_AUTHENTICATED"
     manager.neo_readiness_provider = lambda surface: {"public_handle": "@Capitalnicle", "authenticated": False}
     assert manager.probe_surface("X_THREAD")["write_eligible"] is False

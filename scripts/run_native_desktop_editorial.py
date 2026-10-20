@@ -110,7 +110,7 @@ def main(argv=None):
     parser.add_argument("--rollout", type=Path)
     parser.add_argument("--automation-id")
     parser.add_argument("--response", type=Path)
-    parser.add_argument("--stage", choices=("select", "write", "revise"))
+    parser.add_argument("--stage", help="select/write/revise or exact pending filter-<batch sha256>")
     args = parser.parse_args(argv)
     if args.command == "submit" and (not args.response or not args.stage):
         parser.error("submit requires --response and --stage")

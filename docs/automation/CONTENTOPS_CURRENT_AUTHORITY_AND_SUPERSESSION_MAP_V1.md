@@ -43,7 +43,7 @@ store and deployed bytes were not changed by this migration. Native manual proof
 No current configuration grants activation or public writes. Historical Simple and old Desktop
 proofs establish only their exact epochs; do not rebuild their accepted deterministic components.
 See `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the supported operation,
-exact paused rollout, truthful telemetry, remaining native browser executor boundary and activation.
+exact paused rollout, truthful telemetry, bound native Neo request/return/readback loop and separate activation boundary.
 
 
 ## 3. Canonical read path
@@ -136,12 +136,12 @@ Missing fresh host proof does not convert a proven implementation into a new imp
 ## 6. Current product sequence
 
 1. Implement and independently audit the native Desktop migration on PR90, preserving Goal20–23 evidence.
-2. Verify one isolated native Sol-low editorial flow, actual reader copy/native previews/media and replay.
+2. Reuse Goal25's isolated Luna-MAX -> Sol-Light -> Sol-MAX flow and byte-stable restart; retain the exact dated source, eight native previews and readback limits in its owning checkpoint.
 3. Preserve the exact paused four-task rollout and per-channel API/Neo setup/readback handoff.
 4. After separate audit/deployment authority, apply the one documented activation transition with pause release last.
 5. Observe natural runtime separately; 5–8/day reliability is unproven until actual reconciled output establishes it.
 
-No production activation, public write, pause release, self-merge or deployment is part of Goal24.
+No production activation, public write, pause release, self-merge or deployment is part of Goal25.
 
 
 ## 7. Growth-first rules that remain current

@@ -38,12 +38,20 @@ afterEach(() => { vi.unstubAllGlobals(); vi.unstubAllEnvs(); });
 describe('Final Daily App production console', () => {
   it('shows native conversation guidance and channel setup without a run-now bridge', async () => {
     const native = snapshot({
-      editorial_execution_target: { owner: 'NATIVE_CODEX_DESKTOP', model: 'gpt-6.1-sol', reasoning_effort: 'low', target_status: 'PREPARED_NOT_HOST_ACTIVATED', deployed_state: 'NOT_VERIFIED', public_write_authority: false },
+      editorial_execution_target: {
+        owner: 'NATIVE_CODEX_DESKTOP', model: 'gpt-6.1-sol', reasoning_effort: 'low', target_status: 'PREPARED_NOT_HOST_ACTIVATED', deployed_state: 'NOT_VERIFIED', public_write_authority: false,
+        editorial_roles: { filter: { model: 'gpt-6-luna', reasoning_effort: 'max' }, select: { model: 'gpt-6.1-sol', reasoning_effort: 'low' }, write: { model: 'gpt-6.1-sol', reasoning_effort: 'max' }, revise: { model: 'gpt-6.1-sol', reasoning_effort: 'max' } },
+        role_settings_state: 'CONFIGURED_TARGET_NOT_INVOCATION_PROOF',
+      },
       controls: { ...snapshot().controls, run_now_allowed: false, run_now_mode_consequence: 'Continue the native operation in Codex Desktop.' },
       platforms: { destinations: [{ ...snapshot().platforms.destinations[0], setup: { browser_login_needed: false, configuration_present: true, validity: 'NOT_VERIFIED', owner_action: 'Verify API access before use.' } }] },
     });
     respond(native); render(<DailyAppConsole />);
     expect(await screen.findByRole('heading', { name: 'Native editorial operation' })).toBeInTheDocument();
+    expect(screen.getByText('gpt-6-luna / MAX')).toBeInTheDocument();
+    expect(screen.getByText('gpt-6.1-sol / LOW')).toBeInTheDocument();
+    expect(screen.getByText('gpt-6.1-sol / MAX')).toBeInTheDocument();
+    expect(screen.getByText(/Role settings are the prepared target/)).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: /run editorial cycle now/i })).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole('button', { name: 'Platforms' }));
     expect(await screen.findByText(/API \/ bot connection; browser login not required/i)).toBeInTheDocument();

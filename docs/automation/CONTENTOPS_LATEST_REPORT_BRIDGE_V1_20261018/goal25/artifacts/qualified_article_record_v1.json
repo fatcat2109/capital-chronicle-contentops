@@ -1,0 +1,566 @@
+{
+  "accepted_evidence_ids": [
+    "trusted-relay-4c3afed12018da20b49e"
+  ],
+  "accepted_evidence_sha256": "a90da7d746afd3dd126ebaf60dfc5c31bb458c19608cbf49c1d2147486e786dc",
+  "article_body_sha256": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+  "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+  "article_path": null,
+  "attempt_run_id": "goal25-native-three-role-retained-x-v1",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Financial Times",
+        "primary_reporting_source_identity": "ft.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+        "relay_source_identity": "firstsquawk",
+        "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "trusted-relay-4c3afed12018da20b49e"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nRELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhat would pay it, and who would bear losses?\n\nWhat to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+      },
+      "payload_sha256": "9022fb5d634b15301c88202a575919652992aba275db35edc5bc67f9d13be0c2",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Financial Times",
+        "primary_reporting_source_identity": "ft.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+        "relay_source_identity": "firstsquawk",
+        "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "trusted-relay-4c3afed12018da20b49e"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c\n\nWhat would pay it, and who would bear losses?\n\nWatch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What would pay it, and who would bear losses?\n\nWatch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.889,
+            0.943
+          ],
+          "post_character_counts": [
+            249,
+            264
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.943,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What would pay it, and who would bear losses?\n\nWatch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response."
+        ],
+        "root_text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c",
+        "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+      },
+      "payload_sha256": "f463be11473378bbeccf89891cf46018d6bcd0c9224ad2f5fc3344ea9c1b7ad7",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Financial Times",
+        "primary_reporting_source_identity": "ft.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+        "relay_source_identity": "firstsquawk",
+        "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "trusted-relay-4c3afed12018da20b49e"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing**\n\nWhat would pay it, and who would bear losses?\n\n**Context:** A competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+      },
+      "payload_sha256": "2b67295cc902ecbe09d45226553fc5a35644389ae044efa90fc12676d922c532",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Financial Times",
+        "primary_reporting_source_identity": "ft.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+        "relay_source_identity": "firstsquawk",
+        "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "trusted-relay-4c3afed12018da20b49e"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhy it matters: If the report is accurate, Capital Chronicle's reading is that the key issue is what would pay the proposed yield and who would bear losses.\n\nContext: A competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+      },
+      "payload_sha256": "7b394274eb18196470632a4319b9b09466d2cf2343aed9fe1b39bd780f4c345b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Financial Times",
+        "primary_reporting_source_identity": "ft.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+        "relay_source_identity": "firstsquawk",
+        "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "trusted-relay-4c3afed12018da20b49e"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhat would pay it, and who would bear losses?\n\nWhy it matters: If the report is accurate, Capital Chronicle's reading is that the key issue is what would pay the proposed yield and who would bear losses.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+      },
+      "payload_sha256": "3bf9e3a7c26ae9be8735b87f4567e754fd328bb3da5b96c2e59d777f03b4227a",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Financial Times",
+        "primary_reporting_source_identity": "ft.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+        "relay_source_identity": "firstsquawk",
+        "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "trusted-relay-4c3afed12018da20b49e"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhat would pay it, and who would bear losses?\n\nIn focus: A competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c\n\n#CapitalChronicle"
+      },
+      "payload_sha256": "30f0405f0a760bf91972705cfc68568e43560e44f5aa09663fb2c18cd68b480d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Financial Times",
+        "primary_reporting_source_identity": "ft.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+        "relay_source_identity": "firstsquawk",
+        "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "trusted-relay-4c3afed12018da20b49e"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c\n\nWhat to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.718,
+            0.45
+          ],
+          "post_character_counts": [
+            359,
+            225
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.627,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response."
+        ],
+        "root_text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c",
+        "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+      },
+      "payload_sha256": "a93512538bb3ab98517bc62f08c27470d998ff4f3a9f9dc1fb81470c4ce81bc2",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Financial Times",
+        "primary_reporting_source_identity": "ft.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+        "relay_source_identity": "firstsquawk",
+        "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+        "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "trusted-relay-4c3afed12018da20b49e"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhat would pay it, and who would bear losses?\n\nWhat to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+      },
+      "payload_sha256": "9a7d9fc3f16339df4dadc7801fd7f499eb166868a08844d1895866b58d5f8091",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 3,
+      "observations": [
+        {
+          "invocation_id": "/root/goal25_luna_filter",
+          "model": "gpt-6-luna",
+          "observation_source": "actual native collaboration.spawn_agent configured gpt-6-luna/max; this role authored decisions",
+          "reasoning_effort": "max",
+          "role": "filter",
+          "speed": "standard",
+          "stage": "filter-d7895d96d853b14ecd5918352b044c9580557cd18ebc523233e666be29c46ffd",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal25_luna_filter",
+          "model": "gpt-6-luna",
+          "observation_source": "actual native collaboration.spawn_agent configured gpt-6-luna/max; this role authored decisions",
+          "reasoning_effort": "max",
+          "role": "filter",
+          "speed": "standard",
+          "stage": "filter-a3e48a02b2500cb68b6081403265656db13d83908fb859d13541cf5d6c8c97b1",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal25_luna_filter",
+          "model": "gpt-6-luna",
+          "observation_source": "actual native collaboration.spawn_agent configured gpt-6-luna/max; this role authored decisions",
+          "reasoning_effort": "max",
+          "role": "filter",
+          "speed": "standard",
+          "stage": "filter-d70aa6bec06413e38316247c12dca5c8692f0f85293c929349ec0126f0522f4c",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal25_luna_filter",
+          "model": "gpt-6-luna",
+          "observation_source": "actual native collaboration.spawn_agent configured gpt-6-luna/max; this role authored decisions",
+          "reasoning_effort": "max",
+          "role": "filter",
+          "speed": "standard",
+          "stage": "filter-462c5c053cd750e7555da8755007aadcee8058506c4c576eab3119470bd3206b",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal25_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "actual collaboration.spawn_agent gpt-6.1-sol/low; this role authored selection and evidenceplan",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "cost_usd": null,
+          "invocation_id": "/root/goal25_sol_max_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "actual collaboration.spawn_agent gpt-6.1-sol/max; this role authored prose/SEO",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "usage_tokens": null
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6-luna",
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 6,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Financial Times",
+    "primary_reporting_source_identity": "ft.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+    "relay_source_identity": "firstsquawk",
+    "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+    "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "trusted-relay-4c3afed12018da20b49e"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-20-bangkok",
+  "parent_window_id": "goal25-native-three-role-retained-x-v1",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "907e8c7298de076920ff7299e7702ec9d365d4b9effa2905382b9f9e4fd8d2c1",
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-f9daadf8c2643b42c1ea5505",
+  "title": "@firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-f9daadf8c2643b42c1ea5505"
+}

@@ -150,6 +150,7 @@ def build_final_daily_app_production_runtime(
     clock: Any = None,
     ensure_edge_runtime: bool = False,
     run_readiness_probes: bool = False,
+    native_neo_executor: Any = None,
 ) -> FinalDailyAppProductionRuntime:
     validate_registry()
     store = ContentOpsDurableStore(store_path)
@@ -163,13 +164,16 @@ def build_final_daily_app_production_runtime(
         orchestrator.execute("ensure_canonical_edge_publishing_runtime", urls=())
     readiness = DestinationReadinessManager(
         store=store,
+        neo_readiness_provider=(native_neo_executor.readiness if native_neo_executor is not None else None),
         edge_runtime_ensurer=lambda **kwargs: orchestrator.execute(
             "ensure_canonical_edge_publishing_runtime", urls=tuple(kwargs.get("urls") or ())
         ),
     )
     if run_readiness_probes:
         readiness.probe_all(persist=True)
-    transport = CanonicalDestinationTransportRuntimeV1()
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    transport = CanonicalDestinationTransportRuntimeV1(
+        neo_transport=NeoDestinationHandoff(native_executor=native_neo_executor))
     readiness_by_destination = lambda destination: (  # noqa: E731
         next((
             row for row in store.list_destination_readiness()

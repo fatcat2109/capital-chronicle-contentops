@@ -439,6 +439,8 @@ def _automation_state_projection(store_path: Path, generated: datetime) -> dict[
         "project": packet["project"],
         "model": packet["model"],
         "reasoning_effort": packet["reasoning_effort"],
+        "editorial_roles": packet["editorial_roles"],
+        "role_settings_state": packet["role_settings_state"],
         "prompt_sha256": hashlib.sha256(packet["prompt"].encode("utf-8")).hexdigest(),
     }
     observation_path = store_path.parent / "automation_observation" / "latest.json"
@@ -1742,6 +1744,8 @@ def build_daily_app_snapshot(
         },
         "editorial_execution_target": {"owner": "NATIVE_CODEX_DESKTOP", "model": "gpt-6.1-sol",
             "reasoning_effort": "low", "target_status": "PREPARED_NOT_HOST_ACTIVATED",
+            "editorial_roles": automation_state["configured_intent"]["editorial_roles"],
+            "role_settings_state": automation_state["configured_intent"]["role_settings_state"],
             "deployed_state": "READ_EXISTING_HOST_OBSERVATION_SEPARATELY", "public_write_authority": False},
         "platforms": {"destinations": platform_models},
         "incidents": {

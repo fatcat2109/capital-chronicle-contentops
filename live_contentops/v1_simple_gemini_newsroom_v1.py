@@ -291,14 +291,22 @@ def _candidate_universe(
         if not headline_id or len(normalized) < 12:
             continue
         story_identity = "simple-story-" + _text_hash(normalized)[:24]
+        revision_identity = {k: row[k] for k in (
+            "correction_of", "supersedes_headline_id", "update_chain_identity", "revision_id", "revision_at_utc"
+        ) if isinstance(row.get(k), str) and row[k].strip()}
+        explicit_revision = any(k in revision_identity for k in ("correction_of", "supersedes_headline_id", "revision_id"))
+        dedupe_title = normalized
+        if explicit_revision:
+            story_identity = "simple-story-" + _hash([normalized, revision_identity])[:24]
+            dedupe_title = normalized + ":revision:" + _hash(revision_identity)
         if (
-            headline_id in published_headline_ids
+            (headline_id in published_headline_ids and not explicit_revision)
             or story_identity in published_story_ids
-            or normalized in published_titles
-            or normalized in seen_titles
+            or (normalized in published_titles and not explicit_revision)
+            or dedupe_title in seen_titles
         ):
             continue
-        seen_titles.add(normalized)
+        seen_titles.add(dedupe_title)
         external = row.get("external_content")
         external = external if isinstance(external, Mapping) else {}
         source_url = _safe_https_locator(_headline_url(row))
@@ -327,9 +335,10 @@ def _candidate_universe(
         result.append({
             "candidate_id": story_identity,
             "story_identity": story_identity,
-            "update_chain_identity": (external.get("evolving_story_context") or [{}])[0].get("update_chain_identity", story_identity)
-                if len(external.get("evolving_story_context") or []) == 1 else story_identity,
+            "update_chain_identity": row.get("update_chain_identity") or ((external.get("evolving_story_context") or [{}])[0].get("update_chain_identity", story_identity)
+                if len(external.get("evolving_story_context") or []) == 1 else story_identity),
             "headline_id": headline_id,
+            **revision_identity,
             "headline_text": text,
             "source_timestamp_utc": str(row.get("source_timestamp_utc") or ""),
             "source_account": _headline_account(row),
@@ -372,6 +381,9 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
         )
     }
     sourceability = row.get("sourceability_work_order")
+    candidate.update({k: row[k] for k in (
+        "correction_of", "supersedes_headline_id", "revision_id", "revision_at_utc"
+    ) if k in row})
     sourceability = sourceability if isinstance(sourceability, Mapping) else {}
     candidate["sourceability_route_hint"] = {
         "canonical_x_zero_get_route_available": bool(
@@ -481,7 +493,7 @@ def _published_memory_summary(published_memory: Sequence[Any]) -> dict[str, Any]
 
 
 def _validate_selection_text(
-    text: str, *, candidate_ids: set[str]
+    text: str, *, candidate_ids: set[str], native_plan: bool = False
 ) -> tuple[bool, str | None, Any, str | None]:
     try:
         value = json.loads(str(text or ""))
@@ -525,6 +537,8 @@ def _validate_selection_text(
         "selection_rationale",
         "research_queries",
     }
+    if native_plan:
+        plan_fields.update({"angle", "primary_reader_question", "evidence_plan"})
     for position, raw in enumerate(plan, start=1):
         if not isinstance(raw, Mapping) or set(raw) != plan_fields:
             return False, "structured_output_schema_invalid", None, "candidate_plan_entry_fields_invalid"
@@ -540,6 +554,9 @@ def _validate_selection_text(
         rationale = str(raw.get("selection_rationale") or "").strip()
         if len(rationale) < 8:
             return False, "structured_output_schema_invalid", None, "candidate_rationale_required"
+        if native_plan and any(not isinstance(raw.get(k), str) or len(raw[k].strip()) < 8
+                               for k in ("angle", "primary_reader_question", "evidence_plan")):
+            return False, "structured_output_schema_invalid", None, "native_angle_question_evidence_plan_required"
         queries = raw.get("research_queries")
         if not isinstance(queries, list) or not 1 <= len(queries) <= 3:
             return False, "structured_output_schema_invalid", None, "research_query_count_invalid"
@@ -554,6 +571,7 @@ def _validate_selection_text(
                 "research_queries": cleaned,
                 "plan_position": position,
                 "plan_role": "PRIMARY" if position == 1 else "FALLBACK",
+                **({k: raw[k] for k in ("angle", "primary_reader_question", "evidence_plan")} if native_plan else {}),
             }
         )
     result = dict(value)
@@ -809,6 +827,12 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "selection_summary": "specific reason no candidate is genuinely useful",
         "public_write_attempted": False,
     }
+    if governed.get("native_role_plan_required"):
+        select_contract["ordered_candidate_plan"][0].update({
+            "angle": "specific evidence-led editorial angle",
+            "primary_reader_question": "the concrete audience question this article answers",
+            "evidence_plan": "existing tool/source resolution steps; named missing dimensions; code owns arithmetic",
+        })
     return (
         "Return exactly one JSON object. Do not use markdown, code fences, commentary, prefixes, or suffixes. "
         "Use exactly the five top-level keys shown in one OUTPUT_CONTRACT variant and preserve their JSON types. "
@@ -1959,6 +1983,7 @@ def run_v1_simple_gemini_newsroom(
         "capital_chronicle_context_present": bool(capital_chronicle_context),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_mode_guide": _institutional_edge_mode_guide(),
+        "native_role_plan_required": native,
     }
     candidate_ids = {row["candidate_id"] for row in candidates}
     try:
@@ -1969,7 +1994,7 @@ def run_v1_simple_gemini_newsroom(
             prompt=_selection_prompt(selection_governed),
             governed_input=selection_governed,
             validator=lambda text: _validate_selection_text(
-                text, candidate_ids=candidate_ids
+                text, candidate_ids=candidate_ids, native_plan=native
             ),
         )
     except SimpleGeminiNewsroomError as exc:
@@ -2247,6 +2272,9 @@ def run_v1_simple_gemini_newsroom(
             if s["brief_id"] in {c["brief_id"] for c in selected.get("evolving_story_context", [])}],
         "article_mode": selected_plan_entry["article_mode"],
         "selection_rationale": selected_plan_entry["selection_rationale"],
+        "selection_angle": selected_plan_entry.get("angle"),
+        "primary_reader_question": selected_plan_entry.get("primary_reader_question"),
+        "evidence_plan": selected_plan_entry.get("evidence_plan"),
         "source_pack": source_pack,
         "epistemic_state": dict(selected_epistemic_state or {}),
         "report_truth": (

@@ -23,7 +23,7 @@ Native App scheduled task or explicit owner-manual conversation
 `scripts/run_native_desktop_editorial.py` advances this same lifecycle. Pending JSON is a
 tool request for the conversation currently running, not an invented Python-to-chat API.
 The conversation authors and submits its actual result and continues in the same turn.
-Subagents are optional only for an independent need; no routine selector/writer/reviewer fleet.
+Native subagents execute the assigned filter, selection and writer roles inside the same opportunity; no permanent fleet or additional schedule is created.
 No Gemini, 9Router, SDK, App-Server, headless or paid API model fallback exists in this path.
 
 The existing outbox holds frozen input, request, response, source checkpoints and final result.
@@ -68,7 +68,7 @@ YouTube video OAuth does not supply Community posting. Bulk X-list CDP ingestion
 `neo_destination_handoff_v1.py` prepares scoped native publish/readback requests and requires
 the sole coordinator's exact dispatch authorization. Missing native executor is a definite
 pre-write block; an ambiguous result remains UNKNOWN_WRITE in the existing coordinator.
-This engineering slice prepares that interface, without logging in, reauthorizing or posting.
+Goal25 binds that interface to NativeNeoExecutor: persisted request -> begin -> the active Desktop conversation executes Neo -> bound observed return -> the same coordinator readback/reconciliation. Python does not invoke MCP. The readback helper cannot publish or save drafts; the publish ambiguity boundary is controlled-test evidence only.
 No supported callable executor is silently substituted by Edge. Existing API/bot paths remain.
 Background semantic interaction classification no longer invokes 9Router; existing metrics and
 learning retain unavailable/unclassified evidence until a real governed classification exists.
@@ -79,6 +79,6 @@ Main owns public report bytes, numeric analysis and wire formats. Evolving story
 continuity and the reciprocal public context outbox remain unchanged. No private Main/account,
 company/database or broker reads/writes; V2 has no inherited publication authority.
 
-Owning engineering checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal24/RELEASE_HANDOFF.md`.
+Owning engineering checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal25/RELEASE_HANDOFF.md`.
 Official supported surfaces checked: [Scheduled tasks](https://learn.chatgpt.com/docs/automations)
 and [Models](https://learn.chatgpt.com/docs/models). App availability is observed separately.

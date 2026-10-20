@@ -24,6 +24,7 @@ from live_contentops.destination_transport_registry_v1 import (
     registration_for_destination,
 )
 from live_contentops.browser_interaction_budget_v1 import browser_activity
+from live_contentops.native_neo_executor_v1 import NativeNeoInputRequired, PENDING as NATIVE_NEO_PENDING
 
 
 ATTEMPT_STARTED = "DISPATCH_ATTEMPT_STARTED"
@@ -742,6 +743,10 @@ class DurablePublicationCoordinator:
                     intent=intent,
                 )
             normalized = normalize_readback_result(raw or {}, public_object_id=object_id)
+        except NativeNeoInputRequired:
+            # Waiting for the active Desktop tool is not an observed readback failure.
+            # Keep all existing public identity and reconciliation evidence intact.
+            return RECONCILIATION_PENDING
         except Exception as exc:
             normalized = {
                 "verified": False, "write_absent": False, "identity_match": False,
@@ -847,6 +852,8 @@ class DurablePublicationCoordinator:
         item = dict(intent["destination_plan"])
         ids = self._ids(str(intent["work_item_id"]), str(intent["plan_hash"]), destination)
         existing = self.store.get_platform_dispatch(ids["dispatch_id"])
+        native_pending_resume = bool(existing and existing.get("status") == NATIVE_NEO_PENDING
+            and registration_for_destination(destination).transport_type == "BROWSEROS_NEO_MCP")
         if existing:
             reconciliation_status = None
             getter = getattr(self.store, "get_reconciliations_for_work_item", None)
@@ -891,7 +898,7 @@ class DurablePublicationCoordinator:
                     )
                 )
             )
-            if not (retry_eligible or correction_retry_eligible):
+            if not (retry_eligible or correction_retry_eligible or native_pending_resume):
                 return {
                     "destination": destination,
                     "status": str(existing["status"]),
@@ -900,7 +907,7 @@ class DurablePublicationCoordinator:
                     "public_object_url": existing.get("public_object_url"),
                     "reconciliation_status": reconciliation_status,
                 }
-            if destination == "substack":
+            if destination == "substack" and not native_pending_resume:
                 intent = {**intent, "recovery_public_object_id": recovery_object_id}
             elif correction_retry_eligible and destination == "x":
                 intent = {
@@ -915,7 +922,7 @@ class DurablePublicationCoordinator:
         if dependency and not (canonical_url or intent.get("canonical_url")):
             return {"destination": destination, "status": "WAITING_CANONICAL_URL", "publish_called": False}
         if dependency and canonical_url:
-            if explicit_reconciled_absent_retry or explicit_transport_correction_retry:
+            if explicit_reconciled_absent_retry or explicit_transport_correction_retry or native_pending_resume:
                 # The original attempt already froze exact canonical-bound bytes before its
                 # dispatch marker. Recovery must reuse them byte-for-byte, never mutate them.
                 if str(intent.get("canonical_url") or "") != canonical_url:
@@ -936,11 +943,15 @@ class DurablePublicationCoordinator:
                 )
             item = dict(intent["destination_plan"])
         # Re-read durable mode immediately before every new adapter write.
-        mode = self._mode()
+        mode = "AUTONOMOUS_DEFAULT" if native_pending_resume else self._mode()
         if mode != "AUTONOMOUS_DEFAULT":
             return {"destination": destination, "status": f"WRITE_BLOCKED_{mode}", "publish_called": False}
         self._record_runtime_activity(intent, "PUBLICATION_JIT", destination=destination)
-        if self.readiness_manager is not None:
+        if native_pending_resume:
+            # Only consume the same durable request/return. Its Desktop action claim checks
+            # current mode itself; a lost claimed return becomes UNKNOWN, never another click.
+            readiness = "READY_AUTHENTICATED"
+        elif self.readiness_manager is not None:
             cached_failure = None
             cached_failure_fn = getattr(self.readiness_manager, "cached_failed_jit_attempt", None)
             if callable(cached_failure_fn):
@@ -999,6 +1010,12 @@ class DurablePublicationCoordinator:
                 raw or {}, destination=destination, surface=registration.surface,
                 transport_type=registration.transport_type,
             )
+        except NativeNeoInputRequired as pending:
+            self.store.set_dispatch_status(ids["dispatch_id"], NATIVE_NEO_PENDING)
+            self.store.set_outbox_status(ids["message_id"], NATIVE_NEO_PENDING)
+            return {"destination": destination, "status": NATIVE_NEO_PENDING, "publish_called": False,
+                    "native_tool_request": pending.request, "reconciliation_status": None,
+                    "public_write_performed": False}
         except Exception as exc:
             result = {
                 "status": UNKNOWN_WRITE, "public_object_id": None,
@@ -1660,6 +1677,11 @@ class DurablePublicationCoordinator:
             if dispatch is None:
                 continue
             status = str(dispatch["status"])
+            if status == NATIVE_NEO_PENDING:
+                # Resume only the exact native tool request. No adapter retry is allocated.
+                outcome = self._dispatch_message(message, canonical_url=intent.get("canonical_url"))
+                summary["per_destination"][str(message["destination"])] = outcome
+                continue
             ids = self._ids(
                 str(intent["work_item_id"]),
                 str(intent["plan_hash"]),
@@ -1870,6 +1892,12 @@ class DurablePublicationCoordinator:
                 continue
             dispatch = refreshed_dispatches.get(str(message["message_id"]))
             destination = str(message["destination"])
+            if dispatch and dispatch.get("status") == NATIVE_NEO_PENDING:
+                remaining_destinations.append(destination)
+                remaining_obligations.append({"work_item_id": str(intent["work_item_id"]),
+                    "destination": destination, "durable_status": NATIVE_NEO_PENDING,
+                    "blocking_status": NATIVE_NEO_PENDING, "reconciliation_status": ""})
+                continue
             if (
                 self._full_v1_distribution_required(intent)
                 and destination in V1_REQUIRED_DERIVATIVE_DESTINATIONS
@@ -1974,6 +2002,26 @@ class DurablePublicationCoordinator:
 
     def publish_plan(self, work_item_id: str, plan: Mapping[str, Any]) -> dict[str, Any]:
         return self.execute_plan(work_item_id, plan)
+
+    def readback_existing_dispatch(self, dispatch_id: str) -> dict[str, Any]:
+        """Refresh one already persisted object through the existing strict reconciliation.
+
+        This operation never calls publish, saves a draft or allocates a new dispatch. It
+        also works under the paused/KILL_SWITCH mode and preserves prior proof while the
+        native Desktop readback tool request is pending.
+        """
+        dispatch = self.store.get_platform_dispatch(dispatch_id)
+        if not dispatch or dispatch.get("status") not in {DISPATCH_CONFIRMED, UNKNOWN_WRITE, ATTEMPT_STARTED}:
+            raise ValueError("EXISTING_PUBLIC_OR_AMBIGUOUS_DISPATCH_REQUIRED")
+        message = self.store.get_outbox_message(dispatch["message_id"])
+        intent = json.loads(message["payload"]) if message else {}
+        expected = self._ids(str(intent.get("work_item_id")), str(intent.get("plan_hash")), str(dispatch["platform"]))
+        if expected["dispatch_id"] != dispatch_id or expected["message_id"] != dispatch["message_id"]:
+            raise ValueError("EXISTING_DISPATCH_INTENT_BINDING_MISMATCH")
+        status = self._reconcile(dispatch, intent)
+        return {"dispatch_id": dispatch_id, "destination": dispatch["platform"],
+                "reconciliation_status": status, "public_write_performed": False,
+                "publish_called": False}
 
     def readback(self, *args: Any, **kwargs: Any) -> Mapping[str, Any]:
         """Production wiring seam: readback is owned by this coordinator/router."""

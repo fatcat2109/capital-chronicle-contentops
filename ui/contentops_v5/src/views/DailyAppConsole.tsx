@@ -263,6 +263,11 @@ function RunEditorialNow({ data, refresh }: { data: DailyAppSnapshot; refresh: (
   };
   if (data.editorial_execution_target?.owner === 'NATIVE_CODEX_DESKTOP') return <Panel title="Native editorial operation" eyebrow="Codex Desktop">
     <p className="daily-callout">{data.controls.run_now_mode_consequence}</p>
+    {!!data.editorial_execution_target.editorial_roles && <dl className="daily-definitions">
+      {Object.entries(data.editorial_execution_target.editorial_roles).filter(([role]) => role !== 'revise').map(([role, settings]) =>
+        <div key={role}><dt>{({ filter: 'Filter headlines', select: 'Choose story and prepare evidence', write: 'Write article and SEO' } as Record<string, string>)[role] ?? words(role)}</dt><dd>{settings.model} / {settings.reasoning_effort.toUpperCase()}</dd></div>)}
+    </dl>}
+    <p>Role settings are the prepared target. Actual model execution is recorded separately for each completed stage.</p>
     <p>Continue in the ContentOps Codex conversation using its saved operation binding. This page does not start a model or change the paused schedules.</p>
   </Panel>;
   return <Panel title="Run editorial cycle now" eyebrow="Historical operator trigger">

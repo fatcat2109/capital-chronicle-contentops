@@ -596,11 +596,14 @@ class DestinationReadinessManager:
             matched, _ = _identity_pin_match(registration,
                 observed_stable_id=proof.get("stable_id"), observed_public_handle=proof.get("public_handle"),
                 observed_domain=proof.get("domain")) if proof else (False, {})
-            ready = bool(matched and proof.get("authenticated") and proof.get("native_executor_bound"))
+            ready = bool(matched and proof.get("authenticated") and proof.get("native_executor_bound")
+                         and proof.get("proof_fresh") is True and proof.get("observation_sha256"))
             return _base_row(registration, state=READY_AUTHENTICATED if ready else "SESSION_UNAVAILABLE",
                 identity=proof.get("public_handle") or proof.get("domain"), identity_match=matched,
                 probe_kind="NATIVE_NEO_EXACT_ACCOUNT_OBSERVATION",
                 detail={"authenticated": bool(proof.get("authenticated")), "native_executor_bound": bool(proof.get("native_executor_bound")),
+                        "proof_fresh": proof.get("proof_fresh") is True,
+                        "native_observation_sha256": proof.get("observation_sha256"),
                         "owner_action": "Verify Neo account identity and bind supported native executor; no login or post probe here."})
         if registration.surface == "LINKEDIN_POST":
             return self._linkedin_probe(registration)

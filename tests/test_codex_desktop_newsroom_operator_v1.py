@@ -787,14 +787,22 @@ def test_desktop_rehearsal_reuses_canonical_reserved_frontier_and_never_promotes
     } == output_before
 
 
-def test_exact_four_task_packet_is_native_sol_low_and_paused():
+def test_exact_four_task_packet_assigns_native_roles_and_keeps_four_paused_light_coordinators():
     packet = four_task_setup_packet()
     assert packet["model"] == "gpt-6.1-sol"
     assert packet["reasoning_effort"] == "low"
     assert packet["routine_task_count"] == 4
     assert packet["publication_minimum"] == 5
     assert packet["one_coherent_desktop_turn"] is True
-    assert packet["subagents_only_for_independent_need"] is True
+    assert packet["subagents_for_assigned_native_roles"] is True
+    assert packet["editorial_roles"] == {
+        "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
+        "select": {"model": "gpt-6.1-sol", "reasoning_effort": "low"},
+        "write": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
+        "revise": {"model": "gpt-6.1-sol", "reasoning_effort": "max"},
+    }
+    assert packet["editorial_worker_reasoning_effort"] == "max"
+    assert packet["role_settings_state"] == "CONFIGURED_TARGET_NOT_INVOCATION_PROOF"
     assert packet["speed"] == "standard"
     for task in packet["tasks"]:
         assert task["id"] in EXACT_V1_AUTOMATION_IDS
@@ -802,6 +810,10 @@ def test_exact_four_task_packet_is_native_sol_low_and_paused():
         assert task["id"] in task["prompt"]
         assert "scripts/run_native_desktop_editorial.py" in task["prompt"]
         assert "UNKNOWN" in task["prompt"]
+        assert "ALL unprocessed admissible headlines" in task["prompt"]
+        assert "institutional_edge_editorial_packet" in task["prompt"]
+        assert "same writer" in task["prompt"]
+        assert task["model"] == "gpt-6.1-sol" and task["reasoning_effort"] == "low"
     assert "isolated" in MANUAL_GO_PROMPT
 
 

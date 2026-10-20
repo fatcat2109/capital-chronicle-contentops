@@ -1,0 +1,28 @@
+{
+  "focused_backend": {
+    "passed": 137
+  },
+  "neo_coordinator_filter": {
+    "passed": 70
+  },
+  "intake_correction": {
+    "passed": 5,
+    "deselected": 18
+  },
+  "final_native_safety": {
+    "passed": 22
+  },
+  "ui": {
+    "passed": 21,
+    "files": 2,
+    "build": "PASS"
+  },
+  "final_ci": "PENDING_REMOTE",
+  "final_operator_native": {
+    "passed": 61
+  },
+  "final_filter_newsroom": {
+    "passed": 41
+  },
+  "ruff": "PASS_FOCUSED_CHANGED_BACKEND"
+}

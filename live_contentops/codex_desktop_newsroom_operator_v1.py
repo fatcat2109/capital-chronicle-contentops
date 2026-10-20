@@ -114,19 +114,34 @@ BOUNDED_EDITORIAL_CONTEXT_KEYS = frozenset(
 )
 DESKTOP_TASK_PROMPT = (
     "Read fresh AGENTS/current native Desktop authority. Routine owner NATIVE_CODEX_DESKTOP; "
-    "use gpt-6.1-sol low (Light), standard speed, in this SAME coherent turn. No Gemini/9Router, "
-    "SDK/App-Server/API fallback, paid speed, autonomous fleet, source/rights weakening or public write. "
+    "the coordinator uses gpt-6.1-sol/low (Light), standard speed, within this SAME opportunity. "
+    "Follow CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2: native gpt-6-luna/max filters; "
+    "gpt-6.1-sol/low selects content and prepares evidence; native gpt-6.1-sol/max writes and repairs. "
+    "Use fresh native subagents for the assigned MAX roles; keep the same writer for its one useful repair. "
+    "No Gemini/9Router, SDK/App-Server/API fallback, paid speed, permanent fleet, source/rights weakening or public write. "
     "Run python scripts/run_native_desktop_editorial.py scheduled --automation-id {automation_id} "
     "--rollout config/native_desktop_rollout_v1.json. Respect LLM_OPERATOR_PAUSED before any store write. "
     "The command resolves this existing four-window slot and the frozen operation binding. "
     "When it returns binding_path, run python scripts/run_native_desktop_editorial.py advance "
     "--binding <binding_path> immediately to obtain the next request or final result. "
-    "If pending, read its exact desktop_request JSON, reason over <=32 candidates, Main public reports, "
-    "reviewed retained research and reconciled memory; submit the response with actual observable "
+    "If pending, read its exact desktop_request JSON and obey its requested role/model/effort. "
+    "After unchanged bulk X CDP ingestion and exact dedupe, process ALL unprocessed admissible headlines "
+    "through bounded resumable MAX-filter batches with exact IDs, input/output hashes, cursor and "
+    "seen/kept/rejected/deferred counts and reasons. Never truncate to newest-32 and call all filtered. "
+    "Retain headline/correction/update identities; invalidate only affected inputs. "
+    "Then Light chooses <=32 downstream candidates using Main public reports, reviewed retained research, "
+    "prior-story/missing-dimension context and reconciled memory; it owns angle, mode, audience question "
+    "and an evidence plan. Code/tools retrieve, parse, compute and validate permitted data; no DB backfill. "
+    "Submit each response with actual observable "
     "invocation/model/effort (null if unobservable), then advance using returned binding_path. "
     "Use python scripts/run_native_desktop_editorial.py submit --binding <binding_path> --stage "
-    "<select|write|revise> --response <authored-response.json>, then advance --binding <binding_path>. "
-    "Stay in this turn through selection, bounded existing evidence retrieval, writing, deterministic "
+    "<exact-returned-stage> --response <authored-response.json>, then advance --binding <binding_path>. "
+    "The MAX writer receives the compact source/claim/prior-story packet plus the exact hash-bound "
+    "institutional_edge_editorial_packet and current voice/humor/SEO contracts. It owns canonical prose, "
+    "SEO and article-bound native passages: defensible thesis, mechanism, countercase, uncertainty and reader utility. "
+    "Titles/dek/description/slug/links/supported structured data must express the same evidenced proposition. "
+    "Humor is optional; no manufactured certainty, filler or word quota. "
+    "Stay in this opportunity through selection, bounded existing evidence retrieval, writing, deterministic "
     "validation and at most one useful repair. Never copy a template as model output. "
     "Continue existing bounded deficit slots only when command reports capacity and useful work; "
     "4/32 is telemetry, never a reason to stop below five. Source limit six shared requests per article; "
@@ -137,19 +152,29 @@ DESKTOP_TASK_PROMPT = (
     "decision KEEP/REVISE/HOLD, rationale and expected_review_id for a revision; KEEP can then "
     "prepare handoff --binding <binding_path> "
     "through the existing sole DurablePublicationCoordinator plan. Neither command publishes. "
+    "For an explicitly bound existing-object readback, use scripts/run_native_neo_executor.py "
+    "with the saved Neo binding: verify/readback -> begin exact request hash -> actual Neo MCP "
+    "snapshot/action -> submit observed bound return -> resume readback/reconciliation. "
+    "The helper is readback-only and cannot save a draft. Missing executor blocks before writing; "
+    "a claimed uncertain write permits only readback. No fresh publish authority is granted. "
     "Destination login gaps cannot veto independent article creation. Browser path Neo; bulk X ingestion "
     "stays CDP. Do not edit source, run tests/CodeGraph, alter schedules/pause, or publish during routine work."
 )
 MANUAL_GO_PROMPT = (
     "Use the same native request/return operation with an explicit owner-manual isolated binding. "
-    "Advance, read pending request, reason and submit, validate and inspect. No production pause release "
+    "Luna MAX filters the full unprocessed admissible backlog in resumable batches; Sol Light selects/prepares "
+    "evidence; Sol MAX writes the exact institutional-edge/SEO package and at most one same-writer repair. "
+    "Advance, read each exact pending request, use its assigned native role and submit observed provenance; "
+    "validate and inspect the article and eight native previews. No production pause release "
     "or schedule mutation; no publication. "
 )
 
 
 
 def four_task_setup_packet() -> dict[str, Any]:
-    """Prepared paused target for the same four native Desktop Sol-low tasks."""
+    """Prepared paused target: four Light coordinators with explicit native role boundaries."""
+    from live_contentops.native_desktop_editorial_v1 import ROLE_ASSIGNMENTS
+
     tasks = [
         {
             "id": EXACT_V1_AUTOMATION_IDS[0],
@@ -188,11 +213,15 @@ def four_task_setup_packet() -> dict[str, Any]:
         "model": "gpt-6.1-sol",
         "reasoning_effort": "low",
         "editorial_worker_model": "gpt-6.1-sol",
-        "editorial_worker_reasoning_effort": "low",
-        "editorial_worker_is_fresh_and_isolated": False,
-        "editorial_worker_only_when_article_warranted": False,
+        "editorial_worker_reasoning_effort": "max",
+        "editorial_worker_is_fresh_and_isolated": True,
+        "editorial_worker_only_when_article_warranted": True,
         "one_coherent_desktop_turn": True,
-        "subagents_only_for_independent_need": True,
+        "subagents_only_for_independent_need": False,
+        "subagents_for_assigned_native_roles": True,
+        "editorial_role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2",
+        "editorial_roles": {role: dict(settings) for role, settings in ROLE_ASSIGNMENTS.items()},
+        "role_settings_state": "CONFIGURED_TARGET_NOT_INVOCATION_PROOF",
         "target_status": "PAUSED",
         "speed": "standard",
         "tasks": [{**task, "status": "PAUSED", "model": "gpt-6.1-sol", "reasoning_effort": "low",

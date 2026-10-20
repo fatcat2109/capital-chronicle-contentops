@@ -2,7 +2,7 @@
 
 Authority date: 2026-10-20
 Authority: Jim's explicit three-stage model assignment and request to standardize it in the North Star.
-Status: OWNER_APPROVED_TARGET_METHOD_IMPLEMENTATION_PENDING
+Status: OWNER_APPROVED_METHOD_IMPLEMENTED_ISOLATED_PROOF / PAUSED_NOT_DEPLOYED
 Scope: ContentOps editorial work only; Main Core model/reasoning policy is unchanged.
 
 ## One method and explicit role ownership
@@ -91,3 +91,13 @@ The user has approved this target method. At adoption, deployed/paused source an
 actual proof still use the previous Sol-low article pipeline. Goal25 implements and tests the
 new assignment. Neither this document nor its North Star inclusion claims that all three model
 stages, Neo publishing, natural daily throughput or SEO/audience outcomes are already proven.
+
+## Goal25 implementation epoch
+
+The native role assignments and durable Neo tool loop are implemented on PR90. One isolated
+retained-X opportunity processed all 94 records in its complete historical interval: 62 KEEP,
+22 REJECT, 10 DEFER, then Sol-Light selection and a real Sol-MAX article, eight native packages
+and unchanged replay. It does not claim all historical intake was filtered, current-day
+throughput, search performance, activation or live publishing. Real existing-object readback
+confirmed Substack and YouTube; X objects exist but their current content does not fully match
+the retained package. See the owning `goal25/RELEASE_HANDOFF.md` for exact evidence and limits.

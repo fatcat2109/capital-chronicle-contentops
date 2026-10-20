@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import json
 import os
+import re
+from hashlib import sha256
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -24,6 +26,63 @@ ROOTS = {"substack": "https://capitalchronicle.substack.com/", "x": "https://x.c
 def _canonical(url):
     p = urlsplit(str(url or ""))
     return p.scheme == "https" and p.hostname == IDENTITIES["substack"] and p.path.startswith("/p/") and not p.query and not p.fragment
+
+
+def _public_url(destination, url, object_id=None):
+    p = urlsplit(str(url or ""))
+    if p.scheme != "https" or p.query or p.fragment:
+        return False
+    if destination == "substack":
+        return _canonical(url)
+    if destination == "x":
+        return (p.hostname in {"x.com", "www.x.com"} and re.fullmatch(r"/Capitalnicle/status/\d+", p.path, re.I)
+                and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
+    return (p.hostname == "www.youtube.com" and p.path.startswith("/post/")
+            and (not object_id or p.path.rsplit("/", 1)[-1] == str(object_id)))
+
+
+def _text(value):
+    # Browser rendering removes common Markdown syntax; it does not change the proposition.
+    value = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", str(value or ""))
+    return " ".join(re.sub(r"[#*_`]", "", value).split())
+
+
+def _payload_binding(intent, destination):
+    payload = intent.get("native_payload") or intent.get("payload")
+    assets = list(intent.get("media_assets") or [])
+    artifacts = []
+    root = Path(str(intent.get("output_dir") or ""))
+    if intent.get("output_dir"):
+        from live_contentops._eight_platform_substack_first_pipeline_impl_v1 import _durable_intent_inputs
+        resolved = _durable_intent_inputs(intent)
+        if destination == "substack":
+            article = resolved["article"]
+            payload = {"title": article.get("title"), "subtitle": article.get("subtitle"),
+                       "body_markdown": article.get("substack_body_markdown")}
+        else:
+            payload = intent.get("native_payload") or resolved["payloads"][destination]
+        assets = resolved["media_assets"]
+        for name in ("run_context_v1.json", "delivery_media_manifest_v1.json"):
+            path = root / name
+            if path.is_file():
+                artifacts.append({"path": str(path), "sha256": sha256(path.read_bytes()).hexdigest()})
+    texts = []
+    thread_texts = []
+    posts = []
+    if isinstance(payload, str):
+        texts = [payload] if payload else []
+    elif isinstance(payload, dict):
+        posts = list(payload.get("posts") or [])
+        texts = [str(payload[k]) for k in ("title", "subtitle", "body_markdown", "text") if payload.get(k)]
+        for post in posts:
+            text = post.get("text") if isinstance(post, dict) else post
+            if text:
+                texts.append(str(text))
+                thread_texts.append(str(text))
+    media = [{k: a[k] for k in ("asset_id", "path", "sha256", "rights", "public_delivery_sha256", "verified_public_delivery_url") if k in a}
+             for a in assets if isinstance(a, dict)]
+    return payload, {"expected_text_segments": texts, "expected_thread_texts": thread_texts, "thread_post_count": len(posts),
+                     "media_manifest": media, "artifact_manifest": artifacts}
 
 
 class NeoDestinationHandoff:
@@ -48,6 +107,7 @@ class NeoDestinationHandoff:
                 raise ValueError("SOLE_COORDINATOR_AUTHORIZATION_REQUIRED")
             if destination != "substack" and not _canonical(intent.get("canonical_url")):
                 raise ValueError("RECONCILED_SUBSTACK_URL_REQUIRED")
+        native_payload, content_binding = _payload_binding(intent, destination)
         value = {"schema_version": SCHEMA, "destination": destination, "action": action,
             "expected_identity": IDENTITIES[destination], "entry_url": ROOTS[destination],
             "intent_sha256": sha256_of(intent), "work_item_id": intent.get("work_item_id"),
@@ -56,7 +116,11 @@ class NeoDestinationHandoff:
             "dispatch_attempt_identity": auth.get("dispatch_attempt_identity"),
             "canonical_url": intent.get("canonical_url"),
             "public_object_id": public_object_id, "public_object_url": public_object_url,
-            "native_payload": intent.get("native_payload"), "payload": intent.get("payload"),
+            "native_payload": native_payload, "payload": intent.get("payload"),
+            "content_binding": content_binding,
+            "surface": intent.get("destination_plan", {}).get("surface") or {
+                "substack": "SUBSTACK_ARTICLE", "x": "X_THREAD" if content_binding["thread_post_count"] > 1 else "X_POST",
+                "youtube": "YOUTUBE_COMMUNITY_POST"}[destination],
             "steps": ["name_session; list tabs, open a task-owned tab",
                 "snapshot; verify current signed-in publishing identity exactly; login is an owner action",
                 "bind exact approved payload/media and reconciled canonical URL; use snapshot refs only",
@@ -87,13 +151,35 @@ class NeoDestinationHandoff:
             return {"status": "BLOCKED", "verified": False, "request": request,
                     "reason_code": "NEO_NATIVE_READBACK_EXECUTOR_NOT_BOUND"}
         result = dict(self.native_executor(request))
+        binding = request["content_binding"]
+        segments = binding["expected_text_segments"]
+        observed_text = _text(result.get("observed_text"))
+        text_match = bool(segments) and all(_text(s) in observed_text for s in segments)
+        expected_media = {a.get("public_delivery_sha256") or a.get("sha256") for a in binding["media_manifest"]}
+        expected_media.discard(None)
+        media_match = expected_media <= set(result.get("observed_media_sha256") or [])
+        thread = result.get("observed_thread") or []
+        thread_match = (binding["thread_post_count"] <= 1 or (
+            len(thread) == binding["thread_post_count"]
+            and all(_text(text) in _text(post.get("observed_text"))
+                    and _public_url("x", post.get("public_object_url"), post.get("public_object_id"))
+                    for text, post in zip(binding["expected_thread_texts"], thread))
+            and len({p.get("public_object_id") for p in thread}) == len(thread)))
         verified = (result.get("request_sha256") == request["request_sha256"]
             and result.get("observed_identity") == IDENTITIES[destination]
-            and result.get("public_object_id") == public_object_id
-            and result.get("content_verified") is True)
-        if destination == "substack":
-            verified = verified and _canonical(result.get("public_object_url"))
-        return {**result, "verified": verified, "status": "SUCCESS" if verified else "BLOCKED"}
+            and (not public_object_id or result.get("public_object_id") == public_object_id)
+            and (not public_object_url or result.get("public_object_url") == public_object_url)
+            and _public_url(destination, result.get("public_object_url"), result.get("public_object_id"))
+            and result.get("content_verified") is True and text_match and media_match and thread_match)
+        identity_exists = (result.get("request_sha256") == request["request_sha256"]
+            and result.get("observed_identity") == IDENTITIES[destination]
+            and bool(public_object_id) and result.get("public_object_id") == public_object_id
+            and result.get("public_object_url") == public_object_url
+            and _public_url(destination, public_object_url, public_object_id)
+            and bool(observed_text))
+        return {**result, "verified": bool(verified), "status": "SUCCESS" if verified else "BLOCKED",
+                "write_exists": bool(identity_exists), "write_absent": False,
+                "content_binding_checks": {"text_match": text_match, "media_match": media_match, "thread_match": thread_match}}
 
 
 def destination_setup_projection(*, env=None, now=None, linkedin_root=None):

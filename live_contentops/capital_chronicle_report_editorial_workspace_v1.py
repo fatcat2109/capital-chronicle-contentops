@@ -435,6 +435,7 @@ def run_report_editorial_cycle(
         if native:
             model.native_desktop_protocol = True
             model.telemetry = llm_invoke.telemetry
+            model.filter_headlines = llm_invoke.filter_headlines
 
         default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health)
         spent = sum(

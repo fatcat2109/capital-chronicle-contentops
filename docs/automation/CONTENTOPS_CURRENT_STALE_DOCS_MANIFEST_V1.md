@@ -85,7 +85,7 @@ store and deployed bytes were not changed by this migration. Native manual proof
 No current configuration grants activation or public writes. Historical Simple and old Desktop
 proofs establish only their exact epochs; do not rebuild their accepted deterministic components.
 See `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the supported operation,
-exact paused rollout, truthful telemetry, remaining native browser executor boundary and activation.
+exact paused rollout, truthful telemetry, bound native Neo request/return/readback loop and separate activation boundary.
 
 
 ## 5. Historical/non-routing families
