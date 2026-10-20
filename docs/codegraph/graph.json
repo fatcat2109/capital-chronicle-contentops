@@ -88069,7 +88069,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-20T03:59:38Z",
+  "generation_timestamp_utc": "2026-10-20T12:07:08Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -91644,7 +91644,7 @@
     {
       "id": "live_contentops/server.py",
       "kind": "python_module",
-      "size_bytes": 18095
+      "size_bytes": 18151
     },
     {
       "id": "live_contentops/social_account_binding_model.py",
@@ -122366,28 +122366,28 @@
     {
       "id": "python_symbol:live_contentops/server.py::_parse_args",
       "kind": "python_function",
-      "line": 375,
+      "line": 376,
       "path": "live_contentops/server.py",
       "symbol": "_parse_args"
     },
     {
       "id": "python_symbol:live_contentops/server.py::make_handler",
       "kind": "python_function",
-      "line": 351,
+      "line": 352,
       "path": "live_contentops/server.py",
       "symbol": "make_handler"
     },
     {
       "id": "python_symbol:live_contentops/server.py::make_handler.ConfiguredPipelineServerHandler",
       "kind": "python_class",
-      "line": 355,
+      "line": 356,
       "path": "live_contentops/server.py",
       "symbol": "make_handler.ConfiguredPipelineServerHandler"
     },
     {
       "id": "python_symbol:live_contentops/server.py::run_server",
       "kind": "python_function",
-      "line": 363,
+      "line": 364,
       "path": "live_contentops/server.py",
       "symbol": "run_server"
     },
@@ -130462,7 +130462,7 @@
     {
       "id": "tests/test_contentops_profile_continuity_lock_v1.py",
       "kind": "test",
-      "size_bytes": 12224
+      "size_bytes": 12707
     },
     {
       "id": "tests/test_contentops_source_research_v1.py",
@@ -130567,7 +130567,7 @@
     {
       "id": "tests/test_daily_app_operator_trigger_v1.py",
       "kind": "test",
-      "size_bytes": 19578
+      "size_bytes": 19860
     },
     {
       "id": "tests/test_daily_app_performance_learning_v1.py",
@@ -138034,6 +138034,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "3e69658a1a8298970acacc0e57389fc6a70dd4cd",
-  "source_tree_digest": "40bdf27bfcab6131552c668aff38b52959d27b9753c92b4389d5721886f99568"
+  "source_head": "d90c20a048a84e54b462269c444dae9569a96b48",
+  "source_tree_digest": "dae349fa9916cea88beb4c266f5bf9d031253853ef9a0571a096e93f85d91020"
 }
