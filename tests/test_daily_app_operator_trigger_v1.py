@@ -181,7 +181,7 @@ def test_active_cycle_defers_operator_trigger(tmp_path):
 
 
 def test_operator_trigger_suppresses_same_tick_scheduled_window(tmp_path):
-    in_window_now = datetime(2026, 8, 10, 13, 30, 0, tzinfo=timezone.utc)
+    in_window_now = datetime(2026, 8, 10, 14, 5, 0, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, clock=lambda: in_window_now)
     supervisor._store.record_operator_cycle_trigger(
         trigger_id="operator-trigger-test0007",
@@ -223,7 +223,10 @@ def test_shadow_only_operator_cycle_performs_zero_public_writes(tmp_path):
     report = supervisor.tick(FIXED_NOW)
     assert report["operator_trigger"]["executed"] is True
     assert report["public_write_performed"] is False
-    assert calls[0]["publication_enabled"] is False
+    # Historical callback flag requests the final article worker even in SHADOW_ONLY;
+    # the supervisor separately withholds publication. No dispatch is created.
+    assert calls[0]["publication_enabled"] is True
+    assert supervisor._store.list_platform_dispatches() == []
 
 
 def test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only(tmp_path):
@@ -240,6 +243,7 @@ def test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only(tmp_pa
     allowed = {
         "run_id", "output_dir", "cutoff_utc", "publication_enabled", "sidecar_glob",
         "capital_chronicle_root", "published_corpus", "cc_catalog", "operating_mode",
+        "newsroom_production_day_id", "learning_policy",
     }
     assert set(calls[0]) <= allowed
     assert "operator_run_now_override" not in calls[0]

@@ -42,6 +42,7 @@ def test_missing_profile_directory_fails_closed_and_is_never_created(tmp_path, m
     assert result["launched"] is False
     assert created == []
     assert not (fake_local / "Google").exists()
+    monkeypatch.setattr(bootstrap, "find_chrome_binary", lambda env: fake_local / "chrome.exe")
     launch = bootstrap._launch_canonical_ingestion_browser(env=env)
     assert launch["state"] == bootstrap.STATE_PROFILE_BINDING_MISSING
 
@@ -133,6 +134,18 @@ def test_wrong_9222_owner_is_blocked_without_launch_or_kill(tmp_path, monkeypatc
 
 
 def test_authenticated_visible_x_list_is_ready_and_login_redirect_is_reauth(monkeypatch):
+    class LocalCdpResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def read(self):
+            return b"{}"
+
+    # URL/session observations are controlled; never contact a real Windows CDP port in CI.
+    monkeypatch.setattr(bootstrap.urllib.request, "urlopen", lambda *args, **kwargs: LocalCdpResponse())
     monkeypatch.setattr(bootstrap, "probe_cdp", lambda port, **kwargs: {"cdp_alive": True, "browser": "Chrome"})
     monkeypatch.setattr(
         bootstrap, "cdp_target_urls",

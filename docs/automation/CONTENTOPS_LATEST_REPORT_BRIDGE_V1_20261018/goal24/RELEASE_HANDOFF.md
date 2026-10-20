@@ -1,6 +1,6 @@
 # Goal24 — native Desktop editorial migration
 
-Status: IMPLEMENTED_NATIVE_MANUAL_PROVEN_PAUSED; remote/CI delivery pending below.
+Status: IMPLEMENTED_NATIVE_MANUAL_PROVEN_PAUSED; source and graph pushed; final exact-head CI recorded in PR90.
 Base: `dde59a3e62784fe2c6924d12dec729c7be255d24`, [PR90](https://github.com/fatcat2109/capital-chronicle-contentops/pull/90).
 Classification: PARTIAL_CAPABILITY_REUSE_COMPONENTS.
 
@@ -127,3 +127,10 @@ Accepted deterministic source/claim/epistemic/compiler/publication/recovery/Main
 Final local/remote results will be recorded in `verification.json` and PR90. Existing CodeGraph
 generator is used; no duplicate index. Exact remote head and both required CI jobs must be
 verified before engineering completion. No self-merge, production activation or public write.
+
+
+Source delivery: `3e69658a1a8298970acacc0e57389fc6a70dd4cd`; first graph/remote
+`8ff725634fb5fe5a4e1b186537b5a5b74a1ef090`. Six actual GitHub blobs matched committed bytes;
+CodeGraph reported CURRENT. First CI exposed missing native-guidance HTTP status mapping plus
+historical fixtures, corrected in the same branch. The final matching PR head/checks are the
+remote delivery authority, with no older-head green substitution. See `COMPLETION_EVIDENCE.md`.

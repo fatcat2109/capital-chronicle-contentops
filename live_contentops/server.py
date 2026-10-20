@@ -285,6 +285,7 @@ class PipelineServerHandler(BaseHTTPRequestHandler):
                 return
             status = str(result.get("status"))
             http_code = 200 if status in {
+                "NATIVE_DESKTOP_CONVERSATION_REQUIRED",
                 "OPERATOR_TRIGGER_ACCEPTED",
                 "OPERATOR_TRIGGER_ALREADY_PENDING",
             } else 409 if status in {
