@@ -1,0 +1,26 @@
+{
+  "focused_backend": {
+    "command": "python -m pytest tests/test_native_newsroom_owner_operation_v1.py tests/test_native_desktop_editorial_v1.py tests/test_contentops_source_research_v1.py tests/test_v1_simple_gemini_newsroom_v1.py -q",
+    "passed": 56,
+    "later_owner_entry_recheck": {
+      "passed": 4
+    }
+  },
+  "other_backend": {
+    "passed_before_last_prompt_assertion": 101,
+    "last_prompt_assertion_repaired_and_focused_recheck_passed": 1,
+    "claim": "NOT_A_FRESH_FULL_SUITE_PASS"
+  },
+  "ui": {
+    "passed": 22,
+    "files": [
+      "report_editorial_workspace.test.tsx",
+      "daily_app_console.test.tsx"
+    ],
+    "production_build": "PASS"
+  },
+  "ruff": "PASS_CHANGED_SEAMS",
+  "skill_validation": "PASS_PYTHON_UTF8",
+  "restart": "native_edition_proof.json",
+  "scope": "FOCUSED_LOCAL_CHECKS_NOT_FULL_REPOSITORY_TEST_SUITE"
+}

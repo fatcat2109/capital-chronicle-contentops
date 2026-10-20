@@ -176,6 +176,16 @@ class _Stages:
             producer_ref="ContentOps.Simple.report-adapter",
             content_bytes=raw,
         )
+        prior = self.get(key)
+        if (prior and prior != value and key.startswith("cc-editorial-final-")
+                and not prior.get("qualified_article_count") and value.get("qualified_article_count")
+                and destination == SIMPLE_RESULT):
+            # A blocked attempt is history, not an immutable successful result.
+            # Keep its exact bytes, then finalize the same pre-dispatch owner.
+            self.put(key + "-blocked-" + sha256_of(prior), prior, SIMPLE_RESULT)
+            self.store.finalize_outbox_payload_before_dispatch(message_id=key,
+                payload=raw.decode(), status="EDITORIAL_INTERNAL")
+            return
         self.store.register_outbox_message(
             message_id=key,
             work_item_id=self.work,
@@ -229,6 +239,7 @@ def run_report_editorial_cycle(
     source_route_health: Mapping[str, Any] | None = None,
     attempted_candidate_ids: Sequence[str] = (),
     retained_research=None,
+    editorial_request: str | None = None,
 ) -> dict[str, Any]:
     """A single bounded manual opportunity; retries replay durable successful stages."""
     if llm_invoke is None and not llm_operator_pause_active():
@@ -245,7 +256,7 @@ def run_report_editorial_cycle(
     stages = _Stages(tracker, receipt_id, opportunity_id)
     final_id = "cc-editorial-final-" + sha256_of(opportunity_id or receipt_id)
     previous = stages.get(final_id)
-    if previous:
+    if previous and previous.get("qualified_article_count"):
         if any(r["destination"] == "internal:cc-report-withdrawal"
                and json.loads(r["payload"]).get("source_report_sha256") == previous.get("source_report_sha256")
                for r in tracker.store.list_outbox_messages()):
@@ -321,6 +332,9 @@ def run_report_editorial_cycle(
         args["capital_chronicle_context"]["report_editorial_briefs"] = [
             build_report_editorial_input(r, output_dir=root, cutoff_utc=cutoff_utc)["brief"] for r in records
         ]
+        if editorial_request:
+            # Owner question metadata, never evidence, permission or numeric authority.
+            args["capital_chronicle_context"]["owner_editorial_request"] = editorial_request
         from live_contentops.contentops_editorial_desk_v1 import read_reviews, publication_story_context, selection_story_context
         library = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
         if library:
@@ -436,6 +450,8 @@ def run_report_editorial_cycle(
             model.native_desktop_protocol = True
             model.telemetry = llm_invoke.telemetry
             model.filter_headlines = llm_invoke.filter_headlines
+            model.frozen_request = llm_invoke.frozen_request
+            model.source_recovery = llm_invoke.source_recovery
 
         default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health)
         spent = sum(
@@ -456,6 +472,21 @@ def run_report_editorial_cycle(
 
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:
             stage = "source:" + str(request["cluster_id"])
+            recovery = llm_invoke.source_recovery() if native else None
+            if recovery:
+                request = {**request, "retained_supporting_headline_ids": recovery["supporting_headline_ids"]}
+                stage += ":recovery:" + recovery["request_sha256"]
+            if retained_research and any(h in retained_research.records for h in request.get("headline_ids", [])):
+                stage += ":retained-permission-v2"
+            cached = stages.get("cc-step-" + sha256_of([stages.work, stage]))
+            evidence_file = root / "simple_gemini_evidence_v1.json"
+            if native and cached and evidence_file.is_file():
+                for attempt in json.loads(evidence_file.read_bytes()).get("evidence_attempts", []):
+                    original = attempt.get("request", {})
+                    if (original.get("cluster_id") == request.get("cluster_id")
+                            and sha256_of(original) == cached["request_sha256"]):
+                        request = original
+                        break
             report = next((report_by_headline[h] for h in request.get("headline_ids", []) if h in report_by_headline), None)
             return stages.call(
                 stage,
@@ -512,7 +543,7 @@ def run_report_editorial_cycle(
                 )
                 selected_headline = simple["selected_candidate"]["headline_id"]
                 retained = retained_research.records.get(selected_headline) if retained_research else None
-                if retained:
+                if retained and not native:
                     from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_source_backed_media_assets
                     document = {**retained["document"], "known_at_utc": retained["known_at_utc"],
                                 "rights_evidence_sha256": retained["rights_evidence_sha256"],
@@ -574,6 +605,9 @@ def run_report_editorial_cycle(
                 from live_contentops.contentops_editorial_desk_v1 import read_reviews
                 desk = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
                 brief_ids = {s["brief_id"] for s in simple.get("selected_candidate", {}).get("evolving_story_context", [])}
+                supported_urls = {d["url"] for d in result.get("evidence", [])}
+                for d in result.get("evidence", []):
+                    supported_urls.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
                 reused = []
                 for package in (desk or {}).get("packages", []):
                     if (package["brief_id"] not in brief_ids or not package.get("source_revision_current")
@@ -582,11 +616,12 @@ def run_report_editorial_cycle(
                     for asset in package.get("media_assets", []):
                         path = Path(asset.get("path", ""))
                         if (path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == asset.get("sha256")
-                                and asset.get("underlying_source_rights_status") == "public_domain"):
+                                and asset.get("underlying_source_rights_status") == "public_domain"
+                                and asset.get("source_page_url") in supported_urls):
                             reused.append({**asset, "reuse_state": "EXACT_BYTES_REUSED_NO_RENDER",
                                 "supports_headline": False, "role": "DATED_SOURCE_CONTEXT",
                                 "relevance_rationale": "Historical source context; Main report claims retain their separate provenance."})
-                result["media_assets"] = reused[:1]
+                result["media_assets"] = reused[:1] or result.get("media_assets", [])
                 result["media_reuse_count"] = len(result["media_assets"])
         stages.put(final_id, result, SIMPLE_RESULT)
         return result
@@ -713,8 +748,30 @@ def report_workspace_projection(
         if review.get("reviewer_ref") == "NATIVE_DESKTOP_ARTICLE_REVIEW":
             note = json.loads(review["notes"])
             native_reviews.append({**note, "decision": review["decision"], "review_id": review["review_id"]})
+    edition = {}
+    for item in results:
+        if (not item.get("qualified_article_count") or item.get("model_execution_state") != "NATIVE_DESKTOP_REQUEST_RETURN"
+                or not item.get("article_identity")):
+            continue
+        simple = item.get("simple_result", {})
+        plan = simple.get("selected_plan_entry", {})
+        review = next((r for r in reversed(native_reviews) if r["article_identity"] == item["article_identity"]), None)
+        prepared = next((json.loads(r["payload"]) for r in reversed(rows) if r["destination"] == "internal:native-prepared-handoff"
+            and json.loads(r["payload"]).get("article_identity") == item["article_identity"]
+            and json.loads(r["payload"]).get("review_id") == (review or {}).get("review_id")), None)
+        edition[item["article_identity"]] = {
+            **{k: item.get(k) for k in ("article_identity", "article", "previews", "evidence", "media_assets", "report_id", "report_version", "source_report_sha256")},
+            "run_id": simple.get("run_id"), "angle": plan.get("angle"),
+            "reader_question": plan.get("primary_reader_question"),
+            "mode": plan.get("article_mode"), "review": review,
+            "editorial_execution": item.get("editorial_execution"),
+            "prior_story": simple.get("selected_candidate", {}).get("evolving_story_context", []),
+            **({"previews": prepared["previews"], "media_assets": prepared["media_assets"],
+                "handoff": {k: prepared[k] for k in ("plan_hash", "review_id", "output_dir")}} if prepared else {}),
+        }
     return {
         "schema_version": SCHEMA,
+        "native_edition": list(edition.values())[-16:],
         "native_article_reviews": native_reviews,
         "state": "AVAILABLE" if latest else "UNAVAILABLE",
         "foundation_library": library_projection(rows, review_records) if report_id is None else None,

@@ -499,6 +499,7 @@ class MainReportFeed:
         llm_invoke=None,
         source_route_health=None,
         attempted_candidate_ids=(),
+        editorial_request=None,
     ) -> dict[str, Any]:
         """One existing newsroom slot; all reports compete with normal news in one Simple call."""
         scan = self.poll(cutoff_utc=cutoff_utc)
@@ -546,7 +547,7 @@ class MainReportFeed:
         previous = self.tracker.store.get_outbox_message(
             "cc-editorial-final-" + sha256_of(run_id)
         )
-        if previous:
+        if previous and json.loads(previous["payload"]).get("qualified_article_count"):
             cached = json.loads(previous["payload"])
             record = next(
                 (r
@@ -611,6 +612,7 @@ class MainReportFeed:
             source_route_health=source_route_health,
             attempted_candidate_ids=attempted_candidate_ids,
             retained_research=self.retained_research,
+            editorial_request=editorial_request,
         )
         disposition = {
             "schema_version": SCHEMA,

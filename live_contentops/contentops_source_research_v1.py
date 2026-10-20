@@ -316,6 +316,11 @@ class RetainedSourceResearch:
         support_ids = list(
             dict.fromkeys(h for r in found for h in r["supporting_headline_ids"])
         )
+        # A follow-up retains both vintages from its already governed story brief.
+        # These IDs still resolve through this adapter's verified exact records.
+        for story in (request.get("story_context") or {}).get("evolving_story_context", []):
+            support_ids.extend(h for h in story.get("source_item_ids", []) if h not in support_ids)
+        support_ids.extend(h for h in request.get("retained_supporting_headline_ids", []) if h not in support_ids)
         supporting = [
             self.records[h]
             for h in support_ids
@@ -346,6 +351,9 @@ class RetainedSourceResearch:
                 "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
                 "underlying_reuse_classification": "governed_government_public_domain",
                 "rights_evidence_sha256": r["rights_evidence_sha256"],
+                # _verify already proved exact agency authorship, policy bytes and
+                # allowed text spans. This grants only those retained propositions.
+                "public_claim_allowed": True,
             }
             for r in found
         ]
@@ -389,6 +397,7 @@ class RetainedSourceResearch:
                     ),
                     "known_at_utc": r["known_at_utc"],
                     "context_only": True,
+                    "public_claim_allowed": True,
                     "rights_evidence_sha256": r["rights_evidence_sha256"],
                     "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_CONTEXT_SPANS",
                 }

@@ -25,7 +25,9 @@ The App-owned four windows are prepared and PAUSED; production pause/deployed by
 Current owner policy/paused rollout: `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md`
 and `config/native_desktop_rollout_v1.json`. Current lane pointer:
 `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
-Owning checkpoint: `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal25/RELEASE_HANDOFF.md`.
+Owning checkpoint: `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal26/RELEASE_HANDOFF.md`.
+The existing native script's `newsroom`/`desk` entry and `.agents/skills/contentops-newsroom/SKILL.md`
+prepare normal-language manual requests through the same profile, roles, store and review owner.
 Goal20–23 evidence, old Simple publication/scheduler proofs and old Desktop HIGH/SDK proofs remain
 historical provenance, not current invocation instructions. No duplicate index/store/scheduler/publisher.
 

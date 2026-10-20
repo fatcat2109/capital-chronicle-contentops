@@ -79,6 +79,20 @@ Main owns public report bytes, numeric analysis and wire formats. Evolving story
 continuity and the reciprocal public context outbox remain unchanged. No private Main/account,
 company/database or broker reads/writes; V2 has no inherited publication authority.
 
-Owning engineering checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal25/RELEASE_HANDOFF.md`.
+## Owner's normal-language entry
+
+Use `contentops-newsroom` for an ordinary editorial question. Its configured profile
+`config/native_desktop_operator_profile_v1.json` resolves the existing reviewed editorial
+workspace and Main public feed. `newsroom --operation-id <stable-id> --request-file <question>`
+uses the same native protocol/prompt as the four paused identities, with an explicit manual
+binding. The agent handles native returns, tool recovery and revision-bound review. `desk`
+renders the actual ReportEditorialWorkspace from that same store; no new runtime is started.
+`media` binds inspected source/rights/hash-bound media before review. `recover-sources` may
+add exact already-admitted retained IDs to an unanswered writer request, preserving the old
+request and selection. Successful role returns are never rerun to repair deterministic code.
+Prepared handoffs remain non-dispatching; later activation/publication remains separate.
+
+Owning engineering checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal26/RELEASE_HANDOFF.md`.
+Goal25 remains the exact historical filter/Neo proof; Goal26 supplies the usable edition.
 Official supported surfaces checked: [Scheduled tasks](https://learn.chatgpt.com/docs/automations)
 and [Models](https://learn.chatgpt.com/docs/models). App availability is observed separately.

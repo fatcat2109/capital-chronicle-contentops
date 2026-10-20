@@ -1,0 +1,14 @@
+{
+  "document_id": "goal26-neo-eia-petroleum-corroboration",
+  "title": "EIA petroleum balance: crude and gasoline stocks",
+  "publisher": "U.S. Energy Information Administration",
+  "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+  "published_at_utc": null,
+  "source_date_display": "Week ending 2026-10-09; release date not supplied; read 2026-10-20",
+  "known_at_utc": "2026-10-20T15:01:31.829Z",
+  "canonical_content_text": "For the week ending October 09, 2026, U.S. refineries processed 16.6 million barrels per day (b/d), up 135,000 b/d from the previous week, at 93.5% capacity utilization. Gasoline output averaged 9.2 million b/d, and distillate production decreased to 5.2 million b/d. \n\nCrude oil imports decreased 791,000 b/d to 6.0 million b/d, although the four-week average of 6.1 million b/d is 0.9% above the year-ago level. Gasoline imports averaged 508,000 b/d; distillate imports averaged 145,000 b/d. \n\nCommercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased 8.6 million barrels to 415.6 million barrels, 3% below the five-year average. Gasoline inventories increased 3.5 million barrels, 4% below the five-year average. Distillate inventories decreased 2.5 million barrels, 12% below the five-year average. Propane/propylene inventories decreased 1.5 million barrels, 15% above the five-year average. Total commercial petroleum inventories decreased by 13.4 million barrels for the week.\n\nOver the past four weeks, total product supplied averaged 21.1 million b/d, up 2.0% year over year. The four-week average for gasoline product supplied decreased 0.4% year over year to 8.7 million b/d, while the four-week average for distillate product supplied decreased 0.2% to 4.0 million b/d. The four-week average for jet fuel product supplied increased 2.3% year over year.",
+  "render_excerpt_text": "Commercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased 8.6 million barrels to 415.6 million barrels, 3% below the five-year average. Gasoline inventories increased 3.5 million barrels, 4% below the five-year average.",
+  "raw_sha256": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+  "underlying_reuse_classification": "governed_government_public_domain",
+  "rights_evidence_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3"
+}

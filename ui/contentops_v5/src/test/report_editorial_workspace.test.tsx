@@ -17,6 +17,22 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('shows edition angle, dated sources, revision review and every native preview', () => {
+    const snapshot = data();
+    snapshot.native_edition = [{ run_id: 'edition-real-owner-controlled-test', article_identity: 'edition-test',
+      article: { title: 'Three separate gold questions', dek: 'Price, leverage and custody.', substack_body_markdown: '## Mechanism\n\nDated educational interpretation. [[SOURCE:SOURCE_1]]' },
+      angle: 'Separate contract risks', reader_question: 'What is actually owned?', mode: 'EVERGREEN_EXPLAINER',
+      review: { decision: 'KEEP', rationale: 'Bounded educational scope and exact source dates retained.' },
+      evidence: [{ source_id: 'SOURCE_1', publisher: 'CFTC', url: 'https://www.cftc.gov/example', published_at_utc: '' }],
+      previews: snapshot.previews }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const edition = screen.getByLabelText('Ấn bản newsroom');
+    expect(within(edition).getByText('Three separate gold questions')).toBeInTheDocument();
+    expect(within(edition).getByText(/Separate contract risks/)).toHaveTextContent('What is actually owned?');
+    expect(within(edition).getByText(/Không cung cấp ngày xuất bản/)).toBeInTheDocument();
+    expect(edition.querySelectorAll('[data-edition-destination]')).toHaveLength(8);
+    expect(within(edition).getByText('Mechanism')).toBeInTheDocument();
+  });
   it('keeps independent evidence, recirculation, controlled conversion and media visible', () => {
     const snapshot = data();
     snapshot.headline_export = { source_rows_scanned: 0, eligible_rows: 4, missing_rows: 1, coverage: 'bounded', observed_at_utc: '2026-10-19T06:30:00Z', independent_items: 2, main_origin_recirculated_items: 2, gaps: [{ state: 'SOURCE_RIGHTS_MISSING' }] };

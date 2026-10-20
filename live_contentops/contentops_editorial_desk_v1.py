@@ -145,7 +145,7 @@ def publication_story_context(stories, published_memory, *, cutoff_utc):
 def selection_story_context(story):
     """Compact selector view; the writer retains the full exact bound history."""
     result = {k: story.get(k) for k in ("story_identity", "update_chain_identity", "brief_id", "disposition", "reason",
-        "reader_question", "follow_up_value", "changed_source_count", "work_required", "missing_inputs", "confirmation_state", "publication_state")}
+        "reader_question", "follow_up_value", "changed_source_count", "work_required", "missing_inputs", "confirmation_state", "publication_state", "source_item_ids")}
     result["current_review"] = {k: (story.get("current_review") or {}).get(k) for k in ("state", "rationale")}
     result["changed_evidence"] = [{"item_id": d["item_id"], "state": d["state"],
         "before": (d.get("before") or {}).get("proposition"), "after": (d.get("after") or {}).get("proposition"),

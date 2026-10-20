@@ -5,6 +5,10 @@ import type { ReportWorkspaceData } from '../dailyAppTypes';
 
 const DESTINATIONS = ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube'];
 const display = (value: string) => value.replace(/_/g, ' ');
+function ArticleParagraphs({ text }: { text: string }) {
+  return <div>{text.replace(/\[\[SOURCE:(SOURCE_\d+)\]\]/g, '[$1]').split(/\n\s*\n/).map((block, i) =>
+    /^#{1,6}\s/.test(block) ? <h4 key={i}>{block.replace(/^#{1,6}\s+/, '')}</h4> : <p key={i} style={{ overflowWrap: 'anywhere', whiteSpace: 'pre-line' }}>{block}</p>)}</div>;
+}
 const gapText: Record<string, string> = {
   CURRENT_MARKET_QUOTES_AND_RELATIVE_RATE_PATH_NOT_VERIFIED: 'Chưa có giá và kỳ vọng chênh lệch lãi suất hiện tại.',
   CURRENT_METAL_CURVE_REAL_YIELDS_AND_FLOWS_NOT_VERIFIED: 'Chưa có đường cong kim loại, lợi suất thực và dòng vốn hiện tại.',
@@ -27,9 +31,26 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
   const report = workspace?.latest_report;
   const result = workspace?.latest_simple_result;
   const controlled = result?.model_execution_state === 'INJECTED_REPLAY_ONLY';
-  return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace">
+  return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace" style={{ overflowWrap: 'anywhere', minWidth: 0 }}>
     <p>Luồng biên tập đích: Luna MAX lọc headline → 6.1 Sol Light chọn góc và chuẩn bị nguồn → 6.1 Sol MAX viết bài và SEO, tối đa một lượt sửa cùng writer. Lịch production giữ pause; chỉ bằng chứng thực thi mới xác nhận model đã chạy.</p>
     <header><span>Editorial workspace</span><h2>Capital Chronicle report → article → previews</h2></header>
+    {!!data?.native_edition?.length && <section aria-label="Ấn bản newsroom"><h3>Ấn bản newsroom · đọc và duyệt</h3>
+      <p>Các bài đã qua validator; quyết định biên tập gắn với đúng bản bài. Chưa xuất bản.</p>
+      {data.native_edition.map(item => <article key={item.article_identity} className="report-copy" data-edition-run={item.run_id}>
+        <h3>{item.article.title}</h3><p>{item.article.dek}</p>
+        <p><strong>Góc bài:</strong> {item.angle ?? item.mode} · <strong>Câu hỏi:</strong> {item.reader_question}</p>
+        <p><strong>Đọc duyệt:</strong> {item.review?.decision ?? 'Chờ đọc duyệt'} · {item.review?.rationale}</p>
+        {item.report_id && <p>Bổ sung từ {item.report_id} bản {item.report_version}; phân tích Main có điều kiện, không phải xác nhận độc lập.</p>}
+        <details open><summary>Đọc toàn bài</summary><ArticleParagraphs text={item.article.substack_body_markdown} /></details>
+        <details><summary>Nguồn và ngày</summary>{item.evidence?.map(s => <p key={s.source_id} style={{ overflowWrap: 'anywhere' }}>
+          {s.source_id} · {s.publisher} · {s.published_at_utc || 'Không cung cấp ngày xuất bản'} · {s.published_at_source === 'MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME' ? 'Mốc báo cáo Main, không phải ngày phát hành nguồn' : 'Nguồn lưu giữ có ngày riêng'}<br />
+          {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
+        </p>)}</details>
+        {item.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
+        <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
+        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}
+      </article>)}
+    </section>}
     {!!data?.native_article_reviews?.length && <section aria-label="Đọc duyệt bài native Codex"><h3>Đọc duyệt bài native Codex</h3>
       {data.native_article_reviews.map(r => <p key={r.package_revision}>{r.decision}: {r.rationale} · quyết định gắn đúng bản bài; chưa cấp quyền xuất bản.</p>)}
     </section>}

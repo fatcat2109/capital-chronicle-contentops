@@ -358,6 +358,15 @@ export interface EvolvingStory {
 }
 
 export interface ReportWorkspaceData {
+  native_edition?: Array<{
+    run_id: string; article_identity: string; article: NonNullable<ReportWorkspaceData['article']>;
+    angle?: string; reader_question?: string; mode?: string;
+    report_id?: string | null; report_version?: number | null; source_report_sha256?: string | null;
+    review?: { decision: string; rationale: string } | null;
+    previews: ReportWorkspaceData['previews'];
+    evidence?: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string; published_at_source?: string }>;
+    media_assets?: Array<{ asset_id: string; caption: string; alt_text?: string; preview_data_url?: string; path: string; sha256: string }>;
+  }>;
   media_assets?: Array<{ asset_id: string; path: string; sha256: string; caption: string; alt_text?: string; preview_data_url?: string; reuse_state?: string }>;
   native_article_reviews?: Array<{ article_identity: string; decision: string; rationale: string; package_revision: string; publication_authority: boolean }>;
   foundation_library?: {

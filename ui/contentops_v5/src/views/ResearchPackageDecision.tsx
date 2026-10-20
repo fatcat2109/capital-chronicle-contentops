@@ -4,7 +4,7 @@ import type { ResearchPackage } from '../dailyAppTypes';
 const API_ROOT = (import.meta as unknown as { env: Record<string, string | undefined> }).env.VITE_DAILY_APP_API_ROOT || 'http://127.0.0.1:5174';
 
 export function ResearchPackageDecision({ item }: { item: ResearchPackage }) {
-  const readOnlyPreview = window.location.protocol === 'file:';
+  const readOnlyPreview = typeof window === 'undefined' || window.location.protocol === 'file:';
   const [rationale, setRationale] = useState('');
   const [status, setStatus] = useState('');
   const [busy, setBusy] = useState(false);

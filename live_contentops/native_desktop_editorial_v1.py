@@ -59,11 +59,20 @@ class NativeDesktopTurn:
 
     def _key(self, stage: str, kind: str) -> str:
         native_role(stage)
-        return "native-desktop-" + sha256_of([self.work, stage, kind])
+        revision = self.source_recovery() if stage in {"write", "revise"} else None
+        return "native-desktop-" + sha256_of([self.work, stage, kind, revision["request_sha256"]] if revision else [self.work, stage, kind])
+
+    def source_recovery(self):
+        rows = [json.loads(r["payload"]) for r in self.store.list_outbox_messages()
+            if r["work_item_id"] == self.work and r["destination"] == "internal:native-desktop-source-recovery"]
+        return rows[-1] if rows else None
 
     def _get(self, stage: str, kind: str) -> dict[str, Any] | None:
         row = self.store.get_outbox_message(self._key(stage, kind))
         return json.loads(row["payload"]) if row else None
+
+    def frozen_request(self, stage):
+        return self._get(stage, "request")
 
     def _put(self, stage: str, kind: str, value: Mapping[str, Any]) -> None:
         if _private(value):
@@ -184,7 +193,8 @@ class NativeDesktopTurn:
         requests = [json.loads(r["payload"]) for r in self.store.list_outbox_messages()
                     if r["work_item_id"] == self.work and r["destination"] == DESTINATION
                     and '"requested_model"' in r["payload"]]
-        responses = [(q, r) for q in requests if (r := self._get(q["stage"], "response"))]
+        responses = [(q, r) for q in requests if (r := self._get(q["stage"], "response"))
+                     and r["request_sha256"] == q["request_sha256"]]
         observations = [{**r["invocation_observation"], "stage": q["stage"], "role": native_role(q["stage"])}
                         for q, r in responses]
         ids = {r["invocation_id"] for r in observations}
@@ -237,6 +247,42 @@ def normalize_native_receipt(value: dict[str, Any], telemetry: Mapping[str, Any]
         value["classification"] = "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE"
     if "exact_next_blocker" in value and isinstance(value["exact_next_blocker"], str):
         value["exact_next_blocker"] = value["exact_next_blocker"].replace("GEMINI_", "DESKTOP_")
+
+
+def bind_editorial_media(store, *, run_id, article_identity, assets):
+    """Seal relevant inspected media before review using the existing final outbox.
+
+    Earlier package bytes stay history; publication dispatch or a prior review blocks edits.
+    """
+    from hashlib import sha256
+    from live_contentops.contentops_editorial_desk_v1 import read_reviews
+    key = "cc-editorial-final-" + sha256_of(run_id)
+    row = store.get_outbox_message(key)
+    result = json.loads(row["payload"]) if row else {}
+    if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
+        raise ValueError("EXACT_QUALIFIED_NATIVE_ARTICLE_REQUIRED")
+    if any(r["work_item_id"] == row["work_item_id"] and r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW" for r in read_reviews(store)):
+        raise ValueError("MEDIA_BINDING_REQUIRES_UNREVIEWED_REVISION")
+    allowed = {d["url"] for d in result.get("evidence", [])}
+    for d in result.get("evidence", []):
+        allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
+    if not 1 <= len(assets) <= 3 or _private(assets):
+        raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
+    for asset in assets:
+        urls = {asset.get("source_page_url")} | {s.get("source_url") for s in asset.get("source_lineage", [])}
+        urls.discard(None)
+        if (not urls or not urls <= allowed or not asset.get("caption") or not asset.get("alt_text")
+                or asset.get("underlying_source_rights_status") != "public_domain"
+                or sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
+            raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
+    if assets == result.get("media_assets"):
+        return {"classification": "MEDIA_ALREADY_BOUND", "article_identity": article_identity}
+    store.register_outbox_message(message_id=key + "-package-history-" + sha256_of(result),
+        work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
+        payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
+    updated = {**result, "media_assets": assets, "media_reuse_count": sum(a.get("reuse_state") == "EXACT_BYTES_REUSED_NO_RENDER" for a in assets)}
+    store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
+    return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
 
 def prepare_reviewed_handoff(store, *, run_id, output_dir):
@@ -295,6 +341,14 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     from live_contentops.v1_simple_publication_handoff_v1 import SimplePublicationHandoffV1
     handoff = SimplePublicationHandoffV1(store=store, coordinator=None)
     plan = handoff.ensure_plan(slot_id=run_id, slot_output_dir=root, returned_plan=plan)
+    prepared = {"article_identity": identity, "review_id": reviews[-1]["review_id"], "run_id": run_id,
+        "plan_hash": plan["plan_hash"], "output_dir": str(root),
+        "previews": [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([identity, k, v]),
+            "article_identity": identity, "claim_lineage": result.get("claim_lineage", [])} for k, v in previews["packages"].items()],
+        "media_assets": assets, "public_write_performed": False}
+    store.register_outbox_message(message_id="native-prepared-handoff-" + sha256_of(prepared),
+        work_item_id=row["work_item_id"], destination="internal:native-prepared-handoff",
+        payload=canonical_bytes(prepared).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH", "article_identity": identity,
         "review_id": reviews[-1]["review_id"], "plan_hash": plan["plan_hash"], "output_dir": str(root),
         "media_reuse_count": len(assets), "preview_count": 8, "new_qualified_articles": 0,

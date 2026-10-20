@@ -125,6 +125,9 @@ DESKTOP_TASK_PROMPT = (
     "When it returns binding_path, run python scripts/run_native_desktop_editorial.py advance "
     "--binding <binding_path> immediately to obtain the next request or final result. "
     "If pending, read its exact desktop_request JSON and obey its requested role/model/effort. "
+    "For owner-manual normal-language work, use the same protocol through newsroom --operation-id "
+    "<stable-id> --request-file <UTF-8 question> and config/native_desktop_operator_profile_v1.json; "
+    "the agent handles CLI/claims/returns. Resume completed outputs with the same binding. "
     "After unchanged bulk X CDP ingestion and exact dedupe, process ALL unprocessed admissible headlines "
     "through bounded resumable MAX-filter batches with exact IDs, input/output hashes, cursor and "
     "seen/kept/rejected/deferred counts and reasons. Never truncate to newest-32 and call all filtered. "
@@ -161,7 +164,9 @@ DESKTOP_TASK_PROMPT = (
     "stays CDP. Do not edit source, run tests/CodeGraph, alter schedules/pause, or publish during routine work."
 )
 MANUAL_GO_PROMPT = (
-    "Use the same native request/return operation with an explicit owner-manual isolated binding. "
+    "Use contentops-newsroom and scripts/run_native_desktop_editorial.py newsroom with the current "
+    "config/native_desktop_operator_profile_v1.json, a stable operation-id and Jim's normal-language request. "
+    "Resolve/resume the exact existing owner-manual binding in the editorial workspace isolated from production; the agent handles request/claim/return details. "
     "Luna MAX filters the full unprocessed admissible backlog in resumable batches; Sol Light selects/prepares "
     "evidence; Sol MAX writes the exact institutional-edge/SEO package and at most one same-writer repair. "
     "Advance, read each exact pending request, use its assigned native role and submit observed provenance; "

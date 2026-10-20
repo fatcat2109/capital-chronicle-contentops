@@ -565,6 +565,8 @@ def build_native_derivative_payloads(
             ),
             rejected=(title, brief_dek, mechanism, context),
         )
+        # A writer may already label its passage. Add one readable label only.
+        watch_point = re.sub(r"^(?:(?:what to )?watch\s*:\s*)+", "", watch_point, flags=re.IGNORECASE)
         def brief_layout(*, detail: str, continuation: str, limit: int) -> dict[str, Any]:
             layout = _root_and_replies(
                 title=title,
@@ -641,7 +643,7 @@ def build_native_derivative_payloads(
                     f"**Newsroom brief: {title}**",
                     brief_dek,
                     f"**Context:** {context}" if context else "",
-                    f"Source-bound brief: {canonical_url}",
+                    f"Read the article: {canonical_url}",
                     limit=2_000,
                     platform="discord",
                 ),

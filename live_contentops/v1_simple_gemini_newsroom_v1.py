@@ -296,6 +296,15 @@ def _candidate_universe(
         ) if isinstance(row.get(k), str) and row[k].strip()}
         explicit_revision = any(k in revision_identity for k in ("correction_of", "supersedes_headline_id", "revision_id"))
         dedupe_title = normalized
+        external = row.get("external_content")
+        external = external if isinstance(external, Mapping) else {}
+        report_context = external.get("report_editorial_context") or {}
+        if headline_id.startswith("cc-report:") and report_context.get("report_id"):
+            # Two assets may quote the same first source fact. Their public report
+            # identity/version and analytical scope remain separate candidates.
+            report_identity = [report_context["report_id"], report_context.get("report_version"), headline_id]
+            story_identity = "simple-story-" + _hash([normalized, report_identity])[:24]
+            dedupe_title += ":main-report:" + _hash(report_identity)
         if explicit_revision:
             story_identity = "simple-story-" + _hash([normalized, revision_identity])[:24]
             dedupe_title = normalized + ":revision:" + _hash(revision_identity)
@@ -930,6 +939,7 @@ def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any
             "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
             "public_source_url_bindings": bindings,
             "candidate_packet_locators_grant_factual_authority": False,
+            "evolving_story_context": list(candidate.get("evolving_story_context") or []),
         },
     }
 
@@ -1393,7 +1403,7 @@ def _validate_article_against_source_pack(
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
     claims = [dict(row) for row in worker_output.get("material_claim_bindings") or [] if isinstance(row, Mapping)]
-    available_by_url = {str(row.get("url") or ""): dict(row) for row in source_pack}
+    available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
     cited_by_id: dict[str, dict[str, Any]] = {}
     blockers: list[str] = []
     for index, source in enumerate(sources, start=1):
@@ -1402,8 +1412,8 @@ def _validate_article_against_source_pack(
         if source_id != f"SOURCE_{index}":
             blockers.append(f"source_marker_order_invalid:{source_id}")
             continue
-        available = available_by_url.get(url)
-        if available is None:
+        available = available_by_id.get(source_id)
+        if available is None or str(available.get("url") or "") != url:
             blockers.append(f"source_not_in_retrieved_pack:{source_id}")
             continue
         cited_by_id[source_id] = available
@@ -1568,6 +1578,11 @@ def _reader_safe_native_article(
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
     if label and label.casefold() not in title.casefold():
         title = f"{label} | {title}"
+    notice = str(article.get("source_date_notice") or "")
+    if notice:
+        dates = list(dict.fromkeys(re.findall(r"\d{4}-\d{2}-\d{2}", notice)))
+        date_tag = ("Main report " if "Main report cutoff:" in notice else "Source ") + ", ".join(dates[:2]) if dates else "Source undated"
+        title += " [" + date_tag + "]"
     result = {
         "title": title,
         "native_brief_layout": True,
@@ -1575,8 +1590,9 @@ def _reader_safe_native_article(
         "social_hook": str(article.get("social_hook") or ""),
         "effective_article_mode": str(article_mode),
         "substack_body_markdown": body,
-        **({"editorial_scope_notice": epistemic_state["report_scope_notice"]}
-           if (epistemic_state or {}).get("report_scope_notice") else {}),
+        "editorial_scope_notice": " ".join(s for s in (
+            str((epistemic_state or {}).get("report_scope_notice") or ""),
+            str(article.get("source_date_notice") or "")) if s),
     }
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if article.get(key):
@@ -1915,6 +1931,11 @@ def run_v1_simple_gemini_newsroom(
         attempted_candidate_ids=attempted_candidate_ids,
     )
     sourceability_path = root / "simple_sourceability_preselection_v1.json"
+    frozen_request = getattr(llm_invoke, "frozen_request", lambda _stage: None)("select") if native else None
+    if frozen_request:
+        # A new source revision cannot rerank an already claimed semantic request.
+        candidates = frozen_request["governed_input"]["candidates"]
+        sourceability_preselection = json.loads(sourceability_path.read_bytes())
     persist(sourceability_path, sourceability_preselection)
     sourceability_summary = {
         "artifact_path": str(sourceability_path),
@@ -1984,7 +2005,11 @@ def run_v1_simple_gemini_newsroom(
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_mode_guide": _institutional_edge_mode_guide(),
         "native_role_plan_required": native,
+        **({"owner_editorial_request": capital_chronicle_context["owner_editorial_request"]}
+           if native and (capital_chronicle_context or {}).get("owner_editorial_request") else {}),
     }
+    if frozen_request:
+        selection_governed = frozen_request["governed_input"]
     candidate_ids = {row["candidate_id"] for row in candidates}
     try:
         selection, selection_receipt = _invoke(
@@ -2079,6 +2104,14 @@ def run_v1_simple_gemini_newsroom(
         plan_entry.setdefault("plan_role", "PRIMARY" if plan_index == 1 else "FALLBACK")
         candidate = candidate_by_id[str(plan_entry["candidate_id"])]
         request = _evidence_request(candidate, plan_entry)
+        prior_evidence_path = root / "simple_gemini_evidence_v1.json"
+        if native and prior_evidence_path.is_file():
+            prior_walk = json.loads(prior_evidence_path.read_bytes())
+            prior_attempt = next((a for a in prior_walk.get("evidence_attempts", [])
+                                  if a.get("candidate_id") == candidate["candidate_id"]
+                                  and a.get("status") == "SOURCE_QUALIFIED"), None)
+            if prior_attempt:
+                request = dict(prior_attempt["request"])
         zero_request_document, _zero_request_blockers = canonical_x_report_document(
             request
         )
@@ -2304,6 +2337,19 @@ def run_v1_simple_gemini_newsroom(
         "institutional_edge_editorial_packet": editorial_packet,
         "source_marker_contract": "every non-heading body paragraph uses [[SOURCE:SOURCE_N]]",
     }
+    frozen_writer = getattr(llm_invoke, "frozen_request", lambda _stage: None)("write") if native else None
+    if frozen_writer:
+        original = frozen_writer["governed_input"]
+        if original["source_pack"] != source_pack or original["selected_candidate"] != selected:
+            raise SimpleGeminiNewsroomError("native_writer_source_changed_requires_recovery")
+        writer_governed = original
+    elif native:
+        # Source pack, exact style packet and selected prior story retain authority;
+        # unselected research/media and all-report copies do not enter the writer.
+        writer_governed["capital_chronicle_context"] = {
+            "owner_editorial_request": (capital_chronicle_context or {}).get("owner_editorial_request"),
+            "full_frozen_context_sha256": _hash(capital_chronicle_context or {}),
+            "scope": "SELECTED_SOURCE_PACK_AND_PRIOR_STORY_ONLY_PUBLIC_MAIN_LINEAGE_PRESERVED"}
     try:
         worker_output, worker_receipt = _invoke(
             llm_invoke=llm_invoke,
@@ -2443,6 +2489,12 @@ def run_v1_simple_gemini_newsroom(
             persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
             return receipt
 
+    if native:
+        dates = list(dict.fromkeys(
+            ("Main report cutoff: " if row.get("published_at_source") == "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME" else "Source date: ")
+            + (str(row["published_at_utc"])[:10] if row.get("published_at_utc") else "not supplied (retained background)")
+            for row in source_pack))
+        article = {**article, "source_date_notice": "; ".join(dates) + ". Interpretation remains analysis."}
     article_manifest = {
         "schema_version": "contentops.v1_simple_article_manifest.v1",
         **article,
