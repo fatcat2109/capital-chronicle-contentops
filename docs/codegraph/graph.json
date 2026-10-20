@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14685,
+    "edges": 14690,
     "entrypoints": 20,
-    "nodes": 7734,
+    "nodes": 7737,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,7 +25,7 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 635,
-      "python_function": 4202,
+      "python_function": 4205,
       "python_method": 307,
       "python_module": 815,
       "schema": 254,
@@ -8283,7 +8283,19 @@
       "from": "live_contentops/contentops_editorial_desk_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::record_story_source_review"
+    },
+    {
+      "from": "live_contentops/contentops_editorial_desk_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::selection_story_context"
+    },
+    {
+      "from": "live_contentops/contentops_editorial_desk_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::source_review_projection"
     },
     {
       "from": "live_contentops/contentops_editorial_desk_v1.py",
@@ -41469,6 +41481,12 @@
       "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::native_source_date_notice"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
       "to": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom"
     },
     {
@@ -71364,6 +71382,12 @@
       "to": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::SimpleGeminiNewsroomError"
     },
     {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::native_source_date_notice"
+    },
+    {
       "from": "python_symbol:live_contentops/v1_simple_gemini_scheduler_process_v1.py::restart_scheduler_process",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -73618,6 +73642,12 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::canonical_bytes"
+    },
+    {
+      "from": "python_symbol:scripts/run_native_desktop_editorial.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/durable_operational_store_v1.py::ContentOpsDurableStore"
     },
     {
       "from": "python_symbol:scripts/run_native_desktop_editorial.py::main",
@@ -88285,7 +88315,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-20T15:56:11Z",
+  "generation_timestamp_utc": "2026-10-20T20:10:22Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -88548,7 +88578,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 3313
+      "size_bytes": 3682
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -88568,7 +88598,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 4298
+      "size_bytes": 4667
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -89300,7 +89330,7 @@
     {
       "id": "live_contentops/capital_chronicle_latest_report_consumer_v1.py",
       "kind": "python_module",
-      "size_bytes": 64668
+      "size_bytes": 64844
     },
     {
       "id": "live_contentops/capital_chronicle_public_manifest_v1.py",
@@ -89310,12 +89340,12 @@
     {
       "id": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "kind": "python_module",
-      "size_bytes": 44150
+      "size_bytes": 47486
     },
     {
       "id": "live_contentops/capital_chronicle_report_feed_v1.py",
       "kind": "python_module",
-      "size_bytes": 31853
+      "size_bytes": 33761
     },
     {
       "id": "live_contentops/cc_artifact_packet_approval_v0.py",
@@ -89500,7 +89530,7 @@
     {
       "id": "live_contentops/contentops_editorial_desk_v1.py",
       "kind": "python_module",
-      "size_bytes": 20399
+      "size_bytes": 26661
     },
     {
       "id": "live_contentops/contentops_foundation_library_v1.py",
@@ -89510,12 +89540,12 @@
     {
       "id": "live_contentops/contentops_main_headline_projection_v1.py",
       "kind": "python_module",
-      "size_bytes": 22010
+      "size_bytes": 22167
     },
     {
       "id": "live_contentops/contentops_source_research_v1.py",
       "kind": "python_module",
-      "size_bytes": 18052
+      "size_bytes": 19754
     },
     {
       "id": "live_contentops/continuous_headline_ingest_v1.py",
@@ -90710,7 +90740,7 @@
     {
       "id": "live_contentops/native_desktop_editorial_v1.py",
       "kind": "python_module",
-      "size_bytes": 21541
+      "size_bytes": 22603
     },
     {
       "id": "live_contentops/native_desktop_production_handoff_v1.py",
@@ -92225,7 +92255,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 125084
+      "size_bytes": 126637
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -96559,21 +96589,21 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::LatestReportDeliveryTracker",
       "kind": "python_class",
-      "line": 844,
+      "line": 846,
       "path": "live_contentops/capital_chronicle_latest_report_consumer_v1.py",
       "symbol": "LatestReportDeliveryTracker"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::NeoNamedGapRecovery",
       "kind": "python_class",
-      "line": 1435,
+      "line": 1437,
       "path": "live_contentops/capital_chronicle_latest_report_consumer_v1.py",
       "symbol": "NeoNamedGapRecovery"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::build_report_editorial_input",
       "kind": "python_function",
-      "line": 1173,
+      "line": 1175,
       "path": "live_contentops/capital_chronicle_latest_report_consumer_v1.py",
       "symbol": "build_report_editorial_input"
     },
@@ -96587,21 +96617,21 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::main",
       "kind": "python_function",
-      "line": 1487,
+      "line": 1489,
       "path": "live_contentops/capital_chronicle_latest_report_consumer_v1.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::resolve_report_research_gaps",
       "kind": "python_function",
-      "line": 1405,
+      "line": 1407,
       "path": "live_contentops/capital_chronicle_latest_report_consumer_v1.py",
       "symbol": "resolve_report_research_gaps"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::run_admitted_report_through_simple",
       "kind": "python_function",
-      "line": 1375,
+      "line": 1377,
       "path": "live_contentops/capital_chronicle_latest_report_consumer_v1.py",
       "symbol": "run_admitted_report_through_simple"
     },
@@ -96615,7 +96645,7 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_latest_report_consumer_v1.py::validate_latest_report_bytes",
       "kind": "python_function",
-      "line": 344,
+      "line": 346,
       "path": "live_contentops/capital_chronicle_latest_report_consumer_v1.py",
       "symbol": "validate_latest_report_bytes"
     },
@@ -96657,14 +96687,14 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_report_editorial_workspace_v1.py::report_workspace_projection",
       "kind": "python_function",
-      "line": 645,
+      "line": 678,
       "path": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "symbol": "report_workspace_projection"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_report_editorial_workspace_v1.py::run_report_editorial_cycle",
       "kind": "python_function",
-      "line": 226,
+      "line": 239,
       "path": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "symbol": "run_report_editorial_cycle"
     },
@@ -98799,49 +98829,63 @@
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::desk_projection",
       "kind": "python_function",
-      "line": 202,
+      "line": 291,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "desk_projection"
     },
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::publication_story_context",
       "kind": "python_function",
-      "line": 121,
+      "line": 209,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "publication_story_context"
     },
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::read_reviews",
       "kind": "python_function",
-      "line": 164,
+      "line": 252,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "read_reviews"
     },
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::record_native_article_review",
       "kind": "python_function",
-      "line": 169,
+      "line": 257,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "record_native_article_review"
     },
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::record_review",
       "kind": "python_function",
-      "line": 244,
+      "line": 333,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "record_review"
     },
     {
+      "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::record_story_source_review",
+      "kind": "python_function",
+      "line": 23,
+      "path": "live_contentops/contentops_editorial_desk_v1.py",
+      "symbol": "record_story_source_review"
+    },
+    {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::selection_story_context",
       "kind": "python_function",
-      "line": 145,
+      "line": 233,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "selection_story_context"
     },
     {
+      "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::source_review_projection",
+      "kind": "python_function",
+      "line": 19,
+      "path": "live_contentops/contentops_editorial_desk_v1.py",
+      "symbol": "source_review_projection"
+    },
+    {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::story_projection",
       "kind": "python_function",
-      "line": 31,
+      "line": 119,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "story_projection"
     },
@@ -110741,7 +110785,7 @@
     {
       "id": "python_symbol:live_contentops/native_desktop_editorial_v1.py::bind_editorial_media",
       "kind": "python_function",
-      "line": 252,
+      "line": 254,
       "path": "live_contentops/native_desktop_editorial_v1.py",
       "symbol": "bind_editorial_media"
     },
@@ -110755,21 +110799,21 @@
     {
       "id": "python_symbol:live_contentops/native_desktop_editorial_v1.py::normalize_native_receipt",
       "kind": "python_function",
-      "line": 233,
+      "line": 235,
       "path": "live_contentops/native_desktop_editorial_v1.py",
       "symbol": "normalize_native_receipt"
     },
     {
       "id": "python_symbol:live_contentops/native_desktop_editorial_v1.py::prepare_reviewed_handoff",
       "kind": "python_function",
-      "line": 288,
+      "line": 293,
       "path": "live_contentops/native_desktop_editorial_v1.py",
       "symbol": "prepare_reviewed_handoff"
     },
     {
       "id": "python_symbol:live_contentops/native_desktop_editorial_v1.py::run_native_desktop_newsroom",
       "kind": "python_function",
-      "line": 219,
+      "line": 221,
       "path": "live_contentops/native_desktop_editorial_v1.py",
       "symbol": "run_native_desktop_newsroom"
     },
@@ -125523,9 +125567,16 @@
       "symbol": "SimpleGeminiNewsroomError"
     },
     {
+      "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::native_source_date_notice",
+      "kind": "python_function",
+      "line": 1570,
+      "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "symbol": "native_source_date_notice"
+    },
+    {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1892,
+      "line": 1911,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -127366,14 +127417,14 @@
     {
       "id": "python_symbol:scripts/run_native_desktop_editorial.py::main",
       "kind": "python_function",
-      "line": 194,
+      "line": 205,
       "path": "scripts/run_native_desktop_editorial.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:scripts/run_native_desktop_editorial.py::operation",
       "kind": "python_function",
-      "line": 84,
+      "line": 89,
       "path": "scripts/run_native_desktop_editorial.py",
       "symbol": "operation"
     },
@@ -127387,7 +127438,7 @@
     {
       "id": "python_symbol:scripts/run_native_desktop_editorial.py::validate_binding",
       "kind": "python_function",
-      "line": 67,
+      "line": 72,
       "path": "scripts/run_native_desktop_editorial.py",
       "symbol": "validate_binding"
     },
@@ -129988,7 +130039,7 @@
     {
       "id": "scripts/run_native_desktop_editorial.py",
       "kind": "python_module",
-      "size_bytes": 16750
+      "size_bytes": 18437
     },
     {
       "id": "scripts/run_native_neo_executor.py",
@@ -130573,12 +130624,12 @@
     {
       "id": "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
       "kind": "test",
-      "size_bytes": 19175
+      "size_bytes": 19192
     },
     {
       "id": "tests/test_capital_chronicle_report_feed_v1.py",
       "kind": "test",
-      "size_bytes": 16326
+      "size_bytes": 17508
     },
     {
       "id": "tests/test_cc_artifact_packet_intake_v0.py",
@@ -131993,7 +132044,7 @@
     {
       "id": "tests/test_native_newsroom_owner_operation_v1.py",
       "kind": "test",
-      "size_bytes": 5786
+      "size_bytes": 12810
     },
     {
       "id": "tests/test_newsroom_assignment_scheduler_v1.py",
@@ -136995,7 +137046,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx::ReportEditorialWorkspace",
       "kind": "typescript_export",
-      "line": 24,
+      "line": 30,
       "path": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "symbol": "ReportEditorialWorkspace"
     },
@@ -137446,7 +137497,7 @@
     {
       "id": "ui/contentops_v5/src/dailyAppTypes.ts",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 20220
+      "size_bytes": 20810
     },
     {
       "id": "ui/contentops_v5/src/data/canonicalDraftFinalReviewVariantPreviewAdapter.ts",
@@ -138021,7 +138072,7 @@
     {
       "id": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 23543
+      "size_bytes": 25630
     },
     {
       "id": "ui/contentops_v5/src/views/ResearchPackageDecision.tsx",
@@ -138372,6 +138423,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "a6ae006c687f87de7b70d368e98085c0eb63762c",
-  "source_tree_digest": "5d02c377514b2ffae68678b6688a9cc7bf05fcad19e1d3d050000f77647aa4ef"
+  "source_head": "3ae05e0e1b8153d6eb21f84be988e7dcd0311d56",
+  "source_tree_digest": "bdd2a29f1f013a542421d30a5e89d343d1b4810adf1f54959fc9e6a0e1b8c0ec"
 }
