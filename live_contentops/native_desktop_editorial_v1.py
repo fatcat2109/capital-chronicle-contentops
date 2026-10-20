@@ -148,6 +148,10 @@ class NativeDesktopTurn:
             raise ValueError("NATIVE_DESKTOP_INVOCATION_OBSERVATION_REQUIRED")
         if observation.get("speed", "standard") != "standard":
             raise ValueError("PAID_SPEED_NOT_AUTHORIZED")
+        if stage == "revise":
+            writer = self._get("write", "response")
+            if not writer or observation["invocation_id"] != writer["invocation_observation"]["invocation_id"]:
+                raise ValueError("NATIVE_DESKTOP_SAME_WRITER_REPAIR_REQUIRED")
         role = native_role(stage)
         if role == "filter":
             from live_contentops.native_headline_filter_v1 import _validate

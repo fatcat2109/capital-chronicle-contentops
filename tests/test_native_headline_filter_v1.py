@@ -102,3 +102,13 @@ def test_explicit_correction_survives_intake_and_published_title_dedupe(tmp_path
     assert selected["correction_of"] == "original" and selected["update_chain_identity"] == "same-story"
     ordinary = {**result["headlines"][0], "revision_at_utc": "2026-10-20T00:30:00Z"}
     assert _candidate_universe({"headlines": [ordinary]}, [{"title": source["headline_text"]}]) == []
+
+
+def test_repair_requires_the_same_actual_writer_invocation(tmp_path):
+    turn = _turn(tmp_path)
+    turn._put("write", "response", {"invocation_observation": {"invocation_id": "actual-writer"}})
+    turn._put("revise", "request", {"request_sha256": "exact-request"})
+    with pytest.raises(ValueError, match="SAME_WRITER"):
+        turn.submit("revise", {"request_sha256": "exact-request", "output": {},
+            "invocation_observation": {"surface": "CODEX_NATIVE_SUBAGENT", "model": "gpt-6.1-sol",
+                "reasoning_effort": "max", "invocation_id": "different-writer", "observation_source": "CONTROLLED_TEST"}})
