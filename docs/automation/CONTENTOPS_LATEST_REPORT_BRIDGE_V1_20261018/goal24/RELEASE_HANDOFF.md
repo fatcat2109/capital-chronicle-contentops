@@ -134,3 +134,11 @@ Source delivery: `3e69658a1a8298970acacc0e57389fc6a70dd4cd`; first graph/remote
 CodeGraph reported CURRENT. First CI exposed missing native-guidance HTTP status mapping plus
 historical fixtures, corrected in the same branch. The final matching PR head/checks are the
 remote delivery authority, with no older-head green substitution. See `COMPLETION_EVIDENCE.md`.
+
+
+Correction delivery: HTTP native-guidance mapping and deterministic cross-platform fixtures
+passed **34/34** locally. Source `d90c20a048a84e54b462269c444dae9569a96b48`; regenerated graph
+and remote `052c66c6ad65a2cfaf20719a2e8a9c7ecfd7c72e`. Additional final native/read-model
+selection **12/12** passed. The final exact PR90 head's CI is the acceptance gate; the first
+failed run is retained as failure evidence, not completion. Docs-only closeout does not
+change the indexed source graph or claim production proof.

@@ -28,18 +28,25 @@
       "scope": "native seam plus exact corrected unverified-Neo read-model expectation",
       "passed": 12,
       "failed": 0
+    },
+    {
+      "scope": "HTTP native guidance and historical operator/profile boundary regressions after CI repair",
+      "passed": 34,
+      "failed": 0,
+      "source_log": "C:/Users/bullw/AppData/Local/Temp/goal24-http-correction-tests.txt"
     }
   ],
   "typescript_vite_build": "PASS; goal24-ui-final-build.txt",
   "ruff_changed_native_readmodel_runtime_cli": "PASS",
   "compileall_live_contentops_scripts": "PASS",
-  "focused_readmodel_api_followup": "First exact-head CI found HTTP native-guidance 503 mapping and stale historical fixtures; corrected. Final matching-head PR90 checks are the gate.",
+  "focused_readmodel_api_followup": "HTTP/profile suite 34 passed; native and corrected unverified-Neo readmodel 12 passed. Full readmodel/control suite final gate is matching-head PR90 CI.",
   "remote_ci_authority": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/90/checks; only matching head counts",
   "codegraph": {
-    "source_commit": "3e69658a1a8298970acacc0e57389fc6a70dd4cd",
-    "graph_commit": "8ff725634fb5fe5a4e1b186537b5a5b74a1ef090",
-    "source_tree_digest": "40bdf27bfcab6131552c668aff38b52959d27b9753c92b4389d5721886f99568",
-    "freshness_check": "CODEGRAPH_CURRENT before HTTP correction; regenerate existing graph for correction"
+    "method": "existing generator 2.5.1",
+    "source_commit": "d90c20a048a84e54b462269c444dae9569a96b48",
+    "graph_commit": "052c66c6ad65a2cfaf20719a2e8a9c7ecfd7c72e",
+    "source_tree_digest": "dae349fa9916cea88beb4c266f5bf9d031253853ef9a0571a096e93f85d91020",
+    "final_check": "PR90 matching-head branch-codegraph-refresh and deterministic-validation; no duplicate index"
   },
   "engineering_only": true,
   "production_activation": false,
@@ -49,6 +56,8 @@
     "first_ci_run": "https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39419364662",
     "first_head": "8ff725634fb5fe5a4e1b186537b5a5b74a1ef090",
     "first_result": "FAIL_HTTP_STATUS_MAPPING_AND_HISTORICAL_FIXTURES; correction follows",
-    "final_ci": "PR90 matching-head checks; authoritative terminal delivery details in PR body"
+    "final_ci": "PR90 matching-head checks; authoritative terminal delivery details in PR body",
+    "correction_source_commit": "d90c20a048a84e54b462269c444dae9569a96b48",
+    "corrected_graph_remote_commit": "052c66c6ad65a2cfaf20719a2e8a9c7ecfd7c72e"
   }
 }

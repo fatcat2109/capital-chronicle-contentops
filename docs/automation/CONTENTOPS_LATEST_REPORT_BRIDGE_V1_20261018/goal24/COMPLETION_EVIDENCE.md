@@ -24,3 +24,9 @@ The first exact-head CI run at `8ff72563` found a real missing HTTP status mappi
 guidance and historical fixtures that assumed an old window/callback flag or Windows Chrome.
 These are corrected on the same branch; an interrupted local test process is not counted green.
 Only the final matching-head CI results establish the delivery gate.
+
+
+Correction source is `d90c20a048a84e54b462269c444dae9569a96b48`, generated graph/remote
+`052c66c6ad65a2cfaf20719a2e8a9c7ecfd7c72e`. Bounded HTTP/profile suite passed 34/34 after
+repair; native/read-model selection passed 12/12. Final PR90 matching-head CI, remote ref and
+clean worktree are checked after docs-only closeout; no inference from the earlier failed run.
