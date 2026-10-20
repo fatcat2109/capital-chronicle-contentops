@@ -171,7 +171,7 @@ class MainReportFeed:
         if retained_research is None and pointer.get("research_root"):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             try:
-                retained_research = RetainedSourceResearch(pointer["research_root"])
+                retained_research = RetainedSourceResearch(pointer["research_root"], editions_root=pointer.get("research_editions_root"))
             except (OSError, ValueError, KeyError, TypeError):
                 self.research_error = "CONFIGURED_RESEARCH_INDEX_UNAVAILABLE_OR_INVALID"
         self.retained_research = retained_research
@@ -502,11 +502,17 @@ class MainReportFeed:
         editorial_request=None,
     ) -> dict[str, Any]:
         """One existing newsroom slot; all reports compete with normal news in one Simple call."""
-        scan = self.poll(cutoff_utc=cutoff_utc)
-        if self.pointer.get("research_root") and not self.can_resume(run_id):
+        input_key = "native-current-input-" + sha256_of(run_id)
+        frozen_row = self.tracker.store.get_outbox_message(input_key)
+        frozen_input = json.loads(frozen_row["payload"]) if frozen_row else None
+        scan = frozen_input["feed_scan"] if frozen_input else self.poll(cutoff_utc=cutoff_utc)
+        if frozen_input and frozen_input.get("research"):
+            from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+            self.retained_research = RetainedSourceResearch.from_frozen_snapshot(frozen_input["research"])
+        elif self.pointer.get("research_root") and not self.can_resume(run_id):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             try:
-                self.retained_research = RetainedSourceResearch(self.pointer["research_root"])
+                self.retained_research = RetainedSourceResearch(self.pointer["research_root"], editions_root=self.pointer.get("research_editions_root"))
                 self.research_error = None
             except (OSError, ValueError, KeyError, TypeError):
                 # Do not turn an unavailable configured evidence index into a
@@ -517,7 +523,8 @@ class MainReportFeed:
             MainHeadlineExporter,
             permitted_report_headlines,
         )
-        self.refresh_research_library(cutoff_utc=cutoff_utc)
+        if not frozen_input:
+            self.refresh_research_library(cutoff_utc=cutoff_utc)
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_dir
 
         export = MainHeadlineExporter(self.tracker.store, research=self.retained_research).export(
@@ -543,7 +550,7 @@ class MainReportFeed:
         (export_root / "main_headline_rows.jsonl").write_bytes(
             b"".join(canonical_bytes(row) + b"\n" for row in export["rows"])
         )
-        pending = self.pending(include_controlled=llm_invoke is not None)
+        pending = frozen_input["reports"] if frozen_input else self.pending(include_controlled=llm_invoke is not None)
         previous = self.tracker.store.get_outbox_message(
             "cc-editorial-final-" + sha256_of(run_id)
         )
@@ -581,12 +588,25 @@ class MainReportFeed:
             # A restarted slot must resume its frozen selection/source/writer pool even if
             # new reports or successful outputs have changed the live pending inventory.
             pending = json.loads(pool["payload"])["reports"]
-        if rolling_input is None:
+        if frozen_input:
+            rolling_input = frozen_input["rolling_input"]
+        elif rolling_input is None:
             from live_contentops.newsroom_assignment_scheduler_v1 import (
                 load_rolling_x_headline_sidecars,
             )
 
             rolling_input = load_rolling_x_headline_sidecars(cutoff_utc=cutoff_utc)
+        if not frozen_input:
+            review_ids = self.pointer.get("source_review_ids", [])
+            reviews = [json.loads(self.tracker.store.get_outbox_message(k)["payload"]) for k in review_ids]
+            frozen_input = {"schema_version": "contentops.native_current_input.v1", "run_id": run_id,
+                "cutoff_utc": cutoff_utc, "rolling_input": rolling_input, "reports": pending,
+                "feed_scan": scan, "accepted_manifest_sha256": scan.get("manifest_sha256"),
+                "research": self.retained_research.frozen_snapshot() if self.retained_research else None,
+                "source_review_ids": review_ids,
+                "source_requests_before_writer_freeze": sum(len(s["source_attempts"]) for s in reviews),
+                "public_write_performed": False}
+            _persist(self.tracker.store, input_key, frozen_input, "internal:native-current-input")
         if self.retained_research and not pool:
             from live_contentops.contentops_foundation_library_v1 import library_projection
             from live_contentops.contentops_editorial_desk_v1 import read_reviews
@@ -613,6 +633,8 @@ class MainReportFeed:
             attempted_candidate_ids=attempted_candidate_ids,
             retained_research=self.retained_research,
             editorial_request=editorial_request,
+            source_reviews=[json.loads(self.tracker.store.get_outbox_message(k)["payload"])
+                            for k in frozen_input.get("source_review_ids", self.pointer.get("source_review_ids", []))],
         )
         disposition = {
             "schema_version": SCHEMA,

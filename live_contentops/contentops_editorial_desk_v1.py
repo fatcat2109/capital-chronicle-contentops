@@ -13,6 +13,94 @@ from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private
 
 SCHEMA = "contentops.editorial_desk_review.v1"
 ENDPOINT = "/api/daily-app/editorial-review"
+SOURCE_REVIEW = "internal:native-story-source-review"
+
+
+def source_review_projection(rows):
+    return [json.loads(r["payload"]) for r in rows if r["destination"] == SOURCE_REVIEW]
+
+
+def record_story_source_review(store, *, run_id, article_identity, review_operation_id,
+                               research, source_ids, attempts, cutoff_utc, reason,
+                               main_receipt_id=None):
+    """Append a source-bound decision to the existing story/review outbox.
+
+    Retrieval clocks cannot establish a new period. Missing access is a named gap,
+    not evidence that the old source was corrected. Original packages stay immutable.
+    """
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, canonical_bytes, _time
+    key = "native-source-review-" + sha256_of([run_id, review_operation_id])
+    request_sha = sha256_of([article_identity, research.revision, source_ids, attempts, cutoff_utc, reason, main_receipt_id])
+    prior = store.get_outbox_message(key)
+    if prior:
+        value = json.loads(prior["payload"])
+        if value.get("request_sha256", request_sha) != request_sha:
+            raise ValueError("SOURCE_REVIEW_INPUT_CHANGED_USE_NEW_IDENTITY")
+        return value
+    row = store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))
+    result = json.loads(row["payload"]) if row else {}
+    if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
+        raise ValueError("EXACT_EXISTING_STORY_REQUIRED")
+    if not reason or not 0 < len(attempts) <= 6 or _private(attempts):
+        raise ValueError("BOUNDED_PUBLIC_SOURCE_ATTEMPTS_REQUIRED")
+    records = [research.records[h] for h in source_ids]
+    if any(_time(r["known_at_utc"]) > _time(cutoff_utc) for r in records):
+        raise ValueError("SOURCE_EDITION_AFTER_CUTOFF")
+    evidence = result.get("evidence", [])
+    before_text = " ".join(" ".join(str(d.get("canonical_content_text") or "").split()) for d in evidence)
+    editions = [{"item_id": r["headline_id"], "source_url": r["source_url"],
+        "proposition": r["headline_text"], "text_sha256": r["text_sha256"],
+        "permission_sha256": r["source_permission_record_sha256"],
+        "capture_sha256": r["source_capture_sha256"], "published_at_utc": r["source_timestamp_utc"],
+        "retrieved_at_utc": r["retrieval_time_utc"], "observation_date": r["research_metadata"].get("observation_date"),
+        "period_relation": r["research_metadata"].get("period_relation", "NO_NEW_PERIOD_PROVEN"),
+        "rights_state": r["rights_state"], "originality": r["originality"],
+        "context_kind": r["research_metadata"].get("context_kind"), "stage": "RESEARCH_READY"} for r in records]
+    additions = [e for e in editions if " ".join(e["proposition"].split()) not in before_text]
+    # A changed capture/URL/wording alone cannot allocate a writer. The verified
+    # source edition must identify a new period, correction, or additional fact.
+    material_additions = [e for e in additions if e["period_relation"] in {
+        "SAME_PERIOD_ADDITIONAL_SEASONAL_COMPARATOR", "NEW_OBSERVATION_PERIOD",
+        "PUBLISHER_CORRECTION_OF_SAME_OBSERVATION", "MATERIAL_NEW_SOURCE_PROPOSITION"}]
+    main, removed = None, []
+    if main_receipt_id:
+        from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker
+        from live_contentops.capital_chronicle_report_editorial_workspace_v1 import CURRENT
+        main = next((r for r in LatestReportDeliveryTracker(store).receipts() if r["receipt_id"] == main_receipt_id), None)
+        if not main or main["status"] not in CURRENT or _time(main["known_at_cutoff_utc"]) > _time(cutoff_utc):
+            raise ValueError("ACCEPTED_PUBLIC_MAIN_RECEIPT_REQUIRED")
+        if result.get("report_id") != main["report_id"]:
+            raise ValueError("MAIN_RECEIPT_NOT_BOUND_TO_PRIOR_STORY")
+        old_claims = {c["claim_id"] for d in evidence for c in d.get("report_lineage", {}).get("claims", [])}
+        removed = sorted(old_claims - {c["claim_id"] for c in main.get("claims", [])})
+    unavailable = [a for a in attempts if a["status"] != "PASS"]
+    if main and (main.get("withdrawal_only") or removed):
+        decision = "CORRECTION_OR_WITHDRAWAL"
+    elif material_additions:
+        decision = "MATERIAL_FOLLOW_UP"
+    elif unavailable and not records:
+        decision = "STALE_OR_SOURCE_GAP"
+    else:
+        decision = "USE_UNCHANGED"
+    review = {"schema_version": "contentops.native_story_source_review.v1", "review_id": key,
+        "request_sha256": request_sha,
+        "run_id": run_id, "article_identity": article_identity, "title": result["article"]["title"],
+        "cutoff_utc": cutoff_utc, "decision": decision, "reader_change_summary": reason,
+        "source_editions": editions, "source_attempts": attempts,
+        "source_changes": _source_delta([], material_additions), "removed_main_claim_ids": removed,
+        "previous_sources": [{k: d.get(k) for k in ("source_id", "url", "published_at_utc", "canonical_content_sha256", "canonical_content_text")}
+                             for d in evidence],
+        "main_receipt_id": main_receipt_id, "research_revision": research.revision,
+        "invalidates_prepared_review": decision in {"MATERIAL_FOLLOW_UP", "CORRECTION_OR_WITHDRAWAL", "STALE_OR_SOURCE_GAP"},
+        "media_state": "REVALIDATE_CHANGED_SUPPORT" if additions or removed else "RETAIN_EXACT_BYTES_DATED_SUPPORT",
+        "prior_story": {"story_identity": result["article"].get("story_identity"),
+            "article_identity": article_identity, "title": result["article"]["title"],
+            "full_text": result["article"]["substack_body_markdown"], "stage": "UNPUBLISHED_REVIEWED_ARTICLE"},
+        "writer_required": decision in {"MATERIAL_FOLLOW_UP", "CORRECTION_OR_WITHDRAWAL"}, "publication_authority": False,
+        "public_write_performed": False}
+    store.register_outbox_message(message_id=key, work_item_id=row["work_item_id"], destination=SOURCE_REVIEW,
+        payload=canonical_bytes(review).decode(), status="EDITORIAL_INTERNAL")
+    return review
 
 
 def _source_delta(before, after):
@@ -184,10 +272,11 @@ def record_native_article_review(store, *, run_id, article_identity, decision, r
                 (row["work_item_id"], "NATIVE_DESKTOP_ARTICLE_REVIEW")).fetchone()
             if (prior["review_id"] if prior else None) != expected_review_id:
                 raise ValueError("REVIEW_VERSION_CONFLICT_REFRESH_DESK")
+            metadata_sha = sha256_of(value["article"])
             revision = sha256_of([article_identity, value["simple_result"]["publication_lifecycle_plan"]["plan_hash"],
-                                  value.get("claim_lineage"), value.get("media_assets")])
+                                  value.get("claim_lineage"), value.get("media_assets"), metadata_sha])
             note = {"schema_version": "contentops.native_article_review.v1", "run_id": run_id,
-                "article_identity": article_identity, "package_revision": revision,
+                "article_identity": article_identity, "package_revision": revision, "article_metadata_sha256": metadata_sha,
                 "rationale": rationale.strip(), "publication_authority": False}
             review_id = "native-article-review-" + uuid4().hex
             conn.execute("INSERT INTO review_records VALUES (?,?,?,?,?,?)", (review_id, row["work_item_id"],

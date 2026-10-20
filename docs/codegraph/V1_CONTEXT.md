@@ -25,7 +25,7 @@ The App-owned four windows are prepared and PAUSED; production pause/deployed by
 Current owner policy/paused rollout: `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md`
 and `config/native_desktop_rollout_v1.json`. Current lane pointer:
 `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
-Owning checkpoint: `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal26/RELEASE_HANDOFF.md`.
+Owning checkpoint: `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/RELEASE_HANDOFF.md`.
 The existing native script's `newsroom`/`desk` entry and `.agents/skills/contentops-newsroom/SKILL.md`
 prepare normal-language manual requests through the same profile, roles, store and review owner.
 Goal20–23 evidence, old Simple publication/scheduler proofs and old Desktop HIGH/SDK proofs remain
@@ -46,3 +46,8 @@ semantic judgments) and `native_neo_executor_v1.py` / `scripts/run_native_neo_ex
 (active Desktop tool requests, begin/return binding and existing coordinator readback).
 The source default remains executor-unbound and definite-no-write; an active operation binds
 the concrete executor explicitly. Target settings are not deployed/host execution proof.
+
+Goal27 extends the same owner operation with frozen current input and append-only source
+editions, source-bound story review, prior-article continuity and prepared-review invalidation.
+A fresh scan is not a fresh economic period; only material changes route to native roles.
+Goal26 remains immutable edition evidence; current delivery is in the Goal27 owning handoff.

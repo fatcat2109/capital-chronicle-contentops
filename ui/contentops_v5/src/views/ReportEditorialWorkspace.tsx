@@ -5,6 +5,12 @@ import type { ReportWorkspaceData } from '../dailyAppTypes';
 
 const DESTINATIONS = ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube'];
 const display = (value: string) => value.replace(/_/g, ' ');
+const sourceDecision: Record<string, string> = {
+  USE_UNCHANGED: 'Giữ nguyên bài', MATERIAL_FOLLOW_UP: 'Cần bài tiếp nối',
+  CORRECTION_OR_WITHDRAWAL: 'Cần sửa hoặc rút phạm vi cũ', STALE_OR_SOURCE_GAP: 'Còn thiếu nguồn mới',
+  RETAIN_EXACT_BYTES_DATED_SUPPORT: 'Giữ ảnh đã kiểm tra với nguồn có ngày cũ',
+  REVALIDATE_CHANGED_SUPPORT: 'Kiểm tra lại ảnh theo nguồn đã đổi',
+};
 function ArticleParagraphs({ text }: { text: string }) {
   return <div>{text.replace(/\[\[SOURCE:(SOURCE_\d+)\]\]/g, '[$1]').split(/\n\s*\n/).map((block, i) =>
     /^#{1,6}\s/.test(block) ? <h4 key={i}>{block.replace(/^#{1,6}\s+/, '')}</h4> : <p key={i} style={{ overflowWrap: 'anywhere', whiteSpace: 'pre-line' }}>{block}</p>)}</div>;
@@ -34,12 +40,26 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
   return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace" style={{ overflowWrap: 'anywhere', minWidth: 0 }}>
     <p>Luồng biên tập đích: Luna MAX lọc headline → 6.1 Sol Light chọn góc và chuẩn bị nguồn → 6.1 Sol MAX viết bài và SEO, tối đa một lượt sửa cùng writer. Lịch production giữ pause; chỉ bằng chứng thực thi mới xác nhận model đã chạy.</p>
     <header><span>Editorial workspace</span><h2>Capital Chronicle report → article → previews</h2></header>
+    {!!data?.source_reviews?.length && <section aria-label="So sánh nguồn và quyết định cập nhật">
+      <h3>Nguồn đã thay đổi gì?</h3><p>Bài cũ giữ nguyên trong lịch sử. Đọc lại URL không tạo tuần quan sát mới.</p>
+      {data.source_reviews.map(s => <article key={s.review_id} className="report-copy">
+        <h4>{s.title}</h4><p><strong>{sourceDecision[s.decision] ?? display(s.decision)}</strong> · {s.reader_change_summary}</p>
+        {s.invalidates_prepared_review && <p>Chuẩn bị phát hành bản cũ cần xem lại; chưa được dùng quyết định KEEP trước đây để phát hành.</p>}
+        <p>Media: {sourceDecision[s.media_state] ?? display(s.media_state)}.</p>
+        <details><summary>Đối chiếu nguồn, ngày và giới hạn</summary>
+          {s.source_editions.map(e => <p key={e.item_id}>{e.proposition}<br />Quan sát: {e.observation_date ?? 'không ghi'} · Công bố: {e.published_at_utc?.slice(0, 10) ?? 'chưa xác minh'} · Lấy nguồn: {e.retrieved_at_utc}<br />{display(e.period_relation)} · {e.rights_state} · <a href={e.source_url}>Nguồn gốc</a></p>)}
+          {s.source_attempts.map((a, i) => <p key={i}>{display(a.status)} · <a href={a.url}>Nguồn đã kiểm tra</a> · {a.observed_at_utc}</p>)}
+          {!!s.removed_main_claim_ids.length && <p>Main đã rút: {s.removed_main_claim_ids.join(', ')}.</p>}
+        </details>
+      </article>)}
+    </section>}
     {!!data?.native_edition?.length && <section aria-label="Ấn bản newsroom"><h3>Ấn bản newsroom · đọc và duyệt</h3>
       <p>Các bài đã qua validator; quyết định biên tập gắn với đúng bản bài. Chưa xuất bản.</p>
       {data.native_edition.map(item => <article key={item.article_identity} className="report-copy" data-edition-run={item.run_id}>
         <h3>{item.article.title}</h3><p>{item.article.dek}</p>
         <p><strong>Góc bài:</strong> {item.angle ?? item.mode} · <strong>Câu hỏi:</strong> {item.reader_question}</p>
         <p><strong>Đọc duyệt:</strong> {item.review?.decision ?? 'Chờ đọc duyệt'} · {item.review?.rationale}</p>
+        {item.prepared_state && <p role="status">Bản gốc được giữ nguyên; chuẩn bị phát hành đã mất hiệu lực do nguồn đổi hoặc còn thiếu.</p>}
         {item.report_id && <p>Bổ sung từ {item.report_id} bản {item.report_version}; phân tích Main có điều kiện, không phải xác nhận độc lập.</p>}
         <details open><summary>Đọc toàn bài</summary><ArticleParagraphs text={item.article.substack_body_markdown} /></details>
         <details><summary>Nguồn và ngày</summary>{item.evidence?.map(s => <p key={s.source_id} style={{ overflowWrap: 'anywhere' }}>

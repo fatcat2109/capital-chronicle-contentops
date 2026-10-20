@@ -28,3 +28,6 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/** -text whit
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/**/*.json binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/**/*.jsonl binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/retained_research/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/source_editions/** binary

@@ -142,7 +142,7 @@ def controlled_writer(calls):
             "meta_description": "Capital Chronicle analysis: the weekly refill alone cannot establish a market surprise.",
             "social_hook": "Capital Chronicle report: the next weekly release tests the tightening watch.",
             "substack_body_markdown": "\n\n".join(
-                [f"{label}. {c['text']} [[SOURCE:SOURCE_1]]" for c in claims]
+                [f"Capital Chronicle report: {c['text']} [[SOURCE:SOURCE_1]]" for c in claims]
                 + [notice + " [[SOURCE:SOURCE_1]]"]
             ),
         }

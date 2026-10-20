@@ -1,0 +1,93 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "headline_id": "goal27-gas-seasonal",
+      "headline_text": "Net injections into storage totaled 67 Bcf for the week ending October 9, compared with the five-year (2021\u20132025) average net injections of 90 Bcf and last year's net injections of 80 Bcf during the same week. Working natural gas stocks totaled 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. Stocks were 45 Bcf (1%) more than the five-year average and 143 Bcf (4%) lower than last year at this time.",
+      "capture_path": "goal27-gas-seasonal-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "aa827b90e16b6f2bbc0254ec1075dcf61b014ee1f01be5cfde22b8a907f75f1f",
+      "loader_result_path": "goal27-gas-seasonal-admission.json",
+      "policy_capture_path": "eia-policy-retained.html",
+      "policy_capture_class": "RETAINED_HTTP_HTML",
+      "policy_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "policy_capture_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "policy_retrieved_at_utc": "2026-10-19T05:47:50.347840Z",
+      "revision_at_utc": "2026-10-20T18:22:14.693Z",
+      "proposition_span": [
+        400,
+        821
+      ],
+      "candidate_catalyst_tags": [
+        "energy"
+      ],
+      "research_metadata": {
+        "family": "ENERGY",
+        "assets": [
+          "XNGUSD",
+          "US_GAS_STORAGE"
+        ],
+        "context_kind": "DATED_OFFICIAL_OBSERVATION",
+        "observation_date": "2026-10-09",
+        "release_date": "2026-10-15",
+        "period_relation": "SAME_PERIOD_ADDITIONAL_SEASONAL_COMPARATOR",
+        "contradictions": [
+          "Page header says week ending October 14; storage paragraph explicitly refers to October 9. No new storage period."
+        ],
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "next_editorial_question": "Why does a slower refill differ from a depleted stock level?",
+        "authorship_scope": "EIA_AUTHORED_STORAGE_OR_PETROLEUM_TEXT_ONLY_EXCLUDES_THIRD_PARTY_SECTIONS"
+      }
+    },
+    {
+      "headline_id": "goal27-oil-original",
+      "headline_text": "Commercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased 8.6 million barrels to 415.6 million barrels, 3% below the five-year average. Gasoline inventories increased 3.5 million barrels, 4% below the five-year average. Distillate inventories decreased 2.5 million barrels, 12% below the five-year average.",
+      "capture_path": "goal27-oil-original-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+      "loader_result_path": "goal27-oil-original-admission.json",
+      "policy_capture_path": "eia-policy-retained.html",
+      "policy_capture_class": "RETAINED_HTTP_HTML",
+      "policy_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "policy_capture_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "policy_retrieved_at_utc": "2026-10-19T05:47:50.347840Z",
+      "revision_at_utc": "2026-10-20T18:22:14.693Z",
+      "proposition_span": [
+        492,
+        827
+      ],
+      "candidate_catalyst_tags": [
+        "energy"
+      ],
+      "research_metadata": {
+        "family": "ENERGY",
+        "assets": [
+          "USOIL",
+          "US_CRUDE"
+        ],
+        "context_kind": "DATED_OFFICIAL_OBSERVATION",
+        "observation_date": "2026-10-09",
+        "release_date": null,
+        "period_relation": "SAME_PERIOD_UNCHANGED_STOCK_FACTS",
+        "contradictions": [],
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "next_editorial_question": "What remains supported after Main removes its analytical claims?",
+        "authorship_scope": "EIA_AUTHORED_STORAGE_OR_PETROLEUM_TEXT_ONLY_EXCLUDES_THIRD_PARTY_SECTIONS"
+      },
+      "context_spans": [
+        [
+          268,
+          492
+        ]
+      ]
+    }
+  ]
+}

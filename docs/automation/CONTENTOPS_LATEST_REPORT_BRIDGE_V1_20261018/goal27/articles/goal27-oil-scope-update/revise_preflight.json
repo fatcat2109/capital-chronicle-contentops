@@ -1,0 +1,12 @@
+{
+  "schema_ok": true,
+  "validation_status": "PASS",
+  "supported_claims": 17,
+  "changed_article_fields": [
+    "substack_body_markdown"
+  ],
+  "body_epistemic_label_count": 1,
+  "prior_write_preserved": true,
+  "same_writer_invocation_id": "/root/goal27_sol_max_writer",
+  "public_write_performed": false
+}

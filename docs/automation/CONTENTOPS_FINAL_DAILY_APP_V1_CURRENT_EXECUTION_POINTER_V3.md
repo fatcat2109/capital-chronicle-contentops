@@ -36,7 +36,12 @@ exact paused rollout, truthful telemetry, bound native Neo request/return/readba
 
 No production activation, public write, pause release, self-merge or deployment is part of Goal25.
 
-The existing owning checkpoint continues at `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal26/RELEASE_HANDOFF.md`.
+The existing owning checkpoint continues at `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/RELEASE_HANDOFF.md`.
 Goal26 adds the ordinary-language native operation and a source-backed editorial edition,
 reusing Goal25's filter/native/Neo evidence. Host pause and four task configurations remain unchanged.
 Historical V1 acceptance/publication-stack proofs are retained at their accepted epochs; they do not authorize this paused engineering goal to activate or publish.
+
+Goal27 extends the same owner operation with frozen current input and append-only source
+editions, source-bound story review, prior-article continuity and prepared-review invalidation.
+A fresh scan is not a fresh economic period; only material changes route to native roles.
+Goal26 remains immutable edition evidence; current delivery is in the Goal27 owning handoff.

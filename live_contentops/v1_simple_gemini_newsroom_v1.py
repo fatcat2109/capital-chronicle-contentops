@@ -1307,6 +1307,8 @@ def _epistemic_copy_blockers(
     publisher = str(epistemic_state.get("primary_reporting_publisher") or "")
     relay = str(epistemic_state.get("relay_source_identity") or "")
     label = str(epistemic_state.get("reader_visible_epistemic_label") or "")
+    if label and str(article.get("substack_body_markdown") or "").casefold().count(label.casefold()) > 1:
+        blockers.append("repeated_epistemic_label_in_body_use_source_notes_once")
     title = str(article.get("title") or "")
     dek = str(article.get("dek") or "")
     first = _first_body_paragraph(str(article.get("substack_body_markdown") or ""))
@@ -1563,6 +1565,23 @@ def _safe_source_blockers(values: Sequence[Any]) -> list[str]:
             if str(value).strip()
         }
     )
+
+
+def native_source_date_notice(source_pack, used_source_ids):
+    """Reader dates come from used claim sources, never unused context documents."""
+    dates = []
+    for row in source_pack:
+        if row["source_id"] not in used_source_ids:
+            continue
+        if row.get("published_at_source") == "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME":
+            for claim in row.get("report_lineage", {}).get("claims", []):
+                for evidence in claim.get("evidence", []):
+                    if evidence.get("observation_time_utc"):
+                        dates.append("Observation: " + evidence["observation_time_utc"][:10])
+            dates.append("Main report cutoff: " + str(row["published_at_utc"])[:10])
+        else:
+            dates.append("Source date: " + (str(row["published_at_utc"])[:10] if row.get("published_at_utc") else "not supplied (retained background)"))
+    return "; ".join(dict.fromkeys(dates)) + ". Interpretation remains analysis."
 
 
 def _reader_safe_native_article(
@@ -1838,7 +1857,7 @@ def _build_simple_publication_lifecycle_plan(
         "bridge_schema_version": PUBLICATION_BRIDGE_SCHEMA_VERSION,
         "run_id": run_id,
         "story_identity": str(selected_candidate.get("story_identity") or ""),
-        "update_chain_identity": str(selected_candidate.get("update_chain_identity") or selected_candidate.get("story_identity") or ""),
+        "update_chain_identity": str(article.get("update_chain_identity") or selected_candidate.get("update_chain_identity") or selected_candidate.get("story_identity") or ""),
         "resolved_article_mode": str(selected_plan_entry.get("article_mode") or ""),
         "editorial_classification": ("QUALIFIED_NATIVE_DESKTOP_ARTICLE"
             if qualified_record.get("editorial_worker", {}).get("provider") == "NATIVE_CODEX_DESKTOP"
@@ -2302,7 +2321,8 @@ def run_v1_simple_gemini_newsroom(
         "cutoff_utc": cutoff_utc,
         "selected_candidate": selected,
         "evolving_story_context": [s for s in ((capital_chronicle_context or {}).get("foundation_library") or {}).get("stories", [])
-            if s["brief_id"] in {c["brief_id"] for c in selected.get("evolving_story_context", [])}],
+                if s["brief_id"] in {c.get("brief_id") for c in selected.get("evolving_story_context", [])}],
+            "native_evolving_article_context": [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")],
         "article_mode": selected_plan_entry["article_mode"],
         "selection_rationale": selected_plan_entry["selection_rationale"],
         "selection_angle": selected_plan_entry.get("angle"),
@@ -2490,17 +2510,21 @@ def run_v1_simple_gemini_newsroom(
             return receipt
 
     if native:
-        dates = list(dict.fromkeys(
-            ("Main report cutoff: " if row.get("published_at_source") == "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME" else "Source date: ")
-            + (str(row["published_at_utc"])[:10] if row.get("published_at_utc") else "not supplied (retained background)")
-            for row in source_pack))
-        article = {**article, "source_date_notice": "; ".join(dates) + ". Interpretation remains analysis."}
+        article = {**article, "source_date_notice": native_source_date_notice(source_pack,
+            {c["source_id"] for c in worker_output["material_claim_bindings"]})}
+    native_prior = [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")]
+    prior_chain = {c["update_chain_identity"] for c in native_prior}
+    if len(prior_chain) > 1:
+        raise ValueError("CONFLICTING_NATIVE_PRIOR_STORY_IDENTITIES")
+    update_chain = next(iter(prior_chain)) if prior_chain else selected.get("update_chain_identity") or selected["story_identity"]
     article_manifest = {
         "schema_version": "contentops.v1_simple_article_manifest.v1",
         **article,
         "resolved_article_mode": selected_plan_entry["article_mode"],
         "story_identity": selected["story_identity"],
-        "update_chain_identity": selected.get("update_chain_identity") or selected["story_identity"],
+        "update_chain_identity": update_chain,
+        **({"prior_article_identity": native_prior[0]["prior_package"]["article_identity"],
+            "source_review_id": native_prior[0]["source_review_id"]} if native_prior else {}),
         "source_document_ids": [row["document_id"] for row in source_pack],
         "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
@@ -2589,7 +2613,7 @@ def run_v1_simple_gemini_newsroom(
         attempt_run_id=run_id,
         article=article_manifest,
         story_identity=selected["story_identity"],
-        update_chain_identity=selected.get("update_chain_identity") or selected["story_identity"],
+        update_chain_identity=update_chain,
         resolved_article_mode=selected_plan_entry["article_mode"],
         accepted_evidence_documents=accepted_documents,
         editorial_provider=str(worker_receipt.get("provider") or "9router"),

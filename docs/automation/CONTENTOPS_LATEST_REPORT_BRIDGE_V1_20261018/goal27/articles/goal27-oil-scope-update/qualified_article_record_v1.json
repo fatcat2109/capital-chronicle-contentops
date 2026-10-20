@@ -1,0 +1,522 @@
+{
+  "accepted_evidence_ids": [
+    "goal22-gas-storage",
+    "goal27-oil-original",
+    "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+  ],
+  "accepted_evidence_sha256": "11cd4ac3aa28a98327884ebf5ca73948b14af28ec020ad67b82a5df3d7c6a6a8",
+  "article_body_sha256": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+  "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+  "article_path": null,
+  "attempt_run_id": "goal27-oil-scope-update",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "official_source_document_card"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle's oil revision keeps the October 9 crude draw in view.\n\nWhat to watch: Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "ba260e09f06dc038b28ced91eae2fd515b7d73659e866ec9a5c44cf4c4311869",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f\n\nCapital Chronicle's oil revision keeps the October 9 crude draw in view.\n\nWatch: Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Capital Chronicle's oil revision keeps the October 9 crude draw in view.\n\nWatch: Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading?\n\nCC report / event unconfirmed."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Facts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.746,
+            0.982,
+            0.911
+          ],
+          "post_character_counts": [
+            209,
+            275,
+            255
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.76,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Capital Chronicle's oil revision keeps the October 9 crude draw in view.\n\nWatch: Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading?\n\nCC report / event unconfirmed.",
+          "Facts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f",
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f"
+      },
+      "payload_sha256": "659236edb90348ac098b6f72d9bd9297a20cf78e6f95132080fb84e5313c47ee",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]**\n\nCapital Chronicle's oil revision keeps the October 9 crude draw in view.\n\n**Context:** The countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "1d163b2010874134fc1f5da71352826b6596e185af746dac806ad37a659713d3",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nWhy it matters: Capital Chronicle's reading is that a fall in stored crude describes a change in the buffer; it does not identify which flows produced it.\n\nContext: The countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "340034e215d6f182ed47b8aa2bdd0e159c668a09b604f9f956b2ff09644ab92f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle's oil revision keeps the October 9 crude draw in view.\n\nWhy it matters: Capital Chronicle's reading is that a fall in stored crude describes a change in the buffer; it does not identify which flows produced it.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "c76348f581743e998b6f96f456833bbbea67e962b993bee61eda1329b223250d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle's oil revision keeps the October 9 crude draw in view.\n\nIn focus: The countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f\n\n#CapitalChronicle\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "76d461353d3a1d2d9ac61b3ea758c3a8f74a7b90f57f50bd686e6a1d65f481d9",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nThe countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f\n\nWhat to watch: Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nThe countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.656,
+            0.932
+          ],
+          "post_character_counts": [
+            328,
+            466
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.704,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nThe countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f",
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nThe countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f"
+      },
+      "payload_sha256": "6c412187d9f45e5125f19c88c05bd69d41592835355ce71704c4e0001227c87d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil update leaves the demand question open [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle's oil revision keeps the October 9 crude draw in view.\n\nWhat to watch: Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-7f514a22b776c33f\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "88e8720608c5b40ccfef2b32d5bb55ec233c4a738b301d29ffaebbf55cc2352a",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal27_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+          "reasoning_effort": "low",
+          "role": "select",
+          "source_spawn_metadata": {
+            "canonical_task_name": "/root/goal27_sol_light",
+            "fork_turns": "none",
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low",
+            "task_name": "goal27_sol_light",
+            "uuid_exposed": false
+          },
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal27_sol_max_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal27_sol_max_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+          "reasoning_effort": "max",
+          "role": "revise",
+          "speed": "standard",
+          "stage": "revise",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 3,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 3
+  },
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:USOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-20-bangkok",
+  "parent_window_id": "goal27-oil-scope-update",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "34af2216dcfecbf24cd15c8986ee4460c862ba6c0349ea8fc7dca437c5c103c5",
+  "resolved_article_mode": "FOLLOW_UP_UPDATE",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-a45c2527525a19c2d7a67db2",
+  "title": "Capital Chronicle's oil update leaves the demand question open",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-692b942cd8b193e1514f3ebc"
+}

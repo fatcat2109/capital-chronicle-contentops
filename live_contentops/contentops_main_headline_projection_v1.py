@@ -195,6 +195,7 @@ class MainHeadlineExporter:
     def __init__(self, store, *, research=None):
         self.store = store
         self.research = research
+        self._main_permission_rows = None
 
     def permission_for(self, row, cutoff):
         if self.research:
@@ -203,7 +204,9 @@ class MainHeadlineExporter:
                 return permission
         # Only exact rows reconstructed from accepted durable Main receipts inherit
         # the Main wire contract. A caller's lookalike row cannot grant itself rights.
-        for retained in permitted_report_headlines(LatestReportDeliveryTracker(self.store)):
+        if self._main_permission_rows is None:
+            self._main_permission_rows = permitted_report_headlines(LatestReportDeliveryTracker(self.store))
+        for retained in self._main_permission_rows:
             if sha256_of(retained) == sha256_of(row):
                 return {"content_sha256": hashlib.sha256(" ".join(row["headline_text"].split()).encode()).hexdigest(),
                         "INTERNAL_ANALYSIS_ALLOWED": True, "MODEL_INPUT_ALLOWED": True,

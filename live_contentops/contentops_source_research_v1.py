@@ -61,7 +61,7 @@ POLICIES = {
     "ir.eia.gov": (
         "https://www.eia.gov/about/copyrights_reuse.php",
         ("public domain", "you may use and/or distribute", "protected materials"),
-        ("/secure/ngs/ngs.html", "/ngs/ngs.html"),
+        ("/secure/ngs/ngs.html", "/ngs/ngs.html", "/secure/wpsr/summary.txt", "/wpsr/summary.txt"),
     ),
 }
 
@@ -100,7 +100,7 @@ def _rendered(raw: bytes, expected_url: str):
 class RetainedSourceResearch:
     """Read an explicitly configured evidence root; never follow arbitrary row paths."""
 
-    def __init__(self, root: str | Path):
+    def __init__(self, root: str | Path, *, editions_root: str | Path | None = None):
         self.root = Path(root).resolve()
         self.records: dict[str, dict[str, Any]] = {}
         self.gaps: list[dict[str, Any]] = []
@@ -121,6 +121,30 @@ class RetainedSourceResearch:
                 self.records[record["headline_id"]] = record
             except (OSError, ValueError, KeyError, TypeError, AttributeError) as exc:
                 self.gaps.append({"record_sha256": sha256_of(spec), "state": str(exc)})
+        if editions_root:
+            # A new edition is appended in its own evidence root. Existing captures,
+            # propositions and their exact admission clocks are never overwritten.
+            edition = RetainedSourceResearch(editions_root)
+            if set(edition.records) & set(self.records):
+                raise ValueError("SOURCE_EDITION_MUST_HAVE_NEW_IDENTITY")
+            self.records.update(edition.records)
+            self.gaps.extend(edition.gaps)
+            self.revision = sha256_of([self.revision, edition.revision])
+
+    def frozen_snapshot(self):
+        value = {"root": str(self.root), "revision": self.revision,
+                 "records": self.records, "gaps": self.gaps}
+        return {**value, "snapshot_sha256": sha256_of(value)}
+
+    @classmethod
+    def from_frozen_snapshot(cls, value):
+        """Restore only a previously verified, internal immutable opportunity input."""
+        if value["snapshot_sha256"] != sha256_of({k: v for k, v in value.items() if k != "snapshot_sha256"}):
+            raise ValueError("FROZEN_RESEARCH_SNAPSHOT_CHANGED")
+        result = cls.__new__(cls)
+        result.root = Path(value["root"])
+        result.revision, result.records, result.gaps = value["revision"], value["records"], value["gaps"]
+        return result
 
     def _read(self, relative: str) -> bytes:
         p = PurePosixPath(relative)
@@ -168,6 +192,10 @@ class RetainedSourceResearch:
             ).lower()
         if not all(marker in policy_text for marker in rule[1]):
             raise ValueError("SOURCE_PERMISSION_TEXT_NOT_VERIFIED")
+        observation = (spec.get("research_metadata") or {}).get("observation_date")
+        relation = (spec.get("research_metadata") or {}).get("period_relation")
+        if relation == "NEW_OBSERVATION_PERIOD" and not observation:
+            raise ValueError("NEW_SOURCE_PERIOD_REQUIRES_OBSERVATION_DATE")
         capture_hash = (
             capture["rendered_page_sha256"] if rendered_source else _hash(raw)
         )

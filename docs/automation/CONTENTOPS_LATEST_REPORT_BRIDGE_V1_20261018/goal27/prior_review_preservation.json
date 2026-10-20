@@ -1,0 +1,7 @@
+{
+  "expected_goal26_sha256": "a79ed33fd3433a6984fea40e15838d14654ff59b971b87f022821be7d69aca7e",
+  "actual_prior_review_sha256": "a79ed33fd3433a6984fea40e15838d14654ff59b971b87f022821be7d69aca7e",
+  "exact_match": true,
+  "prior_row_count": 29,
+  "new_native_keep_rows": 2
+}

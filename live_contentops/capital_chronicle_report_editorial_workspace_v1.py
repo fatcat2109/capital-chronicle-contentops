@@ -223,6 +223,19 @@ def _artifact(root: Path, name: str) -> dict[str, Any]:
     return json.loads((root / name).read_bytes())
 
 
+def _join_reviewed_source_editions(report_result, research, request, reviews, cutoff):
+    """Join independent verified spans BEFORE the native writer freezes evidence."""
+    if not research:
+        return report_result
+    ids = list(dict.fromkeys(s["item_id"] for r in reviews for s in r["source_editions"]))
+    if not ids:
+        return report_result
+    result = research.evidence({**request, "headline_ids": ids}, cutoff_utc=cutoff)
+    if not result or result["status"] != "PASS":
+        return report_result
+    return {**report_result, "evidence_documents": [*report_result["evidence_documents"], *result["evidence_documents"]]}
+
+
 def run_report_editorial_cycle(
     tracker: LatestReportDeliveryTracker,
     *,
@@ -240,6 +253,7 @@ def run_report_editorial_cycle(
     attempted_candidate_ids: Sequence[str] = (),
     retained_research=None,
     editorial_request: str | None = None,
+    source_reviews=(),
 ) -> dict[str, Any]:
     """A single bounded manual opportunity; retries replay durable successful stages."""
     if llm_invoke is None and not llm_operator_pause_active():
@@ -335,6 +349,24 @@ def run_report_editorial_cycle(
         if editorial_request:
             # Owner question metadata, never evidence, permission or numeric authority.
             args["capital_chronicle_context"]["owner_editorial_request"] = editorial_request
+        args["capital_chronicle_context"]["native_source_reviews"] = list(source_reviews)
+        args["source_requests_before_writer_freeze"] = sum(len(s["source_attempts"]) for s in source_reviews)
+        if args["source_requests_before_writer_freeze"] > 6:
+            raise ValueError("SHARED_SOURCE_REQUEST_BUDGET_EXCEEDED")
+        for headline in args["rolling_input"].get("headlines", []):
+            for review in source_reviews:
+                report = next((r for r in records if r["receipt_id"] == review.get("main_receipt_id")), None)
+                matches = headline.get("headline_id") in {s["item_id"] for s in review["source_editions"]}
+                matches = matches or (report and headline.get("headline_id") == "cc-report:" + report["envelope_sha256"])
+                if matches:
+                    external = dict(headline.get("external_content") or {})
+                    context = {"story_identity": review["prior_story"]["story_identity"],
+                        "update_chain_identity": review["prior_story"]["story_identity"],
+                        "disposition": review["decision"], "reason": review["reader_change_summary"],
+                        "source_review_id": review["review_id"], "source_item_ids": [s["item_id"] for s in review["source_editions"]],
+                        "changed_evidence": review["source_changes"], "prior_package": review["prior_story"],
+                        "publication_state": "UNPUBLISHED_RESEARCH", "removed_main_claim_ids": review["removed_main_claim_ids"]}
+                    headline["external_content"] = {**external, "evolving_story_context": [*external.get("evolving_story_context", []), context]}
         from live_contentops.contentops_editorial_desk_v1 import read_reviews, publication_story_context, selection_story_context
         library = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
         if library:
@@ -344,7 +376,7 @@ def run_report_editorial_cycle(
                 report_id = (external.get("report_editorial_context") or {}).get("report_id")
                 matches = [s for s in stories if headline.get("headline_id") in s["source_item_ids"] or report_id in s["main_report_ids"]]
                 if matches:
-                    headline["external_content"] = {**external, "evolving_story_context": [selection_story_context(s) for s in matches]}
+                    headline["external_content"] = {**external, "evolving_story_context": [*external.get("evolving_story_context", []), *[selection_story_context(s) for s in matches]]}
             args["capital_chronicle_context"]["foundation_library"] = {
                 "research_revision": library["research_revision"],
                 "briefs": [b for b in library["briefs"] if not any(p["brief_id"] == b["brief_id"] and
@@ -467,7 +499,7 @@ def run_report_editorial_cycle(
             and str(json.loads(r["payload"]).get("stage", "")).startswith("source:")
             and "result" in json.loads(r["payload"])
         )
-        default_loader.resume_request_count(spent)
+        default_loader.resume_request_count(spent + args.get("source_requests_before_writer_freeze", 0))
         report_by_headline = {"cc-report:" + r["envelope_sha256"]: r for r in records}
 
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:
@@ -492,7 +524,8 @@ def run_report_editorial_cycle(
                 stage,
                 request,
                 lambda: (
-                    report_evidence(report)
+                    _join_reviewed_source_editions(report_evidence(report), retained_research, request,
+                        args["capital_chronicle_context"].get("native_source_reviews", []), cutoff_utc)
                     if report is not None
                     else (retained_research.evidence(request, cutoff_utc=cutoff_utc) if retained_research else None) or default_loader(request)
                 ),
@@ -604,7 +637,7 @@ def run_report_editorial_cycle(
             if result.get("qualified_article_count"):
                 from live_contentops.contentops_editorial_desk_v1 import read_reviews
                 desk = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
-                brief_ids = {s["brief_id"] for s in simple.get("selected_candidate", {}).get("evolving_story_context", [])}
+                brief_ids = {s.get("brief_id") for s in simple.get("selected_candidate", {}).get("evolving_story_context", [])}
                 supported_urls = {d["url"] for d in result.get("evidence", [])}
                 for d in result.get("evidence", []):
                     supported_urls.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
@@ -769,8 +802,18 @@ def report_workspace_projection(
             **({"previews": prepared["previews"], "media_assets": prepared["media_assets"],
                 "handoff": {k: prepared[k] for k in ("plan_hash", "review_id", "output_dir")}} if prepared else {}),
         }
+    from live_contentops.contentops_editorial_desk_v1 import source_review_projection
+    source_reviews = source_review_projection(rows)
+    for item in edition.values():
+        matching = [s for s in source_reviews if s["article_identity"] == item["article_identity"]]
+        item["source_review"] = matching[-1] if matching else None
+        if matching and matching[-1]["invalidates_prepared_review"]:
+            item["prepared_state"] = "INVALIDATED_BY_SOURCE_REVIEW"
     return {
         "schema_version": SCHEMA,
+        "source_reviews": source_reviews,
+        "current_input_snapshots": [{k: v for k, v in json.loads(r["payload"]).items() if k != "research"}
+            for r in rows if r["destination"] == "internal:native-current-input"][-8:],
         "native_edition": list(edition.values())[-16:],
         "native_article_reviews": native_reviews,
         "state": "AVAILABLE" if latest else "UNAVAILABLE",

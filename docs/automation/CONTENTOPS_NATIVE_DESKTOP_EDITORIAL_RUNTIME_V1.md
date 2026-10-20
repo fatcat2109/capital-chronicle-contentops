@@ -92,7 +92,12 @@ add exact already-admitted retained IDs to an unanswered writer request, preserv
 request and selection. Successful role returns are never rerun to repair deterministic code.
 Prepared handoffs remain non-dispatching; later activation/publication remains separate.
 
-Owning engineering checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal26/RELEASE_HANDOFF.md`.
+Owning engineering checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/RELEASE_HANDOFF.md`.
 Goal25 remains the exact historical filter/Neo proof; Goal26 supplies the usable edition.
 Official supported surfaces checked: [Scheduled tasks](https://learn.chatgpt.com/docs/automations)
 and [Models](https://learn.chatgpt.com/docs/models). App availability is observed separately.
+
+Goal27 extends the same owner operation with frozen current input and append-only source
+editions, source-bound story review, prior-article continuity and prepared-review invalidation.
+A fresh scan is not a fresh economic period; only material changes route to native roles.
+Goal26 remains immutable edition evidence; current delivery is in the Goal27 owning handoff.

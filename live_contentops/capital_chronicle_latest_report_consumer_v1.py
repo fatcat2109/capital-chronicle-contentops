@@ -155,10 +155,12 @@ def _hash(value: Any) -> bool:
 
 
 def _time(value: Any) -> datetime:
-    if not isinstance(value, str) or not value.endswith("Z"):
+    # Main emits both RFC3339 UTC spellings. Compare instants without changing
+    # the producer's hash-bound bytes; non-UTC offsets and naive clocks fail.
+    if not isinstance(value, str) or not value.endswith(("Z", "+00:00")):
         raise LatestReportConsumerError("UTC_TIME_REQUIRED")
     try:
-        result = datetime.fromisoformat(value[:-1] + "+00:00")
+        result = datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError as exc:
         raise LatestReportConsumerError("UTC_TIME_INVALID") from exc
     return result

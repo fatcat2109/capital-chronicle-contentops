@@ -27,7 +27,7 @@ PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
 DEFAULT_PROFILE = Path(__file__).resolve().parents[1] / "config/native_desktop_operator_profile_v1.json"
 
 
-def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False):
+def resolve_owner_operation(profile, *, operation_id, request=None, now=None, report_only=False, source_review_ids=()):
     """Resolve one explicit owner operation; frozen binding survives quota/restarts.
 
     This is an entry to the existing outbox/opportunity, not a queue or scheduler.
@@ -54,10 +54,15 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         binding.update(schema_version=BINDING_SCHEMA, run_id=operation_id, output_dir=str(root),
             owner_manual_validation=True, editorial_request=request,
             cutoff_utc=(now or datetime.now(timezone.utc)).isoformat().replace("+00:00", "Z"))
+        for key in ("research_editions_root", "source_review_ids"):
+            if profile.get(key):
+                binding[key] = profile[key]
         if report_only:
             binding["rolling_input_path"] = str(DEFAULT_PROFILE.with_name("native_desktop_report_only_input_v1.json"))
         elif profile.get("rolling_input_path"):
             binding["rolling_input_path"] = profile["rolling_input_path"]
+        if source_review_ids:
+            binding["source_review_ids"] = list(source_review_ids)
         validate_binding(binding)
         root.mkdir(parents=True, exist_ok=True)
         path.write_bytes(canonical_bytes(binding))
@@ -116,7 +121,10 @@ def operation(binding, *, command="advance", response=None, stage=None):
             raise ValueError("EXACT_UNANSWERED_WRITER_REQUEST_REQUIRED")
         from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
         pointer = json.loads(Path(binding["feed_pointer_path"]).read_bytes())
-        research = RetainedSourceResearch(pointer["research_root"])
+        if binding.get("research_editions_root"):
+            pointer["research_editions_root"] = binding["research_editions_root"]
+        pointer["source_review_ids"] = binding.get("source_review_ids", [])
+        research = RetainedSourceResearch(pointer["research_root"], editions_root=pointer.get("research_editions_root"))
         ids = response.get("supporting_headline_ids", [])
         if not 1 <= len(ids) <= 3 or any(h not in research.records for h in ids):
             raise ValueError("EXACT_ADMITTED_RETAINED_SOURCE_IDS_REQUIRED")
@@ -165,6 +173,9 @@ def operation(binding, *, command="advance", response=None, stage=None):
         memory, memory_proof = load_canonical_published_memory_read_only(
             store_path=binding["published_memory_store"], output_root=binding["published_memory_output_root"])
         pointer = json.loads(Path(binding["feed_pointer_path"]).read_bytes())
+        if binding.get("research_editions_root"):
+            pointer["research_editions_root"] = binding["research_editions_root"]
+        pointer["source_review_ids"] = binding.get("source_review_ids", [])
         feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer)
         kwargs = {"output_dir": binding["output_dir"], "cutoff_utc": binding["cutoff_utc"],
                   "run_id": binding["run_id"], "published_memory": memory, "llm_invoke": turn,
@@ -193,7 +204,7 @@ def operation(binding, *, command="advance", response=None, stage=None):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources"))
+    parser.add_argument("command", choices=("newsroom", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
@@ -204,7 +215,20 @@ def main(argv=None):
     parser.add_argument("--automation-id")
     parser.add_argument("--response", type=Path)
     parser.add_argument("--stage", help="select/write/revise or exact pending filter-<batch sha256>")
+    parser.add_argument("--source-review-id", action="append", default=[])
     args = parser.parse_args(argv)
+    if args.command == "refresh":
+        from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+        from live_contentops.contentops_editorial_desk_v1 import record_story_source_review
+        if not args.response:
+            parser.error("refresh requires exact public source comparison inputs")
+        profile = json.loads(args.profile.read_bytes())
+        pointer = json.loads(Path(profile["feed_pointer_path"]).read_bytes())
+        research = RetainedSourceResearch(pointer["research_root"], editions_root=profile.get("research_editions_root"))
+        store = ContentOpsDurableStore(profile["store_path"])
+        result = record_story_source_review(store, research=research, **json.loads(args.response.read_bytes()))
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
     if args.command == "desk":
         from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
         profile = json.loads(args.profile.read_bytes())
@@ -225,7 +249,7 @@ def main(argv=None):
         try:
             request = args.request_file.read_text(encoding="utf-8") if args.request_file else args.request
             path, binding = resolve_owner_operation(json.loads(args.profile.read_bytes()),
-                operation_id=args.operation_id, request=request, report_only=args.report_only)
+                operation_id=args.operation_id, request=request, report_only=args.report_only, source_review_ids=args.source_review_id)
             result = operation(binding)
             print(json.dumps({**result, "binding_path": str(path),
                 "agent_instruction": "Continue assigned native roles, existing source tools, review, previews and prepared handoff in this same opportunity. Jim does not assemble CLI/claim/return JSON. No dispatch."}, ensure_ascii=True))

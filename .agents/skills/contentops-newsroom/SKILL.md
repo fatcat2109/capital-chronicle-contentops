@@ -20,6 +20,23 @@ operation, never an overwrite of the previous request. Use `--report-only` for a
 Main/research-only trigger; that frozen input has no X work. Ordinary newsroom requests
 use current canonical intake, exact cached filter decisions and only genuinely new X work.
 
+For “Cập nhật các bài đang theo dõi”, compare exact source editions before allocating a
+writer. Use `refresh --response <source-comparison-input>` with the original run/article
+identity, named source attempts, admitted edition IDs and any exact accepted public Main
+receipt. The same outbox records USE_UNCHANGED, MATERIAL_FOLLOW_UP,
+CORRECTION_OR_WITHDRAWAL or STALE_OR_SOURCE_GAP. Pass its `--source-review-id` to the new
+`newsroom` operation only when material prose work is warranted. Original accepted copy and
+reviews stay history; invalidated prepared handoffs cannot reuse the former KEEP.
+
+Append evidence in the profile's `research_editions_root`, using the existing exact
+capture/permission/span verification. Retain publication, observation and retrieval clocks
+separately. Recover the original source BEFORE the writer freezes its packet. One opportunity
+freezes its full admissible current X interval, public Main manifest and verified research
+snapshot; resume that input after interruption. Diagnose stale intake once and continue
+independent evidence work. A reread or newer capture is never a new economic period. Explain
+what changed for the reader and why; keep a concise material date near the claim and detailed
+retrieval chronology in source notes. A URL reread alone does not warrant a writer invocation.
+
 The command returns a binding and the next pending request or a completed result. Handle
 all request, return, source, claim, review and CLI details yourself. Jim gives the question.
 Follow the same `DESKTOP_TASK_PROMPT` in `live_contentops/codex_desktop_newsroom_operator_v1.py`

@@ -97,9 +97,11 @@ class NativeDesktopTurn:
         target = ROLE_ASSIGNMENTS[role]
         native_guidance = (
             "\nNATIVE_DESKTOP_PRODUCT_RULES: Use one consistent reader language. Include dated observation "
-            "and report/retrieval clocks prominently when present in SOURCE_PACK; never confuse report generation "
+            "and a concise material source date when present in SOURCE_PACK; never confuse report generation "
             "with source release. Say retained/unchanged rather than today's new data. If release time is absent, "
-            "say it is not supplied. Scope notice and source-clock metadata are metadata; do not bind scope notice "
+            "say it is not supplied in source notes. Lead with the reader question, thesis and countercase, not an audit "
+            "paragraph. Put detailed retrieval/known-at chronology in source notes, and do not repeat epistemic labels. "
+            "Scope notice and source-clock metadata are metadata; do not bind scope notice "
             "as a Main analytical claim. Include article.social_mechanism_summary, article.social_policy_summary "
             "and article.social_cross_asset_summary: useful story-specific mechanism, competing explanation and "
             "invalidation/watch question, EACH copied exactly from a complete passage of your source-bound article "
@@ -275,12 +277,15 @@ def bind_editorial_media(store, *, run_id, article_identity, assets):
                 or asset.get("underlying_source_rights_status") != "public_domain"
                 or sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
             raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
-    if assets == result.get("media_assets"):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import native_source_date_notice
+    article = {**result["article"], "source_date_notice": native_source_date_notice(result.get("evidence", []),
+        {c["source_id"] for c in result.get("claim_lineage", [])})}
+    if assets == result.get("media_assets") and article == result["article"]:
         return {"classification": "MEDIA_ALREADY_BOUND", "article_identity": article_identity}
     store.register_outbox_message(message_id=key + "-package-history-" + sha256_of(result),
         work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
         payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
-    updated = {**result, "media_assets": assets, "media_reuse_count": sum(a.get("reuse_state") == "EXACT_BYTES_REUSED_NO_RENDER" for a in assets)}
+    updated = {**result, "article": article, "media_assets": assets, "media_reuse_count": sum(a.get("reuse_state") == "EXACT_BYTES_REUSED_NO_RENDER" for a in assets)}
     store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
@@ -299,13 +304,20 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     result = json.loads(row["payload"]) if row else {}
     if result.get("model_execution_state") != "NATIVE_DESKTOP_REQUEST_RETURN" or not result.get("qualified_article_count"):
         raise ValueError("QUALIFIED_NATIVE_RESULT_REQUIRED")
+    from live_contentops.contentops_editorial_desk_v1 import source_review_projection
+    changes = [s for s in source_review_projection(store.list_outbox_messages()) if s["article_identity"] == result["article_identity"]]
+    if changes and changes[-1]["invalidates_prepared_review"]:
+        raise ValueError("SOURCE_CHANGED_PREPARED_REVIEW_INVALIDATED:" + changes[-1]["decision"])
     reviews = [r for r in read_reviews(store) if r["work_item_id"] == row["work_item_id"]
                and r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW"]
     if not reviews or reviews[-1]["decision"] != "KEEP":
         raise ValueError("REVISION_BOUND_NATIVE_KEEP_REVIEW_REQUIRED")
     review = json.loads(reviews[-1]["notes"])
     prior_plan = result["simple_result"]["publication_lifecycle_plan"]
-    revision = sha256_of([result["article_identity"], prior_plan["plan_hash"], result.get("claim_lineage"), result.get("media_assets")])
+    revision_input = [result["article_identity"], prior_plan["plan_hash"], result.get("claim_lineage"), result.get("media_assets")]
+    if review.get("article_metadata_sha256"):
+        revision_input.append(sha256_of(result["article"]))
+    revision = sha256_of(revision_input)
     if review["package_revision"] != revision:
         raise ValueError("NATIVE_REVIEW_REVISION_CHANGED")
     assets = result.get("media_assets", [])
