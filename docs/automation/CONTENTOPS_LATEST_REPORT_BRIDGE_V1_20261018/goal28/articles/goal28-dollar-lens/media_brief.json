@@ -1,0 +1,10 @@
+{
+  "purpose": "Bản trích nguồn H.10 về rổ USD; ngày phát hành 13/10/2026 không phải quan sát thị trường hiện tại.",
+  "type": "SOURCE_DOCUMENT_CARD",
+  "reader_value": "Đặt văn bản gốc, ngày nguồn và phạm vi phân tích cạnh bài để người đọc đối chiếu.",
+  "source_headline_id": "goal21-fx-broad-index",
+  "source_url": "https://www.federalreserve.gov/releases/h10/current/",
+  "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+  "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+  "no_market_chart_or_ai_scene": true
+}

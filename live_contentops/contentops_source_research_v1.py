@@ -124,12 +124,13 @@ class RetainedSourceResearch:
         if editions_root:
             # A new edition is appended in its own evidence root. Existing captures,
             # propositions and their exact admission clocks are never overwritten.
-            edition = RetainedSourceResearch(editions_root)
-            if set(edition.records) & set(self.records):
-                raise ValueError("SOURCE_EDITION_MUST_HAVE_NEW_IDENTITY")
-            self.records.update(edition.records)
-            self.gaps.extend(edition.gaps)
-            self.revision = sha256_of([self.revision, edition.revision])
+            for location in editions_root if isinstance(editions_root, (list, tuple)) else [editions_root]:
+                edition = RetainedSourceResearch(location)
+                if set(edition.records) & set(self.records):
+                    raise ValueError("SOURCE_EDITION_MUST_HAVE_NEW_IDENTITY")
+                self.records.update(edition.records)
+                self.gaps.extend(edition.gaps)
+                self.revision = sha256_of([self.revision, edition.revision])
 
     def frozen_snapshot(self):
         value = {"root": str(self.root), "revision": self.revision,

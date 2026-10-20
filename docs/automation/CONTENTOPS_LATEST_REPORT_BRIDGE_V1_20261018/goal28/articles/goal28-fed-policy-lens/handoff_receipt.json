@@ -1,0 +1,13 @@
+{
+  "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+  "article_identity": "bb7d0abd53c87074f73dc9abbfce9b444ea9483175ffe2aa41f0bcc44d5d2aac",
+  "review_id": "native-article-review-a8733041997b495fb4d230e20e6c33f0",
+  "plan_hash": "77f3ccab5d166abf35861c3ba038453d0159e9284b6547ea8c3c462e4faec427",
+  "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-fed-policy-lens\\reviewed-handoff",
+  "media_reuse_count": 1,
+  "preview_count": 8,
+  "new_qualified_articles": 0,
+  "model_invocations": 0,
+  "source_requests": 0,
+  "public_write_performed": false
+}

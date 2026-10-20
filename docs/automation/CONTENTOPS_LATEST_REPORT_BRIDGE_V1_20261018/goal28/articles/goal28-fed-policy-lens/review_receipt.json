@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-a8733041997b495fb4d230e20e6c33f0",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal28-fed-policy-lens",
+  "article_identity": "bb7d0abd53c87074f73dc9abbfce9b444ea9483175ffe2aa41f0bcc44d5d2aac",
+  "package_revision": "e033dd6c37941ce6e5193ac2ea82e82dfc5b507684f9b036d3978bdb6d2bd736",
+  "article_metadata_sha256": "9084cc1db896096596fad783b25c23b7717676847348208ef8c7f63933485bd6",
+  "rationale": "KEEP: Bài đọc tuyên bố có ngày 16/9/2026, giữ đúng số quyết định và quy nhận định kinh tế về Fed; tách kỳ vọng trước công bố khỏi đường chính sách. Đã đọc toàn bài, 8 bản native, xem ảnh nguồn; giả thuyết năng suất/lạm phát có điều kiện, không biến thành dự báo giá hay giao dịch.",
+  "publication_authority": false
+}

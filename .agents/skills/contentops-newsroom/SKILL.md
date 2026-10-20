@@ -14,11 +14,25 @@ Resolve `config/native_desktop_operator_profile_v1.json` and use
 `scripts/run_native_desktop_editorial.py newsroom --operation-id <stable-readable-id>
 --request-file <UTF-8 normal-language request>` from that checkout. The profile names the
 existing reviewed editorial store, immutable Main public feed and canonical read-only memory.
+The operating owner-manual store now lives under
+`%LOCALAPPDATA%/CapitalChronicle/ContentOps/owner-newsroom/`; resolve the profile and
+its verified relocation manifest. Historical sealed bindings keep their original paths;
+the existing resolver redirects I/O. The former Temp database is a non-operating recovery
+copy. Never create a blank replacement store or rewrite completed binding/return IDs.
 Use the same operation ID to resume; do not allocate a fresh article after interruption.
 On resume omit the request or retain its exact original bytes. A changed question is a new
 operation, never an overwrite of the previous request. Use `--report-only` for an explicitly
 Main/research-only trigger; that frozen input has no X work. Ordinary newsroom requests
 use current canonical intake, exact cached filter decisions and only genuinely new X work.
+
+For a multi-story edition, plan distinct reader questions across useful mechanisms and
+use a stable operation ID for each article. Group up to eight existing IDs with
+`edition --response <edition-request.json>` (edition_id, title, operation_ids and optional
+held_candidates with title/reason). This is a view of the same outbox, not a second queue.
+The existing desk leads with that edition, exact ready/held/missing counts and eight direct
+previews per article; earlier accepted copy and correction history remain accessible.
+A completed resume returns without model/source work. Resume pending requests with the
+same frozen packets and native workers after interruption; do not repeat accepted roles.
 
 For “Cập nhật các bài đang theo dõi”, compare exact source editions before allocating a
 writer. Use `refresh --response <source-comparison-input>` with the original run/article

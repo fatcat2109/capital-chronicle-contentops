@@ -1,0 +1,17 @@
+{
+  "edition_id": "goal28-owner-edition",
+  "title": "Đọc cơ chế trước khi đọc tín hiệu thị trường",
+  "operation_ids": [
+    "goal28-dollar-lens",
+    "goal28-fed-policy-lens",
+    "goal28-company-reading",
+    "goal28-cross-trade",
+    "goal28-crypto-safeguards"
+  ],
+  "held_candidates": [
+    {
+      "title": "Diễn giải vị thế futures và options hiện tại",
+      "reason": "HOLD phạm vi hiện tại: chưa có chuỗi option, kỳ hạn/thanh toán, biến động hàm ý và open interest; lần đọc mới CFTC gặp kiểm tra truy cập. Không suy từ tài liệu nền sang vị thế hiện tại."
+    }
+  ]
+}

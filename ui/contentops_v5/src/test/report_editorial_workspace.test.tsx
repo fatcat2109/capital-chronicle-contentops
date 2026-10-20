@@ -17,6 +17,28 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('leads with the current edition and keeps prior full copy in history', () => {
+    const snapshot = data();
+    const article = (run_id: string, title: string) => ({ run_id, article_identity: run_id,
+      article: { title, dek: 'Dated mechanism', substack_body_markdown: '## Reading\n\nFull retained copy.' },
+      reader_question: 'Which mechanism?', review: { decision: 'KEEP', rationale: 'Exact dated source.' },
+      previews: snapshot.previews });
+    snapshot.owner_edition = { edition_id: 'current', title: 'Current owner edition', operation_ids: ['new'],
+      held_candidates: [{ title: 'Options positioning', reason: 'No current chain.' }],
+      ready: 1, held: 1, missing: 0, preview_count: 8 };
+    snapshot.native_edition = [article('old', 'Prior accepted article'), article('new', 'Current useful article')];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    expect(screen.getByRole('heading', { name: 'Current owner edition' })).toBeInTheDocument();
+    expect(screen.getByLabelText('Tình trạng ấn bản')).toHaveTextContent('1 bài sẵn đọc · 1 đề tài giữ chờ · 0 bài còn thiếu');
+    const edition = screen.getByLabelText('Ấn bản newsroom');
+    expect(within(edition).getByText('Current useful article')).toBeInTheDocument();
+    expect(within(edition).queryByText(/Prior accepted/)).not.toBeInTheDocument();
+    expect(edition.querySelectorAll('[data-edition-destination]')).toHaveLength(8);
+    const history = screen.getByText('Bài và phiên bản trước (1)').closest('details')!;
+    expect(history).not.toHaveAttribute('open');
+    expect(within(history).getByText(/Prior accepted article/)).toBeInTheDocument();
+    expect(within(history).getByText('Full retained copy.')).toBeInTheDocument();
+  });
   it('shows edition angle, dated sources, revision review and every native preview', () => {
     const snapshot = data();
     snapshot.native_edition = [{ run_id: 'edition-real-owner-controlled-test', article_identity: 'edition-test',
@@ -28,7 +50,8 @@ describe('Main report editorial workspace', () => {
     render(<ReportEditorialWorkspace data={snapshot} />);
     const edition = screen.getByLabelText('Ấn bản newsroom');
     expect(within(edition).getByText('Three separate gold questions')).toBeInTheDocument();
-    expect(within(edition).getByText(/Separate contract risks/)).toHaveTextContent('What is actually owned?');
+    expect(within(edition).getByText(/Separate contract risks/)).toBeInTheDocument();
+    expect(within(edition).getByText(/What is actually owned/)).toBeInTheDocument();
     expect(within(edition).getByText(/Không cung cấp ngày xuất bản/)).toBeInTheDocument();
     expect(edition.querySelectorAll('[data-edition-destination]')).toHaveLength(8);
     expect(within(edition).getByText('Mechanism')).toBeInTheDocument();

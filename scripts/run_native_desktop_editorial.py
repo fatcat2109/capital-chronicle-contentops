@@ -21,6 +21,7 @@ from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
 from live_contentops.llm_operator_control_v1 import llm_operator_pause_active
 from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn, DESTINATION
 from live_contentops.published_corpus_read_model_v1 import load_canonical_published_memory_read_only
+from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
 
 BINDING_SCHEMA = "contentops.native_desktop_operation_binding.v1"
 PRODUCTION_ROOT = Path(r"A:\Capital Chronicle\Runtime\ContentOps")
@@ -45,7 +46,7 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
             raise ValueError("OWNER_REQUEST_CHANGED_USE_NEW_OPERATION")
         # A profile edit cannot redirect an existing claimed opportunity.
         for key in ("store_path", "feed_pointer_path", "published_memory_store", "published_memory_output_root"):
-            if Path(profile[key]).resolve() != Path(binding[key]).resolve():
+            if resolve_workspace_path(profile[key], manifest_path=profile.get("workspace_relocation_manifest")) != resolve_workspace_path(binding[key], manifest_path=profile.get("workspace_relocation_manifest")):
                 raise ValueError("OWNER_PROFILE_BINDING_CHANGED:" + key)
     else:
         if not isinstance(request, str) or not 20 <= len(request.strip()) <= 6000:
@@ -88,7 +89,7 @@ def validate_binding(binding):
 
 def operation(binding, *, command="advance", response=None, stage=None):
     validate_binding(binding)  # Before opening/migrating any store.
-    store = ContentOpsDurableStore(Path(binding["store_path"]))
+    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]))
     work = "cc-opportunity-" + sha256_of(binding["run_id"])
     key = "native-operation-binding-" + sha256_of(binding["run_id"])
     previous = store.get_outbox_message(key)
@@ -117,7 +118,7 @@ def operation(binding, *, command="advance", response=None, stage=None):
     if command == "recover-sources":
         pending = turn.frozen_request("write")
         if (not pending or pending["request_sha256"] != response.get("expected_request_sha256")
-                or turn._get("write", "response") or (Path(binding["output_dir"]) / "qualified_article_record_v1.json").exists()):
+                or turn._get("write", "response") or (resolve_workspace_path(binding["output_dir"]) / "qualified_article_record_v1.json").exists()):
             raise ValueError("EXACT_UNANSWERED_WRITER_REQUEST_REQUIRED")
         from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
         pointer = json.loads(Path(binding["feed_pointer_path"]).read_bytes())
@@ -130,10 +131,10 @@ def operation(binding, *, command="advance", response=None, stage=None):
             raise ValueError("EXACT_ADMITTED_RETAINED_SOURCE_IDS_REQUIRED")
         recovery = {"request_sha256": pending["request_sha256"], "supporting_headline_ids": ids,
             "research_revision": research.revision, "public_write_performed": False}
-        archive = Path(binding["output_dir"]) / "source-recovery-history" / pending["request_sha256"]
+        archive = resolve_workspace_path(binding["output_dir"]) / "source-recovery-history" / pending["request_sha256"]
         archive.mkdir(parents=True, exist_ok=True)
         for name in ("desktop_request_write.json", "simple_gemini_evidence_v1.json", "simple_gemini_editorial_edge_v1.json", "simple_epistemic_state_v1.json"):
-            path = Path(binding["output_dir"]) / name
+            path = resolve_workspace_path(binding["output_dir"]) / name
             if path.exists():
                 path.replace(archive / name)
         store.register_outbox_message(message_id="native-source-recovery-" + sha256_of(recovery),
@@ -141,9 +142,16 @@ def operation(binding, *, command="advance", response=None, stage=None):
             payload=canonical_bytes(recovery).decode(), status="EDITORIAL_INTERNAL")
         return {"classification": "RETAINED_SOURCE_RECOVERY_PREPARED", "retained_selection": True,
             "next_operation": "advance same binding", "public_write_performed": False}
+    completed = store.get_outbox_message("cc-editorial-final-" + sha256_of(binding["run_id"]))
+    final = json.loads(completed["payload"]) if completed else {}
+    if final.get("qualified_article_count") and final.get("model_execution_state") == "NATIVE_DESKTOP_REQUEST_RETURN":
+        return {"classification": "COMPLETED_NATIVE_ARTICLE_REOPENED", "article_identity": final["article_identity"],
+                "qualified_article_count": 1, "new_model_invocations": 0, "new_source_requests": 0,
+                "editorial_execution": turn.telemetry(), "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+                "public_write_performed": False}
     # Retain failed deterministic attempts while resuming the same frozen selection.
     # Qualified output and started/returned writers are never replaced by this path.
-    root = Path(binding["output_dir"])
+    root = resolve_workspace_path(binding["output_dir"])
     receipt_path = root / "simple_gemini_newsroom_receipt_v1.json"
     if receipt_path.is_file() and not (root / "qualified_article_record_v1.json").exists():
         failed = json.loads(receipt_path.read_bytes())
@@ -177,7 +185,7 @@ def operation(binding, *, command="advance", response=None, stage=None):
             pointer["research_editions_root"] = binding["research_editions_root"]
         pointer["source_review_ids"] = binding.get("source_review_ids", [])
         feed = MainReportFeed(LatestReportDeliveryTracker(store), pointer)
-        kwargs = {"output_dir": binding["output_dir"], "cutoff_utc": binding["cutoff_utc"],
+        kwargs = {"output_dir": str(root), "cutoff_utc": binding["cutoff_utc"],
                   "run_id": binding["run_id"], "published_memory": memory, "llm_invoke": turn,
                   "attempted_candidate_ids": binding.get("attempted_candidate_ids", [])}
         if binding.get("editorial_request"):
@@ -193,7 +201,7 @@ def operation(binding, *, command="advance", response=None, stage=None):
                     "editorial_execution": turn.telemetry(), "public_write_performed": False}
         result["native_published_memory_proof"] = memory_proof
         result["publication_handoff_state"] = "REVIEW_REQUIRED_NO_DISPATCH" if result.get("qualified_article_count") else "NO_QUALIFIED_HANDOFF"
-        root = Path(binding["output_dir"])
+        root = resolve_workspace_path(binding["output_dir"])
         root.mkdir(parents=True, exist_ok=True)
         (root / "native_desktop_result.json").write_bytes(canonical_bytes(result))
         return {k: result.get(k) for k in ("classification", "qualified_article_count", "derivative_intent_count",
@@ -204,7 +212,7 @@ def operation(binding, *, command="advance", response=None, stage=None):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources"))
+    parser.add_argument("command", choices=("newsroom", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources", "relocate-workspace", "edition"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
@@ -216,7 +224,23 @@ def main(argv=None):
     parser.add_argument("--response", type=Path)
     parser.add_argument("--stage", help="select/write/revise or exact pending filter-<batch sha256>")
     parser.add_argument("--source-review-id", action="append", default=[])
+    parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.command == "edition":
+        from live_contentops.contentops_editorial_desk_v1 import record_owner_edition
+        if not args.response:
+            parser.error("edition requires the owner's bounded edition grouping")
+        profile = json.loads(args.profile.read_bytes())
+        print(json.dumps(record_owner_edition(ContentOpsDurableStore(profile["store_path"]), **json.loads(args.response.read_bytes()))))
+        return 0
+    if args.command == "relocate-workspace":
+        from live_contentops.native_desktop_workspace_v1 import relocate_owner_workspace
+        if not args.workspace_root:
+            parser.error("relocate-workspace requires --workspace-root")
+        value = relocate_owner_workspace(args.profile, args.workspace_root)
+        print(json.dumps({"classification": "MANUAL_WORKSPACE_RELOCATED", "operating_store": value["one_operating_store"],
+            "manifest_sha256": value["manifest_sha256"], "historical_artifact_count": len(value["artifact_bytes"]), "production_migration": False}))
+        return 0
     if args.command == "refresh":
         from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
         from live_contentops.contentops_editorial_desk_v1 import record_story_source_review

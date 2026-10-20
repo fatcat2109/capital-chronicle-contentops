@@ -23,6 +23,7 @@ from live_contentops.llm_operator_control_v1 import (
     LLMOperatorPausedError,
 )
 from live_contentops.contentops_foundation_library_v1 import library_projection
+from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
 
 STAGE = "internal:cc-report-editorial-stage"
 SCHEMA = "contentops.cc_report_editorial_workspace.v1"
@@ -647,7 +648,8 @@ def run_report_editorial_cycle(
                             or package.get("review", {}).get("state") != "KEEP"):
                         continue
                     for asset in package.get("media_assets", []):
-                        path = Path(asset.get("path", ""))
+                        from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
+                        path = resolve_workspace_path(asset.get("path", ""))
                         if (path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == asset.get("sha256")
                                 and asset.get("underlying_source_rights_status") == "public_domain"
                                 and asset.get("source_page_url") in supported_urls):
@@ -805,16 +807,42 @@ def report_workspace_projection(
     from live_contentops.contentops_editorial_desk_v1 import source_review_projection
     source_reviews = source_review_projection(rows)
     for item in edition.values():
+        # The read model embeds exact inspected local PNG bytes, without changing
+        # the sealed package or its revision-bound review.
+        import base64
+        from hashlib import sha256
+        for asset in item.get("media_assets") or []:
+            try:
+                path = resolve_workspace_path(asset["path"])
+                if path.stat().st_size > 1_500_000:
+                    continue
+                raw = path.read_bytes()
+                if raw.startswith(b"\x89PNG\r\n\x1a\n") and sha256(raw).hexdigest() == asset.get("sha256"):
+                    asset["preview_data_url"] = "data:image/png;base64," + base64.b64encode(raw).decode("ascii")
+            except (OSError, ValueError, KeyError):
+                pass
         matching = [s for s in source_reviews if s["article_identity"] == item["article_identity"]]
         item["source_review"] = matching[-1] if matching else None
         if matching and matching[-1]["invalidates_prepared_review"]:
             item["prepared_state"] = "INVALIDATED_BY_SOURCE_REVIEW"
+    owner_groups = [json.loads(r["payload"]) for r in rows if r["destination"] == "internal:native-owner-edition"]
+    owner_edition = owner_groups[-1] if owner_groups else None
+    if owner_edition:
+        current = [e for e in edition.values() if e["run_id"] in owner_edition["operation_ids"]]
+        ready = [e for e in current if (e.get("review") or {}).get("decision") == "KEEP" and not e.get("prepared_state")]
+        held = [e for e in current if (e.get("review") or {}).get("decision") == "HOLD"]
+        owner_edition = {**owner_edition, "ready": len(ready), "held": len(held) + len(owner_edition["held_candidates"]),
+            "missing": len(owner_edition["operation_ids"]) - len(ready) - len(held),
+            "preview_count": sum(len(e["previews"]) for e in ready)}
     return {
         "schema_version": SCHEMA,
+        "owner_edition": owner_edition,
         "source_reviews": source_reviews,
         "current_input_snapshots": [{k: v for k, v in json.loads(r["payload"]).items() if k != "research"}
             for r in rows if r["destination"] == "internal:native-current-input"][-8:],
-        "native_edition": list(edition.values())[-16:],
+        "native_edition": ([e for e in edition.values() if e["run_id"] not in owner_edition["operation_ids"]][-16:]
+            + [e for e in edition.values() if e["run_id"] in owner_edition["operation_ids"]])
+            if owner_edition else list(edition.values())[-16:],
         "native_article_reviews": native_reviews,
         "state": "AVAILABLE" if latest else "UNAVAILABLE",
         "foundation_library": library_projection(rows, review_records) if report_id is None else None,

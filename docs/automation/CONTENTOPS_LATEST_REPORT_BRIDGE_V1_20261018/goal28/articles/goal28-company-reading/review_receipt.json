@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-db974ebfe93f40b6872e3044d74abbb6",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal28-company-reading",
+  "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+  "package_revision": "1e9a66dcbb3d7d2a72cc082ad5ade1ca0a44aab4141c902963d5c0f34ae6f5af",
+  "article_metadata_sha256": "c82f1982c01ae5b897d96e99091fde71f53d1b29dcb06cefa6ad6d578efef46a",
+  "rationale": "KEEP: Bài nền thực chất về đối chiếu MD&A, xét đoán kế toán, thuyết minh, kiểm toán và non-GAAP. Nguồn giáo dục lịch sử sửa 7/2011 không được gọi là quy định hiện hành; không gán sai phạm cho doanh nghiệp. Đã đọc toàn bài, 8 bản native và ảnh có nguồn, có phản đề công bằng và câu hỏi kiểm tra tiếp.",
+  "publication_authority": false
+}

@@ -628,13 +628,16 @@ def _validate_worker_text(text: str) -> tuple[bool, str | None, Any, str | None]
         return False, "structured_output_schema_invalid", None, "cited_source_count_invalid"
     if not isinstance(claims, list) or not claims:
         return False, "structured_output_schema_invalid", None, "material_claim_bindings_missing"
-    for index, source in enumerate(sources, start=1):
+    prior_source_number = 0
+    for source in sources:
         if not isinstance(source, Mapping):
             return False, "structured_output_schema_invalid", None, "cited_source_object_required"
         if set(source) != {"source_id", "url", "publisher", "published_at_utc"}:
             return False, "structured_output_schema_invalid", None, "cited_source_fields_invalid"
-        if str(source.get("source_id") or "") != f"SOURCE_{index}":
+        marker = re.fullmatch(r"SOURCE_([1-9][0-9]*)", str(source.get("source_id") or ""))
+        if not marker or int(marker.group(1)) <= prior_source_number:
             return False, "structured_output_schema_invalid", None, "cited_source_order_invalid"
+        prior_source_number = int(marker.group(1))
         if not (str(source.get("url") or "").startswith("https://")
                 or re.fullmatch(r"urn:cc-public-report:[a-zA-Z0-9_-]{1,100}:[a-f0-9]{64}", str(source.get("url") or ""))):
             return False, "structured_output_schema_invalid", None, "cited_source_https_required"
@@ -1207,11 +1210,18 @@ def _paragraph_marker_blockers(body: str, valid_source_ids: set[str]) -> list[st
 
 
 def _peg_terms(value: Any) -> set[str]:
-    return {
+    normalized = _normal(value)
+    terms = {
         term
-        for term in re.findall(r"[a-z][a-z0-9'-]{2,}", _normal(value))
+        for term in re.findall(r"[a-z][a-z0-9'-]{2,}", normalized)
         if term not in _NEWS_PEG_STOPWORDS and not term.startswith("http")
     }
+    # A Vietnamese lead may express the exact selected topic without English keywords.
+    for phrase, topic in (("lạm phát", "inflation"), ("chi tiêu", "spending"), ("thu nhập", "income"),
+                          ("doanh thu", "revenue"), ("lợi nhuận", "earnings"), ("tài trợ", "financing")):
+        if re.search(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", normalized):
+            terms.add(topic)
+    return terms
 
 
 def _selected_news_peg_blockers(
@@ -1408,12 +1418,16 @@ def _validate_article_against_source_pack(
     available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
     cited_by_id: dict[str, dict[str, Any]] = {}
     blockers: list[str] = []
-    for index, source in enumerate(sources, start=1):
+    source_order = {str(row.get("source_id") or ""): i for i, row in enumerate(source_pack)}
+    prior_source_position = -1
+    for source in sources:
         source_id = str(source.get("source_id") or "")
         url = str(source.get("url") or "")
-        if source_id != f"SOURCE_{index}":
+        position = source_order.get(source_id, -1)
+        if position <= prior_source_position:
             blockers.append(f"source_marker_order_invalid:{source_id}")
             continue
+        prior_source_position = position
         available = available_by_id.get(source_id)
         if available is None or str(available.get("url") or "") != url:
             blockers.append(f"source_not_in_retrieved_pack:{source_id}")

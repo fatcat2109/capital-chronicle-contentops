@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-d9f29ecae7034cf8889fc6df5f558c27",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal28-crypto-safeguards",
+  "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+  "package_revision": "e30dd90a22e6787ccb6f99a4ee17fdf9394462025c241e12a991f91e0308b645",
+  "article_metadata_sha256": "9284add00259968d4add1de831469bf98e5848f4c4310e69e7188b41c28fceaf",
+  "rationale": "KEEP: Bài tách phạm vi bên tư vấn/quỹ, tự lưu ký có điều kiện, công ty tín thác và kiểm toán. Giữ đề xuất 1/10/2026, không khẳng định hiệu lực, bảo đảm an toàn hay giá token. Đã đọc toàn bài, 8 bản native sau sửa chọn câu độc lập, ảnh và quyền dùng; countercase mở lựa chọn được giữ.",
+  "publication_authority": false
+}

@@ -24,6 +24,43 @@ BINDING = json.loads((ROOT / "producer_binding.json").read_bytes())
 NOW = BINDING["observed_at_utc"]
 
 
+def test_current_edition_survives_history_limit_and_counts_only_current_reviews():
+    from live_contentops.capital_chronicle_report_editorial_workspace_v1 import SIMPLE_RESULT
+    def row(key, destination, value):
+        return {"message_id": key, "destination": destination, "status": "EDITORIAL_INTERNAL", "payload": json.dumps(value)}
+    def article(run):
+        return {"model_execution_state": "NATIVE_DESKTOP_REQUEST_RETURN", "qualified_article_count": 1,
+            "article_identity": run, "article": {"title": run}, "previews": [{}] * 8,
+            "simple_result": {"run_id": run}}
+    rows = [row(run, SIMPLE_RESULT, article(run)) for run in ["current", "held", *[f"old-{i}" for i in range(18)]]]
+    rows.append(row("group", "internal:native-owner-edition", {"edition_id": "bounded", "title": "Current edition",
+        "operation_ids": ["current", "held", "pending"], "held_candidates": [{"title": "Options", "reason": "No chain"}]}))
+    reviews = [{"reviewer_ref": "NATIVE_DESKTOP_ARTICLE_REVIEW", "review_id": run, "decision": decision,
+        "notes": json.dumps({"article_identity": run})} for run, decision in [("current", "KEEP"), ("held", "HOLD"), ("old-0", "KEEP")]]
+    result = report_workspace_projection(rows, review_records=reviews)
+    assert {e["run_id"] for e in result["native_edition"]} >= {"current", "held"}
+    assert len(result["native_edition"]) == 18  # Two current articles plus sixteen historical.
+    assert {k: result["owner_edition"][k] for k in ("ready", "held", "missing", "preview_count")} == {
+        "ready": 1, "held": 2, "missing": 1, "preview_count": 8}
+
+
+def test_native_media_preview_uses_matching_png_bytes_only(tmp_path):
+    from hashlib import sha256
+    from copy import deepcopy
+    from live_contentops.capital_chronicle_report_editorial_workspace_v1 import SIMPLE_RESULT
+    path = tmp_path / "controlled.png"
+    path.write_bytes(b"\x89PNG\r\n\x1a\ncontrolled-test-payload")
+    value = {"qualified_article_count": 1, "model_execution_state": "NATIVE_DESKTOP_REQUEST_RETURN",
+        "article_identity": "test-article", "article": {}, "previews": [], "simple_result": {"run_id": "test"},
+        "media_assets": [{"path": str(path), "sha256": sha256(path.read_bytes()).hexdigest()}]}
+    rows = [{"destination": SIMPLE_RESULT, "message_id": "test", "status": "EDITORIAL_INTERNAL", "payload": json.dumps(value)}]
+    original = deepcopy(rows)
+    assert report_workspace_projection(rows)["native_edition"][0]["media_assets"][0]["preview_data_url"].startswith("data:image/png;base64,")
+    assert rows == original
+    path.write_bytes(b"changed")
+    assert "preview_data_url" not in report_workspace_projection(rows)["native_edition"][0]["media_assets"][0]
+
+
 def admit(prefix="", envelope=None, report=None):
     return validate_latest_report_bytes(
         canonical_bytes(envelope)

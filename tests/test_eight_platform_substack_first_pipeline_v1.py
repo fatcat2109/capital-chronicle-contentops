@@ -903,6 +903,24 @@ def test_social_summary_compiler_fails_closed_instead_of_word_slicing():
         raise AssertionError("oversized sentence must not be converted into a fake complete sentence")
 
 
+def test_brief_context_retains_a_subject_after_duplicate_sentence_is_removed():
+    mechanism = "Khuôn khổ lưu ký rõ hơn có thể mở rộng lựa chọn cho khách hàng."
+    standalone = "SEC đề xuất điều kiện lưu ký riêng cho bên tư vấn và quỹ thuộc phạm vi."
+    article = {"title": "Đọc đề xuất lưu ký crypto", "native_brief_layout": True,
+        "social_hook": "Ai giữ tài sản của khách hàng?", "social_mechanism_summary": mechanism,
+        "social_policy_summary": mechanism + " Phân tích không bỏ qua khả năng ấy.",
+        "social_cross_asset_summary": "Điều kiện áp dụng vẫn cần được đối chiếu.",
+        "substack_body_markdown": standalone}
+    before = dict(article)
+    payloads = build_native_derivative_payloads(article=article, selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/dated-custody", media_asset_ids=["source"])
+    assert len(payloads) == 8
+    for destination in ("linkedin", "discord", "instagram_business", "threads"):
+        assert "khả năng ấy" not in str(payloads[destination])
+        assert standalone in str(payloads[destination])
+    assert article == before  # Formatting selects original sentences; it does not rewrite prose.
+
+
 def test_prepare_only_release_candidate_never_calls_publishers(tmp_path: Path, monkeypatch):
     context = {
         "article": {**_article(), "canonical_url": "https://capitalchronicle.substack.com/p/eia-oil-forecast", "word_count": 800, "substack_body_markdown_sha256": "d" * 64},

@@ -16,6 +16,20 @@ ENDPOINT = "/api/daily-app/editorial-review"
 SOURCE_REVIEW = "internal:native-story-source-review"
 
 
+def record_owner_edition(store, *, edition_id, title, operation_ids, held_candidates=()):
+    """Group owner-requested articles in the existing outbox, without allocating work."""
+    from live_contentops.capital_chronicle_report_feed_v1 import _persist
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    if (not edition_id or not title or not 1 <= len(operation_ids) <= 8
+            or len(set(operation_ids)) != len(operation_ids) or _private(held_candidates)):
+        raise ValueError("BOUNDED_OWNER_EDITION_REQUIRED")
+    value = {"schema_version": "contentops.native_owner_edition.v1", "edition_id": edition_id,
+             "title": title, "operation_ids": list(operation_ids), "held_candidates": list(held_candidates),
+             "publication_authority": False}
+    _persist(store, "native-owner-edition-" + sha256_of(value), value, "internal:native-owner-edition")
+    return value
+
+
 def source_review_projection(rows):
     return [json.loads(r["payload"]) for r in rows if r["destination"] == SOURCE_REVIEW]
 

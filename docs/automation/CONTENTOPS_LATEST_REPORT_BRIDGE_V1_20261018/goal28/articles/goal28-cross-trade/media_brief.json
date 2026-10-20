@@ -1,0 +1,10 @@
+{
+  "purpose": "Bản trích đề xuất SEC ngày 9/10/2026 về giao dịch chéo; chưa xác nhận quy tắc có hiệu lực.",
+  "type": "SOURCE_DOCUMENT_CARD",
+  "reader_value": "Đặt văn bản gốc, ngày nguồn và phạm vi phân tích cạnh bài để người đọc đối chiếu.",
+  "source_headline_id": "goal28-cross-trade",
+  "source_url": "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds",
+  "source_capture_sha256": "0a5605b6dd36965d62ae9deb58f8b3f5457d7456854b91803be495a3eed6a455",
+  "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+  "no_market_chart_or_ai_scene": true
+}

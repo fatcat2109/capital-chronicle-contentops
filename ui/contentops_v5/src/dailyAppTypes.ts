@@ -358,6 +358,8 @@ export interface EvolvingStory {
 }
 
 export interface ReportWorkspaceData {
+  owner_edition?: { edition_id: string; title: string; operation_ids: string[]; ready: number; held: number; missing: number;
+    preview_count: number; held_candidates: Array<{ title: string; reason: string }> } | null;
   source_reviews?: Array<{ review_id: string; run_id: string; title: string; decision: string; reader_change_summary: string;
     cutoff_utc: string; invalidates_prepared_review: boolean; media_state: string; removed_main_claim_ids: string[];
     source_editions: Array<{ item_id: string; proposition: string; source_url: string; published_at_utc: string | null;

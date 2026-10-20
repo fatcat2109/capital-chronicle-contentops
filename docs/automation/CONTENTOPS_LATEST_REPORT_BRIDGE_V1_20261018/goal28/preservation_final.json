@@ -1,0 +1,98 @@
+{
+  "checked_at_utc": "2026-10-20T22:42:20.252226+00:00",
+  "old_recovery_all_tables_equal_cutover": true,
+  "table_count": 31,
+  "copied_artifact_count": 33,
+  "all_historical_copied_bytes_equal": true,
+  "completed_reopen": {
+    "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+    "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+    "qualified_article_count": 1,
+    "new_model_invocations": 0,
+    "new_source_requests": 0,
+    "editorial_execution": {
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "native_invocation_count_observed": 2,
+      "semantic_response_count": 3,
+      "maximum_repair_count": 1,
+      "external_provider_attempt_count": 0,
+      "usage_tokens": null,
+      "cost_usd": null,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "observations": [
+        {
+          "invocation_id": "/root/goal27_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+          "reasoning_effort": "low",
+          "source_spawn_metadata": {
+            "canonical_task_name": "/root/goal27_sol_light",
+            "fork_turns": "none",
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low",
+            "task_name": "goal27_sol_light",
+            "uuid_exposed": false
+          },
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "select",
+          "role": "select"
+        },
+        {
+          "invocation_id": "/root/goal27_sol_max_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+          "reasoning_effort": "max",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "write",
+          "role": "write"
+        },
+        {
+          "invocation_id": "/root/goal27_sol_max_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+          "reasoning_effort": "max",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "revise",
+          "role": "revise"
+        }
+      ]
+    },
+    "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+    "public_write_performed": false
+  },
+  "completed_reopen_all_table_rows_unchanged": true,
+  "pending_binding_still_exact": true,
+  "one_operating_store": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\owner-newsroom\\editorial-v4.sqlite3",
+  "original_store_is_recovery": true,
+  "production_migration": false
+}

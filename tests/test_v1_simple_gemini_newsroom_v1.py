@@ -54,6 +54,22 @@ SOURCE_TEXT = (
 )
 
 
+def test_cited_subset_keeps_frozen_source_ids():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text
+    output = json.loads(json.dumps(_article_output()).replace("SOURCE_1", "SOURCE_4"))
+    assert _validate_worker_text(json.dumps(output))[0]
+    source = output["cited_sources"][0]
+    output["cited_sources"].append(dict(source))
+    assert _validate_worker_text(json.dumps(output))[3] == "cited_source_order_invalid"
+
+
+def test_vietnamese_lead_matches_selected_inflation_topic_without_english_padding():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
+    candidate = {"headline_text": "Inflation remains elevated while domestic spending is resilient."}
+    assert not _selected_news_peg_blockers({"title": "Lạm phát và chi tiêu nói gì về quyết định Fed?"}, candidate)
+    assert _selected_news_peg_blockers({"title": "Một giao dịch giữa các quỹ"}, candidate)
+
+
 def _headlines(count: int = 3) -> dict[str, object]:
     return {
         "schema_version": "test.rolling_input.v1",

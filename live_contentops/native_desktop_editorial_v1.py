@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import canonical_bytes, sha256_of, _private
+from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
 
 OWNER = "NATIVE_CODEX_DESKTOP"
 MODEL = "gpt-6.1-sol"
@@ -47,7 +48,7 @@ class NativeDesktopTurn:
     native_desktop_protocol = True
 
     def __init__(self, store, *, run_id: str, output_dir: str | Path, owner_manual_validation=False):
-        self.store, self.run_id, self.root = store, run_id, Path(output_dir)
+        self.store, self.run_id, self.root = store, run_id, resolve_workspace_path(output_dir)
         # Same work item as the existing frozen editorial stages, not another ledger.
         self.work = "cc-opportunity-" + sha256_of(run_id)
         self.owner_manual_validation = owner_manual_validation
@@ -275,11 +276,12 @@ def bind_editorial_media(store, *, run_id, article_identity, assets):
         urls.discard(None)
         if (not urls or not urls <= allowed or not asset.get("caption") or not asset.get("alt_text")
                 or asset.get("underlying_source_rights_status") != "public_domain"
-                or sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
+                or sha256(resolve_workspace_path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
             raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
     from live_contentops.v1_simple_gemini_newsroom_v1 import native_source_date_notice
+    used_source_ids = set(re.findall(r"\[\[SOURCE:(SOURCE_\d+)\]\]", result["article"]["substack_body_markdown"]))
     article = {**result["article"], "source_date_notice": native_source_date_notice(result.get("evidence", []),
-        {c["source_id"] for c in result.get("claim_lineage", [])})}
+        used_source_ids)}
     if assets == result.get("media_assets") and article == result["article"]:
         return {"classification": "MEDIA_ALREADY_BOUND", "article_identity": article_identity}
     store.register_outbox_message(message_id=key + "-package-history-" + sha256_of(result),
@@ -322,9 +324,9 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
         raise ValueError("NATIVE_REVIEW_REVISION_CHANGED")
     assets = result.get("media_assets", [])
     for asset in assets:
-        if sha256(Path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]:
+        if sha256(resolve_workspace_path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]:
             raise ValueError("REUSED_MEDIA_BYTES_CHANGED")
-    root = Path(output_dir) / "reviewed-handoff"
+    root = resolve_workspace_path(output_dir) / "reviewed-handoff"
     root.mkdir(parents=True, exist_ok=True)
     article = result["article"]
     state = article.get("epistemic_state")
@@ -332,7 +334,7 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     identity = result["article_identity"]
     previews, intents = _native_preview_bundle(article=article, article_mode=mode, article_identity=identity,
         epistemic_state=state, media_asset_ids=[a["asset_id"] for a in assets])
-    record = json.loads((Path(output_dir) / "qualified_article_record_v1.json").read_bytes())
+    record = json.loads((resolve_workspace_path(output_dir) / "qualified_article_record_v1.json").read_bytes())
     # Same article/source/worker identity; only the pre-publication package/media binding changes.
     record["derivative_package_intents"] = intents
     # The qualified-record hash uses the existing owner's canonical JSON convention.

@@ -348,6 +348,10 @@ def _next_distinct_derivative_sentence(
     for value in values:
         for sentence in _sentence_units(str(value or "")):
             candidate = _punctuate(_first_complete_sentence(sentence))
+            # A surviving second sentence can lose its antecedent when the first
+            # is deduplicated. Prefer another unchanged sentence with its own subject.
+            if re.search(r"\b(?:khả năng ấy|khả năng đó|that possibility|such a possibility)\b", candidate, re.IGNORECASE):
+                continue
             if candidate and not any(
                 _materially_identical_derivative_sentence(candidate, prior)
                 for prior in rejected

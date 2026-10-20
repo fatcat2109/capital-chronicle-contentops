@@ -31,3 +31,7 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/retained_rese
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/** -text whitespace=cr-at-eol
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/**/*.json binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/source_editions/** binary
+
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal28/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal28/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal28/source_editions/** binary

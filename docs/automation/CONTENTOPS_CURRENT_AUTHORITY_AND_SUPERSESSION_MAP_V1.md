@@ -215,3 +215,12 @@ The North Star and master plan now describe original newsroom evidence plus Main
 public-manifest feed, with the dedicated Main demo remaining private and outside ContentOps
 control. See CONTENTOPS_OWNER_UPDATE_RECONCILIATION_20261019.md for dated accepted/unmerged
 source; the existing owning handoffs establish subsequent implementation state. This dated input amendment is superseded for editorial ownership by the 2026-10-20 native migration; it grants no pause release, publication or V2 authority.
+
+## Goal28 owner-manual continuation
+
+Current owning checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal28/RELEASE_HANDOFF.md`.
+Reuse the existing relocated owner-manual store and five-article edition through the same profile
+and newsroom skill. Original sealed identities, completed returns, prior reviews and public Main
+admission remain authority-bound. The Temp database is recovery only; never create a second
+operating newsroom. Five KEEP / one held candidate / forty previews is an isolated owner edition,
+not deployment, publishing, routine output reliability or permission to release production pause.

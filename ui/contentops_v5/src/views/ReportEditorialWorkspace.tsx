@@ -37,9 +37,36 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
   const report = workspace?.latest_report;
   const result = workspace?.latest_simple_result;
   const controlled = result?.model_execution_state === 'INJECTED_REPLAY_ONLY';
+  const current = data?.owner_edition;
+  const articles = current ? current.operation_ids.flatMap(id => data?.native_edition?.filter(i => i.run_id === id) ?? []) : data?.native_edition;
+  const history = current ? data?.native_edition?.filter(i => !current.operation_ids.includes(i.run_id)) : [];
   return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace" style={{ overflowWrap: 'anywhere', minWidth: 0 }}>
     <p>Luồng biên tập đích: Luna MAX lọc headline → 6.1 Sol Light chọn góc và chuẩn bị nguồn → 6.1 Sol MAX viết bài và SEO, tối đa một lượt sửa cùng writer. Lịch production giữ pause; chỉ bằng chứng thực thi mới xác nhận model đã chạy.</p>
-    <header><span>Editorial workspace</span><h2>Capital Chronicle report → article → previews</h2></header>
+    <header><span>Editorial workspace</span><h2>{current?.title ?? 'Capital Chronicle report → article → previews'}</h2></header>
+    {current && <section aria-label="Tình trạng ấn bản"><p><strong>{current.ready} bài sẵn đọc · {current.held} đề tài giữ chờ · {current.missing} bài còn thiếu</strong> · {current.preview_count} bản xem trước · chưa xuất bản.</p>
+      {current.held_candidates.map((h, i) => <details key={i}><summary>Giữ chờ: {h.title}</summary><p>{h.reason}</p></details>)}
+      <nav aria-label="Mục lục ấn bản">{articles?.map(a => <p key={a.article_identity}><a href={'#article-' + a.article_identity}>{a.article.title}</a></p>)}</nav>
+    </section>}
+    {!!articles?.length && <section aria-label="Ấn bản newsroom"><h3>Ấn bản newsroom · đọc và duyệt</h3>
+      <p>Các bài đã qua validator; quyết định biên tập gắn với đúng bản bài. Chưa xuất bản.</p>
+      {articles?.map(item => <article id={'article-' + item.article_identity} key={item.article_identity} className="report-copy" data-edition-run={item.run_id}>
+        <h3>{item.article.title}</h3><p>{item.article.dek}</p>
+        <p><strong>{item.review?.decision ?? 'Chờ đọc duyệt'}</strong> · {item.reader_question}</p>
+        {item.prepared_state && <p role="status">Bản gốc được giữ nguyên; chuẩn bị phát hành đã mất hiệu lực do nguồn đổi hoặc còn thiếu.</p>}
+        {item.report_id && <p>Bổ sung từ {item.report_id} bản {item.report_version}; phân tích Main có điều kiện, không phải xác nhận độc lập.</p>}
+        <details open><summary>Đọc toàn bài</summary><ArticleParagraphs text={item.article.substack_body_markdown} /></details>
+        <details><summary>Góc bài và quyết định đọc duyệt</summary><p>{item.angle ?? item.mode}</p><p>{item.review?.rationale}</p></details>
+        <details><summary>Nguồn và ngày</summary>{item.evidence?.map(s => <p key={s.source_id} style={{ overflowWrap: 'anywhere' }}>
+          {s.source_id} · {s.publisher} · {s.published_at_utc || 'Không cung cấp ngày xuất bản'} · {s.published_at_source === 'MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME' ? 'Mốc báo cáo Main, không phải ngày phát hành nguồn' : 'Nguồn lưu giữ có ngày riêng'}<br />
+          {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
+        </p>)}</details>
+        {item.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
+        <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
+        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}
+      </article>)}
+    </section>}
+    {!!history?.length && <details><summary>Bài và phiên bản trước ({history.length})</summary>{history.map(h => <details key={h.article_identity}><summary>{h.article.title} · {h.prepared_state ? 'chuẩn bị cũ mất hiệu lực' : h.review?.decision ?? 'chưa duyệt'}</summary><ArticleParagraphs text={h.article.substack_body_markdown} />{h.previews.map(p => <details key={p.preview_id}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}</details>)}</details>}
+    <details open={!current}><summary>Nguồn, sửa đổi và thư viện nghiên cứu</summary>
     {!!data?.source_reviews?.length && <section aria-label="So sánh nguồn và quyết định cập nhật">
       <h3>Nguồn đã thay đổi gì?</h3><p>Bài cũ giữ nguyên trong lịch sử. Đọc lại URL không tạo tuần quan sát mới.</p>
       {data.source_reviews.map(s => <article key={s.review_id} className="report-copy">
@@ -51,24 +78,6 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
           {s.source_attempts.map((a, i) => <p key={i}>{display(a.status)} · <a href={a.url}>Nguồn đã kiểm tra</a> · {a.observed_at_utc}</p>)}
           {!!s.removed_main_claim_ids.length && <p>Main đã rút: {s.removed_main_claim_ids.join(', ')}.</p>}
         </details>
-      </article>)}
-    </section>}
-    {!!data?.native_edition?.length && <section aria-label="Ấn bản newsroom"><h3>Ấn bản newsroom · đọc và duyệt</h3>
-      <p>Các bài đã qua validator; quyết định biên tập gắn với đúng bản bài. Chưa xuất bản.</p>
-      {data.native_edition.map(item => <article key={item.article_identity} className="report-copy" data-edition-run={item.run_id}>
-        <h3>{item.article.title}</h3><p>{item.article.dek}</p>
-        <p><strong>Góc bài:</strong> {item.angle ?? item.mode} · <strong>Câu hỏi:</strong> {item.reader_question}</p>
-        <p><strong>Đọc duyệt:</strong> {item.review?.decision ?? 'Chờ đọc duyệt'} · {item.review?.rationale}</p>
-        {item.prepared_state && <p role="status">Bản gốc được giữ nguyên; chuẩn bị phát hành đã mất hiệu lực do nguồn đổi hoặc còn thiếu.</p>}
-        {item.report_id && <p>Bổ sung từ {item.report_id} bản {item.report_version}; phân tích Main có điều kiện, không phải xác nhận độc lập.</p>}
-        <details open><summary>Đọc toàn bài</summary><ArticleParagraphs text={item.article.substack_body_markdown} /></details>
-        <details><summary>Nguồn và ngày</summary>{item.evidence?.map(s => <p key={s.source_id} style={{ overflowWrap: 'anywhere' }}>
-          {s.source_id} · {s.publisher} · {s.published_at_utc || 'Không cung cấp ngày xuất bản'} · {s.published_at_source === 'MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME' ? 'Mốc báo cáo Main, không phải ngày phát hành nguồn' : 'Nguồn lưu giữ có ngày riêng'}<br />
-          {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
-        </p>)}</details>
-        {item.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
-        <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
-        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}
       </article>)}
     </section>}
     {!!data?.native_article_reviews?.length && <section aria-label="Đọc duyệt bài native Codex"><h3>Đọc duyệt bài native Codex</h3>
@@ -218,5 +227,6 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
           {o.report_candidates.map(r => <p key={r.report_id}>{r.report_id} v{r.report_version} · {r.state}</p>)}</article>)}
       </details>}
     </>}
+    </details>
   </section>;
 }

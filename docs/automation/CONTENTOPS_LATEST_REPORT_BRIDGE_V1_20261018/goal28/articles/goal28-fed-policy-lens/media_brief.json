@@ -1,0 +1,10 @@
+{
+  "purpose": "Bản trích tuyên bố FOMC ngày 16/9/2026; quyết định có ngày, không phải dự báo lãi suất hiện tại.",
+  "type": "SOURCE_DOCUMENT_CARD",
+  "reader_value": "Đặt văn bản gốc, ngày nguồn và phạm vi phân tích cạnh bài để người đọc đối chiếu.",
+  "source_headline_id": "goal28-fed-policy-lens",
+  "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+  "source_capture_sha256": "8ac5894a6ba83f851969570b975b87260b7683f15680c922223e9941a28ca0ec",
+  "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+  "no_market_chart_or_ai_scene": true
+}
