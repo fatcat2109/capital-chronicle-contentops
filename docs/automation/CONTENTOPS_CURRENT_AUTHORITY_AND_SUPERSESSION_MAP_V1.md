@@ -21,9 +21,12 @@ Current V1 activation detail is `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_A
 
 ## 2. Current V1 execution override
 
-Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, using `gpt-6.1-sol / low` (Light),
-standard speed, in the native Desktop conversation or a genuinely independent native subagent.
-One coherent opportunity handles selection, reasoning, writing and at most one useful repair.
+Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, with the owner-approved three-stage method:
+Luna/Terra MAX filters X headlines; `gpt-6.1-sol / low` (Light) selects content and prepares data;
+`gpt-6.1-sol / max` writes the article and SEO/house-style package, including a bounded useful revision.
+Read `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md` for exact role,
+source/tool, style and checkpoint rules. This target supersedes the earlier Sol-low-only method;
+the Goal24 isolated proof remains evidence for its older configuration, not this complete pipeline.
 Reuse MainReportFeed/current intake, canonical publication memory, reviewed retained research,
 evolving story/revision context, <=32 candidates, <=3 admissions and <=6 source requests.
 Existing source/claim/epistemic checks and the native eight-channel compiler remain authoritative.

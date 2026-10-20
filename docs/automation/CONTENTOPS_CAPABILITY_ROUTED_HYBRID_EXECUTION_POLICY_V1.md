@@ -144,7 +144,7 @@ Before model or effort is specified, every Codex Builder packet must begin with:
 
 Operator chooses this. Do not return routine conversation/model selection to Jim.
 
-Use minimum sufficient compute. Current editorial target is gpt-6.1-sol / low (Light), standard speed, in one native Desktop turn. Only a named difficult contradiction/high-harm correction may escalate to medium/high; never above HIGH. Do not substitute paid Fast/Ultrafast or API/SDK fallback. Builder configuration remains unchanged. Historical fleet/model names are not current runtime configuration.
+Apply the explicit owner role policy in CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md: Luna/Terra MAX filters X headlines; gpt-6.1-sol / low (Light) selects content and prepares evidence; gpt-6.1-sol / max writes the article/SEO/voice package and any bounded useful revision. The earlier Sol-low-only default and HIGH ceiling are superseded for these roles. Reuse unchanged stage results and deterministic code for extraction, arithmetic and validation. Do not substitute paid Fast/Ultrafast or API/SDK fallback. Builder and Main Core configurations remain unchanged; historical model/fleet names are provenance only.
 
 `FRESH` is the default when the current Codex Desktop conversation is materially long, context-bloated, stale, a prior task has closed out, architecture/product direction changed, a new capability begins, V1/V2 truth planes switch, or independent reasoning is valuable. If uncertain between CURRENT and FRESH, choose FRESH.
 

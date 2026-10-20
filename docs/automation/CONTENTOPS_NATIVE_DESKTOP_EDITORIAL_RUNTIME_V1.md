@@ -1,19 +1,22 @@
 # Native Codex Desktop editorial runtime V1
 
 Authority: Jim's 2026-10-20 direction. Target owner: `NATIVE_CODEX_DESKTOP`.
-Model: `gpt-6.1-sol`; effort: `low` (Light); speed: standard. Builder model stays unchanged.
-Named difficult contradictions/high-harm corrections may warrant medium/high; never above HIGH.
+Model roles follow `CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md`: Luna/Terra MAX
+filters X headlines; Sol6.1 Light selects content/prepares data; Sol6.1 MAX writes the article
+and its SEO/voice package. This owner-approved target supersedes the previous Sol-low-only
+method and its HIGH ceiling. Builder model stays unchanged. No paid speed tier is selected.
 This engineering slice has zero activation, deployment or public-write authority.
 
 ## One supported opportunity
 
 Native App scheduled task or explicit owner-manual conversation
+→ unchanged CDP X intake, deterministic exact dedupe and resumable Luna/Terra-MAX filtering
 → existing window/production-day/slot binding
 → MainReportFeed, current <=32 candidates, reviewed retained research and canonical memory
-→ native Desktop selection/reasoning
+→ native Sol6.1-Light selection, angle and data/evidence plan
 → shared <=6 deterministic source requests, primary + <=2 useful fallbacks
-→ native Desktop writing
-→ existing source/claim/epistemic validation and <=1 useful repair
+→ native Sol6.1-MAX writing under the existing institutional-edge/SEO packet
+→ existing source/claim/epistemic validation and <=1 useful same-MAX-writer repair
 → article and exactly eight platform packages
 → revision-bound review and existing sole DurablePublicationCoordinator handoff.
 
