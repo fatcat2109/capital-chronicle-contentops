@@ -17,12 +17,20 @@
     "files": 2,
     "build": "PASS"
   },
-  "final_ci": "PENDING_REMOTE",
+  "final_ci": {
+    "head": "e7e088363e1d1b491eec54d41ae86f3116bc17d1",
+    "run": 39433638762,
+    "conclusion": "SUCCESS",
+    "jobs": 2
+  },
   "final_operator_native": {
     "passed": 61
   },
   "final_filter_newsroom": {
     "passed": 41
   },
-  "ruff": "PASS_FOCUSED_CHANGED_BACKEND"
+  "ruff": "PASS_FOCUSED_CHANGED_BACKEND",
+  "same_writer_repair_regression": {
+    "passed": 5
+  }
 }
