@@ -724,7 +724,7 @@ class DurablePublicationCoordinator:
             destination=destination,
         )
         try:
-            if registration.transport_type == "EDGE_CDP" and self.readiness_manager is not None:
+            if registration.transport_type in {"EDGE_CDP", "BROWSEROS_NEO_MCP"} and self.readiness_manager is not None:
                 self.readiness_manager.ensure_destination_runtime_for_readback(destination)
             activity = (
                 browser_activity(
@@ -2058,7 +2058,7 @@ class DurablePublicationCoordinator:
 class CanonicalDestinationTransportRuntimeV1:
     """Single coordinator transport router; LinkedIn is official-member API only."""
 
-    def __init__(self, *, linkedin_transport: Any = None) -> None:
+    def __init__(self, *, linkedin_transport: Any = None, neo_transport: Any = None) -> None:
         self._strict_publish_readbacks: dict[tuple[str, str], Mapping[str, Any]] = {}
         if linkedin_transport is None:
             from live_contentops.linkedin_official_member_api_v1 import (
@@ -2066,6 +2066,10 @@ class CanonicalDestinationTransportRuntimeV1:
             )
             linkedin_transport = LinkedInOfficialMemberApiTransportV1()
         self._linkedin_transport = linkedin_transport
+        if neo_transport is None:
+            from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+            neo_transport = NeoDestinationHandoff()
+        self._neo_transport = neo_transport
 
     def prepare_delivery_media(
         self,
@@ -2086,6 +2090,9 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def publish(self, *, destination: str, intent: Mapping[str, Any],
                 authorization_context: Mapping[str, Any]) -> Mapping[str, Any]:
+        if destination in {"substack", "x", "youtube"}:
+            return self._neo_transport.publish(destination=destination, intent=intent,
+                                                authorization_context=authorization_context)
         if destination == "linkedin":
             return self._linkedin_transport.publish(
                 intent=intent, authorization_context=authorization_context,
@@ -2131,6 +2138,9 @@ class CanonicalDestinationTransportRuntimeV1:
 
     def readback(self, *, destination: str, public_object_id: Optional[str],
                  public_object_url: Optional[str], intent: Mapping[str, Any]) -> Mapping[str, Any]:
+        if destination in {"substack", "x", "youtube"}:
+            return self._neo_transport.readback(destination=destination, intent=intent,
+                public_object_id=public_object_id, public_object_url=public_object_url)
         if destination == "linkedin":
             return self._linkedin_transport.readback(
                 public_object_id=public_object_id,
@@ -2163,6 +2173,9 @@ class CanonicalDestinationTransportRuntimeV1:
         public_object_url_hash: Optional[str],
         observation_window: str,
     ) -> Mapping[str, Any]:
+        if destination in {"substack", "x", "youtube"}:
+            return {"status": "UNSUPPORTED", "reason": "NEO_NATIVE_METRICS_EXECUTOR_NOT_BOUND",
+                    "public_write_performed": False}
         if destination == "linkedin":
             return self._linkedin_transport.collect_metrics(
                 public_object_id=public_object_id

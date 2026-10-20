@@ -1,3 +1,8 @@
+# Historical Desktop HIGH/SDK operator provenance
+
+Current native Sol-low route is `CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md`.
+The HIGH worker fleet/SDK fallback below is historical and non-routing; keep evidence, do not run it.
+
 # Codex Desktop V1 Newsroom Operator
 
 Authority date: 2026-08-27

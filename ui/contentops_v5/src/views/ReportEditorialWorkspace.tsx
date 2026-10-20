@@ -28,7 +28,11 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
   const result = workspace?.latest_simple_result;
   const controlled = result?.model_execution_state === 'INJECTED_REPLAY_ONLY';
   return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace">
+    <p>Luồng biên tập: Codex Desktop · 6.1 Sol Light. Lịch production giữ pause; kết quả native, nghiên cứu và bài đã xuất bản được ghi riêng.</p>
     <header><span>Editorial workspace</span><h2>Capital Chronicle report → article → previews</h2></header>
+    {!!data?.native_article_reviews?.length && <section aria-label="Đọc duyệt bài native Codex"><h3>Đọc duyệt bài native Codex</h3>
+      {data.native_article_reviews.map(r => <p key={r.package_revision}>{r.decision}: {r.rationale} · quyết định gắn đúng bản bài; chưa cấp quyền xuất bản.</p>)}
+    </section>}
     {library && <section aria-label="Foundation research library">
       {library.stories?.length ? <EvolvingStoryWorkspace stories={library.stories} /> : null}
       <h3>Thư viện nghiên cứu đa tài sản</h3>
@@ -40,7 +44,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
       </section>}
       <p>{library.counts.useful_families} nhóm · {library.counts.independent_items} luận điểm từ {library.counts.independent_documents ?? 'các'} tài liệu độc lập · {library.counts.briefs} brief biên tập.</p>
       <p>Research-ready · {library.counts.fresh_provider_drafts} fresh-provider drafts · {library.counts.qualified} qualified · {library.counts.published} published. LLM pause giữ nguyên.</p>
-      <p>{library.counts.editor_authored_packages ?? 0} gói nghiên cứu do biên tập soạn · {library.counts.native_previews ?? 0} native previews · {library.counts.media ?? 0} media. Quyết định nghiên cứu hiển thị riêng; chưa duyệt xuất bản, không tính là bài Simple.</p>
+      <p>{library.counts.editor_authored_packages ?? 0} gói nghiên cứu do biên tập soạn · {library.counts.native_previews ?? 0} native previews · {library.counts.media ?? 0} media. Quyết định nghiên cứu hiển thị riêng; chưa duyệt xuất bản, không tính là bài native Codex đã chạy.</p>
       <label>Nhóm chủ đề <select value={family} onChange={e => setFamily(e.target.value)}>
         <option value="ALL">Tất cả</option>{library.families.map(f => <option key={f.family} value={f.family}>{display(f.family)}</option>)}
       </select></label>
@@ -89,7 +93,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
           <p>{r.next_editorial_question}</p>
         </details>)}
       </details>}
-      {library.input_composition && <p>Đầu vào cho {library.input_composition.routine_window_count} cửa sổ hiện có: {library.input_composition.independent_research_items} luận điểm nghiên cứu · {library.input_composition.main_editorial_reports} báo cáo Main có nội dung biên tập · {library.input_composition.main_unchanged_reports} bản không thay đổi · {library.input_composition.main_history_only_reports} bản lịch sử. Owner Simple giữ nguyên; LLM đang tạm dừng.</p>}
+      {library.input_composition && <p>Đầu vào cho {library.input_composition.routine_window_count} cửa sổ hiện có: {library.input_composition.independent_research_items} luận điểm nghiên cứu · {library.input_composition.main_editorial_reports} báo cáo Main có nội dung biên tập · {library.input_composition.main_unchanged_reports} bản không thay đổi · {library.input_composition.main_history_only_reports} bản lịch sử. Chủ biên tập đích là Codex Desktop; lịch production vẫn tạm dừng.</p>}
       {library.gaps.map((g, i) => <p key={i}>Gap: {g.state}</p>)}
       <p>Bước chạy tiếp: {library.next_operation}</p>
     </section>}
@@ -147,6 +151,10 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
       <article className="report-copy"><h3>Canonical draft</h3>{workspace.article ? <>
         <h4>{workspace.article.title}</h4><p>{workspace.article.dek}</p>
         <div className="report-body">{workspace.article.substack_body_markdown.replace(/\[\[SOURCE:(SOURCE_\d+)\]\]/g, '[$1]')}</div>
+        {workspace.media_assets?.map(m => <figure key={m.asset_id}>
+          {m.preview_data_url?.startsWith('data:image/png;base64,') && <img src={m.preview_data_url} alt={m.alt_text ?? m.caption} style={{ width: '100%', height: 'auto' }} />}
+          <figcaption>{m.caption} · {m.reuse_state === 'EXACT_BYTES_REUSED_NO_RENDER' ? 'Giữ nguyên media đã đọc duyệt' : 'Nguồn media đã giữ'}</figcaption>
+        </figure>)}
       </> : <p>{report.withdrawal_only ? 'The newest report withdrew its public claims; no replacement article is generated.' : 'No qualified canonical copy exists for this report version.'}</p>}</article>
       <h3>Eight channel previews</h3><p>Preview only. The canonical link is unbound; final dispatch payloads require real Substack readback.</p>
       <div className="report-previews">{DESTINATIONS.map(destination => {

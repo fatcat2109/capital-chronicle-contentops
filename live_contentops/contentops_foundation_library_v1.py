@@ -10,6 +10,7 @@ import re
 import base64
 import hashlib
 from typing import Mapping, Sequence
+from pathlib import Path
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import _private, _time, sha256_of
 
@@ -71,15 +72,8 @@ def research_library(research, *, cutoff_utc: str, briefs: Sequence[Mapping] = (
                                            "source_url": by_id[ref]["source_url"]} for ref in refs],
                                 "inference_authority": "CONTENTOPS_QUALITATIVE_INFERENCE_NOT_CORE_OUTPUT",
                                 "brief_sha256": sha256_of(brief)})
-    resume_binding = research.root.parent / "provider_resume_binding.json"
-    next_operation = ("python scripts/run_contentops_report_feed_opportunity_v1.py --pointer '" + str(resume_binding)
-        + "' --store '<explicit-draft-store>' --output-dir '<explicit-output>' --run-id '<stable-run-id>' --published-memory-store '<existing-memory-store>' --published-memory-output-root '<existing-memory-output-root>'"
-        if resume_binding.is_file() else "python scripts/build_contentops_research_wave_v1.py --root '" + str(research.root.parent) + "'")
-    draft_operation = research.root.parent / "draft_operation.json"
-    if draft_operation.is_file():
-        operation = json.loads(draft_operation.read_bytes())
-        if operation.get("schema_version") == "contentops.existing_report_feed_draft_operation.v1" and not _private(operation):
-            next_operation = operation["command"]
+    operation = Path(__file__).resolve().parents[1] / "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal24/manual_binding.json"
+    next_operation = "python scripts/run_native_desktop_editorial.py advance --binding '" + str(operation) + "'"
     return {"schema_version": "contentops.foundation_library.v1", "observed_at_utc": cutoff_utc,
             "research_revision": research.revision, "items": items, "briefs": accepted_briefs,
             "gaps": gaps, "families": [{"family": family,
@@ -150,7 +144,7 @@ def reconcile_affected_work(tracker):
                    "target_source_binding_sha256": source_binding([i for i in projection["items"] if i["item_id"] in brief.get("source_item_ids", [])]),
                    "reason": "DEPENDENT_INPUT_CHANGED" if not p["source_revision_current"] else "EDITOR_REQUESTED_REVISION",
                    "action": "RENDER_AFFECTED_RESEARCH" if not p["source_revision_current"] or p["review"]["state"] == "REVISE" else "REVIEW_REVISED_PACKAGE",
-                   "owner": "EXISTING_RESEARCH_RENDERER_THEN_SIMPLE_GEMINI_RUNTIME",
+                   "owner": "EXISTING_RESEARCH_RENDERER_THEN_NATIVE_CODEX_DESKTOP",
                    "routine_window_count": 4, "provider_call_allowed_now": False, "public_write_performed": False}
         _persist(tracker.store, "cc-research-revision-" + sha256_of(request), request, "internal:cc-foundation-revision-request")
 
@@ -252,7 +246,7 @@ def library_projection(rows, review_records=()):
                 "main_editorial_reports": sum(r["status"] == "ADMITTED" and not r["withdrawn"] for r in reports.values()),
                 "main_unchanged_reports": sum(r["status"] == "NO_MATERIAL_CHANGE_NOOP" for r in reports.values()),
                 "main_history_only_reports": sum(r["status"] == "LINEAGE_ONLY_NOOP" for r in reports.values()),
-                "owner": "EXISTING_SIMPLE_GEMINI_RUNTIME", "routine_window_count": 4,
+                "owner": "NATIVE_CODEX_DESKTOP", "routine_window_count": 4,
                 "model_execution_state": "LLM_OPERATOR_PAUSED", "current_market_state_verified": False},
             "packages": list(packages.values()), "counts": {**snapshot["counts"],
                 "editor_authored_packages": len(current_packages),

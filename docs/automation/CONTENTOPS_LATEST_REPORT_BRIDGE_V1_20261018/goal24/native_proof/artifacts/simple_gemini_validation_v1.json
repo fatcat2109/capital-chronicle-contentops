@@ -1,0 +1,797 @@
+{
+  "cited_source_count": 1,
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:XNGUSD",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "maximum_revision_rounds": 1,
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "public_write_performed": false,
+  "report_truth_validated_separately_from_event_truth": true,
+  "revision_performed": true,
+  "revision_router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal24_native_editor:followup-v4",
+      "model": "gpt-6.1-sol",
+      "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "7d486ba5ffe92943f43a45e4436af6a0c5dad3b3cc32f1aa954875d3704eca9c",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "9c44cfb7517ab7bb6ce54e736af75d026cfb1b397190ef0f33c032f6088606cc",
+    "selected_model": "gpt-6.1-sol"
+  },
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "source_urls": [
+    "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:738a70d837faf2a72c7f5f98d8c5a713496c5f61e94445564544faac05d74646"
+  ],
+  "status": "PASS",
+  "supported_material_claim_count": 19,
+  "supported_material_claims": [
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "title",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle on gas: slower refill does not establish a shortage",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+          "claim_id": "xngusd-mechanism",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c7498bffefa6c8aaa571e19b7d538c5db919a87775a08dbb3a2b7925e3dba940",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "dek",
+      "claim_kind": "FACT",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED — Capital Chronicle revisits an October 9 observation: stocks above their five-year average can coexist with a smaller seasonal refill.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+          "claim_id": "xngusd-mechanism",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c7498bffefa6c8aaa571e19b7d538c5db919a87775a08dbb3a2b7925e3dba940",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "search_title",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle gas report: storage levels versus weekly refill",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+          "claim_id": "xngusd-mechanism",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c7498bffefa6c8aaa571e19b7d538c5db919a87775a08dbb3a2b7925e3dba940",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "meta_description",
+      "claim_kind": "FACT",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED: Capital Chronicle separates gas storage levels, refill pace and market expectations in a dated report.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+          "claim_id": "xngusd-mechanism",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c7498bffefa6c8aaa571e19b7d538c5db919a87775a08dbb3a2b7925e3dba940",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "social_hook",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+          "claim_id": "xngusd-mechanism",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c7498bffefa6c8aaa571e19b7d538c5db919a87775a08dbb3a2b7925e3dba940",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "dek_observation_date",
+      "claim_kind": "FACT",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED — Capital Chronicle revisits an October 9 observation: stocks above their five-year average can coexist with a smaller seasonal refill.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [
+        {
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "field": "observation_time_utc",
+          "text": "Main evidence goal17-eia-storage-actual-20261018 observation_time_utc: 2026-10-09T00:00:00Z",
+          "value": "2026-10-09T00:00:00Z"
+        }
+      ],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "f2de5c05d7c59099df1494f2932148093d5ae69a0dad0f3eddc02bb68c8e2f67",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:0"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_1",
+      "claim_kind": "FACT",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED — Capital Chronicle reports a dated tension: less gas added than the same-week seasonal average, yet more gas already stored than the five-year stock average. If confirmed, that combination calls for separating the available buffer from the pace at which it is being replenished. It does not by itself establish a shortage or a price direction.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+          "claim_id": "xngusd-mechanism",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c7498bffefa6c8aaa571e19b7d538c5db919a87775a08dbb3a2b7925e3dba940",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:2"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_3",
+      "claim_kind": "NUMBER",
+      "claim_text": "In its observed-source-fact layer, the report attributes a weekly injection of 67 Bcf to the retained EIA release, against a five-year same-week injection average of 90 Bcf. Stocks were 3,567 Bcf: 45 Bcf above the five-year stock average and 143 Bcf below the prior-year level. The stock comparisons describe different reference points; neither converts the refill comparison into a measured market surprise.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "065607e3ad473f787b751fb1073dca726f475d4a2d7afff733f12e417d0d9cd4",
+          "claim_id": "xngusd-source",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "OBSERVED_SOURCE_FACT"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "426cdeb08a8378dde0b304a1189bff5697110d1dde367dda07c5a5f3e55f7e7e",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:3"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_4",
+      "claim_kind": "FACT",
+      "claim_text": "Capital Chronicle analysis: if confirmed, slower refill can coexist with above-average stocks; a seasonal comparison is not a consensus surprise.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+          "claim_id": "xngusd-mechanism",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c7498bffefa6c8aaa571e19b7d538c5db919a87775a08dbb3a2b7925e3dba940",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:4"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_5",
+      "claim_kind": "FACT",
+      "claim_text": "According to Capital Chronicle, the competing explanations in Main are weather, supply or import changes, and shoulder-season demand. Its seasonal benchmark is not pre-release market consensus. Without that consensus and a matched price reaction, the reader cannot infer from this report that traders received an unexpected tightening signal.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "8f0d44dd38097288af05f0a78aec23c71d3a8739948ad4c643e6cc4fcfdeda20",
+          "claim_id": "xngusd-mechanism",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c7498bffefa6c8aaa571e19b7d538c5db919a87775a08dbb3a2b7925e3dba940",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:5"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_6",
+      "claim_kind": "FACT",
+      "claim_text": "If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "c92a82b870fe4aa7a88d9f112f025b1bf07bb6bf7d38e6ee3359165c9d970a4a",
+          "claim_id": "xngusd-invalidate",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "ac495e3a200864d4e3deaaf7f1ef5516d9d9cb88581e389bd584db07d92dcc74",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:6"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_7",
+      "claim_kind": "FACT",
+      "claim_text": "Watch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "78861c6a2fbcc8ce4e8459fa51dd1400193f5c0cb2b94171e969f7d873845684",
+          "claim_id": "xngusd-short",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2fcb90fc0c11b77dbaa4a6832995ea6438aae15875082fd5044d83848d2dee76",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:7"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_8",
+      "claim_kind": "NUMBER",
+      "claim_text": "According to Capital Chronicle, the report uses conditional five-, 21- and 63-session review horizons. The short window requires an actual release and quote reaction; the swing window requires repeated balances and curve confirmation; the longer window requires cumulative supply-demand changes and vehicle-cost checks. These are questions to test, not price targets or probabilities. Fixing time, regional basis, dealer spread and carry can separate the reference observation from CFD economics.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "55388fcb3a1b173122ac151a0a7af63e87bb3d1bbf497e1e47ca4ba51aae64b8",
+          "claim_id": "xngusd-long",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "ba90640a43b0fc695d8ac9929c91d558862e7ba46635b126653895f5f4c1f95d",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:8"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_9",
+      "claim_kind": "FACT",
+      "claim_text": "According to the supplied research history, the prior unpublished research already examined the competing storage benchmarks. This reading retains that evidence and makes the test of the interpretation explicit; it is not a new numerical update. The return of a Main report supplies no independent confirmation, and the unpublished research is not a previously published article.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "78861c6a2fbcc8ce4e8459fa51dd1400193f5c0cb2b94171e969f7d873845684",
+          "claim_id": "xngusd-short",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2fcb90fc0c11b77dbaa4a6832995ea6438aae15875082fd5044d83848d2dee76",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:1"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_clocks_0",
+      "claim_kind": "FACT",
+      "claim_text": "According to Capital Chronicle, the Main evidence metadata dates the observation to October 9, 2026 and records retrieval on October 18. The Main report cutoff is October 19; that is not the source release date. No source release date is supplied in this source pack. These are retained observations, not a fresh storage announcement or a current executable market quote.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [
+        {
+          "field": "known_at_cutoff_utc",
+          "text": "Main report known-at cutoff (not source release): 2026-10-19T09:14:42.517584Z",
+          "value": "2026-10-19T09:14:42.517584Z"
+        }
+      ],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1ac8dcbce2e02e9e726d7408dba709a3f1ae65d1b0a256cade9f1f216d970413",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:1"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_clocks_1",
+      "claim_kind": "FACT",
+      "claim_text": "According to Capital Chronicle, the Main evidence metadata dates the observation to October 9, 2026 and records retrieval on October 18. The Main report cutoff is October 19; that is not the source release date. No source release date is supplied in this source pack. These are retained observations, not a fresh storage announcement or a current executable market quote.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [
+        {
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "field": "observation_time_utc",
+          "text": "Main evidence goal17-eia-storage-actual-20261018 observation_time_utc: 2026-10-09T00:00:00Z",
+          "value": "2026-10-09T00:00:00Z"
+        }
+      ],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "f2de5c05d7c59099df1494f2932148093d5ae69a0dad0f3eddc02bb68c8e2f67",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:1"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_clocks_2",
+      "claim_kind": "FACT",
+      "claim_text": "According to Capital Chronicle, the Main evidence metadata dates the observation to October 9, 2026 and records retrieval on October 18. The Main report cutoff is October 19; that is not the source release date. No source release date is supplied in this source pack. These are retained observations, not a fresh storage announcement or a current executable market quote.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [
+        {
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "field": "retrieval_time_utc",
+          "text": "Main evidence goal17-eia-storage-actual-20261018 retrieval_time_utc: 2026-10-18T13:03:41Z",
+          "value": "2026-10-18T13:03:41Z"
+        }
+      ],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "44336552a9a2eb1b7e3d4e0f4a5ca75929b0bf3c04609d24f3a79bf823dac6fb",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:7"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_short",
+      "claim_kind": "FACT",
+      "claim_text": "According to Capital Chronicle, the report uses conditional five-, 21- and 63-session review horizons. The short window requires an actual release and quote reaction; the swing window requires repeated balances and curve confirmation; the longer window requires cumulative supply-demand changes and vehicle-cost checks. These are questions to test, not price targets or probabilities. Fixing time, regional basis, dealer spread and carry can separate the reference observation from CFD economics.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "78861c6a2fbcc8ce4e8459fa51dd1400193f5c0cb2b94171e969f7d873845684",
+          "claim_id": "xngusd-short",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2fcb90fc0c11b77dbaa4a6832995ea6438aae15875082fd5044d83848d2dee76",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:7"
+      ],
+      "attribution_required": true,
+      "claim_id": "body_swing",
+      "claim_kind": "FACT",
+      "claim_text": "According to Capital Chronicle, the report uses conditional five-, 21- and 63-session review horizons. The short window requires an actual release and quote reaction; the swing window requires repeated balances and curve confirmation; the longer window requires cumulative supply-demand changes and vehicle-cost checks. These are questions to test, not price targets or probabilities. Fixing time, regional basis, dealer spread and carry can separate the reference observation from CFD economics.",
+      "document_id": "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "383451c6f4480461a8ccc17e4f69516c55b0958b46c50f5978e44752e7763294",
+          "claim_id": "xngusd-swing",
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "report_version": 2,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "7fbda64dcf2c801ce88f7a6d4d2367c63b6669a73dc854b8b37f90d161b9e16f",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    }
+  ],
+  "unknown_write_detected": false,
+  "unsupported_material_claim_count": 0,
+  "worker_router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal24_native_editor:followup-v4",
+      "model": "gpt-6.1-sol",
+      "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "08861d94eb86b65799ec94375e0dc6340c22bd54b8268e6b3d637b709ab1a073",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "81ed09b9c944733ef1ed7e88cc1ce62d301c4ee131fa3ed90107c14ab1cca329",
+    "selected_model": "gpt-6.1-sol"
+  }
+}

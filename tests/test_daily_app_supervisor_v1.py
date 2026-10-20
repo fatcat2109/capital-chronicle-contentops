@@ -52,7 +52,7 @@ def _supervisor(
     cycle=_USE_DEFAULT_CYCLE,
     policy=None,
     owner_ref=None,
-    scheduled_editorial_owner=None,
+    scheduled_editorial_owner="FDA_G_SUPERVISOR",
 ):
     calls = []
     newsroom_cycle = None if cycle is _USE_DEFAULT_CYCLE else cycle
@@ -290,6 +290,7 @@ def test_material_event_priority_survives_restart_and_is_consumed_by_scheduled_w
     first = ContentOpsDailyAppSupervisor(
         store_path=tmp_path / "store.sqlite3", output_root=output_root,
         clock=lambda: staged_at, operating_mode="SHADOW_ONLY",
+        scheduled_editorial_owner="FDA_G_SUPERVISOR",  # Retained historical stage-consumption mechanics.
         newsroom_cycle=lambda **_kwargs: {"classification": "NO_PUBLICATION"},
     )
     signal = material_event_due(
@@ -310,6 +311,7 @@ def test_material_event_priority_survives_restart_and_is_consumed_by_scheduled_w
     restarted = ContentOpsDailyAppSupervisor(
         store_path=tmp_path / "store.sqlite3", store=first._store,
         output_root=output_root, clock=lambda: scheduled_at,
+        scheduled_editorial_owner="FDA_G_SUPERVISOR",
         operating_mode="SHADOW_ONLY",
         newsroom_cycle=lambda **kwargs: captured.append(kwargs) or {
             "classification": "NO_PUBLICATION",
@@ -865,14 +867,14 @@ def test_default_newsroom_cycle_is_the_canonical_facade():
         newsroom_cycle=None,
     )
     from live_contentops.eight_platform_substack_first_pipeline_v1 import (
-        run_v1_simple_gemini_newsroom,
+        run_native_desktop_newsroom,
     )
 
-    assert supervisor._newsroom_cycle is run_v1_simple_gemini_newsroom
-    assert supervisor.routine_editorial_owner == "SIMPLE_GEMINI_RUNTIME"
+    assert supervisor._newsroom_cycle is run_native_desktop_newsroom
+    assert supervisor.routine_editorial_owner == "NATIVE_CODEX_DESKTOP"
     assert supervisor.routine_editorial_composition() == {
         "exactly_one_routine_editorial_owner": True,
-        "routine_editorial_owner": "SIMPLE_GEMINI_RUNTIME",
+        "routine_editorial_owner": "NATIVE_CODEX_DESKTOP",
         "native_desktop_routine_invocation_count": 0,
         "legacy_rolling_x_routine_invocation_count": 0,
         "codex_runtime_model_call_count": 0,
@@ -889,7 +891,7 @@ def test_default_newsroom_cycle_is_the_canonical_facade():
     }
 
 
-def test_current_simple_composition_fences_supervisor_routine_dispatch():
+def test_current_native_composition_fences_supervisor_routine_dispatch():
     base = Path(_tempdir())
     supervisor = ContentOpsDailyAppSupervisor(
         store_path=base / "store.sqlite3",
@@ -902,4 +904,4 @@ def test_current_simple_composition_fences_supervisor_routine_dispatch():
         {"window_id": "composition-smoke", "trigger": TRIGGER_SCHEDULED}, now
     )
     assert result["executed"] is False
-    assert result["reason"] == "simple_gemini_scheduler_is_routine_owner"
+    assert result["reason"] == "native_desktop_conversation_required"

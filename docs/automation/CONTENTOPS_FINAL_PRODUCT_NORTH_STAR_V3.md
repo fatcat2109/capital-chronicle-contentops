@@ -1,9 +1,9 @@
 # Capital Chronicle ContentOps — Final Product North Star V3
 
-Authority date: 2026-09-01
+Authority date: 2026-10-20
 Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR / EARLY_ATTRIBUTED_INTELLIGENCE / V1_ACCEPTED`
 
-This document records the current product direction. It supersedes conflicting current-looking wording that requires universal official confirmation, routes routine V1 through Desktop Automations, says routine V1 public-write/readback remains ungranted, or says `V1_FINAL_PRODUCT_ACCEPTED` is still pending.
+This document records the current product direction. It supersedes conflicting current-looking wording that requires universal official confirmation, routes routine V1 through historical model fleets, says routine V1 public-write/readback remains ungranted, or says `V1_FINAL_PRODUCT_ACCEPTED` is still pending.
 
 ## 1. Product role and North Star
 
@@ -123,29 +123,27 @@ Engagement may improve angle, packaging, timing, and distribution. It may never 
 
 ## 8. Current V1 editorial architecture
 
-Current routine V1 is `SIMPLE_GEMINI_RUNTIME`, not Desktop Automations.
+Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, using `gpt-6.1-sol / low` (Light),
+standard speed, in the native Desktop conversation or a genuinely independent native subagent.
+One coherent opportunity handles selection, reasoning, writing and at most one useful repair.
+Reuse MainReportFeed/current intake, canonical publication memory, reviewed retained research,
+evolving story/revision context, <=32 candidates, <=3 admissions and <=6 source requests.
+Existing source/claim/epistemic checks and the native eight-channel compiler remain authoritative.
+There is no Gemini/9Router, SDK/App-Server, headless or paid API model fallback.
 
-Accepted editorial flow:
+The existing four App tasks own routine scheduling; existing window/day/slot IDs, bounded
+catch-up, store/outbox/lease and sole DurablePublicationCoordinator are reused. Legacy Simple
+scheduler/start paths are non-routing in target source. Bulk X CDP ingestion remains unchanged;
+Neo is the browser path for research and prepared browser-only destination handoffs. Existing
+Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
 
-```text
-current sidecars + canonical reconciled published memory
--> deterministic dedupe/sourceability ordering
--> <=32 candidates
--> one vx/gemini-3.5-flash(high) selector
--> one primary + <=2 useful fallbacks
--> classify report/event epistemic state
--> shared <=6 deterministic source/provenance GETs
--> prove the narrowest publishable proposition
--> one vx/gemini-3.5-flash(high) writer
--> deterministic claim/source/epistemic validation
--> at most one Flash revision without source expansion
--> one qualified article
--> exactly eight native derivative packages preserving epistemic state
-```
+Current engineering/deployed state: **PAUSED_NOT_DEPLOYED**. Host schedules, production pause,
+store and deployed bytes were not changed by this migration. Native manual proof is isolated.
+No current configuration grants activation or public writes. Historical Simple and old Desktop
+proofs establish only their exact epochs; do not rebuild their accepted deterministic components.
+See `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the supported operation,
+exact paused rollout, truthful telemetry, remaining native browser executor boundary and activation.
 
-Locked ceilings: <=32 candidates, one selector, <=3 admissions, <=6 GETs, one writer, <=1 revision, <=3 logical Flash calls, zero Codex runtime model calls.
-
-Do not revive broad ready pools, routine Codex URL discovery, Desktop PREPARE/COMPLETE, SDK editorial fallback, or official-confirmation hunts merely to increase apparent certainty.
 
 ## 9. Editorial modes
 
@@ -180,7 +178,7 @@ Substack is canonical. The eight V1 derivative destinations are Telegram, Discor
 
 ContentOps uses the shared Capital Chronicle request/resolution method through consumer_route=CONTENTOPS_EDITORIAL. Foundation coverage, scheduled latest-intelligence context, scheduled portfolio-safe context and Jim manual research are entry channels into the existing editorial path; they are not a new publisher or a fifth routine scheduler.
 
-The adapter queries the governed database first. When a named editorial need is absent or stale, Codex Desktop uses the existing BrowserOS Neo research/startup seam and records source identity, clocks, rights, freshness, hash and epistemic state. X/headline ingestion remains CDP ingestion-only. Existing Simple Gemini ownership, four routine windows, Substack canonical publication, exactly-eight derivatives and UNKNOWN_WRITE recovery remain unchanged. See CONTENTOPS_FOUR_TRIGGER_DATA_RESOLUTION_AND_EDITORIAL_OPERATING_MODEL_V1.md.
+The adapter queries the governed database first. When a named editorial need is absent or stale, Codex Desktop uses the existing BrowserOS Neo research/startup seam and records source identity, clocks, rights, freshness, hash and epistemic state. X/headline ingestion remains CDP ingestion-only. The input extension retains four windows, canonical Substack, eight derivatives and UNKNOWN_WRITE recovery; native Desktop ownership supersedes its former Simple owner. See CONTENTOPS_FOUR_TRIGGER_DATA_RESOLUTION_AND_EDITORIAL_OPERATING_MODEL_V1.md.
 
 ### Latest Capital Chronicle report as editorial input
 
@@ -206,29 +204,21 @@ Epistemic lifecycle remains separate:
 
 ## 12. Accepted foundation and current activation route
 
-Accepted/reusable foundation includes current intake, published memory/dedupe, production-day accounting foundation, Simple Gemini selection/writer/revision, PR #37 early-attributed intelligence and epistemic state, sourceability ordering, native exactly-eight compiler, canonical Substack transports, durable publication coordinator, strict readback/reconciliation, completed Italy nine-surface canary, V5 read model/UI, merged PR #38 emergency-stop/static-safety closure, merged PR #39 single-owner production composition, and corrected PR #42 actual persistent Simple-scheduler publication handoff.
+1. Implement and independently audit the native Desktop migration on PR90, preserving Goal20–23 evidence.
+2. Verify one isolated native Sol-low editorial flow, actual reader copy/native previews/media and replay.
+3. Preserve the exact paused four-task rollout and per-channel API/Neo setup/readback handoff.
+4. After separate audit/deployment authority, apply the one documented activation transition with pause release last.
+5. Observe natural runtime separately; 5–8/day reliability is unproven until actual reconciled output establishes it.
 
-The corrected routine handoff preserves this North Star rather than adding a new editorial gate: Simple semantic work remains zero-write; a qualified slot maps deterministically to the canonical durable work item; the publication plan is persisted/reconstructed from already-qualified artifacts; coordinator recovery runs before fresh work; interrupted qualified slots resume without another model/source call; unresolved backlog or ambiguous write stays in coordinator/readback recovery rather than blind retry; canonical Substack `/p/...` reconciliation still precedes exactly-eight derivative rematerialization. This is repository/CI proof, not fresh host/account/readiness or live-publication proof.
+No production activation, public write, pause release, self-merge or deployment is part of Goal24.
 
-Current progression is `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`, not a new activation or acceptance
-campaign:
-
-1. merge/deploy/load corrected current bytes;
-2. run the already-activated four natural routine windows;
-3. observe real conversion, publication, readback, and reconciliation failures;
-4. fix measured blockers toward 5–8 useful published articles/day.
-
-A fresh standalone host preflight or one-off canary is conditional diagnostics only when current
-evidence materially raises an exact identity/readiness/UNKNOWN/irreversible-risk boundary. The
-existing owner still fails closed on those invariants at every actual live write.
-
-Single-owner composition, Simple emergency-stop/process coverage, and the routine Simple publication handoff are already closed. Do not rebuild transports, publication coordinator, store, native packager, Simple editorial path, or historical Italy publication proof.
+Historical Simple selection/source/validation/compiler/recovery proofs remain provenance. Reuse their deterministic components.
 
 ## 13. Hard boundaries
 
 Never fabricate a report/source/leak/rumor/quote/number/event; present unconfirmed material as confirmed; infer leak/rumor without source support; publish unsupported high-harm allegations; promote external reporting into proprietary CC numeric authority; expose secrets/session material; destructively mutate production state; or blind-retry an ambiguous write.
 
-Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only. Edge `contentops-social-main` CDP 9223 remains publication/media/readback/authorized-observation only.
+Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only. Neo is the target browser publication/readback path; Edge 9223 is historical deployment provenance.
 
 Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 

@@ -3,6 +3,7 @@
 param()
 
 $ErrorActionPreference = 'Stop'
+throw 'Use the audited native Desktop rollout transition. Clearing this fuse alone does not validate the four task model/prompt bindings or retire legacy schedulers.'
 $controlRoot = 'A:\Capital Chronicle\Runtime\ContentOps\control'
 $pauseMarker = Join-Path $controlRoot 'llm_operator_pause.flag'
 

@@ -1,0 +1,38 @@
+{
+  "observed_at_utc": "2026-10-20T03:59:08.562686+00:00",
+  "native_manual_proof": "native_proof/receipt.json",
+  "actual_rendered_inspection": "visual/inspection.json",
+  "main_zero_delta": "main_zero_delta_handoff.json",
+  "host_pause_and_four_tasks": "host_pause_readback.json",
+  "local_tests": [
+    {
+      "scope": "Main feed/workspace, foundation/desk, reused newsroom, canonical coordinator/entrypoint, legacy scheduler fence/handoff, Desktop packet",
+      "passed": 248,
+      "failed": 0,
+      "source_log": "C:/Users/bullw/AppData/Local/Temp/goal24-completion-native-and-retained.log"
+    },
+    {
+      "scope": "Initial controls group",
+      "passed_before_failure": 47,
+      "failed": 1,
+      "failure": "old READINESS_NOT_PROBED-only expectation incompatible with explicit unverified Neo state; corrected",
+      "current_gate": "focused followup and exact-head CI; historical failure is not claimed green"
+    },
+    {
+      "scope": "UI console including native guidance and API setup, report workspace, control plane",
+      "passed": 24,
+      "failed": 0,
+      "source_log": "C:/Users/bullw/AppData/Local/Temp/goal24-ui-completion-tests.txt"
+    }
+  ],
+  "typescript_vite_build": "PASS; goal24-ui-final-build.txt",
+  "ruff_changed_native_readmodel_runtime_cli": "PASS",
+  "compileall_live_contentops_scripts": "PASS",
+  "focused_readmodel_api_followup": "IN_PROGRESS; terminal result and exact-head CI are recorded in PR90 delivery",
+  "remote_ci_authority": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/90/checks; only matching head counts",
+  "codegraph": "existing generator; generated commit and freshness check required before delivery",
+  "engineering_only": true,
+  "production_activation": false,
+  "public_writes": 0,
+  "independent_audit_and_deployment": "not performed by this engineering task"
+}

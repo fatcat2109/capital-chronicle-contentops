@@ -32,7 +32,6 @@ from live_contentops.daily_app_supervisor_v1 import (
 from live_contentops.durable_operational_store_v1 import (
     ContentOpsDurableStore,
     OperatingModeConflictError,
-    OperatorTriggerAlreadyPendingError,
 )
 from live_contentops.publishing_profile_registry_v1 import (
     CANONICAL_BROWSER_FAMILY,
@@ -969,6 +968,8 @@ def build_daily_app_snapshot(
     }
     readiness_by_surface = {str(row["surface"]): row for row in readiness_rows}
     platform_models = []
+    from live_contentops.neo_destination_handoff_v1 import destination_setup_projection
+    destination_setup = destination_setup_projection(now=generated)
     for platform_id, display_name, binding_class in TIER1_DESTINATIONS:
         aliases = {platform_id}
         if platform_id == "youtube":
@@ -976,6 +977,11 @@ def build_daily_app_snapshot(
         last = next((dispatch_by_platform[a] for a in aliases if a in dispatch_by_platform), None)
         readiness = readiness_by_surface.get(DESTINATION_TO_SURFACE.get(platform_id, ""), {})
         readiness_state = str(readiness.get("readiness_state") or "READINESS_NOT_PROBED")
+        setup = destination_setup.get(platform_id, {})
+        if setup.get("chosen_transport") == "BROWSEROS_NEO_MCP" and readiness.get("transport_type") != "BROWSEROS_NEO_MCP":
+            # Historical Edge observations do not establish Neo account/executor readiness.
+            readiness = {}
+            readiness_state = "NEO_ACCOUNT_AND_EXECUTOR_NOT_VERIFIED"
         if platform_id == "linkedin" and readiness and (
             str(readiness.get("transport_type") or "") != "OFFICIAL_MEMBER_API"
             or str(readiness.get("probe_kind") or "") != "OFFICIAL_MEMBER_API_LOCAL_AUTH_METADATA"
@@ -1014,13 +1020,13 @@ def build_daily_app_snapshot(
             "write_eligible": readiness_state in READY_STATES,
             "binding_class": binding_class,
             "safe_identity": readiness.get("destination_identity") or (
-                CANONICAL_PROFILE_ID if binding_class == "BROWSER_AUTHENTICATED"
+                setup.get("expected_identity") if binding_class == "BROWSER_AUTHENTICATED"
                 else "NONSECRET_BINDING_IDENTITY_UNAVAILABLE"
             ),
             "identity_match": bool(readiness.get("identity_match")) if readiness else None,
             "probe_kind": readiness.get("probe_kind"),
             "probed_at_utc": readiness.get("probed_at_utc"),
-            "transport_type": readiness.get("transport_type"),
+            "transport_type": readiness.get("transport_type") or setup.get("chosen_transport"),
             "authenticated": bool(sanitized_detail.get("authenticated")) if platform_id == "linkedin" else None,
             "auth_expiry_at_utc": sanitized_detail.get("expiry_at_utc") if platform_id == "linkedin" else None,
             "auth_days_remaining": sanitized_detail.get("days_remaining") if platform_id == "linkedin" else None,
@@ -1048,6 +1054,7 @@ def build_daily_app_snapshot(
             ),
             "next_metric_availability": "UNAVAILABLE_NOT_ZERO",
             "readiness_authority": TRANSPORT_REGISTRY_VERSION,
+            "setup": destination_setup.get(platform_id, {}),
         })
 
     scheduled_observations = [o for o in observation_models if o["collection_status"] == "SCHEDULED"]
@@ -1733,6 +1740,9 @@ def build_daily_app_snapshot(
                 "decision": "HOLD_NO_POLICY_CHANGE",
             } if not policy_models else None),
         },
+        "editorial_execution_target": {"owner": "NATIVE_CODEX_DESKTOP", "model": "gpt-6.1-sol",
+            "reasoning_effort": "low", "target_status": "PREPARED_NOT_HOST_ACTIVATED",
+            "deployed_state": "READ_EXISTING_HOST_OBSERVATION_SEPARATELY", "public_write_authority": False},
         "platforms": {"destinations": platform_models},
         "incidents": {
             "items": incidents,
@@ -1752,8 +1762,12 @@ def build_daily_app_snapshot(
             "allowed_modes": sorted(OPERATING_MODES),
             "write_endpoint": "/api/daily-app/control/mode",
             "run_now_endpoint": RUN_NOW_ENDPOINT,
-            "run_now_allowed": controls["operating_mode"] != "KILL_SWITCH",
-            "run_now_mode_consequence": RUN_NOW_MODE_CONSEQUENCES[controls["operating_mode"]],
+            "run_now_allowed": False,
+            "run_now_mode_consequence": (
+                "Open the ContentOps project in Codex Desktop and continue its native editorial "
+                "operation with the explicit binding. This page cannot invoke a native conversation. "
+                "Production pause and the four host schedules remain separate controls."
+            ),
             "shutdown_endpoint": "/api/daily-app/control/shutdown-all-background",
             "shutdown_allowed": not shutdown_blockers,
             "shutdown_blockers": shutdown_blockers,
@@ -1845,15 +1859,7 @@ def request_operator_cycle(
     *,
     expected_state_version: int,
 ) -> dict[str, Any]:
-    """Record one durable OPERATOR_REQUESTED cycle trigger through the canonical store.
-
-    This control never executes the newsroom pipeline, never claims publication, and never
-    changes operating mode. The persistent supervisor consumes the durable trigger on its normal
-    cheap loop and runs it through the exact same canonical gates as a scheduled window.
-    """
-    from uuid import uuid4
-
-    from live_contentops.ingestion_bootstrap_v1 import passive_canonical_ingestion_readiness
+    """Read-only guidance to the supported native conversation; no implicit model bridge."""
 
     store = ContentOpsDurableStore(Path(store_path), auto_migrate=False)
     if store.get_current_schema_version() != REQUIRED_STORE_SCHEMA_VERSION:
@@ -1873,56 +1879,12 @@ def request_operator_cycle(
             "publication_claimed": False,
             "note": RUN_NOW_MODE_CONSEQUENCES["KILL_SWITCH"],
         }
-    pending = store.fetch_pending_operator_trigger()
-    if pending is not None:
-        return {
-            "status": "OPERATOR_TRIGGER_ALREADY_PENDING",
-            "governed_cycle_requested": True,
-            "operating_mode": mode,
-            "publication_claimed": False,
-            "trigger": _sanitize_operator_trigger(pending),
-        }
-    if store.active_editorial_cycle_window_ids():
-        return {
-            "status": "CYCLE_ALREADY_ACTIVE",
-            "governed_cycle_requested": False,
-            "operating_mode": mode,
-            "publication_claimed": False,
-            "note": "A canonical editorial cycle is executing; no parallel cycle is started.",
-        }
-    # Run Now is editorial-window authority only. Its control path is passive and cannot launch,
-    # attach, navigate, reload, or capture X. The supervisor's normal due-cadence intake seam may
-    # refresh later; the cycle can still consume the durable rolling headline universe.
-    readiness = passive_canonical_ingestion_readiness()
-    chrome_state = str(readiness.get("chrome_9222_ingestion") or "UNAVAILABLE")
-    trigger_id = "operator-trigger-" + uuid4().hex[:24]
-    try:
-        record = store.record_operator_cycle_trigger(
-            trigger_id=trigger_id,
-            trigger_kind="OPERATOR_REQUESTED",
-            requested_mode=mode,
-            control_state_version=int(control["state_version"]),
-        )
-    except OperatorTriggerAlreadyPendingError:
-        existing = store.fetch_pending_operator_trigger()
-        return {
-            "status": "OPERATOR_TRIGGER_ALREADY_PENDING",
-            "governed_cycle_requested": True,
-            "operating_mode": mode,
-            "publication_claimed": False,
-            "trigger": _sanitize_operator_trigger(existing) if existing else None,
-        }
     return {
-        "status": "OPERATOR_TRIGGER_ACCEPTED",
-        "governed_cycle_requested": True,
+        "status": "NATIVE_DESKTOP_CONVERSATION_REQUIRED",
+        "governed_cycle_requested": False,
         "operating_mode": mode,
         "publication_claimed": False,
-        "ingestion_state_at_request": chrome_state,
         "ingestion_browser_interaction_performed": False,
-        "note": (
-            "One governed editorial cycle was requested. It bypasses only the wait for the "
-            "scheduled window; every evidence/review/readiness/publication gate remains "
-            "unchanged. This response does not claim any publication."
-        ),
-        "trigger": _sanitize_operator_trigger(record),
+        "note": "Continue the native ContentOps operation in Codex Desktop with its explicit binding. "
+                "This API cannot invoke a native conversation and records no supervisor trigger.",
     }

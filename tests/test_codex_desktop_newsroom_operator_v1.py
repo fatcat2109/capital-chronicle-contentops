@@ -787,57 +787,26 @@ def test_desktop_rehearsal_reuses_canonical_reserved_frontier_and_never_promotes
     } == output_before
 
 
-def test_exact_four_task_packet_is_superseded_noop_and_retains_historical_shape():
+def test_exact_four_task_packet_is_native_sol_low_and_paused():
     packet = four_task_setup_packet()
-    assert packet["model"] == COORDINATOR_MODEL == "gpt-5.6-sol"
-    assert packet["reasoning_effort"] == COORDINATOR_REASONING_EFFORT == "HIGH"
-    assert packet["editorial_worker_model"] == EDITORIAL_WORKER_MODEL == "gpt-5.6-sol"
-    assert packet["editorial_worker_reasoning_effort"] == (
-        EDITORIAL_WORKER_REASONING_EFFORT
-        ) == "HIGH"
-    assert packet["editorial_worker_is_fresh_and_isolated"] is True
-    assert packet["editorial_worker_only_when_article_warranted"] is True
+    assert packet["model"] == "gpt-6.1-sol"
+    assert packet["reasoning_effort"] == "low"
     assert packet["routine_task_count"] == 4
     assert packet["publication_minimum"] == 5
-    assert packet["build_qualified_floor"] == 4
-    assert packet["final_published_target_min"] == 5
-    assert packet["final_published_target_max"] == 8
-    assert packet["automatic_scale_up"] is False
-    assert packet["material_event_creates_extra_task"] is False
-    assert packet["manual_go_is_explicit_exception"] is True
-    assert packet["prompt"] == DESKTOP_TASK_PROMPT
-    assert [(row["name"], row["days"], row["time"]) for row in packet["tasks"]] == [
-        ("V1 Newsroom — London 1700", "Monday-Friday", "17:00"),
-        ("V1 Newsroom — New York 2100", "Monday-Friday", "21:00"),
-        ("V1 Newsroom — New York 2300", "Monday-Friday", "23:00"),
-        ("V1 Newsroom — New York 0100", "Tuesday-Saturday", "01:00"),
-    ]
-    assert DESKTOP_TASK_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")
-    assert "run_v1_simple_gemini_newsroom" in DESKTOP_TASK_PROMPT
-    assert "do not run newsroom production" in DESKTOP_TASK_PROMPT
-    assert "do not spawn an editorial worker" in DESKTOP_TASK_PROMPT
-    assert "do not edit repository files" in DESKTOP_TASK_PROMPT
-    assert "do not perform any public/provider write" in DESKTOP_TASK_PROMPT
-    assert "UNKNOWN_WRITE remains STOP RETRY -> READ BACK -> RECONCILE" in DESKTOP_TASK_PROMPT
-    assert MANUAL_GO_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")
-    assert "Manual GO no longer invokes routine V1 production" in MANUAL_GO_PROMPT
-    assert "current simple Gemini runtime" in MANUAL_GO_PROMPT
-    assert "Zero public write." in MANUAL_GO_PROMPT
-
-
-    stale_routine_semantics = (
-        "immediate one-article MVP canary launch gate",
-        "post-launch throughput gate",
-        "does not satisfy the 4/32 gate",
-        "One supervised MVP canary",
-        "OWNER_AUDIT_REQUIRED",
-    )
-    assert all(phrase not in DESKTOP_TASK_PROMPT for phrase in stale_routine_semantics)
+    assert packet["one_coherent_desktop_turn"] is True
+    assert packet["subagents_only_for_independent_need"] is True
+    assert packet["speed"] == "standard"
+    for task in packet["tasks"]:
+        assert task["id"] in EXACT_V1_AUTOMATION_IDS
+        assert task["status"] == "PAUSED"
+        assert task["id"] in task["prompt"]
+        assert "scripts/run_native_desktop_editorial.py" in task["prompt"]
+        assert "UNKNOWN" in task["prompt"]
+    assert "isolated" in MANUAL_GO_PROMPT
 
 
 def test_supported_host_observation_persists_only_exact_safe_four_task_readback(tmp_path):
     packet = four_task_setup_packet()
-    prompt_sha = hashlib.sha256(packet["prompt"].encode("utf-8")).hexdigest()
     tasks = [
         {
             **task,
@@ -846,7 +815,7 @@ def test_supported_host_observation_persists_only_exact_safe_four_task_readback(
             "project": packet["project"],
             "model": packet["model"],
             "reasoning_effort": packet["reasoning_effort"].lower(),
-            "prompt_sha256": prompt_sha,
+            "prompt_sha256": hashlib.sha256(task["prompt"].encode("utf-8")).hexdigest(),
             "config_sha256": f"{index + 1:064x}",
         }
         for index, task in enumerate(packet["tasks"])
@@ -907,7 +876,8 @@ def test_committed_automation_normalization_readback_remains_historical_evidence
         assert task["name"] == expected["name"]
         assert task["rrule"] == expected["rrule"]
         assert task["timezone"] == packet["timezone"] == "Asia/Bangkok"
-        assert task["model"] == packet["model"] == "gpt-5.6-sol"
+        assert task["model"] == "gpt-5.6-sol"
+        assert packet["model"] == "gpt-6.1-sol"
         assert task["reasoning_effort"] == "high"
         assert task["status"] == "PAUSED"
         assert task["after_prompt_sha256"] == historical_prompt_sha
@@ -1034,8 +1004,8 @@ def test_article_qualified_route_preserves_historical_worker_contract_without_cu
     assert source_contract["invent_urls_handles_source_ids_evidence_ids_or_facts"] is False
     assert "exact supplied [[SOURCE:SOURCE_N]] markers" not in DESKTOP_TASK_PROMPT
     assert "exact supplied [[SOURCE:SOURCE_N]]" not in MANUAL_GO_PROMPT
-    assert DESKTOP_TASK_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")
-    assert MANUAL_GO_PROMPT.startswith("SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP.")
+    assert "NATIVE_CODEX_DESKTOP" in DESKTOP_TASK_PROMPT
+    assert "native" in MANUAL_GO_PROMPT
 
     validated = validate_editorial_worker_return(
         worker_return={

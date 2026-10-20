@@ -1404,7 +1404,9 @@ def _validate_article_against_source_pack(
             continue
         report_lineage = document.get("report_lineage") or {}
         report_claims = [c for c in report_lineage.get("claims", []) if _normal(excerpt) in _normal(c["text"])]
-        if report_lineage and not report_claims:
+        report_metadata = [m for m in report_lineage.get("source_clock_metadata", [])
+                           if _normal(excerpt) == _normal(m["text"])]
+        if report_lineage and not report_claims and not report_metadata:
             blockers.append(f"report_claim_excerpt_unbound:{claim_id}")
             continue
         supported.append(
@@ -1420,6 +1422,7 @@ def _validate_article_against_source_pack(
                 **({"report_id": report_lineage["report_id"], "report_version": report_lineage["report_version"],
                     "report_sha256": report_lineage["report_sha256"],
                     "report_claims": [{k: c[k] for k in ("claim_id", "claim_hash", "producer_layer", "basis_risk", "evidence")} for c in report_claims],
+                    "source_clock_metadata_bindings": report_metadata,
                     "article_section_ids": ["paragraph:" + str(i) for i, p in enumerate(str(article.get("substack_body_markdown") or "").split("\n\n")) if _normal(claim_text) in _normal(p)]}
                     if report_lineage else {}),
             }
@@ -1434,6 +1437,10 @@ def _validate_article_against_source_pack(
         _editorial_growth_edge_blockers(article, article_mode=article_mode)
     )
     blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state))
+    body = _normal(_SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or "")))
+    for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
+        if key in article and (_normal(article[key]) not in body or len(str(article[key])) < 24):
+            blockers.append("native_summary_not_in_bound_article:" + key)
     blockers.extend(
         _paragraph_marker_blockers(
             str(article.get("substack_body_markdown") or ""), set(cited_by_id)
@@ -1539,6 +1546,7 @@ def _reader_safe_native_article(
         title = f"{label} | {title}"
     result = {
         "title": title,
+        "native_brief_layout": True,
         "subtitle": str(article.get("dek") or ""),
         "social_hook": str(article.get("social_hook") or ""),
         "effective_article_mode": str(article_mode),
@@ -1546,7 +1554,11 @@ def _reader_safe_native_article(
         **({"editorial_scope_notice": epistemic_state["report_scope_notice"]}
            if (epistemic_state or {}).get("report_scope_notice") else {}),
     }
-    if (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED":
+    for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
+        if article.get(key):
+            result[key] = article[key]
+    if ((epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
+            and not all(article.get(k) for k in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"))):
         result.update(
             {
                 "social_mechanism_summary": (
@@ -1569,6 +1581,7 @@ def _native_preview_bundle(
     article_mode: str,
     article_identity: str,
     epistemic_state: Mapping[str, Any] | None = None,
+    media_asset_ids: Sequence[str] = (),
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     from live_contentops.eight_platform_substack_first_pipeline_v1 import (
         build_native_derivative_payloads,
@@ -1587,7 +1600,7 @@ def _native_preview_bundle(
         article=compiler_article,
         selection={},
         canonical_url=pending_url,
-        media_asset_ids=(),
+        media_asset_ids=media_asset_ids,
     )
     expected = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     if len(payloads) != 8 or set(payloads) != expected:
@@ -1695,6 +1708,7 @@ def _build_simple_publication_lifecycle_plan(
     native_previews: Mapping[str, Any],
     qualified_record: Mapping[str, Any],
     epistemic_state: Mapping[str, Any] | None,
+    media_assets: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
     """Adapt one qualified Simple result to the existing durable coordinator contract.
 
@@ -1712,7 +1726,7 @@ def _build_simple_publication_lifecycle_plan(
         "run_id": run_id,
         "selection": dict(selected_candidate),
         "article": compiler_article,
-        "media": {"assets": [], "delivery_only_assets": []},
+        "media": {"assets": [dict(a) for a in media_assets], "delivery_only_assets": []},
         "epistemic_state": dict(epistemic_state or {}),
         "article_identity": article_identity,
         "article_content_sha256": _text_hash(_public_copy(article)),
@@ -1773,6 +1787,7 @@ def _build_simple_publication_lifecycle_plan(
             "article_content_sha256": context["article_content_sha256"],
             "compiler_input_sha256": context["compiler_input_sha256"],
             "epistemic_state": dict(epistemic_state or {}),
+            **({"media_sha256": [a["sha256"] for a in media_assets]} if media_assets else {}),
             "required_derivative_destinations": list(
                 V1_REQUIRED_DERIVATIVE_DESTINATIONS
             ),
@@ -1785,7 +1800,9 @@ def _build_simple_publication_lifecycle_plan(
         "story_identity": str(selected_candidate.get("story_identity") or ""),
         "update_chain_identity": str(selected_candidate.get("update_chain_identity") or selected_candidate.get("story_identity") or ""),
         "resolved_article_mode": str(selected_plan_entry.get("article_mode") or ""),
-        "editorial_classification": "QUALIFIED_SIMPLE_GEMINI_ARTICLE",
+        "editorial_classification": ("QUALIFIED_NATIVE_DESKTOP_ARTICLE"
+            if qualified_record.get("editorial_worker", {}).get("provider") == "NATIVE_CODEX_DESKTOP"
+            else "QUALIFIED_SIMPLE_GEMINI_ARTICLE"),
         "article_identity": article_identity,
         "article_content_sha256": context["article_content_sha256"],
         "compiler_input_sha256": context["compiler_input_sha256"],
@@ -1846,6 +1863,17 @@ def run_v1_simple_gemini_newsroom(
     run_id: str | None = None,
 ) -> dict[str, Any]:
     """Run one zero-write V1 opportunity through one bounded Simple-Gemini plan."""
+    native = getattr(llm_invoke, "native_desktop_protocol", False)
+
+    def persist(path, value):
+        if native:
+            from live_contentops.native_desktop_editorial_v1 import normalize_native_receipt
+            # Intermediate immutable source artifacts must not vary as responses arrive.
+            # Full invocation telemetry belongs only to the terminal receipt.
+            normalize_native_receipt(value, llm_invoke.telemetry()
+                if Path(path).name == "simple_gemini_newsroom_receipt_v1.json" else None)
+        _write_json(path, value)
+
     cutoff_utc = _iso_utc(cutoff_utc)
     root = Path(output_dir).resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -1863,7 +1891,7 @@ def run_v1_simple_gemini_newsroom(
         attempted_candidate_ids=attempted_candidate_ids,
     )
     sourceability_path = root / "simple_sourceability_preselection_v1.json"
-    _write_json(sourceability_path, sourceability_preselection)
+    persist(sourceability_path, sourceability_preselection)
     sourceability_summary = {
         "artifact_path": str(sourceability_path),
         "full_eligible_deduped_universe_count": sourceability_preselection[
@@ -1915,7 +1943,7 @@ def run_v1_simple_gemini_newsroom(
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
     memory_summary = _published_memory_summary(published_memory)
@@ -1968,7 +1996,7 @@ def run_v1_simple_gemini_newsroom(
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
     selection_artifact = {
         "schema_version": SELECTION_SCHEMA_VERSION,
@@ -1981,7 +2009,7 @@ def run_v1_simple_gemini_newsroom(
         "published_memory_summary": memory_summary,
         "public_write_performed": False,
     }
-    _write_json(root / "simple_gemini_selection_v1.json", selection_artifact)
+    persist(root / "simple_gemini_selection_v1.json", selection_artifact)
     if selection.get("status") == _SELECTION_STATUS_ABSTAIN:
         receipt = {
             "schema_version": SCHEMA_VERSION,
@@ -2004,7 +2032,7 @@ def run_v1_simple_gemini_newsroom(
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
     candidate_by_id = {row["candidate_id"]: row for row in candidates}
@@ -2162,7 +2190,7 @@ def run_v1_simple_gemini_newsroom(
         "public_write_performed": False,
         "updated_source_route_health": _updated_source_route_health(loader),
     }
-    _write_json(root / "simple_gemini_evidence_v1.json", evidence_artifact)
+    persist(root / "simple_gemini_evidence_v1.json", evidence_artifact)
     if selected is None or selected_plan_entry is None or not source_pack:
         receipt = {
             "schema_version": SCHEMA_VERSION,
@@ -2189,11 +2217,11 @@ def run_v1_simple_gemini_newsroom(
             "unknown_write_count": 0,
             "updated_source_route_health": _updated_source_route_health(loader),
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
     if selected_epistemic_state is not None:
-        _write_json(
+        persist(
             root / "simple_epistemic_state_v1.json",
             selected_epistemic_state,
         )
@@ -2202,7 +2230,7 @@ def run_v1_simple_gemini_newsroom(
         article_mode=str(selected_plan_entry["article_mode"]),
         source_pack=source_pack,
     )
-    _write_json(
+    persist(
         root / "simple_gemini_editorial_edge_v1.json",
         {
             "schema_version": "contentops.v1_simple_editorial_edge_adaptation.v1",
@@ -2284,7 +2312,7 @@ def run_v1_simple_gemini_newsroom(
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
     revision_receipt: dict[str, Any] | None = None
     revision_performed = False
@@ -2343,7 +2371,7 @@ def run_v1_simple_gemini_newsroom(
                 "provider_publication_writes": 0,
                 "unknown_write_count": 0,
             }
-            _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+            persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
             return receipt
         revision_performed = True
         worker_output, revised_normalization_count = _normalize_relay_attribution(
@@ -2384,7 +2412,7 @@ def run_v1_simple_gemini_newsroom(
                     relay_normalization_count
                 ),
             }
-            _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+            persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
             return receipt
 
     article_manifest = {
@@ -2397,7 +2425,7 @@ def run_v1_simple_gemini_newsroom(
         "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
     }
-    _write_json(root / "article_manifest_v1.json", article_manifest)
+    persist(root / "article_manifest_v1.json", article_manifest)
     validation_artifact = {
         **validation,
         "worker_router_receipt": worker_receipt,
@@ -2406,7 +2434,7 @@ def run_v1_simple_gemini_newsroom(
         "maximum_revision_rounds": MAX_REVISION_ROUNDS,
         "epistemic_state": dict(selected_epistemic_state or {}),
     }
-    _write_json(root / "simple_gemini_validation_v1.json", validation_artifact)
+    persist(root / "simple_gemini_validation_v1.json", validation_artifact)
 
     article_identity = _text_hash(str(article["substack_body_markdown"]))
     try:
@@ -2440,9 +2468,9 @@ def run_v1_simple_gemini_newsroom(
                 relay_normalization_count
             ),
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
-    _write_json(root / "native_derivative_previews_v1.json", native_previews)
+    persist(root / "native_derivative_previews_v1.json", native_previews)
     intents_artifact = {
         "schema_version": DERIVATIVE_INTENTS_SCHEMA_VERSION,
         "article_identity": article_identity,
@@ -2460,7 +2488,7 @@ def run_v1_simple_gemini_newsroom(
         V1_REQUIRED_DERIVATIVE_DESTINATIONS
     ):
         raise SimpleGeminiNewsroomError("exact_eight_derivative_intent_contract_failed")
-    _write_json(root / "derivative_intents_v1.json", intents_artifact)
+    persist(root / "derivative_intents_v1.json", intents_artifact)
 
     accepted_documents = [
         {
@@ -2484,12 +2512,15 @@ def run_v1_simple_gemini_newsroom(
         update_chain_identity=selected.get("update_chain_identity") or selected["story_identity"],
         resolved_article_mode=selected_plan_entry["article_mode"],
         accepted_evidence_documents=accepted_documents,
-        editorial_provider="9router",
-        editorial_model=str(worker_receipt.get("selected_model") or "9router-gemini"),
-        editorial_reasoning_effort="HIGH",
+        editorial_provider=str(worker_receipt.get("provider") or "9router"),
+        editorial_model=str(worker_receipt.get("selected_model") or (
+            "UNOBSERVED" if getattr(llm_invoke, "native_desktop_protocol", False) else "9router-gemini")),
+        editorial_reasoning_effort=str(worker_receipt.get("reasoning_effort") or (
+            "UNOBSERVED" if getattr(llm_invoke, "native_desktop_protocol", False) else "HIGH")),
         logical_model_invocation_count=len(model_receipts),
         derivative_package_intents=intents,
         epistemic_state=selected_epistemic_state,
+        native_execution_observation=(llm_invoke.telemetry() if getattr(llm_invoke, "native_desktop_protocol", False) else None),
     )
     persist_qualified_article_record(root, record)
     publication_lifecycle_plan = _build_simple_publication_lifecycle_plan(
@@ -2549,5 +2580,5 @@ def run_v1_simple_gemini_newsroom(
         ),
         "updated_source_route_health": _updated_source_route_health(loader),
     }
-    _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+    persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
     return receipt

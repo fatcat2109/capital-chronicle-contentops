@@ -113,23 +113,43 @@ BOUNDED_EDITORIAL_CONTEXT_KEYS = frozenset(
     }
 )
 DESKTOP_TASK_PROMPT = (
-    "SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP. Read fresh repository authority. Routine V1 "
-    "article production is owned by ContentOps local state + 9Router/Gemini through the canonical "
-    "run_v1_simple_gemini_newsroom operation. If this legacy Codex Automation fires, do not run "
-    "newsroom production, do not spawn an editorial worker, do not edit repository files, do not "
-    "run tests or CodeGraph, do not create or update a PR, and do not perform any public/provider "
-    "write. Record a sanitized SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP result and exit. "
-    "UNKNOWN_WRITE remains STOP RETRY -> READ BACK -> RECONCILE."
+    "Read fresh AGENTS/current native Desktop authority. Routine owner NATIVE_CODEX_DESKTOP; "
+    "use gpt-6.1-sol low (Light), standard speed, in this SAME coherent turn. No Gemini/9Router, "
+    "SDK/App-Server/API fallback, paid speed, autonomous fleet, source/rights weakening or public write. "
+    "Run python scripts/run_native_desktop_editorial.py scheduled --automation-id {automation_id} "
+    "--rollout config/native_desktop_rollout_v1.json. Respect LLM_OPERATOR_PAUSED before any store write. "
+    "The command resolves this existing four-window slot and the frozen operation binding. "
+    "When it returns binding_path, run python scripts/run_native_desktop_editorial.py advance "
+    "--binding <binding_path> immediately to obtain the next request or final result. "
+    "If pending, read its exact desktop_request JSON, reason over <=32 candidates, Main public reports, "
+    "reviewed retained research and reconciled memory; submit the response with actual observable "
+    "invocation/model/effort (null if unobservable), then advance using returned binding_path. "
+    "Use python scripts/run_native_desktop_editorial.py submit --binding <binding_path> --stage "
+    "<select|write|revise> --response <authored-response.json>, then advance --binding <binding_path>. "
+    "Stay in this turn through selection, bounded existing evidence retrieval, writing, deterministic "
+    "validation and at most one useful repair. Never copy a template as model output. "
+    "Continue existing bounded deficit slots only when command reports capacity and useful work; "
+    "4/32 is telemetry, never a reason to stop below five. Source limit six shared requests per article; "
+    "primary plus <=2 useful fallback candidates. Preserve report/event certainty and Main numeric ownership. "
+    "Recover existing UNKNOWN writes before fresh work: STOP RETRY -> READ BACK -> RECONCILE. "
+    "Inspect actual prose and eight native previews, keep revision-bound review, reuse unchanged media, "
+    "Record review --binding <binding_path> --response <review.json> with exact article_identity, "
+    "decision KEEP/REVISE/HOLD, rationale and expected_review_id for a revision; KEEP can then "
+    "prepare handoff --binding <binding_path> "
+    "through the existing sole DurablePublicationCoordinator plan. Neither command publishes. "
+    "Destination login gaps cannot veto independent article creation. Browser path Neo; bulk X ingestion "
+    "stays CDP. Do not edit source, run tests/CodeGraph, alter schedules/pause, or publish during routine work."
 )
 MANUAL_GO_PROMPT = (
-    "SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP. Manual GO no longer invokes routine V1 production "
-    "through Codex Desktop. Use the current simple Gemini runtime or a separately scoped builder/"
-    "host-proof task. Zero public write."
+    "Use the same native request/return operation with an explicit owner-manual isolated binding. "
+    "Advance, read pending request, reason and submit, validate and inspect. No production pause release "
+    "or schedule mutation; no publication. "
 )
+
 
 
 def four_task_setup_packet() -> dict[str, Any]:
-    """Exact owner packet for the only four native Desktop HIGH Scheduled Tasks."""
+    """Prepared paused target for the same four native Desktop Sol-low tasks."""
     tasks = [
         {
             "id": EXACT_V1_AUTOMATION_IDS[0],
@@ -165,13 +185,18 @@ def four_task_setup_packet() -> dict[str, Any]:
         "policy_id": QUALITY_PROBATION_POLICY_ID,
         "project": r"A:\Capital Chronicle\ContentOps",
         "timezone": "Asia/Bangkok",
-        "model": COORDINATOR_MODEL,
-        "reasoning_effort": COORDINATOR_REASONING_EFFORT,
-        "editorial_worker_model": EDITORIAL_WORKER_MODEL,
-        "editorial_worker_reasoning_effort": EDITORIAL_WORKER_REASONING_EFFORT,
-        "editorial_worker_is_fresh_and_isolated": True,
-        "editorial_worker_only_when_article_warranted": True,
-        "tasks": tasks,
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "editorial_worker_model": "gpt-6.1-sol",
+        "editorial_worker_reasoning_effort": "low",
+        "editorial_worker_is_fresh_and_isolated": False,
+        "editorial_worker_only_when_article_warranted": False,
+        "one_coherent_desktop_turn": True,
+        "subagents_only_for_independent_need": True,
+        "target_status": "PAUSED",
+        "speed": "standard",
+        "tasks": [{**task, "status": "PAUSED", "model": "gpt-6.1-sol", "reasoning_effort": "low",
+                   "prompt": DESKTOP_TASK_PROMPT.replace("{automation_id}", task["id"])} for task in tasks],
         "routine_task_count": len(tasks),
         "build_qualified_floor": 4,
         "final_published_target_min": 5,
@@ -251,16 +276,16 @@ def persist_supported_automation_host_observation(
         "no_fifth_task_created": True,
         "all_paused": all(str(row.get("status") or "").upper() == "PAUSED" for row in safe_tasks),
         "all_model_match": all(
-            str(row.get("model") or "") == COORDINATOR_MODEL for row in safe_tasks
+            str(row.get("model") or "") == expected["model"] for row in safe_tasks
         ),
         "all_reasoning_effort_match": all(
             str(row.get("reasoning_effort") or "").upper()
-            == COORDINATOR_REASONING_EFFORT
+            == expected["reasoning_effort"].upper()
             for row in safe_tasks
         ),
         "all_prompt_match_configured_intent": all(
             str(row.get("prompt_sha256") or "")
-            == hashlib.sha256(expected["prompt"].encode("utf-8")).hexdigest()
+            == hashlib.sha256(intended_by_id[row["id"]]["prompt"].encode("utf-8")).hexdigest()
             for row in safe_tasks
         ),
         "supported_automation_operations_observed": [

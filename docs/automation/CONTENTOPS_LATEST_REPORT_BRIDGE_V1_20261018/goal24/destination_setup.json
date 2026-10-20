@@ -1,0 +1,83 @@
+{
+  "telegram": {
+    "chosen_transport": "BOT_API",
+    "configuration_present": true,
+    "validity": "NOT_VERIFIED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": false,
+    "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+  },
+  "discord": {
+    "chosen_transport": "WEBHOOK_API",
+    "configuration_present": true,
+    "validity": "NOT_VERIFIED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": false,
+    "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+  },
+  "facebook_page": {
+    "chosen_transport": "META_GRAPH_API",
+    "configuration_present": true,
+    "validity": "NOT_VERIFIED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": false,
+    "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+  },
+  "instagram_business": {
+    "chosen_transport": "META_GRAPH_API",
+    "configuration_present": true,
+    "validity": "NOT_VERIFIED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": false,
+    "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+  },
+  "threads": {
+    "chosen_transport": "THREADS_API",
+    "configuration_present": true,
+    "validity": "NOT_VERIFIED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": false,
+    "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+  },
+  "linkedin": {
+    "chosen_transport": "OFFICIAL_MEMBER_API",
+    "configuration_present": true,
+    "validity": "EXPIRED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": false,
+    "owner_action": "Cấp lại quyền LinkedIn OAuth; đăng nhập tab đơn thuần không làm mới token.",
+    "auth_expiry_at_utc": "2026-10-12T14:54:01.757677Z",
+    "encrypted_auth_store_present": true
+  },
+  "substack": {
+    "chosen_transport": "BROWSEROS_NEO_MCP",
+    "configuration_present": true,
+    "validity": "NOT_VERIFIED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": true,
+    "expected_identity": "capitalchronicle.substack.com",
+    "owner_action": "Xác minh phiên Neo đúng tài khoản; nếu thiếu, chủ tài khoản đăng nhập.",
+    "integration_state": "PREPARED_NATIVE_REQUEST_READBACK_EXECUTOR_NOT_BOUND"
+  },
+  "x": {
+    "chosen_transport": "BROWSEROS_NEO_MCP",
+    "configuration_present": true,
+    "validity": "NOT_VERIFIED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": true,
+    "expected_identity": "@Capitalnicle",
+    "owner_action": "Xác minh phiên Neo đúng tài khoản; nếu thiếu, chủ tài khoản đăng nhập.",
+    "integration_state": "PREPARED_NATIVE_REQUEST_READBACK_EXECUTOR_NOT_BOUND"
+  },
+  "youtube": {
+    "chosen_transport": "BROWSEROS_NEO_MCP",
+    "configuration_present": true,
+    "validity": "NOT_VERIFIED",
+    "identity_state": "NOT_VERIFIED",
+    "browser_login_needed": true,
+    "expected_identity": "@CapitalChronicleYouTube",
+    "owner_action": "Xác minh phiên Neo đúng tài khoản; nếu thiếu, chủ tài khoản đăng nhập.",
+    "integration_state": "PREPARED_NATIVE_REQUEST_READBACK_EXECUTOR_NOT_BOUND",
+    "api_oauth_does_not_authorize_community": true
+  }
+}

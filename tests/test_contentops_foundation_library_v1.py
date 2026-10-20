@@ -95,7 +95,7 @@ def test_existing_feed_exposes_independent_library_even_when_Main_root_is_unavai
     view = report_workspace_projection(tracker.store.list_outbox_messages())["foundation_library"]
     assert view["counts"]["independent_items"] == 14 and view["counts"]["briefs"] == 7
     assert view["input_composition"]["routine_window_count"] == 4
-    assert view["input_composition"]["owner"] == "EXISTING_SIMPLE_GEMINI_RUNTIME"
+    assert view["input_composition"]["owner"] == "NATIVE_CODEX_DESKTOP"
 
 
 def test_source_policy_tampering_does_not_inherit_rights_from_an_official_hostname(tmp_path):

@@ -1,0 +1,27 @@
+{
+  "request_sha256": "848f0023a6c267bbed795548d757e34f22c3de517fa9759d860d9c12876e04d7",
+  "output": {
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one document lens on the October 9 storage observation. It has a narrow independent EIA cross-check and a clear reader question, while the unchanged vintage and missing consensus/curve evidence prevent a fresh-news or trade framing.",
+    "ordered_candidate_plan": [
+      {
+        "research_queries": [
+          "EIA October 15 2026 working natural gas storage October 9 3567 67 Bcf"
+        ],
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-7f4604468a05ac07064346c9",
+        "selection_rationale": "A retained, dated gas balance offers a concrete reader lesson: above-average stock and below-average weekly refill can coexist. The useful angle is how to test that tension, not a recycled breaking update. Main interpretation must remain conditional; a seasonal benchmark is not pre-release consensus and no price direction is established."
+      }
+    ],
+    "status": "SELECT_CANDIDATE_PLAN",
+    "public_write_attempted": false
+  },
+  "invocation_observation": {
+    "observation_source": "native collaboration spawn_agent configured model/effort; output authored in this invocation",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "invocation_id": "/root/goal24_native_editor",
+    "speed": "standard",
+    "reasoning_effort": "low"
+  }
+}

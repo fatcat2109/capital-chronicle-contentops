@@ -166,6 +166,39 @@ def read_reviews(store):
         return [dict(r) for r in conn.execute("SELECT * FROM review_records ORDER BY rowid")]
 
 
+def record_native_article_review(store, *, run_id, article_identity, decision, rationale, expected_review_id=None):
+    """Revision-bound native result review in the existing review table; no publication grant."""
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    if decision not in {"KEEP", "REVISE", "HOLD"} or not 20 <= len(rationale.strip()) <= 3000 or _private({"rationale": rationale}):
+        raise ValueError("REASONED_KEEP_REVISE_HOLD_REQUIRED")
+    key = "cc-editorial-final-" + sha256_of(run_id)
+    with store.get_connection() as conn:
+        conn.execute("BEGIN IMMEDIATE")
+        try:
+            row = conn.execute("SELECT * FROM outbox_messages WHERE message_id=?", (key,)).fetchone()
+            value = json.loads(row["payload"]) if row else {}
+            if (value.get("model_execution_state") != "NATIVE_DESKTOP_REQUEST_RETURN"
+                    or value.get("article_identity") != article_identity or not value.get("qualified_article_count")):
+                raise ValueError("NATIVE_ARTICLE_REVISION_CONFLICT")
+            prior = conn.execute("SELECT * FROM review_records WHERE work_item_id=? AND reviewer_ref=? ORDER BY rowid DESC LIMIT 1",
+                (row["work_item_id"], "NATIVE_DESKTOP_ARTICLE_REVIEW")).fetchone()
+            if (prior["review_id"] if prior else None) != expected_review_id:
+                raise ValueError("REVIEW_VERSION_CONFLICT_REFRESH_DESK")
+            revision = sha256_of([article_identity, value["simple_result"]["publication_lifecycle_plan"]["plan_hash"],
+                                  value.get("claim_lineage"), value.get("media_assets")])
+            note = {"schema_version": "contentops.native_article_review.v1", "run_id": run_id,
+                "article_identity": article_identity, "package_revision": revision,
+                "rationale": rationale.strip(), "publication_authority": False}
+            review_id = "native-article-review-" + uuid4().hex
+            conn.execute("INSERT INTO review_records VALUES (?,?,?,?,?,?)", (review_id, row["work_item_id"],
+                "NATIVE_DESKTOP_ARTICLE_REVIEW", decision, json.dumps(note, ensure_ascii=False), datetime.now(timezone.utc).isoformat()))
+            conn.execute("COMMIT")
+        except Exception:
+            conn.execute("ROLLBACK")
+            raise
+    return {"review_id": review_id, "decision": decision, **note}
+
+
 def desk_projection(library, records):
     histories = {}
     for row in records:
@@ -195,7 +228,7 @@ def desk_projection(library, records):
         if p["review"]["state"] in {"STALE", "REVISE", "UNREVIEWED"} or not p["source_revision_current"]:
             queue.append({"brief_id": p["brief_id"], "package_revision": p["package_revision"],
                           "reason": "DEPENDENT_INPUT_CHANGED" if not p["source_revision_current"] else p["review"]["state"],
-                          "owner": "EXISTING_RESEARCH_RENDERER_THEN_SIMPLE_GEMINI_RUNTIME",
+                          "owner": "EXISTING_RESEARCH_RENDERER_THEN_NATIVE_CODEX_DESKTOP",
                           "provider_call_allowed_now": False})
     states = [p["review"]["state"] for p in library["packages"]]
     library["desk"] = {"review_endpoint": ENDPOINT, "decisions": {s: states.count(s) for s in ("KEEP", "REVISE", "HOLD", "STALE", "UNREVIEWED")},

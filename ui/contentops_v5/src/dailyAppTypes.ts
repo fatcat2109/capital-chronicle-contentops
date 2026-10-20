@@ -164,6 +164,7 @@ export interface RuntimeCockpit {
 }
 
 export interface DailyAppSnapshot {
+  editorial_execution_target?: { owner: string; model: string; reasoning_effort: string; target_status: string; deployed_state: string; public_write_authority: boolean };
   schema_version: string;
   generated_at_utc: string;
   freshness: {
@@ -352,6 +353,8 @@ export interface EvolvingStory {
 }
 
 export interface ReportWorkspaceData {
+  media_assets?: Array<{ asset_id: string; path: string; sha256: string; caption: string; alt_text?: string; preview_data_url?: string; reuse_state?: string }>;
+  native_article_reviews?: Array<{ article_identity: string; decision: string; rationale: string; package_revision: string; publication_authority: boolean }>;
   foundation_library?: {
     stories?: EvolvingStory[];
     publication_memory?: { observed_at_utc: string; article_count: number; source: string };

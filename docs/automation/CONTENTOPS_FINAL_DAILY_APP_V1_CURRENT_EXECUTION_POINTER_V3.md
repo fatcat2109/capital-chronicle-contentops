@@ -1,98 +1,37 @@
-# Capital Chronicle ContentOps — V1 Current Execution Pointer V3
+# ContentOps V1 current execution pointer
 
-Authority date: 2026-09-01
-Status: `CURRENT_V1_LANE_POINTER / V1_ACCEPTED / ACTIVATION`
+Authority date: 2026-10-20
+
+Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, using `gpt-6.1-sol / low` (Light),
+standard speed, in the native Desktop conversation or a genuinely independent native subagent.
+One coherent opportunity handles selection, reasoning, writing and at most one useful repair.
+Reuse MainReportFeed/current intake, canonical publication memory, reviewed retained research,
+evolving story/revision context, <=32 candidates, <=3 admissions and <=6 source requests.
+Existing source/claim/epistemic checks and the native eight-channel compiler remain authoritative.
+There is no Gemini/9Router, SDK/App-Server, headless or paid API model fallback.
+
+The existing four App tasks own routine scheduling; existing window/day/slot IDs, bounded
+catch-up, store/outbox/lease and sole DurablePublicationCoordinator are reused. Legacy Simple
+scheduler/start paths are non-routing in target source. Bulk X CDP ingestion remains unchanged;
+Neo is the browser path for research and prepared browser-only destination handoffs. Existing
+Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
+
+Current engineering/deployed state: **PAUSED_NOT_DEPLOYED**. Host schedules, production pause,
+store and deployed bytes were not changed by this migration. Native manual proof is isolated.
+No current configuration grants activation or public writes. Historical Simple and old Desktop
+proofs establish only their exact epochs; do not rebuild their accepted deterministic components.
+See `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the supported operation,
+exact paused rollout, truthful telemetry, remaining native browser executor boundary and activation.
 
 ## Current route
 
-Read in order:
+1. Implement and independently audit the native Desktop migration on PR90, preserving Goal20–23 evidence.
+2. Verify one isolated native Sol-low editorial flow, actual reader copy/native previews/media and replay.
+3. Preserve the exact paused four-task rollout and per-channel API/Neo setup/readback handoff.
+4. After separate audit/deployment authority, apply the one documented activation transition with pause release last.
+5. Observe natural runtime separately; 5–8/day reliability is unproven until actual reconciled output establishes it.
 
-1. `AGENTS.md`
-2. current authority map + stale manifest
-3. current North Star/Master Plan
-4. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md`
-5. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
-6. `docs/codegraph/V1_CONTEXT.md`
-7. exact code/tests/evidence for the active slice.
+No production activation, public write, pause release, self-merge or deployment is part of Goal24.
 
-## Current owner state
-
-- `V1_FINAL_PRODUCT_ACCEPTED = TRUE`.
-- Routine V1 public-write/readback authority is granted for the accepted V1 path.
-- V2 public-write authority remains zero unless separately granted.
-
-Merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records the V1 grant.
-
-Do not route from stale wording that says routine V1 public-write/readback is ungranted or V1 acceptance is pending.
-
-## Current editorial path — preserve, do not reopen
-
-Current routine owner is simple Gemini through `SIMPLE_GEMINI_RUNTIME`.
-
-`current sidecars + canonical reconciled published memory -> deterministic dedupe/sourceability order -> <=32 candidates -> one gemini-3.5-flash(high) selection -> one primary + <=2 useful fallbacks -> shared <=6 deterministic source/provenance GETs -> explicit report/event epistemic state -> one Flash writer -> deterministic material-claim/source/epistemic validation -> optional one Flash revision without source expansion -> one qualified article -> exactly eight native derivative packages`.
-
-Per-opportunity ceilings stay 32/6/3/1 with <=3 logical Flash calls and zero Codex runtime model calls.
-
-The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. An admitted candidate with no governed reachable source may still close locally as `SOURCE_DISCOVERY_REQUIRED`; that does not authorize a second selection, filler, weaker evidence, or a return to broad discovery. Final live target shorthand remains `5–8/day` useful published articles.
-
-The accepted PR #37 article, sourceability, early-attributed-intelligence, canonical-X relay/explicit-rumor provenance, exact epistemic state, and X/Threads native quality correction are `CURRENTLY_PROVEN_AND_REUSE`.
-
-Native Desktop Automations, SDK/App-Server editorial fallback, broad evidence-ready pools, and legacy rolling-X ownership remain historical/non-routing for routine V1.
-
-## Current production composition — closed, do not reopen
-
-Merged PR #38 closes current post-acceptance authority/static-safety and emergency-stop/process coverage for the Simple scheduler/runtime.
-
-Merged PR #39 closes the production owner defect. Current Final Daily App composition routes routine V1 through `SIMPLE_GEMINI_RUNTIME`; Native Desktop PREPARE/COMPLETE and legacy rolling-X remain compatibility-only/non-routing. Exact PR-head CI and the master-push CI both passed.
-
-Corrected PR #42 closes the missing actual-routine handoff. The persistent Simple scheduler/runner now delegates only a qualified zero-write Simple result through one adapter to the existing `DurablePublicationCoordinator`. Stable slot identity is the durable work-item identity; the coordinator plan is persisted or deterministically reconstructed from already-qualified artifacts; coordinator recovery runs before fresh semantic/publication work; interrupted qualified slots resume without another model/source call; unresolved recovery backlog blocks current-plan registration/republication; duplicate terminal ticks do not create another semantic/public intent.
-
-The existing coordinator remains the sole public-write/readback owner: canonical Substack `/p/...` reconciliation precedes zero-model/zero-GET exactly-eight native derivative rematerialization. The scheduler does not import or instantiate another coordinator/publisher/store/packager.
-
-This closure is deterministic repository/CI proof only. It does not prove today's host account/session/destination readiness or a new real public write.
-
-Do not issue another single-owner, emergency-stop, or Simple publication-bridge implementation task unless fresh code demonstrates an actual regression.
-
-## Current publication foundation — reuse, do not rebuild
-
-The existing `DurablePublicationCoordinator`, durable V1 store, destination registry, canonical Substack-first transports, destination-local readback/reconciliation, and `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE` are accepted reusable foundation.
-
-The historical Italy canary already proved one Substack + exactly eight derivatives across all nine surfaces with strict reconciliation and `UNKNOWN_WRITE=0`. Do not rerun Italy merely to prove transport.
-
-## Exact current product route
-
-`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`
-
-Published/reconciled accounting is implemented. Live daily-output count and bounded capacity use
-strictly reconciled canonical publications; qualified-article count remains separate telemetry.
-Reuse the existing production-day and durable publication/readback foundations; do not create a
-second ledger or publication store.
-
-## `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
-
-At every actual live-write boundary, existing owners must fail closed on production DB integrity/schema,
-unresolved UNKNOWN/ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge
-`contentops-social-main` CDP 9223, exact current destination/account identities, and destination
-readiness. A standalone read-only preflight is conditional diagnostics only when current evidence
-materially raises one of those hard boundaries. Do not inspect or expose secrets/session material.
-
-Chrome `CapitalChronicleBot` CDP 9222 remains ingestion-only.
-
-## Current product sequence
-
-1. merge/deploy/load corrected current bytes;
-2. run the already-activated four natural routine windows;
-3. observe real evidence/article/publication/readback/reconciliation failures;
-4. fix measured blockers toward 5–8 useful articles/day.
-
-A standalone preflight or one-off canary is conditional diagnostics only when fresh evidence
-materially requires an exact hard-boundary check. No fifth routine task. No filler. No blind retry
-after ambiguity.
-
-No fifth routine task. No filler. No blind retry after ambiguity.
-
-## Final live target
-
-`5–8 PUBLISHED ARTICLES per newsroom production day`
-
-Candidate-level abstention is valid. A below-target live day without an exact hard external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
+The existing owning checkpoint is `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal24/RELEASE_HANDOFF.md`.
+Historical V1 acceptance/publication-stack proofs are retained at their accepted epochs; they do not authorize this paused engineering goal to activate or publish.

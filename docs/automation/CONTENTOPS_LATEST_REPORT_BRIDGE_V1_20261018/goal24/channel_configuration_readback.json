@@ -1,0 +1,116 @@
+{
+  "observed_at_utc": "2026-10-19T20:23:12.365042+00:00",
+  "scope": "process and persistent Windows user environment; no credential values or credential store decryption",
+  "api_validity_probed": false,
+  "destinations": {
+    "telegram": {
+      "chosen_transport": "BOT_API",
+      "configuration_present": true,
+      "validity": "NOT_VERIFIED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": false,
+      "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+    },
+    "discord": {
+      "chosen_transport": "WEBHOOK_API",
+      "configuration_present": true,
+      "validity": "NOT_VERIFIED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": false,
+      "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+    },
+    "facebook_page": {
+      "chosen_transport": "META_GRAPH_API",
+      "configuration_present": true,
+      "validity": "NOT_VERIFIED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": false,
+      "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+    },
+    "instagram_business": {
+      "chosen_transport": "META_GRAPH_API",
+      "configuration_present": true,
+      "validity": "NOT_VERIFIED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": false,
+      "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+    },
+    "threads": {
+      "chosen_transport": "THREADS_API",
+      "configuration_present": true,
+      "validity": "NOT_VERIFIED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": false,
+      "owner_action": "Xác minh token và quyền bằng kiểm tra chỉ đọc khi cần dùng."
+    },
+    "linkedin": {
+      "chosen_transport": "OFFICIAL_MEMBER_API",
+      "configuration_present": true,
+      "validity": "EXPIRED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": false,
+      "owner_action": "Cấp lại quyền LinkedIn OAuth; đăng nhập tab đơn thuần không làm mới token.",
+      "auth_expiry_at_utc": "2026-10-12T14:54:01.757677Z",
+      "encrypted_auth_store_present": true
+    },
+    "substack": {
+      "chosen_transport": "BROWSEROS_NEO_MCP",
+      "configuration_present": true,
+      "validity": "NOT_VERIFIED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": true,
+      "expected_identity": "capitalchronicle.substack.com",
+      "owner_action": "Xác minh phiên Neo đúng tài khoản; nếu thiếu, chủ tài khoản đăng nhập.",
+      "integration_state": "PREPARED_NATIVE_REQUEST_READBACK_EXECUTOR_NOT_BOUND"
+    },
+    "x": {
+      "chosen_transport": "BROWSEROS_NEO_MCP",
+      "configuration_present": true,
+      "validity": "NOT_VERIFIED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": true,
+      "expected_identity": "@Capitalnicle",
+      "owner_action": "Xác minh phiên Neo đúng tài khoản; nếu thiếu, chủ tài khoản đăng nhập.",
+      "integration_state": "PREPARED_NATIVE_REQUEST_READBACK_EXECUTOR_NOT_BOUND"
+    },
+    "youtube": {
+      "chosen_transport": "BROWSEROS_NEO_MCP",
+      "configuration_present": true,
+      "validity": "NOT_VERIFIED",
+      "identity_state": "NOT_VERIFIED",
+      "browser_login_needed": true,
+      "expected_identity": "@CapitalChronicleYouTube",
+      "owner_action": "Xác minh phiên Neo đúng tài khoản; nếu thiếu, chủ tài khoản đăng nhập.",
+      "integration_state": "PREPARED_NATIVE_REQUEST_READBACK_EXECUTOR_NOT_BOUND",
+      "api_oauth_does_not_authorize_community": true
+    }
+  },
+  "browser_observations": {
+    "x": {
+      "observed_identity": "@Capitalnicle",
+      "login_needed": false,
+      "evidence": "Neo visible current AccountSwitcher and Profile link"
+    },
+    "substack": {
+      "login_needed": true,
+      "evidence": "Neo publish/home redirected to sign-in with for_pub=capitalchronicle"
+    },
+    "youtube_community": {
+      "login_needed": "select or authenticate expected brand channel",
+      "expected_identity": "@CapitalChronicleYouTube",
+      "evidence": "Neo account menu shows a personal Google account and Create a channel; brand channel not selected"
+    }
+  },
+  "additional_configuration": {
+    "youtube_video_oauth_fields_present": true,
+    "youtube_client_secrets_referenced_file_exists": false,
+    "tiktok_app_fields_present": true,
+    "tiktok_access_refresh_fields_present": false,
+    "legacy_gemini_nine_router_fields_present_but_not_used_by_native_path": true,
+    "cloudinary_cloud_key_secret_present": true,
+    "cloudinary_validity": "NOT_VERIFIED",
+    "higgsfield_api_key_present": false
+  },
+  "public_writes": 0,
+  "authentication_changes": 0
+}

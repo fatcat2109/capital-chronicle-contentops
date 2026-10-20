@@ -70,6 +70,20 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
         c["producer_layer"] + ": " + c["text"] + "\n" + str(c.get("basis_risk") or "")
         for c in admission["claims"]
     )
+    clocks = [{"field": "known_at_cutoff_utc", "value": admission["known_at_cutoff_utc"],
+               "text": "Main report known-at cutoff (not source release): " + admission["known_at_cutoff_utc"]}]
+    seen = set()
+    for claim in admission["claims"]:
+        for evidence in claim.get("evidence", []):
+            for field in ("observation_time_utc", "retrieval_time_utc", "known_at_utc"):
+                value = evidence.get(field)
+                identity = (evidence.get("evidence_id"), field, value)
+                if not value or identity in seen:
+                    continue
+                seen.add(identity)
+                clocks.append({"evidence_id": evidence.get("evidence_id"), "field": field, "value": value,
+                               "text": "Main evidence " + str(evidence.get("evidence_id")) + " " + field + ": " + value})
+    text += "\n\n" + "\n".join(c["text"] for c in clocks)
     text += "\n\n" + report_scope_notice(admission)
     url = public_locator or repository + "/blob/" + revision + "/" + path
     return {
@@ -92,6 +106,7 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
             "report_version": admission["report_version"],
             "report_sha256": admission["source_report_sha256"],
             "claims": admission["claims"],
+            "source_clock_metadata": clocks,
             "scope_notice": report_scope_notice(admission),
         },
     }
@@ -216,6 +231,10 @@ def run_report_editorial_cycle(
     retained_research=None,
 ) -> dict[str, Any]:
     """A single bounded manual opportunity; retries replay durable successful stages."""
+    if llm_invoke is None and not llm_operator_pause_active():
+        from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+        llm_invoke = NativeDesktopTurn(tracker.store, run_id=run_id or opportunity_id or receipt_id, output_dir=output_dir)
+    native = bool(getattr(llm_invoke, "native_desktop_protocol", False))
     record = next(
         (r for r in tracker.receipts() if r["receipt_id"] == receipt_id), None
     )
@@ -338,7 +357,7 @@ def run_report_editorial_cycle(
         "source_report_sha256": record.get("source_report_sha256"),
         "receipt_id": receipt_id,
         "input": prepared,
-        "model_execution_state": "INJECTED_REPLAY_ONLY"
+        "model_execution_state": "NATIVE_DESKTOP_REQUEST_RETURN" if native else "INJECTED_REPLAY_ONLY"
         if llm_invoke
         else "EXISTING_SIMPLE_PROVIDER",
         "draft_count": 0,
@@ -409,7 +428,13 @@ def run_report_editorial_cycle(
                     )
                 return [value, receipt]
 
-            return tuple(stages.call(stage, identity, invoke))
+            # A pending Desktop request is a resumable boundary. Its own durable request/
+            # response identity replaces the old opaque provider-attempt fence.
+            return invoke() if native else tuple(stages.call(stage, identity, invoke))
+
+        if native:
+            model.native_desktop_protocol = True
+            model.telemetry = llm_invoke.telemetry
 
         default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health)
         spent = sum(
@@ -442,7 +467,7 @@ def run_report_editorial_cycle(
             )
 
         simple = ContentOpsProductionOrchestrator().execute(
-            "run_v1_simple_gemini_newsroom",
+            "run_native_desktop_newsroom" if native else "run_v1_simple_gemini_newsroom",
             output_dir=root,
             cutoff_utc=cutoff_utc,
             rolling_input=args["rolling_input"],
@@ -478,7 +503,7 @@ def run_report_editorial_cycle(
                     report_id=None, report_version=None, source_report_sha256=None,
                     draft_count=1, qualified_article_count=1, preview_count=8, compiled_derivative_count=8,
                     article=article, article_identity=simple["article_identity"],
-                    replay_writer_used=llm_invoke is not None, writer_invoked=llm_invoke is None,
+                    replay_writer_used=llm_invoke is not None and not native, writer_invoked=llm_invoke is None or native,
                     evidence=evidence_walk["selected_source_pack"],
                     previews=[{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([simple["article_identity"], k, v]),
                                "article_identity": simple["article_identity"], "claim_lineage": validation.get("supported_material_claims") or []}
@@ -518,8 +543,8 @@ def run_report_editorial_cycle(
                     qualified_article_count=1,
                     preview_count=8,
                     compiled_derivative_count=8,
-                    writer_invoked=llm_invoke is None,
-                    replay_writer_used=llm_invoke is not None,
+                    writer_invoked=llm_invoke is None or native,
+                    replay_writer_used=llm_invoke is not None and not native,
                     article=article,
                     previews=[
                         {
@@ -540,6 +565,28 @@ def run_report_editorial_cycle(
                     canonical_url_state="UNBOUND_PREVIEW_ONLY",
                     affected_prior_inputs=record.get("affected_prior_inputs", []),
                 )
+        if native:
+            result["editorial_execution"] = llm_invoke.telemetry()
+            result["semantic_response_count"] = simple.get("semantic_response_count", 0)
+            result.pop("logical_model_invocation_count", None)
+            if result.get("qualified_article_count"):
+                from live_contentops.contentops_editorial_desk_v1 import read_reviews
+                desk = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+                brief_ids = {s["brief_id"] for s in simple.get("selected_candidate", {}).get("evolving_story_context", [])}
+                reused = []
+                for package in (desk or {}).get("packages", []):
+                    if (package["brief_id"] not in brief_ids or not package.get("source_revision_current")
+                            or package.get("review", {}).get("state") != "KEEP"):
+                        continue
+                    for asset in package.get("media_assets", []):
+                        path = Path(asset.get("path", ""))
+                        if (path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == asset.get("sha256")
+                                and asset.get("underlying_source_rights_status") == "public_domain"):
+                            reused.append({**asset, "reuse_state": "EXACT_BYTES_REUSED_NO_RENDER",
+                                "supports_headline": False, "role": "DATED_SOURCE_CONTEXT",
+                                "relevance_rationale": "Historical source context; Main report claims retain their separate provenance."})
+                result["media_assets"] = reused[:1]
+                result["media_reuse_count"] = len(result["media_assets"])
         stages.put(final_id, result, SIMPLE_RESULT)
         return result
     except (LatestReportConsumerError, LLMOperatorPausedError) as exc:
@@ -660,8 +707,14 @@ def report_workspace_projection(
     if latest and feed:
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
         lag = max(0, int((_time(feed["observed_at_utc"]) - _time(latest["known_at_cutoff_utc"])).total_seconds()))
+    native_reviews = []
+    for review in review_records:
+        if review.get("reviewer_ref") == "NATIVE_DESKTOP_ARTICLE_REVIEW":
+            note = json.loads(review["notes"])
+            native_reviews.append({**note, "decision": review["decision"], "review_id": review["review_id"]})
     return {
         "schema_version": SCHEMA,
+        "native_article_reviews": native_reviews,
         "state": "AVAILABLE" if latest else "UNAVAILABLE",
         "foundation_library": library_projection(rows, review_records) if report_id is None else None,
         "report_events_received": len(admissions),
@@ -687,10 +740,11 @@ def report_workspace_projection(
                                 for r in results if r.get("classification") == "INDEPENDENT_NEWS_DRAFT"][-16:],
         "conversion": {"independent_drafts": sum(r.get("classification") == "INDEPENDENT_NEWS_DRAFT" for r in results),
                        "main_drafts": sum(r.get("classification") == "DRAFT_READY" for r in results),
+                       "native_desktop_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "NATIVE_DESKTOP_REQUEST_RETURN"),
                        "fresh_provider_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"),
                        "controlled_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "INJECTED_REPLAY_ONLY")},
         "next_operation": ("Main must supply or restore the exact public parent " + str(parent_gaps[0].get("required_parent_report_sha256") or "identified by the manifest") + "; replay manifest admission without a model call. Independent news remains available.")
-                          if parent_gaps else "Resume the existing Simple route only after actual pause release; consume the configured public export manifest at the next existing window.",
+                          if parent_gaps else "Use the prepared native Desktop operation; production remains paused until the audited four-task transition.",
         "workspaces": [report_workspace_projection(rows, key) for key in sorted(ids)]
         if report_id is None and len(ids) > 1
         else [],
@@ -698,6 +752,7 @@ def report_workspace_projection(
         "latest_simple_result": result,
         "latest_attempt": latest_attempt,
         "article": None if latest and latest.get("withdrawal_only") else (result or {}).get("article"),
+        "media_assets": [] if latest and latest.get("withdrawal_only") else (result or {}).get("media_assets", []),
         "previews": [] if latest and latest.get("withdrawal_only") else (result or {}).get("previews", []),
         "named_blocker": (latest_attempt or {}).get("exact_next_blocker")
         or (parent_gaps[0]["state"] if parent_gaps else None)

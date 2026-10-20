@@ -1214,7 +1214,7 @@ def build_report_editorial_input(
         request_id="cc-report-" + admission["envelope_sha256"],
         idempotency_key=admission["envelope_sha256"],
         trigger_kind="SCHEDULED_LATEST_INTELLIGENCE",
-        requester="SIMPLE_GEMINI_RUNTIME",
+        requester="NATIVE_CODEX_DESKTOP",
         target_assets=admission["asset_ids"],
         decision_purpose="Explain the admitted report change, its evidence and limits.",
         requested_at_utc=cutoff_utc,
@@ -1415,7 +1415,7 @@ def resolve_report_research_gaps(
         request_id=request_id,
         idempotency_key=request_id,
         trigger_kind="SCHEDULED_LATEST_INTELLIGENCE",
-        requester="SIMPLE_GEMINI_RUNTIME",
+        requester="NATIVE_CODEX_DESKTOP",
         decision_purpose="Resolve named report evidence gaps without editing Main truth.",
         requested_at_utc=cutoff_utc,
     )

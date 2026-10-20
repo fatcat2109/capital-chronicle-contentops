@@ -170,11 +170,11 @@ def test_run_now_is_passive_and_does_not_probe_reauth_or_bypass_cadence(tmp_path
     )
     control = ContentOpsDurableStore(store_path, auto_migrate=False).get_operating_control()
     result = request_operator_cycle(store_path, expected_state_version=int(control["state_version"]))
-    assert result["status"] == "OPERATOR_TRIGGER_ACCEPTED"
-    assert result["governed_cycle_requested"] is True
+    assert result["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
+    assert result["governed_cycle_requested"] is False
     assert result["publication_claimed"] is False
     assert result["ingestion_browser_interaction_performed"] is False
-    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is not None
+    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is None
 
 
 def test_run_now_accepts_durable_cycle_without_active_ingestion_session_probe(tmp_path, monkeypatch):
@@ -190,9 +190,9 @@ def test_run_now_accepts_durable_cycle_without_active_ingestion_session_probe(tm
     )
     control = ContentOpsDurableStore(store_path, auto_migrate=False).get_operating_control()
     result = request_operator_cycle(store_path, expected_state_version=int(control["state_version"]))
-    assert result["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert result["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
     assert result["ingestion_browser_interaction_performed"] is False
-    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is not None
+    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is None
 
 
 def test_run_now_accepts_ready_ingestion(tmp_path, monkeypatch):
@@ -208,9 +208,9 @@ def test_run_now_accepts_ready_ingestion(tmp_path, monkeypatch):
     )
     control = ContentOpsDurableStore(store_path, auto_migrate=False).get_operating_control()
     result = request_operator_cycle(store_path, expected_state_version=int(control["state_version"]))
-    assert result["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert result["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
     pending = ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger()
-    assert pending is not None and pending["trigger_kind"] == "OPERATOR_REQUESTED"
+    assert pending is None
 
 
 def test_historical_run_pipeline_remains_quarantined():

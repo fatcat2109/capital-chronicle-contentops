@@ -9,10 +9,10 @@ from typing import Any, Mapping, Optional
 
 from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
 from live_contentops.daily_app_supervisor_v1 import (
-    SIMPLE_GEMINI_RUNTIME,
+    SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP,
 )
 from live_contentops.eight_platform_substack_first_pipeline_v1 import (
-    run_v1_simple_gemini_newsroom,
+    run_native_desktop_newsroom,
 )
 from live_contentops.browser_interaction_budget_v1 import (
     configure_browser_interaction_telemetry,
@@ -28,9 +28,6 @@ from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrche
 from live_contentops.publication_coordinator_v1 import (
     CanonicalDestinationTransportRuntimeV1,
     DurablePublicationCoordinator,
-)
-from live_contentops.daily_app_performance_v1 import (
-    classify_interactions_with_nine_router,
 )
 from live_contentops.server import make_handler
 
@@ -67,11 +64,11 @@ class FinalDailyAppProductionRuntime:
         self, *, automation_id: str, now: Any = None
     ) -> dict[str, Any]:
         """Compatibility-only seam; Native Desktop is non-routing in current production."""
-        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+        if self.supervisor.routine_editorial_owner in {SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP}:
             return {
                 "executed": False,
                 "reason": "native_desktop_non_routing_current_composition",
-                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "routine_editorial_owner": self.supervisor.routine_editorial_owner,
                 "public_write_performed": False,
                 "unknown_write_detected": False,
             }
@@ -84,11 +81,11 @@ class FinalDailyAppProductionRuntime:
         self, *, automation_id: str, now: Any = None
     ) -> dict[str, Any]:
         """Compatibility-only PREPARE seam; blocked for the current Simple owner."""
-        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+        if self.supervisor.routine_editorial_owner in {SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP}:
             return {
                 "executed": False,
                 "reason": "native_desktop_non_routing_current_composition",
-                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "routine_editorial_owner": self.supervisor.routine_editorial_owner,
                 "public_write_performed": False,
                 "unknown_write_detected": False,
             }
@@ -107,11 +104,11 @@ class FinalDailyAppProductionRuntime:
         now: Any = None,
     ) -> dict[str, Any]:
         """Compatibility-only COMPLETE seam; blocked for the current Simple owner."""
-        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+        if self.supervisor.routine_editorial_owner in {SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP}:
             return {
                 "executed": False,
                 "reason": "native_desktop_non_routing_current_composition",
-                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "routine_editorial_owner": self.supervisor.routine_editorial_owner,
                 "public_write_performed": False,
                 "unknown_write_detected": False,
             }
@@ -138,7 +135,7 @@ class FinalDailyAppProductionRuntime:
             "learning_enabled": self.supervisor._performance_learning_enabled,
             **composition,
             "scheduled_editorial_owner": self.supervisor._scheduled_editorial_owner,
-            "routine_scheduler": "SIMPLE_GEMINI_LOCAL_SCHEDULER",
+            "routine_scheduler": "CODEX_DESKTOP_FOUR_NATIVE_AUTOMATIONS",
             "next_wake_utc": self.supervisor._next_wake(self.supervisor._clock()).isoformat().replace("+00:00", "Z"),
             "public_write_performed": False,
         }
@@ -196,10 +193,10 @@ def build_final_daily_app_production_runtime(
         publication_coordinator=coordinator,
         enable_performance_observation=True,
         performance_collector=coordinator.collect_metrics,
-        interaction_classifier=classify_interactions_with_nine_router,
+        interaction_classifier=None,  # Native review owns semantic returns; no background 9Router fallback.
         performance_learning_enabled=True,
-        newsroom_cycle=run_v1_simple_gemini_newsroom,
-        scheduled_editorial_owner=SIMPLE_GEMINI_RUNTIME,
+        newsroom_cycle=run_native_desktop_newsroom,
+        scheduled_editorial_owner=NATIVE_CODEX_DESKTOP,
     )
     return FinalDailyAppProductionRuntime(
         store=store, orchestrator=orchestrator, readiness_manager=readiness,

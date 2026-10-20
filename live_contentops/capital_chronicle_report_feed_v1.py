@@ -482,7 +482,7 @@ class MainReportFeed:
                 and v.get("classification") == "DRAFT_READY"
                 and (
                     include_controlled
-                    or v.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"
+                    or v.get("model_execution_state") in {"EXISTING_SIMPLE_PROVIDER", "NATIVE_DESKTOP_REQUEST_RETURN"}
                 )
                 for v in results
             )
@@ -630,11 +630,12 @@ class MainReportFeed:
             ],
             "classification": result["classification"],
             "exact_next_blocker": result.get("exact_next_blocker"),
-            "fresh_model_calls": 0
+            "fresh_model_calls": None if getattr(llm_invoke, "native_desktop_protocol", False) else 0
             if llm_invoke
             or result.get("model_execution_state") == "PAUSED_BEFORE_PROVIDER_CALL"
             else result.get("logical_model_invocation_count", 0),
             "feed_scan_new_events": scan["new_events"],
+            "editorial_execution": result.get("editorial_execution"),
             "public_write_performed": False,
         }
         _persist(

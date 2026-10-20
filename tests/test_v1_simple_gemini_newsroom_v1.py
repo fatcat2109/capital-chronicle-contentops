@@ -1108,9 +1108,9 @@ def test_blocked_selection_persists_safe_per_attempt_diagnostics(tmp_path: Path)
     assert "raw_output" not in text
 
 
-def test_module_has_no_codex_runtime_dependency():
+def test_reused_deterministic_module_has_no_sdk_or_app_server_dependency():
     path = Path(__file__).parents[1] / "live_contentops" / "v1_simple_gemini_newsroom_v1.py"
     text = path.read_text(encoding="utf-8").casefold()
     assert "official_codex" not in text
-    assert "codex_desktop" not in text
+    assert "native_desktop_editorial_v1" in text
     assert "officialcodexeditorialsession" not in text

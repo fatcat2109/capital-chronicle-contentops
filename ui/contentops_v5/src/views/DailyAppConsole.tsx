@@ -213,6 +213,16 @@ function automationSchedule(value: unknown, timezone: unknown): string {
   return hour ? `${dayLabel} · ${hour.padStart(2, '0')}:${minute.padStart(2, '0')} · ${String(timezone ?? 'Asia/Bangkok')}` : dayLabel;
 }
 
+function ChannelSetup({ setup }: { setup: unknown }) {
+  if (!setup || typeof setup !== 'object') return null;
+  const state = setup as Record<string, unknown>;
+  return <div className="daily-callout">
+    <p>{state.browser_login_needed ? 'Browser account required' : 'API / bot connection; browser login not required'}</p>
+    <p>{state.configuration_present ? 'Configuration present' : 'Configuration missing'} · {words(state.validity)}</p>
+    <p>{String(state.owner_action ?? '')}</p>
+  </div>;
+}
+
 function RunEditorialNow({ data, refresh }: { data: DailyAppSnapshot; refresh: () => Promise<void> }) {
   const [phase, setPhase] = useState<'idle' | 'submitting'>('idle');
   const [message, setMessage] = useState<string | null>(null);
@@ -251,7 +261,11 @@ function RunEditorialNow({ data, refresh }: { data: DailyAppSnapshot; refresh: (
       setPhase('idle');
     }
   };
-  return <Panel title="Run editorial cycle now" eyebrow="Operator trigger">
+  if (data.editorial_execution_target?.owner === 'NATIVE_CODEX_DESKTOP') return <Panel title="Native editorial operation" eyebrow="Codex Desktop">
+    <p className="daily-callout">{data.controls.run_now_mode_consequence}</p>
+    <p>Continue in the ContentOps Codex conversation using its saved operation binding. This page does not start a model or change the paused schedules.</p>
+  </Panel>;
+  return <Panel title="Run editorial cycle now" eyebrow="Historical operator trigger">
     <p className="daily-callout">{data.controls.run_now_mode_consequence ?? 'Mode consequence unavailable'}</p>
     <button type="button" className="daily-run-now-button" disabled={disabled} onClick={() => void request()}>{label}</button>
     {message && <p role="status" className="daily-control-message">{message}</p>}
@@ -558,7 +572,7 @@ function Learning({ data }: { data: DailyAppSnapshot }) {
 
 function Platforms({ data }: { data: DailyAppSnapshot }) {
   return <div className="daily-view"><ViewTitle title="Platforms" detail="Canonical readiness, verified safe identity, readback, and metrics availability by destination." />
-    <div className="daily-platform-grid">{data.platforms.destinations.map(item => <article className="daily-platform" key={String(item.platform_id)}><div><strong>{String(item.display_name)}</strong><small>{words(item.binding_class)}</small></div><Status value={item.readiness} /><DefinitionRows object={{ safe_identity: item.safe_identity, identity_match: item.identity_match, authenticated: item.authenticated, auth_expiry_at_utc: item.auth_expiry_at_utc, auth_days_remaining: item.auth_days_remaining, transport_type: item.transport_type, readback_capability: item.readback_capability, probed_at_utc: item.probed_at_utc, last_dispatch_state: item.last_dispatch_state, last_successful_readback_at_utc: item.last_successful_readback_at_utc, collector_capability: item.collector_capability, observation_history_count: item.observation_history_count, interaction_capability: item.interaction_capability, search_capability: item.search_capability, next_observation_at_utc: item.next_observation_at_utc, next_metric_availability: item.next_metric_availability, pending_incident: item.pending_incident }} /></article>)}</div>
+    <div className="daily-platform-grid">{data.platforms.destinations.map(item => <article className="daily-platform" key={String(item.platform_id)}><div><strong>{String(item.display_name)}</strong><small>{words(item.binding_class)}</small></div><Status value={item.readiness} /><ChannelSetup setup={item.setup} /><DefinitionRows object={{ safe_identity: item.safe_identity, identity_match: item.identity_match, authenticated: item.authenticated, auth_expiry_at_utc: item.auth_expiry_at_utc, auth_days_remaining: item.auth_days_remaining, transport_type: item.transport_type, readback_capability: item.readback_capability, probed_at_utc: item.probed_at_utc, last_dispatch_state: item.last_dispatch_state, last_successful_readback_at_utc: item.last_successful_readback_at_utc, collector_capability: item.collector_capability, observation_history_count: item.observation_history_count, interaction_capability: item.interaction_capability, search_capability: item.search_capability, next_observation_at_utc: item.next_observation_at_utc, next_metric_availability: item.next_metric_availability, pending_incident: item.pending_incident }} /></article>)}</div>
   </div>;
 }
 

@@ -1,0 +1,60 @@
+{
+  "result": {
+    "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+    "qualified_article_count": 1,
+    "derivative_intent_count": 8,
+    "exact_next_blocker": null,
+    "article_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal24-native-desktop-proof\\opportunity-v4\\article_manifest_v1.json",
+    "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal24-native-desktop-proof\\opportunity-v4\\native_derivative_previews_v1.json",
+    "publication_handoff_state": "REVIEW_REQUIRED_NO_DISPATCH",
+    "editorial_execution": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 1,
+      "observations": [
+        {
+          "invocation_id": "/root/goal24_native_editor:followup-v4",
+          "model": "gpt-6.1-sol",
+          "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+          "reasoning_effort": "low",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal24_native_editor:followup-v4",
+          "model": "gpt-6.1-sol",
+          "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+          "reasoning_effort": "low",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal24_native_editor:followup-v4",
+          "model": "gpt-6.1-sol",
+          "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+          "reasoning_effort": "low",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "semantic_response_count": 3,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    }
+  },
+  "store_counts": {
+    "native_responses": 3,
+    "final_results": 1,
+    "dispatches": 0
+  }
+}

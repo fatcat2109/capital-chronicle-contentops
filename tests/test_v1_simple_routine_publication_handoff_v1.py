@@ -399,7 +399,7 @@ def test_handoff_reconstructs_same_plan_and_creates_deterministic_work_item_befo
     assert coordinator.calls[0][1]["plan_hash"] == expected_plan["plan_hash"]
 
 
-def test_runner_injects_canonical_handoff_into_actual_scheduler(monkeypatch, tmp_path, capsys):
+def test_legacy_runner_cannot_construct_scheduler_or_publication_handoff(monkeypatch, tmp_path, capsys):
     sentinel = object()
     captured: dict[str, object] = {}
 
@@ -433,7 +433,6 @@ def test_runner_injects_canonical_handoff_into_actual_scheduler(monkeypatch, tmp
             "2026-08-30T04:30:00Z",
         ]
     )
-    assert rc == 0
-    assert captured["publication_handoff"] is sentinel
-    assert captured["store_path"] == str(tmp_path / "store.sqlite3")
-    assert "CONTROLLED" in capsys.readouterr().out
+    assert rc == 2
+    assert captured == {}
+    assert "NON_ROUTING_LEGACY_SCHEDULER" in capsys.readouterr().out

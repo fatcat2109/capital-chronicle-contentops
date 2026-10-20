@@ -519,7 +519,7 @@ def build_native_derivative_payloads(
     media_ids = [str(value) for value in media_asset_ids if str(value)]
     text_only_package = not media_ids
     scope_notice = str(article.get("editorial_scope_notice") or "")
-    if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package:
+    if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package or article.get("native_brief_layout") is True:
         def native_brief_text(*parts: str, limit: int, platform: str) -> str:
             text = "\n\n".join(part for part in (*parts, scope_notice) if part)
             if len(text) > limit:
@@ -8734,6 +8734,11 @@ def _build_native_derivative_payloads_impl(**kwargs: Any) -> Any:
     return build_native_derivative_payloads(**kwargs)
 
 
+def _run_native_desktop_newsroom_impl(**kwargs: Any) -> Any:
+    from live_contentops.native_desktop_editorial_v1 import run_native_desktop_newsroom
+    return run_native_desktop_newsroom(**kwargs)
+
+
 _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "prepare_text_image_release_candidate": _prepare_text_image_release_candidate,
     "prepare_generic_text_image_release_candidate": _prepare_generic_text_image_release_candidate,
@@ -8741,6 +8746,7 @@ _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "run_eight_platform_substack_first_pipeline": _run_eight_platform_substack_first_pipeline,
     "run_rolling_x_newsroom_cycle": _run_rolling_x_newsroom_cycle,
     "run_v1_simple_gemini_newsroom": _run_v1_simple_gemini_newsroom_impl,
+    "run_native_desktop_newsroom": _run_native_desktop_newsroom_impl,
     "build_native_derivative_payloads": _build_native_derivative_payloads_impl,
     "reconcile_public_substack_for_derivative_resume": _reconcile_public_substack_for_derivative_resume,
     "resume_eight_platform_derivatives": _resume_eight_platform_derivatives,

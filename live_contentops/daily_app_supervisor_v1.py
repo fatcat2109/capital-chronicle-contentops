@@ -50,12 +50,14 @@ OPERATING_MODES = frozenset(
 SCHEDULED_EDITORIAL_OWNER_FDA_G = "FDA_G_SUPERVISOR"
 SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP = "NATIVE_DESKTOP_AUTOMATION"
 SIMPLE_GEMINI_RUNTIME = "SIMPLE_GEMINI_RUNTIME"
+NATIVE_CODEX_DESKTOP = "NATIVE_CODEX_DESKTOP"
 # Public name for the current routine owner.  The older owner constants remain available only
 # for historical compatibility tests and explicit non-routing handoff APIs.
-ROUTINE_EDITORIAL_OWNER = SIMPLE_GEMINI_RUNTIME
+ROUTINE_EDITORIAL_OWNER = NATIVE_CODEX_DESKTOP
 SCHEDULED_EDITORIAL_OWNERS = frozenset(
     {
         SIMPLE_GEMINI_RUNTIME,
+        NATIVE_CODEX_DESKTOP,
         SCHEDULED_EDITORIAL_OWNER_FDA_G,
         SCHEDULED_EDITORIAL_OWNER_NATIVE_DESKTOP,
     }
@@ -460,7 +462,7 @@ class ContentOpsDailyAppSupervisor:
         interaction_classifier: Optional[Callable[..., Mapping[str, Any]]] = None,
         performance_learning_enabled: bool = False,
         intake_housekeeping: Optional[Callable[..., Mapping[str, Any]]] = None,
-        scheduled_editorial_owner: str = SIMPLE_GEMINI_RUNTIME,
+        scheduled_editorial_owner: str = ROUTINE_EDITORIAL_OWNER,
     ) -> None:
         requested_mode = operating_mode or "AUTONOMOUS_DEFAULT"
         if requested_mode not in OPERATING_MODES:
@@ -512,7 +514,7 @@ class ContentOpsDailyAppSupervisor:
             # rolling-X facade remains importable only for historical callers and is never the
             # default production route.
             from live_contentops.eight_platform_substack_first_pipeline_v1 import (
-                run_v1_simple_gemini_newsroom as canonical_cycle,
+                run_native_desktop_newsroom as canonical_cycle,
             )
 
             newsroom_cycle = canonical_cycle
@@ -544,7 +546,7 @@ class ContentOpsDailyAppSupervisor:
 
     def routine_editorial_composition(self) -> dict[str, Any]:
         """Return deterministic current-owner composition metadata (no model/provider work)."""
-        current = self._scheduled_editorial_owner == SIMPLE_GEMINI_RUNTIME
+        current = self._scheduled_editorial_owner in {SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP}
         return {
             "exactly_one_routine_editorial_owner": current,
             "routine_editorial_owner": self._scheduled_editorial_owner,
@@ -2657,6 +2659,8 @@ class ContentOpsDailyAppSupervisor:
     def _due_windows(
         self, now: datetime, materiality_metadata: Optional[Mapping[str, Any]]
     ) -> list[dict[str, Any]]:
+        if self._scheduled_editorial_owner == NATIVE_CODEX_DESKTOP:
+            return []  # Native App schedules invoke the explicit request/return operation.
         # The persistent Simple scheduler owns all current routine opportunity ticks.  The Daily
         # App supervisor remains the intake/readback/UI authority but must not execute a second
         # routine scheduler (or accidentally fall through to the legacy rolling-X cycle).
@@ -3300,6 +3304,10 @@ class ContentOpsDailyAppSupervisor:
         )
 
         window_id = window["window_id"]
+        if self._scheduled_editorial_owner == NATIVE_CODEX_DESKTOP:
+            return {"executed": False, "reason": "native_desktop_conversation_required",
+                    "routine_editorial_owner": NATIVE_CODEX_DESKTOP,
+                    "public_write_performed": False, "unknown_write_detected": False}
         if self._simple_runtime_is_current_cycle():
             return {
                 "executed": False,
