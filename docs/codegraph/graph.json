@@ -88801,7 +88801,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-21T17:48:09Z",
+  "generation_timestamp_utc": "2026-10-21T21:44:05Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -89054,7 +89054,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 19318
+      "size_bytes": 20723
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
@@ -89064,7 +89064,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 8017
+      "size_bytes": 9422
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -89084,7 +89084,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 9878
+      "size_bytes": 11283
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -89841,7 +89841,7 @@
     {
       "id": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "kind": "python_module",
-      "size_bytes": 52550
+      "size_bytes": 52785
     },
     {
       "id": "live_contentops/capital_chronicle_report_feed_v1.py",
@@ -90046,7 +90046,7 @@
     {
       "id": "live_contentops/contentops_source_research_v1.py",
       "kind": "python_module",
-      "size_bytes": 20055
+      "size_bytes": 27513
     },
     {
       "id": "live_contentops/continuous_headline_ingest_v1.py",
@@ -92771,7 +92771,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 132773
+      "size_bytes": 133572
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -97266,7 +97266,7 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_report_editorial_workspace_v1.py::report_workspace_projection",
       "kind": "python_function",
-      "line": 695,
+      "line": 698,
       "path": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "symbol": "report_workspace_projection"
     },
@@ -99548,7 +99548,7 @@
     {
       "id": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch",
       "kind": "python_class",
-      "line": 100,
+      "line": 101,
       "path": "live_contentops/contentops_source_research_v1.py",
       "symbol": "RetainedSourceResearch"
     },
@@ -126295,14 +126295,14 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::native_source_date_notice",
       "kind": "python_function",
-      "line": 1636,
+      "line": 1646,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "native_source_date_notice"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1983,
+      "line": 1993,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -131565,7 +131565,7 @@
     {
       "id": "tests/test_contentops_source_research_v1.py",
       "kind": "test",
-      "size_bytes": 11061
+      "size_bytes": 16235
     },
     {
       "id": "tests/test_contracts.py",
@@ -137802,7 +137802,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx::ReportEditorialWorkspace",
       "kind": "typescript_export",
-      "line": 39,
+      "line": 43,
       "path": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "symbol": "ReportEditorialWorkspace"
     },
@@ -138653,7 +138653,7 @@
     {
       "id": "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx",
       "kind": "test",
-      "size_bytes": 15538
+      "size_bytes": 15905
     },
     {
       "id": "ui/contentops_v5/src/test/research_package_decision.test.tsx",
@@ -138828,7 +138828,7 @@
     {
       "id": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 33412
+      "size_bytes": 33685
     },
     {
       "id": "ui/contentops_v5/src/views/ResearchPackageDecision.tsx",
@@ -139179,6 +139179,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "b02caf2d32279dfb74f2411347e53986faadd696",
-  "source_tree_digest": "aee0c4ba9d9392257a511c660df93a0e9cbcfcf0d9c4bdfdbb7ba50adb9d96b8"
+  "source_head": "87c23fda0486811333c0091147dff87aec2d6d3c",
+  "source_tree_digest": "61bd3b8465a2b3dc291d3f7eebc5391015e6248999e0892006c93bea04520602"
 }
