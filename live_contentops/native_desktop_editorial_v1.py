@@ -19,10 +19,11 @@ MODEL = "gpt-6.1-sol"
 EFFORT = "low"
 DESTINATION = "internal:native-desktop-editorial"
 SCHEMA = "contentops.native_desktop_editorial.v1"
-STAGES = ("select", "write", "revise")
+STAGES = ("select", "write", "revise", "feedback")
 ROLE_ASSIGNMENTS = {
     "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
     "select": {"model": MODEL, "reasoning_effort": "low"},
+    "feedback": {"model": MODEL, "reasoning_effort": "low"},
     "write": {"model": MODEL, "reasoning_effort": "max"},
     "revise": {"model": MODEL, "reasoning_effort": "max"},
 }
@@ -176,6 +177,10 @@ class NativeDesktopTurn:
             expected = {r["input_sha256"]: r["original_record"]["headline_id"]
                         for r in request["governed_input"]["records"]}
             ok, _, _, reason = _validate(json.dumps(response["output"]), expected)
+        elif role == "feedback":
+            from live_contentops.native_newsroom_learning_v1 import validate_feedback_output
+            ok = validate_feedback_output(response["output"], request["governed_input"]["records"])
+            reason = "bounded_feedback_categories_invalid"
         elif role == "select":
             from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_selection_text
             governed = request["governed_input"]

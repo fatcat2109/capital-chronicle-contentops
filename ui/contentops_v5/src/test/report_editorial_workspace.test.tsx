@@ -17,6 +17,22 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('keeps dated audience HOLD separate from research questions and frozen opportunities', () => {
+    const snapshot = data();
+    snapshot.audience_learning = {
+      current: { policy: { policy_version: 'control-policy', decision: 'HOLD_NO_POLICY_CHANGE', sample_count: 2, confidence: 0.25 },
+        feedback: [{ observation_id: 'obs', collected_at_utc: '2026-10-21', scheduled_for_utc: '2026-09-08', semantic_state: 'NO_OBSERVED_PUBLIC_QUESTIONS' }], metrics_model_calls: 0 },
+      opportunities: [{ run_id: 'control-run', snapshot_sha256: 'hash', policy: { policy_version: 'old-policy' }, feedback_count: 1, next_operation: 'Resume the same frozen request.' }],
+      follow_up_briefs: [{ feedback_effect: 'No audience demand inferred.', ranked_questions: [{ rank: 1, candidate_id: 'q', question: 'What did the new release change?',
+        action: 'Reuse the retained article until evidence changes.', missing_evidence: ['New primary release'], exact_article_match: { run_id: 'old', article_identity: 'article-old' } }], next_operation: 'Compare one source edition.' }] };
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const panel = within(screen.getByRole('region', { name: 'Audience learning' }));
+    expect(panel.getByText(/HOLD NO POLICY CHANGE/)).toBeInTheDocument();
+    expect(panel.getByText(/a later read does not reconstruct/)).toHaveTextContent('2026-09-08');
+    expect(panel.getByRole('link', { name: 'Retained article' })).toHaveAttribute('href', '#article-article-old');
+    expect(panel.getByText('No audience demand inferred.')).toBeInTheDocument();
+    expect(panel.getByText(/control-run/)).toHaveTextContent('old-policy');
+  });
   it('shows actual continuation states and destination-local blockers without claiming login', () => {
     const snapshot = data();
     snapshot.native_edition = [{ run_id: 'same-run', article_identity: 'same-article',

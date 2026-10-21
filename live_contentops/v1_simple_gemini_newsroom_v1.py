@@ -420,6 +420,7 @@ def _candidate_packet_and_preselection(
     *,
     source_route_health: Mapping[str, Any] | None = None,
     attempted_candidate_ids: Sequence[str] = (),
+    learning_policy: Mapping[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     attempted = {str(value) for value in attempted_candidate_ids if str(value)}
     unfiltered_universe = _candidate_universe(rolling_input, published_memory)
@@ -436,6 +437,7 @@ def _candidate_packet_and_preselection(
         universe,
         max_candidates=MAX_SELECTION_CANDIDATES,
         source_route_health=source_route_health,
+        learning_policy=learning_policy,
     )
     candidates = [
         _selection_candidate(row)
@@ -1832,6 +1834,8 @@ def _build_simple_publication_lifecycle_plan(
     )
     context = {
         "schema_version": "contentops.simple_durable_run_context.v1",
+        **({"audience_learning_binding": article["audience_learning_binding"]}
+            if article.get("audience_learning_binding") else {}),
         "run_id": run_id,
         "selection": dict(selected_candidate),
         "article": compiler_article,
@@ -1973,6 +1977,7 @@ def run_v1_simple_gemini_newsroom(
 ) -> dict[str, Any]:
     """Run one zero-write V1 opportunity through one bounded Simple-Gemini plan."""
     native = getattr(llm_invoke, "native_desktop_protocol", False)
+    audience_learning = getattr(llm_invoke, "audience_learning", None) if native else None
 
     def persist(path, value):
         if native:
@@ -1998,6 +2003,7 @@ def run_v1_simple_gemini_newsroom(
         published_memory,
         source_route_health=source_route_health,
         attempted_candidate_ids=attempted_candidate_ids,
+        learning_policy=(audience_learning or {}).get("policy"),
     )
     sourceability_path = root / "simple_sourceability_preselection_v1.json"
     frozen_request = getattr(llm_invoke, "frozen_request", lambda _stage: None)("select") if native else None
@@ -2074,6 +2080,7 @@ def run_v1_simple_gemini_newsroom(
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_mode_guide": _institutional_edge_mode_guide(),
         "native_role_plan_required": native,
+        **({"audience_learning": audience_learning} if audience_learning else {}),
         **({"owner_editorial_request": capital_chronicle_context["owner_editorial_request"]}
            if native and (capital_chronicle_context or {}).get("owner_editorial_request") else {}),
     }
@@ -2406,6 +2413,7 @@ def run_v1_simple_gemini_newsroom(
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_editorial_packet": editorial_packet,
         "source_marker_contract": "every non-heading body paragraph uses [[SOURCE:SOURCE_N]]",
+        **({"audience_learning": audience_learning} if audience_learning else {}),
     }
     frozen_writer = getattr(llm_invoke, "frozen_request", lambda _stage: None)("write") if native else None
     if frozen_writer:
@@ -2567,6 +2575,12 @@ def run_v1_simple_gemini_newsroom(
     if len(prior_chain) > 1:
         raise ValueError("CONFLICTING_NATIVE_PRIOR_STORY_IDENTITIES")
     update_chain = next(iter(prior_chain)) if prior_chain else selected.get("update_chain_identity") or selected["story_identity"]
+    if audience_learning:
+        article["audience_learning_binding"] = {
+            "snapshot_sha256": audience_learning["snapshot_sha256"],
+            "policy_version": audience_learning["policy"].get("policy_version"),
+            "preference_only": True,
+        }
     article_manifest = {
         "schema_version": "contentops.v1_simple_article_manifest.v1",
         **article,
@@ -2624,9 +2638,12 @@ def run_v1_simple_gemini_newsroom(
         }
         persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
+    if audience_learning:
+        native_previews["audience_learning_binding"] = article["audience_learning_binding"]
     persist(root / "native_derivative_previews_v1.json", native_previews)
     intents_artifact = {
         "schema_version": DERIVATIVE_INTENTS_SCHEMA_VERSION,
+        **({"audience_learning_binding": article["audience_learning_binding"]} if audience_learning else {}),
         "article_identity": article_identity,
         "intent_count": len(intents),
         "intents": intents,

@@ -358,6 +358,11 @@ export interface EvolvingStory {
 }
 
 export interface ReportWorkspaceData {
+  audience_learning?: {
+    current?: { policy: { policy_version: string | null; decision?: string; decision_reason?: string; sample_count: number; confidence: number; latest_collected_at_utc?: string }; feedback: Array<{ observation_id: string; collected_at_utc: string; scheduled_for_utc: string; semantic_state: string; native_metrics?: Record<string, number | null>; metric_availability?: Record<string, string> }>; metrics_model_calls: number };
+    opportunities: Array<{ run_id: string; snapshot_sha256: string; policy: { policy_version: string | null }; feedback_count: number; next_operation: string }>;
+    follow_up_briefs: Array<{ run_id?: string; feedback_effect?: string; next_operation?: string; brief_candidate?: { working_headline: string; editorial_angle: string }; ranked_questions?: Array<{ candidate_id: string; rank: number; question: string; action: string; missing_evidence: string[]; exact_article_match: { run_id: string; article_identity: string } }> }>;
+  };
   main_admission_summary?: Array<{ report_id: string; report_version: number; report_sha256: string; claims: number;
     native_public_excerpts: number; provenance_state: string; independent_native_runtime_verified: boolean; known_at_cutoff_utc: string | null }>;
   owner_edition?: { edition_id: string; title: string; operation_ids: string[]; ready: number; held: number; missing: number;

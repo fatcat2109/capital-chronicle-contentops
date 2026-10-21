@@ -49,6 +49,8 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
   const current = data?.owner_edition;
   const articles = current ? current.operation_ids.flatMap(id => data?.native_edition?.filter(i => i.run_id === id) ?? []) : data?.native_edition;
   const history = current ? data?.native_edition?.filter(i => !current.operation_ids.includes(i.run_id)) : [];
+  const learning = data?.audience_learning;
+  const policy = learning?.current?.policy;
   return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace" style={{ overflowWrap: 'anywhere', minWidth: 0 }}>
     <p>Luồng biên tập đích: Luna MAX lọc headline → 6.1 Sol Light chọn góc và chuẩn bị nguồn → 6.1 Sol MAX viết bài và SEO, tối đa một lượt sửa cùng writer. Lịch production giữ pause; chỉ bằng chứng thực thi mới xác nhận model đã chạy.</p>
     <header><span>Editorial workspace</span><h2>{current?.title ?? 'Capital Chronicle report → article → previews'}</h2></header>
@@ -57,6 +59,19 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
       {current.opportunity_outcomes?.map(o => <p key={o.operation_id}>{o.reason}</p>)}
       {current.held_candidates.map((h, i) => <details key={i}><summary>Giữ chờ: {h.title}</summary><p>{h.reason}</p></details>)}
       <nav aria-label="Mục lục ấn bản">{articles?.map(a => <p key={a.article_identity}><a href={'#article-' + a.article_identity}>{a.article.title}</a></p>)}</nav>
+    </section>}
+    {learning && <section aria-label="Audience learning" className="report-copy">
+      <h3>Audience feedback and next research</h3>
+      {policy && <p><strong>{display(policy.decision ?? 'Unavailable')}</strong> · {policy.sample_count} distinct article samples · confidence {policy.confidence.toFixed(3)}. {display(policy.decision_reason ?? '')}</p>}
+      <p>Preferences guide future selection, SEO and native copy. Evidence, uncertainty and source requirements still apply. Unavailable metrics stay unknown.</p>
+      {learning.current?.feedback.map(f => <div key={f.observation_id}><p>{display(f.semantic_state)} · observed {f.collected_at_utc}. Scheduled checkpoint: {f.scheduled_for_utc}; a later read does not reconstruct that historical checkpoint.</p>
+        <p>{Object.entries(f.native_metrics ?? {}).map(([k, v]) => `${display(k)}: ${v === null ? 'unavailable' : v}`).join(' · ')}</p></div>)}
+      {learning.follow_up_briefs.map((b, i) => <div key={b.run_id ?? i}><p>{b.feedback_effect}</p>
+        {b.brief_candidate && <p><strong>{b.brief_candidate.working_headline}</strong> · Observed reader question for source research; no factual answer or reply is authorized.</p>}
+        <ol>{b.ranked_questions?.map(q => <li key={q.candidate_id}><strong>{q.question}</strong><p>{q.action} <a href={'#article-' + q.exact_article_match.article_identity}>Retained article</a></p><p>Evidence still needed: {q.missing_evidence.join('; ')}</p></li>)}</ol>
+        <p>Next: {b.next_operation}</p>
+      </div>)}
+      <details><summary>Frozen learning context</summary>{learning.opportunities.map(o => <p key={o.run_id}>{o.run_id} · policy {o.policy.policy_version ?? 'unavailable'} · {o.feedback_count} dated feedback records. {o.next_operation}</p>)}</details>
     </section>}
     {!!data?.main_admission_summary?.length && <details><summary>Báo cáo Main mới nhất đã tiếp nhận</summary>
       <p>Đã kiểm tra liên kết nội dung công khai. Xác nhận model của bên tạo báo cáo chưa phải bằng chứng độc lập về phiên chạy model.</p>

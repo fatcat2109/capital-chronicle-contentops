@@ -495,6 +495,7 @@ def run_report_editorial_cycle(
             model.filter_headlines = llm_invoke.filter_headlines
             model.frozen_request = llm_invoke.frozen_request
             model.source_recovery = llm_invoke.source_recovery
+            model.audience_learning = getattr(llm_invoke, "audience_learning", None)
 
         default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health)
         spent = sum(
@@ -863,8 +864,10 @@ def report_workspace_projection(
                 "source_blocked": sum(o.get("source_blocked") is True for o in outcomes)}
     latest_admissions = [max((r for r in accepted if r["report_id"] == identity),
         key=lambda r: r["report_version"]) for identity in sorted(ids)]
+    from live_contentops.native_newsroom_learning_v1 import learning_projection
     return {
         "schema_version": SCHEMA,
+        "audience_learning": learning_projection(rows),
         "owner_edition": owner_edition,
         "main_admission_summary": [{"report_id": r["report_id"], "report_version": r["report_version"],
             "report_sha256": r["source_report_sha256"], "claims": len(r["claims"]),

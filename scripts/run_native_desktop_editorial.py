@@ -206,6 +206,15 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
     try:
         memory, memory_proof = load_canonical_published_memory_read_only(
             store_path=binding["published_memory_store"], output_root=binding["published_memory_output_root"])
+        from live_contentops.native_newsroom_learning_v1 import freeze_learning, compact_briefing
+        snapshot = freeze_learning(store, source_store=(ContentOpsDurableStore(binding["published_memory_store"], auto_migrate=False)
+            if resolve_workspace_path(binding["published_memory_store"]).is_file() else None),
+            run_id=binding["run_id"], published_memory=memory)
+        if snapshot:
+            memory = snapshot["published_memory"]
+            turn.audience_learning = compact_briefing(snapshot)
+            memory_proof = {**memory_proof, "used_memory_sha256":snapshot["published_memory_sha256"],
+                "used_memory_scope":"FROZEN_OPPORTUNITY", "live_read_is_used_memory":False}
         pointer = json.loads(Path(binding["feed_pointer_path"]).read_bytes())
         if binding.get("research_editions_root"):
             pointer["research_editions_root"] = binding["research_editions_root"]
@@ -239,7 +248,8 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("command", choices=("newsroom", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources", "relocate-workspace", "edition",
-        "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit"))
+        "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
+        "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
@@ -250,11 +260,49 @@ def main(argv=None):
     parser.add_argument("--automation-id")
     parser.add_argument("--native-invocation-id", help="Actual active Desktop conversation/turn identity")
     parser.add_argument("--request-sha256", help="Exact persisted native Neo request")
+    parser.add_argument("--observation-id", help="Existing due canonical performance observation identity")
+    parser.add_argument("--evaluation-id", help="Stable bounded learning evaluation identity")
     parser.add_argument("--response", type=Path)
     parser.add_argument("--stage", help="select/write/revise or exact pending filter-<batch sha256>")
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.command.startswith("audience-"):
+        from live_contentops.native_newsroom_learning_v1 import learning_context, NativeAudienceObservation, evaluate_native_learning, feedback_judgment
+        profile = json.loads(args.profile.read_bytes())
+        store = ContentOpsDurableStore(profile["published_memory_store"], auto_migrate=False)
+        try:
+            if args.command == "audience-follow-up":
+                from live_contentops.native_newsroom_learning_v1 import retain_selection_follow_up
+                if not args.operation_id or not args.response:
+                    raise ValueError("EXACT_OPERATION_AND_NATIVE_FOLLOW_UP_RETURN_REQUIRED")
+                result = retain_selection_follow_up(ContentOpsDurableStore(profile["store_path"], auto_migrate=False),
+                    run_id=args.operation_id, response=json.loads(args.response.read_bytes()))
+            elif args.command == "audience-status":
+                result = {**learning_context(store), "due_observations": [o for o in store.list_performance_observations()
+                    if o["collection_status"] == "SCHEDULED" and o["scheduled_for_utc"] <= datetime.now(timezone.utc).isoformat()],
+                    "next_operation":"audience-observe --observation-id <one-exact-due-id> --native-invocation-id <actual-turn-id>"}
+            elif args.command == "audience-feedback":
+                result=feedback_judgment(store,observation_id=args.observation_id,
+                    output_dir=Path(profile["editorial_output_root"])/"audience-feedback"/str(args.observation_id),
+                    response=json.loads(args.response.read_bytes()) if args.response else None)
+            elif args.command == "audience-evaluate":
+                if not args.evaluation_id:
+                    raise ValueError("STABLE_NATIVE_EVALUATION_ID_REQUIRED")
+                result = evaluate_native_learning(store, evaluation_id=args.evaluation_id)
+            else:
+                if not args.observation_id or not args.native_invocation_id:
+                    raise ValueError("EXACT_OBSERVATION_AND_NATIVE_INVOCATION_REQUIRED")
+                observer = NativeAudienceObservation(store, output_dir=Path(profile["editorial_output_root"])/"audience-observations",
+                    invocation_id=args.native_invocation_id)
+                result = observer.advance(args.observation_id) if args.command == "audience-observe" else observer.tool(
+                    "begin" if args.command == "audience-tool-begin" else "submit", observation_id=args.observation_id,
+                    request_hash=args.request_sha256, response=json.loads(args.response.read_bytes()) if args.response else None)
+        except (ValueError, OSError, KeyError, TypeError) as exc:
+            print(json.dumps({"classification":"NATIVE_AUDIENCE_BLOCKED","blocker":str(exc)}))
+            return 2
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
     if args.command == "edition":
         from live_contentops.contentops_editorial_desk_v1 import record_owner_edition
         if not args.response:
@@ -296,6 +344,9 @@ def main(argv=None):
             readiness = [dict(r) for r in conn.execute("SELECT * FROM destination_readiness ORDER BY rowid")]
         projection = report_workspace_projection(rows, review_records=reviews, dispatches=dispatches,
             reconciliations=reconciliations, readiness=readiness)
+        from live_contentops.native_newsroom_learning_v1 import learning_context
+        projection["audience_learning"]["current"] = learning_context(
+            ContentOpsDurableStore(profile["published_memory_store"], auto_migrate=False))
         root = Path(profile["editorial_output_root"]) / "desk"
         root.mkdir(parents=True, exist_ok=True)
         (root / "workspace.json").write_bytes(canonical_bytes(projection))
