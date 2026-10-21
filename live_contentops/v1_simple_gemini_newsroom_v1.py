@@ -433,6 +433,24 @@ def _candidate_packet_and_preselection(
         for row in unfiltered_universe
         if str(row.get("candidate_id") or "") not in excluded
     ]
+    if learning_policy:
+        # Preserve supplied editorial tags for the existing bounded work-order bonus.
+        # Do not infer a topic/mode from headline prose or alter legacy packets.
+        original_rows = {str(r.get("headline_id")): r for r in rolling_input.get("headlines", [])
+            if isinstance(r, Mapping)}
+        for candidate in universe:
+            original = original_rows.get(candidate["headline_id"], {})
+            external = original.get("external_content") or {}
+            external = external if isinstance(external, Mapping) else {}
+            report = candidate.get("report_editorial_context") or {}
+            tags = original.get("entities_topics") or original.get("topic_families") or external.get("topic_families") or []
+            family = original.get("topic_family") or external.get("topic_family")
+            candidate.update(entities_topics=list(tags) if isinstance(tags, (list, tuple)) else [],
+                article_mode=original.get("article_mode") or external.get("article_mode") or report.get("mode_hint"),
+                story_type=original.get("story_type") or external.get("story_type"),
+                update_mode=original.get("update_mode") or external.get("update_mode"))
+            if isinstance(family, str) and family not in candidate["entities_topics"]:
+                candidate["entities_topics"].append(family)
     ranked = rank_simple_headline_candidate_universe(
         universe,
         max_candidates=MAX_SELECTION_CANDIDATES,

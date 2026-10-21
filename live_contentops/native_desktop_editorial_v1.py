@@ -23,7 +23,6 @@ STAGES = ("select", "write", "revise", "feedback")
 ROLE_ASSIGNMENTS = {
     "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
     "select": {"model": MODEL, "reasoning_effort": "low"},
-    "feedback": {"model": MODEL, "reasoning_effort": "low"},
     "write": {"model": MODEL, "reasoning_effort": "max"},
     "revise": {"model": MODEL, "reasoning_effort": "max"},
 }
@@ -96,7 +95,7 @@ class NativeDesktopTurn:
         self._check_pause()
         stage = str(kwargs["logical_invocation_id"]).rsplit(":", 1)[-1]
         role = native_role(stage)
-        target = ROLE_ASSIGNMENTS[role]
+        target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
         native_guidance = (
             "\nNATIVE_DESKTOP_PRODUCT_RULES: Use one consistent reader language. Include dated observation "
             "and a concise material source date when present in SOURCE_PACK; never confuse report generation "
@@ -157,7 +156,8 @@ class NativeDesktopTurn:
         observation = dict(response.get("invocation_observation") or {})
         if observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}:
             raise ValueError("NATIVE_DESKTOP_SURFACE_REQUIRED")
-        target = ROLE_ASSIGNMENTS[native_role(stage)]
+        role = native_role(stage)
+        target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
         if observation.get("model") not in {None, target["model"]}:
             raise ValueError("NATIVE_DESKTOP_MODEL_MISMATCH")
         effort = observation.get("reasoning_effort")

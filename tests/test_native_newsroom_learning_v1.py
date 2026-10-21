@@ -151,6 +151,36 @@ def test_empty_and_repeated_preferences_cannot_exceed_existing_ranking_cap():
     )
 
 
+def test_supplied_intake_tags_reach_bounded_preselection_without_prose_inference():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import (
+        _candidate_packet_and_preselection,
+    )
+
+    rolling = _headlines(2)
+    for row in rolling["headlines"]:
+        row["source_timestamp_utc"] = CUTOFF
+    legacy, _ = _candidate_packet_and_preselection(rolling, [])
+    preferred = next(
+        r for r in rolling["headlines"] if r["headline_id"] == legacy[-1]["headline_id"]
+    )
+    preferred["topic_family"] = "energy"
+    candidates, evidence = _candidate_packet_and_preselection(
+        rolling,
+        [],
+        learning_policy={
+            "policy_version": "CONTROLLED",
+            "content": {
+                "recommendations": [
+                    {"feature": "topic_family", "preferred_value": "energy"}
+                ]
+            },
+        },
+    )
+    assert candidates[0]["headline_id"] == preferred["headline_id"]
+    assert _candidate_packet_and_preselection(rolling, [])[0] == legacy
+    assert evidence["candidate_eligibility_changed"] is False
+
+
 def test_semantic_return_validated_before_sealing_and_backlog_idempotent(tmp_path):
     store, observer, obs, request, response = _observed(tmp_path)
     observer.tool(

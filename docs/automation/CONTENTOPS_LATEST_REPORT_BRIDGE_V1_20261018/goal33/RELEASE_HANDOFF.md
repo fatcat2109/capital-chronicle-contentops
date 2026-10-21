@@ -28,6 +28,13 @@ deduplicated review briefs and never become facts or replies. Deterministic reac
 empty feedback need no classifier. Crash recovery finishes persistence without repeating a
 model or a browser action.
 
+The delivery audit additionally verified supplied intake topic/mode tags survive the compact
+candidate builder for the bounded ranking bonus; no topic is inferred from prose. Legacy
+packets remain unchanged. Feedback reuses the existing Sol Light selection assignment, so
+the four-task role packet is unchanged. The initial CI at `c749a4ed` caught the added-role
+packet mismatch; the correction and tagged-intake regression are in `tag-and-task-controls.txt`.
+Final delivery/CI evidence supersedes that failed attempt without rewriting its history.
+
 ## Actual operation and useful outcome
 
 Two due existing `LONG_TAIL` observation IDs were collected on 2026-10-21 through bound
