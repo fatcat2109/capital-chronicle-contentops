@@ -112,6 +112,11 @@ def test_real_retained_native_article_validates_without_inventing_probability():
 def test_labelled_descriptor_reaches_actual_validator_and_all_eight_compiled_previews():
     g, output = retained()
     c, d, context = descriptor_context()
+    extra_limit = "Control restriction: outcome availability clock remains unknown."
+    d["limitations"].append(extra_limit)
+    d["descriptor_sha256"] = sha256_of({k: v for k, v in d.items() if k != "descriptor_sha256"})
+    context["probability_descriptor"] = deepcopy(d)
+    context["semantics_sha256"] = sha256_of({k: v for k, v in context.items() if k != "semantics_sha256"})
     # CONTROL ONLY: attach explicit typed metadata to the matching retained claim;
     # this does not alter or promote any Main wire/accepted article.
     pack = g["source_pack"][0]
@@ -131,6 +136,13 @@ def test_labelled_descriptor_reaches_actual_validator_and_all_eight_compiled_pre
     pack["report_lineage"]["source_research_metadata"] = [{"text": d["reader_disclosure"]}]
     output["material_claim_bindings"].append({"claim_id": "control-disclosure", "claim_text": d["reader_disclosure"],
         "claim_kind": "FACT", "source_id": "SOURCE_1", "support_excerpt": d["reader_disclosure"], "attribution_required": True})
+    with pytest.raises(SimpleGeminiNewsroomError, match="deterministic_article_validation_failed"):
+        _validate_article_against_source_pack(output, g["source_pack"], epistemic_state=g["epistemic_state"])
+    output["article"]["substack_body_markdown"] += "\n\n" + extra_limit + " [[SOURCE:SOURCE_1]]"
+    pack["canonical_content_text"] += "\n\n" + extra_limit
+    pack["report_lineage"]["source_research_metadata"].append({"text": extra_limit})
+    output["material_claim_bindings"].append({"claim_id": "control-extra-limitation", "claim_text": extra_limit,
+        "claim_kind": "FACT", "source_id": "SOURCE_1", "support_excerpt": extra_limit, "attribution_required": True})
     article, _ = _validate_article_against_source_pack(output, g["source_pack"], epistemic_state=g["epistemic_state"])
     assert article["public_research_descriptors"] == [d]
     wrong = deepcopy(output)
@@ -144,6 +156,7 @@ def test_labelled_descriptor_reaches_actual_validator_and_all_eight_compiled_pre
     for p in previews["packages"].values():
         text = p.get("full_text") or p.get("text") or ""
         assert d["reader_disclosure"] in text
+        assert extra_limit in text
 
 
 def test_labelled_public_wire_extension_survives_admission_document_and_source_pack():

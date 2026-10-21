@@ -67,7 +67,7 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
         or not path
     ):
         raise LatestReportConsumerError("MAIN_REPORT_IMMUTABLE_LOCATOR_UNBOUND")
-    from live_contentops.capital_chronicle_public_research_semantics_v1 import claim_semantics
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import claim_semantics, reader_notices
     claims = [{**c, "research_semantics": claim_semantics(admission, c)} for c in admission["claims"]]
     text = "\n\n".join(
         c["producer_layer"] + ": " + c["text"] + "\n" + str(c.get("basis_risk") or "")
@@ -89,8 +89,9 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
     text += "\n\n" + "\n".join(c["text"] for c in clocks)
     text += "\n\n" + report_scope_notice(admission)
     research_metadata = [{"claim_id": c["claim_id"], "descriptor_sha256": c["research_semantics"]["probability_descriptor"]["descriptor_sha256"],
-        "text": c["research_semantics"]["probability_descriptor"]["reader_disclosure"]}
-        for c in claims if c["research_semantics"]["probability_descriptor"]]
+        "text": text}
+        for c in claims if c["research_semantics"]["probability_descriptor"]
+        for text in reader_notices(c["research_semantics"]["probability_descriptor"])]
     if research_metadata:
         text += "\n\n" + "\n".join(m["text"] for m in research_metadata)
     url = public_locator or repository + "/blob/" + revision + "/" + path

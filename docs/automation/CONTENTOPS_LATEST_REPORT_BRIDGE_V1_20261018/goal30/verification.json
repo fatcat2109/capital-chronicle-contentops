@@ -21,5 +21,11 @@
   "four_paused_host_hashes_unchanged": true,
   "production_pause_hash_unchanged": true,
   "dispatches": 0,
-  "public_writes": 0
+  "public_writes": 0,
+  "final_limitation_regression": {
+    "passed": 57,
+    "log": "verification/goal30-limitation-final.txt",
+    "overlaps_earlier_suite": true,
+    "separate_limitation_beyond_short_disclosure": "PASS_ARTICLE_AND_ALL_EIGHT_PREVIEWS"
+  }
 }

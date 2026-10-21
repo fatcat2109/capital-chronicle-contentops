@@ -111,7 +111,7 @@ class NativeDesktopTurn:
             "descriptor in report_lineage claims: target/event, instrument/proxy, horizon/cutoff, probability "
             "measure/method/evaluation, selection and dependence. A bound claim using one must add "
             "research_reference with descriptor_sha256 and the exact supplied fields, and include its "
-            "reader_disclosure verbatim in the body. Unknown is unknown; never invent probability metadata "
+            "reader_disclosure and every supplied limitation verbatim in the body. Unknown is unknown; never invent probability metadata "
             "or turn a risk-neutral valuation probability into a win rate. Shared-release copies and "
             "Main recirculation do not independently confirm a claim. Review windows are not forecasts.\n"
         ) if stage in {"write", "revise"} else ""

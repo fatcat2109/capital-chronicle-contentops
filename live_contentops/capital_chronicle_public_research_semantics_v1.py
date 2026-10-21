@@ -14,6 +14,15 @@ FIELDS = ("target_event", "instrument_proxy", "horizon", "knowledge_cutoff_utc",
 MEASURES = {None, "PHYSICAL_STATISTICAL", "SUBJECTIVE_CHALLENGER", "RISK_NEUTRAL", "UNKNOWN"}
 
 
+def reader_notices(descriptor):
+    """Keep every supplied limitation, including ones outside the short disclosure."""
+    notices = [descriptor["reader_disclosure"]]
+    for limitation in descriptor["limitations"]:
+        if not any(" ".join(limitation.casefold().split()) in " ".join(n.casefold().split()) for n in notices):
+            notices.append(limitation)
+    return notices
+
+
 def public_descriptors(row, envelope):
     """Bind an optional exact public extension after ordinary wire/seal validation."""
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of, _private
@@ -37,7 +46,8 @@ def public_descriptors(row, envelope):
                 or any(value.get(k) is not None and not isinstance(value[k], dict)
                     for k in ("target_event", "instrument_proxy", "horizon", "method", "evaluation_scope", "selection", "dependence"))
                 or not isinstance(value.get("limitations"), list)
-                or not all(isinstance(v, str) for v in value["limitations"])
+                or len(value["limitations"]) > 16
+                or not all(isinstance(v, str) and 8 <= len(v) <= 500 for v in value["limitations"])
                 or not isinstance(value.get("reader_disclosure"), str)
                 or not 8 <= len(value["reader_disclosure"]) <= 500):
             raise ValueError("PUBLIC_RESEARCH_DESCRIPTOR_INVALID")

@@ -1521,8 +1521,9 @@ def _validate_article_against_source_pack(
         raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", blockers)
     descriptors = {s["probability_descriptor"]["descriptor_sha256"]: s["probability_descriptor"]
         for c in supported for s in c.get("research_semantics", []) if s.get("probability_descriptor")}
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
     for descriptor in descriptors.values():
-        if _normal(descriptor["reader_disclosure"]) not in body:
+        if any(_normal(notice) not in body for notice in reader_notices(descriptor)):
             raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", ["public_probability_reader_disclosure_missing"])
     if descriptors:
         article["public_research_descriptors"] = list(descriptors.values())
@@ -1655,7 +1656,8 @@ def _reader_safe_native_article(
             str((epistemic_state or {}).get("report_scope_notice") or ""),
             str(article.get("source_date_notice") or "")) if s),
     }
-    notices = [d["reader_disclosure"] for d in article.get("public_research_descriptors", [])]
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
+    notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
     if notices:
         result["editorial_scope_notice"] += " " + " ".join(notices)
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):

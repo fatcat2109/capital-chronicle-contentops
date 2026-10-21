@@ -39,7 +39,8 @@ Exact report/version/hash and claim/hash remain bound through public projection 
 the existing editorial brief/source pack, supported material claims and canonical package.
 Selection and native writer/reviser guidance preserve the descriptor; a typed reference cannot
 change target, proxy, horizon, cutoff, measure, method, evaluation, selection or dependence.
-The producer's reader disclosure must survive the article and all eight compiled previews.
+The producer's reader disclosure and every separately supplied limitation must survive the
+article and all eight compiled previews, even when the short disclosure omits a limitation.
 Writer-supplied self-certification is discarded. Source-review correction invalidates a prepared
 KEEP when an exact descriptor changes or is withdrawn, even if claim prose/IDs remain equal.
 Existing current numeric/rights/source gates remain; this is no authority expansion.
@@ -66,7 +67,9 @@ previews, writer self-certification, unknown legacy reuse and descriptor-withdra
 with original prose preserved. Synthetic descriptors are not forecasts or producer proof.
 
 The connected changed-seam suite passed **213 tests**; the final expanded semantic-control file
-passed **22** (20 overlap the suite, not additive totals). Focused Ruff and diff checks pass.
+passed **22** (20 overlap the suite, not additive totals). A final limitation-propagation regression passed **57** overlapping tests, including a producer
+limitation absent from its short disclosure: omission blocks the article and the preserved
+limitation appears in all eight previews. Focused Ruff and diff checks pass.
 The existing CI Main-consumer step now includes these controls. Exact final source/CodeGraph/
 remote CI readback is recorded in the PR90 Goal30 section and local `desk/goal30_delivery.json`.
 Do not infer final CI from local tests or from the earlier Goal29 run.

@@ -29,8 +29,8 @@ Current reports without this extension remain supported and labelled UNKNOWN_NOT
 
 Selection/native writing and the one same-writer revision preserve that context. A binding
 using a supplied descriptor references its exact fields/hash; validation carries it into the
-existing supported-claim lineage. The producer's reader disclosure must be present in the
-article and is retained by the existing compiler in all eight derivatives. Writers cannot
+existing supported-claim lineage. The producer's reader disclosure and every separately supplied limitation must be present in the
+article and are retained by the existing compiler in all eight derivatives. Writers cannot
 self-certify or overwrite this metadata. This grants no new factual/numeric authority and
 does not bypass the existing proprietary-numeric/publication gates.
 
