@@ -258,6 +258,14 @@ class PublicMainFileSource:
                 }
             },
         }
+        from live_contentops.capital_chronicle_legacy_parent_recovery_v1 import recovery_binding
+        recovery = recovery_binding(self.pointer, self.manifest, spec,
+            self._read("manifests/" + self.manifest["manifest_sha256"] + ".json"))
+        if recovery:
+            child = self.manifest["latest_by_asset"][spec["asset_id"]]
+            for key in ("envelope", "public_report"):
+                self._read(child[key]["path"], child[key]["bytes_sha256"])
+            binding["legacy_parent_recovery"] = recovery
         return {
             "envelope": envelope,
             "report": b"",

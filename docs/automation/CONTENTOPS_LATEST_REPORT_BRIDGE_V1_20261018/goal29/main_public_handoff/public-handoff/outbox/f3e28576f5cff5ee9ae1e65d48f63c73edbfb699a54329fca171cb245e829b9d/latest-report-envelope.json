@@ -1,0 +1,886 @@
+{
+  "affected_symbols": [
+    "XNGUSD"
+  ],
+  "as_of_utc": "2026-10-20T15:27:29.653737Z",
+  "asset_ids": [
+    "XNGUSD"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "change_kind": "INVALIDATION",
+  "changed_claim_ids": [
+    "xngusd-deep-alternative-0",
+    "xngusd-deep-contradictions-0",
+    "xngusd-deep-cross_asset-0",
+    "xngusd-deep-hold_conditions-0",
+    "xngusd-deep-known-0",
+    "xngusd-deep-long-base_case",
+    "xngusd-deep-long-downside_scenario",
+    "xngusd-deep-long-invalidation",
+    "xngusd-deep-long-upside_scenario",
+    "xngusd-deep-mechanism-0",
+    "xngusd-deep-missing-0",
+    "xngusd-deep-principle-0",
+    "xngusd-deep-review-0",
+    "xngusd-deep-short-base_case",
+    "xngusd-deep-short-downside_scenario",
+    "xngusd-deep-short-invalidation",
+    "xngusd-deep-short-upside_scenario",
+    "xngusd-deep-stop_holding_conditions-0",
+    "xngusd-deep-swing-base_case",
+    "xngusd-deep-swing-downside_scenario",
+    "xngusd-deep-swing-invalidation",
+    "xngusd-deep-swing-upside_scenario",
+    "xngusd-deep-timing_priced_in-0"
+  ],
+  "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+  "contract_revision": "asset-analysis-report-v1.1.0",
+  "envelope_sha256": "3c27597ba65a80b47f14db61eb6f4547b36846cfd771ab26848e3847e4e6c8aa",
+  "event_id": "report-event:c63f565945565dcb8d040892c3578c92c506d9accae713b35f756a061ff30478",
+  "generated_at_utc": "2026-10-20T15:54:22.185030+00:00",
+  "hold_conditions": [
+    "Gi\u1eef c\u00e2u h\u1ecfi v\u1ec1 t\u00ednh l\u1eb7p l\u1ea1i c\u1ee7a b\u1ed5 sung kho khi c\u00f2n truy ngu\u1ed3n \u0111\u00fang k\u1ef3 v\u00e0 c\u00f3 th\u1ec3 b\u1ed5 sung th\u1eddi ti\u1ebft, s\u1ea3n l\u01b0\u1ee3ng, th\u01b0\u01a1ng m\u1ea1i v\u00e0 v\u00f9ng. Chu\u1ea9n m\u00f9a v\u1ee5 ch\u01b0a t\u1ea1o quy\u1ebft \u0111\u1ecbnh gi\u1eef v\u1ecb th\u1ebf hay WATCH h\u00e0nh \u0111\u1ed9ng; tham chi\u1ebfu, \u0111\u01b0\u1eddng cong v\u00e0 chi ph\u00ed ph\u1ea3i \u0111\u01b0\u1ee3c ki\u1ec3m ri\u00eang."
+  ],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-27T15:27:29.653737Z",
+      "horizon": "short",
+      "outlook": "Trong 5 phi\u00ean, x\u00e1c \u0111\u1ecbnh b\u1ea3n kho m\u1edbi th\u1eadt v\u00e0 ng\u1eef c\u1ea3nh ng\u00e0y/gi\u1edd/k\u1ef3 v\u1ecdng n\u1ebfu c\u00f3; s\u1ed1 th\u00e1ng 10 \u0111\u00e3 l\u01b0u v\u1eabn gi\u1eef tu\u1ed5i d\u1eef li\u1ec7u ri\u00eang.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-20T15:27:29.653737Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-18T15:27:29.653737Z",
+      "horizon": "swing",
+      "outlook": "Trong 21 phi\u00ean, so chu\u1ed7i b\u01a1m c\u00f9ng \u0111\u1ecbnh ngh\u0129a c\u00f9ng c\u00e1c d\u00f2ng th\u1eddi ti\u1ebft, s\u1ea3n xu\u1ea5t v\u00e0 LNG, thay v\u00ec ch\u1ec9 l\u1eb7p m\u1ed9t kho\u1ea3ng ch\u00eanh m\u00f9a v\u1ee5.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-20T15:27:29.653737Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-01-15T15:27:29.653737Z",
+      "horizon": "long",
+      "outlook": "Trong 63 phi\u00ean, xem \u0111\u01b0\u1eddng \u0111i t\u1ed3n kho tr\u01b0\u1edbc th\u1eddi ti\u1ebft, cung/xu\u1ea5t v\u00e0 nhu c\u1ea7u v\u00f9ng qua quan s\u00e1t th\u1eadt. \u0110\u00e2y kh\u00f4ng ph\u1ea3i m\u1ed9t qu\u00fd ho\u1eb7c \u0111\u1ea1i di\u1ec7n c\u1ed1 \u0111\u1ecbnh cho m\u00f9a \u0111\u00f4ng.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-20T15:27:29.653737Z",
+      "trading_sessions": 63
+    }
+  ],
+  "invalidation_conditions": [
+    "R\u00fat nh\u1eadn \u0111\u1ecbnh b\u1ed5 sung \u0111\u1ec7m ch\u1eb7t b\u1ec1n n\u1ebfu c\u00e1c k\u1ef3 sau tr\u1edf v\u1ec1 b\u00ecnh th\u01b0\u1eddng, th\u1eddi ti\u1ebft/b\u1ea3o d\u01b0\u1ee1ng gi\u1ea3i th\u00edch t\u00ednh t\u1ea1m th\u1eddi ho\u1eb7c s\u1eeda ngu\u1ed3n l\u00e0m m\u1ea5t ch\u00eanh. Gi\u00e1 thi\u1ebfu kh\u00f4ng l\u00e0m quan s\u00e1t v\u1eadt ch\u1ea5t v\u00f4 gi\u00e1 tr\u1ecb, nh\u01b0ng ng\u0103n d\u1ecbch th\u00e0nh h\u01b0\u1edbng/b\u1ea5t ng\u1edd th\u1ecb tr\u01b0\u1eddng. \u0110\u1ebfn k\u1ef3 v\u1eabn thi\u1ebfu c\u1eadp nh\u1eadt th\u00ec ghi c\u0169, kh\u00f4ng m\u1eb7c \u0111\u1ecbnh ch\u1eb7t ti\u1ebfp."
+  ],
+  "known_at_cutoff_utc": "2026-10-20T15:27:29.653737Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "Native per-asset analytical refinement on unchanged governed inputs; no new economic observation or event inferred.",
+  "parent_report_sha256": "972a2edaac857763b9bca92a31edb1f945e03bccdf4e7bc96fc7d7f9d55383f2",
+  "public_safe_claims": [
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "065607e3ad473f787b751fb1073dca726f475d4a2d7afff733f12e417d0d9cd4",
+      "claim_id": "xngusd-source",
+      "claim_type": "SOURCE_FACT",
+      "epistemic_layer": "OBSERVED_SOURCE_FACT",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "The retained original EIA storage release records a 67 Bcf weekly injection, versus the 90 Bcf five-year same-week injection average. Stocks were 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year level."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "be0371d135e3b059189a227ddc864472b36ea4210e4faa817860012748628775",
+      "claim_id": "xngusd-deep-known-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "B\u1ea3n EIA kh\u00ed \u0111\u01b0\u1ee3c l\u01b0u c\u00f4ng b\u1ed1 ng\u00e0y 15/10/2026 cho tu\u1ea7n quan s\u00e1t 09/10/2026: b\u01a1m r\u00f2ng v\u00e0o kho 67 Bcf, b\u00ecnh qu\u00e2n c\u00f9ng tu\u1ea7n 5 n\u0103m l\u00e0 90 Bcf, c\u00f9ng tu\u1ea7n n\u0103m tr\u01b0\u1edbc l\u00e0 80 Bcf. L\u01b0\u1ee3ng t\u1ed3n 3567 Bcf, cao h\u01a1n b\u00ecnh qu\u00e2n t\u1ed3n 5 n\u0103m 45 Bcf nh\u01b0ng th\u1ea5p h\u01a1n n\u0103m tr\u01b0\u1edbc 143 Bcf. Ngu\u1ed3n \u0111\u00e3 t\u00ednh kho\u1ea3ng ch\u00eanh b\u01a1m so m\u00f9a v\u1ee5 -23 Bcf. Bcf l\u00e0 \u0111\u01a1n v\u1ecb th\u1ec3 t\u00edch kh\u00ed, kh\u00f4ng ph\u1ea3i th\u00f9ng d\u1ea7u, gi\u00e1 kh\u00ed hay \u0111\u01a1n v\u1ecb \u0111\u1ecbnh gi\u00e1 n\u0103ng l\u01b0\u1ee3ng."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "943800aab9139ddb9ae0040c536f10843db9a8cc8fb446ca0ca951e38636694a",
+      "claim_id": "xngusd-deep-mechanism-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "B\u01a1m v\u00e0o kho th\u1ea5p h\u01a1n m\u1ee9c m\u00f9a v\u1ee5 cho th\u1ea5y t\u1ed1c \u0111\u1ed9 t\u00edch th\u00eam \u0111\u1ec7m th\u1ea5p h\u01a1n chu\u1ea9n \u0111\u00f3 n\u1ebfu c\u00f9ng \u0111\u1ecbnh ngh\u0129a/k\u1ef3. N\u00f3 m\u1edf c\u00e2u h\u1ecfi li\u1ec7u qu\u00e1 tr\u00ecnh b\u1ed5 sung \u0111\u1ec7m c\u00f3 \u0111ang ch\u1eb7t d\u1ea7n m\u1ed9t c\u00e1ch b\u1ec1n hay kh\u00f4ng. Nh\u01b0ng 67 Bcf v\u1eabn l\u00e0 b\u01a1m th\u00eam: kho t\u0103ng trong tu\u1ea7n, kh\u00f4ng ph\u1ea3i r\u00fat kh\u00ed; m\u1ee9c t\u1ed3n v\u1eabn tr\u00ean b\u00ecnh qu\u00e2n 5 n\u0103m. C\u1ea3 hai \u0111i\u1ec1u c\u00f9ng \u0111\u00fang m\u00e0 ch\u01b0a cho h\u01b0\u1edbng gi\u00e1."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "67a435bfc7970e5e61880122c699d91809becb262fae4006ccd8bbb3e236f664",
+      "claim_id": "xngusd-deep-alternative-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Th\u1eddi ti\u1ebft l\u00e0m \u0111\u1ed5i ti\u00eau th\u1ee5, s\u1ea3n l\u01b0\u1ee3ng/nh\u1eadp kh\u1ea9u, LNG ho\u1eb7c xu\u1ea5t \u0111\u01b0\u1eddng \u1ed1ng, b\u1ea3o d\u01b0\u1ee1ng v\u00e0 c\u01a1 c\u1ea5u khu v\u1ef1c c\u00f3 th\u1ec3 l\u00e0m l\u01b0\u1ee3ng b\u01a1m nh\u1ecf. B\u00ecnh qu\u00e2n l\u1ecbch s\u1eed kh\u00f4ng ph\u1ea3i k\u1ef3 v\u1ecdng th\u1ecb tr\u01b0\u1eddng ngay tr\u01b0\u1edbc tin. Thi\u1ebfu c\u00e1c d\u00f2ng n\u00e0y n\u00ean ch\u01b0a g\u00e1n b\u01a1m th\u1ea5p cho c\u1ea7u m\u1ea1nh, \u0111\u1ee9t cung hay m\u1ed9t b\u1ea5t ng\u1edd \u0111\u01b0\u1ee3c \u0111\u1ecbnh l\u01b0\u1ee3ng."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "158d5f30745314868b23cf8a788bcf92cfd4ade3fefaaac8e6e5969819455666",
+      "claim_id": "xngusd-deep-contradictions-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Cao h\u01a1n b\u00ecnh qu\u00e2n 5 n\u0103m nh\u01b0ng th\u1ea5p h\u01a1n n\u0103m tr\u01b0\u1edbc l\u00e0 so v\u1edbi hai m\u1eabu kh\u00e1c nhau, kh\u00f4ng ph\u1ea3i ngu\u1ed3n m\u00e2u thu\u1eabn. B\u01a1m ch\u1eadm h\u01a1n v\u00e0 t\u1ed3n c\u00f2n d\u01b0 theo m\u00f9a v\u1ee5 c\u0169ng c\u00f3 th\u1ec3 c\u00f9ng t\u1ed3n t\u1ea1i. Ri\u00eang c\u00e1c chu\u1ea9n n\u00e0y ch\u01b0a \u0111o ph\u1ea7n tr\u0103m c\u00f4ng su\u1ea5t kho, s\u1ed1 ng\u00e0y \u0111\u1ee7 d\u00f9ng hay m\u1ee9c \u0111\u1ee7 kh\u00ed m\u00f9a \u0111\u00f4ng v\u00ec thi\u1ebfu c\u00f4ng su\u1ea5t, c\u1ea7u v\u00e0 ph\u00e2n b\u1ed1 khu v\u1ef1c. B\u1ed1i c\u1ea3nh ContentOps th\u00e1ng 1 l\u00e0 th\u1eddi k\u1ef3 kh\u00e1c, kh\u00f4ng \u0111\u01b0\u1ee3c gh\u00e9p th\u00e0nh l\u01b0\u1ee3ng t\u1ed3n th\u00e1ng 10 m\u1edbi."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "806a20369f7e5619dd15000f08a2cfc2347975dbc1b1c55bf75a598bab55c172",
+      "claim_id": "xngusd-deep-timing_priced_in-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Ph\u1ea3i t\u00e1ch tu\u1ea7n quan s\u00e1t 09/10/2026, ng\u00e0y c\u00f4ng b\u1ed1 15/10/2026 v\u00e0 l\u00fac l\u1ea5y/bi\u1ebft 18/10/2026 l\u00fac 13:03:41 UTC. Ch\u01b0a c\u00f3 gi\u1edd c\u00f4ng b\u1ed1 ch\u00ednh x\u00e1c, k\u1ef3 v\u1ecdng \u0111\u00f3ng b\u0103ng tr\u01b0\u1edbc tin ho\u1eb7c b\u1ea3n c\u00f4ng b\u1ed1 \u0111\u1ea7u \u0111\u1ec3 ki\u1ec3m ph\u1ea3n \u1ee9ng. Nh\u00e3n b\u1ea3n m\u1edbi nh\u1ea5t trong kho l\u01b0u kh\u00f4ng ch\u1ee9ng minh m\u1edbi nh\u1ea5t h\u00f4m nay. Kh\u00f4ng c\u00f3 panel gi\u00e1 XNGUSD hay \u0111\u01b0\u1eddng cong kh\u00ed \u0111\u1ec3 n\u00f3i \u0111\u00e3 ph\u1ea3n \u00e1nh v\u00e0o gi\u00e1."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "8fd61e2f56f4ee3e7a8212c77799a00150654378f48daaa6f4c36f0e217ec017",
+      "claim_id": "xngusd-deep-cross_asset-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Th\u1eddi ti\u1ebft, c\u1ea7u v\u00f9ng, LNG v\u00e0 thay th\u1ebf nhi\u00ean li\u1ec7u c\u00f3 th\u1ec3 l\u00e0 \u0111\u01b0\u1eddng truy\u1ec1n, nh\u01b0ng c\u1ea7n c\u00f4ng su\u1ea5t/d\u00f2ng/n\u1ec1n gi\u00e1 th\u1ef1c. R\u00fat kho d\u1ea7u tri\u1ec7u th\u00f9ng kh\u00f4ng x\u00e1c nh\u1eadn \u0111\u1ed9c l\u1eadp kh\u00ed ch\u1eb7t theo Bcf. Danh m\u1ee5c ch\u1ec9 ghi XNGUSD l\u00e0 Natural Gas vs US Dollar, t\u00e0i s\u1ea3n c\u01a1 s\u1edf v\u00e0 ni\u00eam y\u1ebft tr\u1ed1ng; ch\u01b0a \u0111\u01b0\u1ee3c gi\u1ea3 \u0111\u1ecbnh Henry Hub, th\u00e1ng h\u1ee3p \u0111\u1ed3ng, quy \u0111\u1ed5i Bcf sang MMBtu ho\u1eb7c \u0111\u01a1n v\u1ecb gi\u00e1 broker."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "5994c4df4f1c72a8835f9c93714051271172ee2e1f7e3b402bc4f9323bf42a79",
+      "claim_id": "xngusd-deep-hold_conditions-0",
+      "claim_type": "HOLD_CONDITION",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Gi\u1eef c\u00e2u h\u1ecfi v\u1ec1 t\u00ednh l\u1eb7p l\u1ea1i c\u1ee7a b\u1ed5 sung kho khi c\u00f2n truy ngu\u1ed3n \u0111\u00fang k\u1ef3 v\u00e0 c\u00f3 th\u1ec3 b\u1ed5 sung th\u1eddi ti\u1ebft, s\u1ea3n l\u01b0\u1ee3ng, th\u01b0\u01a1ng m\u1ea1i v\u00e0 v\u00f9ng. Chu\u1ea9n m\u00f9a v\u1ee5 ch\u01b0a t\u1ea1o quy\u1ebft \u0111\u1ecbnh gi\u1eef v\u1ecb th\u1ebf hay WATCH h\u00e0nh \u0111\u1ed9ng; tham chi\u1ebfu, \u0111\u01b0\u1eddng cong v\u00e0 chi ph\u00ed ph\u1ea3i \u0111\u01b0\u1ee3c ki\u1ec3m ri\u00eang."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "3492d674dac540d175180bb5a6270abaacd368ba68bec8af027af96bd40255ac",
+      "claim_id": "xngusd-deep-stop_holding_conditions-0",
+      "claim_type": "INVALIDATION_CONDITION",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "R\u00fat nh\u1eadn \u0111\u1ecbnh b\u1ed5 sung \u0111\u1ec7m ch\u1eb7t b\u1ec1n n\u1ebfu c\u00e1c k\u1ef3 sau tr\u1edf v\u1ec1 b\u00ecnh th\u01b0\u1eddng, th\u1eddi ti\u1ebft/b\u1ea3o d\u01b0\u1ee1ng gi\u1ea3i th\u00edch t\u00ednh t\u1ea1m th\u1eddi ho\u1eb7c s\u1eeda ngu\u1ed3n l\u00e0m m\u1ea5t ch\u00eanh. Gi\u00e1 thi\u1ebfu kh\u00f4ng l\u00e0m quan s\u00e1t v\u1eadt ch\u1ea5t v\u00f4 gi\u00e1 tr\u1ecb, nh\u01b0ng ng\u0103n d\u1ecbch th\u00e0nh h\u01b0\u1edbng/b\u1ea5t ng\u1edd th\u1ecb tr\u01b0\u1eddng. \u0110\u1ebfn k\u1ef3 v\u1eabn thi\u1ebfu c\u1eadp nh\u1eadt th\u00ec ghi c\u0169, kh\u00f4ng m\u1eb7c \u0111\u1ecbnh ch\u1eb7t ti\u1ebfp."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "8f591732ae269525754546695273362966c3605b667a59cbf5b8716f41a700c8",
+      "claim_id": "xngusd-deep-review-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "C\u1ea7n b\u1ea3n EIA k\u1ebf ti\u1ebfp c\u00f3 ng\u00e0y v\u00e0 s\u1eeda \u0111\u1ed5i; \u0111\u1ecbnh ngh\u0129a kho/b\u01a1m theo v\u00f9ng; ti\u00eau th\u1ee5 \u0111i\u1ec1u ch\u1ec9nh theo th\u1eddi ti\u1ebft; s\u1ea3n l\u01b0\u1ee3ng, nh\u1eadp, LNG v\u00e0 xu\u1ea5t \u0111\u01b0\u1eddng \u1ed1ng; \u0111\u01b0\u1eddng cong, \u0111\u1ed3ng thu\u1eadn tr\u01b0\u1edbc tin v\u00e0 \u0111i\u1ec1u kho\u1ea3n tham chi\u1ebfu/chuy\u1ec3n k\u1ef3/t\u00e0i tr\u1ee3 c\u1ee7a XNGUSD. Hai ghi ch\u00fa th\u00e1ng 1 v\u1ec1 m\u1ee9c t\u1ed3n v\u00e0 di chuy\u1ec3n series ch\u1ec9 gi\u00fap t\u00ecm \u0111\u00fang l\u1ecbch s\u1eed/\u0111\u1ecba ch\u1ec9 ngu\u1ed3n; kh\u00f4ng t\u1ea1o s\u1ed1 hi\u1ec7n t\u1ea1i ho\u1eb7c x\u00e1c nh\u1eadn \u0111\u1ed9c l\u1eadp."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "d4b3d8cefe8fa505f367fc00a156756506da794fe0bfb257f999e5e3516558bd",
+      "claim_id": "xngusd-deep-missing-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Thi\u1ebfu gi\u00e1/\u0111\u01b0\u1eddng cong kh\u00ed ch\u00ednh x\u00e1c hi\u1ec7n t\u1ea1i, \u0111\u1ed3ng b\u1ed9 gi\u1edd\u2013k\u1ef3 v\u1ecdng, d\u00f2ng th\u1eddi ti\u1ebft/s\u1ea3n xu\u1ea5t/LNG, c\u00f4ng su\u1ea5t v\u00e0 h\u1ed7n h\u1ee3p kho theo v\u00f9ng, \u0111\u01a1n v\u1ecb n\u0103ng l\u01b0\u1ee3ng/tham chi\u1ebfu h\u1ee3p \u0111\u1ed3ng v\u00e0 ph\u00ed chuy\u1ec3n k\u1ef3. Kh\u00f4ng t\u1ef1 quy \u0111\u1ed5i \u0111\u01a1n v\u1ecb, t\u00ednh \u0111\u1ed9 \u0111\u1ea7y kho, x\u00e1c su\u1ea5t hay m\u1ee5c ti\u00eau khi ch\u01b0a c\u00f3 to\u00e1n h\u1ea1ng."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "4f4572e660301cac0911fbbc5e9fc392a289b8d5fd87a84692fcf0b23490d313",
+      "claim_id": "xngusd-deep-principle-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "R\u00e0ng bu\u1ed9c kho\u2013d\u00f2ng ch\u1ec9 t\u00e1ch l\u01b0\u1ee3ng b\u01a1m v\u00e0 l\u01b0\u1ee3ng t\u1ed3n, kh\u00f4ng x\u00e1c \u0111\u1ecbnh c\u1ea7u ho\u1eb7c c\u00fa s\u1ed1c gi\u00e1. B\u01a1m ch\u1eadm h\u01a1n m\u00f9a v\u1ee5 c\u00f3 th\u1ec3 \u0111\u1ed1i ngh\u1ecbch v\u1edbi t\u1ed3n c\u00f2n tr\u00ean chu\u1ea9n v\u00e0 hi\u1ec7u \u1ee9ng th\u1eddi ti\u1ebft/cung t\u1ea1m th\u1eddi. C\u1ea7n d\u00f2ng, th\u1eddi ti\u1ebft v\u00e0 \u0111\u01b0\u1eddng cong c\u00f3 qu\u1ea3n tr\u1ecb \u0111\u1ec3 ph\u00e2n bi\u1ec7t. Readback COMMODITIES l\u00e0 NOT_RELEVANT_THIS_CYCLE; b\u1ed9 n\u1ea1p c\u00f2n OUTCOME_RESOLVER_ARTIFACT_HASH_MISMATCH, ch\u01b0a c\u00f3 \u0111i\u1ec3m/quy\u1ec1n \u00e1p d\u1ee5ng. 63 phi\u00ean kh\u00f4ng thay m\u1ed9t m\u00f9a \u0111\u00f4ng c\u1ed1 \u0111\u1ecbnh ho\u1eb7c qu\u00fd."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "dba5df4ec07e4d2a35ad4a1bddd6f73013e9f17de89beebe13bcfecac3c0d3a3",
+      "claim_id": "xngusd-deep-long-base_case",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Trong 63 phi\u00ean, xem \u0111\u01b0\u1eddng \u0111i t\u1ed3n kho tr\u01b0\u1edbc th\u1eddi ti\u1ebft, cung/xu\u1ea5t v\u00e0 nhu c\u1ea7u v\u00f9ng qua quan s\u00e1t th\u1eadt. \u0110\u00e2y kh\u00f4ng ph\u1ea3i m\u1ed9t qu\u00fd ho\u1eb7c \u0111\u1ea1i di\u1ec7n c\u1ed1 \u0111\u1ecbnh cho m\u00f9a \u0111\u00f4ng."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "4e30c0e3f292d917299d4423066d7c78c2902c4a49d876bc8d6c9081ce82f584",
+      "claim_id": "xngusd-deep-long-upside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Chu\u1ed7i kho/d\u00f2ng c\u00f9ng ngh\u0129a h\u1ed7 tr\u1ee3 \u0111\u1ec7m ch\u1eb7t h\u01a1n t\u01b0\u01a1ng \u0111\u1ed1i v\u1edbi nhu c\u1ea7u \u0111\u00e3 c\u00f3 ch\u1ee9ng c\u1ee9; kinh t\u1ebf gi\u1eef t\u00e0i s\u1ea3n v\u1eabn c\u1ea7n \u0111\u01b0\u1eddng cong/chi ph\u00ed."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "da11fa8bdd5f30ec484896b6c7dd185408074d11c74d98fe9252285d219f7bfe",
+      "claim_id": "xngusd-deep-long-downside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Cung th\u00edch nghi, th\u1eddi ti\u1ebft \u00f4n h\u01a1n ho\u1eb7c h\u1ea1n ch\u1ebf xu\u1ea5t gi\u00fap t\u00e1i t\u1ea1o \u0111\u1ec7m; chi ph\u00ed h\u1ee3p \u0111\u1ed3ng c\u00f3 th\u1ec3 ri\u00eang r\u1ebd b\u00f9 h\u1ed7 tr\u1ee3 v\u1eadt ch\u1ea5t."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "796d4aa24cdab19b849987deba439e0e93c92cb8744c1b3d15c614903b35b24a",
+      "claim_id": "xngusd-deep-long-invalidation",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "R\u00fat ch\u1eb7t k\u00e9o d\u00e0i khi \u0111\u01b0\u1eddng kho/d\u00f2ng sau \u0111\u00f3 ng\u01b0\u1ee3c l\u1ea1i; thi\u1ebfu c\u1ea7u/c\u00f4ng su\u1ea5t v\u1eabn ng\u0103n \u0111\u00e1nh gi\u00e1 \u0111\u1ee7 kh\u00ed ho\u1eb7c l\u1ee3i nhu\u1eadn n\u1eafm gi\u1eef."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "0e0a449107137428acb5a279721056bdd0e75e66274284ba4430e355453c676e",
+      "claim_id": "xngusd-deep-short-base_case",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Trong 5 phi\u00ean, x\u00e1c \u0111\u1ecbnh b\u1ea3n kho m\u1edbi th\u1eadt v\u00e0 ng\u1eef c\u1ea3nh ng\u00e0y/gi\u1edd/k\u1ef3 v\u1ecdng n\u1ebfu c\u00f3; s\u1ed1 th\u00e1ng 10 \u0111\u00e3 l\u01b0u v\u1eabn gi\u1eef tu\u1ed5i d\u1eef li\u1ec7u ri\u00eang."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "3f75c27069d82be7b2bcd2ff9cf84d0c8c12bc73f3b5d25bbb854a69a3b20a73",
+      "claim_id": "xngusd-deep-short-upside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "M\u1ed9t c\u00f4ng b\u1ed1 \u0111\u00fang k\u1ef3 v\u00e0 k\u1ef3 v\u1ecdng c\u00f3 tr\u01b0\u1edbc cho th\u1ea5y b\u01a1m th\u1ea5p h\u01a1n k\u1ef3 v\u1ecdng, v\u1edbi n\u1ec1n v\u00f9ng/h\u1ee3p \u0111\u1ed3ng h\u1ee3p l\u1ec7 \u0111\u1ec3 nghi\u00ean c\u1ee9u ti\u1ebfp."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "3427c063a23fc63f8668fc329ea4f863b9d56b1bd68ba8326335c958b13274a9",
+      "claim_id": "xngusd-deep-short-downside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Th\u1eddi ti\u1ebft ho\u1eb7c b\u1ea3o d\u01b0\u1ee1ng gi\u1ea3i th\u00edch b\u01a1m th\u1ea5p t\u1ea1m th\u1eddi, ho\u1eb7c b\u00e1o c\u00e1o k\u1ebf ti\u1ebfp b\u00ecnh th\u01b0\u1eddng l\u1ea1i."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "a2cb29774bc81a593097bba983eb9dc46e986ede944cf19b350c90d57bfe1e6f",
+      "claim_id": "xngusd-deep-short-invalidation",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "B\u00e1c b\u1ea5t ng\u1edd m\u1edbi n\u1ebfu l\u1ea5y b\u00ecnh qu\u00e2n 90 Bcf thay \u0111\u1ed3ng thu\u1eadn ho\u1eb7c \u0111\u1ed5i b\u1ed1i c\u1ea3nh th\u00e1ng 1 th\u00e0nh tin hi\u1ec7n t\u1ea1i."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "22bb28d732c45e31d414af9ec5ffd56a74710aa0cc244d57c19c1600fe1abe6c",
+      "claim_id": "xngusd-deep-swing-base_case",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Trong 21 phi\u00ean, so chu\u1ed7i b\u01a1m c\u00f9ng \u0111\u1ecbnh ngh\u0129a c\u00f9ng c\u00e1c d\u00f2ng th\u1eddi ti\u1ebft, s\u1ea3n xu\u1ea5t v\u00e0 LNG, thay v\u00ec ch\u1ec9 l\u1eb7p m\u1ed9t kho\u1ea3ng ch\u00eanh m\u00f9a v\u1ee5."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "720db97b6d54dd847c65cc03396f8f9af382a458882c15579526cc272ea65f4b",
+      "claim_id": "xngusd-deep-swing-upside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "Nhi\u1ec1u quan s\u00e1t \u0111\u00e3 \u0111i\u1ec1u ch\u1ec9nh \u0111\u00fang th\u1eddi ti\u1ebft h\u1ed7 tr\u1ee3 t\u00edch \u0111\u1ec7m ch\u1eadm h\u01a1n ngo\u00e0i bi\u1ebfn \u0111\u1ed9ng d\u00f2ng ng\u1eafn."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "ef50cd8cd169af66a051cf1508c1b584e9af776c0d6d86c30d54edca8fdc8482",
+      "claim_id": "xngusd-deep-swing-downside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "L\u01b0\u1ee3ng b\u01a1m b\u1eaft k\u1ecbp, ngu\u1ed3n cung/nh\u1eadp b\u00ecnh th\u01b0\u1eddng l\u1ea1i ho\u1eb7c ti\u00eau th\u1ee5 gi\u1ea3m, trong khi t\u1ed3n v\u1eabn d\u01b0 so m\u00f9a v\u1ee5."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "cbfd476aa1ba50724b6181242b6ceb0f64d30d98db68339f750290605dbd5a03",
+      "claim_id": "xngusd-deep-swing-invalidation",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "goal17-eia-storage-actual-20261018"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "goal17-eia-storage-actual-20261018",
+          "known_at_utc": "2026-10-18T13:03:41Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+          "retrieval_time_utc": "2026-10-18T13:03:41Z",
+          "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+          "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+          "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "unit": "Bcf"
+        }
+      ],
+      "text": "S\u1eeda t\u00ednh b\u1ec1n khi d\u00f2ng c\u00f9ng ngh\u0129a \u1ee7ng h\u1ed9 \u0111\u1ed1i \u00e1n t\u1ea1m th\u1eddi; thi\u1ebfu panel gi\u00e1 kh\u00f4ng th\u1ec3 th\u00e0nh x\u00e1c nh\u1eadn gi\u00e1."
+    }
+  ],
+  "report_id": "asset-report:XNGUSD",
+  "report_sha256": "eae4aa5b6a6b883abc540d7abdda4282bc1647d13a84a0629678407fcb2f8f10",
+  "report_version": 4,
+  "run_id": "run-asset-report:7ebb19ec6546ed06aa1fc696",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "74f539b62d2aba4b8d00b8c62ce68930c85f430ce2bba4d50e8b6040048be698",
+    "evidence_snapshot_sha256": "ca5a76cebaf17a027858e56a12f89b81d0d966b747212ed76344ed062b433da2"
+  },
+  "supersedes_report_id": "asset-report:XNGUSD",
+  "version": "1.1.0"
+}

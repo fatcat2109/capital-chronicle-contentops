@@ -1,0 +1,13 @@
+{
+  "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+  "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+  "review_id": "native-article-review-a762531f59f64abb80efa2712073b3b1",
+  "plan_hash": "ca13c8ebd2fa72dd3c003fee78bbc25eec653408fc26c65c1e706912f52b790a",
+  "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-brent-transmission\\reviewed-handoff",
+  "media_reuse_count": 1,
+  "preview_count": 8,
+  "new_qualified_articles": 0,
+  "model_invocations": 0,
+  "source_requests": 0,
+  "public_write_performed": false
+}

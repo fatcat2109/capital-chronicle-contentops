@@ -468,6 +468,7 @@ def validate_latest_report_bytes(
     reports: dict[str, dict[str, Any]] = {}
     report_raw_hashes = []
     public_row = None
+    native_public_lineage = None
     if public_export_bytes is not None:
         public = _load(public_export_bytes, max_bytes=8 * 1024 * 1024)
         if (_private(public) or public.get("schema") != "CapitalChronicleOperationalReportServingProjectionV1"
@@ -482,6 +483,11 @@ def validate_latest_report_bytes(
             errors.append("PUBLIC_REPORT_PROJECTION_INVALID")
         else:
             public_row = public["latest_reports"][0]
+            from live_contentops.capital_chronicle_public_native_lineage_v1 import interpret_public_native_lineage
+            try:
+                native_public_lineage = interpret_public_native_lineage(public_row, envelope)
+            except (ValueError, KeyError, TypeError, AttributeError):
+                errors.append("PUBLIC_NATIVE_LINEAGE_BINDING_INVALID")
             for field, value in (("report_id", envelope.get("report_id")), ("report_version", envelope.get("report_version")),
                                  ("report_sha256", envelope.get("report_sha256")), ("asset_id", (envelope.get("asset_ids") or [None])[0]),
                                  ("public_safe_claims", envelope.get("public_safe_claims")), ("change_kind", envelope.get("change_kind")),
@@ -806,6 +812,7 @@ def validate_latest_report_bytes(
         and (report_schema_bytes is not None or public_export_bytes is not None)
         and not any("SCHEMA" in error for error in errors),
         "producer_binding": deepcopy(dict(producer_binding or {})),
+        "native_public_lineage": native_public_lineage,
         "contract_revision": envelope.get("contract_revision"),
         "contract_version": envelope.get("version"),
         "raw_sha256": hashlib.sha256(raw_bytes).hexdigest(),
@@ -1302,6 +1309,7 @@ def build_report_editorial_input(
         "what_to_watch": admission["hold_and_invalidation_conditions"],
         "limitations": admission["limitations"],
         "report_truth": "HASH_BOUND_MAIN_REPORT",
+        "native_public_lineage": deepcopy(admission.get("native_public_lineage")),
         "underlying_event_truth": "NOT_UPGRADED_BY_REPORT_IMPORT",
         "private_context_included": False,
         "publication_authority": False,

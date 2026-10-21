@@ -307,7 +307,9 @@ _SEMANTIC_DEDUP_STOP_WORDS = frozenset(
 def _semantic_dedup_terms(value: str) -> set[str]:
     """Return a small deterministic fingerprint for reader-facing derivative deduplication."""
     terms: set[str] = set()
-    for raw in re.findall(r"[a-z0-9]+", str(value or "").casefold()):
+    # Preserve accented words: ASCII fragments made distinct Vietnamese causal
+    # explanations look identical and discarded the writer's counter-case.
+    for raw in re.findall(r"[^\W_]+", str(value or "").casefold()):
         if raw in _SEMANTIC_DEDUP_STOP_WORDS:
             continue
         term = raw
@@ -350,7 +352,7 @@ def _next_distinct_derivative_sentence(
             candidate = _punctuate(_first_complete_sentence(sentence))
             # A surviving second sentence can lose its antecedent when the first
             # is deduplicated. Prefer another unchanged sentence with its own subject.
-            if re.search(r"\b(?:khả năng ấy|khả năng đó|that possibility|such a possibility)\b", candidate, re.IGNORECASE):
+            if re.search(r"\b(?:khả năng ấy|khả năng đó|phản đề này|cơ chế ấy|that possibility|such a possibility)\b", candidate, re.IGNORECASE):
                 continue
             if candidate and not any(
                 _materially_identical_derivative_sentence(candidate, prior)

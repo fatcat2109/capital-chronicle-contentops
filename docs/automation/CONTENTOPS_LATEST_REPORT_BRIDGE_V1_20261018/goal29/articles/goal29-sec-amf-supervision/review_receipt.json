@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-9267198264d34198a00f9318d2b58828",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal29-sec-amf-supervision",
+  "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+  "package_revision": "f8c747d697b449983183e9c30e42f9f948668722e614576fd541ee81bdcc584f",
+  "article_metadata_sha256": "dbbd17787b5c607935f65512c164f1311422e7ba0baff23f9b178730b450af70",
+  "rationale": "KEEP: new dated non-energy SEC agency source20Oct supports supervisory cooperation and processing new/pending applications. Read full prose, bindings, SEO, all eight previews and inspected source card. Distinguishes framework/process from individual registration or protection outcomes; full MOU and third-party quotations were not used. One same-writer metadata repair only adds MOU, preserving exact source and scope. No market-flow or price conclusion.",
+  "publication_authority": false
+}

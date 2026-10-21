@@ -1,0 +1,39 @@
+{
+  "schema_version": "contentops.goal29_actual_render_inspection.v1",
+  "method": "BrowserOS Neo real rendered React ReportEditorialWorkspace, screenshot plus DOM readback",
+  "desktop": {
+    "viewport_width": 1449,
+    "scroll_width": 1434,
+    "screenshot": "render/goal29-desktop.jpeg",
+    "visually_inspected": true,
+    "readability": "PASS: headings, paragraphs, emphasis, source markers and lists legible"
+  },
+  "mobile": {
+    "viewport_width": 390,
+    "scroll_width": 390,
+    "screenshots": [
+      "render/goal29-mobile.jpeg",
+      "render/goal29-sec-mobile.jpeg"
+    ],
+    "visually_inspected": true,
+    "horizontal_overflow": false,
+    "readability": "PASS: wrapped title, dek and source-bound paragraphs; no clipping"
+  },
+  "current_articles": 7,
+  "native_previews": 56,
+  "new_articles_read_in_full": 2,
+  "new_previews_read_in_full": 16,
+  "current_images_loaded": 7,
+  "new_media_inspected": 1,
+  "existing_eia_image_reinspected": 1,
+  "history_contains_original_and_source_review_reasons": true,
+  "seo_disclosure_present": true,
+  "raw_markdown_emphasis_links_lists_fixed_in_render_only": true,
+  "public_writes": 0,
+  "artifacts": {
+    "render\\goal29-desktop.jpeg": "fdf009ebaeb03ea5e8e41539ad614a4e526c24b73fce42eb263dd45f053fabfc",
+    "render\\goal29-dom.json": "176b5538eccf0a5053baf523ef7c23dd9dd0f6cbbfe2857fe99045a3135df6e5",
+    "render\\goal29-mobile.jpeg": "af5e8955369d659c59c11ae66037e1c24adad1f888d2c6f5f77889cd976f304f",
+    "render\\goal29-sec-mobile.jpeg": "b0957b0e9659d18f84d4da9b3a255fd7140ab11cca5dae463b9816724d77b418"
+  }
+}

@@ -1,4 +1,4 @@
-# Capital Chronicle ContentOps — Current Authority and Supersession Map V1
+# Capital Chronicle ContentOps â€” Current Authority and Supersession Map V1
 
 Authority date: 2026-10-20
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
@@ -135,11 +135,11 @@ Missing fresh host proof does not convert a proven implementation into a new imp
 
 ## 6. Current product sequence
 
-1. Implement and independently audit the native Desktop migration on PR90, preserving Goal20–23 evidence.
+1. Implement and independently audit the native Desktop migration on PR90, preserving Goal20â€“23 evidence.
 2. Reuse Goal25's isolated Luna-MAX -> Sol-Light -> Sol-MAX flow and byte-stable restart; retain the exact dated source, eight native previews and readback limits in its owning checkpoint.
 3. Preserve the exact paused four-task rollout and per-channel API/Neo setup/readback handoff.
 4. After separate audit/deployment authority, apply the one documented activation transition with pause release last.
-5. Observe natural runtime separately; 5–8/day reliability is unproven until actual reconciled output establishes it.
+5. Observe natural runtime separately; 5â€“8/day reliability is unproven until actual reconciled output establishes it.
 
 No production activation, public write, pause release, self-merge or deployment is part of Goal25.
 
@@ -216,11 +216,19 @@ public-manifest feed, with the dedicated Main demo remaining private and outside
 control. See CONTENTOPS_OWNER_UPDATE_RECONCILIATION_20261019.md for dated accepted/unmerged
 source; the existing owning handoffs establish subsequent implementation state. This dated input amendment is superseded for editorial ownership by the 2026-10-20 native migration; it grants no pause release, publication or V2 authority.
 
-## Goal28 owner-manual continuation
+## Goal29 owner-manual continuation
 
-Current owning checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal28/RELEASE_HANDOFF.md`.
-Reuse the existing relocated owner-manual store and five-article edition through the same profile
+Current owning checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal29/RELEASE_HANDOFF.md`.
+Reuse the existing relocated owner-manual store and preserved five-article Goal28 edition through the same profile
 and newsroom skill. Original sealed identities, completed returns, prior reviews and public Main
 admission remain authority-bound. The Temp database is recovery only; never create a second
-operating newsroom. Five KEEP / one held candidate / forty previews is an isolated owner edition,
+operating newsroom. Goal29 extends it to seven KEEP / one held candidate / fifty-six previews,
 not deployment, publishing, routine output reliability or permission to release production pause.
+
+Goal29 admits exact public UKOIL v4 / USOIL v6 / XNGUSD v5. Two pinned Unicode-defective
+parents receive ancestry-only consumer receipts with zero claim/observation/publication credit;
+original bytes and BLOCKED receipts remain. Native public lineage is producer attestation,
+not independent consumer proof of private worker execution. The existing desk preserves the
+five Goal28 KEEP articles and adds useful dated Brent and SEC-AMF questions through native
+Sol low/MAX; unchanged oil/gas prose remains usable history. New profile feeds never redirect
+an existing sealed operation. Receiver synchronization remains pending; schedules stay paused.

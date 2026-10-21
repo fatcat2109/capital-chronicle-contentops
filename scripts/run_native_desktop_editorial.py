@@ -44,8 +44,9 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
         binding = validate_binding(json.loads(path.read_bytes()))
         if request is not None and request != binding.get("editorial_request"):
             raise ValueError("OWNER_REQUEST_CHANGED_USE_NEW_OPERATION")
-        # A profile edit cannot redirect an existing claimed opportunity.
-        for key in ("store_path", "feed_pointer_path", "published_memory_store", "published_memory_output_root"):
+        # A newer feed applies only to new opportunities. Resumes retain their
+        # original feed and frozen packets; the profile cannot redirect storage.
+        for key in ("store_path", "published_memory_store", "published_memory_output_root"):
             if resolve_workspace_path(profile[key], manifest_path=profile.get("workspace_relocation_manifest")) != resolve_workspace_path(binding[key], manifest_path=profile.get("workspace_relocation_manifest")):
                 raise ValueError("OWNER_PROFILE_BINDING_CHANGED:" + key)
     else:

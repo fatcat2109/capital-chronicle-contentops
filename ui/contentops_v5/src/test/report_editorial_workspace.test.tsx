@@ -17,6 +17,16 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('shows latest admitted public lineage as producer attestation', () => {
+    const snapshot = data();
+    snapshot.main_admission_summary = [{ report_id: 'asset-report:UKOIL', report_version: 4,
+      report_sha256: 'b'.repeat(64), claims: 24, native_public_excerpts: 23,
+      provenance_state: 'PRODUCER_ATTESTED_NATIVE_PUBLIC_EXCERPTS', independent_native_runtime_verified: false,
+      known_at_cutoff_utc: '2026-10-20T20:00:00Z' }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    expect(screen.getByText(/UKOIL v4 · 24 luận điểm được phép · 23 trích đoạn/)).toBeInTheDocument();
+    expect(screen.getByText(/chưa phải bằng chứng độc lập về phiên chạy model/)).toBeInTheDocument();
+  });
   it('leads with the current edition and keeps prior full copy in history', () => {
     const snapshot = data();
     const article = (run_id: string, title: string) => ({ run_id, article_identity: run_id,
@@ -27,6 +37,7 @@ describe('Main report editorial workspace', () => {
       held_candidates: [{ title: 'Options positioning', reason: 'No current chain.' }],
       ready: 1, held: 1, missing: 0, preview_count: 8 };
     snapshot.native_edition = [article('old', 'Prior accepted article'), article('new', 'Current useful article')];
+    snapshot.native_edition[0].source_review = { decision: 'USE_UNCHANGED', reader_change_summary: 'Same observation; retain original prose.' };
     render(<ReportEditorialWorkspace data={snapshot} />);
     expect(screen.getByRole('heading', { name: 'Current owner edition' })).toBeInTheDocument();
     expect(screen.getByLabelText('Tình trạng ấn bản')).toHaveTextContent('1 bài sẵn đọc · 1 đề tài giữ chờ · 0 bài còn thiếu');
@@ -38,11 +49,12 @@ describe('Main report editorial workspace', () => {
     expect(history).not.toHaveAttribute('open');
     expect(within(history).getByText(/Prior accepted article/)).toBeInTheDocument();
     expect(within(history).getByText('Full retained copy.')).toBeInTheDocument();
+    expect(within(history).getByText(/Same observation; retain original prose/)).toBeInTheDocument();
   });
   it('shows edition angle, dated sources, revision review and every native preview', () => {
     const snapshot = data();
     snapshot.native_edition = [{ run_id: 'edition-real-owner-controlled-test', article_identity: 'edition-test',
-      article: { title: 'Three separate gold questions', dek: 'Price, leverage and custody.', substack_body_markdown: '## Mechanism\n\nDated educational interpretation. [[SOURCE:SOURCE_1]]' },
+      article: { title: 'Three separate gold questions', dek: 'Price, leverage and custody.', substack_body_markdown: '## Mechanism\n\n**Dated educational interpretation.** [[SOURCE:SOURCE_1]]\n\n[Agency source](https://www.cftc.gov/example)\n\n- Exact dated scope.' },
       angle: 'Separate contract risks', reader_question: 'What is actually owned?', mode: 'EVERGREEN_EXPLAINER',
       review: { decision: 'KEEP', rationale: 'Bounded educational scope and exact source dates retained.' },
       evidence: [{ source_id: 'SOURCE_1', publisher: 'CFTC', url: 'https://www.cftc.gov/example', published_at_utc: '' }],
@@ -55,6 +67,9 @@ describe('Main report editorial workspace', () => {
     expect(within(edition).getByText(/Không cung cấp ngày xuất bản/)).toBeInTheDocument();
     expect(edition.querySelectorAll('[data-edition-destination]')).toHaveLength(8);
     expect(within(edition).getByText('Mechanism')).toBeInTheDocument();
+    expect(within(edition).getByText('Dated educational interpretation.').tagName).toBe('STRONG');
+    expect(within(edition).getByRole('link', { name: 'Agency source' })).toHaveAttribute('href', 'https://www.cftc.gov/example');
+    expect(within(edition).getByRole('listitem')).toHaveTextContent('Exact dated scope.');
   });
   it('keeps independent evidence, recirculation, controlled conversion and media visible', () => {
     const snapshot = data();

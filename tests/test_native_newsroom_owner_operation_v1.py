@@ -28,6 +28,10 @@ def test_owner_request_resumes_frozen_binding_and_cannot_redirect(tmp_path):
         now=datetime(2026, 10, 20, tzinfo=timezone.utc))
     assert json.loads(path.read_bytes())["editorial_request"] == request
     assert module.resolve_owner_operation(profile, operation_id="test-edition")[1] == first
+    advanced = {**profile, "feed_pointer_path": str(tmp_path / "new-feed.json")}
+    assert module.resolve_owner_operation(advanced, operation_id="test-edition")[1] == first
+    assert json.loads(path.read_bytes()) == first
+    assert module.resolve_owner_operation(advanced, operation_id="next-edition", request=request)[1]["feed_pointer_path"] == advanced["feed_pointer_path"]
     with pytest.raises(ValueError, match="REQUEST_CHANGED"):
         module.resolve_owner_operation(profile, operation_id="test-edition", request=request + " New scope")
     with pytest.raises(ValueError, match="BINDING_CHANGED"):

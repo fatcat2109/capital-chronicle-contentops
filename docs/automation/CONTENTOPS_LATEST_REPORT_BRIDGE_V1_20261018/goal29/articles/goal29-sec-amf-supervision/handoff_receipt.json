@@ -1,0 +1,13 @@
+{
+  "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+  "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+  "review_id": "native-article-review-9267198264d34198a00f9318d2b58828",
+  "plan_hash": "86ebdbdf51423f095ff8aa1de2a7d729137e69224c1320ea1671eeb72b5c0672",
+  "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-sec-amf-supervision\\reviewed-handoff",
+  "media_reuse_count": 1,
+  "preview_count": 8,
+  "new_qualified_articles": 0,
+  "model_invocations": 0,
+  "source_requests": 0,
+  "public_write_performed": false
+}

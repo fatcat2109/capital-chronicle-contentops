@@ -1,0 +1,124 @@
+{
+  "affected_symbols": [
+    "USOIL"
+  ],
+  "as_of_utc": "2026-10-19T12:25:00Z",
+  "asset_ids": [
+    "USOIL"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "change_kind": "CORRECTION",
+  "changed_claim_ids": [
+    "usoil-source"
+  ],
+  "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+  "contract_revision": "asset-analysis-report-v1.1.0",
+  "envelope_sha256": "49ad569544acf9aab09faaed17be2811a171fd988390f9b6b5c186b792584bdf",
+  "event_id": "report-event:f2cd44fcae587f272f8e00dbf1ec5d0617315dc74785f5d7a3eb3e9410c9d64d",
+  "generated_at_utc": "2026-10-20T22:41:10.430750Z",
+  "hold_conditions": [],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-26T12:25:00Z",
+      "horizon": "short",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T12:25:00Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-17T12:25:00Z",
+      "horizon": "swing",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T12:25:00Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-01-14T12:25:00Z",
+      "horizon": "long",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T12:25:00Z",
+      "trading_sessions": 63
+    }
+  ],
+  "invalidation_conditions": [],
+  "known_at_cutoff_utc": "2026-10-19T12:25:00Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "Producer ASCII wire seal correction; unchanged dated native research and zero new economic observations.",
+  "parent_report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+  "public_safe_claims": [
+    {
+      "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+      "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+      "claim_id": "usoil-source",
+      "claim_type": "SOURCE_FACT",
+      "epistemic_layer": "OBSERVED_SOURCE_FACT",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+    }
+  ],
+  "report_id": "asset-report:USOIL",
+  "report_sha256": "e5f74373ded4564fea8abc0e22d0ca57fef8a7af63e0a45cca9be90276e4417f",
+  "report_version": 6,
+  "run_id": "run-asset-report:99d4859247aa03ee7efb38f7",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "74f539b62d2aba4b8d00b8c62ce68930c85f430ce2bba4d50e8b6040048be698",
+    "evidence_snapshot_sha256": "5c3bd756ca9d754f42733c7fd0d8105c16bd4180b1946aeeaafbc4193800eb95"
+  },
+  "supersedes_report_id": "asset-report:USOIL",
+  "version": "1.1.0"
+}

@@ -107,6 +107,7 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
             "report_version": admission["report_version"],
             "report_sha256": admission["source_report_sha256"],
             "claims": admission["claims"],
+            "native_public_lineage": admission.get("native_public_lineage"),
             "source_clock_metadata": clocks,
             "scope_notice": report_scope_notice(admission),
         },
@@ -799,6 +800,7 @@ def report_workspace_projection(
             "run_id": simple.get("run_id"), "angle": plan.get("angle"),
             "reader_question": plan.get("primary_reader_question"),
             "mode": plan.get("article_mode"), "review": review,
+            "source_review": None,
             "editorial_execution": item.get("editorial_execution"),
             "prior_story": simple.get("selected_candidate", {}).get("evolving_story_context", []),
             **({"previews": prepared["previews"], "media_assets": prepared["media_assets"],
@@ -834,9 +836,17 @@ def report_workspace_projection(
         owner_edition = {**owner_edition, "ready": len(ready), "held": len(held) + len(owner_edition["held_candidates"]),
             "missing": len(owner_edition["operation_ids"]) - len(ready) - len(held),
             "preview_count": sum(len(e["previews"]) for e in ready)}
+    latest_admissions = [max((r for r in accepted if r["report_id"] == identity),
+        key=lambda r: r["report_version"]) for identity in sorted(ids)]
     return {
         "schema_version": SCHEMA,
         "owner_edition": owner_edition,
+        "main_admission_summary": [{"report_id": r["report_id"], "report_version": r["report_version"],
+            "report_sha256": r["source_report_sha256"], "claims": len(r["claims"]),
+            "native_public_excerpts": (r.get("native_public_lineage") or {}).get("permitted_excerpt_count", 0),
+            "provenance_state": (r.get("native_public_lineage") or {}).get("state", "SOURCE_FACT_ONLY_NO_NATIVE_ATTESTATION"),
+            "independent_native_runtime_verified": False, "known_at_cutoff_utc": r["known_at_cutoff_utc"]}
+            for r in latest_admissions],
         "source_reviews": source_reviews,
         "current_input_snapshots": [{k: v for k, v in json.loads(r["payload"]).items() if k != "research"}
             for r in rows if r["destination"] == "internal:native-current-input"][-8:],

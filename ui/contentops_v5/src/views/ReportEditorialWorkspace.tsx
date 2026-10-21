@@ -11,9 +11,18 @@ const sourceDecision: Record<string, string> = {
   RETAIN_EXACT_BYTES_DATED_SUPPORT: 'Giữ ảnh đã kiểm tra với nguồn có ngày cũ',
   REVALIDATE_CHANGED_SUPPORT: 'Kiểm tra lại ảnh theo nguồn đã đổi',
 };
+function InlineCopy({ text }: { text: string }) {
+  return <>{text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\(https:\/\/[^)\s]+\))/g).map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) return <strong key={i}>{part.slice(2, -2)}</strong>;
+    const link = /^\[([^\]]+)\]\((https:\/\/[^)\s]+)\)$/.exec(part);
+    return link ? <a key={i} href={link[2]} target="_blank" rel="noreferrer">{link[1]}</a> : part;
+  })}</>;
+}
 function ArticleParagraphs({ text }: { text: string }) {
   return <div>{text.replace(/\[\[SOURCE:(SOURCE_\d+)\]\]/g, '[$1]').split(/\n\s*\n/).map((block, i) =>
-    /^#{1,6}\s/.test(block) ? <h4 key={i}>{block.replace(/^#{1,6}\s+/, '')}</h4> : <p key={i} style={{ overflowWrap: 'anywhere', whiteSpace: 'pre-line' }}>{block}</p>)}</div>;
+    /^#{1,6}\s/.test(block) ? <h4 key={i}>{block.replace(/^#{1,6}\s+/, '')}</h4>
+      : block.startsWith('- ') ? <ul key={i}><li><InlineCopy text={block.slice(2)} /></li></ul>
+      : <p key={i} style={{ overflowWrap: 'anywhere', whiteSpace: 'pre-line' }}><InlineCopy text={block} /></p>)}</div>;
 }
 const gapText: Record<string, string> = {
   CURRENT_MARKET_QUOTES_AND_RELATIVE_RATE_PATH_NOT_VERIFIED: 'Chưa có giá và kỳ vọng chênh lệch lãi suất hiện tại.',
@@ -47,15 +56,21 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
       {current.held_candidates.map((h, i) => <details key={i}><summary>Giữ chờ: {h.title}</summary><p>{h.reason}</p></details>)}
       <nav aria-label="Mục lục ấn bản">{articles?.map(a => <p key={a.article_identity}><a href={'#article-' + a.article_identity}>{a.article.title}</a></p>)}</nav>
     </section>}
+    {!!data?.main_admission_summary?.length && <details><summary>Báo cáo Main mới nhất đã tiếp nhận</summary>
+      <p>Đã kiểm tra liên kết nội dung công khai. Xác nhận model của bên tạo báo cáo chưa phải bằng chứng độc lập về phiên chạy model.</p>
+      {data.main_admission_summary.map(r => <p key={r.report_id}>{r.report_id.replace('asset-report:', '')} v{r.report_version} · {r.claims} luận điểm được phép · {r.native_public_excerpts} trích đoạn có xác nhận model từ Main · mốc báo cáo {r.known_at_cutoff_utc}.</p>)}
+    </details>}
     {!!articles?.length && <section aria-label="Ấn bản newsroom"><h3>Ấn bản newsroom · đọc và duyệt</h3>
       <p>Các bài đã qua validator; quyết định biên tập gắn với đúng bản bài. Chưa xuất bản.</p>
       {articles?.map(item => <article id={'article-' + item.article_identity} key={item.article_identity} className="report-copy" data-edition-run={item.run_id}>
         <h3>{item.article.title}</h3><p>{item.article.dek}</p>
         <p><strong>{item.review?.decision ?? 'Chờ đọc duyệt'}</strong> · {item.reader_question}</p>
         {item.prepared_state && <p role="status">Bản gốc được giữ nguyên; chuẩn bị phát hành đã mất hiệu lực do nguồn đổi hoặc còn thiếu.</p>}
+        {item.source_review && <p>{sourceDecision[item.source_review.decision] ?? display(item.source_review.decision)}: {item.source_review.reader_change_summary}</p>}
         {item.report_id && <p>Bổ sung từ {item.report_id} bản {item.report_version}; phân tích Main có điều kiện, không phải xác nhận độc lập.</p>}
         <details open><summary>Đọc toàn bài</summary><ArticleParagraphs text={item.article.substack_body_markdown} /></details>
         <details><summary>Góc bài và quyết định đọc duyệt</summary><p>{item.angle ?? item.mode}</p><p>{item.review?.rationale}</p></details>
+        {item.article.search_title && <details><summary>SEO và ngày nguồn</summary><p>{item.article.search_title}</p><p>{item.article.meta_description}</p><p>Slug: {item.article.canonical_slug_candidate}</p><p>{item.article.source_date_notice}</p></details>}
         <details><summary>Nguồn và ngày</summary>{item.evidence?.map(s => <p key={s.source_id} style={{ overflowWrap: 'anywhere' }}>
           {s.source_id} · {s.publisher} · {s.published_at_utc || 'Không cung cấp ngày xuất bản'} · {s.published_at_source === 'MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME' ? 'Mốc báo cáo Main, không phải ngày phát hành nguồn' : 'Nguồn lưu giữ có ngày riêng'}<br />
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
@@ -65,7 +80,13 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
         {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}
       </article>)}
     </section>}
-    {!!history?.length && <details><summary>Bài và phiên bản trước ({history.length})</summary>{history.map(h => <details key={h.article_identity}><summary>{h.article.title} · {h.prepared_state ? 'chuẩn bị cũ mất hiệu lực' : h.review?.decision ?? 'chưa duyệt'}</summary><ArticleParagraphs text={h.article.substack_body_markdown} />{h.previews.map(p => <details key={p.preview_id}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}</details>)}</details>}
+    {!!history?.length && <details><summary>Bài và phiên bản trước ({history.length})</summary>{history.map(h => <details key={h.article_identity}><summary>{h.article.title} · {h.prepared_state ? 'chuẩn bị cũ mất hiệu lực' : h.source_review?.decision === 'USE_UNCHANGED' ? 'giữ dùng, không viết lại' : h.review?.decision ?? 'chưa duyệt'}</summary>
+      {h.source_review && <p>{sourceDecision[h.source_review.decision] ?? display(h.source_review.decision)}: {h.source_review.reader_change_summary}</p>}
+      {h.prepared_state && <p>Quyết định KEEP cũ không còn dùng để chuẩn bị phát hành. Văn bản gốc được giữ để đối chiếu.</p>}
+      <ArticleParagraphs text={h.article.substack_body_markdown} />
+      {h.evidence?.map(s => <p key={s.source_id}>{s.publisher} · {s.published_at_utc || 'Chưa xác minh ngày công bố'} · {s.url.startsWith('https://') ? <a href={s.url}>Nguồn gốc</a> : 'Báo cáo công khai đã lưu giữ'}</p>)}
+      {h.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
+      {h.previews.map(p => <details key={p.preview_id}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}</details>)}</details>}
     <details open={!current}><summary>Nguồn, sửa đổi và thư viện nghiên cứu</summary>
     {!!data?.source_reviews?.length && <section aria-label="So sánh nguồn và quyết định cập nhật">
       <h3>Nguồn đã thay đổi gì?</h3><p>Bài cũ giữ nguyên trong lịch sử. Đọc lại URL không tạo tuần quan sát mới.</p>

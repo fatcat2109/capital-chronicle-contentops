@@ -1,0 +1,891 @@
+{
+  "accepted_source_count": 1,
+  "admitted_candidate_count": 1,
+  "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-brent-transmission\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198"
+      ],
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "blockers": [],
+      "candidate_id": "simple-story-93077be7d9d04ac72cb7cb5e",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "EIA October 9 2026 crude inventories imports refinery utilization gasoline distillate",
+        "Brent WTI seaborne crude trade freight quality differentials regional inventory transmission"
+      ],
+      "selection_rationale": "Bổ sung câu hỏi địa lý và thương mại cho lịch sử dầu đã có, thay vì nhắc lại số rút kho hoặc gộp dầu với gas. UKOIL v4 cung cấp cơ chế và phản đề có điều kiện; USOIL v6 chỉ có dữ kiện nguồn chung. Giá trị mới là cách kiểm chứng phạm vi suy luận, không phải một quan sát kinh tế mới.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 21,
+  "candidate_limit": 32,
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-20T23:14:49.455205Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 2,
+    "observations": [
+      {
+        "invocation_id": "/root/goal29_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed.",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal29_brent_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+        "reasoning_effort": "max",
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal29_brent_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+        "reasoning_effort": "max",
+        "role": "revise",
+        "speed": "standard",
+        "stage": "revise",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low",
+      "max"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 3,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:UKOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal29_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed.",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "0e35a3fd3fdcd2f3fb075bc69d1109c73e9757e9140a6864b0fcccf83b570026",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "b4b168d9f2bce19a291bb300f89397fefdc0e8240d55bc1ac43c58948555fe62",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal29_brent_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "23fdb723e9307d69bfbc57da9e00adee224e90a6dafbf8874f28e3259437e4eb",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "ebf72b8f20cd4016fefe2fc22f29a780bc1a151aa2135ef87c9dee72b51a77c2",
+      "role": "write",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "write"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal29_brent_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "f8ae08944f62842ae984a60cf588357ec1288cc20bea386912f1ffdb0a1b1481",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "71cd060cc7be5ec2fabeeb0421e39adba8dc2e809a55a7a8720108b6cb7f8676",
+      "role": "revise",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "revise"
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-brent-transmission\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+    ],
+    "accepted_evidence_sha256": "f4913cca025e2c3056616c7d7e7222c3ab4b83a1d8b66bb547692cfbf60989d8",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "104abd0b7b6c486d03792f7188875ba64836abc64e0d0a418e1b667263c52ce1",
+    "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "5e4c685bc38d0c6a565aa628f99f52253650676797a682416aba752f95707085",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "658a3804da1253698bdee0b4afe6aa9aace1f328aa217829aa652c46a6e87a3f",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "63ba43b86cd5b00bff92805d27defd49d5bb24c01ef09aadf5241f709351a6e5",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "19897cf67daf6bda3ad6b2eb117f6d0ac9cd984a0ff44552a493b45e9f06b12d",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "9ffc0bed60427cf8b3f084e8a49f579dde1c1e72c66a6859b3f12d0010bffb10",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "5d97de84ad1c6fb22d08675b45d581482ab905149d9fd77a2a3dfc9c57ec2fd5",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "0f588c2247c3d10cfedabca64689e8d2bf1e6eb47b7ab558371040e9f85f003f",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "7169565422b5ce0f6595e948cd7d64dd6f99e6ba04bc388e1dfd7c5c8b04e813",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "126337e3517dae96b2af1d95f198d9581f62a40e4a424d641ee693d24c18caa2",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+    "epistemic_state": {
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "This report import does not independently verify the underlying events.",
+      "event_truth_supported": false,
+      "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "Capital Chronicle",
+      "primary_reporting_source_identity": "asset-report:UKOIL",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+      "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+      "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-brent-transmission",
+    "package_identity": "6782777606e4f7d928c513ee25cef7dac5efa737d9dae191fbd30040a2ee0c1b",
+    "plan_hash": "776964ce43983a48fe289c3e667151f5492d6a3b40130948b9560469f0b6c702",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal29-brent-transmission"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "run_id": "goal29-brent-transmission",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-93077be7d9d04ac72cb7cb5e",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "update_chain_identity": "energy-balance-transmission"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-brent-transmission\\qualified_article_record_v1.json",
+  "revision_performed": true,
+  "run_id": "goal29-brent-transmission",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-93077be7d9d04ac72cb7cb5e",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [
+      {
+        "brief_id": "energy-balance-transmission",
+        "changed_evidence": [],
+        "changed_source_count": 0,
+        "confirmation_state": "ATTRIBUTED_RETAINED_SOURCE_FACTS_CONDITIONAL_ANALYSIS",
+        "current_review": {
+          "rationale": "KEEP nghiên cứu: dầu Mỹ, Brent và gas có cơ chế khác nhau; dữ kiện dầu được quy nguồn Main công khai, gas đối chiếu EIA độc lập cùng số. Không biến ba bản Main thành ba xác nhận; có phản đề nhập khẩu, tích kho xăng và spread. Không target hay giá hiện tại.",
+          "state": "STALE"
+        },
+        "disposition": "NEW",
+        "follow_up_value": "Nối ba lịch sử báo cáo công khai thành câu hỏi kiểm chứng chung nhưng giữ nguyên proxy, kỳ dữ liệu và giới hạn riêng.",
+        "main_changed_claim_ids": [
+          "cc-gas-balance",
+          "cc-gas-hold",
+          "cc-gas-invalidate",
+          "cc-gas-long",
+          "cc-gas-short",
+          "cc-gas-swing",
+          "eia-storage-observed",
+          "goal20-oil-buffer",
+          "goal20-oil-hold",
+          "goal20-oil-invalidate",
+          "goal20-oil-long",
+          "goal20-oil-short",
+          "goal20-oil-source",
+          "goal20-oil-swing",
+          "ukoil-deep-alternative-0",
+          "ukoil-deep-contradictions-0",
+          "ukoil-deep-cross_asset-0",
+          "ukoil-deep-hold_conditions-0",
+          "ukoil-deep-known-0",
+          "ukoil-deep-long-base_case",
+          "ukoil-deep-long-downside_scenario",
+          "ukoil-deep-long-invalidation",
+          "ukoil-deep-long-upside_scenario",
+          "ukoil-deep-mechanism-0",
+          "ukoil-deep-missing-0",
+          "ukoil-deep-principle-0",
+          "ukoil-deep-review-0",
+          "ukoil-deep-short-base_case",
+          "ukoil-deep-short-downside_scenario",
+          "ukoil-deep-short-invalidation",
+          "ukoil-deep-short-upside_scenario",
+          "ukoil-deep-stop_holding_conditions-0",
+          "ukoil-deep-swing-base_case",
+          "ukoil-deep-swing-downside_scenario",
+          "ukoil-deep-swing-invalidation",
+          "ukoil-deep-swing-upside_scenario",
+          "ukoil-deep-timing_priced_in-0",
+          "ukoil-hold",
+          "ukoil-invalidate",
+          "ukoil-long",
+          "ukoil-mechanism",
+          "ukoil-short",
+          "ukoil-source",
+          "ukoil-swing",
+          "usoil-hold",
+          "usoil-invalidate",
+          "usoil-long",
+          "usoil-mechanism",
+          "usoil-short",
+          "usoil-source",
+          "usoil-swing",
+          "xngusd-deep-alternative-0",
+          "xngusd-deep-contradictions-0",
+          "xngusd-deep-cross_asset-0",
+          "xngusd-deep-hold_conditions-0",
+          "xngusd-deep-known-0",
+          "xngusd-deep-long-base_case",
+          "xngusd-deep-long-downside_scenario",
+          "xngusd-deep-long-invalidation",
+          "xngusd-deep-long-upside_scenario",
+          "xngusd-deep-mechanism-0",
+          "xngusd-deep-missing-0",
+          "xngusd-deep-principle-0",
+          "xngusd-deep-review-0",
+          "xngusd-deep-short-base_case",
+          "xngusd-deep-short-downside_scenario",
+          "xngusd-deep-short-invalidation",
+          "xngusd-deep-short-upside_scenario",
+          "xngusd-deep-stop_holding_conditions-0",
+          "xngusd-deep-swing-base_case",
+          "xngusd-deep-swing-downside_scenario",
+          "xngusd-deep-swing-invalidation",
+          "xngusd-deep-swing-upside_scenario",
+          "xngusd-deep-timing_priced_in-0",
+          "xngusd-hold",
+          "xngusd-invalidate",
+          "xngusd-long",
+          "xngusd-mechanism",
+          "xngusd-short",
+          "xngusd-source",
+          "xngusd-swing"
+        ],
+        "missing_inputs": [
+          "Bản dầu kỳ mới, thời điểm quan sát đúng và kỳ vọng trước công bố",
+          "Đường cong WTI/Brent/gas và spread cùng thời điểm; không có trong bộ nguồn này",
+          "Thời tiết, sản lượng, luồng LNG/đường ống và kiểm tra sửa số gas"
+        ],
+        "previous_published_article": {
+          "previous_article_identity": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+          "previous_body_sha256": "bec8781d53f443788c9d9816ea94f6ac064df927aa0ad413fd8496d4aadb863b",
+          "previous_canonical_url": "https://capitalchronicle.substack.com/p/us-energy-information-administration",
+          "previous_story_identity": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+          "previous_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook"
+        },
+        "previous_unpublished_package": {
+          "article_identity": "0198031ae6fffae30f1ec966450527c0faaf5eb0f419f832f177c7b9fd4ab746",
+          "stage": "UNPUBLISHED_RESEARCH_PACKAGE",
+          "title": "Nghiên cứu: Dầu rút kho, gas bơm chậm: vì sao chưa thể gộp thành một cược năng lượng"
+        },
+        "publication_state": "UNPUBLISHED_RESEARCH",
+        "published_novelty": {
+          "best_prior_article": "rolling-x-semantic-reserve-962063781d0ced97f8f2",
+          "best_prior_title": "U.S. Energy Information Administration Updates Short-Term Energy Outlook",
+          "cc_context_richness": 0.0,
+          "decision": "HOLD",
+          "entity_overlap": 0.2727,
+          "grants_factual_or_numeric_authority": false,
+          "matched_article_age_hours": 1663.741,
+          "material_delta_evaluation": {
+            "delta_summary": "No explicit material delta signal detected.",
+            "marker_hits": [],
+            "new_official_source_candidate_count": 0,
+            "reason_codes": [],
+            "signal_count": 0,
+            "x_content_grants_factual_authority": false
+          },
+          "material_delta_signals": 0,
+          "recommended_article_mode": "HOLD",
+          "schema_version": "contentops.editorial_story_novelty.v1",
+          "update_chain_match": false
+        },
+        "reader_question": "Kỳ tiếp theo thay đổi luồng nào: nhập khẩu và sản phẩm dầu, hay thời tiết, sản lượng và LNG của gas?",
+        "reason": "Bản nghiên cứu đầu tiên của câu chuyện; chưa có bài trước trong chuỗi này.",
+        "source_item_ids": [
+          "goal22-gas-storage"
+        ],
+        "story_identity": "energy-balance-transmission",
+        "update_chain_identity": "energy-balance-transmission",
+        "work_required": true
+      }
+    ],
+    "headline_id": "cc-report:bb4be4ae7fd7f2745db280fe270b900f4085523c95916c36c0511c60b523dc72",
+    "headline_text": "Capital Chronicle report update: The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period.",
+    "official_source_urls": [
+      "https://ir.eia.gov/wpsr/summary.txt"
+    ],
+    "public_source_urls": [
+      "https://ir.eia.gov/wpsr/summary.txt"
+    ],
+    "report_editorial_context": {
+      "claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_id": "ukoil-source",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-known-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "UKOIL mang mô tả Brent trong danh mục broker đóng băng, nhưng mã tài sản cơ sở và mã niêm yết đang để trống. Nguồn vật chất duy nhất là cân đối dầu Mỹ EIA tuần 09/10/2026: dầu thô rút kho 8.6 triệu thùng xuống 415.6 triệu thùng; xăng tăng kho 3.5 triệu thùng; sản phẩm chưng cất rút 2.5 triệu thùng. Nhãn EXACT xác nhận bản trích nguồn Mỹ, chưa biến nó thành cân đối Brent hoặc giá UKOIL chính xác."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất có tính lặp lại, thương mại đường biển và chênh lệch giá có thể truyền tác động sang Brent. Cần chứng cứ tàu hàng/xuất nhập khẩu, vận tải, sản lượng toàn cầu và chênh Brent–WTI để nối cơ chế đó. Hiện chỉ có câu hỏi về đường truyền khu vực–toàn cầu, chưa biết nó mạnh bao nhiêu hoặc đang tác động theo hướng nào."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-alternative-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Nhập khẩu Mỹ giảm 791000 thùng/ngày và tỷ lệ sử dụng nhà máy lọc dầu là 93.5%. Thời điểm hàng nhập về hoặc xử lý dầu thô ở nhà máy có thể làm kho Mỹ giảm mà không có thiếu hụt toàn cầu. Brent còn có nguồn cung, phẩm cấp và vận tải riêng. Không có số sản lượng/xuất khẩu toàn cầu để chọn giữa các cách giải thích."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-contradictions-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Rút kho dầu thô đi cùng tăng kho xăng và trường chỉ báo cầu xăng trung bình bốn tuần trong nguồn giảm 0.4% so cùng kỳ. Sản phẩm chưng cất lại rút kho. Các dòng sản phẩm và cửa sổ đo khác nhau không hợp thành một tín hiệu “cầu mạnh”. Nhập khẩu đo thùng/ngày còn biến động kho đo triệu thùng trong tuần; chưa có đối chiếu đầy đủ để quy một phần chính xác của rút kho cho nhập khẩu."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Tuần quan sát là 09/10/2026, còn thời điểm lấy/biết bản lưu là 18/10/2026 lúc 15:13:09.289 UTC. Packet không cung cấp giờ công bố dầu chính xác hoặc bản biết ngay lần công bố đầu. “Bản tuần mới nhất được lưu” chưa xác nhận đó là bản mới nhất hôm nay. Chưa có giá/đường cong Brent hay UKOIL, kỳ vọng trước tin hoặc phản ứng giá để đo bất ngờ và mức đã phản ánh vào giá."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-cross_asset-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "UKOIL và USOIL dùng chung một bản EIA nên không được tính thành hai xác nhận độc lập. Chênh lệch giá, phẩm cấp và vận tải mới giúp kiểm tác động truyền giữa hai khu vực. Tác động tới lạm phát, hãng bay hoặc nước xuất/nhập dầu cần phơi nhiễm riêng. Giá CFD còn có thể khác tham chiếu vật chất/kỳ hạn do nền giá, chuyển kỳ, phí tài trợ và điều khoản broker, đều chưa có dữ liệu."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-hold_conditions-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Giữ câu hỏi nghiên cứu về truyền dẫn sang Brent khi còn truy được kỳ nguồn và có thể bổ sung chứng cứ thương mại/đường cong đúng phạm vi. Không chuyển việc giữ câu hỏi thành giữ vị thế hay một WATCH thị trường đủ điều kiện."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-stop_holding_conditions-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Rút cách đọc thiếu hụt toàn cầu nếu cân đối kế tiếp cho thấy rút kho là thời điểm nhập/lọc dầu, hoặc dòng thương mại và chênh Brent không hỗ trợ truyền dẫn. Đến lúc xem lại không có nguồn mới thì đánh dấu cũ/thiếu; không mặc định tình trạng khan hiếm tiếp diễn."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-review-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Đầu vào kế tiếp: bản dầu EIA có ngày và sửa đổi; cấu phần dầu thô/sản phẩm riêng; sản lượng và xuất khẩu toàn cầu; đường cong Brent, chênh Brent–WTI, vận tải và phẩm cấp cùng thời điểm; tài sản tham chiếu, chuyển kỳ và phí của UKOIL. Làm rõ cầu nối địa lý trước khi diễn giải giá hiện tại."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-missing-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Thiếu kho/nguồn cung trực tiếp Brent, sản lượng toàn cầu, phơi nhiễm vận tải/xuất khẩu, giá và đường cong hiện tại, đồng thuận trước tin, phản ứng sau tin và điều khoản CFD. Quyền trích dẫn EIA công khai không xác nhận được các ngữ nghĩa hợp đồng hoặc sự kiện còn thiếu; báo cáo này vẫn là nghiên cứu nội bộ."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_id": "ukoil-deep-principle-0",
+          "producer_layer": "CC_ANALYSIS",
+          "text": "Cân đối kho–dòng là cơ chế kinh tế có điều kiện, chưa phải Principle đang được kích hoạt. Readback COMMODITIES có trạng thái NOT_RELEVANT_THIS_CYCLE; không được gán danh mục lãi/vàng/thanh khoản cho Brent theo tên gọi. Khan vật chất có thể xung đột với thời điểm nhập hàng và sản phẩm yếu; cần cấu phần cùng kỳ, thương mại và đường cong để phân biệt. Bộ nạp đầy đủ bị chặn OUTCOME_RESOLVER_ARTIFACT_HASH_MISMATCH, chưa có điểm/quyền áp dụng; 63 phiên chưa ánh xạ thành một quý."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-long-base_case",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Trong 63 phiên, xem cân đối tích lũy, phản ứng nguồn cung và chi phí phương tiện qua cập nhật thật; không thay cửa sổ bằng quý dương lịch."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-long-upside_scenario",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Chứng cứ khu vực và toàn cầu tiếp tục hỗ trợ cạnh tranh vật chất sau khi cung/vận tải phản ứng."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-long-downside_scenario",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Cung thích nghi, cầu vừa lại hoặc chi phí giữ/chuyển kỳ làm câu chuyện không còn hỗ trợ kinh tế nắm giữ."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-long-invalidation",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Rút tính bền nếu cân đối cùng nghĩa sau đó đảo chiều; thiếu đường cong/điều khoản vẫn ngăn kết luận lợi nhuận giữ CFD."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-short-base_case",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Trong 5 phiên xem lại, xác định có cân đối mới hoặc thông tin riêng Brent thật sự có ngày hay không; không đọc lại số Mỹ cũ như cú sốc Brent mới."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-short-upside_scenario",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Nguồn mới vừa hỗ trợ giảm khả năng cung ứng vật chất, vừa chứng minh được đường truyền thương mại và nền Brent."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-short-downside_scenario",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Hàng nhập Mỹ trở lại hoặc nguồn cung riêng Brent bù được rút kho khu vực."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-short-invalidation",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Bác cách đọc bất ngờ Brent hiện tại khi thiếu giờ công bố, kỳ vọng trước tin và chứng cứ Brent đồng thời."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-swing-base_case",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Trong 21 phiên, đối chiếu các bản dầu thô/sản phẩm lặp lại với thương mại, sản lượng toàn cầu và đường cong tương đối nếu có công bố."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-swing-upside_scenario",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Nhiều quan sát kho/dòng và cạnh tranh hàng đường biển hỗ trợ cơ chế truyền toàn cầu."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-swing-downside_scenario",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Rút kho chủ yếu do nhập/lọc dầu theo thời điểm, trong khi sản phẩm hoặc nguồn cung toàn cầu không căng."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_id": "ukoil-deep-swing-invalidation",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "text": "Bỏ giả thuyết khan toàn cầu khi cầu nối địa lý thất bại hoặc chỉ cùng một bản tin được lặp lại."
+        }
+      ],
+      "horizons": [
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-10-26T12:25:00Z",
+          "horizon": "short",
+          "outlook": "Trong 5 phiên xem lại, xác định có cân đối mới hoặc thông tin riêng Brent thật sự có ngày hay không; không đọc lại số Mỹ cũ như cú sốc Brent mới.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 5
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-11-17T12:25:00Z",
+          "horizon": "swing",
+          "outlook": "Trong 21 phiên, đối chiếu các bản dầu thô/sản phẩm lặp lại với thương mại, sản lượng toàn cầu và đường cong tương đối nếu có công bố.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 21
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2027-01-14T12:25:00Z",
+          "horizon": "long",
+          "outlook": "Trong 63 phiên, xem cân đối tích lũy, phản ứng nguồn cung và chi phí phương tiện qua cập nhật thật; không thay cửa sổ bằng quý dương lịch.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 63
+        }
+      ],
+      "limitations": [
+        "CC analysis is not external confirmation or an order.",
+        "No private holdings/account context is included.",
+        "Exact execution economics are unavailable."
+      ],
+      "mode_hint": "FOLLOW_UP_UPDATE",
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "what_changed": "Producer ASCII wire seal correction; unchanged dated native research and zero new economic observations."
+    },
+    "source_account": "Capital Chronicle analysis report",
+    "source_platform": "CAPITAL_CHRONICLE_REPORT_INPUT",
+    "source_timestamp_utc": "2026-10-19T12:25:00Z",
+    "source_url": "",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "BOUNDED_DISCOVERY",
+      "known_access_risk": false,
+      "known_official_path": false,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-93077be7d9d04ac72cb7cb5e",
+    "update_chain_identity": "energy-balance-transmission"
+  },
+  "selected_plan_entry": {
+    "angle": "Từ kho dầu Mỹ đến Brent: phải chứng minh cầu nối thương mại trước khi gọi đó là khan hiếm toàn cầu.",
+    "article_mode": "STANDARD_NEWS_ANALYSIS",
+    "candidate_id": "simple-story-93077be7d9d04ac72cb7cb5e",
+    "evidence_plan": "Dùng resolver hiện hữu đối chiếu UKOIL v4, USOIL v6 và bản EIA được giữ đúng tuần 09/10; cùng một nguồn không thành hai xác nhận. Tách ngày quan sát, ngày phân tích, ngày sửa wire và ngày truy xuất; wire correction không tạo dữ kiện mới. Đối chiếu bài dầu trước để giữ phần mới là cầu nối Mỹ–Brent. Ràng buộc từng số vào SOURCE_FACT; code sở hữu phép tính, không tự chia rút kho cho nhập khẩu. Diễn giải nhập khẩu, lọc dầu và sản phẩm như các cách giải thích cạnh tranh. Các điều kiện tàu hàng, xuất nhập khẩu, vận tải, phẩm cấp, sản lượng toàn cầu, đường cong và spread cùng kỳ hiện thiếu: trình bày như phép kiểm cần có, không tuyên bố đã quan sát. CC_ANALYSIS và kịch bản giữ nhãn có điều kiện; native provenance là producer-attested, consumer không tự xác minh worker. Không giá hiện tại, dự báo, target hay quyền giao dịch.",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "primary_reader_question": "Vì sao rút kho dầu Mỹ chưa đủ chứng minh Brent khan toàn cầu, và bằng chứng nào phân biệt truyền dẫn thương mại với thời điểm nhập hàng hay lọc dầu?",
+    "research_queries": [
+      "EIA October 9 2026 crude inventories imports refinery utilization gasoline distillate",
+      "Brent WTI seaborne crude trade freight quality differentials regional inventory transmission"
+    ],
+    "selection_rationale": "Bổ sung câu hỏi địa lý và thương mại cho lịch sử dầu đã có, thay vì nhắc lại số rút kho hoặc gộp dầu với gas. UKOIL v4 cung cấp cơ chế và phản đề có điều kiện; USOIL v6 chỉ có dữ kiện nguồn chung. Giá trị mới là cách kiểm chứng phạm vi suy luận, không phải một quan sát kinh tế mới."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Từ kho dầu Mỹ đến Brent: phải chứng minh cầu nối thương mại trước khi gọi đó là khan hiếm toàn cầu.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-93077be7d9d04ac72cb7cb5e",
+        "evidence_plan": "Dùng resolver hiện hữu đối chiếu UKOIL v4, USOIL v6 và bản EIA được giữ đúng tuần 09/10; cùng một nguồn không thành hai xác nhận. Tách ngày quan sát, ngày phân tích, ngày sửa wire và ngày truy xuất; wire correction không tạo dữ kiện mới. Đối chiếu bài dầu trước để giữ phần mới là cầu nối Mỹ–Brent. Ràng buộc từng số vào SOURCE_FACT; code sở hữu phép tính, không tự chia rút kho cho nhập khẩu. Diễn giải nhập khẩu, lọc dầu và sản phẩm như các cách giải thích cạnh tranh. Các điều kiện tàu hàng, xuất nhập khẩu, vận tải, phẩm cấp, sản lượng toàn cầu, đường cong và spread cùng kỳ hiện thiếu: trình bày như phép kiểm cần có, không tuyên bố đã quan sát. CC_ANALYSIS và kịch bản giữ nhãn có điều kiện; native provenance là producer-attested, consumer không tự xác minh worker. Không giá hiện tại, dự báo, target hay quyền giao dịch.",
+        "primary_reader_question": "Vì sao rút kho dầu Mỹ chưa đủ chứng minh Brent khan toàn cầu, và bằng chứng nào phân biệt truyền dẫn thương mại với thời điểm nhập hàng hay lọc dầu?",
+        "research_queries": [
+          "EIA October 9 2026 crude inventories imports refinery utilization gasoline distillate",
+          "Brent WTI seaborne crude trade freight quality differentials regional inventory transmission"
+        ],
+        "selection_rationale": "Bổ sung câu hỏi địa lý và thương mại cho lịch sử dầu đã có, thay vì nhắc lại số rút kho hoặc gộp dầu với gas. UKOIL v4 cung cấp cơ chế và phản đề có điều kiện; USOIL v6 chỉ có dữ kiện nguồn chung. Giá trị mới là cách kiểm chứng phạm vi suy luận, không phải một quan sát kinh tế mới."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một câu hỏi độc lập có giá trị theo yêu cầu chủ sở hữu; không thêm phương án dự phòng làm loãng phạm vi.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "semantic_response_count": 3,
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-brent-transmission\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 21,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 31,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

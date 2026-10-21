@@ -1,0 +1,56 @@
+[
+  {
+    "operation": "goal29-brent-transmission",
+    "review": {
+      "review_id": "native-article-review-a762531f59f64abb80efa2712073b3b1",
+      "decision": "KEEP",
+      "schema_version": "contentops.native_article_review.v1",
+      "run_id": "goal29-brent-transmission",
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "package_revision": "a8ea3c325ff98d5c29f3ba00c8c4598533a379e71c70da734dc486a0890f72a2",
+      "article_metadata_sha256": "e5a32f601f596b99d74d67b58a0f7cc08f0be0896efc23e27257eb24939a0215",
+      "rationale": "KEEP: substantial additional geography/trade question beyond the retained oil scope correction. Read all prose, exact Main claim bindings, SEO and eight recompiled previews. US week9Oct data attributed to CC; physical-trade mechanism, import/refining countercase and falsifier remain conditional. Observation/analysis clocks and CFD costs remain explicit; no fresh prices or invented confirmation. Exact previously inspected EIA card is dated context, not proof of Brent transmission. Unicode-aware sentence dedupe retains distinct original mechanism/countercase/invalidation.",
+      "publication_authority": false
+    },
+    "handoff": {
+      "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "review_id": "native-article-review-a762531f59f64abb80efa2712073b3b1",
+      "plan_hash": "ca13c8ebd2fa72dd3c003fee78bbc25eec653408fc26c65c1e706912f52b790a",
+      "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-brent-transmission\\reviewed-handoff",
+      "media_reuse_count": 1,
+      "preview_count": 8,
+      "new_qualified_articles": 0,
+      "model_invocations": 0,
+      "source_requests": 0,
+      "public_write_performed": false
+    }
+  },
+  {
+    "operation": "goal29-sec-amf-supervision",
+    "review": {
+      "review_id": "native-article-review-9267198264d34198a00f9318d2b58828",
+      "decision": "KEEP",
+      "schema_version": "contentops.native_article_review.v1",
+      "run_id": "goal29-sec-amf-supervision",
+      "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+      "package_revision": "f8c747d697b449983183e9c30e42f9f948668722e614576fd541ee81bdcc584f",
+      "article_metadata_sha256": "dbbd17787b5c607935f65512c164f1311422e7ba0baff23f9b178730b450af70",
+      "rationale": "KEEP: new dated non-energy SEC agency source20Oct supports supervisory cooperation and processing new/pending applications. Read full prose, bindings, SEO, all eight previews and inspected source card. Distinguishes framework/process from individual registration or protection outcomes; full MOU and third-party quotations were not used. One same-writer metadata repair only adds MOU, preserving exact source and scope. No market-flow or price conclusion.",
+      "publication_authority": false
+    },
+    "handoff": {
+      "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+      "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+      "review_id": "native-article-review-9267198264d34198a00f9318d2b58828",
+      "plan_hash": "86ebdbdf51423f095ff8aa1de2a7d729137e69224c1320ea1671eeb72b5c0672",
+      "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-sec-amf-supervision\\reviewed-handoff",
+      "media_reuse_count": 1,
+      "preview_count": 8,
+      "new_qualified_articles": 0,
+      "model_invocations": 0,
+      "source_requests": 0,
+      "public_write_performed": false
+    }
+  }
+]

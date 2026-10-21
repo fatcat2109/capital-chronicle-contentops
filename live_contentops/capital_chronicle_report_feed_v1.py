@@ -368,6 +368,14 @@ class MainReportFeed:
                     and r.get("source_report_sha256") == e.get("parent_report_sha256")
                     for r in self.tracker.receipts()
                 )
+                if validation["status"] == "BLOCKED" and b["binding"].get("legacy_parent_recovery"):
+                    from live_contentops.capital_chronicle_legacy_parent_recovery_v1 import recover_pinned_parent
+                    failed_id = "main-feed-" + sha256_of([raw_hash, parent_received, b["binding"], "BLOCKED"])
+                    self.tracker.consume(validation, receipt_id=failed_id)
+                    recovered = recover_pinned_parent(b, validation, cutoff_utc=cutoff_utc)
+                    if recovered:
+                        recovered["lineage_recovery"]["original_failure_receipt_id"] = failed_id
+                        validation = recovered
                 receipt_id = "main-feed-" + sha256_of(
                     [raw_hash, parent_received, b["binding"], validation["status"]]
                 )

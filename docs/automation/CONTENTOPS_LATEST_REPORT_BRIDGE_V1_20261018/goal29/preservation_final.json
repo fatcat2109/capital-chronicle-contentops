@@ -1,0 +1,424 @@
+{
+  "checked_at_utc": "2026-10-20T23:49:44.743903+00:00",
+  "goal28_files_unchanged": 160,
+  "prior_outbox_payloads_unchanged": 297,
+  "recovery_tables_unchanged": 31,
+  "one_operating_manual_store": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\owner-newsroom\\editorial-v4.sqlite3",
+  "relocation_manifest_sha256": "f44112dbbc0de5b60e9b3d1409d3e542544acee9a286026b8973e5ffdeb2047e",
+  "completed_reopens": [
+    {
+      "operation": "goal29-brent-transmission",
+      "result": {
+        "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+        "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+        "qualified_article_count": 1,
+        "new_model_invocations": 0,
+        "new_source_requests": 0,
+        "editorial_execution": {
+          "owner": "NATIVE_CODEX_DESKTOP",
+          "requested_model": "gpt-6.1-sol",
+          "requested_reasoning_effort": "low",
+          "role_assignments": {
+            "filter": {
+              "model": "gpt-6-luna",
+              "reasoning_effort": "max"
+            },
+            "select": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low"
+            },
+            "write": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            },
+            "revise": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            }
+          },
+          "observed_models": [
+            "gpt-6.1-sol"
+          ],
+          "observed_efforts": [
+            "low",
+            "max"
+          ],
+          "native_invocation_count_observed": 2,
+          "semantic_response_count": 3,
+          "maximum_repair_count": 1,
+          "external_provider_attempt_count": 0,
+          "usage_tokens": null,
+          "cost_usd": null,
+          "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+          "observations": [
+            {
+              "invocation_id": "/root/goal29_sol_light",
+              "model": "gpt-6.1-sol",
+              "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed.",
+              "reasoning_effort": "low",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "select",
+              "role": "select"
+            },
+            {
+              "invocation_id": "/root/goal29_brent_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "write",
+              "role": "write"
+            },
+            {
+              "invocation_id": "/root/goal29_brent_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "revise",
+              "role": "revise"
+            }
+          ]
+        },
+        "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+        "public_write_performed": false
+      }
+    },
+    {
+      "operation": "goal29-sec-amf-supervision",
+      "result": {
+        "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+        "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+        "qualified_article_count": 1,
+        "new_model_invocations": 0,
+        "new_source_requests": 0,
+        "editorial_execution": {
+          "owner": "NATIVE_CODEX_DESKTOP",
+          "requested_model": "gpt-6.1-sol",
+          "requested_reasoning_effort": "low",
+          "role_assignments": {
+            "filter": {
+              "model": "gpt-6-luna",
+              "reasoning_effort": "max"
+            },
+            "select": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low"
+            },
+            "write": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            },
+            "revise": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            }
+          },
+          "observed_models": [
+            "gpt-6.1-sol"
+          ],
+          "observed_efforts": [
+            "low",
+            "max"
+          ],
+          "native_invocation_count_observed": 2,
+          "semantic_response_count": 3,
+          "maximum_repair_count": 1,
+          "external_provider_attempt_count": 0,
+          "usage_tokens": null,
+          "cost_usd": null,
+          "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+          "observations": [
+            {
+              "invocation_id": "/root/goal29_sol_light",
+              "model": "gpt-6.1-sol",
+              "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed.",
+              "reasoning_effort": "low",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "select",
+              "role": "select"
+            },
+            {
+              "invocation_id": "/root/goal29_sec_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_sec_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "write",
+              "role": "write"
+            },
+            {
+              "invocation_id": "/root/goal29_sec_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_sec_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "revise",
+              "role": "revise"
+            }
+          ]
+        },
+        "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+        "public_write_performed": false
+      }
+    },
+    {
+      "operation": "goal27-oil-scope-update",
+      "result": {
+        "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+        "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+        "qualified_article_count": 1,
+        "new_model_invocations": 0,
+        "new_source_requests": 0,
+        "editorial_execution": {
+          "owner": "NATIVE_CODEX_DESKTOP",
+          "requested_model": "gpt-6.1-sol",
+          "requested_reasoning_effort": "low",
+          "role_assignments": {
+            "filter": {
+              "model": "gpt-6-luna",
+              "reasoning_effort": "max"
+            },
+            "select": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low"
+            },
+            "write": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            },
+            "revise": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            }
+          },
+          "observed_models": [
+            "gpt-6.1-sol"
+          ],
+          "observed_efforts": [
+            "low",
+            "max"
+          ],
+          "native_invocation_count_observed": 2,
+          "semantic_response_count": 3,
+          "maximum_repair_count": 1,
+          "external_provider_attempt_count": 0,
+          "usage_tokens": null,
+          "cost_usd": null,
+          "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+          "observations": [
+            {
+              "invocation_id": "/root/goal27_sol_light",
+              "model": "gpt-6.1-sol",
+              "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+              "reasoning_effort": "low",
+              "source_spawn_metadata": {
+                "canonical_task_name": "/root/goal27_sol_light",
+                "fork_turns": "none",
+                "model": "gpt-6.1-sol",
+                "reasoning_effort": "low",
+                "task_name": "goal27_sol_light",
+                "uuid_exposed": false
+              },
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "select",
+              "role": "select"
+            },
+            {
+              "invocation_id": "/root/goal27_sol_max_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "write",
+              "role": "write"
+            },
+            {
+              "invocation_id": "/root/goal27_sol_max_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "revise",
+              "role": "revise"
+            }
+          ]
+        },
+        "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+        "public_write_performed": false
+      }
+    },
+    {
+      "operation": "goal27-gas-refill-update",
+      "result": {
+        "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+        "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+        "qualified_article_count": 1,
+        "new_model_invocations": 0,
+        "new_source_requests": 0,
+        "editorial_execution": {
+          "owner": "NATIVE_CODEX_DESKTOP",
+          "requested_model": "gpt-6.1-sol",
+          "requested_reasoning_effort": "low",
+          "role_assignments": {
+            "filter": {
+              "model": "gpt-6-luna",
+              "reasoning_effort": "max"
+            },
+            "select": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low"
+            },
+            "write": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            },
+            "revise": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            }
+          },
+          "observed_models": [
+            "gpt-6.1-sol"
+          ],
+          "observed_efforts": [
+            "low",
+            "max"
+          ],
+          "native_invocation_count_observed": 2,
+          "semantic_response_count": 2,
+          "maximum_repair_count": 1,
+          "external_provider_attempt_count": 0,
+          "usage_tokens": null,
+          "cost_usd": null,
+          "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+          "observations": [
+            {
+              "invocation_id": "/root/goal27_sol_light",
+              "model": "gpt-6.1-sol",
+              "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+              "reasoning_effort": "low",
+              "source_spawn_metadata": {
+                "canonical_task_name": "/root/goal27_sol_light",
+                "fork_turns": "none",
+                "model": "gpt-6.1-sol",
+                "reasoning_effort": "low",
+                "task_name": "goal27_sol_light",
+                "uuid_exposed": false
+              },
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "select",
+              "role": "select"
+            },
+            {
+              "invocation_id": "/root/goal27_sol_max_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "write",
+              "role": "write"
+            }
+          ]
+        },
+        "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+        "public_write_performed": false
+      }
+    }
+  ],
+  "reopen_all_tables_identical": true,
+  "four_paused_host_objects": [
+    {
+      "id": "v1-newsroom-london-1700",
+      "status": "PAUSED",
+      "sha256": "e337a377b9778d5cda476ee665967e40f85050d48866157ed4f0dad4c70b805a"
+    },
+    {
+      "id": "v1-newsroom-new-york-2100",
+      "status": "PAUSED",
+      "sha256": "3d7f3794fe9b6925484a4b687a030c09fa75c612bc369176aebe869fcbd310d1"
+    },
+    {
+      "id": "v1-newsroom-new-york-2300",
+      "status": "PAUSED",
+      "sha256": "1deb31ee664a822719470cb28dd0472ee8ec63d142461538b6ec8893c527a3f6"
+    },
+    {
+      "id": "v1-newsroom-new-york-0100",
+      "status": "PAUSED",
+      "sha256": "587b71cb1bbc84becc8e407b799586c68e0f8d705289922280ae08aa091b6365"
+    }
+  ],
+  "pause_path": "A:\\Capital Chronicle\\Runtime\\ContentOps\\control\\llm_operator_pause.flag",
+  "pause_sha256": "b0be68980cbfc2dd1a7fa80ac7eb2bfcfda7aa3b45b462dfd0a11788587e94de",
+  "manual_dispatches": 0,
+  "public_writes": 0,
+  "owner_edition": {
+    "edition_id": "goal29-evolving-owner-edition",
+    "held": 1,
+    "held_candidates": [
+      {
+        "reason": "HOLD ph\u1ea1m vi hi\u1ec7n t\u1ea1i: ch\u01b0a c\u00f3 chu\u1ed7i option, k\u1ef3 h\u1ea1n/thanh to\u00e1n, bi\u1ebfn \u0111\u1ed9ng h\u00e0m \u00fd v\u00e0 open interest; l\u1ea7n \u0111\u1ecdc m\u1edbi CFTC g\u1eb7p ki\u1ec3m tra truy c\u1eadp. Kh\u00f4ng suy t\u1eeb t\u00e0i li\u1ec7u n\u1ec1n sang v\u1ecb th\u1ebf hi\u1ec7n t\u1ea1i.",
+        "title": "Di\u1ec5n gi\u1ea3i v\u1ecb th\u1ebf futures v\u00e0 options hi\u1ec7n t\u1ea1i"
+      }
+    ],
+    "missing": 0,
+    "operation_ids": [
+      "goal29-brent-transmission",
+      "goal29-sec-amf-supervision",
+      "goal28-dollar-lens",
+      "goal28-fed-policy-lens",
+      "goal28-company-reading",
+      "goal28-cross-trade",
+      "goal28-crypto-safeguards"
+    ],
+    "preview_count": 56,
+    "publication_authority": false,
+    "ready": 7,
+    "schema_version": "contentops.native_owner_edition.v1",
+    "title": "T\u1eeb b\u1eb1ng ch\u1ee9ng \u0111\u1ebfn c\u01a1 ch\u1ebf: Brent v\u00e0 h\u1ee3p t\u00e1c gi\u00e1m s\u00e1t xuy\u00ean bi\u00ean gi\u1edbi"
+  },
+  "main_admission_summary": [
+    {
+      "claims": 24,
+      "independent_native_runtime_verified": false,
+      "known_at_cutoff_utc": "2026-10-19T12:25:00Z",
+      "native_public_excerpts": 23,
+      "provenance_state": "PRODUCER_ATTESTED_NATIVE_PUBLIC_EXCERPTS",
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4
+    },
+    {
+      "claims": 1,
+      "independent_native_runtime_verified": false,
+      "known_at_cutoff_utc": "2026-10-19T12:25:00Z",
+      "native_public_excerpts": 0,
+      "provenance_state": "SOURCE_FACT_ONLY_NO_NATIVE_ATTESTATION",
+      "report_id": "asset-report:USOIL",
+      "report_sha256": "e5f74373ded4564fea8abc0e22d0ca57fef8a7af63e0a45cca9be90276e4417f",
+      "report_version": 6
+    },
+    {
+      "claims": 24,
+      "independent_native_runtime_verified": false,
+      "known_at_cutoff_utc": "2026-10-20T15:27:29.653737Z",
+      "native_public_excerpts": 23,
+      "provenance_state": "PRODUCER_ATTESTED_NATIVE_PUBLIC_EXCERPTS",
+      "report_id": "asset-report:XNGUSD",
+      "report_sha256": "78290cc6023e495b249f786ffecb538ae299ca57d660ca860050f7b598488a4e",
+      "report_version": 5
+    }
+  ]
+}

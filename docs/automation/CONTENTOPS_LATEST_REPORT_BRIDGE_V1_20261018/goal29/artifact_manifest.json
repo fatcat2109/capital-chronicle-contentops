@@ -1,0 +1,542 @@
+{
+  "schema_version": "contentops.goal29_artifact_inventory.v1",
+  "files": {
+    "cold_admission.json": {
+      "sha256": "31355a2ee810f94d279e28ab439f30c613fa57ec1892c9571936141b2adb6f9e",
+      "bytes": 381904
+    },
+    "edition_request.json": {
+      "sha256": "6dbe7a6a6136936ce3ed098d2b78d3cfa7bfdfacfe7a15feb308f4553632c3e0",
+      "bytes": 961
+    },
+    "editorial_reviews_and_handoffs.json": {
+      "sha256": "8c0e99c564f9234bf7739535f40e02ab6976770f247fc9e6ea9b84797b03de75",
+      "bytes": 3751
+    },
+    "linkedin_authorization_readiness.json": {
+      "sha256": "fdb58c7795361faa6bd5b10c82154de60556dcb103ad2c87142b5b6347f96cbd",
+      "bytes": 738
+    },
+    "main_public_source_receipt.json": {
+      "sha256": "95e4d01edaacbd2524450d5ac5640347db596ed272483d77897828b669019135",
+      "bytes": 14597
+    },
+    "preservation_before.json": {
+      "sha256": "822a5e4387e1f1c80d22a39ed3f7d75f466799f329a0e0159ade63dd420594d7",
+      "bytes": 82508
+    },
+    "preservation_final.json": {
+      "sha256": "11b9aff9155b932ba496d96123da0b8528c41f4acf40f58f8d42bd7397e2e8d5",
+      "bytes": 16957
+    },
+    "provider_resume_binding.json": {
+      "sha256": "84b65439a48f29853535ad44757ecc7f22d20a88d12cec18294d5ec20b9fe304",
+      "bytes": 757
+    },
+    "RELEASE_HANDOFF.md": {
+      "sha256": "84b3239d46d6a2704e98602c78a21113132f33e8e17e855b7bbccaf511c174e3",
+      "bytes": 8790
+    },
+    "render_inspection.json": {
+      "sha256": "10e6517bc82bcbb34fd006249825c3f52bb319d116b9c2318ba5ab3bb4034751",
+      "bytes": 1618
+    },
+    "retained_admission.json": {
+      "sha256": "de2cef3c270ea80425062ef3e64534f394612550397bdde20fd560c834bcf1d6",
+      "bytes": 165651
+    },
+    "source_attempts.json": {
+      "sha256": "8a8f38eaf2c41325c515b96654d5e6330c7d67368d126c95f9aa86cd661c2bca",
+      "bytes": 2017
+    },
+    "story_continuity_reviews.json": {
+      "sha256": "702747a68f8742b654dfb9d7274868efc16f7bc2930f71544cb3feb68a15cbe2",
+      "bytes": 29884
+    },
+    "verification.json": {
+      "sha256": "80ca15a87e88d46f934b91d289c48efbf3403eda901559fef267191ce8e85a6c",
+      "bytes": 1560
+    },
+    "main_public_handoff\\PUBLIC_SAFE_HANDOFF.json": {
+      "sha256": "bb19071a221add90909fe9a702da56e2c4eae612137a576301578feec998d404",
+      "bytes": 12272
+    },
+    "main_public_handoff\\RELEASE_RUN_HANDOFF.md": {
+      "sha256": "f69461918d1c79b72564620e1dd1f477d56e4aba2772b30defb32cb509d507f4",
+      "bytes": 7002
+    },
+    "render\\goal29-desktop.jpeg": {
+      "sha256": "fdf009ebaeb03ea5e8e41539ad614a4e526c24b73fce42eb263dd45f053fabfc",
+      "bytes": 122490
+    },
+    "render\\goal29-dom.json": {
+      "sha256": "176b5538eccf0a5053baf523ef7c23dd9dd0f6cbbfe2857fe99045a3135df6e5",
+      "bytes": 1005
+    },
+    "render\\goal29-mobile.jpeg": {
+      "sha256": "af5e8955369d659c59c11ae66037e1c24adad1f888d2c6f5f77889cd976f304f",
+      "bytes": 58935
+    },
+    "render\\goal29-sec-mobile.jpeg": {
+      "sha256": "b0957b0e9659d18f84d4da9b3a255fd7140ab11cca5dae463b9816724d77b418",
+      "bytes": 68017
+    },
+    "source_editions\\goal29-sec-amf-admission.json": {
+      "sha256": "8c1433b22c8227002bca43312dfd3424d434bffe3c28bbe3a91315aeae867ac1",
+      "bytes": 7391
+    },
+    "source_editions\\goal29-sec-amf-capture.json": {
+      "sha256": "8f8ad82067164533c734cb99194b9fabe57e8a0b16ad94f7f514afe75b763d7c",
+      "bytes": 16462
+    },
+    "source_editions\\index.json": {
+      "sha256": "65aa4b8909aa656ccf4bed7fae9b6f1f0233057fec504e91756c261da354dc19",
+      "bytes": 2952
+    },
+    "source_editions\\policy-neo-page-67-revision2-rendered.json": {
+      "sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "bytes": 49353
+    },
+    "verification\\goal29-backend-final.txt": {
+      "sha256": "8da1155856418d4fa2f074de912ace4159b136a36f38724d6aa2322fcf308411",
+      "bytes": 194
+    },
+    "verification\\goal29-build-final.txt": {
+      "sha256": "9b3845ca8208a22bfbd3162ecf4d876c7aceb86581cbdf33c293935ea61dea8a",
+      "bytes": 7768
+    },
+    "verification\\goal29-compiler-final.txt": {
+      "sha256": "174badb1fbcc6b45be9a490823ede22e0f519ea4673ba7ebfdda305993244672",
+      "bytes": 101
+    },
+    "verification\\goal29-ui-final.txt": {
+      "sha256": "b3cdc28d54ed6363f2c63ff1bdded26f52968de1137fe9fcf5bb796b4f7d0e97",
+      "bytes": 467
+    },
+    "verification\\ruff-focused.txt": {
+      "sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+      "bytes": 20
+    },
+    "main_public_handoff\\public-handoff\\latest-manifest.json": {
+      "sha256": "043809b6fe5c183a70398dc2a642ba16ba693f518e9cc1409c16571679f0e565",
+      "bytes": 314
+    },
+    "main_public_handoff\\public-handoff\\manifests\\36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68.json": {
+      "sha256": "995100ea232bca4e3fa77fc890db7690be56fc9a4c08baba5c99c1762f35d48e",
+      "bytes": 20472
+    },
+    "main_public_handoff\\public-handoff\\manifests\\45434bfec0f2ab9afca2afaa9be2ab384aa1dea80220f6b5892a87f8e51702f4.json": {
+      "sha256": "e74acd37c82399e6b1d5e9231697585e653bac108ec183687cebd4e18e0069c1",
+      "bytes": 4041
+    },
+    "main_public_handoff\\public-handoff\\manifests\\a45b22db34274e3f12fb30298ddb2b13b1ff44e49e30e7088fcb9c1e7b97f6aa.json": {
+      "sha256": "48a94c1680908404d88e2b36042e720d1879319192eee0ed804ced23c3367789",
+      "bytes": 27740
+    },
+    "main_public_handoff\\public-handoff\\manifests\\af7b7eb84e2ff17a66236a2e2311f19b62878309f2a46cbc2722e2869c3af911.json": {
+      "sha256": "650308df51a6bb323864b47e4edaf5c73ca7e1a34d05f2d55f8634b2e0d6d6c4",
+      "bytes": 5964
+    },
+    "main_public_handoff\\public-handoff\\manifests\\c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2.json": {
+      "sha256": "ab497668c62ea2e2141535239f6655ab32c237b57f2a26bff7cfa564fd6e3623",
+      "bytes": 33005
+    },
+    "main_public_handoff\\public-handoff\\schemas\\1.0.0\\envelope.json": {
+      "sha256": "ebcc59ea082549d01dacae464e886b0f35d155dcbd214cfcdcaf1a836067d483",
+      "bytes": 12176
+    },
+    "main_public_handoff\\public-handoff\\schemas\\1.1.0\\envelope.json": {
+      "sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+      "bytes": 12588
+    },
+    "main_public_handoff\\public-handoff\\outbox\\0bac3f08c14878cb8becd47683ade318312220fefbd703d930b0c4b158704c43\\latest-report-envelope.json": {
+      "sha256": "dce562c6ed864fb8d2807e76811acc31ab83e96fa06740fe9d374bf0ca4b3c17",
+      "bytes": 54951
+    },
+    "main_public_handoff\\public-handoff\\outbox\\0bac3f08c14878cb8becd47683ade318312220fefbd703d930b0c4b158704c43\\public-report.json": {
+      "sha256": "4f27341d55ecd04f17ddee5f56d1cb466609844ae904963e73adec707028a8e8",
+      "bytes": 75169
+    },
+    "main_public_handoff\\public-handoff\\outbox\\2d2f70f06af837f642130fd754a89f6cb2ee0c1dcacf5dbf2dabc6c3074c778b\\latest-report-envelope.json": {
+      "sha256": "437224725426f85bef69083c98354532d2ed2d9147115ca223e69e2125074638",
+      "bytes": 19242
+    },
+    "main_public_handoff\\public-handoff\\outbox\\2d2f70f06af837f642130fd754a89f6cb2ee0c1dcacf5dbf2dabc6c3074c778b\\public-report.json": {
+      "sha256": "738a70d837faf2a72c7f5f98d8c5a713496c5f61e94445564544faac05d74646",
+      "bytes": 23434
+    },
+    "main_public_handoff\\public-handoff\\outbox\\352e651e98fd765533db1a31342876d902db13af61eac98432dca7f7cdaa79d8\\latest-report-envelope.json": {
+      "sha256": "3deca71e3acce970c7aee99e69fb70751ce31c15a89cdd015542fb2a39f6169e",
+      "bytes": 55366
+    },
+    "main_public_handoff\\public-handoff\\outbox\\352e651e98fd765533db1a31342876d902db13af61eac98432dca7f7cdaa79d8\\public-report.json": {
+      "sha256": "9e1095e1c24fe8ce37d29b129d452d38be7b1fd07ea89440c3ba9770a2bc3320",
+      "bytes": 62523
+    },
+    "main_public_handoff\\public-handoff\\outbox\\4abb3e3badd896f11f0937a225b702907889d68189da90646e30451ecd015d46\\latest-report-envelope.json": {
+      "sha256": "c37b972ff2b79a51e399e44f6b078eac18ea9546097362a921928eac681b0a70",
+      "bytes": 17182
+    },
+    "main_public_handoff\\public-handoff\\outbox\\4abb3e3badd896f11f0937a225b702907889d68189da90646e30451ecd015d46\\public-report.json": {
+      "sha256": "62428ee5cd8c8ea45e79a2f7f3cf19cdd8ee9d2599baf57c6f29c3a4f0574fbe",
+      "bytes": 14984
+    },
+    "main_public_handoff\\public-handoff\\outbox\\65f86aff17452cdf0aec97531f5f7febb660c373ded9637af88c79d0072056f9\\latest-report-envelope.json": {
+      "sha256": "abc68c5170cd899d8e6c4300ffe61107db7806f302eb45813f224d4c8aa53002",
+      "bytes": 19039
+    },
+    "main_public_handoff\\public-handoff\\outbox\\65f86aff17452cdf0aec97531f5f7febb660c373ded9637af88c79d0072056f9\\public-report.json": {
+      "sha256": "191f368d64fed68c588a40629239abd2039da431221b0a7bae6981da5bc8f677",
+      "bytes": 16213
+    },
+    "main_public_handoff\\public-handoff\\outbox\\890074308215542fafc915c3cd5f1ee607f725db0214c8ea3433275377304673\\latest-report-envelope.json": {
+      "sha256": "d54e3ca15857aee821e9a4fcb5edead77efd7c8455a4e858bcdff94a7ed5cd4c",
+      "bytes": 19438
+    },
+    "main_public_handoff\\public-handoff\\outbox\\890074308215542fafc915c3cd5f1ee607f725db0214c8ea3433275377304673\\public-report.json": {
+      "sha256": "87d4c78d4d921d07aefe4beb99c47d8b0ef427db2b96c6b4461008bd0b568ee8",
+      "bytes": 23813
+    },
+    "main_public_handoff\\public-handoff\\outbox\\8a8ba739ab680f3c217c70c5ac2b043a84f1bb1350a3c2d02eb2e761e04f7576\\latest-report-envelope.json": {
+      "sha256": "d242ab17bc61234b2e772883a9d194c1038e23a9b79fce7b961127546b7d282c",
+      "bytes": 5342
+    },
+    "main_public_handoff\\public-handoff\\outbox\\8a8ba739ab680f3c217c70c5ac2b043a84f1bb1350a3c2d02eb2e761e04f7576\\public-report.json": {
+      "sha256": "8660d7f547e737950e3d0271b475d1414a646278e662cf68e839ba517e0acedd",
+      "bytes": 6311
+    },
+    "main_public_handoff\\public-handoff\\outbox\\8c2ae93055dfd9bae0976ebedf17f1d432c02a0a78cda6667e67d13f81591475\\latest-report-envelope.json": {
+      "sha256": "2ab59809188821de3ac6087c61b70d660aa894eeeaf75aeede1f4e77248fa31c",
+      "bytes": 3343
+    },
+    "main_public_handoff\\public-handoff\\outbox\\8c2ae93055dfd9bae0976ebedf17f1d432c02a0a78cda6667e67d13f81591475\\public-report.json": {
+      "sha256": "7d43b957845047fa26d00e08822e40c7ec1e0f19f9c22c84c34c02bb625d8a6e",
+      "bytes": 1607
+    },
+    "main_public_handoff\\public-handoff\\outbox\\a60a9943053c288fa6115afb207447e811d0971a0790f25f4ae5e1caf45a189d\\latest-report-envelope.json": {
+      "sha256": "58f467ca63421555f19a80b435e4b0e3b582b97fef3eeb7d0f9dd0c7042339b4",
+      "bytes": 5336
+    },
+    "main_public_handoff\\public-handoff\\outbox\\a60a9943053c288fa6115afb207447e811d0971a0790f25f4ae5e1caf45a189d\\public-report.json": {
+      "sha256": "c824ba0e997c2a0ebfc2c3d199019a42da1052446063819bacea67e9166bcfd8",
+      "bytes": 6281
+    },
+    "main_public_handoff\\public-handoff\\outbox\\bbf89043b1ad085d17fc9e184fee480bc989bfe364b7d993ae4d30508b4d38d4\\latest-report-envelope.json": {
+      "sha256": "1be34f85f6e01c049be25f6792d25bbdb34001e79924632cf39107f3b3a1bb01",
+      "bytes": 19578
+    },
+    "main_public_handoff\\public-handoff\\outbox\\bbf89043b1ad085d17fc9e184fee480bc989bfe364b7d993ae4d30508b4d38d4\\public-report.json": {
+      "sha256": "4e53bdafb14b690838a205a061511c7c75420ab321ed0777663bce1ca8067a89",
+      "bytes": 16674
+    },
+    "main_public_handoff\\public-handoff\\outbox\\d958366a5a1f26120012490903b332208df7946503088ed2559ba1ef1d426fba\\latest-report-envelope.json": {
+      "sha256": "d913fabf7e4e8235372b0da2ca534d85a16af6b16a98dd8099bb66fd7506bf39",
+      "bytes": 19367
+    },
+    "main_public_handoff\\public-handoff\\outbox\\d958366a5a1f26120012490903b332208df7946503088ed2559ba1ef1d426fba\\public-report.json": {
+      "sha256": "50437428ab0a6e6baf04115e3d21a83d3c1583f04f379e58216cdb9334c6e9e2",
+      "bytes": 23539
+    },
+    "main_public_handoff\\public-handoff\\outbox\\e721ddc10b0799ac8d0a17e60b40697c894ee30c4eaf7b76c1dca5b164640578\\latest-report-envelope.json": {
+      "sha256": "c39714512c531932ee5864579a23e4f11cfbc381f4bb799c592811f90441190f",
+      "bytes": 3340
+    },
+    "main_public_handoff\\public-handoff\\outbox\\e721ddc10b0799ac8d0a17e60b40697c894ee30c4eaf7b76c1dca5b164640578\\public-report.json": {
+      "sha256": "a5cf42bbc5cb0fa86bb47fea662aeb345578be55a9a23e154454a44362cee458",
+      "bytes": 1607
+    },
+    "main_public_handoff\\public-handoff\\outbox\\ea08067f49ed0573350060222c9a0304e38130ac8e1c44f844896bca95699feb\\latest-report-envelope.json": {
+      "sha256": "2f83d341393105593b4eaf6813c8a1341164f9435a5f1e2cfd826855f264704e",
+      "bytes": 55369
+    },
+    "main_public_handoff\\public-handoff\\outbox\\ea08067f49ed0573350060222c9a0304e38130ac8e1c44f844896bca95699feb\\public-report.json": {
+      "sha256": "684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198",
+      "bytes": 77217
+    },
+    "main_public_handoff\\public-handoff\\outbox\\eeac57abf503807cb6e9a8298b5500db36da42bf3d177ee15da7e9f1ffa49a42\\latest-report-envelope.json": {
+      "sha256": "2487c4d9fe7d7e5ccd2c0cea4028d44b3b930fe826c87649bef7d15793abe7f6",
+      "bytes": 15894
+    },
+    "main_public_handoff\\public-handoff\\outbox\\eeac57abf503807cb6e9a8298b5500db36da42bf3d177ee15da7e9f1ffa49a42\\public-report.json": {
+      "sha256": "6d694970f35d849bfd32b524d4906517b0930ecc60ed744511dfc2c81a10c13f",
+      "bytes": 18130
+    },
+    "main_public_handoff\\public-handoff\\outbox\\f3e28576f5cff5ee9ae1e65d48f63c73edbfb699a54329fca171cb245e829b9d\\latest-report-envelope.json": {
+      "sha256": "a2a2ed8c05d27decf0401ba955d5ded29d0037fc539be874de1968506b427044",
+      "bytes": 54947
+    },
+    "main_public_handoff\\public-handoff\\outbox\\f3e28576f5cff5ee9ae1e65d48f63c73edbfb699a54329fca171cb245e829b9d\\public-report.json": {
+      "sha256": "fa5359b0df46fe8503cf815f6634b859077f955672c29f3e833593567e2ecfde",
+      "bytes": 62283
+    },
+    "articles\\goal29-brent-transmission\\article_manifest_v1.json": {
+      "sha256": "85a5f4aab0f8408f16e3d585f3565111d2cd6153fa2160284a5da7df45b26e31",
+      "bytes": 9598
+    },
+    "articles\\goal29-brent-transmission\\binding.json": {
+      "sha256": "cdac5b5a7e53ae33f8bd981f0212d1a7628fd281f208be153e2ebf00d0673f1d",
+      "bytes": 2613
+    },
+    "articles\\goal29-brent-transmission\\derivative_intents_v1.json": {
+      "sha256": "fe9f4b29335829bb37c4991fad86d4042492cc87f71a0ea2a8f72f3c97a003ad",
+      "bytes": 28955
+    },
+    "articles\\goal29-brent-transmission\\desktop_request_revise.json": {
+      "sha256": "73f249a7575c3499c41b808f0c65fb3c0acbcf3d5719437eaaead78aa23ae82c",
+      "bytes": 747956
+    },
+    "articles\\goal29-brent-transmission\\desktop_request_select.json": {
+      "sha256": "29df962e5d8edb008d7ad9c712aaf4a487d7209d685c36536ce20a044ae56f9c",
+      "bytes": 320253
+    },
+    "articles\\goal29-brent-transmission\\desktop_request_write.json": {
+      "sha256": "74b916bc8216553558d9b68791d055ff740b33f2865367c5dd92d060d1d455ed",
+      "bytes": 701461
+    },
+    "articles\\goal29-brent-transmission\\handoff_receipt.json": {
+      "sha256": "18d65d21796e9b203fc7e745be469f56adcd905a185a5141f7b4eded3d7d6e20",
+      "bytes": 641
+    },
+    "articles\\goal29-brent-transmission\\main_headline_projection.json": {
+      "sha256": "454043576fa250276b62c293e694b31a620fbcd66531e893cb82b0e6316662e6",
+      "bytes": 138896
+    },
+    "articles\\goal29-brent-transmission\\media_binding.json": {
+      "sha256": "df014a9413f0dbb480faf57b19e111a41d6755695a7ef3b3c08c22cbd57e32d4",
+      "bytes": 2931
+    },
+    "articles\\goal29-brent-transmission\\native_derivative_previews_v1.json": {
+      "sha256": "71fa42e5518af162288a1071bdb3b21f554e9ca833e1f4b3c24cd4687ab8f5a6",
+      "bytes": 14603
+    },
+    "articles\\goal29-brent-transmission\\native_desktop_result.json": {
+      "sha256": "55998347df12e9992ad442b4483a84370d3b49208e510353d3590a400b1bc18c",
+      "bytes": 1153047
+    },
+    "articles\\goal29-brent-transmission\\native_headline_filter_receipt.json": {
+      "sha256": "f04d9fdf810b13ae34a379dd42795784da2924e82d10e1cb91d24eb0440f6beb",
+      "bytes": 548
+    },
+    "articles\\goal29-brent-transmission\\qualified_article_record_v1.json": {
+      "sha256": "8105b0fe4b8e16a08ed057fe10b1ccd5f037ef262ec290df75aafa4e9bc08ce6",
+      "bytes": 34412
+    },
+    "articles\\goal29-brent-transmission\\review_compiler_preview.json": {
+      "sha256": "dc2a2b7222d3e12473d9c935ee252cdb25f73071fe3baa4918bcbb2bb9efb080",
+      "bytes": 17919
+    },
+    "articles\\goal29-brent-transmission\\review_receipt.json": {
+      "sha256": "a099a1a240a9911d39f67d6349032482b0f0c0e4d700ab273678677ee1013d94",
+      "bytes": 1115
+    },
+    "articles\\goal29-brent-transmission\\revise_response.json": {
+      "sha256": "b9625d01bc3258dd9bbe3e845763a22b48a6287908460f02191442e19a4b2698",
+      "bytes": 36253
+    },
+    "articles\\goal29-brent-transmission\\revise_return.json": {
+      "sha256": "b06d677f4002d00cc9a4a5dbc9da42bb17839a5593349e9650db0ccb5264b1e7",
+      "bytes": 52696
+    },
+    "articles\\goal29-brent-transmission\\run_context_v1.json": {
+      "sha256": "ed71d703fb558620a36dadc56c632522cf0ec817e4b8e78ee2d59e4484156172",
+      "bytes": 33703
+    },
+    "articles\\goal29-brent-transmission\\select_response.json": {
+      "sha256": "60e04c4c70b6a23d8358e2255a4735113a8ce764d64117e2e6ca90d4b24b918c",
+      "bytes": 3128
+    },
+    "articles\\goal29-brent-transmission\\simple_epistemic_state_v1.json": {
+      "sha256": "80ae87dfe11a6af1297408837cdd888abd1ef6722814141f413846cc3eb22b61",
+      "bytes": 1179
+    },
+    "articles\\goal29-brent-transmission\\simple_gemini_editorial_edge_v1.json": {
+      "sha256": "91a5ba1ed706aeaa39023e7f8b43e2025972664d5b7c8fcd115834ca6aa63e70",
+      "bytes": 3856
+    },
+    "articles\\goal29-brent-transmission\\simple_gemini_evidence_v1.json": {
+      "sha256": "b4ca2eb006a547cf4d18ebc2fa1bcb4b89265578d5d0c4618822c63ec6571d92",
+      "bytes": 178669
+    },
+    "articles\\goal29-brent-transmission\\simple_gemini_newsroom_receipt_v1.json": {
+      "sha256": "42ceda332d9ac5c282bc4fa7852eb8dcddc18486fe1bf4dab891a49e38c59079",
+      "bytes": 53506
+    },
+    "articles\\goal29-brent-transmission\\simple_gemini_selection_v1.json": {
+      "sha256": "11536885d7fbcfa90ddd42ea8ed33c9d56d12adfb4b926090bde22234e4a0263",
+      "bytes": 5248
+    },
+    "articles\\goal29-brent-transmission\\simple_gemini_validation_v1.json": {
+      "sha256": "5f82e907e44df28ba7e788d3533a239db7d17cf25e76b3f58c0499db9e78f8d8",
+      "bytes": 79858
+    },
+    "articles\\goal29-brent-transmission\\simple_sourceability_preselection_v1.json": {
+      "sha256": "76680bb8f82fcddbdba97699ab876bc66e90efbcc201ed2a2fbc871dc055427b",
+      "bytes": 156613
+    },
+    "articles\\goal29-brent-transmission\\writer_response.json": {
+      "sha256": "11246326f066253f3a49b596f308c842d7564cb441b936461f4a783a6c2119bb",
+      "bytes": 36424
+    },
+    "articles\\goal29-brent-transmission\\write_return.json": {
+      "sha256": "ec24db979388a2f787f45bd3a10147dc06c1c56a5eba3ffd6318fbca95132343",
+      "bytes": 52891
+    },
+    "articles\\goal29-sec-amf-supervision\\article_manifest_v1.json": {
+      "sha256": "f6746e5a1793880295cd9ef50b6570a04ca4442234bbe842c2581f9c2652aeac",
+      "bytes": 10863
+    },
+    "articles\\goal29-sec-amf-supervision\\binding.json": {
+      "sha256": "80678c3876f7a4ae7dedc572d93e78fbc88dd3ad0e7bfc0faf298dc9c13c2538",
+      "bytes": 2497
+    },
+    "articles\\goal29-sec-amf-supervision\\derivative_intents_v1.json": {
+      "sha256": "4394dd08e90791156bc616d5aba077240857d3128dfb2bca8043bd53a4ad9c3c",
+      "bytes": 45028
+    },
+    "articles\\goal29-sec-amf-supervision\\desktop_request_revise.json": {
+      "sha256": "7ea6033f919525d6815235f0c36f5d62ee1b6300604bb7a8b465a2204ec8befd",
+      "bytes": 67119
+    },
+    "articles\\goal29-sec-amf-supervision\\desktop_request_select.json": {
+      "sha256": "62fa7709dd9bfd6911893847b078035d1d29c3fb64df277245f8b566e85dde97",
+      "bytes": 320018
+    },
+    "articles\\goal29-sec-amf-supervision\\desktop_request_write.json": {
+      "sha256": "18be9232c9c51f24fd61bae03d602f2ba12097bf8dca8712330e3af4f523c908",
+      "bytes": 41724
+    },
+    "articles\\goal29-sec-amf-supervision\\handoff_receipt.json": {
+      "sha256": "2fc789106c92f8a3244d77c2b2aac88df001d57ead2180cae4baef90bedb2e2b",
+      "bytes": 642
+    },
+    "articles\\goal29-sec-amf-supervision\\main_headline_projection.json": {
+      "sha256": "f1ffa02fc6dfe7d3f5d5ac4a3b01df350c4c7cca3dc27570dd7b1092ba3e715a",
+      "bytes": 126663
+    },
+    "articles\\goal29-sec-amf-supervision\\media_binding.json": {
+      "sha256": "cc048c67881fa5d0af720368770cbeb65442f06a35a406acf58c20c47ab34c25",
+      "bytes": 2388
+    },
+    "articles\\goal29-sec-amf-supervision\\native_derivative_previews_v1.json": {
+      "sha256": "3a093d166e31b413923b40e0233e13e948881aea586d5a0b0e62c6da3ded16b9",
+      "bytes": 14933
+    },
+    "articles\\goal29-sec-amf-supervision\\native_desktop_result.json": {
+      "sha256": "1268224723e94f0dfca38b15bf0b14936c2d320e23acf5ce280186ed0e58f8f0",
+      "bytes": 1662662
+    },
+    "articles\\goal29-sec-amf-supervision\\native_headline_filter_receipt.json": {
+      "sha256": "f04d9fdf810b13ae34a379dd42795784da2924e82d10e1cb91d24eb0440f6beb",
+      "bytes": 548
+    },
+    "articles\\goal29-sec-amf-supervision\\qualified_article_record_v1.json": {
+      "sha256": "16701aa3406d585e3d1339cd2c35141d87ae3602db07b130f8d1835a77b584ee",
+      "bytes": 51923
+    },
+    "articles\\goal29-sec-amf-supervision\\review_compiler_preview.json": {
+      "sha256": "5326e5c156e93c4d2fc29000d2d9121ea427504ec07fa90756c3fd072688dc90",
+      "bytes": 18282
+    },
+    "articles\\goal29-sec-amf-supervision\\review_receipt.json": {
+      "sha256": "0bc046a9e9ba2875e13ef991908d67046932508d7600aa00b4d1fecc2d780f97",
+      "bytes": 995
+    },
+    "articles\\goal29-sec-amf-supervision\\revise_response.json": {
+      "sha256": "922ebce9f7f014a626ff1aab1f5827ee3a04f09874092b3aff7043754fbbc29e",
+      "bytes": 24196
+    },
+    "articles\\goal29-sec-amf-supervision\\revise_return.json": {
+      "sha256": "16b5fb840fe02a09d0da1cba3b1071d0e49cc1a8fda103d7dfdceb7d08ed5345",
+      "bytes": 31041
+    },
+    "articles\\goal29-sec-amf-supervision\\run_context_v1.json": {
+      "sha256": "4c1fc50aa24a006add8af9de410cab81745ca963357a51c78aed086d690ba448",
+      "bytes": 12223
+    },
+    "articles\\goal29-sec-amf-supervision\\select_response.json": {
+      "sha256": "c30e4bf3cb8a5fdfa0499f0101d3d432a46ec06a3251994d2ed2e00eeb1ba02d",
+      "bytes": 2975
+    },
+    "articles\\goal29-sec-amf-supervision\\simple_epistemic_state_v1.json": {
+      "sha256": "8f27872cabdfced9981c55bf2fb5bf01d23c2158b4fbea5df4adcae75f3f3af1",
+      "bytes": 3125
+    },
+    "articles\\goal29-sec-amf-supervision\\simple_gemini_editorial_edge_v1.json": {
+      "sha256": "a5465d51d2dcab28f27a03563473112e36e0907df5af33f935a35a1154d4fa6f",
+      "bytes": 3913
+    },
+    "articles\\goal29-sec-amf-supervision\\simple_gemini_evidence_v1.json": {
+      "sha256": "bf4bcf749ad490f6ecaacd92983c5909d2b1c1fc98c82218110603d1b9744566",
+      "bytes": 22656
+    },
+    "articles\\goal29-sec-amf-supervision\\simple_gemini_newsroom_receipt_v1.json": {
+      "sha256": "7fcc271b97be0921c5a9fad352b2e41d9f6cadfb85b6a02716fe59af34115417",
+      "bytes": 37506
+    },
+    "articles\\goal29-sec-amf-supervision\\simple_gemini_selection_v1.json": {
+      "sha256": "0427c44999ade3b0b24d0c8bd7a1f13f362418b6ecce503093f5b0bd24722412",
+      "bytes": 5096
+    },
+    "articles\\goal29-sec-amf-supervision\\simple_gemini_validation_v1.json": {
+      "sha256": "d7820236e4ba794a6163d6f88fb15614aba8d714cee149dab45cb62fef555f77",
+      "bytes": 14597
+    },
+    "articles\\goal29-sec-amf-supervision\\simple_sourceability_preselection_v1.json": {
+      "sha256": "76680bb8f82fcddbdba97699ab876bc66e90efbcc201ed2a2fbc871dc055427b",
+      "bytes": 156613
+    },
+    "articles\\goal29-sec-amf-supervision\\writer_response.json": {
+      "sha256": "b1868714d48dd345c21c535630f3f419c4662a40a56c8d5e1c2cd7e482d0d057",
+      "bytes": 24188
+    },
+    "articles\\goal29-sec-amf-supervision\\write_return.json": {
+      "sha256": "8bf45323ef6e1c71bcabc979fd4ea9ef17d180ed5b9d7bae1813818bae4f13b1",
+      "bytes": 31033
+    },
+    "articles\\goal29-sec-amf-supervision\\media_assets\\source_document_card.png": {
+      "sha256": "c72cc7bfaa11d4e9c6e7c3150d61d07ec6ec78570ae9b1906d99b4057f8848a9",
+      "bytes": 71155
+    },
+    "articles\\goal29-sec-amf-supervision\\reviewed-handoff\\article_manifest_v1.json": {
+      "sha256": "dbbd17787b5c607935f65512c164f1311422e7ba0baff23f9b178730b450af70",
+      "bytes": 14134
+    },
+    "articles\\goal29-sec-amf-supervision\\reviewed-handoff\\native_derivative_previews_v1.json": {
+      "sha256": "7c01d1a1315f8211e02df16528094c4c9c9c92ebc956ed38a90df14e216c73fd",
+      "bytes": 16731
+    },
+    "articles\\goal29-sec-amf-supervision\\reviewed-handoff\\publication_lifecycle_plan_v1.json": {
+      "sha256": "186ea012992e1fb475d0635529625273c3c6296c5793d1c6eafc8d1b6f44466f",
+      "bytes": 13659
+    },
+    "articles\\goal29-sec-amf-supervision\\reviewed-handoff\\qualified_article_record_v1.json": {
+      "sha256": "2bf449245c3996f3b9bb3c3f5c33cf0d29146dce06c87e1c8287e127cdc66f7e",
+      "bytes": 52098
+    },
+    "articles\\goal29-sec-amf-supervision\\reviewed-handoff\\run_context_v1.json": {
+      "sha256": "d22ce8f1a45ac9fe797c8be2e1acf4e4c763f540ac0589f618e8aa3dd541d64a",
+      "bytes": 14571
+    },
+    "articles\\goal29-brent-transmission\\reviewed-handoff\\article_manifest_v1.json": {
+      "sha256": "e5a32f601f596b99d74d67b58a0f7cc08f0be0896efc23e27257eb24939a0215",
+      "bytes": 13137
+    },
+    "articles\\goal29-brent-transmission\\reviewed-handoff\\native_derivative_previews_v1.json": {
+      "sha256": "d3ceb706fefe4cc0784a38ec49fa19f6b98da2b7c532989c209b7951bd506fdb",
+      "bytes": 16290
+    },
+    "articles\\goal29-brent-transmission\\reviewed-handoff\\publication_lifecycle_plan_v1.json": {
+      "sha256": "685ade7e132e7d2b864b0cea2b1fd1dec608b9caf06056981d3b97d30f3453f2",
+      "bytes": 11747
+    },
+    "articles\\goal29-brent-transmission\\reviewed-handoff\\qualified_article_record_v1.json": {
+      "sha256": "5af86b5261cd40cfc63711fb5b367c805f30b61c966223b20817d3756b4755cc",
+      "bytes": 35835
+    },
+    "articles\\goal29-brent-transmission\\reviewed-handoff\\run_context_v1.json": {
+      "sha256": "c7a28a897a145b58bd9c67eed0cf89640409bf66b79eb9f5db3e6229e6aa1279",
+      "bytes": 36612
+    }
+  },
+  "public_write_authority": false
+}

@@ -358,6 +358,8 @@ export interface EvolvingStory {
 }
 
 export interface ReportWorkspaceData {
+  main_admission_summary?: Array<{ report_id: string; report_version: number; report_sha256: string; claims: number;
+    native_public_excerpts: number; provenance_state: string; independent_native_runtime_verified: boolean; known_at_cutoff_utc: string }>;
   owner_edition?: { edition_id: string; title: string; operation_ids: string[]; ready: number; held: number; missing: number;
     preview_count: number; held_candidates: Array<{ title: string; reason: string }> } | null;
   source_reviews?: Array<{ review_id: string; run_id: string; title: string; decision: string; reader_change_summary: string;
@@ -369,6 +371,7 @@ export interface ReportWorkspaceData {
     run_id: string; article_identity: string; article: NonNullable<ReportWorkspaceData['article']>;
     angle?: string; reader_question?: string; mode?: string;
     prepared_state?: string;
+    source_review?: { decision: string; reader_change_summary: string } | null;
     report_id?: string | null; report_version?: number | null; source_report_sha256?: string | null;
     review?: { decision: string; rationale: string } | null;
     previews: ReportWorkspaceData['previews'];
@@ -422,7 +425,8 @@ export interface ReportWorkspaceData {
   };
   latest_editorial_input?: Record<string, unknown> | null;
   latest_simple_result?: { classification?: string; model_execution_state?: string; draft_count?: number; preview_count?: number; claim_lineage?: Array<Record<string, unknown>> } | null;
-  article: null | { title: string; dek: string; substack_body_markdown: string };
+  article: null | { title: string; dek: string; substack_body_markdown: string; search_title?: string;
+    meta_description?: string; canonical_slug_candidate?: string; source_date_notice?: string; source_notes?: string[] };
   previews: Array<{ destination: string; preview_id: string; article_identity: string; payload: Record<string, unknown>; claim_lineage: Array<Record<string, unknown>> }>;
   history: Array<{ report_version: number; state: string; article_identity: string; preview_ids: string[]; superseded_by_version: number }>;
   workspaces?: ReportWorkspaceData[];

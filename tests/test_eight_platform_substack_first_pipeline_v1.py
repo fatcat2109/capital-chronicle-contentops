@@ -921,6 +921,23 @@ def test_brief_context_retains_a_subject_after_duplicate_sentence_is_removed():
     assert article == before  # Formatting selects original sentences; it does not rewrite prose.
 
 
+def test_vietnamese_brief_retains_distinct_mechanism_countercase_and_invalidation():
+    mechanism = "Phân tích CC có điều kiện: nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất lặp lại, thương mại đường biển và chênh giá có thể truyền tác động sang Brent."
+    countercase = "Phản đề của CC: thời điểm hàng nhập về hoặc hoạt động lọc dầu có thể làm kho Mỹ giảm mà không có thiếu hụt toàn cầu."
+    invalidation = "Nếu dòng thương mại và chênh Brent không hỗ trợ truyền dẫn, CC phải rút cách đọc thiếu hụt toàn cầu."
+    article = {"title": "Rút kho dầu Mỹ có đủ để gọi Brent khan hiếm?", "native_brief_layout": True,
+        "social_hook": "Cần bằng chứng riêng về đường truyền giữa hai khu vực.",
+        "social_mechanism_summary": mechanism, "social_policy_summary": countercase,
+        "social_cross_asset_summary": invalidation, "substack_body_markdown": "\n\n".join((mechanism, countercase, invalidation))}
+    before = dict(article)
+    payloads = build_native_derivative_payloads(article=article, selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/dated-brent", media_asset_ids=["source"])
+    assert mechanism in payloads["linkedin"]["text"]
+    assert countercase in payloads["linkedin"]["text"]
+    assert invalidation in payloads["telegram"]["text"]
+    assert article == before
+
+
 def test_prepare_only_release_candidate_never_calls_publishers(tmp_path: Path, monkeypatch):
     context = {
         "article": {**_article(), "canonical_url": "https://capitalchronicle.substack.com/p/eia-oil-forecast", "word_count": 800, "substack_body_markdown_sha256": "d" * 64},
