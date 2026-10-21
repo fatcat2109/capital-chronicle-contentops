@@ -10,7 +10,7 @@ The App-owned four windows are prepared and PAUSED; production pause/deployed by
 
 ## Current source paths
 
-- `scripts/run_native_desktop_editorial.py`: owner-manual/scheduled request/return operation, no model API or publication.
+- `scripts/run_native_desktop_editorial.py`: owner-manual/scheduled request/return, reviewed preparation/status and authority-checked publication continuation; no model API.
 - `live_contentops/native_desktop_schedule_binding_v1.py`: maps existing App IDs to window/day/slot identities and bounded deficit slots; no timer.
 - `live_contentops/native_desktop_editorial_v1.py`: immutable request/return and truthful native telemetry in existing outbox.
 - `live_contentops/capital_chronicle_report_feed_v1.py` and `capital_chronicle_report_editorial_workspace_v1.py`: public Main feed, frozen ordinary/research/report pool, evolving story and source checkpoints.
@@ -90,3 +90,15 @@ copy; the empty X interval needed no Luna call. Neo source and desktop/mobile re
 inspection are recorded in
 `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/RELEASE_HANDOFF.md`. This is private reviewed/prepared output, not publication,
 activation, deployment or daily-production proof. The four tasks and production remain paused.
+
+
+## Goal32 reviewed-packet publisher composition (2026-10-21)
+
+`PARTIAL_CAPABILITY_REUSE_COMPONENTS`: the native owner continuation now seals a reviewed
+packet and resumes the existing Simple handoff, sole DurablePublicationCoordinator and
+native Neo request/begin/observed-return loop. The existing Desk/CLI expose actual
+per-destination states. Manual proof remains isolated; zero-write windows can continue
+editorial work. No live dispatch, task activation, deployment or daily-output proof is
+claimed. The finite RC, controls, retained Goal31 packets and activation boundary are in
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal32/RELEASE_HANDOFF.md`.
+Control Tower receiver synchronization remains pending; the current pointers are discoverable.

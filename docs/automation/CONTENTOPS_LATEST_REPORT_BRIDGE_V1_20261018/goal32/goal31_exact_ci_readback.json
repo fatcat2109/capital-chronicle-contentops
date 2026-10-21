@@ -1,0 +1,231 @@
+{
+  "conclusion": "success",
+  "databaseId": 39598183228,
+  "headSha": "36a1395be0e7a130493919407aa214c7810c61d4",
+  "jobs": [
+    {
+      "completedAt": "2026-10-21T12:16:18Z",
+      "conclusion": "success",
+      "databaseId": 119215636491,
+      "name": "branch-codegraph-refresh",
+      "startedAt": "2026-10-21T12:15:42Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-21T12:15:45Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-21T12:15:44Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:15:57Z",
+          "conclusion": "success",
+          "name": "Checkout exact branch head",
+          "number": 2,
+          "startedAt": "2026-10-21T12:15:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:16Z",
+          "conclusion": "success",
+          "name": "Generate exact CodeGraph bytes when stale",
+          "number": 3,
+          "startedAt": "2026-10-21T12:15:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:16Z",
+          "conclusion": "skipped",
+          "name": "Commit only generated CodeGraph outputs",
+          "number": 4,
+          "startedAt": "2026-10-21T12:16:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:16Z",
+          "conclusion": "success",
+          "name": "Post Checkout exact branch head",
+          "number": 8,
+          "startedAt": "2026-10-21T12:16:16Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:16Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 9,
+          "startedAt": "2026-10-21T12:16:16Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39598183228/job/119215636491"
+    },
+    {
+      "completedAt": "2026-10-21T12:17:22Z",
+      "conclusion": "success",
+      "databaseId": 119215637133,
+      "name": "deterministic-validation",
+      "startedAt": "2026-10-21T12:15:42Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-10-21T12:15:43Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-10-21T12:15:42Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:15:52Z",
+          "conclusion": "success",
+          "name": "Checkout exact commit",
+          "number": 2,
+          "startedAt": "2026-10-21T12:15:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:15:52Z",
+          "conclusion": "success",
+          "name": "Set up Python",
+          "number": 3,
+          "startedAt": "2026-10-21T12:15:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:15:54Z",
+          "conclusion": "success",
+          "name": "Compile canonical Python sources",
+          "number": 4,
+          "startedAt": "2026-10-21T12:15:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:03Z",
+          "conclusion": "success",
+          "name": "Install focused test runner",
+          "number": 5,
+          "startedAt": "2026-10-21T12:15:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:21Z",
+          "conclusion": "success",
+          "name": "Run deterministic CodeGraph generator tests",
+          "number": 6,
+          "startedAt": "2026-10-21T12:16:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:22Z",
+          "conclusion": "success",
+          "name": "Run retained Speech Highlight Relay and CLI boundary tests",
+          "number": 7,
+          "startedAt": "2026-10-21T12:16:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:22Z",
+          "conclusion": "success",
+          "name": "Run LLM-first Phase A focused tests",
+          "number": 8,
+          "startedAt": "2026-10-21T12:16:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:40Z",
+          "conclusion": "success",
+          "name": "Run Main latest-report consumer controls and exact-byte readback",
+          "number": 9,
+          "startedAt": "2026-10-21T12:16:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:41Z",
+          "conclusion": "success",
+          "name": "Run LLM-first Phase B runtime-repair regressions",
+          "number": 10,
+          "startedAt": "2026-10-21T12:16:40Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:16:49Z",
+          "conclusion": "success",
+          "name": "Run V1 simple Gemini reset regressions",
+          "number": 11,
+          "startedAt": "2026-10-21T12:16:41Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:17:01Z",
+          "conclusion": "success",
+          "name": "Validate native Desktop owner, paused rollout and safety contracts",
+          "number": 12,
+          "startedAt": "2026-10-21T12:16:49Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:17:17Z",
+          "conclusion": "success",
+          "name": "Check CodeGraph freshness and prepare repair artifact",
+          "number": 13,
+          "startedAt": "2026-10-21T12:17:01Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:17:19Z",
+          "conclusion": "success",
+          "name": "Upload CodeGraph evidence",
+          "number": 14,
+          "startedAt": "2026-10-21T12:17:17Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:17:19Z",
+          "conclusion": "success",
+          "name": "Check branch diff hygiene",
+          "number": 15,
+          "startedAt": "2026-10-21T12:17:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:17:19Z",
+          "conclusion": "skipped",
+          "name": "Enforce committed CodeGraph freshness",
+          "number": 16,
+          "startedAt": "2026-10-21T12:17:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:17:19Z",
+          "conclusion": "success",
+          "name": "Post Set up Python",
+          "number": 31,
+          "startedAt": "2026-10-21T12:17:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:17:19Z",
+          "conclusion": "success",
+          "name": "Post Checkout exact commit",
+          "number": 32,
+          "startedAt": "2026-10-21T12:17:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-10-21T12:17:19Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 33,
+          "startedAt": "2026-10-21T12:17:19Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39598183228/job/119215637133"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39598183228"
+}

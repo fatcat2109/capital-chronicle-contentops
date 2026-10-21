@@ -84,6 +84,16 @@ def scheduled_binding(rollout, automation_id, *, now=None):
                         "binding_path": str(root / "native_operation_binding.json"),
                         "capacity": checkpoint["capacity"], "slot_ordinal": ordinal,
                         "window_id": work, "public_write_performed": False}
+                if (review["decision"] == "KEEP" and rollout.get("public_write_authority") is True
+                        and store.get_operating_control()["operating_mode"] == "AUTONOMOUS_DEFAULT"):
+                    from live_contentops.native_desktop_publication_v1 import publication_projection
+                    publication = publication_projection(store.list_outbox_messages(), store.list_platform_dispatches(),
+                        store.get_reconciliations_for_work_item(run_id), run_id=run_id)
+                    if publication["state"] != "RECONCILED":
+                        return {"classification": "NATIVE_WINDOW_PUBLICATION_REQUIRED",
+                            "binding_path": str(root / "native_operation_binding.json"),
+                            "capacity": checkpoint["capacity"], "slot_ordinal": ordinal, "window_id": work,
+                            "publication": publication, "public_write_performed": False}
             attempted += [r["candidate_id"] for r in semantic.get("candidate_attempt_history", [])
                           if r.get("status") == "SOURCE_BLOCKED"]
             if semantic.get("qualified_article_count") and semantic.get("selected_candidate"):

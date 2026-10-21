@@ -298,16 +298,10 @@ def bind_editorial_media(store, *, run_id, article_identity, assets):
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
 
 
-def prepare_reviewed_handoff(store, *, run_id, output_dir):
-    """Deterministically bind unchanged prose, reviewed media and the sole coordinator plan.
-
-    No publisher is invoked. The initial model proof artifacts remain immutable. Media-bound
-    rematerialization is a package revision, never another model run or independent article.
-    """
+def validated_native_review(store, *, run_id):
+    """Read the current revision/source/media boundary shared by preparation and continuation."""
     from hashlib import sha256
     from live_contentops.contentops_editorial_desk_v1 import read_reviews
-    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle, _build_simple_publication_lifecycle_plan
-    from live_contentops.newsroom_production_day_v1 import persist_qualified_article_record
     row = store.get_outbox_message("cc-editorial-final-" + sha256_of(run_id))
     result = json.loads(row["payload"]) if row else {}
     if result.get("model_execution_state") != "NATIVE_DESKTOP_REQUEST_RETURN" or not result.get("qualified_article_count"):
@@ -332,6 +326,15 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     for asset in assets:
         if sha256(resolve_workspace_path(asset["path"]).read_bytes()).hexdigest() != asset["sha256"]:
             raise ValueError("REUSED_MEDIA_BYTES_CHANGED")
+    return result, row, reviews[-1]
+
+
+def prepare_reviewed_handoff(store, *, run_id, output_dir):
+    """Bind reviewed unchanged prose/media to the existing plan, without dispatch."""
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle, _build_simple_publication_lifecycle_plan
+    from live_contentops.newsroom_production_day_v1 import persist_qualified_article_record
+    result, row, current_review = validated_native_review(store, run_id=run_id)
+    assets = result.get("media_assets", [])
     root = resolve_workspace_path(output_dir) / "reviewed-handoff"
     root.mkdir(parents=True, exist_ok=True)
     article = result["article"]
@@ -361,7 +364,7 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     from live_contentops.v1_simple_publication_handoff_v1 import SimplePublicationHandoffV1
     handoff = SimplePublicationHandoffV1(store=store, coordinator=None)
     plan = handoff.ensure_plan(slot_id=run_id, slot_output_dir=root, returned_plan=plan)
-    prepared = {"article_identity": identity, "review_id": reviews[-1]["review_id"], "run_id": run_id,
+    prepared = {"article_identity": identity, "review_id": current_review["review_id"], "run_id": run_id,
         "plan_hash": plan["plan_hash"], "output_dir": str(root),
         "previews": [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([identity, k, v]),
             "article_identity": identity, "claim_lineage": result.get("claim_lineage", [])} for k, v in previews["packages"].items()],
@@ -370,6 +373,6 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
         work_item_id=row["work_item_id"], destination="internal:native-prepared-handoff",
         payload=canonical_bytes(prepared).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH", "article_identity": identity,
-        "review_id": reviews[-1]["review_id"], "plan_hash": plan["plan_hash"], "output_dir": str(root),
+        "review_id": current_review["review_id"], "plan_hash": plan["plan_hash"], "output_dir": str(root),
         "media_reuse_count": len(assets), "preview_count": 8, "new_qualified_articles": 0,
         "model_invocations": 0, "source_requests": 0, "public_write_performed": False}

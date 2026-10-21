@@ -17,6 +17,23 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('shows actual continuation states and destination-local blockers without claiming login', () => {
+    const snapshot = data();
+    snapshot.native_edition = [{ run_id: 'same-run', article_identity: 'same-article',
+      article: snapshot.article!, previews: snapshot.previews, review: { decision: 'KEEP', rationale: 'Exact retained source.' },
+      publication: { state: 'PENDING_NATIVE', operation_scope: 'OWNER_MANUAL_ISOLATED', next_operation: 'publication-tool-begin',
+        next_command: 'python scripts/run_native_desktop_editorial.py publication-tool-begin --binding exact.json',
+        destinations: [{ destination: 'substack', status: 'NATIVE_NEO_TOOL_PENDING', cached_readiness: 'NOT_VERIFIED',
+          blocker: 'CURRENT_IDENTITY_REQUIRED' }, { destination: 'telegram', status: 'NOT_DISPATCHED',
+          cached_readiness: 'NOT_VERIFIED', blocker: 'WAITING_CANONICAL' }] } }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const continuation = screen.getByLabelText('Publication continuation');
+    expect(continuation).toHaveTextContent('Publication: PENDING NATIVE');
+    expect(continuation).toHaveTextContent('CURRENT IDENTITY REQUIRED');
+    expect(continuation).toHaveTextContent('WAITING CANONICAL');
+    expect(continuation).toHaveTextContent('This manual edition has no dispatch authority');
+    expect(continuation).toHaveTextContent('--binding exact.json');
+  });
   it('shows latest admitted public lineage as producer attestation', () => {
     const snapshot = data();
     snapshot.main_admission_summary = [{ report_id: 'asset-report:UKOIL', report_version: 4,

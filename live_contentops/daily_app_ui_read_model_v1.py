@@ -134,9 +134,10 @@ def _rows(conn: Any, sql: str, params: Iterable[Any] = ()) -> list[dict[str, Any
 
 
 
-def _report_bridge_projection(outbox: Mapping[str, Mapping[str, Any]], reviews=()) -> dict[str, Any]:
+def _report_bridge_projection(outbox: Mapping[str, Mapping[str, Any]], reviews=(), dispatches=(), reconciliations=(), readiness=()) -> dict[str, Any]:
     from live_contentops.capital_chronicle_report_editorial_workspace_v1 import report_workspace_projection
-    return report_workspace_projection(list(outbox.values()), review_records=reviews)
+    return report_workspace_projection(list(outbox.values()), review_records=reviews, dispatches=dispatches,
+        reconciliations=reconciliations, readiness=readiness)
 
 def _latest_time(rows: Iterable[Mapping[str, Any]], fields: Iterable[str]) -> Optional[datetime]:
     values = [
@@ -1680,7 +1681,7 @@ def build_daily_app_snapshot(
             "latest_material_delta_status": latest_material_delta_status,
             "latest_decision_reason": latest_decision_reason,
             "latest_stage_stopped": latest_stage_stopped,
-            "report_bridge": _report_bridge_projection(outbox, editorial_reviews),
+            "report_bridge": _report_bridge_projection(outbox, editorial_reviews, dispatch_rows, reconciliations, readiness_rows),
             "current_cycle": ({
                 "work_item_id": latest_cycle["work_item_id"],
                 "state": latest_cycle["current_state"],

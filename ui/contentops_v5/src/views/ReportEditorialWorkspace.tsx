@@ -79,6 +79,18 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
         </p>)}</details>
         {item.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
         <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
+        {item.publication && <details aria-label="Publication continuation"><summary>Publication: {display(item.publication.state)}</summary>
+          <p>Review and preparation create no public post. {item.publication.operation_scope === 'OWNER_MANUAL_ISOLATED'
+            ? 'This manual edition has no dispatch authority.' : 'Dispatch requires existing operating authority and current destination proof.'}</p>
+          <p>Next operation: {item.publication.next_operation}</p>
+          {item.publication.dispatch_blocker && <p>Dispatch boundary: {display(item.publication.dispatch_blocker)}</p>}
+          {item.publication.next_command && <pre style={{ whiteSpace: 'pre-wrap', overflowWrap: 'anywhere' }}>{item.publication.next_command}</pre>}
+          <p>Cached readiness is diagnostic. Only an actual object readback confirms publication.</p>
+          {item.publication.destinations.map(d => <p key={d.destination}>{display(d.destination)}: {display(d.status)}
+            {d.reconciliation_status ? ' · ' + display(d.reconciliation_status) : ''}
+            {d.blocker ? ' · ' + display(d.blocker) : ''}
+            {d.public_object_url && <> · <a href={d.public_object_url}>Observed object</a></>}</p>)}
+        </details>}
         {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}
       </article>)}
     </section>}

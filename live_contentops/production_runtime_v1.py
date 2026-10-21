@@ -42,6 +42,18 @@ class FinalDailyAppProductionRuntime:
     supervisor: ContentOpsDailyAppSupervisor
     api_server: Optional[HTTPServer] = None
     api_thread: Optional[threading.Thread] = None
+    native_neo_executor: Any = None
+
+    def reviewed_publication(self, binding, *, rollout, native_invocation_id):
+        """Use this runtime's sole coordinator; no new publisher or activation."""
+        from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+        if self.native_neo_executor is None or self.native_neo_executor.operation_id != binding["run_id"]:
+            raise ValueError("EXACT_NATIVE_NEO_EXECUTOR_BINDING_REQUIRED")
+        if self.native_neo_executor.native_invocation_id != native_invocation_id:
+            raise ValueError("EXACT_NATIVE_NEO_INVOCATION_REQUIRED")
+        return NativeReviewedPublication(self.store, binding, rollout=rollout,
+            native_invocation_id=native_invocation_id, coordinator=self.publication_coordinator,
+            executor=self.native_neo_executor)
 
     def start_api(self, *, port: int = 5174) -> None:
         if self.api_server is not None:
@@ -205,5 +217,5 @@ def build_final_daily_app_production_runtime(
     return FinalDailyAppProductionRuntime(
         store=store, orchestrator=orchestrator, readiness_manager=readiness,
         transport_runtime=transport, publication_coordinator=coordinator,
-        supervisor=supervisor,
+        supervisor=supervisor, native_neo_executor=native_neo_executor,
     )

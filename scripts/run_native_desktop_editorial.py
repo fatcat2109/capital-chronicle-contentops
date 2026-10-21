@@ -1,7 +1,8 @@
-"""One native Desktop opportunity; no timer, model API, activation or publishing.
+"""Native editorial and reviewed-publication continuation; no timer or model API.
 
 In a Desktop chat: advance -> read pending request -> reason -> submit -> advance.
 All phases may run in the SAME turn. Binding is explicit and immutable per opportunity.
+Publication preparation/status are separate from authority-checked dispatch continuation.
 """
 from __future__ import annotations
 
@@ -71,7 +72,7 @@ def resolve_owner_operation(profile, *, operation_id, request=None, now=None, re
     return path, binding
 
 
-def validate_binding(binding):
+def validate_binding(binding, *, read_or_prepare=False):
     if binding.get("schema_version") != BINDING_SCHEMA or not binding.get("run_id"):
         raise ValueError("NATIVE_OPERATION_BINDING_INVALID")
     for key in ("store_path", "output_dir", "feed_pointer_path", "published_memory_store", "published_memory_output_root"):
@@ -83,24 +84,45 @@ def validate_binding(binding):
             path = Path(binding[key]).resolve()
             if path == PRODUCTION_ROOT.resolve() or PRODUCTION_ROOT.resolve() in path.parents:
                 raise ValueError("MANUAL_VALIDATION_MUST_USE_ISOLATED_TASK_STATE")
-    elif llm_operator_pause_active():
+    elif not read_or_prepare and llm_operator_pause_active():
         raise ValueError("LLM_OPERATOR_PAUSED")
     return binding
 
 
-def operation(binding, *, command="advance", response=None, stage=None):
-    validate_binding(binding)  # Before opening/migrating any store.
-    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]))
+def operation(binding, *, command="advance", response=None, stage=None, rollout=None,
+              native_invocation_id=None, request_hash=None):
+    validate_binding(binding, read_or_prepare=command in {"publication-prepare", "publication-status"})
+    store = ContentOpsDurableStore(resolve_workspace_path(binding["store_path"]), auto_migrate=command != "publication-status")
     work = "cc-opportunity-" + sha256_of(binding["run_id"])
     key = "native-operation-binding-" + sha256_of(binding["run_id"])
     previous = store.get_outbox_message(key)
     if previous and json.loads(previous["payload"]) != binding:
         raise ValueError("NATIVE_OPERATION_BINDING_CHANGED")
+    if command == "publication-status":
+        from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+        if not previous:
+            raise ValueError("EXACT_REGISTERED_OPERATION_BINDING_REQUIRED")
+        return NativeReviewedPublication(store, binding, native_invocation_id=None).projection()
     store.create_work_item(story_id=work, title="Main-enriched newsroom opportunity",
                            target_surface="CONTENTOPS_EDITORIAL_ONLY", work_item_id=work)
     if not previous:
         store.register_outbox_message(message_id=key, work_item_id=work, destination=DESTINATION,
             payload=canonical_bytes(binding).decode(), status="EDITORIAL_INTERNAL")
+    if command.startswith("publication-"):
+        from live_contentops.native_desktop_publication_v1 import prepare_native_publication, NativeReviewedPublication
+        if command == "publication-prepare":
+            return prepare_native_publication(store, binding)
+        continuation = NativeReviewedPublication(store, binding, native_invocation_id=native_invocation_id, rollout=rollout)
+        if command == "publication-status":
+            return continuation.projection()
+        if not native_invocation_id:
+            raise ValueError("NATIVE_NEO_ACTIVE_INVOCATION_REQUIRED")
+        if command == "publication-resume":
+            return continuation.resume()
+        if not request_hash:
+            raise ValueError("EXACT_NATIVE_NEO_REQUEST_REQUIRED")
+        return continuation.tool("begin" if command == "publication-tool-begin" else "submit",
+                                 request_hash=request_hash, response=response)
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"],
                              owner_manual_validation=binding.get("owner_manual_validation", False))
     if command == "submit":
@@ -216,7 +238,8 @@ def operation(binding, *, command="advance", response=None, stage=None):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources", "relocate-workspace", "edition"))
+    parser.add_argument("command", choices=("newsroom", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources", "relocate-workspace", "edition",
+        "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
     parser.add_argument("--operation-id")
     parser.add_argument("--request", help="Owner's ordinary-language editorial question; metadata only")
@@ -225,6 +248,8 @@ def main(argv=None):
     parser.add_argument("--binding", type=Path)
     parser.add_argument("--rollout", type=Path)
     parser.add_argument("--automation-id")
+    parser.add_argument("--native-invocation-id", help="Actual active Desktop conversation/turn identity")
+    parser.add_argument("--request-sha256", help="Exact persisted native Neo request")
     parser.add_argument("--response", type=Path)
     parser.add_argument("--stage", help="select/write/revise or exact pending filter-<batch sha256>")
     parser.add_argument("--source-review-id", action="append", default=[])
@@ -266,7 +291,11 @@ def main(argv=None):
             conn.row_factory = sqlite3.Row
             rows = [dict(r) for r in conn.execute("SELECT * FROM outbox_messages ORDER BY rowid")]
             reviews = [dict(r) for r in conn.execute("SELECT * FROM review_records ORDER BY rowid")]
-        projection = report_workspace_projection(rows, review_records=reviews)
+            dispatches = [dict(r) for r in conn.execute("SELECT * FROM platform_dispatches ORDER BY rowid")]
+            reconciliations = [dict(r) for r in conn.execute("SELECT * FROM reconciliations ORDER BY rowid")]
+            readiness = [dict(r) for r in conn.execute("SELECT * FROM destination_readiness ORDER BY rowid")]
+        projection = report_workspace_projection(rows, review_records=reviews, dispatches=dispatches,
+            reconciliations=reconciliations, readiness=readiness)
         root = Path(profile["editorial_output_root"]) / "desk"
         root.mkdir(parents=True, exist_ok=True)
         (root / "workspace.json").write_bytes(canonical_bytes(projection))
@@ -301,7 +330,9 @@ def main(argv=None):
     try:
         binding = json.loads(args.binding.read_bytes())
         result = operation(binding, command=args.command, stage=args.stage,
-                           response=json.loads(args.response.read_bytes()) if args.response else None)
+                           response=json.loads(args.response.read_bytes()) if args.response else None,
+                           rollout=json.loads(args.rollout.read_bytes()) if args.rollout else None,
+                           native_invocation_id=args.native_invocation_id, request_hash=args.request_sha256)
     except (ValueError, OSError, KeyError, TypeError) as exc:
         print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc)}, ensure_ascii=True))
         return 2

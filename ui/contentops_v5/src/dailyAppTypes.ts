@@ -373,6 +373,10 @@ export interface ReportWorkspaceData {
     run_id: string; article_identity: string; article: NonNullable<ReportWorkspaceData['article']>;
     angle?: string; reader_question?: string; mode?: string;
     prepared_state?: string;
+    publication?: { state: string; next_operation: string; next_command?: string; dispatch_blocker?: string; operation_scope?: string;
+      review_id?: string; plan_hash?: string; work_item_id?: string;
+      destinations: Array<{ destination: string; status: string; reconciliation_status?: string | null;
+        public_object_url?: string | null; blocker?: string | null; cached_readiness: string }> };
     source_review?: { decision: string; reader_change_summary: string } | null;
     report_id?: string | null; report_version?: number | null; source_report_sha256?: string | null;
     review?: { decision: string; rationale: string } | null;

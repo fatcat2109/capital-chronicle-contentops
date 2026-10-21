@@ -692,7 +692,8 @@ def run_report_editorial_cycle(
 
 
 def report_workspace_projection(
-    rows: Sequence[Mapping[str, Any]], report_id: str | None = None, *, review_records=()
+    rows: Sequence[Mapping[str, Any]], report_id: str | None = None, *, review_records=(),
+    dispatches=(), reconciliations=(), readiness=()
 ) -> dict[str, Any]:
     """Read only durable payloads; blocked/duplicate events never poison current content."""
     admissions, inputs, results = [], [], []
@@ -822,6 +823,9 @@ def report_workspace_projection(
     from live_contentops.contentops_editorial_desk_v1 import source_review_projection
     source_reviews = source_review_projection(rows)
     for item in edition.values():
+        from live_contentops.native_desktop_publication_v1 import publication_projection
+        item["publication"] = publication_projection(rows, dispatches, reconciliations,
+            run_id=item["run_id"], readiness=readiness)
         # The read model embeds exact inspected local PNG bytes, without changing
         # the sealed package or its revision-bound review.
         import base64
@@ -840,6 +844,9 @@ def report_workspace_projection(
         item["source_review"] = matching[-1] if matching else None
         if matching and matching[-1]["invalidates_prepared_review"]:
             item["prepared_state"] = "INVALIDATED_BY_SOURCE_REVIEW"
+        if item.get("prepared_state") or (item.get("review") or {}).get("decision") != "KEEP":
+            item["publication"] = {**item["publication"], "state": "REVIEW_REQUIRED", "next_operation": "review",
+                "next_command": "Review the current exact source/article packet; prior preparation grants no dispatch."}
     owner_groups = [json.loads(r["payload"]) for r in rows if r["destination"] == "internal:native-owner-edition"]
     owner_edition = owner_groups[-1] if owner_groups else None
     if owner_edition:
