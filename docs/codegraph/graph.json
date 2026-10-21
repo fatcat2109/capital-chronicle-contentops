@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14719,
+    "edges": 14720,
     "entrypoints": 20,
-    "nodes": 7757,
+    "nodes": 7758,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,7 +25,7 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 635,
-      "python_function": 4217,
+      "python_function": 4218,
       "python_method": 307,
       "python_module": 819,
       "schema": 255,
@@ -5488,6 +5488,12 @@
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/capital_chronicle_public_research_semantics_v1.py::public_descriptors"
+    },
+    {
+      "from": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/capital_chronicle_public_research_semantics_v1.py::reader_notices"
     },
     {
       "from": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
@@ -88489,7 +88495,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-21T10:37:56Z",
+  "generation_timestamp_utc": "2026-10-21T10:51:02Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -89524,12 +89530,12 @@
     {
       "id": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
       "kind": "python_module",
-      "size_bytes": 6886
+      "size_bytes": 7347
     },
     {
       "id": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "kind": "python_module",
-      "size_bytes": 50972
+      "size_bytes": 51008
     },
     {
       "id": "live_contentops/capital_chronicle_report_feed_v1.py",
@@ -90929,7 +90935,7 @@
     {
       "id": "live_contentops/native_desktop_editorial_v1.py",
       "kind": "python_module",
-      "size_bytes": 23515
+      "size_bytes": 23545
     },
     {
       "id": "live_contentops/native_desktop_production_handoff_v1.py",
@@ -92449,7 +92455,7 @@
     {
       "id": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "kind": "python_module",
-      "size_bytes": 129876
+      "size_bytes": 130097
     },
     {
       "id": "live_contentops/v1_simple_gemini_scheduler_process_v1.py",
@@ -96881,35 +96887,42 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_public_research_semantics_v1.py::claim_semantics",
       "kind": "python_function",
-      "line": 50,
+      "line": 60,
       "path": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
       "symbol": "claim_semantics"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_public_research_semantics_v1.py::dependence_copy_blockers",
       "kind": "python_function",
-      "line": 99,
+      "line": 109,
       "path": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
       "symbol": "dependence_copy_blockers"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_public_research_semantics_v1.py::descriptor_changes",
       "kind": "python_function",
-      "line": 109,
+      "line": 119,
       "path": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
       "symbol": "descriptor_changes"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_public_research_semantics_v1.py::public_descriptors",
       "kind": "python_function",
-      "line": 17,
+      "line": 26,
       "path": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
       "symbol": "public_descriptors"
     },
     {
+      "id": "python_symbol:live_contentops/capital_chronicle_public_research_semantics_v1.py::reader_notices",
+      "kind": "python_function",
+      "line": 17,
+      "path": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
+      "symbol": "reader_notices"
+    },
+    {
       "id": "python_symbol:live_contentops/capital_chronicle_public_research_semantics_v1.py::reference_blockers",
       "kind": "python_function",
-      "line": 69,
+      "line": 79,
       "path": "live_contentops/capital_chronicle_public_research_semantics_v1.py",
       "symbol": "reference_blockers"
     },
@@ -96923,7 +96936,7 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_report_editorial_workspace_v1.py::report_evidence",
       "kind": "python_function",
-      "line": 125,
+      "line": 126,
       "path": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "symbol": "report_evidence"
     },
@@ -96937,14 +96950,14 @@
     {
       "id": "python_symbol:live_contentops/capital_chronicle_report_editorial_workspace_v1.py::report_workspace_projection",
       "kind": "python_function",
-      "line": 689,
+      "line": 690,
       "path": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "symbol": "report_workspace_projection"
     },
     {
       "id": "python_symbol:live_contentops/capital_chronicle_report_editorial_workspace_v1.py::run_report_editorial_cycle",
       "kind": "python_function",
-      "line": 249,
+      "line": 250,
       "path": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "symbol": "run_report_editorial_cycle"
     },
@@ -125847,14 +125860,14 @@
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::native_source_date_notice",
       "kind": "python_function",
-      "line": 1612,
+      "line": 1613,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "native_source_date_notice"
     },
     {
       "id": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
       "kind": "python_function",
-      "line": 1956,
+      "line": 1958,
       "path": "live_contentops/v1_simple_gemini_newsroom_v1.py",
       "symbol": "run_v1_simple_gemini_newsroom"
     },
@@ -133132,7 +133145,7 @@
     {
       "id": "tests/test_public_research_semantics_v1.py",
       "kind": "test",
-      "size_bytes": 14440
+      "size_bytes": 15539
     },
     {
       "id": "tests/test_public_secondary_evidence_loader_v1.py",
@@ -138721,6 +138734,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "c48e12c30e2e76f90cba6063034be9a655efc74c",
-  "source_tree_digest": "a202f47f07b77e38c643e064bcd75350ba715c615ec7f7b51e8edf2afb278a77"
+  "source_head": "21d515ed5a9ac83e257b8671c3597bbb675c38ba",
+  "source_tree_digest": "34124bce36985fdef29a77a69f16dd1c7554be05bcc3c1c695ce306db3e694a9"
 }
