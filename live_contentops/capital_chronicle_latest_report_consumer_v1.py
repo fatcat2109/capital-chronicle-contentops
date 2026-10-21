@@ -784,6 +784,12 @@ def validate_latest_report_bytes(
         )
     for cid in required - seen:
         errors.append(f"{cid}:REQUIRED_CLAIM_ABSENT")
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import public_descriptors
+    try:
+        research_descriptors = public_descriptors(public_row or {}, envelope)
+    except (ValueError, TypeError, KeyError):
+        research_descriptors = {}
+        errors.append("PUBLIC_RESEARCH_DESCRIPTOR_INVALID")
     missing.extend(optional - seen)
     explicit_ancestor = (allow_lineage_only and public_export_bytes is not None
                          and binding.get("public_lineage_only") is True)
@@ -813,6 +819,7 @@ def validate_latest_report_bytes(
         and not any("SCHEMA" in error for error in errors),
         "producer_binding": deepcopy(dict(producer_binding or {})),
         "native_public_lineage": native_public_lineage,
+        "public_research_descriptors": research_descriptors,
         "contract_revision": envelope.get("contract_revision"),
         "contract_version": envelope.get("version"),
         "raw_sha256": hashlib.sha256(raw_bytes).hexdigest(),
@@ -1269,6 +1276,7 @@ def build_report_editorial_input(
     )
     sections = []
     for claim in claims:
+        from live_contentops.capital_chronicle_public_research_semantics_v1 import claim_semantics
         sections.append(
             {
                 "section_id": "claim:" + claim["claim_id"],
@@ -1277,6 +1285,7 @@ def build_report_editorial_input(
                 "source_report_ids": claim["source_report_ids"],
                 "claim_id": claim["claim_id"],
                 "claim_hash": claim["claim_hash"],
+                "research_semantics": claim_semantics(admission, claim),
                 "evidence_ids": [row["evidence_id"] for row in claim["evidence"]],
                 "layer": claim["layer"],
                 "source_text": claim["text"],

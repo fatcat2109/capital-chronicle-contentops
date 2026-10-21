@@ -67,6 +67,8 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
         or not path
     ):
         raise LatestReportConsumerError("MAIN_REPORT_IMMUTABLE_LOCATOR_UNBOUND")
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import claim_semantics
+    claims = [{**c, "research_semantics": claim_semantics(admission, c)} for c in admission["claims"]]
     text = "\n\n".join(
         c["producer_layer"] + ": " + c["text"] + "\n" + str(c.get("basis_risk") or "")
         for c in admission["claims"]
@@ -86,6 +88,11 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
                                "text": "Main evidence " + str(evidence.get("evidence_id")) + " " + field + ": " + value})
     text += "\n\n" + "\n".join(c["text"] for c in clocks)
     text += "\n\n" + report_scope_notice(admission)
+    research_metadata = [{"claim_id": c["claim_id"], "descriptor_sha256": c["research_semantics"]["probability_descriptor"]["descriptor_sha256"],
+        "text": c["research_semantics"]["probability_descriptor"]["reader_disclosure"]}
+        for c in claims if c["research_semantics"]["probability_descriptor"]]
+    if research_metadata:
+        text += "\n\n" + "\n".join(m["text"] for m in research_metadata)
     url = public_locator or repository + "/blob/" + revision + "/" + path
     return {
         "document_id": "main-report-" + admission["source_report_sha256"],
@@ -106,9 +113,10 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
             "report_id": admission["report_id"],
             "report_version": admission["report_version"],
             "report_sha256": admission["source_report_sha256"],
-            "claims": admission["claims"],
+            "claims": claims,
             "native_public_lineage": admission.get("native_public_lineage"),
             "source_clock_metadata": clocks,
+            "source_research_metadata": research_metadata,
             "scope_notice": report_scope_notice(admission),
         },
     }

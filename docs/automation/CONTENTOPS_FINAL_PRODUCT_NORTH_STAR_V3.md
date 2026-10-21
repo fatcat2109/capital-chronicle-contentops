@@ -250,3 +250,16 @@ validated copy, publication and natural production results remain distinct. Pres
 operator LLM pause and runtime state; this update does not restart them or extend V2 authority.
 See [the bridge plan](CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1.md) and
 [dated reconciliation](CONTENTOPS_OWNER_UPDATE_RECONCILIATION_20261019.md).
+
+## Public research meaning and uncertainty (owner update 2026-10-21)
+
+Preserve the exact permitted question, target/proxy, horizon/cutoff, probability measure,
+method/evaluation and selection/dependence from public research into article and derivatives.
+Source facts, Main interpretation, conditional scenarios, subjective challengers, statistical
+and risk-neutral probabilities remain distinct. Missing metadata stays unknown and is no
+universal block on useful factual/qualitative journalism. No score or option valuation becomes
+a trade win rate; Main recirculation/shared-release copies do not independently confirm a claim.
+Reuse existing admission, native packets, source-review, compiler and coordinator; Main alone
+owns numeric estimation/evaluation. No new engine/status/store, role/pause or publication grant.
+See [the consumer projection](../editorial/CONTENTOPS_PUBLIC_RESEARCH_SEMANTICS_V1.md) and the
+[Goal30 owning handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal30/RELEASE_HANDOFF.md).

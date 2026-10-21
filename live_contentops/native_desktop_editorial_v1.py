@@ -107,7 +107,13 @@ class NativeDesktopTurn:
             "and article.social_cross_asset_summary: useful story-specific mechanism, competing explanation and "
             "invalidation/watch question, EACH copied exactly from a complete passage of your source-bound article "
             "body (excluding SOURCE markers). Native packages must retain the article's actual reader value, "
-            "not replace it with generic confirmation/denial boilerplate.\n"
+            "not replace it with generic confirmation/denial boilerplate. Preserve any exact public research "
+            "descriptor in report_lineage claims: target/event, instrument/proxy, horizon/cutoff, probability "
+            "measure/method/evaluation, selection and dependence. A bound claim using one must add "
+            "research_reference with descriptor_sha256 and the exact supplied fields, and include its "
+            "reader_disclosure verbatim in the body. Unknown is unknown; never invent probability metadata "
+            "or turn a risk-neutral valuation probability into a win rate. Shared-release copies and "
+            "Main recirculation do not independently confirm a claim. Review windows are not forecasts.\n"
         ) if stage in {"write", "revise"} else ""
         request = {
             "schema_version": SCHEMA, "stage": stage, "run_id": self.run_id,

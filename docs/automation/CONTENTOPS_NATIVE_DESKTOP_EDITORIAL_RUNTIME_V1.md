@@ -92,7 +92,7 @@ add exact already-admitted retained IDs to an unanswered writer request, preserv
 request and selection. Successful role returns are never rerun to repair deterministic code.
 Prepared handoffs remain non-dispatching; later activation/publication remains separate.
 
-Owning engineering checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal29/RELEASE_HANDOFF.md`.
+Owning engineering checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal30/RELEASE_HANDOFF.md`.
 Goal25 remains the exact historical filter/Neo proof; Goal26 supplies the usable edition.
 Official supported surfaces checked: [Scheduled tasks](https://learn.chatgpt.com/docs/automations)
 and [Models](https://learn.chatgpt.com/docs/models). App availability is observed separately.
@@ -100,7 +100,7 @@ and [Models](https://learn.chatgpt.com/docs/models). App availability is observe
 Goal27 extends the same owner operation with frozen current input and append-only source
 editions, source-bound story review, prior-article continuity and prepared-review invalidation.
 A fresh scan is not a fresh economic period; only material changes route to native roles.
-Goal26 remains immutable edition evidence; Goal27 remains source-continuity history; current delivery is in the Goal29 owning handoff.
+Goal26 remains immutable edition evidence; Goal27 remains source-continuity history; current delivery is in the Goal30 owning handoff.
 
 Goal28 relocates the same existing owner-manual SQLite through its WAL-safe backup to
 `%LOCALAPPDATA%/CapitalChronicle/ContentOps/owner-newsroom/editorial-v4.sqlite3`.
@@ -111,3 +111,10 @@ one held candidate, zero missing articles, forty native previews and five inspec
 Actual roles: five Sol6.1-low selection returns and five Sol6.1-max writer returns; zero Luna
 for the empty X interval, zero writer repairs and zero dispatches. These are owner-manual
 results; natural 5–8/day production reliability and current channel readiness remain unproven.
+
+Goal30 preserves the exact seven current articles/fifty-six previews, with zero revisions
+and one held candidate. Public research target/measure/method/evaluation/selection/dependence
+metadata is carried only when supplied and exactly bound; missing stays unknown. The optional
+consumer descriptor is not a new Main producer forecast. See
+`docs/editorial/CONTENTOPS_PUBLIC_RESEARCH_SEMANTICS_V1.md` and the current owning handoff.
+No new model/source cycle, engine, status/store, publication or runtime authority is created.

@@ -218,7 +218,7 @@ source; the existing owning handoffs establish subsequent implementation state. 
 
 ## Goal29 owner-manual continuation
 
-Current owning checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal29/RELEASE_HANDOFF.md`.
+Current owning checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal30/RELEASE_HANDOFF.md`.
 Reuse the existing relocated owner-manual store and preserved five-article Goal28 edition through the same profile
 and newsroom skill. Original sealed identities, completed returns, prior reviews and public Main
 admission remain authority-bound. The Temp database is recovery only; never create a second
@@ -232,3 +232,10 @@ not independent consumer proof of private worker execution. The existing desk pr
 five Goal28 KEEP articles and adds useful dated Brent and SEC-AMF questions through native
 Sol low/MAX; unchanged oil/gas prose remains usable history. New profile feeds never redirect
 an existing sealed operation. Receiver synchronization remains pending; schedules stay paused.
+
+Goal30 preserves the exact seven current articles/fifty-six previews, with zero revisions
+and one held candidate. Public research target/measure/method/evaluation/selection/dependence
+metadata is carried only when supplied and exactly bound; missing stays unknown. The optional
+consumer descriptor is not a new Main producer forecast. See
+`docs/editorial/CONTENTOPS_PUBLIC_RESEARCH_SEMANTICS_V1.md` and the current owning handoff.
+No new model/source cycle, engine, status/store, publication or runtime authority is created.

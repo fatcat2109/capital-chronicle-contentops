@@ -644,7 +644,7 @@ def _validate_worker_text(text: str) -> tuple[bool, str | None, Any, str | None]
     for claim in claims:
         if not isinstance(claim, Mapping):
             return False, "structured_output_schema_invalid", None, "claim_object_required"
-        if set(claim) != {
+        if set(claim) - {"research_reference"} != {
             "claim_id",
             "claim_text",
             "claim_kind",
@@ -864,6 +864,10 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "An evolving_story_context binds existing story/update identities, prior unpublished research, exact evidence delta, "
         "current review and missing inputs. A prior research package is not a published article. Prefer a follow-up only "
         "when its stated delta adds reader value; an identical rescan or Main recirculation is not independent confirmation. "
+        "Preserve any public research_semantics descriptor in claim/edition context: target, proxy, horizon, "
+        "measure, method, evaluation, selection and dependence belong to that exact claim. Unknown remains "
+        "unknown and does not block useful factual/qualitative journalism. Never select an inferred win rate "
+        "from a score, review window, subjective challenger or risk-neutral valuation probability. "
         "A HOLD applies to its exact scope; missing option-chain data does not veto a narrow attributable index announcement. "
         "Use institutional_edge_mode_guide to choose the mode the story genuinely warrants. Prefer the strongest "
         "defensible tension over generic recap, and prioritize a proposition that can explain why the reader should care now. "
@@ -1413,6 +1417,9 @@ def _validate_article_against_source_pack(
     epistemic_state: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
+    # Only source-bound validation may attach this compiler metadata. A writer's
+    # extra article fields cannot self-certify a permitted probability descriptor.
+    article.pop("public_research_descriptors", None)
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
     claims = [dict(row) for row in worker_output.get("material_claim_bindings") or [] if isinstance(row, Mapping)]
     available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
@@ -1456,9 +1463,22 @@ def _validate_article_against_source_pack(
         report_claims = [c for c in report_lineage.get("claims", []) if _normal(excerpt) in _normal(c["text"])]
         report_metadata = [m for m in report_lineage.get("source_clock_metadata", [])
                            if _normal(excerpt) == _normal(m["text"])]
+        report_metadata += [m for m in report_lineage.get("source_research_metadata", [])
+                            if _normal(excerpt) == _normal(m["text"])]
         if report_lineage and not report_claims and not report_metadata:
             blockers.append(f"report_claim_excerpt_unbound:{claim_id}")
             continue
+        from live_contentops.capital_chronicle_public_research_semantics_v1 import reference_blockers, dependence_copy_blockers
+        semantics = [c["research_semantics"] for c in report_claims if c.get("research_semantics")]
+        blockers.extend(dependence_copy_blockers(claim_text, semantics))
+        typed = [s for s in semantics if s.get("probability_descriptor")]
+        if typed and not claim.get("research_reference"):
+            blockers.append("public_probability_reference_missing:" + claim_id)
+        if claim.get("research_reference"):
+            if len(typed) != 1:
+                blockers.append("public_probability_reference_ambiguous:" + claim_id)
+            else:
+                blockers.extend(reference_blockers(claim["research_reference"], typed[0], claim_text=claim_text))
         supported.append(
             {
                 "claim_id": claim_id,
@@ -1469,6 +1489,7 @@ def _validate_article_against_source_pack(
                 "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION" if report_lineage else "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
                 "attribution_required": bool(claim.get("attribution_required")),
                 "support_excerpt_sha256": _text_hash(excerpt),
+                **({"research_semantics": semantics} if semantics else {}),
                 **({"report_id": report_lineage["report_id"], "report_version": report_lineage["report_version"],
                     "report_sha256": report_lineage["report_sha256"],
                     "report_claims": [{k: c[k] for k in ("claim_id", "claim_hash", "producer_layer", "basis_risk", "evidence")} for c in report_claims],
@@ -1498,6 +1519,13 @@ def _validate_article_against_source_pack(
     )
     if blockers:
         raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", blockers)
+    descriptors = {s["probability_descriptor"]["descriptor_sha256"]: s["probability_descriptor"]
+        for c in supported for s in c.get("research_semantics", []) if s.get("probability_descriptor")}
+    for descriptor in descriptors.values():
+        if _normal(descriptor["reader_disclosure"]) not in body:
+            raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", ["public_probability_reader_disclosure_missing"])
+    if descriptors:
+        article["public_research_descriptors"] = list(descriptors.values())
     return article, {
         "schema_version": VALIDATION_SCHEMA_VERSION,
         "status": "PASS",
@@ -1627,6 +1655,9 @@ def _reader_safe_native_article(
             str((epistemic_state or {}).get("report_scope_notice") or ""),
             str(article.get("source_date_notice") or "")) if s),
     }
+    notices = [d["reader_disclosure"] for d in article.get("public_research_descriptors", [])]
+    if notices:
+        result["editorial_scope_notice"] += " " + " ".join(notices)
     for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
         if article.get(key):
             result[key] = article[key]

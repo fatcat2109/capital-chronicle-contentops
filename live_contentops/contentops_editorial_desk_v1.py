@@ -76,7 +76,7 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
     material_additions = [e for e in additions if e["period_relation"] in {
         "SAME_PERIOD_ADDITIONAL_SEASONAL_COMPARATOR", "NEW_OBSERVATION_PERIOD",
         "PUBLISHER_CORRECTION_OF_SAME_OBSERVATION", "MATERIAL_NEW_SOURCE_PROPOSITION"}]
-    main, removed = None, []
+    main, removed, research_changes = None, [], []
     if main_receipt_id:
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker
         from live_contentops.capital_chronicle_report_editorial_workspace_v1 import CURRENT
@@ -87,8 +87,10 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
             raise ValueError("MAIN_RECEIPT_NOT_BOUND_TO_PRIOR_STORY")
         old_claims = {c["claim_id"] for d in evidence for c in d.get("report_lineage", {}).get("claims", [])}
         removed = sorted(old_claims - {c["claim_id"] for c in main.get("claims", [])})
+        from live_contentops.capital_chronicle_public_research_semantics_v1 import descriptor_changes
+        research_changes = descriptor_changes([c for d in evidence for c in d.get("report_lineage", {}).get("claims", [])], main)
     unavailable = [a for a in attempts if a["status"] != "PASS"]
-    if main and (main.get("withdrawal_only") or removed):
+    if main and (main.get("withdrawal_only") or removed or research_changes):
         decision = "CORRECTION_OR_WITHDRAWAL"
     elif material_additions:
         decision = "MATERIAL_FOLLOW_UP"
@@ -102,6 +104,7 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
         "cutoff_utc": cutoff_utc, "decision": decision, "reader_change_summary": reason,
         "source_editions": editions, "source_attempts": attempts,
         "source_changes": _source_delta([], material_additions), "removed_main_claim_ids": removed,
+        "changed_research_descriptor_claim_ids": research_changes,
         "previous_sources": [{k: d.get(k) for k in ("source_id", "url", "published_at_utc", "canonical_content_sha256", "canonical_content_text")}
                              for d in evidence],
         "main_receipt_id": main_receipt_id, "research_revision": research.revision,

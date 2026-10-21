@@ -1,0 +1,25 @@
+{
+  "changed_seam_suite": {
+    "passed": 213,
+    "log": "verification/goal30-backend.txt"
+  },
+  "final_semantic_controls": {
+    "passed": 22,
+    "overlaps_suite": 20,
+    "log": "verification/goal30-semantic-controls.txt"
+  },
+  "new_consumer_contract_tests_not_producer_forecasts": true,
+  "ruff": "PASS",
+  "ui_source_unchanged": true,
+  "render_evidence_reused_exact_html": true,
+  "new_model_calls": 0,
+  "new_source_calls": 0,
+  "accepted_articles_unchanged": 7,
+  "revised": 0,
+  "held": 1,
+  "previews": 56,
+  "four_paused_host_hashes_unchanged": true,
+  "production_pause_hash_unchanged": true,
+  "dispatches": 0,
+  "public_writes": 0
+}
