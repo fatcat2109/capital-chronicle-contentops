@@ -1,7 +1,9 @@
 # Goal34 requirement audit
 
-Scope: the full source-led research-to-current-edition goal. Local checks are complete;
-remote delivery is proven only by the exact current readback in `delivery.json`.
+Scope: the full source-led research-to-current-edition goal. Local checks and release delivery
+are complete. `delivery.json` proves release commit 4a740dab and CI 39681999695 (2/2 successful).
+The receipt-only successor is verified separately in the final live conversation readback;
+the receipt never claims to verify its own containing commit.
 
 | Required outcome | Current authoritative evidence | Result / limit |
 | --- | --- | --- |
@@ -31,9 +33,13 @@ remote delivery is proven only by the exact current readback in `delivery.json`.
 | Preserve current runtime and history | Direct table/file/hash comparisons in `preservation.json` | 499 prior files and all prior rows unchanged; canonical store zero changes/additions; manual zero dispatch; four PAUSED TOMLs/pause unchanged |
 | No forbidden actions | Scoped source diff, actual internal operations, no dispatch rows, preservation | No paid API/login/token/account/public draft/post/reply/send/broker/cleanup/merge/deploy/activation/V2/new owner |
 | Existing owning checkpoint/pointers and CodeGraph | `CHECKPOINT.md`, handoff, four current routing surfaces, generated graph/check | Current routing updated; generated exact source identity is recorded in final delivery evidence |
-| Same PR90 remote and exact-head CI | `delivery.json`, fresh PR/ref/blob and run readback | Final delivery gate must be successful and exact; local implementation alone is insufficient |
+| Same PR90 remote and exact-head CI | `delivery.json`, fresh PR/ref/blob and run readback | Release 4a740dab / CI39681999695 SUCCESS2/2, all86 changed remote blobs matched and five exact-byte checks; receipt-only successor independently checked live |
 | Control Tower transfer | Current pointers and this discoverable handoff | Receiver synchronization explicitly PENDING_NO_CONNECTOR; no unauthorized Builder message or sync claim |
 
-The next requirement after this local audit is exact remote/CI verification. No claim of
-published content, deployed runtime, unattended daily throughput, audience growth or final
-product acceptance follows from this manual editorial result.
+Release delivery is verified. Initial CI39681506033 passed all tests/CodeGraph and failed only
+on raw transcript whitespace. Existing binary-evidence attributes preserve exact transcripts
+while restoring branch hygiene; no source/test outcome was changed. CI39681999695 succeeded
+on the corrected exact release. Receipt-only final HEAD must still pass its own live CI check.
+
+No claim of published content, deployed runtime, unattended daily throughput, audience growth
+or final product acceptance follows from this manual editorial result.

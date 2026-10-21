@@ -132,8 +132,14 @@ and one review, with zero dispatches. Four existing host TOMLs remain PAUSED and
 production pause hash is unchanged. No account/session/token/public draft/post/reply/send,
 paid model/API, broker, cleanup, merge, deployment, activation, V2 or new owner was introduced.
 
-Source/graph changes stay on the existing draft PR90 and branch. Exact remote refs/blobs and
-exact-head CI are the final delivery gate, recorded in `delivery.json`; do not infer them from
-this handoff alone. Current authority/runtime/lane/CodeGraph pointers make this packet discoverable.
+Source/graph changes stay on the existing draft PR90 and branch. Release
+`4a740dabf28292854c4473f72b322659b202341b` passed exact CI **39681999695**, both jobs.
+`delivery.json` verifies all **86 changed remote blobs** and five additional exact-byte readbacks.
+The first CI39681506033 failed only on whitespace inside raw captured transcripts after its
+tests/CodeGraph passed. Existing binary-evidence attributes preserve those original bytes;
+the corrected run passed. A receipt-only successor is checked separately against its own
+live HEAD/CI, with the local Desk `goal34_final_delivery.json` as the last readback; this
+immutable release receipt does not certify its containing commit. Current authority/runtime/
+lane/CodeGraph pointers make this packet discoverable.
 Control Tower receiver synchronization remains pending: no applicable connector/authorized
 receiver message is available. This handoff is the durable transfer surface, not a sync claim.
