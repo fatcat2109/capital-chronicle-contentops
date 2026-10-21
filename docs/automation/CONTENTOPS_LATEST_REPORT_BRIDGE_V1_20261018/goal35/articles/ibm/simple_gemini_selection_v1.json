@@ -1,0 +1,72 @@
+{
+  "candidate_count": 28,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "c47ef336d98550ee221cc6a41696d7b966bd905e535c146125758828827eeb73",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal35_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "48e95a2e968fa49d655b930c067f0ce16f4cd2bb6a7e2d7f38f95cc2df717a1e",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "a074ec7ab3e4bb1f37079da82351864e804160e564b44936fcacb96f43717165",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "IBM raises the floor of annual software growth guidance while leaving the ceiling unchanged. Separate delayed transaction-processing deals from management-described net new business before judging durable demand.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-cfa3cb4bdb5389780c472d78",
+        "evidence_plan": "Use only sealed goal35-ibm Reuters facts, published 2026-10-21T20:12:00Z and known at 2026-10-21T22:27:23.029Z. Preserve the single Reuters origin and attribute Kavanaugh statements through Reuters. Annual SOFTWARE revenue growth outlook is about 7%-8% versus prior 6%-8%: lower bound raised, upper bound unchanged. Total Q3 revenue +4.7% to $17.10 billion versus $16.82 billion LSEG estimate, and software revenue +8.3% to $7.80 billion versus $7.62 billion estimate, are separate metrics. About 25% from deferred Q2 deals and remaining 75% net new business describe TRANSACTION PROCESSING revenue only, per Kavanaugh via Reuters; never all IBM/software revenue or growth contributions. Do not compute dollar contributions or organic growth. Code owns arithmetic. Reported extended-session share rise about 4% proves neither lasting demand nor the cause of the move. Missing: transaction-processing denominator/comparisons, normalized growth excluding deferred deals, margins/cash conversion, recurrence and independent company-release corroboration. No additional retrieval, requests, quotations or media.",
+        "primary_reader_question": "Does the higher IBM software outlook signal durable new demand, or partly the arrival of deals delayed from the previous quarter?",
+        "research_queries": [
+          "IBM October 21 2026 software outlook transaction processing deferred Q2 net new business"
+        ],
+        "selection_rationale": "Fresh software guidance and a reported narrow revenue composition support a useful current company question. Explain what improved and the limits of the deal-mix evidence. Distinct from handled oil and historical filing-reading explainers; other current company/FX reports remain separate operations. Single-source report truth is not independent event confirmation."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select only IBM. The raised software guidance floor and delayed-versus-new transaction-processing revenue warrant analysis; the ceiling did not rise and the revenue split does not cover all IBM.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-ibm\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 29,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 1,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "5e402f50124b7785b95daf6d444fc16f91d66665e91e4a63cd6c2ca2d4e00edd",
+    "source_route_health_reused": false
+  }
+}

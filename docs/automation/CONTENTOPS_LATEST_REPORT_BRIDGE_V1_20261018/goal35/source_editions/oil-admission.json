@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal35-oil",
+      "source_id": "goal35-oil",
+      "source_url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+      "url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+      "publisher": "Reuters",
+      "source_identity": "reuters.com",
+      "title": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+      "raw_sha256": "b76e3ca9d02b2ca04e7a2905942bed19badaf25465e523ab3e3b52075621e7f2",
+      "canonical_content_text": "Oil prices steady as investors weigh geopolitics, lower US stockpiles\n\nHOUSTON, Oct 21 (Reuters) - Oil prices settled with little change on Wednesday as investors weighed possible progress toward Russia-Ukraine talks against declining US oil stocks and a lack of US-Iran dialogue.\n\nBrent crude futures settled 3 ‌cents, or 0.03% higher, at $108.82 a barrel. US West Texas Intermediate crude closed down 67 cents, or 0.7%, at $97.15.\n\nBoth ‌benchmarks had gained more than $2 earlier in the session, with Brent hovering near five-month highs.",
+      "source_adapter_family": "reputable_secondary_report",
+      "source_authority_class": "reputable_secondary_source",
+      "source_interest_role": "NEWS_REPORTER",
+      "report_truth_only": true,
+      "published_at_utc": "2026-10-21T19:17:12Z",
+      "published_at_source": "2026-10-21T19:17:12Z",
+      "published_at_precision": "SECOND",
+      "content_truncated": false,
+      "public_claim_allowed": true,
+      "original_reporting_identity": "Reuters",
+      "syndication_host": "finance.yahoo.com"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-21T22:27:23.049Z",
+    "request_count_for_call": 0
+  }
+}

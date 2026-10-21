@@ -1,0 +1,51 @@
+{
+  "component": "ReportEditorialWorkspace",
+  "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+  "canonical_article_and_seo_read": true,
+  "all_eight_expanded_previews_read": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "telegram",
+    "threads",
+    "x",
+    "youtube"
+  ],
+  "media_assets": 0,
+  "media_gap": "Explicit visible gap: no inspected rights-cleared image bound; no report photos, logos, prose or source chart reused.",
+  "desktop": {
+    "actual_viewport_observed": 819,
+    "scroll_width": 807,
+    "pdf_css_width": 1280,
+    "pages_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  },
+  "mobile": {
+    "actual_viewport_observed": 390,
+    "scroll_width": 390,
+    "pdf_css_width": 390,
+    "pages_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "rendered_artifacts": [
+    "oil-desktop-paragraph-render.pdf",
+    "oil-mobile-paragraph-render.pdf"
+  ],
+  "initial_observed_defect": "Large preformatted preview text lost complete lines in the initial Neo rendering; source DOM and packet bytes contained them.",
+  "repair": "Reuse existing article paragraph renderer for native previews; complete final renders visually inspected.",
+  "direct_screenshot": "Several actual article/LinkedIn/Threads/X screenshots inspected; other screenshot calls timed out. No screenshot file completeness claim.",
+  "limits": "Read-only actual component isolated temporarily in Neo for PDF export. Print pagination and widths differ from social-platform apps; no platform-native rendering or public object is claimed.",
+  "public_write_performed": false
+}

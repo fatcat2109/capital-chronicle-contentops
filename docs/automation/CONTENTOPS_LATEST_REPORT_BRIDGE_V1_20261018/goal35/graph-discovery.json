@@ -1,0 +1,140 @@
+{
+  "source_head": "87c23fda0486811333c0091147dff87aec2d6d3c",
+  "source_tree_digest": "61bd3b8465a2b3dc291d3f7eebc5391015e6248999e0892006c93bea04520602",
+  "freshness": "PRE_GOAL35_BASELINE_GRAPH_NEW_EDITS_NOT_INDEXED_YET",
+  "use": "Selective callers and focused test discovery; current source and focused tests establish behavior.",
+  "edges": [
+    {
+      "from": "live_contentops/claim_evidence_contract_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/claim_evidence_contract_v1.py::requires_enhanced_evidence_review"
+    },
+    {
+      "from": "live_contentops/contentops_source_research_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/contentops_source_research_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "live_contentops/contentops_source_research_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.retained_source_research.v1"
+    },
+    {
+      "from": "live_contentops/contentops_source_research_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_contentops_source_research_v1.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::build_epistemic_state"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::candidate_report_provenance"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::canonical_x_report_document"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::document_host"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::publisher_for_host"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::trusted_relay_document"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::validate_epistemic_state"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.v1_simple_epistemic_state.v1"
+    },
+    {
+      "from": "live_contentops/v1_simple_epistemic_state_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_v1_simple_epistemic_state_v1.py"
+    },
+    {
+      "from": "python_symbol:live_contentops/claim_evidence_contract_v1.py::build_minimum_trustworthy_evidence_packet",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/claim_evidence_contract_v1.py::requires_enhanced_evidence_review"
+    },
+    {
+      "from": "python_symbol:live_contentops/grounded_news_research_v1.py::build_grounded_research_request",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/claim_evidence_contract_v1.py::requires_enhanced_evidence_review"
+    },
+    {
+      "from": "python_symbol:live_contentops/rolling_x_targeted_evidence_adapter_v1.py::_minimum_or_enhanced_evidence",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/claim_evidence_contract_v1.py::requires_enhanced_evidence_review"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::build_epistemic_state",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/claim_evidence_contract_v1.py::requires_enhanced_evidence_review"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::canonical_x_report_document",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/claim_evidence_contract_v1.py::requires_enhanced_evidence_review"
+    },
+    {
+      "from": "tests/test_contentops_source_research_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/contentops_source_research_v1.py"
+    },
+    {
+      "from": "tests/test_v1_simple_epistemic_state_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/v1_simple_epistemic_state_v1.py"
+    }
+  ]
+}

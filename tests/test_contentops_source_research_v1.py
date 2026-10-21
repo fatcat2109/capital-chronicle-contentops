@@ -21,6 +21,71 @@ ROOT = (
 NOW = "2026-10-19T06:30:00Z"
 
 FILING_ROOT = ROOT.parent.parent / "goal34/source_editions"
+REPORT_ROOT = ROOT.parent.parent / "goal35/source_editions"
+
+
+def test_current_reuters_reports_preserve_report_truth_rights_and_syndication():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _candidate_universe, _evidence_request, _source_pack
+    research = RetainedSourceResearch(REPORT_ROOT)
+    assert len(research.records) == 6 and not research.gaps
+    cutoff = "2026-10-22T00:00:00Z"
+    candidates = _candidate_universe({"headlines": research.headlines(cutoff_utc=cutoff)}, [])
+    assert len(candidates) == 6
+    for candidate in candidates:
+        request = _evidence_request(candidate, {"article_mode": "STANDARD_NEWS_ANALYSIS", "research_queries": [candidate["headline_text"]]})
+        value = research.evidence(request, cutoff_utc=cutoff)
+        if candidate["headline_id"] == "goal35-fx":
+            # The retained proposition includes conflict reporting. One Reuters
+            # origin and its Kitco syndication are not independent corroboration.
+            assert value["status"] == "BLOCKED"
+            assert "epistemic_high_harm_single_source_insufficient" in value["blockers"]
+            continue
+        assert value["status"] == "PASS", value["blockers"]
+        state = value["epistemic_state"]
+        assert state["evidence_basis"] == "DIRECT_REPUTABLE_REPORT"
+        assert state["report_truth_supported"] is True
+        assert state["event_truth_supported"] is False
+        assert state["source_multiplicity"] == "SINGLE_SOURCE"
+        pack = _source_pack(value["evidence_documents"])
+        assert pack[0]["report_truth_only"] is True
+        assert pack[0]["source_reuse_constraints"]["public_expression_reuse_allowed"] is False
+        assert value["provenance"]["selected_route"] == "DIRECT_REPUTABLE_REPORT"
+        assert "official_data" not in value["provided_evidence_capabilities"]
+        assert "official_source_documents" not in value
+        assert value["provenance"]["request_count_for_call"] == 0
+
+
+@pytest.mark.parametrize("change,expected", [
+    ({"public_expression_reuse_allowed": True}, "PUBLIC_REPORT_ATTRIBUTION_OR_SCOPE_INVALID"),
+    ({"authorship_class": "AGENCY_AUTHORED"}, "SOURCE_REUSE_POLICY_NOT_SUPPORTED"),
+])
+def test_reporting_retention_does_not_expand_authorship_or_reuse(tmp_path, change, expected):
+    shutil.copytree(REPORT_ROOT, tmp_path / "reports")
+    index_path = tmp_path / "reports/index.json"
+    index = json.loads(index_path.read_bytes())
+    index["records"][0].update(change)
+    index_path.write_text(json.dumps(index), encoding="utf-8")
+    result = RetainedSourceResearch(index_path.parent)
+    assert len(result.records) == 5 and result.gaps[0]["state"] == expected
+
+
+def test_reported_issuer_guidance_requires_capture_and_preserves_sensitive_gates():
+    from live_contentops.claim_evidence_contract_v1 import requires_enhanced_evidence_review
+    research = RetainedSourceResearch(REPORT_ROOT)
+    title = research.records["goal35-southwest"]["headline_text"]
+    request = {"story_context": {"leaf_summaries": [title]}}
+    docs = research.evidence({"headline_ids": ["goal35-southwest"]})["evidence_documents"]
+    assert requires_enhanced_evidence_review(request)  # No capture, no exception.
+    assert not requires_enhanced_evidence_review(request, documents=docs)
+    for mutation in ({"report_truth_only": False}, {"public_claim_allowed": False},
+                     {"source_authority_class": "trusted_professional_feed_relay"},
+                     {"source_reuse_constraints": {}}, {"canonical_content_text": "Unrelated document", "title": "Unrelated title"}):
+        assert requires_enhanced_evidence_review(request, documents=[{**docs[0], **mutation}])
+    for claim in (title + " amid a conflict", title + " because of fraud",
+                  "Capital Chronicle raises profit forecast", "Our price target forecast rises",
+                  title + " with a 90% probability", title + " and shares rose"):
+        assert requires_enhanced_evidence_review({"story_context": {"leaf_summaries": [claim]}}, documents=docs)
+    assert requires_enhanced_evidence_review({**request, "sensitive_claim": True}, documents=docs)
 
 
 def test_public_filing_is_issuer_facts_not_government_expression():

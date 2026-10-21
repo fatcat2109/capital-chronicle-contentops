@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
+  "title": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+  "reporting_publisher": "Reuters",
+  "attribution_text": "Reuters",
+  "observed_at_utc": "2026-10-21T22:27:23.031Z",
+  "full_text_sha256": "e2fa092cf32a4ff6c45debaf50d26c69d9fc8b77a58c6afc4198347ec7b7dec7",
+  "full_text_characters": 4954,
+  "excerpts": [
+    {
+      "text": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+      "start": 0,
+      "end": 81
+    },
+    {
+      "text": "The Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.",
+      "start": 805,
+      "end": 1065
+    },
+    {
+      "text": "Southwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.",
+      "start": 1888,
+      "end": 2119
+    },
+    {
+      "text": "Southwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.",
+      "start": 2305,
+      "end": 2464
+    },
+    {
+      "text": "The company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier.",
+      "start": 2465,
+      "end": 2621
+    }
+  ],
+  "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS",
+  "credential_or_session_material_read": false,
+  "public_write_performed": false,
+  "capture_scope": "EXACT_SELECTED_FACTUAL_PASSAGES_NOT_FULL_ARTICLE",
+  "publication_visible_clock": {
+    "datetime": "2026-10-21T21:46:06.528Z",
+    "text": "October 22, 20263:23 AM GMT+7Updated 40 mins ago"
+  },
+  "publisher_machine_clock_metadata": [],
+  "origin": "Reuters original",
+  "publication_clock_basis": "VISIBLE_REUTERS_GMT_PLUS_7_MINUTE_CLOCK",
+  "clock_limit": "Reuters time element may represent update rather than original publication; visible original minute retained separately. No future outcome is inferred."
+}

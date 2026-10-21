@@ -1,0 +1,34 @@
+{
+  "schema_version": "contentops.native_owner_edition.v1",
+  "edition_id": "goal35-current-market-issue",
+  "title": "October 21 market reports: one reviewed oil article and four selected company stories",
+  "operation_ids": [
+    "goal35-oil",
+    "goal35-ibm",
+    "goal35-tesla",
+    "goal35-meta",
+    "goal35-southwest"
+  ],
+  "held_candidates": [
+    {
+      "operation_id": "goal35-fx",
+      "title": "FX conflict and inflation framing",
+      "reason": "HOLD: one Reuters origin via Kitco does not independently corroborate the conflict-linked proposition. No additional discovery after the sealed cutoff. No new article credit."
+    }
+  ],
+  "publication_authority": false,
+  "opportunity_outcomes": [
+    {
+      "operation_id": "goal35-oil",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW: the October21 closing snapshot is distinct from retained historical oil explainers. Real SolMAX article/revision, eight read and visually inspected previews, explicit text-only media gap, exact KEEP and PREPARED without dispatch."
+    },
+    {
+      "operation_id": "goal35-fx",
+      "outcome": "HOLD",
+      "source_blocked": true,
+      "reason": "HOLD: conflict-linked reporting remains single-origin and lacks independent corroboration. Four other selected company stories still await actual MAX writers; they are unfinished, not new article credit."
+    }
+  ]
+}

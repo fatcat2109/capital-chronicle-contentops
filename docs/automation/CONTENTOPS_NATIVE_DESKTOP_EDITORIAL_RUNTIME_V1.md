@@ -176,3 +176,20 @@ write, merge or deployment. See
 `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/RELEASE_HANDOFF.md`,
 `COMPLETION_AUDIT.md` and `delivery.json` for exact scope, clocks, preserved bytes and remote CI.
 Control Tower receiver synchronization remains pending; this is the discoverable handoff.
+
+
+## Goal35 current market issue (2026-10-22)
+
+The current follow-on is the finite Goal35 issue, using the same V1 owner-manual
+store, native roles, retained source library, article compiler, Desk and sole
+non-dispatch preparation. Its exact cutoff, operation/revision identities, ready
+and unfinished counts, source holds, native usage interruption and continuation
+are owned by `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/CHECKPOINT.md`
+and its requirement-level `COMPLETION_AUDIT.md`. Goal34's dated accepted history
+remains intact; it is not current-market article credit for Goal35. Reuse exact
+saved requests/returns after interruption. Do not infer daily publication, activation,
+merge, deployment or receiver synchronization from an editorial progress checkpoint
+or green code CI. The existing Desks read contract is documented in that directory;
+no new reader/store/workflow owner is introduced. Four tasks and production remain
+paused; public writes and account/token work are outside this goal. Control Tower
+receiver synchronization is pending; these pointers are the discoverable handoff.

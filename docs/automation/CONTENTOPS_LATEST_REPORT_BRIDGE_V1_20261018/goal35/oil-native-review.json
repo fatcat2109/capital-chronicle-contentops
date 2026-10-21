@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-2bfa7f0b88c84c699893f7f17b83343c",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal35-oil",
+  "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+  "package_revision": "01439cbdcb98538d6d0a96e7a8786f5f9bbef406d82bc562933630da42e6e741",
+  "article_metadata_sha256": "19cfb4f745655bfcc0b9586836bca684b8319c4d4f4246ac296470bd4269f29f",
+  "rationale": "Read the complete canonical article, SEO and all eight native previews and inspected the actual Neo desktop/mobile component renders after paragraph-render correction. Reuters is the sole reporting origin; Yahoo is syndication, not corroboration. Intraday gains and closing prices remain distinct. Geopolitical/inventory framing is attributed, causal analysis conditional, with a serious countercase and specified change conditions. Source clocks remain separate. No photo/chart/expression rights are granted; the visible media gap is accepted for this text-only editorial preparation. Exact bytes and review bind preparation only; no dispatch.",
+  "publication_authority": false
+}

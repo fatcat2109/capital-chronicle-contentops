@@ -1,0 +1,72 @@
+{
+  "candidate_count": 25,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "266056cdd98613e3935e56c088c5c0e594faeb41889d813e63e8d75df3bb37ee",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal35_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "a33cd04bc6f0f3c653c881332fbee67d143ec369d86c728f40852b1d1c7f03ee",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "07ca7ac90b6180cd55d7419bd5488e83740303b62fb20b7a73308e33f308dd64",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Southwest cuts its full-year adjusted earnings outlook despite stronger fares, record quarterly revenue and a quarterly earnings beat. Explain how current operating gains and pressure on the next quarter can coexist.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-f2a30d4ebd709c3c05cb0692",
+        "evidence_plan": "Use only retained goal35-southwest Reuters facts, published 2026-10-21T20:23:00Z, known 2026-10-21T22:27:23.031Z. Attribute issuer guidance through Reuters: 2026 adjusted EPS expected $2.60-$2.85 versus prior $3.25-$4.25; this proves the reported forecasting act, not future achieved earnings. Retain supplied statement that new midpoint is below $2.85 LSEG analyst average without manual midpoint calculation. Bind nearly 27% Q3 average passenger fare increase, Q3 record $8.4bn revenue, higher adjusted operating margin despite fuel costs, fuel bill +$821m year on year, and Q3 adjusted EPS 66 cents versus 58-cent expectation and 11 cents year ago. Final-quarter jet-fuel increase is company expectation only. Do not infer fare increase equals yield, demand or passenger-volume growth; do not calculate fuel sensitivity or attribute entire guidance reduction to fuel. Keep Q3 results and full-year/future expectations separate. Accepted historical 2025 hedge/AOCI case remains dated history; this current report neither independently updates hedge status nor contradicts or invalidates that case. Missing: exact margin, traffic/capacity/mix, fuel-volume/unit-cost split and earnings bridge. Code owns arithmetic. No new retrieval, requests, quotes or media.",
+        "primary_reader_question": "Why can Southwest beat quarterly earnings expectations and raise fares yet cut its full-year profit outlook?",
+        "research_queries": [
+          "Southwest October 21 2026 profit forecast fares fuel costs adjusted earnings"
+        ],
+        "selection_rationale": "The fresh 2026 guidance change creates an actionable reading question about revenue strength versus earnings exposure, not a recycled hedge-accounting explainer. Concrete reported quarterly gains make a serious countercase to a simple deterioration narrative. Only Southwest selected; prior oil, IBM, Tesla and Meta remain handled."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select Southwest only: explain the apparent tension between a quarterly beat and lower full-year guidance, with fuel as reported pressure rather than a complete proven earnings bridge. Preserve the accepted historical hedge case.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-southwest\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 29,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 4,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "0e6eb3c5b2a97483a63af13a5b3a49db2a9717789cbb0ae0ea0d4ee0210fb98c",
+    "source_route_health_reused": false
+  }
+}

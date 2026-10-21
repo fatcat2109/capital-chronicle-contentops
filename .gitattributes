@@ -50,3 +50,8 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/article/*.jso
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/focused-controls.txt binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/media-rights-consumer-controls.txt binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/ui-controls.txt binary
+
+# Preserve exact Goal35 source captures, native packets and verification transcripts.
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/source_editions/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/articles/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/*.txt binary

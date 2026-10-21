@@ -1,0 +1,25 @@
+F..................                                                      [100%]
+================================== FAILURES ===================================
+__ test_current_reuters_reports_preserve_report_truth_rights_and_syndication __
+
+    def test_current_reuters_reports_preserve_report_truth_rights_and_syndication():
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _candidate_universe, _evidence_request, _source_pack
+        research = RetainedSourceResearch(REPORT_ROOT)
+        assert len(research.records) == 6 and not research.gaps
+        cutoff = "2026-10-22T00:00:00Z"
+        candidates = _candidate_universe({"headlines": research.headlines(cutoff_utc=cutoff)}, [])
+        assert len(candidates) == 6
+        for candidate in candidates:
+            request = _evidence_request(candidate, {"article_mode": "STANDARD_NEWS_ANALYSIS", "research_queries": [candidate["headline_text"]]})
+            value = research.evidence(request, cutoff_utc=cutoff)
+>           assert value["status"] == "PASS", value["blockers"]
+E           AssertionError: ['epistemic_high_harm_single_source_insufficient']
+E           assert 'BLOCKED' == 'PASS'
+E             
+E             - PASS
+E             + BLOCKED
+
+tests\test_contentops_source_research_v1.py:37: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_contentops_source_research_v1.py::test_current_reuters_reports_preserve_report_truth_rights_and_syndication
+1 failed, 18 passed in 13.63s

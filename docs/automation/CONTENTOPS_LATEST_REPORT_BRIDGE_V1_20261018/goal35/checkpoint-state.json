@@ -1,0 +1,21 @@
+{
+  "observed_at_utc": "2026-10-21T23:06:38.336312+00:00",
+  "goal_status": "ACTIVE_INCOMPLETE",
+  "qualified_new_articles": 1,
+  "reviewed_ready_articles": 1,
+  "unfinished_writer_operations": [
+    "goal35-ibm",
+    "goal35-tesla",
+    "goal35-meta",
+    "goal35-southwest"
+  ],
+  "held_source_candidates": [
+    "goal35-fx"
+  ],
+  "model_responses": 7,
+  "old_artifact_count_preserved": 523,
+  "prior_rows_unchanged": true,
+  "canonical_rows_unchanged": true,
+  "four_tasks": "PAUSED_CONFIG_BYTES_UNCHANGED",
+  "public_write_performed": false
+}

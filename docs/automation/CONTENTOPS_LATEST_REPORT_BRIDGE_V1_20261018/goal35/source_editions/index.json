@@ -1,0 +1,213 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "REPUTABLE_REPORT_FACTS_ONLY",
+      "headline_id": "goal35-oil",
+      "headline_text": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+      "capture_path": "oil-capture.json",
+      "source_capture_sha256": "b76e3ca9d02b2ca04e7a2905942bed19badaf25465e523ab3e3b52075621e7f2",
+      "loader_result_path": "oil-admission.json",
+      "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "policy_capture_path": "facts-policy.json",
+      "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+      "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+      "public_expression_reuse_allowed": false,
+      "proposition_span": [
+        0,
+        69
+      ],
+      "candidate_catalyst_tags": [
+        "energy"
+      ],
+      "research_metadata": {
+        "family": "ENERGY",
+        "assets": [
+          "energy"
+        ],
+        "context_kind": "CURRENT_ATTRIBUTED_REUTERS_REPORT_NOT_UNIVERSAL_EVENT_CONFIRMATION",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-21",
+        "release_date": "2026-10-21",
+        "next_editorial_question": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+        "origin_reporting_identity": "Reuters",
+        "syndication_is_not_independent_confirmation": true
+      }
+    },
+    {
+      "authorship_class": "REPUTABLE_REPORT_FACTS_ONLY",
+      "headline_id": "goal35-fx",
+      "headline_text": "Oct 21 (Reuters) - The dollar held steady against most major currencies on Wednesday as investors weighed developments ​in the Middle East conflict, which has revived demand for the US currency as a safe haven amid concerns about oil-driven ‌inflation.",
+      "capture_path": "fx-capture.json",
+      "source_capture_sha256": "1254bc0fe2831dd135b8c4b87fba1722b771a3299c3f052e148d83c09c96c2ce",
+      "loader_result_path": "fx-admission.json",
+      "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "policy_capture_path": "facts-policy.json",
+      "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+      "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+      "public_expression_reuse_allowed": false,
+      "proposition_span": [
+        0,
+        252
+      ],
+      "candidate_catalyst_tags": [
+        "fx",
+        "rates"
+      ],
+      "research_metadata": {
+        "family": "FX",
+        "assets": [
+          "fx",
+          "rates"
+        ],
+        "context_kind": "CURRENT_ATTRIBUTED_REUTERS_REPORT_NOT_UNIVERSAL_EVENT_CONFIRMATION",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-21",
+        "release_date": "2026-10-21",
+        "next_editorial_question": "Dollar holds steady as Middle East tensions simmer, oil rises",
+        "origin_reporting_identity": "Reuters",
+        "syndication_is_not_independent_confirmation": true
+      }
+    },
+    {
+      "authorship_class": "REPUTABLE_REPORT_FACTS_ONLY",
+      "headline_id": "goal35-ibm",
+      "headline_text": "IBM raises annual software revenue outlook as deal delays ease",
+      "capture_path": "ibm-capture.json",
+      "source_capture_sha256": "468ebc08e76e964e126e926ac97c922e6053d588b781d60968257e146e93c9d6",
+      "loader_result_path": "ibm-admission.json",
+      "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "policy_capture_path": "facts-policy.json",
+      "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+      "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+      "public_expression_reuse_allowed": false,
+      "proposition_span": [
+        0,
+        62
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "company_sec"
+        ],
+        "context_kind": "CURRENT_ATTRIBUTED_REUTERS_REPORT_NOT_UNIVERSAL_EVENT_CONFIRMATION",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-21",
+        "release_date": "2026-10-21",
+        "next_editorial_question": "IBM raises annual software revenue outlook as deal delays ease",
+        "origin_reporting_identity": "Reuters",
+        "syndication_is_not_independent_confirmation": true
+      }
+    },
+    {
+      "authorship_class": "REPUTABLE_REPORT_FACTS_ONLY",
+      "headline_id": "goal35-southwest",
+      "headline_text": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+      "capture_path": "southwest-capture.json",
+      "source_capture_sha256": "dd89d20a58c56dae496919ba74bb08bed6753187503671d19ebcc6edfdc61225",
+      "loader_result_path": "southwest-admission.json",
+      "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "policy_capture_path": "facts-policy.json",
+      "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+      "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+      "public_expression_reuse_allowed": false,
+      "proposition_span": [
+        0,
+        81
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec",
+        "energy"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "company_sec",
+          "energy"
+        ],
+        "context_kind": "CURRENT_ATTRIBUTED_REUTERS_REPORT_NOT_UNIVERSAL_EVENT_CONFIRMATION",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-21",
+        "release_date": "2026-10-21",
+        "next_editorial_question": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "origin_reporting_identity": "Reuters",
+        "syndication_is_not_independent_confirmation": true
+      }
+    },
+    {
+      "authorship_class": "REPUTABLE_REPORT_FACTS_ONLY",
+      "headline_id": "goal35-tesla",
+      "headline_text": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+      "capture_path": "tesla-capture.json",
+      "source_capture_sha256": "64a5f9380382541e7f3d9997a2e9822b8290771b357cf489697bd2521aaf7f7b",
+      "loader_result_path": "tesla-admission.json",
+      "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "policy_capture_path": "facts-policy.json",
+      "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+      "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+      "public_expression_reuse_allowed": false,
+      "proposition_span": [
+        0,
+        74
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "company_sec"
+        ],
+        "context_kind": "CURRENT_ATTRIBUTED_REUTERS_REPORT_NOT_UNIVERSAL_EVENT_CONFIRMATION",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-21",
+        "release_date": "2026-10-21",
+        "next_editorial_question": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "origin_reporting_identity": "Reuters",
+        "syndication_is_not_independent_confirmation": true
+      }
+    },
+    {
+      "authorship_class": "REPUTABLE_REPORT_FACTS_ONLY",
+      "headline_id": "goal35-meta",
+      "headline_text": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+      "capture_path": "meta-capture.json",
+      "source_capture_sha256": "cf41b2f98b0ae3cc9ab39bd11f95198fd3cdad4ab824b02cfe89bdbde603249a",
+      "loader_result_path": "meta-admission.json",
+      "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "policy_capture_path": "facts-policy.json",
+      "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+      "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+      "public_expression_reuse_allowed": false,
+      "proposition_span": [
+        0,
+        95
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "company_sec"
+        ],
+        "context_kind": "CURRENT_ATTRIBUTED_REUTERS_REPORT_NOT_UNIVERSAL_EVENT_CONFIRMATION",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-21",
+        "release_date": "2026-10-21",
+        "next_editorial_question": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "origin_reporting_identity": "Reuters",
+        "syndication_is_not_independent_confirmation": true
+      }
+    }
+  ]
+}

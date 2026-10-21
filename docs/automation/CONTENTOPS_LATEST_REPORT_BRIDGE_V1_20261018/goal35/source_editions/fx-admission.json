@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal35-fx",
+      "source_id": "goal35-fx",
+      "source_url": "https://www.kitco.com/news/off-the-wire/2026-10-21/dollar-holds-steady-middle-east-tensions-simmer-oil-rises",
+      "url": "https://www.kitco.com/news/off-the-wire/2026-10-21/dollar-holds-steady-middle-east-tensions-simmer-oil-rises",
+      "publisher": "Reuters",
+      "source_identity": "reuters.com",
+      "title": "Dollar holds steady as Middle East tensions simmer, oil rises",
+      "raw_sha256": "1254bc0fe2831dd135b8c4b87fba1722b771a3299c3f052e148d83c09c96c2ce",
+      "canonical_content_text": "Oct 21 (Reuters) - The dollar held steady against most major currencies on Wednesday as investors weighed developments ​in the Middle East conflict, which has revived demand for the US currency as a safe haven amid concerns about oil-driven ‌inflation.\n\nThe euro slipped 0.1% to $1.122 and is now down almost 1% this month. Traders remained cautious on the single currency as France grapples with widespread anti-government protests and a worsening fiscal outlook that has pushed its 10-year borrowing costs to 24-year highs.\n\nSterling inched 0.1% up to $1.338. Data showed UK inflation rose more than expected last month, strengthening the case for a Bank of England ​rate increase in November and adding pressure on the government to support households in next week's budget.\n\nThe dollar index , which measures ​the US currency against six peers, was little changed at 101.7 after declining almost 0.3% on Tuesday and touching 101.50, its lowest since October 1.",
+      "source_adapter_family": "reputable_secondary_report",
+      "source_authority_class": "reputable_secondary_source",
+      "source_interest_role": "NEWS_REPORTER",
+      "report_truth_only": true,
+      "published_at_utc": "2026-10-21T13:18:01Z",
+      "published_at_source": "2026-10-21T13:18:01Z",
+      "published_at_precision": "SECOND",
+      "content_truncated": false,
+      "public_claim_allowed": true,
+      "original_reporting_identity": "Reuters",
+      "syndication_host": "www.kitco.com"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-21T22:27:23.024Z",
+    "request_count_for_call": 0
+  }
+}

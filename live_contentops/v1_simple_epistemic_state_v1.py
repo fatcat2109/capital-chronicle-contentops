@@ -361,7 +361,7 @@ def build_epistemic_state(
     event = str(profile.get("event_proposition") or "").strip()
     if len(event) < 8:
         return None, ["epistemic_event_proposition_missing"]
-    if requires_enhanced_evidence_review(request) and len(
+    if requires_enhanced_evidence_review(request, documents=docs) and len(
         {
             str(row.get("publisher") or row.get("source_identity") or "").casefold()
             for row in docs

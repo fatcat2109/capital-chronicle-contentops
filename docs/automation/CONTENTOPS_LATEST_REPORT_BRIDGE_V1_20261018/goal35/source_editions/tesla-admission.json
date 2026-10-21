@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal35-tesla",
+      "source_id": "goal35-tesla",
+      "source_url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/",
+      "url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/",
+      "publisher": "Reuters",
+      "source_identity": "reuters.com",
+      "title": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+      "raw_sha256": "64a5f9380382541e7f3d9997a2e9822b8290771b357cf489697bd2521aaf7f7b",
+      "canonical_content_text": "Tesla posts surprise positive cash flow on lower-than-expected AI spending\n\nFree cash flow reaches $1.53 billion against analysts' expected $4.92 billion cash burn\n\nThird-quarter capital expenditure totals $4.73 billion, below analysts' roughly $7.5 billion estimate\n\nCapital expenditure at $4.7 billion was still more than double that of a year ago, but lower than the $7.5 billion analysts on average were expecting, according to LSEG data.\n\nFree ​cash flow in the September quarter came in at $1.53 billion, compared with an expectation of cash burn of $4.92 billion.",
+      "source_adapter_family": "reputable_secondary_report",
+      "source_authority_class": "reputable_secondary_source",
+      "source_interest_role": "NEWS_REPORTER",
+      "report_truth_only": true,
+      "published_at_utc": "2026-10-21T20:06:00Z",
+      "published_at_source": "2026-10-21T20:06:00Z",
+      "published_at_precision": "MINUTE",
+      "content_truncated": false,
+      "public_claim_allowed": true,
+      "original_reporting_identity": "Reuters",
+      "syndication_host": "www.reuters.com"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-21T22:27:23.026Z",
+    "request_count_for_call": 0
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "run_id": "goal35-meta",
+  "request_sha256": "d39ad96ed0340d15baffb91b2e3039e947afb31bb3b6b20914cd8b91ef9e8b2a",
+  "candidate_count_reviewed": 27,
+  "selection": {
+    "angle": "Meta pairs a reported future non-voting share class with a higher capex floor and a quarterly cash deficit: explain how funding flexibility and voting control differ from cash generation, without treating a stock split as cash raised.",
+    "article_mode": "STANDARD_NEWS_ANALYSIS",
+    "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+    "evidence_plan": "Use only retained goal35-meta Reuters facts; published 2026-10-21T20:05:00Z, known 2026-10-21T22:27:23.026Z. Attribute the planned January 2027 non-voting Class C common stock, effectively two-for-one split, and stated acquisition/talent/control purpose to Reuters; it is a future plan, not completed issuance or cash proceeds. Do not infer terms, dilution, valuation, legality or money raised. Bind annual capex $135bn-$145bn versus prior $130bn-$145bn: floor higher, ceiling unchanged. Bind September30 quarter revenue $64.60bn versus $63.37bn LSEG estimate and Q3 free cash flow deficit $2.12bn versus positive $10.63bn a year earlier. Keep revenue, free cash flow and annual capex distinct; no fabricated cash bridge or causal contribution. The headline mentions Muse growth but no retained adoption count or measurement supports a quantified adoption thesis. No user counts, monetization or returns claimed. Missing: exact stock terms and future use, operating cash/working-capital bridge, spending composition and future investment returns. Code owns arithmetic. No new source requests, quotations, photos or retrieval.",
+    "primary_reader_question": "What does the planned Meta non-voting share class change about funding and control when capital spending guidance is higher and quarterly free cash flow is negative?",
+    "research_queries": [
+      "Meta October 21 2026 non voting Class C stock capex forecast free cash flow"
+    ],
+    "selection_rationale": "The reported capital-structure plan and cash-flow tension provide a distinct useful current company question. A revenue beat does not answer how expansion is financed or how voting control is preserved. This differs from Tesla spending-versus-expectations, IBM software demand, oil and historical filing/custody explainers. Single Reuters origin, underlying event truth unconfirmed."
+  },
+  "handled_excluded": [
+    "goal35-oil",
+    "goal35-ibm",
+    "goal35-tesla"
+  ],
+  "comparison": "Tesla remains in this older frozen pool but is carried as handled and cannot be selected. Meta has no supplied evolving prior story or public Main claims. Southwest and FX remain separate current questions. Historical public Main/EIA research, SEC filing reading/machine-data, supervision/cross trading, hedging, custody and Fed/FX context neither duplicate this new capital-structure question nor confirm its facts. Seven published identities were deterministically filtered; the full published corpus is not supplied, so no exhaustive independent history audit is claimed.",
+  "mechanism": "A non-voting equity instrument can separate economic participation from voting control and may offer acquisition or compensation flexibility. A split by itself does not generate cash; reported funding purposes do not establish proceeds, actual use or investment returns.",
+  "countercase": "The reported revenue beat provides a real counterweight to a cash-deficit-only account. A negative quarter alone proves neither distress nor failed investment. Conversely, the share-class plan cannot demonstrate that capex will pay off or solve a cash funding gap.",
+  "watch_conditions": [
+    "Exact final share-class terms, issuance and actual acquisition or compensation use would test the funding/control interpretation.",
+    "Operating cash flow, working capital, spending composition and later returns would test cash-generation persistence. These are conditional missing inputs, not new authorized retrievals."
+  ],
+  "writer_outline": [
+    "Lead with planned funding/control structure beside the reported cash deficit.",
+    "Explain future non-voting stock and split without inventing cash proceeds.",
+    "Keep the higher capex floor, unchanged ceiling, quarterly revenue and free cash flow separate.",
+    "Present revenue strength as countercase and specify evidence required to assess investment payoff."
+  ],
+  "confirmation": "UNCONFIRMED_SINGLE_REUTERS_ORIGIN",
+  "rights": "Facts-only original prose; no quotations or media reuse",
+  "new_source_requests": 0,
+  "runtime_submission_performed": false,
+  "public_write_attempted": false
+}

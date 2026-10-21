@@ -231,7 +231,39 @@ def _numeric_scope_narrowing_supported(
     )
 
 
-def _claim_requires_corroboration(request: Mapping[str, Any], claim: str) -> bool:
+def _captured_issuer_guidance(claim: str, documents: Sequence[Mapping[str, Any]]) -> bool:
+    """A captured report of an issuer changing guidance is not a house forecast.
+
+    Only the facts-only direct-report route can establish this narrow exception.
+    Discovery/relay text alone and every other sensitive or reserved claim retain
+    their existing checks; this grants neither event truth nor numeric authority.
+    """
+    if {m.group().casefold() for m in _RESERVED_PROPRIETARY_RE.finditer(claim)} != {"forecast"}:
+        return False
+    if re.search(r"\b(?:Capital Chronicle|CC|our|we|house)\b", claim, re.IGNORECASE):
+        return False
+    if not re.match(
+        r"^[A-Z][\w&.' -]{1,80}\b(?:cuts?|raises?|lowers?|lifts?|maintains?|reaffirms?)\s+"
+        r"(?:its\s+)?(?:(?:20\d{2}|annual|quarterly|full.year)\s+)?"
+        r"(?:profit|earnings|revenue|sales|capital spending)\s+(?:growth\s+)?forecast\b",
+        claim,
+    ):
+        return False
+    return any(
+        doc.get("source_authority_class") == "reputable_secondary_source"
+        and doc.get("report_truth_only") is True
+        and doc.get("public_claim_allowed") is True
+        and (doc.get("source_reuse_constraints") or {}).get("scope")
+            == "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+        and _support_score(claim, doc) >= 0.8
+        and _numbers_supported(claim, doc)
+        for doc in documents
+    )
+
+
+def _claim_requires_corroboration(
+    request: Mapping[str, Any], claim: str, documents: Sequence[Mapping[str, Any]] = ()
+) -> bool:
     """Classify sensitivity at claim scope, keeping geopolitical reporting conservative."""
     context = request.get("story_context")
     context = context if isinstance(context, Mapping) else {}
@@ -255,7 +287,8 @@ def _claim_requires_corroboration(request: Mapping[str, Any], claim: str) -> boo
     return bool(
         _SENSITIVE_CLAIM_RE.search(str(claim or ""))
         or _CAUSAL_MARKET_FUTURE_RE.search(str(claim or ""))
-        or _RESERVED_PROPRIETARY_RE.search(str(claim or ""))
+        or (_RESERVED_PROPRIETARY_RE.search(str(claim or ""))
+            and not _captured_issuer_guidance(str(claim or ""), documents))
     )
 
 
@@ -297,7 +330,9 @@ def _primary_support_kind(
     return "ATTRIBUTED_INTERESTED_PARTY" if interested else "INDEPENDENT"
 
 
-def requires_enhanced_evidence_review(request: Mapping[str, Any]) -> bool:
+def requires_enhanced_evidence_review(
+    request: Mapping[str, Any], *, documents: Sequence[Mapping[str, Any]] = ()
+) -> bool:
     """Return whether the story must retain claim-scoped enhanced evidence review.
 
     Ordinary newsroom reporting does not need a claim-by-claim dossier. Allegations,
@@ -307,7 +342,7 @@ def requires_enhanced_evidence_review(request: Mapping[str, Any]) -> bool:
     """
     candidates = _claim_candidates(request)
     return any(
-        _claim_requires_corroboration(request, claim) or bool(_QUOTE_RE.search(claim))
+        _claim_requires_corroboration(request, claim, documents) or bool(_QUOTE_RE.search(claim))
         for claim in candidates or [""]
     )
 
@@ -389,7 +424,7 @@ def build_minimum_trustworthy_evidence_packet(
     source. It intentionally has no claim-by-claim support matrix. Enhanced-risk stories are
     routed to :func:`build_claim_evidence_contract` instead.
     """
-    if requires_enhanced_evidence_review(request):
+    if requires_enhanced_evidence_review(request, documents=documents):
         return {
             "schema_version": "contentops.minimum_trustworthy_evidence_packet.v1",
             "status": "ENHANCED_EVIDENCE_REQUIRED",
@@ -496,7 +531,7 @@ def build_claim_evidence_contract(
     supported: list[dict[str, Any]] = []
     omitted: list[dict[str, Any]] = []
     for index, claim in enumerate(candidates):
-        sensitive_secondary = _claim_requires_corroboration(request, claim)
+        sensitive_secondary = _claim_requires_corroboration(request, claim, docs)
         claim_id = "claim-" + sha256(claim.encode("utf-8")).hexdigest()[:16]
         scored = [
             (document, _support_score(claim, document))
@@ -693,7 +728,7 @@ def build_claim_evidence_contract(
             numeric_scope_omitted = False
             title = raw_title
             primary_kind = _primary_support_kind(request, title, document)
-            title_sensitive = _claim_requires_corroboration(request, title)
+            title_sensitive = _claim_requires_corroboration(request, title, docs)
             if (
                 len(title) < 8
                 or _QUOTE_RE.search(title)

@@ -1,0 +1,9 @@
+{
+  "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+  "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+  "artifacts_unchanged": 25,
+  "outbox_rows_unchanged": true,
+  "native_telemetry_unchanged": true,
+  "new_model_responses": 0,
+  "new_source_requests": 0
+}

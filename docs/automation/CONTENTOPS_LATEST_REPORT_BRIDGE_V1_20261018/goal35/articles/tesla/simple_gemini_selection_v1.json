@@ -1,0 +1,72 @@
+{
+  "candidate_count": 27,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "30fa6004121a8d7e975e82e3d4d0209303c17e4de3f43315e268c812172f0ca7",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal35_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "553453a30706da2a0eb340c9c7d3d9ef42eed59a2a40b80979a9618d71a0a617",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "bf5d811ab813c81b1dde645d4066fa23253742ba12793b27e2f68542f8206af2",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Positive Tesla free cash flow came alongside capital spending below expectations, even though spending remained more than double the prior-year level. Explain why this surprise needs a spending-versus-operating-cash distinction before it can be read as durable profitability.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+        "evidence_plan": "Use only retained goal35-tesla Reuters facts, published 2026-10-21T20:06:00Z and known at 2026-10-21T22:27:23.026Z. Bind September-quarter free cash flow $1.53 billion against expected cash burn $4.92 billion; Q3 capital expenditure $4.73 billion against roughly $7.5 billion analyst estimate. Preserve the separately rounded $4.7 billion statement and reported more-than-double year-ago comparison; do not treat lower than expected as a year-on-year spending cut. Reuters headline frames the AI-spending connection; the retained numbers are total capex, not an independently measured AI-only spending breakdown. Attribute all facts and estimates to Reuters/LSEG as supplied. Explain qualitatively that cash remaining after capital spending can improve when less cash is invested than expected; do not assert deferral, cancellation, efficiency, or timing is established. Missing: operating-cash-flow bridge, working-capital drivers, exact capex timing/composition, future commitments and repeatability. No inferred earnings improvement, demand acceleration or investment returns. Code owns arithmetic; no hand-calculated surprise bridge or residual attribution. No new sources, requests, quotations or media.",
+        "primary_reader_question": "How much does positive Tesla free cash flow tell investors when capital spending was below expectations but still more than double a year earlier?",
+        "research_queries": [
+          "Tesla October 21 2026 free cash flow capital expenditure expectations AI spending"
+        ],
+        "selection_rationale": "A fresh cash-flow surprise supports a useful current question about the quality and persistence of cash generation. It is distinct from IBM software-demand composition, handled oil and historical company-reading research. The spending comparison prevents a misleading cost-cutting interpretation while preserving the real reported positive cash outcome. Single-source report truth only."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select Tesla only. Explain the cash-flow surprise alongside lower-than-expected but sharply higher year-on-year capex, without equating free cash flow with profit or proving the spending difference was deferred.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-tesla\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 29,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 2,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "ccb0290501e49ad16d01ad370ad54f86e16648553715cae04752b1c08145f14f",
+    "source_route_health_reused": false
+  }
+}

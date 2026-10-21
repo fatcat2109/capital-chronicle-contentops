@@ -166,6 +166,8 @@ class RetainedSourceResearch:
             raise ValueError("RESEARCH_EVIDENCE_NOT_ADMITTED")
         if spec.get("authorship_class") == "ISSUER_FILING_FACTS_ONLY":
             return self._verify_issuer_facts(spec, raw, policy, loader, doc)
+        if spec.get("authorship_class") == "REPUTABLE_REPORT_FACTS_ONLY":
+            return self._verify_report_facts(spec, raw, policy, loader, doc)
         url = urlsplit(doc["source_url"])
         rule = POLICIES.get(url.hostname)
         if (
@@ -395,6 +397,78 @@ class RetainedSourceResearch:
             "research_metadata": dict(spec.get("research_metadata") or {}),
         }
 
+    def _verify_report_facts(self, spec, raw, policy, loader, doc):
+        """Retain bounded attributed reporting without granting event truth or prose rights."""
+        url = urlsplit(doc["source_url"])
+        paths = {"www.reuters.com": ("/business/", "/world/", "/markets/", "/legal/"),
+                 "finance.yahoo.com": ("/news/",), "www.kitco.com": ("/news/off-the-wire/",)}
+        if (url.scheme != "https" or url.hostname not in paths or url.username or url.password
+                or url.port not in (None, 443) or url.query or url.fragment
+                or not any(url.path.startswith(p) for p in paths.get(url.hostname, ()))):
+            raise ValueError("PUBLIC_REPORT_LOCATOR_INVALID")
+        policy_url = "https://www.copyright.gov/help/faq/faq-protect.html"
+        if spec["policy_url"] != policy_url or _hash(policy) != spec["policy_capture_sha256"]:
+            raise ValueError("SOURCE_PERMISSION_CAPTURE_MISMATCH")
+        rights = _rendered(policy, policy_url)
+        if not all(t in _normalize(rights["canonical_content_text"]).lower() for t in (
+                "copyright does not protect facts", "may protect the way these things are expressed")):
+            raise ValueError("SOURCE_PERMISSION_TEXT_NOT_VERIFIED")
+        capture = json.loads(raw)
+        if (capture.get("status") != "PASS" or capture.get("url") != doc["source_url"]
+                or capture.get("retrieval_method") != "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS"
+                or capture.get("credential_or_session_material_read") is not False
+                or capture.get("public_write_performed") is not False
+                or capture.get("reporting_publisher") != "Reuters" or doc["publisher"] != "Reuters"
+                or doc.get("source_identity") != "reuters.com"
+                or "Reuters" not in capture.get("attribution_text", "")
+                or not re.fullmatch(r"[a-f0-9]{64}", capture.get("full_text_sha256", ""))
+                or spec.get("public_expression_reuse_allowed") is not False
+                or doc.get("source_authority_class") != "reputable_secondary_source"
+                or doc.get("report_truth_only") is not True or spec.get("source_chart")):
+            raise ValueError("PUBLIC_REPORT_ATTRIBUTION_OR_SCOPE_INVALID")
+        excerpts = capture["excerpts"]
+        if (not 1 <= len(excerpts) <= 5 or sum(len(e["text"]) for e in excerpts) > 4000
+                or any(type(e["start"]) is not int or type(e["end"]) is not int
+                       or not 0 <= e["start"] < e["end"] <= capture["full_text_characters"]
+                       or e["end"]-e["start"] != len(e["text"]) for e in excerpts)):
+            raise ValueError("PUBLIC_REPORT_EXTRACTS_INVALID")
+        canonical = "\n\n".join(e["text"] for e in excerpts)
+        capture_hash = _hash(raw)
+        if (capture_hash != spec["source_capture_sha256"] or doc["raw_sha256"] != capture_hash
+                or doc["canonical_content_text"] != canonical):
+            raise ValueError("SOURCE_CAPTURE_HASH_MISMATCH")
+        start, end = spec["proposition_span"]
+        if type(start) is not int or type(end) is not int or not 0 <= start < end <= len(canonical) or end-start > 1000:
+            raise ValueError("SOURCE_PROPOSITION_SPAN_INVALID")
+        proposition = _normalize(canonical[start:end])
+        if not proposition or proposition != _normalize(spec["headline_text"]):
+            raise ValueError("SOURCE_PROPOSITION_NOT_EXACT")
+        known, revision = loader["provenance"]["retrieved_at_utc"], spec["revision_at_utc"]
+        if (known != capture["observed_at_utc"] or _time(doc["published_at_utc"]) > _time(known)
+                or _time(known) > _time(revision) or _time(spec["policy_retrieved_at_utc"]) > _time(revision)):
+            raise ValueError("RESEARCH_CLOCK_ORDER_INVALID")
+        permission = {"source_capture_sha256": capture_hash, "canonical_text_sha256": _hash(canonical.encode()),
+            "content_sha256": _hash(proposition.encode()), "policy_url": policy_url,
+            "policy_capture_sha256": _hash(policy), "policy_retrieved_at_utc": spec["policy_retrieved_at_utc"],
+            "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            "INTERNAL_ANALYSIS_ALLOWED": True, "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True,
+            "provider_safe": True, "permitted_consumers": ["internal_research", "narrative_context"],
+            "attribution_required": True, "public_expression_reuse_allowed": False,
+            "images_logos_exhibits_reuse_allowed": False, "government_authorship": False,
+            "underlying_event_truth_granted": False}
+        return {"headline_id": spec["headline_id"], "headline_text": proposition,
+            "text_sha256": permission["content_sha256"], "source_identity": "reuters.com", "source_account": "Reuters",
+            "source_platform": "CONTENTOPS_ORIGINAL_REPUTABLE_REPORT_ACQUISITION", "source_url": doc["source_url"],
+            "official_source_urls": [], "source_timestamp_utc": doc["published_at_utc"], "headline_timestamp": doc["published_at_utc"],
+            "known_at_utc": known, "retrieval_time_utc": known, "revision_at_utc": revision,
+            "revision_clock_basis": "CAPTURE_ADMISSION_TIME_PUBLISHER_REVISION_SEPARATELY_RECORDED",
+            "rights_state": "GOVERNED_REPORTED_FACTS_ONLY_NO_EXPRESSIVE_REUSE", "rights_evidence_sha256": _hash(policy),
+            "source_capture_sha256": capture_hash, "source_permission_record_sha256": sha256_of(permission),
+            "source_permissions": permission, "candidate_catalyst_tags": list(spec.get("candidate_catalyst_tags", [])),
+            "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION", "correction_of": spec.get("correction_of"),
+            "document": {**doc, "source_reuse_constraints": permission}, "source_chart": None,
+            "permitted_source_text": canonical, "supporting_headline_ids": [], "research_metadata": dict(spec.get("research_metadata") or {})}
+
     def permission_for(
         self, row: Mapping[str, Any], cutoff_utc: str
     ) -> dict[str, Any] | None:
@@ -464,7 +538,8 @@ class RetainedSourceResearch:
             supporting = []
         if not found:
             return None
-        # Existing official evidence shape, with zero additional network reads.
+        # Reuse the existing evidence seam with truthful source authority and
+        # zero additional network reads. Syndication is still one origin.
         docs = [
             {
                 **r["document"],
@@ -475,10 +550,12 @@ class RetainedSourceResearch:
                 "canonical_content_sha256": _hash(r["permitted_source_text"].encode()),
                 "source_capture_sha256": r["source_capture_sha256"],
                 "retrieval_method": (
-                    "RETAINED_PUBLIC_FILING_FACTS_ONLY" if r["document"].get("source_adapter_family") == "issuer_filing"
+                    "RETAINED_PUBLIC_FACTS_ONLY" if r["document"].get("source_reuse_constraints")
                     else "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS"),
                 "underlying_reuse_classification": (
-                    "attributed_public_filing_facts_only" if r["document"].get("source_adapter_family") == "issuer_filing"
+                    "attributed_reputable_report_facts_only" if r["document"].get("source_adapter_family") == "reputable_secondary_report"
+                    else
+                    "attributed_public_filing_facts_only" if r["document"].get("source_reuse_constraints")
                     else "governed_government_public_domain"),
                 "rights_evidence_sha256": r["rights_evidence_sha256"],
                 # _verify proved the exact authorship/rights class and bounded
@@ -487,10 +564,13 @@ class RetainedSourceResearch:
             }
             for r in found
         ]
+        report_only = all(d.get("source_authority_class") == "reputable_secondary_source" for d in docs)
+        route = "DIRECT_REPUTABLE_REPORT" if report_only else "OFFICIAL_PRIMARY"
         result = {
             "status": "PASS",
-            "official_source_documents": docs,
-            "provided_evidence_capabilities": ["official_document", "official_data"],
+            "evidence_documents" if report_only else "official_source_documents": docs,
+            "provided_evidence_capabilities": (["credible_report_or_event_confirmation", "basic_attributed_facts"]
+                if report_only else ["official_document", "official_data"]),
             "blockers": [],
             "publication_authority": False,
             "rolling_x_story_binding": {
@@ -510,7 +590,7 @@ class RetainedSourceResearch:
 
         accepted, state, blockers = (
             SimpleFirstPartyAwareEvidenceResolver._accepted_epistemic_route(
-                request, result, route="OFFICIAL_PRIMARY"
+                request, result, route=route
             )
         )
         if accepted:
@@ -542,6 +622,6 @@ class RetainedSourceResearch:
             "blockers": blockers,
             "provenance": {
                 **result["provenance"],
-                "selected_route": "OFFICIAL_PRIMARY",
+                "selected_route": route,
             },
         }

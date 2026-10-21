@@ -97,6 +97,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
         </p>)}</details>
         {item.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
+        {!item.media_assets?.length && <p role="status">Media gap: no inspected, rights-cleared image is bound to this article. Text previews remain available.</p>}
         <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
         {item.publication && <details aria-label="Publication continuation"><summary>Publication: {display(item.publication.state)}</summary>
           <p>Review and preparation create no public post. {item.publication.operation_scope === 'OWNER_MANUAL_ISOLATED'
@@ -110,7 +111,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
             {d.blocker ? ' · ' + display(d.blocker) : ''}
             {d.public_object_url && <> · <a href={d.public_object_url}>Observed object</a></>}</p>)}
         </details>}
-        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body">{previewText(p.payload)}</div></details>)}
+        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body"><ArticleParagraphs text={previewText(p.payload)} /></div></details>)}
       </article>)}
     </section>}
     {!!history?.length && <details><summary>Bài và phiên bản trước ({history.length})</summary>{history.map(h => <details key={h.article_identity}><summary>{h.article.title} · {h.prepared_state ? 'chuẩn bị cũ mất hiệu lực' : h.source_review?.decision === 'USE_UNCHANGED' ? 'giữ dùng, không viết lại' : h.review?.decision ?? 'chưa duyệt'}</summary>

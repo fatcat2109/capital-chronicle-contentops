@@ -1,0 +1,34 @@
+{
+  "run_id": "goal35-tesla",
+  "request_sha256": "553453a30706da2a0eb340c9c7d3d9ef42eed59a2a40b80979a9618d71a0a617",
+  "candidate_count_reviewed": 27,
+  "selection": {
+    "angle": "Positive Tesla free cash flow came alongside capital spending below expectations, even though spending remained more than double the prior-year level. Explain why this surprise needs a spending-versus-operating-cash distinction before it can be read as durable profitability.",
+    "article_mode": "STANDARD_NEWS_ANALYSIS",
+    "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+    "evidence_plan": "Use only retained goal35-tesla Reuters facts, published 2026-10-21T20:06:00Z and known at 2026-10-21T22:27:23.026Z. Bind September-quarter free cash flow $1.53 billion against expected cash burn $4.92 billion; Q3 capital expenditure $4.73 billion against roughly $7.5 billion analyst estimate. Preserve the separately rounded $4.7 billion statement and reported more-than-double year-ago comparison; do not treat lower than expected as a year-on-year spending cut. Reuters headline frames the AI-spending connection; the retained numbers are total capex, not an independently measured AI-only spending breakdown. Attribute all facts and estimates to Reuters/LSEG as supplied. Explain qualitatively that cash remaining after capital spending can improve when less cash is invested than expected; do not assert deferral, cancellation, efficiency, or timing is established. Missing: operating-cash-flow bridge, working-capital drivers, exact capex timing/composition, future commitments and repeatability. No inferred earnings improvement, demand acceleration or investment returns. Code owns arithmetic; no hand-calculated surprise bridge or residual attribution. No new sources, requests, quotations or media.",
+    "primary_reader_question": "How much does positive Tesla free cash flow tell investors when capital spending was below expectations but still more than double a year earlier?",
+    "research_queries": [
+      "Tesla October 21 2026 free cash flow capital expenditure expectations AI spending"
+    ],
+    "selection_rationale": "A fresh cash-flow surprise supports a useful current question about the quality and persistence of cash generation. It is distinct from IBM software-demand composition, handled oil and historical company-reading research. The spending comparison prevents a misleading cost-cutting interpretation while preserving the real reported positive cash outcome. Single-source report truth only."
+  },
+  "comparison": "Oil and IBM are excluded handled identities. Tesla has no supplied prior evolving story or public Main claim bundle. Remaining current Southwest, Meta and FX questions are separate operations. Historical SEC filing-reading and machine-data explainers, hedging, custody, Fed/FX conventions and Main/EIA oil-gas context cannot confirm this current Tesla result. Published summary covers seven filtered identities, not a supplied full corpus; no independent exhaustive published-history audit is claimed.",
+  "mechanism": "Capital spending is cash outflow. Spending below expectations can support free cash flow without establishing better durable operating profitability. The evidence does not isolate how much of the surprise came from capex or why actual spending differed.",
+  "countercase": "Positive reported free cash flow remains a meaningful observed result; it should not be dismissed as merely timing. Conversely, spending more than doubled year on year, so below-consensus capex cannot be described as a broad spending retreat. Neither efficiency nor deferral is established.",
+  "watch_conditions": [
+    "A later operating-cash-flow and working-capital bridge would test the operating contribution.",
+    "Actual capex schedules, commitments and later cash conversion would distinguish timing from a durable change. No new requests are authorized by these watchpoints."
+  ],
+  "writer_outline": [
+    "Lead with reported positive free cash flow and below-expected capex.",
+    "Separate the analyst comparison from the year-on-year spending increase.",
+    "Explain cash flow versus earnings and the missing bridge.",
+    "Give the serious countercase and conditions for a stronger persistence claim."
+  ],
+  "confirmation": "UNCONFIRMED_SINGLE_REUTERS_ORIGIN",
+  "rights": "Original facts-only prose; no quotations or media reuse",
+  "new_source_requests": 0,
+  "runtime_submission_performed": false,
+  "public_write_attempted": false
+}
