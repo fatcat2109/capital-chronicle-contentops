@@ -597,7 +597,10 @@ def run_report_editorial_cycle(
                     document = {**retained["document"], "known_at_utc": retained["known_at_utc"],
                                 "rights_evidence_sha256": retained["rights_evidence_sha256"],
                                 "render_excerpt_text": retained["headline_text"],
-                                "underlying_reuse_classification": "governed_government_public_domain"}
+                                "underlying_reuse_classification": (
+                                    "governed_government_public_domain"
+                                    if retained["rights_state"] == "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN"
+                                    else "attributed_public_filing_facts_only")}
                     media = build_source_backed_media_assets(
                         {"evidence_documents": [document], "story_type": "DATA_OR_DOCUMENT_LENS"}, output_dir=root, required_asset_count=1)
                     result["media_assets"] = media

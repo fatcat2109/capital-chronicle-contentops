@@ -1,0 +1,299 @@
+{
+  "cited_source_count": 2,
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Southwest Airlines Co.",
+    "primary_reporting_source_identity": "Southwest Airlines Co.",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal34-southwest-hedge-clocks"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "maximum_revision_rounds": 1,
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "public_write_performed": false,
+  "report_truth_validated_separately_from_event_truth": true,
+  "revision_performed": false,
+  "revision_router_receipt": null,
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "source_urls": [
+    "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+    "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+  ],
+  "status": "PASS",
+  "supported_material_claim_count": 23,
+  "supported_material_claims": [
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-meta-title",
+      "claim_kind": "FACT",
+      "claim_text": "Southwest 2025: đóng phòng hộ chưa khép lại chi phí",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "225080a29c433a28ea9ddfd2ff63233e358560a343f9bc611149e703e85e9398",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-meta-dek",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "CONFIRMED — Hồ sơ quý II/2025 của Southwest cho thấy tiền thu khi đóng phòng hộ và chi phí quyền chọn đi theo các kỳ khác nhau. Chênh lệch thời điểm chưa chứng minh hãng thiếu tiền.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "225080a29c433a28ea9ddfd2ff63233e358560a343f9bc611149e703e85e9398",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-meta-search_title",
+      "claim_kind": "FACT",
+      "claim_text": "Southwest 2025: đóng phòng hộ rồi, vì sao còn chi phí?",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "225080a29c433a28ea9ddfd2ff63233e358560a343f9bc611149e703e85e9398",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-meta-meta_description",
+      "claim_kind": "FACT",
+      "claim_text": "Southwest 2025: tách tiền thu khi đóng phòng hộ, chi phí quyền chọn và kỳ mua nhiên liệu; đọc đúng số dư AOCI và mốc tài sản bảo đảm.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "225080a29c433a28ea9ddfd2ff63233e358560a343f9bc611149e703e85e9398",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-meta-social_hook",
+      "claim_kind": "FACT",
+      "claim_text": "Southwest 2025: đã thu tiền khi đóng phòng hộ, vì sao chi phí vẫn còn?",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "225080a29c433a28ea9ddfd2ff63233e358560a343f9bc611149e703e85e9398",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-opening-case",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Vì sao một doanh nghiệp nhận tiền khi đóng phòng hộ mà chi phí vẫn xuất hiện về sau? CONFIRMED — Southwest cho biết hãng đã chấm dứt danh mục phòng hộ nhiên liệu còn lại trong quý II/2025, thu khoảng 40 triệu USD. Theo cách đọc của Capital Chronicle, sự lệch nhịp giữa tiền và chi phí cần được giải thích trước khi đánh giá hiệu quả phòng hộ hay sức ép thanh khoản.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "5583a1a4570430ede8c7f6adb3c50b1c193f0f5707733740b6c53f0ed0cd1329",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-closure-cash",
+      "claim_kind": "NUMBER",
+      "claim_text": "Theo Southwest, các hợp đồng trong danh mục vốn dự kiến được tất toán tới năm 2027. Việc chấm dứt trong quý II/2025 đem lại khoảng 40 triệu USD tiền thu; hãng cho biết khoản thu này sẽ làm giảm chi phí quyền chọn trong các kỳ sau.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "5583a1a4570430ede8c7f6adb3c50b1c193f0f5707733740b6c53f0ed0cd1329",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-quarter-recognition",
+      "claim_kind": "NUMBER",
+      "claim_text": "Trong quý II/2025, Southwest cho biết khoảng 36 triệu USD được chuyển từ AOCI — mục thu nhập toàn diện khác lũy kế — sang làm tăng chi phí nhiên liệu và dầu. Hãng xếp khoản này vào chi phí quyền chọn, bao gồm phần liên quan các vị thế đã chấm dứt.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "22b32303972f879ea37717c906558afa2f5c8037da92d4b3c58de10efb0db4f8",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-aoci-net-tax-timing",
+      "claim_kind": "NUMBER",
+      "claim_text": "Tại ngày 30/6/2025, khoảng 209 triệu USD liên quan các vị thế đã đóng vẫn còn trong AOCI, theo Southwest. Số dư này chưa bao gồm tác động thuế và đã tính ròng tác động của tiền thu từ chấm dứt hợp đồng. Theo lịch hãng nêu trong hồ sơ, khoản này sẽ được chuyển sang làm tăng chi phí nhiên liệu và dầu khi các giao dịch dự kiến ban đầu diễn ra, tới cuối năm 2027.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "e02c9a793bf5785f2223a0d698bb709531f4f14cba2b470ac454e546c22fed89",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-mechanism-three-clocks",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phân tích của Capital Chronicle: tiền thu khi đóng hợp đồng, chi phí ghi nhận trong quý và chi phí chờ các kỳ mua nhiên liệu trả lời ba câu hỏi khác nhau. Một khoản chi phí được ghi nhận về sau chưa chứng minh có thêm tiền phải trả đúng kỳ đó.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "225080a29c433a28ea9ddfd2ff63233e358560a343f9bc611149e703e85e9398",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-no-double-count-or-cash-demand",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Vì số dư khoảng 209 triệu USD đã tính ròng tác động của khoản thu, không được trừ thêm khoảng 40 triệu USD lần nữa. Cũng không thể cộng tiền thu với số dư AOCI thành một tổng thiệt hại. Trong cách đọc của Capital Chronicle, số dư kế toán chờ ghi nhận vào chi phí chưa phải một yêu cầu nộp tiền mặt.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "225080a29c433a28ea9ddfd2ff63233e358560a343f9bc611149e703e85e9398",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-futures-background",
+      "claim_kind": "FACT",
+      "claim_text": "Trong cơ chế futures mà CFTC giải thích, vị thế được định giá lại hằng ngày. Nếu tiền trong tài khoản xuống dưới mức ký quỹ duy trì, người giao dịch phải nộp thêm ký quỹ biến động để đưa tài khoản về mức ký quỹ ban đầu.",
+      "document_id": "goal31-futures-economic-purpose",
+      "source_id": "SOURCE_2",
+      "support_excerpt_sha256": "902bfb05b876206795576830f41ef69d6df11555568c6e4765d388acc89e061a",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-otc-issuer-boundary",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Theo Southwest, các công cụ phái sinh nắm giữ trong những kỳ trước là hợp đồng giao dịch ngoài sàn, thường gọi là OTC; phái sinh nhiên liệu trong lịch sử chỉ gồm quyền chọn. Vì vậy, Capital Chronicle không chuyển cơ chế ký quỹ futures trong tài liệu CFTC sang trường hợp này để kết luận Southwest đã bị gọi nộp thêm tiền.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "7cd7ca0bf9351590330fe0c93934840f8b149eda1f41661fb377427a9e88b354",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-futures-boundary-background",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Theo Southwest, các công cụ phái sinh nắm giữ trong những kỳ trước là hợp đồng giao dịch ngoài sàn, thường gọi là OTC; phái sinh nhiên liệu trong lịch sử chỉ gồm quyền chọn. Vì vậy, Capital Chronicle không chuyển cơ chế ký quỹ futures trong tài liệu CFTC sang trường hợp này để kết luận Southwest đã bị gọi nộp thêm tiền.",
+      "document_id": "goal31-futures-economic-purpose",
+      "source_id": "SOURCE_2",
+      "support_excerpt_sha256": "902bfb05b876206795576830f41ef69d6df11555568c6e4765d388acc89e061a",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-collateral-snapshot",
+      "claim_kind": "FACT",
+      "claim_text": "Southwest công bố không có tài sản bảo đảm bằng tiền mặt đã nộp hoặc nhận tại ngày 30/6/2025. Đây là ảnh chụp tại một thời điểm: nó không cung cấp toàn bộ lịch sử tài sản bảo đảm và không xác lập nghĩa vụ ở mọi ngày trước hoặc sau đó.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "47af38f6ef4b5e48e35e379fee1aa7cca9e0daeaa6ffe85d5025bc3888ca2488",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-conditional-fuel-transmission-issuer-premise",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Nếu các lần mua nhiên liệu dự kiến vẫn diễn ra, ngân quỹ vẫn phải chuẩn bị tiền cho hàng thực. Nếu không có công cụ bù trừ khác, giá nhiên liệu cao hơn có thể làm tiền mua tăng, còn giá thấp hơn có thể làm khoản này giảm, ngay cả khi chi phí quyền chọn cũ tiếp tục xuất hiện. Đây là suy luận có điều kiện của Capital Chronicle; các trích đoạn không định lượng mức rủi ro còn lại.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "e02c9a793bf5785f2223a0d698bb709531f4f14cba2b470ac454e546c22fed89",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-conditional-fuel-transmission-background",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Nếu các lần mua nhiên liệu dự kiến vẫn diễn ra, ngân quỹ vẫn phải chuẩn bị tiền cho hàng thực. Nếu không có công cụ bù trừ khác, giá nhiên liệu cao hơn có thể làm tiền mua tăng, còn giá thấp hơn có thể làm khoản này giảm, ngay cả khi chi phí quyền chọn cũ tiếp tục xuất hiện. Đây là suy luận có điều kiện của Capital Chronicle; các trích đoạn không định lượng mức rủi ro còn lại.",
+      "document_id": "goal31-futures-economic-purpose",
+      "source_id": "SOURCE_2",
+      "support_excerpt_sha256": "cbd29c7240388139fc8a9bae79662b8703ee3fddbd8c7a48fba4a4544d5f1208",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-countercase-accounting",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phản đề của Capital Chronicle: chi phí tiếp tục xuất hiện có thể phù hợp với lịch giao dịch nhiên liệu dự kiến ban đầu. Riêng khoản thu khi đóng hợp đồng chưa đủ để đánh giá hiệu quả cả chương trình phòng hộ; cần đối chiếu với chi phí quyền chọn và rủi ro hàng thực.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "225080a29c433a28ea9ddfd2ff63233e358560a343f9bc611149e703e85e9398",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-countercase-economic-risk",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phản đề của Capital Chronicle: chi phí tiếp tục xuất hiện có thể phù hợp với lịch giao dịch nhiên liệu dự kiến ban đầu. Riêng khoản thu khi đóng hợp đồng chưa đủ để đánh giá hiệu quả cả chương trình phòng hộ; cần đối chiếu với chi phí quyền chọn và rủi ro hàng thực.",
+      "document_id": "goal31-futures-economic-purpose",
+      "source_id": "SOURCE_2",
+      "support_excerpt_sha256": "cbd29c7240388139fc8a9bae79662b8703ee3fddbd8c7a48fba4a4544d5f1208",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-excerpt-evaluation-limit",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Các trích đoạn đang xét không cung cấp toàn bộ lịch thanh toán hợp đồng, phí đã phát sinh và khoản bù đắp từ mua nhiên liệu theo từng kỳ. Vì vậy, chúng chưa cho phép đối chiếu từng dòng tiền, tính đầy đủ lãi/lỗ của chương trình hay kết luận Southwest bị gọi bổ sung tài sản bảo đảm.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-watch-invalidation-condition",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Điểm cần theo dõi của Capital Chronicle: các lần mua nhiên liệu dự kiến có đổi lịch hay bị hủy, và số dư AOCI được ghi nhận vào chi phí ra sao? Nếu giả định về giao dịch thay đổi, cần xem lại cách đọc dựa trên lịch cũ.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "e02c9a793bf5785f2223a0d698bb709531f4f14cba2b470ac454e546c22fed89",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-historical-period-scope",
+      "claim_kind": "FACT",
+      "claim_text": "Đây là việc đọc lại một trường hợp năm 2025, không phải tin mới hay bản cập nhật vị thế năm 2026.",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "5583a1a4570430ede8c7f6adb3c50b1c193f0f5707733740b6c53f0ed0cd1329",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "goal34-cftc-scope-limit",
+      "claim_kind": "FACT",
+      "claim_text": "Nó giải thích futures, không xác nhận điều khoản hợp đồng hay dòng tiền của Southwest.",
+      "document_id": "goal31-futures-economic-purpose",
+      "source_id": "SOURCE_2",
+      "support_excerpt_sha256": "902bfb05b876206795576830f41ef69d6df11555568c6e4765d388acc89e061a",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    }
+  ],
+  "unknown_write_detected": false,
+  "unsupported_material_claim_count": 0,
+  "worker_router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal34_sol_max_writer",
+      "model": "gpt-6.1-sol",
+      "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+      "reasoning_effort": "max",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "max",
+    "request_sha256": "5811e7479896d51218bad41533cfa410a7469cfc68f2457b2b7506d514200ecf",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "response_sha256": "a9d1ddf1beaa122af5d4941db100fd6bcf167806f7c579bcc6c16a5c77658cb7",
+    "role": "write",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "write"
+  }
+}

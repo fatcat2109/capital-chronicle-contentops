@@ -1,0 +1,115 @@
+{
+  "audience_learning_binding": {
+    "policy_version": "policy_1fa4c4d0f5d3a0b74cee197e",
+    "preference_only": true,
+    "snapshot_sha256": "eddbac5622a962c3ff2313313e23195b32bb043ecc24479c4418dba5d7b3f31a"
+  },
+  "author_identity": "Capital Chronicle",
+  "canonical_editorial_headline": "Southwest 2025: đóng phòng hộ chưa khép lại chi phí",
+  "canonical_slug_candidate": "southwest-2025-dong-phong-ho-tien-mat-chi-phi-aoci",
+  "dek": "CONFIRMED — Hồ sơ quý II/2025 của Southwest cho thấy tiền thu khi đóng phòng hộ và chi phí quyền chọn đi theo các kỳ khác nhau. Chênh lệch thời điểm chưa chứng minh hãng thiếu tiền.",
+  "entities": [
+    "Southwest Airlines Co.",
+    "CFTC"
+  ],
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Southwest Airlines Co.",
+    "primary_reporting_source_identity": "Southwest Airlines Co.",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal34-southwest-hedge-clocks"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "institutional_edge_editorial_packet_sha256": "6e0772e0e2b9128da183ae5fd661e18c6c2f968ae9e6bc1733b65f61e15fe71a",
+  "internal_link_candidates": [
+    {
+      "anchor_text": "Phòng hộ bằng futures vẫn có thể cần thêm tiền mặt",
+      "eligible_for_public_linking": false,
+      "relation": "technical_explainer",
+      "requires_reconciled_canonical_url": true,
+      "target_article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "target_publication_state": "UNPUBLISHED_RESEARCH",
+      "target_story_identity": "simple-story-90948260be9bd56524b7f2c8",
+      "url": null
+    }
+  ],
+  "meta_description": "Southwest 2025: tách tiền thu khi đóng phòng hộ, chi phí quyền chọn và kỳ mua nhiên liệu; đọc đúng số dư AOCI và mốc tài sản bảo đảm.",
+  "primary_reader_question": "Vì sao doanh nghiệp nhận tiền khi đóng phòng hộ nhiên liệu mà chi phí liên quan vẫn được ghi nhận trong các kỳ sau?",
+  "prior_article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+  "public_write_performed": false,
+  "publisher_identity": "Capital Chronicle",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_freshness_class": "EVERGREEN",
+  "search_learning_status": "HOLD_WITHOUT_SEARCH_SPECIFIC_EVIDENCE",
+  "search_title": "Southwest 2025: đóng phòng hộ rồi, vì sao còn chi phí?",
+  "secondary_reader_questions": [
+    "Ba mốc tiền thu, ghi nhận chi phí và mua nhiên liệu khác nhau thế nào trong hồ sơ Southwest năm 2025?",
+    "Số dư AOCI khoảng 209 triệu USD đã tính khoản thu từ chấm dứt hợp đồng ra sao?",
+    "Mốc không có tài sản bảo đảm bằng tiền mặt ngày 30/6/2025 cho biết điều gì?",
+    "Vì sao không thể dùng cơ chế ký quỹ futures để kết luận về quyền chọn OTC của Southwest?"
+  ],
+  "seo_title": "Southwest 2025: đóng phòng hộ rồi, vì sao còn chi phí?",
+  "slug": "southwest-2025-dong-phong-ho-tien-mat-chi-phi-aoci",
+  "social_cross_asset_summary": "Điểm cần theo dõi của Capital Chronicle: các lần mua nhiên liệu dự kiến có đổi lịch hay bị hủy, và số dư AOCI được ghi nhận vào chi phí ra sao? Nếu giả định về giao dịch thay đổi, cần xem lại cách đọc dựa trên lịch cũ.",
+  "social_hook": "Southwest 2025: đã thu tiền khi đóng phòng hộ, vì sao chi phí vẫn còn?",
+  "social_lede": "Southwest 2025: đã thu tiền khi đóng phòng hộ, vì sao chi phí vẫn còn?",
+  "social_mechanism_summary": "Phân tích của Capital Chronicle: tiền thu khi đóng hợp đồng, chi phí ghi nhận trong quý và chi phí chờ các kỳ mua nhiên liệu trả lời ba câu hỏi khác nhau. Một khoản chi phí được ghi nhận về sau chưa chứng minh có thêm tiền phải trả đúng kỳ đó.",
+  "social_policy_summary": "Phản đề của Capital Chronicle: chi phí tiếp tục xuất hiện có thể phù hợp với lịch giao dịch nhiên liệu dự kiến ban đầu. Riêng khoản thu khi đóng hợp đồng chưa đủ để đánh giá hiệu quả cả chương trình phòng hộ; cần đối chiếu với chi phí quyền chọn và rủi ro hàng thực.",
+  "source_clock_metadata": [
+    {
+      "clock_basis": "FROZEN_SOURCE_PACK_AND_SOURCE_REVIEW_PROVENANCE",
+      "observation_date": "2025-06-30",
+      "published_at_utc_locator_hint": "2025-07-24T00:00:00Z",
+      "published_date": "2025-07-24",
+      "release_time_supplied": false,
+      "retrieved_at_utc": "2026-10-21T20:58:43.268Z",
+      "source_id": "SOURCE_1"
+    },
+    {
+      "clock_basis": "FROZEN_SOURCE_PACK",
+      "published_at_source": "SOURCE_UNDATED_NOT_INFERRED_FROM_CAPTURE",
+      "published_at_utc": "",
+      "release_time_supplied": false,
+      "source_id": "SOURCE_2"
+    }
+  ],
+  "source_date_notice": "Source date: 2025-07-24; Source date: not supplied (retained background). Interpretation remains analysis.",
+  "source_document_ids": [
+    "goal34-southwest-hedge-clocks",
+    "goal31-futures-economic-purpose",
+    "goal21-futures-hedgers"
+  ],
+  "source_review_id": "native-source-review-419900a25c926621120e1346789394486c163343b67b43069a589f55e9a0b7b2",
+  "story_identity": "simple-story-58c20e2b812d839f223fed99",
+  "structured_data_packet": null,
+  "substack_body_markdown": "Vì sao một doanh nghiệp nhận tiền khi đóng phòng hộ mà chi phí vẫn xuất hiện về sau? CONFIRMED — Southwest cho biết hãng đã chấm dứt danh mục phòng hộ nhiên liệu còn lại trong quý II/2025, thu khoảng 40 triệu USD. Theo cách đọc của Capital Chronicle, sự lệch nhịp giữa tiền và chi phí cần được giải thích trước khi đánh giá hiệu quả phòng hộ hay sức ép thanh khoản. [[SOURCE:SOURCE_1]]\n\n## Tiền về, chi phí trong quý và phần còn chờ\n\nTheo Southwest, các hợp đồng trong danh mục vốn dự kiến được tất toán tới năm 2027. Việc chấm dứt trong quý II/2025 đem lại khoảng 40 triệu USD tiền thu; hãng cho biết khoản thu này sẽ làm giảm chi phí quyền chọn trong các kỳ sau. [[SOURCE:SOURCE_1]]\n\nTrong quý II/2025, Southwest cho biết khoảng 36 triệu USD được chuyển từ AOCI — mục thu nhập toàn diện khác lũy kế — sang làm tăng chi phí nhiên liệu và dầu. Hãng xếp khoản này vào chi phí quyền chọn, bao gồm phần liên quan các vị thế đã chấm dứt. [[SOURCE:SOURCE_1]]\n\nTại ngày 30/6/2025, khoảng 209 triệu USD liên quan các vị thế đã đóng vẫn còn trong AOCI, theo Southwest. Số dư này chưa bao gồm tác động thuế và đã tính ròng tác động của tiền thu từ chấm dứt hợp đồng. Theo lịch hãng nêu trong hồ sơ, khoản này sẽ được chuyển sang làm tăng chi phí nhiên liệu và dầu khi các giao dịch dự kiến ban đầu diễn ra, tới cuối năm 2027. [[SOURCE:SOURCE_1]]\n\nPhân tích của Capital Chronicle: tiền thu khi đóng hợp đồng, chi phí ghi nhận trong quý và chi phí chờ các kỳ mua nhiên liệu trả lời ba câu hỏi khác nhau. Một khoản chi phí được ghi nhận về sau chưa chứng minh có thêm tiền phải trả đúng kỳ đó. [[SOURCE:SOURCE_1]]\n\nVì số dư khoảng 209 triệu USD đã tính ròng tác động của khoản thu, không được trừ thêm khoảng 40 triệu USD lần nữa. Cũng không thể cộng tiền thu với số dư AOCI thành một tổng thiệt hại. Trong cách đọc của Capital Chronicle, số dư kế toán chờ ghi nhận vào chi phí chưa phải một yêu cầu nộp tiền mặt. [[SOURCE:SOURCE_1]]\n\n## Quyền chọn OTC không mang mặc nhiên cơ chế futures\n\nTrong cơ chế futures mà CFTC giải thích, vị thế được định giá lại hằng ngày. Nếu tiền trong tài khoản xuống dưới mức ký quỹ duy trì, người giao dịch phải nộp thêm ký quỹ biến động để đưa tài khoản về mức ký quỹ ban đầu. [[SOURCE:SOURCE_2]]\n\nTheo Southwest, các công cụ phái sinh nắm giữ trong những kỳ trước là hợp đồng giao dịch ngoài sàn, thường gọi là OTC; phái sinh nhiên liệu trong lịch sử chỉ gồm quyền chọn. Vì vậy, Capital Chronicle không chuyển cơ chế ký quỹ futures trong tài liệu CFTC sang trường hợp này để kết luận Southwest đã bị gọi nộp thêm tiền. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nSouthwest công bố không có tài sản bảo đảm bằng tiền mặt đã nộp hoặc nhận tại ngày 30/6/2025. Đây là ảnh chụp tại một thời điểm: nó không cung cấp toàn bộ lịch sử tài sản bảo đảm và không xác lập nghĩa vụ ở mọi ngày trước hoặc sau đó. [[SOURCE:SOURCE_1]]\n\n## Việc mua nhiên liệu vẫn là một câu hỏi riêng\n\nNếu các lần mua nhiên liệu dự kiến vẫn diễn ra, ngân quỹ vẫn phải chuẩn bị tiền cho hàng thực. Nếu không có công cụ bù trừ khác, giá nhiên liệu cao hơn có thể làm tiền mua tăng, còn giá thấp hơn có thể làm khoản này giảm, ngay cả khi chi phí quyền chọn cũ tiếp tục xuất hiện. Đây là suy luận có điều kiện của Capital Chronicle; các trích đoạn không định lượng mức rủi ro còn lại. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\n## Phản đề và phép kiểm tra tiếp theo\n\nPhản đề của Capital Chronicle: chi phí tiếp tục xuất hiện có thể phù hợp với lịch giao dịch nhiên liệu dự kiến ban đầu. Riêng khoản thu khi đóng hợp đồng chưa đủ để đánh giá hiệu quả cả chương trình phòng hộ; cần đối chiếu với chi phí quyền chọn và rủi ro hàng thực. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nCác trích đoạn đang xét không cung cấp toàn bộ lịch thanh toán hợp đồng, phí đã phát sinh và khoản bù đắp từ mua nhiên liệu theo từng kỳ. Vì vậy, chúng chưa cho phép đối chiếu từng dòng tiền, tính đầy đủ lãi/lỗ của chương trình hay kết luận Southwest bị gọi bổ sung tài sản bảo đảm. [[SOURCE:SOURCE_1]]\n\nĐiểm cần theo dõi của Capital Chronicle: các lần mua nhiên liệu dự kiến có đổi lịch hay bị hủy, và số dư AOCI được ghi nhận vào chi phí ra sao? Nếu giả định về giao dịch thay đổi, cần xem lại cách đọc dựa trên lịch cũ. [[SOURCE:SOURCE_1]]\n\n## Ghi chú nguồn\n\nGhi chú nguồn: hồ sơ 10-Q của Southwest cho kỳ kết thúc ngày 30/6/2025 được công bố ngày 24/7/2025; giờ công bố không được cung cấp. Bản nguồn được thu thập ngày 21/10/2026 theo UTC. Đây là việc đọc lại một trường hợp năm 2025, không phải tin mới hay bản cập nhật vị thế năm 2026. [[SOURCE:SOURCE_1]]\n\nTài liệu nền CFTC không cung cấp ngày phát hành hoặc sửa đổi trong bản đã đọc. Nó giải thích futures, không xác nhận điều khoản hợp đồng hay dòng tiền của Southwest. [[SOURCE:SOURCE_2]]",
+  "subtitle": "CONFIRMED — Hồ sơ quý II/2025 của Southwest cho thấy tiền thu khi đóng phòng hộ và chi phí quyền chọn đi theo các kỳ khác nhau. Chênh lệch thời điểm chưa chứng minh hãng thiếu tiền.",
+  "title": "Southwest 2025: đóng phòng hộ chưa khép lại chi phí",
+  "topics": [
+    "Phòng hộ nhiên liệu",
+    "Dòng tiền",
+    "Chi phí quyền chọn",
+    "AOCI",
+    "Quyền chọn OTC"
+  ],
+  "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+}

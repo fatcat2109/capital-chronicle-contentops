@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal34-southwest-hedge-clocks",
+      "source_id": "goal34-southwest-hedge-clocks",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+      "publisher": "Southwest Airlines Co.",
+      "title": "Southwest Airlines Co. Form 10-Q, quarter ended June 30, 2025 — Note 3 and valuation note",
+      "raw_sha256": "972f088288e252878b4cc7ae3157af456759bd3f1c48da16532d32868d8ba7c8",
+      "canonical_content_text": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations. See Note 4 for additional information on AOCI.\n\nCredit Risk and Collateral\nThe Company had no cash collateral posted or received as of June 30, 2025.\n13\n\nDuring second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. See Note 3 for further information on the Company’s derivative instruments and hedging activities. The Company’s derivative instruments held in prior periods consisted of over-the-counter contracts, which were not traded on a public exchange. Fuel derivative instruments historically consisted solely of option contracts, whereas interest rate derivatives have historically consisted solely of swap agreements.",
+      "canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+      "source_adapter_family": "issuer_filing",
+      "source_authority_class": "first_party_public_source",
+      "source_interest_role": "ISSUER",
+      "published_at_utc": "2025-07-24T00:00:00Z",
+      "published_at_source": "2025-07-24",
+      "published_at_precision": "DATE_ONLY",
+      "publication_clock_basis": "EDGAR_FILING_DATE_ONLY_MIDNIGHT_IS_DATE_CONTAINER_NOT_RELEASE_TIME",
+      "content_truncated": false,
+      "excerpt_scope": "BOUNDED_EXACT_EXTRACTS_WITH_ORIGINAL_OFFSETS",
+      "public_claim_allowed": true
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-21T20:58:43.268Z",
+    "request_count_for_call": 0
+  }
+}

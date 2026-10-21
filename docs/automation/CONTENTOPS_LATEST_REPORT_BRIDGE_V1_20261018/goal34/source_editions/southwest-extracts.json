@@ -1,0 +1,29 @@
+{
+  "excerpts": [
+    {
+      "end": 20559,
+      "start": 19236,
+      "text": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations. See Note 4 for additional information on AOCI."
+    },
+    {
+      "end": 30535,
+      "start": 30431,
+      "text": "Credit Risk and Collateral\nThe Company had no cash collateral posted or received as of June 30, 2025.\n13"
+    },
+    {
+      "end": 45437,
+      "start": 44831,
+      "text": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. See Note 3 for further information on the Company’s derivative instruments and hedging activities. The Company’s derivative instruments held in prior periods consisted of over-the-counter contracts, which were not traded on a public exchange. Fuel derivative instruments historically consisted solely of option contracts, whereas interest rate derivatives have historically consisted solely of swap agreements."
+    }
+  ],
+  "form": "10-Q",
+  "full_page_characters": 199568,
+  "full_page_text_sha256": "f7c4b012e19a51095b66ab0e98b52a17d7a98d8066d650e278c29d0fdfe9d807",
+  "observed_at_utc": "2026-10-21T20:58:43.268Z",
+  "period": "2025-06-30",
+  "section": "Note 3 Derivative Instruments and Hedging Activities; valuation note",
+  "source_identity": "Southwest Airlines Co.",
+  "title": "luv-20250630",
+  "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+  "capture_scope": "EXACT_BOUNDED_EXTRACTS_NOT_FULL_PAGE"
+}

@@ -1046,6 +1046,8 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
                 "canonical_content_text": text[:MAX_SOURCE_TEXT_CHARS],
+                **({"source_reuse_constraints": dict(document["source_reuse_constraints"])}
+                   if document.get("source_reuse_constraints") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
             }
         )
@@ -1464,6 +1466,14 @@ def _validate_article_against_source_pack(
             continue
         cited_by_id[source_id] = available
     public_copy_normal = _normal(_public_copy(article))
+    for document in source_pack:
+        constraints = document.get("source_reuse_constraints") or {}
+        if constraints.get("public_expression_reuse_allowed") is False:
+            # Facts-only admission cannot silently become verbatim public reuse.
+            words = re.findall(r"\w+", str(document.get("canonical_content_text") or "").casefold())
+            public_words = " ".join(re.findall(r"\w+", public_copy_normal))
+            if any(" ".join(words[i:i + 16]) in public_words for i in range(max(0, len(words) - 15))):
+                blockers.append(f"facts_only_source_expression_reuse:{document.get('source_id')}")
     supported: list[dict[str, Any]] = []
     for claim in claims:
         claim_id = str(claim.get("claim_id") or "UNKNOWN")

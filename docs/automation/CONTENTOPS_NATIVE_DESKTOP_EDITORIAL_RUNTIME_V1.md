@@ -158,3 +158,21 @@ activation, account change, merge or deployment is claimed. The CLI, Desk and in
 `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal33/RELEASE_HANDOFF.md`.
 Exact remote/CI evidence follows in that directory's `delivery.json`; Control Tower receiver
 synchronization remains pending, with these pointers as the discoverable handoff.
+
+## Goal34 source-led edition (2026-10-22)
+
+`CURRENTLY_PROVEN_AND_REUSE`: the saved EIA/SEC/hedge briefs were resolved through the existing
+DB-first research, bounded read-only Neo, source comparison, native roles and sole preparation
+path. Current owner edition: **3 ready / 24 previews / 0 missing**, **1 UPDATE / 2 KEEP**, plus
+one historical current-position HOLD. Actual Sol6.1 low selected and Sol6.1 MAX wrote a dated
+Southwest 2025 case; no new X/Luna invocation was warranted. The source adapter now admits only
+bounded attributed issuer facts through an explicit filing class, without government-authorship
+or expression/image reuse. Writer constraints, shared media consumer and date-only Desk display
+preserve that boundary. Original Goal32 packets remain unchanged; the prior futures preparation
+is invalidated by its material source review, and the new exact KEEP packet is PREPARED without
+dispatch. One permitted source context is in the reciprocal outbox; Main receipt is not verified.
+Four existing tasks and production stay paused, canonical store unchanged, no public/account
+write, merge or deployment. See
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/RELEASE_HANDOFF.md`,
+`COMPLETION_AUDIT.md` and `delivery.json` for exact scope, clocks, preserved bytes and remote CI.
+Control Tower receiver synchronization remains pending; this is the discoverable handoff.

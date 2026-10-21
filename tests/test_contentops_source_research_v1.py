@@ -20,6 +20,70 @@ ROOT = (
 )
 NOW = "2026-10-19T06:30:00Z"
 
+FILING_ROOT = ROOT.parent.parent / "goal34/source_editions"
+
+
+def test_public_filing_is_issuer_facts_not_government_expression():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+    research = RetainedSourceResearch(FILING_ROOT)
+    assert not research.gaps and len(research.records) == 1
+    record = next(iter(research.records.values()))
+    evidence = research.evidence({"headline_ids": [record["headline_id"]]}, cutoff_utc="2026-10-22T00:00:00Z")
+    doc = evidence["evidence_documents"][0]
+    assert doc["source_authority_class"] == "first_party_public_source"
+    assert doc["source_interest_role"] == "ISSUER"
+    assert doc["underlying_reuse_classification"] == "attributed_public_filing_facts_only"
+    constraints = _source_pack([doc])[0]["source_reuse_constraints"]
+    assert constraints["government_authorship"] is False
+    assert constraints["public_expression_reuse_allowed"] is False
+    assert constraints["images_logos_exhibits_reuse_allowed"] is False
+    assert evidence["provenance"]["request_count_for_call"] == 0
+    assert evidence["publication_authority"] is False
+
+
+@pytest.mark.parametrize("change,expected", [
+    ({"authorship_class": "AGENCY_AUTHORED"}, "SOURCE_REUSE_POLICY_NOT_SUPPORTED"),
+    ({"public_expression_reuse_allowed": True}, "ISSUER_FILING_SCOPE_INVALID"),
+    ({"filing_date": "2025-07-25"}, "ISSUER_FILING_IDENTITY_NOT_VERIFIED"),
+    ({"filing_index_capture_sha256": "0" * 64}, "ISSUER_FILING_INDEX_HASH_MISMATCH"),
+])
+def test_filing_scope_and_identity_cannot_expand(tmp_path, change, expected):
+    copied = tmp_path / "filing"
+    shutil.copytree(FILING_ROOT, copied)
+    index = json.loads((copied / "index.json").read_bytes())
+    index["records"][0].update(change)
+    (copied / "index.json").write_text(json.dumps(index), encoding="utf-8")
+    research = RetainedSourceResearch(copied)
+    assert not research.records
+    assert research.gaps[0]["state"] == expected
+
+
+def test_facts_only_public_prose_cannot_copy_the_retained_expression():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack, _validate_article_against_source_pack, SimpleGeminiNewsroomError
+    research = RetainedSourceResearch(FILING_ROOT)
+    record = next(iter(research.records.values()))
+    doc = research.evidence({"headline_ids": [record["headline_id"]]}, cutoff_utc="2026-10-22T00:00:00Z")["evidence_documents"][0]
+    with pytest.raises(SimpleGeminiNewsroomError) as error:
+        _validate_article_against_source_pack({"article": {"substack_body_markdown": doc["canonical_content_text"]}}, _source_pack([doc]))
+    assert "facts_only_source_expression_reuse:SOURCE_1" in error.value.details
+
+
+@pytest.mark.parametrize("url", [
+    "https://www.sec.gov.example/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+    "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm?override=1",
+    "https://www.sec.gov/newsroom/press-releases/issuer.htm",
+])
+def test_issuer_fact_route_accepts_only_exact_public_filing_locator(tmp_path, url):
+    copied = tmp_path / "filing"
+    shutil.copytree(FILING_ROOT, copied)
+    index = json.loads((copied / "index.json").read_bytes())
+    loader_path = copied / index["records"][0]["loader_result_path"]
+    loader = json.loads(loader_path.read_bytes())
+    loader["official_source_documents"][0]["source_url"] = url
+    loader_path.write_text(json.dumps(loader), encoding="utf-8")
+    research = RetainedSourceResearch(copied)
+    assert not research.records and research.gaps[0]["state"] == "ISSUER_FILING_LOCATOR_INVALID"
+
 
 def independent_writer(research, calls, target="goal20-eia-grid-peaks"):
     main_control = controlled_writer(calls)
@@ -250,6 +314,31 @@ def test_independent_candidate_uses_same_simple_and_reuses_output(tmp_path):
         repeated["report_workspace_result"]["article_identity"] == r["article_identity"]
     )
     assert len(calls) == 2
+
+
+def test_filing_cannot_gain_public_domain_through_legacy_media_path(tmp_path):
+    # Controlled reuse of the saved article exercises the otherwise shared
+    # non-native media consumer. It is not a fresh model/runtime claim.
+    research = RetainedSourceResearch(ROOT.parent.parent / "goal23/retained_research",
+        editions_root=[ROOT.parent.parent / f"goal{n}/source_editions" for n in (27, 28, 29, 31, 34)])
+    assert not research.gaps
+    calls = []
+    select = independent_writer(research, calls, target="goal34-southwest-hedge-clocks")
+    saved = json.loads((FILING_ROOT.parent / "article/goal34_writer_response.json").read_bytes())
+    def controlled(**kwargs):
+        if "candidates" in kwargs["governed_input"]:
+            return select(**kwargs)
+        calls.append(kwargs["logical_invocation_id"])
+        return deepcopy(saved), {"replay_only": True, "total_attempts": 0,
+            "model_identity_provider_verifiable": False, "selected_model": "vx/gemini-3.5-flash(high)"}
+    f = feed(tmp_path)
+    f.retained_research = research
+    result = f.opportunity(output_dir=tmp_path / "filing-draft", cutoff_utc="2026-10-22T00:00:00Z",
+        run_id="controlled-filing-media", rolling_input={"headlines": []}, llm_invoke=controlled)["report_workspace_result"]
+    assert result["qualified_article_count"] == 1, result.get("exact_next_blocker")
+    assert result["media_assets"]
+    assert all(a["underlying_source_rights_status"] != "public_domain" for a in result["media_assets"])
+    assert all(a["modality"] != "document_excerpt" for a in result["media_assets"])
 
 
 def test_chart_values_cannot_escape_retained_source_or_rights(tmp_path):

@@ -5,6 +5,10 @@ import type { ReportWorkspaceData } from '../dailyAppTypes';
 
 const DESTINATIONS = ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube'];
 const display = (value: string) => value.replace(/_/g, ' ');
+const retainedSourceDate = (source: { published_at_source?: string; published_at_utc: string }) =>
+  /^\d{4}-\d{2}-\d{2}$/.test(source.published_at_source ?? '')
+    ? `${source.published_at_source} (date only; release time not supplied)`
+    : source.published_at_utc || 'Không cung cấp ngày xuất bản';
 const sourceDecision: Record<string, string> = {
   USE_UNCHANGED: 'Giữ nguyên bài', MATERIAL_FOLLOW_UP: 'Cần bài tiếp nối',
   CORRECTION_OR_WITHDRAWAL: 'Cần sửa hoặc rút phạm vi cũ', STALE_OR_SOURCE_GAP: 'Còn thiếu nguồn mới',
@@ -89,7 +93,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
         <details><summary>Góc bài và quyết định đọc duyệt</summary><p>{item.angle ?? item.mode}</p><p>{item.review?.rationale}</p></details>
         {item.article.search_title && <details><summary>SEO và ngày nguồn</summary><p>{item.article.search_title}</p><p>{item.article.meta_description}</p><p>Slug: {item.article.canonical_slug_candidate}</p><p>{item.article.source_date_notice}</p></details>}
         <details><summary>Nguồn và ngày</summary>{item.evidence?.map(s => <p key={s.source_id} style={{ overflowWrap: 'anywhere' }}>
-          {s.source_id} · {s.publisher} · {s.published_at_utc || 'Không cung cấp ngày xuất bản'} · {s.published_at_source === 'MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME' ? 'Mốc báo cáo Main, không phải ngày phát hành nguồn' : 'Nguồn lưu giữ có ngày riêng'}<br />
+          {s.source_id} · {s.publisher} · {retainedSourceDate(s)} · {s.published_at_source === 'MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME' ? 'Mốc báo cáo Main, không phải ngày phát hành nguồn' : 'Nguồn lưu giữ có ngày riêng'}<br />
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
         </p>)}</details>
         {item.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}

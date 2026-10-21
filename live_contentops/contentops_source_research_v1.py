@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 from pathlib import Path, PurePosixPath
 from typing import Any, Mapping
 from urllib.parse import urlsplit
@@ -163,6 +164,8 @@ class RetainedSourceResearch:
         doc = loader["official_source_documents"][0]
         if _private(spec) or loader["status"] != "PASS" or doc.get("content_truncated"):
             raise ValueError("RESEARCH_EVIDENCE_NOT_ADMITTED")
+        if spec.get("authorship_class") == "ISSUER_FILING_FACTS_ONLY":
+            return self._verify_issuer_facts(spec, raw, policy, loader, doc)
         url = urlsplit(doc["source_url"])
         rule = POLICIES.get(url.hostname)
         if (
@@ -299,6 +302,99 @@ class RetainedSourceResearch:
         }
         return record
 
+    def _verify_issuer_facts(self, spec, raw, policy, loader, doc):
+        """Bounded filing facts, not a public-domain grant over issuer expression.
+
+        SEC hosting does not make a company's filing SEC-authored. Keep the
+        original exact excerpts for internal verification; public prose must be
+        independently written and attributed to the issuer.
+        """
+        url = urlsplit(doc["source_url"])
+        match = re.fullmatch(r"/Archives/edgar/data/([0-9]+)/([0-9]{18})/([A-Za-z0-9_-]+\.htm)", url.path)
+        if (url.scheme != "https" or url.hostname != "www.sec.gov" or url.username
+                or url.password or url.port not in (None, 443) or url.query or url.fragment or not match):
+            raise ValueError("ISSUER_FILING_LOCATOR_INVALID")
+        policy_url = "https://www.copyright.gov/help/faq/faq-protect.html"
+        if spec["policy_url"] != policy_url or _hash(policy) != spec["policy_capture_sha256"]:
+            raise ValueError("SOURCE_PERMISSION_CAPTURE_MISMATCH")
+        rights = _rendered(policy, policy_url)
+        policy_text = _normalize(rights["canonical_content_text"]).lower()
+        if not all(t in policy_text for t in ("copyright does not protect facts", "may protect the way these things are expressed")):
+            raise ValueError("SOURCE_PERMISSION_TEXT_NOT_VERIFIED")
+        capture = json.loads(raw)
+        excerpts = capture["excerpts"]
+        if (capture.get("url") != doc["source_url"] or capture.get("source_identity") != doc["publisher"]
+                or not re.fullmatch(r"[a-f0-9]{64}", capture.get("full_page_text_sha256", ""))
+                or not 1 <= len(excerpts) <= 4 or sum(len(e["text"]) for e in excerpts) > 4000
+                or any(type(e["start"]) is not int or type(e["end"]) is not int
+                       or not 0 <= e["start"] < e["end"] <= capture["full_page_characters"]
+                       or e["end"] - e["start"] != len(e["text"]) for e in excerpts)
+                or doc["source_adapter_family"] != "issuer_filing"
+                or doc["source_authority_class"] != "first_party_public_source"
+                or doc.get("source_interest_role") != "ISSUER"
+                or spec.get("source_chart") or spec.get("public_expression_reuse_allowed") is not False):
+            raise ValueError("ISSUER_FILING_SCOPE_INVALID")
+        index_url = doc["source_url"].rsplit("/", 1)[0] + "/" + match[2][:10] + "-" + match[2][10:12] + "-" + match[2][12:] + "-index.html"
+        index_raw = self._read(spec["filing_index_capture_path"])
+        if _hash(index_raw) != spec["filing_index_capture_sha256"]:
+            raise ValueError("ISSUER_FILING_INDEX_HASH_MISMATCH")
+        index = _rendered(index_raw, index_url)
+        index_text = _normalize(index["canonical_content_text"])
+        if (capture["form"] not in ("10-Q", "10-K")
+                or re.sub(r"\W", "", doc["publisher"]).casefold() not in re.sub(r"\W", "", index_text).casefold()
+                or match[1].zfill(10) not in index_text
+                or capture["form"] not in index_text or match[3] not in index_text
+                or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", spec["filing_date"])
+                or spec["filing_date"] not in index_text or capture["period"] not in index_text
+                or doc.get("published_at_precision") != "DATE_ONLY"
+                or doc.get("published_at_source") != spec["filing_date"]
+                or doc.get("published_at_utc") != spec["filing_date"] + "T00:00:00Z"):
+            raise ValueError("ISSUER_FILING_IDENTITY_NOT_VERIFIED")
+        canonical = "\n\n".join(e["text"] for e in excerpts)
+        capture_hash = _hash(raw)
+        if (capture_hash != spec["source_capture_sha256"] or capture_hash != doc["raw_sha256"]
+                or doc["canonical_content_text"] != canonical):
+            raise ValueError("SOURCE_CAPTURE_HASH_MISMATCH")
+        start, end = spec["proposition_span"]
+        if type(start) is not int or type(end) is not int or not 0 <= start < end <= len(canonical) or end - start > 1000:
+            raise ValueError("SOURCE_PROPOSITION_SPAN_INVALID")
+        proposition = _normalize(canonical[start:end])
+        if not proposition or proposition != _normalize(spec["headline_text"]):
+            raise ValueError("SOURCE_PROPOSITION_NOT_EXACT")
+        known, revision = loader["provenance"]["retrieved_at_utc"], spec["revision_at_utc"]
+        if (known != capture["observed_at_utc"] or _time(known) > _time(revision)
+                or _time(doc["published_at_utc"]) > _time(known)
+                or _time(spec["policy_retrieved_at_utc"]) > _time(revision)
+                or _time(index["retrieved_at_utc"]) > _time(revision)):
+            raise ValueError("RESEARCH_CLOCK_ORDER_INVALID")
+        permission = {
+            "source_capture_sha256": capture_hash, "canonical_text_sha256": _hash(canonical.encode()),
+            "content_sha256": _hash(proposition.encode()), "policy_url": policy_url,
+            "policy_capture_sha256": _hash(policy), "policy_retrieved_at_utc": spec["policy_retrieved_at_utc"],
+            "scope": "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            "INTERNAL_ANALYSIS_ALLOWED": True, "MODEL_INPUT_ALLOWED": True, "LLM_INPUT_ALLOWED": True,
+            "provider_safe": True, "permitted_consumers": ["internal_research", "narrative_context"],
+            "public_expression_reuse_allowed": False, "images_logos_exhibits_reuse_allowed": False,
+            "attribution_required": True, "government_authorship": False,
+        }
+        return {
+            "headline_id": spec["headline_id"], "headline_text": proposition, "text_sha256": permission["content_sha256"],
+            "source_identity": doc["publisher"], "source_account": doc["publisher"],
+            "source_platform": "CONTENTOPS_ORIGINAL_PUBLIC_FILING_ACQUISITION",
+            "source_timestamp_utc": doc["published_at_utc"], "headline_timestamp": doc["published_at_utc"],
+            "source_url": doc["source_url"], "official_source_urls": [doc["source_url"]],
+            "known_at_utc": known, "retrieval_time_utc": known, "revision_at_utc": revision,
+            "revision_clock_basis": "CAPTURE_ADMISSION_TIME_PUBLISHER_REVISION_NOT_VERIFIED",
+            "rights_state": "GOVERNED_PUBLIC_FILING_FACTS_ONLY_NO_EXPRESSIVE_REUSE",
+            "rights_evidence_sha256": _hash(policy), "source_capture_sha256": capture_hash,
+            "source_permission_record_sha256": sha256_of(permission), "source_permissions": permission,
+            "candidate_catalyst_tags": list(spec.get("candidate_catalyst_tags", [])),
+            "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION", "correction_of": None,
+            "document": {**doc, "source_reuse_constraints": permission}, "source_chart": None,
+            "permitted_source_text": canonical, "supporting_headline_ids": list(spec.get("supporting_headline_ids", []))[:2],
+            "research_metadata": dict(spec.get("research_metadata") or {}),
+        }
+
     def permission_for(
         self, row: Mapping[str, Any], cutoff_utc: str
     ) -> dict[str, Any] | None:
@@ -378,11 +474,15 @@ class RetainedSourceResearch:
                 "canonical_content_text": r["permitted_source_text"],
                 "canonical_content_sha256": _hash(r["permitted_source_text"].encode()),
                 "source_capture_sha256": r["source_capture_sha256"],
-                "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
-                "underlying_reuse_classification": "governed_government_public_domain",
+                "retrieval_method": (
+                    "RETAINED_PUBLIC_FILING_FACTS_ONLY" if r["document"].get("source_adapter_family") == "issuer_filing"
+                    else "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS"),
+                "underlying_reuse_classification": (
+                    "attributed_public_filing_facts_only" if r["document"].get("source_adapter_family") == "issuer_filing"
+                    else "governed_government_public_domain"),
                 "rights_evidence_sha256": r["rights_evidence_sha256"],
-                # _verify already proved exact agency authorship, policy bytes and
-                # allowed text spans. This grants only those retained propositions.
+                # _verify proved the exact authorship/rights class and bounded
+                # evidence. A filing remains attributed issuer facts only.
                 "public_claim_allowed": True,
             }
             for r in found

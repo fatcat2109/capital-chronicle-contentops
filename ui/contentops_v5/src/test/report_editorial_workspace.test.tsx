@@ -95,7 +95,8 @@ describe('Main report editorial workspace', () => {
       article: { title: 'Three separate gold questions', dek: 'Price, leverage and custody.', substack_body_markdown: '## Mechanism\n\n**Dated educational interpretation.** [[SOURCE:SOURCE_1]]\n\n[Agency source](https://www.cftc.gov/example)\n\n- Exact dated scope.' },
       angle: 'Separate contract risks', reader_question: 'What is actually owned?', mode: 'EVERGREEN_EXPLAINER',
       review: { decision: 'KEEP', rationale: 'Bounded educational scope and exact source dates retained.' },
-      evidence: [{ source_id: 'SOURCE_1', publisher: 'CFTC', url: 'https://www.cftc.gov/example', published_at_utc: '' }],
+      evidence: [{ source_id: 'SOURCE_1', publisher: 'CFTC', url: 'https://www.cftc.gov/example', published_at_utc: '' },
+        { source_id: 'SOURCE_2', publisher: 'Issuer', url: 'https://www.sec.gov/Archives/example.htm', published_at_utc: '2025-07-24T00:00:00Z', published_at_source: '2025-07-24' }],
       previews: snapshot.previews }];
     render(<ReportEditorialWorkspace data={snapshot} />);
     const edition = screen.getByLabelText('Ấn bản newsroom');
@@ -103,6 +104,8 @@ describe('Main report editorial workspace', () => {
     expect(within(edition).getByText(/Separate contract risks/)).toBeInTheDocument();
     expect(within(edition).getByText(/What is actually owned/)).toBeInTheDocument();
     expect(within(edition).getByText(/Không cung cấp ngày xuất bản/)).toBeInTheDocument();
+    expect(within(edition).getByText(/2025-07-24 \(date only; release time not supplied\)/)).toBeInTheDocument();
+    expect(edition.textContent).not.toContain('2025-07-24T00:00:00Z');
     expect(edition.querySelectorAll('[data-edition-destination]')).toHaveLength(8);
     expect(within(edition).getByText('Mechanism')).toBeInTheDocument();
     expect(within(edition).getByText('Dated educational interpretation.').tagName).toBe('STRONG');
