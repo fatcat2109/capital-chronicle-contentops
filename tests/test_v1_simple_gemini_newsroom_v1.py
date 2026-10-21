@@ -70,6 +70,16 @@ def test_vietnamese_lead_matches_selected_inflation_topic_without_english_paddin
     assert _selected_news_peg_blockers({"title": "Một giao dịch giữa các quỹ"}, candidate)
 
 
+def test_vietnamese_data_and_hedging_leads_keep_topic_alignment():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
+    data = {"headline_text": "SEC announces a roundtable about machine-understandable data."}
+    hedge = {"headline_text": "Futures markets allow hedging to limit commodity price risk."}
+    assert not _selected_news_peg_blockers({"title": "SEC lên lịch tọa đàm dữ liệu máy hiểu"}, data)
+    assert not _selected_news_peg_blockers({"title": "Phòng hộ bằng hợp đồng tương lai vẫn cần tiền mặt"}, hedge)
+    assert _selected_news_peg_blockers({"title": "Giá vàng và kỳ vọng lãi suất"}, data)
+    assert _selected_news_peg_blockers({"title": "SEC lên lịch tọa đàm dữ liệu máy hiểu"}, hedge)
+
+
 def _headlines(count: int = 3) -> dict[str, object]:
     return {
         "schema_version": "test.rolling_input.v1",

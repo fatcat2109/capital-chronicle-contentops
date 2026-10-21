@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "source_id": "goal31-sec-machine-data",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "title": "SEC Announces Roundtable on Machine-Understandable Data in the Age of Super Intelligence",
+      "raw_sha256": "88792be86f22f262fd0c5e0ccb1269f1f7ba989aec87d6302ef19f3517893b10",
+      "canonical_content_text": "- [Newsroom](https://www.sec.gov/newsroom) - [Press Releases](https://www.sec.gov/newsroom/press-releases) - [Speeches & Statements](https://www.sec.gov/newsroom/speeches-statements) - [Meetings & Events](https://www.sec.gov/newsroom/meetings-events) - [Videos](https://www.sec.gov/newsroom/videos) - [Social Media Directory](https://www.sec.gov/newsroom/social-media) - [Podcasts](https://www.sec.gov/newsroom/podcasts) - [What's New](https://www.sec.gov/newsroom/whats-new?type=news%2Csecarticle%2Clink&tag=36681%2C36691%2C36696%2C36686%2C36411%2C34141%2C35221%2C34916%2C36706%2C321801%2C334846%2C36146%2C335756%2C36731) 1. [Home](https://www.sec.gov/) 1. [Newsroom](https://www.sec.gov/newsroom) 1. [Press Releases](https://www.sec.gov/newsroom/press-releases) 1. SEC Announces Roundtable on Machine-Understandable Data in the Age of Super Intelligence Press Release SEC Announces Roundtable on Machine-Understandable Data in the Age of Super Intelligence For Immediate Release 2026-106 Washington D.C., Oct. 19, 2026 — The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.” The roundtable will be open to the public and held at the SEC’s headquarters at 100 F Street, N.E., Washington, D.C. from 9 a.m. to 3:30 p.m. EST. Please note that the number of in-person participants may be limited and visitors will be subject to security checks. The discussion will be streamed live on SEC.gov, and a recording will be available at a later date. For more information and the full agenda, visit the [event webpage](https://www.sec.gov/newsroom/meetings-events/machine-understandable-data-age-super-intelligence-si). Last Reviewed or Updated: Oct. 19, 2026",
+      "canonical_content_sha256": "17e8453d4a923df6daa253cf8b717d6bb31c2aa44848815858162ffd594cd1db",
+      "source_adapter_family": "sec_regulatory",
+      "source_authority_class": "official_public_primary_source",
+      "published_at_utc": "2026-10-19T00:00:00Z",
+      "publication_time_precision": "DATE_ONLY",
+      "published_at_source": "VISIBLE_RELEASE_DATE",
+      "content_truncated": false,
+      "retrieval_method": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-21T11:14:06.426000Z",
+    "capture_operation": "ACTUAL_BROWSEROS_NEO_RUN_PAGE_READ_MAIN",
+    "network_calls_by_materializer": 0
+  }
+}

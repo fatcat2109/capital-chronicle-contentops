@@ -1,0 +1,542 @@
+{
+  "accepted_source_count": 1,
+  "admitted_candidate_count": 1,
+  "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+      ],
+      "article_mode": "EVERGREEN_EXPLAINER",
+      "blockers": [],
+      "candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "EVERGREEN_EXPLAINER",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "CFTC Economic Purpose Futures Markets hedging farmer offset spot margin daily mark to market",
+        "CFTC standardized futures delivery location grade performance bond variation margin"
+      ],
+      "selection_rationale": "Nguồn CFTC Economic Purpose được thừa nhận mới có cơ chế vượt hai định nghĩa của cơ hội cũ: nông dân bán futures, offset và bán hàng spot, hợp đồng chuẩn hóa cùng ký quỹ/mark-to-market hằng ngày. Góc mới giải thích rủi ro kinh doanh và nhu cầu tiền mặt, khác bài Goal26 về quyền sở hữu, khoản vay và lưu ký kim loại. Có ích như nền, không phải tin mới hay diễn giải vị thế hiện tại.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 22,
+  "candidate_limit": 32,
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-21T11:45:42.087403Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 2,
+    "observations": [
+      {
+        "invocation_id": "/root/goal31_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native /root/goal31_sol_light followup, inherited assigned gpt-6.1-sol / low; UUID and usage not exposed.",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal31_futures_sol_max",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native collaboration.spawn_agent /root/goal31_futures_sol_max with gpt-6.1-sol / max. Output file saved before quota error and independently read back by root; UUID/usage not exposed.",
+        "reasoning_effort": "max",
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low",
+      "max"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 2,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.cftc.gov",
+    "primary_reporting_source_identity": "www.cftc.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal31-futures-economic-purpose"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal31_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native /root/goal31_sol_light followup, inherited assigned gpt-6.1-sol / low; UUID and usage not exposed.",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "c7b0b3073ef1a133882094a522d05f3687adb1277f99f38fbbd0eb02423c38b6",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "f7ae967150a530feffa4d4f3ab48533eea8730ce7e17fe2008ba0c1797ada315",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal31_futures_sol_max",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native collaboration.spawn_agent /root/goal31_futures_sol_max with gpt-6.1-sol / max. Output file saved before quota error and independently read back by root; UUID/usage not exposed.",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "9c53dd9fd5a7e57ea2257dee17b7b809e7c9d139989575d3fcebb0db049d1330",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "1372eafb03566fd20c930e787c0ad6bd0fb7a798986227ba39d25eee12078a5b",
+      "role": "write",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "write"
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "goal31-futures-economic-purpose"
+    ],
+    "accepted_evidence_sha256": "8fb74c4edd21a223cf11ef3e87060d27307097c9fdf7857fdb6dc424a94e67b6",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "072c4d22f8747ea0c7c8a741ea5693081d537069dfb85cf4e299e8c0057e67de",
+    "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "90c6d884693c44d294df5155f3a309a83d7013dd1426f724698d179b16621599",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "4e2a277dffe0783ab6c9ba778b3972bd4322bb13c8eb3187e3a4c483c805e297",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "1e6cf31609f36b2e5496d1e281d0a2cee3409b61ddd49e9bfe8d45ce7ea55a29",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "7b74838371cfd919b7519d308b2a11881fabea6da3d9efbc3aea75656df7d6a1",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "2e4d180a0e48f42dfca5bea5f524c444454c2afc19336a3eea4f713f5c1497c9",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "24791ab4f05911cdfb4fac43e71103572c5b0cb6d21358b5ce53a17a1a033283",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "52cc51a336748e15ed64a1c2e8154152da700b1a4aac5ab6d2abd414de1a8bc2",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "21754bc1a38c434a920273420239a62e2c80f8ba8dd8f60f25d0903dd42520b8",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "37917654a20bb7de0d1924e76821598b01c9c60507d10c85b712d1655add2a38",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "www.cftc.gov",
+      "primary_reporting_source_identity": "www.cftc.gov",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+      "report_truth_support_status": "SUPPORTED_PRIMARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal31-futures-economic-purpose"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow",
+    "package_identity": "b5892d21556f472b347df85f9e5df164cd10c26a2b2e537141d16714423e93dc",
+    "plan_hash": "317d2b0689a0ce924a214951ebac9cad43e8bce8d70aa45afd2d6368017c58f0",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal31-futures-cashflow"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "EVERGREEN_EXPLAINER",
+    "run_id": "goal31-futures-cashflow",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow\\qualified_article_record_v1.json",
+  "revision_performed": false,
+  "run_id": "goal31-futures-cashflow",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal31-futures-economic-purpose",
+    "headline_text": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+    "official_source_urls": [
+      "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+    ],
+    "public_source_urls": [
+      "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T11:42:01.992100Z",
+    "source_account": "www.cftc.gov",
+    "source_platform": "",
+    "source_timestamp_utc": "",
+    "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "BOUNDED_DISCOVERY",
+      "known_access_risk": false,
+      "known_official_path": false,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+    "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+  },
+  "selected_plan_entry": {
+    "angle": "Phòng hộ giúp ổn định việc kinh doanh nhưng tài khoản futures vẫn có thể cần tiền mặt: phải đọc tài sản thực và dòng ký quỹ ở hai thời điểm khác nhau.",
+    "article_mode": "EVERGREEN_EXPLAINER",
+    "candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+    "evidence_plan": "Resolver hiện hữu dùng exact admitted goal31-futures-economic-purpose, raw SHA và canonical text đã chụp; ngày xuất bản NOT_VERIFIED, không lấy ngày truy xuất làm ngày công bố. Ràng buộc cơ chế vào các phần Futures Contracts, Exchanges, Margin và ví dụ nông dân: bán futures để giảm bất định giá hàng thực; có thể offset rồi bán hàng tại chỗ; ký quỹ là bảo đảm thực hiện, vị thế được mark-to-market hằng ngày và có thể cần bổ sung tiền. Tách kết quả tổng thể của hàng thực cộng vị thế với tiền trong tài khoản futures trước lúc bán hàng; nêu đây là phép giải thích có điều kiện theo ví dụ, không đảm bảo hedge hoàn hảo. Phản đề: chuẩn hóa hỗ trợ thanh khoản/phòng hộ nhưng địa điểm, phẩm cấp và thời điểm của hàng thực có thể không trùng hợp đồng; nguồn minh họa việc tránh giao hàng vì vận chuyển. Không tuyên bố đo được mức lệch hay tình trạng thiếu tài trợ. Phép kiểm/falsifier cho trường hợp cụ thể: cần tài sản/rủi ro được hedge, khối lượng và kỳ bán hàng, điều khoản hợp đồng/địa điểm/phẩm cấp, lịch tiền nhận được và tiền ký quỹ phải nộp; không có chúng thì rút mọi kết luận rằng hedge ấy giảm rủi ro tổng thể hoặc đủ tiền duy trì. Không tự tính ví dụ, không đưa tỷ lệ ký quỹ hay cỡ hợp đồng trong tài liệu thành thông số hiện hành. Không áp dụng câu chung về forward vào mọi hợp đồng; không thêm kiến thức luật/settlement chưa có nguồn. Giữ HOLD suy vị thế hiện tại thành dự báo: chưa có mục đích kinh tế cụ thể, chain/IV/OI cùng kỳ. Code sở hữu mọi số/phép tính; không lời khuyên giao dịch, xác suất hay dự báo.",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "primary_reader_question": "Vì sao người sản xuất đã phòng hộ rủi ro giá vẫn có thể phải nộp thêm tiền cho vị thế futures trước khi bán hàng thực?",
+    "research_queries": [
+      "CFTC Economic Purpose Futures Markets hedging farmer offset spot margin daily mark to market",
+      "CFTC standardized futures delivery location grade performance bond variation margin"
+    ],
+    "selection_rationale": "Nguồn CFTC Economic Purpose được thừa nhận mới có cơ chế vượt hai định nghĩa của cơ hội cũ: nông dân bán futures, offset và bán hàng spot, hợp đồng chuẩn hóa cùng ký quỹ/mark-to-market hằng ngày. Góc mới giải thích rủi ro kinh doanh và nhu cầu tiền mặt, khác bài Goal26 về quyền sở hữu, khoản vay và lưu ký kim loại. Có ích như nền, không phải tin mới hay diễn giải vị thế hiện tại."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Phòng hộ giúp ổn định việc kinh doanh nhưng tài khoản futures vẫn có thể cần tiền mặt: phải đọc tài sản thực và dòng ký quỹ ở hai thời điểm khác nhau.",
+        "article_mode": "EVERGREEN_EXPLAINER",
+        "candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+        "evidence_plan": "Resolver hiện hữu dùng exact admitted goal31-futures-economic-purpose, raw SHA và canonical text đã chụp; ngày xuất bản NOT_VERIFIED, không lấy ngày truy xuất làm ngày công bố. Ràng buộc cơ chế vào các phần Futures Contracts, Exchanges, Margin và ví dụ nông dân: bán futures để giảm bất định giá hàng thực; có thể offset rồi bán hàng tại chỗ; ký quỹ là bảo đảm thực hiện, vị thế được mark-to-market hằng ngày và có thể cần bổ sung tiền. Tách kết quả tổng thể của hàng thực cộng vị thế với tiền trong tài khoản futures trước lúc bán hàng; nêu đây là phép giải thích có điều kiện theo ví dụ, không đảm bảo hedge hoàn hảo. Phản đề: chuẩn hóa hỗ trợ thanh khoản/phòng hộ nhưng địa điểm, phẩm cấp và thời điểm của hàng thực có thể không trùng hợp đồng; nguồn minh họa việc tránh giao hàng vì vận chuyển. Không tuyên bố đo được mức lệch hay tình trạng thiếu tài trợ. Phép kiểm/falsifier cho trường hợp cụ thể: cần tài sản/rủi ro được hedge, khối lượng và kỳ bán hàng, điều khoản hợp đồng/địa điểm/phẩm cấp, lịch tiền nhận được và tiền ký quỹ phải nộp; không có chúng thì rút mọi kết luận rằng hedge ấy giảm rủi ro tổng thể hoặc đủ tiền duy trì. Không tự tính ví dụ, không đưa tỷ lệ ký quỹ hay cỡ hợp đồng trong tài liệu thành thông số hiện hành. Không áp dụng câu chung về forward vào mọi hợp đồng; không thêm kiến thức luật/settlement chưa có nguồn. Giữ HOLD suy vị thế hiện tại thành dự báo: chưa có mục đích kinh tế cụ thể, chain/IV/OI cùng kỳ. Code sở hữu mọi số/phép tính; không lời khuyên giao dịch, xác suất hay dự báo.",
+        "primary_reader_question": "Vì sao người sản xuất đã phòng hộ rủi ro giá vẫn có thể phải nộp thêm tiền cho vị thế futures trước khi bán hàng thực?",
+        "research_queries": [
+          "CFTC Economic Purpose Futures Markets hedging farmer offset spot margin daily mark to market",
+          "CFTC standardized futures delivery location grade performance bond variation margin"
+        ],
+        "selection_rationale": "Nguồn CFTC Economic Purpose được thừa nhận mới có cơ chế vượt hai định nghĩa của cơ hội cũ: nông dân bán futures, offset và bán hàng spot, hợp đồng chuẩn hóa cùng ký quỹ/mark-to-market hằng ngày. Góc mới giải thích rủi ro kinh doanh và nhu cầu tiền mặt, khác bài Goal26 về quyền sở hữu, khoản vay và lưu ký kim loại. Có ích như nền, không phải tin mới hay diễn giải vị thế hiện tại."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một explainer nền về rủi ro giá và nhu cầu tiền mặt, có source delta thực so với cơ hội futures-purpose đã ABSTAIN. Giữ quyết định cũ và HOLD nhận định thị trường hiện tại; không thêm fallback cho đủ số.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "semantic_response_count": 2,
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 22,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 32,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

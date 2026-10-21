@@ -1,0 +1,125 @@
+{
+  "accepted_evidence_ids": [
+    "goal28-company-reading",
+    "goal31-sec-machine-data"
+  ],
+  "accepted_evidence_sha256": "49224d73c720a780e578d4f7991e3111d3e552d7001db3fd762b8dbb74655447",
+  "article": {
+    "editorial_scope_notice": "Source date: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis.",
+    "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "native_brief_layout": true,
+    "social_cross_asset_summary": "Câu hỏi để đổi cách nhìn của CC là: có phép thử đối chiếu được với tài liệu gốc, nêu rõ lỗi và giới hạn, cho thấy công cụ giữ đúng kỳ, phạm vi và giả định hay chưa? Một tọa đàm được lên lịch chưa trả lời được câu hỏi ấy.",
+    "social_hook": "SEC lên lịch bàn dữ liệu máy hiểu. Câu hỏi của CC: phần diễn giải đã giữ đúng kỳ, phạm vi và giả định của con số chưa?",
+    "social_mechanism_summary": "Phân tích CC: nếu công cụ giữ con số nhưng bỏ kỳ, phạm vi hoặc giả định đi kèm, câu trả lời có thể đổi nghĩa dù chép đúng giá trị. Phép kiểm hữu ích là trở lại đoạn công bố đã tạo ra kết luận ấy.",
+    "social_policy_summary": "Phản đề của CC: một công cụ giữ nguyên ngữ cảnh và chỉ đúng chỗ cần đối chiếu có thể giúp người đọc kiểm tra tốt hơn. Khi đánh giá nó, cần xét chất lượng kiểm chứng cùng thời gian sử dụng. Thông báo SEC chưa cung cấp phép đo đó.",
+    "substack_body_markdown": "Khi máy đọc được công bố doanh nghiệp, người đọc còn phải kiểm điều gì trước khi tin phần diễn giải? Theo cách nhìn của Capital Chronicle, điều cần kiểm là mối nối giữa kết luận với kỳ dữ liệu, phạm vi chỉ tiêu và các giả định tạo ra con số. **CONFIRMED:** SEC đã thông báo sẽ tổ chức tọa đàm về dữ liệu máy có thể hiểu và Super Intelligence (SI) vào ngày 9/11/2026. Thông báo mở ra câu hỏi về cách sử dụng dữ liệu; nó chưa cho biết một công cụ phân tích đã làm tốt đến đâu.  \n\nTrong thông báo, SEC đặt chất lượng thông tin bên cạnh việc sử dụng dữ liệu máy có thể hiểu và SI, cùng các rủi ro và chi phí liên quan. Cơ quan cho biết phản hồi của các thành viên thị trường sẽ giúp nhân viên SEC hiểu cách thị trường và công chúng đầu tư sử dụng những dữ liệu này cho các giải pháp SI. SI là thuật ngữ thông báo dùng; việc nêu thuật ngữ ấy chưa phải kết quả đánh giá năng lực của một hệ thống cụ thể. \n\nThông báo tạo câu hỏi, chưa cung cấp đáp án\n\nĐiều mới ở đây là SEC công bố một cuộc thảo luận dự kiến diễn ra, với cách dùng, rủi ro và chi phí nằm trong nội dung. Phần nguồn được cung cấp không công bố quy định mới, không đưa ra kết quả thử nghiệm công cụ và không lượng hóa lợi ích hay chi phí. Dùng lịch tọa đàm để khẳng định công nghệ đã cải thiện chất lượng phân tích sẽ đi xa hơn bằng chứng hiện có. \n\nLuận điểm của CC là cần đánh giá cả bước từ dữ liệu sang kết luận. Nếu công cụ đưa ra nhận định về kết quả kinh doanh, người đọc cần biết nhận định ấy dựa trên kết quả của kỳ nào, dùng chỉ tiêu nào và còn phụ thuộc vào xét đoán nào. Những câu hỏi đó giúp kiểm chính phần diễn giải, thay vì dừng ở việc xác nhận công cụ đã lấy được một giá trị trong tài liệu. \n\nMột giá trị đúng có thể đi vào phép so sánh sai\n\nHướng dẫn lịch sử của SEC về cách đọc 10-K cung cấp một lý do để giữ bước kiểm này. Tài liệu mô tả MD&A — phần thảo luận và phân tích của ban lãnh đạo — là nơi doanh nghiệp trình bày góc nhìn về kết quả năm tài chính đã qua bằng lời của mình. Hướng dẫn cũng nhắc tới xu hướng, bất định và các xét đoán kế toán như ước tính, giả định. Vì vậy, bản diễn giải cần giữ được sự phân biệt giữa kết quả được trình bày và cách ban lãnh đạo giải thích kết quả ấy. Đây là cách đọc của CC từ hướng dẫn, không phải một phát hiện về doanh nghiệp hiện tại. \n\nPhân tích CC: nếu công cụ giữ con số nhưng bỏ kỳ, phạm vi hoặc giả định đi kèm, câu trả lời có thể đổi nghĩa dù chép đúng giá trị. Phép kiểm hữu ích là trở lại đoạn công bố đã tạo ra kết luận ấy. \n\nVới kỳ dữ liệu, hãy hỏi phần diễn giải đang nói về kết quả năm tài chính đã qua hay nhận định về xu hướng và bất định. Hai nội dung ấy không trả lời cùng một câu hỏi. Nếu bản tóm tắt gom chúng thành lời khẳng định về hiện tại, cần quay lại câu chữ gốc. Đây là phép kiểm CC đề xuất từ mô tả của SEC, chưa phải lỗi đã được phát hiện ở công cụ hay công ty nào. \n\nVới phạm vi, hãy hỏi chỉ tiêu trong phần diễn giải có giữ đúng định nghĩa và những khoản được tính vào hay loại ra không. Hướng dẫn lịch sử phân biệt chỉ tiêu non-GAAP với GAAP và mô tả việc đối chiếu giữa chúng. Suy luận của CC là tên chỉ tiêu được công cụ lặp lại chưa đủ để kết luận các kết quả có thể so trực tiếp; phần giải thích chỉ tiêu vẫn cần đi cùng dữ liệu. \n\nVới ước tính, hãy hỏi điều gì đã tạo ra thay đổi của con số. Hướng dẫn SEC lưu ý xét đoán kế toán và thay đổi xét đoán so với các năm trước có thể ảnh hưởng đáng kể tới tài sản, chi phí và lợi nhuận ròng. Theo phân tích CC, nếu phần diễn giải quy thay đổi kết quả cho hoạt động kinh doanh mà bỏ qua thay đổi giả định đã được công bố, cần kiểm lại cơ sở của kết luận. Câu hỏi này không mặc định doanh nghiệp thao túng số liệu, cũng không mặc định mọi thay đổi kết quả đều do kế toán. \n\nPhản đề: giữ được ngữ cảnh là một lợi ích cần thử\n\nPhản đề của CC: một công cụ giữ nguyên ngữ cảnh và chỉ đúng chỗ cần đối chiếu có thể giúp người đọc kiểm tra tốt hơn. Khi đánh giá nó, cần xét chất lượng kiểm chứng cùng thời gian sử dụng. Thông báo SEC chưa cung cấp phép đo đó. \n\nMột cách thử công bằng do CC đề xuất là yêu cầu công cụ đưa kết luận kèm đoạn công bố làm căn cứ, rồi đối chiếu xem nó có giữ đúng kỳ, giải thích chỉ tiêu và điều kiện của ước tính hay không. Cần ghi cả chỗ làm được và chỗ còn phải sửa, thay vì dùng một câu trả lời thuận mắt để đại diện cho toàn bộ năng lực. Hướng dẫn về báo cáo tài chính giúp xác định nội dung cần đối chiếu; nó không phải nghiên cứu đánh giá công cụ. \n\nBằng chứng nào đủ đổi cách nhìn?\n\nCâu hỏi để đổi cách nhìn của CC là: có phép thử đối chiếu được với tài liệu gốc, nêu rõ lỗi và giới hạn, cho thấy công cụ giữ đúng kỳ, phạm vi và giả định hay chưa? Một tọa đàm được lên lịch chưa trả lời được câu hỏi ấy.  \n\nNếu bằng chứng kiểm chứng được cho thấy một công cụ xử lý đáng tin cậy những mối nối đó, CC sẽ giảm mức hoài nghi về việc dùng nó cho đúng loại công việc đã được thử. Nếu công cụ chỉ tìm đúng con số nhưng phần giải thích vẫn bỏ điều kiện quan trọng, kết luận về ích lợi cần giới hạn ở khả năng tìm thông tin. Đây là điều kiện để sửa đánh giá của CC; bộ nguồn hiện tại chưa cho phép chọn giữa hai khả năng.  \n\nBước thực hành cho người đọc là giữ lại một kết luận muốn sử dụng, đoạn nguồn dẫn tới kết luận đó và câu hỏi còn bỏ ngỏ về kỳ, định nghĩa hoặc giả định. Nếu chưa nối được các phần ấy, hãy coi phần diễn giải là điều cần kiểm tiếp. Dấu vết này giúp người đọc xác định mình đang tin dữ kiện nào và đang chấp nhận cách giải thích nào — đúng trọng tâm chất lượng thông tin mà cuộc thảo luận được SEC công bố đặt ra.  \n\nNguồn và thời điểm\n\nMốc đọc bộ nguồn: 21/10/2026. Thông báo SEC có ngày phát hành 19/10/2026; giờ phát hành không được cung cấp trong phần nguồn. Ngày 9/11/2026 là ngày tọa đàm dự kiến, chưa phải một sự kiện đã diễn ra trong bộ nguồn này. Bài sử dụng phần văn bản thông báo được giữ lại, chưa có biên bản, kết quả tọa đàm hay nghiên cứu đo hiệu quả công cụ. \n\nHướng dẫn 10-K được giữ lại làm bối cảnh lịch sử và phương pháp đọc; đoạn trích được cấp không cung cấp ngày hoặc giờ phát hành. Bài không dùng hướng dẫn đó để xác nhận yêu cầu kê khai hiện hành. Tài liệu này cũng không phải nguồn xác nhận độc lập cho lịch tọa đàm, và bộ nguồn không chứa dữ liệu của một doanh nghiệp cụ thể để đánh giá kết quả kinh doanh hay chất lượng công bố hiện tại. ",
+    "subtitle": "CONFIRMED: SEC công bố tọa đàm dự kiến ngày 9/11/2026 về dữ liệu máy hiểu và SI. Câu hỏi của CC: trước khi tin phần diễn giải, người đọc còn cần đối chiếu điều gì?",
+    "title": "CONFIRMED | SEC lên lịch tọa đàm dữ liệu máy hiểu: người đọc cần kiểm gì? [Source 2026-10-19]"
+  },
+  "article_content_sha256": "8396ce7d0ea12b708870d8ddc70c2b9ccc31e342be432af472922957d4928e41",
+  "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+  "compiler_input_sha256": "5235c1dbf333b46605605bbdd8d10449bfc565917037e72dbc5348724866374f",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+    "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal31-sec-machine-data"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "media": {
+    "assets": [
+      {
+        "ai_generated_image": false,
+        "alt_text": "Thẻ tài liệu SEC: ngày thông báo 19/10/2026, tọa đàm dự kiến 9/11 về machine-understandable data, rủi ro và chi phí.",
+        "article_section": "source_record",
+        "asset_id": "official_source_document_card",
+        "canonical_article_section_association": "source_record",
+        "caption": "Thông báo SEC ngày 19/10/2026 về tọa đàm dự kiến ngày 9/11. Nội dung thảo luận gồm cách dùng dữ liệu máy hiểu, rủi ro và chi phí; chưa phải kết quả đánh giá hiệu quả.",
+        "chart_title": "SEC roundtable: machine-understandable data, U.S. Securities and Exchange Commission. Source date: 19 October…",
+        "dimensions": {
+          "height": 900,
+          "width": 1600
+        },
+        "evidence_dimension": "official_document_identity",
+        "height": 900,
+        "is_avatar": false,
+        "is_logo": false,
+        "is_manipulated": false,
+        "is_synthetic": false,
+        "is_thumbnail": false,
+        "media_class": "source_backed_render",
+        "media_role": "lead_source_document_card",
+        "modality": "source_document_card",
+        "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading\\media_assets\\source_document_card.png",
+        "provenance_status": "SOURCE_BACKED",
+        "publication_date": "19 October 2026; roundtable planned for 9 November",
+        "publisher": "U.S. Securities and Exchange Commission",
+        "relevance_rationale": "Establishes the exact official record the grounded article reports.",
+        "render_rights_status": "capital_chronicle_owned",
+        "rights_status": "capital_chronicle_owned",
+        "role": "lead_contextual",
+        "sha256": "ed1832d41bcc3225e01379d8c393f1314cf820a4cdd9e08ec910edd57febc5c5",
+        "source": "U.S. Securities and Exchange Commission",
+        "source_label": "U.S. Securities and Exchange Commission",
+        "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+        "source_reuse_basis": "explicit_governed_government_public_domain",
+        "supports_headline": true,
+        "underlying_series_ids": [],
+        "underlying_source_rights_status": "public_domain",
+        "width": 1600
+      }
+    ],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "goal31-company-machine-reading",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal31-sec-machine-data",
+    "headline_text": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+    "official_source_urls": [
+      "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+    ],
+    "public_source_urls": [
+      "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T11:14:06.426000Z",
+    "source_account": "U.S. Securities and Exchange Commission",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-19T00:00:00Z",
+    "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": false,
+      "known_official_path": true,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-182cbc812476b1abee25b1c8",
+    "update_chain_identity": "simple-story-182cbc812476b1abee25b1c8"
+  }
+}

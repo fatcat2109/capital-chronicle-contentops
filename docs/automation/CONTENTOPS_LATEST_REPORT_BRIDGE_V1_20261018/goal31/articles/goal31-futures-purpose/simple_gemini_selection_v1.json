@@ -1,0 +1,60 @@
+{
+  "candidate_count": 21,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "f7f991b96555f4867ded886229ce6d762c30d6f8bea56a3df3d69f7ad0fc1328",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal31_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "Actual native collaboration.spawn_agent /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed.",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "7e7d002c2e9f06ecc999d0c44c6adb00c8bd03026541c699131230c716dd4ed9",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "166d49fda7c4986efdef5eb38793984880a5f1c3829d7ba7d5324aa640b51d0c",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "ABSTAIN cho đúng cơ hội futures-purpose: frozen governed pool không chứa goal21-futures-hedgers hoặc goal21-futures-option. Hai định nghĩa nền được giữ trong thư viện không tự trở thành candidate được phép chọn; chưa đủ nguồn cho một bài cơ chế mới sâu và hữu ích vượt bài kim loại/lưu ký đã có. Không chọn đề tài khác để lấp cơ hội này, không tạo ID. HOLD mọi suy luận vị thế hiện tại thành dự báo giá; không có dữ liệu hợp đồng, mục đích kinh tế hay thị trường hiện tại.",
+    "status": "ABSTAIN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-purpose\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 21,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

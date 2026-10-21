@@ -16,7 +16,7 @@ ENDPOINT = "/api/daily-app/editorial-review"
 SOURCE_REVIEW = "internal:native-story-source-review"
 
 
-def record_owner_edition(store, *, edition_id, title, operation_ids, held_candidates=()):
+def record_owner_edition(store, *, edition_id, title, operation_ids, held_candidates=(), opportunity_outcomes=()):
     """Group owner-requested articles in the existing outbox, without allocating work."""
     from live_contentops.capital_chronicle_report_feed_v1 import _persist
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
@@ -26,6 +26,16 @@ def record_owner_edition(store, *, edition_id, title, operation_ids, held_candid
     value = {"schema_version": "contentops.native_owner_edition.v1", "edition_id": edition_id,
              "title": title, "operation_ids": list(operation_ids), "held_candidates": list(held_candidates),
              "publication_authority": False}
+    if opportunity_outcomes:
+        held_ids = {h.get("operation_id") for h in held_candidates}
+        if (len(opportunity_outcomes) > 8 or _private(opportunity_outcomes)
+                or len({o.get("operation_id") for o in opportunity_outcomes}) != len(opportunity_outcomes)
+                or any(o.get("outcome") not in {"NEW", "UPDATE", "KEEP", "HOLD"}
+                       or not o.get("reason") or type(o.get("source_blocked")) is not bool
+                       or o.get("operation_id") not in (held_ids if o.get("outcome") == "HOLD" else set(operation_ids))
+                       for o in opportunity_outcomes)):
+            raise ValueError("EXACT_EDITION_OPPORTUNITY_OUTCOMES_REQUIRED")
+        value["opportunity_outcomes"] = list(opportunity_outcomes)
     _persist(store, "native-owner-edition-" + sha256_of(value), value, "internal:native-owner-edition")
     return value
 

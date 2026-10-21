@@ -111,6 +111,7 @@ _NEWS_PEG_TOPIC_GROUPS = (
     frozenset({"financing", "capital", "mou", "mous", "platform", "platforms"}),
     frozenset({"pce", "inflation", "income", "outlays", "spending", "price"}),
     frozenset({"imf", "chile", "credit", "fcl", "arrangement"}),
+    frozenset({"futures", "hedging", "collateral"}),
 )
 _NEWS_PEG_STOPWORDS = frozenset({
     "about", "after", "amid", "and", "despite", "from", "future", "into", "more",
@@ -1222,7 +1223,9 @@ def _peg_terms(value: Any) -> set[str]:
     }
     # A Vietnamese lead may express the exact selected topic without English keywords.
     for phrase, topic in (("lạm phát", "inflation"), ("chi tiêu", "spending"), ("thu nhập", "income"),
-                          ("doanh thu", "revenue"), ("lợi nhuận", "earnings"), ("tài trợ", "financing")):
+                          ("doanh thu", "revenue"), ("lợi nhuận", "earnings"), ("tài trợ", "financing"),
+                          ("dữ liệu", "data"), ("tọa đàm", "roundtable"),
+                          ("phòng hộ", "hedging"), ("hợp đồng tương lai", "futures")):
         if re.search(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", normalized):
             terms.add(topic)
     return terms

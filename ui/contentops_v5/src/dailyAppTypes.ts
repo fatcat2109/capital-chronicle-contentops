@@ -361,7 +361,9 @@ export interface ReportWorkspaceData {
   main_admission_summary?: Array<{ report_id: string; report_version: number; report_sha256: string; claims: number;
     native_public_excerpts: number; provenance_state: string; independent_native_runtime_verified: boolean; known_at_cutoff_utc: string | null }>;
   owner_edition?: { edition_id: string; title: string; operation_ids: string[]; ready: number; held: number; missing: number;
-    preview_count: number; held_candidates: Array<{ title: string; reason: string }> } | null;
+    preview_count: number; held_candidates: Array<{ title: string; reason: string }>;
+    opportunity_counts?: { new: number; update: number; keep: number; hold: number; source_blocked: number };
+    opportunity_outcomes?: Array<{ operation_id: string; outcome: string; reason: string; source_blocked: boolean }> } | null;
   source_reviews?: Array<{ review_id: string; run_id: string; title: string; decision: string; reader_change_summary: string;
     cutoff_utc: string; invalidates_prepared_review: boolean; media_state: string; removed_main_claim_ids: string[];
     source_editions: Array<{ item_id: string; proposition: string; source_url: string; published_at_utc: string | null;

@@ -40,3 +40,6 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal29/verification/
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal30/** -text whitespace=cr-at-eol
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal30/verification/** binary
 config/main_legacy_public_parent_recovery_v1.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/source_editions/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/verification*.txt binary

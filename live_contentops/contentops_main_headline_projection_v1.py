@@ -79,10 +79,13 @@ def project_headline(
     retrieved = row.get("retrieval_time_utc") or row.get("captured_at_utc")
     published = row.get("headline_timestamp") or row.get("published_at_utc")
     revision = row.get("revision_at_utc") or known
+    undated_background = (published is None
+                          and row.get("source_platform") == "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION"
+                          and str((row.get("research_metadata") or {}).get("context_kind", "")).startswith("UNDATED_FOUNDATION_BACKGROUND"))
     try:
         if _time(retrieved) > _time(cutoff_utc) or _time(revision) > _time(cutoff_utc):
             return None, "FUTURE_HEADLINE_DEFERRED"
-        if not (_time(published) <= _time(known) <= _time(retrieved)) or _time(
+        if (not undated_background and _time(published) > _time(known)) or _time(known) > _time(retrieved) or _time(
             revision
         ) < _time(known):
             return None, "HEADLINE_CLOCK_ORDER_OR_FUTURE"
@@ -105,6 +108,7 @@ def project_headline(
         "source_url": url,
         "claimed_origins": [url],
         "headline_timestamp": published,
+        **({"publication_clock_basis": "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME"} if undated_background else {}),
         "captured_at_utc": known,
         "known_at_utc": known,
         "retrieval_time_utc": retrieved,
@@ -229,7 +233,7 @@ class MainHeadlineExporter:
     ) -> dict[str, Any]:
         if not 1 <= max_rows <= 1000 or not 1 <= max_files <= 16:
             raise ValueError("headline_export_bound_invalid")
-        authority_revision += ":verified-permission-records-v2:main-native-utf8-seal-v1:" + (self.research.revision if self.research else "sealed-main-only")
+        authority_revision += ":verified-permission-records-v2:main-native-utf8-seal-v1:undated-foundation-v1:" + (self.research.revision if self.research else "sealed-main-only")
         identity = "headline-export-" + sha256_of(batch_id)
         previous = self.store.get_outbox_message(identity)
         if previous:

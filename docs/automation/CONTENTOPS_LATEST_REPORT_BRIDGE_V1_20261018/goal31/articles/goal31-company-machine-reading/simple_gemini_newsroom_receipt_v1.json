@@ -1,0 +1,544 @@
+{
+  "accepted_source_count": 2,
+  "admitted_candidate_count": 1,
+  "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 2,
+      "accepted_source_urls": [
+        "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+        "https://www.sec.gov/answers/reada10k.htm"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "SEC October 19 2026 roundtable machine-understandable data Super Intelligence risks costs November 9",
+        "SEC reading 10-K MD&A accounting judgments financial statements"
+      ],
+      "selection_rationale": "Câu hỏi mới so với bài Goal28 về đọc MD&A bằng báo cáo tài chính. Thông báo ngày 19/10 cho tọa đàm dự kiến 9/11 tạo mốc thời sự có nguồn; giá trị là phân biệt khả năng sử dụng dữ liệu với chất lượng và kết quả được kiểm chứng. Không lặp bài 10-K hoặc tạo tin doanh nghiệp hiện tại.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 21,
+  "candidate_limit": 32,
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-21T11:14:34.000737Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 2,
+    "observations": [
+      {
+        "invocation_id": "/root/goal31_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native collaboration.spawn_agent returned canonical task /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed.",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal31_sol_max_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native spawn task /root/goal31_sol_max_writer with gpt-6.1-sol / max; output file saved and read back before quota error. UUID/usage not exposed.",
+        "reasoning_effort": "max",
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low",
+      "max"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 2,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+    "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal31-sec-machine-data"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal31_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native collaboration.spawn_agent returned canonical task /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed.",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "0f80d25fa8b40a8e4b786f1a09990dbcd03a89bf4398d82962bfb30b539201d7",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "4c88d97e994a59a98a88ee6c67b62d93f7aafada0bbc4004c21888b585ae21eb",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal31_sol_max_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native spawn task /root/goal31_sol_max_writer with gpt-6.1-sol / max; output file saved and read back before quota error. UUID/usage not exposed.",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "f82e1a364e3b32efb39f79a0598b8f792a7546416fc59711bf73c5b867e9fcb4",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "afbc0a25dc2a08315ee98f9eef1e2135e60a7d9ec95a9b43dc359542a47194b7",
+      "role": "write",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "write"
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "goal28-company-reading",
+      "goal31-sec-machine-data"
+    ],
+    "accepted_evidence_sha256": "49224d73c720a780e578d4f7991e3111d3e552d7001db3fd762b8dbb74655447",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "8396ce7d0ea12b708870d8ddc70c2b9ccc31e342be432af472922957d4928e41",
+    "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "5235c1dbf333b46605605bbdd8d10449bfc565917037e72dbc5348724866374f",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "d72f4fb45837c57ec8f6e6e261d9e66e1d4aadf44b2f7881d802dfdc9c8d5d7e",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "0037dd3828ba2cbbac02acf5032ec64544d40c996fb16995aef0be6e1cb18b31",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "b41ddbf7c4c9ffe79656114c843eed97131a52c1c2fa10a209bda43a297ad317",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "cf330f0a6a39af3f76f72db943f01125a23778e526f973e521cb7512fbb00187",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "85575a093ed2c18fd596778f7085c984e409d919c940ab4b5b4f8edfc5ff2f83",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "503126cfe6fe67b60fa3a38172b6cea262937661bba22bfa062637e3e7db056b",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "e84e363037ff49349a70129c071837a3c689c12275b71bbb5b924ebedd4bd10a",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "23ac59956b6de2b5e64301e1d033f7394bfc7ed49af35e557d64cc690e9870c9",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+      "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+      "report_truth_support_status": "SUPPORTED_PRIMARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal31-sec-machine-data"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading",
+    "package_identity": "acf4a93b085de9693ee72005421b29100ea5a7bb043a0a3ea3ff11639e9e8d67",
+    "plan_hash": "01f7c0f0a96dc16520d20a52b06f40bb3b4d2ede42555244ce9af79798eefbb6",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal31-company-machine-reading"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "run_id": "goal31-company-machine-reading",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-182cbc812476b1abee25b1c8",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "update_chain_identity": "simple-story-182cbc812476b1abee25b1c8"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading\\qualified_article_record_v1.json",
+  "revision_performed": false,
+  "run_id": "goal31-company-machine-reading",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal31-sec-machine-data",
+    "headline_text": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+    "official_source_urls": [
+      "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+    ],
+    "public_source_urls": [
+      "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T11:14:06.426000Z",
+    "source_account": "U.S. Securities and Exchange Commission",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-19T00:00:00Z",
+    "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": false,
+      "known_official_path": true,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-182cbc812476b1abee25b1c8",
+    "update_chain_identity": "simple-story-182cbc812476b1abee25b1c8"
+  },
+  "selected_plan_entry": {
+    "angle": "Máy đọc được công bố doanh nghiệp đặt lại câu hỏi về chất lượng thông tin: thông báo tọa đàm SEC mở thảo luận về cách dùng, rủi ro và chi phí, chưa chứng minh kết quả phân tích.",
+    "article_mode": "DATA_OR_DOCUMENT_LENS",
+    "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+    "evidence_plan": "Resolver hiện hữu dùng exact admitted text goal31-sec-machine-data: xác nhận ngày thông báo 19/10, tọa đàm dự kiến 9/11, mục đích thảo luận cách dùng dữ liệu máy hiểu cùng rủi ro và chi phí. Dùng goal28-company-reading chỉ như hướng dẫn lịch sử, không như dữ liệu doanh nghiệp mới hoặc bằng chứng kết quả AI. Tách việc tiếp nhận dữ liệu, lời quản trị trong MD&A, nhận định về xu hướng/ước tính và phần kiểm chứng; mọi tiêu chí chất lượng/cùng kỳ/phạm vi chỉ là câu hỏi kiểm cần thực hiện, không nói đã phát hiện lỗi. Phản đề: công cụ có thể hữu ích dù người đọc vẫn cần đối chiếu, nhưng thông báo không đo hiệu quả. Giới hạn/falsifier: nếu nguồn chỉ công bố tọa đàm thì rút mọi suy luận về quy định mới, lợi ích đã đo, chi phí cụ thể hoặc năng lực AI đã chứng minh; muốn thay đổi đánh giá cần kết quả/biên bản hoặc nghiên cứu có phương pháp và bằng chứng đối chiếu, hiện chưa có. Code sở hữu số và phép tính; không tự tạo ví dụ số, dữ liệu công ty, dự báo hay xác suất. Giữ claim nguồn và phân tích CC phân biệt.",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "primary_reader_question": "Khi máy đọc được dữ liệu công bố doanh nghiệp, người đọc còn cần đối chiếu điều gì trước khi tin phần diễn giải?",
+    "research_queries": [
+      "SEC October 19 2026 roundtable machine-understandable data Super Intelligence risks costs November 9",
+      "SEC reading 10-K MD&A accounting judgments financial statements"
+    ],
+    "selection_rationale": "Câu hỏi mới so với bài Goal28 về đọc MD&A bằng báo cáo tài chính. Thông báo ngày 19/10 cho tọa đàm dự kiến 9/11 tạo mốc thời sự có nguồn; giá trị là phân biệt khả năng sử dụng dữ liệu với chất lượng và kết quả được kiểm chứng. Không lặp bài 10-K hoặc tạo tin doanh nghiệp hiện tại."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Máy đọc được công bố doanh nghiệp đặt lại câu hỏi về chất lượng thông tin: thông báo tọa đàm SEC mở thảo luận về cách dùng, rủi ro và chi phí, chưa chứng minh kết quả phân tích.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+        "evidence_plan": "Resolver hiện hữu dùng exact admitted text goal31-sec-machine-data: xác nhận ngày thông báo 19/10, tọa đàm dự kiến 9/11, mục đích thảo luận cách dùng dữ liệu máy hiểu cùng rủi ro và chi phí. Dùng goal28-company-reading chỉ như hướng dẫn lịch sử, không như dữ liệu doanh nghiệp mới hoặc bằng chứng kết quả AI. Tách việc tiếp nhận dữ liệu, lời quản trị trong MD&A, nhận định về xu hướng/ước tính và phần kiểm chứng; mọi tiêu chí chất lượng/cùng kỳ/phạm vi chỉ là câu hỏi kiểm cần thực hiện, không nói đã phát hiện lỗi. Phản đề: công cụ có thể hữu ích dù người đọc vẫn cần đối chiếu, nhưng thông báo không đo hiệu quả. Giới hạn/falsifier: nếu nguồn chỉ công bố tọa đàm thì rút mọi suy luận về quy định mới, lợi ích đã đo, chi phí cụ thể hoặc năng lực AI đã chứng minh; muốn thay đổi đánh giá cần kết quả/biên bản hoặc nghiên cứu có phương pháp và bằng chứng đối chiếu, hiện chưa có. Code sở hữu số và phép tính; không tự tạo ví dụ số, dữ liệu công ty, dự báo hay xác suất. Giữ claim nguồn và phân tích CC phân biệt.",
+        "primary_reader_question": "Khi máy đọc được dữ liệu công bố doanh nghiệp, người đọc còn cần đối chiếu điều gì trước khi tin phần diễn giải?",
+        "research_queries": [
+          "SEC October 19 2026 roundtable machine-understandable data Super Intelligence risks costs November 9",
+          "SEC reading 10-K MD&A accounting judgments financial statements"
+        ],
+        "selection_rationale": "Câu hỏi mới so với bài Goal28 về đọc MD&A bằng báo cáo tài chính. Thông báo ngày 19/10 cho tọa đàm dự kiến 9/11 tạo mốc thời sự có nguồn; giá trị là phân biệt khả năng sử dụng dữ liệu với chất lượng và kết quả được kiểm chứng. Không lặp bài 10-K hoặc tạo tin doanh nghiệp hiện tại."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn một góc tài liệu mới có ích; không thêm fallback trùng bài đang giữ. Chỉ là lựa chọn nghiên cứu riêng tư.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "semantic_response_count": 2,
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 21,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 33,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

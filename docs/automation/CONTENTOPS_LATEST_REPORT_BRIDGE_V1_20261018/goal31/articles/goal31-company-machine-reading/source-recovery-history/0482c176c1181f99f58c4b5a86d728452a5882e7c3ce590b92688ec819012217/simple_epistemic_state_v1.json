@@ -1,0 +1,26 @@
+{
+  "adapter_changes_proposition_not_evidence_authority": true,
+  "analysis_must_be_conditional": false,
+  "authority_granted_by_adapter": false,
+  "event_confirmation_state": "CONFIRMED",
+  "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+  "event_truth_support_status": "SUPPORTED_PRIMARY",
+  "event_truth_supported": true,
+  "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+  "origin_character": "ON_RECORD",
+  "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+  "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+  "public_write_authority": false,
+  "reader_visible_epistemic_label": "CONFIRMED",
+  "relay_source_identity": null,
+  "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+  "report_truth_support_status": "SUPPORTED_PRIMARY",
+  "report_truth_supported": true,
+  "schema_version": "contentops.v1_simple_epistemic_state.v1",
+  "selected_route": "OFFICIAL_PRIMARY",
+  "source_multiplicity": "SINGLE_SOURCE",
+  "supporting_document_ids": [
+    "goal31-sec-machine-data"
+  ],
+  "underlying_event_may_be_stated_as_confirmed": true
+}

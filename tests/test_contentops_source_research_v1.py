@@ -167,6 +167,27 @@ def test_real_retained_bytes_and_policy_then_local_tamper(tmp_path):
     assert broken.gaps[0]["state"] == "SOURCE_CAPTURE_HASH_MISMATCH"
 
 
+@pytest.mark.parametrize("missing_identity", [None, ""])
+def test_verified_frozen_record_without_loader_id_reaches_source_pack(missing_identity):
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _source_pack
+
+    research = RetainedSourceResearch(ROOT)
+    selected, context = list(research.records)[:2]
+    for identity in (selected, context):
+        research.records[identity]["document"]["document_id"] = missing_identity
+    resumed = RetainedSourceResearch.from_frozen_snapshot(research.frozen_snapshot())
+    request = {"headline_ids": [selected], "cluster_id": "frozen-record-identity",
+               "retained_supporting_headline_ids": [context]}
+    evidence = resumed.evidence(request, cutoff_utc=NOW)
+    assert evidence["status"] == "PASS"
+    pack = _source_pack(evidence["evidence_documents"])
+    assert [p["document_id"] for p in pack] == [selected, context]
+    assert pack[0]["canonical_content_text"] == research.records[selected]["permitted_source_text"]
+    assert evidence["evidence_documents"][1]["context_only"] is True
+    assert evidence["provenance"]["request_count_for_call"] == 0
+    assert evidence["publication_authority"] is False
+
+
 def test_mixed_independent_main_recirculation_and_restart(tmp_path):
     f = feed(tmp_path)
     research = RetainedSourceResearch(ROOT)

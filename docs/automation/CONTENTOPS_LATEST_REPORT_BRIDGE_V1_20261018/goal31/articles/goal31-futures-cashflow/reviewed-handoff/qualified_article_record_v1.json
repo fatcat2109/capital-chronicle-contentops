@@ -1,0 +1,529 @@
+{
+  "accepted_evidence_ids": [
+    "goal31-futures-economic-purpose"
+  ],
+  "accepted_evidence_sha256": "8fb74c4edd21a223cf11ef3e87060d27307097c9fdf7857fdb6dc424a94e67b6",
+  "article_body_sha256": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+  "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+  "article_path": null,
+  "attempt_run_id": "goal31-futures-cashflow",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "official_source_document_card"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\nWhat to watch: N\u1ebfu h\u00e0ng th\u1ef1c kh\u00f4ng t\u1ea1o \u0111\u01b0\u1ee3c kho\u1ea3n b\u00f9 nh\u01b0 gi\u1ea3 \u0111\u1ecbnh, ho\u1eb7c ti\u1ec1n kh\u00f4ng v\u1ec1 k\u1ecbp ngh\u0129a v\u1ee5 k\u00fd qu\u1ef9, ph\u1ea3i r\u00fat k\u1ebft lu\u1eadn hedge v\u1eeba gi\u1ea3m r\u1ee7i ro v\u1eeba \u0111\u1ee7 s\u1ee9c duy tr\u00ec.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-178a461911427a95\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "fbb8aba1356ec7d46b6cd9c2c1f7379c43b876a7a74fe32dca65857ba06a6cd7",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-178a461911427a95\n\nWatch: N\u1ebfu h\u00e0ng th\u1ef1c kh\u00f4ng t\u1ea1o \u0111\u01b0\u1ee3c kho\u1ea3n b\u00f9 nh\u01b0 gi\u1ea3 \u0111\u1ecbnh, ho\u1eb7c ti\u1ec1n kh\u00f4ng v\u1ec1 k\u1ecbp ngh\u0129a v\u1ee5 k\u00fd qu\u1ef9, ph\u1ea3i r\u00fat k\u1ebft lu\u1eadn hedge v\u1eeba gi\u1ea3m r\u1ee7i ro v\u1eeba \u0111\u1ee7 s\u1ee9c duy tr\u00ec.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-178a461911427a95"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: N\u1ebfu h\u00e0ng th\u1ef1c kh\u00f4ng t\u1ea1o \u0111\u01b0\u1ee3c kho\u1ea3n b\u00f9 nh\u01b0 gi\u1ea3 \u0111\u1ecbnh, ho\u1eb7c ti\u1ec1n kh\u00f4ng v\u1ec1 k\u1ecbp ngh\u0129a v\u1ee5 k\u00fd qu\u1ef9, ph\u1ea3i r\u00fat k\u1ebft lu\u1eadn hedge v\u1eeba gi\u1ea3m r\u1ee7i ro v\u1eeba \u0111\u1ee7 s\u1ee9c duy tr\u00ec.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.771,
+            0.864
+          ],
+          "post_character_counts": [
+            216,
+            242
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.893,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: N\u1ebfu h\u00e0ng th\u1ef1c kh\u00f4ng t\u1ea1o \u0111\u01b0\u1ee3c kho\u1ea3n b\u00f9 nh\u01b0 gi\u1ea3 \u0111\u1ecbnh, ho\u1eb7c ti\u1ec1n kh\u00f4ng v\u1ec1 k\u1ecbp ngh\u0129a v\u1ee5 k\u00fd qu\u1ef9, ph\u1ea3i r\u00fat k\u1ebft lu\u1eadn hedge v\u1eeba gi\u1ea3m r\u1ee7i ro v\u1eeba \u0111\u1ee7 s\u1ee9c duy tr\u00ec.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-178a461911427a95",
+        "text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-178a461911427a95"
+      },
+      "payload_sha256": "bcbf9113c6458d40ef96d728fdf1b310961836b9e034d815b9554c08aaddb92f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]**\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\n**Context:** Ph\u1ea3n \u0111\u1ec1 c\u1ee7a CC: n\u1ebfu h\u1ee3p \u0111\u1ed3ng b\u00e1m s\u00e1t r\u1ee7i ro h\u00e0ng th\u1ef1c v\u00e0 c\u00f3 ngu\u1ed3n ti\u1ec1n \u0111\u00e1p \u1ee9ng k\u00fd qu\u1ef9 \u0111\u00fang l\u00fac, hedge v\u1eabn c\u00f3 th\u1ec3 h\u1eefu \u00edch.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-178a461911427a95\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "7b74838371cfd919b7519d308b2a11881fabea6da3d9efbc3aea75656df7d6a1",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\nWhy it matters: Ph\u00e2n t\u00edch CC: n\u1ebfu gi\u00e1 t\u0103ng tr\u01b0\u1edbc khi b\u00e1n l\u00faa m\u00ec, v\u1ecb th\u1ebf futures b\u00e1n c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n k\u00fd qu\u1ef9 trong l\u00fac doanh thu h\u00e0ng ch\u01b0a v\u1ec1.\n\nContext: Ph\u1ea3n \u0111\u1ec1 c\u1ee7a CC: n\u1ebfu h\u1ee3p \u0111\u1ed3ng b\u00e1m s\u00e1t r\u1ee7i ro h\u00e0ng th\u1ef1c v\u00e0 c\u00f3 ngu\u1ed3n ti\u1ec1n \u0111\u00e1p \u1ee9ng k\u00fd qu\u1ef9 \u0111\u00fang l\u00fac, hedge v\u1eabn c\u00f3 th\u1ec3 h\u1eefu \u00edch.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-178a461911427a95\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "2e4d180a0e48f42dfca5bea5f524c444454c2afc19336a3eea4f713f5c1497c9",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\nWhy it matters: Ph\u00e2n t\u00edch CC: n\u1ebfu gi\u00e1 t\u0103ng tr\u01b0\u1edbc khi b\u00e1n l\u00faa m\u00ec, v\u1ecb th\u1ebf futures b\u00e1n c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n k\u00fd qu\u1ef9 trong l\u00fac doanh thu h\u00e0ng ch\u01b0a v\u1ec1.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-178a461911427a95\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "24791ab4f05911cdfb4fac43e71103572c5b0cb6d21358b5ce53a17a1a033283",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\nIn focus: Ph\u1ea3n \u0111\u1ec1 c\u1ee7a CC: n\u1ebfu h\u1ee3p \u0111\u1ed3ng b\u00e1m s\u00e1t r\u1ee7i ro h\u00e0ng th\u1ef1c v\u00e0 c\u00f3 ngu\u1ed3n ti\u1ec1n \u0111\u00e1p \u1ee9ng k\u00fd qu\u1ef9 \u0111\u00fang l\u00fac, hedge v\u1eabn c\u00f3 th\u1ec3 h\u1eefu \u00edch.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-178a461911427a95\n\n#CapitalChronicle\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "52cc51a336748e15ed64a1c2e8154152da700b1a4aac5ab6d2abd414de1a8bc2",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a CC: n\u1ebfu h\u1ee3p \u0111\u1ed3ng b\u00e1m s\u00e1t r\u1ee7i ro h\u00e0ng th\u1ef1c v\u00e0 c\u00f3 ngu\u1ed3n ti\u1ec1n \u0111\u00e1p \u1ee9ng k\u00fd qu\u1ef9 \u0111\u00fang l\u00fac, hedge v\u1eabn c\u00f3 th\u1ec3 h\u1eefu \u00edch.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-178a461911427a95\n\nWhat to watch: N\u1ebfu h\u00e0ng th\u1ef1c kh\u00f4ng t\u1ea1o \u0111\u01b0\u1ee3c kho\u1ea3n b\u00f9 nh\u01b0 gi\u1ea3 \u0111\u1ecbnh, ho\u1eb7c ti\u1ec1n kh\u00f4ng v\u1ec1 k\u1ecbp ngh\u0129a v\u1ee5 k\u00fd qu\u1ef9, ph\u1ea3i r\u00fat k\u1ebft lu\u1eadn hedge v\u1eeba gi\u1ea3m r\u1ee7i ro v\u1eeba \u0111\u1ee7 s\u1ee9c duy tr\u00ec.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a CC: n\u1ebfu h\u1ee3p \u0111\u1ed3ng b\u00e1m s\u00e1t r\u1ee7i ro h\u00e0ng th\u1ef1c v\u00e0 c\u00f3 ngu\u1ed3n ti\u1ec1n \u0111\u00e1p \u1ee9ng k\u00fd qu\u1ef9 \u0111\u00fang l\u00fac, hedge v\u1eabn c\u00f3 th\u1ec3 h\u1eefu \u00edch.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-178a461911427a95"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: N\u1ebfu h\u00e0ng th\u1ef1c kh\u00f4ng t\u1ea1o \u0111\u01b0\u1ee3c kho\u1ea3n b\u00f9 nh\u01b0 gi\u1ea3 \u0111\u1ecbnh, ho\u1eb7c ti\u1ec1n kh\u00f4ng v\u1ec1 k\u1ecbp ngh\u0129a v\u1ee5 k\u00fd qu\u1ef9, ph\u1ea3i r\u00fat k\u1ebft lu\u1eadn hedge v\u1eeba gi\u1ea3m r\u1ee7i ro v\u1eeba \u0111\u1ee7 s\u1ee9c duy tr\u00ec.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.56,
+            0.5
+          ],
+          "post_character_counts": [
+            280,
+            250
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.893,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: N\u1ebfu h\u00e0ng th\u1ef1c kh\u00f4ng t\u1ea1o \u0111\u01b0\u1ee3c kho\u1ea3n b\u00f9 nh\u01b0 gi\u1ea3 \u0111\u1ecbnh, ho\u1eb7c ti\u1ec1n kh\u00f4ng v\u1ec1 k\u1ecbp ngh\u0129a v\u1ee5 k\u00fd qu\u1ef9, ph\u1ea3i r\u00fat k\u1ebft lu\u1eadn hedge v\u1eeba gi\u1ea3m r\u1ee7i ro v\u1eeba \u0111\u1ee7 s\u1ee9c duy tr\u00ec.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a CC: n\u1ebfu h\u1ee3p \u0111\u1ed3ng b\u00e1m s\u00e1t r\u1ee7i ro h\u00e0ng th\u1ef1c v\u00e0 c\u00f3 ngu\u1ed3n ti\u1ec1n \u0111\u00e1p \u1ee9ng k\u00fd qu\u1ef9 \u0111\u00fang l\u00fac, hedge v\u1eabn c\u00f3 th\u1ec3 h\u1eefu \u00edch.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-178a461911427a95",
+        "text": "CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a CC: n\u1ebfu h\u1ee3p \u0111\u1ed3ng b\u00e1m s\u00e1t r\u1ee7i ro h\u00e0ng th\u1ef1c v\u00e0 c\u00f3 ngu\u1ed3n ti\u1ec1n \u0111\u00e1p \u1ee9ng k\u00fd qu\u1ef9 \u0111\u00fang l\u00fac, hedge v\u1eabn c\u00f3 th\u1ec3 h\u1eefu \u00edch.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-178a461911427a95"
+      },
+      "payload_sha256": "80c54b708e1a2327d9bbdaaf896a3d039c65ac8fa070e02fdc0a6f942a972d64",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CONFIRMED | Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t [Source undated]\n\n\u0110\u00e3 hedge r\u1ee7i ro gi\u00e1, v\u00ec sao v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t?\n\nWhat to watch: N\u1ebfu h\u00e0ng th\u1ef1c kh\u00f4ng t\u1ea1o \u0111\u01b0\u1ee3c kho\u1ea3n b\u00f9 nh\u01b0 gi\u1ea3 \u0111\u1ecbnh, ho\u1eb7c ti\u1ec1n kh\u00f4ng v\u1ec1 k\u1ecbp ngh\u0129a v\u1ee5 k\u00fd qu\u1ef9, ph\u1ea3i r\u00fat k\u1ebft lu\u1eadn hedge v\u1eeba gi\u1ea3m r\u1ee7i ro v\u1eeba \u0111\u1ee7 s\u1ee9c duy tr\u00ec.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-178a461911427a95\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "37917654a20bb7de0d1924e76821598b01c9c60507d10c85b712d1655add2a38",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal31_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual native /root/goal31_sol_light followup, inherited assigned gpt-6.1-sol / low; UUID and usage not exposed.",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal31_futures_sol_max",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual native collaboration.spawn_agent /root/goal31_futures_sol_max with gpt-6.1-sol / max. Output file saved before quota error and independently read back by root; UUID/usage not exposed.",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "Futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.cftc.gov",
+    "primary_reporting_source_identity": "www.cftc.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in \u201chedging\u201d in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal31-futures-economic-purpose"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-21-bangkok",
+  "parent_window_id": "goal31-futures-cashflow",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "806acbc6df0012ad9b8208e69483b002269a9e8a54e351ba03403567ab5e3e06",
+  "resolved_article_mode": "EVERGREEN_EXPLAINER",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+  "title": "Ph\u00f2ng h\u1ed9 b\u1eb1ng futures v\u1eabn c\u00f3 th\u1ec3 c\u1ea7n th\u00eam ti\u1ec1n m\u1eb7t",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+}

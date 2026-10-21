@@ -1,0 +1,243 @@
+{
+  "admitted_candidate_count": 1,
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "SEC October 19 2026 roundtable machine-understandable data Super Intelligence risks costs November 9",
+        "SEC reading 10-K MD&A accounting judgments financial statements"
+      ],
+      "selection_rationale": "Câu hỏi mới so với bài Goal28 về đọc MD&A bằng báo cáo tài chính. Thông báo ngày 19/10 cho tọa đàm dự kiến 9/11 tạo mốc thời sự có nguồn; giá trị là phân biệt khả năng sử dụng dữ liệu với chất lượng và kết quả được kiểm chứng. Không lặp bài 10-K hoặc tạo tin doanh nghiệp hiện tại.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "codex_runtime_model_calls_before_writer": null,
+  "evidence_attempts": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "provenance": {
+        "read_only_http_get_only": true,
+        "request_count_for_call": 0,
+        "retained_research_revision": "509425d3a6456f2d44252994a5a3081ed3a67395c8edfe900423f38f1f4ed395",
+        "selected_route": "OFFICIAL_PRIMARY"
+      },
+      "request": {
+        "cluster_id": "simple-story-182cbc812476b1abee25b1c8",
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "evidence_enrichment_context": {
+          "requested": true
+        },
+        "headline_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "remaining_admitted_candidate_count": 0,
+        "request_logical_hash": "da2332e6418222525dd50cbefa1db30bc6a9c4952d12127de657e1a02a419b0b",
+        "requested_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "required_evidence_capabilities": [
+          "credible_report_or_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "story_context": {
+          "candidate_packet_locators_grant_factual_authority": false,
+          "candidate_source_account": "U.S. Securities and Exchange Commission",
+          "candidate_source_timestamp_utc": "2026-10-19T00:00:00Z",
+          "candidate_source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+          "evolving_story_context": [],
+          "grounded_research_queries": [
+            "SEC October 19 2026 roundtable machine-understandable data Super Intelligence risks costs November 9",
+            "SEC reading 10-K MD&A accounting judgments financial statements"
+          ],
+          "leaf_summaries": [
+            "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”"
+          ],
+          "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
+          "planned_research_query_count": 2,
+          "planned_research_query_set_sha256": "bd7db20b8b26c6502fec4b5569799184b284eb1aecf77891ac74a85614c523d5",
+          "public_source_url_bindings": [
+            {
+              "headline_id": "goal31-sec-machine-data",
+              "source_timestamp_utc": "2026-10-19T00:00:00Z",
+              "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+            }
+          ],
+          "report_provenance": {
+            "arbitrary_x_list_membership_grants_authority": false,
+            "attributed_reputable_sources": [],
+            "canonical_x_list_provenance": {},
+            "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+            "explicit_market_rumor": false,
+            "explicit_reputable_attribution": false,
+            "owner_curated_canonical_x_record": false,
+            "preferred_route": "DEFAULT_SHORTEST_GOVERNED_ROUTE",
+            "primary_reporting_publisher": null,
+            "primary_reporting_source_identity": null,
+            "report_or_event_authority_granted": false,
+            "report_proposition": null,
+            "schema_version": "contentops.v1_simple_candidate_report_provenance.v1",
+            "source_account": "u.s. securities and exchange commission",
+            "source_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+            "trusted_relay_identity_approved": false
+          }
+        },
+        "story_evidence_scope_id": "simple-story-182cbc812476b1abee25b1c8",
+        "story_type": "selected_current_news"
+      },
+      "research_queries": [
+        "SEC October 19 2026 roundtable machine-understandable data Super Intelligence risks costs November 9",
+        "SEC reading 10-K MD&A accounting judgments financial statements"
+      ],
+      "selection_rationale": "Câu hỏi mới so với bài Goal28 về đọc MD&A bằng báo cáo tài chính. Thông báo ngày 19/10 cho tọa đàm dự kiến 9/11 tạo mốc thời sự có nguồn; giá trị là phân biệt khả năng sử dụng dữ liệu với chất lượng và kết quả được kiểm chứng. Không lặp bài 10-K hoặc tạo tin doanh nghiệp hiện tại.",
+      "source_pack": [
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "2721c1d10fdb7819f9e271332c29f0ba2100ab1b49d53273779407bcfc9c36d2",
+          "canonical_content_text": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+          "canonical_resolution_status": "",
+          "document_id": "goal31-sec-machine-data",
+          "published_at_source": "VISIBLE_RELEASE_DATE",
+          "published_at_utc": "2026-10-19T00:00:00Z",
+          "publisher": "U.S. Securities and Exchange Commission",
+          "report_truth_only": false,
+          "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+          "secondary_listing_only": false,
+          "source_authority_class": "official_public_primary_source",
+          "source_id": "SOURCE_1",
+          "source_identity": "U.S. Securities and Exchange Commission",
+          "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+        }
+      ],
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "model_calls_before_writer": 1,
+  "public_write_performed": false,
+  "request_count": 0,
+  "request_limit": 6,
+  "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
+  "selected_candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+  "selected_epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+    "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal31-sec-machine-data"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "2721c1d10fdb7819f9e271332c29f0ba2100ab1b49d53273779407bcfc9c36d2",
+      "canonical_content_text": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+      "canonical_resolution_status": "",
+      "document_id": "goal31-sec-machine-data",
+      "published_at_source": "VISIBLE_RELEASE_DATE",
+      "published_at_utc": "2026-10-19T00:00:00Z",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+      "secondary_listing_only": false,
+      "source_authority_class": "official_public_primary_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "U.S. Securities and Exchange Commission",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+    }
+  ],
+  "status": "PASS",
+  "updated_source_route_health": {}
+}

@@ -1,0 +1,31 @@
+{
+  "method": "ACTUAL_BROWSEROS_NEO_RENDERED_REACT_COMPONENT_AND_VIEWED_SCREENSHOTS",
+  "desktop_width": 1200,
+  "mobile_width": 390,
+  "mobile_scroll_width": 390,
+  "new_articles_read_in_full": 2,
+  "new_previews_read_in_full": 16,
+  "prepared_preview_text_unchanged_from_read_initial": true,
+  "media_inspected": 2,
+  "final_ready_articles": 3,
+  "current_previews": 24,
+  "new_current_opportunity_articles": 2,
+  "retained_current_articles": 1,
+  "held_scope": 1,
+  "missing": 0,
+  "current_images_loaded": 3,
+  "screenshots": [
+    "sec-desktop-active.jpeg",
+    "sec-mobile.jpeg",
+    "futures-desktop.jpeg",
+    "futures-mobile.jpeg",
+    "edition-desktop.jpeg"
+  ],
+  "failure_history": {
+    "sec-desktop.jpeg": "BLANK_CAPTURE_NOT_ACCEPTANCE_EVIDENCE",
+    "initial_screenshot_timeouts": "Page.captureScreenshot timed out while inactive; active lifecycle/device metrics fixed compositor. No fallback browser used."
+  },
+  "facts_and_inference_separate": true,
+  "source_dates_and_unknowns_retained": true,
+  "public_writes": 0
+}

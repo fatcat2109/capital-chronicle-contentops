@@ -53,6 +53,8 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
     <p>Luồng biên tập đích: Luna MAX lọc headline → 6.1 Sol Light chọn góc và chuẩn bị nguồn → 6.1 Sol MAX viết bài và SEO, tối đa một lượt sửa cùng writer. Lịch production giữ pause; chỉ bằng chứng thực thi mới xác nhận model đã chạy.</p>
     <header><span>Editorial workspace</span><h2>{current?.title ?? 'Capital Chronicle report → article → previews'}</h2></header>
     {current && <section aria-label="Tình trạng ấn bản"><p><strong>{current.ready} bài sẵn đọc · {current.held} đề tài giữ chờ · {current.missing} bài còn thiếu</strong> · {current.preview_count} bản xem trước · chưa xuất bản.</p>
+      {current.opportunity_counts && <p aria-label="Kết quả cơ hội biên tập">{current.opportunity_counts.new} bài mới · {current.opportunity_counts.update} cập nhật · {current.opportunity_counts.keep} giữ nguyên · {current.opportunity_counts.hold} giữ chờ · {current.opportunity_counts.source_blocked} thiếu nguồn (trong các quyết định trên). Bài giữ nguyên không tính là bài mới.</p>}
+      {current.opportunity_outcomes?.map(o => <p key={o.operation_id}>{o.reason}</p>)}
       {current.held_candidates.map((h, i) => <details key={i}><summary>Giữ chờ: {h.title}</summary><p>{h.reason}</p></details>)}
       <nav aria-label="Mục lục ấn bản">{articles?.map(a => <p key={a.article_identity}><a href={'#article-' + a.article_identity}>{a.article.title}</a></p>)}</nav>
     </section>}

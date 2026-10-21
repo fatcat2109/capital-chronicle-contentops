@@ -1,0 +1,394 @@
+{
+  "schema_version": "contentops.main_headline_projection.v1",
+  "sequence": 22,
+  "parent_page_sha256": "4422b6ee13cc3779b83b10c5ab769a0e24ddee7cebf301b134b37a0806a56f33",
+  "authority_revision": "retained-record-permissions-v1:verified-permission-records-v2:main-native-utf8-seal-v1:undated-foundation-v1:e5865d6dbae8d76743d0f7f40114156a21d9f3d289d6eecfadff4084fd1ba91c",
+  "batch_id": "goal31-permitted-undated-foundation-context",
+  "observed_at_utc": "2026-10-21T12:07:07.813317Z",
+  "rows": [
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-metals-leverage",
+      "headline_text": "Structured so you only pay a small percentage (between 15% and 25%) of the total purchase price. Full price paid by a loan, that the company arranges, to finance the rest of your purchase. Claims that the company will store the precious metals for you in a storage facility or “bank”. Frequent Problems Often do not use your money to purchase metals at any time. Do not actually arrange for loan financing with an independent financial institution, but charge phony interest . Do not store metal with an independent bank or storage facility, but charge storage fees. Fraudulently fail to point out that because you are not paying the full price for the metals, you will have to send the company additional funds if prices move unfavorably.",
+      "text_sha256": "ded6ce6c10de13af839d61b649919824c960e790543be040b40bf6dfacc4f6ba",
+      "source_identity": "www.cftc.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.cftc.gov",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_preciousmetals.html",
+      "claimed_origins": [
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_preciousmetals.html"
+      ],
+      "headline_timestamp": null,
+      "publication_clock_basis": "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME",
+      "captured_at_utc": "2026-10-19T09:14:54.562Z",
+      "known_at_utc": "2026-10-19T09:14:54.562Z",
+      "retrieval_time_utc": "2026-10-19T09:14:54.562Z",
+      "revision_at_utc": "2026-10-19T09:15:58.668Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "metals"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "INDEPENDENT_RETAINED_SOURCE",
+        "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc"
+      },
+      "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "research_context": {
+        "family": "METALS",
+        "assets": [
+          "XAUUSD",
+          "XAGUSD"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+        "source_modified_at_utc": null
+      },
+      "revision_clock_basis": "CAPTURE_ADMISSION_TIME_PUBLISHER_REVISION_NOT_VERIFIED",
+      "source_permission_record_sha256": "87868196632fa46c130708d5ca21bff9bb7667e8989d47994f51abd421e3252f",
+      "projection_sha256": "4bf51935590acf2b283029960ff6913e4fbd3b23517e893658f2005969cd4027"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-metals-custody",
+      "headline_text": "Agreement that does not identify where the physical metal is located. Claims to deliver the physical metal to an overseas storage facility.",
+      "text_sha256": "26137cfcb7091f0c8cccbd0e6780232894738df2eef19f4765846d1273fd5e23",
+      "source_identity": "www.cftc.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.cftc.gov",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_preciousmetals.html",
+      "claimed_origins": [
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_preciousmetals.html"
+      ],
+      "headline_timestamp": null,
+      "publication_clock_basis": "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME",
+      "captured_at_utc": "2026-10-19T09:14:54.562Z",
+      "known_at_utc": "2026-10-19T09:14:54.562Z",
+      "retrieval_time_utc": "2026-10-19T09:14:54.562Z",
+      "revision_at_utc": "2026-10-19T09:15:58.668Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "metals"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "INDEPENDENT_RETAINED_SOURCE",
+        "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc"
+      },
+      "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "research_context": {
+        "family": "METALS",
+        "assets": [
+          "XAUUSD",
+          "XAGUSD"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+        "source_modified_at_utc": null
+      },
+      "revision_clock_basis": "CAPTURE_ADMISSION_TIME_PUBLISHER_REVISION_NOT_VERIFIED",
+      "source_permission_record_sha256": "9880b6d431f11dd8001c38fdbd431422731e7ad1d69a0e4f78d0cdbd8747163e",
+      "projection_sha256": "169599e743e6a3069147b93ae952ad5bf850d5247cae267c21fa525f3418316e"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-futures-option",
+      "headline_text": "A commodity futures option gives the purchaser the right to buy or sell a particular futures contract at a future date for a particular price",
+      "text_sha256": "881885cceffcf51108c8a8b099ed65dff8517cfdf54aef50c90b817ad371e11f",
+      "source_identity": "www.cftc.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.cftc.gov",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+      "claimed_origins": [
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm"
+      ],
+      "headline_timestamp": null,
+      "publication_clock_basis": "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME",
+      "captured_at_utc": "2026-10-19T09:17:57.714Z",
+      "known_at_utc": "2026-10-19T09:17:57.714Z",
+      "retrieval_time_utc": "2026-10-19T09:17:57.714Z",
+      "revision_at_utc": "2026-10-19T09:17:57.714Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "index_options"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "INDEPENDENT_RETAINED_SOURCE",
+        "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6"
+      },
+      "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "research_context": {
+        "family": "INDEX_OPTIONS",
+        "assets": [
+          "INDEX_FUTURES",
+          "COMMODITY_OPTIONS"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+        "source_modified_at_utc": null
+      },
+      "revision_clock_basis": "CAPTURE_ADMISSION_TIME_PUBLISHER_REVISION_NOT_VERIFIED",
+      "source_permission_record_sha256": "ab46d3625fe7f7d333997b1fe3adea40392a2f10fb1127e9159a978932766308",
+      "projection_sha256": "698317d82deda7365210f903bed6adbe9384f66625965dba275c195caec884fd"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal21-futures-hedgers",
+      "headline_text": "Most participants are “hedgers” who trade futures to maximize the value of their assets, and to reduce the risk of financial losses from price changes Other participants are “speculators” who attempt to profit from price changes in futures contracts",
+      "text_sha256": "85c2f8aad59c459ea6b4c4818c71f6aab2a7d9350e1eaa120d5489e237f362e7",
+      "source_identity": "www.cftc.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.cftc.gov",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+      "claimed_origins": [
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm"
+      ],
+      "headline_timestamp": null,
+      "publication_clock_basis": "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME",
+      "captured_at_utc": "2026-10-19T09:17:57.714Z",
+      "known_at_utc": "2026-10-19T09:17:57.714Z",
+      "retrieval_time_utc": "2026-10-19T09:17:57.714Z",
+      "revision_at_utc": "2026-10-19T09:17:57.714Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "index_options"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "INDEPENDENT_RETAINED_SOURCE",
+        "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6"
+      },
+      "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "research_context": {
+        "family": "INDEX_OPTIONS",
+        "assets": [
+          "INDEX_FUTURES",
+          "COMMODITY_FUTURES"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+        "source_modified_at_utc": null
+      },
+      "revision_clock_basis": "CAPTURE_ADMISSION_TIME_PUBLISHER_REVISION_NOT_VERIFIED",
+      "source_permission_record_sha256": "03e6f6aa2d2f9eb21b925de8a3ff3a3f3d13abc46dbfc28bb664a1570cb94d9c",
+      "projection_sha256": "2b2b1a1289f3b058fc34c95c95d1aafa247d4b751c731469008b03b432907566"
+    },
+    {
+      "schema_version": "contentops.main_headline_projection.v1",
+      "headline_id": "goal31-futures-economic-purpose",
+      "headline_text": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+      "text_sha256": "cbd29c7240388139fc8a9bae79662b8703ee3fddbd8c7a48fba4a4544d5f1208",
+      "source_identity": "www.cftc.gov",
+      "source_platform": "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION",
+      "reporting_identity": "www.cftc.gov",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+      "claimed_origins": [
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+      ],
+      "headline_timestamp": null,
+      "publication_clock_basis": "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME",
+      "captured_at_utc": "2026-10-21T11:42:01.992100Z",
+      "known_at_utc": "2026-10-21T11:42:01.992100Z",
+      "retrieval_time_utc": "2026-10-21T11:42:01.992100Z",
+      "revision_at_utc": "2026-10-21T11:42:01.992100Z",
+      "rights_state": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "provider_safe": true
+      },
+      "rights_evidence_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "allowed_consumers": [
+        "internal_research",
+        "narrative_context"
+      ],
+      "permitted_uses": [
+        "INTERNAL_ATTRIBUTED_REPORT_CONTEXT"
+      ],
+      "public_republication_authority": false,
+      "numeric_authority_granted": false,
+      "report_truth_only": true,
+      "underlying_event_truth_granted": false,
+      "candidate_catalyst_tags": [
+        "index_options"
+      ],
+      "context_only": true,
+      "source_record_locator": {
+        "retained_authority": "INDEPENDENT_RETAINED_SOURCE",
+        "source_capture_sha256": "4c97b22a32d718a1b02c2a08502d5570a7ed57282a5f5c3bc62d01514156fb2d"
+      },
+      "source_capture_sha256": "4c97b22a32d718a1b02c2a08502d5570a7ed57282a5f5c3bc62d01514156fb2d",
+      "upstream_report_lineage": null,
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "correction_of": null,
+      "research_context": {
+        "family": "INDEX_OPTIONS",
+        "assets": [
+          "COMMODITY_FUTURES",
+          "BUSINESS_HEDGE"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND_NOT_CURRENT_CONTRACT_SPECIFICATION",
+        "source_modified_at_utc": null
+      },
+      "revision_clock_basis": "CAPTURE_ADMISSION_TIME_PUBLISHER_REVISION_NOT_VERIFIED",
+      "source_permission_record_sha256": "22ad8a681fdc811d16f9aa631434b69acdc3e0c4acaa56f6cd528576bbb6f9b3",
+      "projection_sha256": "c8e129d2cb4486a2e6b5095108f622a3da68f29cd89e716431e052bb1a3f9231"
+    }
+  ],
+  "gaps": [
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "headline_id": "goal21-sec-tenk-scope",
+      "record_sha256": "2e473aabdd2db7ae03395ed7b734c32b3b67a131fc38bc61d2ac4ba1c6b78ef7"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "headline_id": "goal27-oil-original",
+      "record_sha256": "91a1b224ae09adc4f258c8c61fccd36ee2f7efb3c2147b23253c920504d8293c"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "headline_id": "goal28-company-reading",
+      "record_sha256": "911985229428dc2894acadd71331a8a7f99d323553ff75bba2ca6153a8710496"
+    }
+  ],
+  "source_rows_scanned": 0,
+  "eligible_rows": 5,
+  "missing_rows": 3,
+  "independent_items": 5,
+  "main_origin_recirculated_items": 0,
+  "change_dispositions": [
+    {
+      "headline_id": "goal21-metals-leverage",
+      "change_kind": "NEW_PROPOSITION",
+      "previous_projection_sha256": null,
+      "projection_sha256": "4bf51935590acf2b283029960ff6913e4fbd3b23517e893658f2005969cd4027",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "new_independent_observation": true,
+      "material_context_change": true
+    },
+    {
+      "headline_id": "goal21-metals-custody",
+      "change_kind": "NEW_PROPOSITION",
+      "previous_projection_sha256": null,
+      "projection_sha256": "169599e743e6a3069147b93ae952ad5bf850d5247cae267c21fa525f3418316e",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "new_independent_observation": true,
+      "material_context_change": true
+    },
+    {
+      "headline_id": "goal21-futures-option",
+      "change_kind": "NEW_PROPOSITION",
+      "previous_projection_sha256": null,
+      "projection_sha256": "698317d82deda7365210f903bed6adbe9384f66625965dba275c195caec884fd",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "new_independent_observation": true,
+      "material_context_change": true
+    },
+    {
+      "headline_id": "goal21-futures-hedgers",
+      "change_kind": "NEW_PROPOSITION",
+      "previous_projection_sha256": null,
+      "projection_sha256": "2b2b1a1289f3b058fc34c95c95d1aafa247d4b751c731469008b03b432907566",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "new_independent_observation": true,
+      "material_context_change": true
+    },
+    {
+      "headline_id": "goal31-futures-economic-purpose",
+      "change_kind": "NEW_PROPOSITION",
+      "previous_projection_sha256": null,
+      "projection_sha256": "c8e129d2cb4486a2e6b5095108f622a3da68f29cd89e716431e052bb1a3f9231",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "new_independent_observation": true,
+      "material_context_change": true
+    }
+  ],
+  "new_independent_observations": 5,
+  "representation_supersessions": 0,
+  "cursors": {},
+  "deferred": {},
+  "files": [],
+  "discovered_file_count": 0,
+  "coverage": "BOUNDED_INCREMENTAL_PREFIXES_NOT_HISTORICAL_COMPLETENESS",
+  "bulk_capture_mutated": false,
+  "public_write_performed": false,
+  "page_sha256": "7d3455203b73f476467e85acd989e4b95536cc0131d0f3a16c00440c68d99860"
+}

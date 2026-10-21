@@ -372,6 +372,7 @@ class RetainedSourceResearch:
         docs = [
             {
                 **r["document"],
+                "document_id": r["document"].get("document_id") or r["headline_id"],
                 "source_identity": r["source_identity"],
                 "known_at_utc": r["known_at_utc"],
                 "canonical_content_text": r["permitted_source_text"],
@@ -419,6 +420,7 @@ class RetainedSourceResearch:
             accepted.extend(
                 {
                     **r["document"],
+                    "document_id": r["document"].get("document_id") or r["headline_id"],
                     "source_identity": r["source_identity"],
                     "canonical_content_text": r["permitted_source_text"],
                     "canonical_content_sha256": _hash(

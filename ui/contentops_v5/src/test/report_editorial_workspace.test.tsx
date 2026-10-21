@@ -38,12 +38,14 @@ describe('Main report editorial workspace', () => {
       previews: snapshot.previews });
     snapshot.owner_edition = { edition_id: 'current', title: 'Current owner edition', operation_ids: ['new'],
       held_candidates: [{ title: 'Options positioning', reason: 'No current chain.' }],
-      ready: 1, held: 1, missing: 0, preview_count: 8 };
+      ready: 1, held: 1, missing: 0, preview_count: 8,
+      opportunity_counts: { new: 0, update: 0, keep: 1, hold: 1, source_blocked: 1 } };
     snapshot.native_edition = [article('old', 'Prior accepted article'), article('new', 'Current useful article')];
     snapshot.native_edition[0].source_review = { decision: 'USE_UNCHANGED', reader_change_summary: 'Same observation; retain original prose.' };
     render(<ReportEditorialWorkspace data={snapshot} />);
     expect(screen.getByRole('heading', { name: 'Current owner edition' })).toBeInTheDocument();
     expect(screen.getByLabelText('Tình trạng ấn bản')).toHaveTextContent('1 bài sẵn đọc · 1 đề tài giữ chờ · 0 bài còn thiếu');
+    expect(screen.getByLabelText('Kết quả cơ hội biên tập')).toHaveTextContent('0 bài mới · 0 cập nhật · 1 giữ nguyên · 1 giữ chờ · 1 thiếu nguồn');
     const edition = screen.getByLabelText('Ấn bản newsroom');
     expect(within(edition).getByText('Current useful article')).toBeInTheDocument();
     expect(within(edition).queryByText(/Prior accepted/)).not.toBeInTheDocument();

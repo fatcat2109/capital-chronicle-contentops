@@ -161,6 +161,9 @@ def operation(binding, *, command="advance", response=None, stage=None):
                 and turn._get("write", "response") is None):
             history = root / "blocked-attempts" / sha256_of(failed)
             history.mkdir(parents=True, exist_ok=True)
+            if (history / "simple_gemini_newsroom_receipt_v1.json").exists():
+                history = history / ("resume-" + uuid4().hex)
+                history.mkdir()
             for name in ("simple_gemini_evidence_v1.json", "simple_gemini_newsroom_receipt_v1.json"):
                 source = root / name
                 if source.is_file():

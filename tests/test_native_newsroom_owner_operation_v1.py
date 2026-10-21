@@ -40,6 +40,38 @@ def test_owner_request_resumes_frozen_binding_and_cannot_redirect(tmp_path):
         module.resolve_owner_operation(profile, operation_id="../outside", request=request)
 
 
+def test_repeated_identical_source_failure_preserves_each_attempt(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired
+    module = entry()
+    profile = {"schema_version": "contentops.native_desktop_operator_profile.v1",
+               "editorial_output_root": str(tmp_path / "articles"),
+               **{k: str(tmp_path / k) for k in ("store_path", "feed_pointer_path", "published_memory_store", "published_memory_output_root")}}
+    Path(profile["feed_pointer_path"]).write_text("{}")
+    _, binding = module.resolve_owner_operation(profile, operation_id="repeat-failure",
+                                                request="Resume the same admitted candidate after a metadata repair.")
+    root = Path(binding["output_dir"])
+    failed = {"qualified_article_count": 0, "exact_next_blocker": "ALL_ADMITTED_CANDIDATES_SOURCE_RETRIEVAL_BLOCKED"}
+    receipt = json.dumps(failed).encode()
+
+    class PendingFeed:
+        def __init__(self, *args):
+            pass
+
+        def opportunity(self, **kwargs):
+            raise DesktopInputRequired({"stage": "select", "request_path": "controlled", "request_sha256": "controlled"})
+
+    monkeypatch.setattr(module, "MainReportFeed", PendingFeed)
+    monkeypatch.setattr(module, "load_canonical_published_memory_read_only", lambda **kwargs: ([], {}))
+    for attempt in (b"first empty pack", b"second empty pack"):
+        (root / "simple_gemini_newsroom_receipt_v1.json").write_bytes(receipt)
+        (root / "simple_gemini_evidence_v1.json").write_bytes(attempt)
+        assert module.operation(binding)["classification"] == "NATIVE_DESKTOP_INPUT_REQUIRED"
+        assert not (root / "simple_gemini_evidence_v1.json").exists()
+    history = root / "blocked-attempts"
+    assert sorted(p.read_bytes() for p in history.rglob("simple_gemini_evidence_v1.json")) == [b"first empty pack", b"second empty pack"]
+    assert [p.read_bytes() for p in history.rglob("simple_gemini_newsroom_receipt_v1.json")] == [receipt, receipt]
+
+
 def test_identical_first_fact_does_not_collapse_distinct_main_reports():
     text = "Capital Chronicle report update: A dated crude inventory draw is retained."
     rows = [{"headline_id": "cc-report:" + str(i) * 64, "headline_text": text,

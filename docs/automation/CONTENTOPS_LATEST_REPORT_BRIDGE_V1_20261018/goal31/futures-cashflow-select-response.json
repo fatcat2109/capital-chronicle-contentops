@@ -1,0 +1,31 @@
+{
+  "request_sha256": "c7b0b3073ef1a133882094a522d05f3687adb1277f99f38fbbd0eb02423c38b6",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+        "article_mode": "EVERGREEN_EXPLAINER",
+        "angle": "Phòng hộ giúp ổn định việc kinh doanh nhưng tài khoản futures vẫn có thể cần tiền mặt: phải đọc tài sản thực và dòng ký quỹ ở hai thời điểm khác nhau.",
+        "primary_reader_question": "Vì sao người sản xuất đã phòng hộ rủi ro giá vẫn có thể phải nộp thêm tiền cho vị thế futures trước khi bán hàng thực?",
+        "selection_rationale": "Nguồn CFTC Economic Purpose được thừa nhận mới có cơ chế vượt hai định nghĩa của cơ hội cũ: nông dân bán futures, offset và bán hàng spot, hợp đồng chuẩn hóa cùng ký quỹ/mark-to-market hằng ngày. Góc mới giải thích rủi ro kinh doanh và nhu cầu tiền mặt, khác bài Goal26 về quyền sở hữu, khoản vay và lưu ký kim loại. Có ích như nền, không phải tin mới hay diễn giải vị thế hiện tại.",
+        "research_queries": [
+          "CFTC Economic Purpose Futures Markets hedging farmer offset spot margin daily mark to market",
+          "CFTC standardized futures delivery location grade performance bond variation margin"
+        ],
+        "evidence_plan": "Resolver hiện hữu dùng exact admitted goal31-futures-economic-purpose, raw SHA và canonical text đã chụp; ngày xuất bản NOT_VERIFIED, không lấy ngày truy xuất làm ngày công bố. Ràng buộc cơ chế vào các phần Futures Contracts, Exchanges, Margin và ví dụ nông dân: bán futures để giảm bất định giá hàng thực; có thể offset rồi bán hàng tại chỗ; ký quỹ là bảo đảm thực hiện, vị thế được mark-to-market hằng ngày và có thể cần bổ sung tiền. Tách kết quả tổng thể của hàng thực cộng vị thế với tiền trong tài khoản futures trước lúc bán hàng; nêu đây là phép giải thích có điều kiện theo ví dụ, không đảm bảo hedge hoàn hảo. Phản đề: chuẩn hóa hỗ trợ thanh khoản/phòng hộ nhưng địa điểm, phẩm cấp và thời điểm của hàng thực có thể không trùng hợp đồng; nguồn minh họa việc tránh giao hàng vì vận chuyển. Không tuyên bố đo được mức lệch hay tình trạng thiếu tài trợ. Phép kiểm/falsifier cho trường hợp cụ thể: cần tài sản/rủi ro được hedge, khối lượng và kỳ bán hàng, điều khoản hợp đồng/địa điểm/phẩm cấp, lịch tiền nhận được và tiền ký quỹ phải nộp; không có chúng thì rút mọi kết luận rằng hedge ấy giảm rủi ro tổng thể hoặc đủ tiền duy trì. Không tự tính ví dụ, không đưa tỷ lệ ký quỹ hay cỡ hợp đồng trong tài liệu thành thông số hiện hành. Không áp dụng câu chung về forward vào mọi hợp đồng; không thêm kiến thức luật/settlement chưa có nguồn. Giữ HOLD suy vị thế hiện tại thành dự báo: chưa có mục đích kinh tế cụ thể, chain/IV/OI cùng kỳ. Code sở hữu mọi số/phép tính; không lời khuyên giao dịch, xác suất hay dự báo."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một explainer nền về rủi ro giá và nhu cầu tiền mặt, có source delta thực so với cơ hội futures-purpose đã ABSTAIN. Giữ quyết định cũ và HOLD nhận định thị trường hiện tại; không thêm fallback cho đủ số.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "invocation_id": "/root/goal31_sol_light",
+    "observation_source": "Actual native /root/goal31_sol_light followup, inherited assigned gpt-6.1-sol / low; UUID and usage not exposed."
+  }
+}

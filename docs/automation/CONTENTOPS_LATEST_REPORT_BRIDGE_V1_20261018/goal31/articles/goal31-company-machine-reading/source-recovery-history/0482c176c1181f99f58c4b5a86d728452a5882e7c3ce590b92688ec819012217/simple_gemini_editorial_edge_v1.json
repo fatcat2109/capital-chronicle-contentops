@@ -1,0 +1,106 @@
+{
+  "capital_chronicle_proprietary_claims_authorized_in_this_lane": false,
+  "institutional_edge_editorial_packet": {
+    "additional_general_seo_writer": false,
+    "additional_mandatory_semantic_review": false,
+    "article_mode": "DOCUMENT_LENS",
+    "authority_date": "2026-08-17",
+    "authority_sha256": {
+      "docs/editorial/CAPITAL_CHRONICLE_EDITORIAL_SEO_CONTRACT_V1.json": "f462b786ea8203cdfc444f3f081060eec922e1ce5e6b61e07cd376019e4c5587",
+      "docs/editorial/CAPITAL_CHRONICLE_HUMOR_AND_INFORMALITY_POLICY_V1.md": "f4c25279780b51ae6e4f5c52ed2b3f4b80ebae6f12b3d7609557f722a81f9740",
+      "docs/editorial/CAPITAL_CHRONICLE_INSTITUTIONAL_EDGE_V1.md": "89d8f5de5ca5ac21f8aca2ad91c08fa71de77f0db8c0bdc1ec068422a745a8bb"
+    },
+    "editorial_packet_sha256": "6e0772e0e2b9128da183ae5fd661e18c6c2f968ae9e6bc1733b65f61e15fe71a",
+    "epistemic_layers": [
+      "OBSERVED_FACT",
+      "ATTRIBUTED_INTERPRETATION",
+      "CAPITAL_CHRONICLE_ANALYSIS",
+      "SCENARIO_OR_UNCERTAINTY"
+    ],
+    "first_screen": {
+      "approximate_word_window_not_quota": 120,
+      "establish_when_supported": [
+        "what_changed",
+        "magnitude_or_comparison",
+        "why_it_matters",
+        "leading_mechanism",
+        "principal_uncertainty"
+      ]
+    },
+    "fixed_word_paragraph_heading_keyword_or_joke_quota": false,
+    "grants_capital_chronicle_authority": false,
+    "grants_factual_authority": false,
+    "grants_numeric_authority": false,
+    "grants_permission_authority": false,
+    "grants_public_write_authority": false,
+    "grants_publication_authority": false,
+    "headline_contract": {
+      "canonical": "institutional_proposition_led",
+      "search": "descriptive_query_aligned_same_proposition",
+      "social": "compressed_same_or_narrower_proposition"
+    },
+    "humor": {
+      "allowed_targets": [
+        "market_contradiction",
+        "model_assumption",
+        "institutional_incentive",
+        "balance_sheet_constraint"
+      ],
+      "maximum_declared_dry_lines": 1,
+      "optional_never_quota": true,
+      "prohibited": [
+        "victims_or_hardship",
+        "forced_slang_or_meme",
+        "ideological_dunk",
+        "trading_call",
+        "unsupported_premise"
+      ],
+      "sensitive_story_zero_humor": false
+    },
+    "mode_expectations": [
+      "preserve_source_and_document_distinction",
+      "separate_document_fact_from_supported_implication",
+      "no_unsupported_implication"
+    ],
+    "packet_hash_semantics": "sha256(canonical_json(packet_without_editorial_packet_sha256))",
+    "reader_value": [
+      "strongest_evidence",
+      "change_from_prior_state",
+      "mechanism",
+      "consequence",
+      "uncertainty",
+      "confirm_or_challenge",
+      "watch_next"
+    ],
+    "schema_version": "contentops.capital_chronicle_institutional_edge_editorial_packet.v1",
+    "seo": {
+      "required_surfaces": [
+        "canonical_editorial_headline",
+        "dek",
+        "article_body",
+        "search_title",
+        "social_hook",
+        "meta_description",
+        "canonical_slug_candidate",
+        "primary_reader_question",
+        "secondary_reader_questions",
+        "entities",
+        "topics",
+        "search_freshness_class",
+        "internal_link_candidates",
+        "structured_data_packet_when_supported"
+      ],
+      "schema_version": "capital_chronicle_editorial_seo_contract_v1",
+      "search_learning_status": "HOLD_WITHOUT_SEARCH_SPECIFIC_EVIDENCE",
+      "structured_data_supported": false,
+      "structured_data_types": [
+        "Article",
+        "NewsArticle"
+      ]
+    },
+    "voice_id": "CAPITAL_CHRONICLE_INSTITUTIONAL_EDGE_V1"
+  },
+  "public_write_performed": false,
+  "schema_version": "contentops.v1_simple_editorial_edge_adaptation.v1",
+  "selected_product_mode": "DATA_OR_DOCUMENT_LENS"
+}

@@ -521,6 +521,10 @@ def run_report_editorial_cycle(
                 stage += ":recovery:" + recovery["request_sha256"]
             if retained_research and any(h in retained_research.records for h in request.get("headline_ids", [])):
                 stage += ":retained-permission-v2"
+                if any(not retained_research.records[h]["document"].get("document_id")
+                       for h in request.get("headline_ids", []) if h in retained_research.records):
+                    # Keep the prior empty-pack result; only this metadata repair gets a new cache identity.
+                    stage += ":verified-record-document-id-v1"
             cached = stages.get("cc-step-" + sha256_of([stages.work, stage]))
             evidence_file = root / "simple_gemini_evidence_v1.json"
             if native and cached and evidence_file.is_file():
@@ -845,6 +849,11 @@ def report_workspace_projection(
         owner_edition = {**owner_edition, "ready": len(ready), "held": len(held) + len(owner_edition["held_candidates"]),
             "missing": len(owner_edition["operation_ids"]) - len(ready) - len(held),
             "preview_count": sum(len(e["previews"]) for e in ready)}
+        outcomes = owner_edition.get("opportunity_outcomes")
+        if outcomes:
+            owner_edition["opportunity_counts"] = {
+                **{key.lower(): sum(o["outcome"] == key for o in outcomes) for key in ("NEW", "UPDATE", "KEEP", "HOLD")},
+                "source_blocked": sum(o.get("source_blocked") is True for o in outcomes)}
     latest_admissions = [max((r for r in accepted if r["report_id"] == identity),
         key=lambda r: r["report_version"]) for identity in sorted(ids)]
     return {

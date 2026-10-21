@@ -218,7 +218,7 @@ source; the existing owning handoffs establish subsequent implementation state. 
 
 ## Goal29 owner-manual continuation
 
-Current owning checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal30/RELEASE_HANDOFF.md`.
+Current owning checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/RELEASE_HANDOFF.md`.
 Reuse the existing relocated owner-manual store and preserved five-article Goal28 edition through the same profile
 and newsroom skill. Original sealed identities, completed returns, prior reviews and public Main
 admission remain authority-bound. The Temp database is recovery only; never create a second
@@ -239,3 +239,15 @@ metadata is carried only when supplied and exactly bound; missing stays unknown.
 consumer descriptor is not a new Main producer forecast. See
 `docs/editorial/CONTENTOPS_PUBLIC_RESEARCH_SEMANTICS_V1.md` and the current owning handoff.
 No new model/source cycle, engine, status/store, publication or runtime authority is created.
+
+## Goal31 source-led manual edition (2026-10-21)
+
+Three useful questions are closed through the same store/profile/Desk: two new private
+articles (SEC machine-understandable data and CFTC hedge cashflow), one unchanged gas
+article, plus a retained HOLD on current futures/options positioning. The current edition
+shows 3 KEEP / 24 previews / 0 missing; the prior seven articles and withdrawal history
+remain. Two actual Sol6.1-MAX writers and the existing Sol-Light selector supplied the new
+copy; the empty X interval needed no Luna call. Neo source and desktop/mobile render
+inspection are recorded in
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/RELEASE_HANDOFF.md`. This is private reviewed/prepared output, not publication,
+activation, deployment or daily-production proof. The four tasks and production remain paused.

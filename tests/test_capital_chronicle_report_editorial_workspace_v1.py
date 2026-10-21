@@ -34,7 +34,9 @@ def test_current_edition_survives_history_limit_and_counts_only_current_reviews(
             "simple_result": {"run_id": run}}
     rows = [row(run, SIMPLE_RESULT, article(run)) for run in ["current", "held", *[f"old-{i}" for i in range(18)]]]
     rows.append(row("group", "internal:native-owner-edition", {"edition_id": "bounded", "title": "Current edition",
-        "operation_ids": ["current", "held", "pending"], "held_candidates": [{"title": "Options", "reason": "No chain"}]}))
+        "operation_ids": ["current", "held", "pending"], "held_candidates": [{"title": "Options", "reason": "No chain"}],
+        "opportunity_outcomes": [{"operation_id": "current", "outcome": "KEEP", "source_blocked": False},
+                                 {"operation_id": "options", "outcome": "HOLD", "source_blocked": True}]}))
     reviews = [{"reviewer_ref": "NATIVE_DESKTOP_ARTICLE_REVIEW", "review_id": run, "decision": decision,
         "notes": json.dumps({"article_identity": run})} for run, decision in [("current", "KEEP"), ("held", "HOLD"), ("old-0", "KEEP")]]
     result = report_workspace_projection(rows, review_records=reviews)
@@ -42,6 +44,8 @@ def test_current_edition_survives_history_limit_and_counts_only_current_reviews(
     assert len(result["native_edition"]) == 18  # Two current articles plus sixteen historical.
     assert {k: result["owner_edition"][k] for k in ("ready", "held", "missing", "preview_count")} == {
         "ready": 1, "held": 2, "missing": 1, "preview_count": 8}
+    assert result["owner_edition"]["opportunity_counts"] == {
+        "new": 0, "update": 0, "keep": 1, "hold": 1, "source_blocked": 1}
 
 
 def test_native_media_preview_uses_matching_png_bytes_only(tmp_path):
