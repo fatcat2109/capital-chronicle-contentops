@@ -43,3 +43,10 @@ config/main_legacy_public_parent_recovery_v1.json binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/** -text whitespace=cr-at-eol
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/source_editions/** binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/verification*.txt binary
+
+# Goal34 retained captures, native packets and exact console transcripts keep original bytes.
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/source_editions/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/article/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/focused-controls.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/media-rights-consumer-controls.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/ui-controls.txt binary
