@@ -23,9 +23,12 @@ describe('Main report editorial workspace', () => {
       report_sha256: 'b'.repeat(64), claims: 24, native_public_excerpts: 23,
       provenance_state: 'PRODUCER_ATTESTED_NATIVE_PUBLIC_EXCERPTS', independent_native_runtime_verified: false,
       known_at_cutoff_utc: '2026-10-20T20:00:00Z' }];
+    snapshot.main_admission_summary.push({ ...snapshot.main_admission_summary[0], report_id: 'asset-report:LEGACY',
+      known_at_cutoff_utc: null });
     render(<ReportEditorialWorkspace data={snapshot} />);
     expect(screen.getByText(/UKOIL v4 · 24 luận điểm được phép · 23 trích đoạn/)).toBeInTheDocument();
     expect(screen.getByText(/chưa phải bằng chứng độc lập về phiên chạy model/)).toBeInTheDocument();
+    expect(screen.getByText(/LEGACY.*chưa lưu mốc báo cáo/)).toBeInTheDocument();
   });
   it('leads with the current edition and keeps prior full copy in history', () => {
     const snapshot = data();

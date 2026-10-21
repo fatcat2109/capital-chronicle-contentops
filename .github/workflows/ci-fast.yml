@@ -48,7 +48,7 @@ jobs:
         run: python -m pytest -q tests/test_llm_first_validate_after_v1.py
 
       - name: Run Main latest-report consumer controls and exact-byte readback
-        run: python -m pytest -q tests/test_capital_chronicle_latest_report_consumer_v1.py tests/test_capital_chronicle_report_editorial_workspace_v1.py tests/test_capital_chronicle_report_feed_v1.py tests/test_capital_chronicle_public_manifest_v1.py tests/test_contentops_main_headline_projection_v1.py tests/test_contentops_source_research_v1.py tests/test_contentops_foundation_library_v1.py tests/test_contentops_editorial_desk_v1.py
+        run: python -m pytest -q tests/test_capital_chronicle_latest_report_consumer_v1.py tests/test_capital_chronicle_legacy_parent_recovery_v1.py tests/test_capital_chronicle_report_editorial_workspace_v1.py tests/test_capital_chronicle_report_feed_v1.py tests/test_capital_chronicle_public_manifest_v1.py tests/test_contentops_main_headline_projection_v1.py tests/test_contentops_source_research_v1.py tests/test_contentops_foundation_library_v1.py tests/test_contentops_editorial_desk_v1.py
 
       - name: Run LLM-first Phase B runtime-repair regressions
         shell: bash

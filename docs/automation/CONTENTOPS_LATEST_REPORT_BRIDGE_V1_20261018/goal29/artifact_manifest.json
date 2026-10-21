@@ -34,8 +34,8 @@
       "bytes": 757
     },
     "RELEASE_HANDOFF.md": {
-      "sha256": "84b3239d46d6a2704e98602c78a21113132f33e8e17e855b7bbccaf511c174e3",
-      "bytes": 8790
+      "sha256": "4a88783dac5bce5f99ba0252f3ec7e4c6b46240e6f4f16b7b4f86ef1d4bc9cb5",
+      "bytes": 9216
     },
     "render_inspection.json": {
       "sha256": "10e6517bc82bcbb34fd006249825c3f52bb319d116b9c2318ba5ab3bb4034751",
@@ -54,8 +54,8 @@
       "bytes": 29884
     },
     "verification.json": {
-      "sha256": "80ca15a87e88d46f934b91d289c48efbf3403eda901559fef267191ce8e85a6c",
-      "bytes": 1560
+      "sha256": "f95935743043e2d74e1cef0eeab1a6682b9144c98da10cae617045491ff3ebd1",
+      "bytes": 2037
     },
     "main_public_handoff\\PUBLIC_SAFE_HANDOFF.json": {
       "sha256": "bb19071a221add90909fe9a702da56e2c4eae612137a576301578feec998d404",
@@ -101,13 +101,25 @@
       "sha256": "8da1155856418d4fa2f074de912ace4159b136a36f38724d6aa2322fcf308411",
       "bytes": 194
     },
+    "verification\\goal29-build-compatibility.txt": {
+      "sha256": "e53b1f0cc96f270376ddd3b6b22c130b105ba6198add94fb26c33493295e6b02",
+      "bytes": 7768
+    },
     "verification\\goal29-build-final.txt": {
       "sha256": "9b3845ca8208a22bfbd3162ecf4d876c7aceb86581cbdf33c293935ea61dea8a",
       "bytes": 7768
     },
+    "verification\\goal29-ci-first-failure.txt": {
+      "sha256": "589e42b8440ebe896de5e8c1ce2b3d2a8b23189ab98b7b47a1a7728ae646d2f8",
+      "bytes": 55319
+    },
     "verification\\goal29-compiler-final.txt": {
       "sha256": "174badb1fbcc6b45be9a490823ede22e0f519ea4673ba7ebfdda305993244672",
       "bytes": 101
+    },
+    "verification\\goal29-ui-compatibility.txt": {
+      "sha256": "11d6427350c98740356679d9357e4aef391775a9b2f2b338e0c0efb18d8a9ec8",
+      "bytes": 467
     },
     "verification\\goal29-ui-final.txt": {
       "sha256": "b3cdc28d54ed6363f2c63ff1bdded26f52968de1137fe9fcf5bb796b4f7d0e97",

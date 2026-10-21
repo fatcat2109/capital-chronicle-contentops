@@ -1,0 +1,292 @@
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	﻿2026-10-21T00:05:31.2772847Z ##[group]Run python -m pytest -q tests/test_native_desktop_editorial_v1.py tests/test_native_newsroom_owner_operation_v1.py tests/test_native_headline_filter_v1.py tests/test_native_neo_executor_v1.py tests/test_daily_app_ui_read_model_v1.py tests/test_daily_app_operator_trigger_v1.py tests/test_contentops_profile_continuity_lock_v1.py
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2775049Z [36;1mpython -m pytest -q tests/test_native_desktop_editorial_v1.py tests/test_native_newsroom_owner_operation_v1.py tests/test_native_headline_filter_v1.py tests/test_native_neo_executor_v1.py tests/test_daily_app_ui_read_model_v1.py tests/test_daily_app_operator_trigger_v1.py tests/test_contentops_profile_continuity_lock_v1.py[0m
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2814617Z shell: /usr/bin/bash -e {0}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2814913Z env:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2815195Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2815618Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2816034Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2816447Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2816973Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2817347Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:31.2817659Z ##[endgroup]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:35.9644474Z ..............................................................F......... [ 74%]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6749704Z .........................                                                [100%]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6750551Z =================================== FAILURES ===================================
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6751405Z _ test_snapshot_projects_report_bridge_from_internal_outbox_without_public_authority _
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6752034Z 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6752448Z tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-22/test_snapshot_projects_report_0')
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6752952Z 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6753578Z     def test_snapshot_projects_report_bridge_from_internal_outbox_without_public_authority(tmp_path):
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6754437Z         store = _store(tmp_path)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6755646Z         store.create_work_item(story_id="cc-report:asset-report:XNGUSD", title="Capital Chronicle report input", target_surface="CONTENTOPS_EDITORIAL_ONLY", work_item_id="cc-report-work")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6759486Z         store.register_outbox_message(message_id="cc-report-receipt-row", work_item_id="cc-report-work", destination="internal:cc-report-receipt", payload=json.dumps({"report_id":"asset-report:XNGUSD","report_version":2,"status":"ADMITTED","change_kind":"CORRECTION","source_report_sha256":"a"*64,"envelope_sha256":"b"*64,"claims":[{"claim_id":"eia-storage-observed"}],"missing_claims":[],"withdrawal_only":False,"affected_prior_inputs":["old-receipt"]}), status="REPORT_INPUT_READY")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6767172Z         store.register_outbox_message(message_id="cc-report-input-row", work_item_id="cc-report-work", destination="internal:cc-report-editorial-input", payload=json.dumps({"disposition":"EDITORIAL_INPUT_READY","brief":{"report_id":"asset-report:XNGUSD","report_version":2,"mode":"FOLLOW_UP_UPDATE","sections":[{"claim_id":"eia-storage-observed"}],"changed_claim_ids":["eia-storage-observed"],"correction_lineage":{"supersedes_report_id":"asset-report:XNGUSD"}},"derivative_intents":[{"destination":name} for name in range(8)]}), status="INPUT_READY")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6771728Z >       snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6772513Z                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6772957Z 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6773330Z tests/test_daily_app_ui_read_model_v1.py:967: 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6774080Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6775048Z live_contentops/daily_app_ui_read_model_v1.py:1683: in build_daily_app_snapshot
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6776142Z     "report_bridge": _report_bridge_projection(outbox, editorial_reviews),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6777436Z                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6778369Z live_contentops/daily_app_ui_read_model_v1.py:139: in _report_bridge_projection
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6779563Z     return report_workspace_projection(list(outbox.values()), review_records=reviews)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6780563Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6781338Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6781716Z 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6783184Z rows = [{'message_id': 'cc-report-receipt-row', 'work_item_id': 'cc-report-work', 'destination': 'internal:cc-report-receipt'..., 'work_item_id': 'cc-report-work', 'destination': 'internal:cc-report-editorial-input', 'status': 'INPUT_READY', ...}]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6785366Z report_id = None, review_records = []
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6785751Z 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6785924Z     def report_workspace_projection(
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6786462Z         rows: Sequence[Mapping[str, Any]], report_id: str | None = None, *, review_records=()
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6787268Z     ) -> dict[str, Any]:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6787785Z         """Read only durable payloads; blocked/duplicate events never poison current content."""
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6788383Z         admissions, inputs, results = [], [], []
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6789005Z         withdrawals = [json.loads(r["payload"]) for r in rows if r["destination"] == "internal:cc-report-withdrawal"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6789699Z         feeds, opportunities, headline_exports = [], [], []
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6790107Z         for row in rows:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6790808Z             if row["destination"] in {"internal:cc-report-feed", "internal:cc-report-opportunity", "internal:contentops-main-headline-export"}:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6791673Z                 value = {**json.loads(row["payload"]), "created_at": row.get("created_at")}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6792240Z                 if row["destination"] == "internal:cc-report-feed":
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6792645Z                     feeds.append(value)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6793094Z                 elif row["destination"] == "internal:cc-report-opportunity":
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6793792Z                     opportunities.append(value)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6794158Z                 else:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6794479Z                     headline_exports.append(value)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6794841Z                 continue
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6795150Z             if row["destination"] not in {
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6795536Z                 "internal:cc-report-receipt",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6795922Z                 EDITORIAL_INPUT,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6796247Z                 SIMPLE_RESULT,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6796538Z             }:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6796790Z                 continue
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6797105Z             payload = json.loads(row["payload"])
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6797477Z             item = {
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6797906Z                 **payload,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6798232Z                 "message_id": row["message_id"],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6798606Z                 "delivery_status": row["status"],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6799002Z                 "created_at": row.get("created_at"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6799352Z             }
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6799784Z             item_id = payload.get("report_id") or payload.get("brief", {}).get("report_id")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6800329Z             if report_id and item_id != report_id:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6800690Z                 continue
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6801046Z             if row["destination"] == "internal:cc-report-receipt":
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6801476Z                 admissions.append(item)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6801864Z             elif row["destination"] == EDITORIAL_INPUT:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6802247Z                 inputs.append(item)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6802557Z             else:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6802844Z                 results.append(item)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6803901Z         accepted = [r for r in admissions if r.get("status") in CURRENT]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6804406Z         ids = {r["report_id"] for r in accepted}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6804866Z         accepted.sort(
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6805322Z             key=lambda r: (str(r.get("created_at") or ""), int(r["report_version"])),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6805863Z             reverse=True,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6806175Z         )
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6806448Z         if len(ids) == 1:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6806880Z             accepted.sort(key=lambda r: int(r["report_version"]), reverse=True)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6807402Z         latest = accepted[0] if accepted else None
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6808054Z         if latest and any(w["source_report_sha256"] == latest["source_report_sha256"] for w in withdrawals):
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6808792Z             latest = {**latest, "withdrawal_only": True, "claims": []}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6809257Z         content = next(
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6809552Z             (
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6809828Z                 r
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6810113Z                 for r in accepted
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6810452Z                 if latest
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6811354Z                 and r["report_id"] == latest["report_id"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6811802Z                 and r["status"] != "NO_MATERIAL_CHANGE_NOOP"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6812173Z             ),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6812430Z             latest,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6812678Z         )
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6812922Z         same = [
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6813174Z             r
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6813587Z             for r in results
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6813879Z             if content
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6814228Z             and r.get("report_id") == content["report_id"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6814712Z             and r.get("report_version") == content["report_version"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6815159Z         ]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6815412Z         same.sort(
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6815691Z             key=lambda r: (
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6816022Z                 r.get("classification") == "DRAFT_READY",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6816409Z                 str(r.get("created_at") or ""),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6816726Z             ),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6816982Z             reverse=True,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6817230Z         )
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6817489Z         result = same[0] if same else None
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6818180Z         latest_attempt = max(same, key=lambda r: (str(r.get("created_at") or ""), r.get("classification") == "DRAFT_READY"), default=None)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6818835Z         current_input = next(
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6819136Z             (
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6819375Z                 r
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6819630Z                 for r in inputs
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6819940Z                 if content
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6820258Z                 and r.get("brief", {}).get(
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6820595Z                     "report_id",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6821021Z                     r.get("brief", {}).get("correction_lineage", {}).get("report_id"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6821474Z                 )
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6821740Z                 == content["report_id"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6822081Z                 and r.get("brief", {}).get(
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6822425Z                     "report_version",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6822892Z                     r.get("brief", {}).get("correction_lineage", {}).get("report_version"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6823506Z                 )
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6823800Z                 == content["report_version"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6824144Z             ),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6824377Z             None,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6824613Z         )
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6825074Z         feed = max(feeds, key=lambda r: str(r.get("created_at") or r.get("observed_at_utc")), default=None)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6825773Z         export = max(headline_exports, key=lambda r: int(r["sequence"]), default=None)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6826593Z         parent_gaps = [e for e in (feed or {}).get("events", []) if e.get("state") in {"LINEAGE_PARENT_NOT_RECEIVED", "LINEAGE_HASH_CONFLICT"}]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6827413Z         lag = None
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6827690Z         if latest and feed:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6828169Z             from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6829102Z             lag = max(0, int((_time(feed["observed_at_utc"]) - _time(latest["known_at_cutoff_utc"])).total_seconds()))
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6829692Z         native_reviews = []
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6830007Z         for review in review_records:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6830453Z             if review.get("reviewer_ref") == "NATIVE_DESKTOP_ARTICLE_REVIEW":
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6830935Z                 note = json.loads(review["notes"])
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6831518Z                 native_reviews.append({**note, "decision": review["decision"], "review_id": review["review_id"]})
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6832003Z         edition = {}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6832286Z         for item in results:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6832907Z             if (not item.get("qualified_article_count") or item.get("model_execution_state") != "NATIVE_DESKTOP_REQUEST_RETURN"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6833790Z                     or not item.get("article_identity")):
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6834314Z                 continue
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6834617Z             simple = item.get("simple_result", {})
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6835011Z             plan = simple.get("selected_plan_entry", {})
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6835654Z             review = next((r for r in reversed(native_reviews) if r["article_identity"] == item["article_identity"]), None)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6836617Z             prepared = next((json.loads(r["payload"]) for r in reversed(rows) if r["destination"] == "internal:native-prepared-handoff"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6837526Z                 and json.loads(r["payload"]).get("article_identity") == item["article_identity"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6838274Z                 and json.loads(r["payload"]).get("review_id") == (review or {}).get("review_id")), None)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6838854Z             edition[item["article_identity"]] = {
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6839733Z                 **{k: item.get(k) for k in ("article_identity", "article", "previews", "evidence", "media_assets", "report_id", "report_version", "source_report_sha256")},
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6840642Z                 "run_id": simple.get("run_id"), "angle": plan.get("angle"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6841177Z                 "reader_question": plan.get("primary_reader_question"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6841658Z                 "mode": plan.get("article_mode"), "review": review,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6842086Z                 "source_review": None,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6842508Z                 "editorial_execution": item.get("editorial_execution"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6843136Z                 "prior_story": simple.get("selected_candidate", {}).get("evolving_story_context", []),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6844092Z                 **({"previews": prepared["previews"], "media_assets": prepared["media_assets"],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6844867Z                     "handoff": {k: prepared[k] for k in ("plan_hash", "review_id", "output_dir")}} if prepared else {}),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6845468Z             }
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6845958Z         from live_contentops.contentops_editorial_desk_v1 import source_review_projection
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6846592Z         source_reviews = source_review_projection(rows)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6846997Z         for item in edition.values():
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6847492Z             # The read model embeds exact inspected local PNG bytes, without changing
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6848058Z             # the sealed package or its revision-bound review.
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6848470Z             import base64
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6848783Z             from hashlib import sha256
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6849159Z             for asset in item.get("media_assets") or []:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6849526Z                 try:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6849870Z                     path = resolve_workspace_path(asset["path"])
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6850304Z                     if path.stat().st_size > 1_500_000:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6850876Z                         continue
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6851218Z                     raw = path.read_bytes()
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6851812Z                     if raw.startswith(b"\x89PNG\r\n\x1a\n") and sha256(raw).hexdigest() == asset.get("sha256"):
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6852615Z                         asset["preview_data_url"] = "data:image/png;base64," + base64.b64encode(raw).decode("ascii")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6853369Z                 except (OSError, ValueError, KeyError):
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6853772Z                     pass
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6854293Z             matching = [s for s in source_reviews if s["article_identity"] == item["article_identity"]]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6854950Z             item["source_review"] = matching[-1] if matching else None
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6855489Z             if matching and matching[-1]["invalidates_prepared_review"]:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6856005Z                 item["prepared_state"] = "INVALIDATED_BY_SOURCE_REVIEW"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6856730Z         owner_groups = [json.loads(r["payload"]) for r in rows if r["destination"] == "internal:native-owner-edition"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6857630Z         owner_edition = owner_groups[-1] if owner_groups else None
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6858062Z         if owner_edition:
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6858653Z             current = [e for e in edition.values() if e["run_id"] in owner_edition["operation_ids"]]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6859500Z             ready = [e for e in current if (e.get("review") or {}).get("decision") == "KEEP" and not e.get("prepared_state")]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6860293Z             held = [e for e in current if (e.get("review") or {}).get("decision") == "HOLD"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6861019Z             owner_edition = {**owner_edition, "ready": len(ready), "held": len(held) + len(owner_edition["held_candidates"]),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6861764Z                 "missing": len(owner_edition["operation_ids"]) - len(ready) - len(held),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6862368Z                 "preview_count": sum(len(e["previews"]) for e in ready)}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6862967Z         latest_admissions = [max((r for r in accepted if r["report_id"] == identity),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6863781Z             key=lambda r: r["report_version"]) for identity in sorted(ids)]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6864254Z         return {
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6864552Z             "schema_version": SCHEMA,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6864933Z             "owner_edition": owner_edition,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6865537Z             "main_admission_summary": [{"report_id": r["report_id"], "report_version": r["report_version"],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6866258Z                 "report_sha256": r["source_report_sha256"], "claims": len(r["claims"]),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6867007Z                 "native_public_excerpts": (r.get("native_public_lineage") or {}).get("permitted_excerpt_count", 0),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6867903Z                 "provenance_state": (r.get("native_public_lineage") or {}).get("state", "SOURCE_FACT_ONLY_NO_NATIVE_ATTESTATION"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6868807Z >               "independent_native_runtime_verified": False, "known_at_cutoff_utc": r["known_at_cutoff_utc"]}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6869495Z                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6869964Z                 for r in latest_admissions],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6870353Z             "source_reviews": source_reviews,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6870937Z             "current_input_snapshots": [{k: v for k, v in json.loads(r["payload"]).items() if k != "research"}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6871640Z                 for r in rows if r["destination"] == "internal:native-current-input"][-8:],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6872412Z             "native_edition": ([e for e in edition.values() if e["run_id"] not in owner_edition["operation_ids"]][-16:]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6873175Z                 + [e for e in edition.values() if e["run_id"] in owner_edition["operation_ids"]])
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6873890Z                 if owner_edition else list(edition.values())[-16:],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6874601Z             "native_article_reviews": native_reviews,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6875091Z             "state": "AVAILABLE" if latest else "UNAVAILABLE",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6876066Z             "foundation_library": library_projection(rows, review_records) if report_id is None else None,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6877033Z             "report_events_received": len(admissions),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6877605Z             "latest_report": latest,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6878110Z             "report_history": admissions,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6878656Z             "feed": feed,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6879113Z             "report_age_at_last_scan_seconds": lag,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6879813Z             "freshness": {"report_age_at_last_scan_seconds": lag,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6880919Z                           "claims": sorted({c.get("freshness_state", "UNKNOWN") for c in (latest or {}).get("claims", [])}),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6881967Z                           "current_market_refresh_verified": False,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6882786Z                           "scope": "DATED_RETAINED_REPORT_NOT_CURRENT_MARKET_STATE"},
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6884340Z             "opportunities": sorted(opportunities, key=lambda r: str(r.get("created_at") or ""), reverse=True)[:32],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6885502Z             "headline_export": {k: export[k] for k in (
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6886357Z                 "schema_version", "observed_at_utc", "sequence", "source_rows_scanned", "eligible_rows",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6887288Z                 "missing_rows", "coverage", "discovered_file_count", "gaps"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6888374Z             ) if k in export} | {k: export.get(k, 0) for k in ("independent_items", "main_origin_recirculated_items")} if export else None,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6889411Z             "source_inventory": {
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6890586Z                 "independent_items": len({r["projection_sha256"] for p in headline_exports for r in p["rows"] if r.get("originality") == "INDEPENDENT_CONTENTOPS_ACQUISITION"}),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6892699Z                 "main_origin_recirculated_items": len({r["projection_sha256"] for p in headline_exports for r in p["rows"] if r.get("originality") == "MAIN_ORIGIN_RECIRCULATION"}),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6894288Z                 "scope": "DISTINCT_ACCEPTED_PROJECTIONS_NOT_SOURCE_COMPLETENESS",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6894976Z             },
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6896165Z             "independent_results": [{k: r.get(k) for k in ("classification", "model_execution_state", "article_identity", "article", "previews", "media_assets", "evidence", "created_at")}
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6897810Z                                     for r in results if r.get("classification") == "INDEPENDENT_NEWS_DRAFT"][-16:],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6899177Z             "conversion": {"independent_drafts": sum(r.get("classification") == "INDEPENDENT_NEWS_DRAFT" for r in results),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6900513Z                            "main_drafts": sum(r.get("classification") == "DRAFT_READY" for r in results),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6902156Z                            "native_desktop_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "NATIVE_DESKTOP_REQUEST_RETURN"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6904418Z                            "fresh_provider_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6906455Z                            "controlled_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "INJECTED_REPLAY_ONLY")},
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6908603Z             "next_operation": ("Main must supply or restore the exact public parent " + str(parent_gaps[0].get("required_parent_report_sha256") or "identified by the manifest") + "; replay manifest admission without a model call. Independent news remains available.")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6910258Z                               if parent_gaps else "Use the prepared native Desktop operation; production remains paused until the audited four-task transition.",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.6911412Z             "workspaces": [report_workspace_projection(rows, key) for key in sorted(ids)]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7038310Z             if report_id is None and len(ids) > 1
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7039060Z             else [],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7039567Z             "latest_editorial_input": current_input,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7040226Z             "latest_simple_result": result,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7040833Z             "latest_attempt": latest_attempt,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7041831Z             "article": None if latest and latest.get("withdrawal_only") else (result or {}).get("article"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7043508Z             "media_assets": [] if latest and latest.get("withdrawal_only") else (result or {}).get("media_assets", []),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7045024Z             "previews": [] if latest and latest.get("withdrawal_only") else (result or {}).get("previews", []),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7046237Z             "named_blocker": (latest_attempt or {}).get("exact_next_blocker")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7046922Z             or (parent_gaps[0]["state"] if parent_gaps else None)
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7047711Z             or (
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7048021Z                 "CLAIMS_WITHDRAWN"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7048440Z                 if latest and latest.get("withdrawal_only")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7048896Z                 else "NO_PUBLIC_SAFE_CLAIMS"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7049337Z                 if latest and latest.get("lineage_only")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7049769Z                 else "DRAFT_NOT_CREATED"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7050135Z                 if not result
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7050472Z                 else None
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7050777Z             ),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7051047Z             "history": [
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7051351Z                 {
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7051668Z                     "report_id": r.get("report_id"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7052144Z                     "report_version": r.get("report_version"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7052657Z                     "article_identity": r.get("article_identity"),
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7053442Z                     "preview_ids": [p["preview_id"] for p in r.get("previews", [])],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7054022Z                     "state": "WITHDRAWN"
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7054449Z                     if latest and latest.get("withdrawal_only")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7055187Z                     else "SUPERSEDED",
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7055742Z                     "superseded_by_version": latest["report_version"] if latest else None,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7056280Z                 }
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7056574Z                 for r in results
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7056923Z                 if content
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7057300Z                 and r.get("report_id") == content["report_id"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7057839Z                 and r.get("report_version", 0) < content["report_version"]
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7058425Z                 and r.get("article_identity")
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7058817Z             ],
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7059151Z             "public_write_performed": False,
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7059521Z         }
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7059847Z E       KeyError: 'known_at_cutoff_utc'
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7060098Z 
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7060427Z live_contentops/capital_chronicle_report_editorial_workspace_v1.py:848: KeyError
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7061099Z =========================== short test summary info ============================
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7062219Z FAILED tests/test_daily_app_ui_read_model_v1.py::test_snapshot_projects_report_bridge_from_internal_outbox_without_public_authority - KeyError: 'known_at_cutoff_utc'
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7063372Z 1 failed, 96 passed in 13.24s
+deterministic-validation	Validate native Desktop owner, paused rollout and safety contracts	2026-10-21T00:05:44.7483498Z ##[error]Process completed with exit code 1.

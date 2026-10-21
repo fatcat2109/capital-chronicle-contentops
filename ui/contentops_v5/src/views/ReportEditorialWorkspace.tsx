@@ -58,7 +58,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
     </section>}
     {!!data?.main_admission_summary?.length && <details><summary>Báo cáo Main mới nhất đã tiếp nhận</summary>
       <p>Đã kiểm tra liên kết nội dung công khai. Xác nhận model của bên tạo báo cáo chưa phải bằng chứng độc lập về phiên chạy model.</p>
-      {data.main_admission_summary.map(r => <p key={r.report_id}>{r.report_id.replace('asset-report:', '')} v{r.report_version} · {r.claims} luận điểm được phép · {r.native_public_excerpts} trích đoạn có xác nhận model từ Main · mốc báo cáo {r.known_at_cutoff_utc}.</p>)}
+      {data.main_admission_summary.map(r => <p key={r.report_id}>{r.report_id.replace('asset-report:', '')} v{r.report_version} · {r.claims} luận điểm được phép · {r.native_public_excerpts} trích đoạn có xác nhận model từ Main · {r.known_at_cutoff_utc ? 'mốc báo cáo ' + r.known_at_cutoff_utc : 'chưa lưu mốc báo cáo'}.</p>)}
     </details>}
     {!!articles?.length && <section aria-label="Ấn bản newsroom"><h3>Ấn bản newsroom · đọc và duyệt</h3>
       <p>Các bài đã qua validator; quyết định biên tập gắn với đúng bản bài. Chưa xuất bản.</p>

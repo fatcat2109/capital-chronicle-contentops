@@ -359,7 +359,7 @@ export interface EvolvingStory {
 
 export interface ReportWorkspaceData {
   main_admission_summary?: Array<{ report_id: string; report_version: number; report_sha256: string; claims: number;
-    native_public_excerpts: number; provenance_state: string; independent_native_runtime_verified: boolean; known_at_cutoff_utc: string }>;
+    native_public_excerpts: number; provenance_state: string; independent_native_runtime_verified: boolean; known_at_cutoff_utc: string | null }>;
   owner_edition?: { edition_id: string; title: string; operation_ids: string[]; ready: number; held: number; missing: number;
     preview_count: number; held_candidates: Array<{ title: string; reason: string }> } | null;
   source_reviews?: Array<{ review_id: string; run_id: string; title: string; decision: string; reader_change_summary: string;

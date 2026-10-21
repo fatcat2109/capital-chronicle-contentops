@@ -57,5 +57,14 @@
       "source_request_limit": 6,
       "unknown_write_count": 0
     }
+  },
+  "initial_exact_head_ci": {
+    "run_id": 39518995504,
+    "head": "67e25e08330cd3a1fdaaaeee687fd9f691f58dd9",
+    "conclusion": "failure",
+    "failed_test": "test_snapshot_projects_report_bridge_from_internal_outbox_without_public_authority",
+    "failure": "new_summary_required_missing_legacy_clock",
+    "repair": "Nullable retained report clock; display missing-date state without invented timestamp",
+    "log": "verification/goal29-ci-first-failure.txt"
   }
 }

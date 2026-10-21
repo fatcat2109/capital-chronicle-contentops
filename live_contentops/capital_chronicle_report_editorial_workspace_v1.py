@@ -845,7 +845,7 @@ def report_workspace_projection(
             "report_sha256": r["source_report_sha256"], "claims": len(r["claims"]),
             "native_public_excerpts": (r.get("native_public_lineage") or {}).get("permitted_excerpt_count", 0),
             "provenance_state": (r.get("native_public_lineage") or {}).get("state", "SOURCE_FACT_ONLY_NO_NATIVE_ATTESTATION"),
-            "independent_native_runtime_verified": False, "known_at_cutoff_utc": r["known_at_cutoff_utc"]}
+            "independent_native_runtime_verified": False, "known_at_cutoff_utc": r.get("known_at_cutoff_utc")}
             for r in latest_admissions],
         "source_reviews": source_reviews,
         "current_input_snapshots": [{k: v for k, v in json.loads(r["payload"]).items() if k != "research"}

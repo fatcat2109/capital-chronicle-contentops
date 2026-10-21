@@ -94,7 +94,12 @@ render inspection also fixed visible Markdown emphasis/links/lists without chang
 See `render_inspection.json` and `render/` for actual screenshots and DOM readback.
 
 Focused verification: **119 backend tests**, **43 canonical compiler tests**, **8 UI tests**,
-frontend build, focused Ruff and diff checks PASS. The legacy pipeline retains the same five
+frontend build, focused Ruff and diff checks PASS. First exact-head CI run
+`39518995504` found one backward-compatibility error: a retained minimal receipt lacks a report
+clock. The new summary now preserves a null clock and displays an explicit missing-date label;
+no time is invented. The existing snapshot regression and UI missing-clock assertion verify
+this repair. The critical new exact-parent recovery tests are now included in the existing
+Main-consumer CI step. The legacy pipeline retains the same five
 Ruff findings as HEAD, zero introduced; no claim of whole-repository all-green. Evidence is in
 `verification.json` and `verification/`.
 

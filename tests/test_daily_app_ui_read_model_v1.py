@@ -969,6 +969,8 @@ def test_snapshot_projects_report_bridge_from_internal_outbox_without_public_aut
     assert bridge["state"] == "AVAILABLE"
     assert bridge["latest_report"]["report_version"] == 2
     assert bridge["latest_report"]["change_kind"] == "CORRECTION"
+    assert bridge["main_admission_summary"][0]["known_at_cutoff_utc"] is None
+    assert bridge["main_admission_summary"][0]["independent_native_runtime_verified"] is False
     assert len(bridge["latest_editorial_input"]["brief"]["sections"]) == 1
     assert len(bridge["latest_editorial_input"]["derivative_intents"]) == 8
     assert bridge["article"] is None
