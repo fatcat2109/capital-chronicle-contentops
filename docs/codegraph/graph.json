@@ -88801,7 +88801,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-21T21:44:05Z",
+  "generation_timestamp_utc": "2026-10-21T23:13:59Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -89054,7 +89054,7 @@
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md",
       "kind": "authority_doc",
-      "size_bytes": 20723
+      "size_bytes": 21849
     },
     {
       "id": "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md",
@@ -89064,7 +89064,7 @@
     {
       "id": "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md",
       "kind": "authority_doc",
-      "size_bytes": 9422
+      "size_bytes": 10548
     },
     {
       "id": "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md",
@@ -89084,7 +89084,7 @@
     {
       "id": "docs/codegraph/V1_CONTEXT.md",
       "kind": "authority_doc",
-      "size_bytes": 11283
+      "size_bytes": 12409
     },
     {
       "id": "durable_table:approval_envelopes",
@@ -89896,7 +89896,7 @@
     {
       "id": "live_contentops/claim_evidence_contract_v1.py",
       "kind": "python_module",
-      "size_bytes": 33713
+      "size_bytes": 35369
     },
     {
       "id": "live_contentops/cli.py",
@@ -90046,7 +90046,7 @@
     {
       "id": "live_contentops/contentops_source_research_v1.py",
       "kind": "python_module",
-      "size_bytes": 27513
+      "size_bytes": 34168
     },
     {
       "id": "live_contentops/continuous_headline_ingest_v1.py",
@@ -92761,7 +92761,7 @@
     {
       "id": "live_contentops/v1_simple_epistemic_state_v1.py",
       "kind": "python_module",
-      "size_bytes": 20813
+      "size_bytes": 20829
     },
     {
       "id": "live_contentops/v1_simple_evidence_resolver_v1.py",
@@ -97497,28 +97497,28 @@
     {
       "id": "python_symbol:live_contentops/claim_evidence_contract_v1.py::build_claim_evidence_contract",
       "kind": "python_function",
-      "line": 489,
+      "line": 524,
       "path": "live_contentops/claim_evidence_contract_v1.py",
       "symbol": "build_claim_evidence_contract"
     },
     {
       "id": "python_symbol:live_contentops/claim_evidence_contract_v1.py::build_minimum_trustworthy_evidence_packet",
       "kind": "python_function",
-      "line": 382,
+      "line": 417,
       "path": "live_contentops/claim_evidence_contract_v1.py",
       "symbol": "build_minimum_trustworthy_evidence_packet"
     },
     {
       "id": "python_symbol:live_contentops/claim_evidence_contract_v1.py::requires_enhanced_evidence_review",
       "kind": "python_function",
-      "line": 300,
+      "line": 333,
       "path": "live_contentops/claim_evidence_contract_v1.py",
       "symbol": "requires_enhanced_evidence_review"
     },
     {
       "id": "python_symbol:live_contentops/claim_evidence_contract_v1.py::summarize_evidence_substance",
       "kind": "python_function",
-      "line": 315,
+      "line": 350,
       "path": "live_contentops/claim_evidence_contract_v1.py",
       "symbol": "summarize_evidence_substance"
     },
@@ -131565,7 +131565,7 @@
     {
       "id": "tests/test_contentops_source_research_v1.py",
       "kind": "test",
-      "size_bytes": 16235
+      "size_bytes": 20379
     },
     {
       "id": "tests/test_contracts.py",
@@ -138828,7 +138828,7 @@
     {
       "id": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 33685
+      "size_bytes": 33877
     },
     {
       "id": "ui/contentops_v5/src/views/ResearchPackageDecision.tsx",
@@ -139179,6 +139179,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "87c23fda0486811333c0091147dff87aec2d6d3c",
-  "source_tree_digest": "61bd3b8465a2b3dc291d3f7eebc5391015e6248999e0892006c93bea04520602"
+  "source_head": "0c4743e04a41a9775329ca98024ac34ffacd525a",
+  "source_tree_digest": "a5ad3810548567ce977234b34ee591b6072ee3fd1d38fabe8886b382987b6397"
 }
