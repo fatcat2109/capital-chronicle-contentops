@@ -88453,7 +88453,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-21T00:01:55Z",
+  "generation_timestamp_utc": "2026-10-21T00:08:53Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -89488,7 +89488,7 @@
     {
       "id": "live_contentops/capital_chronicle_report_editorial_workspace_v1.py",
       "kind": "python_module",
-      "size_bytes": 50313
+      "size_bytes": 50317
     },
     {
       "id": "live_contentops/capital_chronicle_report_feed_v1.py",
@@ -131161,7 +131161,7 @@
     {
       "id": "tests/test_daily_app_ui_read_model_v1.py",
       "kind": "test",
-      "size_bytes": 44869
+      "size_bytes": 45042
     },
     {
       "id": "tests/test_daily_article_brief_generation_v0.py",
@@ -137714,7 +137714,7 @@
     {
       "id": "ui/contentops_v5/src/dailyAppTypes.ts",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 21511
+      "size_bytes": 21518
     },
     {
       "id": "ui/contentops_v5/src/data/canonicalDraftFinalReviewVariantPreviewAdapter.ts",
@@ -138114,7 +138114,7 @@
     {
       "id": "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx",
       "kind": "test",
-      "size_bytes": 11943
+      "size_bytes": 12183
     },
     {
       "id": "ui/contentops_v5/src/test/research_package_decision.test.tsx",
@@ -138289,7 +138289,7 @@
     {
       "id": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 29717
+      "size_bytes": 29777
     },
     {
       "id": "ui/contentops_v5/src/views/ResearchPackageDecision.tsx",
@@ -138640,6 +138640,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "1fdb0e03cd2cf75af171214048b725e7a080c183",
-  "source_tree_digest": "879b2a7a058c32b1b4874364a13c0ab0a68cc42c20550f85637706670114ba3b"
+  "source_head": "1f09941146e13297a262d8d049d7d0b96cec29cb",
+  "source_tree_digest": "ebfd37130b644470149ea0ceed6459bf1b2b89bb99038a39a2ec7922db14050a"
 }
