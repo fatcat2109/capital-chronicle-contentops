@@ -34,3 +34,13 @@ proves that render, not successful screenshot capture or unattended production e
 No audience preference change, SEO search success, public publication, merge, deployment,
 growth or natural 5–8/day result is inferred from this audit. The scope's alternate exact-
 match reuse outcome is exercised because current permitted intake supplied no distinct angle.
+
+## Verified delivery snapshot
+
+`delivery.json` closes the source/graph delivery gate at `3365dc085feed84974c134294c55678ee9cf2991`,
+source `b02caf2d32279dfb74f2411347e53986faadd696`: 40 changed remote blob identities matched,
+9 decoded key-file byte comparisons matched, and CI `39647272511` completed SUCCESS 2/2.
+`codegraph-check.txt` is `CODEGRAPH_CURRENT`. A subsequent evidence-only commit retains this
+exact source and graph. Its final head/CI readback is preserved in the existing local Desk's
+`goal33-final-delivery.json` and PR90's Goal33 delivery section; that receipt does not attempt
+to embed its own future Git commit identity.
