@@ -357,7 +357,28 @@ export interface EvolvingStory {
   canonical_memory_article_count?: number;
 }
 
+export type MaintainedStoryVersion = NonNullable<ReportWorkspaceData['native_edition']>[number] & {
+  accepted_at_utc: string | null; analysis_as_of_utc: string | null; analysis_age_seconds: number | null;
+  source_dates: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string | null;
+    published_at_source?: string | null; canonical_content_sha256?: string; age_seconds: number | null; clock_kind?: string }>;
+  next_observation: string | null; last_source_check_utc: string | null; source_check_scope: string;
+};
+export interface MaintainedNativeStory {
+  story_identity: string; title: string; state: string; reader_question: string | null; current_view: string | null;
+  countercase?: string | null;
+  current_article_identity: string; prior_article_identity: string | null; next_observation: string | null;
+  declared_prior_article_identity?: string | null; lineage_gap?: boolean;
+  latest_assessment?: { decision: string; summary: string; cutoff_utc: string; reviewed_at_utc: string | null;
+    missing_sources: Array<{ url: string; status: string }> } | null;
+  change: { decision: string | null; summary: string | null; interpretation_changed: boolean;
+    prior_interpretation: string | null; current_interpretation: string | null; coverage_complete: boolean | null;
+    missing_sources: Array<{ url: string; status: string }>;
+    source_changes: Array<{ item_id: string; state: string; before?: { proposition?: string } | null;
+      after?: { proposition?: string } | null }> };
+  versions: MaintainedStoryVersion[]; current_version: MaintainedStoryVersion; observed_at_utc: string;
+}
 export interface ReportWorkspaceData {
+  maintained_stories?: MaintainedNativeStory[];
   audience_learning?: {
     current?: { policy: { policy_version: string | null; decision?: string; decision_reason?: string; sample_count: number; confidence: number; latest_collected_at_utc?: string }; feedback: Array<{ observation_id: string; collected_at_utc: string; scheduled_for_utc: string; semantic_state: string; native_metrics?: Record<string, number | null>; metric_availability?: Record<string, string> }>; metrics_model_calls: number };
     opportunities: Array<{ run_id: string; snapshot_sha256: string; policy: { policy_version: string | null }; feedback_count: number; next_operation: string }>;

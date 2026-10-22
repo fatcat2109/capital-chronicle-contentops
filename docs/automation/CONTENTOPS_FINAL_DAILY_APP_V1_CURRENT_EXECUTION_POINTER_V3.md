@@ -138,3 +138,14 @@ Four tasks and production remain paused. Same draft PR90; exact final remote/CI 
 graph identity are read back in the existing local Desk's `goal35_delivery.json`.
 No public/account write, activation, merge or deployment. Receiver consumption is
 NOT VERIFIED; Control Tower synchronization is pending with this durable handoff.
+
+## Maintained native story Desk (2026-10-23)
+
+Current owning handoff:
+`CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/CHECKPOINT.md`.
+The existing native source-review/follow-up/accepted-version journey now joins the
+same Desk: dated current/prior copy, source delta versus interpretation, later KEEP,
+next observation and exact preparation state. Oil/IBM reuse retained copy; gas/issuer
+version chains are labelled retained replay, not new current articles. The checkpoint
+exposes the pure completed-story read contract. Goal35's5prepared/40previews are intact;
+production and four tasks stay paused, no public writes/activation/merge/deployment.

@@ -100,7 +100,8 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
         from live_contentops.capital_chronicle_public_research_semantics_v1 import descriptor_changes
         research_changes = descriptor_changes([c for d in evidence for c in d.get("report_lineage", {}).get("claims", [])], main)
     unavailable = [a for a in attempts if a["status"] != "PASS"]
-    if main and (main.get("withdrawal_only") or removed or research_changes):
+    if (main and (main.get("withdrawal_only") or removed or research_changes)) or any(
+            e["period_relation"] == "PUBLISHER_CORRECTION_OF_SAME_OBSERVATION" for e in material_additions):
         decision = "CORRECTION_OR_WITHDRAWAL"
     elif material_additions:
         decision = "MATERIAL_FOLLOW_UP"
@@ -113,6 +114,7 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
         "run_id": run_id, "article_identity": article_identity, "title": result["article"]["title"],
         "cutoff_utc": cutoff_utc, "decision": decision, "reader_change_summary": reason,
         "source_editions": editions, "source_attempts": attempts,
+        "source_coverage_complete": not unavailable,
         "source_changes": _source_delta([], material_additions), "removed_main_claim_ids": removed,
         "changed_research_descriptor_claim_ids": research_changes,
         "previous_sources": [{k: d.get(k) for k in ("source_id", "url", "published_at_utc", "canonical_content_sha256", "canonical_content_text")}
@@ -120,7 +122,7 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
         "main_receipt_id": main_receipt_id, "research_revision": research.revision,
         "invalidates_prepared_review": decision in {"MATERIAL_FOLLOW_UP", "CORRECTION_OR_WITHDRAWAL", "STALE_OR_SOURCE_GAP"},
         "media_state": "REVALIDATE_CHANGED_SUPPORT" if additions or removed else "RETAIN_EXACT_BYTES_DATED_SUPPORT",
-        "prior_story": {"story_identity": result["article"].get("story_identity"),
+        "prior_story": {"story_identity": result["article"].get("update_chain_identity") or result["article"].get("story_identity"),
             "article_identity": article_identity, "title": result["article"]["title"],
             "full_text": result["article"]["substack_body_markdown"], "stage": "UNPUBLISHED_REVIEWED_ARTICLE"},
         "writer_required": decision in {"MATERIAL_FOLLOW_UP", "CORRECTION_OR_WITHDRAWAL"}, "publication_authority": False,
@@ -128,6 +130,116 @@ def record_story_source_review(store, *, run_id, article_identity, review_operat
     store.register_outbox_message(message_id=key, work_item_id=row["work_item_id"], destination=SOURCE_REVIEW,
         payload=canonical_bytes(review).decode(), status="EDITORIAL_INTERNAL")
     return review
+
+
+def native_story_projection(edition, rows, *, observed_at_utc=None):
+    """Pure completed native-story/revision view over existing outbox and reviews.
+
+    No model, filesystem, network, new state machine or factual freshness verdict.
+    Source comparison decisions and exact parent identities remain the owners.
+    """
+    import re
+    observed = observed_at_utc or datetime.now(timezone.utc).isoformat()
+    finals, checks, groups = {}, {}, {}
+    for row in rows:
+        if row["destination"] == SOURCE_REVIEW:
+            value = json.loads(row["payload"])
+            value = {**value, "reviewed_at_utc": row.get("created_at")}
+            checks.setdefault(value["article_identity"], []).append(value)
+        elif row["destination"] == "internal:cc-report-simple-result":
+            value = json.loads(row["payload"])
+            if value.get("qualified_article_count") and value.get("model_execution_state") == "NATIVE_DESKTOP_REQUEST_RETURN":
+                finals[value["article_identity"]] = (value, row.get("created_at"))
+
+    def age(clock):
+        if not clock:
+            return None
+        try:
+            a = datetime.fromisoformat(str(clock).replace("Z", "+00:00"))
+            b = datetime.fromisoformat(observed.replace("Z", "+00:00"))
+            return int((b - a).total_seconds()) if a.tzinfo and b >= a else None
+        except (TypeError, ValueError):
+            return None
+
+    for identity, item in edition.items():
+        result, accepted = finals.get(identity, ({}, None))
+        article = item["article"]
+        chain = article.get("update_chain_identity") or article.get("story_identity") or identity
+        simple = result.get("simple_result") or {}
+        cutoff = simple.get("cutoff_utc")
+        own_checks = checks.get(identity, [])
+        source_dates = [{k: e.get(k) for k in ("source_id", "document_id", "url", "publisher",
+            "published_at_utc", "published_at_source", "canonical_content_sha256")}
+            | {"age_seconds": age(e.get("published_at_utc")) if e.get("published_at_source") != "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME" else None,
+               "clock_kind": "MAIN_REPORT_CUTOFF" if e.get("published_at_source") == "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME" else "SOURCE_PUBLICATION"}
+            for e in item.get("evidence") or []]
+        watch, watch_origin = None, None
+        for preview in item.get("previews") or []:
+            payload = preview.get("payload") or {}
+            text = payload.get("full_text") or payload.get("text") or payload.get("caption") or ""
+            match = re.search(r"(?:What to watch|Watch):\s*(.+?)(?:\n\s*\n|$)", text, re.S)
+            if match and match[1].strip() != "What would change that assessment?":
+                watch, watch_origin = match[1].strip(), preview["destination"]
+                break
+        version = {**item, "accepted_at_utc": accepted, "analysis_as_of_utc": cutoff,
+            "analysis_age_seconds": age(cutoff), "source_dates": source_dates,
+            "next_observation": watch, "next_observation_origin": watch_origin,
+            "source_checks": own_checks, "last_source_check_utc": own_checks[-1].get("reviewed_at_utc") if own_checks else None,
+            "source_check_scope": "An assessment clock is not a new event, a new source date or current market coverage."}
+        groups.setdefault(chain, []).append(version)
+    result = []
+    for chain, versions in groups.items():
+        # Topological parent order first; arrival order breaks ties. Never infer
+        # ancestry from a common issuer, title, retrieval clock or market topic.
+        remaining = list(versions); ordered = []
+        while remaining:
+            ready = next((v for v in remaining if not v["article"].get("prior_article_identity") or
+                v["article"]["prior_article_identity"] not in {p["article_identity"] for p in remaining}), remaining[0])
+            ordered.append(ready); remaining.remove(ready)
+        current = ordered[-1]
+        parent_identity = current["article"].get("prior_article_identity")
+        prior = next((v for v in ordered if v["article_identity"] == parent_identity), None)
+        current_checks = current["source_checks"]
+        parent_review_id = current["article"].get("source_review_id")
+        origin = next((c for values in checks.values() for c in values if c["review_id"] == parent_review_id), None)
+        review = current_checks[-1] if current_checks else origin
+        comparison = origin or review
+        if not current["last_source_check_utc"] and origin:
+            current["last_source_check_utc"] = origin.get("reviewed_at_utc")
+        decision = review["decision"] if review else None
+        state = ("HOLD" if decision == "STALE_OR_SOURCE_GAP" or (current.get("review") or {}).get("decision") == "HOLD"
+            else "CORRECTION_OR_WITHDRAWAL" if decision == "CORRECTION_OR_WITHDRAWAL"
+            else "KEEP" if decision == "USE_UNCHANGED"
+            else "UPDATE" if decision == "MATERIAL_FOLLOW_UP" or prior else "NEW")
+        old_copy = prior["article"].get("social_mechanism_summary") if prior else None
+        new_copy = current["article"].get("social_mechanism_summary")
+        result.append({"story_identity": chain, "title": current["article"]["title"], "state": state,
+            "current_article_identity": current["article_identity"],
+            "prior_article_identity": prior["article_identity"] if prior else None,
+            "declared_prior_article_identity": parent_identity,
+            "lineage_gap": bool(parent_identity and prior is None),
+            "reader_question": current.get("reader_question") or current["article"].get("primary_reader_question"),
+            "current_view": current["article"].get("dek"),
+            "countercase": current["article"].get("social_policy_summary"),
+            "next_observation": current["next_observation"], "next_observation_origin": current["next_observation_origin"],
+            "latest_assessment": {"decision": review["decision"], "summary": review["reader_change_summary"],
+                "cutoff_utc": review["cutoff_utc"], "reviewed_at_utc": review.get("reviewed_at_utc"),
+                "missing_sources": [a for a in review.get("source_attempts", []) if a.get("status") != "PASS"]}
+                if review and comparison and review["review_id"] != comparison["review_id"] else None,
+            "change": {"decision": comparison["decision"] if comparison else None,
+                "summary": comparison.get("reader_change_summary") if comparison else None,
+                "source_changes": comparison.get("source_changes", []) if comparison else [],
+                "interpretation_changed": bool(prior and old_copy != new_copy),
+                "prior_interpretation": old_copy, "current_interpretation": new_copy,
+                "coverage_complete": comparison.get("source_coverage_complete", all(a.get("status") == "PASS"
+                    for a in comparison.get("source_attempts", []))) if comparison else None,
+                "missing_sources": [a for a in comparison.get("source_attempts", []) if a.get("status") != "PASS"] if comparison else []},
+            "versions": ordered, "current_version": current, "observed_at_utc": observed,
+            "publication_authority": False})
+    result.sort(key=lambda story: min((n for n in (
+        age(story["current_version"]["last_source_check_utc"]),
+        age(story["current_version"]["analysis_as_of_utc"])) if n is not None), default=float("inf")))
+    return result
 
 
 def _source_delta(before, after):

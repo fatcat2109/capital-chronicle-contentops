@@ -56,3 +56,6 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/source_editio
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/articles/**/*.json binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/*.txt binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/renders/**/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/**/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/**/*.json binary

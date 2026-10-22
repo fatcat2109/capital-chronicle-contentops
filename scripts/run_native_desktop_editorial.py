@@ -89,6 +89,53 @@ def validate_binding(binding, *, read_or_prepare=False):
     return binding
 
 
+def continue_owner_story(profile, *, source_review_id, operation_id=None, request=None):
+    """Route an exact source review through the existing owner, without repeat roles."""
+    from live_contentops.contentops_editorial_desk_v1 import source_review_projection
+    store = ContentOpsDurableStore(profile["store_path"], auto_migrate=False)
+    rows = store.list_outbox_messages()
+    reviews = source_review_projection(rows)
+    review = next((r for r in reviews if r["review_id"] == source_review_id), None)
+    if not review:
+        raise ValueError("EXACT_STORY_SOURCE_REVIEW_REQUIRED")
+    latest = [r for r in reviews if r["article_identity"] == review["article_identity"]][-1]
+    if latest["review_id"] != source_review_id:
+        raise ValueError("SOURCE_REVIEW_SUPERSEDED_REFRESH_STORY")
+    if not review["writer_required"]:
+        return {"classification": "NATIVE_STORY_REUSED_NO_MODEL" if review["decision"] == "USE_UNCHANGED"
+                else "NATIVE_STORY_SOURCE_GAP_NO_MODEL", "decision": review["decision"],
+            "article_identity": review["article_identity"], "source_review_id": source_review_id,
+            "reader_change_summary": review["reader_change_summary"], "model_invocations": 0,
+            "source_requests": 0, "public_write_performed": False,
+            "next_operation": "Retain the dated article; resolve only the named next source observation."}
+    # Reuse an already accepted child before allocating any operation. A second
+    # label cannot duplicate a source-bound completed follow-up.
+    for row in rows:
+        if row["destination"] != "internal:cc-report-simple-result":
+            continue
+        value = json.loads(row["payload"])
+        if (value.get("qualified_article_count") and (value.get("article") or {}).get("source_review_id") == source_review_id):
+            child = value["simple_result"]["run_id"]
+            if operation_id and operation_id != child:
+                raise ValueError("FOLLOWUP_ALREADY_ACCEPTED_USE_EXISTING_OPERATION:" + child)
+            _, binding = resolve_owner_operation(profile, operation_id=child)
+            return operation(binding)
+    operation_id = operation_id or "followup-" + sha256_of(source_review_id)[:24]
+    text = request or ("Continue this exact maintained story from its source-bound review. "
+        "Select only the bound prior story and admitted changed evidence, or abstain. "
+        "Preserve the prior article's update chain, source clocks, public-only authority and history. "
+        "Explain new facts separately from changed interpretation, uncertainty and the next observation. "
+        "Canonical article, SEO and all eight packages retain the existing house voice. " + review["reader_change_summary"])
+    # Omitted request on resume keeps the original owner wording, including a
+    # custom request. A pending binding is the authority for its frozen input.
+    existing = Path(profile["editorial_output_root"]) / operation_id / "binding.json"
+    _, binding = resolve_owner_operation(profile, operation_id=operation_id, request=request if existing.is_file() else text,
+        source_review_ids=[source_review_id])
+    if binding.get("source_review_ids") != [source_review_id]:
+        raise ValueError("EXACT_FOLLOWUP_OPERATION_SOURCE_BINDING_REQUIRED")
+    return operation(binding)
+
+
 def operation(binding, *, command="advance", response=None, stage=None, rollout=None,
               native_invocation_id=None, request_hash=None):
     validate_binding(binding, read_or_prepare=command in {"publication-prepare", "publication-status"})
@@ -247,7 +294,7 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources", "relocate-workspace", "edition",
+    parser.add_argument("command", choices=("newsroom", "follow-up", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
@@ -267,6 +314,14 @@ def main(argv=None):
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.command == "follow-up":
+        if len(args.source_review_id) != 1:
+            parser.error("follow-up requires one exact --source-review-id")
+        profile = json.loads(args.profile.read_bytes())
+        result = continue_owner_story(profile, source_review_id=args.source_review_id[0],
+            operation_id=args.operation_id, request=args.request_file.read_text(encoding="utf-8") if args.request_file else args.request)
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
     if args.command.startswith("audience-"):
         from live_contentops.native_newsroom_learning_v1 import learning_context, NativeAudienceObservation, evaluate_native_learning, feedback_judgment
         profile = json.loads(args.profile.read_bytes())

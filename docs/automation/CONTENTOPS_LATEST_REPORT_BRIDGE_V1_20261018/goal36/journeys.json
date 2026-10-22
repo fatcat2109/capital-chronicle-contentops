@@ -1,0 +1,581 @@
+{
+  "observed_at_utc": "2026-10-22T19:05:21.510382Z",
+  "goal35_inspected": [
+    {
+      "run_id": "goal35-oil",
+      "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+      "canonical_article_sha256": "19cfb4f745655bfcc0b9586836bca684b8319c4d4f4246ac296470bd4269f29f",
+      "source_ids": [
+        "goal35-oil"
+      ],
+      "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+      "title": "Reuters reports oil's early rally faded by the October 21 close",
+      "accepted_semantic_responses": 3,
+      "disposition": "RETAIN_DATED_COPY_NOT_NEW_OUTPUT"
+    },
+    {
+      "run_id": "goal35-ibm",
+      "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+      "canonical_article_sha256": "5e5c9d856c5d3bfd351fe5d57a7b313e592ca6effbb0ec23d7b8309600fb71f0",
+      "source_ids": [
+        "goal35-ibm"
+      ],
+      "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+      "title": "Reuters reports IBM raises software revenue growth floor; durability is the test",
+      "accepted_semantic_responses": 3,
+      "disposition": "RETAIN_DATED_COPY_NOT_NEW_OUTPUT"
+    },
+    {
+      "run_id": "goal35-tesla",
+      "article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+      "canonical_article_sha256": "a70e1fa7b0c685737e160d84906fd84dd22725dcdbd7c67c76ed2dd95545456c",
+      "source_ids": [
+        "goal35-tesla"
+      ],
+      "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+      "title": "Reuters: Tesla's positive cash flow puts capex expectations in focus",
+      "accepted_semantic_responses": 3,
+      "disposition": "RETAIN_DATED_COPY_NOT_NEW_OUTPUT"
+    },
+    {
+      "run_id": "goal35-meta",
+      "article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+      "canonical_article_sha256": "56a86017097c02575be53e52bb52afea89e046a9efcffc1c3dce8c65ae2a2a94",
+      "source_ids": [
+        "goal35-meta"
+      ],
+      "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+      "title": "Reuters: Meta's non-voting share plan targets expansion without ceding control",
+      "accepted_semantic_responses": 2,
+      "disposition": "RETAIN_DATED_COPY_NOT_NEW_OUTPUT"
+    },
+    {
+      "run_id": "goal35-southwest",
+      "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+      "canonical_article_sha256": "06d195c91492ccd66d471e57e7bf1353e21837d07d50bf869a5dcade52fa9095",
+      "source_ids": [
+        "goal35-southwest"
+      ],
+      "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+      "title": "Reuters reports Southwest's 2026 profit outlook cut despite quarterly gains",
+      "accepted_semantic_responses": 2,
+      "disposition": "RETAIN_DATED_COPY_NOT_NEW_OUTPUT"
+    }
+  ],
+  "cohort": [
+    {
+      "source_comparison_input": {
+        "run_id": "goal35-oil",
+        "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+        "review_operation_id": "goal36-oil-retained-check",
+        "source_ids": [
+          "goal35-oil"
+        ],
+        "attempts": [
+          {
+            "url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+            "status": "PASS",
+            "observed_at_utc": "2026-10-22T19:05:21.510382Z",
+            "method": "EXACT_RETAINED_CAPTURE_REUSE_NO_NETWORK"
+          }
+        ],
+        "cutoff_utc": "2026-10-22T19:05:21.510382Z",
+        "reason": "Compared the exact retained October21 Reuters evidence only; no later event or independent confirmation has been established. Keep the dated article. Next observation: a later comparable close plus independently verified inventory/diplomatic context. No current-market freshness or new story is claimed."
+      },
+      "source_review": {
+        "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+        "changed_research_descriptor_claim_ids": [],
+        "cutoff_utc": "2026-10-22T19:05:21.510382Z",
+        "decision": "USE_UNCHANGED",
+        "invalidates_prepared_review": false,
+        "main_receipt_id": null,
+        "media_state": "RETAIN_EXACT_BYTES_DATED_SUPPORT",
+        "previous_sources": [
+          {
+            "canonical_content_sha256": "a0d56d1c3859cd531cf106a248147498311f1619efd34bf5354d0f52fb1d49fc",
+            "canonical_content_text": "Oil prices steady as investors weigh geopolitics, lower US stockpiles\n\nHOUSTON, Oct 21 (Reuters) - Oil prices settled with little change on Wednesday as investors weighed possible progress toward Russia-Ukraine talks against declining US oil stocks and a lack of US-Iran dialogue.\n\nBrent crude futures settled 3 ‌cents, or 0.03% higher, at $108.82 a barrel. US West Texas Intermediate crude closed down 67 cents, or 0.7%, at $97.15.\n\nBoth ‌benchmarks had gained more than $2 earlier in the session, with Brent hovering near five-month highs.",
+            "published_at_utc": "2026-10-21T19:17:12Z",
+            "source_id": "SOURCE_1",
+            "url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html"
+          }
+        ],
+        "prior_story": {
+          "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+          "full_text": "How much of the oil rally survived the close? Reuters reports Brent almost unchanged and WTI lower on October 21, after both had climbed more than $2 earlier in the session. SINGLE-SOURCE REPORT - REUTERS; the underlying events remain unconfirmed. [[SOURCE:SOURCE_1]]\n\nAccording to Reuters, Brent settled at $108.82 a barrel, up 3 cents, or 0.03%. Reuters puts the WTI close at $97.15, down 67 cents, or 0.7%. [[SOURCE:SOURCE_1]]\n\nReuters identifies several competing considerations: the possibility of headway on Russia-Ukraine negotiations, a decline in US oil inventories, and its reported absence of US-Iran dialogue. This framing leaves open which consideration mattered at which point in the session. [[SOURCE:SOURCE_1]]\n\nIf Reuters' account is accurate, the mechanism to test is a shift in the balance between those competing considerations during the session. An earlier rise can coexist with a weaker close. Capital Chronicle's reading is that the closing prices constrain a sustained-rally narrative; they cannot establish that diplomacy or inventories caused the reversal. [[SOURCE:SOURCE_1]]\n\nThe serious countercase is that a faded rally does not mean the concerns cited by Reuters vanished. If Reuters' account is accurate, opposing considerations could have offset one another at the close while remaining unresolved. A nearly flat Brent settlement and a lower WTI close would then describe the balance at that moment, rather than a durable change in the oil outlook. [[SOURCE:SOURCE_1]]\n\nIf later comparable closes regain the earlier strength alongside independently verified diplomatic or inventory developments, the October 21 retreat would say less about the persistence of those pressures. If rallies keep fading, the mechanism would still need a matched timeline. Which verified development, if any, lines up with the next comparable closing move? [[SOURCE:SOURCE_1]]\n\n## Source notes\n\nReuters published this report on October 21, 2026, at 19:17:12 UTC; Yahoo Finance carries the syndicated report. The retained copy was available to this analysis at 22:27:23.049 UTC on October 21. This is the retained October 21 snapshot. Causal interpretation would require exact contract and intraday timing, the inventory release and expectations, comparable curve and volume data, and independent checks of the diplomatic reporting. [[SOURCE:SOURCE_1]]",
+          "stage": "UNPUBLISHED_REVIEWED_ARTICLE",
+          "story_identity": "simple-story-3c160cea87fca66d7c13eb55",
+          "title": "Reuters reports oil's early rally faded by the October 21 close"
+        },
+        "public_write_performed": false,
+        "publication_authority": false,
+        "reader_change_summary": "Compared the exact retained October21 Reuters evidence only; no later event or independent confirmation has been established. Keep the dated article. Next observation: a later comparable close plus independently verified inventory/diplomatic context. No current-market freshness or new story is claimed.",
+        "removed_main_claim_ids": [],
+        "request_sha256": "88971ec514f35a78b7354ced6e0fdb429d613be336f27c1c989f13d4a48f7b4a",
+        "research_revision": "369562fecd18ccf1d4752b52c4b2d6b9ba6569e7697dd962002fdec48f1e510f",
+        "review_id": "native-source-review-842d81c7508bd286dba56ffb4e8438ece2cb98ddbe60bb66dfb49e4af91fbffd",
+        "run_id": "goal35-oil",
+        "schema_version": "contentops.native_story_source_review.v1",
+        "source_attempts": [
+          {
+            "method": "EXACT_RETAINED_CAPTURE_REUSE_NO_NETWORK",
+            "observed_at_utc": "2026-10-22T19:05:21.510382Z",
+            "status": "PASS",
+            "url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html"
+          }
+        ],
+        "source_changes": [],
+        "source_coverage_complete": true,
+        "source_editions": [
+          {
+            "capture_sha256": "b76e3ca9d02b2ca04e7a2905942bed19badaf25465e523ab3e3b52075621e7f2",
+            "context_kind": "CURRENT_ATTRIBUTED_REUTERS_REPORT_NOT_UNIVERSAL_EVENT_CONFIRMATION",
+            "item_id": "goal35-oil",
+            "observation_date": "2026-10-21",
+            "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+            "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+            "permission_sha256": "8876d5e25a0f1cd51f0007dbc9d25389d804c4ccde348147be73743710ed4871",
+            "proposition": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+            "published_at_utc": "2026-10-21T19:17:12Z",
+            "retrieved_at_utc": "2026-10-21T22:27:23.049Z",
+            "rights_state": "GOVERNED_REPORTED_FACTS_ONLY_NO_EXPRESSIVE_REUSE",
+            "source_url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+            "stage": "RESEARCH_READY",
+            "text_sha256": "5d06d04f49b2b8e99c38ec0794c5356cec7e5369b257dfd3bac12e6d20857d32"
+          }
+        ],
+        "title": "Reuters reports oil's early rally faded by the October 21 close",
+        "writer_required": false
+      },
+      "owner_entry_response": {
+        "classification": "NATIVE_STORY_REUSED_NO_MODEL",
+        "decision": "USE_UNCHANGED",
+        "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+        "source_review_id": "native-source-review-842d81c7508bd286dba56ffb4e8438ece2cb98ddbe60bb66dfb49e4af91fbffd",
+        "reader_change_summary": "Compared the exact retained October21 Reuters evidence only; no later event or independent confirmation has been established. Keep the dated article. Next observation: a later comparable close plus independently verified inventory/diplomatic context. No current-market freshness or new story is claimed.",
+        "model_invocations": 0,
+        "source_requests": 0,
+        "public_write_performed": false,
+        "next_operation": "Retain the dated article; resolve only the named next source observation."
+      },
+      "repeated_entry_unchanged": true,
+      "new_model_calls": 0,
+      "new_source_requests": 0
+    },
+    {
+      "source_comparison_input": {
+        "run_id": "goal35-ibm",
+        "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+        "review_operation_id": "goal36-ibm-retained-check",
+        "source_ids": [
+          "goal35-ibm"
+        ],
+        "attempts": [
+          {
+            "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+            "status": "PASS",
+            "observed_at_utc": "2026-10-22T19:05:21.510382Z",
+            "method": "EXACT_RETAINED_CAPTURE_REUSE_NO_NETWORK"
+          }
+        ],
+        "cutoff_utc": "2026-10-22T19:05:21.510382Z",
+        "reason": "Compared the exact retained October21 Reuters evidence only; no later event or independent confirmation has been established. Keep the dated article. Next observation: a subsequent dated transaction-processing/new-deal disclosure and the scope of delayed deals. No current-market freshness or new story is claimed."
+      },
+      "source_review": {
+        "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+        "changed_research_descriptor_claim_ids": [],
+        "cutoff_utc": "2026-10-22T19:05:21.510382Z",
+        "decision": "USE_UNCHANGED",
+        "invalidates_prepared_review": false,
+        "main_receipt_id": null,
+        "media_state": "RETAIN_EXACT_BYTES_DATED_SUPPORT",
+        "previous_sources": [
+          {
+            "canonical_content_sha256": "3ea8bbea4ba84df6bba32068466924d478361609c2b60a814baabdfbcadb0a84",
+            "canonical_content_text": "IBM raises annual software revenue outlook as deal delays ease\n\nIn an interview with Reuters, Kavanaugh said ​IBM now expects annual software revenue growth of about ​7% to 8%, up from 6% to 8% ⁠previously. IBM's shares rose about 4% in extended trading.\n\nThird-quarter revenue rose 4.7% to $17.10 billion, above ​analysts' average estimate of $16.82 billion, according to data compiled by LSEG\n\nSoftware revenue rose 8.3% to $7.80 billion in the third quarter, topping estimates of $7.62 billion\n\nKavanaugh ​said about 25% of the transaction processing ​revenue came ⁠from deals deferred from the second quarter and \"the remaining 75% is net new business\"",
+            "published_at_utc": "2026-10-21T20:12:00Z",
+            "source_id": "SOURCE_1",
+            "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/"
+          }
+        ],
+        "prior_story": {
+          "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+          "full_text": "SINGLE-SOURCE REPORT - REUTERS: Does IBM's reported software upgrade show lasting demand, or business arriving after a delay? Reuters' October 21, 2026 report attributes to Kavanaugh an annual software revenue growth outlook of about 7% to 8%, previously 6% to 8%; the underlying update has not been independently confirmed. Those reported ranges lift the floor and retain an 8% ceiling. If the report is accurate, Capital Chronicle's reading is greater confidence in the bottom of the range, while a faster upper-end growth path remains unestablished. [[SOURCE:SOURCE_1]]\n\nReuters puts IBM's third-quarter company-wide revenue at $17.10 billion, up 4.7%, against a $16.82 billion LSEG consensus estimate. Its software figures are separate: $7.80 billion of revenue, growth of 8.3%, versus a $7.62 billion estimate. These are reported earnings comparisons, not a measure of growth after removing delayed deals. [[SOURCE:SOURCE_1]]\n\n## The deal-mix distinction\n\nThe deal-mix detail has a narrower denominator. Reuters attributes to Kavanaugh a breakdown of transaction-processing revenue: about 25% came from business deferred from the second quarter, with the other 75% characterized as net new business. Those shares refer to that revenue category; they are neither a split of all IBM revenue nor a decomposition of software revenue growth. [[SOURCE:SOURCE_1]]\n\nIf the report is accurate, business delayed from an earlier quarter could support the current result without proving a lasting rise in demand. Capital Chronicle's timing test is whether fresh business keeps arriving after that catch-up fades. [[SOURCE:SOURCE_1]]\n\nIf the report is accurate, Kavanaugh's account of net new transaction-processing business challenges a catch-up-only reading. Fresh demand and delayed deals could coexist, so the presence of deferred business alone would not disprove improvement. [[SOURCE:SOURCE_1]]\n\nReuters also describes an approximately 4% increase in IBM's shares during extended trading. That reported price observation cannot establish recurring demand or identify why investors bought the shares. [[SOURCE:SOURCE_1]]\n\n## What would change the reading\n\nIf IBM sustains new transaction-processing business after delayed deals clear, the durable-demand reading would strengthen. Weaker follow-through would challenge it; comparable software growth, revenue, margin and cash-conversion evidence would help distinguish timing from persistence. [[SOURCE:SOURCE_1]]\n\n### Source notes\n\nSource notes: The Reuters report is dated October 21, 2026, with a supplied publication time of 20:12 UTC. It was known to this edition at 22:27:23.029 UTC; the editorial cutoff was 22:29:51.437174 UTC that day. Kavanaugh's remarks and the estimates above are attributed through Reuters. [[SOURCE:SOURCE_1]]",
+          "stage": "UNPUBLISHED_REVIEWED_ARTICLE",
+          "story_identity": "simple-story-cfa3cb4bdb5389780c472d78",
+          "title": "Reuters reports IBM raises software revenue growth floor; durability is the test"
+        },
+        "public_write_performed": false,
+        "publication_authority": false,
+        "reader_change_summary": "Compared the exact retained October21 Reuters evidence only; no later event or independent confirmation has been established. Keep the dated article. Next observation: a subsequent dated transaction-processing/new-deal disclosure and the scope of delayed deals. No current-market freshness or new story is claimed.",
+        "removed_main_claim_ids": [],
+        "request_sha256": "dac592decf1b28aeaaa64fc09ca6ba09ff7d86a91db2bd022c2c9585ad1aea86",
+        "research_revision": "369562fecd18ccf1d4752b52c4b2d6b9ba6569e7697dd962002fdec48f1e510f",
+        "review_id": "native-source-review-7b828fe1ca27d777d84655432256d6aaa6ca8a676bc883b69551280e794b3631",
+        "run_id": "goal35-ibm",
+        "schema_version": "contentops.native_story_source_review.v1",
+        "source_attempts": [
+          {
+            "method": "EXACT_RETAINED_CAPTURE_REUSE_NO_NETWORK",
+            "observed_at_utc": "2026-10-22T19:05:21.510382Z",
+            "status": "PASS",
+            "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/"
+          }
+        ],
+        "source_changes": [],
+        "source_coverage_complete": true,
+        "source_editions": [
+          {
+            "capture_sha256": "468ebc08e76e964e126e926ac97c922e6053d588b781d60968257e146e93c9d6",
+            "context_kind": "CURRENT_ATTRIBUTED_REUTERS_REPORT_NOT_UNIVERSAL_EVENT_CONFIRMATION",
+            "item_id": "goal35-ibm",
+            "observation_date": "2026-10-21",
+            "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+            "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+            "permission_sha256": "6dc9d2c7fc96137820b191b3c4f7055c62ca879805263614c07cacae4652ceef",
+            "proposition": "IBM raises annual software revenue outlook as deal delays ease",
+            "published_at_utc": "2026-10-21T20:12:00Z",
+            "retrieved_at_utc": "2026-10-21T22:27:23.029Z",
+            "rights_state": "GOVERNED_REPORTED_FACTS_ONLY_NO_EXPRESSIVE_REUSE",
+            "source_url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+            "stage": "RESEARCH_READY",
+            "text_sha256": "8a3a5eb3b8293d0fe6f80f180c86334f3c446926b89292d27aaf3fd315de1bc8"
+          }
+        ],
+        "title": "Reuters reports IBM raises software revenue growth floor; durability is the test",
+        "writer_required": false
+      },
+      "owner_entry_response": {
+        "classification": "NATIVE_STORY_REUSED_NO_MODEL",
+        "decision": "USE_UNCHANGED",
+        "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+        "source_review_id": "native-source-review-7b828fe1ca27d777d84655432256d6aaa6ca8a676bc883b69551280e794b3631",
+        "reader_change_summary": "Compared the exact retained October21 Reuters evidence only; no later event or independent confirmation has been established. Keep the dated article. Next observation: a subsequent dated transaction-processing/new-deal disclosure and the scope of delayed deals. No current-market freshness or new story is claimed.",
+        "model_invocations": 0,
+        "source_requests": 0,
+        "public_write_performed": false,
+        "next_operation": "Retain the dated article; resolve only the named next source observation."
+      },
+      "repeated_entry_unchanged": true,
+      "new_model_calls": 0,
+      "new_source_requests": 0
+    }
+  ],
+  "retained_replays": [
+    {
+      "label": "REAL_RETAINED_NATIVE_VERSION_REPLAY_NOT_NEW_OUTPUT",
+      "prior_run_id": "goal26-gas-follow-up",
+      "run_id": "goal27-gas-refill-update",
+      "prior_article_identity": "9cb401822f1df3223ca23269da7d499f6b4272e9ca70546e066dca01161e397f",
+      "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+      "source_review_id": "native-source-review-5ff078571cfc098c51a40cac14209ac2763ae570d1a63633744e53283d637a06",
+      "story_identity": "simple-story-8380cdb9d4dbf363c652f48a",
+      "accepted_native_telemetry": {
+        "cost_usd": null,
+        "external_provider_attempt_count": 0,
+        "maximum_repair_count": 1,
+        "native_invocation_count_observed": 2,
+        "observations": [
+          {
+            "invocation_id": "/root/goal27_sol_light",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+            "reasoning_effort": "low",
+            "role": "select",
+            "source_spawn_metadata": {
+              "canonical_task_name": "/root/goal27_sol_light",
+              "fork_turns": "none",
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low",
+              "task_name": "goal27_sol_light",
+              "uuid_exposed": false
+            },
+            "speed": "standard",
+            "stage": "select",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          },
+          {
+            "invocation_id": "/root/goal27_sol_max_writer",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+            "reasoning_effort": "max",
+            "role": "write",
+            "speed": "standard",
+            "stage": "write",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          }
+        ],
+        "observed_efforts": [
+          "low",
+          "max"
+        ],
+        "observed_models": [
+          "gpt-6.1-sol"
+        ],
+        "owner": "NATIVE_CODEX_DESKTOP",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "low",
+        "role_assignments": {
+          "filter": {
+            "model": "gpt-6-luna",
+            "reasoning_effort": "max"
+          },
+          "revise": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          },
+          "select": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low"
+          },
+          "write": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          }
+        },
+        "semantic_response_count": 2,
+        "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+        "usage_tokens": null
+      },
+      "owner_entry_response": {
+        "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+        "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+        "qualified_article_count": 1,
+        "new_model_invocations": 0,
+        "new_source_requests": 0,
+        "editorial_execution": {
+          "owner": "NATIVE_CODEX_DESKTOP",
+          "requested_model": "gpt-6.1-sol",
+          "requested_reasoning_effort": "low",
+          "role_assignments": {
+            "filter": {
+              "model": "gpt-6-luna",
+              "reasoning_effort": "max"
+            },
+            "select": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low"
+            },
+            "write": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            },
+            "revise": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            }
+          },
+          "observed_models": [
+            "gpt-6.1-sol"
+          ],
+          "observed_efforts": [
+            "low",
+            "max"
+          ],
+          "native_invocation_count_observed": 2,
+          "semantic_response_count": 2,
+          "maximum_repair_count": 1,
+          "external_provider_attempt_count": 0,
+          "usage_tokens": null,
+          "cost_usd": null,
+          "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+          "observations": [
+            {
+              "invocation_id": "/root/goal27_sol_light",
+              "model": "gpt-6.1-sol",
+              "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+              "reasoning_effort": "low",
+              "source_spawn_metadata": {
+                "canonical_task_name": "/root/goal27_sol_light",
+                "fork_turns": "none",
+                "model": "gpt-6.1-sol",
+                "reasoning_effort": "low",
+                "task_name": "goal27_sol_light",
+                "uuid_exposed": false
+              },
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "select",
+              "role": "select"
+            },
+            {
+              "invocation_id": "/root/goal27_sol_max_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "write",
+              "role": "write"
+            }
+          ]
+        },
+        "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+        "public_write_performed": false
+      },
+      "exact_source_ids": [
+        "goal27-gas-seasonal"
+      ],
+      "existing_prepared_packages": 8,
+      "immutable_files_unchanged": 66,
+      "outbox_unchanged": true,
+      "new_model_responses": 0,
+      "new_source_requests": 0
+    },
+    {
+      "label": "REAL_RETAINED_NATIVE_VERSION_REPLAY_NOT_NEW_OUTPUT",
+      "prior_run_id": "goal31-futures-cashflow",
+      "run_id": "goal34-hedge-cash-clocks",
+      "prior_article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "source_review_id": "native-source-review-419900a25c926621120e1346789394486c163343b67b43069a589f55e9a0b7b2",
+      "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+      "accepted_native_telemetry": {
+        "cost_usd": null,
+        "external_provider_attempt_count": 0,
+        "maximum_repair_count": 1,
+        "native_invocation_count_observed": 2,
+        "observations": [
+          {
+            "invocation_id": "/root/goal34_sol_light",
+            "model": "gpt-6.1-sol",
+            "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+            "reasoning_effort": "low",
+            "role": "select",
+            "speed": "standard",
+            "stage": "select",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          },
+          {
+            "invocation_id": "/root/goal34_sol_max_writer",
+            "model": "gpt-6.1-sol",
+            "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+            "reasoning_effort": "max",
+            "role": "write",
+            "speed": "standard",
+            "stage": "write",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          }
+        ],
+        "observed_efforts": [
+          "low",
+          "max"
+        ],
+        "observed_models": [
+          "gpt-6.1-sol"
+        ],
+        "owner": "NATIVE_CODEX_DESKTOP",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "low",
+        "role_assignments": {
+          "filter": {
+            "model": "gpt-6-luna",
+            "reasoning_effort": "max"
+          },
+          "revise": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          },
+          "select": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low"
+          },
+          "write": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          }
+        },
+        "semantic_response_count": 2,
+        "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+        "usage_tokens": null
+      },
+      "owner_entry_response": {
+        "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+        "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+        "qualified_article_count": 1,
+        "new_model_invocations": 0,
+        "new_source_requests": 0,
+        "editorial_execution": {
+          "owner": "NATIVE_CODEX_DESKTOP",
+          "requested_model": "gpt-6.1-sol",
+          "requested_reasoning_effort": "low",
+          "role_assignments": {
+            "filter": {
+              "model": "gpt-6-luna",
+              "reasoning_effort": "max"
+            },
+            "select": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low"
+            },
+            "write": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            },
+            "revise": {
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "max"
+            }
+          },
+          "observed_models": [
+            "gpt-6.1-sol"
+          ],
+          "observed_efforts": [
+            "low",
+            "max"
+          ],
+          "native_invocation_count_observed": 2,
+          "semantic_response_count": 2,
+          "maximum_repair_count": 1,
+          "external_provider_attempt_count": 0,
+          "usage_tokens": null,
+          "cost_usd": null,
+          "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+          "observations": [
+            {
+              "invocation_id": "/root/goal34_sol_light",
+              "model": "gpt-6.1-sol",
+              "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+              "reasoning_effort": "low",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "select",
+              "role": "select"
+            },
+            {
+              "invocation_id": "/root/goal34_sol_max_writer",
+              "model": "gpt-6.1-sol",
+              "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+              "reasoning_effort": "max",
+              "speed": "standard",
+              "surface": "CODEX_NATIVE_SUBAGENT",
+              "stage": "write",
+              "role": "write"
+            }
+          ]
+        },
+        "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+        "public_write_performed": false
+      },
+      "exact_source_ids": [
+        "goal34-southwest-hedge-clocks",
+        "goal31-futures-economic-purpose",
+        "goal21-futures-hedgers"
+      ],
+      "existing_prepared_packages": 8,
+      "immutable_files_unchanged": 49,
+      "outbox_unchanged": true,
+      "new_model_responses": 0,
+      "new_source_requests": 0
+    }
+  ],
+  "counts": {
+    "new_articles": 0,
+    "updated_articles": 0,
+    "reused_current_articles": 2,
+    "real_retained_revision_replays": 2,
+    "new_model_responses": 0,
+    "new_source_requests": 0,
+    "new_filter_calls": 0
+  },
+  "public_write_performed": false
+}

@@ -1,7 +1,7 @@
 import { ResearchPackageDecision } from './ResearchPackageDecision';
 import { EvolvingStoryWorkspace } from './EvolvingStoryWorkspace';
 import { useState } from 'react';
-import type { ReportWorkspaceData } from '../dailyAppTypes';
+import type { ReportWorkspaceData, MaintainedNativeStory } from '../dailyAppTypes';
 
 const DESTINATIONS = ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube'];
 const display = (value: string) => value.replace(/_/g, ' ');
@@ -41,6 +41,68 @@ function previewText(payload: Record<string, unknown>): string {
   return String(text).replace(/https:\/\/capitalchronicle\.substack\.com\/p\/pending-publication-[a-z0-9]+/g, '[Canonical link pending]');
 }
 
+const storyState: Record<string, string> = { NEW: 'New story', UPDATE: 'Updated story', KEEP: 'Keep dated view',
+  HOLD: 'Source gap — follow-up held', CORRECTION_OR_WITHDRAWAL: 'Correction or withdrawn scope' };
+const datedAge = (seconds: number | null) => seconds === null ? 'age unavailable' : seconds < 3600
+  ? 'less than an hour old' : seconds < 86400 ? `${Math.floor(seconds / 3600)} hours old` : `${Math.floor(seconds / 86400)} days old`;
+function MaintainedStories({ stories }: { stories: MaintainedNativeStory[] }) {
+  return <section aria-label="Maintained stories">
+    <h2>Stories to follow</h2>
+    <p>Open a story to see its dated view, what changed and the next useful observation. Earlier accepted copy remains readable. These are editorial records, not live market alerts or published output.</p>
+    {stories.map(story => <details key={story.story_identity} id={'story-' + story.story_identity} data-maintained-story={story.story_identity} className="report-copy">
+      <summary><strong>{story.title}</strong> · {storyState[story.state] ?? display(story.state)} · {story.versions.length} accepted {story.versions.length === 1 ? 'version' : 'versions'}</summary>
+      <p><strong>Reader question:</strong> {story.reader_question ?? 'Not recorded in this accepted version.'}</p>
+      <p>{story.current_view}</p>
+      {story.countercase && <p><strong>Competing explanation and limits:</strong> {story.countercase}</p>}
+      <p>Analysis as of {story.current_version.analysis_as_of_utc ?? 'not recorded'} · {datedAge(story.current_version.analysis_age_seconds)}.</p>
+      <h3>What changed</h3>
+      {story.lineage_gap && <p role="status">The exact prior version is unavailable in this readback. No replacement ancestry is inferred.</p>}
+      <p>{story.change.summary ?? 'No source comparison has been recorded for this version. Its age alone establishes neither a material change nor current confirmation.'}</p>
+      {story.latest_assessment && <div><h4>Latest source assessment</h4><p>{story.latest_assessment.summary}</p>
+        <p>Assessment cutoff: {story.latest_assessment.cutoff_utc}. This later assessment does not erase the change between accepted versions.</p>
+        {story.latest_assessment.missing_sources.map((s, i) => <p key={i}>{display(s.status)} · <a href={s.url}>Unresolved source check</a></p>)}
+      </div>}
+      {story.change.source_changes.length > 0 && <details><summary>Changed source propositions</summary>
+        {story.change.source_changes.map((d, i) => <div key={d.item_id + i}><p>{display(d.state)}</p>
+          {d.before?.proposition && <p>Prior source: {d.before.proposition}</p>}
+          {d.after?.proposition && <p>Accepted source: {d.after.proposition}</p>}</div>)}
+      </details>}
+      {story.change.interpretation_changed && <details><summary>Interpretation changed between accepted versions</summary>
+        <p>Prior interpretation: {story.change.prior_interpretation ?? 'Not separately recorded.'}</p>
+        <p>Current interpretation: {story.change.current_interpretation ?? 'Not separately recorded.'}</p>
+        <p>This compares authored analysis; a change in wording does not establish a new market fact.</p>
+      </details>}
+      {story.change.coverage_complete === false && <div role="status"><p>Source coverage is partial. Retained support does not resolve the missing checks.</p>
+        {story.change.missing_sources.map((s, i) => <p key={i}>{display(s.status)} · <a href={s.url}>Named source gap</a></p>)}</div>}
+      <h3>What to follow next</h3><p>{story.next_observation ?? 'No substantive next observation is recorded. Review the exact dated source before requesting new copy.'}</p>
+      <p>Last source assessment: {story.current_version.last_source_check_utc ?? 'not recorded'}. {story.current_version.source_check_scope}</p>
+      <h3>Accepted versions and source support</h3>
+      {[...story.versions].reverse().map((version, index) => <details key={version.article_identity} data-story-version={version.article_identity}>
+        <summary>{index === 0 ? 'Current accepted version' : 'Prior accepted version'} · {version.article.title}</summary>
+        <p>Accepted {version.accepted_at_utc ?? 'time not recorded'} · analysis as of {version.analysis_as_of_utc ?? 'not recorded'}.</p>
+        <p>Review: {version.review?.decision ?? 'not reviewed'} · Publication: {version.publication?.state ?? 'not prepared'} · {version.previews.length}/8 destination previews.</p>
+        {version.prepared_state && <p role="status">The prior preparation is invalidated by its source review. The original text remains history.</p>}
+        <p>{version.review?.rationale}</p>
+        <h4>Source support and age</h4>
+        {version.source_dates.map(s => <p key={s.source_id}>{s.publisher} · {s.clock_kind === 'MAIN_REPORT_CUTOFF' ? 'Main report cutoff, not source publication: ' : ''}{retainedSourceDate({ published_at_utc: s.published_at_utc ?? '', published_at_source: s.published_at_source ?? undefined })} · {datedAge(s.age_seconds)}<br />
+          {s.url?.startsWith('https://') && <a href={s.url}>Read dated source</a>}</p>)}
+        <p>Report attribution and underlying event confirmation remain distinct. A newer check does not change the source's publication date.</p>
+        {!version.media_assets?.length && <p>Media gap: no inspected, rights-cleared image is bound. Text previews remain available.</p>}
+        {version.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
+        <details><summary>Full accepted article and SEO</summary><h4>{version.article.title}</h4><p>{version.article.dek}</p>
+          <ArticleParagraphs text={version.article.substack_body_markdown} />
+          <p>Search title: {version.article.search_title ?? 'not recorded'}</p><p>{version.article.meta_description}</p>
+        </details>
+        <details><summary>Eight destination packages</summary>{version.previews.map(p => <details key={p.preview_id}><summary>{display(p.destination)}</summary><ArticleParagraphs text={previewText(p.payload)} /></details>)}</details>
+        <details><summary>Exact revision and publication record</summary><p>Article identity: {version.article_identity}</p><p>Operation: {version.run_id}</p>
+          <p>Preparation: {version.prepared_state ?? version.publication?.state ?? 'not prepared'}. Review and preparation create no public post.</p>
+          {version.publication?.destinations.map(d => <p key={d.destination}>{display(d.destination)}: {display(d.status)}{d.public_object_url && <> · <a href={d.public_object_url}>Observed object</a></>}</p>)}
+        </details>
+      </details>)}
+    </details>)}
+  </section>;
+}
+
 export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData }) {
   const [selected, select] = useState('');
   const [family, setFamily] = useState('ALL');
@@ -56,8 +118,9 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
   const learning = data?.audience_learning;
   const policy = learning?.current?.policy;
   return <section className="daily-panel report-workspace" aria-label="Capital Chronicle report workspace" style={{ overflowWrap: 'anywhere', minWidth: 0 }}>
-    <p>Luồng biên tập đích: Luna MAX lọc headline → 6.1 Sol Light chọn góc và chuẩn bị nguồn → 6.1 Sol MAX viết bài và SEO, tối đa một lượt sửa cùng writer. Lịch production giữ pause; chỉ bằng chứng thực thi mới xác nhận model đã chạy.</p>
-    <header><span>Editorial workspace</span><h2>{current?.title ?? 'Capital Chronicle report → article → previews'}</h2></header>
+    <header><span>Editorial workspace</span><h2>{data?.maintained_stories?.length ? 'ContentOps story desk' : current?.title ?? 'Capital Chronicle report → article → previews'}</h2></header>
+    {!!data?.maintained_stories?.length && <MaintainedStories stories={data.maintained_stories} />}
+    <details><summary>Editorial method and operating boundary</summary><p>Luồng biên tập đích: Luna MAX lọc headline → 6.1 Sol Light chọn góc và chuẩn bị nguồn → 6.1 Sol MAX viết bài và SEO, tối đa một lượt sửa cùng writer. Lịch production giữ pause; chỉ bằng chứng thực thi mới xác nhận model đã chạy.</p></details>
     {current && <section aria-label="Tình trạng ấn bản"><p><strong>{current.ready} bài sẵn đọc · {current.held} đề tài giữ chờ · {current.missing} bài còn thiếu</strong> · {current.preview_count} bản xem trước · chưa xuất bản.</p>
       {current.opportunity_counts && <p aria-label="Kết quả cơ hội biên tập">{current.opportunity_counts.new} bài mới · {current.opportunity_counts.update} cập nhật · {current.opportunity_counts.keep} giữ nguyên · {current.opportunity_counts.hold} giữ chờ · {current.opportunity_counts.source_blocked} thiếu nguồn (trong các quyết định trên). Bài giữ nguyên không tính là bài mới.</p>}
       {current.opportunity_outcomes?.map(o => <p key={o.operation_id}>{o.reason}</p>)}

@@ -378,6 +378,13 @@ def run_report_editorial_cycle(
                         "changed_evidence": review["source_changes"], "prior_package": review["prior_story"],
                         "publication_state": "UNPUBLISHED_RESEARCH", "removed_main_claim_ids": review["removed_main_claim_ids"]}
                     headline["external_content"] = {**external, "evolving_story_context": [*external.get("evolving_story_context", []), context]}
+        if source_reviews:
+            # A maintained-story request cannot silently select an unrelated
+            # market question. Old frozen pools/accepted returns are unchanged.
+            allowed = {r["review_id"] for r in source_reviews if r["writer_required"]}
+            args["rolling_input"]["headlines"] = [h for h in args["rolling_input"].get("headlines", [])
+                if any(c.get("source_review_id") in allowed
+                       for c in (h.get("external_content") or {}).get("evolving_story_context", []))]
         from live_contentops.contentops_editorial_desk_v1 import read_reviews, publication_story_context, selection_story_context
         library = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
         if library:
@@ -868,10 +875,12 @@ def report_workspace_projection(
     latest_admissions = [max((r for r in accepted if r["report_id"] == identity),
         key=lambda r: r["report_version"]) for identity in sorted(ids)]
     from live_contentops.native_newsroom_learning_v1 import learning_projection
+    from live_contentops.contentops_editorial_desk_v1 import native_story_projection
     return {
         "schema_version": SCHEMA,
         "audience_learning": learning_projection(rows),
         "owner_edition": owner_edition,
+        "maintained_stories": native_story_projection(edition, rows),
         "main_admission_summary": [{"report_id": r["report_id"], "report_version": r["report_version"],
             "report_sha256": r["source_report_sha256"], "claims": len(r["claims"]),
             "native_public_excerpts": (r.get("native_public_lineage") or {}).get("permitted_excerpt_count", 0),

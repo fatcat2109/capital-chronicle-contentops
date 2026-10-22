@@ -17,6 +17,48 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('opens exact maintained versions and keeps partial coverage, dates and preparation distinct', () => {
+    const snapshot = data();
+    const version = { run_id: 'controlled-current', article_identity: 'current-id', article: snapshot.article!,
+      previews: snapshot.previews, review: { decision: 'KEEP', rationale: 'Controlled revision-bound decision.' },
+      publication: { state: 'PREPARED', next_operation: 'publication-status', destinations: [] },
+      accepted_at_utc: '2026-10-22T12:00:00Z', analysis_as_of_utc: '2026-10-21T00:00:00Z', analysis_age_seconds: 172800,
+      source_dates: [{ source_id: 'SOURCE_1', publisher: 'Controlled agency', url: 'https://example.com/dated', published_at_utc: '2026-10-20T00:00:00Z', age_seconds: 259200 }],
+      next_observation: 'Does the next dated release retain this change?', last_source_check_utc: '2026-10-22T14:00:00Z',
+      source_check_scope: 'A check is not a new event.' };
+    const prior = { ...version, article_identity: 'prior-id', run_id: 'controlled-prior', article: { ...version.article, title: 'Earlier accepted copy' },
+      prepared_state: 'INVALIDATED_BY_SOURCE_REVIEW' };
+    snapshot.maintained_stories = [{ story_identity: 'exact-chain', title: 'Maintained controlled story', state: 'KEEP',
+      reader_question: 'Which fact changed?', current_view: 'A dated interpretation with uncertainty.',
+      countercase: 'A competing explanation remains supported.',
+      current_article_identity: 'current-id', prior_article_identity: 'prior-id', next_observation: version.next_observation,
+      latest_assessment: { decision: 'USE_UNCHANGED', summary: 'Later retained check keeps the version without erasing its fact delta.',
+        cutoff_utc: '2026-10-22T00:00:00Z', reviewed_at_utc: '2026-10-22T14:00:00Z', missing_sources: [] },
+      change: { decision: 'USE_UNCHANGED', summary: 'Retain the accepted interpretation until the named gap is resolved.',
+        interpretation_changed: true, prior_interpretation: 'Prior interpretation.', current_interpretation: 'Current interpretation.',
+        coverage_complete: false, missing_sources: [{ url: 'https://example.com/missing', status: 'UNAVAILABLE' }],
+        source_changes: [{ item_id: 'controlled', state: 'CORRECTED', before: { proposition: 'Old source proposition.' }, after: { proposition: 'Corrected source proposition.' } }] },
+      current_version: version, versions: [prior, version], observed_at_utc: '2026-10-23T00:00:00Z' }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const panel = within(screen.getByRole('region', { name: 'Maintained stories' }));
+    const toggle = panel.getByText('Maintained controlled story').closest('summary')!;
+    fireEvent.click(toggle);
+    expect(toggle.parentElement).toHaveAttribute('open');
+    expect(panel.getByText('Which fact changed?')).toBeInTheDocument();
+    expect(panel.getByText(/A competing explanation remains supported/)).toBeInTheDocument();
+    expect(panel.getByText(/Later retained check keeps/)).toBeInTheDocument();
+    expect(panel.getByText('Does the next dated release retain this change?')).toBeInTheDocument();
+    expect(panel.getByText(/Source coverage is partial/)).toBeInTheDocument();
+    expect(panel.getByRole('link', { name: 'Named source gap' })).toHaveAttribute('href', 'https://example.com/missing');
+    expect(panel.getByText(/Analysis as of/)).toHaveTextContent('2 days old');
+    expect(panel.getByText(/Last source assessment/)).toHaveTextContent('2026-10-22T14:00:00Z');
+    expect(panel.getByText(/Prior source: Old source proposition/)).toBeInTheDocument();
+    expect(panel.getByText(/Current interpretation: Current interpretation/)).toBeInTheDocument();
+    expect(panel.getByText(/prior preparation is invalidated/)).toBeInTheDocument();
+    expect(panel.getAllByText(/8\/8 destination previews/)).toHaveLength(2);
+    expect(screen.getByRole('region', { name: 'Maintained stories' }).querySelectorAll('[data-story-version]')).toHaveLength(2);
+    expect(panel.getAllByText(/Canonical link pending/)).toHaveLength(16);
+  });
   it('keeps dated audience HOLD separate from research questions and frozen opportunities', () => {
     const snapshot = data();
     snapshot.audience_learning = {
