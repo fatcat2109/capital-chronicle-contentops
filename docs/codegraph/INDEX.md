@@ -1,7 +1,7 @@
 # ContentOps Codex Entry Index
 
-Source HEAD: `cb782f34f6b8144e0d788256eb4ae7fe9a437970`
-Source tree digest: `6cd2fb73645691344ae3ab89bd2d37cda7425430a84a8f29786eb1640d32e28f`
+Source HEAD: `57e26625b205c30558c959248f3491257a8b778c`
+Source tree digest: `e18ad9ebfc470cbca7526b7722c15272c6f87c613dc81cbb3ec1b23e4fe502db`
 Graph schema: `contentops.codex_context_graph.v2`; generator: `2.5.1`
 
 This generated map is descriptive, not product authority.
