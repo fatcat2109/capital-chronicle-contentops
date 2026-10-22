@@ -18,5 +18,15 @@
   "prior_rows_unchanged": true,
   "canonical_rows_unchanged": true,
   "four_tasks": "PAUSED_CONFIG_BYTES_UNCHANGED",
-  "public_write_performed": false
+  "public_write_performed": false,
+  "new_articles": 5,
+  "material_updates": 0,
+  "reused_keep_article_credit": 0,
+  "validated_preview_count": 40,
+  "visually_reviewed_preview_count": 8,
+  "pending_visual_preview_count": 32,
+  "prepared_article_count": 1,
+  "held_candidate_count": 1,
+  "publication_count": 0,
+  "daily_output_claim": false
 }

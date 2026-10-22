@@ -43,7 +43,11 @@ Per-story source allocations are 2 or 3 logical acquisition requests, within six
 retained resolution uses zero additional network reads. These are governed acquisition
 counts, not a measurement of browser subresource traffic. Each downstream selector packet
 has at most 32 candidates and one selected story; exact counts and handled identities are
-in `native-operation-progress.json`. The five successful selectors are not repeated.
+in `native-operation-progress.json`. Oil/IBM/Tesla/Meta/Southwest packets contained
+29/28/27/27/25 candidates respectively. Meta froze while Tesla selection was still
+being submitted; its actual selector was explicitly given the handled Tesla identity
+and selected Meta only. The earlier frozen binding is preserved, not rewritten.
+The five successful selectors are not repeated.
 
 ## Exposed defects and verification
 
