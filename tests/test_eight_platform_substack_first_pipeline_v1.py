@@ -938,6 +938,24 @@ def test_vietnamese_brief_retains_distinct_mechanism_countercase_and_invalidatio
     assert article == before
 
 
+def test_brief_watch_retains_the_condition_after_a_rhetorical_transition():
+    condition = "If the report is confirmed, share terms and a cash-flow bridge would test whether the investment program is productive."
+    article = {"title": "Meta plans non-voting shares", "native_brief_layout": True,
+        "social_hook": "The reported share plan preserves voting control.",
+        "social_mechanism_summary": "Non-voting shares could fund acquisitions without transferring voting power.",
+        "social_policy_summary": "One deficit quarter does not establish a lasting funding problem.",
+        "social_cross_asset_summary": "What would change that assessment? " + condition,
+        "substack_body_markdown": condition}
+    before = dict(article)
+    payloads = build_native_derivative_payloads(article=article, selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/meta-share-plan", media_asset_ids=[])
+    for destination in ("telegram", "threads", "x", "youtube"):
+        text = str(payloads[destination].get("full_text") or payloads[destination]["text"])
+        assert condition in text
+        assert "What would change that assessment?" not in text
+    assert article == before
+
+
 def test_prepare_only_release_candidate_never_calls_publishers(tmp_path: Path, monkeypatch):
     context = {
         "article": {**_article(), "canonical_url": "https://capitalchronicle.substack.com/p/eia-oil-forecast", "word_count": 800, "substack_body_markdown_sha256": "d" * 64},

@@ -1,7 +1,7 @@
 {
   "schema_version": "contentops.native_owner_edition.v1",
   "edition_id": "goal35-current-market-issue",
-  "title": "October 21 market reports: one reviewed oil article and four selected company stories",
+  "title": "October 21 market issue: five new articles; one reviewed, four awaiting rendered review",
   "operation_ids": [
     "goal35-oil",
     "goal35-ibm",
@@ -13,7 +13,7 @@
     {
       "operation_id": "goal35-fx",
       "title": "FX conflict and inflation framing",
-      "reason": "HOLD: one Reuters origin via Kitco does not independently corroborate the conflict-linked proposition. No additional discovery after the sealed cutoff. No new article credit."
+      "reason": "HOLD: conflict-linked reporting remains one Reuters origin via Kitco, without independent corroboration. No new article or writer credit."
     }
   ],
   "publication_authority": false,
@@ -22,13 +22,37 @@
       "operation_id": "goal35-oil",
       "outcome": "NEW",
       "source_blocked": false,
-      "reason": "NEW: the October21 closing snapshot is distinct from retained historical oil explainers. Real SolMAX article/revision, eight read and visually inspected previews, explicit text-only media gap, exact KEEP and PREPARED without dispatch."
+      "reason": "NEW / KEEP / PREPARED without dispatch: the October21 closing snapshot is distinct from retained historical oil explainers. Exact native article, eight read and visually inspected previews, explicit text-only media gap."
+    },
+    {
+      "operation_id": "goal35-ibm",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW validated draft: higher software growth floor and transaction-processing demand persistence. Actual MAX writing and bounded revision passed; full prose and eight packages read. Rendered review and preparation pending."
+    },
+    {
+      "operation_id": "goal35-tesla",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW validated draft: positive free cash flow versus below-estimate capital spending, still higher year on year. Actual MAX writing and bounded revision passed; full prose and eight packages read. Rendered review and preparation pending."
+    },
+    {
+      "operation_id": "goal35-meta",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW validated draft: planned non-voting shares, control and cash-generation tradeoff. Actual MAX writing passed; compiler retains the substantive watch condition. Full prose and eight packages read. Rendered review and preparation pending."
+    },
+    {
+      "operation_id": "goal35-southwest",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW validated draft: 2026 profit guidance versus reported quarterly fare/earnings progress and fuel pressure. Actual MAX writing passed; historical2025hedge/AOCIcopy intact. Full prose and eight packages read. Rendered review and preparation pending."
     },
     {
       "operation_id": "goal35-fx",
       "outcome": "HOLD",
       "source_blocked": true,
-      "reason": "HOLD: conflict-linked reporting remains single-origin and lacks independent corroboration. Four other selected company stories still await actual MAX writers; they are unfinished, not new article credit."
+      "reason": "HOLD: conflict-linked reporting remains one Reuters origin via Kitco, without independent corroboration. No new article or writer credit."
     }
   ]
 }

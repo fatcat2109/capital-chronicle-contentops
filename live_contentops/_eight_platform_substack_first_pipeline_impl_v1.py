@@ -350,6 +350,10 @@ def _next_distinct_derivative_sentence(
     for value in values:
         for sentence in _sentence_units(str(value or "")):
             candidate = _punctuate(_first_complete_sentence(sentence))
+            # A rhetorical transition is not the evidence or condition that
+            # follows it. Preserve the next unchanged, source-bound sentence.
+            if re.fullmatch(r"What would change (?:that|this|the) assessment\?", candidate, re.IGNORECASE):
+                continue
             # A surviving second sentence can lose its antecedent when the first
             # is deduplicated. Prefer another unchanged sentence with its own subject.
             if re.search(r"\b(?:khả năng ấy|khả năng đó|phản đề này|cơ chế ấy|that possibility|such a possibility)\b", candidate, re.IGNORECASE):

@@ -1,0 +1,161 @@
+{
+  "request_sha256": "cf5ab40309b2e227534172545d96603ed3d6b54378e70aa623ae20c2696cfeeb",
+  "output": {
+    "article": {
+      "dek": "SINGLE-SOURCE REPORT - REUTERS: Southwest's reported forecast reduction sits beside a quarterly earnings beat. If accurate, the question is whether fare gains can keep offsetting fuel pressure.",
+      "meta_description": "Reuters reports Southwest cut its 2026 profit forecast despite a quarterly earnings beat. Examine the fuel pressure and the limits of the evidence.",
+      "search_title": "Southwest cuts 2026 profit outlook, Reuters reports",
+      "social_hook": "Reuters reports Southwest cut its 2026 profit outlook despite a quarterly earnings beat. If accurate, the key question is what fare gains can absorb next.",
+      "substack_body_markdown": "Why can Southwest beat quarterly earnings expectations yet lower its annual outlook? Reuters' October 21, 2026 report says the carrier reduced its expected adjusted earnings to $2.60–$2.85 a share for 2026, from an earlier $3.25–$4.25 forecast. **SINGLE-SOURCE REPORT - REUTERS.** If accurate, the account describes quarterly progress facing a less favorable fuel outlook. [[SOURCE:SOURCE_1]]\n\n## The quarter and the forecast\n\nAccording to Reuters, third-quarter adjusted earnings came to 66 cents a share, versus the 58 cents analysts expected and 11 cents a year earlier. The report also places the midpoint of the revised annual range below LSEG's $2.85 average analyst estimate. That latter comparison concerns expectations for the year, rather than earnings already achieved. [[SOURCE:SOURCE_1]]\n\nReuters reports an almost 27% rise in average passenger fare in the third quarter and revenue of $8.4 billion, a record for that quarter. It also describes an improvement in adjusted operating margin despite higher fuel costs. The retained figures do not establish passenger-volume growth. [[SOURCE:SOURCE_1]]\n\nThe cost pressure in the report is concrete: Reuters puts Southwest's fuel bill $821 million above a year earlier. It separately attributes to the carrier an expectation that jet-fuel prices would rise further in the year's final three months. That second statement is an issuer forecast relayed by Reuters, rather than a realized fuel-price outcome. [[SOURCE:SOURCE_1]]\n\n## What the tension means\n\nIf Reuters' account is accurate, the earnings beat and outlook cut answer different questions: how the completed quarter performed against expectations, and what Southwest expects for the full year. Capital Chronicle's reading is that reported fare gains show progress, while anticipated fuel pressure leaves the durability of that progress unresolved. [[SOURCE:SOURCE_1]]\n\nIf the report is accurate, the serious countercase to a failing-turnaround narrative is the reported improvement in adjusted operating margin despite higher fuel costs. That leaves room for operating gains to persist; a lower annual forecast alone does not establish that the turnaround has stopped working. [[SOURCE:SOURCE_1]]\n\nThe retained account gives no exact adjusted operating margin, traffic or capacity comparison, revenue mix, split between fuel quantity and unit cost, or bridge from the old earnings forecast to the revised one. It cannot establish how much of the forecast reduction belongs to fuel, or whether the higher average fare reflects stronger demand. Assigning the entire revision to fuel would go beyond this evidence. [[SOURCE:SOURCE_1]]\n\n## What would change the reading\n\nIf the report is accurate, the next test is whether later results show revenue gains continuing to absorb fuel pressure. Evidence that those gains outweigh the fuel burden would challenge a cautious reading; weaker margins and further forecast cuts would reinforce it. Which pattern do subsequent company disclosures support? [[SOURCE:SOURCE_1]]\n\n## Source notes\n\nSource notes: Reuters, published October 21, 2026 at 20:23 UTC. Retained facts were known at 22:27:23.031 UTC that day; the frozen cutoff is 22:29:51.437174 UTC. This article addresses the reported 2026 outlook and third-quarter results. The separately retained 2025 hedge/AOCI case remains unchanged historical context, answering a different question; this report supplies no current hedge-status update. [[SOURCE:SOURCE_1]]",
+      "title": "Reuters reports Southwest's 2026 profit outlook cut despite quarterly gains",
+      "social_mechanism_summary": "If Reuters' account is accurate, the earnings beat and outlook cut answer different questions: how the completed quarter performed against expectations, and what Southwest expects for the full year. Capital Chronicle's reading is that reported fare gains show progress, while anticipated fuel pressure leaves the durability of that progress unresolved.",
+      "social_policy_summary": "If the report is accurate, the serious countercase to a failing-turnaround narrative is the reported improvement in adjusted operating margin despite higher fuel costs. That leaves room for operating gains to persist; a lower annual forecast alone does not establish that the turnaround has stopped working.",
+      "social_cross_asset_summary": "If the report is accurate, the next test is whether later results show revenue gains continuing to absorb fuel pressure. Evidence that those gains outweigh the fuel burden would challenge a cautious reading; weaker margins and further forecast cuts would reinforce it. Which pattern do subsequent company disclosures support?",
+      "canonical_slug_candidate": "southwest-2026-profit-outlook-fuel-reuters",
+      "primary_reader_question": "Why can Southwest beat quarterly earnings expectations and raise fares yet cut its full-year profit outlook?",
+      "secondary_reader_questions": [
+        "What does Reuters report about the revised annual earnings range?",
+        "What can higher fares and an improved quarterly margin establish?",
+        "What evidence would distinguish lasting operating gains from renewed fuel pressure?"
+      ],
+      "entities": [
+        "Southwest Airlines",
+        "Reuters",
+        "LSEG"
+      ],
+      "topics": [
+        "Airline earnings",
+        "2026 profit guidance",
+        "Jet-fuel costs",
+        "Passenger fares"
+      ],
+      "search_freshness_class": "TIME_SENSITIVE_NEWS_ANALYSIS",
+      "internal_link_candidates": [],
+      "structured_data_packet": null
+    },
+    "cited_sources": [
+      {
+        "published_at_utc": "2026-10-21T20:23:00Z",
+        "publisher": "Reuters",
+        "source_id": "SOURCE_1",
+        "url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-title",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters reports Southwest's 2026 profit outlook cut despite quarterly gains",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-dek",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS: Southwest's reported forecast reduction sits beside a quarterly earnings beat. If accurate, the question is whether fare gains can keep offsetting fuel pressure.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-search-title",
+        "claim_kind": "FACT",
+        "claim_text": "Southwest cuts 2026 profit outlook, Reuters reports",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\n"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-meta-description",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters reports Southwest cut its 2026 profit forecast despite a quarterly earnings beat. Examine the fuel pressure and the limits of the evidence.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-social-hook",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "Reuters reports Southwest cut its 2026 profit outlook despite a quarterly earnings beat. If accurate, the key question is what fare gains can absorb next.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-opening-forecast",
+        "claim_kind": "NUMBER",
+        "claim_text": "Why can Southwest beat quarterly earnings expectations yet lower its annual outlook? Reuters' October 21, 2026 report says the carrier reduced its expected adjusted earnings to $2.60–$2.85 a share for 2026, from an earlier $3.25–$4.25 forecast. **SINGLE-SOURCE REPORT - REUTERS.** If accurate, the account describes quarterly progress facing a less favorable fuel outlook.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-quarter-and-consensus",
+        "claim_kind": "NUMBER",
+        "claim_text": "According to Reuters, third-quarter adjusted earnings came to 66 cents a share, versus the 58 cents analysts expected and 11 cents a year earlier. The report also places the midpoint of the revised annual range below LSEG's $2.85 average analyst estimate. That latter comparison concerns expectations for the year, rather than earnings already achieved.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-fares-revenue-margin",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters reports an almost 27% rise in average passenger fare in the third quarter and revenue of $8.4 billion, a record for that quarter. It also describes an improvement in adjusted operating margin despite higher fuel costs. The retained figures do not establish passenger-volume growth.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\n"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-fuel-result-and-expectation",
+        "claim_kind": "NUMBER",
+        "claim_text": "The cost pressure in the report is concrete: Reuters puts Southwest's fuel bill $821 million above a year earlier. It separately attributes to the carrier an expectation that jet-fuel prices would rise further in the year's final three months. That second statement is an issuer forecast relayed by Reuters, rather than a realized fuel-price outcome.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\n"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-conditional-mechanism",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If Reuters' account is accurate, the earnings beat and outlook cut answer different questions: how the completed quarter performed against expectations, and what Southwest expects for the full year. Capital Chronicle's reading is that reported fare gains show progress, while anticipated fuel pressure leaves the durability of that progress unresolved.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-conditional-countercase",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If the report is accurate, the serious countercase to a failing-turnaround narrative is the reported improvement in adjusted operating margin despite higher fuel costs. That leaves room for operating gains to persist; a lower annual forecast alone does not establish that the turnaround has stopped working.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-evidence-limits",
+        "claim_kind": "FACT",
+        "claim_text": "The retained account gives no exact adjusted operating margin, traffic or capacity comparison, revenue mix, split between fuel quantity and unit cost, or bridge from the old earnings forecast to the revised one. It cannot establish how much of the forecast reduction belongs to fuel, or whether the higher average fare reflects stronger demand. Assigning the entire revision to fuel would go beyond this evidence.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest-conditional-change-test",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If the report is accurate, the next test is whether later results show revenue gains continuing to absorb fuel pressure. Evidence that those gains outweigh the fuel burden would challenge a cautious reading; weaker margins and further forecast cuts would reinforce it. Which pattern do subsequent company disclosures support?",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_article.v1"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "invocation_id": "/root/goal35_southwest_max",
+    "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+    "speed": "standard"
+  }
+}

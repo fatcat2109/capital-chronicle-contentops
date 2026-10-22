@@ -40,3 +40,17 @@ The owner-manual store in the existing profile is the producer's operating store
 canonical published-memory store is read-only. Consumers should use this projection
 instead of inventing another queue/store. No Desks code, thread, runtime or schedule was
 changed or contacted. Receiver integration and receiver consumption are not claimed.
+
+## Goal35 exact identities after native writing
+
+- `goal35-oil`: `dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1`
+- `goal35-ibm`: `d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e`
+- `goal35-tesla`: `0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171`
+- `goal35-meta`: `208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b`
+- `goal35-southwest`: `5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9`
+
+Only oil is currently reviewed and prepared. The other four validated article bodies
+and previews are readable but await actual rendered review. Source clock precision
+and separately observed publisher-update times remain in the exact source capture and
+admission files under `source_editions/`; do not infer seconds from a normalized
+minute-precision timestamp or treat the later update clock as first publication.

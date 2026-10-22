@@ -2,9 +2,9 @@
 
 ## Current result
 
-**1 NEW article reviewed KEEP and PREPARED without dispatch; 4 selected articles
-await their actual native MAX writers; 1 source-blocked FX candidate is held.**
-The five-article issue remains unfinished. No daily publication/output target is claimed.
+**5 qualified NEW articles / 40 previews; 1 reviewed KEEP and PREPARED without dispatch;
+4 await actual Neo render inspection and review; 1 source-blocked FX candidate is held.**
+The five-article issue remains unfinished until the four render/review/preparation checks finish. No daily publication/output target is claimed.
 The original three-operation text is superseded by the exact eight-operation correction
 in `MISSION.md`. Five existing story operations have been allocated; no second owner,
 scheduler, store or publisher was introduced.
@@ -16,13 +16,13 @@ do not silently advance its cutoff or turn later retrieval into earlier knowledg
 | Story operation | Actual current state | Reader question |
 | --- | --- | --- |
 | goal35-oil | NEW / KEEP / PREPARED / eight previews | What survived the intraday rally at the close? |
-| goal35-ibm | Selection accepted; exact writer request unanswered | Does the higher software outlook floor establish persistent new demand? |
-| goal35-tesla | Selection accepted; exact writer request unanswered | What does positive cash flow establish when capex is below expectations? |
-| goal35-meta | Selection accepted; exact writer request unanswered | How do funding flexibility, voting control and cash spending interact? |
-| goal35-southwest | Selection accepted; exact writer request unanswered | Why can stronger fares and a quarterly beat coexist with reduced annual guidance? |
+| goal35-ibm | MAX article passed; render/review pending | Does the higher software outlook floor establish persistent new demand? |
+| goal35-tesla | MAX article passed; render/review pending | What does positive cash flow establish when capex is below expectations? |
+| goal35-meta | MAX article passed; render/review pending | How do funding flexibility, voting control and cash spending interact? |
+| goal35-southwest | MAX article passed; render/review pending | Why can stronger fares and a quarterly beat coexist with reduced annual guidance? |
 | goal35-fx | HOLD; no writer | Conflict-linked proposition lacks independent corroboration beyond Reuters/Kitco syndication. |
 
-The completed oil operation is `dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1`.
+The reviewed oil operation is `dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1`.
 The source remains a single Reuters origin carried by Yahoo, with report truth supported
 and underlying event truth unconfirmed. Its text-only media gap is explicit and visible.
 The historical Southwest 2025 hedge/AOCI article answers a different question and remains
@@ -65,6 +65,10 @@ in `native-operation-progress.json`. The five successful selectors are not repea
   Initial defective artifacts and screenshot timeouts remain evidence, not passing claims.
 - Focused source/uncertainty controls: **63 passed** (`source-controls-final.txt`).
   Existing focused UI checks: **10 passed**, production build passed (`ui-final-controls.txt`).
+  Native brief controls: **5 passed**, reviewed-publication controls: **9 passed**
+  (`native-brief-controls.txt`); full canonical compiler regressions: **44 passed**, retained in
+  `compiler-regression-controls.txt`. The rhetorical-transition repair changes sentence
+  selection only and preserves accepted canonical prose/source/role identities.
   The first wrongly cased UI test command found no tests; its transcript is preserved.
 
 `oil-zero-work-resume.json` proves a real completed-operation resume with unchanged
@@ -75,23 +79,31 @@ records are additive. No public dispatch was created.
 
 ## Exact continuation
 
-The IBM MAX worker reported a usage limit; no IBM raw writer return exists.
-The exact tool observation is in `native-quota-observation.json`. No alternate provider,
-model downgrade, fabricated return or automatic retry was used. Tesla has no saved writer
-return; do not infer a successful response. Meta and Southwest writers remain to be invoked.
+The initial IBM MAX worker reported a usage limit, retained in
+`native-quota-observation.json`. The same frozen IBM/Tesla packets subsequently resumed
+through actual assigned MAX workers. All five actual writer returns are now accepted;
+oil, IBM and Tesla each used one bounded same-writer repair. **13 accepted semantic
+responses: 5 selections, 5 writes, 3 revisions**. No alternate provider or model downgrade
+was used. Neo tools disappeared during the four company render checks; Jim reported a
+reconnection, but this executor still exposes no Neo MCP tools. Visual acceptance of those
+four articles is pending, not inferred from JSON, local tests or a generated page.
 
-1. Use the same native `gpt-6.1-sol / max` role after capacity is available. Read each
-   exact `articles/<slug>/desktop_request_write.json`, also retained in the operating
-   output folder. IBM and Tesla should resume their assigned workers if available.
-2. Preserve each actual raw output before submitting through the existing native CLI
-   with its exact request hash and actual invocation observation. Advance the same
-   `goal35-<slug>` binding. At most one useful repair belongs to that same writer.
-3. Read and inspect each warranted canonical article, SEO and all eight previews on
-   desktop/mobile. Record an exact revision-bound review and prepare without dispatch.
-   State an explicit media gap unless lawful inspected assets are actually bound.
-4. Update this existing edition, counts, source/model ledger and requirement audit.
-   Reuse the same completed-operation proof and preservation method; do not rerun
-   successful native stages. Finish exact final remote-head CI and graph evidence.
+1. Reconnect the actual Neo tool surface, list before opening and reclaim the existing
+   `current-market-issue` group `FC9193B9D4F4C2875C339F10B92B7209`. Read the current
+   `desk/index.html` and the exact `goal35-meta-review.html` candidate if needed.
+2. Actual native writing is complete. Do not rerun accepted selection/write/revise
+   stages. Read and inspect IBM, Tesla, Meta and Southwest canonical prose, SEO and
+   all eight previews on desktop/mobile. Their complete text/packages have been read;
+   rendered quality remains unverified.
+3. Meta's original compiler selected a rhetorical transition as its watchpoint.
+   The canonical compiler now skips that exact transition and retains its following
+   source-bound condition. `meta-review-compiler-bytes.json` contains the exact candidate
+   bytes rendered by the same existing React component, without store mutation.
+   Review those bytes, then verify preparation recompiles identical payloads. Preserve
+   the original final packet as history; do not rewrite the native return.
+4. Record each exact revision-bound KEEP or justified HOLD; prepare without dispatch.
+   State explicit media gaps. Update this same edition and requirement audit, retain
+   five distinct NEW identities, and finish exact final remote-head CI/graph/handoff.
 
 The normal existing commands are `newsroom --operation-id goal35-<slug>`, `submit`,
 `review`, `publication-prepare`, `publication-status`, `edition` and `desk` in

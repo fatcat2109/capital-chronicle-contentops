@@ -105,7 +105,12 @@
       "write": {
         "request_sha256": "360b5e0ad7cfd8326ee6218875b4590081f2dd43b0eab90ee7f9d73e0b99e3f7",
         "file_sha256": "9438c1ca56f2c9755f34106f536d3e56a6728d2d79b64ae305592d4117259c2c",
-        "answered": false
+        "answered": true
+      },
+      "revise": {
+        "request_sha256": "39c1db41862f5fde95e913a7a49ead2ccf069268a70f2384e654b09020a16ffe",
+        "file_sha256": "b73ae0f62c1ea0a77f7544837ab99fe52709e24fe263308b9b5db7111f69cf31",
+        "answered": true
       }
     },
     "native_execution": {
@@ -134,10 +139,11 @@
         "gpt-6.1-sol"
       ],
       "observed_efforts": [
-        "low"
+        "low",
+        "max"
       ],
-      "native_invocation_count_observed": 1,
-      "semantic_response_count": 1,
+      "native_invocation_count_observed": 2,
+      "semantic_response_count": 3,
       "maximum_repair_count": 1,
       "external_provider_attempt_count": 0,
       "usage_tokens": null,
@@ -153,16 +159,36 @@
           "surface": "CODEX_NATIVE_SUBAGENT",
           "stage": "select",
           "role": "select"
+        },
+        {
+          "invocation_id": "/root/goal35_ibm_max_resume",
+          "model": "gpt-6.1-sol",
+          "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+          "reasoning_effort": "max",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "write",
+          "role": "write"
+        },
+        {
+          "invocation_id": "/root/goal35_ibm_max_resume",
+          "model": "gpt-6.1-sol",
+          "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+          "reasoning_effort": "max",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "revise",
+          "role": "revise"
         }
       ]
     },
     "candidate_count": 28,
     "candidate_limit": 32,
-    "article_identity": null,
-    "qualified_article_count": 0,
+    "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+    "qualified_article_count": 1,
     "media_count": 0,
-    "preview_count": 0,
-    "next_stage": "write",
+    "preview_count": 8,
+    "next_stage": null,
     "attempted_candidate_ids": [
       "simple-story-3c160cea87fca66d7c13eb55"
     ]
@@ -177,7 +203,12 @@
       "write": {
         "request_sha256": "6a0674fe623aa6c168203990bda5c8f99ba064e0e11f51a5b642a0fbe73f41a6",
         "file_sha256": "d7b690b8a0b4345e83c83b098ffc0693604eb73024f8b7181cfb8ded326e20fc",
-        "answered": false
+        "answered": true
+      },
+      "revise": {
+        "request_sha256": "795646336db174ff8b6f16d347a266dad988cc3e9317fc73122aee8e06c21aa3",
+        "file_sha256": "68d3e5a3a5f16484f38521510d2250cfa1debe0c17e861035a09d55b30893039",
+        "answered": true
       }
     },
     "native_execution": {
@@ -206,10 +237,11 @@
         "gpt-6.1-sol"
       ],
       "observed_efforts": [
-        "low"
+        "low",
+        "max"
       ],
-      "native_invocation_count_observed": 1,
-      "semantic_response_count": 1,
+      "native_invocation_count_observed": 2,
+      "semantic_response_count": 3,
       "maximum_repair_count": 1,
       "external_provider_attempt_count": 0,
       "usage_tokens": null,
@@ -225,16 +257,36 @@
           "surface": "CODEX_NATIVE_SUBAGENT",
           "stage": "select",
           "role": "select"
+        },
+        {
+          "invocation_id": "/root/goal35_tesla_max_resume",
+          "model": "gpt-6.1-sol",
+          "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+          "reasoning_effort": "max",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "write",
+          "role": "write"
+        },
+        {
+          "invocation_id": "/root/goal35_tesla_max_resume",
+          "model": "gpt-6.1-sol",
+          "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+          "reasoning_effort": "max",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "revise",
+          "role": "revise"
         }
       ]
     },
     "candidate_count": 27,
     "candidate_limit": 32,
-    "article_identity": null,
-    "qualified_article_count": 0,
+    "article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+    "qualified_article_count": 1,
     "media_count": 0,
-    "preview_count": 0,
-    "next_stage": "write",
+    "preview_count": 8,
+    "next_stage": null,
     "attempted_candidate_ids": [
       "simple-story-3c160cea87fca66d7c13eb55",
       "simple-story-cfa3cb4bdb5389780c472d78"
@@ -250,7 +302,7 @@
       "write": {
         "request_sha256": "ba1dc24ad19d1603d2f95ee3accc7ca6a3381bd66723e231d34734e9b1faddc6",
         "file_sha256": "d554a2b1de7ac6d1231f0b4d2829a39c34e4ef1f0fa8abf2607079621442fafe",
-        "answered": false
+        "answered": true
       }
     },
     "native_execution": {
@@ -279,10 +331,11 @@
         "gpt-6.1-sol"
       ],
       "observed_efforts": [
-        "low"
+        "low",
+        "max"
       ],
-      "native_invocation_count_observed": 1,
-      "semantic_response_count": 1,
+      "native_invocation_count_observed": 2,
+      "semantic_response_count": 2,
       "maximum_repair_count": 1,
       "external_provider_attempt_count": 0,
       "usage_tokens": null,
@@ -298,16 +351,26 @@
           "surface": "CODEX_NATIVE_SUBAGENT",
           "stage": "select",
           "role": "select"
+        },
+        {
+          "invocation_id": "/root/goal35_meta_max",
+          "model": "gpt-6.1-sol",
+          "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+          "reasoning_effort": "max",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "write",
+          "role": "write"
         }
       ]
     },
     "candidate_count": 27,
     "candidate_limit": 32,
-    "article_identity": null,
-    "qualified_article_count": 0,
+    "article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+    "qualified_article_count": 1,
     "media_count": 0,
-    "preview_count": 0,
-    "next_stage": "write",
+    "preview_count": 8,
+    "next_stage": null,
     "attempted_candidate_ids": [
       "simple-story-3c160cea87fca66d7c13eb55",
       "simple-story-cfa3cb4bdb5389780c472d78"
@@ -323,7 +386,7 @@
       "write": {
         "request_sha256": "cf5ab40309b2e227534172545d96603ed3d6b54378e70aa623ae20c2696cfeeb",
         "file_sha256": "50c6ff18a3e6a268399ff5abdcfe496465fbe0c1099ec7ccbc08523c5ea76cff",
-        "answered": false
+        "answered": true
       }
     },
     "native_execution": {
@@ -352,10 +415,11 @@
         "gpt-6.1-sol"
       ],
       "observed_efforts": [
-        "low"
+        "low",
+        "max"
       ],
-      "native_invocation_count_observed": 1,
-      "semantic_response_count": 1,
+      "native_invocation_count_observed": 2,
+      "semantic_response_count": 2,
       "maximum_repair_count": 1,
       "external_provider_attempt_count": 0,
       "usage_tokens": null,
@@ -371,16 +435,26 @@
           "surface": "CODEX_NATIVE_SUBAGENT",
           "stage": "select",
           "role": "select"
+        },
+        {
+          "invocation_id": "/root/goal35_southwest_max",
+          "model": "gpt-6.1-sol",
+          "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+          "reasoning_effort": "max",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT",
+          "stage": "write",
+          "role": "write"
         }
       ]
     },
     "candidate_count": 25,
     "candidate_limit": 32,
-    "article_identity": null,
-    "qualified_article_count": 0,
+    "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+    "qualified_article_count": 1,
     "media_count": 0,
-    "preview_count": 0,
-    "next_stage": "write",
+    "preview_count": 8,
+    "next_stage": null,
     "attempted_candidate_ids": [
       "simple-story-3c160cea87fca66d7c13eb55",
       "simple-story-cfa3cb4bdb5389780c472d78",
