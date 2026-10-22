@@ -105,7 +105,10 @@ remain zero. The four PAUSED task configuration bytes and production pause hash 
 
 The existing owner edition is `goal35-current-market-issue`: ready5 / held1 / missing0,
 NEW5 / UPDATE0 / reused KEEP0 / HOLD1 / source-blocked1. The existing Desk remains the
-readable issue surface. `REPORT_READ_CONTRACT.md` exposes its exact selected-item/body/
+readable issue surface. Its existing edition reasons expose per-operation candidate,
+logical source-acquisition and native-response counts, plus the complete current-X
+limit and issue model totals; `final-desk-counts-neo-readback.json` records actual Neo
+readback. `REPORT_READ_CONTRACT.md` exposes its exact selected-item/body/
 source/revision/review/preview fields for Desks without editing or contacting that owner.
 Six independent source contexts are in the existing reciprocal outbox, with public and
 numeric authority false. **Receiver consumption is NOT VERIFIED. Control Tower receiver

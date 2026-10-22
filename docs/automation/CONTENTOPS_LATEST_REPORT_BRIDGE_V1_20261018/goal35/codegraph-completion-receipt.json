@@ -1,0 +1,31 @@
+{
+  "observed_at_utc": "2026-10-22T11:10:47.974822+00:00",
+  "generator": "python scripts/generate_codex_context_index.py",
+  "source_head": "43d0ea6243e50b6b7f35096543d09fc48e0c73d2",
+  "source_tree_digest": "f751a5c7569d1cd8a8013871e91b794c6b6586867e620f143f19c6812a2a889e",
+  "check_command": "python scripts/generate_codex_context_index.py --check",
+  "check_result": "CODEGRAPH_CURRENT",
+  "counts": {
+    "edges": 14771,
+    "entrypoints": 20,
+    "nodes": 7779,
+    "nodes_by_kind": {
+      "authority_doc": 8,
+      "cli_command": 27,
+      "directory_scope": 9,
+      "durable_table": 37,
+      "http_endpoint": 7,
+      "instructions": 9,
+      "manifest": 21,
+      "python_class": 637,
+      "python_function": 4232,
+      "python_method": 308,
+      "python_module": 821,
+      "schema": 255,
+      "test": 781,
+      "typescript_export": 514,
+      "typescript_or_javascript_module": 113
+    }
+  },
+  "scope": "Existing source graph; descriptive implementation discovery, not product or publication authority"
+}
