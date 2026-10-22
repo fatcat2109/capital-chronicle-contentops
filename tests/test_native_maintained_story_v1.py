@@ -128,26 +128,33 @@ def test_source_gap_invalidates_only_the_exact_affected_review(tmp_path):
 def test_followup_pool_cannot_route_an_unrelated_story(tmp_path, monkeypatch):
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker
     import live_contentops.capital_chronicle_report_editorial_workspace_v1 as workspace
-    from live_contentops.production_orchestrator_v1 import ContentOpsProductionOrchestrator
+    import live_contentops.v1_simple_gemini_newsroom_v1 as deterministic
     from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
     store = ContentOpsDurableStore(tmp_path / 'state.sqlite3'); args = review_args(store)
     review = record_story_source_review(store, **args)
     class ObservedBoundPool(Exception):
         pass
-    def observe(_self, _action, **kwargs):
+    filtered_population = []
+    def observe(**kwargs):
         assert [h['headline_id'] for h in kwargs['rolling_input']['headlines']]==['goal27-gas-seasonal']
         context=kwargs['rolling_input']['headlines'][0]['external_content']['evolving_story_context'][0]
         assert context['source_review_id']==review['review_id']
         assert context['update_chain_identity']=='original-chain'
         raise ObservedBoundPool()
-    monkeypatch.setattr(ContentOpsProductionOrchestrator,'execute',observe)
+    monkeypatch.setattr(deterministic,'run_v1_simple_gemini_newsroom',observe)
     caller=NativeDesktopTurn(store,run_id='controlled-followup',output_dir=tmp_path/'out',owner_manual_validation=True)
+    (tmp_path/'out').mkdir()
+    def full_population(rolling):
+        filtered_population.extend(h['headline_id'] for h in rolling['headlines'])
+        return rolling, {'scope':'CONTROLLED_FILTER_OBSERVATION_NOT_MODEL_EXECUTION'}
+    monkeypatch.setattr(caller,'filter_headlines',full_population)
     with pytest.raises(ObservedBoundPool):
         workspace.run_report_editorial_cycle(LatestReportDeliveryTracker(store),receipt_id='independent-control',
             admission=None,output_dir=tmp_path/'out',cutoff_utc=args['cutoff_utc'],llm_invoke=caller,
             run_id='controlled-followup',opportunity_id='controlled-followup',source_reviews=[review],
             rolling_input={'headlines':[dict(headline_id='goal27-gas-seasonal',headline_text='Bound retained proposition'),
                                        dict(headline_id='unrelated',headline_text='Unrelated current story')]})
+    assert set(filtered_population)=={'goal27-gas-seasonal','unrelated'}
 
 
 def test_pure_completed_story_contract_orders_exact_parents_and_does_not_merge_issuer(tmp_path):
@@ -198,3 +205,9 @@ def test_later_keep_keeps_the_original_version_fact_delta_visible(tmp_path):
     assert story['change']['decision']=='MATERIAL_FOLLOW_UP'
     assert story['change']['source_changes']==original['source_changes']
     assert story['latest_assessment']['decision']=='USE_UNCHANGED'
+
+
+def test_partial_legacy_record_is_not_a_completed_story_or_a_reader_crash():
+    entry={'article_identity':'media-only','article':{},'media_assets':[{'asset_id':'controlled'}]}
+    assert native_story_projection({'media-only':entry},[])==[]
+    assert entry['media_assets']==[{'asset_id':'controlled'}]

@@ -163,7 +163,12 @@ def native_story_projection(edition, rows, *, observed_at_utc=None):
 
     for identity, item in edition.items():
         result, accepted = finals.get(identity, ({}, None))
-        article = item["article"]
+        article = item.get("article") or {}
+        if not all(isinstance(article.get(k), str) and article[k].strip()
+                   for k in ("title", "substack_body_markdown")):
+            # Legacy partial/media-only records remain in their owning view;
+            # they are not a completed story and must not crash this join.
+            continue
         chain = article.get("update_chain_identity") or article.get("story_identity") or identity
         simple = result.get("simple_result") or {}
         cutoff = simple.get("cutoff_utc")

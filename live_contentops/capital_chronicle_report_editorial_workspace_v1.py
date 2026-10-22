@@ -378,13 +378,6 @@ def run_report_editorial_cycle(
                         "changed_evidence": review["source_changes"], "prior_package": review["prior_story"],
                         "publication_state": "UNPUBLISHED_RESEARCH", "removed_main_claim_ids": review["removed_main_claim_ids"]}
                     headline["external_content"] = {**external, "evolving_story_context": [*external.get("evolving_story_context", []), context]}
-        if source_reviews:
-            # A maintained-story request cannot silently select an unrelated
-            # market question. Old frozen pools/accepted returns are unchanged.
-            allowed = {r["review_id"] for r in source_reviews if r["writer_required"]}
-            args["rolling_input"]["headlines"] = [h for h in args["rolling_input"].get("headlines", [])
-                if any(c.get("source_review_id") in allowed
-                       for c in (h.get("external_content") or {}).get("evolving_story_context", []))]
         from live_contentops.contentops_editorial_desk_v1 import read_reviews, publication_story_context, selection_story_context
         library = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
         if library:

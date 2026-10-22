@@ -236,6 +236,15 @@ def run_native_desktop_newsroom(**kwargs):
     if not getattr(caller, "native_desktop_protocol", False):
         raise ValueError("NATIVE_DESKTOP_REQUEST_RETURN_PROTOCOL_REQUIRED")
     filtered, receipt = caller.filter_headlines(kwargs["rolling_input"])
+    reviews = (kwargs.get("capital_chronicle_context") or {}).get("native_source_reviews", [])
+    if reviews:
+        # Filter the entire captured population first. Only the downstream
+        # selector is narrowed to this source-bound follow-up; intake cursors
+        # and Luna keep/reject/defer receipts must not silently skip X records.
+        allowed = {r["review_id"] for r in reviews if r["writer_required"]}
+        filtered = {**filtered, "headlines": [h for h in filtered.get("headlines", [])
+            if any(c.get("source_review_id") in allowed
+                   for c in (h.get("external_content") or {}).get("evolving_story_context", []))]}
     kwargs["rolling_input"] = filtered
     Path(kwargs["output_dir"]).joinpath("native_headline_filter_receipt.json").write_bytes(canonical_bytes(receipt))
     from live_contentops.v1_simple_gemini_newsroom_v1 import run_v1_simple_gemini_newsroom

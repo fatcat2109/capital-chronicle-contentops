@@ -79,7 +79,8 @@ USE_UNCHANGED and STALE_OR_SOURCE_GAP return without an editorial operation/mode
 A material review reopens its accepted child, resumes one frozen pending binding, or
 allocates one stable existing newsroom operation when warranted. Omitted custom wording
 survives interruption. A second operation cannot duplicate an accepted follow-up, and
-superseded reviews fail closed. New follow-up pools exclude unrelated candidates.
+superseded reviews fail closed. The native filter still receives the entire captured
+population; only the downstream follow-up selector excludes unrelated candidates.
 Publisher corrections preserve the existing correction decision, and re-reviewing a
 follow-up retains its original chain. Existing 32/3/6 budgets, native role assignments,
 source/rights/numeric boundaries, compiler and sole coordinator remain authoritative.
@@ -119,6 +120,14 @@ story views to exact accepted canonical objects and prepared package payloads.
   partial-source coverage, affected-only invalidation, missing ancestry, chain preservation,
   unrelated-pool exclusion, custom-request resume, duplicate child prevention and original
   revision delta alongside later KEEP are exercised. Controlled cases are not real events.
+- Final CI on the initial slice `5b5682f9` exposed a media-only legacy record with
+  `article={}`: the additive completed-story projection required a title and crashed
+  the existing media-preview test. Incomplete records now remain in their original
+  view and are excluded from the completed-story join. The final scoped compatibility
+  transcript also tests full-population native filtering before follow-up selection;
+  it supersedes the earlier pool-order implementation without changing accepted copy,
+  rendered story content, completed roles or source clocks. See
+  [final-compatibility-controls.txt](final-compatibility-controls.txt).
 - [ui-controls.txt](ui-controls.txt): **11 passed**. Story opening, prior/current source and
   analysis clocks, partial coverage, media gap, invalidated preparation and all8complete
   packages/pending links are covered. [build-final.txt](build-final.txt): current UI build passed.
