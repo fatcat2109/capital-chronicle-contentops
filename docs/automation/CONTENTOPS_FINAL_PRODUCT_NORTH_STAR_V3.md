@@ -279,3 +279,61 @@ activation, account change, merge or deployment is claimed. The CLI, Desk and in
 `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal33/RELEASE_HANDOFF.md`.
 Exact remote/CI evidence follows in that directory's `delivery.json`; Control Tower receiver
 synchronization remains pending, with these pointers as the discoverable handoff.
+
+## Signal Clips — adopted product scope, 2026-10-23
+
+Named direction: `CONTENTOPS_V3_SIGNAL_CLIPS_V1`. Jim defined this separate speech-video
+product and authorized creative North Star design; L1 selected its compatible direction for
+L2 reconciliation. This section is the durable product home, not a new status owner or an
+activation/publication grant. V1 newsroom and V2 original analytical video remain intact.
+
+**Viewer promise:** understand who said what, why it matters and what to watch next, while
+hearing the authentic original words in context. Serve financially interested viewers with
+useful, trustworthy moments from Fed/public officials, CEOs, businesspeople, influencers,
+earnings calls and interviews, subject to each recording's actual source and reuse scope.
+Selection, comparison and explanation are the editorial value; clip volume is not the moat.
+
+Support five story-selected formats through one workflow:
+
+1. **Moment + Context:** the self-contained original moment plus concise factual context.
+2. **What Changed:** comparable explicitly dated source statements and the actual difference.
+3. **Claim + Check:** the speaker's claim beside supporting/contradictory independent evidence.
+4. **Question + Answer:** the correctly associated question and answer, without invented dialogue.
+5. **Consequence + Watchpoint:** a supported conditional mechanism and a concrete next observation.
+
+Quote-led fast coverage and explained/comparative coverage share source, selection, edit,
+review, package and correction history. No daily clip quota, fixed template or mandatory
+commentary/number is introduced. A current clip and an explicitly archival clip stay distinct.
+
+Original audio governs spoken wording. Preserve speaker/event/date, exact source-time spans,
+qualifiers, negations, units and adequate surrounding context. Official text/ASR support the
+work but do not prove audio delivery or timing. No fabricated speech, cloned voice, synthetic
+speaker, meaning-changing splice or question/answer substitution. Translations are labelled.
+Keep what the speaker said, what independent evidence establishes, and CC interpretation
+separate. A true quotation does not verify its claim or create Core numeric/forecast authority.
+
+Use the existing Speech Highlight Relay, native editorial roles, deterministic media helpers
+and compatible review/delivery owners. Bounded Sol-Light selection/preparation and Sol-MAX
+meaning/context/SEO work supplement code-owned acquisition, alignment, cuts/cues and hashes.
+Luna remains the genuine X-intake filter where applicable. Actual capable picture/audio review
+is required for a quality claim; absent hearing evidence remains NOT VERIFIED. Preserve source,
+rights, third-party, correction and review bindings. An item-specific HOLD does not stop other
+legitimate private engineering or eligible sources.
+
+Initial destinations are YouTube Shorts and TikTok. Prepare truthful native media/captions,
+source attribution and metadata; upload/draft/publication require separate exact authority.
+TikTok draft delivery is not publication. Public availability, permission, a crop/logo/captions
+and monetization eligibility are separate questions; promise no automatic clearance/revenue.
+
+V3 may receive a source directly or through existing qualified discovery without waiting for
+a V1 article, V2 completion or the complete database. Reuse source/story/artifact memory and
+existing media job/outbox ownership when needed; no parallel scheduler/store/clipper/uploader
+or analyzer. Shared/recycled evidence remains one source, never independent corroboration.
+
+Measure usable eligible clips, honest held items, source-to-ready latency, duplicate/recovery
+work and actual review effort. Audience return, retention, saves, questions, deeper-content
+visits and cost remain observed metrics or unknown. Learning can alter selection/packaging,
+never quotation, evidence, certainty or analytical truth. All five formats and intended source
+classes remain the full roadmap; one Fed clip cannot certify them or whole-product completion.
+
+Decision provenance: owner proposal SHA-256 `cbba9210a082144cc72ab17e8bb0e8afaf9b832ce82c575121703e2448214480` and completion-plan SHA-256 `8cb6bdac27b70c8d982b46142c1532857099e538da817b470e2831cf432651cd` under `A:/Capital Chronicle/research-audits/2026-10-23-contentops-completion-plan/`; L1 mandate chat `01a0c999-b6b3-7b52-8f8a-a7ecf53d3220`, human turn `01a165a5-ab57-74a0-a98f-f4d2e66027f3`, and this L2's exclusive Tower handoff. Those dated reports remain design/evidence provenance; current repository authority and actual implementation govern. This is candidate-branch adoption until normal integration, not a claim of accepted-master merge.

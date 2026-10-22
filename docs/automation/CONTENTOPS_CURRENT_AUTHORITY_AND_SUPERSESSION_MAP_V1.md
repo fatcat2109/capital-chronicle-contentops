@@ -315,3 +315,19 @@ Four tasks and production remain paused. Same draft PR90; exact final remote/CI 
 graph identity are read back in the existing local Desk's `goal35_delivery.json`.
 No public/account write, activation, merge or deployment. Receiver consumption is
 NOT VERIFIED; Control Tower synchronization is pending with this durable handoff.
+
+## Signal Clips adoption and source-readiness distinction — 2026-10-23
+
+The root North Star/Master Plan now own the compatible `CONTENTOPS_V3_SIGNAL_CLIPS_V1`
+direction selected by L1 under Jim's explicit speech-video definition/creative mandate.
+V3 is a product lane, distinct from the root document revision and V2 analytical video.
+Use the existing Speech Highlight Relay pointer and `video/speech_highlight_relay_v1/AGENTS.md`.
+Current-source private preparation is an admitted engineering delta; it is not implemented
+merely by this adoption. The original retained Fed packet, hashes and unresolved audio,
+timing, third-party and rights states remain immutable. No upload/draft/publication grant.
+
+Priority is V1 release convergence, useful private V3 clips, then independently useful/disjoint
+V2 integration. Existing native Goal25/32/33/35/36 and media substrate are reuse evidence,
+not new build targets. PR90 candidate/native direction, accepted master and actual deployment
+remain separately identified. Existing publisher/store/compiler and numeric/private boundaries
+are unchanged. Source and Builder reservations live in their existing owning handoffs.

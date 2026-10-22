@@ -232,3 +232,15 @@ Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca8
 ## 14. Visual/media acceptance
 
 UI/video/audio PASS requires actual rendered artifact inspection. Tests and worker judgment prove mechanics, not final viewer-facing quality.
+
+## 15. Signal Clips product adoption — 2026-10-23
+
+ContentOps has three product lanes: V1 original newsroom/articles, V2 original analytical
+video, and V3 **Capital Chronicle Signal Clips** for authentic speech excerpts. The V3 in
+the root North Star/Master Plan filenames is a document revision, not this lane's readiness.
+Read their current Signal Clips sections and the existing Lightweight Speech Highlight
+Relay pointer/scoped instructions before V3 work. Reuse the existing relay and media
+owners. Preserve the frozen retained mode; current-source engineering is a deliberate
+compatible extension, not permission to relabel its evidence. Video upload, draft and
+public-write authority remain zero. One L2 integrator reserves shared policy/CLI/schema/UI;
+Builders own only their admitted paths. Existing V1 production and four windows stay paused.

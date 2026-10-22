@@ -1,7 +1,40 @@
 # ContentOps Lightweight Speech Highlight Relay — Current Execution Pointer V1
 
-Authority date: 2026-10-17
-Status: `CURRENT_RETAINED_REPLAY_REVALIDATION / PUBLICATION_HOLD`
+Authority date: 2026-10-23; retained implementation proof below remains dated 2026-10-17.
+Status: `V3_SIGNAL_CLIPS_SCOPE_ADOPTED / CURRENT_SOURCE_PRIVATE_ENGINEERING / PUBLICATION_HOLD`
+
+## Current product direction and implementation boundary
+
+The root North Star/Master Plan now adopt `CONTENTOPS_V3_SIGNAL_CLIPS_V1` under Jim's
+explicit speech-video definition/creative mandate and L1's selected completion direction.
+V3 is authentic speech plus useful context, what changed and what to watch; preserve the
+five editorial formats there. It is distinct from V2 original analytical video and from
+revision 3 of the root document filenames. V1/V2 scope and owners remain unchanged.
+
+At adoption, implemented source remains the retained-only relay at PR90 parent
+`7373653b8848c319e8b3f9c76f13c3ead9609f4c`, byte-identical to accepted master
+`bc79e30c8088a9deb47f3942aa15914a59b69799`. The current-source workflow is an actual
+engineering delta, not a PASS claim from this documentation. Extend the same owner under
+the updated nearest scoped instructions; preserve retained JSON/validator/history exactly.
+
+Next bounded product outcome: governed new source -> original-audio transcript/timing ->
+justified exact selection and meaning/context review -> native edited clean/captioned clip
+-> source/rights/review-bound private package and YouTube/TikTok metadata. Reuse valid work
+on interruption/replay, retain genuine HOLD cases and prevent duplicate jobs/clips. Use the
+root master plan's finite cohort; no full database/V2 wait, seeded PR50 discovery, paid model
+fallback, new store/scheduler/clipper/uploader or self-certified review/clearance.
+
+Source-audio listening and final-media quality require actual capable inspection. A file,
+official PDF, ASR result or waveform does not establish hearing, meaning or legal clearance.
+All outputs remain private preparation with zero uploads/platform drafts/publication and
+`production_eligible=false`; current V2 runtime remains paused. The L2 ContentOps handoff
+owns admission/reservations; each Builder records actual delivery in its existing checkpoint.
+This candidate policy is not merged/deployed authority merely because it is written here.
+
+## Retained implementation epoch — immutable proof and open review states
+
+The following receipt and rerun command describe the retained mode only. They are not a
+new-source selection, current-source completion or instruction to repeat an unchanged proof.
 
 ## Boundary
 

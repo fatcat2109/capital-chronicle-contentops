@@ -101,3 +101,17 @@ and unchanged replay. It does not claim all historical intake was filtered, curr
 throughput, search performance, activation or live publishing. Real existing-object readback
 confirmed Substack and YouTube; X objects exist but their current content does not fully match
 the retained package. See the owning `goal25/RELEASE_HANDOFF.md` for exact evidence and limits.
+
+## V3 Signal Clips private engineering extension — 2026-10-23
+
+Preserve the approved V1 Luna MAX -> Sol6.1 Light -> Sol6.1 MAX split. For the separately
+adopted V3 speech product, reuse native Sol6.1 Light for bounded source-span planning and
+Sol6.1 MAX for consequential meaning/context, original explanation, voice and SEO. Luna
+filters genuine eligible X intake where used; do not assign it every transcript by default.
+Code/tools own acquisition receipts, transcript/alignment mechanics, exact edits/cues, media
+rendering, hashes and state. Reuse recorded valid work on resume; no paid/API creative fallback.
+
+A semantic role result is not proof the reviewer heard the original audio. Final speech/timing
+and picture quality need actual capable review, with unobserved dimensions NOT VERIFIED.
+This role extension does not change V2's separately scoped creative policy or activate any
+runtime/model schedule. V3 preparation remains zero platform writes, including drafts/uploads.

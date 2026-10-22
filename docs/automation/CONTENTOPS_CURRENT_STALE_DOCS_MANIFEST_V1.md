@@ -140,3 +140,13 @@ Legacy CI compatibility markers retained in current authority files are semantic
 - `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 - V2 public-write authority remains zero.
 - Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+## 9. Signal Clips scope and retained-proof correction — 2026-10-23
+
+For V3, the current root North Star/Master Plan and updated relay pointer/scoped instructions
+supersede retained-only wording solely to admit compatible **current-source private engineering**.
+They do not supersede the frozen retained packet, its validator meaning, historic hashes or
+unresolved review states. Do not infer that a root filename ending V3 means the speech product
+was already built, that V2 was replaced, that PR50 seeded selection/REUSE_CLEAR is restored,
+or that rendering/captions, permission and platform monetization are interchangeable.
+No historical acceptance or current source implementation is rewritten by a product label.

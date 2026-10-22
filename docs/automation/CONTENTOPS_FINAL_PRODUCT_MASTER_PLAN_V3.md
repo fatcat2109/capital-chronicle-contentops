@@ -235,3 +235,49 @@ activation, account change, merge or deployment is claimed. The CLI, Desk and in
 `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal33/RELEASE_HANDOFF.md`.
 Exact remote/CI evidence follows in that directory's `delivery.json`; Control Tower receiver
 synchronization remains pending, with these pointers as the discoverable handoff.
+
+## V1/V2/V3 convergence — adopted sequence, 2026-10-23
+
+Apply the root North Star's `CONTENTOPS_V3_SIGNAL_CLIPS_V1` scope. V3 is authentic speech
+content; V2 remains original analytical video. Preserve full product scope and existing owners.
+
+1. **V1 release convergence:** independently receive the exact PR90 candidate and completed
+   Goal25/32/33/35/36 evidence. The native reviewed-publication bridge already composes the
+   existing handoff/coordinator/Neo executor. Assign code work only for an actual defect;
+   otherwise prepare the concrete integration/deployment/four-slot transition decision.
+   Historical acceptance is not reopened; current pause or missing authority is not missing code.
+2. **V3 private source-to-clip delivery:** deliberately extend the retained-only relay for
+   governed new sources, timestamped original-audio transcript, bounded exact-span selection,
+   meaning/context review, native editing/captions, clean/social masters and YouTube/TikTok
+   metadata/private review. Preserve the retained Fed packet and its unresolved states.
+   Start with Moment + Context plus another justified format; retain all five as the roadmap.
+3. **V2 selective integration:** reconcile useful native factory/recovery/qualification/locale
+   donor capability with the existing current renderer/package controls when independently
+   useful and reserved. No wholesale donor authority merge, new render stack or V1 mutation.
+   Keep V2 paused and all declared locale/surface scope explicit; configured voices are not
+   accepted audio. This can be disjoint parallel work, not a prerequisite for useful V3.
+4. **Authorized operation and measured learning:** exact release/activation/platform actions
+   are separate owner boundaries. Observe genuine jobs/windows and failures through existing
+   owners; fix those before adding architecture or coverage. No automatic action follows here.
+
+First V3 engineering cohort: up to three source candidates and two eligible prepared clip jobs,
+with an official/central-bank case and a distinct business/CEO/influencer case when their actual
+reuse scopes permit. Preserve a genuine held case, original-audio/meaning review states,
+interruption/resume and exact-request dedupe. If a category or audio review cannot be completed,
+report that dimension incomplete while finishing independent mechanics; do not substitute a
+second Fed clip or waveform test for the missing proof. These are finite engineering cases,
+not runtime reliability, public output, rights clearance or completion of the full roadmap.
+
+Use owner-provided input and bounded existing-stream discovery. Keep source dates, acquisition
+method, media/transcript hashes, original-time spans, claim/context layers, rights and review
+identity. No seeded PR50 discovery or self-certified production flags. No new provider spend,
+paid model fallback, public/private/unlisted upload or platform draft. Use the native role
+policy and actual capable audio/visual review; requested models and observed invocations differ.
+
+L2 owns admission/review and one shared-policy integrator; L3 owns substantive implementation,
+focused verification, its existing checkpoint and scoped delivery. Preserve strict downward
+messaging and parent-pulled handoffs. Report usable/required/missing/blocked over each named
+release cohort, with source/test/branch publication/merge/deployment/media/runtime states
+separate. No repeat historical journeys, full database wait, extra status ledger or make-work goal.
+
+Decision provenance: owner proposal SHA-256 `cbba9210a082144cc72ab17e8bb0e8afaf9b832ce82c575121703e2448214480` and completion-plan SHA-256 `8cb6bdac27b70c8d982b46142c1532857099e538da817b470e2831cf432651cd` under `A:/Capital Chronicle/research-audits/2026-10-23-contentops-completion-plan/`; L1 mandate chat `01a0c999-b6b3-7b52-8f8a-a7ecf53d3220`, human turn `01a165a5-ab57-74a0-a98f-f4d2e66027f3`, and this L2's exclusive Tower handoff. Those dated reports remain design/evidence provenance; current repository authority and actual implementation govern. This is candidate-branch adoption until normal integration, not a claim of accepted-master merge.
