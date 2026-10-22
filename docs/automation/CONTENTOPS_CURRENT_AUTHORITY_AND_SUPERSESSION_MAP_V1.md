@@ -301,16 +301,17 @@ Control Tower receiver synchronization remains pending; this is the discoverable
 
 ## Goal35 current market issue (2026-10-22)
 
-The current follow-on is the finite Goal35 issue, using the same V1 owner-manual
-store, native roles, retained source library, article compiler, Desk and sole
-non-dispatch preparation. Its exact cutoff, operation/revision identities, ready
-and unfinished counts, source holds, native usage interruption and continuation
-are owned by `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/CHECKPOINT.md`
-and its requirement-level `COMPLETION_AUDIT.md`. Goal34's dated accepted history
-remains intact; it is not current-market article credit for Goal35. Reuse exact
-saved requests/returns after interruption. Do not infer daily publication, activation,
-merge, deployment or receiver synchronization from an editorial progress checkpoint
-or green code CI. The existing Desks read contract is documented in that directory;
-no new reader/store/workflow owner is introduced. Four tasks and production remain
-paused; public writes and account/token work are outside this goal. Control Tower
-receiver synchronization is pending; these pointers are the discoverable handoff.
+The finite Goal35 editorial issue is complete: five distinct NEW articles, forty
+desktop/mobile visually inspected previews and five KEEP/PREPARED handoffs without
+dispatch; ready5 / held1 / missing0. FX remains source-blocked. The frozen cutoff,
+exact operation/revision/source identities, thirteen native responses, media gaps,
+preservation and focused verification are owned by
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/CHECKPOINT.md`
+and `COMPLETION_AUDIT.md`. Goal34 history is preserved without new-article credit.
+The existing Desk selected-item read contract is documented there; no new reader,
+store, publisher or workflow owner was added. Five prepared articles do not establish
+publication, a production-day floor, platform-native rendering or automatic execution.
+Four tasks and production remain paused. Same draft PR90; exact final remote/CI and
+graph identity are read back in the existing local Desk's `goal35_delivery.json`.
+No public/account write, activation, merge or deployment. Receiver consumption is
+NOT VERIFIED; Control Tower synchronization is pending with this durable handoff.

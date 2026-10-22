@@ -13,7 +13,7 @@ This exposes existing content; it adds no API, database owner or execution path.
   The grouping is `owner_edition`; its ready/held/missing counts have different meanings
   from qualified drafts or actual publications. An absent unfinished article is not empty prose.
 
-For this checkpoint, the exact available item is:
+For example, one exact available item is:
 
 `run_id=goal35-oil`
 
@@ -49,8 +49,10 @@ changed or contacted. Receiver integration and receiver consumption are not clai
 - `goal35-meta`: `208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b`
 - `goal35-southwest`: `5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9`
 
-Only oil is currently reviewed and prepared. The other four validated article bodies
-and previews are readable but await actual rendered review. Source clock precision
+All five identities are reviewed KEEP and PREPARED without dispatch, with forty
+visually inspected previews. The owner edition is ready5 / held1 / missing0. Prepared
+packages supersede the original preview projection while accepted source/writer packets
+remain immutable; read the current item rather than its historical original final packet. Source clock precision
 and separately observed publisher-update times remain in the exact source capture and
 admission files under `source_editions/`; do not infer seconds from a normalized
 minute-precision timestamp or treat the later update clock as first publication.

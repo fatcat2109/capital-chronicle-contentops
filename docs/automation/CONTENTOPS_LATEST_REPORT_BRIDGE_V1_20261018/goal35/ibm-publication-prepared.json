@@ -1,0 +1,25 @@
+{
+  "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+  "schema_version": "contentops.native_publication_binding.v1",
+  "run_id": "goal35-ibm",
+  "work_item_id": "goal35-ibm",
+  "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+  "review_id": "native-article-review-be5ef6f1450740e49983063f25eef609",
+  "review_notes_sha256": "e30fef97af01cd3d3fa0049b4429dcc0bf3f17097f2d90b2f5424b7446cc098b",
+  "prepared_handoff_sha256": "1de98afdb9d9184fbd22b30890cb1b5fa3d5bf86779669391200ea4672108d7c",
+  "plan_hash": "93a5509c55f757775fdb0aa821983d58e7cfd2d13664c6c0a609e3d76e12ee75",
+  "binding_sha256": "46bdec658230bd2fc47b29650180dcb72f8c093a8c3e5b546cbd214b90ffd8f6",
+  "accepted_evidence_sha256": "e6c354294b6fc893bf7697a59c4b22e298bc43960fcaf193712bf9e8a475a0ca",
+  "native_result_sha256": "9ba866fdb94747691faadce6d559992ebea3b9cf35bef0276338aecbaa117066",
+  "artifact_sha256": {
+    "article_manifest_v1.json": "5e5c9d856c5d3bfd351fe5d57a7b313e592ca6effbb0ec23d7b8309600fb71f0",
+    "qualified_article_record_v1.json": "0025d01133a2fe75b6a747e2acfe411302042011c49fe3e8d94e302b6b443125",
+    "native_derivative_previews_v1.json": "a06fc67715db79079c3387bcb2251c893fa9858db9b83ec85a8d2d9a2e36d20b",
+    "publication_lifecycle_plan_v1.json": "e9128db0ec76960ee54d62f515592ef373f173ddadbb23913b570aec0cd86f36",
+    "run_context_v1.json": "eb5e15cddfa8217f929afcaf3758357e71f0ded8ab8d969de57d3193cd2821da"
+  },
+  "media_sha256": {},
+  "publication_authority": false,
+  "next_operation": "publication-status",
+  "public_write_performed": false
+}

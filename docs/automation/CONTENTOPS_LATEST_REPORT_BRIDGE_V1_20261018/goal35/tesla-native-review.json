@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-36ee99c45bbb463c8ec7ba67a6eb2c6e",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal35-tesla",
+  "article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+  "package_revision": "829abcbb0840657dc4a1d7c7fc8ec0271967491dce3658477521e5c5d4612af0",
+  "article_metadata_sha256": "a70e1fa7b0c685737e160d84906fd84dd22725dcdbd7c67c76ed2dd95545456c",
+  "rationale": "KEEP after reading the exact revised canonical prose, SEO and eight preview packages and visually inspecting all five desktop and five mobile Neo PDF pages. Reuters is the sole report origin. Positive free cash flow versus expected burn and below-estimate capex are distinguished from AI returns, capex deferral and durable profitability; spending remains higher year on year and no AI-only allocation is asserted. The countercase and later cash-flow/capex conditions are retained. Source timing is explicit. No inspected rights-cleared image is bound: accept the visible text-only media gap. Preparation only; no public write.",
+  "publication_authority": false
+}

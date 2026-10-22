@@ -1,7 +1,7 @@
 {
   "schema_version": "contentops.native_owner_edition.v1",
   "edition_id": "goal35-current-market-issue",
-  "title": "October 21 market issue: five new articles; one reviewed, four awaiting rendered review",
+  "title": "October21 market issue: five new reviewed articles and forty prepared previews; one held source candidate",
   "operation_ids": [
     "goal35-oil",
     "goal35-ibm",
@@ -22,31 +22,31 @@
       "operation_id": "goal35-oil",
       "outcome": "NEW",
       "source_blocked": false,
-      "reason": "NEW / KEEP / PREPARED without dispatch: the October21 closing snapshot is distinct from retained historical oil explainers. Exact native article, eight read and visually inspected previews, explicit text-only media gap."
+      "reason": "NEW / KEEP / PREPARED without dispatch: the October21 closing snapshot is distinct from retained historical oil explainers. Exact native article, eight read and visually inspected previews, explicit text-only media gap. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained."
     },
     {
       "operation_id": "goal35-ibm",
       "outcome": "NEW",
       "source_blocked": false,
-      "reason": "NEW validated draft: higher software growth floor and transaction-processing demand persistence. Actual MAX writing and bounded revision passed; full prose and eight packages read. Rendered review and preparation pending."
+      "reason": "NEW / KEEP / PREPARED without dispatch: higher software growth floor and transaction-processing demand persistence. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained."
     },
     {
       "operation_id": "goal35-tesla",
       "outcome": "NEW",
       "source_blocked": false,
-      "reason": "NEW validated draft: positive free cash flow versus below-estimate capital spending, still higher year on year. Actual MAX writing and bounded revision passed; full prose and eight packages read. Rendered review and preparation pending."
+      "reason": "NEW / KEEP / PREPARED without dispatch: positive free cash flow versus below-estimate capital spending, still higher year on year. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained."
     },
     {
       "operation_id": "goal35-meta",
       "outcome": "NEW",
       "source_blocked": false,
-      "reason": "NEW validated draft: planned non-voting shares, control and cash-generation tradeoff. Actual MAX writing passed; compiler retains the substantive watch condition. Full prose and eight packages read. Rendered review and preparation pending."
+      "reason": "NEW / KEEP / PREPARED without dispatch: planned non-voting shares, control and cash-generation tradeoff. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained."
     },
     {
       "operation_id": "goal35-southwest",
       "outcome": "NEW",
       "source_blocked": false,
-      "reason": "NEW validated draft: 2026 profit guidance versus reported quarterly fare/earnings progress and fuel pressure. Actual MAX writing passed; historical2025hedge/AOCIcopy intact. Full prose and eight packages read. Rendered review and preparation pending."
+      "reason": "NEW / KEEP / PREPARED without dispatch: 2026 profit guidance versus reported quarterly fare/earnings progress and fuel pressure. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained."
     },
     {
       "operation_id": "goal35-fx",

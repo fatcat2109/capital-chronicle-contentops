@@ -1,19 +1,14 @@
 {
-  "observed_at_utc": "2026-10-22T10:10:55.381703+00:00",
-  "goal_status": "ACTIVE_INCOMPLETE",
+  "observed_at_utc": "2026-10-22T10:55:22.444639+00:00",
+  "goal_status": "EDITORIAL_ISSUE_COMPLETE",
   "qualified_new_articles": 5,
-  "reviewed_ready_articles": 1,
+  "reviewed_ready_articles": 5,
   "unfinished_writer_operations": [],
   "held_source_candidates": [
     "goal35-fx"
   ],
   "model_responses": 13,
-  "pending_render_review_operations": [
-    "goal35-ibm",
-    "goal35-tesla",
-    "goal35-meta",
-    "goal35-southwest"
-  ],
+  "pending_render_review_operations": [],
   "old_artifact_count_preserved": 523,
   "prior_rows_unchanged": true,
   "canonical_rows_unchanged": true,
@@ -23,10 +18,13 @@
   "material_updates": 0,
   "reused_keep_article_credit": 0,
   "validated_preview_count": 40,
-  "visually_reviewed_preview_count": 8,
-  "pending_visual_preview_count": 32,
-  "prepared_article_count": 1,
+  "visually_reviewed_preview_count": 40,
+  "pending_visual_preview_count": 0,
+  "prepared_article_count": 5,
   "held_candidate_count": 1,
   "publication_count": 0,
-  "daily_output_claim": false
+  "daily_output_claim": false,
+  "delivery_readback": "Existing local Desk goal35_delivery.json; exact final remote/CI checked after push",
+  "receiver_consumption": "NOT_VERIFIED",
+  "control_tower_sync": "PENDING_DURABLE_HANDOFF_PRESERVED"
 }

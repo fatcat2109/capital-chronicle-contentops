@@ -8,8 +8,8 @@
     },
     "outbox_messages": {
       "prior": 439,
-      "current": 517,
-      "added": 78,
+      "current": 526,
+      "added": 87,
       "changed": []
     },
     "performance_observations": {
@@ -38,8 +38,8 @@
     },
     "review_records": {
       "prior": 41,
-      "current": 42,
-      "added": 1,
+      "current": 46,
+      "added": 5,
       "changed": []
     }
   },
