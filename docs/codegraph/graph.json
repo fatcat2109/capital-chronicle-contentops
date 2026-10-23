@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 15125,
+    "edges": 15170,
     "entrypoints": 20,
-    "nodes": 7933,
+    "nodes": 7955,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 23,
       "python_class": 653,
-      "python_function": 4324,
+      "python_function": 4338,
       "python_method": 308,
-      "python_module": 837,
+      "python_module": 840,
       "schema": 265,
-      "test": 788,
+      "test": 793,
       "typescript_export": 516,
       "typescript_or_javascript_module": 113
     }
@@ -75660,6 +75660,18 @@
       "to": "python_symbol:video/freeform_chapter_pipeline_v1/build_demo_packages.py::build_demo_packages"
     },
     {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/current_locale.py::build_current_locale",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/current_locale.py::build_current_locale",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
       "from": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::main",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -75886,6 +75898,72 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:video/freeform_chapter_pipeline_v1/materialize_short_locales.py::typescript"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::admit_native_chapters",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::admit_native_chapters",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::lock_native_narrative",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::lock_native_narrative",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::lock_native_narrative",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/media.py::synthesize_narration"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::measure_native_chapter_captions",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::measure_native_chapter_captions",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::package_native_chapters",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::reflow_native_chapter_phrases",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::reflow_native_chapter_phrases",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_value"
+    },
+    {
+      "from": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::render_native_chapter",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/creative.py::hash_file"
     },
     {
       "from": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_caption_cues",
@@ -76300,6 +76378,36 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:video/projects/frozen_without_breaking_v1/scripts/generate_narration.py::speech_chunks"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/caption_alignment.py::measured_phrase_narration",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::validate_caption_set"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/caption_alignment.py::measured_phrase_narration",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::write_caption_artifacts"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/caption_alignment.py::measured_phrase_narration",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_alignment.py::phrase_groups"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_private_picture_revision",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::build_publication_package"
+    },
+    {
+      "from": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_private_picture_revision",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::normalize_final_picture_correction"
     },
     {
       "from": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::revise_caption_layout",
@@ -88518,6 +88626,30 @@
       "to": "video/freeform_chapter_pipeline_v1/package_factory.py"
     },
     {
+      "from": "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/current_locale.py::build_current_locale"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/localized_audio.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/package_factory.py"
+    },
+    {
       "from": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -88816,6 +88948,60 @@
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::admit_native_chapters"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::lock_native_narrative"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::measure_native_chapter_captions"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::package_native_chapters"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::reflow_native_chapter_phrases"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::render_native_chapter"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/__init__.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/package_factory.py"
+    },
+    {
+      "from": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/freeform_chapter_pipeline_v1/pipeline.py"
     },
     {
       "from": "video/freeform_chapter_pipeline_v1/package_factory.py",
@@ -90150,6 +90336,66 @@
       "to": "directory:video/speech_highlight_relay_v1"
     },
     {
+      "from": "video/unattended_core_factory_v1/caption_alignment.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_alignment.py::measured_phrase_narration"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_alignment.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_alignment.py::phrase_groups"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_alignment.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/__init__.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_alignment.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/creative.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_alignment.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/transcript.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_revision.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_phrase_audio_revision"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_revision.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_private_caption_review"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_revision.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_private_cohort_review"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_revision.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_private_picture_revision"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_revision.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::normalize_final_picture_correction"
+    },
+    {
       "from": "video/unattended_core_factory_v1/caption_revision.py",
       "inference": "python_ast_definition",
       "kind": "defines",
@@ -90165,7 +90411,25 @@
       "from": "video/unattended_core_factory_v1/caption_revision.py",
       "inference": "python_ast_import",
       "kind": "imports",
+      "to": "video/unattended_core_factory_v1/caption_alignment.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_revision.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
       "to": "video/unattended_core_factory_v1/creative.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_revision.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/media.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/caption_revision.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/transcript.py"
     },
     {
       "from": "video/unattended_core_factory_v1/creative.py",
@@ -90664,6 +90928,12 @@
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "video/unattended_core_factory_v1/__init__.py"
+    },
+    {
+      "from": "video/unattended_core_factory_v1/supervisor.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "video/unattended_core_factory_v1/caption_revision.py"
     },
     {
       "from": "video/unattended_core_factory_v1/supervisor.py",
@@ -130934,6 +131204,13 @@
       "symbol": "main"
     },
     {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/current_locale.py::build_current_locale",
+      "kind": "python_function",
+      "line": 22,
+      "path": "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "symbol": "build_current_locale"
+    },
+    {
       "id": "python_symbol:video/freeform_chapter_pipeline_v1/demo_media_validation.py::main",
       "kind": "python_function",
       "line": 187,
@@ -131165,6 +131442,48 @@
       "symbol": "typescript"
     },
     {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::admit_native_chapters",
+      "kind": "python_function",
+      "line": 18,
+      "path": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "symbol": "admit_native_chapters"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::lock_native_narrative",
+      "kind": "python_function",
+      "line": 754,
+      "path": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "symbol": "lock_native_narrative"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::measure_native_chapter_captions",
+      "kind": "python_function",
+      "line": 204,
+      "path": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "symbol": "measure_native_chapter_captions"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::package_native_chapters",
+      "kind": "python_function",
+      "line": 524,
+      "path": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "symbol": "package_native_chapters"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::reflow_native_chapter_phrases",
+      "kind": "python_function",
+      "line": 278,
+      "path": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "symbol": "reflow_native_chapter_phrases"
+    },
+    {
+      "id": "python_symbol:video/freeform_chapter_pipeline_v1/native_narrative.py::render_native_chapter",
+      "kind": "python_function",
+      "line": 171,
+      "path": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "symbol": "render_native_chapter"
+    },
+    {
       "id": "python_symbol:video/freeform_chapter_pipeline_v1/package_factory.py::ArtifactIdentity",
       "kind": "python_class",
       "line": 75,
@@ -131293,7 +131612,7 @@
     {
       "id": "python_symbol:video/freeform_chapter_pipeline_v1/pipeline.py::main",
       "kind": "python_function",
-      "line": 609,
+      "line": 636,
       "path": "video/freeform_chapter_pipeline_v1/pipeline.py",
       "symbol": "main"
     },
@@ -131676,9 +131995,58 @@
       "symbol": "synthesize_file"
     },
     {
-      "id": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::revise_caption_layout",
+      "id": "python_symbol:video/unattended_core_factory_v1/caption_alignment.py::measured_phrase_narration",
+      "kind": "python_function",
+      "line": 53,
+      "path": "video/unattended_core_factory_v1/caption_alignment.py",
+      "symbol": "measured_phrase_narration"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/caption_alignment.py::phrase_groups",
+      "kind": "python_function",
+      "line": 24,
+      "path": "video/unattended_core_factory_v1/caption_alignment.py",
+      "symbol": "phrase_groups"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_phrase_audio_revision",
+      "kind": "python_function",
+      "line": 522,
+      "path": "video/unattended_core_factory_v1/caption_revision.py",
+      "symbol": "build_phrase_audio_revision"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_private_caption_review",
+      "kind": "python_function",
+      "line": 383,
+      "path": "video/unattended_core_factory_v1/caption_revision.py",
+      "symbol": "build_private_caption_review"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_private_cohort_review",
+      "kind": "python_function",
+      "line": 305,
+      "path": "video/unattended_core_factory_v1/caption_revision.py",
+      "symbol": "build_private_cohort_review"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::build_private_picture_revision",
+      "kind": "python_function",
+      "line": 118,
+      "path": "video/unattended_core_factory_v1/caption_revision.py",
+      "symbol": "build_private_picture_revision"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::normalize_final_picture_correction",
       "kind": "python_function",
       "line": 19,
+      "path": "video/unattended_core_factory_v1/caption_revision.py",
+      "symbol": "normalize_final_picture_correction"
+    },
+    {
+      "id": "python_symbol:video/unattended_core_factory_v1/caption_revision.py::revise_caption_layout",
+      "kind": "python_function",
+      "line": 685,
       "path": "video/unattended_core_factory_v1/caption_revision.py",
       "symbol": "revise_caption_layout"
     },
@@ -131874,21 +132242,21 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_audio_mix",
       "kind": "python_function",
-      "line": 675,
+      "line": 693,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "build_audio_mix"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_captions",
       "kind": "python_function",
-      "line": 819,
+      "line": 837,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "build_captions"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::build_neutral_package",
       "kind": "python_function",
-      "line": 873,
+      "line": 891,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "build_neutral_package"
     },
@@ -131909,14 +132277,14 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::loudness_report",
       "kind": "python_function",
-      "line": 785,
+      "line": 803,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "loudness_report"
     },
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::mux_final_media",
       "kind": "python_function",
-      "line": 736,
+      "line": 754,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "mux_final_media"
     },
@@ -131979,7 +132347,7 @@
     {
       "id": "python_symbol:video/unattended_core_factory_v1/media.py::technical_media_report",
       "kind": "python_function",
-      "line": 850,
+      "line": 868,
       "path": "video/unattended_core_factory_v1/media.py",
       "symbol": "technical_media_report"
     },
@@ -137430,12 +137798,37 @@
     {
       "id": "tests/test_v2_current_native_factory_integration.py",
       "kind": "test",
-      "size_bytes": 9077
+      "size_bytes": 9926
     },
     {
       "id": "tests/test_v2_freeform_chapter_pipeline_v1.py",
       "kind": "test",
       "size_bytes": 8045
+    },
+    {
+      "id": "tests/test_v2_goal40_chapter_phrase_reflow.py",
+      "kind": "test",
+      "size_bytes": 5971
+    },
+    {
+      "id": "tests/test_v2_goal40_current_locale.py",
+      "kind": "test",
+      "size_bytes": 7720
+    },
+    {
+      "id": "tests/test_v2_goal40_longform_ingress.py",
+      "kind": "test",
+      "size_bytes": 9370
+    },
+    {
+      "id": "tests/test_v2_goal40_picture_successor.py",
+      "kind": "test",
+      "size_bytes": 7001
+    },
+    {
+      "id": "tests/test_v2_goal40_recovery_and_captions.py",
+      "kind": "test",
+      "size_bytes": 8799
     },
     {
       "id": "tests/test_v2_locale_activation_hardening_v1.py",
@@ -141930,6 +142323,11 @@
       "size_bytes": 8107
     },
     {
+      "id": "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "kind": "python_module",
+      "size_bytes": 16518
+    },
+    {
       "id": "video/freeform_chapter_pipeline_v1/demo_media_validation.py",
       "kind": "python_module",
       "size_bytes": 6785
@@ -141960,6 +142358,11 @@
       "size_bytes": 2282
     },
     {
+      "id": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "kind": "python_module",
+      "size_bytes": 38895
+    },
+    {
       "id": "video/freeform_chapter_pipeline_v1/package_factory.py",
       "kind": "python_module",
       "size_bytes": 20070
@@ -141967,7 +142370,7 @@
     {
       "id": "video/freeform_chapter_pipeline_v1/pipeline.py",
       "kind": "python_module",
-      "size_bytes": 27492
+      "size_bytes": 29427
     },
     {
       "id": "video/freeform_chapter_pipeline_v1/zero_rerender_sidecar_proof.py",
@@ -142180,9 +142583,14 @@
       "size_bytes": 363
     },
     {
+      "id": "video/unattended_core_factory_v1/caption_alignment.py",
+      "kind": "python_module",
+      "size_bytes": 11499
+    },
+    {
       "id": "video/unattended_core_factory_v1/caption_revision.py",
       "kind": "python_module",
-      "size_bytes": 4146
+      "size_bytes": 34572
     },
     {
       "id": "video/unattended_core_factory_v1/creative.py",
@@ -142197,12 +142605,12 @@
     {
       "id": "video/unattended_core_factory_v1/manual.py",
       "kind": "python_module",
-      "size_bytes": 8526
+      "size_bytes": 16006
     },
     {
       "id": "video/unattended_core_factory_v1/media.py",
       "kind": "python_module",
-      "size_bytes": 35310
+      "size_bytes": 36153
     },
     {
       "id": "video/unattended_core_factory_v1/scaffold/package.json",
@@ -142217,12 +142625,12 @@
     {
       "id": "video/unattended_core_factory_v1/store.py",
       "kind": "python_module",
-      "size_bytes": 68269
+      "size_bytes": 71389
     },
     {
       "id": "video/unattended_core_factory_v1/supervisor.py",
       "kind": "python_module",
-      "size_bytes": 88652
+      "size_bytes": 108509
     },
     {
       "id": "video/unattended_core_factory_v1/transcript.py",
@@ -142294,5 +142702,5 @@
   },
   "schema_version": "contentops.codex_context_graph.v2",
   "source_head": "ffe1473ebc3cfd58641296371630640cd39382dc",
-  "source_tree_digest": "5dd267d221f96fcdc96b2ab0b100fd02ca15b4ee43a35a9ef91d23a73bc9e784"
+  "source_tree_digest": "a82053c02496099adb61cb6b5f0ff6348e346709d6a2b9fcec94668548938c13"
 }

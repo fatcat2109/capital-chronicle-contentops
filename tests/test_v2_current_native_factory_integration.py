@@ -58,6 +58,12 @@ def test_final_mux_preserves_all_picture_frames_with_short_audio(tmp_path):
     assert before["frame_count"] == after["frame_count"] == 60
     assert before["video_stream_sha256"] == after["video_stream_sha256"]
     assert receipt["ffmpeg_shortest_used"] is False
+    # The existing longform owner must preserve the same frame boundary too.
+    owner = object.__new__(pipeline.FreeformChapterPipeline)
+    owner.project_root = tmp_path
+    longform_mux = owner.mux(picture, audio, tmp_path / "chapter-owner-mux.mp4")
+    assert longform_mux["picture_identity"]["mux"]["frame_count"] == 60
+    assert longform_mux["ffmpeg_shortest_used"] is False
 
 
 def test_exact_job_claim_does_not_take_another_story(tmp_path):
@@ -230,6 +236,11 @@ def test_caption_revision_changes_package_preserves_media_and_rejects_drift(tmp_
     assert receipt["audio_sha256"] == package["artifacts"]["audio"]["sha256"]
     assert receipt["caption_sha256_before"] != receipt["caption_sha256_after"]
     assert receipt["picture_render_count"] == receipt["audio_synthesis_count"] == 0
+    positioned = revise_caption_layout(manifest, tmp_path / "positioned", line_percent=10)
+    positioned_package = json.loads((tmp_path / "positioned/platform_neutral_package_manifest.json").read_text())
+    assert "line:10%" in (tmp_path / "positioned/captions/captions.en.vtt").read_text()
+    assert positioned["audio_sha256"] == receipt["audio_sha256"]
+    assert positioned_package["artifacts"]["canonical_picture"] == package["artifacts"]["canonical_picture"]
     with pytest.raises(ValueError, match="distinct"):
         revise_caption_layout(manifest, tmp_path / "revision")
     audio.write_bytes(b"drift")

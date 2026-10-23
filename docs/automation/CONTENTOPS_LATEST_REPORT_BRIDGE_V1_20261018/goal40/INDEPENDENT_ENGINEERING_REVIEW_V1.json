@@ -1,0 +1,209 @@
+{
+  "schema": "contentops.v2.independent_scoped_engineering_review.v1",
+  "goal": "Goal40",
+  "kind": "INDEPENDENT_SCOPED_ENGINEERING_REVIEW",
+  "native_task_id": "/root/goal40_longform_caption_timing",
+  "model": "gpt-5.6-sol",
+  "reasoning_effort": "xhigh",
+  "provenance_limit": "ASSIGNED_ROLE_NOT_INDEPENDENT_RUNTIME_ATTESTATION",
+  "actual_runtime_attestation": "NOT_AVAILABLE",
+  "independence_scope": "SCOPED_PYTHON_INTEGRATION_REVIEW; REVIEWER_DID_NOT_AUTHOR_THE_REVIEWED_PYTHON CHANGES; PRIOR TYPESCRIPT_CREATIVE_IS_EXCLUDED",
+  "request_sha256": "ce78c15855e07edd9abeb70cbe477e75b37375f33aaa44c15d57b834de094276",
+  "request_file_sha256": "41761e3e1b2ac3a7941f73acec20a8f9c11fcafd22a5517b32ce9c110f744f0e",
+  "reviewed_base_head": "1fd6ad718dc19a8df2a47411dd339d9c8c15f5d7",
+  "snapshot_status": "PASS_ALL_REQUESTED_SOURCE_AND_TEST_RECEIPT_HASHES_MATCH_CURRENT_BYTES",
+  "checked_files": [
+    {
+      "path": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "sha256": "b0f19c4bf9ca1883eb55ee3f130fdbfc81bb73c0a401db8102d74cf14a7ad1a5",
+      "request_sha256": "b0f19c4bf9ca1883eb55ee3f130fdbfc81bb73c0a401db8102d74cf14a7ad1a5",
+      "snapshot_match": true
+    },
+    {
+      "path": "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "sha256": "ec66b2fbca455b178f75e9b1aa145f05729c95f315476aef730159aff00c7dcd",
+      "request_sha256": "ec66b2fbca455b178f75e9b1aa145f05729c95f315476aef730159aff00c7dcd",
+      "snapshot_match": true
+    },
+    {
+      "path": "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "sha256": "d113b8a8fe41a02994e5dda4bd4c03467b92d836fbbd30003124dae979b3501f",
+      "request_sha256": "d113b8a8fe41a02994e5dda4bd4c03467b92d836fbbd30003124dae979b3501f",
+      "snapshot_match": true
+    },
+    {
+      "path": "video/unattended_core_factory_v1/caption_revision.py",
+      "sha256": "eee6bb808558b598f30c0464a63a593c8ef6b84038f13bdcea81dd88226800d9",
+      "request_sha256": "eee6bb808558b598f30c0464a63a593c8ef6b84038f13bdcea81dd88226800d9",
+      "snapshot_match": true
+    },
+    {
+      "path": "video/unattended_core_factory_v1/caption_alignment.py",
+      "sha256": "b70a9d0dddd81e29f857a44d2f4663745a5aa68fa28ac44c524571a10001a2ed",
+      "request_sha256": "b70a9d0dddd81e29f857a44d2f4663745a5aa68fa28ac44c524571a10001a2ed",
+      "snapshot_match": true
+    },
+    {
+      "path": "video/unattended_core_factory_v1/manual.py",
+      "sha256": "4b20c583c419422a61648fd3c48dd5f4ee234f8561cfc2837bf6540947265e75",
+      "request_sha256": "4b20c583c419422a61648fd3c48dd5f4ee234f8561cfc2837bf6540947265e75",
+      "snapshot_match": true
+    },
+    {
+      "path": "video/unattended_core_factory_v1/supervisor.py",
+      "sha256": "045003b6cab518f60c5edac851d77660ba111cad2af468a120d6ad82229bc973",
+      "request_sha256": "045003b6cab518f60c5edac851d77660ba111cad2af468a120d6ad82229bc973",
+      "snapshot_match": true
+    },
+    {
+      "path": "video/unattended_core_factory_v1/store.py",
+      "sha256": "50f4ed1fbc21e1e119ad5283fcea8fbde78cd287484fae1e80cdd60b2184c7da",
+      "request_sha256": "50f4ed1fbc21e1e119ad5283fcea8fbde78cd287484fae1e80cdd60b2184c7da",
+      "snapshot_match": true
+    },
+    {
+      "path": "video/unattended_core_factory_v1/media.py",
+      "sha256": "5bca9210ed90b438e48f51137da9c3e7487b5a5e4b291137c934d756343c72e3",
+      "request_sha256": "5bca9210ed90b438e48f51137da9c3e7487b5a5e4b291137c934d756343c72e3",
+      "snapshot_match": true
+    }
+  ],
+  "focused_test_receipt": {
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\final-focused-tests.txt",
+    "sha256": "f009f1de8037772ab8b8fdcbeb5e857bf2988ca1bf169ec3d140c92aaa22e8b2",
+    "request_sha256": "f009f1de8037772ab8b8fdcbeb5e857bf2988ca1bf169ec3d140c92aaa22e8b2",
+    "snapshot_match": true,
+    "observed_text": "................................                                         [100%]\n32 passed in 13.88s",
+    "claim_limit": "PARENT_EXECUTED_SEALED_RECEIPT_MATCHED; NOT_INDEPENDENTLY_RERUN_BY_THIS_READ_ONLY_REVIEW"
+  },
+  "findings": [
+    {
+      "severity": "P1_HIGH",
+      "title": "Bind every reused phrase wave to the request-bound measured receipt",
+      "file": "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "line": 311,
+      "concrete_consequence": "The accepted longform reflow and package use 44 phrase WAV files whose path and SHA-256 are absent from the exact measured_phrases receipt bound by the timing-correction request. Those files cover all phrases in CH01, CH04, and CH07. The adjacent source_identity.json binds geometry and model identities but does not seal a wave inventory. Because the code trusts a colocated WAV plus a mutable colocated sidecar after recomputing only the identity key, both bytes can be replaced together without violating any request-bound hash. The current package therefore cannot prove that all 117 reused cues are the phrase bytes measured for the correction.",
+      "evidence": {
+        "request_bound_measured_receipt": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-chapters-launch-fixed\\measured_phrases\\phrase_revision_receipt.json",
+          "sha256": "32ed1688c15d2108fdc5a2669bf626e49629e601e631b631906d5018b35853e9"
+        },
+        "cache_identity": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-chapters-launch-fixed\\measured_phrases\\source_identity.json",
+          "sha256": "8dc440847a31e8c86755aa04ea210ab8c4cb9a31fcfdddf2b351be19591bdb7a"
+        },
+        "reflow_result": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\longform-caption-timing-reflow-result.json",
+          "sha256": "eed6c44294fcfde184744374c7fa18007c01823975bf96cbe5462ed09792538d"
+        },
+        "reflow_phrase_waves_total": 117,
+        "exactly_listed_in_bound_receipt": 73,
+        "outside_bound_receipt": 44,
+        "outside_bound_receipt_by_chapter": {
+          "CH01": 14,
+          "CH04": 17,
+          "CH07": 13
+        },
+        "code_path": "cache_root is derived from the bound receipt parent at line 311; source_identity is read at 312-316; each unbound WAV and sidecar is trusted at 369-374."
+      },
+      "fix": "Create or bind an immutable complete phrase-cache inventory for every reused WAV, including held chapters, and require each expected text/route key to resolve to the exact request-bound audio SHA-256 before constructing the bus. Then rebuild the reflow/package receipts from that fully bound inventory."
+    },
+    {
+      "severity": "P1_HIGH",
+      "title": "Require an exact immutable request for localized editorial ingress",
+      "file": "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "line": 32,
+      "concrete_consequence": "build_current_locale accepts a self-contained native return based on kind/model/effort/native_task_id and hashes declared inside that same return. It accepts no request_path and checks no request_sha256. A locally rewritten return can therefore replace Spanish wording and refresh its own source binding hashes while still passing the assigned-role gate. Deterministic number and qualifier checks do not prove the unbound translation semantics or that the native role answered an authorized exact request.",
+      "evidence": {
+        "native_return": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\native-returns\\retail-es-editorial.json",
+          "sha256": "35877efbe909740b99fa93e149d6446affca0799ae74aeffddf9bb4ded8164b7"
+        },
+        "native_return_has_request_sha256": false,
+        "function_signature_and_gate": "lines 22-44 accept return_path but no request_path; lines 45-52 verify only bindings supplied by the return itself.",
+        "preserved_deterministic_gates": "Source package/timing identity, exact Spanish route, story identity, numeric values, units, and adjustment qualifiers are checked separately and are not disputed by this finding."
+      },
+      "fix": "Materialize a sealed LOCALIZED_EDITORIAL request that binds the current package, timing lock, governed input, requested role, and instructions; require returned.request_sha256 == hash_value(request) and verify request bindings rather than trusting binding hashes supplied only by the return."
+    },
+    {
+      "severity": "P2_MEDIUM",
+      "title": "Keep same-revision successor replay legal after a partial ledger append",
+      "file": "video/unattended_core_factory_v1/supervisor.py",
+      "line": 2085,
+      "concrete_consequence": "Caption, native-picture, and phrase-audio successor methods require OWNER_REVIEW_READY on entry. Their first successful _append records a nonterminal stage and _append passes state_pointer=stage, which makes the durable job state RUNNING. A crash between that append and the final OWNER_REVIEW_READY append makes the exact sealed revision impossible to resume because the next call fails its entry-state guard. This defeats the advertised interrupted replay for same-job/same-run revisions and can strand valid partially recorded Goal40 work.",
+      "evidence": {
+        "entry_guards": [
+          "supervisor.py:2085-2087",
+          "supervisor.py:2149-2151",
+          "supervisor.py:2208-2210"
+        ],
+        "partial_append_sites": [
+          "supervisor.py:2130-2140",
+          "supervisor.py:2195-2199",
+          "supervisor.py:2296-2306"
+        ],
+        "state_transition": "supervisor.py:792 supplies state_pointer=stage; store.py:1383-1394 maps every nonterminal pointer to durable state RUNNING.",
+        "test_gap": "The sealed replay tests exercise only completed revisions; they do not interrupt after the first PASS append."
+      },
+      "fix": "For ancillary same-run successors, retain OWNER_REVIEW_READY until the final atomic pointer update, or admit RUNNING only when the exact revision binding and latest partial events match, then append only missing stages. Add interruption tests after every stage append."
+    },
+    {
+      "severity": "P2_MEDIUM",
+      "title": "Finish exact editorial recovery setup when replay follows an interrupted reopen",
+      "file": "video/unattended_core_factory_v1/supervisor.py",
+      "line": 339,
+      "concrete_consequence": "The store transaction writes EDITORIAL_TIMING_RECOVERY and reopens the run before the supervisor claims the job and writes narration_overrun. If execution stops in that window, the next invocation sees the recovery event and returns early as an idempotent replay. request_for then hashes the required narration_overrun binding, which may not exist, and no exact request can be emitted. The sole recovery budget is consumed while the original job remains unable to progress.",
+      "evidence": {
+        "early_return": "supervisor.py:334-351",
+        "setup_after_store_event": "supervisor.py:369-389",
+        "required_binding": "manual.py:58-62 and 72-75",
+        "store_atomic_boundary": "store.py reopen_editorial_timing_failure commits the recovery event and RUNNING state before supervisor-side setup."
+      },
+      "fix": "On an existing exact recovery event, verify and reconstruct the claim and immutable narration_overrun artifact before returning AWAITING input, or commit a durable recovery intent only after all required request artifacts are present. Add an interruption test immediately after the store reopen."
+    }
+  ],
+  "verified_current_artifacts": {
+    "longform_package_result": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\longform-caption-timing-package-result.json",
+      "sha256": "fa1108b5a039cc8766dd16b742b5ee28dab73c0db05a55a9c78f95bc272d60c6",
+      "result": "PRIVATE_NATIVE_LONGFORM_PACKAGE_BUILT"
+    },
+    "longform_manifest": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\manifest.json",
+      "sha256": "7f1ecfe6c37382b3b57fc70016a2bc073a4eb16e26967aa71b326b7d33898c38",
+      "package_id": "pkg_822eda86c838d066a6d76f3113eb3f396a0ac8e77b9cae21309e2a81757d6d17"
+    },
+    "longform_picture": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\clean.mp4",
+      "sha256": "963767c8e4fdf3dcc472ffb2adf09e868770a3b8f305cb19da3813311280f538",
+      "size_bytes": 55474136
+    },
+    "longform_frames": 12357,
+    "longform_duration_seconds": 411.9,
+    "caption_cues": 117,
+    "actual_synthesis_count": 0,
+    "cohort_review_result": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\cohort-review-result.json",
+      "sha256": "f7803f7fe4059c4813284d171690ad76b0eb36858595f3d61fd0c878820b6ad5"
+    },
+    "picture_successor_result": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\japan-final-picture-revision-result.json",
+      "sha256": "430edd1a55951c46918dfce8c6012da3a48503990037970a347e2c5cd94bff6e"
+    },
+    "public_write_authority": false
+  },
+  "accepted_limits": [
+    "Read-only static engineering review plus exact saved-artifact hash/readback; no code, media, store, scheduler, provider, or ledger mutation.",
+    "The sealed 32-test parent receipt was matched exactly but not independently rerun.",
+    "No hearing, voice acceptance, continuous final audiovisual acceptance, translation listening acceptance, or rights release is claimed.",
+    "Saved package/container/picture identities establish only their recorded mechanics; they do not close the four findings.",
+    "Any source change after this return requires a fresh exact-hash review."
+  ],
+  "review_status": "CHANGES_REQUIRED",
+  "finding_counts": {
+    "P0_CRITICAL": 0,
+    "P1_HIGH": 2,
+    "P2_MEDIUM": 2
+  },
+  "public_write_authority": false
+}

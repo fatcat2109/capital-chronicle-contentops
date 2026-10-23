@@ -1,0 +1,1092 @@
+{
+  "schema": "contentops.v2.goal40.release_candidate_evidence.v1",
+  "goal": "Goal40",
+  "goal_complete": false,
+  "production_state": "UNCHANGED_PAUSED",
+  "public_write_authority": false,
+  "private_package_count": 4,
+  "english_story_shorts": 2,
+  "extra_locale_packages": 1,
+  "longform_packages": 1,
+  "independent_engineering_review": {
+    "status": "CHANGES_REQUIRED",
+    "return_sha256": "7205fd8640a68d8020716f546e78dc60cc88de04763f3f148b63f489a1817e7f",
+    "findings": {
+      "P1_HIGH": 2,
+      "P2_MEDIUM": 2
+    },
+    "correction_state": "FOUR_CORRECTIONS_IMPLEMENTED_39_TESTS_PASS_FRESH_BOUND_PACKAGES_BUILT_INDEPENDENT_RECHECK_PENDING",
+    "existing_packages": "PRESERVED_NOT_PROMOTED_AFTER_FINDINGS"
+  },
+  "cohort_review": {
+    "result": "PRIVATE_COHORT_REVIEW_ENTRY_BUILT",
+    "source_spec": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\cohort-review-spec.json",
+      "sha256": "6925b06bc87d2037830e3e57f71e5cf02506f92f0514138ba1331c2240d06f73",
+      "size_bytes": 1850
+    },
+    "entries": [
+      {
+        "label": "Retail \u00b7 English short",
+        "package": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-caption-safe-top\\platform_neutral_package_manifest.json",
+          "sha256": "779dd133760f1aa65180a2e0b70af5d0d314f2f05075fbac330c73a6b5210bd9",
+          "size_bytes": 6880
+        },
+        "package_id": "pkg_0a63add2aafb4ea133c97ed5cda06eabde9bd49b91210cdcc2d0705cf9319030",
+        "language": "en",
+        "format": "SHORT_9_16",
+        "review": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-caption-review-safe-top\\review.html",
+          "sha256": "3068cfd18a23c190555a580e7ba1754d32a067c13c49a2d140e47632ba7411bc",
+          "size_bytes": 5954
+        },
+        "clean": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-measured-phrases\\clean.mp4",
+          "sha256": "f51e453a46e376ce149dcd3ce26e341a5b8290a2900e2c0e04ece72195e499e4",
+          "size_bytes": 13148131
+        },
+        "caption_vtt": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-caption-safe-top\\captions\\captions.en.vtt",
+          "sha256": "10a8409a0e0315676d65d2018960f54c4049159feb21b28b3b8b42ea9827bbf6",
+          "size_bytes": 1551
+        },
+        "social": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-caption-review-safe-top\\social-captioned.mp4",
+          "sha256": "a8d6acedf934db995018225e215fb1542f319d8bf94b58870942ef565aa68aea",
+          "size_bytes": 10726284
+        }
+      },
+      {
+        "label": "Japan \u00b7 corrected English short",
+        "package": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\manifest.json",
+          "sha256": "bef0ff081d77795bf2808e7ddcd7e9af53821ba5050292e6a34cb7e1a6c2072f",
+          "size_bytes": 7580
+        },
+        "package_id": "pkg_b17161abf532396b1e00fbcb2d0442f8ace6c40e0a952202f25b0c9c8e5c220d",
+        "language": "en",
+        "format": "SHORT_9_16",
+        "review": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-caption-review\\review.html",
+          "sha256": "a6caa9fce22ef276124e90051ac89576137f74c43b55f75a8f7c3854f644ca78",
+          "size_bytes": 6203
+        },
+        "clean": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\clean.mp4",
+          "sha256": "c69aaed950de09304916bfd4899bab9414ab0adceae6beba27894635b8cb2f86",
+          "size_bytes": 14689299
+        },
+        "caption_vtt": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-caption-safe-top\\captions\\captions.en.vtt",
+          "sha256": "83c80cc6cfa02794efa30195e83975e63274dbd8e0406f477a9b42102c99ac3d",
+          "size_bytes": 1640
+        },
+        "social": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-caption-review\\social-captioned.mp4",
+          "sha256": "f86905840c8f9e6f0bb2cd2414e35b5140475e14f4a6e3865c5dc12c6c155b16",
+          "size_bytes": 12772738
+        }
+      },
+      {
+        "label": "Retail \u00b7 Spanish voice and captions",
+        "package": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-closure\\manifest.json",
+          "sha256": "8d916ba2f399ec0d38495684f1a4295663d121891cbd58a5ab736787506b95bd",
+          "size_bytes": 5144
+        },
+        "package_id": "pkg_76245fc4e5d4c5a7a93a04f6cd0be0d744048bf30b7123a6172ad675ddd5301f",
+        "language": "es",
+        "format": "SHORT_9_16",
+        "review": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-review\\review.html",
+          "sha256": "bd16f51f0d108d31a028ac879fcbe180752d805a3cb91b14033370aa9f3626db",
+          "size_bytes": 5062
+        },
+        "clean": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-closure\\locale.es.mp4",
+          "sha256": "5f3bcb731660fd92aeccdc275b9fcbedb7953773b1cfb365d7fb9cecf75e90ae",
+          "size_bytes": 13144319
+        },
+        "caption_vtt": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-closure\\captions\\captions.es.vtt",
+          "sha256": "6f1f12635b3d8c0b83c1444622c537cc1c194925b8c575f0f58e7314d8b39b7c",
+          "size_bytes": 759
+        },
+        "social": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-review\\social-captioned.mp4",
+          "sha256": "62778ef0f81d6e9a92f9361d3acd3ce2d86d8e278473cda6bea6c31a9cda065e",
+          "size_bytes": 10606713
+        }
+      },
+      {
+        "label": "The Number Before the Story \u00b7 6m 52s film",
+        "package": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\manifest.json",
+          "sha256": "613fb5b3034901cbc7c7fdf48e78ddcb431559bb582aceda32b07f27cfb276ef",
+          "size_bytes": 10749
+        },
+        "package_id": "pkg_eb9e068f9bc07fc99093d7607f0c62e315a3a57ae6ad30466efd652c595bfc7d",
+        "language": "en",
+        "format": "LONGFORM_16_9",
+        "review": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\review.html",
+          "sha256": "f559a325c7df7cc0c7883cb110027131979ef6891e46572af6dfde02cb1c8eba",
+          "size_bytes": 34727
+        },
+        "clean": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\clean.mp4",
+          "sha256": "963767c8e4fdf3dcc472ffb2adf09e868770a3b8f305cb19da3813311280f538",
+          "size_bytes": 55474136
+        },
+        "caption_vtt": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\reflowed_phrases\\captions\\captions.en.vtt",
+          "sha256": "c0cc6993b8cd997b42c67f783b63ead5bbccd689e36d4678f1f28a17d30d8218",
+          "size_bytes": 10927
+        }
+      }
+    ],
+    "review_entry": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\cohort_review\\goal40\\review.html",
+      "sha256": "bb3371ba41f18b154a5bc40a4adcd062dfb5f3a8f61df6aada06f7f185ecd81e",
+      "size_bytes": 9088
+    },
+    "acceptance": "ENGINEERING_REVIEW_ONLY",
+    "public_write_authority": false
+  },
+  "longform": {
+    "result": "PRIVATE_NATIVE_LONGFORM_PACKAGE_BUILT",
+    "manifest": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\manifest.json",
+    "review_entry": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\review.html",
+    "package_id": "pkg_822eda86c838d066a6d76f3113eb3f396a0ac8e77b9cae21309e2a81757d6d17",
+    "duration_seconds": 411.9,
+    "chapters": 7,
+    "caption_cues": 117,
+    "assembly": {
+      "kind": "picture_assembly",
+      "method": "concat_streamcopy",
+      "output": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\picture_lock.mp4",
+      "sha256": "b165e37ecb4f714844e50a9768862c4707b5c905bf8f8340fc97ecde273ff2af",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "color_range": "tv",
+            "color_space": "bt709",
+            "r_frame_rate": "30/1",
+            "bit_rate": "839661"
+          }
+        ],
+        "format": {
+          "duration": "411.900000",
+          "size": "43378274",
+          "bit_rate": "842501"
+        }
+      },
+      "wall_seconds": 0.252
+    },
+    "mix": {
+      "kind": "audio_only_build",
+      "video_render_invoked": false,
+      "output": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\final_mix.wav",
+      "sha256": "36b61d22a6c357279b78dc37f9b3ce5ac0a6720e258e9c3d5cf10545113dc46e",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "pcm_s24le",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "bit_rate": "2304000"
+          }
+        ],
+        "format": {
+          "duration": "411.900000",
+          "size": "118627302",
+          "bit_rate": "2304001"
+        }
+      },
+      "wall_seconds": 0.624
+    },
+    "mux": {
+      "kind": "final_mux",
+      "video_render_invoked": false,
+      "picture_identity": {
+        "source": {
+          "artifact": {
+            "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\picture_lock.mp4",
+            "sha256": "b165e37ecb4f714844e50a9768862c4707b5c905bf8f8340fc97ecde273ff2af",
+            "size_bytes": 43378274
+          },
+          "video_stream_sha256": "141c300f8481687b90b4f4f39575f7d610f60d789f0dda4338b736760ff165cc",
+          "frame_count": 12357,
+          "video_duration_seconds": 411.9,
+          "codec": "h264",
+          "profile": "High",
+          "width": 1920,
+          "height": 1080,
+          "pixel_format": "yuv420p",
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": null,
+          "color_primaries": null,
+          "format_duration_seconds": 411.9
+        },
+        "mux": {
+          "artifact": {
+            "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\clean.mp4",
+            "sha256": "963767c8e4fdf3dcc472ffb2adf09e868770a3b8f305cb19da3813311280f538",
+            "size_bytes": 55474136
+          },
+          "video_stream_sha256": "141c300f8481687b90b4f4f39575f7d610f60d789f0dda4338b736760ff165cc",
+          "frame_count": 12357,
+          "video_duration_seconds": 411.9,
+          "codec": "h264",
+          "profile": "High",
+          "width": 1920,
+          "height": 1080,
+          "pixel_format": "yuv420p",
+          "color_range": "tv",
+          "color_space": "bt709",
+          "color_transfer": null,
+          "color_primaries": null,
+          "format_duration_seconds": 411.9
+        }
+      },
+      "ffmpeg_shortest_used": false,
+      "output": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-caption-timing\\package_reflowed_phrases\\clean.mp4",
+      "sha256": "963767c8e4fdf3dcc472ffb2adf09e868770a3b8f305cb19da3813311280f538",
+      "probe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_type": "video",
+            "width": 1920,
+            "height": 1080,
+            "pix_fmt": "yuv420p",
+            "color_range": "tv",
+            "color_space": "bt709",
+            "r_frame_rate": "30/1",
+            "bit_rate": "839661"
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_type": "audio",
+            "sample_rate": "48000",
+            "channels": 2,
+            "r_frame_rate": "0/0",
+            "bit_rate": "228978"
+          }
+        ],
+        "format": {
+          "duration": "411.900000",
+          "size": "55474136",
+          "bit_rate": "1077429"
+        }
+      },
+      "wall_seconds": 45.758
+    },
+    "technical": {
+      "result": "PASS_MEDIA_CONTRACT",
+      "format": "LONGFORM_16_9",
+      "duration_seconds": 411.9,
+      "errors": []
+    },
+    "source_identity": {
+      "admission_sha256": "a655591474bcda7d348ce5acba45097fa2653791e4563cb7acedcb034db54116",
+      "measured_phrases_sha256": "4593f3e36cf6c979f7a4052a19d2481666f6ccb00636c20d933357a8f71067b0",
+      "chapters": [
+        {
+          "id": "CH01",
+          "sha256": "50b6f1ce5e80a5737334d9a5b55662aa6589a600d46324a89badccb0a8e849d6"
+        },
+        {
+          "id": "CH02",
+          "sha256": "bb579069952eed89da96a40c80fe3b0cc080ffdca4820fe2e322e2d75f92bd8d"
+        },
+        {
+          "id": "CH03",
+          "sha256": "7e5497defd5a1f3cd25b63865081c6be97f97ce2ab989ad2433a48407289a5f3"
+        },
+        {
+          "id": "CH04",
+          "sha256": "0ac631dce4dad38364a7fa8d955e53b98ca8c6255ef777bef9693f4b65ced307"
+        },
+        {
+          "id": "CH05",
+          "sha256": "6573f1508ef62f75a23c9b36e4e24052630eeb026ac452fc2b7e5c0b414efc02"
+        },
+        {
+          "id": "CH06",
+          "sha256": "a9898f37b4b4885b07c041fa91b90801d006e9ffeaaad7f7c454852f55e35950"
+        },
+        {
+          "id": "CH07",
+          "sha256": "c60dcb9331e6fcb7e7dd041fd9453b169d3de55f3c3a794dc7b3bd92b70247aa"
+        }
+      ]
+    },
+    "hearing": "NOT_VERIFIED",
+    "continuous_picture_review": "REQUIRED",
+    "rights_release": "NOT_GRANTED",
+    "public_write_authority": false
+  },
+  "japan_picture_correction": {
+    "result": "PRIVATE_NATIVE_PICTURE_PACKAGE_BUILT",
+    "identity": {
+      "source_package_sha256": "8f8ea494a06ec0f3198a8a6891a2bbef234319f2a6ab6bc2446151d5ca1a5ffc",
+      "request_sha256": "17002abadbf8fbce676eea4069c51300e5b7167f87687821846d60193fd9d9bd",
+      "return_sha256": "fe749fb7cea300cc7c22536cdd7746d7007f6e6a9c7b937cf69a7d17829c9b53",
+      "native_task_id": "/root/goal40_japan_final_picture"
+    },
+    "manifest": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\manifest.json",
+    "package_id": "pkg_b17161abf532396b1e00fbcb2d0442f8ace6c40e0a952202f25b0c9c8e5c220d",
+    "validation": {
+      "result": "PASS_ACTUAL_MEDIA_REVIEW_CONTRACT",
+      "decision": "MATERIAL_REVISION_REQUIRED",
+      "defect_count": 3
+    },
+    "typecheck": {
+      "result": "PASS_GENERATED_SOURCE_TYPECHECK",
+      "process_launch_geometry": {
+        "result": "PASS_TYPESCRIPT_PROCESS_LAUNCH_GEOMETRY",
+        "launch_topology": "CANONICAL_DEPENDENCY_ROOT_CLI_EXPLICIT_PROJECT",
+        "project_root": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\generated_project",
+        "project_root_path_length": 199,
+        "projected_executable": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\generated_project\\node_modules\\.bin\\tsc.cmd",
+        "projected_executable_path_length": 225,
+        "projected_executable_selected": false,
+        "command": [
+          "A:\\Capital Chronicle\\ContentOps-worktrees\\v2-freeform-xhigh-owner-polish-v1\\video\\projects\\frozen_without_breaking_v1\\node_modules\\.bin\\tsc.cmd",
+          "--project",
+          "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\generated_project\\tsconfig.json",
+          "--noEmit"
+        ],
+        "label": "typescript",
+        "executable": "A:\\Capital Chronicle\\ContentOps-worktrees\\v2-freeform-xhigh-owner-polish-v1\\video\\projects\\frozen_without_breaking_v1\\node_modules\\.bin\\tsc.cmd",
+        "executable_path_length": 143,
+        "executable_exists": true,
+        "cwd": "A:\\Capital Chronicle\\ContentOps-worktrees\\v2-freeform-xhigh-owner-polish-v1\\video\\projects\\frozen_without_breaking_v1",
+        "cwd_path_length": 117,
+        "cwd_exists": true,
+        "argv_shape": [
+          "tsc.cmd",
+          "--project",
+          "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\generated_project\\tsconfig.json",
+          "--noEmit"
+        ],
+        "windows_serialized_command_line_length": 378,
+        "shell": false
+      },
+      "command": [
+        "A:\\Capital Chronicle\\ContentOps-worktrees\\v2-freeform-xhigh-owner-polish-v1\\video\\projects\\frozen_without_breaking_v1\\node_modules\\.bin\\tsc.cmd",
+        "--project",
+        "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\generated_project\\tsconfig.json",
+        "--noEmit"
+      ],
+      "returncode": 0,
+      "wall_time_seconds": 3.2704,
+      "output_tail": ""
+    },
+    "sources": [
+      {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\generated_project\\src\\Root.tsx",
+        "sha256": "e9f45b3c5f781e2768cf0759bf600f56251e0d13d9ca9c96723c379029cef7e5",
+        "size_bytes": 310
+      },
+      {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\generated_project\\src\\Short.tsx",
+        "sha256": "2fb764e915b5bc9fbb8498517f5027d17d7ee54e34ce551a7fcecbb467beb1d7",
+        "size_bytes": 12808
+      },
+      {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\generated_project\\src\\index.tsx",
+        "sha256": "7d9dc8c820a1f840e50f627b23af6668edc644a8c36c95c89f8e1fcbc3c48566",
+        "size_bytes": 96
+      }
+    ],
+    "picture": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\picture_lock.mp4",
+      "sha256": "4496301da2d39a1733e0643fe0f338cf79abd8bdf655782ec3ed7d8984b2e81d",
+      "size_bytes": 15316634
+    },
+    "picture_identity": {
+      "source": {
+        "artifact": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\picture_lock.mp4",
+          "sha256": "4496301da2d39a1733e0643fe0f338cf79abd8bdf655782ec3ed7d8984b2e81d",
+          "size_bytes": 15316634
+        },
+        "video_stream_sha256": "a5dabfb672972a417de7e5e759355cf88735d11fd3d7bcf8f460a47d41b0587b",
+        "frame_count": 1264,
+        "video_duration_seconds": 42.133333,
+        "codec": "h264",
+        "profile": "High",
+        "width": 1080,
+        "height": 1920,
+        "pixel_format": "yuvj420p",
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "color_transfer": null,
+        "color_primaries": null,
+        "format_duration_seconds": 42.176
+      },
+      "mux": {
+        "artifact": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\clean.mp4",
+          "sha256": "c69aaed950de09304916bfd4899bab9414ab0adceae6beba27894635b8cb2f86",
+          "size_bytes": 14689299
+        },
+        "video_stream_sha256": "a5dabfb672972a417de7e5e759355cf88735d11fd3d7bcf8f460a47d41b0587b",
+        "frame_count": 1264,
+        "video_duration_seconds": 42.133333,
+        "codec": "h264",
+        "profile": "High",
+        "width": 1080,
+        "height": 1920,
+        "pixel_format": "yuvj420p",
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "color_transfer": null,
+        "color_primaries": null,
+        "format_duration_seconds": 42.152
+      }
+    },
+    "technical": {
+      "schema": "contentops.v2.unattended_technical_media_report.v1",
+      "artifact": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\clean.mp4",
+        "sha256": "c69aaed950de09304916bfd4899bab9414ab0adceae6beba27894635b8cb2f86",
+        "size_bytes": 14689299
+      },
+      "probe": {
+        "streams": [
+          {
+            "index": 0,
+            "codec_name": "h264",
+            "codec_long_name": "H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10",
+            "profile": "High",
+            "codec_type": "video",
+            "codec_tag_string": "avc1",
+            "codec_tag": "0x31637661",
+            "width": 1080,
+            "height": 1920,
+            "coded_width": 1080,
+            "coded_height": 1920,
+            "closed_captions": 0,
+            "film_grain": 0,
+            "has_b_frames": 2,
+            "sample_aspect_ratio": "1:1",
+            "display_aspect_ratio": "9:16",
+            "pix_fmt": "yuvj420p",
+            "level": 40,
+            "color_range": "pc",
+            "color_space": "bt470bg",
+            "chroma_location": "center",
+            "field_order": "progressive",
+            "refs": 1,
+            "is_avc": "true",
+            "nal_length_size": "4",
+            "id": "0x1",
+            "r_frame_rate": "30/1",
+            "avg_frame_rate": "30/1",
+            "time_base": "1/90000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 3792000,
+            "duration": "42.133333",
+            "bit_rate": "2581493",
+            "bits_per_raw_sample": "8",
+            "nb_frames": "1264",
+            "extradata_size": 51,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "VideoHandler",
+              "vendor_id": "[0][0][0][0]"
+            },
+            "side_data_list": [
+              {
+                "side_data_type": "ICC Profile"
+              }
+            ]
+          },
+          {
+            "index": 1,
+            "codec_name": "aac",
+            "codec_long_name": "AAC (Advanced Audio Coding)",
+            "profile": "LC",
+            "codec_type": "audio",
+            "codec_tag_string": "mp4a",
+            "codec_tag": "0x6134706d",
+            "sample_fmt": "fltp",
+            "sample_rate": "48000",
+            "channels": 2,
+            "channel_layout": "stereo",
+            "bits_per_sample": 0,
+            "initial_padding": 0,
+            "id": "0x2",
+            "r_frame_rate": "0/0",
+            "avg_frame_rate": "0/0",
+            "time_base": "1/48000",
+            "start_pts": 0,
+            "start_time": "0.000000",
+            "duration_ts": 2023296,
+            "duration": "42.152000",
+            "bit_rate": "198387",
+            "nb_frames": "1977",
+            "extradata_size": 5,
+            "disposition": {
+              "default": 1,
+              "dub": 0,
+              "original": 0,
+              "comment": 0,
+              "lyrics": 0,
+              "karaoke": 0,
+              "forced": 0,
+              "hearing_impaired": 0,
+              "visual_impaired": 0,
+              "clean_effects": 0,
+              "attached_pic": 0,
+              "timed_thumbnails": 0,
+              "non_diegetic": 0,
+              "captions": 0,
+              "descriptions": 0,
+              "metadata": 0,
+              "dependent": 0,
+              "still_image": 0,
+              "multilayer": 0
+            },
+            "tags": {
+              "language": "und",
+              "handler_name": "SoundHandler",
+              "vendor_id": "[0][0][0][0]"
+            }
+          }
+        ],
+        "format": {
+          "filename": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\clean.mp4",
+          "nb_streams": 2,
+          "nb_programs": 0,
+          "nb_stream_groups": 0,
+          "format_name": "mov,mp4,m4a,3gp,3g2,mj2",
+          "format_long_name": "QuickTime / MOV",
+          "start_time": "0.000000",
+          "duration": "42.152000",
+          "size": "14689299",
+          "bit_rate": "2787872",
+          "probe_score": 100,
+          "tags": {
+            "major_brand": "isom",
+            "minor_version": "512",
+            "compatible_brands": "isomiso2avc1mp41",
+            "encoder": "Lavf61.7.100",
+            "comment": "Made with Remotion 4.0.512"
+          }
+        }
+      },
+      "media_validation": {
+        "result": "PASS_MEDIA_CONTRACT",
+        "format": "SHORT_9_16",
+        "duration_seconds": 42.152,
+        "errors": []
+      },
+      "loudness": {
+        "result": "PASS_AUDIO_MEASURED",
+        "integrated_lufs": -16.1,
+        "true_peak_dbfs": -1.5
+      },
+      "report_artifact": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\technical.json",
+        "sha256": "118f894c8ab0fe6083fb3aad57f611157643b5363e909c585fd974f6b9a2322c",
+        "size_bytes": 5067
+      }
+    },
+    "audio_reused": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-segment-phrases\\audio\\final_mix.wav",
+      "sha256": "07424ae6b44def6db4148f23d36026a0b137190bc46e023b012b6edbc012a0a8",
+      "size_bytes": 12139878
+    },
+    "captions_reused": {
+      "caption_json": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-caption-safe-top\\captions\\captions.en.json",
+        "sha256": "be19589d2950ab4f5ac658048cf368ebc029c55ee39bd858cbf5abb56cff6982",
+        "size_bytes": 4440
+      },
+      "caption_srt": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-caption-safe-top\\captions\\captions.en.srt",
+        "sha256": "137d32f34979eeaae2e40c605ade9694a681fe89bd404e8eb76d802659f3ae8f",
+        "size_bytes": 1101
+      },
+      "caption_vtt": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-caption-safe-top\\captions\\captions.en.vtt",
+        "sha256": "83c80cc6cfa02794efa30195e83975e63274dbd8e0406f477a9b42102c99ac3d",
+        "size_bytes": 1640
+      }
+    },
+    "hearing": "NOT_VERIFIED",
+    "viewer_review": "REQUIRED",
+    "public_write_authority": false,
+    "idempotent_replay": false
+  },
+  "source_job_states": {
+    "g39-retail": {
+      "video_job_id": "g39-retail",
+      "input_packet_path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\inputs\\us_retail_july_2026.json",
+      "input_packet_hash": "0643bace466864a657f827dcdc252f00df413e02ed61ade6de5bf4a5457bec2c",
+      "target_format": "SHORT_9_16_1080X1920_30FPS",
+      "priority": 100,
+      "created_at": "2026-10-23T04:05:30.852593Z",
+      "state": "OWNER_REVIEW_READY",
+      "claimed_by": null,
+      "claim_timestamp": null,
+      "run_id": "run_60474ad47f7d414d8c17413145fec6f9",
+      "retry_counters_json": "{}",
+      "last_valid_checkpoint": "OWNER_REVIEW_READY",
+      "terminal_result": "PRIVATE_ENGINEERING_PACKAGE_REVIEW_REQUIRED",
+      "public_write_authority": 0,
+      "resume_count": 3
+    },
+    "g39-japan": {
+      "video_job_id": "g39-japan",
+      "input_packet_path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\inputs\\japan_gdp_q2_2026.json",
+      "input_packet_hash": "64a13181238393f3ea3624f0ed9e12534ab8110f14890e7c2296c11d0454e51c",
+      "target_format": "SHORT_9_16_1080X1920_30FPS",
+      "priority": 100,
+      "created_at": "2026-10-23T04:05:31.631192Z",
+      "state": "OWNER_REVIEW_READY",
+      "claimed_by": null,
+      "claim_timestamp": null,
+      "run_id": "run_3615db290d094769a0b8db85708657a5",
+      "retry_counters_json": "{}",
+      "last_valid_checkpoint": "OWNER_REVIEW_READY",
+      "terminal_result": "PRIVATE_ENGINEERING_PACKAGE_REVIEW_REQUIRED",
+      "public_write_authority": 0,
+      "resume_count": 8
+    }
+  },
+  "focused_tests": {
+    "result": "................................                                         [100%]\n32 passed in 13.88s",
+    "sha256": "f009f1de8037772ab8b8fdcbeb5e857bf2988ca1bf169ec3d140c92aaa22e8b2"
+  },
+  "locale_capabilities_snapshot": {
+    "path": "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal40/LOCALE_CAPABILITY_SNAPSHOT_V1.json",
+    "sha256": "fa2fc18d2a80a567293381ea52997461d9bd1dbaf570af30012b394df0798c38"
+  },
+  "limits": {
+    "hearing": "NOT_VERIFIED",
+    "voice_acceptance": "NOT_GRANTED",
+    "final_audiovisual_acceptance": "NOT_GRANTED",
+    "rights_release": "NOT_GRANTED",
+    "visual_review": "SAMPLED_RENDERED_FRAMES_AND_LIVE_PLAYBACK_IN_PROGRESS_NOT_FULL_CONTINUOUS_VISUAL_ACCEPTANCE",
+    "github_delivery": "PENDING_SCOPED_COMMIT_PUSH_EXACT_PR91_READBACK",
+    "codegraph": "PENDING_STABLE_REFRESH"
+  },
+  "provenance_closure": {
+    "longform": {
+      "result": "PRIVATE_NATIVE_LONGFORM_PACKAGE_BUILT",
+      "manifest": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\manifest.json",
+      "review_entry": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\review.html",
+      "package_id": "pkg_eb9e068f9bc07fc99093d7607f0c62e315a3a57ae6ad30466efd652c595bfc7d",
+      "duration_seconds": 411.9,
+      "chapters": 7,
+      "caption_cues": 117,
+      "assembly": {
+        "kind": "picture_assembly",
+        "method": "concat_streamcopy",
+        "output": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\picture_lock.mp4",
+        "sha256": "b165e37ecb4f714844e50a9768862c4707b5c905bf8f8340fc97ecde273ff2af",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1920,
+              "height": 1080,
+              "pix_fmt": "yuv420p",
+              "color_range": "tv",
+              "color_space": "bt709",
+              "r_frame_rate": "30/1",
+              "bit_rate": "839661"
+            }
+          ],
+          "format": {
+            "duration": "411.900000",
+            "size": "43378274",
+            "bit_rate": "842501"
+          }
+        },
+        "wall_seconds": 0.307
+      },
+      "mix": {
+        "kind": "audio_only_build",
+        "video_render_invoked": false,
+        "output": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\final_mix.wav",
+        "sha256": "36b61d22a6c357279b78dc37f9b3ce5ac0a6720e258e9c3d5cf10545113dc46e",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "pcm_s24le",
+              "codec_type": "audio",
+              "sample_rate": "48000",
+              "channels": 2,
+              "r_frame_rate": "0/0",
+              "bit_rate": "2304000"
+            }
+          ],
+          "format": {
+            "duration": "411.900000",
+            "size": "118627302",
+            "bit_rate": "2304001"
+          }
+        },
+        "wall_seconds": 0.699
+      },
+      "mux": {
+        "kind": "final_mux",
+        "video_render_invoked": false,
+        "picture_identity": {
+          "source": {
+            "artifact": {
+              "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\picture_lock.mp4",
+              "sha256": "b165e37ecb4f714844e50a9768862c4707b5c905bf8f8340fc97ecde273ff2af",
+              "size_bytes": 43378274
+            },
+            "video_stream_sha256": "141c300f8481687b90b4f4f39575f7d610f60d789f0dda4338b736760ff165cc",
+            "frame_count": 12357,
+            "video_duration_seconds": 411.9,
+            "codec": "h264",
+            "profile": "High",
+            "width": 1920,
+            "height": 1080,
+            "pixel_format": "yuv420p",
+            "color_range": "tv",
+            "color_space": "bt709",
+            "color_transfer": null,
+            "color_primaries": null,
+            "format_duration_seconds": 411.9
+          },
+          "mux": {
+            "artifact": {
+              "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\clean.mp4",
+              "sha256": "963767c8e4fdf3dcc472ffb2adf09e868770a3b8f305cb19da3813311280f538",
+              "size_bytes": 55474136
+            },
+            "video_stream_sha256": "141c300f8481687b90b4f4f39575f7d610f60d789f0dda4338b736760ff165cc",
+            "frame_count": 12357,
+            "video_duration_seconds": 411.9,
+            "codec": "h264",
+            "profile": "High",
+            "width": 1920,
+            "height": 1080,
+            "pixel_format": "yuv420p",
+            "color_range": "tv",
+            "color_space": "bt709",
+            "color_transfer": null,
+            "color_primaries": null,
+            "format_duration_seconds": 411.9
+          }
+        },
+        "ffmpeg_shortest_used": false,
+        "output": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\clean.mp4",
+        "sha256": "963767c8e4fdf3dcc472ffb2adf09e868770a3b8f305cb19da3813311280f538",
+        "probe": {
+          "programs": [],
+          "stream_groups": [],
+          "streams": [
+            {
+              "index": 0,
+              "codec_name": "h264",
+              "codec_type": "video",
+              "width": 1920,
+              "height": 1080,
+              "pix_fmt": "yuv420p",
+              "color_range": "tv",
+              "color_space": "bt709",
+              "r_frame_rate": "30/1",
+              "bit_rate": "839661"
+            },
+            {
+              "index": 1,
+              "codec_name": "aac",
+              "codec_type": "audio",
+              "sample_rate": "48000",
+              "channels": 2,
+              "r_frame_rate": "0/0",
+              "bit_rate": "228978"
+            }
+          ],
+          "format": {
+            "duration": "411.900000",
+            "size": "55474136",
+            "bit_rate": "1077429"
+          }
+        },
+        "wall_seconds": 45.07
+      },
+      "technical": {
+        "result": "PASS_MEDIA_CONTRACT",
+        "format": "LONGFORM_16_9",
+        "duration_seconds": 411.9,
+        "errors": []
+      },
+      "source_identity": {
+        "admission_sha256": "921b8769f6331050c228e1aa1c5566a8e5c0efb01d3ecff049813ad8b2ee7810",
+        "measured_phrases_sha256": "7937c8c415cca94e5894c358a3648554a2611029e800f1d3c00350249b796fe3",
+        "chapters": [
+          {
+            "id": "CH01",
+            "sha256": "50b6f1ce5e80a5737334d9a5b55662aa6589a600d46324a89badccb0a8e849d6"
+          },
+          {
+            "id": "CH02",
+            "sha256": "bb579069952eed89da96a40c80fe3b0cc080ffdca4820fe2e322e2d75f92bd8d"
+          },
+          {
+            "id": "CH03",
+            "sha256": "7e5497defd5a1f3cd25b63865081c6be97f97ce2ab989ad2433a48407289a5f3"
+          },
+          {
+            "id": "CH04",
+            "sha256": "0ac631dce4dad38364a7fa8d955e53b98ca8c6255ef777bef9693f4b65ced307"
+          },
+          {
+            "id": "CH05",
+            "sha256": "6573f1508ef62f75a23c9b36e4e24052630eeb026ac452fc2b7e5c0b414efc02"
+          },
+          {
+            "id": "CH06",
+            "sha256": "a9898f37b4b4885b07c041fa91b90801d006e9ffeaaad7f7c454852f55e35950"
+          },
+          {
+            "id": "CH07",
+            "sha256": "c60dcb9331e6fcb7e7dd041fd9453b169d3de55f3c3a794dc7b3bd92b70247aa"
+          }
+        ]
+      },
+      "hearing": "NOT_VERIFIED",
+      "continuous_picture_review": "REQUIRED",
+      "rights_release": "NOT_GRANTED",
+      "public_write_authority": false
+    },
+    "locale": {
+      "result": "PRIVATE_CURRENT_LOCALE_PACKAGE_BUILT",
+      "holds": [],
+      "measurements": [
+        {
+          "segment_id": "dated-context",
+          "measured_seconds": 3.541333333333333,
+          "available_seconds": 5.344
+        },
+        {
+          "segment_id": "retail-total",
+          "measured_seconds": 11.329333333333334,
+          "available_seconds": 15.072
+        },
+        {
+          "segment_id": "vehicle-dealers",
+          "measured_seconds": 3.6906666666666665,
+          "available_seconds": 4.5546669999999985
+        },
+        {
+          "segment_id": "nonstore-retailers",
+          "measured_seconds": 2.944,
+          "available_seconds": 3.5093330000000016
+        },
+        {
+          "segment_id": "food-services",
+          "measured_seconds": 4.053333333333334,
+          "available_seconds": 4.938666999999999
+        },
+        {
+          "segment_id": "price-boundary",
+          "measured_seconds": 6.414666666666665,
+          "available_seconds": 7.321333000000003
+        }
+      ],
+      "native_task_id": "/root/goal40_longform_caption_timing",
+      "identity": {
+        "native_request_sha256": "70f053a49c8e3d951cb000b6aa0c50bf1bb6a65ac1cee523c6fb58aeed419795",
+        "native_return_sha256": "82394880c63671795c80c900e6a54945ee5400aca76339da8023b9eb3ff15ed2",
+        "source_package_sha256": "779dd133760f1aa65180a2e0b70af5d0d314f2f05075fbac330c73a6b5210bd9",
+        "model_sha256": "7d5df8ecf7d4b1878015a32686053fd0eebe2bc377234608764cc0ef3636a6c5",
+        "voices_sha256": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d",
+        "registry_sha256": "dabadcea37b0b681d7fde265b003762c3e266da957c40817b7b799d9b176a0c3"
+      },
+      "voice_candidate_status": "JIM_LISTENING_GATE_REQUIRED",
+      "hearing": "NOT_VERIFIED",
+      "translation_semantic_review": "NATIVE_ASSIGNED_ROLE_PLUS_EXACT_SOURCE_NUMERIC_BINDING_CHECKS",
+      "public_write_authority": false,
+      "picture_render_count": 0,
+      "external_cost_usd": 0,
+      "speed_changed_from_registry": false,
+      "manifest": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-closure\\manifest.json",
+      "package_id": "pkg_76245fc4e5d4c5a7a93a04f6cd0be0d744048bf30b7123a6172ad675ddd5301f",
+      "picture_identity": {
+        "result": "PASS_PICTURE_STREAM_AND_FRAME_IDENTITY",
+        "source": {
+          "artifact": {
+            "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-measured-phrases\\clean.mp4",
+            "sha256": "f51e453a46e376ce149dcd3ce26e341a5b8290a2900e2c0e04ece72195e499e4",
+            "size_bytes": 13148131
+          },
+          "video_stream_sha256": "906e9b839ff4c4dbdd97b546b2d149c223933a3033fc3b6561067a783faffdf3",
+          "frame_count": 1230,
+          "video_duration_seconds": 41.0,
+          "codec": "h264",
+          "profile": "High",
+          "width": 1080,
+          "height": 1920,
+          "pixel_format": "yuvj420p",
+          "color_range": "pc",
+          "color_space": "bt470bg",
+          "color_transfer": null,
+          "color_primaries": null,
+          "format_duration_seconds": 41.0
+        },
+        "localized_mux": {
+          "artifact": {
+            "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-closure\\locale.es.mp4",
+            "sha256": "5f3bcb731660fd92aeccdc275b9fcbedb7953773b1cfb365d7fb9cecf75e90ae",
+            "size_bytes": 13144319
+          },
+          "video_stream_sha256": "906e9b839ff4c4dbdd97b546b2d149c223933a3033fc3b6561067a783faffdf3",
+          "frame_count": 1230,
+          "video_duration_seconds": 41.0,
+          "codec": "h264",
+          "profile": "High",
+          "width": 1080,
+          "height": 1920,
+          "pixel_format": "yuvj420p",
+          "color_range": "pc",
+          "color_space": "bt470bg",
+          "color_transfer": null,
+          "color_primaries": null,
+          "format_duration_seconds": 41.0
+        },
+        "audio_duration_cannot_truncate_picture": true,
+        "ffmpeg_shortest_used": false,
+        "picture_render_count": 0
+      },
+      "alignment_validation": {
+        "result": "PASS_LOCALIZED_TIMELINE_ALIGNMENT",
+        "locale": "es",
+        "strict_inside_source_windows": true,
+        "segment_count": 6,
+        "cue_count": 10,
+        "meaningful_speech_start_seconds": 0.21,
+        "meaningful_speech_end_seconds": 40.41,
+        "final_tail_seconds": 0.59,
+        "timeline_alignment_hash": "e37c354536d969be94bebd2032d3a684446a6bd556968bd0868f1a95fd8a43ea"
+      },
+      "ledger_idempotent_replay": false
+    },
+    "chapter_reuse": {
+      "result": "EXACT_SEVEN_CHAPTER_CACHE_REUSED",
+      "actual_renders": 0,
+      "chapters": [
+        {
+          "chapter": "CH01",
+          "key": "3c5c8df92989f2d879026f6db4b8092abcc662e28804ade8795a50836a90d6bb",
+          "sha256": "50b6f1ce5e80a5737334d9a5b55662aa6589a600d46324a89badccb0a8e849d6"
+        },
+        {
+          "chapter": "CH02",
+          "key": "aa7c9109f77dde53062468d509326f6c68f09dea43ea902456eb59fd4ffe6305",
+          "sha256": "bb579069952eed89da96a40c80fe3b0cc080ffdca4820fe2e322e2d75f92bd8d"
+        },
+        {
+          "chapter": "CH03",
+          "key": "a722809ad74971d25a835b968b10e44aeb542c49a4c973e919524993a0e1a83d",
+          "sha256": "7e5497defd5a1f3cd25b63865081c6be97f97ce2ab989ad2433a48407289a5f3"
+        },
+        {
+          "chapter": "CH04",
+          "key": "6860c8f1ceacf0bcc0fe5b958ac71e9470a5d65d95fed500d2e51abb385f423a",
+          "sha256": "0ac631dce4dad38364a7fa8d955e53b98ca8c6255ef777bef9693f4b65ced307"
+        },
+        {
+          "chapter": "CH05",
+          "key": "a0f8753735df6334cca944f8129208d4d41b3a8ed1f69321c5f22a9c6ab2a125",
+          "sha256": "6573f1508ef62f75a23c9b36e4e24052630eeb026ac452fc2b7e5c0b414efc02"
+        },
+        {
+          "chapter": "CH06",
+          "key": "2f0f1d9ae2b0b655f4070b8907cf911dd7b1d177dfb2ac2114e34228956d3137",
+          "sha256": "a9898f37b4b4885b07c041fa91b90801d006e9ffeaaad7f7c454852f55e35950"
+        },
+        {
+          "chapter": "CH07",
+          "key": "57cd8fc64bfd00d9e5e286ee85258aa42dd178141959092036ffbecbc54882c4",
+          "sha256": "c60dcb9331e6fcb7e7dd041fd9453b169d3de55f3c3a794dc7b3bd92b70247aa"
+        }
+      ]
+    }
+  },
+  "focused_corrected_tests": {
+    "result": "39 passed in 13.34s",
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\final-corrected-focused-tests.txt"
+  },
+  "codegraph": {
+    "generation": "GENERATED",
+    "freshness_check": "CODEGRAPH_CURRENT",
+    "nodes": 7955,
+    "edges": 15170,
+    "indexed_source_head": "ffe1473ebc3cfd58641296371630640cd39382dc",
+    "basis": "CURRENT_SOURCE_DIGEST_CHECK_NOT_BRANCH_HEAD_EQUALITY"
+  },
+  "visual_transition_samples": {
+    "inventory": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\longform\\transition-review\\sample_inventory.json",
+    "actual_decoded_samples": 112,
+    "scene_starts": 28,
+    "chapters": 7,
+    "display_width": 360,
+    "inspection": "SEVEN_SHEETS_VIEWED",
+    "observations": [
+      "Fades and progressive reveals are visible around scene cuts; no sample indicates a corrupt or missing-media frame.",
+      "Small embedded source footers and dense labels are not generally readable at phone width; use desktop and linked provenance.",
+      "This sample review does not establish continuous all-frame visual acceptance, hearing, voice acceptance or rights release."
+    ]
+  }
+}

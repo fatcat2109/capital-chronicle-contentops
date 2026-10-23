@@ -94,7 +94,27 @@ def command(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument(
         "command",
-        choices=["admit", "step", "submit", "status", "caption-layout", "repair-mux"],
+        choices=[
+            "admit",
+            "step",
+            "submit",
+            "status",
+            "caption-layout",
+            "repair-mux",
+            "recover-editorial",
+            "phrase-audio",
+            "longform-narration",
+            "caption-review",
+            "locale-package",
+            "locale-review",
+            "longform-admit",
+            "longform-chapter",
+            "longform-phrases",
+            "picture-revision",
+            "longform-package",
+            "longform-reflow",
+            "review-cohort",
+        ],
     )
     p.add_argument("--config", type=Path, required=True)
     p.add_argument("--packet", type=Path)
@@ -103,6 +123,14 @@ def command(argv=None):
     p.add_argument("--max-stages", type=int, default=1)
     p.add_argument("--revision")
     p.add_argument("--width", type=int, default=32)
+    p.add_argument("--line-percent", type=int)
+    p.add_argument("--locale", default="en")
+    p.add_argument("--chapter")
+    p.add_argument("--request-owner-snapshot", type=Path)
+    p.add_argument("--phrase-width", type=int, default=29)
+    p.add_argument("--phrase-max-words", type=int, default=10)
+    p.add_argument("--phrase-geometry-json", type=Path)
+    p.add_argument("--caption-revision", default="measured_phrases")
     a = p.parse_args(argv)
     f, raw = factory(a.config)
     if a.command == "admit":
@@ -118,6 +146,163 @@ def command(argv=None):
         )
     elif a.command == "status":
         result = dict(jobs=f.store.jobs(), public_write_authority=False)
+    elif a.command == "review-cohort":
+        if not a.packet or not re.fullmatch(r"[A-Za-z0-9_-]+", a.revision or ""):
+            p.error(
+                "review-cohort requires exact four-package specification and safe revision"
+            )
+        from .caption_revision import build_private_cohort_review
+
+        result = build_private_cohort_review(
+            a.packet,
+            f.config.runtime_root / "cohort_review" / a.revision,
+            Path(__file__).resolve().parents[2],
+        )
+    elif a.command == "recover-editorial":
+        if not a.job or not a.revision:
+            p.error("recover-editorial requires original job and distinct revision")
+        result = request_for(
+            f,
+            f.reopen_editorial_timing_failure(video_job_id=a.job, revision=a.revision),
+        )
+    elif a.command in {
+        "longform-admit",
+        "longform-chapter",
+        "longform-phrases",
+        "longform-package",
+        "longform-reflow",
+    }:
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", a.revision or ""):
+            p.error("longform requires safe current revision")
+        from video.freeform_chapter_pipeline_v1.native_narrative import (
+            admit_native_chapters,
+            render_native_chapter,
+            measure_native_chapter_captions,
+            package_native_chapters,
+            reflow_native_chapter_phrases,
+        )
+
+        repo = Path(__file__).resolve().parents[2]
+        output = f.config.runtime_root / "longform" / a.revision
+        if a.command == "longform-admit":
+            if not a.packet or not a.return_file:
+                p.error("longform-admit needs exact request and native return")
+            result = admit_native_chapters(
+                request_path=a.packet,
+                return_path=a.return_file,
+                repo_root=repo,
+                dependency_root=f.config.dependency_root,
+                scaffold_root=f.config.scaffold_root,
+                output_dir=output,
+                request_owner_snapshot=a.request_owner_snapshot,
+            )
+        elif a.command == "longform-reflow":
+            result = reflow_native_chapter_phrases(output_dir=output)
+        elif a.command == "longform-package":
+            result = package_native_chapters(
+                output_dir=output, repo_root=repo, caption_revision=a.caption_revision
+            )
+        elif a.command == "longform-phrases":
+            result = measure_native_chapter_captions(
+                output_dir=output,
+                model_path=f.config.kokoro_model,
+                voices_path=f.config.kokoro_voices,
+                caption_revision=a.caption_revision,
+                phrase_geometry_by_segment=load(a.phrase_geometry_json)
+                if a.phrase_geometry_json
+                else None,
+            )
+        else:
+            if not a.chapter:
+                p.error("longform-chapter requires chapter identity")
+            result = render_native_chapter(
+                manifest_path=output / "chapter_manifest.json",
+                repo_root=repo,
+                chapter_id=a.chapter,
+                output_dir=output,
+            )
+    elif a.command == "locale-package":
+        if (
+            not a.job
+            or not a.packet
+            or not a.return_file
+            or not re.fullmatch(r"[A-Za-z0-9_-]+", a.revision or "")
+        ):
+            p.error(
+                "locale-package requires existing job, exact native return and safe revision"
+            )
+        from video.freeform_chapter_pipeline_v1.current_locale import (
+            build_current_locale,
+        )
+
+        result = build_current_locale(
+            request_path=a.packet,
+            return_path=a.return_file,
+            source_package_path=f.current_package_path(a.job),
+            model_path=f.config.kokoro_model,
+            voices_path=f.config.kokoro_voices,
+            output_dir=f._paths(a.job)["root"] / "revisions" / a.revision,
+            registry_path=Path(__file__).resolve().parents[1]
+            / "freeform_chapter_pipeline_v1/voice_registry.json",
+            bed_path=f.config.asset_root / f.config.bed_relative_path,
+        )
+        if result["result"] == "PRIVATE_CURRENT_LOCALE_PACKAGE_BUILT":
+            result = f.accept_current_locale_package(video_job_id=a.job, receipt=result)
+    elif a.command in {"caption-review", "locale-review"}:
+        if not a.job or not re.fullmatch(r"[A-Za-z0-9_-]+", a.revision or ""):
+            p.error("caption-review requires existing job and safe revision")
+        from .caption_revision import build_private_caption_review
+
+        result = build_private_caption_review(
+            f.current_package_path(a.job)
+            if a.command == "caption-review"
+            else f.current_locale_package_path(a.job, a.locale),
+            f._paths(a.job)["root"] / "revisions" / a.revision,
+        )
+    elif a.command == "longform-narration":
+        if (
+            not a.packet
+            or not a.return_file
+            or not re.fullmatch(r"[A-Za-z0-9_-]+", a.revision or "")
+        ):
+            p.error(
+                "longform-narration requires exact request, native return and safe revision"
+            )
+        from video.freeform_chapter_pipeline_v1.native_narrative import (
+            lock_native_narrative,
+        )
+
+        result = lock_native_narrative(
+            request_path=a.packet,
+            return_path=a.return_file,
+            repo_root=Path(__file__).resolve().parents[2],
+            model_path=f.config.kokoro_model,
+            voices_path=f.config.kokoro_voices,
+            output_dir=f.config.runtime_root / "longform" / a.revision,
+        )
+    elif a.command == "picture-revision":
+        if not a.job or not a.revision or not a.packet or not a.return_file:
+            p.error(
+                "picture-revision requires job, distinct revision, exact request and native return"
+            )
+        result = f.revise_private_picture_package(
+            video_job_id=a.job,
+            revision=a.revision,
+            request_path=a.packet,
+            return_path=a.return_file,
+        )
+    elif a.command == "phrase-audio":
+        if not a.job or not a.revision:
+            p.error("phrase-audio requires existing job and safe revision identity")
+        result = f.revise_phrase_audio_package(
+            video_job_id=a.job,
+            revision=a.revision,
+            caption_width=a.phrase_width,
+            max_phrase_words=a.phrase_max_words,
+            phrase_geometry_by_segment=load(a.phrase_geometry_json)
+            if a.phrase_geometry_json
+            else None,
+        )
     elif a.command == "repair-mux":
         if not a.job or not a.revision:
             p.error("repair-mux requires job and distinct revision identity")
@@ -130,13 +315,11 @@ def command(argv=None):
             raise ValueError(
                 "Caption revision requires an existing sealed private package"
             )
-        from .caption_revision import revise_caption_layout
-
-        paths = f._paths(a.job)
-        result = revise_caption_layout(
-            f.current_package_path(a.job),
-            paths["root"] / "revisions" / a.revision,
+        result = f.revise_caption_package(
+            video_job_id=a.job,
+            revision=a.revision,
             width=a.width,
+            line_percent=a.line_percent,
         )
     elif a.command == "submit":
         if not a.job or not a.return_file:

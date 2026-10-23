@@ -1,0 +1,696 @@
+{
+  "schema": "contentops.v2.goal40.browser_playback_evidence.v1",
+  "phone": [
+    {
+      "result": {
+        "page": 75,
+        "value": {
+          "events": [
+            {
+              "index": 0,
+              "time": 0.005917,
+              "type": "playing"
+            },
+            {
+              "index": 1,
+              "time": 0.005706,
+              "type": "playing"
+            },
+            {
+              "index": 0,
+              "time": 42.152,
+              "type": "ended"
+            },
+            {
+              "index": 1,
+              "time": 42.152,
+              "type": "ended"
+            }
+          ],
+          "mode": "phone",
+          "videos": [
+            {
+              "droppedFrames": 0,
+              "ended": true,
+              "time": 42.152,
+              "totalFrames": 1264,
+              "width": 360
+            },
+            {
+              "droppedFrames": 0,
+              "ended": true,
+              "time": 42.152,
+              "totalFrames": 1264,
+              "width": 360
+            }
+          ]
+        }
+      },
+      "suffix": "/goal40-final-caption-review/review.html"
+    },
+    {
+      "result": {
+        "page": 76,
+        "value": {
+          "events": [
+            {
+              "index": 0,
+              "time": 0.002048,
+              "type": "playing"
+            },
+            {
+              "index": 1,
+              "time": 0.002094,
+              "type": "playing"
+            },
+            {
+              "index": 0,
+              "time": 41,
+              "type": "ended"
+            },
+            {
+              "index": 1,
+              "time": 41,
+              "type": "ended"
+            }
+          ],
+          "mode": "phone",
+          "videos": [
+            {
+              "droppedFrames": 0,
+              "ended": true,
+              "time": 41,
+              "totalFrames": 1230,
+              "width": 360
+            },
+            {
+              "droppedFrames": 0,
+              "ended": true,
+              "time": 41,
+              "totalFrames": 1230,
+              "width": 360
+            }
+          ]
+        }
+      },
+      "suffix": "/goal40-caption-review-safe-top/review.html"
+    },
+    {
+      "result": {
+        "page": 77,
+        "value": {
+          "events": [
+            {
+              "index": 0,
+              "time": 0.002419,
+              "type": "playing"
+            },
+            {
+              "index": 1,
+              "time": 0.002306,
+              "type": "playing"
+            },
+            {
+              "index": 0,
+              "time": 41,
+              "type": "ended"
+            },
+            {
+              "index": 1,
+              "time": 41,
+              "type": "ended"
+            }
+          ],
+          "mode": "phone",
+          "videos": [
+            {
+              "droppedFrames": 1,
+              "ended": true,
+              "time": 41,
+              "totalFrames": 1230,
+              "width": 360
+            },
+            {
+              "droppedFrames": 1,
+              "ended": true,
+              "time": 41,
+              "totalFrames": 1230,
+              "width": 360
+            }
+          ]
+        }
+      },
+      "suffix": "/goal40-es-review/review.html"
+    }
+  ],
+  "latest": [
+    {
+      "result": {
+        "page": 75,
+        "value": {
+          "playback": {
+            "events": [
+              {
+                "index": 0,
+                "time": 0.005917,
+                "type": "playing"
+              },
+              {
+                "index": 1,
+                "time": 0.005706,
+                "type": "playing"
+              },
+              {
+                "index": 0,
+                "time": 42.152,
+                "type": "ended"
+              },
+              {
+                "index": 1,
+                "time": 42.152,
+                "type": "ended"
+              },
+              {
+                "index": 0,
+                "time": 0,
+                "type": "waiting"
+              },
+              {
+                "index": 1,
+                "time": 0,
+                "type": "waiting"
+              },
+              {
+                "index": 0,
+                "time": 0.002255,
+                "type": "playing"
+              },
+              {
+                "index": 1,
+                "time": 0.000169,
+                "type": "playing"
+              },
+              {
+                "index": 0,
+                "time": 42.152,
+                "type": "ended"
+              },
+              {
+                "index": 1,
+                "time": 42.152,
+                "type": "ended"
+              }
+            ],
+            "mode": "desktop",
+            "phoneReadback": {
+              "events": [
+                {
+                  "index": 0,
+                  "time": 0.005917,
+                  "type": "playing"
+                },
+                {
+                  "index": 1,
+                  "time": 0.005706,
+                  "type": "playing"
+                },
+                {
+                  "index": 0,
+                  "time": 42.152,
+                  "type": "ended"
+                },
+                {
+                  "index": 1,
+                  "time": 42.152,
+                  "type": "ended"
+                },
+                {
+                  "index": 0,
+                  "time": 0,
+                  "type": "waiting"
+                },
+                {
+                  "index": 1,
+                  "time": 0,
+                  "type": "waiting"
+                },
+                {
+                  "index": 0,
+                  "time": 0.002255,
+                  "type": "playing"
+                },
+                {
+                  "index": 1,
+                  "time": 0.000169,
+                  "type": "playing"
+                },
+                {
+                  "index": 0,
+                  "time": 42.152,
+                  "type": "ended"
+                },
+                {
+                  "index": 1,
+                  "time": 42.152,
+                  "type": "ended"
+                }
+              ],
+              "mode": "phone",
+              "videos": [
+                {
+                  "droppedFrames": 0,
+                  "ended": true,
+                  "time": 42.152,
+                  "totalFrames": 1264,
+                  "width": 360
+                },
+                {
+                  "droppedFrames": 0,
+                  "ended": true,
+                  "time": 42.152,
+                  "totalFrames": 1264,
+                  "width": 360
+                }
+              ]
+            },
+            "startedAt": 1792778828693
+          },
+          "videos": [
+            {
+              "droppedFrames": 0,
+              "duration": 42.152,
+              "ended": true,
+              "error": null,
+              "time": 42.152,
+              "totalFrames": 2528,
+              "width": 540
+            },
+            {
+              "droppedFrames": 0,
+              "duration": 42.152,
+              "ended": true,
+              "error": null,
+              "time": 42.152,
+              "totalFrames": 2528,
+              "width": 540
+            }
+          ]
+        }
+      },
+      "suffix": "/goal40-final-caption-review/review.html"
+    },
+    {
+      "result": {
+        "page": 76,
+        "value": {
+          "playback": {
+            "events": [
+              {
+                "index": 0,
+                "time": 0.002048,
+                "type": "playing"
+              },
+              {
+                "index": 1,
+                "time": 0.002094,
+                "type": "playing"
+              },
+              {
+                "index": 0,
+                "time": 41,
+                "type": "ended"
+              },
+              {
+                "index": 1,
+                "time": 41,
+                "type": "ended"
+              },
+              {
+                "index": 0,
+                "time": 0,
+                "type": "waiting"
+              },
+              {
+                "index": 1,
+                "time": 0,
+                "type": "waiting"
+              },
+              {
+                "index": 0,
+                "time": 0.000548,
+                "type": "playing"
+              },
+              {
+                "index": 1,
+                "time": 0.000347,
+                "type": "playing"
+              },
+              {
+                "index": 0,
+                "time": 41,
+                "type": "ended"
+              },
+              {
+                "index": 1,
+                "time": 41,
+                "type": "ended"
+              }
+            ],
+            "mode": "desktop",
+            "phoneReadback": {
+              "events": [
+                {
+                  "index": 0,
+                  "time": 0.002048,
+                  "type": "playing"
+                },
+                {
+                  "index": 1,
+                  "time": 0.002094,
+                  "type": "playing"
+                },
+                {
+                  "index": 0,
+                  "time": 41,
+                  "type": "ended"
+                },
+                {
+                  "index": 1,
+                  "time": 41,
+                  "type": "ended"
+                },
+                {
+                  "index": 0,
+                  "time": 0,
+                  "type": "waiting"
+                },
+                {
+                  "index": 1,
+                  "time": 0,
+                  "type": "waiting"
+                },
+                {
+                  "index": 0,
+                  "time": 0.000548,
+                  "type": "playing"
+                },
+                {
+                  "index": 1,
+                  "time": 0.000347,
+                  "type": "playing"
+                },
+                {
+                  "index": 0,
+                  "time": 41,
+                  "type": "ended"
+                },
+                {
+                  "index": 1,
+                  "time": 41,
+                  "type": "ended"
+                }
+              ],
+              "mode": "phone",
+              "videos": [
+                {
+                  "droppedFrames": 0,
+                  "ended": true,
+                  "time": 41,
+                  "totalFrames": 1230,
+                  "width": 360
+                },
+                {
+                  "droppedFrames": 0,
+                  "ended": true,
+                  "time": 41,
+                  "totalFrames": 1230,
+                  "width": 360
+                }
+              ]
+            },
+            "startedAt": 1792778841174
+          },
+          "videos": [
+            {
+              "droppedFrames": 0,
+              "duration": 41,
+              "ended": true,
+              "error": null,
+              "time": 41,
+              "totalFrames": 2460,
+              "width": 540
+            },
+            {
+              "droppedFrames": 0,
+              "duration": 41,
+              "ended": true,
+              "error": null,
+              "time": 41,
+              "totalFrames": 2460,
+              "width": 540
+            }
+          ]
+        }
+      },
+      "suffix": "/goal40-caption-review-safe-top/review.html"
+    },
+    {
+      "result": {
+        "page": 77,
+        "value": {
+          "playback": {
+            "events": [
+              {
+                "index": 0,
+                "time": 0.002419,
+                "type": "playing"
+              },
+              {
+                "index": 1,
+                "time": 0.002306,
+                "type": "playing"
+              },
+              {
+                "index": 0,
+                "time": 41,
+                "type": "ended"
+              },
+              {
+                "index": 1,
+                "time": 41,
+                "type": "ended"
+              },
+              {
+                "index": 0,
+                "time": 0,
+                "type": "waiting"
+              },
+              {
+                "index": 1,
+                "time": 0,
+                "type": "waiting"
+              },
+              {
+                "index": 0,
+                "time": 0.00376,
+                "type": "playing"
+              },
+              {
+                "index": 1,
+                "time": 0.00168,
+                "type": "playing"
+              },
+              {
+                "index": 0,
+                "time": 41,
+                "type": "ended"
+              },
+              {
+                "index": 1,
+                "time": 41,
+                "type": "ended"
+              }
+            ],
+            "mode": "desktop",
+            "phoneReadback": {
+              "events": [
+                {
+                  "index": 0,
+                  "time": 0.002419,
+                  "type": "playing"
+                },
+                {
+                  "index": 1,
+                  "time": 0.002306,
+                  "type": "playing"
+                },
+                {
+                  "index": 0,
+                  "time": 41,
+                  "type": "ended"
+                },
+                {
+                  "index": 1,
+                  "time": 41,
+                  "type": "ended"
+                },
+                {
+                  "index": 0,
+                  "time": 0,
+                  "type": "waiting"
+                },
+                {
+                  "index": 1,
+                  "time": 0,
+                  "type": "waiting"
+                },
+                {
+                  "index": 0,
+                  "time": 0.00376,
+                  "type": "playing"
+                },
+                {
+                  "index": 1,
+                  "time": 0.00168,
+                  "type": "playing"
+                },
+                {
+                  "index": 0,
+                  "time": 41,
+                  "type": "ended"
+                },
+                {
+                  "index": 1,
+                  "time": 41,
+                  "type": "ended"
+                }
+              ],
+              "mode": "phone",
+              "videos": [
+                {
+                  "droppedFrames": 1,
+                  "ended": true,
+                  "time": 41,
+                  "totalFrames": 1230,
+                  "width": 360
+                },
+                {
+                  "droppedFrames": 1,
+                  "ended": true,
+                  "time": 41,
+                  "totalFrames": 1230,
+                  "width": 360
+                }
+              ]
+            },
+            "startedAt": 1792778855134
+          },
+          "videos": [
+            {
+              "droppedFrames": 1,
+              "duration": 41,
+              "ended": true,
+              "error": null,
+              "time": 41,
+              "totalFrames": 2460,
+              "width": 540
+            },
+            {
+              "droppedFrames": 1,
+              "duration": 41,
+              "ended": true,
+              "error": null,
+              "time": 41,
+              "totalFrames": 2460,
+              "width": 540
+            }
+          ]
+        }
+      },
+      "suffix": "/goal40-es-review/review.html"
+    },
+    {
+      "result": {
+        "page": 73,
+        "value": {
+          "playback": {
+            "events": [
+              {
+                "time": 0.003431,
+                "type": "playing"
+              }
+            ],
+            "sizes": [
+              {
+                "height": 540,
+                "width": 960
+              },
+              {
+                "height": 202.5,
+                "time": 138.266356,
+                "width": 360
+              }
+            ],
+            "startedAt": 1792778632867
+          },
+          "videos": [
+            {
+              "droppedFrames": 135,
+              "duration": 411.9,
+              "ended": false,
+              "error": null,
+              "time": 346.934493,
+              "totalFrames": 10412,
+              "width": 360
+            }
+          ]
+        }
+      },
+      "suffix": "/goal40-caption-timing/package_reflowed_phrases/review.html"
+    }
+  ],
+  "limits": {
+    "hearing": "NOT_VERIFIED",
+    "voice_acceptance": "NOT_GRANTED",
+    "final_av": "NOT_GRANTED",
+    "continuous_visual_acceptance": "NOT_ESTABLISHED_BY_PLAYBACK_EVENTS_OR_SAMPLED_SCREENSHOTS",
+    "rights_release": "NOT_GRANTED",
+    "public_write_authority": false
+  },
+  "provenance_successor_readback": {
+    "longform_prior_player": {
+      "page": 73,
+      "time": 411.9,
+      "duration": 411.9,
+      "ended": true,
+      "paused": true,
+      "cumulative_dropped_frames": 150,
+      "media_error": null
+    },
+    "longform_exact_clean_file_sha256_unchanged": "963767c8e4fdf3dcc472ffb2adf09e868770a3b8f305cb19da3813311280f538",
+    "locale_exact_clean_file_sha256_unchanged": "5f3bcb731660fd92aeccdc275b9fcbedb7953773b1cfb365d7fb9cecf75e90ae",
+    "current_longform_chapter_button": {
+      "page": 73,
+      "requested_chapter": "GDP Is a Rate, a Level, and a Calendar Choice",
+      "actual_current_time": 173.066666,
+      "display_width": 360,
+      "duration": 411.9,
+      "media_error": null
+    },
+    "cohort_current_spanish_button": {
+      "page": 78,
+      "selected_label": "Retail \u00b7 Spanish voice and captions",
+      "iframe_revision": "goal40-es-provenance-review",
+      "clean_revision": "goal40-es-provenance-closure",
+      "links_read_back": [
+        "Open player",
+        "Clean video",
+        "Captions",
+        "Package and sources",
+        "Captioned social video"
+      ]
+    },
+    "screenshot_attempt": "CDP request timed out: Page.captureScreenshot",
+    "scope": "PLAYBACK_CONTROLS_AND_EXACT_MEDIA_IDENTITY_NOT_HEARING_OR_CONTINUOUS_ALL_FRAME_ACCEPTANCE"
+  }
+}

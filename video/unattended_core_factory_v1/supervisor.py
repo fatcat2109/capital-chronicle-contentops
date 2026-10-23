@@ -214,14 +214,14 @@ class DesktopSessionV2Factory:
             video_job_id = str(queued_job["video_job_id"])
             if video_job_id in self.process_launch_geometry_preflight:
                 continue
-            root = (self.config.runtime_root / "jobs" / video_job_id).resolve()
+            paths = self._paths(video_job_id)
             try:
                 self.process_launch_geometry_preflight[video_job_id] = (
                     local_media.validate_process_launch_geometry(
-                        project_root=root / "generated_project",
+                        project_root=paths["project"],
                         dependency_root=self.config.dependency_root,
                         public_root=self.config.asset_root,
-                        output=root / "media" / "proxy.mp4",
+                        output=paths["proxy"],
                     )
                 )
             except local_media.MediaExecutionError as exc:
@@ -240,7 +240,7 @@ class DesktopSessionV2Factory:
     def _paths(self, video_job_id: str) -> dict[str, Path]:
         root = self._job_root(video_job_id)
         artifacts = root / "artifacts"
-        return {
+        paths = {
             "root": root,
             "artifacts": artifacts,
             "project": root / "generated_project",
@@ -299,6 +299,78 @@ class DesktopSessionV2Factory:
             "ledger": root / "review" / "stage_ledger_summary.json",
             "bundle": root / "review" / "owner_review_bundle.json",
         }
+        recovery = [
+            e
+            for e in self.store.events(video_job_id)
+            if e["stage"] == "EDITORIAL_TIMING_RECOVERY"
+        ]
+        if recovery:
+            revision = json.loads(recovery[-1]["retry_state_json"])["revision"]
+            revised_root = root / "revisions" / revision
+            retained = {
+                "parent_receipt",
+                "editor_initial",
+                "editor_initial_validation",
+                "editor_receipt",
+                "editorial_submission",
+            }
+            for key, value in list(paths.items()):
+                if key not in retained:
+                    paths[key] = revised_root / value.relative_to(root)
+        latest_picture = self.store.latest_success_by_stage(video_job_id).get("PICTURE_LOCKED")
+        if latest_picture and latest_picture["result"] == "PASS_NATIVE_PICTURE_PICTURE_LOCKED":
+            records = json.loads(latest_picture["artifact_records_json"])
+            if len(records) != 1:
+                raise SupervisorError("native_picture_stage_artifact_identity")
+            current_picture = Path(records[0]["path"]).resolve()
+            if not current_picture.is_relative_to(root) or hash_file(current_picture) != records[0]["sha256"]:
+                raise SupervisorError("native_picture_stage_artifact_drift")
+            paths["picture"] = current_picture
+        return paths
+
+    def reopen_editorial_timing_failure(
+        self, *, video_job_id: str, revision: str
+    ) -> dict[str, Any]:
+        recoveries = [
+            e
+            for e in self.store.events(video_job_id)
+            if e["stage"] == "EDITORIAL_TIMING_RECOVERY"
+        ]
+        replay = bool(recoveries)
+        if recoveries and json.loads(recoveries[-1]["retry_state_json"])["revision"] != revision:
+            raise SupervisorError("editorial_recovery_budget_or_stage_boundary")
+        job = self.store.job(video_job_id)
+        paths = self._paths(video_job_id)
+        if replay and paths["narration_overrun"].is_file():
+            failure = _load(paths["narration_overrun"])
+            if failure["video_job_id"] != video_job_id or failure["run_id"] != job["run_id"]:
+                raise SupervisorError("editorial_recovery_failure_identity_drift")
+        else:
+            editor = _load(paths["editor_initial"])
+            measurements = []
+            # Original narration remains in the original job root after recovery.
+            original_audio = self._job_root(video_job_id) / "audio" / "narration"
+            for index, segment in enumerate(editor["narration_segments"], 1):
+                wave = original_audio / f"segment_{index:02d}_{segment['segment_id']}.wav"
+                measurements.append(dict(segment_id=segment["segment_id"], audio=local_media.artifact(wave),
+                    duration_seconds=float(local_media.probe_media(wave)["format"]["duration"])))
+            if not replay:
+                job = self.store.reopen_editorial_timing_failure(video_job_id=video_job_id, revision=revision)
+            paths = self._paths(video_job_id)
+            _write_immutable_json(paths["narration_overrun"], dict(
+                schema="contentops.v2.measured_editorial_timing_failure.v1", video_job_id=video_job_id,
+                run_id=job["run_id"], measurements=measurements, retention_payoff_deadline_seconds=30,
+                original_failure_preserved=True,
+                correction="Reorder or substantively revise governed narration; no speedup or gate weakening."))
+        if self.store.job(video_job_id)["state"] == "RUNNING":
+            claimed = self.store.claim_next(worker_id=self.config.worker_id,
+                implementation_head=self.config.implementation_head, video_job_id=video_job_id)
+            current = self.store.job(video_job_id)
+            if claimed is None and current.get("claimed_by") != self.config.worker_id:
+                raise SupervisorError("editorial_recovery_claim_unavailable")
+        return dict(result="AWAITING_CODEX_DESKTOP_SESSION_INPUT", required_input="EDITORIAL_TIMING_REVISION",
+            video_job_id=video_job_id, run_id=job["run_id"], last_valid_checkpoint="CREATIVE_EDITOR_LOCKED",
+            executed_stages=[], idempotent_replay=replay)
 
     def _packet(self, job: Mapping[str, Any]) -> dict[str, Any]:
         path = Path(str(job["input_packet_path"]))
@@ -850,6 +922,11 @@ class DesktopSessionV2Factory:
                 model_path=self.config.kokoro_model,
                 voices_path=self.config.kokoro_voices,
                 output_dir=paths["narration_dir"],
+                preserved_cache_dirs=(
+                    self._job_root(str(job["video_job_id"])) / "audio" / "narration",
+                )
+                if revision_receipt is not None
+                else (),
             )
             actual_duration = float(narration["duration_seconds"])
             if (
@@ -1863,6 +1940,289 @@ class DesktopSessionV2Factory:
             ):
                 return path
         raise SupervisorError("current_package_manifest_missing")
+
+    def accept_current_locale_package(
+        self, *, video_job_id: str, receipt: Mapping[str, Any]
+    ) -> dict[str, Any]:
+        """Bind a private locale descendant in this job's existing event ledger."""
+        if receipt.get("result") != "PRIVATE_CURRENT_LOCALE_PACKAGE_BUILT":
+            raise SupervisorError("locale_package_not_built")
+        job = self.store.job(video_job_id)
+        path = Path(receipt["manifest"]).resolve()
+        if not path.is_relative_to(self._paths(video_job_id)["root"].resolve()):
+            raise SupervisorError("locale_package_escape")
+        package = _load(path)
+        if package["language"] != "es" or package["source_film_id"] != job["run_id"]:
+            raise SupervisorError("locale_package_run_or_language_mismatch")
+        for record in package["artifacts"].values():
+            if record and hash_file(record["path"]) != record["sha256"]:
+                raise SupervisorError("locale_package_artifact_drift")
+        stage = "LOCALE_PACKAGE_ES"
+        latest = self.store.latest_success_by_stage(video_job_id).get(stage)
+        exact_existing = latest and any(
+            r["path"] == str(path) and r["sha256"] == hash_file(path)
+            for r in json.loads(latest["artifact_records_json"])
+        )
+        if job["state"] != "OWNER_REVIEW_READY":
+            # Narrow reconciliation of this integration's observed ancillary-stage
+            # pointer defect. This never reopens a failed or actively claimed job.
+            if not (
+                job["state"] == "RUNNING"
+                and job.get("last_valid_checkpoint") == stage
+                and not job.get("claimed_by")
+                and exact_existing
+                and job.get("terminal_result")
+                == "PRIVATE_ENGINEERING_PACKAGE_REVIEW_REQUIRED"
+                and "OWNER_REVIEW_READY"
+                in self.store.latest_success_by_stage(video_job_id)
+            ):
+                raise SupervisorError("locale_requires_sealed_private_source")
+            self.store.append_event(
+                video_job_id=video_job_id,
+                run_id=job["run_id"],
+                stage="LOCALE_PACKAGE_STATE_RECONCILED",
+                input_hashes={"locale_manifest": hash_file(path)},
+                output_hashes={},
+                artifacts=[local_media.artifact(path)],
+                role_tool_identity="existing_locale_ancillary_state_reconciliation",
+                model_provenance={},
+                wall_time_seconds=0,
+                safe_usage={},
+                result="PASS_RECONCILED_SEALED_SOURCE_STATE",
+                retry_state={
+                    "observed_previous_state": job["state"],
+                    "observed_previous_checkpoint": stage,
+                },
+                next_legal_stage=None,
+                state_pointer="OWNER_REVIEW_READY",
+            )
+        if latest and any(
+            r["path"] == str(path) and r["sha256"] == hash_file(path)
+            for r in json.loads(latest["artifact_records_json"])
+        ):
+            return dict(receipt, ledger_idempotent_replay=True)
+        self.store.append_event(
+            video_job_id=video_job_id,
+            run_id=job["run_id"],
+            stage=stage,
+            input_hashes={
+                "source_package": receipt["identity"]["source_package_sha256"]
+            },
+            output_hashes={"manifest": hash_file(path)},
+            artifacts=[
+                local_media.artifact(p)
+                for p in (
+                    path,
+                    path.parent / "locale_receipt.json",
+                    path.parent / "alignment.json",
+                    path.parent / "localized_transcript.json",
+                )
+            ],
+            result="PASS_PRIVATE_CURRENT_LOCALE_PACKAGE",
+            next_legal_stage=None,
+            role_tool_identity="existing_locale_audio_caption_package_owners",
+            model_provenance={},
+            wall_time_seconds=0,
+            safe_usage={},
+            retry_state={},
+        )
+        return dict(receipt, ledger_idempotent_replay=False)
+
+    def current_locale_package_path(self, video_job_id: str, locale: str) -> Path:
+        if locale != "es":
+            raise SupervisorError("current_locale_not_proven")
+        event = self.store.latest_success_by_stage(video_job_id).get(
+            "LOCALE_PACKAGE_ES"
+        )
+        if event is None:
+            raise SupervisorError("current_locale_package_missing")
+        for record in json.loads(event["artifact_records_json"]):
+            path = Path(record["path"])
+            if not path.is_file() or hash_file(path) != record["sha256"]:
+                raise SupervisorError("current_locale_package_drift")
+            if (
+                _load(path).get("schema")
+                == "contentops.v2.platform_neutral_publication_package.v1"
+            ):
+                return path
+        raise SupervisorError("current_locale_manifest_missing")
+
+    def _record_private_successor(self, *, job: dict, stages: dict, inputs: dict,
+                                  role: str, result_prefix: str, revision: str) -> bool:
+        replay = True
+        for stage, paths in stages.items():
+            records = [local_media.artifact(p) for p in paths]
+            latest = self.store.latest_success_by_stage(job["video_job_id"]).get(stage)
+            if latest and json.loads(latest["artifact_records_json"]) == records:
+                continue
+            replay = False
+            if latest:
+                self.store.append_event(video_job_id=job["video_job_id"], run_id=job["run_id"], stage=stage,
+                    input_hashes=inputs, output_hashes={}, artifacts=[], role_tool_identity=role,
+                    model_provenance={}, wall_time_seconds=0, safe_usage={},
+                    result="INVALIDATED_PRIVATE_SUCCESSOR", retry_state={"revision": revision}, next_legal_stage=None)
+            self.store.append_event(video_job_id=job["video_job_id"], run_id=job["run_id"], stage=stage,
+                input_hashes=inputs, output_hashes={Path(r["path"]).name:r["sha256"] for r in records},
+                artifacts=records, role_tool_identity=role, model_provenance={}, wall_time_seconds=0,
+                safe_usage={}, result=result_prefix + stage, retry_state={"revision": revision},
+                next_legal_stage=None, state_pointer="OWNER_REVIEW_READY" if stage == "OWNER_REVIEW_READY" else None)
+        return replay
+
+    def revise_caption_package(
+        self,
+        *,
+        video_job_id: str,
+        revision: str,
+        width: int = 32,
+        line_percent: int | None = None,
+    ) -> dict[str, Any]:
+        """Resume a caption-only successor on the same existing package ledger."""
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", revision):
+            raise SupervisorError("safe_caption_revision_required")
+        job = self.store.job(video_job_id)
+        if job["state"] != "OWNER_REVIEW_READY":
+            raise SupervisorError("caption_revision_requires_sealed_private_package")
+        root = self._paths(video_job_id)["root"] / "revisions" / revision
+        receipt_path = root / "reuse_receipt.json"
+        if receipt_path.exists():
+            receipt = _load(receipt_path)
+            if receipt.get("line_percent") != line_percent:
+                raise SupervisorError("caption_revision_position_identity_changed")
+            manifest = _load(Path(receipt["manifest"]))
+            expected = (
+                "caption-layout-"
+                + str(width)
+                + ("-line-" + str(line_percent) if line_percent is not None else "")
+            )
+            if manifest["generation_version"] != expected:
+                raise SupervisorError("caption_revision_width_identity_changed")
+            for record in manifest["artifacts"].values():
+                if record and hash_file(record["path"]) != record["sha256"]:
+                    raise SupervisorError("caption_revision_artifact_drift")
+        else:
+            from .caption_revision import revise_caption_layout
+
+            receipt = revise_caption_layout(
+                self.current_package_path(video_job_id),
+                root,
+                width=width,
+                line_percent=line_percent,
+            )
+        manifest_path = Path(receipt["manifest"])
+        if not manifest_path.resolve().is_relative_to(root.resolve()):
+            raise SupervisorError("caption_revision_manifest_escape")
+        replay = self._record_private_successor(job=job,
+            stages={"PACKAGE_QA_PASSED":[manifest_path], "OWNER_REVIEW_READY":[receipt_path]},
+            inputs={"source_package":receipt["source_package_sha256"]}, revision=revision,
+            role="existing_caption_package_owner_zero_media_regeneration", result_prefix="PASS_CAPTION_LAYOUT_")
+        return dict(receipt, idempotent_replay=replay)
+
+    def revise_private_picture_package(
+        self, *, video_job_id: str, revision: str, request_path: Path, return_path: Path
+    ) -> dict[str, Any]:
+        """Seal a same-run native picture correction; retain all previous media."""
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", revision):
+            raise SupervisorError("safe_picture_revision_required")
+        job = self.store.job(video_job_id)
+        if job["state"] != "OWNER_REVIEW_READY":
+            raise SupervisorError("picture_revision_requires_sealed_private_package")
+        request = _load(request_path)
+        if request.get("video_job_id") != video_job_id or request.get("run_id") != job["run_id"]:
+            raise SupervisorError("picture_revision_request_job_run_mismatch")
+        paths = self._paths(video_job_id)
+        root = paths["root"] / "revisions" / revision
+        binding_path = root / "source_binding.json"
+        if binding_path.exists():
+            binding = _load(binding_path)
+            source = Path(binding["package_path"])
+            if hash_file(source) != binding["sha256"] or hash_file(return_path) != binding["return_sha256"] or hash_file(request_path) != binding["request_sha256"]:
+                raise SupervisorError("picture_revision_source_binding_drift")
+        else:
+            source = self.current_package_path(video_job_id)
+            _write_immutable_json(binding_path, dict(package_path=str(source), sha256=hash_file(source),
+                return_sha256=hash_file(return_path), request_sha256=hash_file(request_path)))
+        receipt_path = root / "revision_receipt.json"
+        replay = receipt_path.exists()
+        if replay:
+            receipt = _load(receipt_path)
+            package = _load(Path(receipt["manifest"]))
+            for item in package["artifacts"].values():
+                if item and hash_file(item["path"]) != item["sha256"]:
+                    raise SupervisorError("picture_revision_artifact_drift")
+        else:
+            from .caption_revision import build_private_picture_revision
+            receipt = build_private_picture_revision(package_path=source, request_path=request_path, return_path=return_path,
+                input_packet=_load(Path(job["input_packet_path"])), editor=_load(paths["editor"]), motion=_load(paths["motion"]),
+                timing_lock=_load(paths["timing_lock"]), dependency_root=self.config.dependency_root,
+                scaffold_root=self.config.scaffold_root, asset_root=self.config.asset_root, output_dir=root)
+        replay = self._record_private_successor(job=job, stages={
+            "PICTURE_LOCKED":[root / "picture_lock.mp4"], "FINAL_MEDIA_BUILT":[root / "clean.mp4"],
+            "PACKAGE_QA_PASSED":[Path(receipt["manifest"]),root / "technical.json"], "OWNER_REVIEW_READY":[receipt_path]},
+            inputs={"source_package":hash_file(source),"native_return":hash_file(return_path)}, revision=revision,
+            role="existing_native_review_render_mux_package_owners", result_prefix="PASS_NATIVE_PICTURE_")
+        return dict(receipt, idempotent_replay=replay)
+
+    def revise_phrase_audio_package(
+        self, *, video_job_id: str, revision: str, caption_width: int = 29, max_phrase_words: int = 10, phrase_geometry_by_segment: dict | None = None
+    ) -> dict[str, Any]:
+        """Audio/caption descendants on the same private job and locked picture."""
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", revision):
+            raise SupervisorError("safe_phrase_revision_required")
+        job = self.store.job(video_job_id)
+        if job["state"] != "OWNER_REVIEW_READY":
+            raise SupervisorError("phrase_revision_requires_sealed_private_package")
+        paths = self._paths(video_job_id)
+        root = paths["root"] / "revisions" / revision
+        binding_path = root / "source_binding.json"
+        geometry = dict(width=caption_width, max_words=max_phrase_words, by_segment=phrase_geometry_by_segment or {})
+        if binding_path.exists():
+            binding = _load(binding_path)
+            if binding.get("phrase_geometry", dict(width=29, max_words=10, by_segment={})) != geometry:
+                raise SupervisorError("phrase_geometry_changed_requires_distinct_revision")
+            source_package = Path(binding["package_path"])
+            if hash_file(source_package) != binding["sha256"]:
+                raise SupervisorError("phrase_revision_source_package_drift")
+        else:
+            source_package = self.current_package_path(video_job_id)
+            _write_immutable_json(
+                binding_path,
+                dict(
+                    package_path=str(source_package), sha256=hash_file(source_package)
+                    , phrase_geometry=geometry
+                ),
+            )
+        receipt_path = root / "revision_receipt.json"
+        if receipt_path.exists():
+            receipt = _load(receipt_path)
+            manifest = _load(Path(receipt["manifest"]))
+            for record in manifest["artifacts"].values():
+                if record and hash_file(record["path"]) != record["sha256"]:
+                    raise SupervisorError("phrase_revision_artifact_drift")
+        else:
+            from .caption_revision import build_phrase_audio_revision
+
+            receipt = build_phrase_audio_revision(
+                package_path=source_package,
+                picture=paths["picture"],
+                timing_lock=_load(paths["timing_lock"]),
+                editor=_load(paths["editor"]),
+                model_path=self.config.kokoro_model,
+                voices_path=self.config.kokoro_voices,
+                bed_path=self.config.asset_root / self.config.bed_relative_path,
+                output_dir=root,
+                caption_width=caption_width,
+                max_phrase_words=max_phrase_words,
+                phrase_geometry_by_segment=phrase_geometry_by_segment,
+            )
+            if receipt.get("holds"):
+                return receipt
+        replay = self._record_private_successor(job=job, stages={
+            "AUDIO_BUILT":[root / "audio/final_mix.wav",root / "timing_lock.json"],
+            "FINAL_MEDIA_BUILT":[root / "clean.mp4"],
+            "PACKAGE_QA_PASSED":[Path(receipt["manifest"]),root / "technical.json",root / "seo.json"],
+            "OWNER_REVIEW_READY":[receipt_path]}, inputs={"source_package":hash_file(source_package)}, revision=revision,
+            role="existing_audio_transcript_caption_package_owners_zero_picture_rerender",result_prefix="PASS_REVISED_")
+        return dict(receipt,idempotent_replay=replay)
 
     def repair_mux_package(self, *, video_job_id: str, revision: str) -> dict[str, Any]:
         """Supersede a proven truncated mux, preserving original files and ledger.

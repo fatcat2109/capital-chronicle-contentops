@@ -1519,6 +1519,66 @@ class V2JobStore:
                 (state, now, run_id),
             )
 
+    def reopen_editorial_timing_failure(
+        self, *, video_job_id: str, revision: str
+    ) -> dict[str, Any]:
+        """Resume the original quarantined run for one pre-motion timing correction."""
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", revision):
+            raise JobStoreError("safe_editorial_recovery_revision_required")
+        with self.transaction(immediate=True) as connection:
+            row = connection.execute(
+                "SELECT * FROM video_jobs WHERE video_job_id=?", (video_job_id,)
+            ).fetchone()
+            if row is None:
+                raise JobStoreError("editorial_recovery_job_missing")
+            reason = str(row["terminal_result"] or "")
+            timing_only = (
+                reason
+                == "HARD_FAILURE:TranscriptContractError:voiceover_qa_failed:retention_payoff_outside_first_30_seconds"
+                or bool(
+                    re.fullmatch(
+                        r"HARD_FAILURE:SupervisorError:narration_timing_revision_still_outside_short_contract:[0-9]+\.[0-9]+",
+                        reason,
+                    )
+                )
+            )
+            if row["state"] != "QUARANTINED" or not timing_only:
+                raise JobStoreError(
+                    "editorial_recovery_requires_exact_pre_motion_timing_failure"
+                )
+            events = connection.execute(
+                "SELECT * FROM stage_events WHERE video_job_id=?", (video_job_id,)
+            ).fetchall()
+            if any(
+                e["stage"] in {"MOTION_SOURCE_LOCKED", "EDITORIAL_TIMING_RECOVERY"}
+                for e in events
+            ):
+                raise JobStoreError("editorial_recovery_budget_or_stage_boundary")
+            connection.execute(
+                "UPDATE job_runs SET status='ACTIVE',completed_at=NULL WHERE run_id=?",
+                (row["run_id"],),
+            )
+            connection.execute(
+                "UPDATE video_jobs SET state='RUNNING',terminal_result=NULL,last_valid_checkpoint='CREATIVE_EDITOR_LOCKED',claimed_by=NULL,claim_timestamp=NULL WHERE video_job_id=? AND public_write_authority=0",
+                (video_job_id,),
+            )
+            connection.execute(
+                """INSERT INTO stage_events(video_job_id,run_id,stage,stage_version,occurred_at,input_hashes_json,output_hashes_json,artifact_records_json,role_tool_identity,model_provenance_json,wall_time_seconds,safe_usage_json,result,retry_state_json,next_legal_stage,public_write_authority)
+                VALUES(?,?,'EDITORIAL_TIMING_RECOVERY','v1',?,'{}','{}','[]','V2JobStore.same_lineage_recovery','{}',0,'{}','RECOVERY_REQUESTED',?,'ACTUAL_NARRATION_TIMING_LOCKED',0)""",
+                (
+                    video_job_id,
+                    row["run_id"],
+                    utc_now(),
+                    _json(
+                        {
+                            "revision": revision,
+                            "original_terminal_result": row["terminal_result"],
+                        }
+                    ),
+                ),
+            )
+        return self.job(video_job_id)
+
     def release_claim(self, *, video_job_id: str, worker_id: str) -> None:
         with self.transaction(immediate=True) as connection:
             connection.execute(

@@ -561,6 +561,7 @@ def synthesize_narration(
     model_path: Path,
     voices_path: Path,
     output_dir: Path,
+    preserved_cache_dirs: Sequence[Path] = (),
 ) -> dict[str, Any]:
     import numpy as np
     import soundfile as sf
@@ -598,6 +599,23 @@ def synthesize_narration(
         segment_path = output_dir / f"segment_{index:02d}_{segment_id}.wav"
         identity_path = segment_path.with_suffix(".identity.json")
         audio = None
+        if not segment_path.exists():
+            for cache in preserved_cache_dirs:
+                matched = False
+                for seal in cache.glob("segment_*.identity.json"):
+                    record = json.loads(seal.read_text(encoding="utf-8"))
+                    source = seal.with_suffix("").with_suffix(".wav")
+                    if (
+                        record.get("identity") == identity
+                        and source.is_file()
+                        and hash_file(source) == record.get("audio_sha256")
+                    ):
+                        shutil.copy2(source, segment_path)
+                        shutil.copy2(seal, identity_path)
+                        matched = True
+                        break
+                if matched:
+                    break
         if segment_path.is_file() and identity_path.is_file():
             cached = json.loads(identity_path.read_text(encoding="utf-8"))
             if cached.get("identity") == identity and cached.get(
