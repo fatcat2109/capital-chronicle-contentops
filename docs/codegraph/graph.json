@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14812,
+    "edges": 14850,
     "entrypoints": 20,
-    "nodes": 7797,
+    "nodes": 7812,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 637,
-      "python_function": 4243,
+      "python_function": 4255,
       "python_method": 308,
-      "python_module": 822,
+      "python_module": 824,
       "schema": 256,
-      "test": 784,
+      "test": 785,
       "typescript_export": 516,
       "typescript_or_javascript_module": 113
     }
@@ -38509,6 +38509,12 @@
     },
     {
       "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/speech_highlight_review_v1.py"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
       "inference": "python_ast_definition",
       "kind": "defines",
       "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::atomic_json"
@@ -38572,6 +38578,24 @@
       "inference": "python_ast_schema_constant",
       "kind": "declares_schema",
       "to": "schema:contentops.speech_highlight_relay.current_source_private.v1"
+    },
+    {
+      "from": "live_contentops/speech_highlight_presentation_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/speech_highlight_presentation_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_presentation_v1.py::render"
+    },
+    {
+      "from": "live_contentops/speech_highlight_presentation_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_presentation_v1.py::validate_presentation"
     },
     {
       "from": "live_contentops/speech_highlight_relay_v1.py",
@@ -38716,6 +38740,72 @@
       "inference": "test_filename_convention",
       "kind": "covered_by",
       "to": "tests/test_speech_highlight_relay_v1.py"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::frozen"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::ingest_review"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::isolated"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::package"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::read"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_context"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_entry"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::revise"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_cues"
+    },
+    {
+      "from": "live_contentops/speech_highlight_review_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_review"
     },
     {
       "from": "live_contentops/static_cockpit_surface_contract.py",
@@ -69834,6 +69924,12 @@
       "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::https_source"
     },
     {
+      "from": "python_symbol:live_contentops/speech_highlight_presentation_v1.py::render",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_presentation_v1.py::validate_presentation"
+    },
+    {
       "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::artifact_identity",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -70024,6 +70120,120 @@
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
       "to": "python_symbol:live_contentops/speech_highlight_relay_v1.py::verify_private_review_packet"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::frozen",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::read"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::ingest_review",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::frozen"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::ingest_review",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::isolated"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::ingest_review",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_review"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::isolated"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::package",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::read"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_context",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::package"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_context",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::read"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_entry",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::frozen"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_entry",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::isolated"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_entry",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_context"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_entry",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_review"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::revise",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::frozen"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::revise",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::isolated"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::revise",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::package"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::revise",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::read"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::revise",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_cues"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::revise",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_review"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_review",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_context"
     },
     {
       "from": "python_symbol:live_contentops/static_cockpit_surface_contract.py::write_artifacts",
@@ -78922,6 +79132,24 @@
       "inference": "test_filename_convention",
       "kind": "tests",
       "to": "live_contentops/generic_foundation_hardening_v2.py"
+    },
+    {
+      "from": "tests/test_goal37_current_speech_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_goal38_speech_review_v1.py"
+    },
+    {
+      "from": "tests/test_goal38_speech_review_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "tests/test_goal37_current_speech_v1.py"
+    },
+    {
+      "from": "tests/test_goal38_speech_review_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "tests/test_goal37_current_speech_v1.py"
     },
     {
       "from": "tests/test_google_image_search_v6.py",
@@ -89047,7 +89275,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-23T00:32:39Z",
+  "generation_timestamp_utc": "2026-10-23T01:34:17Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -92737,12 +92965,22 @@
     {
       "id": "live_contentops/speech_highlight_current_source_v1.py",
       "kind": "python_module",
-      "size_bytes": 19519
+      "size_bytes": 21631
+    },
+    {
+      "id": "live_contentops/speech_highlight_presentation_v1.py",
+      "kind": "python_module",
+      "size_bytes": 5501
     },
     {
       "id": "live_contentops/speech_highlight_relay_v1.py",
       "kind": "python_module",
       "size_bytes": 41477
+    },
+    {
+      "id": "live_contentops/speech_highlight_review_v1.py",
+      "kind": "python_module",
+      "size_bytes": 19624
     },
     {
       "id": "live_contentops/static_cockpit_surface_contract.py",
@@ -124192,6 +124430,20 @@
       "symbol": "validate_source"
     },
     {
+      "id": "python_symbol:live_contentops/speech_highlight_presentation_v1.py::render",
+      "kind": "python_function",
+      "line": 40,
+      "path": "live_contentops/speech_highlight_presentation_v1.py",
+      "symbol": "render"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_presentation_v1.py::validate_presentation",
+      "kind": "python_function",
+      "line": 9,
+      "path": "live_contentops/speech_highlight_presentation_v1.py",
+      "symbol": "validate_presentation"
+    },
+    {
       "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::CaptionCue",
       "kind": "python_class",
       "line": 132,
@@ -124323,6 +124575,76 @@
       "line": 77,
       "path": "live_contentops/speech_highlight_relay_v1.py",
       "symbol": "write_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::frozen",
+      "kind": "python_function",
+      "line": 29,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "frozen"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::ingest_review",
+      "kind": "python_function",
+      "line": 155,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "ingest_review"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::isolated",
+      "kind": "python_function",
+      "line": 22,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "isolated"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::package",
+      "kind": "python_function",
+      "line": 37,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "package"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::read",
+      "kind": "python_function",
+      "line": 18,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "read"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_context",
+      "kind": "python_function",
+      "line": 85,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "review_context"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::review_entry",
+      "kind": "python_function",
+      "line": 452,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "review_entry"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::revise",
+      "kind": "python_function",
+      "line": 220,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "revise"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_cues",
+      "kind": "python_function",
+      "line": 185,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "validate_cues"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_review_v1.py::validate_review",
+      "kind": "python_function",
+      "line": 101,
+      "path": "live_contentops/speech_highlight_review_v1.py",
+      "symbol": "validate_review"
     },
     {
       "id": "python_symbol:live_contentops/static_cockpit_surface_contract.py::build_fixture_outputs",
@@ -132546,6 +132868,11 @@
       "size_bytes": 2229
     },
     {
+      "id": "tests/test_goal38_speech_review_v1.py",
+      "kind": "test",
+      "size_bytes": 9555
+    },
+    {
       "id": "tests/test_google_image_search_v6.py",
       "kind": "test",
       "size_bytes": 1789
@@ -139541,6 +139868,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "9c6c6113efc49fc4aa00060ed8ac2ae47a22f34f",
-  "source_tree_digest": "bfcd69885f4162acf34c92d682bf2d30305306c80cb4bdee01c254c1c8414fb0"
+  "source_head": "7ca4dcbf686feceacac937811686137b13015b3f",
+  "source_tree_digest": "924db39a80dbe09522af847fe16c6e5e91adbc9e0f7942314bcacea940ffb8bf"
 }
