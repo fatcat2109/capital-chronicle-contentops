@@ -24,6 +24,36 @@ class PipelineError(RuntimeError):
     """A hard deterministic production-boundary failure."""
 
 
+def render_native_project(*, command: Sequence[str], cwd: Path, output: Path,
+                          source_files: Sequence[Path], identity: Any) -> dict[str, Any]:
+    """Shared free-form native render/cache seam for the manually stepped factory.
+
+    Creative source stays opaque; an exact command/source/asset change invalidates
+    this picture only. A pre-existing unsealed output is never silently adopted.
+    """
+    key = _combined_hash(source_files, {"command": list(command), "identity": identity})
+    receipt_path = output.with_suffix(output.suffix + ".cache.json")
+    if receipt_path.exists():
+        cached = json.loads(receipt_path.read_text(encoding="utf-8"))
+        if cached.get("input_hash") != key:
+            raise PipelineError("Native render input changed; use a distinct output revision")
+        if not output.is_file() or _sha256(output) != cached.get("output_sha256"):
+            raise PipelineError("Cached native picture drift")
+        return {**cached, "reused": True, "wall_seconds": 0.0}
+    if output.exists():
+        raise PipelineError("Unsealed native render requires explicit reconciliation")
+    result = _run(command, cwd)
+    if not output.is_file():
+        raise PipelineError("Native render produced no picture")
+    receipt = {"input_hash": key, "output_sha256": _sha256(output),
+               "reused": False, "wall_seconds": result["wall_seconds"],
+               "source_owner": "freeform_chapter_pipeline_v1"}
+    temporary = receipt_path.with_suffix(receipt_path.suffix + ".partial")
+    temporary.write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+    os.replace(temporary, receipt_path)
+    return receipt
+
+
 def _canonical_json(value: Any) -> bytes:
     return json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
 

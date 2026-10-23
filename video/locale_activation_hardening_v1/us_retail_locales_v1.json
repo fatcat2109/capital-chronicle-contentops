@@ -1,0 +1,128 @@
+{
+  "schema": "contentops.v2.governed_locale_translation.v1",
+  "source_story_id": "us_retail_july_2026_current_short_v1",
+  "source_canonical_transcript_hash": "d62e974ebfc863fdfce70dd1ac563ab4abb2afc660bc7913ba7b11a875fb0044",
+  "translation_authority": "ONE_GOVERNED_LOCALIZATION_PACKET_NO_INDEPENDENT_FACTUAL_WRITER",
+  "locales": {
+    "zh-Hans": {
+      "locale": "zh-Hans",
+      "spoken_decimal_convention": "点",
+      "segments": [
+        {"segment_id":"hook","kind":"ENGAGEMENT","source_text_sha256":"2248284bde0ccb054c0faf049a2430b2ecb339bc98f977d995564e2d63d97fe6","text":"先看7月零售数据的标题。再看看标题之下的细节。","synthesis_text":"先看七月零售数据的标题。再看看标题之下的细节。","truth_anchors":[]},
+        {"segment_id":"topline","kind":"FACT","source_text_sha256":"6f7dacde0ec375b228f311720f328b855dfccf276d07fbfcfee667d3227961a4","text":"美国零售和餐饮服务销售额在2026年7月为763.6十亿美元。较6月下降0.6%，较2025年7月上升5.0%。","synthesis_text":"美国零售和餐饮服务销售额在二零二六年七月为七百六十三点六十亿美元。较六月下降百分之零点六，较二零二五年七月上升百分之五点零。","truth_anchors":[
+          {"id":"ENTITY_US","kind":"ENTITY","canonical_value":"United States","source_surface":"U.S.","display_surface":"美国","spoken_surface":"美国"},
+          {"id":"MONEY_763_6B","kind":"CURRENCY","canonical_value":"USD 763.6 billion","source_surface":"$763.6 billion","display_surface":"763.6十亿美元","spoken_surface":"七百六十三点六十亿美元"},
+          {"id":"DATE_JULY_2026","kind":"DATE","canonical_value":"2026-07","source_surface":"July 2026","display_surface":"2026年7月","spoken_surface":"二零二六年七月"},
+          {"id":"DOWN_0_6_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-0.6 percent month over month","source_surface":"down 0.6 percent","display_surface":"下降0.6%","spoken_surface":"下降百分之零点六"},
+          {"id":"UP_5_0_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+5.0 percent year over year","source_surface":"up 5.0 percent","display_surface":"上升5.0%","spoken_surface":"上升百分之五点零"},
+          {"id":"DATE_JULY_2025","kind":"DATE","canonical_value":"2025-07","source_surface":"July 2025","display_surface":"2025年7月","spoken_surface":"二零二五年七月"}
+        ]},
+        {"segment_id":"pivot","kind":"ENGAGEMENT","source_text_sha256":"35073ab50460eb43535a687fdebdc09468d5a4258ed4e894e65fdf72266833f5","text":"那么，月度变化究竟出现在哪里？","synthesis_text":"那么，月度变化究竟出现在哪里？","truth_anchors":[]},
+        {"segment_id":"core_measure","kind":"FACT","source_text_sha256":"9744fe690d634f661054d4eecd4553775a31fe0de5c2b2f7012242c6701b21f7","text":"剔除机动车和汽油后，销售额较6月下降0.2%，较2025年7月上升4.8%。","synthesis_text":"剔除机动车和汽油后，销售额较六月下降百分之零点二，较二零二五年七月上升百分之四点八。","truth_anchors":[
+          {"id":"DOWN_0_2_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-0.2 percent month over month","source_surface":"down 0.2 percent","display_surface":"下降0.2%","spoken_surface":"下降百分之零点二"},
+          {"id":"UP_4_8_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+4.8 percent year over year","source_surface":"up 4.8 percent","display_surface":"上升4.8%","spoken_surface":"上升百分之四点八"},
+          {"id":"CORE_DATE_JULY_2025","kind":"DATE","canonical_value":"2025-07","source_surface":"July 2025","display_surface":"2025年7月","spoken_surface":"二零二五年七月"}
+        ]},
+        {"segment_id":"vehicles","kind":"FACT","source_text_sha256":"ba17db4405c5944cc091a517631f4df83f6286ae1cfb895fbb99efa1667f7856","text":"机动车及零部件经销商销售额较6月下降1.8%。","synthesis_text":"机动车及零部件经销商销售额较六月下降百分之一点八。","truth_anchors":[{"id":"DOWN_1_8_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-1.8 percent month over month","source_surface":"fell 1.8 percent","display_surface":"下降1.8%","spoken_surface":"下降百分之一点八"}]},
+        {"segment_id":"nonstore","kind":"FACT","source_text_sha256":"8cbd3fd4771b8490e5c52b817068f41f0890a04b8f4670eab376cb3ae2766420","text":"非实体店零售商销售额较6月下降2.2%。","synthesis_text":"非实体店零售商销售额较六月下降百分之二点二。","truth_anchors":[{"id":"DOWN_2_2_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-2.2 percent month over month","source_surface":"fell 2.2 percent","display_surface":"下降2.2%","spoken_surface":"下降百分之二点二"}]},
+        {"segment_id":"food_service","kind":"FACT","source_text_sha256":"de580d1ee6a30fc76f721058f9f7b1d94ca7164c26868f5fc662205d0c8cf534","text":"餐饮服务场所销售额较6月上升0.5%。","synthesis_text":"餐饮服务场所销售额较六月上升百分之零点五。","truth_anchors":[{"id":"UP_0_5_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+0.5 percent month over month","source_surface":"rose 0.5 percent","display_surface":"上升0.5%","spoken_surface":"上升百分之零点五"}]},
+        {"segment_id":"caveat_setup","kind":"ENGAGEMENT","source_text_sha256":"1d484e0023419511422a6742815053f885986f2e1cb9249bde85682b52d81005","text":"在据此判断消费者状况前，先注意这项数据的测量限制。","synthesis_text":"在据此判断消费者状况前，先注意这项数据的测量限制。","truth_anchors":[]},
+        {"segment_id":"measurement","kind":"FACT","source_text_sha256":"4617a66ec2b3d1a9ea8795b94d854625f935fd8fd556ed187e07581b2ae594ba","text":"美国人口普查局的销售估算已针对季节、节假日和交易日差异调整，但未针对价格变化调整。","synthesis_text":"美国人口普查局的销售估算已针对季节、节假日和交易日差异调整，但未针对价格变化调整。","truth_anchors":[
+          {"id":"INSTITUTION_CENSUS","kind":"INSTITUTION","canonical_value":"U.S. Census Bureau","source_surface":"Census","display_surface":"美国人口普查局","spoken_surface":"美国人口普查局"},
+          {"id":"NEGATION_PRICE","kind":"NEGATION","canonical_value":"not adjusted for price changes","source_surface":"not for price changes","display_surface":"未针对价格变化调整","spoken_surface":"未针对价格变化调整"}
+        ]},
+        {"segment_id":"close","kind":"ENGAGEMENT","source_text_sha256":"2c048f9240b20c5cd1a9318c6cce6cb3f47b85534a1c24c7b5ff9c794561be9d","text":"一份报告，多种方向，而标题需要脚注。","synthesis_text":"一份报告，多种方向，而标题需要脚注。","truth_anchors":[]}
+      ]
+    },
+    "hi": {
+      "locale": "hi",
+      "spoken_decimal_convention": "दशमलव",
+      "segments": [
+        {"segment_id":"hook","kind":"ENGAGEMENT","source_text_sha256":"2248284bde0ccb054c0faf049a2430b2ecb339bc98f977d995564e2d63d97fe6","text":"पहले जुलाई की खुदरा सुर्खी देखें। फिर उसके नीचे की तस्वीर देखें।","synthesis_text":"पहले जुलाई की खुदरा सुर्खी देखें। फिर उसके नीचे की तस्वीर देखें।","truth_anchors":[]},
+        {"segment_id":"topline","kind":"FACT","source_text_sha256":"6f7dacde0ec375b228f311720f328b855dfccf276d07fbfcfee667d3227961a4","text":"अमेरिकी खुदरा और खाद्य सेवा बिक्री जुलाई 2026 में 763.6 अरब डॉलर रही। यह जून से 0.6% कम और जुलाई 2025 से 5.0% अधिक थी।","synthesis_text":"अमेरिकी खुदरा और खाद्य सेवा बिक्री जुलाई दो हज़ार छब्बीस में सात सौ तिरसठ दशमलव छह अरब डॉलर रही। यह जून से शून्य दशमलव छह प्रतिशत कम और जुलाई दो हज़ार पच्चीस से पाँच दशमलव शून्य प्रतिशत अधिक थी।","truth_anchors":[
+          {"id":"ENTITY_US","kind":"ENTITY","canonical_value":"United States","source_surface":"U.S.","display_surface":"अमेरिकी","spoken_surface":"अमेरिकी"},
+          {"id":"MONEY_763_6B","kind":"CURRENCY","canonical_value":"USD 763.6 billion","source_surface":"$763.6 billion","display_surface":"763.6 अरब डॉलर","spoken_surface":"सात सौ तिरसठ दशमलव छह अरब डॉलर"},
+          {"id":"DATE_JULY_2026","kind":"DATE","canonical_value":"2026-07","source_surface":"July 2026","display_surface":"जुलाई 2026","spoken_surface":"जुलाई दो हज़ार छब्बीस"},
+          {"id":"DOWN_0_6_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-0.6 percent month over month","source_surface":"down 0.6 percent","display_surface":"0.6% कम","spoken_surface":"शून्य दशमलव छह प्रतिशत कम"},
+          {"id":"UP_5_0_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+5.0 percent year over year","source_surface":"up 5.0 percent","display_surface":"5.0% अधिक","spoken_surface":"पाँच दशमलव शून्य प्रतिशत अधिक"},
+          {"id":"DATE_JULY_2025","kind":"DATE","canonical_value":"2025-07","source_surface":"July 2025","display_surface":"जुलाई 2025","spoken_surface":"जुलाई दो हज़ार पच्चीस"}
+        ]},
+        {"segment_id":"pivot","kind":"ENGAGEMENT","source_text_sha256":"35073ab50460eb43535a687fdebdc09468d5a4258ed4e894e65fdf72266833f5","text":"तो मासिक बदलाव वास्तव में कहाँ दिखा?","synthesis_text":"तो मासिक बदलाव वास्तव में कहाँ दिखा?","truth_anchors":[]},
+        {"segment_id":"core_measure","kind":"FACT","source_text_sha256":"9744fe690d634f661054d4eecd4553775a31fe0de5c2b2f7012242c6701b21f7","text":"मोटर वाहन और पेट्रोल हटाकर बिक्री जून से 0.2% कम और जुलाई 2025 से 4.8% अधिक थी।","synthesis_text":"मोटर वाहन और पेट्रोल हटाकर बिक्री जून से शून्य दशमलव दो प्रतिशत कम और जुलाई दो हज़ार पच्चीस से चार दशमलव आठ प्रतिशत अधिक थी।","truth_anchors":[
+          {"id":"DOWN_0_2_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-0.2 percent month over month","source_surface":"down 0.2 percent","display_surface":"0.2% कम","spoken_surface":"शून्य दशमलव दो प्रतिशत कम"},
+          {"id":"UP_4_8_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+4.8 percent year over year","source_surface":"up 4.8 percent","display_surface":"4.8% अधिक","spoken_surface":"चार दशमलव आठ प्रतिशत अधिक"},
+          {"id":"CORE_DATE_JULY_2025","kind":"DATE","canonical_value":"2025-07","source_surface":"July 2025","display_surface":"जुलाई 2025","spoken_surface":"जुलाई दो हज़ार पच्चीस"}
+        ]},
+        {"segment_id":"vehicles","kind":"FACT","source_text_sha256":"ba17db4405c5944cc091a517631f4df83f6286ae1cfb895fbb99efa1667f7856","text":"मोटर वाहन और पुर्ज़ा डीलरों की बिक्री जून से 1.8% गिरी।","synthesis_text":"मोटर वाहन और पुर्ज़ा डीलरों की बिक्री जून से एक दशमलव आठ प्रतिशत गिरी।","truth_anchors":[{"id":"DOWN_1_8_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-1.8 percent month over month","source_surface":"fell 1.8 percent","display_surface":"1.8% गिरी","spoken_surface":"एक दशमलव आठ प्रतिशत गिरी"}]},
+        {"segment_id":"nonstore","kind":"FACT","source_text_sha256":"8cbd3fd4771b8490e5c52b817068f41f0890a04b8f4670eab376cb3ae2766420","text":"गैर-दुकान खुदरा बिक्री जून से 2.2% गिरी।","synthesis_text":"गैर-दुकान खुदरा बिक्री जून से दो दशमलव दो प्रतिशत गिरी।","truth_anchors":[{"id":"DOWN_2_2_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-2.2 percent month over month","source_surface":"fell 2.2 percent","display_surface":"2.2% गिरी","spoken_surface":"दो दशमलव दो प्रतिशत गिरी"}]},
+        {"segment_id":"food_service","kind":"FACT","source_text_sha256":"de580d1ee6a30fc76f721058f9f7b1d94ca7164c26868f5fc662205d0c8cf534","text":"खाद्य और पेय सेवा बिक्री जून से 0.5% बढ़ी।","synthesis_text":"खाद्य और पेय सेवा बिक्री जून से शून्य दशमलव पाँच प्रतिशत बढ़ी।","truth_anchors":[{"id":"UP_0_5_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+0.5 percent month over month","source_surface":"rose 0.5 percent","display_surface":"0.5% बढ़ी","spoken_surface":"शून्य दशमलव पाँच प्रतिशत बढ़ी"}]},
+        {"segment_id":"caveat_setup","kind":"ENGAGEMENT","source_text_sha256":"1d484e0023419511422a6742815053f885986f2e1cb9249bde85682b52d81005","text":"इसे उपभोक्ता पर फैसला मानने से पहले माप की सीमा याद रखें।","synthesis_text":"इसे उपभोक्ता पर फैसला मानने से पहले माप की सीमा याद रखें।","truth_anchors":[]},
+        {"segment_id":"measurement","kind":"FACT","source_text_sha256":"4617a66ec2b3d1a9ea8795b94d854625f935fd8fd556ed187e07581b2ae594ba","text":"अमेरिकी जनगणना ब्यूरो के अनुमान मौसम, छुट्टियों और कारोबारी दिनों के लिए समायोजित हैं, लेकिन कीमतों में बदलाव के लिए नहीं।","synthesis_text":"अमेरिकी जनगणना ब्यूरो के अनुमान मौसम, छुट्टियों और कारोबारी दिनों के लिए समायोजित हैं, लेकिन कीमतों में बदलाव के लिए नहीं।","truth_anchors":[
+          {"id":"INSTITUTION_CENSUS","kind":"INSTITUTION","canonical_value":"U.S. Census Bureau","source_surface":"Census","display_surface":"अमेरिकी जनगणना ब्यूरो","spoken_surface":"अमेरिकी जनगणना ब्यूरो"},
+          {"id":"NEGATION_PRICE","kind":"NEGATION","canonical_value":"not adjusted for price changes","source_surface":"not for price changes","display_surface":"कीमतों में बदलाव के लिए नहीं","spoken_surface":"कीमतों में बदलाव के लिए नहीं"}
+        ]},
+        {"segment_id":"close","kind":"ENGAGEMENT","source_text_sha256":"2c048f9240b20c5cd1a9318c6cce6cb3f47b85534a1c24c7b5ff9c794561be9d","text":"एक रिपोर्ट, कई दिशाएँ, और एक सुर्खी जिसे फुटनोट चाहिए।","synthesis_text":"एक रिपोर्ट, कई दिशाएँ, और एक सुर्खी जिसे फुटनोट चाहिए।","truth_anchors":[]}
+      ]
+    },
+    "vi": {
+      "locale": "vi",
+      "spoken_decimal_convention": "phẩy",
+      "segments": [
+        {"segment_id":"hook","kind":"ENGAGEMENT","source_text_sha256":"2248284bde0ccb054c0faf049a2430b2ecb339bc98f977d995564e2d63d97fe6","text":"Bắt đầu từ tiêu đề bán lẻ tháng 7. Rồi nhìn xuống dưới.","synthesis_text":"Bắt đầu từ tiêu đề bán lẻ tháng bảy. Rồi nhìn xuống dưới.","truth_anchors":[]},
+        {"segment_id":"topline","kind":"FACT","source_text_sha256":"6f7dacde0ec375b228f311720f328b855dfccf276d07fbfcfee667d3227961a4","text":"Bán lẻ và dịch vụ ăn uống của Mỹ đạt 763,6 tỷ USD trong tháng 7/2026. Mức này giảm 0,6% theo tháng và tăng 5,0% so với tháng 7/2025.","synthesis_text":"Bán lẻ và dịch vụ ăn uống của Mỹ đạt bảy trăm sáu mươi ba phẩy sáu tỷ đô la Mỹ trong tháng bảy năm hai nghìn không trăm hai mươi sáu. Mức này giảm không phẩy sáu phần trăm theo tháng và tăng năm phẩy không phần trăm so với tháng bảy năm hai nghìn không trăm hai mươi lăm.","truth_anchors":[
+          {"id":"ENTITY_US","kind":"ENTITY","canonical_value":"United States","source_surface":"U.S.","display_surface":"Mỹ","spoken_surface":"Mỹ"},
+          {"id":"MONEY_763_6B","kind":"CURRENCY","canonical_value":"USD 763.6 billion","source_surface":"$763.6 billion","display_surface":"763,6 tỷ USD","spoken_surface":"bảy trăm sáu mươi ba phẩy sáu tỷ đô la Mỹ"},
+          {"id":"DATE_JULY_2026","kind":"DATE","canonical_value":"2026-07","source_surface":"July 2026","display_surface":"tháng 7/2026","spoken_surface":"tháng bảy năm hai nghìn không trăm hai mươi sáu"},
+          {"id":"DOWN_0_6_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-0.6 percent month over month","source_surface":"down 0.6 percent","display_surface":"giảm 0,6%","spoken_surface":"giảm không phẩy sáu phần trăm"},
+          {"id":"UP_5_0_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+5.0 percent year over year","source_surface":"up 5.0 percent","display_surface":"tăng 5,0%","spoken_surface":"tăng năm phẩy không phần trăm"},
+          {"id":"DATE_JULY_2025","kind":"DATE","canonical_value":"2025-07","source_surface":"July 2025","display_surface":"tháng 7/2025","spoken_surface":"tháng bảy năm hai nghìn không trăm hai mươi lăm"}
+        ]},
+        {"segment_id":"pivot","kind":"ENGAGEMENT","source_text_sha256":"35073ab50460eb43535a687fdebdc09468d5a4258ed4e894e65fdf72266833f5","text":"Vậy thay đổi theo tháng thực sự nằm ở đâu?","synthesis_text":"Vậy thay đổi theo tháng thực sự nằm ở đâu?","truth_anchors":[]},
+        {"segment_id":"core_measure","kind":"FACT","source_text_sha256":"9744fe690d634f661054d4eecd4553775a31fe0de5c2b2f7012242c6701b21f7","text":"Trừ ô tô và xăng, doanh số giảm 0,2% theo tháng. So với tháng 7/2025, doanh số tăng 4,8%.","synthesis_text":"Trừ ô tô và xăng, doanh số giảm không phẩy hai phần trăm theo tháng. So với tháng bảy năm hai nghìn không trăm hai mươi lăm, doanh số tăng bốn phẩy tám phần trăm.","truth_anchors":[
+          {"id":"DOWN_0_2_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-0.2 percent month over month","source_surface":"down 0.2 percent","display_surface":"giảm 0,2%","spoken_surface":"giảm không phẩy hai phần trăm"},
+          {"id":"UP_4_8_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+4.8 percent year over year","source_surface":"up 4.8 percent","display_surface":"tăng 4,8%","spoken_surface":"tăng bốn phẩy tám phần trăm"},
+          {"id":"CORE_DATE_JULY_2025","kind":"DATE","canonical_value":"2025-07","source_surface":"July 2025","display_surface":"tháng 7/2025","spoken_surface":"tháng bảy năm hai nghìn không trăm hai mươi lăm"}
+        ]},
+        {"segment_id":"vehicles","kind":"FACT","source_text_sha256":"ba17db4405c5944cc091a517631f4df83f6286ae1cfb895fbb99efa1667f7856","text":"Đại lý ô tô và phụ tùng giảm 1,8% theo tháng.","synthesis_text":"Đại lý ô tô và phụ tùng giảm một phẩy tám phần trăm theo tháng.","truth_anchors":[{"id":"DOWN_1_8_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-1.8 percent month over month","source_surface":"fell 1.8 percent","display_surface":"giảm 1,8%","spoken_surface":"giảm một phẩy tám phần trăm"}]},
+        {"segment_id":"nonstore","kind":"FACT","source_text_sha256":"8cbd3fd4771b8490e5c52b817068f41f0890a04b8f4670eab376cb3ae2766420","text":"Bán lẻ không qua cửa hàng giảm 2,2% theo tháng.","synthesis_text":"Bán lẻ không qua cửa hàng giảm hai phẩy hai phần trăm theo tháng.","truth_anchors":[{"id":"DOWN_2_2_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-2.2 percent month over month","source_surface":"fell 2.2 percent","display_surface":"giảm 2,2%","spoken_surface":"giảm hai phẩy hai phần trăm"}]},
+        {"segment_id":"food_service","kind":"FACT","source_text_sha256":"de580d1ee6a30fc76f721058f9f7b1d94ca7164c26868f5fc662205d0c8cf534","text":"Dịch vụ ăn uống tăng 0,5% theo tháng.","synthesis_text":"Dịch vụ ăn uống tăng không phẩy năm phần trăm theo tháng.","truth_anchors":[{"id":"UP_0_5_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+0.5 percent month over month","source_surface":"rose 0.5 percent","display_surface":"tăng 0,5%","spoken_surface":"tăng không phẩy năm phần trăm"}]},
+        {"segment_id":"caveat_setup","kind":"ENGAGEMENT","source_text_sha256":"1d484e0023419511422a6742815053f885986f2e1cb9249bde85682b52d81005","text":"Trước khi kết luận về người tiêu dùng, hãy nhớ giới hạn đo lường.","synthesis_text":"Trước khi kết luận về người tiêu dùng, hãy nhớ giới hạn đo lường.","truth_anchors":[]},
+        {"segment_id":"measurement","kind":"FACT","source_text_sha256":"4617a66ec2b3d1a9ea8795b94d854625f935fd8fd556ed187e07581b2ae594ba","text":"Cục Điều tra Dân số Hoa Kỳ điều chỉnh theo mùa, ngày lễ và ngày giao dịch, nhưng không điều chỉnh theo biến động giá.","synthesis_text":"Cục Điều tra Dân số Hoa Kỳ điều chỉnh theo mùa, ngày lễ và ngày giao dịch, nhưng không điều chỉnh theo biến động giá.","truth_anchors":[
+          {"id":"INSTITUTION_CENSUS","kind":"INSTITUTION","canonical_value":"U.S. Census Bureau","source_surface":"Census","display_surface":"Cục Điều tra Dân số Hoa Kỳ","spoken_surface":"Cục Điều tra Dân số Hoa Kỳ"},
+          {"id":"NEGATION_PRICE","kind":"NEGATION","canonical_value":"not adjusted for price changes","source_surface":"not for price changes","display_surface":"không điều chỉnh theo biến động giá","spoken_surface":"không điều chỉnh theo biến động giá"}
+        ]},
+        {"segment_id":"close","kind":"ENGAGEMENT","source_text_sha256":"2c048f9240b20c5cd1a9318c6cce6cb3f47b85534a1c24c7b5ff9c794561be9d","text":"Một báo cáo, nhiều hướng đi, và một tiêu đề cần chú thích.","synthesis_text":"Một báo cáo, nhiều hướng đi, và một tiêu đề cần chú thích.","truth_anchors":[]}
+      ]
+    },
+    "ko": {
+      "locale": "ko",
+      "spoken_decimal_convention": "점",
+      "segments": [
+        {"segment_id":"hook","kind":"ENGAGEMENT","source_text_sha256":"2248284bde0ccb054c0faf049a2430b2ecb339bc98f977d995564e2d63d97fe6","text":"먼저 7월 소매판매 헤드라인을 보겠습니다. 그 아래 내용을 살펴보죠.","synthesis_text":"먼저 칠월 소매판매 헤드라인을 보겠습니다. 그 아래 내용을 살펴보죠.","truth_anchors":[]},
+        {"segment_id":"topline","kind":"FACT","source_text_sha256":"6f7dacde0ec375b228f311720f328b855dfccf276d07fbfcfee667d3227961a4","text":"미국 소매·외식 서비스 매출은 2026년 7월 763.6십억 달러였습니다. 6월보다 0.6% 감소했고 2025년 7월보다 5.0% 증가했습니다.","synthesis_text":"미국 소매 외식 서비스 매출은 이천이십육년 칠월 칠백육십삼 점 육 십억 달러였습니다. 유월보다 영 점 육 퍼센트 감소했고 이천이십오년 칠월보다 오 점 영 퍼센트 증가했습니다.","truth_anchors":[
+          {"id":"ENTITY_US","kind":"ENTITY","canonical_value":"United States","source_surface":"U.S.","display_surface":"미국","spoken_surface":"미국"},
+          {"id":"MONEY_763_6B","kind":"CURRENCY","canonical_value":"USD 763.6 billion","source_surface":"$763.6 billion","display_surface":"763.6십억 달러","spoken_surface":"칠백육십삼 점 육 십억 달러"},
+          {"id":"DATE_JULY_2026","kind":"DATE","canonical_value":"2026-07","source_surface":"July 2026","display_surface":"2026년 7월","spoken_surface":"이천이십육년 칠월"},
+          {"id":"DOWN_0_6_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-0.6 percent month over month","source_surface":"down 0.6 percent","display_surface":"0.6% 감소","spoken_surface":"영 점 육 퍼센트 감소"},
+          {"id":"UP_5_0_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+5.0 percent year over year","source_surface":"up 5.0 percent","display_surface":"5.0% 증가","spoken_surface":"오 점 영 퍼센트 증가"},
+          {"id":"DATE_JULY_2025","kind":"DATE","canonical_value":"2025-07","source_surface":"July 2025","display_surface":"2025년 7월","spoken_surface":"이천이십오년 칠월"}
+        ]},
+        {"segment_id":"pivot","kind":"ENGAGEMENT","source_text_sha256":"35073ab50460eb43535a687fdebdc09468d5a4258ed4e894e65fdf72266833f5","text":"그렇다면 월간 변화는 실제로 어디에서 나타났을까요?","synthesis_text":"그렇다면 월간 변화는 실제로 어디에서 나타났을까요?","truth_anchors":[]},
+        {"segment_id":"core_measure","kind":"FACT","source_text_sha256":"9744fe690d634f661054d4eecd4553775a31fe0de5c2b2f7012242c6701b21f7","text":"자동차와 휘발유를 제외한 매출은 6월보다 0.2% 감소했습니다. 2025년 7월보다는 4.8% 증가했습니다.","synthesis_text":"자동차와 휘발유를 제외한 매출은 유월보다 영 점 이 퍼센트 감소했습니다. 이천이십오년 칠월보다는 사 점 팔 퍼센트 증가했습니다.","truth_anchors":[
+          {"id":"DOWN_0_2_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-0.2 percent month over month","source_surface":"down 0.2 percent","display_surface":"0.2% 감소","spoken_surface":"영 점 이 퍼센트 감소"},
+          {"id":"UP_4_8_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+4.8 percent year over year","source_surface":"up 4.8 percent","display_surface":"4.8% 증가","spoken_surface":"사 점 팔 퍼센트 증가"},
+          {"id":"CORE_DATE_JULY_2025","kind":"DATE","canonical_value":"2025-07","source_surface":"July 2025","display_surface":"2025년 7월","spoken_surface":"이천이십오년 칠월"}
+        ]},
+        {"segment_id":"vehicles","kind":"FACT","source_text_sha256":"ba17db4405c5944cc091a517631f4df83f6286ae1cfb895fbb99efa1667f7856","text":"자동차·부품 판매점 매출은 6월보다 1.8% 감소했습니다.","synthesis_text":"자동차 부품 판매점 매출은 유월보다 일 점 팔 퍼센트 감소했습니다.","truth_anchors":[{"id":"DOWN_1_8_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-1.8 percent month over month","source_surface":"fell 1.8 percent","display_surface":"1.8% 감소","spoken_surface":"일 점 팔 퍼센트 감소"}]},
+        {"segment_id":"nonstore","kind":"FACT","source_text_sha256":"8cbd3fd4771b8490e5c52b817068f41f0890a04b8f4670eab376cb3ae2766420","text":"무점포 소매 매출은 6월보다 2.2% 감소했습니다.","synthesis_text":"무점포 소매 매출은 유월보다 이 점 이 퍼센트 감소했습니다.","truth_anchors":[{"id":"DOWN_2_2_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"-2.2 percent month over month","source_surface":"fell 2.2 percent","display_surface":"2.2% 감소","spoken_surface":"이 점 이 퍼센트 감소"}]},
+        {"segment_id":"food_service","kind":"FACT","source_text_sha256":"de580d1ee6a30fc76f721058f9f7b1d94ca7164c26868f5fc662205d0c8cf534","text":"외식 서비스 매출은 6월보다 0.5% 증가했습니다.","synthesis_text":"외식 서비스 매출은 유월보다 영 점 오 퍼센트 증가했습니다.","truth_anchors":[{"id":"UP_0_5_PERCENT","kind":"DIRECTION_NUMBER_UNIT","canonical_value":"+0.5 percent month over month","source_surface":"rose 0.5 percent","display_surface":"0.5% 증가","spoken_surface":"영 점 오 퍼센트 증가"}]},
+        {"segment_id":"caveat_setup","kind":"ENGAGEMENT","source_text_sha256":"1d484e0023419511422a6742815053f885986f2e1cb9249bde85682b52d81005","text":"이 구성을 소비자 판단으로 바꾸기 전에 측정 한계를 봐야 합니다.","synthesis_text":"이 구성을 소비자 판단으로 바꾸기 전에 측정 한계를 봐야 합니다.","truth_anchors":[]},
+        {"segment_id":"measurement","kind":"FACT","source_text_sha256":"4617a66ec2b3d1a9ea8795b94d854625f935fd8fd556ed187e07581b2ae594ba","text":"미국 인구조사국 추정치는 계절·휴일·거래일 차이를 조정합니다. 그러나 가격 변동은 조정하지 않습니다.","synthesis_text":"미국 인구조사국 추정치는 계절 휴일 거래일 차이를 조정합니다. 그러나 가격 변동은 조정하지 않습니다.","truth_anchors":[
+          {"id":"INSTITUTION_CENSUS","kind":"INSTITUTION","canonical_value":"U.S. Census Bureau","source_surface":"Census","display_surface":"미국 인구조사국","spoken_surface":"미국 인구조사국"},
+          {"id":"NEGATION_PRICE","kind":"NEGATION","canonical_value":"not adjusted for price changes","source_surface":"not for price changes","display_surface":"가격 변동은 조정하지 않습니다","spoken_surface":"가격 변동은 조정하지 않습니다"}
+        ]},
+        {"segment_id":"close","kind":"ENGAGEMENT","source_text_sha256":"2c048f9240b20c5cd1a9318c6cce6cb3f47b85534a1c24c7b5ff9c794561be9d","text":"하나의 보고서, 여러 방향, 그리고 각주가 필요한 헤드라인입니다.","synthesis_text":"하나의 보고서, 여러 방향, 그리고 각주가 필요한 헤드라인입니다.","truth_anchors":[]}
+      ]
+    }
+  }
+}

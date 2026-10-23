@@ -1,0 +1,332 @@
+{
+  "schema": "contentops.goal39.private_integration_evidence.v1",
+  "status": "PARTIAL_NATIVE_MEDIA_COMPLETION_PENDING",
+  "base_head": "a1b08f96bf551681bca8196038f8b7060def4fd1",
+  "donor_head": "10d18873e2d716dcd53b681a4370ef7726a27f9b",
+  "source_epoch": "UNCOMMITTED_SCOPED_GOAL39_SOURCE_ON_RECORDED_BASE; job implementation_head is base identity, not proof those bytes were committed",
+  "qualification": {
+    "result": "NO_GENUINE_QUALIFIED_CANDIDATE_NO_VIDEO",
+    "decision_count": 7,
+    "qualified_count": 0,
+    "abstain_count": 7,
+    "created_job_count": 0
+  },
+  "v1_read_only": {
+    "sqlite_uri_mode": "ro",
+    "pragma_query_only": 1,
+    "connection_total_changes": 0,
+    "write_api_exposed": false,
+    "data_version_before": 2,
+    "data_version_after": 2,
+    "data_version_stable_during_read": true,
+    "database_size_before": 2785280,
+    "database_size_after": 2785280,
+    "database_mtime_ns_before": 1792601785025787800,
+    "database_mtime_ns_after": 1792601785025787800,
+    "database_stat_stable_during_read": true,
+    "v1_write_count": 0
+  },
+  "jobs": [
+    {
+      "video_job_id": "g39-retail",
+      "run_id": "run_60474ad47f7d414d8c17413145fec6f9",
+      "state": "RUNNING",
+      "last_valid_checkpoint": "ACTUAL_NARRATION_TIMING_LOCKED",
+      "resume_count": 1,
+      "stage_events": [
+        {
+          "stage": "CLAIMED",
+          "result": "PASS_ATOMIC_CLAIM_WITH_HIGH_PARENT_PROVENANCE"
+        },
+        {
+          "stage": "GOVERNED_INPUT_LOCKED",
+          "result": "PASS_GOVERNED_INPUT_LOCK"
+        },
+        {
+          "stage": "CREATIVE_EDITOR_LOCKED",
+          "result": "PASS_CREATIVE_EDITOR_LOCK"
+        },
+        {
+          "stage": "ACTUAL_NARRATION_TIMING_LOCKED",
+          "result": "PASS_ACTUAL_NARRATION_TIMING_LOCK"
+        }
+      ]
+    },
+    {
+      "video_job_id": "g39-japan",
+      "run_id": "run_3615db290d094769a0b8db85708657a5",
+      "state": "RUNNING",
+      "last_valid_checkpoint": "GOVERNED_INPUT_LOCKED",
+      "resume_count": 0,
+      "stage_events": [
+        {
+          "stage": "CLAIMED",
+          "result": "PASS_ATOMIC_CLAIM_WITH_HIGH_PARENT_PROVENANCE"
+        },
+        {
+          "stage": "GOVERNED_INPUT_LOCKED",
+          "result": "PASS_GOVERNED_INPUT_LOCK"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "governed_story_cases": 2,
+    "current_news_winners": 0,
+    "fresh_native_editorial_returns": 1,
+    "fresh_native_motion_returns": 0,
+    "fresh_native_completed_factory_packages": 0,
+    "current_contract_narration_locks": 1,
+    "new_retained_technical_picture_renders": 1,
+    "new_retained_audio_mixes": 1,
+    "retained_technical_packages": 1,
+    "caption_only_successor_packages": 1,
+    "caption_delta_picture_renders": 0,
+    "caption_delta_syntheses": 0,
+    "cache_hits": 1,
+    "locale_registry": 23,
+    "surface_registry": 6,
+    "public_or_platform_draft_writes": 0
+  },
+  "native_limit": {
+    "task": "/root/goal39_retail_native_editor",
+    "editorial": "SAVED_VALIDATED",
+    "motion": "FAILED_BEFORE_RETURN_ACCOUNT_USAGE_LIMIT",
+    "actual_runtime_model_attestation": "NOT_AVAILABLE"
+  },
+  "retained_technical_gate": {
+    "result": "HOLD_RETAINED_TRANSCRIPT_CURRENT_CONTRACT",
+    "reason": "canonical_transcript_segment_text_mismatch:topline"
+  },
+  "retained_media_quality": {
+    "browser": "BrowserOS Neo actual file review; 58.4seconds1080x1920readyState4;10sidecar cues loaded via exact embedded VTT blob after file-origin loading failed",
+    "builder_visual_samples_seconds": [
+      14,
+      41
+    ],
+    "observations": [
+      "Caption block has five lines at14seconds and obscures lower card; three lines overlap food-services card at41seconds.",
+      "Contact sheet entrance sample clips part of left label; stable41second frame shows card but captions obscure it."
+    ],
+    "decision": "HOLD_VIEWER_FACING_QUALITY",
+    "independent_review": "NOT_VERIFIED",
+    "hearing": "NOT_VERIFIED",
+    "rights_release": "NOT_GRANTED",
+    "fresh_native_creativity_claimed": false
+  },
+  "focused_tests": {
+    "changed_and_donor_contract_selection": "24 passed (latest selective picture dependency case included)",
+    "expanded_existing_substrate_selection": "56 passed, 1 failed",
+    "failure": "test_video_only_chapter_render_never_regenerates_audio: missing ignored grocery_cashier_pexels_4121754.mp4",
+    "baseline_reproduction": "Same exact failure reproduced in unchanged PR90 base checkout; no gate weakened"
+  },
+  "surface_locale": {
+    "package_id": "pkg_9bba95a5d2afbffac93c22bebd3cb98a315009ff4b9504f983a702ee43448716",
+    "package_scope": "RETAINED_TECHNICAL_REPLAY_NOT_CURRENT_FACTORY_ACCEPTED",
+    "surface_count": 6,
+    "surfaces": [
+      {
+        "surface": "YOUTUBE_NORMAL_VIDEO",
+        "result": "FORMAT_INCOMPATIBLE_NO_ATTEMPT",
+        "reason": "YOUTUBE_NORMAL_VIDEO requires LONGFORM_16_9, got SHORT_9_16"
+      },
+      {
+        "surface": "YOUTUBE_SHORTS",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_ee4d948b1e8abf80bd56bbf8c07ecb4e7bd00b3f2608a518fb2e6178219fb425",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      },
+      {
+        "surface": "TIKTOK",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_acf8f92972a3c6ce93b089ec680417ecac3a35e650fc94840912202d4a3d4d5b",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      },
+      {
+        "surface": "INSTAGRAM_REELS",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_ae7aed37136b58fd90c956c942c050f8d5a9c18b93b99a1854f78286f4ad0d56",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      },
+      {
+        "surface": "INSTAGRAM_STORIES",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_cf639064b2203c8adbf817011d480c4b6140bd8976ce0a41698fe6e78692e948",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      },
+      {
+        "surface": "FACEBOOK_REELS",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_f1a8aeb753a0a269219b415e163642211aec939b9452be48e5b254427602c960",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      }
+    ],
+    "actual_provider_calls": 0,
+    "public_writes": 0,
+    "locale_count": 23,
+    "locale_profiles": {
+      "CORE_ALWAYS_ON": 12,
+      "EXPANSION_CONFIGURED": 11
+    },
+    "locale_statuses": {
+      "CANONICAL_EXISTING": 1,
+      "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED": 3,
+      "CAPABILITY_DECLARED_VOICE_PENDING": 19
+    }
+  },
+  "artifacts": {
+    "retail-step1.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-step1.json",
+      "sha256": "47158bfa5e53a162bc9b837f3b1d801e1cb147555b527d8486dd657462cc53d9",
+      "size_bytes": 6567
+    },
+    "retail-editor-lock.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-editor-lock.json",
+      "sha256": "c5f9b760bf532ee9fe5db361755a811b95685e17af210ec02f29906080d70341",
+      "size_bytes": 6197
+    },
+    "retail-audio-timing.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-audio-timing.json",
+      "sha256": "bd53fb1af62743cebf64ef645cf984903d843195827fe6b90b4eee083ed049e0",
+      "size_bytes": 6584
+    },
+    "retail-motion-request.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-motion-request.json",
+      "sha256": "69c496558576e0341e24d8069249629bd6f57ce9228d0e030fe9b01faacffd05",
+      "size_bytes": 6541
+    },
+    "japan-step1.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\japan-step1.json",
+      "sha256": "23ecd4b60c5fe84d1c050099fe35358d5bf5937f9924b99f64af7b92528f057f",
+      "size_bytes": 6553
+    },
+    "exact-dedupe.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\exact-dedupe.json",
+      "sha256": "2d342f774f1dc676481eadfb4d6f24ade79da286a6c178d28f20f0ac1c925a5a",
+      "size_bytes": 880
+    },
+    "durable-qualification.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\durable-qualification.json",
+      "sha256": "e1200f02eee36a92ada70864da9c6eb22468f843d76577a721bf333a17bbd2bd",
+      "size_bytes": 16585
+    },
+    "surface-locale-preservation.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\surface-locale-preservation.json",
+      "sha256": "c38641983a6742f1bf0208879cc55c66ab012926c60808cd91de7fc077906244",
+      "size_bytes": 2403
+    },
+    "native-returns/retail-editor.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\native-returns\\retail-editor.json",
+      "sha256": "ca61341641308346daf72e7150aa0a9812cc7192dfd28d1133add4625dfa226b",
+      "size_bytes": 3137
+    },
+    "runtime/jobs/g39-retail/desktop_session_inbox/request_motion_visual.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\desktop_session_inbox\\request_motion_visual.json",
+      "sha256": "d29083ec755b466de46c2900e3fe7e781fa68432b7820d79768d58d3217f5e42",
+      "size_bytes": 1474
+    },
+    "retained-media/admission.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\admission.json",
+      "sha256": "120715d56cb561cf06f5ab78dc91c0cccac8509463c0232f7e623fc1bd08a350",
+      "size_bytes": 8854
+    },
+    "retained-media/picture.mp4.cache.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\picture.mp4.cache.json",
+      "sha256": "15c4be7df3c69a661d0a72574c80751994c5ddc427c67bb6cb96ffe8e2199e69",
+      "size_bytes": 275
+    },
+    "retained-media/package_receipt.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\package_receipt.json",
+      "sha256": "4b406ae3b40e707a943dd664666392c837359b67fbbf7cde45a3904d2564bb3b",
+      "size_bytes": 6904
+    },
+    "retained-media/picture-reuse-proof.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\picture-reuse-proof.json",
+      "sha256": "40ad4b2ba9cb2d1162323891ba9265eb59b412d6dc289de983de35438ace8e2e",
+      "size_bytes": 1662
+    },
+    "retained-media/package/manifest.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\package\\manifest.json",
+      "sha256": "f958426c107b5b166d06518ad54ef2048384182f85c514be5191bf4af14feb1f",
+      "size_bytes": 6994
+    },
+    "retained-media/caption-revision/reuse_receipt.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\caption-revision\\reuse_receipt.json",
+      "sha256": "557df3dd81db4b62ab3db9b07381b3612c2ae2dc19c1e24e82778e2c3aaca53f",
+      "size_bytes": 1067
+    },
+    "retained-media/caption-revision/platform_neutral_package_manifest.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\caption-revision\\platform_neutral_package_manifest.json",
+      "sha256": "2888f8ab24704c99517cc25ef12299e88831534496ead43fa6d88af0003e07ee",
+      "size_bytes": 7036
+    },
+    "retained-media/final_contact_sheet.jpg": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\final_contact_sheet.jpg",
+      "sha256": "f729dedb011ab09121ce0ab3640b2ee95097ed44d97786588268a639107a8443",
+      "size_bytes": 223550
+    },
+    "retained-media/review.html": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\review.html",
+      "sha256": "50b42c78865e8a1feed548bd09da22b84567c31c16cf74f29b753c9a38806101",
+      "size_bytes": 3372
+    },
+    "focused-tests.txt": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\focused-tests.txt",
+      "sha256": "fa0a997a07139987ede114cceb10ca04c2b0a47c1c3b6485915a948e71fe8117",
+      "size_bytes": 2592
+    },
+    "retained-render-stdout.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-render-stdout.json",
+      "sha256": "461a7703e2089a2ee2b65668b17abd7f4626458a8fa1e9d156e5f138a4b2b788",
+      "size_bytes": 154
+    },
+    "retained-render-reuse-stdout.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-render-reuse-stdout.json",
+      "sha256": "d38026f95082cd7ddfa17511db404969f70edec3809b2178ec95907118bec66d",
+      "size_bytes": 149
+    },
+    "changed-tests-final.txt": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\changed-tests-final.txt",
+      "sha256": "2d428379cf0f2c9884af88f2f6d4e226e9834b4d7e14f15d4a845b3db822d9fd",
+      "size_bytes": 101
+    },
+    "actual-selective-picture-dependencies.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\actual-selective-picture-dependencies.json",
+      "sha256": "b77db3d620b704c4e2b67ec3f45e49ca9cb45e372e15e764d62f50814c36753f",
+      "size_bytes": 2023
+    }
+  },
+  "zero_authority": {
+    "runtime_activation": false,
+    "scheduler_mutation": false,
+    "platform_account_action": false,
+    "public_write": false,
+    "paid_execution": false,
+    "v1_mutation": false,
+    "fresh_source_crawl": false,
+    "completion_notice_sent": false
+  },
+  "resume": "After authorized native creative capacity is available, resume existing /root/goal39_retail_native_editor on exact request_motion_visual.json. Ingest actual return, step saved g39-retail run, inspect actual proxy, complete current-contract package and caption-only revision; do not substitute retained replay as current acceptance.",
+  "cache_source_epoch": "Actual render/cache hit preceded final selective dependency tightening. Its historical key and output preserved; final actual dependency closure11files confirmed; no final-epoch rerender claimed.",
+  "tested_source_bytes": {
+    "video/unattended_core_factory_v1/caption_revision.py": "867254eb75294dcf16cbf639f5731b4fe5cd89f29e942fa7fc1b7461c848f6e1",
+    "video/unattended_core_factory_v1/creative.py": "9999eacd59e4474f50b10d8afdb5060eb1dac1a7c008270c0ad56f47e00ecda3",
+    "video/unattended_core_factory_v1/desktop_session.py": "4bd3da380a14d4ed227964e8d1798e3f910d6e503beefe0b6e68f00975e7cf77",
+    "video/unattended_core_factory_v1/manual.py": "176621509243b7a17bfebd4cf7a42b244f819ec0c3bdbb83854fad70b0af2ed6",
+    "video/unattended_core_factory_v1/media.py": "2c0bca04a4868387403ab6f97aaa7449b5d40c59d4f3e95ecee2ab5aafb9767d",
+    "video/unattended_core_factory_v1/store.py": "716af4cbee34e5c11c1657f069b0569fba7d49cf0fe90b89dfef25b7388b56ca",
+    "video/unattended_core_factory_v1/supervisor.py": "60ffe1a80e62d210745dec78f92ecce5a2ebd7e63e00813a533a2a5f6fcccb9c",
+    "video/unattended_core_factory_v1/transcript.py": "d148fbe84ab2594bf39bde8b1c5eb01ab9a8aec6259a8e34999d3ee083bf2d9c",
+    "video/unattended_core_factory_v1/__init__.py": "3b26f97c783899dd582e71fc68520c684f8bd50ab98b17e01a552ad3d97c6c36",
+    "video/locale_activation_hardening_v1/factory.py": "4fc1063a6afc90d810b20ef3402c139d3d4cddcda7a6fcec9b4195c63931f20c",
+    "video/locale_activation_hardening_v1/timeline_correction.py": "86e7fc259fcc97ce2a8df961b955f16b7df08643d8a09130432d367157ce3509",
+    "video/locale_activation_hardening_v1/__init__.py": "32f86fbb2afcd9d9a2edef6c54dac696cb20bd4aeaff1b8a1bdbe96c5804ce68",
+    "video/daily_operator_v1.py": "4a4f1bc387793cea437130bf23bd19c0f073a6152571ac35cb0a809bc978179a",
+    "video/freeform_chapter_pipeline_v1/pipeline.py": "7eadcb2563b75e604359abdfd21d6e26fd62b16c6e065ed5c6430018d1dae453"
+  }
+}
