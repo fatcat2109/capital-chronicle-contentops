@@ -1,0 +1,260 @@
+{
+  "schema": "contentops.goal40.second_correction_evidence.v1",
+  "goal": "Goal40",
+  "goal_complete": false,
+  "public_write_authority": false,
+  "independent_recheck": "PENDING",
+  "exact_request": {
+    "goal": "Goal40",
+    "kind": "INDEPENDENT_SECOND_CORRECTION_CLOSURE_REVIEW",
+    "scope": [
+      "video/freeform_chapter_pipeline_v1/native_narrative.py",
+      "video/freeform_chapter_pipeline_v1/current_locale.py",
+      "video/freeform_chapter_pipeline_v1/pipeline.py",
+      "video/unattended_core_factory_v1/caption_revision.py",
+      "video/unattended_core_factory_v1/caption_alignment.py",
+      "video/unattended_core_factory_v1/manual.py",
+      "video/unattended_core_factory_v1/supervisor.py",
+      "video/unattended_core_factory_v1/store.py",
+      "video/unattended_core_factory_v1/media.py",
+      "tests/test_v2_goal40_current_locale.py",
+      "tests/test_v2_goal40_recovery_and_captions.py",
+      "tests/test_v2_goal40_successor_atomicity.py"
+    ],
+    "bindings": {
+      "video/freeform_chapter_pipeline_v1/native_narrative.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\freeform_chapter_pipeline_v1\\native_narrative.py",
+        "sha256": "00d3baf8e4b4a9236f6e1451a40112fd2f19bf4c4fb19fd3cb9bf2187620877a"
+      },
+      "video/freeform_chapter_pipeline_v1/current_locale.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\freeform_chapter_pipeline_v1\\current_locale.py",
+        "sha256": "4676cbefed1848f8e594ccc03e0aca8963c061ff5734343968aa4e0ae7e4d7f1"
+      },
+      "video/freeform_chapter_pipeline_v1/pipeline.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\freeform_chapter_pipeline_v1\\pipeline.py",
+        "sha256": "d113b8a8fe41a02994e5dda4bd4c03467b92d836fbbd30003124dae979b3501f"
+      },
+      "video/unattended_core_factory_v1/caption_revision.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\unattended_core_factory_v1\\caption_revision.py",
+        "sha256": "eee6bb808558b598f30c0464a63a593c8ef6b84038f13bdcea81dd88226800d9"
+      },
+      "video/unattended_core_factory_v1/caption_alignment.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\unattended_core_factory_v1\\caption_alignment.py",
+        "sha256": "b70a9d0dddd81e29f857a44d2f4663745a5aa68fa28ac44c524571a10001a2ed"
+      },
+      "video/unattended_core_factory_v1/manual.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\unattended_core_factory_v1\\manual.py",
+        "sha256": "fe21b389184da1b5a55bff0aa10fbd24882b6bbac9e24087af3399b5d658c5a9"
+      },
+      "video/unattended_core_factory_v1/supervisor.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\unattended_core_factory_v1\\supervisor.py",
+        "sha256": "5beb6f835aacb0342db528c8558694ee68a712f1bb484c0a9116646dcd9eca47"
+      },
+      "video/unattended_core_factory_v1/store.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\unattended_core_factory_v1\\store.py",
+        "sha256": "50f4ed1fbc21e1e119ad5283fcea8fbde78cd287484fae1e80cdd60b2184c7da"
+      },
+      "video/unattended_core_factory_v1/media.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\video\\unattended_core_factory_v1\\media.py",
+        "sha256": "5bca9210ed90b438e48f51137da9c3e7487b5a5e4b291137c934d756343c72e3"
+      },
+      "tests/test_v2_goal40_current_locale.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\tests\\test_v2_goal40_current_locale.py",
+        "sha256": "9ea2b660e0365896e6148d1167391eebf2b9ea866b25ad820ecd6402f8586efe"
+      },
+      "tests/test_v2_goal40_recovery_and_captions.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\tests\\test_v2_goal40_recovery_and_captions.py",
+        "sha256": "f59d50fbed89f2f5446945ac3cb69fa1b655cced12de2daa3415edfbb99d8f16"
+      },
+      "tests/test_v2_goal40_successor_atomicity.py": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\tests\\test_v2_goal40_successor_atomicity.py",
+        "sha256": "600276c5d63f77e092d32ba3242705285518a01ac59713fd197663fc9ad9244f"
+      },
+      "previous_review": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\native-returns\\independent-correction-review.json",
+        "sha256": "a310876af397c649e302a762deec33d274d142b36c7ab32f5943e84767ac99fe"
+      },
+      "longform_package": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\longform\\goal40-provenance-closure\\package_reflowed_phrases\\manifest.json",
+        "sha256": "613fb5b3034901cbc7c7fdf48e78ddcb431559bb582aceda32b07f27cfb276ef"
+      },
+      "locale_package": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-closure\\manifest.json",
+        "sha256": "8d916ba2f399ec0d38495684f1a4295663d121891cbd58a5ab736787506b95bd"
+      },
+      "actual_locale_replay": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-locale-replay.json",
+        "sha256": "72f4eb1be7084825072915781db69074493e843c3e09f686f7ff8cbd84b079b1"
+      },
+      "actual_recovery_replay": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-recovery-ready-replay.json",
+        "sha256": "454189e1512b89a6ea8acbc88f2d5d98f0d64730a7c4157453b0d2fbbed7a55b"
+      },
+      "actual_current_packages": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-current-package-readback.json",
+        "sha256": "d141fa901e4eb46ca797dbc8f52d7d1d3ac8a9645557501223d1ec37b3ba8a96"
+      },
+      "final_recovery_tests": {
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-recovery-final-tests.txt",
+        "sha256": "ec4956c8a4ec3b777e5b7c0c77d0372988eb2f2c3592c523fd2aa56b36dd3824"
+      }
+    },
+    "tests": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-full-tests.txt",
+      "sha256": "43fab9190f0f4b160267ae1c76ae20c2dbef6dd3b8848a2acda22e6548b5277d"
+    },
+    "public_write_authority": false,
+    "requested_model": "gpt-5.6-sol",
+    "requested_reasoning_effort": "xhigh",
+    "instructions": "Bounded disposition of the four findings from previous_review against the exact updated source. Check negative semantic paths, re-derived and ledger-sealed recovery setup including before input, accepted package/picture snapshots between successor appends, mux filesystem/ledger interruption replay. Preserve earlier resolved findings. Report material actionable defects only; do not restart broad audit, author creative content, mutate runtime/source, or infer AV/hearing/rights acceptance."
+  },
+  "focused_tests": {
+    "command": "python -m pytest -q tests/test_v2_current_native_factory_integration.py tests/test_v2_goal40_chapter_phrase_reflow.py tests/test_v2_goal40_current_locale.py tests/test_v2_goal40_longform_ingress.py tests/test_v2_goal40_picture_successor.py tests/test_v2_goal40_recovery_and_captions.py tests/test_v2_goal40_successor_atomicity.py",
+    "output": "...................................................................      [100%]\n67 passed in 22.49s\n"
+  },
+  "final_recovery_tests": "...........                                                              [100%]\n11 passed in 5.30s\n",
+  "actual_recovery_replay": {
+    "result": "RECOVERY_SETUP_VERIFIED_ALREADY_OWNER_REVIEW_READY",
+    "required_input": null,
+    "video_job_id": "g39-japan",
+    "run_id": "run_3615db290d094769a0b8db85708657a5",
+    "last_valid_checkpoint": "OWNER_REVIEW_READY",
+    "executed_stages": [],
+    "idempotent_replay": true
+  },
+  "actual_locale_replay": {
+    "result": "PRIVATE_CURRENT_LOCALE_PACKAGE_BUILT",
+    "holds": [],
+    "measurements": [
+      {
+        "segment_id": "dated-context",
+        "measured_seconds": 3.541333333333333,
+        "available_seconds": 5.344
+      },
+      {
+        "segment_id": "retail-total",
+        "measured_seconds": 11.329333333333334,
+        "available_seconds": 15.072
+      },
+      {
+        "segment_id": "vehicle-dealers",
+        "measured_seconds": 3.6906666666666665,
+        "available_seconds": 4.5546669999999985
+      },
+      {
+        "segment_id": "nonstore-retailers",
+        "measured_seconds": 2.944,
+        "available_seconds": 3.5093330000000016
+      },
+      {
+        "segment_id": "food-services",
+        "measured_seconds": 4.053333333333334,
+        "available_seconds": 4.938666999999999
+      },
+      {
+        "segment_id": "price-boundary",
+        "measured_seconds": 6.414666666666665,
+        "available_seconds": 7.321333000000003
+      }
+    ],
+    "native_task_id": "/root/goal40_longform_caption_timing",
+    "identity": {
+      "native_request_sha256": "70f053a49c8e3d951cb000b6aa0c50bf1bb6a65ac1cee523c6fb58aeed419795",
+      "native_return_sha256": "82394880c63671795c80c900e6a54945ee5400aca76339da8023b9eb3ff15ed2",
+      "source_package_sha256": "779dd133760f1aa65180a2e0b70af5d0d314f2f05075fbac330c73a6b5210bd9",
+      "model_sha256": "7d5df8ecf7d4b1878015a32686053fd0eebe2bc377234608764cc0ef3636a6c5",
+      "voices_sha256": "bca610b8308e8d99f32e6fe4197e7ec01679264efed0cac9140fe9c29f1fbf7d",
+      "registry_sha256": "dabadcea37b0b681d7fde265b003762c3e266da957c40817b7b799d9b176a0c3"
+    },
+    "voice_candidate_status": "JIM_LISTENING_GATE_REQUIRED",
+    "hearing": "NOT_VERIFIED",
+    "translation_semantic_review": "NATIVE_ASSIGNED_ROLE_PLUS_EXACT_SOURCE_NUMERIC_BINDING_CHECKS",
+    "public_write_authority": false,
+    "picture_render_count": 0,
+    "external_cost_usd": 0,
+    "speed_changed_from_registry": false,
+    "manifest": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-closure\\manifest.json",
+    "package_id": "pkg_76245fc4e5d4c5a7a93a04f6cd0be0d744048bf30b7123a6172ad675ddd5301f",
+    "picture_identity": {
+      "result": "PASS_PICTURE_STREAM_AND_FRAME_IDENTITY",
+      "source": {
+        "artifact": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-measured-phrases\\clean.mp4",
+          "sha256": "f51e453a46e376ce149dcd3ce26e341a5b8290a2900e2c0e04ece72195e499e4",
+          "size_bytes": 13148131
+        },
+        "video_stream_sha256": "906e9b839ff4c4dbdd97b546b2d149c223933a3033fc3b6561067a783faffdf3",
+        "frame_count": 1230,
+        "video_duration_seconds": 41.0,
+        "codec": "h264",
+        "profile": "High",
+        "width": 1080,
+        "height": 1920,
+        "pixel_format": "yuvj420p",
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "color_transfer": null,
+        "color_primaries": null,
+        "format_duration_seconds": 41.0
+      },
+      "localized_mux": {
+        "artifact": {
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-provenance-closure\\locale.es.mp4",
+          "sha256": "5f3bcb731660fd92aeccdc275b9fcbedb7953773b1cfb365d7fb9cecf75e90ae",
+          "size_bytes": 13144319
+        },
+        "video_stream_sha256": "906e9b839ff4c4dbdd97b546b2d149c223933a3033fc3b6561067a783faffdf3",
+        "frame_count": 1230,
+        "video_duration_seconds": 41.0,
+        "codec": "h264",
+        "profile": "High",
+        "width": 1080,
+        "height": 1920,
+        "pixel_format": "yuvj420p",
+        "color_range": "pc",
+        "color_space": "bt470bg",
+        "color_transfer": null,
+        "color_primaries": null,
+        "format_duration_seconds": 41.0
+      },
+      "audio_duration_cannot_truncate_picture": true,
+      "ffmpeg_shortest_used": false,
+      "picture_render_count": 0
+    },
+    "alignment_validation": {
+      "result": "PASS_LOCALIZED_TIMELINE_ALIGNMENT",
+      "locale": "es",
+      "strict_inside_source_windows": true,
+      "segment_count": 6,
+      "cue_count": 10,
+      "meaningful_speech_start_seconds": 0.21,
+      "meaningful_speech_end_seconds": 40.41,
+      "final_tail_seconds": 0.59,
+      "timeline_alignment_hash": "e37c354536d969be94bebd2032d3a684446a6bd556968bd0868f1a95fd8a43ea"
+    },
+    "idempotent_replay": true,
+    "ledger_idempotent_replay": true
+  },
+  "actual_current_packages": {
+    "g39-retail": {
+      "package_path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-caption-safe-top\\platform_neutral_package_manifest.json",
+      "package_sha256": "779dd133760f1aa65180a2e0b70af5d0d314f2f05075fbac330c73a6b5210bd9",
+      "package_id": "pkg_0a63add2aafb4ea133c97ed5cda06eabde9bd49b91210cdcc2d0705cf9319030",
+      "run_id": "run_60474ad47f7d414d8c17413145fec6f9",
+      "state": "OWNER_REVIEW_READY",
+      "public_write_authority": 0
+    },
+    "g39-japan": {
+      "package_path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\manifest.json",
+      "package_sha256": "bef0ff081d77795bf2808e7ddcd7e9af53821ba5050292e6a34cb7e1a6c2072f",
+      "package_id": "pkg_b17161abf532396b1e00fbcb2d0442f8ace6c40e0a952202f25b0c9c8e5c220d",
+      "run_id": "run_3615db290d094769a0b8db85708657a5",
+      "state": "OWNER_REVIEW_READY",
+      "public_write_authority": 0
+    }
+  },
+  "verification_limits": [
+    "Mocked media crash tests establish owner replay mechanics; existing actual media proofs are retained separately.",
+    "No hearing, final audiovisual, rights release or publication acceptance."
+  ]
+}

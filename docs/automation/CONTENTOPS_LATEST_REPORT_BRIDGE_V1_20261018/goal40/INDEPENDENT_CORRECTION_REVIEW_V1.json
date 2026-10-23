@@ -1,0 +1,276 @@
+{
+  "schema": "contentops.goal40.independent_correction_review.v1",
+  "goal": "Goal40",
+  "kind": "INDEPENDENT_CORRECTION_CLOSURE_REVIEW",
+  "result": "CHANGES_REQUIRED",
+  "review_scope": "Bounded read-only engineering review of the exact correction request, its bound source, tests, returns, inventories, and current private packages.",
+  "request_identity": {
+    "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\request-independent-correction-review.json",
+    "canonical_sha256": "f0a76d23b59a90b35c3060ad09bba2dcfa363e33a8a62660a10d2b6dc1976c92",
+    "canonicalization": "video.unattended_core_factory_v1.creative.hash_value over the parsed request with sorted canonical JSON",
+    "file_sha256": "ed7fba1d07ea8e7d3a7bf410be2ebf715e38a5fbce38d8d86a6b42d0c27047ab"
+  },
+  "reviewer": {
+    "native_task_id": "/root/goal40_correction_review",
+    "model": "gpt-5.6-sol",
+    "reasoning_effort": "xhigh",
+    "provenance_limit": "ASSIGNED_ROLE_NOT_INDEPENDENT_RUNTIME_ATTESTATION"
+  },
+  "repository_readback": {
+    "worktree": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps",
+    "branch": "codex/goal39-v2-current-native-factory",
+    "head": "98c537427f2c1a1279aa94506f0b1859b6990fb4",
+    "remote_branch": "origin/codex/goal39-v2-current-native-factory",
+    "remote_head": "98c537427f2c1a1279aa94506f0b1859b6990fb4",
+    "bound_source_bytes_match_request": true,
+    "unrelated_or_parent_owned_dirty_paths_preserved": true
+  },
+  "binding_readback": {
+    "all_match": true,
+    "count": 17,
+    "items": {
+      "video/freeform_chapter_pipeline_v1/native_narrative.py": {
+        "expected_sha256": "00d3baf8e4b4a9236f6e1451a40112fd2f19bf4c4fb19fd3cb9bf2187620877a",
+        "observed_sha256": "00d3baf8e4b4a9236f6e1451a40112fd2f19bf4c4fb19fd3cb9bf2187620877a",
+        "match": true
+      },
+      "video/freeform_chapter_pipeline_v1/current_locale.py": {
+        "expected_sha256": "7a890b1ee1de4b0a88d0299ad8f6e1bf813d05ea5160fb5d78ba20a817d8b60e",
+        "observed_sha256": "7a890b1ee1de4b0a88d0299ad8f6e1bf813d05ea5160fb5d78ba20a817d8b60e",
+        "match": true
+      },
+      "video/freeform_chapter_pipeline_v1/pipeline.py": {
+        "expected_sha256": "d113b8a8fe41a02994e5dda4bd4c03467b92d836fbbd30003124dae979b3501f",
+        "observed_sha256": "d113b8a8fe41a02994e5dda4bd4c03467b92d836fbbd30003124dae979b3501f",
+        "match": true
+      },
+      "video/unattended_core_factory_v1/caption_revision.py": {
+        "expected_sha256": "eee6bb808558b598f30c0464a63a593c8ef6b84038f13bdcea81dd88226800d9",
+        "observed_sha256": "eee6bb808558b598f30c0464a63a593c8ef6b84038f13bdcea81dd88226800d9",
+        "match": true
+      },
+      "video/unattended_core_factory_v1/caption_alignment.py": {
+        "expected_sha256": "b70a9d0dddd81e29f857a44d2f4663745a5aa68fa28ac44c524571a10001a2ed",
+        "observed_sha256": "b70a9d0dddd81e29f857a44d2f4663745a5aa68fa28ac44c524571a10001a2ed",
+        "match": true
+      },
+      "video/unattended_core_factory_v1/manual.py": {
+        "expected_sha256": "fe21b389184da1b5a55bff0aa10fbd24882b6bbac9e24087af3399b5d658c5a9",
+        "observed_sha256": "fe21b389184da1b5a55bff0aa10fbd24882b6bbac9e24087af3399b5d658c5a9",
+        "match": true
+      },
+      "video/unattended_core_factory_v1/supervisor.py": {
+        "expected_sha256": "da856313270fe71b6d2c0d3fcc396562e7004c985849a7608eb732e2b6a4a309",
+        "observed_sha256": "da856313270fe71b6d2c0d3fcc396562e7004c985849a7608eb732e2b6a4a309",
+        "match": true
+      },
+      "video/unattended_core_factory_v1/store.py": {
+        "expected_sha256": "50f4ed1fbc21e1e119ad5283fcea8fbde78cd287484fae1e80cdd60b2184c7da",
+        "observed_sha256": "50f4ed1fbc21e1e119ad5283fcea8fbde78cd287484fae1e80cdd60b2184c7da",
+        "match": true
+      },
+      "video/unattended_core_factory_v1/media.py": {
+        "expected_sha256": "5bca9210ed90b438e48f51137da9c3e7487b5a5e4b291137c934d756343c72e3",
+        "observed_sha256": "5bca9210ed90b438e48f51137da9c3e7487b5a5e4b291137c934d756343c72e3",
+        "match": true
+      },
+      "original_review": {
+        "expected_sha256": "7205fd8640a68d8020716f546e78dc60cc88de04763f3f148b63f489a1817e7f",
+        "observed_sha256": "7205fd8640a68d8020716f546e78dc60cc88de04763f3f148b63f489a1817e7f",
+        "match": true
+      },
+      "complete_phrase_inventory": {
+        "expected_sha256": "9c3c43414720c24500a9e068aaa6090c45cecd3a1dda9e013db93d17c599a8af",
+        "observed_sha256": "9c3c43414720c24500a9e068aaa6090c45cecd3a1dda9e013db93d17c599a8af",
+        "match": true
+      },
+      "longform_closure_return": {
+        "expected_sha256": "276492bd859237afd7211f34dd5efe6dc298bd7595b55e7ed6b4c1500ad83f77",
+        "observed_sha256": "276492bd859237afd7211f34dd5efe6dc298bd7595b55e7ed6b4c1500ad83f77",
+        "match": true
+      },
+      "locale_closure_request": {
+        "expected_sha256": "70f053a49c8e3d951cb000b6aa0c50bf1bb6a65ac1cee523c6fb58aeed419795",
+        "observed_sha256": "70f053a49c8e3d951cb000b6aa0c50bf1bb6a65ac1cee523c6fb58aeed419795",
+        "match": true
+      },
+      "locale_closure_return": {
+        "expected_sha256": "82394880c63671795c80c900e6a54945ee5400aca76339da8023b9eb3ff15ed2",
+        "observed_sha256": "82394880c63671795c80c900e6a54945ee5400aca76339da8023b9eb3ff15ed2",
+        "match": true
+      },
+      "longform_package": {
+        "expected_sha256": "613fb5b3034901cbc7c7fdf48e78ddcb431559bb582aceda32b07f27cfb276ef",
+        "observed_sha256": "613fb5b3034901cbc7c7fdf48e78ddcb431559bb582aceda32b07f27cfb276ef",
+        "match": true
+      },
+      "locale_package": {
+        "expected_sha256": "8d916ba2f399ec0d38495684f1a4295663d121891cbd58a5ab736787506b95bd",
+        "observed_sha256": "8d916ba2f399ec0d38495684f1a4295663d121891cbd58a5ab736787506b95bd",
+        "match": true
+      },
+      "focused_tests": {
+        "expected_sha256": "abb9abbc211f340384a1b5320f7de60d7aa358fa014530756dca54673e8ef64a",
+        "observed_sha256": "abb9abbc211f340384a1b5320f7de60d7aa358fa014530756dca54673e8ef64a",
+        "match": true
+      }
+    }
+  },
+  "independent_verification": {
+    "focused_tests": {
+      "command": "python -m pytest -q -p no:cacheprovider tests/test_v2_goal40_chapter_phrase_reflow.py tests/test_v2_goal40_current_locale.py tests/test_v2_goal40_longform_ingress.py tests/test_v2_goal40_picture_successor.py tests/test_v2_goal40_recovery_and_captions.py tests/test_v2_current_native_factory_integration.py",
+      "result": "39 passed in 13.80s",
+      "scope_limit": "The passing tests do not exercise the negative semantic-review decision, current-package visibility between successor appends, altered existing recovery artifacts, or mux-repair crash replay."
+    },
+    "ruff": "PASS for the bound Goal40 source and focused tests",
+    "diff_check": "PASS for the reviewed scoped paths",
+    "phrase_inventory_audit": {
+      "result": "PASS_EXACT_CURRENT_INVENTORY",
+      "records": 117,
+      "chapter_counts": {
+        "CH01": 14,
+        "CH02": 18,
+        "CH03": 20,
+        "CH04": 17,
+        "CH05": 18,
+        "CH06": 17,
+        "CH07": 13
+      },
+      "checks": [
+        "Re-derived phrase groups and cache keys from the bound narrative and af_heart/1.06/en-us route.",
+        "Matched all 117 phrase IDs, text, synthesis text, paths, WAV SHA-256 values, frame counts, sample rates, durations, and identity sidecars.",
+        "Matched the exact longform closure request/return, admission, reflow output identity, and package manifest bindings."
+      ]
+    },
+    "locale_artifact_audit": {
+      "result": "PASS_EXACT_CURRENT_BYTES_WITH_ACCEPTANCE_GAP_BELOW",
+      "request_canonical_sha256": "c7aecde56d0c38d0313c6f4a153592a983d2a17c0804abab041fb5d52cc62f32",
+      "request_file_sha256": "70f053a49c8e3d951cb000b6aa0c50bf1bb6a65ac1cee523c6fb58aeed419795",
+      "return_file_sha256": "82394880c63671795c80c900e6a54945ee5400aca76339da8023b9eb3ff15ed2",
+      "checks": [
+        "Matched request bindings, returned request hash, source package, timing lock, governed input, model, voices, registry, output identity, and package manifest.",
+        "The exact bound return contains a PASS semantic review, but the implementation does not enforce that decision."
+      ]
+    }
+  },
+  "original_finding_dispositions": [
+    {
+      "id": "ORIGINAL-P1-PHRASE-CACHE-COMPLETENESS",
+      "severity": "P1_HIGH",
+      "disposition": "RESOLVED_FOR_THE_CURRENT_PROSPECTIVE_PACKAGE",
+      "evidence": [
+        "video/freeform_chapter_pipeline_v1/native_narrative.py:299-323 verifies every request binding and requires a complete_phrase_inventory with unique phrase IDs.",
+        "video/freeform_chapter_pipeline_v1/native_narrative.py:364-405 re-derives every phrase/cache identity and verifies WAV hash, sidecar, sample rate, frame count, and duration.",
+        "video/freeform_chapter_pipeline_v1/native_narrative.py:459-493 requires exact inventory coverage and seals the inventory plus all phrase-wave hashes.",
+        "The independent audit matched all 117 current inventory records and the rebuilt package manifest 613fb5b3034901cbc7c7fdf48e78ddcb431559bb582aceda32b07f27cfb276ef."
+      ],
+      "limits": [
+        "This is a current prospective closure. It does not retroactively turn the original 44 unbound phrase WAVs into historically request-bound evidence.",
+        "No listening or viewer-facing quality conclusion is made."
+      ]
+    },
+    {
+      "id": "ORIGINAL-P1-IMMUTABLE-SPANISH-REQUEST",
+      "severity": "P1_HIGH",
+      "disposition": "RESOLVED_FOR_EXACT_REQUEST_AND_SOURCE_BINDING_WITH_A_SEPARATE_SEMANTIC_ACCEPTANCE_DEFECT",
+      "evidence": [
+        "video/freeform_chapter_pipeline_v1/current_locale.py:22-58 requires request_path, checks hash_value(request), exact model/effort, exact returned bindings, false public-write authority, role identity, and every bound source hash.",
+        "The exact request canonical hash is c7aecde56d0c38d0313c6f4a153592a983d2a17c0804abab041fb5d52cc62f32; request and return file hashes match the correction request.",
+        "video/freeform_chapter_pipeline_v1/current_locale.py:153-165 seals request, return, package, model, voices, and registry file identities for the output revision."
+      ],
+      "limits": [
+        "The request/source immutability correction does not enforce the native return's explicit semantic-review verdict; see CORRECTION-P1-LOCALE-SEMANTIC-VERDICT."
+      ]
+    },
+    {
+      "id": "ORIGINAL-P2-SUCCESSOR-STAGE-INTERRUPTION",
+      "severity": "P2_MEDIUM",
+      "disposition": "PARTIALLY_RESOLVED",
+      "evidence": [
+        "video/unattended_core_factory_v1/supervisor.py:2050-2068 now leaves the durable job state at OWNER_REVIEW_READY for intermediate successor PASS events and moves the pointer only on the final OWNER_REVIEW_READY append.",
+        "tests/test_v2_goal40_recovery_and_captions.py:91-160 interrupts after each of four committed PASS events and proves legal replay with one PASS per stage.",
+        "The independent 39-test rerun passed."
+      ],
+      "remaining_limit": "Replay legality is fixed for _record_private_successor, but the ledger's current-package selector can expose an intermediate PACKAGE_QA_PASSED revision before its matching OWNER_REVIEW_READY event; see CORRECTION-P2-SUCCESSOR-CURRENT-PACKAGE-ATOMICITY. The mux-repair successor path also remains non-resumable; see CORRECTION-P2-MUX-REPAIR-CRASH-REPLAY."
+    },
+    {
+      "id": "ORIGINAL-P2-RECOVERY-STORE-COMMIT-CRASH-GAP",
+      "severity": "P2_MEDIUM",
+      "disposition": "RESOLVED_FOR_MISSING_ARTIFACT_RECONSTRUCTION_WITH_A_REMAINING_INTEGRITY_GAP",
+      "evidence": [
+        "video/unattended_core_factory_v1/supervisor.py:331-373 detects an existing recovery transaction, reconstructs a missing narration-overrun artifact from original WAV measurements, and reacquires the exact job claim.",
+        "tests/test_v2_goal40_recovery_and_captions.py:51-88 simulates the crash after the store commit and proves artifact reconstruction, same run identity, exact claim, and one recovery event.",
+        "The independent 39-test rerun passed."
+      ],
+      "remaining_limit": "An already-present recovery artifact is accepted after checking only job/run IDs and is not re-derived or ledger-hash bound; see CORRECTION-P1-RECOVERY-ARTIFACT-INTEGRITY."
+    }
+  ],
+  "new_findings": [
+    {
+      "id": "CORRECTION-P1-LOCALE-SEMANTIC-VERDICT",
+      "severity": "P1_HIGH",
+      "title": "A native return that explicitly fails semantic review is still accepted and can produce a private locale package",
+      "evidence": [
+        "video/freeform_chapter_pipeline_v1/current_locale.py:33-58 verifies request, role, and source bindings but never reads artifact.semantic_review.",
+        "video/freeform_chapter_pipeline_v1/current_locale.py:77-152 validates structure and selected numeric anchors, which cannot establish full translation meaning.",
+        "video/freeform_chapter_pipeline_v1/current_locale.py:253-266 emits a generic translation_semantic_review claim independent of the returned semantic decision.",
+        ".task-runtime/goal40/native-returns/retail-es-editorial-closure.json:344-346 contains the actual PASS semantic-review result and request hash that the builder currently ignores.",
+        "Independent negative probe: changing only artifact.semantic_review.result in a temporary bound-return copy to FAIL_MATERIAL_TRANSLATION_MEANING still returned PRIVATE_CURRENT_LOCALE_PACKAGE_BUILT on the idempotent path."
+      ],
+      "impact": "The deterministic builder can package text that its assigned editorial role expressly rejected for material translation meaning, while reporting a semantic-review label that was not gated on that verdict.",
+      "required_change": "Fail closed unless the native artifact contains the exact allowed semantic PASS result bound to the same request hash and expected prior-return/source closure. Add negative tests for missing and failing semantic review on both fresh and idempotent paths."
+    },
+    {
+      "id": "CORRECTION-P1-RECOVERY-ARTIFACT-INTEGRITY",
+      "severity": "P1_HIGH",
+      "title": "Recovery replay trusts an existing unsealed narration-overrun artifact after checking only job and run IDs",
+      "evidence": [
+        "video/unattended_core_factory_v1/supervisor.py:344-347 accepts an existing narration_overrun when video_job_id and run_id match.",
+        "video/unattended_core_factory_v1/supervisor.py:348-364 re-derives measurements and invokes immutable comparison only when the file is absent or this is not a replay.",
+        "The recovery store event is committed before this artifact and contains no artifact record/hash for it.",
+        "Independent negative probe: a temporary existing artifact with the correct job/run IDs, schema tampered-but-id-matching, and duration_seconds 999999 was accepted as an idempotent replay and returned AWAITING_CODEX_DESKTOP_SESSION_INPUT unchanged."
+      ],
+      "impact": "Changed or partial local recovery evidence can become the input to the bounded editorial correction without an exact derivation or durable ledger identity, reproducing the same provenance class the correction was intended to close.",
+      "required_change": "On every replay, re-derive the expected artifact from the preserved source WAVs and compare it with _write_immutable_json, including exact schema and all fields. Persist an artifact hash in a recovery-setup event before allowing editorial input, and add an altered-existing-artifact regression test."
+    },
+    {
+      "id": "CORRECTION-P2-SUCCESSOR-CURRENT-PACKAGE-ATOMICITY",
+      "severity": "P2_MEDIUM",
+      "title": "An interrupted successor exposes its new package as current before its matching owner-review-ready record exists",
+      "evidence": [
+        "video/unattended_core_factory_v1/supervisor.py:1924-1942 selects the latest PACKAGE_QA_PASSED globally and does not require a matching OWNER_REVIEW_READY event for the same revision.",
+        "video/unattended_core_factory_v1/supervisor.py:2050-2068 intentionally preserves the old OWNER_REVIEW_READY job state while intermediate successor events are appended.",
+        "Independent interruption probe after the third PASS produced job_state=OWNER_REVIEW_READY, latest_owner_revision=old, latest_package_revision=new, and current_package_path resolved package_id=new.",
+        "tests/test_v2_goal40_recovery_and_captions.py:91-160 proves eventual replay but does not inspect current_package_path between the intermediate commit and retry."
+      ],
+      "impact": "During the crash window, subsequent private operations can consume a partially sealed successor even though only the older revision has completed the owner-review-ready boundary.",
+      "required_change": "Resolve current package by a revision-scoped PACKAGE_QA_PASSED plus OWNER_REVIEW_READY pair, or commit a single accepted-revision pointer atomically after all successor records exist. Add an interruption assertion that the old package remains current until the final matching record commits."
+    },
+    {
+      "id": "CORRECTION-P2-MUX-REPAIR-CRASH-REPLAY",
+      "severity": "P2_MEDIUM",
+      "title": "The mux-repair successor remains non-resumable after filesystem creation or an intermediate ledger commit",
+      "evidence": [
+        "video/unattended_core_factory_v1/supervisor.py:2240-2242 rejects every retry once the revision directory exists.",
+        "video/unattended_core_factory_v1/supervisor.py:2262-2317 creates the revision artifacts before ledger completion, so a process loss in that interval makes the same revision unrecoverable.",
+        "video/unattended_core_factory_v1/supervisor.py:2318-2361 invalidates three old stages, then appends replacement stages via _append one by one.",
+        "video/unattended_core_factory_v1/supervisor.py:732-769 passes each intermediate stage as state_pointer; video/unattended_core_factory_v1/store.py:1382-1394 converts those nonterminal pointers to durable RUNNING.",
+        "No focused test exercises repair_mux_package or interruption at its filesystem and ledger boundaries."
+      ],
+      "impact": "A crash can leave the only job RUNNING or without a current package/owner-review stage while the existing revision directory permanently blocks deterministic retry.",
+      "required_change": "Make mux repair an idempotent immutable successor: validate and reuse exact existing artifacts, preserve OWNER_REVIEW_READY through intermediate appends, and expose the repaired revision only after its final paired boundary. Add crash tests after root creation, each invalidation, and each PASS append."
+    }
+  ],
+  "finding_counts": {
+    "P1_HIGH": 2,
+    "P2_MEDIUM": 2
+  },
+  "decision_basis": "The exact correction bindings and current artifact closures match, and the focused tests pass, but the four actionable fail-closed and crash-consistency defects above remain in the bound implementation. Scoped acceptance is therefore not supportable.",
+  "claims_not_made": [
+    "No audio hearing acceptance.",
+    "No final audiovisual or viewer-facing quality acceptance.",
+    "No rights or legal acceptance.",
+    "No public release, publication, upload, or provider acceptance."
+  ],
+  "public_write_authority": false
+}

@@ -24,6 +24,36 @@ class PipelineError(RuntimeError):
     """A hard deterministic production-boundary failure."""
 
 
+def render_native_project(*, command: Sequence[str], cwd: Path, output: Path,
+                          source_files: Sequence[Path], identity: Any) -> dict[str, Any]:
+    """Shared free-form native render/cache seam for the manually stepped factory.
+
+    Creative source stays opaque; an exact command/source/asset change invalidates
+    this picture only. A pre-existing unsealed output is never silently adopted.
+    """
+    key = _combined_hash(source_files, {"command": list(command), "identity": identity})
+    receipt_path = output.with_suffix(output.suffix + ".cache.json")
+    if receipt_path.exists():
+        cached = json.loads(receipt_path.read_text(encoding="utf-8"))
+        if cached.get("input_hash") != key:
+            raise PipelineError("Native render input changed; use a distinct output revision")
+        if not output.is_file() or _sha256(output) != cached.get("output_sha256"):
+            raise PipelineError("Cached native picture drift")
+        return {**cached, "reused": True, "wall_seconds": 0.0}
+    if output.exists():
+        raise PipelineError("Unsealed native render requires explicit reconciliation")
+    result = _run(command, cwd)
+    if not output.is_file():
+        raise PipelineError("Native render produced no picture")
+    receipt = {"input_hash": key, "output_sha256": _sha256(output),
+               "reused": False, "wall_seconds": result["wall_seconds"],
+               "source_owner": "freeform_chapter_pipeline_v1"}
+    temporary = receipt_path.with_suffix(receipt_path.suffix + ".partial")
+    temporary.write_text(json.dumps(receipt, indent=2), encoding="utf-8")
+    os.replace(temporary, receipt_path)
+    return receipt
+
+
 def _canonical_json(value: Any) -> bytes:
     return json.dumps(value, sort_keys=True, separators=(",", ":")).encode("utf-8")
 
@@ -96,9 +126,9 @@ PROFILES = {
 
 
 class FreeformChapterPipeline:
-    def __init__(self, manifest_path: Path, workspace: Path | None = None) -> None:
+    def __init__(self, manifest_path: Path, workspace: Path | None = None, *, repo_root: Path | None = None) -> None:
         self.manifest_path = manifest_path.resolve()
-        self.repo_root = self.manifest_path.parents[2]
+        self.repo_root = repo_root.resolve() if repo_root else self.manifest_path.parents[2]
         self.manifest = json.loads(self.manifest_path.read_text(encoding="utf-8"))
         self.project_root = (self.repo_root / self.manifest["project_root"]).resolve()
         self.workspace = (workspace or self.repo_root / ".task-runtime" / "freeform_chapter_pipeline").resolve()
@@ -290,7 +320,27 @@ class FreeformChapterPipeline:
             "--muted",
             "--overwrite",
         ]
-        if render_profile.crf is not None:
+        runtime = self.manifest.get("runtime_paths")
+        if runtime is not None:
+            if codec != "h264":
+                raise PipelineError("Canonical current launch requires h264")
+            from video.unattended_core_factory_v1.media import remotion_launch_geometry
+            geometry = remotion_launch_geometry(
+                project_root=self.project_root,
+                dependency_root=Path(runtime["dependency_root"]),
+                output=output,
+                crf=render_profile.crf or 18,
+                browser_executable=Path(runtime["browser_executable"]),
+                public_root=self.project_root / "public",
+                composition_id=chapter["composition"],
+                entry_point=self.manifest["entry"],
+                concurrency=concurrency,
+            )
+            # Same canonical Windows-safe CLI/browser owner as the short path.
+            command = geometry["command"] + ["--muted", "--color-space=bt709", f"--width={render_profile.width}", f"--height={render_profile.height}"]
+            if bundle is not None:
+                raise PipelineError("Current canonical launch uses sealed source entry, not an unbound bundle")
+        if render_profile.crf is not None and runtime is None:
             command.extend(["--crf", str(render_profile.crf)])
         if render_profile.hardware_acceleration != "disable":
             command.extend(
@@ -347,6 +397,8 @@ class FreeformChapterPipeline:
         ledger = json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.is_file() else {}
         cached = ledger.get(chapter_id)
         if not force and cached and cached.get("key") == key and Path(cached["output"]).is_file():
+            if _sha256(Path(cached["output"])) != cached["sha256"]:
+                raise PipelineError("Cached chapter picture drift")
             return {"kind": "chapter_lock", "chapter": chapter_id, "cache": "HIT", **cached}
 
         output.parent.mkdir(parents=True, exist_ok=True)
@@ -503,7 +555,6 @@ class FreeformChapterPipeline:
             "48000",
             "-ac",
             "2",
-            "-shortest",
             "-movflags",
             "+faststart",
             str(output),
@@ -511,9 +562,15 @@ class FreeformChapterPipeline:
         result = _run(command, self.project_root, dry_run=dry_run)
         if dry_run:
             return {"kind": "final_mux", "video_render_invoked": False, **result}
+        from video.locale_activation_hardening_v1.factory import inspect_picture
+        source_identity, mux_identity = inspect_picture(picture), inspect_picture(output)
+        if source_identity["frame_count"] != mux_identity["frame_count"] or source_identity["video_stream_sha256"] != mux_identity["video_stream_sha256"]:
+            raise PipelineError("Final mux changed the locked picture stream or frames")
         return {
             "kind": "final_mux",
             "video_render_invoked": False,
+            "picture_identity": {"source": source_identity, "mux": mux_identity},
+            "ffmpeg_shortest_used": False,
             "output": str(output),
             "sha256": _sha256(output),
             "probe": self.probe(output),

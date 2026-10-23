@@ -1,0 +1,657 @@
+{
+  "schema": "contentops.goal39.private_integration_evidence.v1",
+  "status": "BOUNDED_ENGINEERING_DELIVERED_FINAL_REMOTE_SEAL_PENDING",
+  "base_head": "a1b08f96bf551681bca8196038f8b7060def4fd1",
+  "donor_head": "10d18873e2d716dcd53b681a4370ef7726a27f9b",
+  "source_epoch": "UNCOMMITTED_SCOPED_GOAL39_SOURCE_ON_RECORDED_BASE; job implementation_head is base identity, not proof those bytes were committed",
+  "qualification": {
+    "result": "NO_GENUINE_QUALIFIED_CANDIDATE_NO_VIDEO",
+    "decision_count": 7,
+    "qualified_count": 0,
+    "abstain_count": 7,
+    "created_job_count": 0
+  },
+  "v1_read_only": {
+    "sqlite_uri_mode": "ro",
+    "pragma_query_only": 1,
+    "connection_total_changes": 0,
+    "write_api_exposed": false,
+    "data_version_before": 2,
+    "data_version_after": 2,
+    "data_version_stable_during_read": true,
+    "database_size_before": 2785280,
+    "database_size_after": 2785280,
+    "database_mtime_ns_before": 1792601785025787800,
+    "database_mtime_ns_after": 1792601785025787800,
+    "database_stat_stable_during_read": true,
+    "v1_write_count": 0
+  },
+  "jobs": [
+    {
+      "video_job_id": "g39-retail",
+      "run_id": "run_60474ad47f7d414d8c17413145fec6f9",
+      "state": "OWNER_REVIEW_READY",
+      "last_valid_checkpoint": "OWNER_REVIEW_READY",
+      "terminal_result": "PRIVATE_ENGINEERING_PACKAGE_REVIEW_REQUIRED",
+      "resume_count": 3,
+      "events": [
+        {
+          "stage": "CLAIMED",
+          "result": "PASS_ATOMIC_CLAIM_WITH_HIGH_PARENT_PROVENANCE"
+        },
+        {
+          "stage": "GOVERNED_INPUT_LOCKED",
+          "result": "PASS_GOVERNED_INPUT_LOCK"
+        },
+        {
+          "stage": "CREATIVE_EDITOR_LOCKED",
+          "result": "PASS_CREATIVE_EDITOR_LOCK"
+        },
+        {
+          "stage": "ACTUAL_NARRATION_TIMING_LOCKED",
+          "result": "PASS_ACTUAL_NARRATION_TIMING_LOCK"
+        },
+        {
+          "stage": "MOTION_SOURCE_LOCKED",
+          "result": "PASS_MOTION_SOURCE_LOCK"
+        },
+        {
+          "stage": "HARD_SOURCE_VALIDATED",
+          "result": "PASS_HARD_SOURCE_VALIDATION"
+        },
+        {
+          "stage": "PROXY_RENDERED",
+          "result": "PASS_PROXY_RENDER"
+        },
+        {
+          "stage": "ACTUAL_MEDIA_REVIEWED",
+          "result": "PASS_ACTUAL_MEDIA_REVIEW"
+        },
+        {
+          "stage": "PICTURE_LOCKED",
+          "result": "PASS_PICTURE_LOCK"
+        },
+        {
+          "stage": "AUDIO_BUILT",
+          "result": "PASS_AUDIO_BUILD_REUSING_LOCKED_NARRATION"
+        },
+        {
+          "stage": "FINAL_MEDIA_BUILT",
+          "result": "PASS_FINAL_MEDIA"
+        },
+        {
+          "stage": "PACKAGE_QA_PASSED",
+          "result": "PASS_PACKAGE_QA"
+        },
+        {
+          "stage": "OWNER_REVIEW_READY",
+          "result": "PASS_OWNER_REVIEW_READY"
+        },
+        {
+          "stage": "FINAL_MEDIA_BUILT",
+          "result": "INVALIDATED_TRUNCATED_MUX_DESCENDANT"
+        },
+        {
+          "stage": "PACKAGE_QA_PASSED",
+          "result": "INVALIDATED_TRUNCATED_MUX_DESCENDANT"
+        },
+        {
+          "stage": "OWNER_REVIEW_READY",
+          "result": "INVALIDATED_TRUNCATED_MUX_DESCENDANT"
+        },
+        {
+          "stage": "FINAL_MEDIA_BUILT",
+          "result": "PASS_CORRECTED_FINAL_MEDIA_BUILT"
+        },
+        {
+          "stage": "PACKAGE_QA_PASSED",
+          "result": "PASS_CORRECTED_PACKAGE_QA_PASSED"
+        },
+        {
+          "stage": "OWNER_REVIEW_READY",
+          "result": "PASS_CORRECTED_OWNER_REVIEW_READY"
+        }
+      ]
+    },
+    {
+      "video_job_id": "g39-japan",
+      "run_id": "run_3615db290d094769a0b8db85708657a5",
+      "state": "QUARANTINED",
+      "last_valid_checkpoint": "QUARANTINED",
+      "terminal_result": "HARD_FAILURE:TranscriptContractError:voiceover_qa_failed:retention_payoff_outside_first_30_seconds",
+      "resume_count": 1,
+      "events": [
+        {
+          "stage": "CLAIMED",
+          "result": "PASS_ATOMIC_CLAIM_WITH_HIGH_PARENT_PROVENANCE"
+        },
+        {
+          "stage": "GOVERNED_INPUT_LOCKED",
+          "result": "PASS_GOVERNED_INPUT_LOCK"
+        },
+        {
+          "stage": "CREATIVE_EDITOR_LOCKED",
+          "result": "PASS_CREATIVE_EDITOR_LOCK"
+        },
+        {
+          "stage": "HARD_FAILURE",
+          "result": "FAIL_QUARANTINED"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "governed_story_cases": 2,
+    "current_news_winners": 0,
+    "fresh_native_editorial_returns": 2,
+    "fresh_native_motion_returns": 1,
+    "fresh_native_completed_factory_packages": 1,
+    "current_contract_narration_locks": 1,
+    "new_retained_technical_picture_renders": 1,
+    "new_retained_audio_mixes": 1,
+    "retained_technical_packages": 1,
+    "caption_only_successor_packages": 1,
+    "caption_delta_picture_renders": 0,
+    "caption_delta_syntheses": 0,
+    "cache_hits": 1,
+    "locale_registry": 23,
+    "surface_registry": 6,
+    "public_or_platform_draft_writes": 0,
+    "fresh_native_proxy_renders": 1,
+    "fresh_native_independent_visual_returns": 1,
+    "current_native_picture_lock_renders": 1,
+    "current_native_proxy_renders": 1,
+    "current_native_audio_mixes": 1,
+    "current_native_caption_successors": 1,
+    "mechanical_mux_corrections": 1,
+    "correction_picture_renders": 0,
+    "correction_syntheses": 0,
+    "terminal_held_story_cases": 1
+  },
+  "native_limit": {
+    "task": "/root/goal39_retail_native_editor",
+    "editorial": "SAVED_VALIDATED",
+    "motion": "VALIDATED_AND_INGESTED",
+    "actual_runtime_model_attestation": "NOT_AVAILABLE",
+    "bounded_resume": "One followup after fresh supported ordinaryUsageAllowed=true; no completion claimed from dispatch",
+    "independent_visual_review": "RETURNED_VALIDATED_NO_MATERIAL_REVISION_AFTER_EXACT_FRAME_RECHECK",
+    "independent_review_task": "/root/goal39_retail_independent_review",
+    "japan_editor_task": "/root/goal39_japan_after_reset",
+    "japan_child_current_state": "RETURNED_AND_INGESTED_MEASURED_AUDIO_QA_FAILED",
+    "latest_supported_agent_inventory": "ROOT_ONLY"
+  },
+  "retained_technical_gate": {
+    "result": "HOLD_RETAINED_TRANSCRIPT_CURRENT_CONTRACT",
+    "reason": "canonical_transcript_segment_text_mismatch:topline"
+  },
+  "retained_media_quality": {
+    "browser": "BrowserOS Neo actual file review; 58.4seconds1080x1920readyState4;10sidecar cues loaded via exact embedded VTT blob after file-origin loading failed",
+    "builder_visual_samples_seconds": [
+      14,
+      41
+    ],
+    "observations": [
+      "Caption block has five lines at14seconds and obscures lower card; three lines overlap food-services card at41seconds.",
+      "Contact sheet entrance sample clips part of left label; stable41second frame shows card but captions obscure it."
+    ],
+    "decision": "HOLD_VIEWER_FACING_QUALITY",
+    "independent_review": "NOT_VERIFIED",
+    "hearing": "NOT_VERIFIED",
+    "rights_release": "NOT_GRANTED",
+    "fresh_native_creativity_claimed": false
+  },
+  "focused_tests": {
+    "changed_and_donor_contract_selection": "25 passed, including real FFmpeg short-audio picture-preservation regression",
+    "expanded_existing_substrate_selection": "56 passed, 1 failed",
+    "failure": "test_video_only_chapter_render_never_regenerates_audio: missing ignored grocery_cashier_pexels_4121754.mp4",
+    "baseline_reproduction": "Same exact failure reproduced in unchanged PR90 base checkout; no gate weakened"
+  },
+  "surface_locale": {
+    "package_id": "pkg_9bba95a5d2afbffac93c22bebd3cb98a315009ff4b9504f983a702ee43448716",
+    "package_scope": "RETAINED_TECHNICAL_REPLAY_NOT_CURRENT_FACTORY_ACCEPTED",
+    "surface_count": 6,
+    "surfaces": [
+      {
+        "surface": "YOUTUBE_NORMAL_VIDEO",
+        "result": "FORMAT_INCOMPATIBLE_NO_ATTEMPT",
+        "reason": "YOUTUBE_NORMAL_VIDEO requires LONGFORM_16_9, got SHORT_9_16"
+      },
+      {
+        "surface": "YOUTUBE_SHORTS",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_ee4d948b1e8abf80bd56bbf8c07ecb4e7bd00b3f2608a518fb2e6178219fb425",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      },
+      {
+        "surface": "TIKTOK",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_acf8f92972a3c6ce93b089ec680417ecac3a35e650fc94840912202d4a3d4d5b",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      },
+      {
+        "surface": "INSTAGRAM_REELS",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_ae7aed37136b58fd90c956c942c050f8d5a9c18b93b99a1854f78286f4ad0d56",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      },
+      {
+        "surface": "INSTAGRAM_STORIES",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_cf639064b2203c8adbf817011d480c4b6140bd8976ce0a41698fe6e78692e948",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      },
+      {
+        "surface": "FACEBOOK_REELS",
+        "result": "PREPARED_CONTRACT_ONLY_LIVE_GATE_CLOSED",
+        "state": "WRITE_AUTHORITY_REQUIRED",
+        "attempt_id": "pubatt_f1a8aeb753a0a269219b415e163642211aec939b9452be48e5b254427602c960",
+        "destination_scope": "EXPLICIT_EXISTING_FAKE_SHADOW_BINDING_NOT_REAL_ACCOUNT"
+      }
+    ],
+    "actual_provider_calls": 0,
+    "public_writes": 0,
+    "locale_count": 23,
+    "locale_profiles": {
+      "CORE_ALWAYS_ON": 12,
+      "EXPANSION_CONFIGURED": 11
+    },
+    "locale_statuses": {
+      "CANONICAL_EXISTING": 1,
+      "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED": 3,
+      "CAPABILITY_DECLARED_VOICE_PENDING": 19
+    }
+  },
+  "artifacts": {
+    "retail-step1.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-step1.json",
+      "sha256": "47158bfa5e53a162bc9b837f3b1d801e1cb147555b527d8486dd657462cc53d9",
+      "size_bytes": 6567
+    },
+    "retail-editor-lock.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-editor-lock.json",
+      "sha256": "c5f9b760bf532ee9fe5db361755a811b95685e17af210ec02f29906080d70341",
+      "size_bytes": 6197
+    },
+    "retail-audio-timing.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-audio-timing.json",
+      "sha256": "bd53fb1af62743cebf64ef645cf984903d843195827fe6b90b4eee083ed049e0",
+      "size_bytes": 6584
+    },
+    "retail-motion-request.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-motion-request.json",
+      "sha256": "69c496558576e0341e24d8069249629bd6f57ce9228d0e030fe9b01faacffd05",
+      "size_bytes": 6541
+    },
+    "japan-step1.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\japan-step1.json",
+      "sha256": "23ecd4b60c5fe84d1c050099fe35358d5bf5937f9924b99f64af7b92528f057f",
+      "size_bytes": 6553
+    },
+    "exact-dedupe.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\exact-dedupe.json",
+      "sha256": "2d342f774f1dc676481eadfb4d6f24ade79da286a6c178d28f20f0ac1c925a5a",
+      "size_bytes": 880
+    },
+    "durable-qualification.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\durable-qualification.json",
+      "sha256": "e1200f02eee36a92ada70864da9c6eb22468f843d76577a721bf333a17bbd2bd",
+      "size_bytes": 16585
+    },
+    "surface-locale-preservation.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\surface-locale-preservation.json",
+      "sha256": "c38641983a6742f1bf0208879cc55c66ab012926c60808cd91de7fc077906244",
+      "size_bytes": 2403
+    },
+    "native-returns/retail-editor.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\native-returns\\retail-editor.json",
+      "sha256": "ca61341641308346daf72e7150aa0a9812cc7192dfd28d1133add4625dfa226b",
+      "size_bytes": 3137
+    },
+    "runtime/jobs/g39-retail/desktop_session_inbox/request_motion_visual.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\desktop_session_inbox\\request_motion_visual.json",
+      "sha256": "d29083ec755b466de46c2900e3fe7e781fa68432b7820d79768d58d3217f5e42",
+      "size_bytes": 1474
+    },
+    "retained-media/admission.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\admission.json",
+      "sha256": "120715d56cb561cf06f5ab78dc91c0cccac8509463c0232f7e623fc1bd08a350",
+      "size_bytes": 8854
+    },
+    "retained-media/picture.mp4.cache.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\picture.mp4.cache.json",
+      "sha256": "15c4be7df3c69a661d0a72574c80751994c5ddc427c67bb6cb96ffe8e2199e69",
+      "size_bytes": 275
+    },
+    "retained-media/package_receipt.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\package_receipt.json",
+      "sha256": "4b406ae3b40e707a943dd664666392c837359b67fbbf7cde45a3904d2564bb3b",
+      "size_bytes": 6904
+    },
+    "retained-media/picture-reuse-proof.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\picture-reuse-proof.json",
+      "sha256": "40ad4b2ba9cb2d1162323891ba9265eb59b412d6dc289de983de35438ace8e2e",
+      "size_bytes": 1662
+    },
+    "retained-media/package/manifest.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\package\\manifest.json",
+      "sha256": "f958426c107b5b166d06518ad54ef2048384182f85c514be5191bf4af14feb1f",
+      "size_bytes": 6994
+    },
+    "retained-media/caption-revision/reuse_receipt.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\caption-revision\\reuse_receipt.json",
+      "sha256": "557df3dd81db4b62ab3db9b07381b3612c2ae2dc19c1e24e82778e2c3aaca53f",
+      "size_bytes": 1067
+    },
+    "retained-media/caption-revision/platform_neutral_package_manifest.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\caption-revision\\platform_neutral_package_manifest.json",
+      "sha256": "2888f8ab24704c99517cc25ef12299e88831534496ead43fa6d88af0003e07ee",
+      "size_bytes": 7036
+    },
+    "retained-media/final_contact_sheet.jpg": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\final_contact_sheet.jpg",
+      "sha256": "f729dedb011ab09121ce0ab3640b2ee95097ed44d97786588268a639107a8443",
+      "size_bytes": 223550
+    },
+    "retained-media/review.html": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-media\\review.html",
+      "sha256": "50b42c78865e8a1feed548bd09da22b84567c31c16cf74f29b753c9a38806101",
+      "size_bytes": 3372
+    },
+    "focused-tests.txt": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\focused-tests.txt",
+      "sha256": "fa0a997a07139987ede114cceb10ca04c2b0a47c1c3b6485915a948e71fe8117",
+      "size_bytes": 2592
+    },
+    "retained-render-stdout.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-render-stdout.json",
+      "sha256": "461a7703e2089a2ee2b65668b17abd7f4626458a8fa1e9d156e5f138a4b2b788",
+      "size_bytes": 154
+    },
+    "retained-render-reuse-stdout.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retained-render-reuse-stdout.json",
+      "sha256": "d38026f95082cd7ddfa17511db404969f70edec3809b2178ec95907118bec66d",
+      "size_bytes": 149
+    },
+    "changed-tests-final.txt": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\changed-tests-final.txt",
+      "sha256": "2d428379cf0f2c9884af88f2f6d4e226e9834b4d7e14f15d4a845b3db822d9fd",
+      "size_bytes": 101
+    },
+    "actual-selective-picture-dependencies.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\actual-selective-picture-dependencies.json",
+      "sha256": "b77db3d620b704c4e2b67ec3f45e49ca9cb45e372e15e764d62f50814c36753f",
+      "size_bytes": 2023
+    },
+    "pr91-readback.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\pr91-readback.json",
+      "sha256": "dd874217c7eca2424fedc4da5a5ca9c9656b8e4c116ca10fec644b844d1766cc",
+      "size_bytes": 3571
+    },
+    "codegraph-generation.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\codegraph-generation.json",
+      "sha256": "ee73dbd79efa5ffae5d15e86278c2428da489a889467f63e5f811e34785c59ef",
+      "size_bytes": 474
+    },
+    "codegraph-check.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\codegraph-check.json",
+      "sha256": "309844a5710f511e6d5cd92c0ea490f4c56d576fd54a079fe59bd849bda45d80",
+      "size_bytes": 19
+    },
+    "native-returns/retail-motion.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\native-returns\\retail-motion.json",
+      "sha256": "b5003d76613a1b114d8de4e91c6dc014e02cb16c052df1e6b8cacac4805c32e3",
+      "size_bytes": 15728
+    },
+    "retail-motion-submit.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-motion-submit.json",
+      "sha256": "c2f710c3c5593700dbeaf7ba259818fd10181975c96a013124fc3be75bbffb4d",
+      "size_bytes": 478
+    },
+    "retail-motion-lock.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-motion-lock.json",
+      "sha256": "64e436f15981c0417d1fd4848b2359d2cc542dcf41d1c7bda9470f1f98401aba",
+      "size_bytes": 6219
+    },
+    "retail-proxy-render.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-proxy-render.json",
+      "sha256": "4408e81bd6d560406b69066f7988e61f23d5776996294339ed5bcd62061b91b6",
+      "size_bytes": 6542
+    },
+    "runtime/jobs/g39-retail/desktop_session_inbox/request_actual_media_review.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\desktop_session_inbox\\request_actual_media_review.json",
+      "sha256": "27233fb4bca122e01c0b2c3f67190a44cfb2b4265a427e67cc79feff38a676cf",
+      "size_bytes": 2322
+    },
+    "runtime/jobs/g39-retail/artifacts/proxy_media_report.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\artifacts\\proxy_media_report.json",
+      "sha256": "a63872aa6d6548ff2ac9bc0a3756ae57ec51fb842a2bc5bb06887f8965223296",
+      "size_bytes": 10724
+    },
+    "runtime/jobs/g39-retail/media/proxy.mp4.cache.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\media\\proxy.mp4.cache.json",
+      "sha256": "8eda218cda77fc1f3bea77718d273ba3799aaf7c7bc4c6dc13e8c76059cb5728",
+      "size_bytes": 274
+    },
+    "runtime/jobs/g39-retail/review/proxy_contact_sheet.jpg": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\review\\proxy_contact_sheet.jpg",
+      "sha256": "76d9e6a0697b560c66762de8c35b08048cb80091bb7e8c6fa7c5db0bc54a8913",
+      "size_bytes": 281458
+    },
+    "runtime/jobs/g39-retail/review/proxy-frame-bindings.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\review\\proxy-frame-bindings.json",
+      "sha256": "46bcbb29440d4d2d5d29b4efe4dfdf2779e52216da8e22507e25093807aab9c9",
+      "size_bytes": 1894
+    },
+    "pr91-final-api-readback.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\pr91-final-api-readback.json",
+      "sha256": "fae95d49b743333b774d625338acca3c975d972247c706b34a3e8553f1abba35",
+      "size_bytes": 206
+    },
+    "native-returns/japan-editor.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\native-returns\\japan-editor.json",
+      "sha256": "34f197239d4149dd7391b101bca00400ece2ccf164fdf4e33211494e0362132d",
+      "size_bytes": 3164
+    },
+    "native-returns/retail-review.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\native-returns\\retail-review.json",
+      "sha256": "c0b5ba4d8bf9b7692edf90e06312bc404d37a981ba0f46bc84bd477f0845edb9",
+      "size_bytes": 5977
+    },
+    "japan-editor-submit.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\japan-editor-submit.json",
+      "sha256": "991fb5f23b35ece667c943ae05d292de86f8835b3e6f6cbca115485ddce4f9b3",
+      "size_bytes": 489
+    },
+    "japan-editor-lock.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\japan-editor-lock.json",
+      "sha256": "4363d3e6032bea6ed4c6d20ee2399e589963912ce39a11c132aff9e1a62c24a9",
+      "size_bytes": 6184
+    },
+    "japan-disposition.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\japan-disposition.json",
+      "sha256": "60ba4a03cdd840e13e01bbb0508986f2defe81dc4b8cdeb8f62369e8343988a2",
+      "size_bytes": 2201
+    },
+    "retail-review-submit.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-review-submit.json",
+      "sha256": "c35446dc6a0be166b5082138391d4bbc559498202f6c1b0abba4166855180a0e",
+      "size_bytes": 477
+    },
+    "retail-review-lock.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-review-lock.json",
+      "sha256": "febc36830330fa93c1c7f518a74e52c2043d4e1d00a7a9a7493283a4b2674544",
+      "size_bytes": 6195
+    },
+    "retail-final-stages-resumed.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-final-stages-resumed.json",
+      "sha256": "da8d9b669b58e9d9284c5a273e35155cf2f11af64a0a0c6b7be3a5f5631e83df",
+      "size_bytes": 6264
+    },
+    "retail-mux-correction.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-mux-correction.json",
+      "sha256": "079bc8489ece0bd837692e103b517b18af278bcce295dd1f646c6c35986563c4",
+      "size_bytes": 4194
+    },
+    "retail-corrected-caption-revision.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-corrected-caption-revision.json",
+      "sha256": "7e9fb6400fb5349ebd69dec8ae0e284340298e961bf0e90f534f3b33d7ffdd56",
+      "size_bytes": 1056
+    },
+    "retail-native-reuse-proof.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-native-reuse-proof.json",
+      "sha256": "97f2031026e0b3b1cb72779bea7c0db751fdd9b94400f6b9b0f4fd8dba16544d",
+      "size_bytes": 8377
+    },
+    "current-package-integrity-surfaces.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\current-package-integrity-surfaces.json",
+      "sha256": "b82502d719bf96e98aabbe990b7d8a25f809616f62c8cbeda9b530c3cbb8f4b0",
+      "size_bytes": 1697
+    },
+    "final-dedupe-proof.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\final-dedupe-proof.json",
+      "sha256": "efa47e3c800bace0552e4713f32aeef2a519ab891b477dd4ece67456667f01dc",
+      "size_bytes": 560
+    },
+    "current-final-tests.txt": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\current-final-tests.txt",
+      "sha256": "5df020a6fcc075bd0c10acaaafb6eb813fcd91c54d6eeee4d45103dbfd44e804",
+      "size_bytes": 101
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/manifest.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\manifest.json",
+      "sha256": "e0f172435f9fae82e24f1ba0a4eadbb0b0227c298f8af6f3002c1f376f41645d",
+      "size_bytes": 6639
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/owner_review_bundle.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\owner_review_bundle.json",
+      "sha256": "aa2e06a55456734550a361147b812a9563bfc336baeaa0b39072de853fb8e17c",
+      "size_bytes": 9587
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/correction_receipt.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\correction_receipt.json",
+      "sha256": "658a0f006931f8d2a9aef2fb5bbb311fed8f0eb3544da7c99f3758b77af18038",
+      "size_bytes": 5027
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/review.html": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\review.html",
+      "sha256": "6b4b67a4b7e72101437d0d3a4324823c816d49e53b268504992ad0aa2432bb5a",
+      "size_bytes": 3479
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/inspected-frame-bindings.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\inspected-frame-bindings.json",
+      "sha256": "07e25b4ea49ee7152310ddb96894c8188f67ca7312e211330b17b200e113c985",
+      "size_bytes": 2032
+    },
+    "runtime/jobs/g39-retail/revisions/caption-corrected-picture-32/platform_neutral_package_manifest.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\caption-corrected-picture-32\\platform_neutral_package_manifest.json",
+      "sha256": "9cc72ffdca00e5906056dc4853051c3b69afc80f4c6c48026a06a4d7d6d8565b",
+      "size_bytes": 6750
+    }
+  },
+  "zero_authority": {
+    "runtime_activation": false,
+    "scheduler_mutation": false,
+    "platform_account_action": false,
+    "public_write": false,
+    "paid_execution": false,
+    "v1_mutation": false,
+    "fresh_source_crawl": false,
+    "completion_notice_sent": false
+  },
+  "resume": "No further independent integration is required for the bounded engineering cohort. Release readiness requires capable audio/continuousAV and caption-quality review/correction, rights/voice/account decisions and separately authorized runtime/publication. Japan remains held; future correction must preserve its original failure/history.",
+  "cache_source_epoch": "Final selective dependency seam actually rendered the current-native proxy; earlier retained technical replay/cache hit remains its own historical broad-key proof.",
+  "tested_source_bytes": {
+    "video/unattended_core_factory_v1/caption_revision.py": "867254eb75294dcf16cbf639f5731b4fe5cd89f29e942fa7fc1b7461c848f6e1",
+    "video/unattended_core_factory_v1/creative.py": "9999eacd59e4474f50b10d8afdb5060eb1dac1a7c008270c0ad56f47e00ecda3",
+    "video/unattended_core_factory_v1/desktop_session.py": "4bd3da380a14d4ed227964e8d1798e3f910d6e503beefe0b6e68f00975e7cf77",
+    "video/unattended_core_factory_v1/manual.py": "997e5ab6e8252bea9460a55dfaadd856f28f8816de7368cf3b21d986528ad6b9",
+    "video/unattended_core_factory_v1/media.py": "ec5159a4f35764973550850357545f48e633e495251c6b1ff58d87a6f850c89d",
+    "video/unattended_core_factory_v1/store.py": "716af4cbee34e5c11c1657f069b0569fba7d49cf0fe90b89dfef25b7388b56ca",
+    "video/unattended_core_factory_v1/supervisor.py": "7a846a7985d0c37ee91f699d6c0d5892ad88891e2a88c32f9fddc56b1fcff26a",
+    "video/unattended_core_factory_v1/transcript.py": "d148fbe84ab2594bf39bde8b1c5eb01ab9a8aec6259a8e34999d3ee083bf2d9c",
+    "video/unattended_core_factory_v1/__init__.py": "3b26f97c783899dd582e71fc68520c684f8bd50ab98b17e01a552ad3d97c6c36",
+    "video/locale_activation_hardening_v1/factory.py": "4fc1063a6afc90d810b20ef3402c139d3d4cddcda7a6fcec9b4195c63931f20c",
+    "video/locale_activation_hardening_v1/timeline_correction.py": "86e7fc259fcc97ce2a8df961b955f16b7df08643d8a09130432d367157ce3509",
+    "video/locale_activation_hardening_v1/__init__.py": "32f86fbb2afcd9d9a2edef6c54dac696cb20bd4aeaff1b8a1bdbe96c5804ce68",
+    "video/daily_operator_v1.py": "4a4f1bc387793cea437130bf23bd19c0f073a6152571ac35cb0a809bc978179a",
+    "video/freeform_chapter_pipeline_v1/pipeline.py": "7eadcb2563b75e604359abdfd21d6e26fd62b16c6e065ed5c6430018d1dae453"
+  },
+  "delivery": {
+    "source_commit": "ebe1fca3943e0ac50d46802d4bb0f44eb34d5ba7",
+    "graph_commit": "0efad387a87d20484be867f643ab9da503a295b4",
+    "draft_pr": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/91",
+    "base": "codex/goal21-multi-asset-research-library",
+    "state": "OPEN_DRAFT",
+    "readback": "local_remote_PRhead_equal; body_equal_after_CRLF_normalization",
+    "codegraph": "CODEGRAPH_CURRENT",
+    "CI": "NOT_VERIFIED_EMPTY_INITIAL_CHECK_INVENTORY",
+    "goal_completion": false,
+    "notice_sent": false,
+    "latest_prior_checkpoint_commit": "b552ee3fe1dccc6aaedc8b767ba828c01f79b03e"
+  },
+  "current_native_proxy": {
+    "duration_seconds": 41,
+    "frames": 1230,
+    "width": 1080,
+    "height": 1920,
+    "render_wall_seconds": 72.768,
+    "sha256": "d2af3c79b716a8071ac802fa4c0fad6bf1b973187bc1dc8466309311f292362e",
+    "input_hash": "177b5c566d9947cc6a9a36665f619a779f46d4552ba3efb77e9bee9daa0c7d8e",
+    "render_owner": "freeform_chapter_pipeline_v1",
+    "fresh_native_editor_and_motion": true,
+    "prior_governed_assets_and_facts_retained": true,
+    "builder_inspected_full_frames_seconds": [
+      15,
+      39.5
+    ],
+    "builder_contact_sheet_inspected": true,
+    "independent_visual_review": "NO_MATERIAL_REVISION_SAMPLED_FRAMES_ONLY",
+    "hearing": "NOT_VERIFIED_SILENT_PROXY",
+    "final_package": "CORRECTED_CURRENT_FACTORY_SUCCESSOR_AVAILABLE",
+    "browser": "Neo loaded native proxy review page before MCP disconnected"
+  },
+  "current_result": {
+    "retail": "OWNER_REVIEW_READY_WITH_CORRECTED_MUX_SUCCESSOR",
+    "japan": "QUARANTINED_ACTUAL_RETENTION_QA_FAILURE",
+    "native_private_media_package": true,
+    "current_native_caption_successor": true,
+    "final_AV_acceptance": "NOT_GRANTED",
+    "production_acceptance": "NOT_GRANTED",
+    "hearing": "NOT_VERIFIED",
+    "caption_mobile_quality": "NOT_ACCEPTED_CROWDED_SEGMENT_CUES",
+    "rights_release": "NOT_GRANTED",
+    "published_corpus_winners": 0
+  },
+  "current_native_inspection": {
+    "final_browser": "Neo loaded corrected41second1080x1920final,6sidecar cues,readyState4,errornull; actual15second screenshot inspected",
+    "builder_visual": "corrected contact sheet inspected; no final continuous-motion PASS",
+    "caption_finding": "Long segment cue wraps to5lines at15seconds and overlaps lower card: mobilequality NOT_ACCEPTED; timing/words remain original",
+    "independent_review": "actual native proxy contact sheet and6bound frames; no material picture revision after unsupported crop finding was withdrawn on exact image recheck",
+    "hearing": "NOT_VERIFIED",
+    "audio_measurement": {
+      "result": "PASS_AUDIO_MEASURED",
+      "integrated_lufs": -15.9,
+      "true_peak_dbfs": -1.3
+    }
+  },
+  "mux_failure_correction": {
+    "observed_initial_frames": 1229,
+    "required_locked_frames": 1230,
+    "cause": "ffmpeg-shortest",
+    "current_frames": 1230,
+    "current_video_seconds": 41,
+    "exact_stream_identity_verified": true,
+    "old_artifacts": "PRESERVED_SUPERSEDED",
+    "affected_stages": [
+      "FINAL_MEDIA_BUILT",
+      "PACKAGE_QA_PASSED",
+      "OWNER_REVIEW_READY"
+    ],
+    "durable_invalidation_and_successor_events": true,
+    "current_manifest": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\manifest.json"
+  }
+}

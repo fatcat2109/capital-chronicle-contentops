@@ -1,0 +1,286 @@
+{
+  "schema": "contentops.v2.goal40.current_locale_capability_snapshot.v1",
+  "status_authority": false,
+  "scope": "Read-only local registry/current artifact snapshot. No provider/account readiness or production acceptance inferred.",
+  "sources": {
+    "locale_profiles.json": "5c3e10caf61e275dcad9ce3a2078af6f524b351744b9c62134c7721af6f00e6a",
+    "voice_registry.json": "dabadcea37b0b681d7fde265b003762c3e266da957c40817b7b799d9b176a0c3",
+    "tts_routes.json": "acbe85453b63e2d511d861749c0da17f51720d7774204ddb7741c79c30eb5bf3"
+  },
+  "locale_profiles": 23,
+  "core_profiles": 12,
+  "expansion_profiles": 11,
+  "rows": [
+    {
+      "locale": "en",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CANONICAL_EXISTING",
+      "configured_routes": [
+        "kokoro_local",
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "OWNER_PREFERRED_ACCEPTED_BASELINE",
+      "status": "CURRENT_CANONICAL_PRIVATE_RETAIL_PACKAGE_EXISTS_FINAL_AV_REVIEW_OPEN"
+    },
+    {
+      "locale": "es",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED",
+      "configured_routes": [
+        "kokoro_local",
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "JIM_LISTENING_GATE_REQUIRED",
+      "status": "CURRENT_PRIVATE_LOCALE_PACKAGE_EXISTS_VOICE_LISTENING_AND_FINAL_AV_REVIEW_OPEN"
+    },
+    {
+      "locale": "pt-BR",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED",
+      "configured_routes": [
+        "kokoro_local",
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "JIM_LISTENING_GATE_REQUIRED",
+      "status": "HOLD_CURRENT_STORY_TRANSLATION_AND_PACKAGE_MISSING_VOICE_LISTENING_REQUIRED"
+    },
+    {
+      "locale": "zh-Hans",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "kokoro_local_candidate",
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "SAMPLE_NOT_GENERATED_OWNER_SELECTION_PENDING",
+      "status": "HOLD_EXISTING_VOICE_SELECTION_AND_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "hi",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "kokoro_local_candidate",
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "SAMPLE_NOT_GENERATED_OWNER_SELECTION_PENDING",
+      "status": "HOLD_EXISTING_VOICE_SELECTION_AND_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "id",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "SAMPLE_NOT_GENERATED_PROVIDER_AUTHORITY_PENDING",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "ar",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "SAMPLE_NOT_GENERATED_PROVIDER_AUTHORITY_PENDING",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "vi",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_flash_v2_5",
+        "eleven_v3_quality_escalation"
+      ],
+      "voice_status": "SAMPLE_NOT_GENERATED_PROVIDER_AUTHORITY_PENDING",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "ja",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "PROOF_COMPLETE_OWNER_VOICE_REVIEW_REQUIRED",
+      "configured_routes": [
+        "kokoro_local",
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "JIM_LISTENING_GATE_REQUIRED",
+      "status": "HOLD_CURRENT_STORY_TRANSLATION_PACKAGE_AND_MISAKI_JA_G2P_MISSING_VOICE_LISTENING_REQUIRED"
+    },
+    {
+      "locale": "ko",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "SAMPLE_NOT_GENERATED_PROVIDER_AUTHORITY_PENDING",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "fr",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "kokoro_local_candidate",
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "SAMPLE_NOT_GENERATED_OWNER_SELECTION_PENDING",
+      "status": "HOLD_EXISTING_VOICE_SELECTION_AND_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "de",
+      "profile": "CORE_ALWAYS_ON",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "SAMPLE_NOT_GENERATED_PROVIDER_AUTHORITY_PENDING",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "zh-Hant",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "share_zh_Hans_mandarin_when_appropriate",
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_EXISTING_VOICE_SELECTION_AND_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "bn",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_v3"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "ta",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "te",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_v3"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "mr",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_v3"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "ur",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_v3"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "fil",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "tr",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "ru",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "th",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_v3"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    },
+    {
+      "locale": "it",
+      "profile": "EXPANSION_CONFIGURED",
+      "configured_support_status": "CAPABILITY_DECLARED_VOICE_PENDING",
+      "configured_routes": [
+        "eleven_multilingual_v2"
+      ],
+      "voice_status": "CAPABILITY_ONLY",
+      "status": "HOLD_PROVIDER_AUTHORITY_AND_STOCK_VOICE_SELECTION_CURRENT_STORY_TRANSLATION_PACKAGE_MISSING"
+    }
+  ],
+  "misaki_installed": false,
+  "current_additional_locale": {
+    "locale": "es",
+    "manifest": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-es-current\\manifest.json",
+    "package_id": "pkg_42d5d6cafbe6e9ce5da30c4d3144e0281f8e6d0e14b0f8aa8e85f33b094297d1",
+    "receipt_sha256": "1be2cb61bff44f5926b326e7fc4bd461a181487a3779188bbf030f1d52638558",
+    "alignment": {
+      "result": "PASS_LOCALIZED_TIMELINE_ALIGNMENT",
+      "locale": "es",
+      "strict_inside_source_windows": true,
+      "segment_count": 6,
+      "cue_count": 10,
+      "meaningful_speech_start_seconds": 0.21,
+      "meaningful_speech_end_seconds": 40.41,
+      "final_tail_seconds": 0.59,
+      "timeline_alignment_hash": "e37c354536d969be94bebd2032d3a684446a6bd556968bd0868f1a95fd8a43ea"
+    },
+    "public_write_authority": false
+  },
+  "preserved_surface_contracts": [
+    "YOUTUBE_NORMAL_VIDEO",
+    "YOUTUBE_SHORTS",
+    "TIKTOK",
+    "INSTAGRAM_REELS",
+    "INSTAGRAM_STORIES",
+    "FACEBOOK_REELS"
+  ],
+  "surface_count": 6,
+  "surface_claim_limit": "Existing six configured adapter contracts preserved. Account/identity/rights/live-write readiness NOT_VERIFIED; no platform calls.",
+  "paid_execution_count": 0,
+  "platform_write_count": 0,
+  "production_activated": false
+}
