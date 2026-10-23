@@ -1,0 +1,553 @@
+{
+  "accepted_evidence_ids": [
+    "goal35-southwest"
+  ],
+  "accepted_evidence_sha256": "ecf36d9879dba4baa3686077f412f74512af724039f2c209bd61d172b03e064c",
+  "article_body_sha256": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+  "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+  "article_path": null,
+  "attempt_run_id": "v1-media-southwest-r1",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-southwest"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nSINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nReuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.\n\nWhat to watch: Would later company results show fare and operating gains continuing to absorb the fuel burden?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "c93d4c04f5e2f66c86b53f16e00670bd449b0111b6d325eaf14c282e7932e43f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-southwest"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf\n\nReuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.\n\nWatch: Would later company results show fare and operating gains continuing to absorb the fuel burden?\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Reuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Watch: Would later company results show fare and operating gains continuing to absorb the fuel burden?\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.736,
+            0.464,
+            0.579
+          ],
+          "post_character_counts": [
+            206,
+            130,
+            162
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.631,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Reuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.",
+          "Watch: Would later company results show fare and operating gains continuing to absorb the fuel burden?\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf",
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf"
+      },
+      "payload_sha256": "819cfd53b4826ddf3b252e89a786c81e7e7658affe01f17bb5a127dd4d76673d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-southwest"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]**\n\nReuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.\n\n**Context:** The strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "7bf409b0db2e0ebf2d8963a80c6a7e50299296983751a1b05daa7737af277aae",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-southwest"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 3000,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nWhy it matters: If Reuters' account is accurate, Capital Chronicle's reading is that higher fares can strengthen revenue while a heavier fuel bill absorbs some of the benefit.\n\nContext: The strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "2d51bbdf5f561648f406ac03367b1c41d8a7aafd3849aefd23ea13c6f7d5f939",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-southwest"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 63206,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nReuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.\n\nWhy it matters: If Reuters' account is accurate, Capital Chronicle's reading is that higher fares can strengthen revenue while a heavier fuel bill absorbs some of the benefit.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "c0bf32d43113da63af3e0f18afbe643fedab926712f959214a15c047fcc97758",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-southwest"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2200,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nReuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.\n\nIn focus: The strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf\n\n#CapitalChronicle\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "0594042672319aa436197fc4efd2dadae7777a6b306650884f28c28c26cc26e8",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-southwest"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nThe strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf\n\nWhat to watch: Would later company results show fare and operating gains continuing to absorb the fuel burden?\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nThe strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Would later company results show fare and operating gains continuing to absorb the fuel burden?\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.694,
+            0.34
+          ],
+          "post_character_counts": [
+            347,
+            170
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.49,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Would later company results show fare and operating gains continuing to absorb the fuel burden?\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nThe strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf",
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nThe strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf"
+      },
+      "payload_sha256": "7a8236dcfa52d32bc6832265f273ff1c62a6a697f4cd58b3b41fd46f59d031a0",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-southwest"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1000,
+        "text": "Update: SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]\n\nReuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.\n\nWhat to watch: Would later company results show fare and operating gains continuing to absorb the fuel burden?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-857f96cfc5871ccf\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "ee55f90daba366044f72cabc0c1fb325a4d8a8eaee254d616d21ad97f66b0651",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/v1_media_revision_plan",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.followup_task and FINAL_ANSWER; configured native low model; exact written return",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/v1_max_southwest",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.spawn_agent configured model/effort; actual FINAL_ANSWER and exact authored output file",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "DIRECT_REPUTABLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-southwest"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-22-bangkok",
+  "parent_window_id": "v1-media-southwest-r1",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "83d1d09a6c6d50d0a79368d1eecca4bc890149fbeb012b1d23ed865975f57486",
+  "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-f2a30d4ebd709c3c05cb0692",
+  "title": "Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-f2a30d4ebd709c3c05cb0692"
+}

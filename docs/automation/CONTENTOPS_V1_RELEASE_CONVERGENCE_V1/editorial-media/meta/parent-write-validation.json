@@ -1,0 +1,182 @@
+{
+  "native_submit": {
+    "public_write_performed": false,
+    "response_sha256": "a826381e3e60d008b1406b693a4d4c9d189ddc2e99d829bd2514aa6153197fcc",
+    "stage": "write"
+  },
+  "schema_valid": true,
+  "source_validation": {
+    "cited_source_count": 1,
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+      "event_truth_support_status": "UNCONFIRMED",
+      "event_truth_supported": false,
+      "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+      "origin_character": "UNSPECIFIED",
+      "primary_reporting_publisher": "Reuters",
+      "primary_reporting_source_identity": "reuters.com",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+      "relay_source_identity": null,
+      "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+      "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "DIRECT_REPUTABLE_REPORT",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal35-meta"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+    "public_write_performed": false,
+    "report_truth_validated_separately_from_event_truth": true,
+    "schema_version": "contentops.v1_simple_gemini_validation.v1",
+    "source_bytes_precede_writer": true,
+    "source_timestamps_are_model_authority": false,
+    "source_urls": [
+      "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+    ],
+    "status": "PASS",
+    "supported_material_claim_count": 13,
+    "supported_material_claims": [
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-title",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters: Meta's planned non-voting shares leave the cash test open",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-dek",
+        "claim_kind": "FACT",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS: Meta's reported share proposal may preserve control and expand payment options. It does not establish cash raised or returns on investment.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-search-title",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters: Meta's non-voting share plan and free cash flow",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-meta-description",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters' retained October 21 report describes Meta's share proposal and cash deficit. Equity flexibility leaves the cash-generation test open.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-social-hook",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-1",
+        "claim_kind": "NUMBER",
+        "claim_text": "Meta's reported non-voting share plan could widen its acquisition and talent options while preserving control; the cash-generation test remains open. SINGLE-SOURCE REPORT - REUTERS: The retained October 21, 2026 account describes that future plan beside a $2.12 billion third-quarter free-cash-flow deficit. One deficit quarter, however, leaves a timing explanation open.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-2",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters describes an intended January 2027 issue of non-voting Class C common shares, with the effect of a two-for-one split, for acquisitions and talent retention while preserving Mark Zuckerberg's control. January is a future intention in this account, rather than evidence of completed issuance. The retained text supplies no cash-proceeds figure or final terms establishing how the shares would be used.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "985e89b4bb72d8de46aa64abb82e9e3168897bc579b4481048f4e14aad9b6325",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-3",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If the report is accurate, a non-voting class could give Meta an acquisition currency and a way to reward talent without adding votes through that instrument. That would change payment and control choices. It would not, by itself, establish cash raised for the capital-spending program.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "985e89b4bb72d8de46aa64abb82e9e3168897bc579b4481048f4e14aad9b6325",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-4",
+        "claim_kind": "NUMBER",
+        "claim_text": "The retained Reuters account puts annual capital-expenditure guidance at $135 billion to $145 billion, compared with an earlier range of $130 billion to $145 billion. The revision raises the lower bound while leaving the upper bound unchanged. If accurate, that leaves less room within guidance for a lower-spending outcome; it establishes neither actual expenditure nor an AI-specific allocation.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "0817f41b62c1d668dd80887a3839b412986a43afcfde71abbdeb045904b4e50d",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-5",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters reports a third-quarter free-cash-flow shortfall of $2.12 billion, against positive cash flow of $10.63 billion a year earlier. The accompanying chart compares those two reported observations, retaining their periods and opposite signs without adding intervening history. Annual spending guidance and quarterly free cash flow answer different questions; these figures do not explain the contributions of investment, operations or working capital to the deficit.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "3aa192d6065d587c1e49ea715c1e4155e64fcd69fe5fdd8cdf5160b04ff577f6",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-6",
+        "claim_kind": "NUMBER",
+        "claim_text": "A timing explanation is the strongest countercase to a lasting funding constraint. If Reuters' figures are accurate, a quarter of negative free cash flow could reflect the timing of spending and cash receipts. Reuters puts revenue for the quarter ended September 30 at $64.60 billion, above the $63.37 billion estimate compiled by LSEG. That revenue beat still leaves the cash-flow reconciliation unexplained; it establishes neither financial distress nor investment success.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-7",
+        "claim_kind": "FACT",
+        "claim_text": "The Muse AI growth headline supplies no missing link. The retained report includes no adoption count, monetization measure or investment-return figure for Muse. Capital Chronicle's reading is that equity flexibility and reported AI momentum cannot, on this evidence, establish that investment is paying for itself.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-8",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit. If the plan proceeds, later investment-return evidence would challenge or reinforce the concern that payment flexibility is being mistaken for cash generation.",
+        "document_id": "goal35-meta",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      }
+    ],
+    "unknown_write_detected": false,
+    "unsupported_material_claim_count": 0
+  }
+}

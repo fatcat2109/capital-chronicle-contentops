@@ -839,6 +839,8 @@ def build_source_value_comparison_chart(
     source excerpt. The caller retains responsibility for editorial usefulness;
     this compiler rejects unbound values and unsupported source reuse.
     """
+    if rows and all("observation_kind" in r for r in rows):
+        return _build_typed_source_value_chart(document, rows=rows, title=title, unit=unit, output_dir=output_dir)
     rights, basis = _underlying_source_rights(document)
     text = " ".join(str(document.get("canonical_content_text") or "").split())
     if rights != UNDERLYING_RIGHTS_PUBLIC_DOMAIN or not document.get("rights_evidence_sha256"):
@@ -887,6 +889,140 @@ def build_source_value_comparison_chart(
              underlying_source_rights_status=rights, source_reuse_basis=basis),
             "source_content_sha256": document.get("raw_sha256"),
             "rights_evidence_sha256": document["rights_evidence_sha256"], "source_value_bindings": list(rows)}
+
+
+def _typed_chart_values(document, rows, unit):
+    """Validate reported facts, including signed observations and forecast ranges."""
+    import math
+    units = {"USD billion": ("$", "billion"), "USD/barrel": ("$", "barrel"),
+             "USD/share": ("$", "per share"), "%": ("%",)}
+    text = " ".join(str(document.get("canonical_content_text") or "").split())
+    constraints = document.get("source_reuse_constraints") or {}
+    rights, _ = _underlying_source_rights(document)
+    facts_allowed = (constraints.get("scope") == "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+                     and constraints.get("attribution_required") is True
+                     and constraints.get("policy_capture_sha256") and constraints.get("source_capture_sha256"))
+    if not facts_allowed and not (rights == UNDERLYING_RIGHTS_PUBLIC_DOMAIN and document.get("rights_evidence_sha256")):
+        raise GroundedArticleBuilderError("chart_source_reuse_not_established")
+    if unit not in units or not 2 <= len(rows) <= 12:
+        raise GroundedArticleBuilderError("chart_series_scope_invalid")
+    parsed = []
+    for row in rows:
+        excerpt = " ".join(str(row.get("support_excerpt") or "").split())
+        period = str(row.get("period") or "")
+        metric = str(row.get("metric_source_text") or "")
+        kind = row.get("observation_kind")
+        value_context = " ".join(str(row.get("value_context") or "").split())
+        if (not excerpt or excerpt not in text or not metric or metric not in excerpt or not period
+                or (period not in excerpt and period != str(document.get("published_at_utc", ""))[:10])
+                or any(token not in excerpt for token in units[unit])
+                or row.get("unit") != unit or not row.get("label") or not value_context or value_context not in excerpt
+                or kind not in {"ACTUAL", "ESTIMATE", "FORECAST"}):
+            raise GroundedArticleBuilderError("chart_metric_unit_period_or_kind_unbound")
+        if kind == "ESTIMATE" and not re.search(r"expect|estimate", value_context, re.I):
+            raise GroundedArticleBuilderError("chart_estimate_label_unbound")
+        if kind == "FORECAST" and not re.search(r"expect|forecast|outlook|previously", value_context, re.I):
+            raise GroundedArticleBuilderError("chart_forecast_label_unbound")
+        if kind == "ACTUAL" and re.search(r"expect|estimate|forecast", value_context, re.I):
+            raise GroundedArticleBuilderError("chart_actual_label_conflicts_with_source")
+        spellings = ([row.get("lower_text"), row.get("upper_text")]
+                     if "lower_text" in row else [row.get("value_text")])
+        vals = []
+        for spelling in spellings:
+            value = str(spelling)
+            if (not re.fullmatch(r"-?\d+(?:\.\d+)?", value)
+                    or not re.search(r"(?<![\d.])" + re.escape(value) + r"(?!\d|\.\d)", value_context)):
+                raise GroundedArticleBuilderError("chart_value_not_bound_to_source")
+            number = float(value)
+            if not math.isfinite(number):
+                raise GroundedArticleBuilderError("chart_value_not_finite")
+            vals.append(number)
+        if row.get("negative_evidence"):
+            negative = " ".join(str(row["negative_evidence"]).split())
+            if (len(vals) != 1 or negative not in value_context or str(spellings[0]) not in negative
+                    or not re.search(r"\b(deficit|cash burn|loss)\b", negative, re.I) or vals[0] < 0):
+                raise GroundedArticleBuilderError("chart_negative_sign_unbound")
+            vals[0] = -vals[0]
+        elif re.search(r"\b(deficit|cash burn|loss)\b", value_context, re.I) and not all(v < 0 for v in vals):
+            raise GroundedArticleBuilderError("chart_negative_magnitude_requires_explicit_sign_binding")
+        if len(vals) == 2 and vals[0] > vals[1]:
+            raise GroundedArticleBuilderError("chart_range_inverted")
+        parsed.append(vals)
+    return parsed
+
+
+def _build_typed_source_value_chart(document, *, rows, title, unit, output_dir):
+    values = _typed_chart_values(document, rows, unit)
+    import textwrap
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    path = Path(output_dir) / "media_assets" / "source_value_comparison.png"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with plt.rc_context({"font.family": "DejaVu Sans", "font.size": 13}):
+        fig, ax = plt.subplots(figsize=(12, 7), dpi=140)
+        fig.patch.set_facecolor("#f5f2eb")
+        ax.set_facecolor("#f5f2eb")
+        labels = []
+        flat = [v for pair in values for v in pair] + [0]
+        span = max(flat) - min(flat) or 1
+        for i, (row, pair) in enumerate(zip(rows, values)):
+            labels.append(textwrap.fill(row["label"], 28) + "\n" + row["period"] + " · " + row["observation_kind"].lower())
+            color = "#12666a" if row["observation_kind"] == "ACTUAL" else "#8a6b36"
+            if len(pair) == 2:
+                ax.plot(pair, [i, i], linewidth=9, color=color, solid_capstyle="butt")
+                ax.plot(pair, [i, i], "|", color=color, markersize=17)
+                display = row["lower_text"] + "–" + row["upper_text"]
+            else:
+                ax.barh(i, pair[0], height=.45, color=color)
+                display = ("−" if pair[0] < 0 else "") + str(row["value_text"]).lstrip("-")
+            ax.text(max(pair) + span * .025, i, display, va="center", fontweight="bold")
+        ax.set_yticks(range(len(rows)), labels)
+        ax.invert_yaxis()
+        ax.set_xlim(min(flat) - span * .08, max(flat) + span * .25)
+        ax.axvline(0, color="#333333", linewidth=.8)
+        ax.set_xlabel(unit)
+        fig.suptitle(textwrap.fill(title, 64), x=.04, y=.96, ha="left", fontsize=20, fontweight="bold")
+        ax.spines[["top", "right", "left"]].set_visible(False)
+        ax.grid(axis="x", alpha=.13)
+        ax.set_axisbelow(True)
+        fig.text(.04, .035, "Source: " + str(document["publisher"]) + " · retained report " +
+                 str(document["published_at_utc"])[:10] +
+                 "\nReported values, independently redrawn. " +
+                 ("Ranges are bounds, not midpoint estimates." if any(len(v) == 2 for v in values)
+                  else "No missing values filled or forecasts derived."), fontsize=10)
+        fig.subplots_adjust(left=.34, right=.96, top=.78, bottom=.21)
+        fig.savefig(path, facecolor=fig.get_facecolor())
+        plt.close(fig)
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    source_hash = _sha256_text(document["canonical_content_text"])
+    return {**_base_asset_record(asset_id="source_value_comparison", path=path, role="supporting_fact_context",
+        media_role="source_value_comparison", modality="source_backed_chart", evidence_dimension="source_value_comparison",
+        caption=title + " Source: " + document["publisher"] + "; retained report " + document["published_at_utc"][:10] + ".",
+        alt_text="; ".join(r["label"] + " (" + r["period"] + ", " + r["observation_kind"].lower() + "): " +
+            " to ".join(str(v) for v in pair) + " " + unit for r, pair in zip(rows, values)),
+        source_label=document["publisher"], source_page_url=document.get("source_url") or document["url"],
+        publication_date=document["published_at_utc"], article_section="key_facts",
+        relevance_rationale="Compares the exact reported observations or forecast bounds relevant to this thesis.",
+        underlying_source_rights_status="attributed_facts_independent_chart",
+        source_reuse_basis="Independent CC chart of attributed reported facts; no source expression or chart reused."),
+        "source_content_sha256": source_hash, "source_value_bindings": list(rows), "chart_unit": unit,
+        "computed_values": values, "missingness": "NO_VALUES_FILLED_OR_INTERPOLATED",
+        "transformation": "EXACT_REPORTED_MAGNITUDES_WITH_EXPLICIT_SIGN_AND_RANGE_BOUNDS",
+        "transform_sha256": sha256_of([source_hash, unit, rows, values])}
+
+
+def validate_source_value_chart(asset, documents):
+    from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
+    document = next((d for d in documents if (d.get("source_url") or d.get("url")) == asset.get("source_page_url")
+                     and _sha256_text(d.get("canonical_content_text", "")) == asset.get("source_content_sha256")), None)
+    if not document:
+        raise ValueError("CHART_EXACT_FACT_SOURCE_REQUIRED")
+    values = _typed_chart_values(document, asset.get("source_value_bindings") or [], asset.get("chart_unit"))
+    expected = sha256_of([asset["source_content_sha256"], asset["chart_unit"], asset["source_value_bindings"], values])
+    if (asset.get("transform_sha256") != expected or asset.get("computed_values") != values
+            or _sha256_file(Path(asset["path"])) != asset.get("sha256")):
+        raise ValueError("CHART_DATA_OR_BYTES_CHANGED")
 
 
 def _build_third_asset(

@@ -1,0 +1,125 @@
+{
+  "schema_version": "contentops.v1_release_convergence_evidence.v1",
+  "observed_at_utc": "2026-10-23T20:04:11.584829+00:00",
+  "candidate_base": "a1b08f96bf551681bca8196038f8b7060def4fd1",
+  "base_tree": "cfb8ce528bd8daa175f0c7e1ee826225addaaad5",
+  "accepted_remote_master": "bc79e30c8088a9deb47f3942aa15914a59b69799",
+  "retained_evidence": {
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal25/RELEASE_HANDOFF.md": {
+      "checkout_sha256": "0fe086bd4efab3878a5373d772d7110d5ed8240d4dffeb152c85fbb5220eacff",
+      "git_blob_bytes_sha256": "2bfef2c4437e39f6f418f402564d0ebc77d6914bdcba9bfae47be0504bf6aaf2",
+      "raw_equal": false,
+      "text_eol_normalized_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal25/native_proof.json": {
+      "checkout_sha256": "eaf447c3bdf6781626f7c297cea5dd027fad54bec37d468e63813882ca9abba2",
+      "git_blob_bytes_sha256": "eaf447c3bdf6781626f7c297cea5dd027fad54bec37d468e63813882ca9abba2",
+      "raw_equal": true,
+      "binary_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal32/RELEASE_HANDOFF.md": {
+      "checkout_sha256": "9f37571785f02844052a92dfc89a3310c02b56a3c8292d9c24d10b6d977b012e",
+      "git_blob_bytes_sha256": "ff25071d74ef2e094616aa41ca30a52f3982d9f84cb2fd3cbcc30a1930e77899",
+      "raw_equal": false,
+      "text_eol_normalized_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal32/retained_goal31_packet.json.gz": {
+      "checkout_sha256": "5afaa242df305b03d2c1d7585ee3ac2d854b96b01bb78eed059b7b44d4adfac9",
+      "git_blob_bytes_sha256": "5afaa242df305b03d2c1d7585ee3ac2d854b96b01bb78eed059b7b44d4adfac9",
+      "raw_equal": true,
+      "binary_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal33/RELEASE_HANDOFF.md": {
+      "checkout_sha256": "286f0e224eab06d0a177de575565dd185b2c4a748845703017c5bd3f5bb0c6f7",
+      "git_blob_bytes_sha256": "2532a8a17ff8920a46f6b017aafb8c743f78c24e4457de1cc90afdbc0c26acc7",
+      "raw_equal": false,
+      "text_eol_normalized_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/COMPLETION_AUDIT.md": {
+      "checkout_sha256": "8035bafa01c01b6e5ba545f1501bf268011aaf4a208973b68d6f0a8b3f862348",
+      "git_blob_bytes_sha256": "0634ced60573075f7da380f9a509bc81a116da8df762387f1522d724565bb682",
+      "raw_equal": false,
+      "text_eol_normalized_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/CHECKPOINT.md": {
+      "checkout_sha256": "9f6071ac1b9c72343738849638f05f1c34109da38f5d435076e292ae242ce2a4",
+      "git_blob_bytes_sha256": "118e0d59bdf346b4cf73031491f16867b1af1547a48ea9c5c5c86bf40810691e",
+      "raw_equal": false,
+      "text_eol_normalized_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/CHECKPOINT.md": {
+      "checkout_sha256": "50db213dd01d041baadc9431a43ce98e15c445ad0b97c1daf03fcc96363cc5a4",
+      "git_blob_bytes_sha256": "dd59f1a5bb1171833d48131bd7913ed7dd30e2af81aa9233111cb5b2ee687615",
+      "raw_equal": false,
+      "text_eol_normalized_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/completed-story-readback.json": {
+      "checkout_sha256": "31e7dd0d81e60862932de8fc7827f08fa7af80153302802ba74a7ce3801100ba",
+      "git_blob_bytes_sha256": "31e7dd0d81e60862932de8fc7827f08fa7af80153302802ba74a7ce3801100ba",
+      "raw_equal": true,
+      "binary_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/renders-final/desktop.pdf": {
+      "checkout_sha256": "166c84d5064b630051cb8ab884f184df16b93667324fe1d33000c5e6c131ed8e",
+      "git_blob_bytes_sha256": "166c84d5064b630051cb8ab884f184df16b93667324fe1d33000c5e6c131ed8e",
+      "raw_equal": true,
+      "binary_equal": true
+    },
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/renders-final/mobile.pdf": {
+      "checkout_sha256": "4701ca8a625c85d8516dfa844b1d1cede47eeb4a8c69940e06658ee6629dc0a8",
+      "git_blob_bytes_sha256": "4701ca8a625c85d8516dfa844b1d1cede47eeb4a8c69940e06658ee6629dc0a8",
+      "raw_equal": true,
+      "binary_equal": true
+    }
+  },
+  "focused_checks": [
+    {
+      "file": "focused-checks.xml",
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "8f2edc64ea1055041a9ff8c8218f4dc5cba6f2bbaa5deebc5eb681f24b380acf"
+    },
+    {
+      "file": "recovery-checks.xml",
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "sha256": "3b80f1f6ffaf6c44c82ccfc75646209dc5f507b9029f78a6c746d18e29785d90"
+    }
+  ],
+  "checks_overlap": true,
+  "proposal_sha256": "43864815ff63c0719652940b65eacb8f2859387d7a3996c47f8383262baf4806",
+  "rollout_source_unchanged": true,
+  "runtime_effects": {
+    "model_cycles": 0,
+    "source_network_requests": 0,
+    "public_writes": 0,
+    "platform_drafts_or_uploads": 0,
+    "runtime_restarts": 0,
+    "automation_updates": 0,
+    "merges": 0,
+    "deployments": 0
+  },
+  "claim_limits": [
+    "Controlled tests are not browser/account or live production evidence",
+    "Dated retained five-article/forty-preview issue is not fresh news or current output",
+    "Native deployment and calendar-time daily-live production remain incomplete",
+    "Historical V1 acceptance remains true",
+    "No independent receiver/Tower synchronization claim"
+  ],
+  "changed_source_test_git_blob_sha256": {
+    "live_contentops/native_neo_executor_v1.py": "1ab8acc9a05aae0162a841fa9d1556e0dd9cdcce84879e8c4c5df8af9e2b5278",
+    "live_contentops/native_desktop_publication_v1.py": "4d84b2c281df45433023ace196d8c02f9eae7293997db7982539d657f8ff2ff3",
+    "tests/test_native_neo_executor_v1.py": "beee7443c3b46635229e4409bde0e832cf806f278cd90f8bb419c698dbf060ac",
+    "tests/test_native_desktop_publication_v1.py": "d30fde554bef5f3a8a03e9ca76fb3af8fc90acbe63e0c7f20fb32d37a78208b7"
+  },
+  "changed_source_test_checkout_sha256": {
+    "live_contentops/native_neo_executor_v1.py": "a103befd56ab2d11a6ec768445655686c1176567c0ca54200f85684c0bc69dd3",
+    "live_contentops/native_desktop_publication_v1.py": "0034b78ab1407cac387f3b4a7f1e1a178b5cd0aebaa919003b4ef61b7bf09ba2",
+    "tests/test_native_neo_executor_v1.py": "84435c3b103e41dd0688b7fdc5c543b2e76e93070ab5e0f5464dddad3bccd2f9",
+    "tests/test_native_desktop_publication_v1.py": "4b5e489791fdabc622550d05675e04a91c227db08364079bef6a2f9330d71824"
+  },
+  "source_commit": "2977e6b33a66bd59326464610494cc416e3dcd1f",
+  "artifact_hash_convention": "New release packet files are LF bytes; pre-existing retained checkout hashes are explicitly distinguished from Git blob hashes."
+}

@@ -1055,6 +1055,9 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
 
 
 def _worker_prompt(governed: Mapping[str, Any]) -> str:
+    # NativeDesktopTurn appends this exact plan once. Frozen native input already
+    # contains it on resume; serializing it here too changes the immutable prompt.
+    governed = {k: v for k, v in governed.items() if k != "editorial_media_plan"}
     contract = {
         "schema_version": ARTICLE_SCHEMA_VERSION,
         "article": {
@@ -1667,7 +1670,12 @@ def _reader_safe_native_article(
     epistemic_state: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Adapt only final validated article truth to the existing native compiler."""
-    body = _SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or ""))
+    sources = {s["source_id"]: s for s in article.get("public_source_bindings", []) if str(s.get("url", "")).startswith("https://")}
+    def reader_reference(match):
+        source_id = re.search(r"SOURCE_\d+", match.group(0)).group(0)
+        source = sources.get(source_id)
+        return "[" + source["publisher"] + "](" + source["url"] + ")" if source else ""
+    body = _SOURCE_MARKER_RE.sub(reader_reference, str(article.get("substack_body_markdown") or ""))
     body = re.sub(r"(?m)^#{1,6}\s+", "", body)
     title = str(article.get("title") or "")
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
@@ -1714,6 +1722,25 @@ def _reader_safe_native_article(
     return result
 
 
+def _publication_media_metadata(media_assets):
+    """Carry cleared photo credit into both visible copy and publisher captions."""
+    assets, credits = [], []
+    for original in media_assets:
+        asset = dict(original)
+        if asset.get("modality") == "documentary_photo":
+            credit = " ".join((
+                "Photo: " + str(asset["creator_publisher"]).strip().rstrip(".") + ".",
+                str(asset["caption"]),
+                "License: " + str(asset["license_url"]).rstrip(".") + ".",
+                "Source: " + str(asset["source_page_url"]).rstrip(".") + ".",
+                "Changes: " + str(asset.get("changes_description") or "Unchanged original; display resizing only.").rstrip(".") + ".",
+            ))
+            credits.append(credit)
+            asset["caption"] = credit
+        assets.append(asset)
+    return assets, "\n\n".join(credits)
+
+
 def _native_preview_bundle(
     *,
     article: Mapping[str, Any],
@@ -1721,6 +1748,7 @@ def _native_preview_bundle(
     article_identity: str,
     epistemic_state: Mapping[str, Any] | None = None,
     media_asset_ids: Sequence[str] = (),
+    media_assets: Sequence[Mapping[str, Any]] = (),
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     from live_contentops.eight_platform_substack_first_pipeline_v1 import (
         build_native_derivative_payloads,
@@ -1735,6 +1763,9 @@ def _native_preview_bundle(
         article_mode=article_mode,
         epistemic_state=epistemic_state,
     )
+    _, attribution = _publication_media_metadata(media_assets[:1])
+    if attribution:
+        compiler_article["native_media_attribution"] = attribution
     payloads = build_native_derivative_payloads(
         article=compiler_article,
         selection={},
@@ -1860,6 +1891,10 @@ def _build_simple_publication_lifecycle_plan(
         article_mode=str(selected_plan_entry.get("article_mode") or ""),
         epistemic_state=epistemic_state,
     )
+    publication_assets, attribution = _publication_media_metadata(media_assets)
+    _, attribution = _publication_media_metadata(media_assets[:1])
+    if attribution:
+        compiler_article["native_media_attribution"] = attribution
     context = {
         "schema_version": "contentops.simple_durable_run_context.v1",
         **({"audience_learning_binding": article["audience_learning_binding"]}
@@ -1867,7 +1902,7 @@ def _build_simple_publication_lifecycle_plan(
         "run_id": run_id,
         "selection": dict(selected_candidate),
         "article": compiler_article,
-        "media": {"assets": [dict(a) for a in media_assets], "delivery_only_assets": []},
+        "media": {"assets": publication_assets, "delivery_only_assets": []},
         "epistemic_state": dict(epistemic_state or {}),
         "article_identity": article_identity,
         "article_content_sha256": _text_hash(_public_copy(article)),
@@ -2402,6 +2437,13 @@ def run_v1_simple_gemini_newsroom(
             "public_write_performed": False,
         },
     )
+    editorial_revisions = [c for c in selected.get("evolving_story_context", [])
+                           if c.get("disposition") == "EDITORIAL_REVISION"]
+    if editorial_revisions:
+        expected = {(d["url"], d["canonical_content_sha256"]) for c in editorial_revisions for d in c["retained_sources"]}
+        actual = {(d["url"], d["canonical_content_sha256"]) for d in source_pack}
+        if expected != actual:
+            raise ValueError("EDITORIAL_REVISION_FACT_SOURCES_CHANGED_USE_SOURCE_REVIEW")
     writer_governed = {
         "cutoff_utc": cutoff_utc,
         "selected_candidate": selected,
@@ -2599,6 +2641,7 @@ def run_v1_simple_gemini_newsroom(
         article = {**article, "source_date_notice": native_source_date_notice(source_pack,
             {c["source_id"] for c in worker_output["material_claim_bindings"]})}
     native_prior = [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")]
+    article["public_source_bindings"] = [{k: d[k] for k in ("source_id", "url", "publisher", "published_at_utc")} for d in source_pack]
     prior_chain = {c["update_chain_identity"] for c in native_prior}
     if len(prior_chain) > 1:
         raise ValueError("CONFLICTING_NATIVE_PRIOR_STORY_IDENTITIES")
@@ -2615,6 +2658,8 @@ def run_v1_simple_gemini_newsroom(
         "resolved_article_mode": selected_plan_entry["article_mode"],
         "story_identity": selected["story_identity"],
         "update_chain_identity": update_chain,
+        **({"revision_kind": "EDITORIAL_MEDIA_REFINEMENT", "new_factual_evidence": False,
+            "counts_as_new_economic_observation": False} if editorial_revisions else {}),
         **({"prior_article_identity": native_prior[0]["prior_package"]["article_identity"],
             "source_review_id": native_prior[0]["source_review_id"]} if native_prior else {}),
         "source_document_ids": [row["document_id"] for row in source_pack],

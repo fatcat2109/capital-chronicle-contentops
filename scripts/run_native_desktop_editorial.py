@@ -18,7 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from live_contentops.capital_chronicle_latest_report_consumer_v1 import LatestReportDeliveryTracker, canonical_bytes, sha256_of
 from live_contentops.capital_chronicle_report_feed_v1 import MainReportFeed
-from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
+from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore, WorkItemNotFoundError
 from live_contentops.llm_operator_control_v1 import llm_operator_pause_active
 from live_contentops.native_desktop_editorial_v1 import DesktopInputRequired, NativeDesktopTurn, DESTINATION
 from live_contentops.published_corpus_read_model_v1 import load_canonical_published_memory_read_only
@@ -129,10 +129,28 @@ def continue_owner_story(profile, *, source_review_id, operation_id=None, reques
     # Omitted request on resume keeps the original owner wording, including a
     # custom request. A pending binding is the authority for its frozen input.
     existing = Path(profile["editorial_output_root"]) / operation_id / "binding.json"
+    revision = review["decision"] == "EDITORIAL_REVISION"
     _, binding = resolve_owner_operation(profile, operation_id=operation_id, request=request if existing.is_file() else text,
-        source_review_ids=[source_review_id])
+        source_review_ids=[source_review_id],
+        now=datetime.fromisoformat(review["cutoff_utc"].replace("Z", "+00:00")) if revision else None)
     if binding.get("source_review_ids") != [source_review_id]:
         raise ValueError("EXACT_FOLLOWUP_OPERATION_SOURCE_BINDING_REQUIRED")
+    if revision:
+        original = store.get_outbox_message("native-current-input-" + sha256_of(review["run_id"]))
+        if not original:
+            raise ValueError("EDITORIAL_REVISION_REQUIRES_ORIGINAL_FROZEN_INPUT")
+        frozen = {**json.loads(original["payload"]), "run_id": operation_id,
+                  "source_review_ids": [source_review_id], "source_requests_before_writer_freeze": 0,
+                  "editorial_revision_of": review["article_identity"], "new_factual_evidence": False}
+        work = "cc-opportunity-" + sha256_of(operation_id)
+        try:
+            work_title = store.get_work_item(work)["title"]
+        except WorkItemNotFoundError:
+            work_title = "Main-enriched newsroom opportunity"
+        store.create_work_item(story_id=work, work_item_id=work, title=work_title,
+                               target_surface="CONTENTOPS_EDITORIAL_ONLY")
+        store.register_outbox_message(message_id="native-current-input-" + sha256_of(operation_id), work_item_id=work,
+            destination="internal:native-current-input", payload=canonical_bytes(frozen).decode(), status="EDITORIAL_INTERNAL")
     return operation(binding)
 
 
@@ -150,7 +168,11 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
         if not previous:
             raise ValueError("EXACT_REGISTERED_OPERATION_BINDING_REQUIRED")
         return NativeReviewedPublication(store, binding, native_invocation_id=None).projection()
-    store.create_work_item(story_id=work, title="Main-enriched newsroom opportunity",
+    try:
+        previous_work = store.get_work_item(work)
+    except WorkItemNotFoundError:
+        previous_work = None
+    store.create_work_item(story_id=work, title=previous_work["title"] if previous_work else "Main-enriched newsroom opportunity",
                            target_surface="CONTENTOPS_EDITORIAL_ONLY", work_item_id=work)
     if not previous:
         store.register_outbox_message(message_id=key, work_item_id=work, destination=DESTINATION,
@@ -185,6 +207,26 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
     if command == "media":
         from live_contentops.native_desktop_editorial_v1 import bind_editorial_media
         return bind_editorial_media(store, run_id=binding["run_id"], **response)
+    if command == "media-plan":
+        from live_contentops.native_desktop_editorial_v1 import bind_editorial_media_plan
+        if response is None:
+            governed = json.loads((resolve_workspace_path(binding["output_dir"]) / "editorial_media_plan_required.json").read_bytes())
+            try:
+                output, receipt = turn(logical_invocation_id=binding["run_id"] + ":media-plan",
+                    prompt=("Return JSON {story_plan: {thesis, photo_plan, chart_plan}}. Plan relevant authentic "
+                            "photo discovery with subject/archive caption and lawful exact license/source evidence, "
+                            "and one useful quantitative chart from the exact source_pack. Preserve metric/unit/currency/period, "
+                            "actual/estimate/forecast and missingness. No prose, new numbers, forecasts, copied charts or public action. "
+                            "Code/tools retrieve exact originals and compile/validate admitted values; then bind inspected assets "
+                            "with media-plan before MAX writing."),
+                    governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
+            except DesktopInputRequired as pending:
+                return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
+                        "request_path": pending.request["request_path"], "request_sha256": pending.request["request_sha256"],
+                        "public_write_performed": False}
+            return {"classification": "NATIVE_VISUAL_PLAN_RETURNED_ASSETS_REQUIRED", "output": output,
+                    "request_sha256": receipt["request_sha256"], "public_write_performed": False}
+        return bind_editorial_media_plan(store, run_id=binding["run_id"], output_dir=binding["output_dir"], **response)
     if command == "recover-sources":
         pending = turn.frozen_request("write")
         if (not pending or pending["request_sha256"] != response.get("expected_request_sha256")
@@ -294,7 +336,7 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("newsroom", "follow-up", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "recover-sources", "relocate-workspace", "edition",
+    parser.add_argument("command", choices=("newsroom", "follow-up", "editorial-revision", "refresh", "desk", "advance", "submit", "status", "scheduled", "review", "handoff", "media", "media-plan", "recover-sources", "relocate-workspace", "edition",
         "publication-prepare", "publication-status", "publication-resume", "publication-tool-begin", "publication-tool-submit",
         "audience-status", "audience-observe", "audience-tool-begin", "audience-tool-submit", "audience-evaluate", "audience-feedback", "audience-follow-up"))
     parser.add_argument("--profile", type=Path, default=DEFAULT_PROFILE)
@@ -314,6 +356,20 @@ def main(argv=None):
     parser.add_argument("--source-review-id", action="append", default=[])
     parser.add_argument("--workspace-root", type=Path, help="Explicit stable destination for authorized manual-workspace relocation")
     args = parser.parse_args(argv)
+    if args.command == "editorial-revision":
+        if not args.response or not args.operation_id:
+            parser.error("editorial-revision requires exact prior article/reason in --response and stable --operation-id")
+        from live_contentops.contentops_editorial_desk_v1 import record_story_editorial_revision
+        profile = json.loads(args.profile.read_bytes())
+        prior = json.loads(args.response.read_bytes())
+        review = record_story_editorial_revision(ContentOpsDurableStore(profile["store_path"], auto_migrate=False),
+            **prior, review_operation_id=args.operation_id)
+        result = continue_owner_story(profile, source_review_id=review["review_id"], operation_id=args.operation_id,
+            request=("Revise this exact retained article under CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1. "
+                     "The financial facts and source dates are unchanged; this is an editorial/media revision, not fresh news. "
+                     "Preserve prior identity/history, attribution, report-only uncertainty and the existing update chain. " + prior["reason"]))
+        print(json.dumps(result, ensure_ascii=True))
+        return 0
     if args.command == "follow-up":
         if len(args.source_review_id) != 1:
             parser.error("follow-up requires one exact --source-review-id")

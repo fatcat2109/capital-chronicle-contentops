@@ -1,0 +1,30 @@
+{
+  "invocation_observation": {
+    "invocation_id": "/root/v1_media_revision_plan",
+    "model": "gpt-6.1-sol",
+    "observation_source": "Actual collaboration.followup_task and FINAL_ANSWER; configured native low model; exact written return",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Reported non-voting shares may offer acquisition and talent flexibility while preserving control; a split establishes neither cash proceeds nor investment returns.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+        "evidence_plan": "Resolve only the existing retained source goal35-meta through the established retained-source seam; preserve Reuters publication 2026-10-21T20:05:00Z, original cutoff and source certainty. Single Reuters origin supports attributed report truth only, not independent event confirmation. Preserve story/update chain simple-story-fac27d440fa75893480ecc46 and prior article 208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b; this is EDITORIAL_REVISION with no new factual evidence. Use exact chart-data.json: Third-quarter free cash flow \u2014 deficit: 2.12 USD billion (ACTUAL, third quarter) \u2014 negative cash burn/deficit, not positive cash flow; Free cash flow \u2014 year earlier: 10.63 USD billion (ACTUAL, a year earlier). Keep units, periods, actual/estimate/forecast and negative signs; code owns extraction, arithmetic and rendering, with no new calculation or invented history. Use exact cleared contextual archive photo documentary_meta dated 2022-03-27 17:48:57 with supplied credit, source/license links and change disclosure; honor ShareAlike where applicable. It corroborates no article fact. Original prose paraphrases attributed facts; Reuters source expression and images are not licensed for public reuse. Countercase: Reported revenue above estimates and one deficit quarter leave a timing explanation open; neither distress nor failed investment is established. Missing/test dimensions: Final share terms and actual use, a cash-flow bridge and later investment returns would test the interpretation. No new retrieval, proprietary authority or public-write grant. Article layout acceptance remains separate.",
+        "primary_reader_question": "What does the planned non-voting share class change about funding and control, as distinct from cash generation?",
+        "research_queries": [
+          "meta Reuters October 21 2026 reported earnings cash flow outlook"
+        ],
+        "selection_rationale": "The owner-scoped retained revision has a distinct useful analytical tension and a warranted chart/context photo. Lead with the funding/control distinction beside the reported quarterly cash deficit; retain January 2027 as future intention, not completed issuance."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select the single governed retained meta story for the exact owner-directed editorial/media revision. Request d1a01c9a5102ecff8273031d3192aa4c913c2f291b0c1409957d33c7c2d46913. Preserve existing identity/history and October 21 source date; no fresh-news or independent-confirmation claim. No fallback or extra story is admitted.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "request_sha256": "d1a01c9a5102ecff8273031d3192aa4c913c2f291b0c1409957d33c7c2d46913"
+}

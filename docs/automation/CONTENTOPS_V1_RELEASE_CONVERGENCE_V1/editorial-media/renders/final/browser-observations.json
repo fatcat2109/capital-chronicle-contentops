@@ -1,0 +1,902 @@
+[
+  {
+    "layout": {
+      "article": {
+        "height": 11095.46875,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "canonical": {
+        "height": 2646.0625,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1032.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 2698.0625
+        },
+        {
+          "destination": "x",
+          "height": 1122.109375,
+          "width": 954,
+          "x": 235.5,
+          "y": 3730.078125
+        },
+        {
+          "destination": "linkedin",
+          "height": 1043.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 4852.1875
+        },
+        {
+          "destination": "discord",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 5895.25
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 6910.265625
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1060.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 7925.28125
+        },
+        {
+          "destination": "threads",
+          "height": 1150.15625,
+          "width": 954,
+          "x": 235.5,
+          "y": 8985.34375
+        },
+        {
+          "destination": "youtube",
+          "height": 986.96875,
+          "width": 954,
+          "x": 235.5,
+          "y": 10135.5
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 11199,
+      "images_loaded": true,
+      "scrollWidth": 1425,
+      "text_length": 8340,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "bytes": 249025,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\oil-desktop.pdf",
+      "sha256": "4c9f2404f519ab5a54c7b2f53343ac7261ce7f4990a8272f658b9177d54b3562",
+      "pages": 7,
+      "text_characters": 8277
+    },
+    "slug": "oil",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 11246.015625,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "canonical": {
+        "height": 2796.609375,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1032.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 2848.609375
+        },
+        {
+          "destination": "x",
+          "height": 1122.109375,
+          "width": 954,
+          "x": 235.5,
+          "y": 3880.625
+        },
+        {
+          "destination": "linkedin",
+          "height": 1043.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 5002.734375
+        },
+        {
+          "destination": "discord",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 6045.796875
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 7060.8125
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1060.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 8075.828125
+        },
+        {
+          "destination": "threads",
+          "height": 1150.15625,
+          "width": 954,
+          "x": 235.5,
+          "y": 9135.890625
+        },
+        {
+          "destination": "youtube",
+          "height": 986.96875,
+          "width": 954,
+          "x": 235.5,
+          "y": 10286.046875
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 11350,
+      "images_loaded": true,
+      "scrollWidth": 1425,
+      "text_length": 8045,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "bytes": 403870,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\ibm-desktop.pdf",
+      "sha256": "a8af8508d79d56ba044f20ccabcacae9e1f0edad08c71da6dbc98b7bd6bbd954",
+      "pages": 7,
+      "text_characters": 7974
+    },
+    "slug": "ibm",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 11799.125,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "canonical": {
+        "height": 3125.34375,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1088.109375,
+          "width": 954,
+          "x": 235.5,
+          "y": 3177.34375
+        },
+        {
+          "destination": "x",
+          "height": 1178.203125,
+          "width": 954,
+          "x": 235.5,
+          "y": 4265.453125
+        },
+        {
+          "destination": "linkedin",
+          "height": 1043.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 5443.65625
+        },
+        {
+          "destination": "discord",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 6486.71875
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1043.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 7501.734375
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1060.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 8544.796875
+        },
+        {
+          "destination": "threads",
+          "height": 1178.203125,
+          "width": 954,
+          "x": 235.5,
+          "y": 9604.859375
+        },
+        {
+          "destination": "youtube",
+          "height": 1043.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 10783.0625
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 11903,
+      "images_loaded": true,
+      "scrollWidth": 1425,
+      "text_length": 8647,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "bytes": 432196,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\tesla-desktop.pdf",
+      "sha256": "27239b45bb788e9e11addfd92f04d66f0a8ee84e89c9d323fd0a3dc616777ce0",
+      "pages": 8,
+      "text_characters": 8583
+    },
+    "slug": "tesla",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 11635.9375,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "canonical": {
+        "height": 3141.484375,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1060.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 3193.484375
+        },
+        {
+          "destination": "x",
+          "height": 1195.203125,
+          "width": 954,
+          "x": 235.5,
+          "y": 4253.546875
+        },
+        {
+          "destination": "linkedin",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 5448.75
+        },
+        {
+          "destination": "discord",
+          "height": 986.96875,
+          "width": 954,
+          "x": 235.5,
+          "y": 6463.765625
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 7450.734375
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1032.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 8465.75
+        },
+        {
+          "destination": "threads",
+          "height": 1150.15625,
+          "width": 954,
+          "x": 235.5,
+          "y": 9497.765625
+        },
+        {
+          "destination": "youtube",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 10647.921875
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 11740,
+      "images_loaded": true,
+      "scrollWidth": 1425,
+      "text_length": 9606,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "bytes": 377798,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\meta-desktop.pdf",
+      "sha256": "6477ca1cbff13326e817b1c4e2cdc91774d0458478d2f055c0698af7387e3c7f",
+      "pages": 8,
+      "text_characters": 9543
+    },
+    "slug": "meta",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 11899.015625,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "canonical": {
+        "height": 3236.28125,
+        "width": 1004,
+        "x": 210.5,
+        "y": 52
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1060.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 3288.28125
+        },
+        {
+          "destination": "x",
+          "height": 1195.203125,
+          "width": 954,
+          "x": 235.5,
+          "y": 4348.34375
+        },
+        {
+          "destination": "linkedin",
+          "height": 1043.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 5543.546875
+        },
+        {
+          "destination": "discord",
+          "height": 1043.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 6586.609375
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1043.0625,
+          "width": 954,
+          "x": 235.5,
+          "y": 7629.671875
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1088.109375,
+          "width": 954,
+          "x": 235.5,
+          "y": 8672.734375
+        },
+        {
+          "destination": "threads",
+          "height": 1150.15625,
+          "width": 954,
+          "x": 235.5,
+          "y": 9760.84375
+        },
+        {
+          "destination": "youtube",
+          "height": 1015.015625,
+          "width": 954,
+          "x": 235.5,
+          "y": 10911
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 12003,
+      "images_loaded": true,
+      "scrollWidth": 1425,
+      "text_length": 9344,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "bytes": 288389,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\southwest-desktop.pdf",
+      "sha256": "5929ca90d010264d684c756a4d9fe3a2b79e934f73abd4e46b837daae44c2bd9",
+      "pages": 8,
+      "text_characters": 9268
+    },
+    "slug": "southwest",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 10378.484375,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "canonical": {
+        "height": 3267.34375,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 857.078125,
+          "width": 332,
+          "x": 29,
+          "y": 3303.34375
+        },
+        {
+          "destination": "x",
+          "height": 915.46875,
+          "width": 332,
+          "x": 29,
+          "y": 4160.421875
+        },
+        {
+          "destination": "linkedin",
+          "height": 893.859375,
+          "width": 332,
+          "x": 29,
+          "y": 5075.890625
+        },
+        {
+          "destination": "discord",
+          "height": 893.859375,
+          "width": 332,
+          "x": 29,
+          "y": 5969.75
+        },
+        {
+          "destination": "facebook_page",
+          "height": 867.46875,
+          "width": 332,
+          "x": 29,
+          "y": 6863.609375
+        },
+        {
+          "destination": "instagram_business",
+          "height": 883.46875,
+          "width": 332,
+          "x": 29,
+          "y": 7731.078125
+        },
+        {
+          "destination": "threads",
+          "height": 941.859375,
+          "width": 332,
+          "x": 29,
+          "y": 8614.546875
+        },
+        {
+          "destination": "youtube",
+          "height": 841.078125,
+          "width": 332,
+          "x": 29,
+          "y": 9556.40625
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 10450,
+      "images_loaded": true,
+      "scrollWidth": 390,
+      "text_length": 8340,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "bytes": 249763,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\oil-mobile.pdf",
+      "sha256": "c064e9d83ee33ab26f94798f956d7325d2242adbe240a929f4e4d6a9c1ba74a2",
+      "pages": 7,
+      "text_characters": 8288
+    },
+    "slug": "oil",
+    "viewport": "mobile"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 10203.171875,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "canonical": {
+        "height": 3118.421875,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 857.078125,
+          "width": 332,
+          "x": 29,
+          "y": 3154.421875
+        },
+        {
+          "destination": "x",
+          "height": 915.46875,
+          "width": 332,
+          "x": 29,
+          "y": 4011.5
+        },
+        {
+          "destination": "linkedin",
+          "height": 920.25,
+          "width": 332,
+          "x": 29,
+          "y": 4926.96875
+        },
+        {
+          "destination": "discord",
+          "height": 841.078125,
+          "width": 332,
+          "x": 29,
+          "y": 5847.21875
+        },
+        {
+          "destination": "facebook_page",
+          "height": 867.46875,
+          "width": 332,
+          "x": 29,
+          "y": 6688.296875
+        },
+        {
+          "destination": "instagram_business",
+          "height": 883.46875,
+          "width": 332,
+          "x": 29,
+          "y": 7555.765625
+        },
+        {
+          "destination": "threads",
+          "height": 968.25,
+          "width": 332,
+          "x": 29,
+          "y": 8439.234375
+        },
+        {
+          "destination": "youtube",
+          "height": 814.6875,
+          "width": 332,
+          "x": 29,
+          "y": 9407.484375
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 10275,
+      "images_loaded": true,
+      "scrollWidth": 390,
+      "text_length": 8045,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "bytes": 410746,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\ibm-mobile.pdf",
+      "sha256": "c8ae20c7dd98e1222289c710d7773e907d115e9dd7335559086281f6b834eba0",
+      "pages": 7,
+      "text_characters": 8013
+    },
+    "slug": "ibm",
+    "viewport": "mobile"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 10578.90625,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "canonical": {
+        "height": 3546.9375,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 883.46875,
+          "width": 332,
+          "x": 29,
+          "y": 3582.9375
+        },
+        {
+          "destination": "x",
+          "height": 941.859375,
+          "width": 332,
+          "x": 29,
+          "y": 4466.40625
+        },
+        {
+          "destination": "linkedin",
+          "height": 867.46875,
+          "width": 332,
+          "x": 29,
+          "y": 5408.265625
+        },
+        {
+          "destination": "discord",
+          "height": 814.6875,
+          "width": 332,
+          "x": 29,
+          "y": 6275.734375
+        },
+        {
+          "destination": "facebook_page",
+          "height": 867.46875,
+          "width": 332,
+          "x": 29,
+          "y": 7090.421875
+        },
+        {
+          "destination": "instagram_business",
+          "height": 830.6875,
+          "width": 332,
+          "x": 29,
+          "y": 7957.890625
+        },
+        {
+          "destination": "threads",
+          "height": 941.859375,
+          "width": 332,
+          "x": 29,
+          "y": 8788.578125
+        },
+        {
+          "destination": "youtube",
+          "height": 867.46875,
+          "width": 332,
+          "x": 29,
+          "y": 9730.4375
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 10651,
+      "images_loaded": true,
+      "scrollWidth": 390,
+      "text_length": 8647,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "bytes": 431878,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\tesla-mobile.pdf",
+      "sha256": "675919b6326cfebacae8b63c89d766d33d56970e2661f04a195e0b83f26d7f52",
+      "pages": 7,
+      "text_characters": 8613
+    },
+    "slug": "tesla",
+    "viewport": "mobile"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 10927.734375,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "canonical": {
+        "height": 3879.765625,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 909.859375,
+          "width": 332,
+          "x": 29,
+          "y": 3915.765625
+        },
+        {
+          "destination": "x",
+          "height": 984.25,
+          "width": 332,
+          "x": 29,
+          "y": 4825.625
+        },
+        {
+          "destination": "linkedin",
+          "height": 814.6875,
+          "width": 332,
+          "x": 29,
+          "y": 5809.875
+        },
+        {
+          "destination": "discord",
+          "height": 814.6875,
+          "width": 332,
+          "x": 29,
+          "y": 6624.5625
+        },
+        {
+          "destination": "facebook_page",
+          "height": 841.078125,
+          "width": 332,
+          "x": 29,
+          "y": 7439.25
+        },
+        {
+          "destination": "instagram_business",
+          "height": 830.6875,
+          "width": 332,
+          "x": 29,
+          "y": 8280.328125
+        },
+        {
+          "destination": "threads",
+          "height": 941.859375,
+          "width": 332,
+          "x": 29,
+          "y": 9111.015625
+        },
+        {
+          "destination": "youtube",
+          "height": 893.859375,
+          "width": 332,
+          "x": 29,
+          "y": 10052.875
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 11000,
+      "images_loaded": true,
+      "scrollWidth": 390,
+      "text_length": 9606,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "bytes": 379123,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\meta-mobile.pdf",
+      "sha256": "b4ee6a7ee3e7eb1b4f51cb33796b07081ede756fad0a5de7d50b808a8b258c6c",
+      "pages": 8,
+      "text_characters": 9561
+    },
+    "slug": "meta",
+    "viewport": "mobile"
+  },
+  {
+    "layout": {
+      "article": {
+        "height": 11090,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "canonical": {
+        "height": 3830.90625,
+        "width": 366,
+        "x": 12,
+        "y": 36
+      },
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 883.46875,
+          "width": 332,
+          "x": 29,
+          "y": 3866.90625
+        },
+        {
+          "destination": "x",
+          "height": 984.25,
+          "width": 332,
+          "x": 29,
+          "y": 4750.375
+        },
+        {
+          "destination": "linkedin",
+          "height": 893.859375,
+          "width": 332,
+          "x": 29,
+          "y": 5734.625
+        },
+        {
+          "destination": "discord",
+          "height": 893.859375,
+          "width": 332,
+          "x": 29,
+          "y": 6628.484375
+        },
+        {
+          "destination": "facebook_page",
+          "height": 867.46875,
+          "width": 332,
+          "x": 29,
+          "y": 7522.34375
+        },
+        {
+          "destination": "instagram_business",
+          "height": 909.859375,
+          "width": 332,
+          "x": 29,
+          "y": 8389.8125
+        },
+        {
+          "destination": "threads",
+          "height": 968.25,
+          "width": 332,
+          "x": 29,
+          "y": 9299.671875
+        },
+        {
+          "destination": "youtube",
+          "height": 841.078125,
+          "width": 332,
+          "x": 29,
+          "y": 10267.921875
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 11162,
+      "images_loaded": true,
+      "scrollWidth": 390,
+      "text_length": 9344,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "bytes": 289259,
+      "retained_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\renders\\final\\southwest-mobile.pdf",
+      "sha256": "44ceadd12ea624435dcf34759271f74ef9404904844d4a29f6929fadcb3742f8",
+      "pages": 8,
+      "text_characters": 9296
+    },
+    "slug": "southwest",
+    "viewport": "mobile"
+  }
+]

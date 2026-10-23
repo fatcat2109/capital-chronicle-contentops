@@ -112,7 +112,8 @@ def test_source_recovery_preserves_pending_request_and_rejects_answered_writer(t
     turn = NativeDesktopTurn(store, run_id=binding["run_id"], output_dir=binding["output_dir"], owner_manual_validation=True)
     with pytest.raises(DesktopInputRequired) as pending:
         turn(logical_invocation_id=binding["run_id"] + ":write", prompt="controlled pending source pack",
-            governed_input={"source_pack": []}, validator=lambda raw: (True, None, {}, None))
+            # Thin protocol recovery fixture, not a new article bypassing media planning.
+            governed_input={"controlled_source_request": []}, validator=lambda raw: (True, None, {}, None))
     expected = pending.value.request["request_sha256"]
     result = module.operation(binding, command="recover-sources", response={"expected_request_sha256": expected, "supporting_headline_ids": ["goal21-gas-storage"]})
     assert result["retained_selection"] is True

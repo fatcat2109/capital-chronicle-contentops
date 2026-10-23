@@ -1,0 +1,23 @@
+# Five retained editorial and media revisions
+
+This is the finite reader-product evidence for `CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1`. It refines the five saved October 21 questions. It adds no new financial observation, independent event confirmation, public post or daily-output credit. Original Goal35 articles, source packs and reviews remain history.
+
+Each revision has an actual native Sol6.1 MAX return, an independently validated claim packet, one separately cleared archival photograph and one original source-bound quantitative chart. A native Sol Light five-story plan and five exact selection returns precede the writers. There was no genuine X input and therefore no new Luna invocation. Native tools do not expose token usage; no usage or cost estimate is invented.
+
+| Story | Specific editorial test | Admitted comparison | Desktop | Phone |
+| --- | --- | --- | --- | --- |
+| Oil | A faded early rally does not identify its cause | Brent108.82 / WTI97.15 USD/barrel, reported closes | [Read](renders/final/oil-desktop.pdf) | [Read](renders/final/oil-mobile.pdf) |
+| IBM | A higher growth floor does not establish recurring demand | Company revenue17.10 actual /16.82 analyst estimate, USD billion | [Read](renders/final/ibm-desktop.pdf) | [Read](renders/final/ibm-mobile.pdf) |
+| Tesla | A cash-flow surprise does not identify operating cash's contribution | 1.53 actual / -4.92 expected burn, USD billion | [Read](renders/final/tesla-desktop.pdf) | [Read](renders/final/tesla-mobile.pdf) |
+| Meta | Payment flexibility and control are distinct from cash generation | -2.12 current-quarter /10.63 year-earlier cash flow, USD billion | [Read](renders/final/meta-desktop.pdf) | [Read](renders/final/meta-mobile.pdf) |
+| Southwest | Quarterly performance and annual guidance answer different questions | Prior3.25-4.25 / revised2.60-2.85 forecast, USD/share | [Read](renders/final/southwest-desktop.pdf) | [Read](renders/final/southwest-mobile.pdf) |
+
+The ten PDFs come from the actual `ReportEditorialWorkspace` component and its owning read model, rendered in BrowserOS Neo at1440px and390px. They include the canonical article and eight distinct pending channel packages. Print pagination is an inspection aid; it is not a claim about live destination UI. All75 final PDF pages were rendered and inspected through20 retained sheets. Exact PDF/sheet/source hashes are in [visual-review.json](renders/final/visual-review.json). Native channel dispatch remains zero.
+
+The canonical preview places the archive photograph before the article and the chart after it. Eight channel packages use the owned chart as the primary visual. This preserves useful evidence in short posts without adding a photo-credit-only reply chain. The canonical photo retains the source, creator, license, archival date, caption and alt text. The original delivery pixels remain unchanged. Oil's640x427 original is displayed without forced enlargement. Mobile overviews retain an actual tested inline enlargement control for detailed chart labels.
+
+The charts reuse the existing deterministic source-value renderer. Signed cash burn/deficit, currency, actual/estimate/forecast distinctions, periods and forecast bounds remain explicit. There is no invented intervening history, midpoint, interpolation, AI-only spending series or proprietary Core Analyzer output. A photo adds context and never corroborates the financial claims.
+
+Each story directory retains the actual request and worker output/envelope, parent validation, exact chart data/bindings, documentary original, curated release rights receipt and the final reviewed/prepared packet. `release-photo-rights.json` is a bounded public-license evidence receipt; raw provider responses remain local and are excluded from Git. Evidence attributes preserve exact bytes across checkout line-ending settings. The compressed reader snapshot/HTML can be decompressed locally; the ordinary `desk` command renders the current owner workspace through the same existing component.
+
+`review.json`, `publication-prepared.json` and `publication-status.json` distinguish editorial KEEP, prepared artifacts and nine undispatched destinations. They grant no publication authority. One separately held FX question remains held and is not a sixth required revision. Publication readiness of these dated examples does not establish current account readiness, integration, merge, deployment, calendar execution, search performance, audience response or natural5-8/day operation. No equivalence with an institutional publication is certified.

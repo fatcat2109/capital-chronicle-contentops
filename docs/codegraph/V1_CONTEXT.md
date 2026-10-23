@@ -154,3 +154,26 @@ Four tasks and production remain paused. Same draft PR90; exact final remote/CI 
 graph identity are read back in the existing local Desk's `goal35_delivery.json`.
 No public/account write, activation, merge or deployment. Receiver consumption is
 NOT VERIFIED; Control Tower synchronization is pending with this durable handoff.
+
+## Native V1 editorial and media release standard (2026-10-24)
+
+The current standard requires a separately cleared authentic contextual photograph and a
+useful source-bound quantitative chart/data packet before a new revision can be prepared
+for release. `live_contentops/native_desktop_editorial_v1.py` owns pre-writer media planning,
+exact source/media binding and the shared copy/media/preview review identity. The existing
+visual discovery and source-value chart owners verify license evidence, signed currency
+values, actual/estimate/forecast labels, periods and ranges. No new store or media broker.
+
+`scripts/run_native_desktop_editorial.py` exposes an explicit editorial revision using
+unchanged retained facts. The existing Desk resolves public citation links, renders the
+photo/chart and exact channel attachments, and invalidates stale preparation after copy or
+media drift. `native_desktop_publication_v1.py` enforces required media at preparation and
+new-send boundaries while preserving readback-only recovery. The sole coordinator remains.
+
+The five dated Goal35 questions have actual Sol6.1 MAX revisions and local desktop/mobile
+canonical/eight-package inspection evidence under
+`docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/README.md`.
+This is bounded retained-example evidence, not fresh news, publication, merge, deployment,
+search/audience success or natural daily operation. Production and the same four Automations
+remain paused; V2/V3 remain owner-paused. Exact current delivery and the superseding
+unapproved release transition remain in the existing V1 release checkpoint.

@@ -1,0 +1,553 @@
+{
+  "accepted_evidence_ids": [
+    "goal35-meta"
+  ],
+  "accepted_evidence_sha256": "7e4e71dc9a53fdb2b4955591ae4908d21a93505e04047401dd787076eadd3c3c",
+  "article_body_sha256": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+  "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+  "article_path": null,
+  "attempt_run_id": "v1-media-meta-r1",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nSINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nReuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.\n\nWhat to watch: The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "724ccc95a7879b97e9cc227a8b24adfb9acaf8b051826de7bb4eceaeff4069b8",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4\n\nReuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.\n\nWatch: The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Reuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Watch: The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.704,
+            0.371,
+            0.857
+          ],
+          "post_character_counts": [
+            197,
+            104,
+            240
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.433,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Reuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.",
+          "Watch: The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4",
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4"
+      },
+      "payload_sha256": "76baf41fd365918b7c50114a42e7a80b51df72f621315e3f6a75510e1cc07deb",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]**\n\nReuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.\n\n**Context:** A timing explanation is the strongest countercase to a lasting funding constraint.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "7609ae6d83e611647962cf07b97619c639fdeabf7fad46151a85a67f777251c2",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 3000,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nWhy it matters: If the report is accurate, a non-voting class could give Meta an acquisition currency and a way to reward talent without adding votes through that instrument.\n\nContext: A timing explanation is the strongest countercase to a lasting funding constraint.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "e161bada5432d25770b281ade1b5e83b7f30e5792a537758b2a3d5c24d3f93d9",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 63206,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nReuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.\n\nWhy it matters: If the report is accurate, a non-voting class could give Meta an acquisition currency and a way to reward talent without adding votes through that instrument.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "2092554d98bb2f1d6c788cdbb2893387451c3b77a7ea1614fb4fe607b69c394f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2200,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nReuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.\n\nIn focus: A timing explanation is the strongest countercase to a lasting funding constraint.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4\n\n#CapitalChronicle\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "0a7547c4ca864e62cfb6e5682d82d023fbf0e14cb0abbfaf321fa08889238f0b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nA timing explanation is the strongest countercase to a lasting funding constraint.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4\n\nWhat to watch: The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nA timing explanation is the strongest countercase to a lasting funding constraint.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.562,
+            0.496
+          ],
+          "post_character_counts": [
+            281,
+            248
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.883,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nA timing explanation is the strongest countercase to a lasting funding constraint.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4",
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nA timing explanation is the strongest countercase to a lasting funding constraint.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4"
+      },
+      "payload_sha256": "250074c7aaa8512422ceb5bf584bb554642fa279118ab192cea51000833e068e",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1000,
+        "text": "Update: SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's planned non-voting shares leave the cash test open [Source 2026-10-21]\n\nReuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.\n\nWhat to watch: The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-f6b226fef09122f4\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "1780bf27efdeb330a5ed3eefbff0027d29a701486070b6b2b9f0518c2997b96f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/v1_media_revision_plan",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.followup_task and FINAL_ANSWER; configured native low model; exact written return",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/v1_max_meta",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.spawn_agent configured model/effort; actual FINAL_ANSWER and exact authored output file",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "DIRECT_REPUTABLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-meta"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-22-bangkok",
+  "parent_window_id": "v1-media-meta-r1",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "c8063142cf19a3b4c71ac67200dc3f9152e9e80570568020302f76fe2165b57f",
+  "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-fac27d440fa75893480ecc46",
+  "title": "Reuters: Meta's planned non-voting shares leave the cash test open",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-fac27d440fa75893480ecc46"
+}

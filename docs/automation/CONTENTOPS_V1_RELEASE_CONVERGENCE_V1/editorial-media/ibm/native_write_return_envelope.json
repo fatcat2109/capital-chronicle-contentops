@@ -1,0 +1,192 @@
+{
+  "invocation_observation": {
+    "invocation_id": "/root/v1_max_ibm",
+    "model": "gpt-6.1-sol",
+    "observation_source": "Actual collaboration.spawn_agent configured model/effort; same agent resumed with followup_task after quota; actual FINAL_ANSWER and exact output file",
+    "reasoning_effort": "max",
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "article": {
+      "author_identity": "Capital Chronicle",
+      "canonical_editorial_headline": "Reuters: IBM's higher software revenue growth floor leaves a durability test",
+      "canonical_slug_candidate": "ibm-software-growth-floor-demand-october-21-2026",
+      "counts_as_new_economic_observation": false,
+      "dek": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software revenue growth range has a higher floor and unchanged ceiling. Demand after delayed deals clear remains the test.",
+      "entities": [
+        "IBM",
+        "Reuters",
+        "Kavanaugh",
+        "LSEG"
+      ],
+      "institutional_edge_editorial_packet_sha256": "d454c39935ce2be8c54eddc5fd7b3caf1ee65315922059773e1cd8055d6b132a",
+      "internal_link_candidates": [],
+      "meta_description": "Reuters' October 21 account of IBM's higher software growth floor leaves a key test: whether demand lasts after delayed deals clear.",
+      "new_factual_evidence": false,
+      "primary_reader_question": "Does the reported higher software outlook establish durable demand after delayed deals clear?",
+      "prior_article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+      "publisher_identity": "Capital Chronicle",
+      "revision_kind": "EDITORIAL_MEDIA_REFINEMENT",
+      "search_freshness_class": "UPDATE",
+      "search_title": "IBM software revenue outlook: Reuters reports a higher floor",
+      "secondary_reader_questions": [
+        "What changed between IBM's reported software revenue growth ranges?",
+        "How much of reported transaction-processing revenue came from delayed deals?",
+        "Which later disclosures would help test recurring demand?"
+      ],
+      "seo_title": "IBM software revenue outlook: Reuters reports a higher floor",
+      "slug": "ibm-software-growth-floor-demand-october-21-2026",
+      "social_cross_asset_summary": "Comparable disclosures of new and deferred transaction-processing business would test recurrence. Continued software growth supported by margins and cash conversion would strengthen the durable-demand reading; weaker follow-through would challenge it.",
+      "social_hook": "Reuters reports a higher IBM software growth floor with the same ceiling. The demand test comes after delayed deals clear.",
+      "social_lede": "Reuters reports a higher IBM software growth floor with the same ceiling. The demand test comes after delayed deals clear.",
+      "social_mechanism_summary": "If Reuters' account is accurate, delayed deals reaching the current quarter could strengthen reported revenue without establishing a lasting increase in fresh demand. Capital Chronicle's timing test is whether new business can sustain growth once that catch-up fades.",
+      "social_policy_summary": "If Kavanaugh's transaction-processing breakdown reported by Reuters is accurate, the new-business component would challenge a catch-up-only explanation. Fresh business and delayed deals could coexist.",
+      "story_identity": "simple-story-cfa3cb4bdb5389780c472d78",
+      "structured_data_packet": null,
+      "substack_body_markdown": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software outlook lifts the growth floor while keeping the ceiling unchanged. Reuters' October 21, 2026 account of Kavanaugh's comments puts annual software revenue growth at about 7% to 8%, compared with 6% to 8% previously. If accurate, that revision would narrow the weaker end of management's range without establishing lasting demand after delayed deals clear. [[SOURCE:SOURCE_1]]\n\nReuters puts third-quarter company-wide revenue at $17.10 billion, with reported growth of 4.7%, against a $16.82 billion average analyst estimate compiled by LSEG. Its separate software figures are $7.80 billion in quarterly revenue, growth of 8.3% and a $7.62 billion estimate. [[SOURCE:SOURCE_1]]\n\n## The transaction-processing denominator matters\n\nReuters attributes a narrower revenue split to Kavanaugh: about 25% of transaction-processing revenue came from business deferred from the second quarter, while he characterized the other 75% as net new business. Those shares describe transaction-processing revenue; they cannot be applied to all IBM revenue or treated as a breakdown of software revenue growth. [[SOURCE:SOURCE_1]]\n\nIf Reuters' account is accurate, delayed deals reaching the current quarter could strengthen reported revenue without establishing a lasting increase in fresh demand. Capital Chronicle's timing test is whether new business can sustain growth once that catch-up fades. [[SOURCE:SOURCE_1]]\n\nIf Kavanaugh's transaction-processing breakdown reported by Reuters is accurate, the new-business component would challenge a catch-up-only explanation. Fresh business and delayed deals could coexist. [[SOURCE:SOURCE_1]]\n\n## Recurrence needs comparable evidence\n\nComparable disclosures of new and deferred transaction-processing business would test recurrence. Continued software growth supported by margins and cash conversion would strengthen the durable-demand reading; weaker follow-through would challenge it. [[SOURCE:SOURCE_1]]\n\nSource notes: The Reuters report is dated October 21, 2026, at 20:12 UTC. This editorial revision retains the facts and source date of the earlier unpublished analysis; it adds no new reporting or independent confirmation. The figures and Kavanaugh's comments remain attributed through Reuters. [[SOURCE:SOURCE_1]]",
+      "subtitle": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software revenue growth range has a higher floor and unchanged ceiling. Demand after delayed deals clear remains the test.",
+      "title": "Reuters: IBM's higher software revenue growth floor leaves a durability test",
+      "topics": [
+        "IBM software revenue outlook",
+        "Earnings quality",
+        "Transaction-processing revenue",
+        "Deal timing"
+      ],
+      "update_chain_identity": "simple-story-cfa3cb4bdb5389780c472d78"
+    },
+    "cited_sources": [
+      {
+        "published_at_utc": "2026-10-21T20:12:00Z",
+        "publisher": "Reuters",
+        "source_id": "SOURCE_1",
+        "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_title",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters: IBM's higher software revenue growth floor leaves a durability test",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_dek",
+        "claim_kind": "FACT",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software revenue growth range has a higher floor and unchanged ceiling. Demand after delayed deals clear remains the test.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_search_title",
+        "claim_kind": "FACT",
+        "claim_text": "IBM software revenue outlook: Reuters reports a higher floor",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_meta_description",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters' October 21 account of IBM's higher software growth floor leaves a key test: whether demand lasts after delayed deals clear.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_social_hook",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters reports a higher IBM software growth floor with the same ceiling. The demand test comes after delayed deals clear.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_reported_software_outlook",
+        "claim_kind": "NUMBER",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software outlook lifts the growth floor while keeping the ceiling unchanged. Reuters' October 21, 2026 account of Kavanaugh's comments puts annual software revenue growth at about 7% to 8%, compared with 6% to 8% previously.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_range_interpretation",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If accurate, that revision would narrow the weaker end of management's range without establishing lasting demand after delayed deals clear.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_company_revenue_comparison",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters puts third-quarter company-wide revenue at $17.10 billion, with reported growth of 4.7%, against a $16.82 billion average analyst estimate compiled by LSEG.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Third-quarter revenue rose 4.7% to $17.10 billion, above \u200banalysts' average estimate of $16.82 billion, according to data compiled by LSEG"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_software_revenue_comparison",
+        "claim_kind": "NUMBER",
+        "claim_text": "Its separate software figures are $7.80 billion in quarterly revenue, growth of 8.3% and a $7.62 billion estimate.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Software revenue rose 8.3% to $7.80 billion in the third quarter, topping estimates of $7.62 billion"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_management_transaction_processing_mix",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters attributes a narrower revenue split to Kavanaugh: about 25% of transaction-processing revenue came from business deferred from the second quarter, while he characterized the other 75% as net new business.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Kavanaugh \u200bsaid about 25% of the transaction processing \u200brevenue came \u2060from deals deferred from the second quarter and \"the remaining 75% is net new business\""
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_transaction_processing_denominator",
+        "claim_kind": "FACT",
+        "claim_text": "Those shares describe transaction-processing revenue; they cannot be applied to all IBM revenue or treated as a breakdown of software revenue growth.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Kavanaugh \u200bsaid about 25% of the transaction processing \u200brevenue came \u2060from deals deferred from the second quarter and \"the remaining 75% is net new business\""
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_conditional_timing_mechanism",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If Reuters' account is accurate, delayed deals reaching the current quarter could strengthen reported revenue without establishing a lasting increase in fresh demand. Capital Chronicle's timing test is whether new business can sustain growth once that catch-up fades.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Kavanaugh \u200bsaid about 25% of the transaction processing \u200brevenue came \u2060from deals deferred from the second quarter and \"the remaining 75% is net new business\""
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_new_business_countercase",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If Kavanaugh's transaction-processing breakdown reported by Reuters is accurate, the new-business component would challenge a catch-up-only explanation. Fresh business and delayed deals could coexist.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Kavanaugh \u200bsaid about 25% of the transaction processing \u200brevenue came \u2060from deals deferred from the second quarter and \"the remaining 75% is net new business\""
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_conditional_follow_through_test",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "Comparable disclosures of new and deferred transaction-processing business would test recurrence. Continued software growth supported by margins and cash conversion would strengthen the durable-demand reading; weaker follow-through would challenge it.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Kavanaugh \u200bsaid about 25% of the transaction processing \u200brevenue came \u2060from deals deferred from the second quarter and \"the remaining 75% is net new business\""
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_retained_attribution",
+        "claim_kind": "FACT",
+        "claim_text": "The figures and Kavanaugh's comments remain attributed through Reuters.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "In an interview with Reuters, Kavanaugh said \u200bIBM now expects annual software revenue growth of about \u200b7% to 8%, up from 6% to 8% \u2060previously. IBM's shares rose about 4% in extended trading."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_article.v1"
+  },
+  "request_sha256": "ec5556967265a08283aa1998943966138a0fd182b5e040a45e44658d14d633a8"
+}

@@ -1,0 +1,30 @@
+{
+  "invocation_observation": {
+    "invocation_id": "/root/v1_media_revision_plan",
+    "model": "gpt-6.1-sol",
+    "observation_source": "Actual collaboration.followup_task and FINAL_ANSWER; configured native low model; exact written return",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "A higher software-growth floor does not establish durable demand after delayed deals clear.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-cfa3cb4bdb5389780c472d78",
+        "evidence_plan": "Resolve only the existing retained source goal35-ibm through the established retained-source seam; preserve Reuters publication 2026-10-21T20:12:00Z, original cutoff and source certainty. Single Reuters origin supports attributed report truth only, not independent event confirmation. Preserve story/update chain simple-story-cfa3cb4bdb5389780c472d78 and prior article d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e; this is EDITORIAL_REVISION with no new factual evidence. Use exact chart-data.json: Company-wide revenue \u2014 actual: 17.10 USD billion (ACTUAL, Third-quarter); Company-wide revenue \u2014 analyst estimate: 16.82 USD billion (ESTIMATE, Third-quarter). Keep units, periods, actual/estimate/forecast and negative signs; code owns extraction, arithmetic and rendering, with no new calculation or invented history. Use exact cleared contextual archive photo documentary_ibm dated 2010-08-03 with supplied credit, source/license links and change disclosure; honor ShareAlike where applicable. It corroborates no article fact. Original prose paraphrases attributed facts; Reuters source expression and images are not licensed for public reuse. Countercase: Management-described new transaction-processing business challenges a catch-up-only account; deferred deals still limit a durable-growth claim. Missing/test dimensions: Comparable new/deferred business, margins and cash conversion would test recurrence. No new retrieval, proprietary authority or public-write grant. Article layout acceptance remains separate.",
+        "primary_reader_question": "Does the reported higher software outlook establish durable demand after delayed deals clear?",
+        "research_queries": [
+          "ibm Reuters October 21 2026 reported earnings cash flow outlook"
+        ],
+        "selection_rationale": "The owner-scoped retained revision has a distinct useful analytical tension and a warranted chart/context photo. Lead with the raised floor and unchanged ceiling, then separate company-wide revenue, software and transaction-processing denominators."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select the single governed retained ibm story for the exact owner-directed editorial/media revision. Request ea371db61c32d4d1785432666a0c9dffc2c8d88b209bf15da6ae5659ab1408e4. Preserve existing identity/history and October 21 source date; no fresh-news or independent-confirmation claim. No fallback or extra story is admitted.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "request_sha256": "ea371db61c32d4d1785432666a0c9dffc2c8d88b209bf15da6ae5659ab1408e4"
+}

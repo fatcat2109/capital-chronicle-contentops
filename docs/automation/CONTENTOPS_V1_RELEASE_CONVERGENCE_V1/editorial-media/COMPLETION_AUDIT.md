@@ -1,0 +1,20 @@
+# Editorial, media and data release standard: bounded acceptance
+
+The five required retained examples are usable: **5/5 revised articles,5 cleared photographs,5 chart/data packets,40 native packages,5 exact KEEP/prepared handoffs,0 missing required examples and0 publications**. One additional FX candidate remains held. These are dated editorial revisions, not five new economic observations or a production day.
+
+| Requirement | Direct result | Limit |
+| --- | --- | --- |
+| SEO and house style | Actual native MAX canonical prose/SEO for all five; current writer metadata reconciled; exact titles, source dates, descriptions and canonical passages remain review-bound | No search ranking or traffic result is inferred |
+| Institutional reporting target | Specific fact-led leads, defensible mechanisms, competing explanations and useful follow-up tests replace the prior question-led openings | No certification of parity with Reuters/Bloomberg/FT/WSJ |
+| Evidence-led critical analysis | IBM demand recurrence, Tesla operating cash, Meta funding/control and Southwest fare/fuel/margin tests are distinct from unsupported allegations or certainty | One retained Reuters origin per story; event truth remains unconfirmed |
+| Grounded photographs | Five exact documentary originals, known subjects/archive dates, creator/license/source/alt text; curated reusable-license receipt and actual pixel inspection | Photos provide context only; alternative provider receipt formats are not independently proven by this Commons cohort |
+| Useful quantitative charts/data | Existing renderer extended for signed USD values, actual/estimate comparisons and forecast ranges; exact source text/values/units/periods/transforms retained | No interpolation, hidden midpoint, invented history, proprietary forecast or copied chart |
+| Review, eight packages and other V1 boundaries | Actual native role returns, exact prior-revision/source linkage,75 browser-rendered PDF pages inspected at desktop/mobile, source-link conversion, media/copy/preview invalidation and sole-coordinator preparation | Local preview/review/preparation is distinct from live platform readback, integration, deployment and daily operation |
+
+See [the cohort and reader links](README.md), [exact identities and counts](completion-evidence.json), [actual visual inspection](renders/final/visual-review.json), [host boundary readback](host-boundary-readback.json) and each story's review/prepared/status files. The same reviewer inspected all20 final sheets, including every canonical/eight-package view at both widths. The current owner reader snapshot retains exactly that article/preview/media content and adds the five completed reviews and preparations.
+
+Backend verification covers40 distinct cases across the39-case impacted selection and19-case final media selection (18 overlap). The12 reader tests and production TypeScript/Vite build pass. Changed-source Ruff has zero introduced diagnostics and seven unchanged baseline findings. These checks validate implementation and its scoped contracts; they do not establish native calendar execution or public operation. Prior valid overlapping checks remain evidence, not added progress.
+
+Original Goal35 files and reviews remain intact. The five new manifests explicitly identify `EDITORIAL_MEDIA_REFINEMENT`, their prior article and unchanged story/update chain, and false for new financial evidence/observation. Preparation is in the existing isolated owner-manual store; none of its bindings or database is promoted to production. All45 destination states remain `NOT_DISPATCHED`.
+
+The release scope is complete locally. Source/PR and final delivery pins are owned by the same [release checkpoint](../CHECKPOINT.md) and superseding proposal. Normal independent release review and one exact owner source/deployment/four-window/pause/dispatch decision remain separate. Production, four Automations and V2/V3 stay paused. Tower synchronization remains L1-owned and pending; no new status owner or upward message is created.

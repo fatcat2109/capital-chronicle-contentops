@@ -1,0 +1,158 @@
+{
+  "backend_tests": {
+    "distinct_cases": 40,
+    "overlap": 18,
+    "scope": "Local controlled tests, not live operation",
+    "selections": {
+      "final-media-additions.xml": 19,
+      "final-media-checks.xml": 39
+    }
+  },
+  "cohort": [
+    {
+      "article_identity": "dd35549524995218637cdda1395043471fb775ef939e8d37f9c4b7c86bd88429",
+      "media_sha256": {
+        "documentary_oil": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+        "source_value_comparison": "0225a86141a374d4640a96bdac842f19ba86fe2da34b1f4325864ac00c962e41"
+      },
+      "native_write_request_sha256": "8f83cb3e0e8dcd1c28a2f5b42611bfff587ab75060a513926d8837eb7f218fcf",
+      "original_article_raw_sha256": "4dd2457a72df91924fa36f399941a3c0679498d5c2b1fb42cd285f9ea4dbfbbe",
+      "plan_hash": "fceb531792837768ff557283932f78651874e00d24ae488f2a7f208db650e520",
+      "preview_count": 8,
+      "prior_article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+      "publications": 0,
+      "review_id": "native-article-review-05f1f81301b2498e844daeb15714b0e2",
+      "revision_kind": "EDITORIAL_MEDIA_REFINEMENT",
+      "run_id": "v1-media-oil-r1",
+      "state": "KEEP_PREPARED_NO_DISPATCH",
+      "story": "oil",
+      "supported_claim_count": 11,
+      "unsupported_claim_count": 0,
+      "cited_origin_count": 1,
+      "validation_scope": "Attributed report claims against exact retained bytes; independent event confirmation remains unproven"
+    },
+    {
+      "article_identity": "05b6d7610301815ddaaf01559fe66c2a751bb7eb3d5c8001f8372a1c9336e188",
+      "media_sha256": {
+        "documentary_ibm": "48c82af1e097e69ccb07911d25d4a69f283110501da99b17173cce6c8c17c087",
+        "source_value_comparison": "d67221435268d2c676c408dbdfe6ee535e4c62bec4933c62265af6f9477d23c9"
+      },
+      "native_write_request_sha256": "ec5556967265a08283aa1998943966138a0fd182b5e040a45e44658d14d633a8",
+      "original_article_raw_sha256": "de58a141980bdfc2d94f494f947795a16e7f61cbdf9b7ed46275a6f4821d3d4b",
+      "plan_hash": "1318a13953138f2efc8c1c1752bacfb6c34d81e7c5f7cd6e90237590ceb3fc7c",
+      "preview_count": 8,
+      "prior_article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+      "publications": 0,
+      "review_id": "native-article-review-30988c0c910b45659f847f70cf32025b",
+      "revision_kind": "EDITORIAL_MEDIA_REFINEMENT",
+      "run_id": "v1-media-ibm-r1",
+      "state": "KEEP_PREPARED_NO_DISPATCH",
+      "story": "ibm",
+      "supported_claim_count": 15,
+      "unsupported_claim_count": 0,
+      "cited_origin_count": 1,
+      "validation_scope": "Attributed report claims against exact retained bytes; independent event confirmation remains unproven"
+    },
+    {
+      "article_identity": "44561321bc94626d866e87985e4778435e0a497417f2a76fb3cbdd830b6b6705",
+      "media_sha256": {
+        "documentary_tesla": "a08499ae2b5f5ebfc223dde6525ab8992cdcfe13e605c01dce575d0187347d43",
+        "source_value_comparison": "bb7650d03d73bc9f13d1a588fd411a571563f1be6fc238f39ad19647bb478e22"
+      },
+      "native_write_request_sha256": "c2260b636c7ccf6022efbd9f134fdd9de862b559fd2b2eee35736d8b65893ddb",
+      "original_article_raw_sha256": "756a09df24b37d36bfcdf9be73d1987e9b0fa947db62b208b68fe22c8d92535f",
+      "plan_hash": "3a64da4e119a173a8cd9787bb5a457e1985a8e102aada9f38577d5066066e955",
+      "preview_count": 8,
+      "prior_article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+      "publications": 0,
+      "review_id": "native-article-review-ed5992ee702949c38f6b5fccb27c80a9",
+      "revision_kind": "EDITORIAL_MEDIA_REFINEMENT",
+      "run_id": "v1-media-tesla-r1",
+      "state": "KEEP_PREPARED_NO_DISPATCH",
+      "story": "tesla",
+      "supported_claim_count": 14,
+      "unsupported_claim_count": 0,
+      "cited_origin_count": 1,
+      "validation_scope": "Attributed report claims against exact retained bytes; independent event confirmation remains unproven"
+    },
+    {
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "media_sha256": {
+        "documentary_meta": "142485163942db43c6c5786440dad2413f5c91ead7ee2c4252172b7ad5355f53",
+        "source_value_comparison": "bb357416797f93b203e919344509b15dd3e1c4c755d263c865d63dfc4705bf45"
+      },
+      "native_write_request_sha256": "f180c6e9559d906c511e9a4ac93fcc68ccce8badf93aca9ad4802ed9ed4df27e",
+      "original_article_raw_sha256": "446518c6538f6444a15a2643e5fc9dc647c23460374647e23aefee70625e9a6f",
+      "plan_hash": "5447ac516fda83cc17bc3c40f9b6860c577fc8f14778a16fc96c1e403473d26e",
+      "preview_count": 8,
+      "prior_article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+      "publications": 0,
+      "review_id": "native-article-review-00d67b952c5d43e5a334d84e51c96efc",
+      "revision_kind": "EDITORIAL_MEDIA_REFINEMENT",
+      "run_id": "v1-media-meta-r1",
+      "state": "KEEP_PREPARED_NO_DISPATCH",
+      "story": "meta",
+      "supported_claim_count": 13,
+      "unsupported_claim_count": 0,
+      "cited_origin_count": 1,
+      "validation_scope": "Attributed report claims against exact retained bytes; independent event confirmation remains unproven"
+    },
+    {
+      "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "media_sha256": {
+        "documentary_southwest": "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4",
+        "source_value_comparison": "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242"
+      },
+      "native_write_request_sha256": "4a7af7691dc23e22f38082af5125adb671cff6922044c929af18cbdacd34d45e",
+      "original_article_raw_sha256": "db7aa3bf51b347097baf526187f358ac6c6aa7f162a22aaf750b86e51a3efd15",
+      "plan_hash": "bfb3e8010aef636a7f63abef749ba5ffa1055e4067281c7b52f4150b4a6c8c33",
+      "preview_count": 8,
+      "prior_article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+      "publications": 0,
+      "review_id": "native-article-review-64f34e34edf441c6aca3d5da6fc0a176",
+      "revision_kind": "EDITORIAL_MEDIA_REFINEMENT",
+      "run_id": "v1-media-southwest-r1",
+      "state": "KEEP_PREPARED_NO_DISPATCH",
+      "story": "southwest",
+      "supported_claim_count": 21,
+      "unsupported_claim_count": 0,
+      "cited_origin_count": 1,
+      "validation_scope": "Attributed report claims against exact retained bytes; independent event confirmation remains unproven"
+    }
+  ],
+  "completion_notice": "NOT_SENT",
+  "counts": {
+    "automations_changed": 0,
+    "chart_data_complete": 5,
+    "derivative_packages": 40,
+    "held_additional_fx_candidate": 1,
+    "missing_revisions": 0,
+    "new_economic_observations": 0,
+    "photo_complete": 5,
+    "prepared": 5,
+    "publications": 0,
+    "required_revisions": 5,
+    "usable_revisions": 5
+  },
+  "deployed": false,
+  "frontend_tests": 12,
+  "goal": "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
+  "host_readback": "host-boundary-readback.json",
+  "institutional_publication_equivalence": "NOT_CERTIFIED",
+  "merged": false,
+  "native_goal_api_current_state": "GET_GOAL_RETURNED_NULL_NO_REPLACEMENT_CREATED",
+  "natural_daily_operation": "NOT_PROVEN",
+  "observed_at_utc": "2026-10-23T22:49:11.177885+00:00",
+  "original_native_goal_created_at": 1792789283,
+  "photo_source_rights": "Curated bounded public-license receipts; original raw provider responses retained only locally and excluded from Git",
+  "runtime_or_public_mutation": false,
+  "schema_version": "contentops.v1_editorial_media_release_evidence.v1",
+  "search_and_audience_outcomes": "NOT_PROVEN",
+  "source_cutoff": "Retained original October21 cutoffs; no source recapture or new financial observation",
+  "tower_sync": "L1_OWNED_PENDING_NO_UPWARD_MESSAGE",
+  "typescript_and_vite_build": "PASS_1584_MODULES",
+  "v2_v3": "OWNER_PAUSED",
+  "visual_review": "renders/final/visual-review.json",
+  "local_native_seam_integration": "IMPLEMENTED_TESTED_AND_ACTUALLY_EXERCISED_IN_OWNER_MANUAL_WORKSPACE",
+  "accepted_master_integrated": false
+}

@@ -29,7 +29,10 @@
     ]
   },
   "structured_data": {
-    "types": ["Article", "NewsArticle"],
+    "types": [
+      "Article",
+      "NewsArticle"
+    ],
     "rules": [
       "visible author identity must match markup",
       "publisher identity must be truthful",
@@ -75,7 +78,7 @@
     "social_engagement_is_search_evidence": false
   },
   "writer_boundary": {
-    "owner": "fresh_isolated_gpt_5_6_sol_xhigh_final_writer",
+    "owner": "native_isolated_gpt_6_1_sol_max_final_writer",
     "additional_general_seo_writer": false,
     "additional_mandatory_semantic_review": false,
     "factual_authority": false,

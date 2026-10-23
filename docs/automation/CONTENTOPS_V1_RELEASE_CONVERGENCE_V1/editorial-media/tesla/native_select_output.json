@@ -1,0 +1,19 @@
+{
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "status": "SELECT_CANDIDATE_PLAN",
+  "ordered_candidate_plan": [
+    {
+      "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_rationale": "The owner-scoped retained revision has a distinct useful analytical tension and a warranted chart/context photo. Lead with the cash result against expected burn; explain capex below expectations yet more than double a year earlier. Total capex is not an AI-only measure.",
+      "research_queries": [
+        "tesla Reuters October 21 2026 reported earnings cash flow outlook"
+      ],
+      "angle": "Reported positive free cash flow against expected burn does not isolate stronger operating cash generation when capex also undershot estimates.",
+      "primary_reader_question": "What can positive free cash flow establish when capital spending also undershot expectations?",
+      "evidence_plan": "Resolve only the existing retained source goal35-tesla through the established retained-source seam; preserve Reuters publication 2026-10-21T20:06:00Z, original cutoff and source certainty. Single Reuters origin supports attributed report truth only, not independent event confirmation. Preserve story/update chain simple-story-6c6ae25852f4519d9a6d2168 and prior article 0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171; this is EDITORIAL_REVISION with no new factual evidence. Use exact chart-data.json: Free cash flow — actual: 1.53 USD billion (ACTUAL, September quarter); Free cash flow — analyst expected burn: 4.92 USD billion (ESTIMATE, September quarter) — negative cash burn/deficit, not positive cash flow. Keep units, periods, actual/estimate/forecast and negative signs; code owns extraction, arithmetic and rendering, with no new calculation or invented history. Use exact cleared contextual archive photo documentary_tesla dated 2012-12-08 17:28:26 with supplied credit, source/license links and change disclosure; honor ShareAlike where applicable. It corroborates no article fact. Original prose paraphrases attributed facts; Reuters source expression and images are not licensed for public reuse. Countercase: Operating cash may also have improved; positive cash flow should not be dismissed as timing, and below-estimate capex is not a year-on-year spending retreat. Missing/test dimensions: Operating-cash-flow and working-capital bridges, capex composition and commitments would test repeatability. No new retrieval, proprietary authority or public-write grant. Article layout acceptance remains separate."
+    }
+  ],
+  "selection_summary": "Select the single governed retained tesla story for the exact owner-directed editorial/media revision. Request 309af8e24ca465d580d14ef137dd99f1f169c6384625978fbf03915afe50f348. Preserve existing identity/history and October 21 source date; no fresh-news or independent-confirmation claim. No fallback or extra story is admitted.",
+  "public_write_attempted": false
+}

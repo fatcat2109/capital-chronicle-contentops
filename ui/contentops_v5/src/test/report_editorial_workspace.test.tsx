@@ -17,6 +17,27 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  it('shows photo pixels, credits and exact license/source links with release readiness', () => {
+    const snapshot = data();
+    snapshot.previews[0].payload.media_asset_ids = ['photo'];
+    snapshot.native_edition = [{ run_id: 'controlled-photo-reader', article_identity: 'controlled-media-id',
+      article: { title: 'Controlled media article', dek: 'Dated source scope.', substack_body_markdown: 'Source-bound copy.' },
+      release_media: { state: 'READY', photo_count: 1, chart_count: 1 }, previews: snapshot.previews,
+      media_assets: [{ asset_id: 'photo', path: 'controlled.jpg', sha256: 'controlled-hash', modality: 'documentary_photo', width: 640,
+        caption: 'Archive context photograph.', alt_text: 'Controlled contextual subject',
+        preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==', attribution: 'Controlled creator / CC BY 2.0',
+        license_url: 'https://creativecommons.org/licenses/by/2.0/', source_page_url: 'https://commons.wikimedia.org/wiki/File:Controlled.jpg' }] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const edition = screen.getByLabelText('Ấn bản newsroom');
+    expect(within(edition).getByText('Release media: READY')).toBeInTheDocument();
+    expect(within(edition).getAllByRole('img', { name: 'Controlled contextual subject' })).toHaveLength(2);
+    expect(within(edition).getAllByRole('img')[0]).toHaveAttribute('src', 'data:image/jpeg;base64,Y29udHJvbGxlZA==');
+    const preview = edition.querySelector('[data-edition-destination="telegram"]') as HTMLElement;
+    expect(within(preview).getByRole('img', { name: 'Controlled contextual subject', exact: true })).toHaveStyle({ maxWidth: '640px' });
+    expect(within(preview).getByText(/Controlled creator/)).toBeInTheDocument();
+    expect(within(preview).getByRole('link', { name: 'License' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/2.0/');
+    expect(within(preview).getByRole('link', { name: 'Image source' })).toHaveAttribute('href', 'https://commons.wikimedia.org/wiki/File:Controlled.jpg');
+  });
   it('opens exact maintained versions and keeps partial coverage, dates and preparation distinct', () => {
     const snapshot = data();
     const version = { run_id: 'controlled-current', article_identity: 'current-id', article: snapshot.article!,

@@ -1,0 +1,165 @@
+{
+  "invocation_observation": {
+    "invocation_id": "/root/v1_max_meta",
+    "model": "gpt-6.1-sol",
+    "observation_source": "Actual collaboration.spawn_agent configured model/effort; actual FINAL_ANSWER and exact authored output file",
+    "reasoning_effort": "max",
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "article": {
+      "canonical_slug": "meta-non-voting-share-plan-control-cash-flow-reuters",
+      "canonical_slug_candidate": "meta-non-voting-share-plan-control-cash-flow-reuters",
+      "dek": "SINGLE-SOURCE REPORT - REUTERS: Meta's reported share proposal may preserve control and expand payment options. It does not establish cash raised or returns on investment.",
+      "entities": [
+        "Meta Platforms",
+        "Mark Zuckerberg",
+        "Muse AI",
+        "Reuters",
+        "LSEG"
+      ],
+      "internal_link_candidates": [],
+      "meta_description": "Reuters' retained October 21 report describes Meta's share proposal and cash deficit. Equity flexibility leaves the cash-generation test open.",
+      "primary_reader_question": "What does the planned non-voting share class change about funding and control, as distinct from cash generation?",
+      "search_freshness_class": "RETAINED_DATED_EDITORIAL_REVISION",
+      "search_title": "Reuters: Meta's non-voting share plan and free cash flow",
+      "secondary_reader_questions": [
+        "How could non-voting shares change Meta's acquisition and talent options?",
+        "What does the retained report establish about capital spending and free cash flow?",
+        "Which disclosures would distinguish a timing-related cash deficit from a durable funding constraint?"
+      ],
+      "social_cross_asset_summary": "The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit. If the plan proceeds, later investment-return evidence would challenge or reinforce the concern that payment flexibility is being mistaken for cash generation.",
+      "social_hook": "Reuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.",
+      "social_mechanism_summary": "If the report is accurate, a non-voting class could give Meta an acquisition currency and a way to reward talent without adding votes through that instrument. That would change payment and control choices. It would not, by itself, establish cash raised for the capital-spending program.",
+      "social_policy_summary": "A timing explanation is the strongest countercase to a lasting funding constraint. If Reuters' figures are accurate, a quarter of negative free cash flow could reflect the timing of spending and cash receipts. Reuters puts revenue for the quarter ended September 30 at $64.60 billion, above the $63.37 billion estimate compiled by LSEG. That revenue beat still leaves the cash-flow reconciliation unexplained; it establishes neither financial distress nor investment success.",
+      "structured_data_packet": null,
+      "substack_body_markdown": "Meta's reported non-voting share plan could widen its acquisition and talent options while preserving control; the cash-generation test remains open. SINGLE-SOURCE REPORT - REUTERS: The retained October 21, 2026 account describes that future plan beside a $2.12 billion third-quarter free-cash-flow deficit. One deficit quarter, however, leaves a timing explanation open. [[SOURCE:SOURCE_1]]\n\nReuters describes an intended January 2027 issue of non-voting Class C common shares, with the effect of a two-for-one split, for acquisitions and talent retention while preserving Mark Zuckerberg's control. January is a future intention in this account, rather than evidence of completed issuance. The retained text supplies no cash-proceeds figure or final terms establishing how the shares would be used. [[SOURCE:SOURCE_1]]\n\nIf the report is accurate, a non-voting class could give Meta an acquisition currency and a way to reward talent without adding votes through that instrument. That would change payment and control choices. It would not, by itself, establish cash raised for the capital-spending program. [[SOURCE:SOURCE_1]]\n\nThe retained Reuters account puts annual capital-expenditure guidance at $135 billion to $145 billion, compared with an earlier range of $130 billion to $145 billion. The revision raises the lower bound while leaving the upper bound unchanged. If accurate, that leaves less room within guidance for a lower-spending outcome; it establishes neither actual expenditure nor an AI-specific allocation. [[SOURCE:SOURCE_1]]\n\nReuters reports a third-quarter free-cash-flow shortfall of $2.12 billion, against positive cash flow of $10.63 billion a year earlier. The accompanying chart compares those two reported observations, retaining their periods and opposite signs without adding intervening history. Annual spending guidance and quarterly free cash flow answer different questions; these figures do not explain the contributions of investment, operations or working capital to the deficit. [[SOURCE:SOURCE_1]]\n\nA timing explanation is the strongest countercase to a lasting funding constraint. If Reuters' figures are accurate, a quarter of negative free cash flow could reflect the timing of spending and cash receipts. Reuters puts revenue for the quarter ended September 30 at $64.60 billion, above the $63.37 billion estimate compiled by LSEG. That revenue beat still leaves the cash-flow reconciliation unexplained; it establishes neither financial distress nor investment success. [[SOURCE:SOURCE_1]]\n\nThe Muse AI growth headline supplies no missing link. The retained report includes no adoption count, monetization measure or investment-return figure for Muse. Capital Chronicle's reading is that equity flexibility and reported AI momentum cannot, on this evidence, establish that investment is paying for itself. [[SOURCE:SOURCE_1]]\n\nThe next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit. If the plan proceeds, later investment-return evidence would challenge or reinforce the concern that payment flexibility is being mistaken for cash generation. [[SOURCE:SOURCE_1]]\n\nEditorial revision note: This article revises the framing of an earlier unpublished article using unchanged Reuters reporting published October 21, 2026, at 20:05 UTC and the original October 21 review cutoff. It adds no factual evidence or independent confirmation. [Retained Reuters report](https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/). The headquarters photograph is archival context only; the chart is independently drawn from the two attributed cash-flow observations. [[SOURCE:SOURCE_1]]",
+      "title": "Reuters: Meta's planned non-voting shares leave the cash test open",
+      "topics": [
+        "non-voting shares",
+        "corporate control",
+        "capital expenditure",
+        "free cash flow",
+        "AI investment"
+      ]
+    },
+    "cited_sources": [
+      {
+        "published_at_utc": "2026-10-21T20:05:00Z",
+        "publisher": "Reuters",
+        "source_id": "SOURCE_1",
+        "url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-title",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters: Meta's planned non-voting shares leave the cash test open",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-dek",
+        "claim_kind": "FACT",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS: Meta's reported share proposal may preserve control and expand payment options. It does not establish cash raised or returns on investment.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-search-title",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters: Meta's non-voting share plan and free cash flow",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-meta-description",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters' retained October 21 report describes Meta's share proposal and cash deficit. Equity flexibility leaves the cash-generation test open.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-social-hook",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters: Meta's share plan could preserve control while leaving the cash-generation question unresolved.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-1",
+        "claim_kind": "NUMBER",
+        "claim_text": "Meta's reported non-voting share plan could widen its acquisition and talent options while preserving control; the cash-generation test remains open. SINGLE-SOURCE REPORT - REUTERS: The retained October 21, 2026 account describes that future plan beside a $2.12 billion third-quarter free-cash-flow deficit. One deficit quarter, however, leaves a timing explanation open.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-2",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters describes an intended January 2027 issue of non-voting Class C common shares, with the effect of a two-for-one split, for acquisitions and talent retention while preserving Mark Zuckerberg's control. January is a future intention in this account, rather than evidence of completed issuance. The retained text supplies no cash-proceeds figure or final terms establishing how the shares would be used.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-3",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If the report is accurate, a non-voting class could give Meta an acquisition currency and a way to reward talent without adding votes through that instrument. That would change payment and control choices. It would not, by itself, establish cash raised for the capital-spending program.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-4",
+        "claim_kind": "NUMBER",
+        "claim_text": "The retained Reuters account puts annual capital-expenditure guidance at $135 billion to $145 billion, compared with an earlier range of $130 billion to $145 billion. The revision raises the lower bound while leaving the upper bound unchanged. If accurate, that leaves less room within guidance for a lower-spending outcome; it establishes neither actual expenditure nor an AI-specific allocation.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-5",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters reports a third-quarter free-cash-flow shortfall of $2.12 billion, against positive cash flow of $10.63 billion a year earlier. The accompanying chart compares those two reported observations, retaining their periods and opposite signs without adding intervening history. Annual spending guidance and quarterly free cash flow answer different questions; these figures do not explain the contributions of investment, operations or working capital to the deficit.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-6",
+        "claim_kind": "NUMBER",
+        "claim_text": "A timing explanation is the strongest countercase to a lasting funding constraint. If Reuters' figures are accurate, a quarter of negative free cash flow could reflect the timing of spending and cash receipts. Reuters puts revenue for the quarter ended September 30 at $64.60 billion, above the $63.37 billion estimate compiled by LSEG. That revenue beat still leaves the cash-flow reconciliation unexplained; it establishes neither financial distress nor investment success.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-7",
+        "claim_kind": "FACT",
+        "claim_text": "The Muse AI growth headline supplies no missing link. The retained report includes no adoption count, monetization measure or investment-return figure for Muse. Capital Chronicle's reading is that equity flexibility and reported AI momentum cannot, on this evidence, establish that investment is paying for itself.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "meta-r1-body-8",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "The next test is whether final share terms and actual use support the acquisition-and-talent rationale, and whether a cash-flow reconciliation explains the reported deficit. If the plan proceeds, later investment-return evidence would challenge or reinforce the concern that payment flexibility is being mistaken for cash generation.",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January \u200b2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI \u200brace.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_article.v1"
+  },
+  "request_sha256": "f180c6e9559d906c511e9a4ac93fcc68ccce8badf93aca9ad4802ed9ed4df27e"
+}

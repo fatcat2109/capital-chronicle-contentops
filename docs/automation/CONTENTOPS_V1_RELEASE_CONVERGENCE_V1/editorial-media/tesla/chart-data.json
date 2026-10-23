@@ -1,0 +1,34 @@
+{
+  "chart": {
+    "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts.",
+    "rows": [
+      {
+        "label": "Free cash flow \u2014 actual",
+        "metric_source_text": "Free \u200bcash flow",
+        "observation_kind": "ACTUAL",
+        "period": "September quarter",
+        "source_document_id": "goal35-tesla",
+        "support_excerpt": "Free \u200bcash flow in the September quarter came in at $1.53 billion, compared with an expectation of cash burn of $4.92 billion.",
+        "unit": "USD billion",
+        "value_context": "Free \u200bcash flow in the September quarter came in at $1.53 billion",
+        "value_text": "1.53"
+      },
+      {
+        "label": "Free cash flow \u2014 analyst expected burn",
+        "metric_source_text": "cash burn",
+        "negative_evidence": "cash burn of $4.92 billion",
+        "observation_kind": "ESTIMATE",
+        "period": "September quarter",
+        "source_document_id": "goal35-tesla",
+        "support_excerpt": "Free \u200bcash flow in the September quarter came in at $1.53 billion, compared with an expectation of cash burn of $4.92 billion.",
+        "unit": "USD billion",
+        "value_context": "an expectation of cash burn of $4.92 billion",
+        "value_text": "4.92"
+      }
+    ],
+    "title": "Reported Tesla September-quarter free cash flow: actual and expected burn",
+    "unit": "USD billion"
+  },
+  "plan_request_sha256": "df248dda5b88ed6771de7927f5515facfe847fcfd343f31a8e34b7f02a198abc",
+  "source_exactness_adapter": "EXACT_VALUE_CONTEXT_SUBSTRINGS_ONLY_NO_NUMERIC_CHANGE"
+}

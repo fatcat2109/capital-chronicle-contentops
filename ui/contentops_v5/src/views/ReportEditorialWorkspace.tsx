@@ -12,6 +12,7 @@ const retainedSourceDate = (source: { published_at_source?: string; published_at
 const sourceDecision: Record<string, string> = {
   USE_UNCHANGED: 'Giữ nguyên bài', MATERIAL_FOLLOW_UP: 'Cần bài tiếp nối',
   CORRECTION_OR_WITHDRAWAL: 'Cần sửa hoặc rút phạm vi cũ', STALE_OR_SOURCE_GAP: 'Còn thiếu nguồn mới',
+  EDITORIAL_REVISION: 'Editorial refinement of retained facts',
   RETAIN_EXACT_BYTES_DATED_SUPPORT: 'Giữ ảnh đã kiểm tra với nguồn có ngày cũ',
   REVALIDATE_CHANGED_SUPPORT: 'Kiểm tra lại ảnh theo nguồn đã đổi',
 };
@@ -39,6 +40,34 @@ const gapText: Record<string, string> = {
 function previewText(payload: Record<string, unknown>): string {
   const text = payload.full_text ?? [payload.text ?? payload.root_text ?? '', ...(Array.isArray(payload.reply_texts) ? payload.reply_texts : [])].join('\n\n');
   return String(text).replace(/https:\/\/capitalchronicle\.substack\.com\/p\/pending-publication-[a-z0-9]+/g, '[Canonical link pending]');
+}
+
+type EditorialMedia = NonNullable<NonNullable<ReportWorkspaceData['native_edition']>[number]['media_assets']>[number];
+function MediaFigure({ asset: a }: { asset: EditorialMedia }) {
+  return <figure data-media-asset={a.asset_id}>
+    {a.preview_data_url && <>
+      <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', maxWidth: a.width ?? '100%', height: 'auto' }} />
+      <details className="media-enlarge"><summary>Enlarge image</summary>
+        <div style={{ overflowX: 'auto', maxWidth: '100%' }}><img src={a.preview_data_url} alt={`Enlarged ${a.alt_text ?? a.caption}`} style={{ width: 'auto', maxWidth: 'none', height: 'auto' }} /></div>
+      </details>
+    </>}
+    <figcaption>{a.caption}{a.attribution && <> · {a.attribution}</>}
+      {a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">License</a></>}
+      {a.source_page_url?.startsWith('https://') && <> · <a href={a.source_page_url} target="_blank" rel="noreferrer">Image source</a></>}
+    </figcaption>
+  </figure>;
+}
+function PackagePreview({ payload, assets = [] }: { payload: Record<string, unknown>; assets?: EditorialMedia[] }) {
+  const posts = Array.isArray(payload.posts) ? payload.posts as Array<Record<string, unknown>> : [];
+  const ids = new Set([...(Array.isArray(payload.media_asset_ids) ? payload.media_asset_ids : []),
+    ...posts.flatMap(p => Array.isArray(p.media_asset_ids) ? p.media_asset_ids : [])]);
+  return <>
+    {posts.length ? posts.map((p, index) => <div key={index} data-preview-post={index}>
+      <p><strong>{index === 0 ? 'Root post' : `Reply ${index}`}</strong></p>
+      <ArticleParagraphs text={previewText({ text: p.text })} />
+    </div>) : <ArticleParagraphs text={previewText(payload)} />}
+    {assets.filter(a => ids.has(a.asset_id)).map(a => <MediaFigure key={a.asset_id} asset={a} />)}
+  </>;
 }
 
 const storyState: Record<string, string> = { NEW: 'New story', UPDATE: 'Updated story', KEEP: 'Keep dated view',
@@ -155,9 +184,10 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
       {articles?.map(item => <article id={'article-' + item.article_identity} key={item.article_identity} className="report-copy" data-edition-run={item.run_id}>
         <h3>{item.article.title}</h3><p>{item.article.dek}</p>
         <p><strong>{item.review?.decision ?? 'Chờ đọc duyệt'}</strong> · {item.reader_question}</p>
-        {item.prepared_state && <p role="status">Bản gốc được giữ nguyên; chuẩn bị phát hành đã mất hiệu lực do nguồn đổi hoặc còn thiếu.</p>}
+        {item.prepared_state && <p role="status">The retained article remains available. This copy, source or media revision needs a current review before preparation.</p>}
         {item.source_review && <p>{sourceDecision[item.source_review.decision] ?? display(item.source_review.decision)}: {item.source_review.reader_change_summary}</p>}
         {item.report_id && <p>Bổ sung từ {item.report_id} bản {item.report_version}; phân tích Main có điều kiện, không phải xác nhận độc lập.</p>}
+        {item.media_assets?.filter(a => a.modality === 'documentary_photo').map(a => <MediaFigure key={a.asset_id} asset={a} />)}
         <details open><summary>Đọc toàn bài</summary><ArticleParagraphs text={item.article.substack_body_markdown} /></details>
         <details><summary>Góc bài và quyết định đọc duyệt</summary><p>{item.angle ?? item.mode}</p><p>{item.review?.rationale}</p></details>
         {item.article.search_title && <details><summary>SEO và ngày nguồn</summary><p>{item.article.search_title}</p><p>{item.article.meta_description}</p><p>Slug: {item.article.canonical_slug_candidate}</p><p>{item.article.source_date_notice}</p></details>}
@@ -165,7 +195,8 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
           {s.source_id} · {s.publisher} · {retainedSourceDate(s)} · {s.published_at_source === 'MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME' ? 'Mốc báo cáo Main, không phải ngày phát hành nguồn' : 'Nguồn lưu giữ có ngày riêng'}<br />
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
         </p>)}</details>
-        {item.media_assets?.map(a => <figure key={a.asset_id}>{a.preview_data_url && <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', height: 'auto' }} />}<figcaption>{a.caption}</figcaption></figure>)}
+        <p role="status">Release media: {item.release_media?.state ?? 'NOT VERIFIED'}{item.release_media?.blocker ? ` · ${item.release_media.blocker}` : ''}</p>
+        {item.media_assets?.filter(a => a.modality !== 'documentary_photo').map(a => <MediaFigure key={a.asset_id} asset={a} />)}
         {!item.media_assets?.length && <p role="status">Media gap: no inspected, rights-cleared image is bound to this article. Text previews remain available.</p>}
         <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
         {item.publication && <details aria-label="Publication continuation"><summary>Publication: {display(item.publication.state)}</summary>
@@ -180,7 +211,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
             {d.blocker ? ' · ' + display(d.blocker) : ''}
             {d.public_object_url && <> · <a href={d.public_object_url}>Observed object</a></>}</p>)}
         </details>}
-        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body"><ArticleParagraphs text={previewText(p.payload)} /></div></details>)}
+        {item.previews.map(p => <details key={p.preview_id} data-edition-destination={p.destination}><summary>{display(p.destination)}</summary><div className="report-body"><PackagePreview payload={p.payload} assets={item.media_assets} /></div></details>)}
       </article>)}
     </section>}
     {!!history?.length && <details><summary>Bài và phiên bản trước ({history.length})</summary>{history.map(h => <details key={h.article_identity}><summary>{h.article.title} · {h.prepared_state ? 'chuẩn bị cũ mất hiệu lực' : h.source_review?.decision === 'USE_UNCHANGED' ? 'giữ dùng, không viết lại' : h.review?.decision ?? 'chưa duyệt'}</summary>
