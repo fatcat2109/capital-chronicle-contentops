@@ -218,6 +218,20 @@ def native_story_projection(edition, rows, *, observed_at_utc=None):
             else "UPDATE" if decision == "MATERIAL_FOLLOW_UP" or prior else "NEW")
         old_copy = prior["article"].get("social_mechanism_summary") if prior else None
         new_copy = current["article"].get("social_mechanism_summary")
+        # Only an explicit producer-authored marker supplies an observation.
+        # Do not infer a date/event from a conditional derivative or issuer name.
+        observation = None
+        if review:
+            summary = review.get("reader_change_summary") or ""
+            marker = "Next observation:"
+            if marker in summary and summary.split(marker, 1)[1].strip():
+                observable = summary.split(marker, 1)[1].strip()
+                observation = {"observable": observable, "expected_at_utc": None,
+                    "date_state": "UNKNOWN_NOT_SUPPLIED", "source_review_id": review["review_id"],
+                    "sources": [a["url"] for a in review.get("source_attempts", []) if a.get("status") == "PASS"],
+                    "discriminator": current["next_observation"],
+                    "missing_evidence": "The subsequent disclosure and its event date have not been established.",
+                    "scope": "PRODUCER_REVIEW_OBSERVATION_NOT_NEW_EVENT"}
         result.append({"story_identity": chain, "title": current["article"]["title"], "state": state,
             "current_article_identity": current["article_identity"],
             "prior_article_identity": prior["article_identity"] if prior else None,
@@ -226,7 +240,10 @@ def native_story_projection(edition, rows, *, observed_at_utc=None):
             "reader_question": current.get("reader_question") or current["article"].get("primary_reader_question"),
             "current_view": current["article"].get("dek"),
             "countercase": current["article"].get("social_policy_summary"),
-            "next_observation": current["next_observation"], "next_observation_origin": current["next_observation_origin"],
+            "next_observation": observation["observable"] if observation else current["next_observation"],
+            "next_observation_origin": "SOURCE_REVIEW_EXPLICIT_OBSERVATION" if observation else current["next_observation_origin"],
+            "next_observation_details": observation,
+            "conditional_thesis_test": current["next_observation"],
             "latest_assessment": {"decision": review["decision"], "summary": review["reader_change_summary"],
                 "cutoff_utc": review["cutoff_utc"], "reviewed_at_utc": review.get("reviewed_at_utc"),
                 "missing_sources": [a for a in review.get("source_attempts", []) if a.get("status") != "PASS"]}

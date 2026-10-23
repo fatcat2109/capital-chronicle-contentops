@@ -367,6 +367,9 @@ export interface MaintainedNativeStory {
   story_identity: string; title: string; state: string; reader_question: string | null; current_view: string | null;
   countercase?: string | null;
   current_article_identity: string; prior_article_identity: string | null; next_observation: string | null;
+  conditional_thesis_test?: string | null;
+  next_observation_details?: { observable: string; expected_at_utc: string | null; date_state: string;
+    sources: string[]; discriminator: string | null; missing_evidence: string; source_review_id: string; scope: string } | null;
   declared_prior_article_identity?: string | null; lineage_gap?: boolean;
   latest_assessment?: { decision: string; summary: string; cutoff_utc: string; reviewed_at_utc: string | null;
     missing_sources: Array<{ url: string; status: string }> } | null;

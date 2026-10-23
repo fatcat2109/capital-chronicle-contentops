@@ -32,6 +32,10 @@ describe('Main report editorial workspace', () => {
       reader_question: 'Which fact changed?', current_view: 'A dated interpretation with uncertainty.',
       countercase: 'A competing explanation remains supported.',
       current_article_identity: 'current-id', prior_article_identity: 'prior-id', next_observation: version.next_observation,
+      conditional_thesis_test: 'If new transactions persist, the retained thesis strengthens.',
+      next_observation_details: { observable: version.next_observation, expected_at_utc: null, date_state: 'UNKNOWN_NOT_SUPPLIED',
+        source_review_id: 'controlled-review', sources: ['https://example.com/dated'], discriminator: 'Conditional only',
+        missing_evidence: 'Subsequent disclosure and event date remain unestablished.', scope: 'PRODUCER_REVIEW_OBSERVATION_NOT_NEW_EVENT' },
       latest_assessment: { decision: 'USE_UNCHANGED', summary: 'Later retained check keeps the version without erasing its fact delta.',
         cutoff_utc: '2026-10-22T00:00:00Z', reviewed_at_utc: '2026-10-22T14:00:00Z', missing_sources: [] },
       change: { decision: 'USE_UNCHANGED', summary: 'Retain the accepted interpretation until the named gap is resolved.',
@@ -48,6 +52,10 @@ describe('Main report editorial workspace', () => {
     expect(panel.getByText(/A competing explanation remains supported/)).toBeInTheDocument();
     expect(panel.getByText(/Later retained check keeps/)).toBeInTheDocument();
     expect(panel.getByText('Does the next dated release retain this change?')).toBeInTheDocument();
+    expect(panel.getByText(/Expected disclosure date: Unknown/)).toBeInTheDocument();
+    expect(panel.getByText(/Thesis test: If new transactions persist/)).toBeInTheDocument();
+    expect(panel.getByText('Subsequent disclosure and event date remain unestablished.')).toBeInTheDocument();
+    expect(panel.getByRole('link', { name: 'Observation source context' })).toHaveAttribute('href', 'https://example.com/dated');
     expect(panel.getByText(/Source coverage is partial/)).toBeInTheDocument();
     expect(panel.getByRole('link', { name: 'Named source gap' })).toHaveAttribute('href', 'https://example.com/missing');
     expect(panel.getByText(/Analysis as of/)).toHaveTextContent('2 days old');

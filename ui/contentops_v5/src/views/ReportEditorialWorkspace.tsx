@@ -75,6 +75,12 @@ function MaintainedStories({ stories }: { stories: MaintainedNativeStory[] }) {
       {story.change.coverage_complete === false && <div role="status"><p>Source coverage is partial. Retained support does not resolve the missing checks.</p>
         {story.change.missing_sources.map((s, i) => <p key={i}>{display(s.status)} · <a href={s.url}>Named source gap</a></p>)}</div>}
       <h3>What to follow next</h3><p>{story.next_observation ?? 'No substantive next observation is recorded. Review the exact dated source before requesting new copy.'}</p>
+      {story.next_observation_details && <div>
+        <p>Expected disclosure date: {story.next_observation_details.expected_at_utc ?? 'Unknown — no date established by the retained source.'}</p>
+        <p>Thesis test: {story.conditional_thesis_test ?? 'Not separately recorded.'}</p>
+        <p>{story.next_observation_details.missing_evidence}</p>
+        {story.next_observation_details.sources.map(url => <p key={url}><a href={url}>Observation source context</a></p>)}
+      </div>}
       <p>Last source assessment: {story.current_version.last_source_check_utc ?? 'not recorded'}. {story.current_version.source_check_scope}</p>
       <h3>Accepted versions and source support</h3>
       {[...story.versions].reverse().map((version, index) => <details key={version.article_identity} data-story-version={version.article_identity}>

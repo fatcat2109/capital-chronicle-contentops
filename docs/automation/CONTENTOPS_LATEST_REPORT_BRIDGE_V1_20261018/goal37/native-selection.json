@@ -1,0 +1,30 @@
+{
+  "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+  "role": "SELECTION",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "low",
+  "native_turn_id": "/root/goal37_selection",
+  "provenance_limitation": "Actual native agent task identity; a separate native turn ID and runtime model attestation are unavailable to this role. Model and reasoning_effort identify the assigned role contract.",
+  "format": "MOMENT_CONTEXT",
+  "span": {
+    "start_seconds": 80.88600000000001,
+    "end_seconds": 118.336
+  },
+  "exact_quote": "Our decision comes at a time when the American economy appears to be strengthening. New hiring, private-sector earnings, business capital investment-each of these markers has improved in recent months and is pointing in a good direction. Credit flows have been robust, particularly for businesses. And, as I said at the policy symposium in Jackson Hole, I would be hard pressed to describe broad financial conditions as restrictive. This view was widely shared by the Committee. So we removed a dose of accommodation.",
+  "rationale": "A continuous complete passage connects the speaker's assessment of strengthening activity and broad financial conditions to the stated policy rationale. It contains no numeric claims and starts and ends on complete sentences. Suitable for a dated context short, subject to audio, timing, factual and rights review.",
+  "surrounding_context": "The supplied preceding cues discuss inflation and price stability. The next supplied passage discusses geopolitical shocks and U.S. economic resilience. This is the September 16, 2026 event acquired October 22, 2026, not current breaking news; no conclusions about unsupplied portions of the speech are drawn.",
+  "caption_audio_limits": [
+    "Literal publisher cue texts joined with single spaces; original selected first-start and last-end boundaries retained.",
+    "Captions are NOT audio verified; no listening, timing, pronunciation or speaker-continuity verification was performed.",
+    "Only supplied 60\u2013146 second partial context is available; full speech context is unverified.",
+    "Speaker identity follows publisher caption attribution only.",
+    "Private preparation only; production_eligible remains false. No asset-specific rights clearance or public-write authority is granted."
+  ],
+  "roadmap_formats": [
+    "CLAIM_CHECK",
+    "CONSEQUENCE_WATCHPOINT",
+    "MOMENT_CONTEXT",
+    "QUESTION_ANSWER",
+    "WHAT_CHANGED"
+  ]
+}
