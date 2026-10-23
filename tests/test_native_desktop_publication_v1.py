@@ -438,6 +438,23 @@ def test_claimed_lost_publish_readback_before_retry_and_local_failure(
     assert len(store.list_platform_dispatches()) == 9
 
 
+def test_lost_readback_projects_new_turn_begin_but_never_a_second_publish(tmp_path, monkeypatch):
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    operation, executor, _ = composed(store, binding, rollout, monkeypatch)
+    operation.resume()
+    publish = executor.pending()[0]
+    operation.tool("begin", request_hash=publish["request"]["request_sha256"])
+    operation.resume()
+    readback = next(p for p in executor.pending() if p["request"]["action"] == "READBACK")
+    operation.tool("begin", request_hash=readback["request"]["request_sha256"])
+    restarted = NativeReviewedPublication(store, binding, rollout=rollout, native_invocation_id="RESUMED")
+    projection = restarted.projection()
+    assert projection["next_operation"] == "publication-tool-begin"
+    assert readback["request"]["request_sha256"] in projection["next_command"]
+    assert next(p for p in projection["pending_requests"] if p["request"]["action"] == "PUBLISH")["action_claimed"]
+    assert not next(p for p in projection["pending_requests"] if p["request"]["action"] == "READBACK")["action_claimed"]
+
+
 def test_source_and_artifact_changes_revoke_continuation_before_tool(
     tmp_path, monkeypatch
 ):

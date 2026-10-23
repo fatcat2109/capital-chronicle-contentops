@@ -1,0 +1,99 @@
+# V1 native newsroom release convergence
+
+Status: IN_PROGRESS. Native integration and live operation are not yet accepted.
+
+Mission: CONTENTOPS_V1_NATIVE_NEWSROOM_RELEASE_CONVERGENCE_V1. Owning chat: `01a16a43-bfad-7191-bd78-ef708c3468d7`; assigned L2: `01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`.
+
+## Goal and locator recovery, 24 October 2026
+
+The original tool registration returned ACTIVE, createdAt `1792784211`. The interrupted checkout had branch `codex/v1-newsroom-release-convergence` at `a1b08f96bf551681bca8196038f8b7060def4fd1` and only this untracked checkpoint. No source implementation, commit or notification had occurred. Its initial checkpoint text is preserved in this chat's command output.
+
+On resumption the original managed attachment still existed in list_artifacts, but its directory and Git worktree registration were absent. The preserved branch ref still equalled exact PR90. No deletion cause is inferred. Created a new managed checkout from that existing ref using create_worktree, operation `45490831-4a65-4e8b-b1b6-1d782e43a8eb`; tool confirmed completed and registered. Switched it to the preserved branch without reset or overwrite. Current checkout: `C:/Users/bullw/.codex/worktrees/v1-newsroom-release-recovered/ContentOps`; initial HEAD `a1b08f96bf551681bca8196038f8b7060def4fd1`; clean before restoring this checkpoint. Original `v1-newsroom-release-convergence/ContentOps` attachment is stale, not archived by this Builder.
+
+Goal readback discrepancy: get_goal first returned null on resumption; create_goal then rejected because an unfinished goal exists. Subsequent get_goal returned usageLimited, createdAt `1792784422`, objective pointing to attachment `9fdcb291-bcc0-407d-9c7d-ebafd0577d0d/pasted-text-1.txt`. That file was read and contains this identical V1 mission. Preserve this actual native record; no replacement, resume bypass or false ACTIVE claim. The task remains the same unfinished mission.
+
+Latest human priority verified through read_thread: L2 turn `01a16a49-9a3d-7020-8f35-443a3a922811`, human message `01a16a49-9c3a-7ee3-a856-72d91d2f9adf`: pause V2/V3 and finish V1 before returning to video. V1 is sole active product writer. Necessary V1 CLI/UI/types may be changed only for a demonstrated defect. No V2/V3 work or waits.
+
+## Admission and reservations
+
+Fresh remote readback: accepted master `bc79e30c8088a9deb47f3942aa15914a59b69799`; candidate PR90 branch `codex/goal21-multi-asset-research-library` at `a1b08f96bf551681bca8196038f8b7060def4fd1`. Candidate remains unmerged; earlier exact-head GitHub readback reported OPEN/DRAFT and two SUCCESS checks. Original project and latest-report-editorial-bridge checkouts are lookup-only; WIP preserved.
+
+Own this scoped release directory, demonstrated V1 newsroom/intake/native/editorial/publication defects and focused tests, with necessary V1 CLI/UI compatibility seams under latest L2 reservation. Preserve shared/root authority, installed skills, Tower, Main/database, V2 video and V3 speech. No merge, rebase, reset, stash, clean, force push, deployment, runtime/pause change, upload, platform draft, spending or public write. No subagents or cross-chat pings started.
+
+Finite journey: admissible intake -> Luna MAX genuine X filtering -> Sol Light select/plan -> Sol MAX canonical writing and at most one useful repair -> source/claim/epistemic/story history -> exactly eight packages -> exact review -> sole DurablePublicationCoordinator/native Neo handoff -> same-operation recovery. Terra requires supported explicit selection. Reuse Goal25/32/33/35/36 proof; no repeated canary, filler or historical-news freshness credit. Historical V1 acceptance remains true; deployment, activation and natural 5-8 published articles/day are separate unproven claims.
+
+CodeGraph MCP attempted on this exact checkout and reported no .codegraph index. Do not initialize another index. Use existing docs/codegraph navigation and direct source; regenerate existing outputs only if source changes warrant it.
+
+## Context and evidence reconciliation
+
+Initial host/root/bootstrap/maps/North Star/Master Plan/V1 pointer/role/runtime/activation sources and operating protocol read in this chat; missing material strategic reads are being completed once. A received or another owner's read receipt is not claimed as this Builder's full read. Exact source hashes and factual synthesis will be sealed below. Goal25/32/33 handoffs, Goal35 completion audit and Goal36 mission/cases/read contract were read directly. Retained evidence stays dated.
+
+Completion notification: NOT SENT. No partial/progress/upward/peer message permitted. Next operation: finish direct seam reconciliation and concrete release transition packet; fix only reproduced defects and run proportional checks.
+
+## One-time strategic receipt and synthesis
+
+Main orientation read through exact Git blobs at fresh remote main `a1c685983bf26dd0585d1c9e18c065ec865de416`; lookup checkout HEAD `268ba42737e8cbf9b42cc67471a3d5a5d5f1890c` was not changed. Main current-status selection covers the index's named status fields only, not all history. ContentOps candidate reads are pinned to PR90 `a1b08f96`; accepted remote master `bc79e30c` stays distinct. The older initial project checkout instructions were superseded for this candidate by its actual native role/activation spine, not by memory. No Main/database source or runtime claim is inferred from these reads.
+
+Main combines a complete subscriber web app, private maintained research/decision/portfolio/learning and Core numeric authority. Decision/Analysis/Evidence depth, exact knowledge clocks, governed projections and accountable prospective outcomes remain distinct. Calendar/chart embeds are convenience displays, not internal data or rights authority. The full macro/SEC/options/Greeks/GEX scope is retained; relevant existing quant/forecast owners are reused. ContentOps may consume only exact permitted public research; recirculation is not independent evidence. Full database scope remains 32 packages/eight groups, with heterogeneous or unknown denominators. The dated V4 plan's missing-capability prose is not current source status. W438 serial admission and W576 projection stay with database C; current coordination mode identifies C's W965 continuation and A/B stopped, without granting this lane any producer work. V1 release does not depend on globally completing that database.
+
+ContentOps V1 is the original early-signal newsroom, with report truth separate from event truth, one canonical publisher and exactly eight derivatives. Preserve historical acceptance TRUE and the existing native Luna MAX -> Sol Light -> Sol MAX method; no API fallback. V2 remains analytical video and V3 authentic speech; their North Stars survive, but Jim's latest V1-first instruction pauses both. This Builder owns only the V1 release/recovery delta. Retained editorial/media proofs prove their dated bytes and review scopes; they establish neither new current news nor deployment or daily-live output. The only additional source gap reproduced here is a claimed read-only Neo observation that cannot resume in a new turn, plus identity probes shared across turns within one five-minute epoch. No publisher/store/scheduler replacement is needed.
+
+| Actually read source | SHA-256 | Scope |
+| --- | --- | --- |
+| Main `docs/strategy/ACTIVE_CONTEXT/ACTIVE_CONTEXT_INDEX_V11.json` | `7a41a7fe6c7ce15c993335d1c3399c59e46fb9e70b6371b1ad30149f1774e6ca` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/STALE_STRATEGIC_DOCS_CLEANUP_MANIFEST_V11.json` | `30bfb3bb0399b0faa7fec4a460174631f0744d75226924de960134dcb5b2295d` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_NORTH_STAR_AND_ANTI_DRIFT_CONSTITUTION_V13.json` | `2547bfbea7b327707ec5bb2139fc9546b28e206e68ef5215c678033cbedb4206` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_FINAL_PRODUCT_MASTER_PLAN_V12.md` | `f83153cf2eb9b434e81c8e872afe649b1cb6c92bccc8cb8ca35427af8c40302e` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_PRODUCT_DIRECTION_OVERLAY_V1.md` | `31e505bb5475f979906b429ddc049b4e35c24f467311d07804d02351df9ecbe0` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_LLM_QUALITATIVE_SYNTHESIS_AND_QUOTA_DISCIPLINE_V1.json` | `a047cc6aef974e08c13e5f4aeea369ee6cbb4cb170f184617de2eb94122c1cf0` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_HIGH_FIDELITY_PRODUCT_FIRST_NORTH_STAR_EXTENSION_V1.json` | `b50193f939d079ce22223e3b240fb7dabfbaf3644d81b7c92b2b97d3b88daa41` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_HIGH_FIDELITY_EVIDENCE_PROJECTION_SPEC_V1.json` | `a1096de9f0269041f867dda6a6e8b11d4ee834a025c5d5f3cea62c0e3d227ac8` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_PRODUCT_FIRST_HIGH_FIDELITY_TASK_GRAPH_EXTENSION_V1.json` | `4224e392d15af326ae21dd51d35be439aef1ecfdd5b8cf6b363af110a2e5312d` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_FOUR_TRIGGER_ANALYSIS_AND_DATA_OPERATING_MODEL_V1.md` | `1d601811ca67dfcce7544e227117802f629410c05720171796b84d9b0f800828` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_PRIMARY_DEMO_AND_ALPHA_TRANSITION_POLICY_V1.md` | `8d87d3a9c40cab161beb5b2575b21d695c26498e2f1f049a4ddff6aad3188898` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_QUESTION_SCOPED_QUANT_PROBABILITY_POLICY_V1.md` | `613ec12a92db7e287a311a962b6950833ef221c339c768b662ddaea2050354ee` | FULL strategic orientation |
+| Main `docs/strategy/ACTIVE_CONTEXT/CAPITAL_CHRONICLE_RESEARCH_PRODUCT_AND_FIT_FOR_USE_POLICY_V1.md` | `79a3b602cde9158349a5b50ec24abf7af3b8af888c4ac1f46892caf427722e25` | FULL strategic orientation |
+| Main `docs/product/web/INDEX.md` | `5177556388cb0b79033bc5d7b9ef353a4ed62160ad13214c4d356e2b6338302d` | FULL strategic orientation |
+| Main `docs/product/web/CAPITAL_CHRONICLE_WEB_PRODUCT_CONSTITUTION_V1.md` | `a548e990ba09c4d4682f3ecaa0f615d54dc98965553d09d9e40920274adb4e77` | FULL strategic orientation |
+| Main `docs/product/web/CAPITAL_CHRONICLE_WEB_STATE_AND_TEMPORAL_ONTOLOGY_V1.json` | `688f38f5376cc327e61e9e606b2228aabbaedbe4c0af0b56052f81e5c981ce0a` | FULL strategic orientation |
+| Main `docs/product/web/CAPITAL_CHRONICLE_WEB_INSTRUMENT_DESIGN_RULES_V1.md` | `7c8b5cc171682772fc8aed564e2c3273eee1072564b33c9bd18ed545bad98cfb` | FULL strategic orientation |
+| Main `docs/product/web/CAPITAL_CHRONICLE_WEB_NORTH_STAR_INSTITUTIONAL_SURFACES_MANDATE_V1.md` | `bb5c685433ad6e69380ee5f45f84ab221db118e18dd13ed8c6badce471ba20cb` | FULL strategic orientation |
+| Main `docs/product/web/CAPITAL_CHRONICLE_WEB_APP_NORTH_STAR_BLUEPRINT_V1.md` | `d73fc3a81dd73ea37c3c3c281b96cb4eef01b09df8ee5469cdb62e47aa32a363` | FULL strategic orientation |
+| Main `docs/product/web/CAPITAL_CHRONICLE_WEB_NORTH_STAR_EXECUTION_BRIDGES_V1.md` | `3930bdbdcf0892568d87d31a81673917858aa8aaaac8a719b6145ac3a30d2a40` | FULL strategic orientation |
+| ContentOps `AGENTS.md` | `d649bfec0d4f5cb358a1bcf4629cc54a2944ab101a7a45edd93d65e6a778495b` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/codegraph/INDEX.md` | `45984dda5b353b109fa3f7cdfefb8b840abd8247e97cba6f4b5fc855df6b2ea6` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md` | `fa6a8d356a39dc27404b0edde37dd6bd1174267b244f61e69aa3c05f0e90272d` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md` | `86b16b2e346dd1d6bcb385c501d9c19b2df4a5f90641d12cff0ee46f7c278d19` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md` | `657ed8947f5c347df8cae25d2610d23ddaec83e0a9b7b10cb846579ef3901e90` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md` | `b4a60f37e4b5b49036ef7313315e3ae1d6d21fcc2610675e329377f19edf65b6` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md` | `cd584e67e34d714334d2339e4832a97777a49d367d22f2e6858d5ac66ced5cfb` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/codegraph/V1_CONTEXT.md` | `52ef959ed7632af7d84714449a9b766191f98a82c0db77f55414970b3938f9d6` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md` | `7a93164b5d2ecdce2e12df23a632aac88023364a53bedd3ac7a2f8fd9b2f1357` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md` | `0239e679af3c7e9dc73bb6345d835d5a2b82ed5b10d493cb39ed3cae6e82728b` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` | `4e7dd72a98f17975b7eacf014d9029b8a57fc9802dea98478a5a9041442b328d` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| ContentOps `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md` | `c466c2bafd0bd70d3fa75c9166bdb9b411e9986b635b7c6163241804a5fd0034` | Direct source and changed-authority reconciliation; unchanged reads reused |
+| `A:/Capital Chronicle/AGENTS.md` | `f912f40886cfe097c4b5cfc99e16bac8ba7ce531e0c307563268b490cb1f5b71` | FULL |
+| `A:/Capital Chronicle/control-tower-reporting-closeout-20261018/docs/project_control_tower/CODEX_THREE_LEVEL_OPERATING_MODEL_V1.md` | `61c48d5ba4db7e914ce7eea74669575802531a4211e1a04cd68abe8495f63766` | FULL |
+| `A:/Capital Chronicle/control-tower-reporting-closeout-20261018/docs/project_control_tower/orchestrators/contentops/HANDOFF.md` | `f2131ab698a7d7b61a286a4fefd2ee90d5aadf1a0b4d76398fd592fad1a4d78c` | SELECTED current staffing, priority, reservations; orientation pointers only |
+| `A:/Capital Chronicle/research-audits/2026-10-23-contentops-completion-plan/CONTENTOPS_V3_SIGNAL_CLIPS_NORTH_STAR_PROPOSAL_20261023.md` | `cbba9210a082144cc72ab17e8bb0e8afaf9b832ce82c575121703e2448214480` | FULL proposal; no V3 implementation history |
+| `A:/Capital Chronicle/research-audits/2026-10-23-contentops-completion-plan/CONTENTOPS_V1_V2_V3_COMPLETION_PLAN_20261023.md` | `8cb6bdac27b70c8d982b46142c1532857099e538da817b470e2831cf432651cd` | FULL; current V1 assignment adopts release scope |
+| `A:/Capital Chronicle/web-global-macro-wave-2-europe-v1/docs/CAPITAL CHRONICLE FULL DATABASE COMPLETION MASTER PLAN V4.md` | `18761c79aa882330d0e1475f7fe78da2bebb1c039488dcec5c91a620f3d6464d` | FULL 1-1459; dated planning, not current capability status |
+| `A:/Capital Chronicle/web-global-macro-wave-2-europe-v1/docs/research/database_foundation/DATABASE_COMPLETION_CHECKLIST_V2.json` | `ebb8903958773dbb8fcabfcecdbdb85ab48311dd648e53d0f5697a0df6a28b8e` | SELECTED release header and all 32 package family/status/next-action rows; historical nested inventories excluded |
+| `A:/Capital Chronicle/web-global-macro-wave-2-europe-v1/docs/research/database_foundation/DATABASE_FOUNDATION_RELEASE_V1_HANDOFF.md` | `01a5472355d456588fba4d5d72f2b9883c4643dbb863591e336eed3a1ba1704a` | SELECTED opening 34 and final 35 lines; historical body not claimed full |
+| `C:/Users/bullw/.codex/scratch/control-tower-w940-w941/docs/project_control_tower/THREE_BUILDER_COORDINATION_CHECKPOINT_20261016.json` | `019c19c32d36acdffc88f9c8278450267e35db96f4e1a884a1a544864665596b` | SELECTED mode, boundary and reservation discovery; no producer assignment |
+
+No repeated full-project orientation is needed on continuation while these bindings remain unchanged. Task-irrelevant Main execution/data acquisition and V2/V3 implementation history were not loaded. Current source and targeted consumers govern the repair.
+
+## Reproduced release defect
+
+At exact PR90, begin a READBACK, lose its observation, reopen NativeNeoExecutor with the same operation and a new actual invocation ID: begin rejects `NATIVE_NEO_ACTION_ALREADY_CLAIMED_READBACK_ONLY`. A same-epoch identity probe also hashes to the old turn's request, while readiness requires the current turn. Two regression tests failed on the original source for exactly those reasons. The scratch reproduction produced zero dispatches; its TemporaryDirectory cleanup hit a Windows SQLite handle lock after the reproduction output. That cleanup error is not a product recovery result and no production store was involved.
+
+Repair: append a separate immutable read-only claim per later invocation, bind its observed return to that claim, request turn-specific identity proofs, and project the current turn's pending action. Existing original claims/returns remain immutable. A PUBLISH claim stays global and can never be reclaimed by a later invocation. Old identity probes remain retained but do not become the current turn's actionable pending task. Original baseline selection:36 passed. First repair selection:17 passed/1 fixture failure (missing content_verified in the new controlled observation); corrected fixture selection19 passed. Final impacted recovery/learning selection is in progress. These are fixtures/local checks, not live browser/account proof.
+
+## Final local source reconciliation
+
+Changed recovery/publication/learning controls:25 passed, zero failures/errors (`recovery-checks.xml`). Original baseline36-pass selection overlaps; do not sum them as unique. Scoped Ruff and git diff --check pass. Three new regressions cover lost read-only observation/new-turn recovery, turn-specific identity request, and actionable continuation; existing publish-loss test now rejects a new-turn second begin. No UI/schema/store migration or new source/provider cycle. Retained source/review/gzip/PDF evidence matches exact candidate Git blobs; Markdown checkout CRLF differs from Git LF, so the evidence distinguishes raw and line-ending-normalized comparison. No historical file was edited.
+
+Current external boundary observed once: four Automation host TOMLs are PAUSED on the old gpt-5.6-sol/high settings and the same old prompt hash; marker llm_operator_pause.flag is present. Supported view calls rendered four cards but exposed no machine-readable configuration. No claim that current target prompts are installed or calendar execution works. Existing intake/state/API task metadata points to A:/Capital Chronicle/contentops-issue46-deployment-proof and the existing runtime interpreter; no process/account diagnostic or runtime mutation was performed. The proposed source deployment is isolated from shared WIP and uses the same existing canonical store/task/four App IDs.
+
+The concrete remaining decision is RELEASE_DECISION.md plus hash-bound release-transition-proposal.json. It is one migration decision including source integration/deployment, existing-task/four-window retarget and pause/mode/native V1 dispatch scope. The outer proposal is intentionally not executable by scheduled_binding. Source config stays PAUSED/zero-write. Historical acceptance remains true, native release/live operation remain incomplete pending exact authority and actual execution. V2/V3 remain owner-paused. Source/graph/PR sealing and final readback follow; completion notice still NOT SENT.

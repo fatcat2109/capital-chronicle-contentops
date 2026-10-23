@@ -166,7 +166,7 @@ def scheduled_publication_authority(store, binding, rollout):
         raise ValueError("PUBLICATION_OPERATING_MODE_BLOCKED")
 
 
-def publication_projection(rows, dispatches, reconciliations, *, run_id, readiness=()):
+def publication_projection(rows, dispatches, reconciliations, *, run_id, readiness=(), native_invocation_id=None):
     """Actual records only; no provider probes, configuration-as-login or writes."""
     operation = next(
         (
@@ -266,6 +266,9 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
             p.get("operation_id") == run_id
             and p.get("schema_version") == "contentops.native_neo_tool_request.v1"
         ):
+            if (native_invocation_id and p["request"]["action"] == "VERIFY_IDENTITY"
+                    and p["request"].get("native_invocation_id") not in {None, native_invocation_id}):
+                continue
             key = "native-neo-" + sha256_of(
                 [run_id, p["request"]["request_sha256"], "response"]
             )
@@ -276,6 +279,15 @@ def publication_projection(rows, dispatches, reconciliations, *, run_id, readine
                     + sha256_of([run_id, p["request"]["request_sha256"], "started"])
                     for r in rows
                 )
+                if native_invocation_id and p["request"]["action"] in {"READBACK", "VERIFY_IDENTITY"}:
+                    # A later turn may reacquire a lost read-only observation, while
+                    # a PUBLISH claim always remains globally fenced above.
+                    claim_keys = {
+                        "native-neo-" + sha256_of([run_id, p["request"]["request_sha256"], kind])
+                        for kind in ("started", "started-readonly-" + sha256_of(native_invocation_id))
+                    }
+                    claimed = any(r["message_id"] in claim_keys
+                        and json.loads(r["payload"]).get("native_invocation_id") == native_invocation_id for r in rows)
                 pending.append(
                     {
                         **p,
@@ -400,6 +412,7 @@ class NativeReviewedPublication:
             self.store.get_reconciliations_for_work_item(self.binding["run_id"]),
             run_id=self.binding["run_id"],
             readiness=self.store.list_destination_readiness(),
+            native_invocation_id=self.native_invocation_id,
         )
         try:
             if value["state"] == "REVIEWED_HANDOFF_REQUIRED":
