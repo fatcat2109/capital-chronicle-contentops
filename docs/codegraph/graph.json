@@ -13,9 +13,9 @@
     "docs/codegraph/V2_CONTEXT.md"
   ],
   "counts": {
-    "edges": 14786,
+    "edges": 14812,
     "entrypoints": 20,
-    "nodes": 7784,
+    "nodes": 7797,
     "nodes_by_kind": {
       "authority_doc": 8,
       "cli_command": 27,
@@ -25,11 +25,11 @@
       "instructions": 9,
       "manifest": 21,
       "python_class": 637,
-      "python_function": 4234,
+      "python_function": 4243,
       "python_method": 308,
-      "python_module": 821,
-      "schema": 255,
-      "test": 782,
+      "python_module": 822,
+      "schema": 256,
+      "test": 784,
       "typescript_export": 516,
       "typescript_or_javascript_module": 113
     }
@@ -6214,6 +6214,12 @@
       "inference": "python_ast_import",
       "kind": "imports",
       "to": "live_contentops/seo_metadata.py"
+    },
+    {
+      "from": "live_contentops/cli.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/speech_highlight_current_source_v1.py"
     },
     {
       "from": "live_contentops/cli.py",
@@ -38496,6 +38502,78 @@
       "to": "schema:contentops.source_route_health.v1"
     },
     {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::atomic_json"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::candidates"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::command"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::command"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::digest"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::https_source"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::retain_return"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::stage_artifact"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_definition",
+      "kind": "defines",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::validate_source"
+    },
+    {
+      "from": "live_contentops/speech_highlight_current_source_v1.py",
+      "inference": "python_ast_schema_constant",
+      "kind": "declares_schema",
+      "to": "schema:contentops.speech_highlight_relay.current_source_private.v1"
+    },
+    {
       "from": "live_contentops/speech_highlight_relay_v1.py",
       "inference": "python_ast_import",
       "kind": "imports",
@@ -69678,6 +69756,84 @@
       "to": "python_symbol:live_contentops/source_route_health_v1.py::load_source_route_health_snapshot_read_only_value"
     },
     {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::candidates",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::https_source"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::command",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::atomic_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::command",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::candidates"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::command",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::atomic_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::digest"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::https_source"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::retain_return"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::stage_artifact"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::validate_source"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::retain_return",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::atomic_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::stage_artifact",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::atomic_json"
+    },
+    {
+      "from": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::validate_source",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::https_source"
+    },
+    {
       "from": "python_symbol:live_contentops/speech_highlight_relay_v1.py::artifact_identity",
       "inference": "python_ast_exact_name_call",
       "kind": "calls",
@@ -88891,7 +89047,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-22T22:59:56Z",
+  "generation_timestamp_utc": "2026-10-23T00:32:39Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -89991,7 +90147,7 @@
     {
       "id": "live_contentops/cli.py",
       "kind": "python_module",
-      "size_bytes": 51693
+      "size_bytes": 51927
     },
     {
       "id": "live_contentops/cli_safety.py",
@@ -90121,7 +90277,7 @@
     {
       "id": "live_contentops/contentops_editorial_desk_v1.py",
       "kind": "python_module",
-      "size_bytes": 36820
+      "size_bytes": 38056
     },
     {
       "id": "live_contentops/contentops_foundation_library_v1.py",
@@ -92577,6 +92733,11 @@
       "id": "live_contentops/source_route_health_v1.py",
       "kind": "python_module",
       "size_bytes": 9140
+    },
+    {
+      "id": "live_contentops/speech_highlight_current_source_v1.py",
+      "kind": "python_module",
+      "size_bytes": 19519
     },
     {
       "id": "live_contentops/speech_highlight_relay_v1.py",
@@ -97615,658 +97776,658 @@
     {
       "id": "python_symbol:live_contentops/cli.py::alpha_wait_state_summary",
       "kind": "python_function",
-      "line": 610,
+      "line": 611,
       "path": "live_contentops/cli.py",
       "symbol": "alpha_wait_state_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::approval_queue_summary",
       "kind": "python_function",
-      "line": 216,
+      "line": 217,
       "path": "live_contentops/cli.py",
       "symbol": "approval_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::artifact_packet_bridge_summary",
       "kind": "python_function",
-      "line": 606,
+      "line": 607,
       "path": "live_contentops/cli.py",
       "symbol": "artifact_packet_bridge_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::audit_log_summary",
       "kind": "python_function",
-      "line": 238,
+      "line": 239,
       "path": "live_contentops/cli.py",
       "symbol": "audit_log_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::automation_policy_modes_summary",
       "kind": "python_function",
-      "line": 676,
+      "line": 677,
       "path": "live_contentops/cli.py",
       "symbol": "automation_policy_modes_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::build_sample_approval_queue",
       "kind": "python_function",
-      "line": 225,
+      "line": 226,
       "path": "live_contentops/cli.py",
       "symbol": "build_sample_approval_queue"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::bundle_refresh_next_phase_summary",
       "kind": "python_function",
-      "line": 602,
+      "line": 603,
       "path": "live_contentops/cli.py",
       "symbol": "bundle_refresh_next_phase_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::contracts_summary",
       "kind": "python_function",
-      "line": 153,
+      "line": 154,
       "path": "live_contentops/cli.py",
       "symbol": "contracts_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::daily_app_command",
       "kind": "python_function",
-      "line": 1039,
+      "line": 1040,
       "path": "live_contentops/cli.py",
       "symbol": "daily_app_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_preview_summary",
       "kind": "python_function",
-      "line": 510,
+      "line": 511,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_preview_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_qa_summary",
       "kind": "python_function",
-      "line": 496,
+      "line": 497,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_qa_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::editorial_selection_summary",
       "kind": "python_function",
-      "line": 522,
+      "line": 523,
       "path": "live_contentops/cli.py",
       "symbol": "editorial_selection_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::evaluate_sample_policy",
       "kind": "python_function",
-      "line": 195,
+      "line": 196,
       "path": "live_contentops/cli.py",
       "symbol": "evaluate_sample_policy"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_editorial_packet_summary",
       "kind": "python_function",
-      "line": 587,
+      "line": 588,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_editorial_packet_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_packet_review_queue_summary",
       "kind": "python_function",
-      "line": 590,
+      "line": 591,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_packet_review_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::grounded_research_summary",
       "kind": "python_function",
-      "line": 536,
+      "line": 537,
       "path": "live_contentops/cli.py",
       "symbol": "grounded_research_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::ide_cli_document_bundle_summary",
       "kind": "python_function",
-      "line": 612,
+      "line": 613,
       "path": "live_contentops/cli.py",
       "symbol": "ide_cli_document_bundle_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_asset_dry_run",
       "kind": "python_function",
-      "line": 398,
+      "line": 399,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_asset_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_asset_export_status",
       "kind": "python_function",
-      "line": 384,
+      "line": 385,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_asset_export_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::instagram_staging_contract",
       "kind": "python_function",
-      "line": 420,
+      "line": 421,
       "path": "live_contentops/cli.py",
       "symbol": "instagram_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_adapter_status",
       "kind": "python_function",
-      "line": 341,
+      "line": 342,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_dry_run",
       "kind": "python_function",
-      "line": 353,
+      "line": 354,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_scope_verification_checklist",
       "kind": "python_function",
-      "line": 379,
+      "line": 380,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_scope_verification_checklist"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::linkedin_staging_contract",
       "kind": "python_function",
-      "line": 375,
+      "line": 376,
       "path": "live_contentops/cli.py",
       "symbol": "linkedin_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::live_project_sources_bundle",
       "kind": "python_function",
-      "line": 492,
+      "line": 493,
       "path": "live_contentops/cli.py",
       "symbol": "live_project_sources_bundle"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::main",
       "kind": "python_function",
-      "line": 1263,
+      "line": 1265,
       "path": "live_contentops/cli.py",
       "symbol": "main"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::meta_capability_review_checklist",
       "kind": "python_function",
-      "line": 424,
+      "line": 425,
       "path": "live_contentops/cli.py",
       "symbol": "meta_capability_review_checklist"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::next_platform_account_binding_selection_gate_summary",
       "kind": "python_function",
-      "line": 883,
+      "line": 884,
       "path": "live_contentops/cli.py",
       "symbol": "next_platform_account_binding_selection_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_command_summary",
       "kind": "python_function",
-      "line": 1111,
+      "line": 1112,
       "path": "live_contentops/cli.py",
       "symbol": "operator_command_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_decision_history_summary",
       "kind": "python_function",
-      "line": 592,
+      "line": 593,
       "path": "live_contentops/cli.py",
       "symbol": "operator_decision_history_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::operator_live_publishing_review_backlog_gate_summary",
       "kind": "python_function",
-      "line": 923,
+      "line": 924,
       "path": "live_contentops/cli.py",
       "symbol": "operator_live_publishing_review_backlog_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::packet_dashboard_handoff_summary",
       "kind": "python_function",
-      "line": 598,
+      "line": 599,
       "path": "live_contentops/cli.py",
       "symbol": "packet_dashboard_handoff_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::packet_registry_dashboard_summary",
       "kind": "python_function",
-      "line": 596,
+      "line": 597,
       "path": "live_contentops/cli.py",
       "symbol": "packet_registry_dashboard_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::pilot_prerequisites_status",
       "kind": "python_function",
-      "line": 428,
+      "line": 429,
       "path": "live_contentops/cli.py",
       "symbol": "pilot_prerequisites_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::platform_errors_summary",
       "kind": "python_function",
-      "line": 71,
+      "line": 72,
       "path": "live_contentops/cli.py",
       "symbol": "platform_errors_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::platform_requirements_account_binding_policy_gate_summary",
       "kind": "python_function",
-      "line": 931,
+      "line": 932,
       "path": "live_contentops/cli.py",
       "symbol": "platform_requirements_account_binding_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::policy_summary",
       "kind": "python_function",
-      "line": 174,
+      "line": 175,
       "path": "live_contentops/cli.py",
       "symbol": "policy_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::print_status",
       "kind": "python_function",
-      "line": 62,
+      "line": 63,
       "path": "live_contentops/cli.py",
       "symbol": "print_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::project_source_export_summary",
       "kind": "python_function",
-      "line": 600,
+      "line": 601,
       "path": "live_contentops/cli.py",
       "symbol": "project_source_export_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::prompt_injection_summary",
       "kind": "python_function",
-      "line": 564,
+      "line": 565,
       "path": "live_contentops/cli.py",
       "symbol": "prompt_injection_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::provider_dry_run",
       "kind": "python_function",
-      "line": 254,
+      "line": 255,
       "path": "live_contentops/cli.py",
       "symbol": "provider_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::provider_gateway_status",
       "kind": "python_function",
-      "line": 247,
+      "line": 248,
       "path": "live_contentops/cli.py",
       "symbol": "provider_gateway_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::real_artifact_intake_summary",
       "kind": "python_function",
-      "line": 604,
+      "line": 605,
       "path": "live_contentops/cli.py",
       "symbol": "real_artifact_intake_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::real_artifact_pipeline_trace_summary",
       "kind": "python_function",
-      "line": 608,
+      "line": 609,
       "path": "live_contentops/cli.py",
       "symbol": "real_artifact_pipeline_trace_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::review_ledger_registry_summary",
       "kind": "python_function",
-      "line": 594,
+      "line": 595,
       "path": "live_contentops/cli.py",
       "symbol": "review_ledger_registry_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_add_command",
       "kind": "python_function",
-      "line": 78,
+      "line": 79,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_add_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_command",
       "kind": "python_function",
-      "line": 143,
+      "line": 144,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_list_command",
       "kind": "python_function",
-      "line": 106,
+      "line": 107,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_list_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::scheduler_tick_command",
       "kind": "python_function",
-      "line": 113,
+      "line": 114,
       "path": "live_contentops/cli.py",
       "symbol": "scheduler_tick_command"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::seo_metadata_summary",
       "kind": "python_function",
-      "line": 549,
+      "line": 550,
       "path": "live_contentops/cli.py",
       "symbol": "seo_metadata_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_adapter_status",
       "kind": "python_function",
-      "line": 273,
+      "line": 274,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_credential_readiness_summary",
       "kind": "python_function",
-      "line": 748,
+      "line": 749,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_credential_readiness_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_dry_run",
       "kind": "python_function",
-      "line": 282,
+      "line": 283,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_first_supervised_live_post_gate_summary",
       "kind": "python_function",
-      "line": 808,
+      "line": 809,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_first_supervised_live_post_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_getme_gate_summary",
       "kind": "python_function",
-      "line": 760,
+      "line": 761,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_getme_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_no_go_status",
       "kind": "python_function",
-      "line": 474,
+      "line": 475,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_no_go_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_pilot_design_summary",
       "kind": "python_function",
-      "line": 615,
+      "line": 616,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_pilot_design_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_pilot_execute",
       "kind": "python_function",
-      "line": 619,
+      "line": 620,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_pilot_execute"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_live_precheck_summary",
       "kind": "python_function",
-      "line": 643,
+      "line": 644,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_live_precheck_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_one_shot_execution_packet_summary",
       "kind": "python_function",
-      "line": 714,
+      "line": 715,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_one_shot_execution_packet_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_one_shot_go_gate_summary",
       "kind": "python_function",
-      "line": 732,
+      "line": 733,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_one_shot_go_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_post_pilot_ledger_gate_summary",
       "kind": "python_function",
-      "line": 828,
+      "line": 829,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_post_pilot_ledger_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_private_staging_packet_status",
       "kind": "python_function",
-      "line": 446,
+      "line": 447,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_private_staging_packet_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_readonly_channel_binding_permission_proof_summary",
       "kind": "python_function",
-      "line": 1025,
+      "line": 1026,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_readonly_channel_binding_permission_proof_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_live_post_reconciliation_gate_summary",
       "kind": "python_function",
-      "line": 915,
+      "line": 916,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_live_post_reconciliation_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_sandbox_dry_run_prep_summary",
       "kind": "python_function",
-      "line": 660,
+      "line": 661,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_sandbox_dry_run_prep_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_supervised_live_post_gate_summary",
       "kind": "python_function",
-      "line": 899,
+      "line": 900,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_supervised_live_post_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_second_supervised_post_dry_run_ledger_gate_summary",
       "kind": "python_function",
-      "line": 891,
+      "line": 892,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_second_supervised_post_dry_run_ledger_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_contract",
       "kind": "python_function",
-      "line": 301,
+      "line": 302,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_contract"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_flow_dry_run",
       "kind": "python_function",
-      "line": 464,
+      "line": 465,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_flow_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_staging_operator_rollback_drill",
       "kind": "python_function",
-      "line": 469,
+      "line": 470,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_staging_operator_rollback_drill"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_supervised_post_dry_run_gate_summary",
       "kind": "python_function",
-      "line": 795,
+      "line": 796,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_supervised_post_dry_run_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_supervised_post_queue_summary",
       "kind": "python_function",
-      "line": 696,
+      "line": 697,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_supervised_post_queue_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telegram_target_binding_gate_summary",
       "kind": "python_function",
-      "line": 778,
+      "line": 779,
       "path": "live_contentops/cli.py",
       "symbol": "telegram_target_binding_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::telemetry_summary",
       "kind": "python_function",
-      "line": 66,
+      "line": 67,
       "path": "live_contentops/cli.py",
       "symbol": "telemetry_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_instagram_asset_fixtures",
       "kind": "python_function",
-      "line": 417,
+      "line": 418,
       "path": "live_contentops/cli.py",
       "symbol": "validate_instagram_asset_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_linkedin_dry_run_fixtures",
       "kind": "python_function",
-      "line": 372,
+      "line": 373,
       "path": "live_contentops/cli.py",
       "symbol": "validate_linkedin_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_provider_dry_run_fixtures",
       "kind": "python_function",
-      "line": 268,
+      "line": 269,
       "path": "live_contentops/cli.py",
       "symbol": "validate_provider_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_samples",
       "kind": "python_function",
-      "line": 164,
+      "line": 165,
       "path": "live_contentops/cli.py",
       "symbol": "validate_samples"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_telegram_dry_run_fixtures",
       "kind": "python_function",
-      "line": 298,
+      "line": 299,
       "path": "live_contentops/cli.py",
       "symbol": "validate_telegram_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::validate_x_dry_run_fixtures",
       "kind": "python_function",
-      "line": 333,
+      "line": 334,
       "path": "live_contentops/cli.py",
       "symbol": "validate_x_dry_run_fixtures"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_adapter_status",
       "kind": "python_function",
-      "line": 306,
+      "line": 307,
       "path": "live_contentops/cli.py",
       "symbol": "x_adapter_status"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_dry_run",
       "kind": "python_function",
-      "line": 316,
+      "line": 317,
       "path": "live_contentops/cli.py",
       "symbol": "x_dry_run"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_callback_pkce_dry_run_design_gate_summary",
       "kind": "python_function",
-      "line": 955,
+      "line": 956,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_callback_pkce_dry_run_design_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_callback_server_policy_gate_summary",
       "kind": "python_function",
-      "line": 979,
+      "line": 980,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_callback_server_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_credential_readiness_policy_gate_summary",
       "kind": "python_function",
-      "line": 987,
+      "line": 988,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_credential_readiness_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_live_read_only_identity_proof_gate_summary",
       "kind": "python_function",
-      "line": 1011,
+      "line": 1012,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_live_read_only_identity_proof_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_local_callback_handler_dry_run_stub_gate_summary",
       "kind": "python_function",
-      "line": 971,
+      "line": 972,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_local_callback_handler_dry_run_stub_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_redacted_credential_presence_check_design_gate_summary",
       "kind": "python_function",
-      "line": 995,
+      "line": 996,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_redacted_credential_presence_check_design_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_redirect_ledger_callback_fixture_contract_gate_summary",
       "kind": "python_function",
-      "line": 963,
+      "line": 964,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_redirect_ledger_callback_fixture_contract_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_supervised_live_readiness_bridge_bundle_gate_summary",
       "kind": "python_function",
-      "line": 1003,
+      "line": 1004,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_supervised_live_readiness_bridge_bundle_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_oauth_user_context_design_policy_gate_summary",
       "kind": "python_function",
-      "line": 947,
+      "line": 948,
       "path": "live_contentops/cli.py",
       "symbol": "x_oauth_user_context_design_policy_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_official_docs_account_binding_requirements_gate_summary",
       "kind": "python_function",
-      "line": 939,
+      "line": 940,
       "path": "live_contentops/cli.py",
       "symbol": "x_official_docs_account_binding_requirements_gate_summary"
     },
     {
       "id": "python_symbol:live_contentops/cli.py::x_staging_contract",
       "kind": "python_function",
-      "line": 336,
+      "line": 337,
       "path": "live_contentops/cli.py",
       "symbol": "x_staging_contract"
     },
@@ -99498,7 +99659,7 @@
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::desk_projection",
       "kind": "python_function",
-      "line": 435,
+      "line": 452,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "desk_projection"
     },
@@ -99512,21 +99673,21 @@
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::publication_story_context",
       "kind": "python_function",
-      "line": 353,
+      "line": 370,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "publication_story_context"
     },
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::read_reviews",
       "kind": "python_function",
-      "line": 396,
+      "line": 413,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "read_reviews"
     },
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::record_native_article_review",
       "kind": "python_function",
-      "line": 401,
+      "line": 418,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "record_native_article_review"
     },
@@ -99540,7 +99701,7 @@
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::record_review",
       "kind": "python_function",
-      "line": 477,
+      "line": 494,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "record_review"
     },
@@ -99554,7 +99715,7 @@
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::selection_story_context",
       "kind": "python_function",
-      "line": 377,
+      "line": 394,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "selection_story_context"
     },
@@ -99568,7 +99729,7 @@
     {
       "id": "python_symbol:live_contentops/contentops_editorial_desk_v1.py::story_projection",
       "kind": "python_function",
-      "line": 263,
+      "line": 280,
       "path": "live_contentops/contentops_editorial_desk_v1.py",
       "symbol": "story_projection"
     },
@@ -123968,6 +124129,69 @@
       "symbol": "persist_source_route_health_snapshot"
     },
     {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::atomic_json",
+      "kind": "python_function",
+      "line": 61,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "atomic_json"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::candidates",
+      "kind": "python_function",
+      "line": 43,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "candidates"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::command",
+      "kind": "python_function",
+      "line": 430,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "command"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::digest",
+      "kind": "python_function",
+      "line": 29,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "digest"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::https_source",
+      "kind": "python_function",
+      "line": 33,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "https_source"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::prepare",
+      "kind": "python_function",
+      "line": 175,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "prepare"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::retain_return",
+      "kind": "python_function",
+      "line": 67,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "retain_return"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::stage_artifact",
+      "kind": "python_function",
+      "line": 76,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "stage_artifact"
+    },
+    {
+      "id": "python_symbol:live_contentops/speech_highlight_current_source_v1.py::validate_source",
+      "kind": "python_function",
+      "line": 97,
+      "path": "live_contentops/speech_highlight_current_source_v1.py",
+      "symbol": "validate_source"
+    },
+    {
       "id": "python_symbol:live_contentops/speech_highlight_relay_v1.py::CaptionCue",
       "kind": "python_class",
       "line": 132,
@@ -130152,6 +130376,11 @@
       "schema_id": "contentops.source_route_health.v1"
     },
     {
+      "id": "schema:contentops.speech_highlight_relay.current_source_private.v1",
+      "kind": "schema",
+      "schema_id": "contentops.speech_highlight_relay.current_source_private.v1"
+    },
+    {
       "id": "schema:contentops.speech_highlight_relay.package_manifest.v1",
       "kind": "schema",
       "schema_id": "contentops.speech_highlight_relay.package_manifest.v1"
@@ -132305,6 +132534,16 @@
       "id": "tests/test_generic_foundation_hardening_v2.py",
       "kind": "test",
       "size_bytes": 20869
+    },
+    {
+      "id": "tests/test_goal37_current_speech_v1.py",
+      "kind": "test",
+      "size_bytes": 11223
+    },
+    {
+      "id": "tests/test_goal37_story_observation_v1.py",
+      "kind": "test",
+      "size_bytes": 2229
     },
     {
       "id": "tests/test_google_image_search_v6.py",
@@ -134803,7 +135042,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/dailyAppTypes.ts::ReportWorkspaceData",
       "kind": "typescript_export",
-      "line": 380,
+      "line": 383,
       "path": "ui/contentops_v5/src/dailyAppTypes.ts",
       "symbol": "ReportWorkspaceData"
     },
@@ -137925,7 +138164,7 @@
     {
       "id": "typescript_export:ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx::ReportEditorialWorkspace",
       "kind": "typescript_export",
-      "line": 105,
+      "line": 111,
       "path": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "symbol": "ReportEditorialWorkspace"
     },
@@ -138376,7 +138615,7 @@
     {
       "id": "ui/contentops_v5/src/dailyAppTypes.ts",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 24816
+      "size_bytes": 25091
     },
     {
       "id": "ui/contentops_v5/src/data/canonicalDraftFinalReviewVariantPreviewAdapter.ts",
@@ -138776,7 +139015,7 @@
     {
       "id": "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx",
       "kind": "test",
-      "size_bytes": 19981
+      "size_bytes": 20892
     },
     {
       "id": "ui/contentops_v5/src/test/research_package_decision.test.tsx",
@@ -138951,7 +139190,7 @@
     {
       "id": "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx",
       "kind": "typescript_or_javascript_module",
-      "size_bytes": 40961
+      "size_bytes": 41451
     },
     {
       "id": "ui/contentops_v5/src/views/ResearchPackageDecision.tsx",
@@ -139302,6 +139541,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "57e26625b205c30558c959248f3491257a8b778c",
-  "source_tree_digest": "e18ad9ebfc470cbca7526b7722c15272c6f87c613dc81cbb3ec1b23e4fe502db"
+  "source_head": "9c6c6113efc49fc4aa00060ed8ac2ae47a22f34f",
+  "source_tree_digest": "bfcd69885f4162acf34c92d682bf2d30305306c80cb4bdee01c254c1c8414fb0"
 }
