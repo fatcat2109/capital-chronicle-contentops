@@ -89275,7 +89275,7 @@
     "docs/codegraph/V2_CONTEXT.md",
     "docs/codegraph/graph.json"
   ],
-  "generation_timestamp_utc": "2026-10-23T01:34:17Z",
+  "generation_timestamp_utc": "2026-10-23T20:04:36Z",
   "generator_version": "2.5.1",
   "included_roots": [
     "live_contentops/",
@@ -91725,7 +91725,7 @@
     {
       "id": "live_contentops/native_desktop_publication_v1.py",
       "kind": "python_module",
-      "size_bytes": 18245
+      "size_bytes": 19251
     },
     {
       "id": "live_contentops/native_desktop_schedule_binding_v1.py",
@@ -91745,7 +91745,7 @@
     {
       "id": "live_contentops/native_neo_executor_v1.py",
       "kind": "python_module",
-      "size_bytes": 12435
+      "size_bytes": 13641
     },
     {
       "id": "live_contentops/native_newsroom_learning_v1.py",
@@ -111986,7 +111986,7 @@
     {
       "id": "python_symbol:live_contentops/native_desktop_publication_v1.py::NativeReviewedPublication",
       "kind": "python_class",
-      "line": 365,
+      "line": 377,
       "path": "live_contentops/native_desktop_publication_v1.py",
       "symbol": "NativeReviewedPublication"
     },
@@ -112063,7 +112063,7 @@
     {
       "id": "python_symbol:live_contentops/native_neo_executor_v1.py::bind_native_neo_coordinator",
       "kind": "python_function",
-      "line": 196,
+      "line": 214,
       "path": "live_contentops/native_neo_executor_v1.py",
       "symbol": "bind_native_neo_coordinator"
     },
@@ -133440,7 +133440,7 @@
     {
       "id": "tests/test_native_desktop_publication_v1.py",
       "kind": "test",
-      "size_bytes": 24095
+      "size_bytes": 25200
     },
     {
       "id": "tests/test_native_desktop_workspace_v1.py",
@@ -133460,7 +133460,7 @@
     {
       "id": "tests/test_native_neo_executor_v1.py",
       "kind": "test",
-      "size_bytes": 10123
+      "size_bytes": 13258
     },
     {
       "id": "tests/test_native_newsroom_learning_v1.py",
@@ -139868,6 +139868,6 @@
     ]
   },
   "schema_version": "contentops.codex_context_graph.v2",
-  "source_head": "7ca4dcbf686feceacac937811686137b13015b3f",
-  "source_tree_digest": "924db39a80dbe09522af847fe16c6e5e91adbc9e0f7942314bcacea940ffb8bf"
+  "source_head": "2977e6b33a66bd59326464610494cc416e3dcd1f",
+  "source_tree_digest": "5c448fd990b2796ff7680e62e1f9e48638c2b7a9f48e9ac5cf3f566bc835d6f7"
 }

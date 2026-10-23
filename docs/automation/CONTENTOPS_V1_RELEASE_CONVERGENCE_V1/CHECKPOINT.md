@@ -97,3 +97,13 @@ Changed recovery/publication/learning controls:25 passed, zero failures/errors (
 Current external boundary observed once: four Automation host TOMLs are PAUSED on the old gpt-5.6-sol/high settings and the same old prompt hash; marker llm_operator_pause.flag is present. Supported view calls rendered four cards but exposed no machine-readable configuration. No claim that current target prompts are installed or calendar execution works. Existing intake/state/API task metadata points to A:/Capital Chronicle/contentops-issue46-deployment-proof and the existing runtime interpreter; no process/account diagnostic or runtime mutation was performed. The proposed source deployment is isolated from shared WIP and uses the same existing canonical store/task/four App IDs.
 
 The concrete remaining decision is RELEASE_DECISION.md plus hash-bound release-transition-proposal.json. It is one migration decision including source integration/deployment, existing-task/four-window retarget and pause/mode/native V1 dispatch scope. The outer proposal is intentionally not executable by scheduled_binding. Source config stays PAUSED/zero-write. Historical acceptance remains true, native release/live operation remain incomplete pending exact authority and actual execution. V2/V3 remain owner-paused. Source/graph/PR sealing and final readback follow; completion notice still NOT SENT.
+
+## Source seal
+
+V1 implementation/tests and initial release packet committed as `2977e6b33a66bd59326464610494cc416e3dcd1f`. Release evidence now explicitly separates Git-blob source hashes from checkout hashes; new release packet text is normalized to LF so its proposal hash survives checkout/delivery. Exact proposal SHA-256: `43864815ff63c0719652940b65eacb8f2859387d7a3996c47f8383262baf4806`. Source semantics and validated Python bytes are unchanged by that metadata normalization. Existing CodeGraph refresh and final branch/PR publication follow.
+
+## Source/graph delivery preparation
+
+Implementation source commit: `2977e6b33a66bd59326464610494cc416e3dcd1f`. Existing CodeGraph generated successfully for that source, digest `5c448fd990b2796ff7680e62e1f9e48638c2b7a9f48e9ac5cf3f566bc835d6f7`; generator --check returned `CODEGRAPH_CURRENT`. Only the existing three generated graph files change. No duplicate .codegraph index or V2 source edit. Final metadata explicitly binds canonical Git bytes/proposal LF bytes.
+
+Release decision/proposal are concrete and source repair tests pass. Branch publication/PR and exact-head CI still require actual readback; no merge, deployment or live-output claim. Same mission is preserved, with the native-tool goal-state discrepancy recorded above. Completion notification NOT SENT.
