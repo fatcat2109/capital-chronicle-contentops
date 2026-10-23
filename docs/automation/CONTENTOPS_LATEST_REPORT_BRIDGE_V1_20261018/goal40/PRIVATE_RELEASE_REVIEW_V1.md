@@ -58,21 +58,25 @@ and are not assumed to be present in a fresh clone.
 
 ## Verification and remaining work
 
-The six focused test files passed: **39 tests**. Actual media, source seals, native
+The six focused test files passed: **67 tests**. Actual media, source seals, native
 returns and package identities are recorded in [the integration evidence](INTEGRATION_EVIDENCE_V1.json).
 Rendered frames and Neo playback establish their recorded checks only. Playback
 reaching `ended` does not establish that a reviewer continuously saw every frame
 or heard the narration.
 
 Independent review identified two provenance gaps and two interruption gaps. The
-code corrections pass 39 focused tests; fresh exact-request native returns and
+first code corrections passed 39 focused tests; fresh exact-request native returns and
 new Spanish/longform packages are built. The seven unchanged longform chapter
 renders were reused only after exact current source/cache/frame/hash checks. The
 117-wave inventory is a current remeasurement, not retroactive proof of the
-original incomplete request. Independent correction review is running.
+original incomplete request. Independent correction review returned CHANGES_REQUIRED: semantic verdict enforcement,
+recovery artifact sealing, accepted-package visibility and mux-repair crash recovery.
+Those four paths are corrected; 67 focused tests pass, and the actual Spanish/recovery
+replays preserve current packages and run IDs. Independent recheck remains pending.
 
-Stable CodeGraph refresh, scoped commit,
-push and exact draft PR91 readback remain pending. These states must be updated
-from direct evidence before this packet is called delivered or Goal40 complete.
+CodeGraph refreshed and its freshness check passed. Scoped candidate commit
+`98c53742` is pushed; PR91 readback confirms that exact head, OPEN/DRAFT, on
+the unchanged PR90 base. No CI checks were reported. Independent correction
+review and full Goal40 closure remain pending.
 
 The [owning checkpoint](CHECKPOINT.md) retains interruptions and failed attempts.

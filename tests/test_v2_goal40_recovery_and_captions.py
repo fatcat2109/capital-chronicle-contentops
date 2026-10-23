@@ -76,6 +76,24 @@ def test_recovery_replay_repairs_setup_after_store_transaction(tmp_path, monkeyp
     assert json.loads(failure.read_text())["measurements"][0]["duration_seconds"] == 3.2
     assert store.job("same")["run_id"] == original["run_id"]
     assert store.job("same")["claimed_by"] == "resume"
+    setup = [e for e in store.events("same") if e["stage"] == "EDITORIAL_TIMING_RECOVERY_SETUP"]
+    assert len(setup) == 1
+    from video.unattended_core_factory_v1.creative import hash_file
+    assert json.loads(setup[0]["artifact_records_json"])[0]["sha256"] == hash_file(failure)
+    before = len(store.events("same"))
+    f.reopen_editorial_timing_failure(video_job_id="same", revision="correction")
+    assert len(store.events("same")) == before
+    store.finalize(video_job_id="same", run_id=original["run_id"],
+        result="PRIVATE_ENGINEERING_PACKAGE_REVIEW_REQUIRED", state="OWNER_REVIEW_READY")
+    verified = f.reopen_editorial_timing_failure(video_job_id="same", revision="correction")
+    assert verified["result"] == "RECOVERY_SETUP_VERIFIED_ALREADY_OWNER_REVIEW_READY"
+    assert verified["required_input"] is None
+    assert store.job("same")["state"] == "OWNER_REVIEW_READY"
+    tampered = json.loads(failure.read_text())
+    tampered["measurements"][0]["duration_seconds"] = 999999
+    failure.write_text(json.dumps(tampered))
+    with pytest.raises(RuntimeError, match="immutable_session_submission_conflict"):
+        f.reopen_editorial_timing_failure(video_job_id="same", revision="correction")
     assert (
         len(
             [

@@ -317,7 +317,7 @@ class DesktopSessionV2Factory:
             for key, value in list(paths.items()):
                 if key not in retained:
                     paths[key] = revised_root / value.relative_to(root)
-        latest_picture = self.store.latest_success_by_stage(video_job_id).get("PICTURE_LOCKED")
+        latest_picture = self._accepted_private_stages(video_job_id).get("PICTURE_LOCKED")
         if latest_picture and latest_picture["result"] == "PASS_NATIVE_PICTURE_PICTURE_LOCKED":
             records = json.loads(latest_picture["artifact_records_json"])
             if len(records) != 1:
@@ -341,35 +341,45 @@ class DesktopSessionV2Factory:
             raise SupervisorError("editorial_recovery_budget_or_stage_boundary")
         job = self.store.job(video_job_id)
         paths = self._paths(video_job_id)
-        if replay and paths["narration_overrun"].is_file():
-            failure = _load(paths["narration_overrun"])
-            if failure["video_job_id"] != video_job_id or failure["run_id"] != job["run_id"]:
-                raise SupervisorError("editorial_recovery_failure_identity_drift")
+        editor = _load(paths["editor_initial"])
+        measurements = []
+        # Always re-derive, including replay: matching job/run IDs do not seal bytes.
+        original_audio = self._job_root(video_job_id) / "audio" / "narration"
+        for index, segment in enumerate(editor["narration_segments"], 1):
+            wave = original_audio / f"segment_{index:02d}_{segment['segment_id']}.wav"
+            measurements.append(dict(segment_id=segment["segment_id"], audio=local_media.artifact(wave),
+                duration_seconds=float(local_media.probe_media(wave)["format"]["duration"])))
+        if not replay:
+            job = self.store.reopen_editorial_timing_failure(video_job_id=video_job_id, revision=revision)
+        paths = self._paths(video_job_id)
+        record = _write_immutable_json(paths["narration_overrun"], dict(
+            schema="contentops.v2.measured_editorial_timing_failure.v1", video_job_id=video_job_id,
+            run_id=job["run_id"], measurements=measurements, retention_payoff_deadline_seconds=30,
+            original_failure_preserved=True,
+            correction="Reorder or substantively revise governed narration; no speedup or gate weakening."))
+        setup = [e for e in self.store.events(video_job_id) if e["stage"] == "EDITORIAL_TIMING_RECOVERY_SETUP"]
+        if setup:
+            if json.loads(setup[-1]["artifact_records_json"]) != [record]:
+                raise SupervisorError("editorial_recovery_setup_artifact_drift")
         else:
-            editor = _load(paths["editor_initial"])
-            measurements = []
-            # Original narration remains in the original job root after recovery.
-            original_audio = self._job_root(video_job_id) / "audio" / "narration"
-            for index, segment in enumerate(editor["narration_segments"], 1):
-                wave = original_audio / f"segment_{index:02d}_{segment['segment_id']}.wav"
-                measurements.append(dict(segment_id=segment["segment_id"], audio=local_media.artifact(wave),
-                    duration_seconds=float(local_media.probe_media(wave)["format"]["duration"])))
-            if not replay:
-                job = self.store.reopen_editorial_timing_failure(video_job_id=video_job_id, revision=revision)
-            paths = self._paths(video_job_id)
-            _write_immutable_json(paths["narration_overrun"], dict(
-                schema="contentops.v2.measured_editorial_timing_failure.v1", video_job_id=video_job_id,
-                run_id=job["run_id"], measurements=measurements, retention_payoff_deadline_seconds=30,
-                original_failure_preserved=True,
-                correction="Reorder or substantively revise governed narration; no speedup or gate weakening."))
+            self.store.append_event(video_job_id=video_job_id, run_id=job["run_id"],
+                stage="EDITORIAL_TIMING_RECOVERY_SETUP", input_hashes={"editor_initial":hash_file(paths["editor_initial"])},
+                output_hashes={"narration_overrun":record["sha256"]}, artifacts=[record],
+                role_tool_identity="DesktopSessionV2Factory.measured_recovery_setup", model_provenance={},
+                wall_time_seconds=0, safe_usage={}, result="PASS_MEASURED_RECOVERY_SETUP",
+                retry_state={"revision":revision}, next_legal_stage="CREATIVE_EDITOR_LOCKED")
         if self.store.job(video_job_id)["state"] == "RUNNING":
             claimed = self.store.claim_next(worker_id=self.config.worker_id,
                 implementation_head=self.config.implementation_head, video_job_id=video_job_id)
             current = self.store.job(video_job_id)
             if claimed is None and current.get("claimed_by") != self.config.worker_id:
                 raise SupervisorError("editorial_recovery_claim_unavailable")
-        return dict(result="AWAITING_CODEX_DESKTOP_SESSION_INPUT", required_input="EDITORIAL_TIMING_REVISION",
-            video_job_id=video_job_id, run_id=job["run_id"], last_valid_checkpoint="CREATIVE_EDITOR_LOCKED",
+        current = self.store.job(video_job_id)
+        sealed = current["state"] == "OWNER_REVIEW_READY"
+        return dict(result="RECOVERY_SETUP_VERIFIED_ALREADY_OWNER_REVIEW_READY" if sealed else "AWAITING_CODEX_DESKTOP_SESSION_INPUT",
+            required_input=None if sealed else "EDITORIAL_TIMING_REVISION",
+            video_job_id=video_job_id, run_id=job["run_id"],
+            last_valid_checkpoint=current["last_valid_checkpoint"] if sealed else "CREATIVE_EDITOR_LOCKED",
             executed_stages=[], idempotent_replay=replay)
 
     def _packet(self, job: Mapping[str, Any]) -> dict[str, Any]:
@@ -471,6 +481,10 @@ class DesktopSessionV2Factory:
         provenance: BoundedCreativeProvenance,
     ) -> dict[str, Any]:
         job = self._active_job(video_job_id=video_job_id, run_id=run_id)
+        recovery = [e for e in self.store.events(video_job_id) if e["stage"] == "EDITORIAL_TIMING_RECOVERY"]
+        if recovery:
+            self.reopen_editorial_timing_failure(video_job_id=video_job_id,
+                revision=json.loads(recovery[-1]["retry_state_json"])["revision"])
         paths = self._paths(video_job_id)
         if not paths["narration_overrun"].is_file():
             raise SupervisorError("editorial_timing_revision_not_requested")
@@ -1921,11 +1935,35 @@ class DesktopSessionV2Factory:
                     pass
             raise
 
+    def _accepted_private_stages(self, video_job_id: str) -> dict[str, dict]:
+        """Snapshot only at a matching package + owner-ready boundary.
+
+        Pending successor invalidations leave the preceding accepted snapshot
+        visible; hard integrity invalidations revoke it. No second state owner.
+        """
+        pending, accepted = {}, {}
+        run_id = self.store.job(video_job_id)["run_id"]
+        for event in self.store.events(video_job_id):
+            if event["run_id"] != run_id:
+                continue
+            stage, result = event["stage"], event["result"]
+            if result.startswith("INVALIDATED"):
+                pending.pop(stage, None)
+                if result == "INVALIDATED_ARTIFACT_HASH_MISMATCH":
+                    accepted = {}
+            elif result.startswith("PASS"):
+                pending[stage] = event
+                if stage == "OWNER_REVIEW_READY" and "PACKAGE_QA_PASSED" in pending:
+                    qa = pending["PACKAGE_QA_PASSED"]
+                    owner_revision = json.loads(event["retry_state_json"]).get("revision")
+                    qa_revision = json.loads(qa["retry_state_json"]).get("revision")
+                    if owner_revision == qa_revision:
+                        accepted = dict(pending)
+        return accepted
+
     def current_package_path(self, video_job_id: str) -> Path:
-        """Resolve the latest accepted package from this owner's append-only ledger."""
-        event = self.store.latest_success_by_stage(video_job_id).get(
-            "PACKAGE_QA_PASSED"
-        )
+        """Resolve the last completely sealed private revision in the ledger."""
+        event = self._accepted_private_stages(video_job_id).get("PACKAGE_QA_PASSED")
         if event is None:
             raise SupervisorError("current_package_stage_missing")
         for record in json.loads(event["artifact_records_json"]):
@@ -2053,7 +2091,9 @@ class DesktopSessionV2Factory:
         for stage, paths in stages.items():
             records = [local_media.artifact(p) for p in paths]
             latest = self.store.latest_success_by_stage(job["video_job_id"]).get(stage)
-            if latest and json.loads(latest["artifact_records_json"]) == records:
+            if (latest and json.loads(latest["artifact_records_json"]) == records
+                and json.loads(latest["retry_state_json"]).get("revision") == revision
+                and json.loads(latest["input_hashes_json"]) == inputs):
                 continue
             replay = False
             if latest:
@@ -2225,141 +2265,101 @@ class DesktopSessionV2Factory:
         return dict(receipt,idempotent_replay=replay)
 
     def repair_mux_package(self, *, video_job_id: str, revision: str) -> dict[str, Any]:
-        """Supersede a proven truncated mux, preserving original files and ledger.
-
-        This narrow mechanical repair reuses the accepted picture, measured audio,
-        source, creative review, captions and SEO. It does not reopen creativity or
-        grant final quality acceptance. Corrected descendants live in a new revision.
-        """
-        if not re.fullmatch(r"[A-Za-z0-9_.-]+", revision):
+        """Resume an immutable private mux successor without replacing prior media."""
+        if not re.fullmatch(r"[A-Za-z0-9_-]+", revision):
             raise SupervisorError("safe_mux_revision_required")
         job = self.store.job(video_job_id)
         if job["state"] != "OWNER_REVIEW_READY":
             raise SupervisorError("mux_repair_requires_sealed_private_package")
         paths = self._paths(video_job_id)
         root = paths["root"] / "revisions" / revision
-        if root.exists():
-            raise SupervisorError("mux_revision_already_exists")
+        binding_path = root / "source_binding.json"
         from video.locale_activation_hardening_v1.factory import inspect_picture
 
-        package_path = self.current_package_path(video_job_id)
-        original = _load(package_path)
+        if binding_path.is_file():
+            binding = _load(binding_path)
+            if binding["video_job_id"] != video_job_id or binding["run_id"] != job["run_id"]:
+                raise SupervisorError("mux_repair_binding_identity_drift")
+            for record in binding["sources"].values():
+                if hash_file(record["path"]) != record["sha256"]:
+                    raise SupervisorError("mux_repair_bound_source_drift")
+        else:
+            # An empty directory left by an interrupted mkdir is safe to resume.
+            if root.exists() and any(root.iterdir()):
+                raise SupervisorError("mux_repair_unbound_existing_artifacts")
+            package_path = self.current_package_path(video_job_id)
+            original = _load(package_path)
+            for record in original["artifacts"].values():
+                if record is not None and hash_file(record["path"]) != record["sha256"]:
+                    raise SupervisorError("mux_repair_original_package_drift")
+            source = inspect_picture(paths["picture"])
+            prior = inspect_picture(Path(original["artifacts"]["canonical_picture"]["path"]))
+            if source["video_stream_sha256"] == prior["video_stream_sha256"]:
+                raise SupervisorError("mux_repair_has_no_observed_picture_defect")
+            valid = self._validate_checkpoint_chain(job=job, run_id=job["run_id"])
+            if "OWNER_REVIEW_READY" not in valid:
+                raise SupervisorError("mux_repair_preserved_stage_drift_requires_recovery")
+            binding = dict(video_job_id=video_job_id, run_id=job["run_id"],
+                sources={name:local_media.artifact(path) for name,path in {
+                    "package":package_path, "picture":paths["picture"], "mix":paths["mix"],
+                    "timing_lock":paths["timing_lock"], "seo":paths["seo"], "bundle":paths["bundle"]}.items()},
+                original_picture_identity=prior, preserved_picture_identity=source)
+            _write_immutable_json(binding_path, binding)
+        sources = {name:Path(record["path"]) for name,record in binding["sources"].items()}
+        original = _load(sources["package"])
         for record in original["artifacts"].values():
-            if record is not None and hash_file(record["path"]) != record["sha256"]:
+            if record and hash_file(record["path"]) != record["sha256"]:
                 raise SupervisorError("mux_repair_original_package_drift")
-        source = inspect_picture(paths["picture"])
-        prior = inspect_picture(
-            Path(original["artifacts"]["canonical_picture"]["path"])
-        )
-        if source["video_stream_sha256"] == prior["video_stream_sha256"]:
-            raise SupervisorError("mux_repair_has_no_observed_picture_defect")
-        # Verify preserved stage artifacts before selectively replacing descendants.
-        valid = self._validate_checkpoint_chain(job=job, run_id=job["run_id"])
-        if "OWNER_REVIEW_READY" not in valid:
-            raise SupervisorError("mux_repair_preserved_stage_drift_requires_recovery")
-        timing = _load(paths["timing_lock"])
-        started = time.monotonic()
-        mux = self.media.mux_final_media(
-            picture=paths["picture"], mix=paths["mix"], output=root / "corrected.mp4"
-        )
-        technical = self.media.technical_media_report(
-            root / "corrected.mp4", root / "technical.json"
-        )
-        captions = {
-            "artifacts": {
-                k: original["artifacts"]["caption_" + k] for k in ("json", "srt", "vtt")
-            }
-        }
-        package = self.media.build_neutral_package(
-            story_id=original["source_story_id"],
-            run_id=job["run_id"],
-            final_media=root / "corrected.mp4",
-            audio=paths["mix"],
-            captions=captions,
-            rights_refs=original["rights_provenance_refs"],
-            evidence_refs=original["factual_evidence_refs"],
-            input_hash=job["input_packet_hash"],
-            timing_lock=timing,
-            seo_package=_load(paths["seo"]),
-            output=root / "manifest.json",
-        )
-        sheet = self.media.contact_sheet(
-            root / "corrected.mp4", root / "contact_sheet.jpg"
-        )
-        bundle = _load(paths["bundle"])
-        bundle.update(
-            final_mp4=mux["final_media"],
-            contact_sheet=sheet["artifact"],
-            package_id=package["package_id"],
-            technical_media_report=str(root / "technical.json"),
-        )
-        bundle["supersedes_package_id"] = original["package_id"]
+
+        def step(name, outputs, invoke):
+            seal = root / (name + "_step.json")
+            if seal.is_file():
+                saved = _load(seal)
+                if saved["source_binding_sha256"] != hash_file(binding_path):
+                    raise SupervisorError("mux_repair_step_binding_drift")
+                for record in saved["outputs"]:
+                    if hash_file(record["path"]) != record["sha256"]:
+                        raise SupervisorError("mux_repair_step_artifact_drift")
+                return saved["result"]
+            # Unsealed partial outputs belong to this bound revision only. The
+            # existing owner deterministically regenerates them after a crash.
+            result = invoke()
+            _write_immutable_json(seal, dict(source_binding_sha256=hash_file(binding_path),
+                outputs=[local_media.artifact(path) for path in outputs], result=result))
+            return result
+
+        mux = step("mux", [root / "corrected.mp4"], lambda:self.media.mux_final_media(
+            picture=sources["picture"], mix=sources["mix"], output=root / "corrected.mp4"))
+        step("technical", [root / "technical.json"], lambda:self.media.technical_media_report(
+            root / "corrected.mp4", root / "technical.json"))
+        captions = {"artifacts":{k:original["artifacts"]["caption_"+k] for k in ("json","srt","vtt")}}
+        package = step("package", [root / "manifest.json"], lambda:self.media.build_neutral_package(
+            story_id=original["source_story_id"], run_id=job["run_id"], final_media=root / "corrected.mp4",
+            audio=sources["mix"], captions=captions, rights_refs=original["rights_provenance_refs"],
+            evidence_refs=original["factual_evidence_refs"], input_hash=job["input_packet_hash"],
+            timing_lock=_load(sources["timing_lock"]), seo_package=_load(sources["seo"]), output=root / "manifest.json"))
+        sheet = step("sheet", [root / "contact_sheet.jpg"], lambda:self.media.contact_sheet(
+            root / "corrected.mp4", root / "contact_sheet.jpg"))
+        bundle = _load(sources["bundle"])
+        bundle.update(final_mp4=mux["final_media"], contact_sheet=sheet["artifact"], package_id=package["package_id"],
+            technical_media_report=str(root / "technical.json"), supersedes_package_id=original["package_id"])
         bundle["quality_acceptance"]["final_audio_hearing"] = "NOT_VERIFIED"
-        _json_artifact(root / "owner_review_bundle.json", bundle)
-        receipt = {
-            "result": "PASS_PRIVATE_MUX_PACKAGE_CORRECTION",
-            "video_job_id": video_job_id,
-            "run_id": job["run_id"],
-            "superseded_package_id": original["package_id"],
-            "superseded_package_sha256": hash_file(paths["package"]),
-            "original_picture_identity": prior,
-            "corrected_mux": mux,
-            "package_id": package["package_id"],
-            "manifest": str(root / "manifest.json"),
-            "owner_review_bundle": str(root / "owner_review_bundle.json"),
-            "picture_render_count": 0,
-            "narration_synthesis_count": 0,
-            "audio_mix_count": 0,
-            "creative_invocation_count": 0,
-            "hearing": "NOT_VERIFIED",
-            "public_write_authority": False,
-        }
-        record = _json_artifact(root / "correction_receipt.json", receipt)
-        for stage in ("FINAL_MEDIA_BUILT", "PACKAGE_QA_PASSED", "OWNER_REVIEW_READY"):
-            self.store.append_event(
-                video_job_id=video_job_id,
-                run_id=job["run_id"],
-                stage=stage,
-                input_hashes={"superseded_package": hash_file(paths["package"])},
-                output_hashes={},
-                artifacts=[],
-                role_tool_identity="DesktopSessionV2Factory.mux_repair",
-                model_provenance={},
-                wall_time_seconds=0,
-                safe_usage={},
-                result="INVALIDATED_TRUNCATED_MUX_DESCENDANT",
-                retry_state={"revision": revision},
-                next_legal_stage="FINAL_MEDIA_BUILT",
-            )
-        for stage, artifacts in (
-            ("FINAL_MEDIA_BUILT", [mux["final_media"], record]),
-            (
-                "PACKAGE_QA_PASSED",
-                [
-                    local_media.artifact(root / "manifest.json"),
-                    technical["report_artifact"],
-                ],
-            ),
-            (
-                "OWNER_REVIEW_READY",
-                [
-                    local_media.artifact(root / "owner_review_bundle.json"),
-                    sheet["artifact"],
-                ],
-            ),
-        ):
-            self._append(
-                job=job,
-                run_id=job["run_id"],
-                stage=stage,
-                started=started,
-                inputs={"preserved_picture": source["video_stream_sha256"]},
-                artifacts=artifacts,
-                result="PASS_CORRECTED_" + stage,
-                next_stage=None,
-                role="existing_media_and_package_owners_zero_picture_rerender",
-            )
-        return receipt
+        _write_immutable_json(root / "owner_review_bundle.json", bundle)
+        receipt = dict(result="PASS_PRIVATE_MUX_PACKAGE_CORRECTION", video_job_id=video_job_id,
+            run_id=job["run_id"], superseded_package_id=original["package_id"],
+            superseded_package_sha256=hash_file(sources["package"]), original_picture_identity=binding["original_picture_identity"],
+            corrected_mux=mux, package_id=package["package_id"], manifest=str(root / "manifest.json"),
+            owner_review_bundle=str(root / "owner_review_bundle.json"), source_binding_sha256=hash_file(binding_path),
+            picture_render_count=0, narration_synthesis_count=0, audio_mix_count=0, creative_invocation_count=0,
+            hearing="NOT_VERIFIED", public_write_authority=False)
+        _write_immutable_json(root / "correction_receipt.json", receipt)
+        replay = self._record_private_successor(job=job, stages={
+            "FINAL_MEDIA_BUILT":[root / "corrected.mp4",root / "correction_receipt.json"],
+            "PACKAGE_QA_PASSED":[root / "manifest.json",root / "technical.json"],
+            "OWNER_REVIEW_READY":[root / "owner_review_bundle.json",root / "contact_sheet.jpg"]},
+            inputs={"source_binding":hash_file(binding_path)}, role="existing_media_and_package_owners_zero_picture_rerender",
+            result_prefix="PASS_CORRECTED_", revision=revision)
+        return dict(receipt, idempotent_replay=replay)
 
     def run_once(
         self,

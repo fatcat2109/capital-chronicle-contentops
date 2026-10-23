@@ -15,8 +15,10 @@
       "P1_HIGH": 2,
       "P2_MEDIUM": 2
     },
-    "correction_state": "FOUR_CORRECTIONS_IMPLEMENTED_39_TESTS_PASS_FRESH_BOUND_PACKAGES_BUILT_INDEPENDENT_RECHECK_PENDING",
-    "existing_packages": "PRESERVED_NOT_PROMOTED_AFTER_FINDINGS"
+    "correction_state": "SECOND_FOUR_FINDINGS_IMPLEMENTED_67_TESTS_PASS_CURRENT_REPLAYS_PASS_RECHECK_PENDING",
+    "existing_packages": "PRESERVED_NOT_PROMOTED_AFTER_FINDINGS",
+    "latest_review": "INDEPENDENT_CORRECTION_REVIEW_V1.json",
+    "latest_return_sha256": "a310876af397c649e302a762deec33d274d142b36c7ab32f5943e84767ac99fe"
   },
   "cohort_review": {
     "result": "PRIVATE_COHORT_REVIEW_ENTRY_BUILT",
@@ -1088,5 +1090,88 @@
       "Small embedded source footers and dense labels are not generally readable at phone width; use desktop and linked provenance.",
       "This sample review does not establish continuous all-frame visual acceptance, hearing, voice acceptance or rights release."
     ]
+  },
+  "remote_candidate_delivery": {
+    "baseRefName": "codex/goal21-multi-asset-research-library",
+    "baseRefOid": "a1b08f96bf551681bca8196038f8b7060def4fd1",
+    "headRefName": "codex/goal39-v2-current-native-factory",
+    "headRefOid": "98c537427f2c1a1279aa94506f0b1859b6990fb4",
+    "isDraft": true,
+    "number": 91,
+    "state": "OPEN",
+    "statusCheckRollup": [],
+    "url": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/91",
+    "scope": "DRAFT_CANDIDATE_DELIVERY_NOT_GOAL_COMPLETION_OR_INDEPENDENT_RECHECK_PASS"
+  },
+  "second_correction": {
+    "findings": [
+      "LOCALE_SEMANTIC_VERDICT",
+      "RECOVERY_ARTIFACT_INTEGRITY",
+      "SUCCESSOR_CURRENT_PACKAGE_ATOMICITY",
+      "MUX_REPAIR_CRASH_REPLAY"
+    ],
+    "full_focused_tests": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-full-tests.txt",
+      "result": "67 passed in 22.49s"
+    },
+    "final_recovery_tests": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-recovery-final-tests.txt",
+      "result": "11 passed in 5.30s"
+    },
+    "actual_locale_replay": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-locale-replay.json",
+      "sha256": "72f4eb1be7084825072915781db69074493e843c3e09f686f7ff8cbd84b079b1"
+    },
+    "actual_recovery_replay": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal40\\second-correction-recovery-ready-replay.json",
+      "sha256": "454189e1512b89a6ea8acbc88f2d5d98f0d64730a7c4157453b0d2fbbed7a55b"
+    },
+    "current_packages": {
+      "g39-retail": {
+        "package_path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\goal40-caption-safe-top\\platform_neutral_package_manifest.json",
+        "package_sha256": "779dd133760f1aa65180a2e0b70af5d0d314f2f05075fbac330c73a6b5210bd9",
+        "package_id": "pkg_0a63add2aafb4ea133c97ed5cda06eabde9bd49b91210cdcc2d0705cf9319030",
+        "run_id": "run_60474ad47f7d414d8c17413145fec6f9",
+        "state": "OWNER_REVIEW_READY",
+        "public_write_authority": 0
+      },
+      "g39-japan": {
+        "package_path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-japan\\revisions\\goal40-editorial-correction\\revisions\\goal40-final-credits\\manifest.json",
+        "package_sha256": "bef0ff081d77795bf2808e7ddcd7e9af53821ba5050292e6a34cb7e1a6c2072f",
+        "package_id": "pkg_b17161abf532396b1e00fbcb2d0442f8ace6c40e0a952202f25b0c9c8e5c220d",
+        "run_id": "run_3615db290d094769a0b8db85708657a5",
+        "state": "OWNER_REVIEW_READY",
+        "public_write_authority": 0
+      }
+    },
+    "media_regeneration": false,
+    "review_status": "PENDING_INDEPENDENT_RECHECK",
+    "codegraph": {
+      "result": "CODEGRAPH_CURRENT",
+      "generation": {
+        "edges": 15174,
+        "entrypoints": 20,
+        "nodes": 7957,
+        "nodes_by_kind": {
+          "authority_doc": 8,
+          "cli_command": 27,
+          "directory_scope": 9,
+          "durable_table": 46,
+          "http_endpoint": 7,
+          "instructions": 9,
+          "manifest": 23,
+          "python_class": 653,
+          "python_function": 4338,
+          "python_method": 308,
+          "python_module": 840,
+          "schema": 266,
+          "test": 794,
+          "typescript_export": 516,
+          "typescript_or_javascript_module": 113
+        },
+        "source_head": "98c537427f2c1a1279aa94506f0b1859b6990fb4",
+        "status": "GENERATED"
+      }
+    }
   }
 }

@@ -91,8 +91,17 @@ def locale_fixture(tmp_path):
         bindings=copy.deepcopy(returned["bindings"]),
         public_write_authority=False,
     )
+    prior = write("prior-return.json", {"fixture":"retained native wording"})
+    request["prior_return"] = artifact(prior)
     request_path = write("request.json", request)
     returned["request_sha256"] = hash_value(request)
+    returned["artifact"]["semantic_review"] = dict(
+        result="PASS_FRESH_EXACT_REQUEST_LOCALIZED_EDITORIAL_TRUTH_REVIEW",
+        request_sha256=hash_value(request), prior_return_sha256=artifact(prior)["sha256"],
+        segment_assessments=[dict(segment_id="one",result="PASS")])
+    returned["artifact"]["provenance_closure"] = dict(result="PASS_FRESH_EXACT_REQUEST_BINDING",
+        request=dict(canonical_sha256=hash_value(request),file_sha256=artifact(request_path)["sha256"]),
+        bindings=copy.deepcopy(request["bindings"]),prior_return=artifact(prior))
     returned_path = write("native.json", returned)
     spec = dict(
         return_path=returned_path,
@@ -199,3 +208,30 @@ def test_locale_descendant_preserves_sealed_job_state_and_deduplicates(tmp_path)
     assert replay["ledger_idempotent_replay"] is True
     assert len(owner.store.events("source")) == count
     assert owner.current_locale_package_path("source", "es") == manifest
+
+
+@pytest.mark.parametrize("existing", [False, True])
+@pytest.mark.parametrize("mutation", ["missing", "failed", "request", "prior", "closure", "segment"])
+def test_locale_semantic_rejection_precedes_fresh_and_cached_build(tmp_path, existing, mutation):
+    spec, returned = locale_fixture(tmp_path)
+    if existing:
+        spec["output_dir"].mkdir()
+        (spec["output_dir"] / "locale_receipt.json").write_text(json.dumps(dict(
+            result="PRIVATE_CURRENT_LOCALE_PACKAGE_BUILT", manifest="must-never-be-read")))
+    review = returned["artifact"]["semantic_review"]
+    if mutation == "missing":
+        returned["artifact"].pop("semantic_review")
+    elif mutation == "failed":
+        review["result"] = "FAIL_MATERIAL_TRANSLATION_MEANING"
+    elif mutation == "request":
+        review["request_sha256"] = "f" * 64
+    elif mutation == "prior":
+        review["prior_return_sha256"] = "f" * 64
+    elif mutation == "closure":
+        returned["artifact"]["provenance_closure"]["bindings"] = {}
+    else:
+        review["segment_assessments"] = [{"segment_id":"one", "result":"FAIL"}]
+    spec["return_path"].write_text(json.dumps(returned), encoding="utf-8")
+    with pytest.raises(ValueError, match="passing native localization semantic review"):
+        build_current_locale(**spec)
+    assert not (spec["output_dir"] / "source_identity.json").exists()

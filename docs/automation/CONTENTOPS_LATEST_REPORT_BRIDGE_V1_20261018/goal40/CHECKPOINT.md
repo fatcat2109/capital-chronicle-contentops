@@ -629,3 +629,33 @@ and all original history/WIP preserved. No L2 progress message.
 - Current Spanish clean video exactly matches the earlier tested file SHA256 5f3bcb731660fd92aeccdc275b9fcbedb7953773b1cfb365d7fb9cecf75e90ae. Updated cohort Spanish button, current iframe and five output links read back in Neo. Current longform chapter button seeks to 173.066666s at 360px display width.
 - Actual 112 transition samples around all 28 scene starts viewed across seven phone-width sheets. Fades/progressive reveals visible; no missing-media/corrupt frame observed in these samples. Embedded longform footnotes/dense labels are not generally phone-readable; linked provenance/desktop review remain necessary. Samples are not continuous all-frame or finalAV acceptance. Neo screenshot capture timed out; no screenshot PASS claimed.
 - Independent correction reviewer is active. Full goal remains incomplete pending review disposition, remote delivery, and honest requirement-by-requirement closure; no L2 message.
+
+## Remote candidate checkpoint — 2026-10-24
+
+- Scoped implementation/evidence commit `98c537427f2c1a1279aa94506f0b1859b6990fb4` pushed successfully to existing PR91 head branch. Exactly 25 owned files; Goal39 local closeout excluded and hash-verified unchanged.
+- Exact GitHub readback: PR91 OPEN / DRAFT, head `98c537427f2c1a1279aa94506f0b1859b6990fb4`, dependent PR90 base `a1b08f96bf551681bca8196038f8b7060def4fd1`, check rollup empty (no CI PASS inferred). No merge/deployment.
+- Native independent correction reviewer `/root/goal40_correction_review` is dispatched against the sealed current nine-source request and 39-test receipt. Parent stops while that child works; no polling/wait loop or L2 notice. On its completion, inspect exact returned findings and correct or seal requirement-by-requirement closure.
+- Full Goal40 remains active/incomplete. Final continuous picture acceptance and hearing/voice/finalAV/rights release are not claimed. Current private packet preserves those limits.
+
+## Independent review continuation recovery — 2026-10-24
+
+- Previous parent turns were verified live-child waits, not engineering completion.
+- Fresh live-agent inventory then contained only the parent; the expected `.task-runtime/goal40/native-returns/independent-correction-review.json` was absent. No review result or PASS inferred.
+- Continued the same `/root/goal40_correction_review` task with its original exact request and preservation instructions. Follow-up live inventory confirms that same child is running. No duplicate reviewer, source changes, broad audit, wait loop or L2 notice.
+- Goal40 remains active/incomplete; parent ends while the existing child completes its scoped return. Candidate commit remains `98c537427f2c1a1279aa94506f0b1859b6990fb4`.
+
+## Second independent correction implementation — 2026-10-24
+
+- Previous substantive turn made progress: original correction review returned CHANGES_REQUIRED (a310876a...), preserved verbatim as INDEPENDENT_CORRECTION_REVIEW_V1.json. Exact bindings verified; original 117-wave and Spanish request gaps resolved prospectively. Four additional defects were accepted and corrected.
+- Locale ingress now requires exact native semantic PASS, request/prior/source closure, and PASS assessment for every segment before any fresh/cache return. Negative fresh/cache tests cover missing/failing/incorrect request/prior/closure/segment verdicts.
+- Timing recovery always remeasures preserved original WAVs and compares immutable complete failure JSON. Append-only EDITORIAL_TIMING_RECOVERY_SETUP seals its hash before editorial input. Real same-run Japan replay appended setup event 67, then replayed without changes. A completed job now reports RECOVERY_SETUP_VERIFIED_ALREADY_OWNER_REVIEW_READY with required_input=null.
+- Current package/picture resolution uses the last complete matching QA/owner revision snapshot; old accepted package remains visible through intermediate invalidations/PASS events. Same-byte records only deduplicate with exact revision and input identity.
+- Mux repair binds preserved sources, seals/reuses existing owner step outputs, resumes empty-directory/unsealed deterministic outputs, and uses private successor appends without changing terminal state until final acceptance. Twelve crash boundaries plus four accepted-pointer scenarios pass. Fixtures establish crash mechanics; no new production media or AV acceptance inferred.
+- Seven focused files: 67 passed in 22.49s. Final recovery adjustment: 11 passed in 5.30s. Ruff passed before final small return-status adjustment; final scoped check to follow. Actual Spanish replay exact package idempotent, no render/synthesis. Both accepted current cohort manifests remain exact and both original run IDs remain OWNER_REVIEW_READY/public-write 0.
+- Same goal remains incomplete pending independent recheck, complete visual review scope and final sealed draft PR readback. No L2 message, merge, deployment or production activation.
+
+## Second correction stable seal — 2026-10-24
+
+- Interrupted final command was revalidated: final recovery return/status adjustment and regression had completed (11 pass); no live CodeGraph process remained and its zero-byte output was not treated as success. Ran the stable source refresh and check: GENERATED 7,957 nodes / 15,174 edges; CODEGRAPH_CURRENT. Final scoped Ruff passed.
+- SECOND_CORRECTION_EVIDENCE_V1.json preserves exact second-review request/source bytes, 67-test receipt, final recovery regression, real idempotent locale/recovery receipts and current accepted package readback. Independent request canonical SHA256 a193c7734a5b00b343104929941acbb0d749f3a93fdce7691809832054cab236.
+- Sealing scoped corrective commit to existing draft PR91; prior 98c53742 candidate remains historical, not a clean-review completion. All current media packages remain unchanged; no new rendering/voice/scheduler/store owner.

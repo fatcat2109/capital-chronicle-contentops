@@ -75,6 +75,22 @@ def build_current_locale(
     ):
         raise ValueError("Localization timing lock is not current package timing")
     localized = value["artifact"]
+    semantic = localized.get("semantic_review", {})
+    closure = localized.get("provenance_closure", {})
+    prior_return = request.get("prior_return", {})
+    if (
+        semantic.get("result") != "PASS_FRESH_EXACT_REQUEST_LOCALIZED_EDITORIAL_TRUTH_REVIEW"
+        or semantic.get("request_sha256") != hash_value(request)
+        or not prior_return.get("sha256")
+        or semantic.get("prior_return_sha256") != prior_return["sha256"]
+        or hash_file(prior_return["path"]) != prior_return["sha256"]
+        or closure.get("result") != "PASS_FRESH_EXACT_REQUEST_BINDING"
+        or closure.get("bindings") != request["bindings"]
+        or closure.get("request", {}).get("canonical_sha256") != hash_value(request)
+        or closure.get("request", {}).get("file_sha256") != hash_file(request_path)
+        or closure.get("prior_return", {}).get("sha256") != prior_return["sha256"]
+    ):
+        raise ValueError("Exact passing native localization semantic review required")
     governed = json.loads(
         Path(value["bindings"]["governed_input"]["path"]).read_text(encoding="utf-8")
     )
@@ -104,6 +120,10 @@ def build_current_locale(
     ):
         raise ValueError("Localized transcript/package source mismatch")
     translated = localized["segments"]
+    assessments = semantic.get("segment_assessments", [])
+    if ([row.get("segment_id") for row in assessments] != [row["segment_id"] for row in translated]
+        or any(row.get("result") != "PASS" for row in assessments)):
+        raise ValueError("Exact passing native localization semantic review required for every segment")
     if [s["segment_id"] for s in translated] != [
         s["segment_id"] for s in source["segments"]
     ]:
@@ -258,7 +278,7 @@ def build_current_locale(
         identity=identity,
         voice_candidate_status=route["acceptance_status"],
         hearing="NOT_VERIFIED",
-        translation_semantic_review="NATIVE_ASSIGNED_ROLE_PLUS_EXACT_SOURCE_NUMERIC_BINDING_CHECKS",
+        translation_semantic_review=dict(semantic),
         public_write_authority=False,
         picture_render_count=0,
         external_cost_usd=0,
