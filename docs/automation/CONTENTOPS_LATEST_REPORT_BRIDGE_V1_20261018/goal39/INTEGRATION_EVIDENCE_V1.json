@@ -92,7 +92,8 @@
     "task": "/root/goal39_retail_native_editor",
     "editorial": "SAVED_VALIDATED",
     "motion": "FAILED_BEFORE_RETURN_ACCOUNT_USAGE_LIMIT",
-    "actual_runtime_model_attestation": "NOT_AVAILABLE"
+    "actual_runtime_model_attestation": "NOT_AVAILABLE",
+    "bounded_resume": "One followup after fresh supported ordinaryUsageAllowed=true; no completion claimed from dispatch"
   },
   "retained_technical_gate": {
     "result": "HOLD_RETAINED_TRANSCRIPT_CURRENT_CONTRACT",
@@ -299,6 +300,21 @@
       "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\actual-selective-picture-dependencies.json",
       "sha256": "b77db3d620b704c4e2b67ec3f45e49ca9cb45e372e15e764d62f50814c36753f",
       "size_bytes": 2023
+    },
+    "pr91-readback.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\pr91-readback.json",
+      "sha256": "dd874217c7eca2424fedc4da5a5ca9c9656b8e4c116ca10fec644b844d1766cc",
+      "size_bytes": 3571
+    },
+    "codegraph-generation.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\codegraph-generation.json",
+      "sha256": "ee73dbd79efa5ffae5d15e86278c2428da489a889467f63e5f811e34785c59ef",
+      "size_bytes": 474
+    },
+    "codegraph-check.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\codegraph-check.json",
+      "sha256": "309844a5710f511e6d5cd92c0ea490f4c56d576fd54a079fe59bd849bda45d80",
+      "size_bytes": 19
     }
   },
   "zero_authority": {
@@ -328,5 +344,17 @@
     "video/locale_activation_hardening_v1/__init__.py": "32f86fbb2afcd9d9a2edef6c54dac696cb20bd4aeaff1b8a1bdbe96c5804ce68",
     "video/daily_operator_v1.py": "4a4f1bc387793cea437130bf23bd19c0f073a6152571ac35cb0a809bc978179a",
     "video/freeform_chapter_pipeline_v1/pipeline.py": "7eadcb2563b75e604359abdfd21d6e26fd62b16c6e065ed5c6430018d1dae453"
+  },
+  "delivery": {
+    "source_commit": "ebe1fca3943e0ac50d46802d4bb0f44eb34d5ba7",
+    "graph_commit": "0efad387a87d20484be867f643ab9da503a295b4",
+    "draft_pr": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/91",
+    "base": "codex/goal21-multi-asset-research-library",
+    "state": "OPEN_DRAFT",
+    "readback": "local_remote_PRhead_equal; body_equal_after_CRLF_normalization",
+    "codegraph": "CODEGRAPH_CURRENT",
+    "CI": "NOT_VERIFIED_EMPTY_INITIAL_CHECK_INVENTORY",
+    "goal_completion": false,
+    "notice_sent": false
   }
 }

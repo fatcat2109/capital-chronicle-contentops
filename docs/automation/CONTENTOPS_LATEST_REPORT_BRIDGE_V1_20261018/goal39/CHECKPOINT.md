@@ -146,3 +146,25 @@ caption-only successor; finish the second case's justified disposition. Final AV
 acceptance remains separate if no capable reviewer is available. No completed stages
 need to be regenerated. Goal39 stays active/PARTIAL. No Goal39 completion handoff has
 been sent to L2. Draft dependent PR publication is engineering delivery, not goal completion.
+
+## Scoped remote delivery — still PARTIAL
+
+- Source/evidence commit: `ebe1fca3943e0ac50d46802d4bb0f44eb34d5ba7`,25 explicit owned paths.
+- Generated CodeGraph commit: `0efad387a87d20484be867f643ab9da503a295b4`, only the3existing generated outputs.
+- [Draft PR91](https://github.com/fatcat2109/capital-chronicle-contentops/pull/91) is OPEN/DRAFT,
+  targets `codex/goal21-multi-asset-research-library`, and was attached to this chat.
+  Local, remote ref and PR head matched0efad387 at readback. PR body matched after
+  GitHub CRLF normalization; the first strict byte comparison failed only on line endings.
+- CodeGraph actual check returned `CODEGRAPH_CURRENT`; generated source digest covers
+  the changed source. No graph/Tower synchronization or merge is claimed outside this branch.
+- Initial PR check inventory was empty; exact-head CI success is **NOT_VERIFIED**.
+  Local focused checks retain their own scope; they are not replaced by an absent CI gate.
+- A fresh supported account read subsequently reported ordinary usage available. One bounded
+  continuation was sent to the **same** native creative worker against the same immutable
+  motion request. This is a retry after changed availability evidence, not a model fallback;
+  transport is not proof of actual startup/creative completion. No motion return exists at
+  this checkpoint. No retry loop or scheduled wake is installed.
+
+Next dependent work remains that actual native return and current-contract media completion.
+Parent stops when only the creative child is outstanding, preserving this active goal and
+all saved stages. No completion notice to L2 has been sent. No approval is requested.
