@@ -31,8 +31,8 @@
       "video_job_id": "g39-retail",
       "run_id": "run_60474ad47f7d414d8c17413145fec6f9",
       "state": "RUNNING",
-      "last_valid_checkpoint": "ACTUAL_NARRATION_TIMING_LOCKED",
-      "resume_count": 1,
+      "last_valid_checkpoint": "PROXY_RENDERED",
+      "resume_count": 2,
       "stage_events": [
         {
           "stage": "CLAIMED",
@@ -49,6 +49,18 @@
         {
           "stage": "ACTUAL_NARRATION_TIMING_LOCKED",
           "result": "PASS_ACTUAL_NARRATION_TIMING_LOCK"
+        },
+        {
+          "stage": "MOTION_SOURCE_LOCKED",
+          "result": "PASS_MOTION_SOURCE_LOCK"
+        },
+        {
+          "stage": "HARD_SOURCE_VALIDATED",
+          "result": "PASS_HARD_SOURCE_VALIDATION"
+        },
+        {
+          "stage": "PROXY_RENDERED",
+          "result": "PASS_PROXY_RENDER"
         }
       ]
     },
@@ -74,7 +86,7 @@
     "governed_story_cases": 2,
     "current_news_winners": 0,
     "fresh_native_editorial_returns": 1,
-    "fresh_native_motion_returns": 0,
+    "fresh_native_motion_returns": 1,
     "fresh_native_completed_factory_packages": 0,
     "current_contract_narration_locks": 1,
     "new_retained_technical_picture_renders": 1,
@@ -86,14 +98,21 @@
     "cache_hits": 1,
     "locale_registry": 23,
     "surface_registry": 6,
-    "public_or_platform_draft_writes": 0
+    "public_or_platform_draft_writes": 0,
+    "fresh_native_proxy_renders": 1,
+    "fresh_native_independent_visual_returns": 0
   },
   "native_limit": {
     "task": "/root/goal39_retail_native_editor",
     "editorial": "SAVED_VALIDATED",
-    "motion": "FAILED_BEFORE_RETURN_ACCOUNT_USAGE_LIMIT",
+    "motion": "VALIDATED_AND_INGESTED",
     "actual_runtime_model_attestation": "NOT_AVAILABLE",
-    "bounded_resume": "One followup after fresh supported ordinaryUsageAllowed=true; no completion claimed from dispatch"
+    "bounded_resume": "One followup after fresh supported ordinaryUsageAllowed=true; no completion claimed from dispatch",
+    "independent_visual_review": "TERMINAL_ACCOUNT_USAGE_LIMIT_BEFORE_RETURN",
+    "independent_review_task": "/root/goal39_retail_independent_review",
+    "japan_editor_task": "/root/goal39_japan_native_editor",
+    "japan_child_current_state": "HANDLE_MISSING_NO_RETURN",
+    "latest_supported_agent_inventory": "ROOT_ONLY"
   },
   "retained_technical_gate": {
     "result": "HOLD_RETAINED_TRANSCRIPT_CURRENT_CONTRACT",
@@ -315,6 +334,56 @@
       "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\codegraph-check.json",
       "sha256": "309844a5710f511e6d5cd92c0ea490f4c56d576fd54a079fe59bd849bda45d80",
       "size_bytes": 19
+    },
+    "native-returns/retail-motion.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\native-returns\\retail-motion.json",
+      "sha256": "b5003d76613a1b114d8de4e91c6dc014e02cb16c052df1e6b8cacac4805c32e3",
+      "size_bytes": 15728
+    },
+    "retail-motion-submit.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-motion-submit.json",
+      "sha256": "c2f710c3c5593700dbeaf7ba259818fd10181975c96a013124fc3be75bbffb4d",
+      "size_bytes": 478
+    },
+    "retail-motion-lock.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-motion-lock.json",
+      "sha256": "64e436f15981c0417d1fd4848b2359d2cc542dcf41d1c7bda9470f1f98401aba",
+      "size_bytes": 6219
+    },
+    "retail-proxy-render.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-proxy-render.json",
+      "sha256": "4408e81bd6d560406b69066f7988e61f23d5776996294339ed5bcd62061b91b6",
+      "size_bytes": 6542
+    },
+    "runtime/jobs/g39-retail/desktop_session_inbox/request_actual_media_review.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\desktop_session_inbox\\request_actual_media_review.json",
+      "sha256": "27233fb4bca122e01c0b2c3f67190a44cfb2b4265a427e67cc79feff38a676cf",
+      "size_bytes": 2322
+    },
+    "runtime/jobs/g39-retail/artifacts/proxy_media_report.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\artifacts\\proxy_media_report.json",
+      "sha256": "a63872aa6d6548ff2ac9bc0a3756ae57ec51fb842a2bc5bb06887f8965223296",
+      "size_bytes": 10724
+    },
+    "runtime/jobs/g39-retail/media/proxy.mp4.cache.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\media\\proxy.mp4.cache.json",
+      "sha256": "8eda218cda77fc1f3bea77718d273ba3799aaf7c7bc4c6dc13e8c76059cb5728",
+      "size_bytes": 274
+    },
+    "runtime/jobs/g39-retail/review/proxy_contact_sheet.jpg": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\review\\proxy_contact_sheet.jpg",
+      "sha256": "76d9e6a0697b560c66762de8c35b08048cb80091bb7e8c6fa7c5db0bc54a8913",
+      "size_bytes": 281458
+    },
+    "runtime/jobs/g39-retail/review/proxy-frame-bindings.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\review\\proxy-frame-bindings.json",
+      "sha256": "46bcbb29440d4d2d5d29b4efe4dfdf2779e52216da8e22507e25093807aab9c9",
+      "size_bytes": 1894
+    },
+    "pr91-final-api-readback.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\pr91-final-api-readback.json",
+      "sha256": "fae95d49b743333b774d625338acca3c975d972247c706b34a3e8553f1abba35",
+      "size_bytes": 206
     }
   },
   "zero_authority": {
@@ -327,8 +396,8 @@
     "fresh_source_crawl": false,
     "completion_notice_sent": false
   },
-  "resume": "After authorized native creative capacity is available, resume existing /root/goal39_retail_native_editor on exact request_motion_visual.json. Ingest actual return, step saved g39-retail run, inspect actual proxy, complete current-contract package and caption-only revision; do not substitute retained replay as current acceptance.",
-  "cache_source_epoch": "Actual render/cache hit preceded final selective dependency tightening. Its historical key and output preserved; final actual dependency closure11files confirmed; no final-epoch rerender claimed.",
+  "resume": "Actual independent review return required at current native ACTUAL_MEDIA_REVIEW request; do not ingest old retained review. Then step saved retail run through picture/audio/final/package, inspect actual artifact and caption-only successor. Finish saved Japan editorial request/disposition. Native creative capacity and lost handles are external conditions; no fabricated review/model substitution.",
+  "cache_source_epoch": "Final selective dependency seam actually rendered the current-native proxy; earlier retained technical replay/cache hit remains its own historical broad-key proof.",
   "tested_source_bytes": {
     "video/unattended_core_factory_v1/caption_revision.py": "867254eb75294dcf16cbf639f5731b4fe5cd89f29e942fa7fc1b7461c848f6e1",
     "video/unattended_core_factory_v1/creative.py": "9999eacd59e4474f50b10d8afdb5060eb1dac1a7c008270c0ad56f47e00ecda3",
@@ -355,6 +424,28 @@
     "codegraph": "CODEGRAPH_CURRENT",
     "CI": "NOT_VERIFIED_EMPTY_INITIAL_CHECK_INVENTORY",
     "goal_completion": false,
-    "notice_sent": false
+    "notice_sent": false,
+    "latest_prior_checkpoint_commit": "b552ee3fe1dccc6aaedc8b767ba828c01f79b03e"
+  },
+  "current_native_proxy": {
+    "duration_seconds": 41,
+    "frames": 1230,
+    "width": 1080,
+    "height": 1920,
+    "render_wall_seconds": 72.768,
+    "sha256": "d2af3c79b716a8071ac802fa4c0fad6bf1b973187bc1dc8466309311f292362e",
+    "input_hash": "177b5c566d9947cc6a9a36665f619a779f46d4552ba3efb77e9bee9daa0c7d8e",
+    "render_owner": "freeform_chapter_pipeline_v1",
+    "fresh_native_editor_and_motion": true,
+    "prior_governed_assets_and_facts_retained": true,
+    "builder_inspected_full_frames_seconds": [
+      15,
+      39.5
+    ],
+    "builder_contact_sheet_inspected": true,
+    "independent_visual_review": "NO_RETURN_QUOTA_LIMIT",
+    "hearing": "NOT_VERIFIED_SILENT_PROXY",
+    "final_package": "NOT_BUILT",
+    "browser": "Neo loaded native proxy review page before MCP disconnected"
   }
 }

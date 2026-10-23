@@ -1,5 +1,11 @@
 # Goal39 — Current native V2 factory private integration
 
+Latest checkpoint: **PARTIAL / PROXY_RENDERED**. Retail now has seven completed
+saved stages, a validated fresh native motion return and a real 41-second current
+proxy. The independent visual-review worker failed at an account usage limit
+before returning; Japan remains at its saved editorial request. See the final
+"Current native proxy progression" section for the exact resume boundary.
+
 Native get_goal returned null; create_goal returned ACTIVE at1792719998 in chat
 01a14242-53c2-7412-bf6f-8591785128dc for
 `V2_CURRENT_NATIVE_FACTORY_PRIVATE_INTEGRATION_V1`. Same Builder, no replacement of
@@ -168,3 +174,71 @@ been sent to L2. Draft dependent PR publication is engineering delivery, not goa
 Next dependent work remains that actual native return and current-contract media completion.
 Parent stops when only the creative child is outstanding, preserving this active goal and
 all saved stages. No completion notice to L2 has been sent. No approval is requested.
+
+## Current native proxy progression — supersedes earlier motion-pending state
+
+The same native creative worker successfully finished its bounded continuation.
+Actual return `native-returns/retail-motion.json` has SHA-256
+`b5003d76613a1b114d8de4e91c6dc014e02cb16c052df1e6b8cacac4805c32e3`.
+The initial unbound CSS literal `100%` defect was rejected before ingestion; its author
+corrected it and the exact motion/source/asset-selection validators passed.
+Three governed retained real contextual images, zero new assets/crawl, three fresh
+freeform source files, six exact displayed claim bindings, 1,230 frames / 41 seconds.
+This is actual fresh native authorship; model fields remain assigned-role provenance,
+not independent runtime attestation.
+
+The existing `g39-retail` run remains
+`run_60474ad47f7d414d8c17413145fec6f9`. It resumed without regenerating prior
+editor/narration work, then completed `MOTION_SOURCE_LOCKED`,
+`HARD_SOURCE_VALIDATED` and `PROXY_RENDERED`. Seven saved successful stage events
+now exist; the two new source stages were deliberately checkpointed in one process,
+then a new process reacquired the claim and rendered the proxy.
+
+Actual current selective-cache render:
+
+- 41 seconds, 1080x1920, 1,230 frames; rendered in 72.768 seconds;
+- proxy SHA-256 `d2af3c79b716a8071ac802fa4c0fad6bf1b973187bc1dc8466309311f292362e`;
+- cache input hash `177b5c566d9947cc6a9a36665f619a779f46d4552ba3efb77e9bee9daa0c7d8e`;
+- source owner `freeform_chapter_pipeline_v1`; no duplicate renderer or audio synthesis;
+- six actual full-resolution samples at 3, 15, 24, 29, 34 and 39.5 seconds plus the contact
+  sheet are hash-bound in `review/proxy-frame-bindings.json`.
+
+Builder inspected the native contact sheet and actual 15 and 39.5-second full frames.
+Visible headline/measurement cards are contained and legible in those samples;
+this sampling is not an independent full visual or motion PASS. Neo loaded the
+fresh native proxy review page (page 19 at that observation); its MCP tools then
+disconnected. No browser fallback or new browser service was introduced.
+
+A **fresh independent** authorized visual reviewer
+`/root/goal39_retail_independent_review` was assigned the actual proxy and six
+samples. It terminally failed with the account usage-limit message before a return.
+No review artifact was fabricated, and `ACTUAL_MEDIA_REVIEWED` remains unexecuted.
+The actual saved request is
+`runtime/jobs/g39-retail/desktop_session_inbox/request_actual_media_review.json`.
+Capable hearing remains NOT_VERIFIED; this proxy is silent and final audio/captions/
+package have not been built through this run.
+
+A separate fresh Japan editorial worker was also assigned its exact saved request.
+At current supported agent inventory only the root handle exists, and there is no
+Japan return. Treat that child as handle-missing, not still running or successfully
+started; do not attribute a quota cause to it without an actual terminal receipt.
+Japan's original job/run and two completed admission stages remain intact.
+
+### Remaining actual work / exact unlock
+
+1. Native creative capacity must be available for the saved independent visual-review
+   request. Resume its authorized worker if the handle is available; otherwise use a
+   fresh authorized independent reviewer on those exact governed artifacts. Do not
+   substitute parent judgment, an old creative receipt, a retained replay or another
+   model/provider as a fabricated native return.
+2. Validate/ingest the actual `ACTUAL_MEDIA_REVIEW` return and run the existing
+   `g39-retail` stages. Apply at most the authorized bounded creative correction if
+   genuinely required, then inspect the actual current-contract final package and
+   its picture-unchanged caption successor. Audio/final-quality limits stay explicit.
+3. Finish Japan's saved native editorial input and justified bounded disposition.
+
+No source implementation changed after b552ee3f; focused checks are reused unchanged.
+Current total engineering renders: one retained technical replay plus one fresh native
+proxy. Fresh native completed current-contract factory packages: 0. Retained technical
+package/caption-successor proof remains separate and cannot supply the missing item.
+No completion notice, runtime activation, publication, paid execution or new source crawl.
