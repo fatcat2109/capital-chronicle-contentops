@@ -1,6 +1,6 @@
-# Capital Chronicle ContentOps — Current Authority and Supersession Map V1
+# Capital Chronicle ContentOps â€” Current Authority and Supersession Map V1
 
-Authority date: 2026-09-01
+Authority date: 2026-10-20
 Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, owner-gate, or branch assumptions.
@@ -21,27 +21,30 @@ Current V1 activation detail is `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_A
 
 ## 2. Current V1 execution override
 
-Routine V1 editorial ownership is `SIMPLE_GEMINI_RUNTIME`.
+Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, with the owner-approved three-stage method:
+Luna/Terra MAX filters X headlines; `gpt-6.1-sol / low` (Light) selects content and prepares data;
+`gpt-6.1-sol / max` writes the article and SEO/house-style package, including a bounded useful revision.
+Read `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md` for exact role,
+source/tool, style and checkpoint rules. This target supersedes the earlier Sol-low-only method;
+the Goal24 isolated proof remains evidence for its older configuration, not this complete pipeline.
+Reuse MainReportFeed/current intake, canonical publication memory, reviewed retained research,
+evolving story/revision context, <=32 candidates, <=3 admissions and <=6 source requests.
+Existing source/claim/epistemic checks and the native eight-channel compiler remain authoritative.
+There is no Gemini/9Router, SDK/App-Server, headless or paid API model fallback.
 
-Accepted mechanics:
+The existing four App tasks own routine scheduling; existing window/day/slot IDs, bounded
+catch-up, store/outbox/lease and sole DurablePublicationCoordinator are reused. Legacy Simple
+scheduler/start paths are non-routing in target source. Bulk X CDP ingestion remains unchanged;
+Neo is the browser path for research and prepared browser-only destination handoffs. Existing
+Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
 
-- deterministic published-memory dedupe/sourceability ordering over <=32 candidates;
-- one strict `vx/gemini-3.5-flash(high)` selection;
-- one primary + <=2 useful fallbacks;
-- one shared <=6 deterministic source/provenance GET budget;
-- exact report-truth/event-truth epistemic state;
-- one Flash writer;
-- deterministic claim/source/epistemic validation;
-- <=1 Flash revision without source expansion;
-- <=3 logical Flash calls total;
-- zero Codex runtime model calls;
-- one qualified article + exactly eight native derivative packages.
+Current engineering/deployed state: **PAUSED_NOT_DEPLOYED**. Host schedules, production pause,
+store and deployed bytes were not changed by this migration. Native manual proof is isolated.
+No current configuration grants activation or public writes. Historical Simple and old Desktop
+proofs establish only their exact epochs; do not rebuild their accepted deterministic components.
+See `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the supported operation,
+exact paused rollout, truthful telemetry, bound native Neo request/return/readback loop and separate activation boundary.
 
-The accepted early-attributed-intelligence doctrine remains current: official confirmation is not universal prerequisite; a reputable report may support only the attributed reporting proposition while event truth remains unconfirmed. Exact canonical-X relay/explicit-rumor authority is record-scoped and narrow. High-harm handling remains enhanced.
-
-Native Desktop Automations, SDK/App-Server editorial fallback, legacy rolling-X ownership, broad evidence-ready pools, and split-phase PREPARE/COMPLETE routing are historical/non-routing for routine V1.
-
-The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED`. An admitted candidate with no governed reachable source may still close as `SOURCE_DISCOVERY_REQUIRED`; that candidate-local result does not authorize a second selection, filler, or weakened evidence. Final live target shorthand remains `5–8/day` useful published articles.
 
 ## 3. Canonical read path
 
@@ -53,7 +56,7 @@ The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 8. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md` for current V1 activation
-9. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md` for Simple mechanics
+9. `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for native editorial mechanics
 10. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
 11. current lane pointer
 12. nearest scoped `AGENTS.md`
@@ -61,7 +64,7 @@ The old broad per-trigger discovery default remains `PRODUCTION_QUOTA_ECONOMICS_
 
 Jim's latest explicit instruction remains highest product authority.
 
-## 4. Capability reconciliation
+## 4. Historical accepted capability reconciliation (Simple epoch)
 
 ### `CURRENTLY_PROVEN_AND_REUSE`
 
@@ -86,7 +89,7 @@ The routine bridge classification above is deterministic repository/CI proof. It
 - current Edge 9223 publication-profile/account identity;
 - current production-store recovery/UNKNOWN state.
 
-### `NEW_IMPLEMENTATION_GAP`
+### Historical `NEW_IMPLEMENTATION_GAP` assessment
 
 None. Strictly reconciled published-count accounting is implemented. The current route is
 `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`: deploy current bytes, run natural windows, observe real
@@ -98,14 +101,14 @@ Single routine-owner composition, Simple emergency-stop/process coverage, and th
 
 At every actual live-write boundary, the existing owner must fail closed on production DB
 integrity/schema, unresolved UNKNOWN/ambiguous dispatch/recovery backlog, duplicate production
-ownership, exact Edge `contentops-social-main` CDP 9223 identity, destination/account identity, and
+ownership, exact Neo account/native executor identity in target source (Edge 9223 remains deployed historical provenance), destination/account identity, and
 destination readiness. These are live boundary invariants, not a mandatory standalone preflight
 campaign. Run a bounded read-only diagnostic only when current evidence materially calls one into
 question. Do not inspect or expose secrets/session material.
 
 ### `SUPERSEDED_DO_NOT_REUSE`
 
-- native Desktop Automations as routine V1 editorial owner;
+- the historical Desktop HIGH fleet or SDK fallback as routine editorial owner;
 - SDK/App-Server editorial fallback as routine critical path;
 - legacy rolling-X monolith/broad ready pools as current routine ownership;
 - per-trigger 35-call discovery as accepted routine default;
@@ -132,18 +135,14 @@ Missing fresh host proof does not convert a proven implementation into a new imp
 
 ## 6. Current product sequence
 
-`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`:
+1. Implement and independently audit the native Desktop migration on PR90, preserving Goal20â€“23 evidence.
+2. Reuse Goal25's isolated Luna-MAX -> Sol-Light -> Sol-MAX flow and byte-stable restart; retain the exact dated source, eight native previews and readback limits in its owning checkpoint.
+3. Preserve the exact paused four-task rollout and per-channel API/Neo setup/readback handoff.
+4. After separate audit/deployment authority, apply the one documented activation transition with pause release last.
+5. Observe natural runtime separately; 5â€“8/day reliability is unproven until actual reconciled output establishes it.
 
-1. merge/deploy/load the corrected current V1 bytes;
-2. run the already-activated four natural owner-locked windows;
-3. observe real evidence, article, publication, readback, and reconciliation failures;
-4. fix measured blockers toward 5–8 useful published articles/day;
-5. continue isolated V2 only under V2's separate authority boundaries.
+No production activation, public write, pause release, self-merge or deployment is part of Goal25.
 
-A new standalone current-host preflight or one-off canary is conditional diagnostics only when
-current evidence materially raises an exact hard boundary. It is not a routine prerequisite.
-
-Repository authority/static safety, emergency-stop coverage, single-owner composition, and routine publication handoff are closed. No fifth routine task. No filler. No blind retry after ambiguity.
 
 ## 7. Growth-first rules that remain current
 
@@ -173,7 +172,7 @@ Never route a fresh V1 task from claims that:
 - production-day accounting or bounded deficit recovery has never existed;
 - PR #19/PR #20/PR #37 accepted capabilities are unimplemented;
 - first-party locator/publisher pinning is still the next V1 task;
-- native Desktop Automations or SDK fallback own routine V1;
+- Gemini/9Router, the old Desktop HIGH fleet or SDK fallback owns routine V1;
 - an arbitrary X-list row becomes factual authority by list membership;
 - official confirmation is required before every reputable attributed report;
 - routine V1 public-write/readback authority remains zero;
@@ -197,7 +196,7 @@ Never route a fresh V1 task from claims that:
 
 The shared operating model is CONTENTOPS_FOUR_TRIGGER_DATA_RESOLUTION_AND_EDITORIAL_OPERATING_MODEL_V1.md. It is subordinate to this authority map and the current V1 owner:
 
-- Simple Gemini remains the routine V1 owner and the four existing windows remain the routine schedule;
+- Native Codex Desktop is the target routine owner; the four existing windows and current production pause remain;
 - the shared router is an input/receipt seam, not a second scheduler or publication owner;
 - database-first resolution is required; BrowserOS is bounded read-only recovery for named gaps;
 - CDP 9222 remains ingestion-only and Edge CDP 9223 remains the existing publication/media/readback boundary;
@@ -215,5 +214,120 @@ Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca8
 The North Star and master plan now describe original newsroom evidence plus Main's evolving
 public-manifest feed, with the dedicated Main demo remaining private and outside ContentOps
 control. See CONTENTOPS_OWNER_UPDATE_RECONCILIATION_20261019.md for dated accepted/unmerged
-source; the existing owning handoffs establish subsequent implementation state. This amendment
-does not change Simple/publication ownership, the current LLM pause, schedules or V2 authority.
+source; the existing owning handoffs establish subsequent implementation state. This dated input amendment is superseded for editorial ownership by the 2026-10-20 native migration; it grants no pause release, publication or V2 authority.
+
+## Goal29 owner-manual continuation
+
+Current owning checkpoint: `CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/RELEASE_HANDOFF.md`.
+Reuse the existing relocated owner-manual store and preserved five-article Goal28 edition through the same profile
+and newsroom skill. Original sealed identities, completed returns, prior reviews and public Main
+admission remain authority-bound. The Temp database is recovery only; never create a second
+operating newsroom. Goal29 extends it to seven KEEP / one held candidate / fifty-six previews,
+not deployment, publishing, routine output reliability or permission to release production pause.
+
+Goal29 admits exact public UKOIL v4 / USOIL v6 / XNGUSD v5. Two pinned Unicode-defective
+parents receive ancestry-only consumer receipts with zero claim/observation/publication credit;
+original bytes and BLOCKED receipts remain. Native public lineage is producer attestation,
+not independent consumer proof of private worker execution. The existing desk preserves the
+five Goal28 KEEP articles and adds useful dated Brent and SEC-AMF questions through native
+Sol low/MAX; unchanged oil/gas prose remains usable history. New profile feeds never redirect
+an existing sealed operation. Receiver synchronization remains pending; schedules stay paused.
+
+Goal30 preserves the exact seven current articles/fifty-six previews, with zero revisions
+and one held candidate. Public research target/measure/method/evaluation/selection/dependence
+metadata is carried only when supplied and exactly bound; missing stays unknown. The optional
+consumer descriptor is not a new Main producer forecast. See
+`docs/editorial/CONTENTOPS_PUBLIC_RESEARCH_SEMANTICS_V1.md` and the current owning handoff.
+No new model/source cycle, engine, status/store, publication or runtime authority is created.
+
+## Goal31 source-led manual edition (2026-10-21)
+
+Three useful questions are closed through the same store/profile/Desk: two new private
+articles (SEC machine-understandable data and CFTC hedge cashflow), one unchanged gas
+article, plus a retained HOLD on current futures/options positioning. The current edition
+shows 3 KEEP / 24 previews / 0 missing; the prior seven articles and withdrawal history
+remain. Two actual Sol6.1-MAX writers and the existing Sol-Light selector supplied the new
+copy; the empty X interval needed no Luna call. Neo source and desktop/mobile render
+inspection are recorded in
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/RELEASE_HANDOFF.md`. This is private reviewed/prepared output, not publication,
+activation, deployment or daily-production proof. The four tasks and production remain paused.
+
+
+## Goal32 reviewed-packet publisher composition (2026-10-21)
+
+`PARTIAL_CAPABILITY_REUSE_COMPONENTS`: the native owner continuation now seals a reviewed
+packet and resumes the existing Simple handoff, sole DurablePublicationCoordinator and
+native Neo request/begin/observed-return loop. The existing Desk/CLI expose actual
+per-destination states. Manual proof remains isolated; zero-write windows can continue
+editorial work. No live dispatch, task activation, deployment or daily-output proof is
+claimed. The finite RC, controls, retained Goal31 packets and activation boundary are in
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal32/RELEASE_HANDOFF.md`.
+Control Tower receiver synchronization remains pending; the current pointers are discoverable.
+## Goal33 audience feedback continuation (2026-10-22)
+
+`PARTIAL_CAPABILITY_REUSE_COMPONENTS`: native new opportunities freeze the existing guarded
+performance policy, dated eligible feedback and canonical published memory. Compact preferences
+reach Sol Light selection and warranted Sol MAX writing/SEO/eight native packages; old frozen
+requests and prepared articles remain unchanged. Existing metrics, caps, sample/dependence,
+rollback, source/rights/numeric/uncertainty and sole coordinator boundaries remain authoritative.
+Two exact historical public objects were observed through read-only Neo; no independent reader
+question was found and the policy remained HOLD. Actual native selection reused retained articles
+and saved three ranked research briefs rather than creating a duplicate. Current edition remains
+3 ready / 24 previews / 0 missing; production and four tasks remain paused. No public write,
+activation, account change, merge or deployment is claimed. The CLI, Desk and installed
+`contentops-newsroom` continuation are documented in
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal33/RELEASE_HANDOFF.md`.
+Exact remote/CI evidence follows in that directory's `delivery.json`; Control Tower receiver
+synchronization remains pending, with these pointers as the discoverable handoff.
+
+## Goal34 source-led edition (2026-10-22)
+
+`CURRENTLY_PROVEN_AND_REUSE`: the saved EIA/SEC/hedge briefs were resolved through the existing
+DB-first research, bounded read-only Neo, source comparison, native roles and sole preparation
+path. Current owner edition: **3 ready / 24 previews / 0 missing**, **1 UPDATE / 2 KEEP**, plus
+one historical current-position HOLD. Actual Sol6.1 low selected and Sol6.1 MAX wrote a dated
+Southwest 2025 case; no new X/Luna invocation was warranted. The source adapter now admits only
+bounded attributed issuer facts through an explicit filing class, without government-authorship
+or expression/image reuse. Writer constraints, shared media consumer and date-only Desk display
+preserve that boundary. Original Goal32 packets remain unchanged; the prior futures preparation
+is invalidated by its material source review, and the new exact KEEP packet is PREPARED without
+dispatch. One permitted source context is in the reciprocal outbox; Main receipt is not verified.
+Four existing tasks and production stay paused, canonical store unchanged, no public/account
+write, merge or deployment. See
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/RELEASE_HANDOFF.md`,
+`COMPLETION_AUDIT.md` and `delivery.json` for exact scope, clocks, preserved bytes and remote CI.
+Control Tower receiver synchronization remains pending; this is the discoverable handoff.
+
+
+## Goal35 current market issue (2026-10-22)
+
+The finite Goal35 editorial issue is complete: five distinct NEW articles, forty
+desktop/mobile visually inspected previews and five KEEP/PREPARED handoffs without
+dispatch; ready5 / held1 / missing0. FX remains source-blocked. The frozen cutoff,
+exact operation/revision/source identities, thirteen native responses, media gaps,
+preservation and focused verification are owned by
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/CHECKPOINT.md`
+and `COMPLETION_AUDIT.md`. Goal34 history is preserved without new-article credit.
+The existing Desk selected-item read contract is documented there; no new reader,
+store, publisher or workflow owner was added. Five prepared articles do not establish
+publication, a production-day floor, platform-native rendering or automatic execution.
+Four tasks and production remain paused. Same draft PR90; exact final remote/CI and
+graph identity are read back in the existing local Desk's `goal35_delivery.json`.
+No public/account write, activation, merge or deployment. Receiver consumption is
+NOT VERIFIED; Control Tower synchronization is pending with this durable handoff.
+
+## Signal Clips adoption and source-readiness distinction — 2026-10-23
+
+The root North Star/Master Plan now own the compatible `CONTENTOPS_V3_SIGNAL_CLIPS_V1`
+direction selected by L1 under Jim's explicit speech-video definition/creative mandate.
+V3 is a product lane, distinct from the root document revision and V2 analytical video.
+Use the existing Speech Highlight Relay pointer and `video/speech_highlight_relay_v1/AGENTS.md`.
+Current-source private preparation is an admitted engineering delta; it is not implemented
+merely by this adoption. The original retained Fed packet, hashes and unresolved audio,
+timing, third-party and rights states remain immutable. No upload/draft/publication grant.
+
+Priority is V1 release convergence, useful private V3 clips, then independently useful/disjoint
+V2 integration. Existing native Goal25/32/33/35/36 and media substrate are reuse evidence,
+not new build targets. PR90 candidate/native direction, accepted master and actual deployment
+remain separately identified. Existing publisher/store/compiler and numeric/private boundaries
+are unchanged. Source and Builder reservations live in their existing owning handoffs.

@@ -1,0 +1,169 @@
+{
+  "article_identity": "bca0a2e8e61abd5cf6a128d94914818417cf7ee9229da5dd691411c75b7fac5c",
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c",
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "compiler_input_sha256": "90e2906fbad51e4a9c2385d4d1ad012373eb1378b2173f412c776374e4d9e3c2",
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Financial Times",
+    "primary_reporting_source_identity": "ft.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+    "relay_source_identity": "firstsquawk",
+    "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+    "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "trusted-relay-4c3afed12018da20b49e"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "every_preview_preserves_epistemic_state": true,
+  "final_validated_article_public_copy_sha256": "9edf2c8601ef9ba2b4a6f7cee3cdac2fb012cee64841ab314debe70738200611",
+  "package_count": 8,
+  "packages": {
+    "discord": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing**\n\nWhat would pay it, and who would bear losses?\n\n**Context:** A competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+    },
+    "facebook_page": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 63206,
+      "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhat would pay it, and who would bear losses?\n\nWhy it matters: If the report is accurate, Capital Chronicle's reading is that the key issue is what would pay the proposed yield and who would bear losses.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+    },
+    "instagram_business": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "platform_limit": 2200,
+      "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhat would pay it, and who would bear losses?\n\nIn focus: A competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c\n\n#CapitalChronicle"
+    },
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 3000,
+      "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhy it matters: If the report is accurate, Capital Chronicle's reading is that the key issue is what would pay the proposed yield and who would bear losses.\n\nContext: A competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+    },
+    "telegram": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nRELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhat would pay it, and who would bear losses?\n\nWhat to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+    },
+    "threads": {
+      "format": "text_brief",
+      "full_text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c\n\nWhat to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.718,
+          0.45
+        ],
+        "post_character_counts": [
+          359,
+          225
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.627,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response."
+      ],
+      "root_text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c",
+      "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+    },
+    "x": {
+      "format": "text_brief",
+      "full_text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c\n\nWhat would pay it, and who would bear losses?\n\nWatch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What would pay it, and who would bear losses?\n\nWatch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.889,
+          0.943
+        ],
+        "post_character_counts": [
+          249,
+          264
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.943,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What would pay it, and who would bear losses?\n\nWatch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response."
+      ],
+      "root_text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c",
+      "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nhttps://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+    },
+    "youtube": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 1000,
+      "text": "Update: RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times | @firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing\n\nWhat would pay it, and who would bear losses?\n\nWhat to watch: Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-bca0a2e8e61abd5c"
+    }
+  },
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_coordinator_dispatch_count": 0,
+  "rematerialization_after_real_substack_url_required": true,
+  "schema_version": "contentops.v1_simple_native_derivative_previews.v1",
+  "unknown_write_count": 0
+}

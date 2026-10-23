@@ -22,6 +22,8 @@ from live_contentops.llm_operator_control_v1 import (
     llm_operator_pause_active,
     LLMOperatorPausedError,
 )
+from live_contentops.contentops_foundation_library_v1 import library_projection
+from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
 
 STAGE = "internal:cc-report-editorial-stage"
 SCHEMA = "contentops.cc_report_editorial_workspace.v1"
@@ -65,11 +67,33 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
         or not path
     ):
         raise LatestReportConsumerError("MAIN_REPORT_IMMUTABLE_LOCATOR_UNBOUND")
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import claim_semantics, reader_notices
+    claims = [{**c, "research_semantics": claim_semantics(admission, c)} for c in admission["claims"]]
     text = "\n\n".join(
         c["producer_layer"] + ": " + c["text"] + "\n" + str(c.get("basis_risk") or "")
         for c in admission["claims"]
     )
+    clocks = [{"field": "known_at_cutoff_utc", "value": admission["known_at_cutoff_utc"],
+               "text": "Main report known-at cutoff (not source release): " + admission["known_at_cutoff_utc"]}]
+    seen = set()
+    for claim in admission["claims"]:
+        for evidence in claim.get("evidence", []):
+            for field in ("observation_time_utc", "retrieval_time_utc", "known_at_utc"):
+                value = evidence.get(field)
+                identity = (evidence.get("evidence_id"), field, value)
+                if not value or identity in seen:
+                    continue
+                seen.add(identity)
+                clocks.append({"evidence_id": evidence.get("evidence_id"), "field": field, "value": value,
+                               "text": "Main evidence " + str(evidence.get("evidence_id")) + " " + field + ": " + value})
+    text += "\n\n" + "\n".join(c["text"] for c in clocks)
     text += "\n\n" + report_scope_notice(admission)
+    research_metadata = [{"claim_id": c["claim_id"], "descriptor_sha256": c["research_semantics"]["probability_descriptor"]["descriptor_sha256"],
+        "text": text}
+        for c in claims if c["research_semantics"]["probability_descriptor"]
+        for text in reader_notices(c["research_semantics"]["probability_descriptor"])]
+    if research_metadata:
+        text += "\n\n" + "\n".join(m["text"] for m in research_metadata)
     url = public_locator or repository + "/blob/" + revision + "/" + path
     return {
         "document_id": "main-report-" + admission["source_report_sha256"],
@@ -90,7 +114,10 @@ def report_document(admission: Mapping[str, Any]) -> dict[str, Any]:
             "report_id": admission["report_id"],
             "report_version": admission["report_version"],
             "report_sha256": admission["source_report_sha256"],
-            "claims": admission["claims"],
+            "claims": claims,
+            "native_public_lineage": admission.get("native_public_lineage"),
+            "source_clock_metadata": clocks,
+            "source_research_metadata": research_metadata,
             "scope_notice": report_scope_notice(admission),
         },
     }
@@ -160,6 +187,16 @@ class _Stages:
             producer_ref="ContentOps.Simple.report-adapter",
             content_bytes=raw,
         )
+        prior = self.get(key)
+        if (prior and prior != value and key.startswith("cc-editorial-final-")
+                and not prior.get("qualified_article_count") and value.get("qualified_article_count")
+                and destination == SIMPLE_RESULT):
+            # A blocked attempt is history, not an immutable successful result.
+            # Keep its exact bytes, then finalize the same pre-dispatch owner.
+            self.put(key + "-blocked-" + sha256_of(prior), prior, SIMPLE_RESULT)
+            self.store.finalize_outbox_payload_before_dispatch(message_id=key,
+                payload=raw.decode(), status="EDITORIAL_INTERNAL")
+            return
         self.store.register_outbox_message(
             message_id=key,
             work_item_id=self.work,
@@ -197,6 +234,19 @@ def _artifact(root: Path, name: str) -> dict[str, Any]:
     return json.loads((root / name).read_bytes())
 
 
+def _join_reviewed_source_editions(report_result, research, request, reviews, cutoff):
+    """Join independent verified spans BEFORE the native writer freezes evidence."""
+    if not research:
+        return report_result
+    ids = list(dict.fromkeys(s["item_id"] for r in reviews for s in r["source_editions"]))
+    if not ids:
+        return report_result
+    result = research.evidence({**request, "headline_ids": ids}, cutoff_utc=cutoff)
+    if not result or result["status"] != "PASS":
+        return report_result
+    return {**report_result, "evidence_documents": [*report_result["evidence_documents"], *result["evidence_documents"]]}
+
+
 def run_report_editorial_cycle(
     tracker: LatestReportDeliveryTracker,
     *,
@@ -213,8 +263,14 @@ def run_report_editorial_cycle(
     source_route_health: Mapping[str, Any] | None = None,
     attempted_candidate_ids: Sequence[str] = (),
     retained_research=None,
+    editorial_request: str | None = None,
+    source_reviews=(),
 ) -> dict[str, Any]:
     """A single bounded manual opportunity; retries replay durable successful stages."""
+    if llm_invoke is None and not llm_operator_pause_active():
+        from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn
+        llm_invoke = NativeDesktopTurn(tracker.store, run_id=run_id or opportunity_id or receipt_id, output_dir=output_dir)
+    native = bool(getattr(llm_invoke, "native_desktop_protocol", False))
     record = next(
         (r for r in tracker.receipts() if r["receipt_id"] == receipt_id), None
     )
@@ -225,7 +281,7 @@ def run_report_editorial_cycle(
     stages = _Stages(tracker, receipt_id, opportunity_id)
     final_id = "cc-editorial-final-" + sha256_of(opportunity_id or receipt_id)
     previous = stages.get(final_id)
-    if previous:
+    if previous and previous.get("qualified_article_count"):
         if any(r["destination"] == "internal:cc-report-withdrawal"
                and json.loads(r["payload"]).get("source_report_sha256") == previous.get("source_report_sha256")
                for r in tracker.store.list_outbox_messages()):
@@ -280,7 +336,16 @@ def run_report_editorial_cycle(
             raise LatestReportConsumerError("FROZEN_RESEARCH_REVISION_CHANGED")
         args, records = frozen["args"], frozen["reports"]
         prepared_inputs = frozen["prepared_inputs"]
+        prepared = prepared_inputs.get(record.get("report_id"), {})
     else:
+        # Report evidence may be cached across opportunities. Intake and canonical
+        # publication memory belong to THIS new opportunity, not that old receipt.
+        primary_headlines = [h for h in args["rolling_input"].get("headlines", [])
+            if h.get("headline_id") == "cc-report:" + record.get("envelope_sha256", "")]
+        args["rolling_input"] = {**dict(rolling_input or {}),
+            "headlines": [*primary_headlines, *dict(rolling_input or {}).get("headlines", [])]}
+        args["published_memory"] = [m.to_dict() if hasattr(m, "to_dict") else dict(m) for m in published_memory]
+        args["cutoff_utc"] = cutoff_utc
         records = [record, *[dict(r) for r in additional_reports]] if record else []
         prepared_inputs = {record["report_id"]: prepared} if record else {}
         for other in records[1:]:
@@ -292,6 +357,48 @@ def run_report_editorial_cycle(
         args["capital_chronicle_context"]["report_editorial_briefs"] = [
             build_report_editorial_input(r, output_dir=root, cutoff_utc=cutoff_utc)["brief"] for r in records
         ]
+        if editorial_request:
+            # Owner question metadata, never evidence, permission or numeric authority.
+            args["capital_chronicle_context"]["owner_editorial_request"] = editorial_request
+        args["capital_chronicle_context"]["native_source_reviews"] = list(source_reviews)
+        args["source_requests_before_writer_freeze"] = sum(len(s["source_attempts"]) for s in source_reviews)
+        if args["source_requests_before_writer_freeze"] > 6:
+            raise ValueError("SHARED_SOURCE_REQUEST_BUDGET_EXCEEDED")
+        for headline in args["rolling_input"].get("headlines", []):
+            for review in source_reviews:
+                report = next((r for r in records if r["receipt_id"] == review.get("main_receipt_id")), None)
+                matches = headline.get("headline_id") in {s["item_id"] for s in review["source_editions"]}
+                matches = matches or (report and headline.get("headline_id") == "cc-report:" + report["envelope_sha256"])
+                if matches:
+                    external = dict(headline.get("external_content") or {})
+                    context = {"story_identity": review["prior_story"]["story_identity"],
+                        "update_chain_identity": review["prior_story"]["story_identity"],
+                        "disposition": review["decision"], "reason": review["reader_change_summary"],
+                        "source_review_id": review["review_id"], "source_item_ids": [s["item_id"] for s in review["source_editions"]],
+                        "changed_evidence": review["source_changes"], "prior_package": review["prior_story"],
+                        "publication_state": "UNPUBLISHED_RESEARCH", "removed_main_claim_ids": review["removed_main_claim_ids"]}
+                    headline["external_content"] = {**external, "evolving_story_context": [*external.get("evolving_story_context", []), context]}
+        from live_contentops.contentops_editorial_desk_v1 import read_reviews, publication_story_context, selection_story_context
+        library = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+        if library:
+            stories = publication_story_context(library["stories"], args["published_memory"], cutoff_utc=cutoff_utc)
+            for headline in args["rolling_input"].get("headlines", []):
+                external = dict(headline.get("external_content") or {})
+                report_id = (external.get("report_editorial_context") or {}).get("report_id")
+                matches = [s for s in stories if headline.get("headline_id") in s["source_item_ids"] or report_id in s["main_report_ids"]]
+                if matches:
+                    headline["external_content"] = {**external, "evolving_story_context": [*external.get("evolving_story_context", []), *[selection_story_context(s) for s in matches]]}
+            args["capital_chronicle_context"]["foundation_library"] = {
+                "research_revision": library["research_revision"],
+                "briefs": [b for b in library["briefs"] if not any(p["brief_id"] == b["brief_id"] and
+                    p["review"]["state"] == "HOLD" for p in library["packages"])][:16],
+                "families": library["families"],
+                "editorial_desk": library["desk"],
+                "stories": stories,
+                "research_packages": [{k: p.get(k) for k in ("brief_id", "package_revision", "editorial_kind", "review", "source_revision_current")}
+                                      for p in library["packages"]],
+                "scope": "PUBLIC_RESEARCH_QUESTIONS_NOT_MAIN_NUMERIC_AUTHORITY",
+            }
         args["source_route_health"] = dict(source_route_health or {})
         args["attempted_candidate_ids"] = list(attempted_candidate_ids)
         stages.put(pool_key, {"args": args, "reports": records, "prepared_inputs": prepared_inputs,
@@ -307,7 +414,7 @@ def run_report_editorial_cycle(
         "source_report_sha256": record.get("source_report_sha256"),
         "receipt_id": receipt_id,
         "input": prepared,
-        "model_execution_state": "INJECTED_REPLAY_ONLY"
+        "model_execution_state": "NATIVE_DESKTOP_REQUEST_RETURN" if native else "INJECTED_REPLAY_ONLY"
         if llm_invoke
         else "EXISTING_SIMPLE_PROVIDER",
         "draft_count": 0,
@@ -378,7 +485,17 @@ def run_report_editorial_cycle(
                     )
                 return [value, receipt]
 
-            return tuple(stages.call(stage, identity, invoke))
+            # A pending Desktop request is a resumable boundary. Its own durable request/
+            # response identity replaces the old opaque provider-attempt fence.
+            return invoke() if native else tuple(stages.call(stage, identity, invoke))
+
+        if native:
+            model.native_desktop_protocol = True
+            model.telemetry = llm_invoke.telemetry
+            model.filter_headlines = llm_invoke.filter_headlines
+            model.frozen_request = llm_invoke.frozen_request
+            model.source_recovery = llm_invoke.source_recovery
+            model.audience_learning = getattr(llm_invoke, "audience_learning", None)
 
         default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health)
         spent = sum(
@@ -394,24 +511,44 @@ def run_report_editorial_cycle(
             and str(json.loads(r["payload"]).get("stage", "")).startswith("source:")
             and "result" in json.loads(r["payload"])
         )
-        default_loader.resume_request_count(spent)
+        default_loader.resume_request_count(spent + args.get("source_requests_before_writer_freeze", 0))
         report_by_headline = {"cc-report:" + r["envelope_sha256"]: r for r in records}
 
         def evidence(request: Mapping[str, Any]) -> dict[str, Any]:
             stage = "source:" + str(request["cluster_id"])
+            recovery = llm_invoke.source_recovery() if native else None
+            if recovery:
+                request = {**request, "retained_supporting_headline_ids": recovery["supporting_headline_ids"]}
+                stage += ":recovery:" + recovery["request_sha256"]
+            if retained_research and any(h in retained_research.records for h in request.get("headline_ids", [])):
+                stage += ":retained-permission-v2"
+                if any(not retained_research.records[h]["document"].get("document_id")
+                       for h in request.get("headline_ids", []) if h in retained_research.records):
+                    # Keep the prior empty-pack result; only this metadata repair gets a new cache identity.
+                    stage += ":verified-record-document-id-v1"
+            cached = stages.get("cc-step-" + sha256_of([stages.work, stage]))
+            evidence_file = root / "simple_gemini_evidence_v1.json"
+            if native and cached and evidence_file.is_file():
+                for attempt in json.loads(evidence_file.read_bytes()).get("evidence_attempts", []):
+                    original = attempt.get("request", {})
+                    if (original.get("cluster_id") == request.get("cluster_id")
+                            and sha256_of(original) == cached["request_sha256"]):
+                        request = original
+                        break
             report = next((report_by_headline[h] for h in request.get("headline_ids", []) if h in report_by_headline), None)
             return stages.call(
                 stage,
                 request,
                 lambda: (
-                    report_evidence(report)
+                    _join_reviewed_source_editions(report_evidence(report), retained_research, request,
+                        args["capital_chronicle_context"].get("native_source_reviews", []), cutoff_utc)
                     if report is not None
                     else (retained_research.evidence(request, cutoff_utc=cutoff_utc) if retained_research else None) or default_loader(request)
                 ),
             )
 
         simple = ContentOpsProductionOrchestrator().execute(
-            "run_v1_simple_gemini_newsroom",
+            "run_native_desktop_newsroom" if native else "run_v1_simple_gemini_newsroom",
             output_dir=root,
             cutoff_utc=cutoff_utc,
             rolling_input=args["rolling_input"],
@@ -447,7 +584,7 @@ def run_report_editorial_cycle(
                     report_id=None, report_version=None, source_report_sha256=None,
                     draft_count=1, qualified_article_count=1, preview_count=8, compiled_derivative_count=8,
                     article=article, article_identity=simple["article_identity"],
-                    replay_writer_used=llm_invoke is not None, writer_invoked=llm_invoke is None,
+                    replay_writer_used=llm_invoke is not None and not native, writer_invoked=llm_invoke is None or native,
                     evidence=evidence_walk["selected_source_pack"],
                     previews=[{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([simple["article_identity"], k, v]),
                                "article_identity": simple["article_identity"], "claim_lineage": validation.get("supported_material_claims") or []}
@@ -455,12 +592,15 @@ def run_report_editorial_cycle(
                 )
                 selected_headline = simple["selected_candidate"]["headline_id"]
                 retained = retained_research.records.get(selected_headline) if retained_research else None
-                if retained:
+                if retained and not native:
                     from live_contentops.rolling_x_grounded_article_media_builder_v1 import build_source_backed_media_assets
                     document = {**retained["document"], "known_at_utc": retained["known_at_utc"],
                                 "rights_evidence_sha256": retained["rights_evidence_sha256"],
                                 "render_excerpt_text": retained["headline_text"],
-                                "underlying_reuse_classification": "governed_government_public_domain"}
+                                "underlying_reuse_classification": (
+                                    "governed_government_public_domain"
+                                    if retained["rights_state"] == "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN"
+                                    else "attributed_public_filing_facts_only")}
                     media = build_source_backed_media_assets(
                         {"evidence_documents": [document], "story_type": "DATA_OR_DOCUMENT_LENS"}, output_dir=root, required_asset_count=1)
                     result["media_assets"] = media
@@ -487,8 +627,8 @@ def run_report_editorial_cycle(
                     qualified_article_count=1,
                     preview_count=8,
                     compiled_derivative_count=8,
-                    writer_invoked=llm_invoke is None,
-                    replay_writer_used=llm_invoke is not None,
+                    writer_invoked=llm_invoke is None or native,
+                    replay_writer_used=llm_invoke is not None and not native,
                     article=article,
                     previews=[
                         {
@@ -509,6 +649,33 @@ def run_report_editorial_cycle(
                     canonical_url_state="UNBOUND_PREVIEW_ONLY",
                     affected_prior_inputs=record.get("affected_prior_inputs", []),
                 )
+        if native:
+            result["editorial_execution"] = llm_invoke.telemetry()
+            result["semantic_response_count"] = simple.get("semantic_response_count", 0)
+            result.pop("logical_model_invocation_count", None)
+            if result.get("qualified_article_count"):
+                from live_contentops.contentops_editorial_desk_v1 import read_reviews
+                desk = library_projection(tracker.store.list_outbox_messages(), read_reviews(tracker.store))
+                brief_ids = {s.get("brief_id") for s in simple.get("selected_candidate", {}).get("evolving_story_context", [])}
+                supported_urls = {d["url"] for d in result.get("evidence", [])}
+                for d in result.get("evidence", []):
+                    supported_urls.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
+                reused = []
+                for package in (desk or {}).get("packages", []):
+                    if (package["brief_id"] not in brief_ids or not package.get("source_revision_current")
+                            or package.get("review", {}).get("state") != "KEEP"):
+                        continue
+                    for asset in package.get("media_assets", []):
+                        from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
+                        path = resolve_workspace_path(asset.get("path", ""))
+                        if (path.is_file() and hashlib.sha256(path.read_bytes()).hexdigest() == asset.get("sha256")
+                                and asset.get("underlying_source_rights_status") == "public_domain"
+                                and asset.get("source_page_url") in supported_urls):
+                            reused.append({**asset, "reuse_state": "EXACT_BYTES_REUSED_NO_RENDER",
+                                "supports_headline": False, "role": "DATED_SOURCE_CONTEXT",
+                                "relevance_rationale": "Historical source context; Main report claims retain their separate provenance."})
+                result["media_assets"] = reused[:1] or result.get("media_assets", [])
+                result["media_reuse_count"] = len(result["media_assets"])
         stages.put(final_id, result, SIMPLE_RESULT)
         return result
     except (LatestReportConsumerError, LLMOperatorPausedError) as exc:
@@ -529,7 +696,8 @@ def run_report_editorial_cycle(
 
 
 def report_workspace_projection(
-    rows: Sequence[Mapping[str, Any]], report_id: str | None = None
+    rows: Sequence[Mapping[str, Any]], report_id: str | None = None, *, review_records=(),
+    dispatches=(), reconciliations=(), readiness=()
 ) -> dict[str, Any]:
     """Read only durable payloads; blocked/duplicate events never poison current content."""
     admissions, inputs, results = [], [], []
@@ -629,9 +797,98 @@ def report_workspace_projection(
     if latest and feed:
         from live_contentops.capital_chronicle_latest_report_consumer_v1 import _time
         lag = max(0, int((_time(feed["observed_at_utc"]) - _time(latest["known_at_cutoff_utc"])).total_seconds()))
+    native_reviews = []
+    for review in review_records:
+        if review.get("reviewer_ref") == "NATIVE_DESKTOP_ARTICLE_REVIEW":
+            note = json.loads(review["notes"])
+            native_reviews.append({**note, "decision": review["decision"], "review_id": review["review_id"]})
+    edition = {}
+    for item in results:
+        if (not item.get("qualified_article_count") or item.get("model_execution_state") != "NATIVE_DESKTOP_REQUEST_RETURN"
+                or not item.get("article_identity")):
+            continue
+        simple = item.get("simple_result", {})
+        plan = simple.get("selected_plan_entry", {})
+        review = next((r for r in reversed(native_reviews) if r["article_identity"] == item["article_identity"]), None)
+        prepared = next((json.loads(r["payload"]) for r in reversed(rows) if r["destination"] == "internal:native-prepared-handoff"
+            and json.loads(r["payload"]).get("article_identity") == item["article_identity"]
+            and json.loads(r["payload"]).get("review_id") == (review or {}).get("review_id")), None)
+        edition[item["article_identity"]] = {
+            **{k: item.get(k) for k in ("article_identity", "article", "previews", "evidence", "media_assets", "report_id", "report_version", "source_report_sha256")},
+            "run_id": simple.get("run_id"), "angle": plan.get("angle"),
+            "reader_question": plan.get("primary_reader_question"),
+            "mode": plan.get("article_mode"), "review": review,
+            "source_review": None,
+            "editorial_execution": item.get("editorial_execution"),
+            "prior_story": simple.get("selected_candidate", {}).get("evolving_story_context", []),
+            **({"previews": prepared["previews"], "media_assets": prepared["media_assets"],
+                "handoff": {k: prepared[k] for k in ("plan_hash", "review_id", "output_dir")}} if prepared else {}),
+        }
+    from live_contentops.contentops_editorial_desk_v1 import source_review_projection
+    source_reviews = source_review_projection(rows)
+    for item in edition.values():
+        from live_contentops.native_desktop_publication_v1 import publication_projection
+        item["publication"] = publication_projection(rows, dispatches, reconciliations,
+            run_id=item["run_id"], readiness=readiness)
+        # The read model embeds exact inspected local PNG bytes, without changing
+        # the sealed package or its revision-bound review.
+        import base64
+        from hashlib import sha256
+        for asset in item.get("media_assets") or []:
+            try:
+                path = resolve_workspace_path(asset["path"])
+                if path.stat().st_size > 1_500_000:
+                    continue
+                raw = path.read_bytes()
+                if raw.startswith(b"\x89PNG\r\n\x1a\n") and sha256(raw).hexdigest() == asset.get("sha256"):
+                    asset["preview_data_url"] = "data:image/png;base64," + base64.b64encode(raw).decode("ascii")
+            except (OSError, ValueError, KeyError):
+                pass
+        matching = [s for s in source_reviews if s["article_identity"] == item["article_identity"]]
+        item["source_review"] = matching[-1] if matching else None
+        if matching and matching[-1]["invalidates_prepared_review"]:
+            item["prepared_state"] = "INVALIDATED_BY_SOURCE_REVIEW"
+        if item.get("prepared_state") or (item.get("review") or {}).get("decision") != "KEEP":
+            item["publication"] = {**item["publication"], "state": "REVIEW_REQUIRED", "next_operation": "review",
+                "next_command": "Review the current exact source/article packet; prior preparation grants no dispatch."}
+    owner_groups = [json.loads(r["payload"]) for r in rows if r["destination"] == "internal:native-owner-edition"]
+    owner_edition = owner_groups[-1] if owner_groups else None
+    if owner_edition:
+        current = [e for e in edition.values() if e["run_id"] in owner_edition["operation_ids"]]
+        ready = [e for e in current if (e.get("review") or {}).get("decision") == "KEEP" and not e.get("prepared_state")]
+        held = [e for e in current if (e.get("review") or {}).get("decision") == "HOLD"]
+        owner_edition = {**owner_edition, "ready": len(ready), "held": len(held) + len(owner_edition["held_candidates"]),
+            "missing": len(owner_edition["operation_ids"]) - len(ready) - len(held),
+            "preview_count": sum(len(e["previews"]) for e in ready)}
+        outcomes = owner_edition.get("opportunity_outcomes")
+        if outcomes:
+            owner_edition["opportunity_counts"] = {
+                **{key.lower(): sum(o["outcome"] == key for o in outcomes) for key in ("NEW", "UPDATE", "KEEP", "HOLD")},
+                "source_blocked": sum(o.get("source_blocked") is True for o in outcomes)}
+    latest_admissions = [max((r for r in accepted if r["report_id"] == identity),
+        key=lambda r: r["report_version"]) for identity in sorted(ids)]
+    from live_contentops.native_newsroom_learning_v1 import learning_projection
+    from live_contentops.contentops_editorial_desk_v1 import native_story_projection
     return {
         "schema_version": SCHEMA,
+        "audience_learning": learning_projection(rows),
+        "owner_edition": owner_edition,
+        "maintained_stories": native_story_projection(edition, rows),
+        "main_admission_summary": [{"report_id": r["report_id"], "report_version": r["report_version"],
+            "report_sha256": r["source_report_sha256"], "claims": len(r["claims"]),
+            "native_public_excerpts": (r.get("native_public_lineage") or {}).get("permitted_excerpt_count", 0),
+            "provenance_state": (r.get("native_public_lineage") or {}).get("state", "SOURCE_FACT_ONLY_NO_NATIVE_ATTESTATION"),
+            "independent_native_runtime_verified": False, "known_at_cutoff_utc": r.get("known_at_cutoff_utc")}
+            for r in latest_admissions],
+        "source_reviews": source_reviews,
+        "current_input_snapshots": [{k: v for k, v in json.loads(r["payload"]).items() if k != "research"}
+            for r in rows if r["destination"] == "internal:native-current-input"][-8:],
+        "native_edition": ([e for e in edition.values() if e["run_id"] not in owner_edition["operation_ids"]][-16:]
+            + [e for e in edition.values() if e["run_id"] in owner_edition["operation_ids"]])
+            if owner_edition else list(edition.values())[-16:],
+        "native_article_reviews": native_reviews,
         "state": "AVAILABLE" if latest else "UNAVAILABLE",
+        "foundation_library": library_projection(rows, review_records) if report_id is None else None,
         "report_events_received": len(admissions),
         "latest_report": latest,
         "report_history": admissions,
@@ -655,10 +912,11 @@ def report_workspace_projection(
                                 for r in results if r.get("classification") == "INDEPENDENT_NEWS_DRAFT"][-16:],
         "conversion": {"independent_drafts": sum(r.get("classification") == "INDEPENDENT_NEWS_DRAFT" for r in results),
                        "main_drafts": sum(r.get("classification") == "DRAFT_READY" for r in results),
+                       "native_desktop_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "NATIVE_DESKTOP_REQUEST_RETURN"),
                        "fresh_provider_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"),
                        "controlled_drafts": sum(r.get("qualified_article_count", 0) for r in results if r.get("model_execution_state") == "INJECTED_REPLAY_ONLY")},
         "next_operation": ("Main must supply or restore the exact public parent " + str(parent_gaps[0].get("required_parent_report_sha256") or "identified by the manifest") + "; replay manifest admission without a model call. Independent news remains available.")
-                          if parent_gaps else "Resume the existing Simple route only after actual pause release; consume the configured public export manifest at the next existing window.",
+                          if parent_gaps else "Use the prepared native Desktop operation; production remains paused until the audited four-task transition.",
         "workspaces": [report_workspace_projection(rows, key) for key in sorted(ids)]
         if report_id is None and len(ids) > 1
         else [],
@@ -666,6 +924,7 @@ def report_workspace_projection(
         "latest_simple_result": result,
         "latest_attempt": latest_attempt,
         "article": None if latest and latest.get("withdrawal_only") else (result or {}).get("article"),
+        "media_assets": [] if latest and latest.get("withdrawal_only") else (result or {}).get("media_assets", []),
         "previews": [] if latest and latest.get("withdrawal_only") else (result or {}).get("previews", []),
         "named_blocker": (latest_attempt or {}).get("exact_next_blocker")
         or (parent_gaps[0]["state"] if parent_gaps else None)

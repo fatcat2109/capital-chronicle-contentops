@@ -85,6 +85,11 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if not (args.status or args.stop or args.browseros_dry_run):
+        print(json.dumps({"classification": "NON_ROUTING_LEGACY_SCHEDULER",
+                          "routine_editorial_owner": "NATIVE_CODEX_DESKTOP",
+                          "public_write_performed": False}))
+        return 2
     if args.run_forever and args.tick_utc:
         raise SystemExit("--tick-utc cannot be combined with --run-forever")
     if args.tick_utc and Path(args.scheduler_root).resolve() == Path(

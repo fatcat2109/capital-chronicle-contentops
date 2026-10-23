@@ -42,6 +42,7 @@ def test_missing_profile_directory_fails_closed_and_is_never_created(tmp_path, m
     assert result["launched"] is False
     assert created == []
     assert not (fake_local / "Google").exists()
+    monkeypatch.setattr(bootstrap, "find_chrome_binary", lambda env: fake_local / "chrome.exe")
     launch = bootstrap._launch_canonical_ingestion_browser(env=env)
     assert launch["state"] == bootstrap.STATE_PROFILE_BINDING_MISSING
 
@@ -133,6 +134,18 @@ def test_wrong_9222_owner_is_blocked_without_launch_or_kill(tmp_path, monkeypatc
 
 
 def test_authenticated_visible_x_list_is_ready_and_login_redirect_is_reauth(monkeypatch):
+    class LocalCdpResponse:
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_):
+            return False
+
+        def read(self):
+            return b"{}"
+
+    # URL/session observations are controlled; never contact a real Windows CDP port in CI.
+    monkeypatch.setattr(bootstrap.urllib.request, "urlopen", lambda *args, **kwargs: LocalCdpResponse())
     monkeypatch.setattr(bootstrap, "probe_cdp", lambda port, **kwargs: {"cdp_alive": True, "browser": "Chrome"})
     monkeypatch.setattr(
         bootstrap, "cdp_target_urls",
@@ -170,11 +183,11 @@ def test_run_now_is_passive_and_does_not_probe_reauth_or_bypass_cadence(tmp_path
     )
     control = ContentOpsDurableStore(store_path, auto_migrate=False).get_operating_control()
     result = request_operator_cycle(store_path, expected_state_version=int(control["state_version"]))
-    assert result["status"] == "OPERATOR_TRIGGER_ACCEPTED"
-    assert result["governed_cycle_requested"] is True
+    assert result["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
+    assert result["governed_cycle_requested"] is False
     assert result["publication_claimed"] is False
     assert result["ingestion_browser_interaction_performed"] is False
-    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is not None
+    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is None
 
 
 def test_run_now_accepts_durable_cycle_without_active_ingestion_session_probe(tmp_path, monkeypatch):
@@ -190,9 +203,9 @@ def test_run_now_accepts_durable_cycle_without_active_ingestion_session_probe(tm
     )
     control = ContentOpsDurableStore(store_path, auto_migrate=False).get_operating_control()
     result = request_operator_cycle(store_path, expected_state_version=int(control["state_version"]))
-    assert result["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert result["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
     assert result["ingestion_browser_interaction_performed"] is False
-    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is not None
+    assert ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger() is None
 
 
 def test_run_now_accepts_ready_ingestion(tmp_path, monkeypatch):
@@ -208,9 +221,9 @@ def test_run_now_accepts_ready_ingestion(tmp_path, monkeypatch):
     )
     control = ContentOpsDurableStore(store_path, auto_migrate=False).get_operating_control()
     result = request_operator_cycle(store_path, expected_state_version=int(control["state_version"]))
-    assert result["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert result["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
     pending = ContentOpsDurableStore(store_path, auto_migrate=False).fetch_pending_operator_trigger()
-    assert pending is not None and pending["trigger_kind"] == "OPERATOR_REQUESTED"
+    assert pending is None
 
 
 def test_historical_run_pipeline_remains_quarantined():

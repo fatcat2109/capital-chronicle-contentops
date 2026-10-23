@@ -1,0 +1,31 @@
+{
+  "request_sha256": "0f80d25fa8b40a8e4b786f1a09990dbcd03a89bf4398d82962bfb30b539201d7",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "angle": "Máy đọc được công bố doanh nghiệp đặt lại câu hỏi về chất lượng thông tin: thông báo tọa đàm SEC mở thảo luận về cách dùng, rủi ro và chi phí, chưa chứng minh kết quả phân tích.",
+        "primary_reader_question": "Khi máy đọc được dữ liệu công bố doanh nghiệp, người đọc còn cần đối chiếu điều gì trước khi tin phần diễn giải?",
+        "selection_rationale": "Câu hỏi mới so với bài Goal28 về đọc MD&A bằng báo cáo tài chính. Thông báo ngày 19/10 cho tọa đàm dự kiến 9/11 tạo mốc thời sự có nguồn; giá trị là phân biệt khả năng sử dụng dữ liệu với chất lượng và kết quả được kiểm chứng. Không lặp bài 10-K hoặc tạo tin doanh nghiệp hiện tại.",
+        "research_queries": [
+          "SEC October 19 2026 roundtable machine-understandable data Super Intelligence risks costs November 9",
+          "SEC reading 10-K MD&A accounting judgments financial statements"
+        ],
+        "evidence_plan": "Resolver hiện hữu dùng exact admitted text goal31-sec-machine-data: xác nhận ngày thông báo 19/10, tọa đàm dự kiến 9/11, mục đích thảo luận cách dùng dữ liệu máy hiểu cùng rủi ro và chi phí. Dùng goal28-company-reading chỉ như hướng dẫn lịch sử, không như dữ liệu doanh nghiệp mới hoặc bằng chứng kết quả AI. Tách việc tiếp nhận dữ liệu, lời quản trị trong MD&A, nhận định về xu hướng/ước tính và phần kiểm chứng; mọi tiêu chí chất lượng/cùng kỳ/phạm vi chỉ là câu hỏi kiểm cần thực hiện, không nói đã phát hiện lỗi. Phản đề: công cụ có thể hữu ích dù người đọc vẫn cần đối chiếu, nhưng thông báo không đo hiệu quả. Giới hạn/falsifier: nếu nguồn chỉ công bố tọa đàm thì rút mọi suy luận về quy định mới, lợi ích đã đo, chi phí cụ thể hoặc năng lực AI đã chứng minh; muốn thay đổi đánh giá cần kết quả/biên bản hoặc nghiên cứu có phương pháp và bằng chứng đối chiếu, hiện chưa có. Code sở hữu số và phép tính; không tự tạo ví dụ số, dữ liệu công ty, dự báo hay xác suất. Giữ claim nguồn và phân tích CC phân biệt."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn một góc tài liệu mới có ích; không thêm fallback trùng bài đang giữ. Chỉ là lựa chọn nghiên cứu riêng tư.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "invocation_id": "/root/goal31_sol_light",
+    "observation_source": "Actual native collaboration.spawn_agent returned canonical task /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed."
+  }
+}

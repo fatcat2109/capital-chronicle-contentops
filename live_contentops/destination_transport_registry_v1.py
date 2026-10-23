@@ -22,7 +22,7 @@ from live_contentops.browser_interaction_budget_v1 import (
 )
 
 
-REGISTRY_VERSION = "contentops.destination_transport_registry.v2"
+REGISTRY_VERSION = "contentops.destination_transport_registry.v3"
 IDENTITY_AUTHORITY_VERSION = "contentops.destination_identity_authority.v2"
 V1_QUALITY_PROBATION_POLICY_ID = "QUALITY_PROBATION_FOUR_WINDOW_V1"
 PUBLISHING_CDP_PORT = 9223
@@ -72,20 +72,20 @@ class SurfaceTransport:
 
 _SURFACES = (
     SurfaceTransport(
-        "SUBSTACK_ARTICLE", "substack", "EDGE_CDP",
-        "edge_cdp_publishing_adapter_v1.publish_substack_article_via_edge",
-        "substack", "capitalchronicle.substack.com", PUBLISHING_CDP_PORT,
+        "SUBSTACK_ARTICLE", "substack", "BROWSEROS_NEO_MCP",
+        "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "substack", "capitalchronicle.substack.com",
         expected_identity_kind="DOMAIN",
         expected_domain="capitalchronicle.substack.com",
     ),
     SurfaceTransport(
-        "X_POST", "x", "EDGE_CDP", "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge",
-        "x", "@Capitalnicle", PUBLISHING_CDP_PORT, canonical_url_dependency="SUBSTACK_ARTICLE",
+        "X_POST", "x", "BROWSEROS_NEO_MCP", "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "x", "@Capitalnicle", canonical_url_dependency="SUBSTACK_ARTICLE",
         expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@Capitalnicle",
     ),
     SurfaceTransport(
-        "X_THREAD", "x", "EDGE_CDP", "edge_cdp_publishing_adapter_v1.publish_x_post_via_edge+publish_x_reply_via_edge",
-        "x", "@Capitalnicle", PUBLISHING_CDP_PORT, canonical_url_dependency="SUBSTACK_ARTICLE",
+        "X_THREAD", "x", "BROWSEROS_NEO_MCP", "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "x", "@Capitalnicle", canonical_url_dependency="SUBSTACK_ARTICLE",
         expected_identity_kind="PUBLIC_HANDLE", expected_public_handle="@Capitalnicle",
     ),
     SurfaceTransport(
@@ -96,9 +96,9 @@ _SURFACES = (
         expected_identity_kind="PUBLIC_IDENTITY", expected_public_handle="linkedin:jimcc",
     ),
     SurfaceTransport(
-        "YOUTUBE_COMMUNITY_POST", "youtube", "EDGE_CDP",
-        "edge_cdp_publishing_adapter_v1.publish_youtube_community_post_via_edge",
-        "youtube", "@CapitalChronicleYouTube", PUBLISHING_CDP_PORT,
+        "YOUTUBE_COMMUNITY_POST", "youtube", "BROWSEROS_NEO_MCP",
+        "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "youtube", "@CapitalChronicleYouTube",
         canonical_url_dependency="SUBSTACK_ARTICLE",
         expected_identity_kind="PUBLIC_HANDLE",
         expected_public_handle="@CapitalChronicleYouTube",
@@ -221,8 +221,8 @@ def validate_registry() -> None:
             raise RuntimeError(f"owner_identity_pin_missing:{surface}")
         if row.transport_type == "EDGE_CDP" and row.publishing_port != PUBLISHING_CDP_PORT:
             raise RuntimeError(f"edge_surface_not_locked_to_9223:{surface}")
-    if SURFACE_REGISTRY["YOUTUBE_COMMUNITY_POST"].transport_type != "EDGE_CDP":
-        raise RuntimeError("youtube_community_transport_must_be_edge_cdp")
+    if SURFACE_REGISTRY["YOUTUBE_COMMUNITY_POST"].transport_type != "BROWSEROS_NEO_MCP":
+        raise RuntimeError("youtube_community_transport_must_be_neo")
     if SURFACE_REGISTRY["YOUTUBE_VIDEO"].tier1_write_enabled:
         raise RuntimeError("youtube_video_must_not_be_tier1_write_enabled")
 
@@ -337,13 +337,14 @@ class DestinationReadinessManager:
 
     def __init__(self, *, store: Any = None, env: Mapping[str, str] | None = None,
                  edge_runtime_ensurer: Any = None, linkedin_auth_root: Any = None,
-                 linkedin_transport: Any = None) -> None:
+                 linkedin_transport: Any = None, neo_readiness_provider: Any = None) -> None:
         validate_registry()
         self.store = store
         self.env = os.environ if env is None else env
         self.edge_runtime_ensurer = edge_runtime_ensurer
         self.linkedin_auth_root = linkedin_auth_root
         self.linkedin_transport = linkedin_transport
+        self.neo_readiness_provider = neo_readiness_provider
 
     def _linkedin_probe(self, registration: SurfaceTransport) -> dict[str, Any]:
         """Use secure local auth metadata only; never navigate or poll linkedin.com."""
@@ -588,6 +589,22 @@ class DestinationReadinessManager:
     def probe_surface(self, surface: str) -> dict[str, Any]:
         """Active exact-surface verification. Never call this from idle/global refresh."""
         registration = SURFACE_REGISTRY[surface]
+        if registration.transport_type == "BROWSEROS_NEO_MCP":
+            # An old Edge/cache result never proves this Neo account. Native observation
+            # must establish the current authenticated identity before any future write.
+            proof = self.neo_readiness_provider(surface) if callable(self.neo_readiness_provider) else {}
+            matched, _ = _identity_pin_match(registration,
+                observed_stable_id=proof.get("stable_id"), observed_public_handle=proof.get("public_handle"),
+                observed_domain=proof.get("domain")) if proof else (False, {})
+            ready = bool(matched and proof.get("authenticated") and proof.get("native_executor_bound")
+                         and proof.get("proof_fresh") is True and proof.get("observation_sha256"))
+            return _base_row(registration, state=READY_AUTHENTICATED if ready else "SESSION_UNAVAILABLE",
+                identity=proof.get("public_handle") or proof.get("domain"), identity_match=matched,
+                probe_kind="NATIVE_NEO_EXACT_ACCOUNT_OBSERVATION",
+                detail={"authenticated": bool(proof.get("authenticated")), "native_executor_bound": bool(proof.get("native_executor_bound")),
+                        "proof_fresh": proof.get("proof_fresh") is True,
+                        "native_observation_sha256": proof.get("observation_sha256"),
+                        "owner_action": "Verify Neo account identity and bind supported native executor; no login or post probe here."})
         if registration.surface == "LINKEDIN_POST":
             return self._linkedin_probe(registration)
         if not registration.tier1_write_enabled:
@@ -620,6 +637,10 @@ class DestinationReadinessManager:
         """Local/process/cached-metadata readiness only; never opens or navigates a page."""
 
         registration = SURFACE_REGISTRY[surface]
+        if registration.transport_type == "BROWSEROS_NEO_MCP":
+            return self._persist(_base_row(registration, state="STALE_NEEDS_JIT_VERIFICATION",
+                identity=None, identity_match=False, probe_kind="PASSIVE_NEO_NOT_VERIFIED",
+                detail={"external_probe_performed": False, "owner_action": "Verify current Neo signed-in account only when needed."}), persist=persist)
         previous = self._previous_readiness(surface)
         previous_detail = previous.get("sanitized_detail") or previous.get("sanitized_detail_json")
         if isinstance(previous_detail, str):
@@ -777,6 +798,8 @@ class DestinationReadinessManager:
         """Ensure Edge only for exact browser readback; do not perform an auth/global probe."""
 
         registration = registration_for_destination(destination)
+        if registration.transport_type == "BROWSEROS_NEO_MCP":
+            return {"status": "NATIVE_NEO_READBACK_EXECUTOR_REQUIRED", "external_probe_performed": False}
         if registration.transport_type != "EDGE_CDP":
             return {"status": "NON_BROWSER_DESTINATION", "external_probe_performed": False}
         if not callable(self.edge_runtime_ensurer):

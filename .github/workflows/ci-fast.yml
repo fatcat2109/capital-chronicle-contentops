@@ -48,7 +48,7 @@ jobs:
         run: python -m pytest -q tests/test_llm_first_validate_after_v1.py
 
       - name: Run Main latest-report consumer controls and exact-byte readback
-        run: python -m pytest -q tests/test_capital_chronicle_latest_report_consumer_v1.py tests/test_capital_chronicle_report_editorial_workspace_v1.py tests/test_capital_chronicle_report_feed_v1.py tests/test_capital_chronicle_public_manifest_v1.py tests/test_contentops_main_headline_projection_v1.py tests/test_contentops_source_research_v1.py
+        run: python -m pytest -q tests/test_capital_chronicle_latest_report_consumer_v1.py tests/test_capital_chronicle_legacy_parent_recovery_v1.py tests/test_public_research_semantics_v1.py tests/test_capital_chronicle_report_editorial_workspace_v1.py tests/test_capital_chronicle_report_feed_v1.py tests/test_capital_chronicle_public_manifest_v1.py tests/test_contentops_main_headline_projection_v1.py tests/test_contentops_source_research_v1.py tests/test_contentops_foundation_library_v1.py tests/test_contentops_editorial_desk_v1.py
 
       - name: Run LLM-first Phase B runtime-repair regressions
         shell: bash
@@ -76,125 +76,8 @@ jobs:
           python -m pytest -q tests/test_codex_desktop_newsroom_operator_v1.py
           python -m pytest -q tests/test_contentops_emergency_stop_v1.py
 
-      - name: Validate current hybrid execution and V1 owner authority
-        shell: bash
-        run: |
-          python - <<'PY'
-          from pathlib import Path
-
-          agents = Path('AGENTS.md').read_text(encoding='utf-8')
-          authority_map = Path('docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md').read_text(encoding='utf-8')
-          policy = Path('docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md').read_text(encoding='utf-8')
-          north_star = Path('docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md').read_text(encoding='utf-8')
-          master_plan = Path('docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md').read_text(encoding='utf-8')
-          v1_pointer = Path('docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md').read_text(encoding='utf-8')
-          v2_pointer = Path('docs/automation/CONTENTOPS_V2_RETENTION_NATIVE_VIDEO_FACTORY_CURRENT_EXECUTION_POINTER_V2.md').read_text(encoding='utf-8')
-          video_agents = Path('video/AGENTS.md').read_text(encoding='utf-8')
-          v2_creative = Path('docs/automation/CONTENTOPS_V2_FREEFORM_CHAPTERIZED_HIGH_XHIGH_OWNER_OVERRIDE_V1.md').read_text(encoding='utf-8')
-          browser_recovery_doc = Path('docs/automation/CONTENTOPS_BROWSER_RENDERED_SOURCE_RECOVERY_V1.md').read_text(encoding='utf-8')
-          pipeline_api = Path('live_contentops/eight_platform_substack_first_pipeline_v1.py').read_text(encoding='utf-8')
-          pipeline_impl = Path('live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py').read_text(encoding='utf-8')
-
-          assert 'CAPABILITY_ROUTED_HYBRID' in agents
-          assert 'CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md' in agents
-          assert '`WEB_STATIC`' in agents and '`WEB_CI`' in agents
-          assert '`CODEX_EXECUTION`' in agents and '`OWNER_GATED_EXTERNAL`' in agents
-          assert 'Status: `CURRENT_EXECUTION_POLICY`' in policy
-          assert 'GitHub Connector / `WEB_STATIC` first' in policy
-          assert 'Codex Desktop / `CODEX_EXECUTION` is the second-last choice' in policy
-          assert 'CODEX DESKTOP CONVERSATION: CURRENT' in policy
-          assert 'CODEX DESKTOP CONVERSATION: FRESH' in policy
-          assert 'If uncertain between CURRENT and FRESH, choose FRESH' in policy
-          assert 'REASONING CEILING: HIGH' in policy
-
-          for text in (agents, policy, authority_map):
-              normalized = ' '.join(text.lower().split())
-              assert 'ordinary reversible repository operations' in normalized
-              assert 'new per-operation owner authorization' in normalized
-              assert 'normal protected-branch path' in normalized
-              assert 'required checks pass' in normalized
-
-          for text in (agents, policy):
-              normalized = ' '.join(text.lower().split())
-              assert 'bypassing branch protection' in normalized
-              assert 'force-push' in normalized
-              assert 'public/provider writes' in normalized
-              assert 'destructive production/canonical-store' in normalized
-              assert 'capital chronicle proprietary/numeric-authority' in normalized
-              assert 'v2 public-write authority' in normalized
-
-          assert 'no merge without explicit owner authorization' not in policy
-          assert 'merge/push master without explicit owner authorization' not in agents
-
-          for text in (agents, north_star, master_plan):
-              upper = text.upper()
-              assert '4 QUALIFIED ZERO-PUBLIC-WRITE ARTICLES' in upper
-              assert '5–8 PUBLISHED ARTICLES' in upper
-              assert 'DEGRADED_DAILY_OUTPUT_DEFICIT' in upper
-
-          for text in (authority_map, v1_pointer):
-              assert 'PRODUCTION_QUOTA_ECONOMICS_NOT_ACCEPTED' in text
-              assert 'SOURCE_DISCOVERY_REQUIRED' in text
-              assert '5–8/day' in text
-
-          reset = Path('docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md').read_text(encoding='utf-8')
-          desktop_doc = Path('docs/automation/CODEX_DESKTOP_V1_NEWSROOM_OPERATOR.md').read_text(encoding='utf-8')
-          desktop_code = Path('live_contentops/codex_desktop_newsroom_operator_v1.py').read_text(encoding='utf-8')
-          simple = Path('live_contentops/v1_simple_gemini_newsroom_v1.py').read_text(encoding='utf-8').lower()
-          from live_contentops.production_orchestrator_v1 import CANONICAL_OPERATIONS
-          from live_contentops.nine_router_llm_seam_v2 import integration_manifest
-          from live_contentops.nine_router_ordered_model_router_v2 import authority_packet
-          assert 'Status: `CURRENT_V1_EXECUTION_AUTHORITY`' in reset
-          assert 'run_v1_simple_gemini_newsroom' in CANONICAL_OPERATIONS
-          assert 'maximum 6 requests' in reset
-          assert 'Codex runtime model calls required: `0`' in reset
-          assert 'SUPERSEDED_DO_NOT_REUSE' in reset and 'PR #30' in reset and 'PR #31' in reset
-          assert 'SIMPLE_GEMINI_RUNTIME' in agents
-          assert 'simple Gemini' in v1_pointer
-          assert 'CURRENT_HOST_RUNTIME_PROOF_REQUIRED' in v1_pointer
-          assert 'SUPERSEDED_FOR_ROUTINE_V1_PRODUCTION' in desktop_doc
-          assert 'SUPERSEDED_CODEX_NEWSROOM_AUTOMATION_NOOP' in desktop_code
-          assert 'official_codex' not in simple and 'codex_desktop' not in simple
-          manifest = integration_manifest()
-          packet = authority_packet()
-          assert manifest['v1_simple_gemini_runtime_primary'] is True
-          assert manifest['codex_runtime_model_calls_required'] is False
-          assert packet['publication_qualified_article_uses_9router_gemini'] is True
-          assert packet['publication_qualified_article_uses_native_codex_desktop_xhigh'] is False
-          assert packet['codex_runtime_model_calls_required'] is False
-          assert 'no fifth' in authority_map.lower()
-          assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_api
-          assert 'autonomous_source_discovery_enabled: bool = False' in pipeline_impl
-          assert 'UNKNOWN_WRITE' in agents
-
-          active_routing_docs = (
-              agents,
-              Path('docs/CURRENT_CONTEXT.md').read_text(encoding='utf-8'),
-              browser_recovery_doc,
-              authority_map,
-              Path('docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md').read_text(encoding='utf-8'),
-              north_star,
-              master_plan,
-              Path('docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md').read_text(encoding='utf-8'),
-              reset,
-              Path('docs/codegraph/V1_CONTEXT.md').read_text(encoding='utf-8'),
-              v1_pointer,
-          )
-          for active_doc in active_routing_docs:
-              assert 'PRODUCT_FIRST_AUTONOMOUS_V1_RESUME' in active_doc
-              normalized = ' '.join(active_doc.lower().split())
-              assert 'current-host read-only activation preflight -> one fresh live' not in normalized
-          assert 'any BrowserOS tool-reported truncation' in browser_recovery_doc
-          assert 'content_truncated' in browser_recovery_doc
-
-          assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`.' in v2_pointer
-          assert 'Engineering/repository execution follows root `CAPABILITY_ROUTED_HYBRID`' in video_agents
-          assert 'Engineering/repository execution follows the root `CAPABILITY_ROUTED_HYBRID` policy.' in v2_creative
-          assert 'Canonical execution framework is `MAIN_CODEX` only.' not in north_star
-          assert '`MAIN_CODEX` owns repo/task/orchestration.' not in v2_pointer
-          assert '`MAIN_CODEX` owns repo/task orchestration' not in video_agents
-          assert '`MAIN_CODEX` owns repo coordination' not in v2_creative
-          PY
+      - name: Validate native Desktop owner, paused rollout and safety contracts
+        run: python -m pytest -q tests/test_native_desktop_editorial_v1.py tests/test_native_newsroom_owner_operation_v1.py tests/test_native_headline_filter_v1.py tests/test_native_neo_executor_v1.py tests/test_native_desktop_publication_v1.py tests/test_native_newsroom_learning_v1.py tests/test_daily_app_performance_learning_v1.py tests/test_daily_app_ui_read_model_v1.py tests/test_daily_app_operator_trigger_v1.py tests/test_contentops_profile_continuity_lock_v1.py
 
       - name: Check CodeGraph freshness and prepare repair artifact
         id: codegraph

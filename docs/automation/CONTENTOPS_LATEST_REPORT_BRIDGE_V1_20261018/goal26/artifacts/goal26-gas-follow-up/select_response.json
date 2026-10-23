@@ -1,0 +1,31 @@
+{
+  "output": {
+    "selection_summary": "Select the October gas-storage candidate as FOLLOW_UP_UPDATE to retained unpublished gas-vintage research. Bind both January and October source records, make their seasonal comparison limits explicit, preserve the prior package identity, and avoid same-week revision, current-market or published-correction claims.",
+    "public_write_attempted": false,
+    "ordered_candidate_plan": [
+      {
+        "selection_rationale": "This fulfills the explicit owner request with a real, dated change in source vintage and a useful reader distinction between seasonal norm and year-on-year comparison. The prior gas-vintage package is retained unpublished research, so the follow-up develops that analysis without inventing a public correction. One October-led candidate with both source vintages is more coherent than admitting the January fragment as a separate fallback.",
+        "research_queries": [
+          "EIA Natural Gas Weekly Update January 22 2026 working gas 3065 Bcf 177",
+          "EIA Weekly Natural Gas Storage Report October 15 2026 October 9 3567 Bcf 45 143"
+        ],
+        "angle": "The retained gas story changes when its observation vintage changes: the January surplus cannot establish the October balance, and October stocks above a seasonal five-year norm can still sit below the prior year.",
+        "article_mode": "FOLLOW_UP_UPDATE",
+        "primary_reader_question": "What changes when we replace the January gas-storage snapshot with the October 9 observation, and why does that change still fall short of a current price or shortage signal?",
+        "candidate_id": "simple-story-8380cdb9d4dbf363c652f48a",
+        "evidence_plan": "Use the existing adapter and governed gas-vintage evolving_story_context source_item_ids to recover both original admitted source records, not just the selected October headline. Join goal22-gas-storage to the January 22 Natural Gas Weekly Update retained archive and exact storage span; goal21-gas-series-migration may locate that archive but its migration notice alone does not establish the January storage numbers. Verify the original goal21-gas-storage record as needed through existing source handling. Preserve hashes, source identity, capture time, January release date and its actual observation date as stated in the source; do not invent a January observation date. Bind January 3065 Bcf and surplus 177 Bcf to its own five-year seasonal comparison, then bind the October 15 release to the October 9 observation of 3567 Bcf, surplus 45 Bcf, deficit 143 Bcf year on year and weekly injection 67 Bcf. Preserve the exact previous unpublished gas-vintage package identity 549502a5c683c82410aadf24c331be5c284dbd80c3771fdf4994a88d6295d1b8, title and review/history. The related published EIA outlook is not proof this gas package was published. No correction_of, published correction or same-week revision is warranted. Lead with the real source-vintage delta rather than claim a new release or new Main confirmation. Explain seasonality: absolute January and October inventories have different seasonal contexts and the five-year benchmarks refer to different weeks; do not infer continuous tightening, scarcity or a market surprise by subtracting the two levels or surpluses. Code owns extraction, comparisons and arithmetic. The countercase is October storage still above its five-year average and within the historical range, despite being below last year. Missing contemporaneous weather, production, LNG/pipeline flows, pre-release expectations, prices/curve and subsequent revisions limit attribution and any price conclusion. Any exact admitted Main XNGUSD interpretation remains separately attributed and conditional, not independent confirmation or a proprietary forecast. Original records suffice for this bounded historical follow-up; no private Main access or fresh-data pretense."
+      }
+    ],
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "request_sha256": "73850bf6053d0c7e5c0b6635251be3cf70105cf5a5cf503b80337aa7d7d6482f",
+  "invocation_observation": {
+    "model": "gpt-6.1-sol",
+    "observation_source": "supported collaboration.spawn_agent configuration and canonical task identity",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "invocation_id": "/root/goal26_sol_light",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  }
+}

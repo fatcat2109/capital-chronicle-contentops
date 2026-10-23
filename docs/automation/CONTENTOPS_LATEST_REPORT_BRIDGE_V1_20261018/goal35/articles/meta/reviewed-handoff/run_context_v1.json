@@ -1,0 +1,86 @@
+{
+  "accepted_evidence_ids": [
+    "goal35-meta"
+  ],
+  "accepted_evidence_sha256": "7e4e71dc9a53fdb2b4955591ae4908d21a93505e04047401dd787076eadd3c3c",
+  "article": {
+    "editorial_scope_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+    "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "native_brief_layout": true,
+    "social_cross_asset_summary": "What would change that assessment? If the report is confirmed, the most useful follow-up would be the share terms and actual use, a cash-flow bridge explaining the quarter, and evidence on investment returns. Those would test whether financing flexibility is buying productive capacity or postponing the cash-generation question.",
+    "social_hook": "Reuters reports Meta's planned non-voting shares. If accurate, financing flexibility and control would still leave the cash-generation question open.",
+    "social_mechanism_summary": "If Reuters' report is accurate, non-voting shares could give Meta an acquisition and talent instrument while limiting the voting power attached to that instrument. That would address how expansion is paid for and how control is preserved; the planned split alone establishes no cash proceeds.",
+    "social_policy_summary": "If the report is accurate, the strongest countercase is timing: one quarter of negative free cash flow need not mean that Meta cannot fund its investment program. The retained figures do not show whether the deficit reflects durable cash pressure or a temporary spending and working-capital pattern.",
+    "substack_body_markdown": "What would Meta's reported new shares solve when spending guidance rises and quarterly free cash flow turns negative? SINGLE-SOURCE REPORT - REUTERS: Its October 21 report on Muse AI and new shares describes a future non-voting share class and a higher capital-spending floor. If accurate, the plan could support expansion while preserving control; whether that expansion generates cash remains unanswered. One cash-deficit quarter, however, cannot by itself establish a lasting funding problem. \n\nReuters reports a plan to issue non-voting Class C common shares in January 2027, describing the result as effectively a two-for-one split. The stated purposes are acquisitions, retaining talent and maintaining Mark Zuckerberg's control. These are reported future intentions; the retained account supplies neither completed issuance nor cash proceeds, and it does not establish the precise terms or eventual use. \n\nReuters reports annual capital-expenditure guidance of $135 billion to $145 billion, replacing $130 billion to $145 billion. The lower bound rose while the upper bound was unchanged. If accurate, the revision leaves less room for a lower-spending outcome within guidance; it does not establish actual expenditure or the portion attributable to AI. \n\nFor the quarter ended September 30, Reuters reports revenue of $64.60 billion against the $63.37 billion estimate compiled by LSEG. It also reports a third-quarter free-cash-flow deficit of $2.12 billion, versus a $10.63 billion surplus a year earlier. Revenue, quarterly free cash flow and annual capital expenditure answer different questions; these figures alone do not provide a cash-flow bridge or isolate the cause of the deficit. \n\nIf Reuters' report is accurate, non-voting shares could give Meta an acquisition and talent instrument while limiting the voting power attached to that instrument. That would address how expansion is paid for and how control is preserved; the planned split alone establishes no cash proceeds. \n\nReuters' headline describes strong growth in Muse AI, but the retained report gives no adoption count, measurement basis, monetization evidence or investment-return measure. The headline therefore cannot establish that Muse is paying for the reported spending program. \n\nIf the report is accurate, the strongest countercase is timing: one quarter of negative free cash flow need not mean that Meta cannot fund its investment program. The retained figures do not show whether the deficit reflects durable cash pressure or a temporary spending and working-capital pattern. \n\nWhat would change that assessment? If the report is confirmed, the most useful follow-up would be the share terms and actual use, a cash-flow bridge explaining the quarter, and evidence on investment returns. Those would test whether financing flexibility is buying productive capacity or postponing the cash-generation question. \n\nSource note\n\nSource note: The retained Reuters report was published October 21, 2026, at 20:05 UTC. Its newsroom known-at time is October 21, 2026, at 22:27:23.026 UTC. [Read the Reuters report](https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/). ",
+    "subtitle": "SINGLE-SOURCE REPORT - REUTERS: The Muse AI report describes a January 2027 share plan and a higher capex floor. If accurate, financing flexibility would still leave cash generation to prove.",
+    "title": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Meta's non-voting share plan targets expansion without ceding control [Source 2026-10-21]"
+  },
+  "article_content_sha256": "f2f7f568a59f3bba10a9cbc9049c6f896a2b45d21b70f9d29d5c3acd663c9dfc",
+  "article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+  "audience_learning_binding": {
+    "policy_version": "policy_1fa4c4d0f5d3a0b74cee197e",
+    "preference_only": true,
+    "snapshot_sha256": "2f02587716a207d8bac7f0e82549e30cee3b274061ce601132cf9d1332eecfa0"
+  },
+  "compiler_input_sha256": "b31e2751fec3008b37629b58c836dae86242105e74ed3dbba743dc23223f80c4",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-meta"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "media": {
+    "assets": [],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "goal35-meta",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal35-meta",
+    "headline_text": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "official_source_urls": [],
+    "public_source_urls": [
+      "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+    "source_account": "Reuters",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-21T20:05:00Z",
+    "source_url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": true,
+      "known_official_path": false,
+      "reputable_public_secondary_path": true,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-fac27d440fa75893480ecc46",
+    "update_chain_identity": "simple-story-fac27d440fa75893480ecc46"
+  }
+}

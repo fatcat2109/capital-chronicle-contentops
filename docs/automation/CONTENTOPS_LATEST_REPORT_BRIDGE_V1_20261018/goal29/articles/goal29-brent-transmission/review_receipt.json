@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-a762531f59f64abb80efa2712073b3b1",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal29-brent-transmission",
+  "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+  "package_revision": "a8ea3c325ff98d5c29f3ba00c8c4598533a379e71c70da734dc486a0890f72a2",
+  "article_metadata_sha256": "e5a32f601f596b99d74d67b58a0f7cc08f0be0896efc23e27257eb24939a0215",
+  "rationale": "KEEP: substantial additional geography/trade question beyond the retained oil scope correction. Read all prose, exact Main claim bindings, SEO and eight recompiled previews. US week9Oct data attributed to CC; physical-trade mechanism, import/refining countercase and falsifier remain conditional. Observation/analysis clocks and CFD costs remain explicit; no fresh prices or invented confirmation. Exact previously inspected EIA card is dated context, not proof of Brent transmission. Unicode-aware sentence dedupe retains distinct original mechanism/countercase/invalidation.",
+  "publication_authority": false
+}

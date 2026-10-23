@@ -24,6 +24,22 @@ NOW = "2026-10-18T17:00:00Z"
 ROOT = Path(__file__).parent / "fixtures"
 
 
+def test_pending_native_opportunity_restores_frozen_interval_without_feed_or_loader(tmp_path, monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import NativeDesktopTurn, DesktopInputRequired
+    f = feed(tmp_path)
+    turn = NativeDesktopTurn(f.tracker.store, run_id="freeze-current", output_dir=tmp_path / "out", owner_manual_validation=True)
+    intake = {"headlines": [], "complete_input_coverage": True, "canonical_input_hash": "a" * 64}
+    with pytest.raises(DesktopInputRequired) as first:
+        f.opportunity(output_dir=tmp_path / "out", cutoff_utc=NOW, run_id="freeze-current", rolling_input=intake, llm_invoke=turn)
+    def forbidden(*a, **kw):
+        raise AssertionError("Frozen input must not poll or reload current interval")
+    monkeypatch.setattr(f, "poll", forbidden)
+    monkeypatch.setattr("live_contentops.newsroom_assignment_scheduler_v1.load_rolling_x_headline_sidecars", forbidden)
+    with pytest.raises(DesktopInputRequired) as again:
+        f.opportunity(output_dir=tmp_path / "out", cutoff_utc=NOW, run_id="freeze-current", llm_invoke=turn)
+    assert first.value.request["request_sha256"] == again.value.request["request_sha256"]
+
+
 class FixtureSource:
     def bundle(self, spec):
         if spec["name"].startswith("gas"):

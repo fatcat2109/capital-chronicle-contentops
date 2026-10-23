@@ -1,0 +1,90 @@
+{
+  "affected_symbols": [
+    "UKOIL"
+  ],
+  "as_of_utc": "2026-10-18T17:05:18.499399Z",
+  "asset_ids": [
+    "UKOIL"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "change_kind": "NEW_REPORT",
+  "changed_claim_ids": [],
+  "content_eligibility": "BLOCKED_NO_PUBLIC_SAFE_CLAIM",
+  "contract_revision": "asset-analysis-report-v1.0.0",
+  "envelope_sha256": "fb20b3ef61a97aed1af9d9f9506cd622c462b3379ee0bb9234a406b88c0538b3",
+  "event_id": "report-event:7a529433c596c51d14aff27bbdc6f1aedda9e79a4b30b3c95a5138c161ca2164",
+  "generated_at_utc": "2026-10-18T17:53:58.188301Z",
+  "hold_conditions": [],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-23T17:05:18.499399Z",
+      "horizon": "short",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "BLOCKED",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T17:05:18.499399Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-16T17:05:18.499399Z",
+      "horizon": "swing",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "BLOCKED",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T17:05:18.499399Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-01-13T17:05:18.499399Z",
+      "horizon": "long",
+      "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+      "report_state": "BLOCKED",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-18T17:05:18.499399Z",
+      "trading_sessions": 63
+    }
+  ],
+  "invalidation_conditions": [],
+  "known_at_cutoff_utc": "2026-10-18T17:05:18.499399Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "New retained-evidence report.",
+  "parent_report_sha256": null,
+  "public_safe_claims": [],
+  "report_id": "asset-report:UKOIL",
+  "report_sha256": "8f6f738f20e23fa4c4b0b4ccae565e66d476ad4c63c3d9ac7a4985f5e45922dd",
+  "report_version": 1,
+  "run_id": "run-asset-report:65cb2db244df313d02c55cec",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "6ea52055c80942dded45c885d82b6ce3aa8c1d0861b39a91618faafd303f2014",
+    "evidence_snapshot_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "supersedes_report_id": null,
+  "version": "1.0.0"
+}

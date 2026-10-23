@@ -1,0 +1,73 @@
+{
+  "candidate_count": 18,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "86184e079fc45aff938850cc95590ea12ba45ded06ac1867ca4a3745f1cfea8c",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal28_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "collaboration.spawn_agent returned canonical task name with explicitly requested gpt-6.1-sol low; UUID not exposed",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "9c9c3776e8604dc1268f62a434add753abb29af4864e9cd13c589775173bf791",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "51857ba5be06119f95d4b8372d2a0532bd349a0471ba4fc1482cb8263c51597a",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Hai quỹ cùng nhóm giao dịch với nhau có thể tránh một phần chi phí ra thị trường, nhưng tiết kiệm không tự chứng minh giá công bằng cho cả bên mua lẫn bên bán. Đọc đề xuất SEC ngày 9/10/2026 qua phép thử quyền lợi hai quỹ: cách định giá, xung đột lợi ích, giám sát và báo cáo tổng hợp. Phản đề: biện pháp bảo vệ có thể giúp thực hiện lợi ích chi phí thật; không mặc định giao dịch nội bộ luôn gây hại.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-cb7d7f1d0f2d375e4e1d5cd6",
+        "evidence_plan": "Resolver đối chiếu exact agency source goal28-cross-trade ngày 9/10/2026 đã nạp, giữ lời SEC về lợi ích chi phí là lợi ích có điều kiện. Headline excerpt mới nêu mục đích, lịch sử và investor protection chung; mọi mô tả cụ thể về pricing/oversight/aggregate reporting phải gắn đúng đoạn agency prose chi tiết trước khi viết, thiếu thì nói thiếu chứ không sáng tác nghĩa vụ. Giữ đây là proposed amendments Rule 17a-7 tại ngày nguồn, không gọi quy tắc có hiệu lực hay xác nhận tình trạng luật hiện hành. Phân biệt chi phí giao dịch với chuyển lợi ích qua giá; phép thử là dữ liệu giá/chất lượng thực hiện và chi phí cho từng quỹ, phương pháp định giá đúng thời điểm, quản trị xung đột và khả năng giám sát. Chưa có trade records, giá trái phiếu, savings hay outcomes: không định lượng, không kết luận quỹ thực đã được lợi hoặc dự báo thị trường. Code sở hữu tính toán nếu có dữ liệu hợp lệ. Dedupe theo workflow hiện hữu: đề tài này độc lập với company reading và crypto custody; corpus 7 bài chỉ có summary lọc, chưa có toàn văn nên không tuyên bố full-corpus review. Không suy quyền xuất bản/rights từ nguồn công khai.",
+        "primary_reader_question": "Nếu hai quỹ cùng một nhóm mua bán chứng khoán với nhau, bằng chứng nào cho thấy tiết kiệm chi phí thực sự có lợi cho người góp vốn ở cả hai phía?",
+        "research_queries": [
+          "SEC October 9 2026 Rule 17a-7 cross trading pricing oversight aggregate reporting proposal",
+          "SEC affiliated funds cross trades fair price transaction costs safeguards both funds"
+        ],
+        "selection_rationale": "Một câu hỏi riêng về công bằng giá và quản trị quỹ, có căng thẳng thực giữa lợi ích chi phí dự kiến và xung đột của bên quản lý chung. Nguồn agency có ngày giúp phân tích thiết kế đề xuất mà không giả định đã áp dụng hay có kết quả thực tế."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một chủ đề agency theo yêu cầu owner với câu hỏi độc lập; không có bài dự phòng không liên quan. Giữ ngày/phạm vi nguồn, chống trùng brief cũ và xác minh từng chi tiết trước khi viết.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-cross-trade\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 18,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

@@ -12,11 +12,10 @@ boundary. It is not a second newsroom, not a second scheduler, and not a second 
 """
 from __future__ import annotations
 
-import json
 import re
 from dataclasses import dataclass
-from datetime import datetime, timedelta, timezone
-from typing import Any, Iterable, Mapping, Optional, Sequence
+from datetime import datetime, timezone
+from typing import Any, Mapping, Optional, Sequence
 
 DECISION_BREAKING_NEW_STORY = "BREAKING_NEW_STORY"
 DECISION_MATERIAL_FOLLOW_UP = "MATERIAL_FOLLOW_UP"
@@ -307,6 +306,9 @@ def classify_story_novelty(
     best_overlap = 0.0
     for article in published_corpus:
         overlap = entity_overlap_score(entities, article.entities)
+        if str(cluster.get("update_chain_identity") or cluster.get("cluster_id") or "") == article.update_chain_identity:
+            best_match, best_overlap = article, overlap
+            break
         if overlap > best_overlap:
             best_overlap = overlap
             best_match = article

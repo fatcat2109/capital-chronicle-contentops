@@ -1,0 +1,227 @@
+{
+  "scope": "ACTUAL_SEVEN_PACKAGE_EDITORIAL_REVIEW",
+  "reviewer": "CODEX_EDITORIAL_OPERATOR_NOT_JIM_APPROVAL",
+  "original_packages_reviewed": 7,
+  "revised_packages": 7,
+  "reviews": [
+    {
+      "brief_id": "rates-fx-transmission",
+      "prior_article_identity": "dbdca86b37bb106a41643786f1676044900b4876cbe39d05c990637934c82968",
+      "original_decision": "REVISE",
+      "substantive_weakness": "Bản trước lặp nguyên văn nguồn và chỉ nêu cơ chế chung; chưa chỉ cho độc giả cách tránh suy từ một mức lãi suất sang hướng của mọi cặp tỷ giá.",
+      "repair_sections": [
+        "Kết luận có thể dùng",
+        "Ba bước kiểm tra trước khi giải thích giá",
+        "Dữ kiện có thể làm cách đọc đổi hướng"
+      ],
+      "final_decision": "KEEP",
+      "decision_scope": "RESEARCH_EDITORIAL_USE_ONLY_NOT_PUBLICATION",
+      "rationale": "Bản trước lặp nguyên văn nguồn và chỉ nêu cơ chế chung; chưa chỉ cho độc giả cách tránh suy từ một mức lãi suất sang hướng của mọi cặp tỷ giá. Đã sửa bằng phần giải thích riêng, giới hạn đúng loại tài liệu và đầu vào còn thiếu; giữ dùng như nghiên cứu có ngày/phạm vi rõ, không tính bài Simple hay bản tin thị trường hiện tại."
+    },
+    {
+      "brief_id": "metals-exposure",
+      "prior_article_identity": "7b6a78c240b8465c882ff875e1681fc0ce435a3ab8a7345bd5fbdf8e02645899",
+      "original_decision": "REVISE",
+      "substantive_weakness": "Tiêu đề trước gợi một đợt tăng vàng chưa được chứng minh; dùng advisory chống gian lận để nói về mọi sản phẩm kim loại có thể tạo cáo buộc quá rộng.",
+      "repair_sections": [
+        "Phạm vi hẹp của cảnh báo",
+        "Ba câu hỏi trước khi so sánh lợi nhuận",
+        "Bằng chứng giới hạn và phản đề"
+      ],
+      "final_decision": "KEEP",
+      "decision_scope": "RESEARCH_EDITORIAL_USE_ONLY_NOT_PUBLICATION",
+      "rationale": "Tiêu đề trước gợi một đợt tăng vàng chưa được chứng minh; dùng advisory chống gian lận để nói về mọi sản phẩm kim loại có thể tạo cáo buộc quá rộng. Đã sửa bằng phần giải thích riêng, giới hạn đúng loại tài liệu và đầu vào còn thiếu; giữ dùng như nghiên cứu có ngày/phạm vi rõ, không tính bài Simple hay bản tin thị trường hiện tại."
+    },
+    {
+      "brief_id": "gas-vintage",
+      "prior_article_identity": "95bc1ef3fbda4fd3153d3694f516e39634dc859f206ac6b729d772d99509d13e",
+      "original_decision": "REVISE",
+      "substantive_weakness": "Bản trước mới dừng ở cảnh báo trang gas cũ và ghi thiếu nguồn thay thế; chưa có quan sát thay thế để độc giả dùng. Không được lấy chênh lệch với mùa vụ làm bất ngờ so với đồng thuận.",
+      "repair_sections": [
+        "Bản nào và kỳ nào",
+        "Hai đường so sánh trả lời hai câu hỏi",
+        "Nguồn cũ vẫn có giá trị lịch sử",
+        "Phản chứng và lần cập nhật tiếp"
+      ],
+      "final_decision": "KEEP",
+      "decision_scope": "RESEARCH_EDITORIAL_USE_ONLY_NOT_PUBLICATION",
+      "rationale": "Bản trước mới dừng ở cảnh báo trang gas cũ và ghi thiếu nguồn thay thế; chưa có quan sát thay thế để độc giả dùng. Không được lấy chênh lệch với mùa vụ làm bất ngờ so với đồng thuận. Đã sửa bằng phần giải thích riêng, giới hạn đúng loại tài liệu và đầu vào còn thiếu; giữ dùng như nghiên cứu có ngày/phạm vi rõ, không tính bài Simple hay bản tin thị trường hiện tại."
+    },
+    {
+      "brief_id": "options-positioning",
+      "prior_article_identity": "ff83c0d3b5c94fb0a6d47eb23ee556c09e9b673389ec792ef9d74ccd6409b5e4",
+      "original_decision": "REVISE",
+      "substantive_weakness": "Nhãn index/options rộng hơn bằng chứng commodity futures/options; cần thu hẹp thành explainer và giữ yêu cầu index-specific, không giả vờ có dealer gamma hay IV.",
+      "repair_sections": [
+        "Bài này giải thích điều gì",
+        "Cùng vị thế, khác danh mục",
+        "Điều kiện để viết một bài index-options thật"
+      ],
+      "final_decision": "HOLD",
+      "decision_scope": "RESEARCH_EDITORIAL_USE_ONLY_NOT_PUBLICATION",
+      "rationale": "Nhãn index/options rộng hơn bằng chứng commodity futures/options; cần thu hẹp thành explainer và giữ yêu cầu index-specific, không giả vờ có dealer gamma hay IV. Đã sửa bằng phần giải thích riêng, giới hạn đúng loại tài liệu và đầu vào còn thiếu; giữ HOLD cho câu chuyện index/issuer cụ thể vì chưa có bằng chứng đặc thù."
+    },
+    {
+      "brief_id": "company-sec-context",
+      "prior_article_identity": "e1a5b300a0c24c915a2cda076409f39c16f949aa5b8e31f22b5c027624b33589",
+      "original_decision": "REVISE",
+      "substantive_weakness": "Bản trước ghép 10-K how-to với đề xuất cross-trading mà chưa giải thích đủ khác biệt đơn vị phân tích; không có issuer filing để gọi đây là phân tích doanh nghiệp.",
+      "repair_sections": [
+        "Hai tài liệu, hai đối tượng",
+        "Một quy trình đọc có ích",
+        "Phản đề cần giữ"
+      ],
+      "final_decision": "HOLD",
+      "decision_scope": "RESEARCH_EDITORIAL_USE_ONLY_NOT_PUBLICATION",
+      "rationale": "Bản trước ghép 10-K how-to với đề xuất cross-trading mà chưa giải thích đủ khác biệt đơn vị phân tích; không có issuer filing để gọi đây là phân tích doanh nghiệp. Đã sửa bằng phần giải thích riêng, giới hạn đúng loại tài liệu và đầu vào còn thiếu; giữ HOLD cho câu chuyện index/issuer cụ thể vì chưa có bằng chứng đặc thù."
+    },
+    {
+      "brief_id": "crypto-custody",
+      "prior_article_identity": "6b2fbbcfcaa03e2a5d9ce47bbbcc7722afc8521e9a78a29b6147948846519ac9",
+      "original_decision": "REVISE",
+      "substantive_weakness": "Bản trước thiếu phản đề cụ thể về phạm vi/ngoại lệ và dễ để độc giả hiểu trạng thái hiện tại từ một thông cáo cũ; cần tách lời đề xuất khỏi kết quả vận hành.",
+      "repair_sections": [
+        "Điều thông cáo thực sự nói",
+        "Điều kiện làm khác kết luận",
+        "Giá và pháp lý là hai bài kiểm tra"
+      ],
+      "final_decision": "KEEP",
+      "decision_scope": "RESEARCH_EDITORIAL_USE_ONLY_NOT_PUBLICATION",
+      "rationale": "Bản trước thiếu phản đề cụ thể về phạm vi/ngoại lệ và dễ để độc giả hiểu trạng thái hiện tại từ một thông cáo cũ; cần tách lời đề xuất khỏi kết quả vận hành. Đã sửa bằng phần giải thích riêng, giới hạn đúng loại tài liệu và đầu vào còn thiếu; giữ dùng như nghiên cứu có ngày/phạm vi rõ, không tính bài Simple hay bản tin thị trường hiện tại."
+    },
+    {
+      "brief_id": "cross-asset-price-versus-custody",
+      "prior_article_identity": "80e5790e4d5902af04296db244fd2f652d3cab75687b6e79f29b86416dddaac4",
+      "original_decision": "REVISE",
+      "substantive_weakness": "Bản trước đặt bốn trích dẫn cạnh nhau nhưng phép nối còn chung; cần một quy trình đọc xuyên tài sản, làm rõ không có bằng chứng đồng biến/nhân quả.",
+      "repair_sections": [
+        "Phép nối có giới hạn",
+        "Cách dùng khi gặp một tiêu đề mới",
+        "Đối trọng từ chính nguồn",
+        "Điều gì còn chưa biết"
+      ],
+      "final_decision": "KEEP",
+      "decision_scope": "RESEARCH_EDITORIAL_USE_ONLY_NOT_PUBLICATION",
+      "rationale": "Bản trước đặt bốn trích dẫn cạnh nhau nhưng phép nối còn chung; cần một quy trình đọc xuyên tài sản, làm rõ không có bằng chứng đồng biến/nhân quả. Đã sửa bằng phần giải thích riêng, giới hạn đúng loại tài liệu và đầu vào còn thiếu; giữ dùng như nghiên cứu có ngày/phạm vi rõ, không tính bài Simple hay bản tin thị trường hiện tại."
+    }
+  ],
+  "new_independent_source_documents": 1,
+  "reused_sources": [
+    {
+      "path": "crypto-custody-conditions-retained-admission.json",
+      "sha256": "7b7096eca1728dc65120249b37ecdadf9f98908eab66bb1ad3d18bdb47f58742"
+    },
+    {
+      "path": "crypto-custody-proposal-retained-admission.json",
+      "sha256": "e6fb984659a37ce888eb320f68e223557d581be2c6947e883945e6ab2b832d98"
+    },
+    {
+      "path": "editorial_briefs.json",
+      "sha256": "17d1fdd8a121329bbacbd3076baf162faae94f190db7b9513de2b10136157523"
+    },
+    {
+      "path": "eia-policy-retained.html",
+      "sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3"
+    },
+    {
+      "path": "fed-inflation-retained-admission.json",
+      "sha256": "0070837eee9b01032cd9114d8613a88c0a2a01269b53c0824c2e377b5ec1b5fa"
+    },
+    {
+      "path": "fed-policy-retained-admission.json",
+      "sha256": "53f4691339b973a81a1f60bfc630903d255cf98dd89c743fbfb94c3a8e3a80fd"
+    },
+    {
+      "path": "futures-hedgers-retained-admission.json",
+      "sha256": "a142b2f26a8fb59e898d4d15d839794150639ca6461b882e747761846fd725b5"
+    },
+    {
+      "path": "futures-option-retained-admission.json",
+      "sha256": "1d263a765de95c1faf446919759fbbc3aaf1758e6fe5f342a6f32a434927088e"
+    },
+    {
+      "path": "fx-broad-index-retained-admission.json",
+      "sha256": "ea8799233713503338fefa90e2fbcccb7fecd434d14cd05447fdffb58685ce1d"
+    },
+    {
+      "path": "fx-convention-retained-admission.json",
+      "sha256": "a442ace901ae63e4f8a774a76168a424fbe2366b5304a0944915a1cc96501f0b"
+    },
+    {
+      "path": "gas-series-migration-retained-admission.json",
+      "sha256": "f8ebbd433666497ba0635a9b2864d31536a5ae51bcf3b17147f249f074d01ea5"
+    },
+    {
+      "path": "gas-storage-retained-admission.json",
+      "sha256": "1e1c1e4901fd8886ce1a4c319727442e454cee5413d3afce2c738a3a05adbf4f"
+    },
+    {
+      "path": "index.json",
+      "sha256": "3bfc2e0c77feae1002cac4601b8746f05277baebdcef0a6f180634349de2ec69"
+    },
+    {
+      "path": "metals-custody-retained-admission.json",
+      "sha256": "135bc90e318a1664c8b58eb4d40d1fbd0a7a8177b718e10c6620ffe97bbc0836"
+    },
+    {
+      "path": "metals-leverage-retained-admission.json",
+      "sha256": "74f1ea849953073ab791234a35c01db36bf3043baef8af4218ba4f82c3daba7e"
+    },
+    {
+      "path": "neo-page-64-rendered.json",
+      "sha256": "3a540189fec14b3a60130deb11875a9bb4132545dce27bc4a7c15e778a209a60"
+    },
+    {
+      "path": "neo-page-64-revision3-rendered.json",
+      "sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35"
+    },
+    {
+      "path": "neo-page-64-revision4-rendered.json",
+      "sha256": "05346597c031cc84d60e20602ff0d7bf6f022f6a76fe93963ae68ebaa9fa04cc"
+    },
+    {
+      "path": "neo-page-65-rendered.json",
+      "sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8"
+    },
+    {
+      "path": "neo-page-65-revision4-rendered.json",
+      "sha256": "4032c4c1bcfab417fe5505ec74d8211085b7da14741e7d59534486bf07e43941"
+    },
+    {
+      "path": "neo-page-66-rendered.json",
+      "sha256": "655a53a6a8624951f6dd0b5997d9250a1b5e1bcabd6be4efe615e95eb992f768"
+    },
+    {
+      "path": "neo-page-66-revision4-rendered.json",
+      "sha256": "78c2edaa6744e4be2f620b4482158b9f00817d96086b29c7e97c4e73f0adc88f"
+    },
+    {
+      "path": "neo-page-67-revision2-rendered.json",
+      "sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280"
+    },
+    {
+      "path": "neo-page-67-revision3-rendered.json",
+      "sha256": "0e1d1aad3cdfacd53950fa4c1a1287e3a2799029056683dc4a8b9f0a294b4743"
+    },
+    {
+      "path": "neo-page-67-revision4-rendered.json",
+      "sha256": "47bc3892b1cb39a98691419fbd3c3a940aef937d73668a60dca62f989c68213d"
+    },
+    {
+      "path": "neo-page-68-revision4-rendered.json",
+      "sha256": "d9e3fc9a7d1f690229ac4e78e91d3fe3b0a81a166c7e16bb8e0fe31dbcb0de8a"
+    },
+    {
+      "path": "sec-cross-trading-retained-admission.json",
+      "sha256": "d2dbcac8818a4c4a0364876d9fb3d91e3d2a44f5a51e2f5404b1277de8ed68e1"
+    },
+    {
+      "path": "sec-tenk-scope-retained-admission.json",
+      "sha256": "7945b1ca58a28feecd01f4b1c558d23e0d065c7b04a797d14cf4e312918cfabb"
+    }
+  ],
+  "fresh_provider_calls": 0,
+  "publications": 0,
+  "counterevidence_basis": "Exact supporting source spans that limit or contradict overbroad interpretation; no invented external denial or observed correlation.",
+  "media_reuse": "Six unchanged Goal21 media hashes reused; one changed gas source card rendered and directly inspected."
+}

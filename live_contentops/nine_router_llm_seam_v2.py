@@ -274,8 +274,10 @@ def integration_manifest() -> dict[str, Any]:
             role: list(model_pool_for_role(role)) for role in CURRENT_V1_ROUTED_ROLE_IDS
         },
         "v1_gemini_only_model_authority": True,
-        "v1_simple_gemini_runtime_primary": True,
-        "codex_runtime_model_calls_required": False,
+        "v1_simple_gemini_runtime_primary": False,
+        "codex_runtime_model_calls_required": True,
+        "routine_editorial_owner": "NATIVE_CODEX_DESKTOP",
+        "native_desktop_model": "gpt-6.1-sol", "native_desktop_reasoning_effort": "low",
         "forbidden_non_gemini_v1_models_reachable": False,
         "integrated_roles": list(INTEGRATED_ROLES),
         "current_v1_routed_role_ids": list(CURRENT_V1_ROUTED_ROLE_IDS),

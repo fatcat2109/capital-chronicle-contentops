@@ -54,6 +54,32 @@ SOURCE_TEXT = (
 )
 
 
+def test_cited_subset_keeps_frozen_source_ids():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _validate_worker_text
+    output = json.loads(json.dumps(_article_output()).replace("SOURCE_1", "SOURCE_4"))
+    assert _validate_worker_text(json.dumps(output))[0]
+    source = output["cited_sources"][0]
+    output["cited_sources"].append(dict(source))
+    assert _validate_worker_text(json.dumps(output))[3] == "cited_source_order_invalid"
+
+
+def test_vietnamese_lead_matches_selected_inflation_topic_without_english_padding():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
+    candidate = {"headline_text": "Inflation remains elevated while domestic spending is resilient."}
+    assert not _selected_news_peg_blockers({"title": "Lạm phát và chi tiêu nói gì về quyết định Fed?"}, candidate)
+    assert _selected_news_peg_blockers({"title": "Một giao dịch giữa các quỹ"}, candidate)
+
+
+def test_vietnamese_data_and_hedging_leads_keep_topic_alignment():
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
+    data = {"headline_text": "SEC announces a roundtable about machine-understandable data."}
+    hedge = {"headline_text": "Futures markets allow hedging to limit commodity price risk."}
+    assert not _selected_news_peg_blockers({"title": "SEC lên lịch tọa đàm dữ liệu máy hiểu"}, data)
+    assert not _selected_news_peg_blockers({"title": "Phòng hộ bằng hợp đồng tương lai vẫn cần tiền mặt"}, hedge)
+    assert _selected_news_peg_blockers({"title": "Giá vàng và kỳ vọng lãi suất"}, data)
+    assert _selected_news_peg_blockers({"title": "SEC lên lịch tọa đàm dữ liệu máy hiểu"}, hedge)
+
+
 def _headlines(count: int = 3) -> dict[str, object]:
     return {
         "schema_version": "test.rolling_input.v1",
@@ -820,6 +846,31 @@ def test_primary_source_blocked_second_candidate_succeeds_without_second_selecti
     assert [row["status"] for row in result["candidate_attempt_history"]] == ["SOURCE_BLOCKED", "SOURCE_QUALIFIED"]
     assert roles == [ROLE_V1_SIMPLE_SELECTION, ROLE_V1_SIMPLE_ARTICLE_WRITING]
     assert result["logical_model_invocation_count"] == 2
+
+
+def test_existing_story_context_reaches_one_selector_and_one_writer_with_chain_identity(tmp_path):
+    rolling = _headlines(1)
+    story = {"brief_id": "existing-brief", "update_chain_identity": "existing-chain", "disposition": "FOLLOW_UP",
+             "reason": "New attributable source revises the previous statement", "publication_state": "UNPUBLISHED_RESEARCH"}
+    rolling["headlines"][0]["external_content"] = {"evolving_story_context": [story]}
+    ids = _candidate_ids(rolling)
+    roles = []
+    def invoke(**kwargs):
+        role, packet = kwargs["role_task_id"], kwargs["governed_input"]
+        roles.append(role)
+        if role == ROLE_V1_SIMPLE_SELECTION:
+            assert packet["candidates"][0]["evolving_story_context"] == [story]
+            assert packet["candidates"][0]["update_chain_identity"] == "existing-chain"
+            return _selection(ids[0]), _receipt(role)
+        assert packet["evolving_story_context"] == [story]
+        return _article_output(), _receipt(role)
+    result = run_v1_simple_gemini_newsroom(output_dir=tmp_path, cutoff_utc=CUTOFF,
+        rolling_input=rolling, llm_invoke=invoke, evidence_loader=lambda r: _evidence_result(request_count=1),
+        capital_chronicle_context={"foundation_library": {"stories": [story]}}, run_id="story-context-unit-control")
+    assert roles == [ROLE_V1_SIMPLE_SELECTION, ROLE_V1_SIMPLE_ARTICLE_WRITING]
+    assert result["qualified_article_count"] == 1
+    record = json.loads(Path(result["qualified_record_path"]).read_bytes())
+    assert record["update_chain_identity"] == "existing-chain"
     assert result["codex_runtime_model_call_count"] == 0
     assert result["qualified_article_count"] == 1
     assert result["derivative_intent_count"] == 8
@@ -1083,9 +1134,9 @@ def test_blocked_selection_persists_safe_per_attempt_diagnostics(tmp_path: Path)
     assert "raw_output" not in text
 
 
-def test_module_has_no_codex_runtime_dependency():
+def test_reused_deterministic_module_has_no_sdk_or_app_server_dependency():
     path = Path(__file__).parents[1] / "live_contentops" / "v1_simple_gemini_newsroom_v1.py"
     text = path.read_text(encoding="utf-8").casefold()
     assert "official_codex" not in text
-    assert "codex_desktop" not in text
+    assert "native_desktop_editorial_v1" in text
     assert "officialcodexeditorialsession" not in text

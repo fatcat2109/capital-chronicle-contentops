@@ -1,0 +1,45 @@
+{
+  "article_identity": "bb7d0abd53c87074f73dc9abbfce9b444ea9483175ffe2aa41f0bcc44d5d2aac",
+  "assets": [
+    {
+      "asset_id": "official_source_document_card",
+      "role": "lead_contextual",
+      "media_role": "lead_source_document_card",
+      "modality": "source_document_card",
+      "media_class": "source_backed_render",
+      "evidence_dimension": "official_document_identity",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-fed-policy-lens\\media_assets\\source_document_card.png",
+      "source_page_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "source_label": "www.federalreserve.gov",
+      "publisher": "www.federalreserve.gov",
+      "source": "www.federalreserve.gov",
+      "publication_date": "Retained statement Sept 16, 2026; not a current forecast",
+      "rights_status": "capital_chronicle_owned",
+      "render_rights_status": "capital_chronicle_owned",
+      "underlying_source_rights_status": "public_domain",
+      "source_reuse_basis": "explicit_governed_government_public_domain",
+      "provenance_status": "SOURCE_BACKED",
+      "chart_title": "FOMC statement: September 16, 2026, www.federalreserve.gov. Source date: Retained statement Sept 16, 2026; no…",
+      "caption": "Bản trích tuyên bố FOMC ngày 16/9/2026; quyết định có ngày, không phải dự báo lãi suất hiện tại.",
+      "alt_text": "Bản trích tuyên bố FOMC ngày 16/9/2026; quyết định có ngày, không phải dự báo lãi suất hiện tại.",
+      "width": 1600,
+      "height": 900,
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "sha256": "9a216b24fff2e887f402f58775ce26bf48b79077c3987019a8629ac6cd85a627",
+      "article_section": "source_record",
+      "canonical_article_section_association": "source_record",
+      "relevance_rationale": "Establishes the exact official record the grounded article reports.",
+      "supports_headline": true,
+      "is_logo": false,
+      "is_avatar": false,
+      "is_thumbnail": false,
+      "is_synthetic": false,
+      "is_manipulated": false,
+      "ai_generated_image": false,
+      "underlying_series_ids": []
+    }
+  ]
+}

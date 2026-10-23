@@ -903,6 +903,59 @@ def test_social_summary_compiler_fails_closed_instead_of_word_slicing():
         raise AssertionError("oversized sentence must not be converted into a fake complete sentence")
 
 
+def test_brief_context_retains_a_subject_after_duplicate_sentence_is_removed():
+    mechanism = "Khuôn khổ lưu ký rõ hơn có thể mở rộng lựa chọn cho khách hàng."
+    standalone = "SEC đề xuất điều kiện lưu ký riêng cho bên tư vấn và quỹ thuộc phạm vi."
+    article = {"title": "Đọc đề xuất lưu ký crypto", "native_brief_layout": True,
+        "social_hook": "Ai giữ tài sản của khách hàng?", "social_mechanism_summary": mechanism,
+        "social_policy_summary": mechanism + " Phân tích không bỏ qua khả năng ấy.",
+        "social_cross_asset_summary": "Điều kiện áp dụng vẫn cần được đối chiếu.",
+        "substack_body_markdown": standalone}
+    before = dict(article)
+    payloads = build_native_derivative_payloads(article=article, selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/dated-custody", media_asset_ids=["source"])
+    assert len(payloads) == 8
+    for destination in ("linkedin", "discord", "instagram_business", "threads"):
+        assert "khả năng ấy" not in str(payloads[destination])
+        assert standalone in str(payloads[destination])
+    assert article == before  # Formatting selects original sentences; it does not rewrite prose.
+
+
+def test_vietnamese_brief_retains_distinct_mechanism_countercase_and_invalidation():
+    mechanism = "Phân tích CC có điều kiện: nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất lặp lại, thương mại đường biển và chênh giá có thể truyền tác động sang Brent."
+    countercase = "Phản đề của CC: thời điểm hàng nhập về hoặc hoạt động lọc dầu có thể làm kho Mỹ giảm mà không có thiếu hụt toàn cầu."
+    invalidation = "Nếu dòng thương mại và chênh Brent không hỗ trợ truyền dẫn, CC phải rút cách đọc thiếu hụt toàn cầu."
+    article = {"title": "Rút kho dầu Mỹ có đủ để gọi Brent khan hiếm?", "native_brief_layout": True,
+        "social_hook": "Cần bằng chứng riêng về đường truyền giữa hai khu vực.",
+        "social_mechanism_summary": mechanism, "social_policy_summary": countercase,
+        "social_cross_asset_summary": invalidation, "substack_body_markdown": "\n\n".join((mechanism, countercase, invalidation))}
+    before = dict(article)
+    payloads = build_native_derivative_payloads(article=article, selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/dated-brent", media_asset_ids=["source"])
+    assert mechanism in payloads["linkedin"]["text"]
+    assert countercase in payloads["linkedin"]["text"]
+    assert invalidation in payloads["telegram"]["text"]
+    assert article == before
+
+
+def test_brief_watch_retains_the_condition_after_a_rhetorical_transition():
+    condition = "If the report is confirmed, share terms and a cash-flow bridge would test whether the investment program is productive."
+    article = {"title": "Meta plans non-voting shares", "native_brief_layout": True,
+        "social_hook": "The reported share plan preserves voting control.",
+        "social_mechanism_summary": "Non-voting shares could fund acquisitions without transferring voting power.",
+        "social_policy_summary": "One deficit quarter does not establish a lasting funding problem.",
+        "social_cross_asset_summary": "What would change that assessment? " + condition,
+        "substack_body_markdown": condition}
+    before = dict(article)
+    payloads = build_native_derivative_payloads(article=article, selection={},
+        canonical_url="https://capitalchronicle.substack.com/p/meta-share-plan", media_asset_ids=[])
+    for destination in ("telegram", "threads", "x", "youtube"):
+        text = str(payloads[destination].get("full_text") or payloads[destination]["text"])
+        assert condition in text
+        assert "What would change that assessment?" not in text
+    assert article == before
+
+
 def test_prepare_only_release_candidate_never_calls_publishers(tmp_path: Path, monkeypatch):
     context = {
         "article": {**_article(), "canonical_url": "https://capitalchronicle.substack.com/p/eia-oil-forecast", "word_count": 800, "substack_body_markdown_sha256": "d" * 64},

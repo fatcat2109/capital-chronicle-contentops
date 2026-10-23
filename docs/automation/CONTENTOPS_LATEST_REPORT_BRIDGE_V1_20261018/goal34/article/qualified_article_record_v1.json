@@ -1,0 +1,525 @@
+{
+  "accepted_evidence_ids": [
+    "goal21-futures-hedgers",
+    "goal31-futures-economic-purpose",
+    "goal34-southwest-hedge-clocks"
+  ],
+  "accepted_evidence_sha256": "944b092c47e4de8c45e72a03d6f465d1532004a1b72ec09f386533deba6bfa32",
+  "article_body_sha256": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+  "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+  "article_path": null,
+  "attempt_run_id": "goal34-hedge-cash-clocks",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\nWhat to watch: \u0110i\u1ec3m c\u1ea7n theo d\u00f5i c\u1ee7a Capital Chronicle: c\u00e1c l\u1ea7n mua nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn c\u00f3 \u0111\u1ed5i l\u1ecbch hay b\u1ecb h\u1ee7y, v\u00e0 s\u1ed1 d\u01b0 AOCI \u0111\u01b0\u1ee3c ghi nh\u1eadn v\u00e0o chi ph\u00ed ra sao?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c\n\nSource date: 2025-07-24; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "e7a195d5916152882a7cf2abc39c69ffc07db6e5dc5566b20206d94eb9db0667",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c\n\nWatch: \u0110i\u1ec3m c\u1ea7n theo d\u00f5i c\u1ee7a Capital Chronicle: c\u00e1c l\u1ea7n mua nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn c\u00f3 \u0111\u1ed5i l\u1ecbch hay b\u1ecb h\u1ee7y, v\u00e0 s\u1ed1 d\u01b0 AOCI \u0111\u01b0\u1ee3c ghi nh\u1eadn v\u00e0o chi ph\u00ed ra sao?\n\nSource date: 2025-07-24; Source date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: \u0110i\u1ec3m c\u1ea7n theo d\u00f5i c\u1ee7a Capital Chronicle: c\u00e1c l\u1ea7n mua nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn c\u00f3 \u0111\u1ed5i l\u1ecbch hay b\u1ecb h\u1ee7y, v\u00e0 s\u1ed1 d\u01b0 AOCI \u0111\u01b0\u1ee3c ghi nh\u1eadn v\u00e0o chi ph\u00ed ra sao?\n\nSource date: 2025-07-24; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.832,
+            0.925
+          ],
+          "post_character_counts": [
+            233,
+            259
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.9,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: \u0110i\u1ec3m c\u1ea7n theo d\u00f5i c\u1ee7a Capital Chronicle: c\u00e1c l\u1ea7n mua nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn c\u00f3 \u0111\u1ed5i l\u1ecbch hay b\u1ecb h\u1ee7y, v\u00e0 s\u1ed1 d\u01b0 AOCI \u0111\u01b0\u1ee3c ghi nh\u1eadn v\u00e0o chi ph\u00ed ra sao?\n\nSource date: 2025-07-24; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c",
+        "text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c"
+      },
+      "payload_sha256": "f654cd29301fb374425f55359d280e49e90bd221352136ed4c7ecceeed2930f9",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]**\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\n**Context:** Ph\u1ea3n \u0111\u1ec1 c\u1ee7a Capital Chronicle: chi ph\u00ed ti\u1ebfp t\u1ee5c xu\u1ea5t hi\u1ec7n c\u00f3 th\u1ec3 ph\u00f9 h\u1ee3p v\u1edbi l\u1ecbch giao d\u1ecbch nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn ban \u0111\u1ea7u.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c\n\nSource date: 2025-07-24; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "94aebd0fb7b7268722090689ab2cda9caa73cf26d58cbb1d99c0f522be3e811e",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nWhy it matters: Ph\u00e2n t\u00edch c\u1ee7a Capital Chronicle: ti\u1ec1n thu khi \u0111\u00f3ng h\u1ee3p \u0111\u1ed3ng, chi ph\u00ed ghi nh\u1eadn trong qu\u00fd v\u00e0 chi ph\u00ed ch\u1edd c\u00e1c k\u1ef3 mua nhi\u00ean li\u1ec7u tr\u1ea3 l\u1eddi ba c\u00e2u h\u1ecfi kh\u00e1c nhau.\n\nContext: Ph\u1ea3n \u0111\u1ec1 c\u1ee7a Capital Chronicle: chi ph\u00ed ti\u1ebfp t\u1ee5c xu\u1ea5t hi\u1ec7n c\u00f3 th\u1ec3 ph\u00f9 h\u1ee3p v\u1edbi l\u1ecbch giao d\u1ecbch nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn ban \u0111\u1ea7u.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c\n\nSource date: 2025-07-24; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "e3182a4204027ed17a51a69685470a91ab3b21125d3d528459fce7c61893be38",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\nWhy it matters: Ph\u00e2n t\u00edch c\u1ee7a Capital Chronicle: ti\u1ec1n thu khi \u0111\u00f3ng h\u1ee3p \u0111\u1ed3ng, chi ph\u00ed ghi nh\u1eadn trong qu\u00fd v\u00e0 chi ph\u00ed ch\u1edd c\u00e1c k\u1ef3 mua nhi\u00ean li\u1ec7u tr\u1ea3 l\u1eddi ba c\u00e2u h\u1ecfi kh\u00e1c nhau.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c\n\nSource date: 2025-07-24; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "1983a79415bd016cc93d8d0d4311d588c30cba83b11cac11aa8ada4a5d8d47eb",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\nIn focus: Ph\u1ea3n \u0111\u1ec1 c\u1ee7a Capital Chronicle: chi ph\u00ed ti\u1ebfp t\u1ee5c xu\u1ea5t hi\u1ec7n c\u00f3 th\u1ec3 ph\u00f9 h\u1ee3p v\u1edbi l\u1ecbch giao d\u1ecbch nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn ban \u0111\u1ea7u.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c\n\n#CapitalChronicle\n\nSource date: 2025-07-24; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "56a6a285107613ee6fa6fa62783fd9a8f736034e49218222fc880f4fda151828",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a Capital Chronicle: chi ph\u00ed ti\u1ebfp t\u1ee5c xu\u1ea5t hi\u1ec7n c\u00f3 th\u1ec3 ph\u00f9 h\u1ee3p v\u1edbi l\u1ecbch giao d\u1ecbch nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn ban \u0111\u1ea7u.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c\n\nWhat to watch: \u0110i\u1ec3m c\u1ea7n theo d\u00f5i c\u1ee7a Capital Chronicle: c\u00e1c l\u1ea7n mua nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn c\u00f3 \u0111\u1ed5i l\u1ecbch hay b\u1ecb h\u1ee7y, v\u00e0 s\u1ed1 d\u01b0 AOCI \u0111\u01b0\u1ee3c ghi nh\u1eadn v\u00e0o chi ph\u00ed ra sao?\n\nSource date: 2025-07-24; Source date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a Capital Chronicle: chi ph\u00ed ti\u1ebfp t\u1ee5c xu\u1ea5t hi\u1ec7n c\u00f3 th\u1ec3 ph\u00f9 h\u1ee3p v\u1edbi l\u1ecbch giao d\u1ecbch nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn ban \u0111\u1ea7u.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: \u0110i\u1ec3m c\u1ea7n theo d\u00f5i c\u1ee7a Capital Chronicle: c\u00e1c l\u1ea7n mua nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn c\u00f3 \u0111\u1ed5i l\u1ecbch hay b\u1ecb h\u1ee7y, v\u00e0 s\u1ed1 d\u01b0 AOCI \u0111\u01b0\u1ee3c ghi nh\u1eadn v\u00e0o chi ph\u00ed ra sao?\n\nSource date: 2025-07-24; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.564,
+            0.534
+          ],
+          "post_character_counts": [
+            282,
+            267
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.947,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: \u0110i\u1ec3m c\u1ea7n theo d\u00f5i c\u1ee7a Capital Chronicle: c\u00e1c l\u1ea7n mua nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn c\u00f3 \u0111\u1ed5i l\u1ecbch hay b\u1ecb h\u1ee7y, v\u00e0 s\u1ed1 d\u01b0 AOCI \u0111\u01b0\u1ee3c ghi nh\u1eadn v\u00e0o chi ph\u00ed ra sao?\n\nSource date: 2025-07-24; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a Capital Chronicle: chi ph\u00ed ti\u1ebfp t\u1ee5c xu\u1ea5t hi\u1ec7n c\u00f3 th\u1ec3 ph\u00f9 h\u1ee3p v\u1edbi l\u1ecbch giao d\u1ecbch nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn ban \u0111\u1ea7u.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c",
+        "text": "CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a Capital Chronicle: chi ph\u00ed ti\u1ebfp t\u1ee5c xu\u1ea5t hi\u1ec7n c\u00f3 th\u1ec3 ph\u00f9 h\u1ee3p v\u1edbi l\u1ecbch giao d\u1ecbch nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn ban \u0111\u1ea7u.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c"
+      },
+      "payload_sha256": "76770727386288e4e346369beec119fc5c00aed704886f55fcc9d0ec7ba5ca72",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CONFIRMED | Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed [Source 2025-07-24]\n\nSouthwest 2025: \u0111\u00e3 thu ti\u1ec1n khi \u0111\u00f3ng ph\u00f2ng h\u1ed9, v\u00ec sao chi ph\u00ed v\u1eabn c\u00f2n?\n\nWhat to watch: \u0110i\u1ec3m c\u1ea7n theo d\u00f5i c\u1ee7a Capital Chronicle: c\u00e1c l\u1ea7n mua nhi\u00ean li\u1ec7u d\u1ef1 ki\u1ebfn c\u00f3 \u0111\u1ed5i l\u1ecbch hay b\u1ecb h\u1ee7y, v\u00e0 s\u1ed1 d\u01b0 AOCI \u0111\u01b0\u1ee3c ghi nh\u1eadn v\u00e0o chi ph\u00ed ra sao?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-79bf97d32f31071c\n\nSource date: 2025-07-24; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "a2051a4250dfb38b5787c086e900da6fb30a342698da9cb1d294473fe8ffcb24",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal34_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal34_sol_max_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Southwest Airlines Co.",
+    "primary_reporting_source_identity": "Southwest Airlines Co.",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal34-southwest-hedge-clocks"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-22-bangkok",
+  "parent_window_id": "goal34-hedge-cash-clocks",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "35cadc388dcdaa88f33772ca6db62ffee245eeda5461156756e6e8d11895e982",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-58c20e2b812d839f223fed99",
+  "title": "Southwest 2025: \u0111\u00f3ng ph\u00f2ng h\u1ed9 ch\u01b0a kh\u00e9p l\u1ea1i chi ph\u00ed",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+}

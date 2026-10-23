@@ -1,0 +1,21 @@
+{
+  "conclusion": "failure",
+  "databaseId": 39681506033,
+  "headSha": "5442866beac4bb2db7cb35e35b82e2092ede112e",
+  "jobs": [
+    {
+      "name": "branch-codegraph-refresh",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "deterministic-validation",
+      "status": "completed",
+      "conclusion": "failure"
+    }
+  ],
+  "status": "completed",
+  "url": "https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39681506033",
+  "failure_scope": "BRANCH_DIFF_HYGIENE_ONLY_RAW_TRANSCRIPT_TRAILING_WHITESPACE",
+  "remedy": "Use existing repository binary evidence convention for exact captured transcripts/native JSON/source captures; do not alter original evidence or weaken code whitespace checks."
+}

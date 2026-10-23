@@ -1,0 +1,320 @@
+{
+  "article": {
+    "title": "SEC lên lịch tọa đàm dữ liệu máy hiểu: người đọc cần kiểm gì?",
+    "dek": "CONFIRMED: SEC công bố tọa đàm dự kiến ngày 9/11/2026 về dữ liệu máy hiểu và SI. Câu hỏi của CC: trước khi tin phần diễn giải, người đọc còn cần đối chiếu điều gì?",
+    "search_title": "Tọa đàm SEC về dữ liệu máy hiểu: người đọc cần kiểm gì?",
+    "meta_description": "SEC lên lịch tọa đàm về dữ liệu máy hiểu và SI. CC đặt câu hỏi về kỳ, phạm vi và giả định trước khi tin diễn giải công bố doanh nghiệp.",
+    "social_hook": "SEC lên lịch bàn dữ liệu máy hiểu. Câu hỏi của CC: phần diễn giải đã giữ đúng kỳ, phạm vi và giả định của con số chưa?",
+    "canonical_slug_candidate": "sec-du-lieu-may-hieu-kiem-chung-dien-giai",
+    "primary_reader_question": "Khi máy đọc được dữ liệu công bố doanh nghiệp, người đọc còn cần đối chiếu điều gì trước khi tin phần diễn giải?",
+    "secondary_reader_questions": [
+      "Thông báo tọa đàm của SEC xác nhận điều gì và để ngỏ điều gì?",
+      "Kỳ dữ liệu, phạm vi chỉ tiêu và ước tính có thể làm đổi nghĩa một kết luận như thế nào?",
+      "Cần bằng chứng nào để đánh giá một công cụ thực sự giúp người đọc kiểm chứng tốt hơn?"
+    ],
+    "entities": [
+      "U.S. Securities and Exchange Commission",
+      "Super Intelligence (SI)",
+      "MD&A",
+      "GAAP",
+      "non-GAAP"
+    ],
+    "topics": [
+      "Dữ liệu công bố doanh nghiệp",
+      "Dữ liệu máy có thể hiểu",
+      "Chất lượng diễn giải",
+      "Khả năng so sánh",
+      "Ước tính kế toán",
+      "Kiểm chứng công cụ phân tích"
+    ],
+    "search_freshness_class": "CURRENT",
+    "internal_link_candidates": [],
+    "structured_data_packet": null,
+    "social_mechanism_summary": "Phân tích CC: nếu công cụ giữ con số nhưng bỏ kỳ, phạm vi hoặc giả định đi kèm, câu trả lời có thể đổi nghĩa dù chép đúng giá trị. Phép kiểm hữu ích là trở lại đoạn công bố đã tạo ra kết luận ấy.",
+    "social_policy_summary": "Phản đề của CC: một công cụ giữ nguyên ngữ cảnh và chỉ đúng chỗ cần đối chiếu có thể giúp người đọc kiểm tra tốt hơn. Khi đánh giá nó, cần xét chất lượng kiểm chứng cùng thời gian sử dụng. Thông báo SEC chưa cung cấp phép đo đó.",
+    "social_cross_asset_summary": "Câu hỏi để đổi cách nhìn của CC là: có phép thử đối chiếu được với tài liệu gốc, nêu rõ lỗi và giới hạn, cho thấy công cụ giữ đúng kỳ, phạm vi và giả định hay chưa? Một tọa đàm được lên lịch chưa trả lời được câu hỏi ấy.",
+    "substack_body_markdown": "Khi máy đọc được công bố doanh nghiệp, người đọc còn phải kiểm điều gì trước khi tin phần diễn giải? Theo cách nhìn của Capital Chronicle, điều cần kiểm là mối nối giữa kết luận với kỳ dữ liệu, phạm vi chỉ tiêu và các giả định tạo ra con số. **CONFIRMED:** SEC đã thông báo sẽ tổ chức tọa đàm về dữ liệu máy có thể hiểu và Super Intelligence (SI) vào ngày 9/11/2026. Thông báo mở ra câu hỏi về cách sử dụng dữ liệu; nó chưa cho biết một công cụ phân tích đã làm tốt đến đâu. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nTrong thông báo, SEC đặt chất lượng thông tin bên cạnh việc sử dụng dữ liệu máy có thể hiểu và SI, cùng các rủi ro và chi phí liên quan. Cơ quan cho biết phản hồi của các thành viên thị trường sẽ giúp nhân viên SEC hiểu cách thị trường và công chúng đầu tư sử dụng những dữ liệu này cho các giải pháp SI. SI là thuật ngữ thông báo dùng; việc nêu thuật ngữ ấy chưa phải kết quả đánh giá năng lực của một hệ thống cụ thể. [[SOURCE:SOURCE_1]]\n\n## Thông báo tạo câu hỏi, chưa cung cấp đáp án\n\nĐiều mới ở đây là SEC công bố một cuộc thảo luận dự kiến diễn ra, với cách dùng, rủi ro và chi phí nằm trong nội dung. Phần nguồn được cung cấp không công bố quy định mới, không đưa ra kết quả thử nghiệm công cụ và không lượng hóa lợi ích hay chi phí. Dùng lịch tọa đàm để khẳng định công nghệ đã cải thiện chất lượng phân tích sẽ đi xa hơn bằng chứng hiện có. [[SOURCE:SOURCE_1]]\n\nLuận điểm của CC là cần đánh giá cả bước từ dữ liệu sang kết luận. Nếu công cụ đưa ra nhận định về kết quả kinh doanh, người đọc cần biết nhận định ấy dựa trên kết quả của kỳ nào, dùng chỉ tiêu nào và còn phụ thuộc vào xét đoán nào. Những câu hỏi đó giúp kiểm chính phần diễn giải, thay vì dừng ở việc xác nhận công cụ đã lấy được một giá trị trong tài liệu. [[SOURCE:SOURCE_2]]\n\n## Một giá trị đúng có thể đi vào phép so sánh sai\n\nHướng dẫn lịch sử của SEC về cách đọc 10-K cung cấp một lý do để giữ bước kiểm này. Tài liệu mô tả MD&A — phần thảo luận và phân tích của ban lãnh đạo — là nơi doanh nghiệp trình bày góc nhìn về kết quả năm tài chính đã qua bằng lời của mình. Hướng dẫn cũng nhắc tới xu hướng, bất định và các xét đoán kế toán như ước tính, giả định. Vì vậy, bản diễn giải cần giữ được sự phân biệt giữa kết quả được trình bày và cách ban lãnh đạo giải thích kết quả ấy. Đây là cách đọc của CC từ hướng dẫn, không phải một phát hiện về doanh nghiệp hiện tại. [[SOURCE:SOURCE_2]]\n\nPhân tích CC: nếu công cụ giữ con số nhưng bỏ kỳ, phạm vi hoặc giả định đi kèm, câu trả lời có thể đổi nghĩa dù chép đúng giá trị. Phép kiểm hữu ích là trở lại đoạn công bố đã tạo ra kết luận ấy. [[SOURCE:SOURCE_2]]\n\nVới kỳ dữ liệu, hãy hỏi phần diễn giải đang nói về kết quả năm tài chính đã qua hay nhận định về xu hướng và bất định. Hai nội dung ấy không trả lời cùng một câu hỏi. Nếu bản tóm tắt gom chúng thành lời khẳng định về hiện tại, cần quay lại câu chữ gốc. Đây là phép kiểm CC đề xuất từ mô tả của SEC, chưa phải lỗi đã được phát hiện ở công cụ hay công ty nào. [[SOURCE:SOURCE_2]]\n\nVới phạm vi, hãy hỏi chỉ tiêu trong phần diễn giải có giữ đúng định nghĩa và những khoản được tính vào hay loại ra không. Hướng dẫn lịch sử phân biệt chỉ tiêu non-GAAP với GAAP và mô tả việc đối chiếu giữa chúng. Suy luận của CC là tên chỉ tiêu được công cụ lặp lại chưa đủ để kết luận các kết quả có thể so trực tiếp; phần giải thích chỉ tiêu vẫn cần đi cùng dữ liệu. [[SOURCE:SOURCE_2]]\n\nVới ước tính, hãy hỏi điều gì đã tạo ra thay đổi của con số. Hướng dẫn SEC lưu ý xét đoán kế toán và thay đổi xét đoán so với các năm trước có thể ảnh hưởng đáng kể tới tài sản, chi phí và lợi nhuận ròng. Theo phân tích CC, nếu phần diễn giải quy thay đổi kết quả cho hoạt động kinh doanh mà bỏ qua thay đổi giả định đã được công bố, cần kiểm lại cơ sở của kết luận. Câu hỏi này không mặc định doanh nghiệp thao túng số liệu, cũng không mặc định mọi thay đổi kết quả đều do kế toán. [[SOURCE:SOURCE_2]]\n\n## Phản đề: giữ được ngữ cảnh là một lợi ích cần thử\n\nPhản đề của CC: một công cụ giữ nguyên ngữ cảnh và chỉ đúng chỗ cần đối chiếu có thể giúp người đọc kiểm tra tốt hơn. Khi đánh giá nó, cần xét chất lượng kiểm chứng cùng thời gian sử dụng. Thông báo SEC chưa cung cấp phép đo đó. [[SOURCE:SOURCE_1]]\n\nMột cách thử công bằng do CC đề xuất là yêu cầu công cụ đưa kết luận kèm đoạn công bố làm căn cứ, rồi đối chiếu xem nó có giữ đúng kỳ, giải thích chỉ tiêu và điều kiện của ước tính hay không. Cần ghi cả chỗ làm được và chỗ còn phải sửa, thay vì dùng một câu trả lời thuận mắt để đại diện cho toàn bộ năng lực. Hướng dẫn về báo cáo tài chính giúp xác định nội dung cần đối chiếu; nó không phải nghiên cứu đánh giá công cụ. [[SOURCE:SOURCE_2]]\n\n## Bằng chứng nào đủ đổi cách nhìn?\n\nCâu hỏi để đổi cách nhìn của CC là: có phép thử đối chiếu được với tài liệu gốc, nêu rõ lỗi và giới hạn, cho thấy công cụ giữ đúng kỳ, phạm vi và giả định hay chưa? Một tọa đàm được lên lịch chưa trả lời được câu hỏi ấy. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nNếu bằng chứng kiểm chứng được cho thấy một công cụ xử lý đáng tin cậy những mối nối đó, CC sẽ giảm mức hoài nghi về việc dùng nó cho đúng loại công việc đã được thử. Nếu công cụ chỉ tìm đúng con số nhưng phần giải thích vẫn bỏ điều kiện quan trọng, kết luận về ích lợi cần giới hạn ở khả năng tìm thông tin. Đây là điều kiện để sửa đánh giá của CC; bộ nguồn hiện tại chưa cho phép chọn giữa hai khả năng. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nBước thực hành cho người đọc là giữ lại một kết luận muốn sử dụng, đoạn nguồn dẫn tới kết luận đó và câu hỏi còn bỏ ngỏ về kỳ, định nghĩa hoặc giả định. Nếu chưa nối được các phần ấy, hãy coi phần diễn giải là điều cần kiểm tiếp. Dấu vết này giúp người đọc xác định mình đang tin dữ kiện nào và đang chấp nhận cách giải thích nào — đúng trọng tâm chất lượng thông tin mà cuộc thảo luận được SEC công bố đặt ra. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\n## Nguồn và thời điểm\n\nMốc đọc bộ nguồn: 21/10/2026. Thông báo SEC có ngày phát hành 19/10/2026; giờ phát hành không được cung cấp trong phần nguồn. Ngày 9/11/2026 là ngày tọa đàm dự kiến, chưa phải một sự kiện đã diễn ra trong bộ nguồn này. Bài sử dụng phần văn bản thông báo được giữ lại, chưa có biên bản, kết quả tọa đàm hay nghiên cứu đo hiệu quả công cụ. [[SOURCE:SOURCE_1]]\n\nHướng dẫn 10-K được giữ lại làm bối cảnh lịch sử và phương pháp đọc; đoạn trích được cấp không cung cấp ngày hoặc giờ phát hành. Bài không dùng hướng dẫn đó để xác nhận yêu cầu kê khai hiện hành. Tài liệu này cũng không phải nguồn xác nhận độc lập cho lịch tọa đàm, và bộ nguồn không chứa dữ liệu của một doanh nghiệp cụ thể để đánh giá kết quả kinh doanh hay chất lượng công bố hiện tại. [[SOURCE:SOURCE_2]]"
+  },
+  "cited_sources": [
+    {
+      "published_at_utc": "2026-10-19T00:00:00Z",
+      "publisher": "U.S. Securities and Exchange Commission",
+      "source_id": "SOURCE_1",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+    },
+    {
+      "published_at_utc": "",
+      "publisher": "www.sec.gov",
+      "source_id": "SOURCE_2",
+      "url": "https://www.sec.gov/answers/reada10k.htm"
+    }
+  ],
+  "material_claim_bindings": [
+    {
+      "attribution_required": true,
+      "claim_id": "g31_title",
+      "claim_kind": "FACT",
+      "claim_text": "SEC lên lịch tọa đàm dữ liệu máy hiểu: người đọc cần kiểm gì?",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_dek",
+      "claim_kind": "FACT",
+      "claim_text": "CONFIRMED: SEC công bố tọa đàm dự kiến ngày 9/11/2026 về dữ liệu máy hiểu và SI. Câu hỏi của CC: trước khi tin phần diễn giải, người đọc còn cần đối chiếu điều gì?",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_search_title",
+      "claim_kind": "FACT",
+      "claim_text": "Tọa đàm SEC về dữ liệu máy hiểu: người đọc cần kiểm gì?",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_meta_description",
+      "claim_kind": "FACT",
+      "claim_text": "SEC lên lịch tọa đàm về dữ liệu máy hiểu và SI. CC đặt câu hỏi về kỳ, phạm vi và giả định trước khi tin diễn giải công bố doanh nghiệp.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_social_hook",
+      "claim_kind": "FACT",
+      "claim_text": "SEC lên lịch bàn dữ liệu máy hiểu. Câu hỏi của CC: phần diễn giải đã giữ đúng kỳ, phạm vi và giả định của con số chưa?",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_opening_qualitative_thesis",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Theo cách nhìn của Capital Chronicle, điều cần kiểm là mối nối giữa kết luận với kỳ dữ liệu, phạm vi chỉ tiêu và các giả định tạo ra con số.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "These accounting judgments – and any changes from previous years – can have a significant impact on the numbers in the financial statements, such as assets, costs, and net income."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_opening_scheduled_event",
+      "claim_kind": "NUMBER",
+      "claim_text": "SEC đã thông báo sẽ tổ chức tọa đàm về dữ liệu máy có thể hiểu và Super Intelligence (SI) vào ngày 9/11/2026.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_opening_evidence_limit",
+      "claim_kind": "FACT",
+      "claim_text": "Thông báo mở ra câu hỏi về cách sử dụng dữ liệu; nó chưa cho biết một công cụ phân tích đã làm tốt đến đâu.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_quality_use_costs",
+      "claim_kind": "FACT",
+      "claim_text": "Trong thông báo, SEC đặt chất lượng thông tin bên cạnh việc sử dụng dữ liệu máy có thể hiểu và SI, cùng các rủi ro và chi phí liên quan.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_feedback_purpose",
+      "claim_kind": "FACT",
+      "claim_text": "Cơ quan cho biết phản hồi của các thành viên thị trường sẽ giúp nhân viên SEC hiểu cách thị trường và công chúng đầu tư sử dụng những dữ liệu này cho các giải pháp SI.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_si_term_limit",
+      "claim_kind": "FACT",
+      "claim_text": "SI là thuật ngữ thông báo dùng; việc nêu thuật ngữ ấy chưa phải kết quả đánh giá năng lực của một hệ thống cụ thể.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_announcement_scope",
+      "claim_kind": "FACT",
+      "claim_text": "Điều mới ở đây là SEC công bố một cuộc thảo luận dự kiến diễn ra, với cách dùng, rủi ro và chi phí nằm trong nội dung. Phần nguồn được cung cấp không công bố quy định mới, không đưa ra kết quả thử nghiệm công cụ và không lượng hóa lợi ích hay chi phí.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_inference_not_performance_proof",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Dùng lịch tọa đàm để khẳng định công nghệ đã cải thiện chất lượng phân tích sẽ đi xa hơn bằng chứng hiện có.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_data_to_conclusion_test",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Luận điểm của CC là cần đánh giá cả bước từ dữ liệu sang kết luận. Nếu công cụ đưa ra nhận định về kết quả kinh doanh, người đọc cần biết nhận định ấy dựa trên kết quả của kỳ nào, dùng chỉ tiêu nào và còn phụ thuộc vào xét đoán nào. Những câu hỏi đó giúp kiểm chính phần diễn giải, thay vì dừng ở việc xác nhận công cụ đã lấy được một giá trị trong tài liệu.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "These accounting judgments – and any changes from previous years – can have a significant impact on the numbers in the financial statements, such as assets, costs, and net income."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_historical_guide_perspective",
+      "claim_kind": "FACT",
+      "claim_text": "Hướng dẫn lịch sử của SEC về cách đọc 10-K cung cấp một lý do để giữ bước kiểm này. Tài liệu mô tả MD&A — phần thảo luận và phân tích của ban lãnh đạo — là nơi doanh nghiệp trình bày góc nhìn về kết quả năm tài chính đã qua bằng lời của mình.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "gives the company’s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_historical_trends_uncertainty",
+      "claim_kind": "FACT",
+      "claim_text": "Hướng dẫn cũng nhắc tới xu hướng, bất định và các xét đoán kế toán như ước tính, giả định.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "any known trends or uncertainties that could materially affect the company’s results."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_historical_estimates_assumptions",
+      "claim_kind": "FACT",
+      "claim_text": "Hướng dẫn cũng nhắc tới xu hướng, bất định và các xét đoán kế toán như ước tính, giả định.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "Critical accounting judgments, such as estimates and assumptions."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_results_vs_explanation",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Vì vậy, bản diễn giải cần giữ được sự phân biệt giữa kết quả được trình bày và cách ban lãnh đạo giải thích kết quả ấy. Đây là cách đọc của CC từ hướng dẫn, không phải một phát hiện về doanh nghiệp hiện tại.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "This section, known as the MD&A for short, allows company management to tell its story in its own words."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_social_mechanism_exact_passage",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phân tích CC: nếu công cụ giữ con số nhưng bỏ kỳ, phạm vi hoặc giả định đi kèm, câu trả lời có thể đổi nghĩa dù chép đúng giá trị. Phép kiểm hữu ích là trở lại đoạn công bố đã tạo ra kết luận ấy.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "These accounting judgments – and any changes from previous years – can have a significant impact on the numbers in the financial statements, such as assets, costs, and net income."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_period_comparison_question",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Với kỳ dữ liệu, hãy hỏi phần diễn giải đang nói về kết quả năm tài chính đã qua hay nhận định về xu hướng và bất định. Hai nội dung ấy không trả lời cùng một câu hỏi. Nếu bản tóm tắt gom chúng thành lời khẳng định về hiện tại, cần quay lại câu chữ gốc. Đây là phép kiểm CC đề xuất từ mô tả của SEC, chưa phải lỗi đã được phát hiện ở công cụ hay công ty nào.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "gives the company’s perspective on the business results of the past financial year."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_scope_verification_question",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Với phạm vi, hãy hỏi chỉ tiêu trong phần diễn giải có giữ đúng định nghĩa và những khoản được tính vào hay loại ra không.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "they must also show how they differ from the most comparable corresponding GAAP financial measure."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_historical_non_gaap_distinction",
+      "claim_kind": "FACT",
+      "claim_text": "Hướng dẫn lịch sử phân biệt chỉ tiêu non-GAAP với GAAP và mô tả việc đối chiếu giữa chúng.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "You may also find “non-GAAP financial measures” in the 10-K. That means that the numbers do NOT conform to GAAP. While companies are permitted to present non-GAAP measures, they must also show how they differ from the most comparable corresponding GAAP financial measure."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_comparability_inference",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Suy luận của CC là tên chỉ tiêu được công cụ lặp lại chưa đủ để kết luận các kết quả có thể so trực tiếp; phần giải thích chỉ tiêu vẫn cần đi cùng dữ liệu.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "they must also show how they differ from the most comparable corresponding GAAP financial measure."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_historical_judgments_effect",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Hướng dẫn SEC lưu ý xét đoán kế toán và thay đổi xét đoán so với các năm trước có thể ảnh hưởng đáng kể tới tài sản, chi phí và lợi nhuận ròng.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "These accounting judgments – and any changes from previous years – can have a significant impact on the numbers in the financial statements, such as assets, costs, and net income."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_judgment_omission_mechanism",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Theo phân tích CC, nếu phần diễn giải quy thay đổi kết quả cho hoạt động kinh doanh mà bỏ qua thay đổi giả định đã được công bố, cần kiểm lại cơ sở của kết luận. Câu hỏi này không mặc định doanh nghiệp thao túng số liệu, cũng không mặc định mọi thay đổi kết quả đều do kế toán.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "These accounting judgments – and any changes from previous years – can have a significant impact on the numbers in the financial statements, such as assets, costs, and net income."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_social_countercase_exact_passage",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phản đề của CC: một công cụ giữ nguyên ngữ cảnh và chỉ đúng chỗ cần đối chiếu có thể giúp người đọc kiểm tra tốt hơn. Khi đánh giá nó, cần xét chất lượng kiểm chứng cùng thời gian sử dụng. Thông báo SEC chưa cung cấp phép đo đó.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_tool_test_proposal",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Một cách thử công bằng do CC đề xuất là yêu cầu công cụ đưa kết luận kèm đoạn công bố làm căn cứ, rồi đối chiếu xem nó có giữ đúng kỳ, giải thích chỉ tiêu và điều kiện của ước tính hay không. Cần ghi cả chỗ làm được và chỗ còn phải sửa, thay vì dùng một câu trả lời thuận mắt để đại diện cho toàn bộ năng lực.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "The financial statements are accompanied by notes that explain the information presented in the financial statements."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_guide_not_tool_study",
+      "claim_kind": "FACT",
+      "claim_text": "Hướng dẫn về báo cáo tài chính giúp xác định nội dung cần đối chiếu; nó không phải nghiên cứu đánh giá công cụ.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "The financial statements are accompanied by notes that explain the information presented in the financial statements."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_social_watch_exact_passage",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Câu hỏi để đổi cách nhìn của CC là: có phép thử đối chiếu được với tài liệu gốc, nêu rõ lỗi và giới hạn, cho thấy công cụ giữ đúng kỳ, phạm vi và giả định hay chưa? Một tọa đàm được lên lịch chưa trả lời được câu hỏi ấy.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_revision_conditions",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Nếu bằng chứng kiểm chứng được cho thấy một công cụ xử lý đáng tin cậy những mối nối đó, CC sẽ giảm mức hoài nghi về việc dùng nó cho đúng loại công việc đã được thử. Nếu công cụ chỉ tìm đúng con số nhưng phần giải thích vẫn bỏ điều kiện quan trọng, kết luận về ích lợi cần giới hạn ở khả năng tìm thông tin. Đây là điều kiện để sửa đánh giá của CC; bộ nguồn hiện tại chưa cho phép chọn giữa hai khả năng.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_cc_reader_verification_record",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Bước thực hành cho người đọc là giữ lại một kết luận muốn sử dụng, đoạn nguồn dẫn tới kết luận đó và câu hỏi còn bỏ ngỏ về kỳ, định nghĩa hoặc giả định. Nếu chưa nối được các phần ấy, hãy coi phần diễn giải là điều cần kiểm tiếp. Dấu vết này giúp người đọc xác định mình đang tin dữ kiện nào và đang chấp nhận cách giải thích nào — đúng trọng tâm chất lượng thông tin mà cuộc thảo luận được SEC công bố đặt ra.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "The financial statements are accompanied by notes that explain the information presented in the financial statements."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_source_clock_note",
+      "claim_kind": "FACT",
+      "claim_text": "Mốc đọc bộ nguồn: 21/10/2026. Thông báo SEC có ngày phát hành 19/10/2026; giờ phát hành không được cung cấp trong phần nguồn. Ngày 9/11/2026 là ngày tọa đàm dự kiến, chưa phải một sự kiện đã diễn ra trong bộ nguồn này. Bài sử dụng phần văn bản thông báo được giữ lại, chưa có biên bản, kết quả tọa đàm hay nghiên cứu đo hiệu quả công cụ.",
+      "source_id": "SOURCE_1",
+      "support_excerpt": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs."
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g31_historical_context_limit_note",
+      "claim_kind": "FACT",
+      "claim_text": "Hướng dẫn 10-K được giữ lại làm bối cảnh lịch sử và phương pháp đọc; đoạn trích được cấp không cung cấp ngày hoặc giờ phát hành. Bài không dùng hướng dẫn đó để xác nhận yêu cầu kê khai hiện hành. Tài liệu này cũng không phải nguồn xác nhận độc lập cho lịch tọa đàm, và bộ nguồn không chứa dữ liệu của một doanh nghiệp cụ thể để đánh giá kết quả kinh doanh hay chất lượng công bố hiện tại.",
+      "source_id": "SOURCE_2",
+      "support_excerpt": "gives the company’s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words."
+    }
+  ],
+  "public_write_attempted": false,
+  "schema_version": "contentops.v1_simple_gemini_article.v1"
+}

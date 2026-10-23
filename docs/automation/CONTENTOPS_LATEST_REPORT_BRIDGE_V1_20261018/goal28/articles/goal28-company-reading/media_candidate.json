@@ -1,0 +1,45 @@
+{
+  "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+  "assets": [
+    {
+      "asset_id": "official_source_document_card",
+      "role": "lead_contextual",
+      "media_role": "lead_source_document_card",
+      "modality": "source_document_card",
+      "media_class": "source_backed_render",
+      "evidence_dimension": "official_document_identity",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-company-reading\\media_assets\\source_document_card.png",
+      "source_page_url": "https://www.sec.gov/answers/reada10k.htm",
+      "source_label": "www.sec.gov",
+      "publisher": "www.sec.gov",
+      "source": "www.sec.gov",
+      "publication_date": "Historical SEC guide; modified July 2011; publication not supplied",
+      "rights_status": "capital_chronicle_owned",
+      "render_rights_status": "capital_chronicle_owned",
+      "underlying_source_rights_status": "public_domain",
+      "source_reuse_basis": "explicit_governed_government_public_domain",
+      "provenance_status": "SOURCE_BACKED",
+      "chart_title": "Reading a 10-K: MD&A and financial statements, www.sec.gov. Source date: Historical SEC guide; modified July…",
+      "caption": "Bản trích hướng dẫn SEC lịch sử về MD&A; phiên bản sửa tháng 7/2011, không xác nhận yêu cầu kê khai hiện hành.",
+      "alt_text": "Bản trích hướng dẫn SEC lịch sử về MD&A; phiên bản sửa tháng 7/2011, không xác nhận yêu cầu kê khai hiện hành.",
+      "width": 1600,
+      "height": 900,
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "sha256": "d16f08c268a0e0dd72768f89a3a14d05c8da48342574599aaa0796b561ab92de",
+      "article_section": "source_record",
+      "canonical_article_section_association": "source_record",
+      "relevance_rationale": "Establishes the exact official record the grounded article reports.",
+      "supports_headline": true,
+      "is_logo": false,
+      "is_avatar": false,
+      "is_thumbnail": false,
+      "is_synthetic": false,
+      "is_manipulated": false,
+      "ai_generated_image": false,
+      "underlying_series_ids": []
+    }
+  ]
+}

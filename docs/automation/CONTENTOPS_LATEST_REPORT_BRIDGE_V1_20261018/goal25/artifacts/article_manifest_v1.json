@@ -1,0 +1,108 @@
+{
+  "author_identity": "Capital Chronicle",
+  "canonical_editorial_headline": "@firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing",
+  "canonical_slug_candidate": "anthropic-blackstone-chip-financing-firstsquawk-ft-yield-proposal-20261017",
+  "dek": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times. In its 17 October 2026 post, the relay described Anthropic proposing a double-digit yield to Blackstone for chip financing. The proposed return cannot be assessed without the risk terms.",
+  "entities": [
+    "Anthropic",
+    "Blackstone",
+    "FirstSquawk",
+    "Financial Times"
+  ],
+  "epistemic_claims": [
+    {
+      "layer": "ATTRIBUTED_INTERPRETATION",
+      "public_treatment": "ADJACENT_ATTRIBUTION",
+      "source_ids": [
+        "trusted-relay-4c3afed12018da20b49e"
+      ],
+      "text": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times. FirstSquawk's post, timestamped 17 October 2026 at 02:25:26 UTC, relayed that Anthropic proposed a double-digit yield to Blackstone in a chip financing arrangement. This brief relies on that dated relay; the original Financial Times text has not been separately reviewed and acceptance, closing or later changes remain unverified."
+    },
+    {
+      "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+      "public_treatment": "SUPPORTED_SYNTHESIS",
+      "source_ids": [
+        "trusted-relay-4c3afed12018da20b49e"
+      ],
+      "text": "If the report is accurate, Capital Chronicle's reading is that the key issue is what would pay the proposed yield and who would bear losses. The amount, repayment timetable and protection for the financier would shape the economic meaning of the headline."
+    },
+    {
+      "layer": "SCENARIO_OR_UNCERTAINTY",
+      "public_treatment": "CONDITIONAL",
+      "source_ids": [
+        "trusted-relay-4c3afed12018da20b49e"
+      ],
+      "text": "A competing interpretation, if the report is accurate, is that the yield is an opening negotiating position. The eventual terms could differ, and the relay does not establish the protections Blackstone might receive. The headline alone cannot support a verdict that the proposed financing is expensive or attractive."
+    },
+    {
+      "layer": "SCENARIO_OR_UNCERTAINTY",
+      "public_treatment": "CONDITIONAL",
+      "source_ids": [
+        "trusted-relay-4c3afed12018da20b49e"
+      ],
+      "text": "Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response. A denial, withdrawal or materially different terms would challenge this reading; confirmation would still need those details before the proposed yield could be assessed."
+    }
+  ],
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Financial Times",
+    "primary_reporting_source_identity": "ft.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times",
+    "relay_source_identity": "firstsquawk",
+    "report_proposition": "@firstsquawk, citing Financial Times, reports anthropic Proposes Double-Digit Yield to Blackstone in New Chip Financing Arrangement",
+    "report_truth_support_status": "SUPPORTED_EXACT_TRUSTED_RELAY_ATTRIBUTION",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "TRUSTED_RELAY_ATTRIBUTED_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "trusted-relay-4c3afed12018da20b49e"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "humor_lines": [],
+  "institutional_edge_editorial_packet_sha256": "ac9a767cb7b959a06cf212acd423061e850fd3a1b7df469991297166b81be843",
+  "internal_link_candidates": [],
+  "meta_description": "@firstsquawk, citing Financial Times, relayed an Anthropic chip financing proposal on 17 October 2026. The proposed yield and deal remain unconfirmed.",
+  "primary_reader_question": "For readers following AI infrastructure finance, what did the dated FT-attributed report actually say about Anthropic and Blackstone, and which missing deal terms prevent judging the risk?",
+  "public_write_performed": false,
+  "publisher_identity": "Capital Chronicle",
+  "resolved_article_mode": "BREAKING_BRIEF",
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_freshness_class": "CURRENT",
+  "search_title": "Anthropic-Blackstone chip financing: @firstsquawk cites Financial Times on double-digit yield proposal",
+  "secondary_reader_questions": [
+    "What did @firstsquawk relay about Anthropic and Blackstone on 17 October 2026?",
+    "Which financing terms would be needed to assess the proposed double-digit yield?",
+    "What evidence would confirm, revise or invalidate the dated proposal?"
+  ],
+  "seo_title": "Anthropic-Blackstone chip financing: @firstsquawk cites Financial Times on double-digit yield proposal",
+  "slug": "anthropic-blackstone-chip-financing-firstsquawk-ft-yield-proposal-20261017",
+  "social_cross_asset_summary": "Watch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response. A denial, withdrawal or materially different terms would challenge this reading; confirmation would still need those details before the proposed yield could be assessed.",
+  "social_hook": "@firstsquawk, citing Financial Times, relayed a double-digit yield proposal from Anthropic to Blackstone. What would pay it, and who would bear losses?",
+  "social_lede": "@firstsquawk, citing Financial Times, relayed a double-digit yield proposal from Anthropic to Blackstone. What would pay it, and who would bear losses?",
+  "social_mechanism_summary": "If the report is accurate, Capital Chronicle's reading is that the key issue is what would pay the proposed yield and who would bear losses. The amount, repayment timetable and protection for the financier would shape the economic meaning of the headline.",
+  "social_policy_summary": "A competing interpretation, if the report is accurate, is that the yield is an opening negotiating position. The eventual terms could differ, and the relay does not establish the protections Blackstone might receive. The headline alone cannot support a verdict that the proposed financing is expensive or attractive.",
+  "source_document_ids": [
+    "trusted-relay-4c3afed12018da20b49e"
+  ],
+  "story_identity": "simple-story-f9daadf8c2643b42c1ea5505",
+  "structured_data_packet": null,
+  "substack_body_markdown": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times. FirstSquawk's post, timestamped 17 October 2026 at 02:25:26 UTC, relayed that Anthropic proposed a double-digit yield to Blackstone in a chip financing arrangement. This brief relies on that dated relay; the original Financial Times text has not been separately reviewed and acceptance, closing or later changes remain unverified. [[SOURCE:SOURCE_1]]\n\nIf the report is accurate, Capital Chronicle's reading is that the key issue is what would pay the proposed yield and who would bear losses. The amount, repayment timetable and protection for the financier would shape the economic meaning of the headline. [[SOURCE:SOURCE_1]]\n\nA competing interpretation, if the report is accurate, is that the yield is an opening negotiating position. The eventual terms could differ, and the relay does not establish the protections Blackstone might receive. The headline alone cannot support a verdict that the proposed financing is expensive or attractive. [[SOURCE:SOURCE_1]]\n\nWatch for the original report or a direct disclosure identifying the borrowing entity, amount, repayment timetable, assets securing the financing, parties responsible if payments fail and Blackstone's response. A denial, withdrawal or materially different terms would challenge this reading; confirmation would still need those details before the proposed yield could be assessed. [[SOURCE:SOURCE_1]]",
+  "subtitle": "RELAYED / UNCONFIRMED - @firstsquawk, citing Financial Times. In its 17 October 2026 post, the relay described Anthropic proposing a double-digit yield to Blackstone for chip financing. The proposed return cannot be assessed without the risk terms.",
+  "title": "@firstsquawk, citing Financial Times: Anthropic proposes double-digit yield to Blackstone for chip financing",
+  "topics": [
+    "Chip financing",
+    "AI infrastructure finance"
+  ],
+  "update_chain_identity": "simple-story-f9daadf8c2643b42c1ea5505"
+}

@@ -1,0 +1,73 @@
+{
+  "candidate_count": 14,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "f10dc509f96a5b2a0673d0533ccc15f9d52e0febf421c8b4fe1b3d96391a907d",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal28_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "collaboration.spawn_agent returned canonical task name with explicitly requested gpt-6.1-sol low; UUID not exposed",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "ad7faf83401d63f3b4de306bf6452e311ba333aa5267a36042dc11758571ab38",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "42bf4f012ee5c2a3b2836fae08047e4d183543b35536594fb3c9dac40d521719",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Một cặp tỷ giá đo quan hệ giữa hai đồng tiền; broad dollar index tổng hợp USD với một rổ đối tác thương mại. Dùng quy ước yết giá H.10 và định nghĩa broad index lưu ngày 13/10/2026 để chỉ ra vì sao hai tín hiệu có thể khác nhau mà không mâu thuẫn. Phản đề: chúng cũng có thể cùng hướng; chỉ định nghĩa không chứng minh thị trường đang phân kỳ.",
+        "article_mode": "EVERGREEN_EXPLAINER",
+        "candidate_id": "simple-story-a072cb6da224fa28afe84691",
+        "evidence_plan": "Dùng hai item được cung cấp goal21-fx-broad-index và goal21-fx-convention (candidate simple-story-b211259efae086a585eb78ab là nguồn bổ trợ cùng bài, không phải bài dự phòng). Resolver phải đối chiếu exact retained H.10 bytes ngày phát hành 13/10/2026, câu định nghĩa bình quân có trọng số, quy ước đơn vị tiền tệ trên USD và ngoại lệ dấu sao. Phân biệt ngày phát hành với ngày quan sát từng cột; chưa có hàng giá/ngày quan sát trong excerpt nên không tự điền. Giải thích hướng tăng giảm bằng đơn vị và trường hợp có điều kiện, không đưa mức giá hay tỷ lệ thay đổi thực tế. Thành phần/trọng số rổ cụ thể cần tài liệu phương pháp đúng vintage; nếu chưa có thì chỉ nói nhóm rộng các đối tác thương mại lớn như nguồn định nghĩa, không gán DXY hay tỷ trọng. Code sở hữu phép tính nếu về sau có dữ liệu hợp lệ. Đối chiếu gói unpublished rates-fx-transmission c62f581d8cbe74ab0872077412c9ec85c768819886dd524ae4017831d5429c0e và cross-asset-price-versus-custody 552b31885ff151cb02689c5fb1bd41eb94b7934b563d335093a4593769ecf788: tận dụng nguồn, viết sâu riêng về quote/basket, không coi là cập nhật số mới. Published summary đã lọc 7 bài nhưng không có toàn văn corpus trong prompt; dedupe cuối bằng workflow hiện hữu, không tuyên bố đã đọc hết corpus. Không suy quyền ảnh/bản quyền hay quyền xuất bản từ URL công khai.",
+        "primary_reader_question": "Vì sao USD lên so với một đồng tiền nhưng chỉ số USD rộng không nhất thiết tăng, và cần đọc đơn vị, ngày quan sát cùng rổ so sánh thế nào trước khi kết luận?",
+        "research_queries": [
+          "Federal Reserve H.10 October 13 2026 currency units per US dollar asterisk quote convention",
+          "Federal Reserve broad dollar index weighted average major trading partners methodology observation dates"
+        ],
+        "selection_rationale": "Đúng yêu cầu owner và có giá trị giải thích độc lập: tháo gỡ nhầm lẫn giữa chiều yết giá, thời điểm và phạm vi so sánh. Gói cũ bàn quyết định Fed và rủi ro xuyên tài sản; bài này phải phát triển công cụ đọc một cặp so với rổ, không tái đóng gói thành tin mới. Không cần giá hiện tại để giải thích định nghĩa, nhưng mọi kết luận về biến động thực phải chờ dữ liệu được phép."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một explainer tiếng Việt cho owner, dựa broad-index và quote-convention H.10 ngày 13/10/2026. Hai item cùng phục vụ một câu hỏi nên không tạo bài dự phòng trùng ý. Không có delta nguồn mới; đây là phát triển giải thích theo yêu cầu owner, không phải breaking hay dự báo USD.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-dollar-lens\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 14,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

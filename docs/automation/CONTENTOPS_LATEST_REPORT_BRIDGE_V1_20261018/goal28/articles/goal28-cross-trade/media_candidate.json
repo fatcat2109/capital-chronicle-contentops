@@ -1,0 +1,45 @@
+{
+  "article_identity": "da4fec298265c19520d81b4081741f52cf877f3cf40dcdbd8111414898724ea3",
+  "assets": [
+    {
+      "asset_id": "official_source_document_card",
+      "role": "lead_contextual",
+      "media_role": "lead_source_document_card",
+      "modality": "source_document_card",
+      "media_class": "source_backed_render",
+      "evidence_dimension": "official_document_identity",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-cross-trade\\media_assets\\source_document_card.png",
+      "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds",
+      "source_label": "www.sec.gov",
+      "publisher": "www.sec.gov",
+      "source": "www.sec.gov",
+      "publication_date": "Proposal dated Oct 9, 2026; no final-rule claim",
+      "rights_status": "capital_chronicle_owned",
+      "render_rights_status": "capital_chronicle_owned",
+      "underlying_source_rights_status": "public_domain",
+      "source_reuse_basis": "explicit_governed_government_public_domain",
+      "provenance_status": "SOURCE_BACKED",
+      "chart_title": "SEC cross-trade proposal, www.sec.gov. Source date: Proposal dated Oct 9, 2026; no final-rule claim.",
+      "caption": "Bản trích đề xuất SEC ngày 9/10/2026 về giao dịch chéo; chưa xác nhận quy tắc có hiệu lực.",
+      "alt_text": "Bản trích đề xuất SEC ngày 9/10/2026 về giao dịch chéo; chưa xác nhận quy tắc có hiệu lực.",
+      "width": 1600,
+      "height": 900,
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "sha256": "909e10766bee39e751fb30643d09301ade46382e087798dafc90e7a2cfc07ff0",
+      "article_section": "source_record",
+      "canonical_article_section_association": "source_record",
+      "relevance_rationale": "Establishes the exact official record the grounded article reports.",
+      "supports_headline": true,
+      "is_logo": false,
+      "is_avatar": false,
+      "is_thumbnail": false,
+      "is_synthetic": false,
+      "is_manipulated": false,
+      "ai_generated_image": false,
+      "underlying_series_ids": []
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "desktop": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "metrics": {
+        "page": 185,
+        "value": {
+          "articles": [
+            {
+              "client": 1002,
+              "imageComplete": true,
+              "previews": 8,
+              "run": "goal28-dollar-lens",
+              "scroll": 1002
+            },
+            {
+              "client": 1002,
+              "imageComplete": true,
+              "previews": 8,
+              "run": "goal28-fed-policy-lens",
+              "scroll": 1002
+            },
+            {
+              "client": 1002,
+              "imageComplete": true,
+              "previews": 8,
+              "run": "goal28-company-reading",
+              "scroll": 1002
+            },
+            {
+              "client": 1002,
+              "imageComplete": true,
+              "previews": 8,
+              "run": "goal28-cross-trade",
+              "scroll": 1002
+            },
+            {
+              "client": 1002,
+              "imageComplete": true,
+              "previews": 8,
+              "run": "goal28-crypto-safeguards",
+              "scroll": 1002
+            }
+          ],
+          "client": 1434,
+          "images": 5,
+          "scroll": 1434
+        }
+      },
+      "page": 185
+    }
+  },
+  "mobile": {
+    "logs": [],
+    "ok": true,
+    "value": {
+      "metrics": {
+        "page": 188,
+        "value": {
+          "articleCount": 5,
+          "articles": [
+            {
+              "client": 389,
+              "run": "goal28-dollar-lens",
+              "scroll": 389
+            },
+            {
+              "client": 389,
+              "run": "goal28-fed-policy-lens",
+              "scroll": 389
+            },
+            {
+              "client": 389,
+              "run": "goal28-company-reading",
+              "scroll": 389
+            },
+            {
+              "client": 389,
+              "run": "goal28-cross-trade",
+              "scroll": 389
+            },
+            {
+              "client": 389,
+              "run": "goal28-crypto-safeguards",
+              "scroll": 389
+            }
+          ],
+          "client": 415,
+          "images": 5,
+          "previewCount": 40,
+          "scroll": 415
+        }
+      },
+      "page": 188
+    }
+  }
+}

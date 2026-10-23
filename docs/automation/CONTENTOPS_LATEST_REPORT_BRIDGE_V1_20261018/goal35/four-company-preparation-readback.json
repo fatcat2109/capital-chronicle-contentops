@@ -1,0 +1,518 @@
+[
+  {
+    "run_id": "goal35-ibm",
+    "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+    "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+    "inspected_prepared_packages_identical": true,
+    "packages_sha256": "4aa05ecd84e40b80200c28e425606f34dab6a4c6712ab5eff32a345fb06883cf",
+    "status": {
+      "accepted_evidence_sha256": "e6c354294b6fc893bf7697a59c4b22e298bc43960fcaf193712bf9e8a475a0ca",
+      "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "5e5c9d856c5d3bfd351fe5d57a7b313e592ca6effbb0ec23d7b8309600fb71f0",
+        "native_derivative_previews_v1.json": "a06fc67715db79079c3387bcb2251c893fa9858db9b83ec85a8d2d9a2e36d20b",
+        "publication_lifecycle_plan_v1.json": "e9128db0ec76960ee54d62f515592ef373f173ddadbb23913b570aec0cd86f36",
+        "qualified_article_record_v1.json": "0025d01133a2fe75b6a747e2acfe411302042011c49fe3e8d94e302b6b443125",
+        "run_context_v1.json": "eb5e15cddfa8217f929afcaf3758357e71f0ded8ab8d969de57d3193cd2821da"
+      },
+      "binding_sha256": "46bdec658230bd2fc47b29650180dcb72f8c093a8c3e5b546cbd214b90ffd8f6",
+      "media_sha256": {},
+      "native_result_sha256": "9ba866fdb94747691faadce6d559992ebea3b9cf35bef0276338aecbaa117066",
+      "plan_hash": "93a5509c55f757775fdb0aa821983d58e7cfd2d13664c6c0a609e3d76e12ee75",
+      "prepared_handoff_sha256": "1de98afdb9d9184fbd22b30890cb1b5fa3d5bf86779669391200ea4672108d7c",
+      "publication_authority": false,
+      "review_id": "native-article-review-be5ef6f1450740e49983063f25eef609",
+      "review_notes_sha256": "e30fef97af01cd3d3fa0049b4429dcc0bf3f17097f2d90b2f5424b7446cc098b",
+      "run_id": "goal35-ibm",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "work_item_id": "goal35-ibm",
+      "state": "PREPARED",
+      "operation_scope": "OWNER_MANUAL_ISOLATED",
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_ee51f58b1a71f968b6ad6d16dd9d24e7",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_f36c109221c2df9b00af27b9dee061a8",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_9e2fce5651774d42d9ddc2e883e91440",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_901988d8f3c32bb38fccc9fad102e497",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "transport": "OFFICIAL_MEMBER_API",
+          "dispatch_id": "dispatch_94d22771c38543b8498256316b972e09",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_6f88733fff72b6c828585cefe139c9b5",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_d3c90e430247e78a3997d867df4c4b6c",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_132f07c1c2f45c1248d0ac6743aea154",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_27692a64eb3542e58d78f3dbf2e024d5",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [],
+      "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+      "next_operation": "publication-status",
+      "dispatch_continuation_operation": "publication-resume",
+      "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-ibm\\binding.json\"",
+      "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+    }
+  },
+  {
+    "run_id": "goal35-tesla",
+    "article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+    "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+    "inspected_prepared_packages_identical": true,
+    "packages_sha256": "ef99ac190e0a678e97059e24a03b20a2588236b0dc91202008b8fac4d5fc9dd0",
+    "status": {
+      "accepted_evidence_sha256": "6d3f929de8282bd8ac57ba0634b4661cae1d8a3903a5182547b7ff6285a4f0b7",
+      "article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "a70e1fa7b0c685737e160d84906fd84dd22725dcdbd7c67c76ed2dd95545456c",
+        "native_derivative_previews_v1.json": "6de441b0b8f74f402c70cf2d88e25d3881b01c7bcb93d1de8b9e5849b72aa21b",
+        "publication_lifecycle_plan_v1.json": "f9d240d6ab7aa3d05fd481ac0f4ba3e88661ccb505aa2b05eaa906efac1b2ea8",
+        "qualified_article_record_v1.json": "a929cd5dfb55428928f01dea4707f1abf16ba80059b51b68de778e0cef86a505",
+        "run_context_v1.json": "48555d4e60f43edf12c16eba0506dd95f8989ed0f3115904675acbbe273b3794"
+      },
+      "binding_sha256": "25249216130fa9102eb5528850bfd3d5e6d41c752fd29fd60726e4da627d369b",
+      "media_sha256": {},
+      "native_result_sha256": "f866050ece684e9718a3b8eaf06f55fa257e4b8965a29013617bc472aa0abb12",
+      "plan_hash": "ca0620ad2302655ad21d7f98d83f37cae77a358acf468da08d7b1876a010ae94",
+      "prepared_handoff_sha256": "8089557cc80f22ac7cc0ff9d7c072adb5eee94c86c3e656967e787609d6e4744",
+      "publication_authority": false,
+      "review_id": "native-article-review-36ee99c45bbb463c8ec7ba67a6eb2c6e",
+      "review_notes_sha256": "6bde67f0274b57fa716bb1ec914792ce0b8df8dfaa2ee1b288b90d1bbf51d975",
+      "run_id": "goal35-tesla",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "work_item_id": "goal35-tesla",
+      "state": "PREPARED",
+      "operation_scope": "OWNER_MANUAL_ISOLATED",
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_46a152f84820b78681787060a0bf5c36",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_66ba319980401d7dbcc72fb8e9ad945d",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_5ae093aea4e5ccaa14d1752a69303937",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_b1de08626e5a64f4685403744c99825f",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "transport": "OFFICIAL_MEMBER_API",
+          "dispatch_id": "dispatch_aa5aa9d8adcc32806f59eb39e342aebe",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_8a99475969f7a99107ea99ba54a6c126",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_2d16b0a675ba95b25b74e448505c2fe8",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_3cafa13e69066f80d911791bb72b2beb",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_ba15a05ebe8b6fe9b97cb4d4f1f23d80",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [],
+      "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+      "next_operation": "publication-status",
+      "dispatch_continuation_operation": "publication-resume",
+      "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-tesla\\binding.json\"",
+      "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+    }
+  },
+  {
+    "run_id": "goal35-meta",
+    "article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+    "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+    "inspected_prepared_packages_identical": true,
+    "packages_sha256": "2916d65d7d8962385e273b9d1fee01705f154dd2e80ac65d51db1994d3cfe953",
+    "status": {
+      "accepted_evidence_sha256": "7e4e71dc9a53fdb2b4955591ae4908d21a93505e04047401dd787076eadd3c3c",
+      "article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "56a86017097c02575be53e52bb52afea89e046a9efcffc1c3dce8c65ae2a2a94",
+        "native_derivative_previews_v1.json": "09deab170414e6fc75ef71c26f68621ba9dba9bb3357fbb81c69c315f2a408ec",
+        "publication_lifecycle_plan_v1.json": "b7ca6e2e0b0b079250f5f012be56e2d455c4b5f56212a8df8803ec31bbe1eced",
+        "qualified_article_record_v1.json": "827603899fc713b22591b7099a413d43414a763f7baf47dd48b2307132f0c0e0",
+        "run_context_v1.json": "43850cec9b59d678ff711cf68498ad05abbb60940883f2de4f039f9832843ad5"
+      },
+      "binding_sha256": "c720ddf6d854b87da532b84e4e150b20e7c530b627fbb1a5fb1a8d779567bf9c",
+      "media_sha256": {},
+      "native_result_sha256": "2b7bda9e6d49c98e8a6d28cc437d689a38185c911397fbb33d22ca82a5615eed",
+      "plan_hash": "9f38264d87e8de8e839fafb2d059f9c530d09c606aa6b01e0ae464b3db2ff2f4",
+      "prepared_handoff_sha256": "5254f7704a09638fd9f07e9148cf8654d4034fd7518af1874bc7aae3b82ca937",
+      "publication_authority": false,
+      "review_id": "native-article-review-bebd71e58590463a91dd8daa174d0bd9",
+      "review_notes_sha256": "76e79f377b4da609d8ba445aa47b625f458f52a1ce52952ce4bbdc3180a63e2b",
+      "run_id": "goal35-meta",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "work_item_id": "goal35-meta",
+      "state": "PREPARED",
+      "operation_scope": "OWNER_MANUAL_ISOLATED",
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_7233b56e86052ccbf395e623bb3870e7",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_fb3848bf84f0e7832457eaf8dc135655",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_3da8294d0c036fca2c3d618f0595cbdb",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_8cfbf7ddade041233fdb672d96aad0f5",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "transport": "OFFICIAL_MEMBER_API",
+          "dispatch_id": "dispatch_0bf095ff742f43d58752f26617a7a388",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_db3e5ad3367859260680d6502426f12c",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_6573f6d73b5aebe1d5ed1520086bf146",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_0ed240d5a1e12013e3f1274b996d80de",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_714364809d719562c6c30e8a2bbd7875",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [],
+      "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+      "next_operation": "publication-status",
+      "dispatch_continuation_operation": "publication-resume",
+      "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-meta\\binding.json\"",
+      "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+    }
+  },
+  {
+    "run_id": "goal35-southwest",
+    "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+    "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+    "inspected_prepared_packages_identical": true,
+    "packages_sha256": "f346c5bb10a3116da987cc9ede5984d9a7660660305c2beafebb33092e088eab",
+    "status": {
+      "accepted_evidence_sha256": "ecf36d9879dba4baa3686077f412f74512af724039f2c209bd61d172b03e064c",
+      "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "06d195c91492ccd66d471e57e7bf1353e21837d07d50bf869a5dcade52fa9095",
+        "native_derivative_previews_v1.json": "aa7ac5b8858b8211fa5248652e7733e3dd46c2e02368c261a78086ad7529d33a",
+        "publication_lifecycle_plan_v1.json": "c21cb457e93cb8632ce6123a47b315d448b1eb6e9796f863a633b8897705a008",
+        "qualified_article_record_v1.json": "b747947cbdadc60f736ac6cfa9c229d3de2a0a370bd1ca720e224f962b99b95c",
+        "run_context_v1.json": "eaf193c0765a9eb1b9cf66313d4269bf91317fd6ac4611be0db294e494cb891d"
+      },
+      "binding_sha256": "5abb7b912c48e5c8e34a3b830aac2da12506dc9b73f3f728d2697a77eb82f6e8",
+      "media_sha256": {},
+      "native_result_sha256": "e2d0f0427dbe7a57f1f29d1fa0499a5d14296fb49fc437b385963378d51bad8b",
+      "plan_hash": "647eeab6489b81a1269f229d2ec7473a675aa815c648110f0af2960069070ce0",
+      "prepared_handoff_sha256": "7023b0e4dfd6c9870d5f5da43c135d70ea7e836344e501c42604c91e3d340281",
+      "publication_authority": false,
+      "review_id": "native-article-review-0fa7b6e89b24499e87637d2c394093f6",
+      "review_notes_sha256": "3b2e3c952a239298f5624b21fa451a21f04df0ffd2203d358f5daadfbade8c76",
+      "run_id": "goal35-southwest",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "work_item_id": "goal35-southwest",
+      "state": "PREPARED",
+      "operation_scope": "OWNER_MANUAL_ISOLATED",
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_bf0ac27d4e467616611044b00f00c075",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_ec71a44f95c1de1aba352ce3c6f062e9",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_8920356d61a56f7a83fb3a53c86f5bd4",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_f82ef6c2d90b397ca57510365a9ef791",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "transport": "OFFICIAL_MEMBER_API",
+          "dispatch_id": "dispatch_59940cd22d077920fba9d95e91eabe87",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_429a6b941885835acb06fbe4255b3894",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_d6a0e81a20fb4f56c48fdb73c5031dc3",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_aaa5f9ad990be63b3bf785bcff5d295e",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_11b3efdd78ac26bac380b730da3f387e",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [],
+      "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+      "next_operation": "publication-status",
+      "dispatch_continuation_operation": "publication-resume",
+      "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-southwest\\binding.json\"",
+      "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+    }
+  }
+]

@@ -15,6 +15,7 @@ from .core_v0_shadow_soak_runner_v1 import core_v0_shadow_soak_command
 from .core_v0_acceptance_harness_v1 import core_v0_acceptance_command
 from .tier2_video_factory_v1 import tier2_video_command
 from .speech_highlight_relay_v1 import speech_highlight_relay_command
+from .speech_highlight_current_source_v1 import command as speech_highlight_current_source_command
 
 from . import status
 from . import contracts
@@ -1254,6 +1255,7 @@ COMMANDS = {
     "daily-app": daily_app_command,
     "tier2-video-local": tier2_video_command,
     "speech-highlight-relay": speech_highlight_relay_command,
+    "speech-highlight-current-source": speech_highlight_current_source_command,
 
 
 }
@@ -1272,6 +1274,7 @@ def main():
                     "daily-app",
                     "tier2-video-local",
                     "speech-highlight-relay",
+                    "speech-highlight-current-source",
                 }:
                     return COMMANDS[cmd](sys.argv[2:]) or 0
                 if cmd in {"scheduler", "scheduler-tick"}:

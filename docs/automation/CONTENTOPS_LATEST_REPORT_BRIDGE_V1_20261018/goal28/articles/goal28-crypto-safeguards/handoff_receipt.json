@@ -1,0 +1,13 @@
+{
+  "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+  "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+  "review_id": "native-article-review-d9f29ecae7034cf8889fc6df5f558c27",
+  "plan_hash": "54e25c195c3a653704251c212ad746cc2d71e78c01a24fe10567beee29f62cf2",
+  "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-crypto-safeguards\\reviewed-handoff",
+  "media_reuse_count": 1,
+  "preview_count": 8,
+  "new_qualified_articles": 0,
+  "model_invocations": 0,
+  "source_requests": 0,
+  "public_write_performed": false
+}

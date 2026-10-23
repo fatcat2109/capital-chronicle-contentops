@@ -129,8 +129,8 @@ def test_authority_packet_is_permanent_gemini_only_and_owns_current_article_path
     assert packet["forbidden_non_gemini_v1_models_reachable"] is False
     assert packet["temporary_gemini_incident_override_supported"] is False
     assert packet["publication_qualified_article_uses_native_codex_desktop_xhigh"] is False
-    assert packet["publication_qualified_article_uses_9router_gemini"] is True
-    assert packet["codex_runtime_model_calls_required"] is False
+    assert packet["publication_qualified_article_uses_9router_gemini"] is False
+    assert packet["codex_runtime_model_calls_required"] is True
     assert packet["grants_factual_or_numeric_authority"] is False
     assert packet["grants_publication_authority"] is False
 

@@ -1,0 +1,158 @@
+{
+  "source_head": "b02caf2d32279dfb74f2411347e53986faadd696",
+  "source_tree_digest": "aee0c4ba9d9392257a511c660df93a0e9cbcfcf0d9c4bdfdbb7ba50adb9d96b8",
+  "dirty_source_requires_refresh": true,
+  "relationships": [
+    {
+      "from": "live_contentops/contentops_source_research_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/contentops_source_research_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_contentops_source_research_v1.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/__init__.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "inference": "test_exact_import",
+      "kind": "covered_by",
+      "to": "tests/test_capital_chronicle_report_editorial_workspace_v1.py"
+    },
+    {
+      "from": "live_contentops/v1_simple_gemini_newsroom_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "covered_by",
+      "to": "tests/test_v1_simple_gemini_newsroom_v1.py"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/credential_redaction_policy.py::redact_text"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/headline_data_root_v1.py::canonical_headline_sidecar_glob"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/newsroom_assignment_scheduler_v1.py::load_rolling_x_headline_sidecars"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::build_current_zero_write_qualified_article_record"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::newsroom_production_day_id"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/newsroom_production_day_v1.py::persist_qualified_article_record"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::canonical_x_report_document"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_epistemic_state_v1.py::validate_epistemic_state"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::SimpleGeminiNewsroomError"
+    },
+    {
+      "from": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::run_v1_simple_gemini_newsroom",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/v1_simple_gemini_newsroom_v1.py::native_source_date_notice"
+    },
+    {
+      "from": "python_symbol:scripts/acquire_contentops_source_research_v1.py::main",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "python_symbol:scripts/build_contentops_research_wave_v1.py::build",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "python_symbol:scripts/render_contentops_research_library_v1.py::render",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "python_symbol:scripts/verify_contentops_editorial_desk_v1.py::verify",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "python_symbol:scripts/verify_contentops_story_update_v1.py::verify",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+      "inference": "python_ast_import",
+      "kind": "imports",
+      "to": "live_contentops/v1_simple_gemini_newsroom_v1.py"
+    },
+    {
+      "from": "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+      "inference": "test_exact_import",
+      "kind": "tests",
+      "to": "live_contentops/v1_simple_gemini_newsroom_v1.py"
+    },
+    {
+      "from": "tests/test_contentops_main_headline_projection_v1.py",
+      "inference": "python_ast_exact_name_call",
+      "kind": "calls",
+      "to": "python_symbol:live_contentops/contentops_source_research_v1.py::RetainedSourceResearch"
+    },
+    {
+      "from": "tests/test_contentops_source_research_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/contentops_source_research_v1.py"
+    },
+    {
+      "from": "tests/test_v1_simple_gemini_newsroom_v1.py",
+      "inference": "test_filename_convention",
+      "kind": "tests",
+      "to": "live_contentops/v1_simple_gemini_newsroom_v1.py"
+    }
+  ],
+  "conclusion": "Graph is discovery only; current direct source and focused tests govern the changed seams."
+}

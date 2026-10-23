@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "blockers": [],
+  "validator": "existing_grounded_article_validator",
+  "material_claim_lineage": [
+    {
+      "item_id": "goal21-sec-tenk-scope",
+      "source_id": "SOURCE_1",
+      "source_url": "https://www.sec.gov/answers/reada10k.htm",
+      "text_sha256": "4c893e0b7d6f99396f518bfbfe3667de43b32691c9432ca5db04b4e369c1670c",
+      "source_capture_sha256": "b3f7b72aa4131a60ea124d7e4d6439b532b6ffbef02fd797dc90c0e839b8d6c8",
+      "permission_sha256": "375195e0c4417d8eee11d21810487ce5e347661566836949556d0c964e66c56d",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-sec-cross-trading",
+      "source_id": "SOURCE_2",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds",
+      "text_sha256": "d5d8038c797f1b4e45054db2a97d1f9b7ba325b77cb1938657dc75873e586405",
+      "source_capture_sha256": "9357e7a9299740d1b09dbe2ab838118e7adf7a5e08928eeffe5c825372dd1669",
+      "permission_sha256": "0236ca231541cba54dc489e1b4d0b9a858d4f666d97eb359bf2db6cbaf0294f8",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    }
+  ],
+  "semantic_editorial_review": "REQUIRED",
+  "qualified_simple_article": false
+}

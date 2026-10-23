@@ -1,0 +1,40 @@
+{
+  "run_id": "goal35-southwest",
+  "request_sha256": "a33cd04bc6f0f3c653c881332fbee67d143ec369d86c728f40852b1d1c7f03ee",
+  "candidate_count_reviewed": 25,
+  "selection": {
+    "angle": "Southwest cuts its full-year adjusted earnings outlook despite stronger fares, record quarterly revenue and a quarterly earnings beat. Explain how current operating gains and pressure on the next quarter can coexist.",
+    "article_mode": "STANDARD_NEWS_ANALYSIS",
+    "candidate_id": "simple-story-f2a30d4ebd709c3c05cb0692",
+    "evidence_plan": "Use only retained goal35-southwest Reuters facts, published 2026-10-21T20:23:00Z, known 2026-10-21T22:27:23.031Z. Attribute issuer guidance through Reuters: 2026 adjusted EPS expected $2.60-$2.85 versus prior $3.25-$4.25; this proves the reported forecasting act, not future achieved earnings. Retain supplied statement that new midpoint is below $2.85 LSEG analyst average without manual midpoint calculation. Bind nearly 27% Q3 average passenger fare increase, Q3 record $8.4bn revenue, higher adjusted operating margin despite fuel costs, fuel bill +$821m year on year, and Q3 adjusted EPS 66 cents versus 58-cent expectation and 11 cents year ago. Final-quarter jet-fuel increase is company expectation only. Do not infer fare increase equals yield, demand or passenger-volume growth; do not calculate fuel sensitivity or attribute entire guidance reduction to fuel. Keep Q3 results and full-year/future expectations separate. Accepted historical 2025 hedge/AOCI case remains dated history; this current report neither independently updates hedge status nor contradicts or invalidates that case. Missing: exact margin, traffic/capacity/mix, fuel-volume/unit-cost split and earnings bridge. Code owns arithmetic. No new retrieval, requests, quotes or media.",
+    "primary_reader_question": "Why can Southwest beat quarterly earnings expectations and raise fares yet cut its full-year profit outlook?",
+    "research_queries": [
+      "Southwest October 21 2026 profit forecast fares fuel costs adjusted earnings"
+    ],
+    "selection_rationale": "The fresh 2026 guidance change creates an actionable reading question about revenue strength versus earnings exposure, not a recycled hedge-accounting explainer. Concrete reported quarterly gains make a serious countercase to a simple deterioration narrative. Only Southwest selected; prior oil, IBM, Tesla and Meta remain handled."
+  },
+  "handled_excluded": [
+    "goal35-oil",
+    "goal35-ibm",
+    "goal35-tesla",
+    "goal35-meta"
+  ],
+  "comparison": "Current FX remains a separate operation. Historical Southwest hedge closure and AOCI research addresses different dates and accounting clocks; no contradiction from current earnings report is established. Other retained SEC, custody, Fed/FX and public Main/EIA research supplies neither fresh Southwest confirmation nor a reason to recycle prior explainers. Seven published identities were deterministically filtered; no full published corpus is supplied, so no exhaustive independent history audit is claimed.",
+  "mechanism": "Higher fares and quarterly revenue can coexist with rising input costs and weaker prospective earnings. A quarterly beat compares actual Q3 EPS with expectations; a full-year outlook incorporates later expectations and is not the same comparison.",
+  "countercase": "Reported higher adjusted operating margin and stronger quarterly adjusted EPS show operating improvements despite higher fuel costs. They prevent treating the guidance cut as proof that the turnaround failed. Conversely, a quarterly beat does not establish protection against prospective fuel pressure.",
+  "watch_conditions": [
+    "A comparable earnings bridge separating fare/mix, traffic, nonfuel expenses and fuel price/volume would test which forces explain the revised outlook.",
+    "Later realized fuel prices and quarterly outcomes could test company expectations; current guidance is not future truth. No new requests are authorized by these watchpoints."
+  ],
+  "writer_outline": [
+    "Lead with lower 2026 guidance alongside the Q3 beat.",
+    "Keep realized quarterly performance and future issuer expectations distinct.",
+    "Explain the revenue-cost tension without inventing complete causality.",
+    "Present operating-margin improvement as countercase and identify evidence needed to judge persistence."
+  ],
+  "confirmation": "SINGLE_REUTERS_REPORT; ISSUER_FORECAST_ACT_ATTRIBUTABLE; FUTURE_OUTCOME_UNCONFIRMED",
+  "rights": "Facts-only original prose; no quotations or media reuse",
+  "new_source_requests": 0,
+  "runtime_submission_performed": false,
+  "public_write_attempted": false
+}

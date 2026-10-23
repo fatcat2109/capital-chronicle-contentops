@@ -1,0 +1,538 @@
+{
+  "accepted_evidence_ids": [
+    "goal28-company-reading"
+  ],
+  "accepted_evidence_sha256": "bc2f7b9c4331db986ce589f7928fdebc9249eff0b5535b17f9157c3d25217d7d",
+  "article_body_sha256": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+  "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+  "article_path": null,
+  "attempt_run_id": "goal28-company-reading",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-company-reading"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "official_source_document_card"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\nWhat to watch: Khi kh\u00e9p t\u00e0i li\u1ec7u, h\u00e3y gi\u1eef l\u1ea1i m\u1ed9t ghi ch\u00e9p c\u00f3 th\u1ec3 ki\u1ec3m tra: l\u1eddi gi\u1ea3i th\u00edch n\u00e0o c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u0111ang \u0111\u01b0\u1ee3c xem x\u00e9t; b\u00e1o c\u00e1o, thuy\u1ebft minh hay \u00fd ki\u1ebfn ki\u1ec3m to\u00e1n n\u00e0o li\u00ean quan; v\u00e0 c\u00e2u h\u1ecfi n\u00e0o v\u1eabn ch\u01b0a c\u00f3 l\u1eddi \u0111\u00e1p.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "d6e43499b0e18d745437ff7adbb7cd23e22557c1826cb82feeeac4df89b4a891",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-company-reading"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891\n\nWatch: Khi kh\u00e9p t\u00e0i li\u1ec7u, h\u00e3y gi\u1eef l\u1ea1i m\u1ed9t ghi ch\u00e9p c\u00f3 th\u1ec3 ki\u1ec3m tra: l\u1eddi gi\u1ea3i th\u00edch n\u00e0o c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u0111ang \u0111\u01b0\u1ee3c xem x\u00e9t; b\u00e1o c\u00e1o, thuy\u1ebft minh hay \u00fd ki\u1ebfn ki\u1ec3m to\u00e1n n\u00e0o li\u00ean quan; v\u00e0 c\u00e2u h\u1ecfi n\u00e0o v\u1eabn ch\u01b0a c\u00f3 l\u1eddi \u0111\u00e1p.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: Khi kh\u00e9p t\u00e0i li\u1ec7u, h\u00e3y gi\u1eef l\u1ea1i m\u1ed9t ghi ch\u00e9p c\u00f3 th\u1ec3 ki\u1ec3m tra: l\u1eddi gi\u1ea3i th\u00edch n\u00e0o c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u0111ang \u0111\u01b0\u1ee3c xem x\u00e9t; b\u00e1o c\u00e1o, thuy\u1ebft minh hay \u00fd ki\u1ebfn ki\u1ec3m to\u00e1n n\u00e0o li\u00ean quan; v\u00e0 c\u00e2u h\u1ecfi n\u00e0o v\u1eabn ch\u01b0a c\u00f3 l\u1eddi \u0111\u00e1p."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.993,
+            0.768,
+            0.293
+          ],
+          "post_character_counts": [
+            278,
+            215,
+            82
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.295,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: Khi kh\u00e9p t\u00e0i li\u1ec7u, h\u00e3y gi\u1eef l\u1ea1i m\u1ed9t ghi ch\u00e9p c\u00f3 th\u1ec3 ki\u1ec3m tra: l\u1eddi gi\u1ea3i th\u00edch n\u00e0o c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u0111ang \u0111\u01b0\u1ee3c xem x\u00e9t; b\u00e1o c\u00e1o, thuy\u1ebft minh hay \u00fd ki\u1ebfn ki\u1ec3m to\u00e1n n\u00e0o li\u00ean quan; v\u00e0 c\u00e2u h\u1ecfi n\u00e0o v\u1eabn ch\u01b0a c\u00f3 l\u1eddi \u0111\u00e1p.",
+          "Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891",
+        "text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891"
+      },
+      "payload_sha256": "902915c0e4289de4b37eb782f06d79216f755f7f45f518a737405afc40452fc7",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-company-reading"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]**\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\n**Context:** Ph\u1ea3n \u0111\u1ec1 nghi\u00eam t\u00fac l\u00e0 c\u00e1c \u01b0\u1edbc t\u00ednh k\u1ebf to\u00e1n v\u00e0 ch\u1ec9 ti\u00eau \u0111i\u1ec1u ch\u1ec9nh c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc hi\u1ec3u th\u00eam, n\u1ebfu c\u01a1 s\u1edf v\u00e0 ph\u1ea7n \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c gi\u1ea3i th\u00edch r\u00f5.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "28458d843aeb81a6d45e9e8d39ccc0b338cc79c65dbda304957143853fda790f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-company-reading"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nWhy it matters: \u0110i\u1ec3m d\u1ec5 b\u1ecf qua n\u1eb1m \u1edf c\u00e1c x\u00e9t \u0111o\u00e1n k\u1ebf to\u00e1n: \u01b0\u1edbc t\u00ednh v\u00e0 gi\u1ea3 \u0111\u1ecbnh d\u00f9ng \u0111\u1ec3 l\u1eadp b\u00e1o c\u00e1o.\n\nContext: Ph\u1ea3n \u0111\u1ec1 nghi\u00eam t\u00fac l\u00e0 c\u00e1c \u01b0\u1edbc t\u00ednh k\u1ebf to\u00e1n v\u00e0 ch\u1ec9 ti\u00eau \u0111i\u1ec1u ch\u1ec9nh c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc hi\u1ec3u th\u00eam, n\u1ebfu c\u01a1 s\u1edf v\u00e0 ph\u1ea7n \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c gi\u1ea3i th\u00edch r\u00f5.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "92cee1cf38df9af3e427c76b25685124de8bcf0102c35fc3137776f432cae0ba",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-company-reading"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\nWhy it matters: \u0110i\u1ec3m d\u1ec5 b\u1ecf qua n\u1eb1m \u1edf c\u00e1c x\u00e9t \u0111o\u00e1n k\u1ebf to\u00e1n: \u01b0\u1edbc t\u00ednh v\u00e0 gi\u1ea3 \u0111\u1ecbnh d\u00f9ng \u0111\u1ec3 l\u1eadp b\u00e1o c\u00e1o.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "adb3cf0af7c534cbbccb3a935a7538367d857b8a90fa69baf6ebbc438ffdde85",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-company-reading"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\nIn focus: Ph\u1ea3n \u0111\u1ec1 nghi\u00eam t\u00fac l\u00e0 c\u00e1c \u01b0\u1edbc t\u00ednh k\u1ebf to\u00e1n v\u00e0 ch\u1ec9 ti\u00eau \u0111i\u1ec1u ch\u1ec9nh c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc hi\u1ec3u th\u00eam, n\u1ebfu c\u01a1 s\u1edf v\u00e0 ph\u1ea7n \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c gi\u1ea3i th\u00edch r\u00f5.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891\n\n#CapitalChronicle\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "f0fd6d22b63d74ce1cfc5ba7a963379ef9046cbfe16dfb437d2fb2b20689982d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-company-reading"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nPh\u1ea3n \u0111\u1ec1 nghi\u00eam t\u00fac l\u00e0 c\u00e1c \u01b0\u1edbc t\u00ednh k\u1ebf to\u00e1n v\u00e0 ch\u1ec9 ti\u00eau \u0111i\u1ec1u ch\u1ec9nh c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc hi\u1ec3u th\u00eam, n\u1ebfu c\u01a1 s\u1edf v\u00e0 ph\u1ea7n \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c gi\u1ea3i th\u00edch r\u00f5.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891\n\nWhat to watch: Khi kh\u00e9p t\u00e0i li\u1ec7u, h\u00e3y gi\u1eef l\u1ea1i m\u1ed9t ghi ch\u00e9p c\u00f3 th\u1ec3 ki\u1ec3m tra: l\u1eddi gi\u1ea3i th\u00edch n\u00e0o c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u0111ang \u0111\u01b0\u1ee3c xem x\u00e9t; b\u00e1o c\u00e1o, thuy\u1ebft minh hay \u00fd ki\u1ebfn ki\u1ec3m to\u00e1n n\u00e0o li\u00ean quan; v\u00e0 c\u00e2u h\u1ecfi n\u00e0o v\u1eabn ch\u01b0a c\u00f3 l\u1eddi \u0111\u00e1p.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nPh\u1ea3n \u0111\u1ec1 nghi\u00eam t\u00fac l\u00e0 c\u00e1c \u01b0\u1edbc t\u00ednh k\u1ebf to\u00e1n v\u00e0 ch\u1ec9 ti\u00eau \u0111i\u1ec1u ch\u1ec9nh c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc hi\u1ec3u th\u00eam, n\u1ebfu c\u01a1 s\u1edf v\u00e0 ph\u1ea7n \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c gi\u1ea3i th\u00edch r\u00f5.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Khi kh\u00e9p t\u00e0i li\u1ec7u, h\u00e3y gi\u1eef l\u1ea1i m\u1ed9t ghi ch\u00e9p c\u00f3 th\u1ec3 ki\u1ec3m tra: l\u1eddi gi\u1ea3i th\u00edch n\u00e0o c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u0111ang \u0111\u01b0\u1ee3c xem x\u00e9t; b\u00e1o c\u00e1o, thuy\u1ebft minh hay \u00fd ki\u1ebfn ki\u1ec3m to\u00e1n n\u00e0o li\u00ean quan; v\u00e0 c\u00e2u h\u1ecfi n\u00e0o v\u1eabn ch\u01b0a c\u00f3 l\u1eddi \u0111\u00e1p.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.624,
+            0.614
+          ],
+          "post_character_counts": [
+            312,
+            307
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.984,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Khi kh\u00e9p t\u00e0i li\u1ec7u, h\u00e3y gi\u1eef l\u1ea1i m\u1ed9t ghi ch\u00e9p c\u00f3 th\u1ec3 ki\u1ec3m tra: l\u1eddi gi\u1ea3i th\u00edch n\u00e0o c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u0111ang \u0111\u01b0\u1ee3c xem x\u00e9t; b\u00e1o c\u00e1o, thuy\u1ebft minh hay \u00fd ki\u1ebfn ki\u1ec3m to\u00e1n n\u00e0o li\u00ean quan; v\u00e0 c\u00e2u h\u1ecfi n\u00e0o v\u1eabn ch\u01b0a c\u00f3 l\u1eddi \u0111\u00e1p.\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nPh\u1ea3n \u0111\u1ec1 nghi\u00eam t\u00fac l\u00e0 c\u00e1c \u01b0\u1edbc t\u00ednh k\u1ebf to\u00e1n v\u00e0 ch\u1ec9 ti\u00eau \u0111i\u1ec1u ch\u1ec9nh c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc hi\u1ec3u th\u00eam, n\u1ebfu c\u01a1 s\u1edf v\u00e0 ph\u1ea7n \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c gi\u1ea3i th\u00edch r\u00f5.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891",
+        "text": "CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nPh\u1ea3n \u0111\u1ec1 nghi\u00eam t\u00fac l\u00e0 c\u00e1c \u01b0\u1edbc t\u00ednh k\u1ebf to\u00e1n v\u00e0 ch\u1ec9 ti\u00eau \u0111i\u1ec1u ch\u1ec9nh c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc hi\u1ec3u th\u00eam, n\u1ebfu c\u01a1 s\u1edf v\u00e0 ph\u1ea7n \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c gi\u1ea3i th\u00edch r\u00f5.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891"
+      },
+      "payload_sha256": "216910c8117926c3b608da49817eda026d0e91412bc4e376b139ad3ce27744cb",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-company-reading"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CONFIRMED | \u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh [Source undated]\n\nM\u1ed9t c\u00e2u chuy\u1ec7n kinh doanh c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ed1i chi\u1ebfu v\u1edbi b\u00e1o c\u00e1o t\u00e0i ch\u00ednh, thuy\u1ebft minh v\u00e0 nh\u1eefng gi\u1ea3 \u0111\u1ecbnh t\u1ea1o ra con s\u1ed1.\n\nWhat to watch: Khi kh\u00e9p t\u00e0i li\u1ec7u, h\u00e3y gi\u1eef l\u1ea1i m\u1ed9t ghi ch\u00e9p c\u00f3 th\u1ec3 ki\u1ec3m tra: l\u1eddi gi\u1ea3i th\u00edch n\u00e0o c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u0111ang \u0111\u01b0\u1ee3c xem x\u00e9t; b\u00e1o c\u00e1o, thuy\u1ebft minh hay \u00fd ki\u1ebfn ki\u1ec3m to\u00e1n n\u00e0o li\u00ean quan; v\u00e0 c\u00e2u h\u1ecfi n\u00e0o v\u1eabn ch\u01b0a c\u00f3 l\u1eddi \u0111\u00e1p.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-a3939d3e904a7891\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "e76d1fb3069bbc792110e27a48ae08b08e205d37c9bf8d5087b407c238a0efc9",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal28_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task name with explicitly requested gpt-6.1-sol low; UUID not exposed",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal28_sol_max_b",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent exposed canonical task name with explicitly requested gpt-6.1-sol/max; UUID not exposed",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "Item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.sec.gov",
+    "primary_reporting_source_identity": "www.sec.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.sec.gov reports that item 7 - \u201cManagement\u2019s Discussion and Analysis of Financial Condition and Results of Operations\u201d** gives the company\u2019s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company\u2019s operations and financial results, including information about the company\u2019s liquidity and capital resources and any known trends or uncertainties that could materially affect the company\u2019s results. This section may also discuss management\u2019s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > \u2022 A consumer company might discuss ways in which it seeks to meet changing tastes. > > \u2022 A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > \u2022 A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > \u2022 A global company may discuss how it handles exchange rate risks. > > \u2022 Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > \u2022 Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company\u2019s results compared to the prior period, as well as off-balance sheet arrangements and the company\u2019s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal28-company-reading"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-21-bangkok",
+  "parent_window_id": "goal28-company-reading",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "c055a4b0d5db4372aa403983d3ce5937fa41b9c2026e624326a657fcbf4b253f",
+  "resolved_article_mode": "EVERGREEN_EXPLAINER",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-01a2d51afcef52787341c1ce",
+  "title": "\u0110\u1ecdc 10-K: ki\u1ec3m tra c\u00e2u chuy\u1ec7n MD&A b\u1eb1ng b\u00e1o c\u00e1o t\u00e0i ch\u00ednh",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-01a2d51afcef52787341c1ce"
+}

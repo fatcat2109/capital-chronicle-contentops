@@ -1,0 +1,284 @@
+{
+  "admitted_candidate_count": 1,
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+      ],
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "blockers": [],
+      "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Meta October 21 2026 non voting Class C stock capex forecast free cash flow"
+      ],
+      "selection_rationale": "The reported capital-structure plan and cash-flow tension provide a distinct useful current company question. A revenue beat does not answer how expansion is financed or how voting control is preserved. This differs from Tesla spending-versus-expectations, IBM software demand, oil and historical filing/custody explainers. Single Reuters origin, underlying event truth unconfirmed.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "codex_runtime_model_calls_before_writer": null,
+  "evidence_attempts": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+      ],
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "blockers": [],
+      "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "provenance": {
+        "read_only_http_get_only": true,
+        "request_count_for_call": 0,
+        "retained_research_revision": "369562fecd18ccf1d4752b52c4b2d6b9ba6569e7697dd962002fdec48f1e510f",
+        "selected_route": "OFFICIAL_PRIMARY"
+      },
+      "request": {
+        "cluster_id": "simple-story-fac27d440fa75893480ecc46",
+        "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+        "evidence_enrichment_context": {
+          "requested": true
+        },
+        "headline_ids": [
+          "goal35-meta"
+        ],
+        "remaining_admitted_candidate_count": 0,
+        "request_logical_hash": "e1ddad87bd8ad8f27be2f229841efe7c6f788d2b7fe674236aea0c41987d20b7",
+        "requested_article_mode": "STANDARD_NEWS_ANALYSIS",
+        "required_evidence_capabilities": [
+          "credible_report_or_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "story_context": {
+          "candidate_packet_locators_grant_factual_authority": false,
+          "candidate_source_account": "Reuters",
+          "candidate_source_timestamp_utc": "2026-10-21T20:05:00Z",
+          "candidate_source_url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+          "evolving_story_context": [],
+          "grounded_research_queries": [
+            "Meta October 21 2026 non voting Class C stock capex forecast free cash flow"
+          ],
+          "leaf_summaries": [
+            "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments"
+          ],
+          "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
+          "planned_research_query_count": 1,
+          "planned_research_query_set_sha256": "e05d1ead32b05527f377bab3cfdb01ecd7416579667bf66b17492d24357f4c6a",
+          "public_source_url_bindings": [
+            {
+              "headline_id": "goal35-meta",
+              "source_timestamp_utc": "2026-10-21T20:05:00Z",
+              "url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+            }
+          ],
+          "report_provenance": {
+            "arbitrary_x_list_membership_grants_authority": false,
+            "attributed_reputable_sources": [],
+            "canonical_x_list_provenance": {},
+            "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+            "explicit_market_rumor": false,
+            "explicit_reputable_attribution": false,
+            "owner_curated_canonical_x_record": false,
+            "preferred_route": "DEFAULT_SHORTEST_GOVERNED_ROUTE",
+            "primary_reporting_publisher": null,
+            "primary_reporting_source_identity": null,
+            "report_or_event_authority_granted": false,
+            "report_proposition": null,
+            "schema_version": "contentops.v1_simple_candidate_report_provenance.v1",
+            "source_account": "reuters",
+            "source_url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+            "trusted_relay_identity_approved": false
+          }
+        },
+        "story_evidence_scope_id": "simple-story-fac27d440fa75893480ecc46",
+        "story_type": "selected_current_news"
+      },
+      "research_queries": [
+        "Meta October 21 2026 non voting Class C stock capex forecast free cash flow"
+      ],
+      "selection_rationale": "The reported capital-structure plan and cash-flow tension provide a distinct useful current company question. A revenue beat does not answer how expansion is financed or how voting control is preserved. This differs from Tesla spending-versus-expectations, IBM software demand, oil and historical filing/custody explainers. Single Reuters origin, underlying event truth unconfirmed.",
+      "source_pack": [
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+          "canonical_content_text": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January ​2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI ​race.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash ​flow of $10.63 billion a year earlier.",
+          "canonical_resolution_status": "",
+          "document_id": "goal35-meta",
+          "published_at_source": "2026-10-21T20:05:00Z",
+          "published_at_utc": "2026-10-21T20:05:00Z",
+          "publisher": "Reuters",
+          "report_truth_only": true,
+          "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+          "secondary_listing_only": false,
+          "source_authority_class": "reputable_secondary_source",
+          "source_id": "SOURCE_1",
+          "source_identity": "reuters.com",
+          "source_reuse_constraints": {
+            "INTERNAL_ANALYSIS_ALLOWED": true,
+            "LLM_INPUT_ALLOWED": true,
+            "MODEL_INPUT_ALLOWED": true,
+            "attribution_required": true,
+            "canonical_text_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+            "content_sha256": "6f6ac90b1183a40e73aca7085938d7d5e47a1b7f6583e72cab1c82f110089537",
+            "government_authorship": false,
+            "images_logos_exhibits_reuse_allowed": false,
+            "permitted_consumers": [
+              "internal_research",
+              "narrative_context"
+            ],
+            "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+            "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+            "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+            "provider_safe": true,
+            "public_expression_reuse_allowed": false,
+            "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            "source_capture_sha256": "cf41b2f98b0ae3cc9ab39bd11f95198fd3cdad4ab824b02cfe89bdbde603249a",
+            "underlying_event_truth_granted": false
+          },
+          "url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+        }
+      ],
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "model_calls_before_writer": 1,
+  "public_write_performed": false,
+  "request_count": 0,
+  "request_limit": 6,
+  "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
+  "selected_candidate_id": "simple-story-fac27d440fa75893480ecc46",
+  "selected_epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-meta"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+      "canonical_content_text": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January ​2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI ​race.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash ​flow of $10.63 billion a year earlier.",
+      "canonical_resolution_status": "",
+      "document_id": "goal35-meta",
+      "published_at_source": "2026-10-21T20:05:00Z",
+      "published_at_utc": "2026-10-21T20:05:00Z",
+      "publisher": "Reuters",
+      "report_truth_only": true,
+      "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+      "secondary_listing_only": false,
+      "source_authority_class": "reputable_secondary_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "reuters.com",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "attribution_required": true,
+        "canonical_text_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+        "content_sha256": "6f6ac90b1183a40e73aca7085938d7d5e47a1b7f6583e72cab1c82f110089537",
+        "government_authorship": false,
+        "images_logos_exhibits_reuse_allowed": false,
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+        "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+        "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+        "provider_safe": true,
+        "public_expression_reuse_allowed": false,
+        "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+        "source_capture_sha256": "cf41b2f98b0ae3cc9ab39bd11f95198fd3cdad4ab824b02cfe89bdbde603249a",
+        "underlying_event_truth_granted": false
+      },
+      "url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+    }
+  ],
+  "status": "PASS",
+  "updated_source_route_health": {}
+}

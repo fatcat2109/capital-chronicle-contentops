@@ -1,0 +1,468 @@
+{
+  "briefs": [
+    {
+      "brief_id": "rates-fx-transmission",
+      "families": [
+        "FX_RATES"
+      ],
+      "title": "Đọc một quyết định Fed mà không nhầm nó với dự báo USD",
+      "source_item_ids": [
+        "goal21-fed-policy",
+        "goal21-fed-inflation",
+        "goal21-fx-convention",
+        "goal21-fx-broad-index"
+      ],
+      "audience_value": "Giúp người đọc phân biệt quyết định chính sách đã xảy ra, cách yết tỷ giá và câu chuyện thị trường cần kiểm chứng tiếp.",
+      "mechanism": "Suy luận ContentOps: thay đổi kỳ vọng chênh lệch lãi suất có thể thay đổi sức hấp dẫn tương đối của tiền tệ. Một quyết định Fed đơn lẻ không đủ xác định hướng đi của từng cặp.",
+      "competing_explanation": "Dòng vốn trú ẩn, chính sách của nước đối tác hoặc thông tin tăng trưởng có thể giải thích chuyển động riêng của một cặp ngay cả khi USD rộng ít thay đổi.",
+      "scenarios": [
+        "Nếu dữ liệu lạm phát duy trì áp lực, kiểm tra liệu kỳ vọng lãi suất tương đối cùng thay đổi.",
+        "Nếu một cặp đi ngược USD rộng, tìm tác nhân riêng của đồng tiền đối ứng."
+      ],
+      "falsifiers": [
+        "Chênh lệch lãi suất kỳ vọng không đổi trong khi tỷ giá biến động: cách giải thích chỉ bằng lãi suất yếu đi.",
+        "Sai chiều yết tỷ giá hoặc lệch ngày quan sát làm phép so sánh không hợp lệ."
+      ],
+      "missing_inputs": [
+        "Giá và đường cong kỳ vọng hiện tại từ nguồn được phép",
+        "Chính sách và dữ liệu đồng tiền đối ứng"
+      ],
+      "next_question": "Biến động nào thực sự rộng khắp USD và biến động nào chỉ riêng từng đồng tiền?",
+      "editorial_kind": "ANALYSIS",
+      "article_sections": [
+        {
+          "heading": "Kết luận có thể dùng",
+          "text": "Quyết định ngày 16/9 là một mốc chính sách có ngày riêng, không mô tả thị trường ngày 19/10. Đọc nó cùng quy ước yết tỷ giá: một thay đổi của chỉ số USD rộng không đồng nghĩa EURUSD và USDJPY phải cùng tăng hoặc cùng giảm. Đây là khung đọc dữ kiện, chưa phải nhận định USD hiện tại. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]] [[SOURCE:SOURCE_4]]"
+        },
+        {
+          "heading": "Ba bước kiểm tra trước khi giải thích giá",
+          "text": "Trước hết xác định đồng tiền nào là tử số và mẫu số. Tiếp đó khớp ngày của quyết định với thời điểm quan sát giá. Cuối cùng so sánh kỳ vọng lãi suất tương đối với tin từ nước đối tác. Phần cuối là giả thuyết phân tích ContentOps; bộ nguồn này chưa có đường cong kỳ vọng hay giá đồng thời để kiểm tra nó."
+        },
+        {
+          "heading": "Dữ kiện có thể làm cách đọc đổi hướng",
+          "text": "Thông cáo Fed vẫn nhấn mạnh lạm phát trong chính văn; vì vậy chỉ trích riêng động tác lãi suất và bỏ phần rủi ro có thể tạo ra câu chuyện một chiều. Chỉ số rộng là trung bình có trọng số, nên một cặp riêng biệt đi khác trung bình không tự nó là mâu thuẫn. Đây là bằng chứng giới hạn cách diễn giải, không phải bằng chứng đã quan sát được một biến động tỷ giá. [[SOURCE:SOURCE_2]] [[SOURCE:SOURCE_4]]"
+        }
+      ],
+      "reuse_unchanged_media": true,
+      "counterevidence": [
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-fed-inflation"
+          ],
+          "text": "Inflation remains elevated. Today's policy action will support a timelier return to the Committee's 2 percent goal. The Committee will deliver price stability.",
+          "text_sha256": "b7f0dbc8ffe5b459eda07719fd59c38344144b80c0a7386720f9b958895c8466",
+          "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+          "editorial_inference": "Không được bỏ phần lạm phát để diễn giải một chiều động tác lãi suất.",
+          "external_counterevidence_observed": false
+        },
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-fx-broad-index"
+          ],
+          "text": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners.",
+          "text_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+          "source_url": "https://www.federalreserve.gov/releases/h10/current/",
+          "editorial_inference": "Chỉ số rộng là trung bình có trọng số, không chứng minh hướng mọi cặp.",
+          "external_counterevidence_observed": false
+        }
+      ],
+      "semantic_revision": "goal22-editorial-repair-v1",
+      "social_watch": "Kiểm tra cùng thời điểm quan sát và đúng chiều yết trước khi so sánh từng cặp với chỉ số USD rộng."
+    },
+    {
+      "brief_id": "metals-exposure",
+      "families": [
+        "METALS"
+      ],
+      "title": "Trước khi nói giá vàng: xác định người mua sở hữu kim loại hay một lời hứa",
+      "source_item_ids": [
+        "goal21-metals-leverage",
+        "goal21-metals-custody"
+      ],
+      "audience_value": "Đặt rủi ro đòn bẩy, quyền sở hữu và lưu ký bên cạnh câu chuyện giá; không biến khuyến cáo chống gian lận thành dự báo vàng.",
+      "mechanism": "Suy luận ContentOps: đòn bẩy và nghĩa vụ bổ sung tiền có thể làm kết quả đầu tư khác biệt với biến động của kim loại cơ sở.",
+      "competing_explanation": "Một lời chào mua có thể mô tả kim loại thật, hợp đồng tài chính hoặc một thỏa thuận tài trợ; tên sản phẩm không đủ xác định rủi ro.",
+      "scenarios": [
+        "Nếu có tài trợ, kiểm tra điều kiện gọi bổ sung tiền và phí.",
+        "Nếu công bố sở hữu vật chất, kiểm tra người lưu ký, địa điểm và chứng từ."
+      ],
+      "falsifiers": [
+        "Không có hợp đồng hoặc xác nhận lưu ký độc lập: chưa đủ cơ sở mô tả cấu trúc đầu tư.",
+        "Không có dữ liệu giá hiện tại: không đưa kết luận thị trường vàng."
+      ],
+      "missing_inputs": [
+        "Giá vàng, bạc và lợi suất thực mới nhất",
+        "Cấu trúc pháp lý chính xác của sản phẩm được đưa tin"
+      ],
+      "next_question": "Rủi ro nằm ở giá kim loại hay ở cấu trúc hợp đồng và đối tác?",
+      "editorial_kind": "BACKGROUND",
+      "article_sections": [
+        {
+          "heading": "Phạm vi hẹp của cảnh báo",
+          "text": "Đây là bài giải thích từ một khuyến cáo CFTC không xác minh ngày xuất bản, không phải tin một doanh nghiệp bị phát hiện gian lận. Tài liệu mô tả những cấu trúc chào mua có tài trợ và những vấn đề thường gặp; nó không chứng minh rằng mọi hợp đồng kim loại hoặc bên lưu ký đều có các vấn đề đó. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]"
+        },
+        {
+          "heading": "Ba câu hỏi trước khi so sánh lợi nhuận",
+          "text": "Ai là chủ sở hữu pháp lý? Bên nào xác nhận kim loại tồn tại và ở đâu? Khi giá đi ngược, hợp đồng có yêu cầu bổ sung tiền và tính những phí nào? Một mức giá kim loại không trả lời được các câu hỏi hợp đồng. Nếu chưa đọc được hợp đồng và xác nhận độc lập, nên giữ kết luận ở mức chưa xác minh thay vì gán nhãn an toàn hay gian lận."
+        },
+        {
+          "heading": "Bằng chứng giới hạn và phản đề",
+          "text": "Cảnh báo của CFTC nói về hành vi và cấu trúc rủi ro cụ thể. Một sản phẩm có chứng từ sở hữu, điều khoản rõ và xác nhận độc lập cần được đánh giá bằng chính hồ sơ đó; bộ nguồn này không chứa hồ sơ để kết luận về sản phẩm ấy. Cũng không có bằng chứng giá để viết rằng vàng đang tăng, giảm hay hấp dẫn. [[SOURCE:SOURCE_1]]"
+        }
+      ],
+      "reuse_unchanged_media": true,
+      "counterevidence": [
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-metals-custody"
+          ],
+          "text": "Agreement that does not identify where the physical metal is located. Claims to deliver the physical metal to an overseas storage facility.",
+          "text_sha256": "26137cfcb7091f0c8cccbd0e6780232894738df2eef19f4765846d1273fd5e23",
+          "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_preciousmetals.html",
+          "editorial_inference": "Tài liệu là cảnh báo cấu trúc cụ thể; không xác nhận một sản phẩm hoặc doanh nghiệp cụ thể đã có hành vi đó.",
+          "external_counterevidence_observed": false
+        }
+      ],
+      "semantic_revision": "goal22-editorial-repair-v1",
+      "social_watch": "Yêu cầu chứng từ sở hữu, xác nhận nơi lưu giữ và điều khoản bổ sung tiền của đúng sản phẩm."
+    },
+    {
+      "brief_id": "gas-vintage",
+      "families": [
+        "ENERGY"
+      ],
+      "title": "Tồn kho gas: trên trung bình năm năm nhưng dưới cùng kỳ không phải mâu thuẫn",
+      "source_item_ids": [
+        "goal22-gas-storage",
+        "goal21-gas-series-migration"
+      ],
+      "audience_value": "Đọc đúng hai mốc so sánh trong bản EIA ngày 15/10, cho tuần 9/10; không biến tồn kho theo mùa vụ thành bất ngờ hay dự báo giá.",
+      "mechanism": "Suy luận ContentOps: so sánh tồn kho chỉ có ý nghĩa khi khớp kỳ quan sát, mùa vụ và phiên bản dữ liệu. Một mức dư lịch sử không bảo đảm thị trường hiện tại dư cung.",
+      "competing_explanation": "Thời tiết, xuất khẩu và sản lượng có thể thay đổi cân bằng gas sau kỳ được lưu lại; khác biệt nguồn cũng có thể tạo ra vẻ thay đổi giả.",
+      "scenarios": [
+        "Nếu nguồn thay thế giữ cùng định nghĩa, nối chuỗi có ghi nhận thay đổi nguồn.",
+        "Nếu định nghĩa hoặc tần suất đổi, trình bày hai chuỗi riêng và nêu hạn chế."
+      ],
+      "falsifiers": [
+        "Thiếu kỳ hiện tại hoặc sai đơn vị: không dùng để kết luận cung cầu mới nhất."
+      ],
+      "missing_inputs": [
+        "Kỳ vọng thị trường trước bản EIA và giá/đường cong gas cùng thời điểm",
+        "Thời tiết, sản lượng và luồng LNG/đường ống đúng kỳ; kiểm tra bản sửa số sau lần đọc"
+      ],
+      "next_question": "Kỳ vọng trước công bố và dữ liệu cung cầu riêng giải thích quan sát 9/10 như thế nào?",
+      "editorial_kind": "NEWS",
+      "article_sections": [
+        {
+          "heading": "Bản nào và kỳ nào",
+          "text": "Bản Weekly Natural Gas Storage Report được đọc ngày 19/10 ghi phát hành ngày 15/10, cho tuần kết thúc 9/10/2026. EIA ước tính tồn kho khí làm việc ở 48 bang liền kề là 3.567 Bcf, tăng 67 Bcf trong tuần; thấp hơn cùng kỳ năm trước 143 Bcf nhưng cao hơn trung bình năm năm 45 Bcf. Đây là các con số EIA, không phải phép tính hoặc dự báo Core. Giờ 10:30 được trang ghi nhưng múi giờ chưa được kiểm tra nên clock máy giữ độ chính xác ngày. [[SOURCE:SOURCE_1]]"
+        },
+        {
+          "heading": "Hai đường so sánh trả lời hai câu hỏi",
+          "text": "Dư so với trung bình năm năm và thiếu so với năm trước có thể cùng đúng vì hai mốc nền khác nhau. Không chọn riêng đường so sánh phù hợp với một câu chuyện tăng hoặc giảm giá. Mức bơm vào kho cũng chưa là bất ngờ thị trường: cần biết kỳ vọng trước công bố mới nói được bất ngờ, và cần dữ liệu khác mới giải thích nguyên nhân."
+        },
+        {
+          "heading": "Nguồn cũ vẫn có giá trị lịch sử",
+          "text": "Thông báo trên Natural Gas Weekly Update cũ nói chuỗi đó đã dừng; điều này không có nghĩa báo cáo tồn kho Weekly Natural Gas Storage Report cũng dừng. Bản mới đóng khoảng trống nguồn thay thế cho đúng quan sát này. Nó không tự lấp dữ liệu thời tiết, LNG, sản lượng hay giá giao dịch hiện tại. [[SOURCE:SOURCE_2]]"
+        },
+        {
+          "heading": "Phản chứng và lần cập nhật tiếp",
+          "text": "Ngay trong bản EIA, vị trí tồn kho đổi ý nghĩa khi chuyển từ mốc năm trước sang trung bình năm năm; đó là đối trọng trực tiếp với kết luận chỉ nhìn một mốc. Nếu bản sửa số đổi quan sát hoặc định nghĩa, bài này phải xem lại. Bản đọc ghi lần phát hành tiếp ngày 22/10; chưa nhận bản đó, nên không tự kéo dài quan sát 9/10 thành trạng thái liên tục."
+        },
+        {
+          "heading": "Nối với ngữ cảnh Main mà không đếm hai lần",
+          "text": "Bản công khai XNGUSD v2 của Main cũng dùng quan sát tồn kho này và nêu các kịch bản có điều kiện cho 5/21/63 phiên. Bản đó là phân tích quay về từ Main, không phải một nguồn độc lập xác nhận EIA lần thứ hai. Bài này giữ phép so sánh tồn kho ở đúng dữ kiện EIA; không chuyển kịch bản Main thành giá mục tiêu, xác suất hoặc khuyến nghị. Nếu Main sửa hoặc rút bản công khai, quyết định cho gói này phải được xem lại theo đúng revision đã gắn."
+        }
+      ],
+      "reuse_unchanged_media": true,
+      "counterevidence": [
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal22-gas-storage"
+          ],
+          "text": "Working gas in storage was 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. This represents a net increase of 67 Bcf from the previous week. Stocks were 143 Bcf less than last year at this time and 45 Bcf above the five-year average of 3,522 Bcf. At 3,567 Bcf, total working gas is within the five-year historical range.",
+          "text_sha256": "8da24713f6fe786a44b264f810687222da6ec1bc4a039f6e9d8806b28f500fb2",
+          "source_url": "https://ir.eia.gov/secure/ngs/ngs.html",
+          "editorial_inference": "Cùng một bản ghi thấp hơn năm trước nhưng cao hơn trung bình năm năm; một mốc nền không đủ cho kết luận giá.",
+          "external_counterevidence_observed": false
+        }
+      ],
+      "semantic_revision": "goal22-editorial-repair-v1",
+      "main_report_bindings": [
+        {
+          "report_id": "asset-report:XNGUSD",
+          "report_version": 2,
+          "source_report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+          "origin": "MAIN_ORIGIN_RECIRCULATION",
+          "public_context_only": true
+        }
+      ],
+      "social_watch": "Đối chiếu kỳ kết thúc 9/10 với bản phát hành 15/10; chờ dữ liệu kỳ vọng và bản sửa số trước kết luận về giá."
+    },
+    {
+      "brief_id": "options-positioning",
+      "families": [
+        "INDEX_OPTIONS"
+      ],
+      "title": "Tổng vị thế phái sinh chưa cho biết nhà đầu tư đang cược hướng nào",
+      "source_item_ids": [
+        "goal21-futures-option",
+        "goal21-futures-hedgers"
+      ],
+      "audience_value": "Chuẩn bị khung đọc hợp đồng và dòng vị thế trước khi viết về options hoặc chỉ số; không bịa implied volatility hay dealer gamma.",
+      "mechanism": "Suy luận ContentOps: cùng một vị thế có thể thuộc giao dịch đầu cơ hoặc một phần phòng hộ tài sản khác. Quyền chọn gắn với hợp đồng cơ sở và điều kiện thực hiện cụ thể.",
+      "competing_explanation": "Dịch chuyển vị thế có thể đến từ chuyển kỳ hạn, đóng giao dịch hoặc tái cân bằng, thay vì thay đổi niềm tin về thị trường.",
+      "scenarios": [
+        "Nếu có chuỗi hợp đồng và kỳ hạn đầy đủ, so sánh cùng cơ sở trước và sau thay đổi.",
+        "Nếu chỉ có tổng vị thế, mô tả giới hạn và giữ câu hỏi về động cơ mở."
+      ],
+      "falsifiers": [
+        "Thiếu kỳ hạn, cách thanh toán hoặc contract multiplier: không tổng hợp thành một tín hiệu định lượng.",
+        "CFTC mô tả commodity futures; không tự động suy rộng quy định sang mọi index option."
+      ],
+      "missing_inputs": [
+        "Nguồn chuỗi index option có quyền dùng",
+        "Expiry, settlement, IV, OI và cơ sở so sánh cùng hợp đồng"
+      ],
+      "next_question": "Dữ liệu nào phân biệt được phòng hộ với đầu cơ trong trường hợp cụ thể?",
+      "editorial_kind": "BACKGROUND",
+      "article_sections": [
+        {
+          "heading": "Bài này giải thích điều gì",
+          "text": "Nguồn CFTC giải thích quyền chọn trên futures và các vai trò phòng hộ, đầu cơ trong thị trường hàng hóa. Nó giúp đặt câu hỏi về mục đích một vị thế, nhưng không cung cấp chuỗi quyền chọn chỉ số, hợp đồng cụ thể hay cấu trúc của mọi sản phẩm chứng khoán. Không suy quy tắc thực hiện hoặc thanh toán của một index option từ tài liệu này. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]"
+        },
+        {
+          "heading": "Cùng vị thế, khác danh mục",
+          "text": "Theo suy luận định tính ContentOps, một vị thế cần được xem cùng phần còn lại của danh mục và kỳ hạn. Không có thông tin đó, tổng vị thế không phân biệt được phòng hộ với cược hướng, và thay đổi vị thế cũng có thể do chuyển kỳ hoặc đóng giao dịch. Đây là những khả năng cạnh tranh để kiểm tra, không phải động cơ đã được xác minh."
+        },
+        {
+          "heading": "Điều kiện để viết một bài index-options thật",
+          "text": "Cần chỉ rõ sở giao dịch, mã cơ sở, expiry, quyền thực hiện, thanh toán, hệ số hợp đồng và thời điểm chốt. IV, OI và giá phải thuộc cùng tập hợp có quyền dùng; riêng các đại lượng ấy vẫn không chứng minh động cơ nhà giao dịch. Chưa có các đầu vào này, giữ bài ở nền tảng phái sinh và giữ việc phân tích chỉ số cụ thể ở HOLD."
+        }
+      ],
+      "reuse_unchanged_media": true,
+      "counterevidence": [
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-futures-hedgers"
+          ],
+          "text": "Most participants are “hedgers” who trade futures to maximize the value of their assets, and to reduce the risk of financial losses from price changes Other participants are “speculators” who attempt to profit from price changes in futures contracts",
+          "text_sha256": "85c2f8aad59c459ea6b4c4818c71f6aab2a7d9350e1eaa120d5489e237f362e7",
+          "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+          "editorial_inference": "Hai vai trò khác nhau tồn tại trong thị trường futures; nguồn không định danh động cơ từng vị thế hay mô tả index options.",
+          "external_counterevidence_observed": false
+        }
+      ],
+      "semantic_revision": "goal22-editorial-repair-v1",
+      "social_watch": "Cần mã hợp đồng, ngày đáo hạn và phương thức thanh toán trước khi đọc chuỗi quyền chọn chỉ số."
+    },
+    {
+      "brief_id": "company-sec-context",
+      "families": [
+        "COMPANY_SEC"
+      ],
+      "title": "Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ",
+      "source_item_ids": [
+        "goal21-sec-tenk-scope",
+        "goal21-sec-cross-trading"
+      ],
+      "audience_value": "Giúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.",
+      "mechanism": "Suy luận ContentOps: chi phí giao dịch và cơ chế định giá có thể ảnh hưởng việc thực hiện giao dịch của quỹ; hồ sơ doanh nghiệp lại trả lời câu hỏi về hoạt động, rủi ro và kết quả kinh doanh.",
+      "competing_explanation": "Lợi ích chi phí được cơ quan quản lý mô tả là mục tiêu của đề xuất, chưa phải kết quả vận hành đã đo được. Quy mô quỹ và thanh khoản tài sản có thể tạo khác biệt.",
+      "scenarios": [
+        "Nếu đề xuất được thông qua, kiểm tra văn bản cuối cùng và ngày áp dụng trước khi mô tả thay đổi.",
+        "Nếu nghiên cứu một công ty, lấy hồ sơ và sửa đổi đúng issuer thay vì suy ra từ quy định ngành."
+      ],
+      "falsifiers": [
+        "Đề xuất bị sửa hoặc không được thông qua làm giả định hiệu lực mất cơ sở."
+      ],
+      "missing_inputs": [
+        "Hồ sơ issuer cụ thể và lịch sửa đổi",
+        "Văn bản quy tắc cuối cùng và ngày hiệu lực"
+      ],
+      "next_question": "Thông tin đang nói về chính doanh nghiệp, quỹ nắm giữ nó, hay một quy tắc còn được đề xuất?",
+      "editorial_kind": "BACKGROUND",
+      "article_sections": [
+        {
+          "heading": "Hai tài liệu, hai đối tượng",
+          "text": "Trang hướng dẫn 10-K chỉ cách định vị nội dung trong báo cáo thường niên; đây là tài liệu giáo dục có ngày sửa 1/7/2011, không phải ngày công bố một hồ sơ doanh nghiệp hiện tại. Thông báo cross-trading của SEC lại nói về đề xuất cơ chế giao dịch của quỹ. Hai tài liệu có ích cho cách đọc, nhưng không thay nhau chứng minh doanh thu, rủi ro hay định giá của một issuer. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]"
+        },
+        {
+          "heading": "Một quy trình đọc có ích",
+          "text": "Với doanh nghiệp, bắt đầu bằng tên pháp nhân, accession, kỳ báo cáo, ngày nộp và bản sửa đổi nếu có; đối chiếu chính văn phần rủi ro với số liệu và giải trình cùng kỳ. Với đề xuất chính sách, ghi riêng đối tượng chịu tác động, điều kiện đề xuất và trạng thái ban hành. Đây là câu hỏi biên tập, không xác nhận nội dung của một filing chưa được đọc."
+        },
+        {
+          "heading": "Phản đề cần giữ",
+          "text": "Một đề xuất có thể thay đổi sau góp ý; thông cáo đề xuất không chứng minh quy định đã có hiệu lực. Ngược lại, thiếu filing trong bộ nguồn hiện tại không chứng minh doanh nghiệp không có rủi ro hoặc không công bố thông tin. Giữ phân tích issuer cụ thể ở HOLD cho tới khi có đúng hồ sơ; explainer này không lấp chỗ trống ấy. [[SOURCE:SOURCE_2]]"
+        }
+      ],
+      "reuse_unchanged_media": true,
+      "counterevidence": [
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-sec-tenk-scope"
+          ],
+          "text": "If you want to follow or invest in a U.S. public company, you can find a wealth of information in the company’s annual report on Form 10-K. Among other things, the 10-K offers a detailed picture of a company’s business, the risks it faces, and the operating and financial results for the fiscal year. Company management also discusses its perspective on the business results and what is driving them.",
+          "text_sha256": "4c893e0b7d6f99396f518bfbfe3667de43b32691c9432ca5db04b4e369c1670c",
+          "source_url": "https://www.sec.gov/answers/reada10k.htm",
+          "editorial_inference": "Trang hướng dẫn không phải filing của issuer.",
+          "external_counterevidence_observed": false
+        },
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-sec-cross-trading"
+          ],
+          "text": "The proposed amendments would restore the ability to cross trade most fixed-income securities and modernize the rule’s conditions, including those related to pricing and oversight of cross trades. These modernizations would, among other things, recognize market developments that have led to pricing that is more verifiable and transparent. The proposal would also require aggregated reporting of trading activity and cross trades by registered funds that engage in cross trading to provide additional transparency.",
+          "text_sha256": "d5d8038c797f1b4e45054db2a97d1f9b7ba325b77cb1938657dc75873e586405",
+          "source_url": "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds",
+          "editorial_inference": "Đề xuất cross-trading không chứng minh quy định đã có hiệu lực.",
+          "external_counterevidence_observed": false
+        }
+      ],
+      "semantic_revision": "goal22-editorial-repair-v1",
+      "social_watch": "Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ."
+    },
+    {
+      "brief_id": "crypto-custody",
+      "families": [
+        "CRYPTO"
+      ],
+      "title": "Đề xuất custody crypto: phạm vi áp dụng chưa phải thay đổi đã có hiệu lực",
+      "source_item_ids": [
+        "goal21-crypto-custody-proposal",
+        "goal21-crypto-custody-conditions"
+      ],
+      "audience_value": "Phân biệt đề xuất, đối tượng chịu điều chỉnh và điều kiện lưu ký; không suy ra dòng tiền mới hoặc sự an toàn của token.",
+      "mechanism": "Suy luận ContentOps: thay đổi điều kiện lưu ký có thể thay đổi cách trung gian tổ chức vận hành. Tác động phụ thuộc văn bản cuối cùng và cách thực hiện, không chỉ thông báo ban đầu.",
+      "competing_explanation": "Giá crypto có thể phản ứng với thanh khoản, đòn bẩy hoặc yếu tố thị trường khác; không có bằng chứng ở đây tách được các tác nhân.",
+      "scenarios": [
+        "Nếu văn bản cuối cùng giữ các ngoại lệ, đánh giá phạm vi áp dụng và nghĩa vụ kiểm soát.",
+        "Nếu điều kiện thay đổi sau góp ý, cập nhật bài bằng phiên bản văn bản mới."
+      ],
+      "falsifiers": [
+        "Chưa có quy tắc cuối cùng: mọi kết luận về nghĩa vụ có hiệu lực phải giữ trạng thái chưa xác nhận."
+      ],
+      "missing_inputs": [
+        "Bản quy tắc cuối cùng hoặc tình trạng tiếp nhận ý kiến hiện tại",
+        "Dữ liệu on-chain và thị trường có quyền dùng"
+      ],
+      "next_question": "Ai được áp dụng và điều kiện nào còn phải hoàn tất trước khi mô tả một thay đổi thực tế?",
+      "editorial_kind": "ANALYSIS",
+      "article_sections": [
+        {
+          "heading": "Điều thông cáo thực sự nói",
+          "text": "Thông cáo SEC ngày 1/10 mô tả một đề xuất cho registered investment advisers và regulated funds. Đọc lại ngày 19/10 vẫn thấy chính thông cáo dùng ngôn ngữ đề xuất. Điều đó xác nhận văn bản được đọc là đề xuất; nó không phải một cuộc rà soát đầy đủ để chứng minh chưa từng xuất hiện văn bản cuối cùng khác. [[SOURCE:SOURCE_1]]"
+        },
+        {
+          "heading": "Điều kiện làm khác kết luận",
+          "text": "Phần điều kiện trong nguồn nhắc self-custody trong một số hoàn cảnh và việc dùng state trust companies. Vì vậy tiêu đề nói mọi crypto sẽ phải theo một cách lưu ký duy nhất là rộng quá bằng chứng. Cần xác định đúng loại trung gian, khách hàng và điều kiện trước khi nói một tổ chức phải đổi vận hành. [[SOURCE:SOURCE_2]]"
+        },
+        {
+          "heading": "Giá và pháp lý là hai bài kiểm tra",
+          "text": "Giảm rào cản theo mô tả của cơ quan ban hành là ý định đề xuất, không phải dòng tiền đã xảy ra. Giá crypto có thể thay đổi vì thanh khoản, đòn bẩy hoặc tin khác; bộ nguồn này không có quan sát giá hay đối chứng để tách các kênh. Trước khi cập nhật thành tin hiệu lực, cần đúng final rule, ngày hiệu lực và phạm vi; trước khi viết tác động giá, cần bằng chứng thị trường riêng."
+        }
+      ],
+      "reuse_unchanged_media": true,
+      "counterevidence": [
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-crypto-custody-conditions"
+          ],
+          "text": "The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets.",
+          "text_sha256": "0afcda60cf97045687f94138f0cf961ced15427c8c27c8f340c6ee970ad9e657",
+          "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal",
+          "editorial_inference": "Các điều kiện trong chính đề xuất phản đối cách nói áp dụng một cấu trúc duy nhất cho mọi crypto.",
+          "external_counterevidence_observed": false
+        }
+      ],
+      "semantic_revision": "goal22-editorial-repair-v1",
+      "social_watch": "Tìm văn bản cuối cùng và ngày hiệu lực trước khi mô tả nghĩa vụ lưu ký đã thay đổi."
+    },
+    {
+      "brief_id": "cross-asset-price-versus-custody",
+      "families": [
+        "FX_RATES",
+        "METALS",
+        "CRYPTO"
+      ],
+      "title": "Một tin, hai kênh rủi ro: kỳ vọng giá và quyền sở hữu cần bằng chứng khác nhau",
+      "source_item_ids": [
+        "goal21-fed-policy",
+        "goal21-fx-broad-index",
+        "goal21-metals-leverage",
+        "goal21-crypto-custody-proposal"
+      ],
+      "audience_value": "Cho người đọc một cách phân loại tin xuyên tiền tệ, vàng và crypto: tác nhân có thể thay đổi định giá khác với cấu trúc quyết định điều gì xảy ra khi hợp đồng hoặc trung gian gặp vấn đề.",
+      "mechanism": "Suy luận ContentOps: kênh chiết khấu và kỳ vọng lãi suất liên quan đến định giá; đòn bẩy và lưu ký liên quan đến cấu trúc nắm giữ. Hai kênh có thể cùng tồn tại nhưng không thể thay thế bằng chứng cho nhau.",
+      "competing_explanation": "Đồng biến giữa USD, kim loại và crypto có thể do tâm lý rủi ro hoặc dòng vốn, không chứng minh lãi suất là nguyên nhân duy nhất. Một đề xuất lưu ký cũng chưa chứng minh thị trường đã đổi cách vận hành.",
+      "scenarios": [
+        "Nếu cú sốc nằm ở kỳ vọng lãi suất, kiểm tra relative rates và USD rộng trước, rồi tìm bằng chứng giá độc lập của từng tài sản.",
+        "Nếu tin nằm ở quyền sở hữu hoặc người lưu ký, đọc hợp đồng và phạm vi quy định; một biểu đồ giá không xác nhận độ an toàn của cấu trúc."
+      ],
+      "falsifiers": [
+        "Nếu kỳ vọng lãi suất không đổi, diễn giải chỉ bằng Fed yếu đi.",
+        "Nếu quy định mới còn ở giai đoạn đề xuất, kết luận đã thay đổi cơ chế lưu ký không có cơ sở.",
+        "Nếu thiếu giá và hợp đồng hiện tại, không đưa khuyến nghị vị thế hay xác suất lợi nhuận."
+      ],
+      "missing_inputs": [
+        "Giá đa tài sản cùng thời điểm và đường cong lãi suất",
+        "Hồ sơ custody cụ thể và trạng thái pháp lý cuối cùng"
+      ],
+      "next_question": "Tin mới tác động vào giá kỳ vọng, cấu trúc sở hữu, hay cả hai — và bằng chứng nào kiểm tra từng kênh?",
+      "editorial_kind": "ANALYSIS",
+      "article_sections": [
+        {
+          "heading": "Phép nối có giới hạn",
+          "text": "Quyết định Fed có thể đặt câu hỏi về kỳ vọng lãi suất và định giá; khuyến cáo CFTC đặt câu hỏi về cấu trúc nắm giữ kim loại; đề xuất SEC đặt câu hỏi về trung gian lưu ký crypto. Ba nguồn trả lời những câu hỏi khác nhau. Đặt chúng cạnh nhau giúp phân loại rủi ro, không chứng minh chúng tạo một cú dịch chuyển giá chung. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]] [[SOURCE:SOURCE_4]]"
+        },
+        {
+          "heading": "Cách dùng khi gặp một tiêu đề mới",
+          "text": "Bước một: tin nói về giá/kỳ vọng hay quyền sở hữu/vận hành? Bước hai: bằng chứng nào khớp đúng kênh đó? Với giá, cần thời điểm quan sát và kỳ vọng tương đối; với sở hữu, cần hợp đồng, xác nhận hoặc văn bản áp dụng. Bước ba: kiểm tra lời giải cạnh tranh và điều kiện làm kết luận yếu đi. Đây là phương pháp biên tập ContentOps, không phải xác suất hoặc mô hình Core."
+        },
+        {
+          "heading": "Đối trọng từ chính nguồn",
+          "text": "Chỉ số USD rộng là một trung bình có trọng số, không đại diện hoàn hảo cho mọi cặp. CFTC mô tả cấu trúc gian lận cụ thể, không kết tội mọi sản phẩm vàng. SEC mô tả một đề xuất cho những loại trung gian nhất định, không chứng minh nghĩa vụ đã có hiệu lực. Những giới hạn này ngăn ba lối suy quá rộng: USD chung thành mọi tỷ giá, giá vàng thành an toàn lưu ký, và đề xuất crypto thành dòng tiền thực tế. [[SOURCE:SOURCE_2]] [[SOURCE:SOURCE_3]] [[SOURCE:SOURCE_4]]"
+        },
+        {
+          "heading": "Điều gì còn chưa biết",
+          "text": "Chưa có giá đồng thời, đường cong kỳ vọng, hợp đồng kim loại cụ thể hay hồ sơ custody/final rule để kiểm tra tác động trong một sự kiện thực. Vì vậy không nói rằng USD, vàng và crypto đã đồng biến, cũng không chọn vị thế. Một bài liên tài sản hữu ích ở đây là bản đồ câu hỏi với nguồn rõ ràng, thay vì một câu chuyện nhân quả chưa đo được."
+        }
+      ],
+      "reuse_unchanged_media": true,
+      "counterevidence": [
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-fx-broad-index"
+          ],
+          "text": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners.",
+          "text_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+          "source_url": "https://www.federalreserve.gov/releases/h10/current/",
+          "editorial_inference": "Chỉ số rộng không đồng nhất với từng cặp; phép nối không chứng minh nhân quả giá.",
+          "external_counterevidence_observed": false
+        },
+        {
+          "relation": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING",
+          "source_item_ids": [
+            "goal21-crypto-custody-proposal"
+          ],
+          "text": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies.",
+          "text_sha256": "ed8a76101f6816ab13ba13eb7f60ede5d791b56bfdc79de58f24455b74cdaa44",
+          "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal",
+          "editorial_inference": "Đề xuất custody không phải thay đổi dòng tiền đã quan sát.",
+          "external_counterevidence_observed": false
+        }
+      ],
+      "semantic_revision": "goal22-editorial-repair-v1",
+      "social_watch": "Kiểm tra riêng hồ sơ sở hữu và dữ liệu giá đồng thời; một biểu đồ không xác nhận quyền lưu ký."
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "decision": "KEEP",
+  "material_change": false,
+  "story_identity": "gas-vintage",
+  "retained_operation_id": "goal27-gas-refill-update",
+  "basis": "Actual Neo read-only observation 21/10 giữ nguyên kỳ 09/10 và release 15/10: 3567 Bcf; +67 Bcf; 45 Bcf trên bình quân năm năm; 143 Bcf dưới cùng kỳ năm trước. Lần đọc mới không tạo kỳ kinh tế hoặc xác nhận độc lập mới.",
+  "current_market_inference": "HOLD",
+  "reason": "Câu hỏi mức đệm và tốc độ bơm ròng đã có trong bài giữ; chưa có delta số, kỳ hay bằng chứng kỳ vọng/giá/curve/cung cầu để biện minh một bài cập nhật.",
+  "next_finite_action": "Sau bản phát hành dự kiến 22/10, thực hiện một lần đọc theo resolver/Neo hiện hữu, ghi exact kỳ quan sát, ngày phát hành và revision; đối chiếu với 09/10. Chỉ mở revision hoặc bài mới khi có material delta hữu ích; nếu vẫn cùng bản thì KEEP, không gọi lại writer.",
+  "missing_inputs": [
+    "Kỳ vọng thị trường trước công bố và giá/đường cong cùng thời điểm",
+    "Thời tiết, sản lượng, LNG/đường ống đúng kỳ; bản sửa số nếu có"
+  ],
+  "public_write_performed": false
+}

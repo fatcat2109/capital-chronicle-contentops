@@ -1,0 +1,237 @@
+{
+  "schema_version": "contentops.main_report_feed.v1",
+  "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+  "observed_at_utc": "2026-10-20T18:06:49.391841Z",
+  "configured_bundle_count": 12,
+  "new_events": 3,
+  "events": [
+    {
+      "report_id": "asset-report:UKOIL",
+      "report_version": 1,
+      "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 1,
+      "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 1,
+      "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:UKOIL",
+      "report_version": 2,
+      "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 2,
+      "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 2,
+      "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:UKOIL",
+      "report_version": 3,
+      "receipt_id": "main-feed-d36c1003c4e48e1ca0b1d9b32c5ba890c62a7292813c3419354fce2222af651e",
+      "state": "BLOCKED",
+      "blockers": [
+        "NO_ADMISSIBLE_PUBLIC_CLAIMS",
+        "PUBLIC_REPORT_PROJECTION_INVALID",
+        "SEALED_HASH_MISMATCH",
+        "ukoil-deep-alternative-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-alternative-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-contradictions-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-contradictions-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-cross_asset-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-cross_asset-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-hold_conditions-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-hold_conditions-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-known-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-known-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-long-base_case:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-long-base_case:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-long-downside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-long-downside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-long-invalidation:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-long-invalidation:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-long-upside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-long-upside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-mechanism-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-mechanism-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-missing-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-missing-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-principle-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-principle-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-review-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-review-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-short-base_case:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-short-base_case:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-short-downside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-short-downside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-short-invalidation:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-short-invalidation:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-short-upside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-short-upside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-stop_holding_conditions-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-stop_holding_conditions-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-swing-base_case:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-swing-base_case:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-swing-downside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-swing-downside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-swing-invalidation:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-swing-invalidation:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-swing-upside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-swing-upside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-deep-timing_priced_in-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "ukoil-deep-timing_priced_in-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "ukoil-source:EVIDENCE_MISSING_OR_CONFLICTING"
+      ],
+      "required_parent_report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 3,
+      "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 3,
+      "receipt_id": "main-feed-ba8d63f3aca0217663307742f41a00ff7eb865fc3294c268cbcf0af56f71d836",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 4,
+      "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d",
+      "state": "DUPLICATE_NOOP"
+    },
+    {
+      "report_id": "asset-report:XNGUSD",
+      "report_version": 4,
+      "receipt_id": "main-feed-15ce60aa274ef430f47d6418f78671c3bf4d85ac91820f89fb5d4bfe157b79b4",
+      "state": "BLOCKED",
+      "blockers": [
+        "NO_ADMISSIBLE_PUBLIC_CLAIMS",
+        "PUBLIC_REPORT_PROJECTION_INVALID",
+        "SEALED_HASH_MISMATCH",
+        "xngusd-deep-alternative-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-alternative-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-contradictions-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-contradictions-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-cross_asset-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-cross_asset-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-hold_conditions-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-hold_conditions-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-known-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-known-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-long-base_case:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-long-base_case:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-long-downside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-long-downside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-long-invalidation:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-long-invalidation:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-long-upside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-long-upside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-mechanism-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-mechanism-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-missing-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-missing-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-principle-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-principle-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-review-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-review-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-short-base_case:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-short-base_case:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-short-downside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-short-downside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-short-invalidation:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-short-invalidation:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-short-upside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-short-upside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-stop_holding_conditions-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-stop_holding_conditions-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-swing-base_case:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-swing-base_case:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-swing-downside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-swing-downside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-swing-invalidation:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-swing-invalidation:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-swing-upside_scenario:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-swing-upside_scenario:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-deep-timing_priced_in-0:CLAIM_HASH_OR_TEXT_INVALID",
+        "xngusd-deep-timing_priced_in-0:EVIDENCE_MISSING_OR_CONFLICTING",
+        "xngusd-source:EVIDENCE_MISSING_OR_CONFLICTING"
+      ],
+      "required_parent_report_sha256": "972a2edaac857763b9bca92a31edb1f945e03bccdf4e7bc96fc7d7f9d55383f2"
+    },
+    {
+      "report_id": "asset-report:USOIL",
+      "report_version": 5,
+      "receipt_id": "main-feed-45065410d7ff1379f85699a0daf59eab026e6652bc21247108dda9fe4c12f8ca",
+      "state": "ADMITTED",
+      "blockers": [],
+      "required_parent_report_sha256": "1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+    }
+  ],
+  "gaps": [],
+  "artifact_cache": {
+    "336cdaddffcabaa9a0f3cf77f9b22945093745181fdeca824492286c55ee9c94": {
+      "fingerprint": "ac47e3fc9d37a9c1d2c3175822ed8faf800424ad0c8428c75bd9ccb2047ef745",
+      "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd"
+    },
+    "924ab832fc3e40f5a632d64df4327dee9350eb930b80cabfd51e8de9bd33ef1c": {
+      "fingerprint": "05cafa36b7daba44599bb1e011448b519f3ef9de5e138a584232036123c98e24",
+      "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba"
+    },
+    "dbea3eb11aa4751deb58a2542be93bb450708e54cf61d339964d2e9e759b2c1c": {
+      "fingerprint": "841fc0f57d5bab507a810c0377fa4d79eb3c88313adf9de09d7afed4a8f3a9f5",
+      "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72"
+    },
+    "502a49a99faef1ef30dce43f3c50c8a7235c31b2da1d63d56325b5e306cdf3d4": {
+      "fingerprint": "65dd7b74d84d16b52917805475c9b5480b518298201b8e7b8fb499fb9781ee92",
+      "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7"
+    },
+    "644b81751cb6d535edcc09caa5befff61d4dd6044cddf024db6b61b2b3e4a203": {
+      "fingerprint": "29813ee20f393d19c8c1ef788809d701a6760b7832412e75bea7cfc0fae8fe51",
+      "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed"
+    },
+    "385ebd7da0c1dab46279dc626d75384f671573c359dd983ef1f4dd6382f6e9f3": {
+      "fingerprint": "abcf976b620e84e6623bd9e4644d3665be42f1dd69187f16ea8f647ef095316a",
+      "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23"
+    },
+    "05f46f28602c7ee17466073287ef10abf8267d4f3768740b502df7220e38e4a8": {
+      "fingerprint": "6f5c5c365db1c7629780783c11c29b45f883bf364d4cc0d775834f434fa6d0d8",
+      "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d"
+    },
+    "d758e702fa271fc82f5e2f1e59d47437a69159c279679faf151b7c2dec658130": {
+      "fingerprint": "f906fc2909067f981222e833587155d4985d88c5d976a3afb07a45f5597c9251",
+      "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b"
+    },
+    "1da2395d6f420ee7f549744e5587ba269fd1b4a8f42cc72b77cbd34a703ceb22": {
+      "fingerprint": "42d558a17042f0fe67f3d94da3ee490f2506799ea31dc07bb8b243cdf030c03f",
+      "receipt_id": "main-feed-ba8d63f3aca0217663307742f41a00ff7eb865fc3294c268cbcf0af56f71d836"
+    },
+    "0e86bf3f1ae8a3f2767621a94771f56418f6d0a0e5f3ef29beef91df18d9d1d5": {
+      "fingerprint": "08b5463bdc8e0f177a1ecf6d7c8b5d49a096801c9ae30c83802b897bd4ba28c3",
+      "receipt_id": "main-feed-45065410d7ff1379f85699a0daf59eab026e6652bc21247108dda9fe4c12f8ca"
+    }
+  },
+  "unchanged_artifact_bundles_reused": 9,
+  "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+  "manifest_sha256": "a45b22db34274e3f12fb30298ddb2b13b1ff44e49e30e7088fcb9c1e7b97f6aa",
+  "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+  "public_write_performed": false
+}

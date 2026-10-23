@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-e577e4d84df84ae69a8f43c585390913",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal28-dollar-lens",
+  "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+  "package_revision": "6fab5d3e765f0203fc3a87475d2dcd81a6f8a87b4a6f2ffb1befaa80e007e7a1",
+  "article_metadata_sha256": "9d6bf6bf137f3368ef067e2c75a8732c58917c6a0421d2fcb02e6a7153b82ccb",
+  "rationale": "KEEP: Bài phân biệt chiều yết giá, một cặp và rổ có trọng số; giữ ngày nguồn 13/10, không gán quan sát hiện tại hay dựng số. Đã đọc toàn bài, 8 bản native, xem ảnh và đối chiếu hai nguồn được trích; phản đề hai tín hiệu có thể cùng hướng và phép kiểm tra kỳ quan sát rõ ràng.",
+  "publication_authority": false
+}

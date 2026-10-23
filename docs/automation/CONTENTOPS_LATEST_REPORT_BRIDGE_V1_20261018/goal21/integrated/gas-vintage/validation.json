@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "blockers": [],
+  "validator": "existing_grounded_article_validator",
+  "material_claim_lineage": [
+    {
+      "item_id": "goal21-gas-storage",
+      "source_id": "SOURCE_1",
+      "source_url": "https://www.eia.gov/naturalgas/weekly/",
+      "text_sha256": "85ce6732bce3a3189b2ceaf250ec54bcb3f335c4580e1a77bd597bd866abac2b",
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "permission_sha256": "849e46d39da75591ab71a50784d3be38bbf780e13149ef4a42ed4b989e089029",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-gas-series-migration",
+      "source_id": "SOURCE_2",
+      "source_url": "https://www.eia.gov/naturalgas/weekly/",
+      "text_sha256": "946c283627f3fcc1eb6a800157a8d8fdb5ff046b57274a8b8a1e96722a8797b8",
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "permission_sha256": "f885072034c037eba764aa0cbb41ca4d118f31cad544f4bd93141ae040265651",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    }
+  ],
+  "semantic_editorial_review": "REQUIRED",
+  "qualified_simple_article": false
+}

@@ -1,0 +1,29 @@
+{
+  "desktop_request_select.json": {
+    "request_sha256": "797b934a1ac90b899c1c8dfbf4a100965db1c598ee8e31704864f393a47e0af8",
+    "stage": "select",
+    "role": "select",
+    "run_id": "goal27-oil-scope-update",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2"
+  },
+  "desktop_request_write.json": {
+    "request_sha256": "c6810c90bb70af1a2f0fe8c286d18b5773422c83deaedcd02fd928cb00558176",
+    "stage": "write",
+    "role": "write",
+    "run_id": "goal27-oil-scope-update",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2"
+  },
+  "desktop_request_revise.json": {
+    "request_sha256": "9d112b0347f8bb91abc5800643b5ab9df118995da8a301728ed05da600174f5e",
+    "stage": "revise",
+    "role": "revise",
+    "run_id": "goal27-oil-scope-update",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2"
+  }
+}

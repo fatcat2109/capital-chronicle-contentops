@@ -1,0 +1,80 @@
+{
+  "canonical_slug_candidate": "sec-de-xuat-luu-ky-crypto-chu-the-dieu-kien-2026",
+  "dek": "SEC đã đưa ra đề xuất ngày 1/10/2026 (CONFIRMED) về lưu ký crypto cho các bên tư vấn và quỹ thuộc phạm vi quy định. Lựa chọn rộng hơn cần được đọc cùng điều kiện tự lưu ký, chủ thể giữ tài sản và yêu cầu kiểm toán.",
+  "editorial_context": {
+    "editorial_delta": "Phát triển cách đọc chủ thể, cách nắm giữ và bằng chứng bảo vệ từ nguồn chi tiết được giữ lại; không gọi cùng đề xuất là sự kiện mới.",
+    "factual_authority_from_prior_copy": false,
+    "final_dedupe": "EXISTING_WORKFLOW_REQUIRED",
+    "prior_context": "Gói yêu cầu nhắc các item goal21-crypto-custody-proposal/conditions và brief lưu ký cũ; không kèm toàn văn hoặc evolving_story_context để xác nhận chi tiết bản trước.",
+    "published_corpus_scope": "Có thông tin đã lọc tóm tắt bảy bài; không có toàn văn corpus trong yêu cầu.",
+    "source_status": "RETAINED_DATED_PROPOSAL_NOT_CURRENT_FINALIZATION_EVIDENCE"
+  },
+  "entities": [
+    "Ủy ban Chứng khoán và Giao dịch Mỹ (SEC)",
+    "Crypto",
+    "Bên tư vấn đầu tư đã đăng ký",
+    "Công ty đầu tư đã đăng ký",
+    "Công ty phát triển kinh doanh",
+    "Công ty tín thác cấp bang"
+  ],
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission’s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser’s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. “Since the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today’s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before—and replacing the grey of uncertainty created by custody rules crafted for a bygone era,” said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.sec.gov",
+    "primary_reporting_source_identity": "www.sec.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission’s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser’s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. “Since the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today’s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before—and replacing the grey of uncertainty created by custody rules crafted for a bygone era,” said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal28-crypto-safeguards"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "internal_link_candidates": [],
+  "meta_description": "Đọc đề xuất SEC ngày 1/10/2026 về lưu ký crypto: đối tượng, tự lưu ký có điều kiện, công ty tín thác cấp bang, kiểm toán và giới hạn bằng chứng.",
+  "primary_reader_question": "Khi đề xuất cho phép thêm cách lưu ký crypto, người góp vốn cần biết ai giữ tài sản và bằng chứng bảo vệ nào còn phải kiểm tra trước khi coi đó là lợi ích cho mình?",
+  "public_write_performed": false,
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_freshness_class": "DATED_PROPOSAL_EXPLAINER",
+  "search_title": "Đề xuất SEC về lưu ký crypto: ai thuộc phạm vi, điều kiện nào cần đọc?",
+  "secondary_reader_questions": [
+    "Những bên tư vấn và loại quỹ nào được đề xuất nhắc đến?",
+    "Tự lưu ký và công ty tín thác cấp bang được đề xuất cho phép tới đâu?",
+    "Thông cáo cho biết gì về kiểm toán và dịch vụ lưu ký của công ty môi giới kinh doanh chứng khoán?",
+    "Tháo rào cản tiếp cận khác bằng chứng về an toàn tài sản và giá token như thế nào?"
+  ],
+  "social_cross_asset_summary": "Câu hỏi tiếp theo của Capital Chronicle là: văn bản sau cùng có giữ các phương án được đề xuất không, điều kiện cụ thể là gì và phương án thực tế đáp ứng chúng bằng bằng chứng nào? Nếu quyền tiếp cận vẫn bị các điều kiện áp dụng giới hạn, hoặc phương án chưa có bằng chứng thực hiện phù hợp, lập luận rằng thêm lựa chọn đã tạo lợi ích cho người góp vốn phải được thu hẹp.",
+  "social_hook": "Thêm đường tiếp cận crypto đặt ra một câu hỏi cụ thể: ai giữ tài sản, theo điều kiện nào, và kiểm toán áp dụng ra sao trong đề xuất của SEC?",
+  "social_mechanism_summary": "Phân tích Capital Chronicle: cơ chế chính sách được SEC mô tả đi từ gỡ rào cản tới khả năng cung cấp tư vấn và chiến lược đầu tư rộng hơn. Để đi tiếp tới kết luận một phương án giữ tài sản đã bảo vệ người góp vốn ra sao, cần điều kiện và bằng chứng thực hiện của phương án đó. Thông cáo về việc đưa ra đề xuất chưa trả lời thay cho bước kiểm tra này.",
+  "social_policy_summary": "Phản đề đối với cách đọc chỉ tập trung vào giới hạn là: nếu các rào cản mà SEC nêu thực sự ngăn bên tư vấn phục vụ khách hàng, một khuôn khổ rõ hơn và nhiều cách lưu ký hơn có thể mở rộng lựa chọn có ích. Phân tích của Capital Chronicle không bỏ qua khả năng ấy; giá trị của việc tháo rào cản cần được đánh giá cùng điều kiện áp dụng, thay vì chỉ đếm số phương án được phép.",
+  "source_date_notice": "Source date: 2026-10-01. Interpretation remains analysis.",
+  "source_document_ids": [
+    "goal28-crypto-safeguards"
+  ],
+  "story_identity": "simple-story-39523148d6ddd5bdcb0f8687",
+  "structured_data_packet": null,
+  "substack_body_markdown": "Đề xuất lưu ký crypto của SEC mở thêm cách tiếp cận tài sản, nhưng người góp vốn cần đọc những gì để hiểu cách tài sản của mình sẽ được giữ? Thông cáo ngày 1/10/2026 xác nhận SEC đã đưa ra đề xuất (CONFIRMED). Luận điểm của Capital Chronicle: muốn đánh giá lợi ích của lựa chọn rộng hơn, phải đọc cùng phạm vi chủ thể, cách nắm giữ được đề xuất và điều kiện áp dụng. Tháo rào cản cũng là một lợi ích chính sách đáng xem xét. [[SOURCE:SOURCE_1]]\n\n## Phạm vi bắt đầu ở bên tư vấn và loại quỹ\n\nSEC mô tả một khuôn khổ lưu ký tài sản crypto dành cho bên tư vấn đầu tư đã đăng ký và các quỹ thuộc diện điều tiết. Thông cáo xác định nhóm quỹ này gồm công ty đầu tư đã đăng ký và công ty phát triển kinh doanh. Vì vậy, khi đọc đề xuất cho một trường hợp cụ thể, câu hỏi đầu tiên là chủ thể đó có thuộc nhóm được văn bản nêu hay không. [[SOURCE:SOURCE_1]]\n\nĐó là điểm phân biệt đầu tiên trong cách đọc của Capital Chronicle: đề xuất nói tới những trung gian và phương án phục vụ khách hàng nhất định. Chỉ việc một người sở hữu crypto chưa cho biết người ấy có đang được phục vụ qua đúng loại bên tư vấn hoặc quỹ được nhắc đến. Muốn nối nội dung đề xuất với quyền lợi của mình, người đọc cần xác định trước mối quan hệ đó. [[SOURCE:SOURCE_1]]\n\n## Tự lưu ký có điều kiện và vai trò công ty tín thác\n\nThông cáo cho biết đề xuất sẽ cho phép tài sản crypto được tự lưu ký trong một số hoàn cảnh nhất định. Đề xuất cũng sẽ cho phép dùng công ty tín thác cấp bang làm bên lưu ký tài sản crypto của khách hàng và các quỹ thuộc phạm vi. Đây là hai cách sắp xếp được nêu trong đề xuất; chi tiết về hoàn cảnh và điều kiện áp dụng chưa được trình bày đầy đủ trong đoạn thông cáo sử dụng ở đây. [[SOURCE:SOURCE_1]]\n\nPhân tích Capital Chronicle: lựa chọn giữa tự lưu ký và sử dụng công ty tín thác đặt câu hỏi về việc ai nắm giữ tài sản trong cách sắp xếp cụ thể. Cụm từ trong một số hoàn cảnh nhất định cần được giữ nguyên ý nghĩa giới hạn. Muốn đánh giá phương án phù hợp, cần đọc điều kiện của chính phương án ấy trước khi kết luận rằng quyền tiếp cận đã đi cùng một mức bảo vệ cụ thể. [[SOURCE:SOURCE_1]]\n\n## Kiểm toán và dịch vụ lưu ký phải được đọc đúng đối tượng\n\nSEC cho biết các quy tắc và sửa đổi được đề xuất theo luật về tư vấn đầu tư và công ty đầu tư sẽ cập nhật một số yêu cầu, trong đó có kiểm toán báo cáo tài chính đối với bên tư vấn đầu tư đã đăng ký và dịch vụ lưu ký của công ty môi giới, kinh doanh chứng khoán đối với các quỹ thuộc phạm vi. Thông cáo nêu hai mảng này với những đối tượng tương ứng; nó chưa trình bày đầy đủ nội dung sửa đổi. [[SOURCE:SOURCE_1]]\n\nCách đọc của Capital Chronicle là nối mỗi yêu cầu với đúng chủ thể: kiểm toán báo cáo tài chính được nhắc ở phía bên tư vấn, còn dịch vụ lưu ký của công ty môi giới, kinh doanh chứng khoán được nhắc ở phía quỹ. Từ đó, người góp vốn có thể đặt câu hỏi rõ hơn: phương án mình xem xét thuộc phần nào, yêu cầu nào sẽ áp dụng và cần tài liệu nào để kiểm tra? Việc thông cáo nhắc tới kiểm toán chưa phải bằng chứng một phương án cụ thể đã được kiểm toán. [[SOURCE:SOURCE_1]]\n\n## Phản đề: tháo rào cản có thể có giá trị thực\n\nTheo SEC, đề xuất hướng tới hiện đại hóa quy định lưu ký và mở rộng lựa chọn cho nhà đầu tư bằng cách gỡ những rào cản cản trở bên tư vấn cung cấp tư vấn đầu tư liên quan crypto. SEC cũng kỳ vọng các quỹ thuộc phạm vi có thể cho khách hàng tiếp cận nhiều chiến lược đầu tư liên quan tài sản crypto hơn. Đây là mục tiêu và tác động mà cơ quan này dự kiến. [[SOURCE:SOURCE_1]]\n\nPhản đề đối với cách đọc chỉ tập trung vào giới hạn là: nếu các rào cản mà SEC nêu thực sự ngăn bên tư vấn phục vụ khách hàng, một khuôn khổ rõ hơn và nhiều cách lưu ký hơn có thể mở rộng lựa chọn có ích. Phân tích của Capital Chronicle không bỏ qua khả năng ấy; giá trị của việc tháo rào cản cần được đánh giá cùng điều kiện áp dụng, thay vì chỉ đếm số phương án được phép. [[SOURCE:SOURCE_1]]\n\n## Từ quyền tiếp cận tới lợi ích đã kiểm chứng\n\nPhân tích Capital Chronicle: cơ chế chính sách được SEC mô tả đi từ gỡ rào cản tới khả năng cung cấp tư vấn và chiến lược đầu tư rộng hơn. Để đi tiếp tới kết luận một phương án giữ tài sản đã bảo vệ người góp vốn ra sao, cần điều kiện và bằng chứng thực hiện của phương án đó. Thông cáo về việc đưa ra đề xuất chưa trả lời thay cho bước kiểm tra này. [[SOURCE:SOURCE_1]]\n\nCũng theo cách phân biệt ấy, khả năng một bên tư vấn hay quỹ được phục vụ khách hàng theo nhiều cách hơn chưa đo được mức tiếp nhận thực tế hoặc biến động giá token. Thông cáo đang mô tả nội dung và mục tiêu của đề xuất lưu ký. Dùng nó để nhận định giá cần một bước bằng chứng khác mà tài liệu này chưa cung cấp. [[SOURCE:SOURCE_1]]\n\nCâu hỏi tiếp theo của Capital Chronicle là: văn bản sau cùng có giữ các phương án được đề xuất không, điều kiện cụ thể là gì và phương án thực tế đáp ứng chúng bằng bằng chứng nào? Nếu quyền tiếp cận vẫn bị các điều kiện áp dụng giới hạn, hoặc phương án chưa có bằng chứng thực hiện phù hợp, lập luận rằng thêm lựa chọn đã tạo lợi ích cho người góp vốn phải được thu hẹp. [[SOURCE:SOURCE_1]]\n\n## Ghi chú nguồn\n\nBài sử dụng [thông cáo SEC về đề xuất lưu ký tài sản crypto](https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal), được giữ lại với ngày nguồn 1/10/2026; đoạn thông cáo không nêu giờ phát hành. Phạm vi bài là đề xuất tại mốc đó. Nội dung nguồn giữ lại chưa xác định trạng thái hoàn tất hay yêu cầu tuân thủ hiện tại. [[SOURCE:SOURCE_1]]",
+  "title": "Đề xuất lưu ký crypto của SEC: mở lối tiếp cận, làm rõ cách giữ tài sản",
+  "topics": [
+    "Lưu ký tài sản crypto",
+    "Tự lưu ký có điều kiện",
+    "Phạm vi đề xuất",
+    "Kiểm toán báo cáo tài chính",
+    "Bảo vệ nhà đầu tư"
+  ],
+  "update_chain_identity": "simple-story-39523148d6ddd5bdcb0f8687"
+}

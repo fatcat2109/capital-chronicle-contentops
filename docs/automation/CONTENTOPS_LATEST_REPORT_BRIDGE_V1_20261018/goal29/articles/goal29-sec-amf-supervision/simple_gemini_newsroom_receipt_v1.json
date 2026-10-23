@@ -1,0 +1,573 @@
+{
+  "accepted_source_count": 1,
+  "admitted_candidate_count": 1,
+  "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-sec-amf-supervision\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-25946d84473ced782f95cb27",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal29-sec-amf-supervision"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "SEC AMF October 20 2026 supervisory memorandum investment adviser registration pending applications",
+        "SEC AMF information sharing consultation supervision French asset management registration applications"
+      ],
+      "selection_rationale": "Thông cáo có ngày 20/10 là nguồn mới khác năng lượng, nêu thay đổi thủ tục cụ thể: xử lý đơn mới và đang chờ trong khuôn khổ hợp tác giám sát. Câu hỏi hữu ích là thông tin giữa cơ quan giám sát tháo gỡ bước nào và còn thiếu bằng chứng nào về kết quả, không phải chỉ nhắc tên MOU.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 21,
+  "candidate_limit": 32,
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-20T23:15:25.828535Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 2,
+    "observations": [
+      {
+        "invocation_id": "/root/goal29_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed.",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal29_sec_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_sec_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+        "reasoning_effort": "max",
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal29_sec_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_sec_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+        "reasoning_effort": "max",
+        "role": "revise",
+        "speed": "standard",
+        "stage": "revise",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low",
+      "max"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 3,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.sec.gov",
+    "primary_reporting_source_identity": "www.sec.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.sec.gov reports that the U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal29-sec-amf-supervision"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal29_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed.",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "72a869d87be424dbdbcf2b89a032b35b21bcddf1631b731f26b82e5015127cad",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "b3e6d99deb52bd6ec9bb57500ea1f9334cd150f0c110c871e1312be73751c137",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal29_sec_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_sec_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "c4d0138423e73bfa6437d64f1c50496f8ad4c5111f66b7adeaeaf64017da269a",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "d5021cc95e2f9fd273b38b074abf96f8db744ee09404edbedb193ce5a14ba718",
+      "role": "write",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "write"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal29_sec_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_sec_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "b995d7ea74ad5dfabe39b747a96eefb2fdd460bdfb67206b2e85e13dada2876e",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "c13cfccca5c89cd127153c0eac0de7b7d58ff5d4ee767f3d67603c61c887e8d7",
+      "role": "revise",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "revise"
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-sec-amf-supervision\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "goal29-sec-amf-supervision"
+    ],
+    "accepted_evidence_sha256": "bebf897588a9e3685390e73a9d45204b70d7853608b211732041e76388b7749e",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "bc1bbee31857ada2478e14bbf507e0c1b8064a4462fd2c4dfd5c2d0fd4324b06",
+    "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "9c927e45695ee6562fad60fc76396aaced9ab97fb207d35637c987b3d957affb",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "cabea2420a048664740f84fd8f243686a9ee70eb76e1a25a35ce1452f44d2992",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "5c390cb2dc60a572dbffc3d0df7d4622935177061fdda781ccd0040afa3841e6",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "f8c1cbcd785e49054185d236538fccac6f4bb41f92191a5154b3833a67fdddfd",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "d9c0728d625f8253ec1dc90f5a69bd559208a200f582e5c45ab641b73f6f0850",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "5a9cfa7c89702044c69cdc64bbaceff6d0b24ac5ec1c9419c16f879df5e128f5",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "2c030690c49d9d244938d62d17353efce8ddb391f77ce3a96907ab65a164686b",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "c292d430ba44aee44bbe20bf210b811c4b391be6c3aede3bac285fab75502663",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "3f0b9ea3873ecf81bbceef5660abe1eaaae7b95be395844fd970e449dd8927a6",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "www.sec.gov",
+      "primary_reporting_source_identity": "www.sec.gov",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "www.sec.gov reports that the U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+      "report_truth_support_status": "SUPPORTED_PRIMARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal29-sec-amf-supervision"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-sec-amf-supervision",
+    "package_identity": "048eab590733001c6a68be4ad165049ae25f166625cb9f973c4ef36dae62c5ce",
+    "plan_hash": "4ec76f77de0c1c83161616083e0af0e76d53841633bf45666c1bd9e0a7f72343",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal29-sec-amf-supervision"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "run_id": "goal29-sec-amf-supervision",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-25946d84473ced782f95cb27",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "update_chain_identity": "simple-story-25946d84473ced782f95cb27"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-sec-amf-supervision\\qualified_article_record_v1.json",
+  "revision_performed": true,
+  "run_id": "goal29-sec-amf-supervision",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-25946d84473ced782f95cb27",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal29-sec-amf-supervision",
+    "headline_text": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement.",
+    "official_source_urls": [
+      "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service"
+    ],
+    "public_source_urls": [
+      "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-20T23:12:09.381886Z",
+    "source_account": "www.sec.gov",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-20T00:00:00Z",
+    "source_url": "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": false,
+      "known_official_path": true,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-25946d84473ced782f95cb27",
+    "update_chain_identity": "simple-story-25946d84473ced782f95cb27"
+  },
+  "selected_plan_entry": {
+    "angle": "SEC–AMF ngày 20/10: hợp tác giám sát tạo điều kiện xử lý hồ sơ xuyên biên giới, còn kết quả phải được chứng minh riêng.",
+    "article_mode": "DATA_OR_DOCUMENT_LENS",
+    "candidate_id": "simple-story-25946d84473ced782f95cb27",
+    "evidence_plan": "Dùng bản agency đã thu qua Neo và được xác minh quyền dùng qua resolver hiện hữu; đối chiếu ngày nguồn 20/10 với ngày truy xuất. Chỉ dùng các đoạn agency đã được cấp quyền, không dùng lời trích bên thứ ba. Gắn từng khẳng định vào đoạn nói về tham vấn, hợp tác, trao đổi thông tin và xử lý hồ sơ mới/đang chờ. Phân biệt ba tầng: cơ chế giám sát, quá trình xử lý đơn, và kết quả đăng ký/bảo vệ nhà đầu tư; tầng cuối chưa có dữ liệu. Nêu phản đề rằng hợp tác có ích nhưng thông cáo không đo hiệu quả thực thi. Không bịa hồ sơ đã duyệt, dòng vốn, thời hạn, lợi nhuận hay giá; code sở hữu mọi phép tính nếu cần.",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "primary_reader_question": "Thỏa thuận chia sẻ thông tin SEC–AMF thay đổi việc xử lý hồ sơ nhà quản lý Pháp tại Mỹ như thế nào, và vì sao xử lý đơn chưa chứng minh đăng ký thành công hay bảo vệ nhà đầu tư thực tế?",
+    "research_queries": [
+      "SEC AMF October 20 2026 supervisory memorandum investment adviser registration pending applications",
+      "SEC AMF information sharing consultation supervision French asset management registration applications"
+    ],
+    "selection_rationale": "Thông cáo có ngày 20/10 là nguồn mới khác năng lượng, nêu thay đổi thủ tục cụ thể: xử lý đơn mới và đang chờ trong khuôn khổ hợp tác giám sát. Câu hỏi hữu ích là thông tin giữa cơ quan giám sát tháo gỡ bước nào và còn thiếu bằng chứng nào về kết quả, không phải chỉ nhắc tên MOU."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "SEC–AMF ngày 20/10: hợp tác giám sát tạo điều kiện xử lý hồ sơ xuyên biên giới, còn kết quả phải được chứng minh riêng.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-25946d84473ced782f95cb27",
+        "evidence_plan": "Dùng bản agency đã thu qua Neo và được xác minh quyền dùng qua resolver hiện hữu; đối chiếu ngày nguồn 20/10 với ngày truy xuất. Chỉ dùng các đoạn agency đã được cấp quyền, không dùng lời trích bên thứ ba. Gắn từng khẳng định vào đoạn nói về tham vấn, hợp tác, trao đổi thông tin và xử lý hồ sơ mới/đang chờ. Phân biệt ba tầng: cơ chế giám sát, quá trình xử lý đơn, và kết quả đăng ký/bảo vệ nhà đầu tư; tầng cuối chưa có dữ liệu. Nêu phản đề rằng hợp tác có ích nhưng thông cáo không đo hiệu quả thực thi. Không bịa hồ sơ đã duyệt, dòng vốn, thời hạn, lợi nhuận hay giá; code sở hữu mọi phép tính nếu cần.",
+        "primary_reader_question": "Thỏa thuận chia sẻ thông tin SEC–AMF thay đổi việc xử lý hồ sơ nhà quản lý Pháp tại Mỹ như thế nào, và vì sao xử lý đơn chưa chứng minh đăng ký thành công hay bảo vệ nhà đầu tư thực tế?",
+        "research_queries": [
+          "SEC AMF October 20 2026 supervisory memorandum investment adviser registration pending applications",
+          "SEC AMF information sharing consultation supervision French asset management registration applications"
+        ],
+        "selection_rationale": "Thông cáo có ngày 20/10 là nguồn mới khác năng lượng, nêu thay đổi thủ tục cụ thể: xử lý đơn mới và đang chờ trong khuôn khổ hợp tác giám sát. Câu hỏi hữu ích là thông tin giữa cơ quan giám sát tháo gỡ bước nào và còn thiếu bằng chứng nào về kết quả, không phải chỉ nhắc tên MOU."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một câu hỏi độc lập có giá trị theo yêu cầu chủ sở hữu; không thêm phương án dự phòng làm loãng phạm vi.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "semantic_response_count": 3,
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-sec-amf-supervision\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 21,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 12,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

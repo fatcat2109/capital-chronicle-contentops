@@ -52,3 +52,12 @@ Use focused deterministic tests for hard boundaries and at least one real render
 Final visual/audio PASS requires inspection of the actual rendered artifact. Builder self-assessment or unit tests alone are insufficient.
 
 Preserve exact rights/provenance, source binding, current V1 isolation, zero unknown public write, and bounded TCO/recovery evidence.
+
+## V3 speech-product distinction — 2026-10-23
+
+The root North Star/Master Plan also adopt V3 Signal Clips on the existing isolated
+Speech Highlight Relay. Read its current pointer and nearest scoped instructions for V3.
+It is authentic-source speech editing, distinct from V2's original analytical-video factory.
+Reuse compatible media helpers while preserving V1 isolation, V2 pause and zero video uploads,
+drafts/public writes. The scoped current-source extension preserves retained replay/history;
+it grants no new provider/creative fallback, factual/numeric truth or publication owner.

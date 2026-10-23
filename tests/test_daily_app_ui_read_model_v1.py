@@ -123,6 +123,12 @@ def test_snapshot_healthy_idle_no_fixture_and_no_second_store(tmp_path):
     before = {path.name for path in tmp_path.iterdir()}
     snapshot = build_daily_app_snapshot(store.db_path, now=NOW)
     after = {path.name for path in tmp_path.iterdir()}
+    target = snapshot["editorial_execution_target"]
+    assert target["editorial_roles"]["filter"] == {"model": "gpt-6-luna", "reasoning_effort": "max"}
+    assert target["editorial_roles"]["select"]["reasoning_effort"] == "low"
+    assert target["editorial_roles"]["write"]["reasoning_effort"] == "max"
+    assert target["role_settings_state"] == "CONFIGURED_TARGET_NOT_INVOCATION_PROOF"
+    assert target["public_write_authority"] is False
     assert snapshot["runtime"]["controller_health"] == "HEALTHY"
     assert snapshot["freshness"]["state"] == "LIVE_CURRENT"
     cockpit = snapshot["runtime"]["operator_cockpit"]
@@ -717,7 +723,7 @@ def test_no_publication_and_platform_unavailable_are_truthful(tmp_path):
     assert snapshot["published"]["empty_reason"] == "NO_REAL_PUBLICATIONS_YET"
     assert snapshot["published"]["real_publication_count"] == 0
     assert {row["readiness"] for row in snapshot["platforms"]["destinations"]} == {
-        "READINESS_NOT_PROBED",
+        "READINESS_NOT_PROBED", "NEO_ACCOUNT_AND_EXECUTOR_NOT_VERIFIED",
     }
     assert not any(row["write_eligible"] for row in snapshot["platforms"]["destinations"])
 
@@ -963,6 +969,8 @@ def test_snapshot_projects_report_bridge_from_internal_outbox_without_public_aut
     assert bridge["state"] == "AVAILABLE"
     assert bridge["latest_report"]["report_version"] == 2
     assert bridge["latest_report"]["change_kind"] == "CORRECTION"
+    assert bridge["main_admission_summary"][0]["known_at_cutoff_utc"] is None
+    assert bridge["main_admission_summary"][0]["independent_native_runtime_verified"] is False
     assert len(bridge["latest_editorial_input"]["brief"]["sections"]) == 1
     assert len(bridge["latest_editorial_input"]["derivative_intents"]) == 8
     assert bridge["article"] is None

@@ -1,0 +1,108 @@
+{
+  "schema": "contentops.signal_clips.review_receipt.v1",
+  "review_sha256": "1bfb9d96f4a5a51e64773f6c9ef256029c120da638e08e02761cdef4d6ae7e2d",
+  "binding": {
+    "package_sha256": "6d3d9861e4ea3c0b86cc8c0f0c916e9e6f6fd7544a390659594b8bfe07184620",
+    "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+    "original_media_sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+    "transcript_sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1",
+    "edit_sha256": "91155511fe87a602ef1f2da8b6d80753e639a4e50201ea68255671612f7b48ef",
+    "affected_outputs": {
+      "master_vertical_clean_1080x1920.mp4": "5764959c458a43be75e8841dd1aa949fb4a3433819422ea9a530c699cd346dd3",
+      "derivative_vertical_captioned_1080x1920.mp4": "5baf203573a0c546a361649ca411de213cbfbef8dc7d5a4ff675e66f61037280",
+      "captions.srt": "190c472c56ed6eb872c47eeaa2389b9a3966a718cfd941b9ea051f9c958e0135",
+      "captions.vtt": "eb93b7bbd169f5d70ef7689301069ba792be8a64d5ae6759615412e8f1fc5000",
+      "captions.json": "be7d194ef818e51be2374550a81fc4a6dbf303c9f9ffd8043dcf55bf119aeb81",
+      "current_source.json": "7e8b1870922e68b4f806257ed231f529d265139d511a39e2d34f6001525584f6",
+      "selection_request.json": "69a89a151da5bc6d0242861784f0e8bb7d30b0b9f7a09e56ec9133d2a53ef296",
+      "selection_return.json": "d12571304e8f1dd2a720d28c193f9c96f8c9ce74e1f57ed586bbf04c72668b67",
+      "meaning_request.json": "f56b221b9f532f998d54b3d9fddb96d1bb483bbcdca2aad47733c85061004b82",
+      "meaning_return.json": "356ada9eb74543d40f8f931429abdfcb6d62c428b5905bec39329ac2e3853942",
+      "extracted_clip.mp4": "d416db4da4c7a6ad61cfec558295d2e305a9018d35d619375040b9c07e78d9ab",
+      "destination_metadata.json": "ad2ba482f3757fbbf0b145a931da268b2e8ac965d071475c68b6ed55f2177d6e",
+      "review_request.json": "c06abd292b8145842d42fd3e4d1afda6b1f56df8bbda9463a792582393528364",
+      "revision.json": "51430cb3132e02592400181686c1fc299639c9248f039c61dc0223fb03a68a55",
+      "parent_review.json": "f6ecece60ab87b0e554f4dd19fab2a149f7326b5753546f01e00392d3b8e144f",
+      "presentation.json": "a47dbf2141c538d424c9b62b3f055641fa9e0aa1a3d989609c12f13ba89a63c7"
+    }
+  },
+  "decision": "REVIEW_RECORDED_WITH_OPEN_GATES",
+  "findings": {
+    "VISUAL": {
+      "status": "PASS",
+      "notes": "Visual-only PASS for the final presentation successor: central original speaker picture; uncropped room-wide camera cut; clear dated attribution, readable hook/captions and complete saved context including caption/audio caveat. No identity, hearing, caption accuracy, timing, full-context or rights acceptance.",
+      "evidence": [
+        {
+          "file": ".task-runtime/speech_highlight_relay_v1/goal38/release-phone-frame.png",
+          "sha256": "df1bfd792833cbeb149080628be8e6b0cf75d971a68acc918900dd5112e6cf05"
+        },
+        {
+          "file": ".task-runtime/speech_highlight_relay_v1/goal38/release-transition-sheet.png",
+          "sha256": "de822523c22c52d1f28765e30db3c2b22a18fb2bc53f512a7a746ca63345d00b"
+        },
+        {
+          "file": ".task-runtime/speech_highlight_relay_v1/goal38/release-clean-frame.png",
+          "sha256": "335693a4bb0b287eada7c9f28c6f0a981b239cef5eefad8ebbdb3e2b6fb4c415"
+        }
+      ],
+      "method": "ACTUAL_FRAME_INSPECTION"
+    },
+    "CAPTIONS": {
+      "status": "NOT_VERIFIED",
+      "notes": "Typography inspected; literal caption words remain publisher-caption provisional, not independently heard.",
+      "evidence": [],
+      "method": ""
+    },
+    "AUDIO": {
+      "status": "NOT_VERIFIED",
+      "notes": "No capable original-audio hearing performed.",
+      "evidence": [],
+      "method": ""
+    },
+    "TIMING": {
+      "status": "NOT_VERIFIED",
+      "notes": "Alignment and cut sound not verified against original audio.",
+      "evidence": [],
+      "method": ""
+    },
+    "CONTEXT": {
+      "status": "NOT_VERIFIED",
+      "notes": "Saved dated source/meaning retained. Full-event context and speaker attribution remain unverified.",
+      "evidence": [],
+      "method": ""
+    },
+    "RIGHTS": {
+      "status": "NOT_VERIFIED",
+      "notes": "Recording-specific reuse, source seal and room-participant permissions remain open.",
+      "evidence": [],
+      "method": ""
+    }
+  },
+  "reviewer": {
+    "identity": "Codex Goal38 operator / visual review only",
+    "method": "Actual release clean/captioned frames and six-frame source-camera transition sheet inspected",
+    "capability": "VISUAL_ONLY",
+    "limitations": "Identity and method are self-reported, not independently attested. No audio/timing/rights acceptance implied.",
+    "attestation": "SELF_REPORTED_NOT_INDEPENDENTLY_ATTESTED"
+  },
+  "unresolved": [
+    "CAPTIONS",
+    "AUDIO",
+    "TIMING",
+    "CONTEXT",
+    "RIGHTS"
+  ],
+  "acceptance_scope": "REPORTED_FINDINGS_ONLY_NOT_AUTOMATIC_AUDIO_RIGHTS_OR_PUBLICATION_ACCEPTANCE",
+  "production_eligible": false,
+  "publication_control": {
+    "publication_state": "PUBLICATION_HOLD",
+    "write_authority": "ZERO_PUBLIC_WRITE",
+    "public_writes": 0,
+    "unknown_writes": 0,
+    "network_calls_made": 0,
+    "provider_calls": 0,
+    "browser_calls": 0,
+    "transport_dispatched": false,
+    "destination_intents": []
+  }
+}

@@ -1,0 +1,540 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "headline_id": "goal21-fed-policy",
+      "headline_text": "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate. The Committee is continuing its policy of maintaining ample reserves in the banking system.",
+      "capture_path": "neo-page-66-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "loader_result_path": "fed-policy-retained-admission.json",
+      "policy_capture_path": "neo-page-65-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+      "policy_capture_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "policy_retrieved_at_utc": "2026-10-19T09:14:51.267Z",
+      "revision_at_utc": "2026-10-19T09:14:51.352Z",
+      "proposition_span": [
+        241,
+        504
+      ],
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "research_metadata": {
+        "family": "FX_RATES",
+        "assets": [
+          "EURUSD",
+          "USDJPY",
+          "US_RATES"
+        ],
+        "context_kind": "DATED_OFFICIAL_OBSERVATION",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "What new inflation or labor evidence could change the policy path, and is the FX move consistent with relative rates rather than a single Fed headline?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-fed-inflation",
+      "headline_text": "Inflation remains elevated. Today's policy action will support a timelier return to the Committee's 2 percent goal. The Committee will deliver price stability.",
+      "capture_path": "neo-page-66-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "loader_result_path": "fed-inflation-retained-admission.json",
+      "policy_capture_path": "neo-page-65-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+      "policy_capture_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "policy_retrieved_at_utc": "2026-10-19T09:14:51.267Z",
+      "revision_at_utc": "2026-10-19T09:14:51.352Z",
+      "proposition_span": [
+        828,
+        987
+      ],
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "research_metadata": {
+        "family": "FX_RATES",
+        "assets": [
+          "US_RATES",
+          "XAUUSD"
+        ],
+        "context_kind": "DATED_OFFICIAL_OBSERVATION",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Which inflation components persist, and does the real-yield channel agree with any gold narrative?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-fx-convention",
+      "headline_text": "Release Date: October 13, 2026 Foreign Exchange Rates -- H.10 Weekly (Rates in currency units per U.S. dollar except as noted by an asterisk)",
+      "capture_path": "neo-page-66-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "loader_result_path": "fx-convention-retained-admission.json",
+      "policy_capture_path": "neo-page-65-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+      "policy_capture_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "policy_retrieved_at_utc": "2026-10-19T09:14:51.267Z",
+      "revision_at_utc": "2026-10-19T09:17:57.384Z",
+      "proposition_span": [
+        738,
+        879
+      ],
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "research_metadata": {
+        "family": "FX_RATES",
+        "assets": [
+          "EURUSD",
+          "USDJPY",
+          "DOLLAR_BROAD"
+        ],
+        "context_kind": "DATED_OFFICIAL_OBSERVATION",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Are currency quote direction and observation dates consistent before comparing changes across pairs?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-fx-broad-index",
+      "headline_text": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners.",
+      "capture_path": "neo-page-66-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "loader_result_path": "fx-broad-index-retained-admission.json",
+      "policy_capture_path": "neo-page-65-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+      "policy_capture_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "policy_retrieved_at_utc": "2026-10-19T09:14:51.267Z",
+      "revision_at_utc": "2026-10-19T09:17:57.384Z",
+      "proposition_span": [
+        2604,
+        2746
+      ],
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "research_metadata": {
+        "family": "FX_RATES",
+        "assets": [
+          "DOLLAR_BROAD",
+          "EURUSD",
+          "USDJPY"
+        ],
+        "context_kind": "FOUNDATION_BACKGROUND",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Does a bilateral move reflect broad dollar strength or a domestic-country shock?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-metals-leverage",
+      "headline_text": "Structured so you only pay a small percentage (between 15% and 25%) of the total purchase price. Full price paid by a loan, that the company arranges, to finance the rest of your purchase. Claims that the company will store the precious metals for you in a storage facility or “bank”. Frequent Problems Often do not use your money to purchase metals at any time. Do not actually arrange for loan financing with an independent financial institution, but charge phony interest . Do not store metal with an independent bank or storage facility, but charge storage fees. Fraudulently fail to point out that because you are not paying the full price for the metals, you will have to send the company additional funds if prices move unfavorably.",
+      "capture_path": "neo-page-64-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc",
+      "loader_result_path": "metals-leverage-retained-admission.json",
+      "policy_capture_path": "neo-page-64-revision3-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.cftc.gov/WebPolicy/index.htm",
+      "policy_capture_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:58.668Z",
+      "revision_at_utc": "2026-10-19T09:15:58.668Z",
+      "proposition_span": [
+        2311,
+        3050
+      ],
+      "candidate_catalyst_tags": [
+        "metals"
+      ],
+      "research_metadata": {
+        "family": "METALS",
+        "assets": [
+          "XAUUSD",
+          "XAGUSD"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Does the reported metal exposure include financing, collateral calls and verifiable ownership, or only a directional price narrative?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-metals-custody",
+      "headline_text": "Agreement that does not identify where the physical metal is located. Claims to deliver the physical metal to an overseas storage facility.",
+      "capture_path": "neo-page-64-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc",
+      "loader_result_path": "metals-custody-retained-admission.json",
+      "policy_capture_path": "neo-page-64-revision3-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.cftc.gov/WebPolicy/index.htm",
+      "policy_capture_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:58.668Z",
+      "revision_at_utc": "2026-10-19T09:15:58.668Z",
+      "proposition_span": [
+        3472,
+        3611
+      ],
+      "candidate_catalyst_tags": [
+        "metals"
+      ],
+      "research_metadata": {
+        "family": "METALS",
+        "assets": [
+          "XAUUSD",
+          "XAGUSD"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Can custody location and contractual counterparty be independently established before interpreting a metal investment claim?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-futures-option",
+      "headline_text": "A commodity futures option gives the purchaser the right to buy or sell a particular futures contract at a future date for a particular price",
+      "capture_path": "neo-page-64-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "loader_result_path": "futures-option-retained-admission.json",
+      "policy_capture_path": "neo-page-64-revision3-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.cftc.gov/WebPolicy/index.htm",
+      "policy_capture_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:58.668Z",
+      "revision_at_utc": "2026-10-19T09:17:57.714Z",
+      "proposition_span": [
+        807,
+        948
+      ],
+      "candidate_catalyst_tags": [
+        "index_options"
+      ],
+      "research_metadata": {
+        "family": "INDEX_OPTIONS",
+        "assets": [
+          "INDEX_FUTURES",
+          "COMMODITY_OPTIONS"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "What is the underlying contract, expiry and settlement convention, and which option inputs are still absent?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-futures-hedgers",
+      "headline_text": "Most participants are “hedgers” who trade futures to maximize the value of their assets, and to reduce the risk of financial losses from price changes Other participants are “speculators” who attempt to profit from price changes in futures contracts",
+      "capture_path": "neo-page-64-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "loader_result_path": "futures-hedgers-retained-admission.json",
+      "policy_capture_path": "neo-page-64-revision3-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.cftc.gov/WebPolicy/index.htm",
+      "policy_capture_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:58.668Z",
+      "revision_at_utc": "2026-10-19T09:17:57.714Z",
+      "proposition_span": [
+        1238,
+        1487
+      ],
+      "candidate_catalyst_tags": [
+        "index_options"
+      ],
+      "research_metadata": {
+        "family": "INDEX_OPTIONS",
+        "assets": [
+          "INDEX_FUTURES",
+          "COMMODITY_FUTURES"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Could observed positioning represent hedging rather than a directional forecast, and what evidence would discriminate?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-sec-tenk-scope",
+      "headline_text": "If you want to follow or invest in a U.S. public company, you can find a wealth of information in the company’s annual report on Form 10-K. Among other things, the 10-K offers a detailed picture of a company’s business, the risks it faces, and the operating and financial results for the fiscal year. Company management also discusses its perspective on the business results and what is driving them.",
+      "capture_path": "neo-page-67-revision3-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "b3f7b72aa4131a60ea124d7e4d6439b532b6ffbef02fd797dc90c0e839b8d6c8",
+      "loader_result_path": "sec-tenk-scope-retained-admission.json",
+      "policy_capture_path": "neo-page-67-revision2-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "revision_at_utc": "2026-10-19T09:15:58.890Z",
+      "proposition_span": [
+        40,
+        440
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "US_EQUITIES"
+        ],
+        "context_kind": "HISTORICAL_FOUNDATION_BACKGROUND",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": "2011-07-01T00:00:00Z",
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "What changed in the latest issuer business, risk and operating sections, and is management narrative consistent with disclosed results?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-sec-cross-trading",
+      "headline_text": "The proposed amendments would restore the ability to cross trade most fixed-income securities and modernize the rule’s conditions, including those related to pricing and oversight of cross trades. These modernizations would, among other things, recognize market developments that have led to pricing that is more verifiable and transparent. The proposal would also require aggregated reporting of trading activity and cross trades by registered funds that engage in cross trading to provide additional transparency.",
+      "capture_path": "neo-page-67-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "9357e7a9299740d1b09dbe2ab838118e7adf7a5e08928eeffe5c825372dd1669",
+      "loader_result_path": "sec-cross-trading-retained-admission.json",
+      "policy_capture_path": "neo-page-67-revision2-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "revision_at_utc": "2026-10-19T09:18:00.277Z",
+      "proposition_span": [
+        1960,
+        2475
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "REGISTERED_FUNDS",
+          "US_RATES"
+        ],
+        "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Which proposed pricing and oversight safeguards could affect fund execution costs, and what remains merely proposed?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-crypto-custody-proposal",
+      "headline_text": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies.",
+      "capture_path": "neo-page-65-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "loader_result_path": "crypto-custody-proposal-retained-admission.json",
+      "policy_capture_path": "neo-page-67-revision2-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "revision_at_utc": "2026-10-19T09:18:00.480Z",
+      "proposition_span": [
+        462,
+        734
+      ],
+      "candidate_catalyst_tags": [
+        "crypto"
+      ],
+      "research_metadata": {
+        "family": "CRYPTO",
+        "assets": [
+          "BTCUSD",
+          "ETHUSD",
+          "REGULATED_FUNDS"
+        ],
+        "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Which custody arrangements are proposed, who is covered, and what further action is required before assuming a changed operating rule?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-crypto-custody-conditions",
+      "headline_text": "The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets.",
+      "capture_path": "neo-page-65-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "loader_result_path": "crypto-custody-conditions-retained-admission.json",
+      "policy_capture_path": "neo-page-67-revision2-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "revision_at_utc": "2026-10-19T09:18:00.480Z",
+      "proposition_span": [
+        1623,
+        2176
+      ],
+      "candidate_catalyst_tags": [
+        "crypto"
+      ],
+      "research_metadata": {
+        "family": "CRYPTO",
+        "assets": [
+          "BTCUSD",
+          "ETHUSD"
+        ],
+        "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "What safeguards and exceptions would distinguish self-custody from a qualified custodian, without treating token price as evidence of investor protection?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-gas-storage",
+      "headline_text": "Working natural gas stocks totaled 3,065 Bcf, which is 177 Bcf (6%) more than the five-year average and 141 Bcf (5%) more than last year at this time.",
+      "capture_path": "neo-page-68-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "loader_result_path": "gas-storage-retained-admission.json",
+      "policy_capture_path": "eia-policy-retained.html",
+      "policy_capture_class": "RETAINED_RAW_HTTP_POLICY",
+      "policy_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "policy_capture_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "policy_retrieved_at_utc": "2026-10-19T05:47:50.347840Z",
+      "revision_at_utc": "2026-10-19T09:17:58.714Z",
+      "proposition_span": [
+        4960,
+        5110
+      ],
+      "candidate_catalyst_tags": [
+        "energy"
+      ],
+      "research_metadata": {
+        "family": "ENERGY",
+        "assets": [
+          "XNGUSD",
+          "US_GAS_STORAGE"
+        ],
+        "context_kind": "HISTORICAL_OBSERVATION_NOT_CURRENT_INVENTORY",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "What is the latest EIA storage vintage, and does an apparent surplus survive weather, exports and seasonal comparison?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    },
+    {
+      "headline_id": "goal21-gas-series-migration",
+      "headline_text": "This week is the final publication of the Natural Gas Weekly Update. On January 29, we are launching the Weekly Natural Gas Storage Report (WNGSR) Supplement on EIA's Beta site. This supplement will be published every Thursday afternoon. You can find information on our upcoming releases and how to contact us on our website.",
+      "capture_path": "neo-page-68-revision4-rendered.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "loader_result_path": "gas-series-migration-retained-admission.json",
+      "policy_capture_path": "eia-policy-retained.html",
+      "policy_capture_class": "RETAINED_RAW_HTTP_POLICY",
+      "policy_url": "https://www.eia.gov/about/copyrights_reuse.php",
+      "policy_capture_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "policy_retrieved_at_utc": "2026-10-19T05:47:50.347840Z",
+      "revision_at_utc": "2026-10-19T09:17:58.714Z",
+      "proposition_span": [
+        269,
+        594
+      ],
+      "candidate_catalyst_tags": [
+        "energy"
+      ],
+      "research_metadata": {
+        "family": "ENERGY",
+        "assets": [
+          "XNGUSD",
+          "US_GAS_STORAGE"
+        ],
+        "context_kind": "SOURCE_SERIES_MIGRATION",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Which replacement release contains current storage evidence, and do source identifiers and dates remain comparable?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK"
+      }
+    }
+  ]
+}

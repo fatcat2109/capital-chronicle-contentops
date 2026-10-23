@@ -1,0 +1,17 @@
+{
+  "unchanged_article_files": 308,
+  "outbox_count": 348,
+  "all_outbox_payloads_exact_and_no_new_rows": true,
+  "desk_html_sha256": "4d34ff03cfba3f4aa32a0288bf63feafee8758c852d2a5a730f57c5da9d16c85",
+  "desk_render_exactly_equal_goal29": true,
+  "actual_render_evidence_reused_from": "../goal29/render_inspection.json",
+  "screenshots": [
+    "../goal29/render/goal29-desktop.jpeg",
+    "../goal29/render/goal29-mobile.jpeg",
+    "../goal29/render/goal29-sec-mobile.jpeg"
+  ],
+  "ui_source_unchanged": true,
+  "no_new_source_or_model_cycles": true,
+  "dispatches": 0,
+  "public_writes": 0
+}

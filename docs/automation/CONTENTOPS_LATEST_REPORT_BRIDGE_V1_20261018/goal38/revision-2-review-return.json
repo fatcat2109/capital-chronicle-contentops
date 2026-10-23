@@ -1,0 +1,86 @@
+{
+  "schema": "contentops.signal_clips.review_return.v1",
+  "binding": {
+    "package_sha256": "39d851dd1d2ff2a4e59e98e464affbf19b047e8240d97e7189f7a5fa676b9974",
+    "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+    "original_media_sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+    "transcript_sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1",
+    "edit_sha256": "c9281b7ef76e1d62e8d58b329cbaaafa70cadc16164d6a9ecd986c4d66c89f73",
+    "affected_outputs": {
+      "master_vertical_clean_1080x1920.mp4": "dca00666a567e1b865df59c795a308e5d10c7f57a986c1db7beb265b95f4859b",
+      "derivative_vertical_captioned_1080x1920.mp4": "90bcd463fa808f9fd6721e2770b146cffb34396d90f434bb3e015a8ea932e798",
+      "captions.srt": "190c472c56ed6eb872c47eeaa2389b9a3966a718cfd941b9ea051f9c958e0135",
+      "captions.vtt": "eb93b7bbd169f5d70ef7689301069ba792be8a64d5ae6759615412e8f1fc5000",
+      "captions.json": "be7d194ef818e51be2374550a81fc4a6dbf303c9f9ffd8043dcf55bf119aeb81",
+      "current_source.json": "7e8b1870922e68b4f806257ed231f529d265139d511a39e2d34f6001525584f6",
+      "selection_request.json": "69a89a151da5bc6d0242861784f0e8bb7d30b0b9f7a09e56ec9133d2a53ef296",
+      "selection_return.json": "d12571304e8f1dd2a720d28c193f9c96f8c9ce74e1f57ed586bbf04c72668b67",
+      "meaning_request.json": "f56b221b9f532f998d54b3d9fddb96d1bb483bbcdca2aad47733c85061004b82",
+      "meaning_return.json": "356ada9eb74543d40f8f931429abdfcb6d62c428b5905bec39329ac2e3853942",
+      "extracted_clip.mp4": "d416db4da4c7a6ad61cfec558295d2e305a9018d35d619375040b9c07e78d9ab",
+      "destination_metadata.json": "ace21fec582ea90a5b975b0c076af065ddfa552b21a3be89d2a67c4773a428c4",
+      "review_request.json": "a15b70453cd3c57852d555297c3112ce78efab6aed81b66bab7b5f72a1299fdd",
+      "revision.json": "ff7a0aa7be36f557aeee396e2a3d3e2dfd05a63364844239dbc841c2d32c7e55",
+      "parent_review.json": "56bfcaa4bd787f4d24fdb10a51db914533913e8cff3fbacbc29abf7ebe04df8d",
+      "presentation.json": "a47dbf2141c538d424c9b62b3f055641fa9e0aa1a3d989609c12f13ba89a63c7"
+    }
+  },
+  "reviewer": {
+    "identity": "Codex Goal38 operator / visual review only",
+    "method": "Actual final full-resolution captioned/clean frames and six-frame transition sheet inspected; no original listening",
+    "capability": "VISUAL_ONLY",
+    "limitations": "Identity and method are self-reported, not independently attested. No audio/timing/rights acceptance implied.",
+    "attestation": "SELF_REPORTED_NOT_INDEPENDENTLY_ATTESTED"
+  },
+  "findings": {
+    "VISUAL": {
+      "status": "REVISION_REQUESTED",
+      "notes": "Retain the entire saved native context text in the context area, including its publisher-caption/audio-unverified caveat, rather than taking the first three input lines. The prior footer already carries audio uncertainty, but no generic semantic input should be silently truncated. Keep shot framing, all original words and existing native stages.",
+      "evidence": [
+        {
+          "file": ".task-runtime/speech_highlight_relay_v1/goal38/final-phone-frame.png",
+          "sha256": "d85a45e1d65c521e16674c0074d4caa3d7267ed94968a53d596e2c2dbda26d6c"
+        },
+        {
+          "file": ".task-runtime/speech_highlight_relay_v1/goal38/final-transition-sheet.png",
+          "sha256": "9622066c3894233ba94eb8a6a16fd27dcc90c791b8c6fbf36ed77bac61596b23"
+        },
+        {
+          "file": ".task-runtime/speech_highlight_relay_v1/goal38/final-clean-frame.png",
+          "sha256": "513bec5819e397d99d0ed2b6dfb4ca8d30dc193e406a770401a4b9f441c09707"
+        }
+      ],
+      "method": "ACTUAL_FRAME_INSPECTION"
+    },
+    "CAPTIONS": {
+      "status": "NOT_VERIFIED",
+      "notes": "Only visual caption typography was inspected. Literal words remain publisher-caption provisional, not heard/verified.",
+      "evidence": [],
+      "method": ""
+    },
+    "AUDIO": {
+      "status": "NOT_VERIFIED",
+      "notes": "No capable original-audio hearing was performed.",
+      "evidence": [],
+      "method": ""
+    },
+    "TIMING": {
+      "status": "NOT_VERIFIED",
+      "notes": "Caption alignment, adjacent-context adequacy and cut sound remain unverified against original audio.",
+      "evidence": [],
+      "method": ""
+    },
+    "CONTEXT": {
+      "status": "NOT_VERIFIED",
+      "notes": "Dated text context/attribution retained unchanged. Full-event context and independently verified speaker identity remain open.",
+      "evidence": [],
+      "method": ""
+    },
+    "RIGHTS": {
+      "status": "NOT_VERIFIED",
+      "notes": "Source seal, room participants and recording-specific reuse rights remain unverified.",
+      "evidence": [],
+      "method": ""
+    }
+  }
+}

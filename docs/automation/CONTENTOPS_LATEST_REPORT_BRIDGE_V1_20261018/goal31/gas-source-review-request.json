@@ -1,0 +1,29 @@
+{
+  "run_id": "goal27-gas-refill-update",
+  "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+  "review_operation_id": "goal31-gas-vintage-review",
+  "source_ids": [
+    "goal22-gas-storage",
+    "goal27-gas-seasonal"
+  ],
+  "attempts": [
+    {
+      "url": "https://ir.eia.gov/ngs/ngs.html",
+      "status": "PASS",
+      "observed_at_utc": "2026-10-21T11:19:32.423875Z",
+      "route": "ACTUAL_BROWSEROS_NEO_VISIBLE_READ",
+      "observation_clock_basis": "RECORDED_AFTER_ACTUAL_READ_NOT_PUBLICATION_TIME",
+      "new_source_requests": 1
+    },
+    {
+      "url": "https://ir.eia.gov/ngs/wngsr.txt",
+      "status": "PASS",
+      "observed_at_utc": "2026-10-21T11:19:32.423875Z",
+      "route": "ACTUAL_BROWSEROS_NEO_VISIBLE_READ",
+      "observation_clock_basis": "RECORDED_AFTER_ACTUAL_READ_NOT_PUBLICATION_TIME",
+      "new_source_requests": 1
+    }
+  ],
+  "cutoff_utc": "2026-10-21T11:19:32.423875Z",
+  "reason": "KEEP: Neo ngày21/10 vẫn hiển thị kỳ quan sát9/10, phát hành15/10; 3.567 Bcf, bơm thêm67, cao hơn chuẩn5năm45 và thấp hơn cùng kỳ143. Không có kỳ mới hay sửa số; giữ nguyên bài mùa vụ, không gọi writer. Trang ghi lần phát hành kế tiếp22/10; bước hữu hạn là một lần đối chiếu sau phát hành nếu tiếp tục theo dõi, không tự tạo lịch hay coi lịch hẹn là kết quả. Chưa có kỳ vọng thị trường, giá và nhu cầu/vận chuyển cùng thời điểm để kết luận cú bất ngờ hoặc hướng giá."
+}

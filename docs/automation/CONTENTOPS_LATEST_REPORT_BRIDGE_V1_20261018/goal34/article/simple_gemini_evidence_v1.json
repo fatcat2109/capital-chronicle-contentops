@@ -1,0 +1,400 @@
+{
+  "admitted_candidate_count": 1,
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 3,
+      "accepted_source_urls": [
+        "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-58c20e2b812d839f223fed99",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Southwest second quarter 2025 fuel hedge termination cash proceeds AOCI recognition"
+      ],
+      "selection_rationale": "The newly admitted named issuer filing answers part of the saved hedge question with an actual case and a useful cash-versus-accounting distinction absent from the prior general futures article. It does not establish a margin call, liquidity distress, hedge failure or current 2026 position.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "codex_runtime_model_calls_before_writer": null,
+  "evidence_attempts": [
+    {
+      "accepted_source_count": 3,
+      "accepted_source_urls": [
+        "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-58c20e2b812d839f223fed99",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "provenance": {
+        "read_only_http_get_only": true,
+        "request_count_for_call": 0,
+        "retained_research_revision": "0314f9ee0d6ac622bab84e989e2b829e64efddf854ac1d64410a4959e50e0281",
+        "selected_route": "OFFICIAL_PRIMARY"
+      },
+      "request": {
+        "cluster_id": "simple-story-58c20e2b812d839f223fed99",
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "evidence_enrichment_context": {
+          "requested": true
+        },
+        "headline_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "remaining_admitted_candidate_count": 0,
+        "request_logical_hash": "a4d823414feacd0e3f13e68a4e4c841d74c679ead8e86459a39f744bcc50dc9c",
+        "requested_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "required_evidence_capabilities": [
+          "credible_report_or_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "story_context": {
+          "candidate_packet_locators_grant_factual_authority": false,
+          "candidate_source_account": "Southwest Airlines Co.",
+          "candidate_source_timestamp_utc": "2025-07-24T00:00:00Z",
+          "candidate_source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+          "evolving_story_context": [
+            {
+              "changed_evidence": [
+                {
+                  "after": {
+                    "capture_sha256": "972f088288e252878b4cc7ae3157af456759bd3f1c48da16532d32868d8ba7c8",
+                    "context_kind": "DATED_2025_ISSUER_CASE_NOT_2026_NEWS_OR_EXCHANGE_MARGIN_PROOF",
+                    "item_id": "goal34-southwest-hedge-clocks",
+                    "observation_date": "2025-06-30",
+                    "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+                    "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+                    "permission_sha256": "59650fb790d9edfce73bb77e1e90761b79b2313ac99d6fb99e2ee75f681e3dfb",
+                    "proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio.",
+                    "published_at_utc": "2025-07-24T00:00:00Z",
+                    "retrieved_at_utc": "2026-10-21T20:58:43.268Z",
+                    "rights_state": "GOVERNED_PUBLIC_FILING_FACTS_ONLY_NO_EXPRESSIVE_REUSE",
+                    "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+                    "stage": "RESEARCH_READY",
+                    "text_sha256": "b53bd56534f2726f46bbab826f7ed86e056e1a81f05c49202c87190164876524"
+                  },
+                  "before": null,
+                  "item_id": "goal34-southwest-hedge-clocks",
+                  "material": true,
+                  "state": "ADDED"
+                }
+              ],
+              "disposition": "MATERIAL_FOLLOW_UP",
+              "prior_package": {
+                "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+                "full_text": "Phòng hộ giá bán bằng futures có thể giúp người sản xuất bớt bất định, nhưng tài khoản hợp đồng vẫn có thể cần thêm tiền trước ngày thu tiền hàng. CONFIRMED — CFTC mô tả mục đích hedge cùng cơ chế định giá lại hằng ngày. Theo phân tích của Capital Chronicle, tác dụng bù rủi ro và khả năng đáp ứng tiền mặt phải được kiểm tra cùng nhau. [[SOURCE:SOURCE_1]]\n\n## Nhìn cả vụ mùa và vị thế bán\n\nHedge là phòng hộ: dùng một vị thế để hạn chế rủi ro giá đang có trong hoạt động kinh doanh. CFTC lấy ví dụ người nông dân Kansas đã trồng lúa mì, chịu rủi ro giá giảm trước khi thu hoạch và bán. Bán hợp đồng futures là cách tài liệu minh họa việc giảm bất định về giá bán của vụ mùa. [[SOURCE:SOURCE_1]]\n\nCC diễn giải có điều kiện: nếu giá lúa mì tăng, khả năng bán hàng thực với giá cao hơn có thể đi cùng khoản lỗ trên vị thế futures bán; nếu giá giảm, hướng bù trừ có thể đảo lại. Cách giải thích này cần hàng thực và hợp đồng đủ tương thích, chưa xác lập mức bù hay lợi nhuận của một vụ mùa cụ thể. [[SOURCE:SOURCE_1]]\n\nMột vị thế bán futures vì thế chưa đủ chứng minh người nắm giữ đang bi quan về giá. Trong ví dụ CFTC, người bán còn có lúa mì sẽ đưa ra thị trường. Theo cách đọc của CC, muốn hiểu vị thế phải biết nó đứng cạnh tài sản và rủi ro kinh doanh nào, cùng mục đích của người nắm giữ. [[SOURCE:SOURCE_1]]\n\n## Tài khoản ký quỹ đi theo lịch riêng\n\nCFTC mô tả ký quỹ futures là khoản bảo đảm thực hiện nghĩa vụ tài chính, khác với khoản trả trước trong giao dịch ký quỹ cổ phiếu. Người mở vị thế nộp ký quỹ ban đầu; sau đó vị thế được định giá lại theo thị trường hằng ngày, gọi là mark-to-market. [[SOURCE:SOURCE_1]]\n\nTheo cơ chế trong tài liệu, khi vị thế mất giá, tiền trong tài khoản ký quỹ giảm. Nếu số tiền xuống dưới mức ký quỹ duy trì, người giao dịch phải nộp thêm ký quỹ biến động — variation margin — để đưa tài khoản về mức ban đầu. Khi vị thế có lãi, khoản lãi được cộng vào tài khoản. [[SOURCE:SOURCE_1]]\n\nPhân tích CC: nếu giá tăng trước khi bán lúa mì, vị thế futures bán có thể cần thêm tiền ký quỹ trong lúc doanh thu hàng chưa về. Khoản bù kinh tế dự kiến từ hàng thực chưa đồng nghĩa có tiền đúng lúc. [[SOURCE:SOURCE_1]]\n\nVì vậy cần đặt lịch thu tiền bán hàng cạnh lịch đáp ứng ký quỹ. Giá hàng thực thuận lợi hơn chưa tự tạo ra tiền trong tài khoản futures trước khi bán hàng. Đây là vấn đề thời điểm trong cách giải thích của CC; tài liệu không cung cấp dòng tiền của một nông dân cụ thể để kết luận người đó đang thiếu tiền. [[SOURCE:SOURCE_1]]\n\n## Hàng thực và hợp đồng chuẩn hóa có thể khác nhau\n\nCFTC cho biết sàn chuẩn hóa các yếu tố như quy mô hợp đồng, tháng giao hàng, ngày giao dịch cuối, địa điểm và phẩm cấp được chấp nhận. Nhờ nhiều người cùng giao dịch một công cụ, tính thanh khoản tăng và hợp đồng hữu ích hơn cho phòng hộ. Đổi lại, sự chuẩn hóa làm nó kém linh hoạt hơn cho nhu cầu mua bán hàng thực riêng của từng người. [[SOURCE:SOURCE_1]]\n\nTrong ví dụ CFTC, nông dân muốn giao lúa mì gần Topeka có thể dùng futures lúa mì CBOT để hedge, nhưng không muốn giao hàng theo hợp đồng vì điểm giao gần nhất trong ví dụ ở St. Louis. Người này mua lại để đóng vị thế trước ngày giao và bán lúa mì tại địa phương trên thị trường giao ngay. Đóng vị thế bù trừ, hay offset, là kết thúc vị thế hợp đồng; việc bán hàng thực diễn ra riêng. [[SOURCE:SOURCE_1]]\n\nTừ đó, CC đặt câu hỏi về độ khớp: hàng thực sẽ bán ở đâu, có phẩm cấp nào, vào lúc nào, và hợp đồng đang phòng hộ phần rủi ro nào? Ví dụ địa điểm cho thấy lý do phải hỏi; nó chưa đo mức chênh giữa giá hàng thực và giá hợp đồng trong một trường hợp hiện tại. [[SOURCE:SOURCE_1]]\n\n## Khi nào hedge vẫn hữu ích?\n\nPhản đề của CC: nếu hợp đồng bám sát rủi ro hàng thực và có nguồn tiền đáp ứng ký quỹ đúng lúc, hedge vẫn có thể hữu ích. Nhu cầu bổ sung tiền tự nó chưa chứng minh rủi ro giá của cả hoạt động đã tăng. [[SOURCE:SOURCE_1]]\n\nNếu hàng thực không tạo được khoản bù như giả định, hoặc tiền không về kịp nghĩa vụ ký quỹ, phải rút kết luận hedge vừa giảm rủi ro vừa đủ sức duy trì. Cần kiểm độ khớp và lịch tiền của trường hợp cụ thể. [[SOURCE:SOURCE_1]]\n\n## Cần hỏi gì trước một trường hợp cụ thể?\n\n- Hàng thực và rủi ro: người sản xuất sẽ bán loại hàng nào, khối lượng bao nhiêu, vào kỳ nào, và phần biến động giá nào đang được phòng hộ? Đây là các câu hỏi kiểm tra, chưa phải dữ liệu về một vị thế được xác minh. [[SOURCE:SOURCE_1]]\n\n- Hợp đồng: quy mô, kỳ hạn, địa điểm và phẩm cấp có phù hợp với hàng sẽ bán không; vị thế dự kiến được đóng bù trừ hay dẫn tới giao hàng? Cần điều khoản của đúng hợp đồng để trả lời. [[SOURCE:SOURCE_1]]\n\n- Tiền mặt: tiền hàng dự kiến được nhận khi nào, tiền đáp ứng ký quỹ có sẵn khi nào, và nghĩa vụ bổ sung của đúng tài khoản là gì? Một khoản bù về giá có thể tồn tại mà câu hỏi tiền đến đúng lúc vẫn chưa được trả lời. [[SOURCE:SOURCE_1]]\n\n## Ghi chú nguồn\n\nGhi chú nguồn: bài dùng phần giải thích của CFTC được đọc và lưu ngày 21/10/2026. Bản nguồn không cung cấp ngày công bố hoặc sửa đổi. Các ví dụ được dùng làm kiến thức nền, không xác nhận điều khoản hiện hành của một hợp đồng hay hiệu quả của vị thế hiện tại; bài không đưa ra khuyến nghị giao dịch. [[SOURCE:SOURCE_1]]",
+                "stage": "UNPUBLISHED_REVIEWED_ARTICLE",
+                "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+                "title": "Phòng hộ bằng futures vẫn có thể cần thêm tiền mặt"
+              },
+              "publication_state": "UNPUBLISHED_RESEARCH",
+              "reason": "UPDATE warranted by a newly retained dated issuer case, not by new 2026 news. Southwest Q2 2025 closed OTC fuel options: about $40m cash proceeds, about $36m expense reclassification, about $209m remaining AOCI net of proceeds and before tax, and no cash collateral posted or received at June 30. Distinguish cash receipt, earnings recognition and underlying fuel dates; OTC options are not evidence of exchange variation margin or liquidity distress. Preserve original general futures explainer and invalidate its former prepared binding for this follow-up.",
+              "removed_main_claim_ids": [],
+              "source_item_ids": [
+                "goal34-southwest-hedge-clocks",
+                "goal31-futures-economic-purpose",
+                "goal21-futures-hedgers"
+              ],
+              "source_review_id": "native-source-review-419900a25c926621120e1346789394486c163343b67b43069a589f55e9a0b7b2",
+              "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+              "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+            }
+          ],
+          "grounded_research_queries": [
+            "Southwest second quarter 2025 fuel hedge termination cash proceeds AOCI recognition"
+          ],
+          "leaf_summaries": [
+            "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio."
+          ],
+          "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
+          "planned_research_query_count": 1,
+          "planned_research_query_set_sha256": "c8d7699c57e971df90f7350cbc8416bb832f67dde01202e640900ad3192d6fd7",
+          "public_source_url_bindings": [
+            {
+              "headline_id": "goal34-southwest-hedge-clocks",
+              "source_timestamp_utc": "2025-07-24T00:00:00Z",
+              "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+            }
+          ],
+          "report_provenance": {
+            "arbitrary_x_list_membership_grants_authority": false,
+            "attributed_reputable_sources": [],
+            "canonical_x_list_provenance": {},
+            "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+            "explicit_market_rumor": false,
+            "explicit_reputable_attribution": false,
+            "owner_curated_canonical_x_record": false,
+            "preferred_route": "DEFAULT_SHORTEST_GOVERNED_ROUTE",
+            "primary_reporting_publisher": null,
+            "primary_reporting_source_identity": null,
+            "report_or_event_authority_granted": false,
+            "report_proposition": null,
+            "schema_version": "contentops.v1_simple_candidate_report_provenance.v1",
+            "source_account": "southwest airlines co.",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+            "trusted_relay_identity_approved": false
+          }
+        },
+        "story_evidence_scope_id": "simple-story-58c20e2b812d839f223fed99",
+        "story_type": "selected_current_news"
+      },
+      "research_queries": [
+        "Southwest second quarter 2025 fuel hedge termination cash proceeds AOCI recognition"
+      ],
+      "selection_rationale": "The newly admitted named issuer filing answers part of the saved hedge question with an actual case and a useful cash-versus-accounting distinction absent from the prior general futures article. It does not establish a margin call, liquidity distress, hedge failure or current 2026 position.",
+      "source_pack": [
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+          "canonical_content_text": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations. See Note 4 for additional information on AOCI.\n\nCredit Risk and Collateral\nThe Company had no cash collateral posted or received as of June 30, 2025.\n13\n\nDuring second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. See Note 3 for further information on the Company’s derivative instruments and hedging activities. The Company’s derivative instruments held in prior periods consisted of over-the-counter contracts, which were not traded on a public exchange. Fuel derivative instruments historically consisted solely of option contracts, whereas interest rate derivatives have historically consisted solely of swap agreements.",
+          "canonical_resolution_status": "",
+          "document_id": "goal34-southwest-hedge-clocks",
+          "published_at_source": "2025-07-24",
+          "published_at_utc": "2025-07-24T00:00:00Z",
+          "publisher": "Southwest Airlines Co.",
+          "report_truth_only": false,
+          "retrieval_method": "RETAINED_PUBLIC_FILING_FACTS_ONLY",
+          "secondary_listing_only": false,
+          "source_authority_class": "first_party_public_source",
+          "source_id": "SOURCE_1",
+          "source_identity": "Southwest Airlines Co.",
+          "source_reuse_constraints": {
+            "INTERNAL_ANALYSIS_ALLOWED": true,
+            "LLM_INPUT_ALLOWED": true,
+            "MODEL_INPUT_ALLOWED": true,
+            "attribution_required": true,
+            "canonical_text_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+            "content_sha256": "b53bd56534f2726f46bbab826f7ed86e056e1a81f05c49202c87190164876524",
+            "government_authorship": false,
+            "images_logos_exhibits_reuse_allowed": false,
+            "permitted_consumers": [
+              "internal_research",
+              "narrative_context"
+            ],
+            "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+            "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+            "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+            "provider_safe": true,
+            "public_expression_reuse_allowed": false,
+            "scope": "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            "source_capture_sha256": "972f088288e252878b4cc7ae3157af456759bd3f1c48da16532d32868d8ba7c8"
+          },
+          "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+        },
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "4bfd7e1c82e4b8f8fc80ae8c87319308a2e56aeea06ff8b250c8bcc7028520d2",
+          "canonical_content_text": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities\n\nFor example, a farmer who wants to deliver wheat to a grain elevator near Topeka might find Chicago Board of Trade (CBOT) wheat futures contracts useful for hedging, but would not want to make delivery on the contracts because the nearest CBOT delivery point is St. Louis. - Instead of making delivery, the farmer will buy back or offset the contracts before the delivery date and sell the wheat locally on the spot market - Most futures contracts (by volume) are liquidated by offsetting and do not result in delivery - The purpose of the delivery provision is to ensure convergence between the futures price and the cash market price -\n\nExchanges set standardized contract terms, including the amount of the commodity to be delivered (the contract size), delivery months, the last trading day, the delivery locations, and acceptable qualities or grades of the commodity - The exchange specifies that different varieties and grades can be delivered at various fixed differentials (premiums or discounts) to the contract price - This standardization enhances liquidity by making it possible for large numbers of market participants to trade the same instrument - This liquidity makes the contract more useful for hedging, but standardization reduces the usefulness of a futures contract as a merchandising vehicle - Futures trades made on an exchange are cleared through a “clearing house,” which acts as the buyer to all sellers and the seller to all buyers - When a futures contract is bought or sold, it is technically bought from or sold to the clearing house rather than the party with whom the transaction was executed on the trading floor or through an electronic trading platform - Since the contract is ultimately bought from and sold from the same party, if a futures contract is bought and subsequently sold, the position has been offset and the contract is extinguished\n\nMargins in the futures markets are not down payments like stock margins, but are performance bonds designed to ensure that traders can meet their financial obligations - When a futures trader enters into a futures position, he or she is required to post initial margin of an amount specified by the exchange or clearing house. Thereafter, the position is “marked to the market” daily - If the futures position loses value when the market moves against it—if, for example, you are buying and the market goes down—the amount of money in the margin account will decline accordingly - If the amount of money in the margin account falls below the specified maintenance margin (which is set at a level less than or equal to the initial margin), the futures trader will be required to post additional variation margin to bring the account up the initial margin level - On the other hand, if the futures position is profitable, the profits will be added to the margin account - Futures commission merchants (FCMs) often require their customers to maintain funds in their margin accounts that exceed the levels specified by an exchange",
+          "canonical_resolution_status": "",
+          "document_id": "goal31-futures-economic-purpose",
+          "published_at_source": "SOURCE_UNDATED_NOT_INFERRED_FROM_CAPTURE",
+          "published_at_utc": "",
+          "publisher": "www.cftc.gov",
+          "report_truth_only": false,
+          "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_CONTEXT_SPANS",
+          "secondary_listing_only": false,
+          "source_authority_class": "official_public_primary_source",
+          "source_id": "SOURCE_2",
+          "source_identity": "www.cftc.gov",
+          "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+        },
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "85c2f8aad59c459ea6b4c4818c71f6aab2a7d9350e1eaa120d5489e237f362e7",
+          "canonical_content_text": "Most participants are “hedgers” who trade futures to maximize the value of their assets, and to reduce the risk of financial losses from price changes Other participants are “speculators” who attempt to profit from price changes in futures contracts",
+          "canonical_resolution_status": "",
+          "document_id": "goal21-futures-hedgers",
+          "published_at_source": "SOURCE_UNDATED_NOT_INFERRED_FROM_CAPTURE",
+          "published_at_utc": "",
+          "publisher": "www.cftc.gov",
+          "report_truth_only": false,
+          "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_CONTEXT_SPANS",
+          "secondary_listing_only": false,
+          "source_authority_class": "official_public_primary_source",
+          "source_id": "SOURCE_3",
+          "source_identity": "www.cftc.gov",
+          "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm"
+        }
+      ],
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "model_calls_before_writer": 1,
+  "public_write_performed": false,
+  "request_count": 0,
+  "request_limit": 6,
+  "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
+  "selected_candidate_id": "simple-story-58c20e2b812d839f223fed99",
+  "selected_epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Southwest Airlines Co.",
+    "primary_reporting_source_identity": "Southwest Airlines Co.",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal34-southwest-hedge-clocks"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+      "canonical_content_text": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. This resulted in the derecognition of all remaining related hedge assets in the unaudited Condensed Consolidated Balance Sheet. The cash proceeds from this transaction totaled approximately $40 million, which will reduce future premium costs. Approximately $36 million was reclassified from Accumulated Other Comprehensive Income (\"AOCI\") and recognized as an increase to Fuel and oil expense within the unaudited Condensed Consolidated Statement of Comprehensive Income during second quarter 2025, all of which is characterized as premium expense from fuel hedging activities, including amounts associated with terminated fuel hedge positions. As of June 30, 2025, approximately $209 million remained in AOCI related to these closed positions. This balance in AOCI does not include any tax impact, will also be characterized as premium expense and similarly reclassified as an increase to Fuel and oil expense in future periods when the originally forecasted transactions occur (through the end of 2027), and is net of the impact of the cash proceeds from the hedge terminations. See Note 4 for additional information on AOCI.\n\nCredit Risk and Collateral\nThe Company had no cash collateral posted or received as of June 30, 2025.\n13\n\nDuring second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio. See Note 3 for further information on the Company’s derivative instruments and hedging activities. The Company’s derivative instruments held in prior periods consisted of over-the-counter contracts, which were not traded on a public exchange. Fuel derivative instruments historically consisted solely of option contracts, whereas interest rate derivatives have historically consisted solely of swap agreements.",
+      "canonical_resolution_status": "",
+      "document_id": "goal34-southwest-hedge-clocks",
+      "published_at_source": "2025-07-24",
+      "published_at_utc": "2025-07-24T00:00:00Z",
+      "publisher": "Southwest Airlines Co.",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_PUBLIC_FILING_FACTS_ONLY",
+      "secondary_listing_only": false,
+      "source_authority_class": "first_party_public_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "Southwest Airlines Co.",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "attribution_required": true,
+        "canonical_text_sha256": "c1fee545fb19485fae172d1b23d108df621b346796be75ababf492ea46705128",
+        "content_sha256": "b53bd56534f2726f46bbab826f7ed86e056e1a81f05c49202c87190164876524",
+        "government_authorship": false,
+        "images_logos_exhibits_reuse_allowed": false,
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+        "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+        "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+        "provider_safe": true,
+        "public_expression_reuse_allowed": false,
+        "scope": "ATTRIBUTED_FILING_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+        "source_capture_sha256": "972f088288e252878b4cc7ae3157af456759bd3f1c48da16532d32868d8ba7c8"
+      },
+      "url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+    },
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "4bfd7e1c82e4b8f8fc80ae8c87319308a2e56aeea06ff8b250c8bcc7028520d2",
+      "canonical_content_text": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities\n\nFor example, a farmer who wants to deliver wheat to a grain elevator near Topeka might find Chicago Board of Trade (CBOT) wheat futures contracts useful for hedging, but would not want to make delivery on the contracts because the nearest CBOT delivery point is St. Louis. - Instead of making delivery, the farmer will buy back or offset the contracts before the delivery date and sell the wheat locally on the spot market - Most futures contracts (by volume) are liquidated by offsetting and do not result in delivery - The purpose of the delivery provision is to ensure convergence between the futures price and the cash market price -\n\nExchanges set standardized contract terms, including the amount of the commodity to be delivered (the contract size), delivery months, the last trading day, the delivery locations, and acceptable qualities or grades of the commodity - The exchange specifies that different varieties and grades can be delivered at various fixed differentials (premiums or discounts) to the contract price - This standardization enhances liquidity by making it possible for large numbers of market participants to trade the same instrument - This liquidity makes the contract more useful for hedging, but standardization reduces the usefulness of a futures contract as a merchandising vehicle - Futures trades made on an exchange are cleared through a “clearing house,” which acts as the buyer to all sellers and the seller to all buyers - When a futures contract is bought or sold, it is technically bought from or sold to the clearing house rather than the party with whom the transaction was executed on the trading floor or through an electronic trading platform - Since the contract is ultimately bought from and sold from the same party, if a futures contract is bought and subsequently sold, the position has been offset and the contract is extinguished\n\nMargins in the futures markets are not down payments like stock margins, but are performance bonds designed to ensure that traders can meet their financial obligations - When a futures trader enters into a futures position, he or she is required to post initial margin of an amount specified by the exchange or clearing house. Thereafter, the position is “marked to the market” daily - If the futures position loses value when the market moves against it—if, for example, you are buying and the market goes down—the amount of money in the margin account will decline accordingly - If the amount of money in the margin account falls below the specified maintenance margin (which is set at a level less than or equal to the initial margin), the futures trader will be required to post additional variation margin to bring the account up the initial margin level - On the other hand, if the futures position is profitable, the profits will be added to the margin account - Futures commission merchants (FCMs) often require their customers to maintain funds in their margin accounts that exceed the levels specified by an exchange",
+      "canonical_resolution_status": "",
+      "document_id": "goal31-futures-economic-purpose",
+      "published_at_source": "SOURCE_UNDATED_NOT_INFERRED_FROM_CAPTURE",
+      "published_at_utc": "",
+      "publisher": "www.cftc.gov",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_CONTEXT_SPANS",
+      "secondary_listing_only": false,
+      "source_authority_class": "official_public_primary_source",
+      "source_id": "SOURCE_2",
+      "source_identity": "www.cftc.gov",
+      "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+    },
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "85c2f8aad59c459ea6b4c4818c71f6aab2a7d9350e1eaa120d5489e237f362e7",
+      "canonical_content_text": "Most participants are “hedgers” who trade futures to maximize the value of their assets, and to reduce the risk of financial losses from price changes Other participants are “speculators” who attempt to profit from price changes in futures contracts",
+      "canonical_resolution_status": "",
+      "document_id": "goal21-futures-hedgers",
+      "published_at_source": "SOURCE_UNDATED_NOT_INFERRED_FROM_CAPTURE",
+      "published_at_utc": "",
+      "publisher": "www.cftc.gov",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_CONTEXT_SPANS",
+      "secondary_listing_only": false,
+      "source_authority_class": "official_public_primary_source",
+      "source_id": "SOURCE_3",
+      "source_identity": "www.cftc.gov",
+      "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm"
+    }
+  ],
+  "status": "PASS",
+  "updated_source_route_health": {}
+}

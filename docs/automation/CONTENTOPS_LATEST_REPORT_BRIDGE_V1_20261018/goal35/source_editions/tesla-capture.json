@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/",
+  "title": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+  "reporting_publisher": "Reuters",
+  "attribution_text": "Reuters",
+  "observed_at_utc": "2026-10-21T22:27:23.026Z",
+  "full_text_sha256": "8e815bc285413d982f7d2cc0ed3f7be1ae8d57271d21d829b35abc4c2eb83847",
+  "full_text_characters": 6870,
+  "excerpts": [
+    {
+      "text": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+      "start": 0,
+      "end": 74
+    },
+    {
+      "text": "Free cash flow reaches $1.53 billion against analysts' expected $4.92 billion cash burn",
+      "start": 525,
+      "end": 612
+    },
+    {
+      "text": "Third-quarter capital expenditure totals $4.73 billion, below analysts' roughly $7.5 billion estimate",
+      "start": 613,
+      "end": 714
+    },
+    {
+      "text": "Capital expenditure at $4.7 billion was still more than double that of a year ago, but lower than the $7.5 billion analysts on average were expecting, according to LSEG data.",
+      "start": 2000,
+      "end": 2174
+    },
+    {
+      "text": "Free ​cash flow in the September quarter came in at $1.53 billion, compared with an expectation of cash burn of $4.92 billion.",
+      "start": 2175,
+      "end": 2301
+    }
+  ],
+  "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS",
+  "credential_or_session_material_read": false,
+  "public_write_performed": false,
+  "capture_scope": "EXACT_SELECTED_FACTUAL_PASSAGES_NOT_FULL_ARTICLE",
+  "publication_visible_clock": {
+    "datetime": "2026-10-21T22:11:55.406Z",
+    "text": "October 22, 20263:06 AM GMT+7Updated 15 mins ago"
+  },
+  "publisher_machine_clock_metadata": [],
+  "origin": "Reuters original",
+  "publication_clock_basis": "VISIBLE_REUTERS_GMT_PLUS_7_MINUTE_CLOCK",
+  "clock_limit": "Reuters time element may represent update rather than original publication; visible original minute retained separately. No future outcome is inferred."
+}

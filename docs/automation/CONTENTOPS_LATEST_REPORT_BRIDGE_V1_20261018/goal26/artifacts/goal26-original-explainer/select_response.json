@@ -1,0 +1,31 @@
+{
+  "invocation_observation": {
+    "speed": "standard",
+    "reasoning_effort": "low",
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "observation_source": "supported collaboration.spawn_agent configuration and canonical task identity",
+    "model": "gpt-6.1-sol",
+    "invocation_id": "/root/goal26_sol_light"
+  },
+  "request_sha256": "7460af3b212f2defee934d8014e1f029fad34a2cf145f0f8385057d2385ef288",
+  "output": {
+    "status": "SELECT_CANDIDATE_PLAN",
+    "ordered_candidate_plan": [
+      {
+        "primary_reader_question": "If I buy exposure to gold, what tells me whether my risk comes from the gold price, borrowed financing, or whether the promised metal and my rights to it can actually be verified?",
+        "evidence_plan": "Use the existing resolver to recover the exact admitted CFTC precious-metals advisory capture and preserve its hash, provenance and capture date. Treat the undated advisory as educational guidance, not a new event or current market evidence. Bind the limited claims about financed precious-metals offers, potential additional funding, claimed storage and warning signs to exact CFTC passages. Clearly distinguish CFTC descriptions of fraudulent schemes from general explanations of leverage and contract/counterparty risk; do not allege every leveraged or custodial product is fraudulent. Explain verified custody as a question requiring independent contractual and custodian records, without claiming any named product has been verified. Missing dimensions are a particular product contract, ownership/allocation and delivery terms, independent custody records, financing and fee terms, jurisdiction and current market quotes. These limit product-specific conclusions; they do not block this narrow explainer. Main is context only, never independent confirmation. No current gold-price direction, trading recommendation, regulatory-currentness claim or invented product facts. Prefer qualitative mechanisms; code owns any numeric extraction or arithmetic. Fresh Neo challenge does not establish fresh verification; use the retained capture transparently and let final gates decide its admitted scope.",
+        "candidate_id": "simple-story-38e4ac4f4603af989e10e2c5",
+        "article_mode": "EVERGREEN_EXPLAINER",
+        "research_queries": [
+          "CFTC precious metals fraud advisory leveraged purchases financing storage warning signs",
+          "CFTC precious metals physical metal location independent storage loan financing"
+        ],
+        "angle": "Gold price, leveraged exposure and verified custody answer three different questions: explain what a buyer must verify about the contract, financing and metal before treating a quoted gold price as the whole risk.",
+        "selection_rationale": "This directly meets the owner request with a useful original educational framework: a correct view on gold prices cannot by itself establish the financing terms or custody of a product. The CFTC advisory supports a narrow attributed explanation, while the retained research is unpublished context rather than a new market event. One coherent candidate is sufficient; selecting the custody fragment as a fallback would duplicate the same article."
+      }
+    ],
+    "selection_summary": "Select one original evergreen explainer separating price exposure, leverage and custody verification. Preserve the advisory as undated educational evidence, make no current-news or product-verification claim, and leave source/media recovery and final writing to their assigned stages.",
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "public_write_attempted": false
+  }
+}

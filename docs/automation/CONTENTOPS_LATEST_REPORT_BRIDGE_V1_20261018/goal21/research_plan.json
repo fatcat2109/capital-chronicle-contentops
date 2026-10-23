@@ -1,0 +1,221 @@
+{
+  "schema_version": "contentops.editorial_research_plan.v1",
+  "authored_by": "CONTENTOPS_EDITORIAL_OPERATOR",
+  "purpose": "Bounded first foundation wave; questions and asset links are editorial taxonomy, never Main calculations or forecasts.",
+  "items": [
+    {
+      "id": "fed-policy",
+      "capture": "neo-page-66-content.json",
+      "policy": "neo-page-65-content.json",
+      "published": "2026-09-16T18:00:00Z",
+      "family": "FX_RATES",
+      "assets": [
+        "EURUSD",
+        "USDJPY",
+        "US_RATES"
+      ],
+      "start": "The Committee decided",
+      "end": "in the banking system.",
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "question": "What new inflation or labor evidence could change the policy path, and is the FX move consistent with relative rates rather than a single Fed headline?"
+    },
+    {
+      "id": "fed-inflation",
+      "capture": "neo-page-66-content.json",
+      "policy": "neo-page-65-content.json",
+      "published": "2026-09-16T18:00:00Z",
+      "family": "FX_RATES",
+      "assets": [
+        "US_RATES",
+        "XAUUSD"
+      ],
+      "start": "Inflation remains elevated.",
+      "end": "deliver price stability.",
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "question": "Which inflation components persist, and does the real-yield channel agree with any gold narrative?"
+    },
+    {
+      "id": "fx-convention",
+      "capture": "neo-page-66-revision4-content.json",
+      "policy": "neo-page-65-content.json",
+      "published": "2026-10-13T00:00:00Z",
+      "family": "FX_RATES",
+      "assets": [
+        "EURUSD",
+        "USDJPY",
+        "DOLLAR_BROAD"
+      ],
+      "start": "Release Date:",
+      "end": "except as noted by an asterisk)",
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "question": "Are currency quote direction and observation dates consistent before comparing changes across pairs?"
+    },
+    {
+      "id": "fx-broad-index",
+      "capture": "neo-page-66-revision4-content.json",
+      "policy": "neo-page-65-content.json",
+      "published": "2026-10-13T00:00:00Z",
+      "family": "FX_RATES",
+      "assets": [
+        "DOLLAR_BROAD",
+        "EURUSD",
+        "USDJPY"
+      ],
+      "start": "1) A weighted average",
+      "end": "major U.S. trading partners.",
+      "context_kind": "FOUNDATION_BACKGROUND",
+      "question": "Does a bilateral move reflect broad dollar strength or a domestic-country shock?"
+    },
+    {
+      "id": "metals-leverage",
+      "capture": "neo-page-64-content.json",
+      "policy": "neo-page-64-revision3-content.json",
+      "published": null,
+      "family": "METALS",
+      "assets": [
+        "XAUUSD",
+        "XAGUSD"
+      ],
+      "start": "Structured so you only pay",
+      "end": "if prices move unfavorably.",
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+      "question": "Does the reported metal exposure include financing, collateral calls and verifiable ownership, or only a directional price narrative?"
+    },
+    {
+      "id": "metals-custody",
+      "capture": "neo-page-64-content.json",
+      "policy": "neo-page-64-revision3-content.json",
+      "published": null,
+      "family": "METALS",
+      "assets": [
+        "XAUUSD",
+        "XAGUSD"
+      ],
+      "start": "Agreement that does not identify where",
+      "end": "overseas storage facility.",
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+      "question": "Can custody location and contractual counterparty be independently established before interpreting a metal investment claim?"
+    },
+    {
+      "id": "futures-option",
+      "capture": "neo-page-64-revision4-content.json",
+      "policy": "neo-page-64-revision3-content.json",
+      "published": null,
+      "family": "INDEX_OPTIONS",
+      "assets": [
+        "INDEX_FUTURES",
+        "COMMODITY_OPTIONS"
+      ],
+      "start": "A commodity futures option gives",
+      "end": "a particular price",
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+      "question": "What is the underlying contract, expiry and settlement convention, and which option inputs are still absent?"
+    },
+    {
+      "id": "futures-hedgers",
+      "capture": "neo-page-64-revision4-content.json",
+      "policy": "neo-page-64-revision3-content.json",
+      "published": null,
+      "family": "INDEX_OPTIONS",
+      "assets": [
+        "INDEX_FUTURES",
+        "COMMODITY_FUTURES"
+      ],
+      "start": "Most participants are",
+      "end": "price changes in futures contracts",
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+      "question": "Could observed positioning represent hedging rather than a directional forecast, and what evidence would discriminate?"
+    },
+    {
+      "id": "sec-tenk-scope",
+      "capture": "neo-page-67-revision3-content.json",
+      "policy": "neo-page-67-revision2-content.json",
+      "published": null,
+      "family": "COMPANY_SEC",
+      "assets": [
+        "US_EQUITIES"
+      ],
+      "start": "If you want to follow",
+      "end": "what is driving them.",
+      "context_kind": "HISTORICAL_FOUNDATION_BACKGROUND",
+      "question": "What changed in the latest issuer business, risk and operating sections, and is management narrative consistent with disclosed results?",
+      "source_modified_at_utc": "2011-07-01T00:00:00Z"
+    },
+    {
+      "id": "sec-cross-trading",
+      "capture": "neo-page-67-revision4-content.json",
+      "policy": "neo-page-67-revision2-content.json",
+      "published": "2026-10-09T00:00:00Z",
+      "family": "COMPANY_SEC",
+      "assets": [
+        "REGISTERED_FUNDS",
+        "US_RATES"
+      ],
+      "start": "The proposed amendments would restore",
+      "end": "provide additional transparency.",
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "question": "Which proposed pricing and oversight safeguards could affect fund execution costs, and what remains merely proposed?"
+    },
+    {
+      "id": "crypto-custody-proposal",
+      "capture": "neo-page-65-revision4-content.json",
+      "policy": "neo-page-67-revision2-content.json",
+      "published": "2026-10-01T00:00:00Z",
+      "family": "CRYPTO",
+      "assets": [
+        "BTCUSD",
+        "ETHUSD",
+        "REGULATED_FUNDS"
+      ],
+      "start": "The Securities and Exchange Commission today proposed",
+      "end": "business development companies.",
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "question": "Which custody arrangements are proposed, who is covered, and what further action is required before assuming a changed operating rule?"
+    },
+    {
+      "id": "crypto-custody-conditions",
+      "capture": "neo-page-65-revision4-content.json",
+      "policy": "neo-page-67-revision2-content.json",
+      "published": "2026-10-01T00:00:00Z",
+      "family": "CRYPTO",
+      "assets": [
+        "BTCUSD",
+        "ETHUSD"
+      ],
+      "start": "The proposed rules and amendments under",
+      "end": "regulated fund crypto assets.",
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "question": "What safeguards and exceptions would distinguish self-custody from a qualified custodian, without treating token price as evidence of investor protection?"
+    },
+    {
+      "id": "gas-storage",
+      "capture": "neo-page-68-revision4-content.json",
+      "policy": "REUSE_GOAL20_EIA_POLICY",
+      "published": "2026-01-22T00:00:00Z",
+      "family": "ENERGY",
+      "assets": [
+        "XNGUSD",
+        "US_GAS_STORAGE"
+      ],
+      "start": "Working natural gas stocks totaled",
+      "end": "last year at this time.",
+      "context_kind": "HISTORICAL_OBSERVATION_NOT_CURRENT_INVENTORY",
+      "question": "What is the latest EIA storage vintage, and does an apparent surplus survive weather, exports and seasonal comparison?"
+    },
+    {
+      "id": "gas-series-migration",
+      "capture": "neo-page-68-revision4-content.json",
+      "policy": "REUSE_GOAL20_EIA_POLICY",
+      "published": "2026-01-22T00:00:00Z",
+      "family": "ENERGY",
+      "assets": [
+        "XNGUSD",
+        "US_GAS_STORAGE"
+      ],
+      "start": "This week is the final publication",
+      "end": "on our website.",
+      "context_kind": "SOURCE_SERIES_MIGRATION",
+      "question": "Which replacement release contains current storage evidence, and do source identifiers and dates remain comparable?"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "blockers": [],
+  "validator": "existing_grounded_article_validator",
+  "material_claim_lineage": [
+    {
+      "item_id": "goal22-gas-storage",
+      "source_id": "SOURCE_1",
+      "source_url": "https://ir.eia.gov/secure/ngs/ngs.html",
+      "text_sha256": "8da24713f6fe786a44b264f810687222da6ec1bc4a039f6e9d8806b28f500fb2",
+      "source_capture_sha256": "3970381c141686c5bd75837bfdf4ef09a17a417402f869c674005b416350f5cd",
+      "permission_sha256": "5b1b014d1378be2f2005404bd778eebaa19f1a399ed3b58a6d0b61442b3c66dd",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-gas-series-migration",
+      "source_id": "SOURCE_2",
+      "source_url": "https://www.eia.gov/naturalgas/weekly/",
+      "text_sha256": "946c283627f3fcc1eb6a800157a8d8fdb5ff046b57274a8b8a1e96722a8797b8",
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "permission_sha256": "f885072034c037eba764aa0cbb41ca4d118f31cad544f4bd93141ae040265651",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "source_id": "SOURCE_3",
+      "claim_kind": "ATTRIBUTED_MAIN_PUBLIC_ANALYSIS_NOT_INDEPENDENT",
+      "report_id": "asset-report:XNGUSD",
+      "source_report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "source_url": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:738a70d837faf2a72c7f5f98d8c5a713496c5f61e94445564544faac05d74646"
+    }
+  ],
+  "semantic_editorial_review": "REQUIRED",
+  "qualified_simple_article": false
+}

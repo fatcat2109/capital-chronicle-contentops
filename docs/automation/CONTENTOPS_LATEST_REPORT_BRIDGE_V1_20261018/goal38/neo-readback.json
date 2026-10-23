@@ -1,0 +1,84 @@
+{
+  "schema": "contentops.goal38.neo_readback.v1",
+  "scope": "ACTUAL_LOCAL_PAGE_AND_MUTED_PLAYBACK_MECHANICS_ONLY",
+  "originalPlayback": null,
+  "releaseEntry": {
+    "metrics": {
+      "page": 227,
+      "value": {
+        "summary": "Recorded review: Codex Goal38 operator / visual review only\n\nVISUAL: PASS — Visual-only PASS for the final presentation successor: central original speaker picture; uncropped room-wide camera cut; clear dated attribution, readable hook/captions and complete saved context including caption/audio caveat. No identity, hearing, caption accuracy, timing, full-context or rights acceptance.\n\nCAPTIONS: NOT_VERIFIED — Typography inspected; literal caption words remain publisher-caption provisional, not independently heard.\n\nAUDIO: NOT_VERIFIED — No capable original-audio hearing performed.\n\nTIMING: NOT_VERIFIED — Alignment and cut sound not verified against original audio.\n\nCONTEXT: NOT_VERIFIED — Saved dated source/meaning retained. Full-event context and speaker attribution remain unverified.\n\nRIGHTS: NOT_VERIFIED — Recording-specific reuse, source seal and room-participant permissions remain open.",
+        "viewport": 1449,
+        "width": 1434
+      }
+    },
+    "page": 227,
+    "refs": [
+      {
+        "backendNodeId": 59,
+        "name": "play",
+        "nth": 0,
+        "ref": "e1",
+        "role": "button"
+      },
+      {
+        "backendNodeId": 131,
+        "name": "Selected passage",
+        "nth": 0,
+        "ref": "e6",
+        "role": "button"
+      },
+      {
+        "backendNodeId": 152,
+        "name": "play",
+        "nth": 1,
+        "ref": "e9",
+        "role": "button"
+      },
+      {
+        "backendNodeId": 220,
+        "name": "Version",
+        "nth": 0,
+        "ref": "e15",
+        "role": "combobox"
+      }
+    ]
+  },
+  "releasePlayback": {
+    "clean": {
+      "page": 227,
+      "value": {
+        "src": "file:///C:/Users/bullw/.codex/worktrees/latest-report-editorial-bridge/ContentOps/.task-runtime/speech_highlight_relay_v1/goal38/revision-3/master_vertical_clean_1080x1920.mp4"
+      }
+    },
+    "metrics": {
+      "page": 227,
+      "value": {
+        "viewport": 1449,
+        "width": 1434
+      }
+    },
+    "progressed": {
+      "page": 227,
+      "value": [
+        {
+          "error": null,
+          "id": "original",
+          "paused": false,
+          "readyState": 4,
+          "time": 105.486184
+        },
+        {
+          "error": null,
+          "id": "rendered",
+          "paused": false,
+          "readyState": 4,
+          "time": 24.540227
+        }
+      ]
+    }
+  },
+  "screenshot": {
+    "page": 227,
+    "observed": "Actual desktop original/cut side-by-side screenshot inspected in this chat; files played without media errors, review controls legible; no hearing claim."
+  }
+}

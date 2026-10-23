@@ -1,0 +1,154 @@
+[
+  {
+    "content": {
+      "contentLength": 8968,
+      "page": 2,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\evaluate-1792666017063-5b38f578-a2ec-4783-839d-70c50e21a5a8.txt",
+      "writtenToFile": true
+    },
+    "desktop": {
+      "bytes": 126803,
+      "page": 2,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792666017859-24704ea1-daec-4d01-8cef-f3f0d89a87f9.pdf"
+    },
+    "desktopMetrics": {
+      "page": 2,
+      "value": {
+        "articleWidth": 956,
+        "scrollWidth": 1012,
+        "viewport": 1024
+      }
+    },
+    "mobile": {
+      "bytes": 127292,
+      "page": 2,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792666018552-dd902923-87bf-4cbf-b96d-63494ab439b1.pdf"
+    },
+    "mobileMetrics": {
+      "page": 2,
+      "value": {
+        "articleWidth": 366,
+        "scrollWidth": 390,
+        "viewport": 390
+      }
+    },
+    "pageId": 2,
+    "slug": "ibm",
+    "desktop_pdf_pages": 5,
+    "mobile_pdf_pages": 5
+  },
+  {
+    "content": {
+      "contentLength": 8748,
+      "page": 4,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\evaluate-1792666024175-2e74beb6-9bc0-4983-85d5-0d616b53077c.txt",
+      "writtenToFile": true
+    },
+    "desktop": {
+      "bytes": 124532,
+      "page": 4,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792666024948-b90145e6-845f-4f55-906e-3293fa91d7bf.pdf"
+    },
+    "desktopMetrics": {
+      "page": 4,
+      "value": {
+        "articleWidth": 956,
+        "scrollWidth": 1012,
+        "viewport": 1024
+      }
+    },
+    "mobile": {
+      "bytes": 124968,
+      "page": 4,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792666027597-6b40ab85-882d-4dc3-a6a2-59ad960a23c8.pdf"
+    },
+    "mobileMetrics": {
+      "page": 4,
+      "value": {
+        "articleWidth": 366,
+        "scrollWidth": 390,
+        "viewport": 390
+      }
+    },
+    "pageId": 4,
+    "slug": "tesla",
+    "desktop_pdf_pages": 5,
+    "mobile_pdf_pages": 5
+  },
+  {
+    "content": {
+      "contentLength": 9825,
+      "page": 6,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\evaluate-1792666038760-9ed5dcb8-8de8-4235-bb37-7c428cb31415.txt",
+      "writtenToFile": true
+    },
+    "desktop": {
+      "bytes": 126257,
+      "page": 6,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792666039616-bb8d3a68-9a85-4252-8602-b3a2aaf6ae69.pdf"
+    },
+    "desktopMetrics": {
+      "page": 6,
+      "value": {
+        "articleWidth": 956,
+        "scrollWidth": 1012,
+        "viewport": 1024
+      }
+    },
+    "mobile": {
+      "bytes": 128118,
+      "page": 6,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792666042227-34eb73a7-4b83-4b91-9c04-6eabaa1c0801.pdf"
+    },
+    "mobileMetrics": {
+      "page": 6,
+      "value": {
+        "articleWidth": 366,
+        "scrollWidth": 390,
+        "viewport": 390
+      }
+    },
+    "pageId": 6,
+    "slug": "meta",
+    "desktop_pdf_pages": 5,
+    "mobile_pdf_pages": 6
+  },
+  {
+    "content": {
+      "contentLength": 10050,
+      "page": 8,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\evaluate-1792666047537-8ad85574-420f-4eae-919d-bce6193e2fdf.txt",
+      "writtenToFile": true
+    },
+    "desktop": {
+      "bytes": 127978,
+      "page": 8,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792666048135-fd95eeab-773c-4bbf-aa2c-720223e54ede.pdf"
+    },
+    "desktopMetrics": {
+      "page": 8,
+      "value": {
+        "articleWidth": 956,
+        "scrollWidth": 1012,
+        "viewport": 1024
+      }
+    },
+    "mobile": {
+      "bytes": 129299,
+      "page": 8,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792666048722-ef4040b0-adc8-4761-b2ca-77e4f08b17dc.pdf"
+    },
+    "mobileMetrics": {
+      "page": 8,
+      "value": {
+        "articleWidth": 366,
+        "scrollWidth": 390,
+        "viewport": 390
+      }
+    },
+    "pageId": 8,
+    "slug": "southwest",
+    "desktop_pdf_pages": 5,
+    "mobile_pdf_pages": 6
+  }
+]

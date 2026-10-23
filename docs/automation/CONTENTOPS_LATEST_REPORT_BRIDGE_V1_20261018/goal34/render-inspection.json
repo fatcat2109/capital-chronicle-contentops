@@ -1,0 +1,64 @@
+{
+  "schema_version": "contentops.goal34.render_inspection.v1",
+  "component": "ReportEditorialWorkspace",
+  "canonical_article_read": true,
+  "seo_read": true,
+  "all_eight_expanded_previews_read": [
+    "discord",
+    "facebook_page",
+    "instagram_business",
+    "linkedin",
+    "telegram",
+    "threads",
+    "x",
+    "youtube"
+  ],
+  "media_inspected": {
+    "path": "C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/editorial-previews/goal31-futures-cashflow/media_assets/source_document_card.png",
+    "sha256": "373e8985d78a6408c16f2c272841ab8a7135dbf7de1416363aec169cdfa68c01",
+    "role": "EXACT_REUSED_CFTC_FUTURES_BACKGROUND_NOT_ISSUER_EVIDENCE"
+  },
+  "desktop": {
+    "viewport": 1024,
+    "scroll_width": 1012,
+    "article_width": 956,
+    "overflow": 0,
+    "pdf_css_width": 1280,
+    "pages_inspected": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "mobile": {
+    "viewport": 390,
+    "scroll_width": 390,
+    "overflow": 0,
+    "pages_inspected": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "initial_pdf_files": [
+    "desktop-render.pdf",
+    "mobile-render.pdf"
+  ],
+  "final_pdf_files": [
+    "final-desktop-render.pdf",
+    "final-mobile-render.pdf"
+  ],
+  "final_date_only_correct": true,
+  "final_false_midnight_absent": true,
+  "final_keep": true,
+  "final_prepared": true,
+  "direct_screenshot": "TRANSPORT_TIMEOUT_NO_SCREENSHOT_PASS_CLAIMED",
+  "pdf_render_tool": "Actual BrowserOS Neo PDF; Poppler raster inspection",
+  "limits": "The reused 16:9 source card scales small on mobile; its factual scope is supplied in the readable caption. No issuer-specific image or photo is provided. PDF crops isolate the article using temporary print CSS; article/previews are the unchanged actual component.",
+  "public_write_performed": false
+}

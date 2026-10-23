@@ -1,0 +1,96 @@
+{
+  "admitted_candidate_count": 0,
+  "candidate_count": 21,
+  "candidate_limit": 32,
+  "classification": "NO_PUBLICATION",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-21T11:15:16.596790Z",
+  "derivative_intent_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 1,
+    "observations": [
+      {
+        "invocation_id": "/root/goal31_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native collaboration.spawn_agent /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed.",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 1,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "exact_next_blocker": "DESKTOP_COORDINATOR_ABSTAINED_NO_USEFUL_STORY",
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal31_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual native collaboration.spawn_agent /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed.",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "7e7d002c2e9f06ecc999d0c44c6adb00c8bd03026541c699131230c716dd4ed9",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "166d49fda7c4986efdef5eb38793984880a5f1c3829d7ba7d5324aa640b51d0c",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    }
+  ],
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "qualified_article_count": 0,
+  "run_id": "goal31-futures-purpose",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selection": {
+    "ordered_candidate_plan": [],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "ABSTAIN cho đúng cơ hội futures-purpose: frozen governed pool không chứa goal21-futures-hedgers hoặc goal21-futures-option. Hai định nghĩa nền được giữ trong thư viện không tự trở thành candidate được phép chọn; chưa đủ nguồn cho một bài cơ chế mới sâu và hữu ích vượt bài kim loại/lưu ký đã có. Không chọn đề tài khác để lấp cơ hội này, không tạo ID. HOLD mọi suy luận vị thế hiện tại thành dự báo giá; không có dữ liệu hợp đồng, mục đích kinh tế hay thị trường hiện tại.",
+    "status": "ABSTAIN"
+  },
+  "semantic_response_count": 1,
+  "unknown_write_count": 0
+}

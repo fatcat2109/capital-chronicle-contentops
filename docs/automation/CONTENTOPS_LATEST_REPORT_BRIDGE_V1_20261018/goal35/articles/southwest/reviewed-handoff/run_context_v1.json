@@ -1,0 +1,86 @@
+{
+  "accepted_evidence_ids": [
+    "goal35-southwest"
+  ],
+  "accepted_evidence_sha256": "ecf36d9879dba4baa3686077f412f74512af724039f2c209bd61d172b03e064c",
+  "article": {
+    "editorial_scope_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+    "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "native_brief_layout": true,
+    "social_cross_asset_summary": "If the report is accurate, the next test is whether later results show revenue gains continuing to absorb fuel pressure. Evidence that those gains outweigh the fuel burden would challenge a cautious reading; weaker margins and further forecast cuts would reinforce it. Which pattern do subsequent company disclosures support?",
+    "social_hook": "Reuters reports Southwest cut its 2026 profit outlook despite a quarterly earnings beat. If accurate, the key question is what fare gains can absorb next.",
+    "social_mechanism_summary": "If Reuters' account is accurate, the earnings beat and outlook cut answer different questions: how the completed quarter performed against expectations, and what Southwest expects for the full year. Capital Chronicle's reading is that reported fare gains show progress, while anticipated fuel pressure leaves the durability of that progress unresolved.",
+    "social_policy_summary": "If the report is accurate, the serious countercase to a failing-turnaround narrative is the reported improvement in adjusted operating margin despite higher fuel costs. That leaves room for operating gains to persist; a lower annual forecast alone does not establish that the turnaround has stopped working.",
+    "substack_body_markdown": "Why can Southwest beat quarterly earnings expectations yet lower its annual outlook? Reuters' October 21, 2026 report says the carrier reduced its expected adjusted earnings to $2.60–$2.85 a share for 2026, from an earlier $3.25–$4.25 forecast. **SINGLE-SOURCE REPORT - REUTERS.** If accurate, the account describes quarterly progress facing a less favorable fuel outlook. \n\nThe quarter and the forecast\n\nAccording to Reuters, third-quarter adjusted earnings came to 66 cents a share, versus the 58 cents analysts expected and 11 cents a year earlier. The report also places the midpoint of the revised annual range below LSEG's $2.85 average analyst estimate. That latter comparison concerns expectations for the year, rather than earnings already achieved. \n\nReuters reports an almost 27% rise in average passenger fare in the third quarter and revenue of $8.4 billion, a record for that quarter. It also describes an improvement in adjusted operating margin despite higher fuel costs. The retained figures do not establish passenger-volume growth. \n\nThe cost pressure in the report is concrete: Reuters puts Southwest's fuel bill $821 million above a year earlier. It separately attributes to the carrier an expectation that jet-fuel prices would rise further in the year's final three months. That second statement is an issuer forecast relayed by Reuters, rather than a realized fuel-price outcome. \n\nWhat the tension means\n\nIf Reuters' account is accurate, the earnings beat and outlook cut answer different questions: how the completed quarter performed against expectations, and what Southwest expects for the full year. Capital Chronicle's reading is that reported fare gains show progress, while anticipated fuel pressure leaves the durability of that progress unresolved. \n\nIf the report is accurate, the serious countercase to a failing-turnaround narrative is the reported improvement in adjusted operating margin despite higher fuel costs. That leaves room for operating gains to persist; a lower annual forecast alone does not establish that the turnaround has stopped working. \n\nThe retained account gives no exact adjusted operating margin, traffic or capacity comparison, revenue mix, split between fuel quantity and unit cost, or bridge from the old earnings forecast to the revised one. It cannot establish how much of the forecast reduction belongs to fuel, or whether the higher average fare reflects stronger demand. Assigning the entire revision to fuel would go beyond this evidence. \n\nWhat would change the reading\n\nIf the report is accurate, the next test is whether later results show revenue gains continuing to absorb fuel pressure. Evidence that those gains outweigh the fuel burden would challenge a cautious reading; weaker margins and further forecast cuts would reinforce it. Which pattern do subsequent company disclosures support? \n\nSource notes\n\nSource notes: Reuters, published October 21, 2026 at 20:23 UTC. Retained facts were known at 22:27:23.031 UTC that day; the frozen cutoff is 22:29:51.437174 UTC. This article addresses the reported 2026 outlook and third-quarter results. The separately retained 2025 hedge/AOCI case remains unchanged historical context, answering a different question; this report supplies no current hedge-status update. ",
+    "subtitle": "SINGLE-SOURCE REPORT - REUTERS: Southwest's reported forecast reduction sits beside a quarterly earnings beat. If accurate, the question is whether fare gains can keep offsetting fuel pressure.",
+    "title": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest's 2026 profit outlook cut despite quarterly gains [Source 2026-10-21]"
+  },
+  "article_content_sha256": "f4a8e3933a43b4d2de4471994401dd7719b357e94d5c1c99413e316c9dcc8442",
+  "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+  "audience_learning_binding": {
+    "policy_version": "policy_1fa4c4d0f5d3a0b74cee197e",
+    "preference_only": true,
+    "snapshot_sha256": "da9d66647bad8d9caff029133f715802919f32175d74eca09357d69f20360691"
+  },
+  "compiler_input_sha256": "dda44308acf6d38072ea29c85e4060378178a074837fc2afc9c1bef913d79615",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "DIRECT_REPUTABLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-southwest"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "media": {
+    "assets": [],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "goal35-southwest",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-f2a30d4ebd709c3c05cb0692",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal35-southwest",
+    "headline_text": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+    "official_source_urls": [],
+    "public_source_urls": [
+      "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+    "source_account": "Reuters",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-21T20:23:00Z",
+    "source_url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": true,
+      "known_official_path": false,
+      "reputable_public_secondary_path": true,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-f2a30d4ebd709c3c05cb0692",
+    "update_chain_identity": "simple-story-f2a30d4ebd709c3c05cb0692"
+  }
+}

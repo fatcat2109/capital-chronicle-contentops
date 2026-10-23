@@ -1,0 +1,8 @@
+{
+  "schema_version": "contentops.main_public_export_binding.v1",
+  "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+  "producer_commit": "a50d8c6e8620cbf2e45aa93beee9e1b557484b30",
+  "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+  "public_export_root": "A:/Capital Chronicle/Runtime/MainPublicReports-v1",
+  "research_root": "C:\\Users\\bullw\\.codex\\worktrees\\latest-report-editorial-bridge\\ContentOps\\docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal22\\retained_research"
+}

@@ -35,7 +35,7 @@ $settings = New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew -StartWhen
 
 Register-ScheduledTask -TaskName $TaskName -Action $action -Trigger @($atLogon, $watchdog) `
     -Principal $principal -Settings $settings `
-    -Description 'Persistent owner for the existing V1 Daily App intake, state, and loopback API runtime; Simple remains the sole routine editorial scheduler.' `
+    -Description 'Persistent V1 intake/state/API owner; four native Codex Desktop tasks own routine editorial work.' `
     -Force | Out-Null
 if (-not $NoStart) {
     Start-ScheduledTask -TaskName $TaskName
@@ -52,7 +52,7 @@ $info = $task | Get-ScheduledTaskInfo
     executable = $task.Actions[0].Execute
     working_directory = $task.Actions[0].WorkingDirectory
     canonical_store = $store
-    routine_editorial_owner = 'SIMPLE_GEMINI_RUNTIME'
+    routine_editorial_owner = 'NATIVE_CODEX_DESKTOP'
     daily_app_routine_editorial_execution = $false
     exactly_one_daily_app_runtime_owner = $true
     public_write_performed = $false

@@ -1,0 +1,77 @@
+{
+  "emitted_at_utc": "2026-10-19T06:27:02.447000Z",
+  "entries": [
+    {
+      "asset_id": "USOIL",
+      "change_kind": "THESIS_DELTA",
+      "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+      "contract_revision": "asset-analysis-report-v1.1.0",
+      "envelope": {
+        "bytes_sha256": "2487c4d9fe7d7e5ccd2c0cea4028d44b3b930fe826c87649bef7d15793abe7f6",
+        "path": "outbox/eeac57abf503807cb6e9a8298b5500db36da42bf3d177ee15da7e9f1ffa49a42/latest-report-envelope.json",
+        "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1"
+      },
+      "envelope_sha256": "3595370420bcde2d2d45fae22b5aebe04fb0c5c922ed59c3a4b7848c619cf14b",
+      "event_id": "report-event:26e80c5f8d1529c64131883846d84308933425f1d93da25a7f9371dc7518382f",
+      "event_type": "REPORT_VERSION",
+      "generated_at_utc": "2026-10-19T06:27:02.447000Z",
+      "known_at_cutoff_utc": "2026-10-19T05:56:21.511006Z",
+      "parent_report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d",
+      "public_account_export_allowed": false,
+      "public_report": {
+        "bytes_sha256": "6d694970f35d849bfd32b524d4906517b0930ecc60ed744511dfc2c81a10c13f",
+        "path": "outbox/eeac57abf503807cb6e9a8298b5500db36da42bf3d177ee15da7e9f1ffa49a42/public-report.json",
+        "schema": "CapitalChronicleOperationalReportServingProjectionV1"
+      },
+      "report_id": "asset-report:USOIL",
+      "report_sha256": "709b20e83caa5c01f94f21f05ef83adcff219b5a94373e8c9782cba9b01cd43d",
+      "report_version": 2,
+      "schema_ref": {
+        "bytes_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+        "path": "schemas/1.1.0/envelope.json",
+        "schema": "asset-analysis-report-v1.1.0/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+      }
+    }
+  ],
+  "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+  "latest_by_asset": {
+    "USOIL": {
+      "asset_id": "USOIL",
+      "change_kind": "THESIS_DELTA",
+      "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+      "contract_revision": "asset-analysis-report-v1.1.0",
+      "envelope": {
+        "bytes_sha256": "2487c4d9fe7d7e5ccd2c0cea4028d44b3b930fe826c87649bef7d15793abe7f6",
+        "path": "outbox/eeac57abf503807cb6e9a8298b5500db36da42bf3d177ee15da7e9f1ffa49a42/latest-report-envelope.json",
+        "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1"
+      },
+      "envelope_sha256": "3595370420bcde2d2d45fae22b5aebe04fb0c5c922ed59c3a4b7848c619cf14b",
+      "event_id": "report-event:26e80c5f8d1529c64131883846d84308933425f1d93da25a7f9371dc7518382f",
+      "event_type": "REPORT_VERSION",
+      "generated_at_utc": "2026-10-19T06:27:02.447000Z",
+      "known_at_cutoff_utc": "2026-10-19T05:56:21.511006Z",
+      "parent_report_sha256": "61f08ae0b2bb680ee6c04751fc480106eac0e72b624628ad5814ce928951e02d",
+      "public_account_export_allowed": false,
+      "public_report": {
+        "bytes_sha256": "6d694970f35d849bfd32b524d4906517b0930ecc60ed744511dfc2c81a10c13f",
+        "path": "outbox/eeac57abf503807cb6e9a8298b5500db36da42bf3d177ee15da7e9f1ffa49a42/public-report.json",
+        "schema": "CapitalChronicleOperationalReportServingProjectionV1"
+      },
+      "report_id": "asset-report:USOIL",
+      "report_sha256": "709b20e83caa5c01f94f21f05ef83adcff219b5a94373e8c9782cba9b01cd43d",
+      "report_version": 2,
+      "schema_ref": {
+        "bytes_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+        "path": "schemas/1.1.0/envelope.json",
+        "schema": "asset-analysis-report-v1.1.0/CapitalChronicleLatestAnalysisReportEnvelopeV1.schema.json"
+      }
+    }
+  },
+  "manifest_sha256": "45434bfec0f2ab9afca2afaa9be2ab384aa1dea80220f6b5892a87f8e51702f4",
+  "parent_manifest_sha256": null,
+  "producer_owner": "Main App",
+  "public_account_export_allowed": false,
+  "publication_authority": false,
+  "schema": "CapitalChroniclePublicReportExportManifestV1",
+  "version": "1.0.0"
+}

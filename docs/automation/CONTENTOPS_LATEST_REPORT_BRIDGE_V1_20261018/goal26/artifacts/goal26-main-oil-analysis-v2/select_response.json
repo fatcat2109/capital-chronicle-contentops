@@ -1,0 +1,31 @@
+{
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "observation_source": "supported collaboration.spawn_agent configuration and canonical task identity",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "invocation_id": "/root/goal26_sol_light"
+  },
+  "request_sha256": "91df266bb1a5664499d8d85e41f6204836496cc7b75adf4b4e7df4a34c7d9487",
+  "output": {
+    "status": "SELECT_CANDIDATE_PLAN",
+    "selection_summary": "Select exact asset-report:USOIL version 4 for a substantive dated document-led analysis. Anchor its public claim lineage and original EIA evidence, explain the import/product-stock countercase, distinguish observations from Main conditional interpretation, and retain missing current-market and execution data as clear limits.",
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "ordered_candidate_plan": [
+      {
+        "evidence_plan": "Lead with the current accepted immutable Main public manifest and its exact asset-report:USOIL version 4 projection, dated 2026-10-19T09:14:42.517584Z. Preserve exact public-safe usoil-source and usoil-mechanism lineage; keep UKOIL version 2 and gas reports separate, not additional independent confirmations. Through existing source tooling bind retained original EIA petroleum bytes and the parent-recovered Neo capture to exact release/observation dates, capture timestamp and hashes. The reported fresh Neo read at 2026-10-20T15:01:31.829Z recovers the retained week-ending October 9 evidence; it is not a new release date or current-market claim. Bind the 8.6 million barrel draw to 415.6 million barrels, gasoline build, distillate draw, import decline, refinery utilization and four-week gasoline product-supplied comparison to exact source passages. Keep the source wording product supplied as a demand proxy, not direct final-consumption measurement. Code owns extraction, unit checks and arithmetic; do not subtract a daily import rate directly from a weekly stock change or claim it fully explains the draw. Develop the causal alternatives: lower imports and refinery throughput can draw crude without stronger end demand; gasoline accumulation and the four-week year-on-year comparison test a simplistic demand-led reading, while lower crude and distillate stocks can still indicate tighter availability. Attribute Main qualitative interpretation as conditional analysis and EIA observations independently; the Main report is not external confirmation of its own mechanism. Retain dated report horizons only as conditional watch contexts, not forecasts, probabilities or trading instructions. Confirmation requires subsequent crude/product balances, normalized import/export flows, current WTI curve and separately captured pre-release expectations; invalidate the analytical watch if later balances reverse tightening or required evidence remains unavailable. Explicit gaps are contemporaneous prices/curve, expectations, broker basis, executable quote, spread, financing/carry and costs; the September 22 price panel predates the release and cannot prove reaction. No private Main requests, new proprietary numbers, forecast or publication authority. The value is a substantive dated document analysis, not a fabricated fresh update.",
+        "angle": "The USOIL crude draw needs a demand test: read Main public report version 4 against the retained EIA import decline, gasoline build and four-week product-supplied measure before treating lower crude stocks as sustained end-demand strength.",
+        "selection_rationale": "The exact USOIL v4 candidate now matches the owner request and supplies a meaningful tension between a crude draw and a demand-led interpretation. The import and product-stock countercase, plus explicit confirmation and invalidation conditions, create reader utility beyond a headline recap. One exact report candidate is sufficient; adding Brent or gas as fallbacks would dilute the assigned USOIL analysis.",
+        "research_queries": [
+          "EIA weekly petroleum October 9 2026 crude inventories imports gasoline product supplied",
+          "EIA crude stock draw refinery utilization imports gasoline stocks demand proxy"
+        ],
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-692b942cd8b193e1514f3ebc",
+        "primary_reader_question": "What does the retained crude draw actually establish about the US oil balance, how much could import and refinery flows explain, and what would confirm or invalidate the Main USOIL interpretation?"
+      }
+    ]
+  }
+}

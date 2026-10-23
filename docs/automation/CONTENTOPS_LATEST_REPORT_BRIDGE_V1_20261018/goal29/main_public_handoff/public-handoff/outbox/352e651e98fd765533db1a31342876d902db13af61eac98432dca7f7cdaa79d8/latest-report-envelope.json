@@ -1,0 +1,886 @@
+{
+  "affected_symbols": [
+    "UKOIL"
+  ],
+  "as_of_utc": "2026-10-19T12:25:00Z",
+  "asset_ids": [
+    "UKOIL"
+  ],
+  "authority_flags": {
+    "account_authority": false,
+    "broker_authority": false,
+    "database_authority": false,
+    "decision_authority": false,
+    "external_effects": 0,
+    "forecast_authority": false,
+    "model_call_performed": false,
+    "mutable_status_owner": false,
+    "network_call_performed": false,
+    "numeric_truth_authority": false,
+    "paper_authority": false,
+    "provider_call_performed": false,
+    "publication_authority": false,
+    "runtime_authority": false,
+    "runtime_mutation_performed": false,
+    "score_authority": false
+  },
+  "canonicalization": "JSON_SORT_KEYS_COMPACT_ASCII_UTF8_NO_FLOAT_NAN",
+  "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+  "change_kind": "INVALIDATION",
+  "changed_claim_ids": [
+    "ukoil-deep-alternative-0",
+    "ukoil-deep-contradictions-0",
+    "ukoil-deep-cross_asset-0",
+    "ukoil-deep-hold_conditions-0",
+    "ukoil-deep-known-0",
+    "ukoil-deep-long-base_case",
+    "ukoil-deep-long-downside_scenario",
+    "ukoil-deep-long-invalidation",
+    "ukoil-deep-long-upside_scenario",
+    "ukoil-deep-mechanism-0",
+    "ukoil-deep-missing-0",
+    "ukoil-deep-principle-0",
+    "ukoil-deep-review-0",
+    "ukoil-deep-short-base_case",
+    "ukoil-deep-short-downside_scenario",
+    "ukoil-deep-short-invalidation",
+    "ukoil-deep-short-upside_scenario",
+    "ukoil-deep-stop_holding_conditions-0",
+    "ukoil-deep-swing-base_case",
+    "ukoil-deep-swing-downside_scenario",
+    "ukoil-deep-swing-invalidation",
+    "ukoil-deep-swing-upside_scenario",
+    "ukoil-deep-timing_priced_in-0"
+  ],
+  "content_eligibility": "ELIGIBLE_EDITORIAL_REVIEW",
+  "contract_revision": "asset-analysis-report-v1.1.0",
+  "envelope_sha256": "d5d09d48885aa73bf6257fba1ec05c442ded42ee5efb51dea9e697721e272ec2",
+  "event_id": "report-event:23e0ff7fa7b6b5445176230347e52770e5eb527102bc43d60b4db9e8afd5c368",
+  "generated_at_utc": "2026-10-20T15:54:22.185030+00:00",
+  "hold_conditions": [
+    "Gi\u1eef c\u00e2u h\u1ecfi nghi\u00ean c\u1ee9u v\u1ec1 truy\u1ec1n d\u1eabn sang Brent khi c\u00f2n truy \u0111\u01b0\u1ee3c k\u1ef3 ngu\u1ed3n v\u00e0 c\u00f3 th\u1ec3 b\u1ed5 sung ch\u1ee9ng c\u1ee9 th\u01b0\u01a1ng m\u1ea1i/\u0111\u01b0\u1eddng cong \u0111\u00fang ph\u1ea1m vi. Kh\u00f4ng chuy\u1ec3n vi\u1ec7c gi\u1eef c\u00e2u h\u1ecfi th\u00e0nh gi\u1eef v\u1ecb th\u1ebf hay m\u1ed9t WATCH th\u1ecb tr\u01b0\u1eddng \u0111\u1ee7 \u0111i\u1ec1u ki\u1ec7n."
+  ],
+  "horizon_blocks": [
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-10-26T12:25:00Z",
+      "horizon": "short",
+      "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T12:25:00Z",
+      "trading_sessions": 5
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2026-11-17T12:25:00Z",
+      "horizon": "swing",
+      "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T12:25:00Z",
+      "trading_sessions": 21
+    },
+    {
+      "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+      "end_utc": "2027-01-14T12:25:00Z",
+      "horizon": "long",
+      "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+      "report_state": "PARTIAL",
+      "scoreable_forecast": false,
+      "start_utc": "2026-10-19T12:25:00Z",
+      "trading_sessions": 63
+    }
+  ],
+  "invalidation_conditions": [
+    "R\u00fat c\u00e1ch \u0111\u1ecdc thi\u1ebfu h\u1ee5t to\u00e0n c\u1ea7u n\u1ebfu c\u00e2n \u0111\u1ed1i k\u1ebf ti\u1ebfp cho th\u1ea5y r\u00fat kho l\u00e0 th\u1eddi \u0111i\u1ec3m nh\u1eadp/l\u1ecdc d\u1ea7u, ho\u1eb7c d\u00f2ng th\u01b0\u01a1ng m\u1ea1i v\u00e0 ch\u00eanh Brent kh\u00f4ng h\u1ed7 tr\u1ee3 truy\u1ec1n d\u1eabn. \u0110\u1ebfn l\u00fac xem l\u1ea1i kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi th\u00ec \u0111\u00e1nh d\u1ea5u c\u0169/thi\u1ebfu; kh\u00f4ng m\u1eb7c \u0111\u1ecbnh t\u00ecnh tr\u1ea1ng khan hi\u1ebfm ti\u1ebfp di\u1ec5n."
+  ],
+  "known_at_cutoff_utc": "2026-10-19T12:25:00Z",
+  "limitations": [
+    "CC analysis is not external confirmation or an order.",
+    "No private holdings/account context is included.",
+    "Exact execution economics are unavailable."
+  ],
+  "materiality_rationale": "Native per-asset analytical refinement on unchanged governed inputs; no new economic observation or event inferred.",
+  "parent_report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810",
+  "public_safe_claims": [
+    {
+      "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+      "claim_hash": "431462c5fd8bfe3e05369538592cef414052100ec0f5417c4d7503384ce10c74",
+      "claim_id": "ukoil-source",
+      "claim_type": "SOURCE_FACT",
+      "epistemic_layer": "OBSERVED_SOURCE_FACT",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "05167bdb152854b0906624fe201d82e7c41cb9d4b2e76e744248989fe7b1030e",
+      "claim_id": "ukoil-deep-known-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "UKOIL mang m\u00f4 t\u1ea3 Brent trong danh m\u1ee5c broker \u0111\u00f3ng b\u0103ng, nh\u01b0ng m\u00e3 t\u00e0i s\u1ea3n c\u01a1 s\u1edf v\u00e0 m\u00e3 ni\u00eam y\u1ebft \u0111ang \u0111\u1ec3 tr\u1ed1ng. Ngu\u1ed3n v\u1eadt ch\u1ea5t duy nh\u1ea5t l\u00e0 c\u00e2n \u0111\u1ed1i d\u1ea7u M\u1ef9 EIA tu\u1ea7n 09/10/2026: d\u1ea7u th\u00f4 r\u00fat kho 8.6 tri\u1ec7u th\u00f9ng xu\u1ed1ng 415.6 tri\u1ec7u th\u00f9ng; x\u0103ng t\u0103ng kho 3.5 tri\u1ec7u th\u00f9ng; s\u1ea3n ph\u1ea9m ch\u01b0ng c\u1ea5t r\u00fat 2.5 tri\u1ec7u th\u00f9ng. Nh\u00e3n EXACT x\u00e1c nh\u1eadn b\u1ea3n tr\u00edch ngu\u1ed3n M\u1ef9, ch\u01b0a bi\u1ebfn n\u00f3 th\u00e0nh c\u00e2n \u0111\u1ed1i Brent ho\u1eb7c gi\u00e1 UKOIL ch\u00ednh x\u00e1c."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "57ca57ebc0467c6973d5970142ec457e40a1717316370efa2c30df97bb256b35",
+      "claim_id": "ukoil-deep-mechanism-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "N\u1ebfu r\u00fat kho M\u1ef9 ph\u1ea3n \u00e1nh c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t c\u00f3 t\u00ednh l\u1eb7p l\u1ea1i, th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n v\u00e0 ch\u00eanh l\u1ec7ch gi\u00e1 c\u00f3 th\u1ec3 truy\u1ec1n t\u00e1c \u0111\u1ed9ng sang Brent. C\u1ea7n ch\u1ee9ng c\u1ee9 t\u00e0u h\u00e0ng/xu\u1ea5t nh\u1eadp kh\u1ea9u, v\u1eadn t\u1ea3i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 ch\u00eanh Brent\u2013WTI \u0111\u1ec3 n\u1ed1i c\u01a1 ch\u1ebf \u0111\u00f3. Hi\u1ec7n ch\u1ec9 c\u00f3 c\u00e2u h\u1ecfi v\u1ec1 \u0111\u01b0\u1eddng truy\u1ec1n khu v\u1ef1c\u2013to\u00e0n c\u1ea7u, ch\u01b0a bi\u1ebft n\u00f3 m\u1ea1nh bao nhi\u00eau ho\u1eb7c \u0111ang t\u00e1c \u0111\u1ed9ng theo h\u01b0\u1edbng n\u00e0o."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "501fa565a52e3f9a83dcb298072816ba4b3af8e1c653c7e83571c22d2027b2de",
+      "claim_id": "ukoil-deep-alternative-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Nh\u1eadp kh\u1ea9u M\u1ef9 gi\u1ea3m 791000 th\u00f9ng/ng\u00e0y v\u00e0 t\u1ef7 l\u1ec7 s\u1eed d\u1ee5ng nh\u00e0 m\u00e1y l\u1ecdc d\u1ea7u l\u00e0 93.5%. Th\u1eddi \u0111i\u1ec3m h\u00e0ng nh\u1eadp v\u1ec1 ho\u1eb7c x\u1eed l\u00fd d\u1ea7u th\u00f4 \u1edf nh\u00e0 m\u00e1y c\u00f3 th\u1ec3 l\u00e0m kho M\u1ef9 gi\u1ea3m m\u00e0 kh\u00f4ng c\u00f3 thi\u1ebfu h\u1ee5t to\u00e0n c\u1ea7u. Brent c\u00f2n c\u00f3 ngu\u1ed3n cung, ph\u1ea9m c\u1ea5p v\u00e0 v\u1eadn t\u1ea3i ri\u00eang. Kh\u00f4ng c\u00f3 s\u1ed1 s\u1ea3n l\u01b0\u1ee3ng/xu\u1ea5t kh\u1ea9u to\u00e0n c\u1ea7u \u0111\u1ec3 ch\u1ecdn gi\u1eefa c\u00e1c c\u00e1ch gi\u1ea3i th\u00edch."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "d52305c4446ca0de5430d5e12689e9d09a962ae9a7da9b7ed661a58e1d00413d",
+      "claim_id": "ukoil-deep-contradictions-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "R\u00fat kho d\u1ea7u th\u00f4 \u0111i c\u00f9ng t\u0103ng kho x\u0103ng v\u00e0 tr\u01b0\u1eddng ch\u1ec9 b\u00e1o c\u1ea7u x\u0103ng trung b\u00ecnh b\u1ed1n tu\u1ea7n trong ngu\u1ed3n gi\u1ea3m 0.4% so c\u00f9ng k\u1ef3. S\u1ea3n ph\u1ea9m ch\u01b0ng c\u1ea5t l\u1ea1i r\u00fat kho. C\u00e1c d\u00f2ng s\u1ea3n ph\u1ea9m v\u00e0 c\u1eeda s\u1ed5 \u0111o kh\u00e1c nhau kh\u00f4ng h\u1ee3p th\u00e0nh m\u1ed9t t\u00edn hi\u1ec7u \u201cc\u1ea7u m\u1ea1nh\u201d. Nh\u1eadp kh\u1ea9u \u0111o th\u00f9ng/ng\u00e0y c\u00f2n bi\u1ebfn \u0111\u1ed9ng kho \u0111o tri\u1ec7u th\u00f9ng trong tu\u1ea7n; ch\u01b0a c\u00f3 \u0111\u1ed1i chi\u1ebfu \u0111\u1ea7y \u0111\u1ee7 \u0111\u1ec3 quy m\u1ed9t ph\u1ea7n ch\u00ednh x\u00e1c c\u1ee7a r\u00fat kho cho nh\u1eadp kh\u1ea9u."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "a8490df5a83b601c841fb77b7ab60bc5db39fb443aba629880e8a973d12646db",
+      "claim_id": "ukoil-deep-timing_priced_in-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Tu\u1ea7n quan s\u00e1t l\u00e0 09/10/2026, c\u00f2n th\u1eddi \u0111i\u1ec3m l\u1ea5y/bi\u1ebft b\u1ea3n l\u01b0u l\u00e0 18/10/2026 l\u00fac 15:13:09.289 UTC. Packet kh\u00f4ng cung c\u1ea5p gi\u1edd c\u00f4ng b\u1ed1 d\u1ea7u ch\u00ednh x\u00e1c ho\u1eb7c b\u1ea3n bi\u1ebft ngay l\u1ea7n c\u00f4ng b\u1ed1 \u0111\u1ea7u. \u201cB\u1ea3n tu\u1ea7n m\u1edbi nh\u1ea5t \u0111\u01b0\u1ee3c l\u01b0u\u201d ch\u01b0a x\u00e1c nh\u1eadn \u0111\u00f3 l\u00e0 b\u1ea3n m\u1edbi nh\u1ea5t h\u00f4m nay. Ch\u01b0a c\u00f3 gi\u00e1/\u0111\u01b0\u1eddng cong Brent hay UKOIL, k\u1ef3 v\u1ecdng tr\u01b0\u1edbc tin ho\u1eb7c ph\u1ea3n \u1ee9ng gi\u00e1 \u0111\u1ec3 \u0111o b\u1ea5t ng\u1edd v\u00e0 m\u1ee9c \u0111\u00e3 ph\u1ea3n \u00e1nh v\u00e0o gi\u00e1."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "3d0f96d9ccbcfc48c8749ede3443b7ba133d901ff350f49dda6234461fda4a4b",
+      "claim_id": "ukoil-deep-cross_asset-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "UKOIL v\u00e0 USOIL d\u00f9ng chung m\u1ed9t b\u1ea3n EIA n\u00ean kh\u00f4ng \u0111\u01b0\u1ee3c t\u00ednh th\u00e0nh hai x\u00e1c nh\u1eadn \u0111\u1ed9c l\u1eadp. Ch\u00eanh l\u1ec7ch gi\u00e1, ph\u1ea9m c\u1ea5p v\u00e0 v\u1eadn t\u1ea3i m\u1edbi gi\u00fap ki\u1ec3m t\u00e1c \u0111\u1ed9ng truy\u1ec1n gi\u1eefa hai khu v\u1ef1c. T\u00e1c \u0111\u1ed9ng t\u1edbi l\u1ea1m ph\u00e1t, h\u00e3ng bay ho\u1eb7c n\u01b0\u1edbc xu\u1ea5t/nh\u1eadp d\u1ea7u c\u1ea7n ph\u01a1i nhi\u1ec5m ri\u00eang. Gi\u00e1 CFD c\u00f2n c\u00f3 th\u1ec3 kh\u00e1c tham chi\u1ebfu v\u1eadt ch\u1ea5t/k\u1ef3 h\u1ea1n do n\u1ec1n gi\u00e1, chuy\u1ec3n k\u1ef3, ph\u00ed t\u00e0i tr\u1ee3 v\u00e0 \u0111i\u1ec1u kho\u1ea3n broker, \u0111\u1ec1u ch\u01b0a c\u00f3 d\u1eef li\u1ec7u."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "7f3e03884a5304ac9799241ac515738ebc783ec0686f1761e349a3d8cd6d69e1",
+      "claim_id": "ukoil-deep-hold_conditions-0",
+      "claim_type": "HOLD_CONDITION",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Gi\u1eef c\u00e2u h\u1ecfi nghi\u00ean c\u1ee9u v\u1ec1 truy\u1ec1n d\u1eabn sang Brent khi c\u00f2n truy \u0111\u01b0\u1ee3c k\u1ef3 ngu\u1ed3n v\u00e0 c\u00f3 th\u1ec3 b\u1ed5 sung ch\u1ee9ng c\u1ee9 th\u01b0\u01a1ng m\u1ea1i/\u0111\u01b0\u1eddng cong \u0111\u00fang ph\u1ea1m vi. Kh\u00f4ng chuy\u1ec3n vi\u1ec7c gi\u1eef c\u00e2u h\u1ecfi th\u00e0nh gi\u1eef v\u1ecb th\u1ebf hay m\u1ed9t WATCH th\u1ecb tr\u01b0\u1eddng \u0111\u1ee7 \u0111i\u1ec1u ki\u1ec7n."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "248d2459622eeaf4a5b63ab9a05474ba51b4b12c4beb5215e9900b84a24467dc",
+      "claim_id": "ukoil-deep-stop_holding_conditions-0",
+      "claim_type": "INVALIDATION_CONDITION",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "R\u00fat c\u00e1ch \u0111\u1ecdc thi\u1ebfu h\u1ee5t to\u00e0n c\u1ea7u n\u1ebfu c\u00e2n \u0111\u1ed1i k\u1ebf ti\u1ebfp cho th\u1ea5y r\u00fat kho l\u00e0 th\u1eddi \u0111i\u1ec3m nh\u1eadp/l\u1ecdc d\u1ea7u, ho\u1eb7c d\u00f2ng th\u01b0\u01a1ng m\u1ea1i v\u00e0 ch\u00eanh Brent kh\u00f4ng h\u1ed7 tr\u1ee3 truy\u1ec1n d\u1eabn. \u0110\u1ebfn l\u00fac xem l\u1ea1i kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi th\u00ec \u0111\u00e1nh d\u1ea5u c\u0169/thi\u1ebfu; kh\u00f4ng m\u1eb7c \u0111\u1ecbnh t\u00ecnh tr\u1ea1ng khan hi\u1ebfm ti\u1ebfp di\u1ec5n."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "4f0e21993fb9e9001a45e2d443045b200c7ebc6f734652ed18525a6b850c4aa8",
+      "claim_id": "ukoil-deep-review-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "\u0110\u1ea7u v\u00e0o k\u1ebf ti\u1ebfp: b\u1ea3n d\u1ea7u EIA c\u00f3 ng\u00e0y v\u00e0 s\u1eeda \u0111\u1ed5i; c\u1ea5u ph\u1ea7n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m ri\u00eang; s\u1ea3n l\u01b0\u1ee3ng v\u00e0 xu\u1ea5t kh\u1ea9u to\u00e0n c\u1ea7u; \u0111\u01b0\u1eddng cong Brent, ch\u00eanh Brent\u2013WTI, v\u1eadn t\u1ea3i v\u00e0 ph\u1ea9m c\u1ea5p c\u00f9ng th\u1eddi \u0111i\u1ec3m; t\u00e0i s\u1ea3n tham chi\u1ebfu, chuy\u1ec3n k\u1ef3 v\u00e0 ph\u00ed c\u1ee7a UKOIL. L\u00e0m r\u00f5 c\u1ea7u n\u1ed1i \u0111\u1ecba l\u00fd tr\u01b0\u1edbc khi di\u1ec5n gi\u1ea3i gi\u00e1 hi\u1ec7n t\u1ea1i."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "39e36d06a0b9882aedae938fd986973e8fa1f42ad78c451bbb62910d2557e7b1",
+      "claim_id": "ukoil-deep-missing-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Thi\u1ebfu kho/ngu\u1ed3n cung tr\u1ef1c ti\u1ebfp Brent, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u, ph\u01a1i nhi\u1ec5m v\u1eadn t\u1ea3i/xu\u1ea5t kh\u1ea9u, gi\u00e1 v\u00e0 \u0111\u01b0\u1eddng cong hi\u1ec7n t\u1ea1i, \u0111\u1ed3ng thu\u1eadn tr\u01b0\u1edbc tin, ph\u1ea3n \u1ee9ng sau tin v\u00e0 \u0111i\u1ec1u kho\u1ea3n CFD. Quy\u1ec1n tr\u00edch d\u1eabn EIA c\u00f4ng khai kh\u00f4ng x\u00e1c nh\u1eadn \u0111\u01b0\u1ee3c c\u00e1c ng\u1eef ngh\u0129a h\u1ee3p \u0111\u1ed3ng ho\u1eb7c s\u1ef1 ki\u1ec7n c\u00f2n thi\u1ebfu; b\u00e1o c\u00e1o n\u00e0y v\u1eabn l\u00e0 nghi\u00ean c\u1ee9u n\u1ed9i b\u1ed9."
+    },
+    {
+      "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+      "claim_hash": "ab1e9e3585be1644f6c5cc16b3ea31894d122f2dd0a18f2103086464eb241f33",
+      "claim_id": "ukoil-deep-principle-0",
+      "claim_type": "CAUSAL_HYPOTHESIS",
+      "epistemic_layer": "CC_ANALYSIS",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": null,
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "C\u00e2n \u0111\u1ed1i kho\u2013d\u00f2ng l\u00e0 c\u01a1 ch\u1ebf kinh t\u1ebf c\u00f3 \u0111i\u1ec1u ki\u1ec7n, ch\u01b0a ph\u1ea3i Principle \u0111ang \u0111\u01b0\u1ee3c k\u00edch ho\u1ea1t. Readback COMMODITIES c\u00f3 tr\u1ea1ng th\u00e1i NOT_RELEVANT_THIS_CYCLE; kh\u00f4ng \u0111\u01b0\u1ee3c g\u00e1n danh m\u1ee5c l\u00e3i/v\u00e0ng/thanh kho\u1ea3n cho Brent theo t\u00ean g\u1ecdi. Khan v\u1eadt ch\u1ea5t c\u00f3 th\u1ec3 xung \u0111\u1ed9t v\u1edbi th\u1eddi \u0111i\u1ec3m nh\u1eadp h\u00e0ng v\u00e0 s\u1ea3n ph\u1ea9m y\u1ebfu; c\u1ea7n c\u1ea5u ph\u1ea7n c\u00f9ng k\u1ef3, th\u01b0\u01a1ng m\u1ea1i v\u00e0 \u0111\u01b0\u1eddng cong \u0111\u1ec3 ph\u00e2n bi\u1ec7t. B\u1ed9 n\u1ea1p \u0111\u1ea7y \u0111\u1ee7 b\u1ecb ch\u1eb7n OUTCOME_RESOLVER_ARTIFACT_HASH_MISMATCH, ch\u01b0a c\u00f3 \u0111i\u1ec3m/quy\u1ec1n \u00e1p d\u1ee5ng; 63 phi\u00ean ch\u01b0a \u00e1nh x\u1ea1 th\u00e0nh m\u1ed9t qu\u00fd."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "fd5f00dab74daa15214a2fd4c5464bf03bceabdc2539428fb058f984858a87a3",
+      "claim_id": "ukoil-deep-long-base_case",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "e580be611d5b82f9118ce35f52a5549c275b43040def2121f78e632a1add0050",
+      "claim_id": "ukoil-deep-long-upside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Ch\u1ee9ng c\u1ee9 khu v\u1ef1c v\u00e0 to\u00e0n c\u1ea7u ti\u1ebfp t\u1ee5c h\u1ed7 tr\u1ee3 c\u1ea1nh tranh v\u1eadt ch\u1ea5t sau khi cung/v\u1eadn t\u1ea3i ph\u1ea3n \u1ee9ng."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "bbfed308a5cb0cf407dac4bb056498a554be8d65ec4726612c3fb2c071528757",
+      "claim_id": "ukoil-deep-long-downside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Cung th\u00edch nghi, c\u1ea7u v\u1eeba l\u1ea1i ho\u1eb7c chi ph\u00ed gi\u1eef/chuy\u1ec3n k\u1ef3 l\u00e0m c\u00e2u chuy\u1ec7n kh\u00f4ng c\u00f2n h\u1ed7 tr\u1ee3 kinh t\u1ebf n\u1eafm gi\u1eef."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "e2636ce7f8be706584f717adbbbb7816e5fb223fb7013607d9372979577ec5d4",
+      "claim_id": "ukoil-deep-long-invalidation",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "long",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "R\u00fat t\u00ednh b\u1ec1n n\u1ebfu c\u00e2n \u0111\u1ed1i c\u00f9ng ngh\u0129a sau \u0111\u00f3 \u0111\u1ea3o chi\u1ec1u; thi\u1ebfu \u0111\u01b0\u1eddng cong/\u0111i\u1ec1u kho\u1ea3n v\u1eabn ng\u0103n k\u1ebft lu\u1eadn l\u1ee3i nhu\u1eadn gi\u1eef CFD."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "d89877c32a9838f67ebea16a742fbcb6fd0a75b9b2cab001033981a95bc09538",
+      "claim_id": "ukoil-deep-short-base_case",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "7ebaf6b6e616641652cd046fb941f57abc964710ff862c51b8fa8092919ec96b",
+      "claim_id": "ukoil-deep-short-upside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Ngu\u1ed3n m\u1edbi v\u1eeba h\u1ed7 tr\u1ee3 gi\u1ea3m kh\u1ea3 n\u0103ng cung \u1ee9ng v\u1eadt ch\u1ea5t, v\u1eeba ch\u1ee9ng minh \u0111\u01b0\u1ee3c \u0111\u01b0\u1eddng truy\u1ec1n th\u01b0\u01a1ng m\u1ea1i v\u00e0 n\u1ec1n Brent."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "12bb511ab01dd8acd166d7d51908ac891294bfa49ce7bf8dd3cd73925dc6159a",
+      "claim_id": "ukoil-deep-short-downside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "H\u00e0ng nh\u1eadp M\u1ef9 tr\u1edf l\u1ea1i ho\u1eb7c ngu\u1ed3n cung ri\u00eang Brent b\u00f9 \u0111\u01b0\u1ee3c r\u00fat kho khu v\u1ef1c."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "9219192919b0637e8052b308d316613b8e9bb464b927ab3fe304c98ddcf5347e",
+      "claim_id": "ukoil-deep-short-invalidation",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "short",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "B\u00e1c c\u00e1ch \u0111\u1ecdc b\u1ea5t ng\u1edd Brent hi\u1ec7n t\u1ea1i khi thi\u1ebfu gi\u1edd c\u00f4ng b\u1ed1, k\u1ef3 v\u1ecdng tr\u01b0\u1edbc tin v\u00e0 ch\u1ee9ng c\u1ee9 Brent \u0111\u1ed3ng th\u1eddi."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "866ab5ef10b76c1d3700a6faedb69329ff85decbee59a67914e9cce2f58b305b",
+      "claim_id": "ukoil-deep-swing-base_case",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "f454be400e6034d7cb5d3761d4e3dfb34430ec1e6d8d870ad7a3023f151141e0",
+      "claim_id": "ukoil-deep-swing-upside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "Nhi\u1ec1u quan s\u00e1t kho/d\u00f2ng v\u00e0 c\u1ea1nh tranh h\u00e0ng \u0111\u01b0\u1eddng bi\u1ec3n h\u1ed7 tr\u1ee3 c\u01a1 ch\u1ebf truy\u1ec1n to\u00e0n c\u1ea7u."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "1a34625da4f45624e19cdb984ba2220343831873c8133acd9bd5b0d6b8fc5bc3",
+      "claim_id": "ukoil-deep-swing-downside_scenario",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "R\u00fat kho ch\u1ee7 y\u1ebfu do nh\u1eadp/l\u1ecdc d\u1ea7u theo th\u1eddi \u0111i\u1ec3m, trong khi s\u1ea3n ph\u1ea9m ho\u1eb7c ngu\u1ed3n cung to\u00e0n c\u1ea7u kh\u00f4ng c\u0103ng."
+    },
+    {
+      "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+      "claim_hash": "f26863cf7fd16540f697a0e84fc64c34b7d6fe1a819ad97f22a948402e52d344",
+      "claim_id": "ukoil-deep-swing-invalidation",
+      "claim_type": "HORIZON_OUTLOOK",
+      "epistemic_layer": "CONDITIONAL_SCENARIO",
+      "evidence_refs": [
+        "neo:eia-petroleum:b7435f56ed43ebc7"
+      ],
+      "exact_or_proxy": "EXACT",
+      "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+      "horizon": "swing",
+      "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+      "public_safe": true,
+      "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+      "supporting_evidence": [
+        {
+          "currency": null,
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "known_at_utc": "2026-10-18T15:13:09.289Z",
+          "observation_time_utc": "2026-10-09T00:00:00Z",
+          "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+          "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+          "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+          "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+          "source_url": "https://ir.eia.gov/wpsr/summary.txt",
+          "unit": "million_barrels_and_barrels_per_day_and_percent"
+        }
+      ],
+      "text": "B\u1ecf gi\u1ea3 thuy\u1ebft khan to\u00e0n c\u1ea7u khi c\u1ea7u n\u1ed1i \u0111\u1ecba l\u00fd th\u1ea5t b\u1ea1i ho\u1eb7c ch\u1ec9 c\u00f9ng m\u1ed9t b\u1ea3n tin \u0111\u01b0\u1ee3c l\u1eb7p l\u1ea1i."
+    }
+  ],
+  "report_id": "asset-report:UKOIL",
+  "report_sha256": "82a2389ed302f6757167c8a1f71b4214fa645f5f3e37c8ea5525d849955ab5e0",
+  "report_version": 3,
+  "run_id": "run-asset-report:aba7ba6aac3644a8ae993a2d",
+  "schema": "CapitalChronicleLatestAnalysisReportEnvelopeV1",
+  "source_snapshot": {
+    "catalog_sha256": "74f539b62d2aba4b8d00b8c62ce68930c85f430ce2bba4d50e8b6040048be698",
+    "evidence_snapshot_sha256": "e1f9e322e61f21833d94e66364acaa81973d10bceab717c282d91444f9991b69"
+  },
+  "supersedes_report_id": "asset-report:UKOIL",
+  "version": "1.1.0"
+}

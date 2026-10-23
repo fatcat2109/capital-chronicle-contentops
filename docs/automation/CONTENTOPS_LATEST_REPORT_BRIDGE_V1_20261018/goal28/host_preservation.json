@@ -1,0 +1,33 @@
+{
+  "checked_at_utc": "2026-10-20T22:48:19.541431+00:00",
+  "actual_local_automation_toml_readback": [
+    {
+      "id": "v1-newsroom-london-1700",
+      "status": "PAUSED",
+      "configuration_sha256": "e337a377b9778d5cda476ee665967e40f85050d48866157ed4f0dad4c70b805a",
+      "unchanged_from_goal27": true
+    },
+    {
+      "id": "v1-newsroom-new-york-0100",
+      "status": "PAUSED",
+      "configuration_sha256": "587b71cb1bbc84becc8e407b799586c68e0f8d705289922280ae08aa091b6365",
+      "unchanged_from_goal27": true
+    },
+    {
+      "id": "v1-newsroom-new-york-2100",
+      "status": "PAUSED",
+      "configuration_sha256": "3d7f3794fe9b6925484a4b687a030c09fa75c612bc369176aebe869fcbd310d1",
+      "unchanged_from_goal27": true
+    },
+    {
+      "id": "v1-newsroom-new-york-2300",
+      "status": "PAUSED",
+      "configuration_sha256": "1deb31ee664a822719470cb28dd0472ee8ec63d142461538b6ec8893c527a3f6",
+      "unchanged_from_goal27": true
+    }
+  ],
+  "production_pause_sha256": "b0be68980cbfc2dd1a7fa80ac7eb2bfcfda7aa3b45b462dfd0a11788587e94de",
+  "unchanged_from_goal27": true,
+  "automation_mutations": 0,
+  "calendar_runtime_proven": false
+}

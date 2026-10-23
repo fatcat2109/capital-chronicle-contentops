@@ -1,0 +1,92 @@
+{
+  "existing_store_relocated_not_recreated": [
+    "relocation_proof.json",
+    "relocation_manifest.json",
+    "preservation_final.json"
+  ],
+  "all_sealed_rows_ids_history_preserved": [
+    "preservation_final.json",
+    "relocation_manifest.json"
+  ],
+  "pending_same_identity_continuation": [
+    "relocation_proof.json",
+    "articles/goal28-dollar-lens/binding.json",
+    "articles/goal28-dollar-lens/role_observations.json"
+  ],
+  "completed_reopen_zero_model_source_work": [
+    "preservation_final.json"
+  ],
+  "discoverable_profile_and_same_skill": [
+    "config/native_desktop_operator_profile_v1.json",
+    ".agents/skills/contentops-newsroom/SKILL.md"
+  ],
+  "five_to_eight_substantial_distinct_articles": [
+    "edition_summary.json",
+    "articles/*/reviewed-handoff/article_manifest_v1.json"
+  ],
+  "actual_assigned_roles_same_workers_after_quota": [
+    "articles/*/role_observations.json",
+    "edition_summary.json"
+  ],
+  "zero_luna_for_empty_paused_x": [
+    "articles/*/native_headline_filter_receipt.json",
+    "edition_summary.json"
+  ],
+  "bounded_candidates_admissions_sources": [
+    "edition_summary.json",
+    "source_attempts.json"
+  ],
+  "exact_permitted_sources_clocks_rights": [
+    "source_editions/index.json",
+    "articles/*/frozen_source_pack.json",
+    "articles/*/simple_gemini_validation_v1.json",
+    "source_attempts.json"
+  ],
+  "canonical_memory_and_main_admission": [
+    "articles/*/input_receipt.json"
+  ],
+  "eight_native_previews_media_seo_each": [
+    "articles/*/reviewed-handoff/native_derivative_previews_v1.json",
+    "articles/*/reviewed-handoff/article_manifest_v1.json",
+    "articles/*/media_brief.json",
+    "articles/*/media_assets/source_document_card.png"
+  ],
+  "revision_bound_keep_hold_and_zero_dispatch": [
+    "articles/*/review_receipt.json",
+    "articles/*/handoff_receipt.json",
+    "edition_summary.json"
+  ],
+  "current_edition_first_counts_history_direct_previews": [
+    "render/dom_metrics.json",
+    "render_inspection.json",
+    "tests/test_capital_chronicle_report_editorial_workspace_v1.py",
+    "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx"
+  ],
+  "actual_render_inspection": [
+    "render_inspection.json",
+    "render/*.png"
+  ],
+  "focused_checks": [
+    "verification.json"
+  ],
+  "host_pause_and_no_production_changes": [
+    "host_preservation.json",
+    "preservation_final.json"
+  ],
+  "external_limits_local_no_retries": [
+    "RELEASE_HANDOFF.md",
+    "linkedin_authorization_readiness.json",
+    "source_attempts.json"
+  ],
+  "owning_checkpoint_skill_authority_codegraph": [
+    "RELEASE_HANDOFF.md",
+    "docs/codegraph/V1_CONTEXT.md",
+    "docs/codegraph/INDEX.md"
+  ],
+  "durable_receiver_handoff_when_sync_unavailable": [
+    "RELEASE_HANDOFF.md"
+  ],
+  "scoped_commit_push_exact_remote_ci": [
+    "PR90 Goal28 section and desk/goal28_delivery.json (verified after source/graph commit)"
+  ]
+}

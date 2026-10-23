@@ -1,0 +1,12 @@
+{
+  "exit_code": 2,
+  "result": {
+    "classification": "LLM_OPERATOR_PAUSED",
+    "provider_calls": 0,
+    "store_opened": false,
+    "public_writes": 0,
+    "pause_cleared": false
+  },
+  "pause_sha256": "b0be68980cbfc2dd1a7fa80ac7eb2bfcfda7aa3b45b462dfd0a11788587e94de",
+  "draft_store_created": false
+}

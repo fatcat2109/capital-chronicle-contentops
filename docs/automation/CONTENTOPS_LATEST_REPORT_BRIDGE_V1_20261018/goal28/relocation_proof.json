@@ -1,0 +1,18 @@
+{
+  "schema_version": "contentops.goal28.manual_relocation_proof.v1",
+  "manifest_sha256": "f44112dbbc0de5b60e9b3d1409d3e542544acee9a286026b8973e5ffdeb2047e",
+  "old_store": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal24-native-desktop-proof\\editorial-v4.sqlite3",
+  "operating_store": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\owner-newsroom\\editorial-v4.sqlite3",
+  "cutover_table_identity_equal": true,
+  "completed_reopen_unchanged": true,
+  "completed_classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+  "historical_artifact_count": 33,
+  "pending_run_id": "goal28-dollar-lens",
+  "pending_binding_sha256": "eacd5439388e4e3979664f38d0a8280469c58e6430fe19aafa796a7cc193a6fc",
+  "original_non_operating_recovery_copy": true,
+  "production_migration": false,
+  "pending_request_sha256": "ad7faf83401d63f3b4de306bf6452e311ba333aa5267a36042dc11758571ab38",
+  "pending_selection_return_accepted_after_cutover": true,
+  "next_stage_request_sha256": "ff6cbe15c22f16932446671b5a868f5a8b71916b369e5773681a1086ad77578d",
+  "original_tables_still_unchanged_after_new_work": true
+}

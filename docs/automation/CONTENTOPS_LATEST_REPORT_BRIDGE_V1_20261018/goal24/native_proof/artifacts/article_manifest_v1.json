@@ -1,0 +1,41 @@
+{
+  "dek": "CC REPORT / EVENT UNCONFIRMED — Capital Chronicle revisits an October 9 observation: stocks above their five-year average can coexist with a smaller seasonal refill.",
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:XNGUSD",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "meta_description": "CC REPORT / EVENT UNCONFIRMED: Capital Chronicle separates gas storage levels, refill pace and market expectations in a dated report.",
+  "public_write_performed": false,
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_title": "Capital Chronicle gas report: storage levels versus weekly refill",
+  "social_cross_asset_summary": "If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.",
+  "social_hook": "Capital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.",
+  "social_mechanism_summary": "Capital Chronicle analysis: if confirmed, slower refill can coexist with above-average stocks; a seasonal comparison is not a consensus surprise.",
+  "social_policy_summary": "Watch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.",
+  "source_document_ids": [
+    "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+  ],
+  "story_identity": "simple-story-7f4604468a05ac07064346c9",
+  "substack_body_markdown": "CC REPORT / EVENT UNCONFIRMED — Capital Chronicle reports a dated tension: less gas added than the same-week seasonal average, yet more gas already stored than the five-year stock average. If confirmed, that combination calls for separating the available buffer from the pace at which it is being replenished. It does not by itself establish a shortage or a price direction. [[SOURCE:SOURCE_1]]\n\nAccording to Capital Chronicle, the Main evidence metadata dates the observation to October 9, 2026 and records retrieval on October 18. The Main report cutoff is October 19; that is not the source release date. No source release date is supplied in this source pack. These are retained observations, not a fresh storage announcement or a current executable market quote. [[SOURCE:SOURCE_1]]\n\nIn its observed-source-fact layer, the report attributes a weekly injection of 67 Bcf to the retained EIA release, against a five-year same-week injection average of 90 Bcf. Stocks were 3,567 Bcf: 45 Bcf above the five-year stock average and 143 Bcf below the prior-year level. The stock comparisons describe different reference points; neither converts the refill comparison into a measured market surprise. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle analysis: if confirmed, slower refill can coexist with above-average stocks; a seasonal comparison is not a consensus surprise. [[SOURCE:SOURCE_1]]\n\nAccording to Capital Chronicle, the competing explanations in Main are weather, supply or import changes, and shoulder-season demand. Its seasonal benchmark is not pre-release market consensus. Without that consensus and a matched price reaction, the reader cannot infer from this report that traders received an unexpected tightening signal. [[SOURCE:SOURCE_1]]\n\nIf later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered. [[SOURCE:SOURCE_1]]\n\nWatch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis. [[SOURCE:SOURCE_1]]\n\nAccording to Capital Chronicle, the report uses conditional five-, 21- and 63-session review horizons. The short window requires an actual release and quote reaction; the swing window requires repeated balances and curve confirmation; the longer window requires cumulative supply-demand changes and vehicle-cost checks. These are questions to test, not price targets or probabilities. Fixing time, regional basis, dealer spread and carry can separate the reference observation from CFD economics. [[SOURCE:SOURCE_1]]\n\nAccording to the supplied research history, the prior unpublished research already examined the competing storage benchmarks. This reading retains that evidence and makes the test of the interpretation explicit; it is not a new numerical update. The return of a Main report supplies no independent confirmation, and the unpublished research is not a previously published article. [[SOURCE:SOURCE_1]]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. [[SOURCE:SOURCE_1]]",
+  "title": "Capital Chronicle on gas: slower refill does not establish a shortage",
+  "update_chain_identity": "simple-story-7f4604468a05ac07064346c9"
+}

@@ -1,0 +1,217 @@
+{
+  "actual_component": "ReportEditorialWorkspace",
+  "render_mode": "STATIC_RENDER_OF_EXISTING_OWNER_READ_MODEL_NOT_DEPLOYMENT",
+  "browser": "BrowserOS Neo MCP",
+  "canonical_articles_read": 3,
+  "native_derivative_copies_read": 24,
+  "media_inspected": 3,
+  "new_media_renders": 1,
+  "exact_media_reuse": 2,
+  "all_alt_and_captions_checked": true,
+  "desktop_actual_screenshot": "desktop-explainer.jpeg",
+  "mobile_actual_screenshot": "mobile-gas.jpeg",
+  "mobile_viewport": {
+    "articles": [
+      {
+        "media": [
+          {
+            "alt": "Source document card for Precious Metals Fraud | CFTC from www.cftc.gov.",
+            "caption": "Precious Metals Fraud | CFTC, www.cftc.gov. Source date: Publication date not verified.",
+            "complete": true,
+            "natural_width": 1600
+          }
+        ],
+        "preview_count": 8,
+        "preview_texts": [
+          {
+            "client_width": 357,
+            "destination": "telegram",
+            "scroll_width": 357,
+            "text": "telegram\nNEWSROOM BRIEF\n\nCONFIRMED | Being right about gold does not verify what you own [Source undated]\n\nA view on gold cannot verify the loan or the metal behind an offer.\n\nWhat to watch: Which independent record verifies the metal and your rights to it, and which contract term determines when you must add cash?\n\nFull brief: [Canonical link pending]\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "x",
+            "scroll_width": 357,
+            "text": "x\nCONFIRMED | Being right about gold does not verify what you own [Source undated]\n\nA view on gold cannot verify the loan or the metal behind an offer.\n\n[Canonical link pending]\n\nWatch: Which independent record verifies the metal and your rights to it, and which contract term determines when you must add cash?\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "linkedin",
+            "scroll_width": 357,
+            "text": "linkedin\nCONFIRMED | Being right about gold does not verify what you own [Source undated]\n\nWhy it matters: Borrowing can turn an adverse price move into a demand for more cash.\n\nContext: Financing and third-party storage are not proof of fraud.\n\nRead the full brief: [Canonical link pending]\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "discord",
+            "scroll_width": 357,
+            "text": "discord\n**Newsroom brief: CONFIRMED | Being right about gold does not verify what you own [Source undated]**\n\nA view on gold cannot verify the loan or the metal behind an offer.\n\n**Context:** Financing and third-party storage are not proof of fraud.\n\nRead the article: [Canonical link pending]\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "facebook_page",
+            "scroll_width": 357,
+            "text": "facebook page\nCONFIRMED | Being right about gold does not verify what you own [Source undated]\n\nA view on gold cannot verify the loan or the metal behind an offer.\n\nWhy it matters: Borrowing can turn an adverse price move into a demand for more cash.\n\nRead the full brief: [Canonical link pending]\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "instagram_business",
+            "scroll_width": 357,
+            "text": "instagram business\nCONFIRMED | Being right about gold does not verify what you own [Source undated]\n\nA view on gold cannot verify the loan or the metal behind an offer.\n\nIn focus: Financing and third-party storage are not proof of fraud.\n\nFull brief: [Canonical link pending]\n\n#CapitalChronicle\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "threads",
+            "scroll_width": 357,
+            "text": "threads\nCONFIRMED | Being right about gold does not verify what you own [Source undated]\n\nFinancing and third-party storage are not proof of fraud.\n\n[Canonical link pending]\n\nWhat to watch: Which independent record verifies the metal and your rights to it, and which contract term determines when you must add cash?\n\nSource date: not supplied (retained background).\n\nInterpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "youtube",
+            "scroll_width": 357,
+            "text": "youtube\nUpdate: CONFIRMED | Being right about gold does not verify what you own [Source undated]\n\nA view on gold cannot verify the loan or the metal behind an offer.\n\nWhat to watch: Which independent record verifies the metal and your rights to it, and which contract term determines when you must add cash?\n\nRead the full brief: [Canonical link pending]\n\nSource date: not supplied (retained background). Interpretation remains analysis."
+          }
+        ],
+        "run": "goal26-original-explainer",
+        "title": "Being right about gold does not verify what you own",
+        "visible_width": 391
+      },
+      {
+        "media": [
+          {
+            "alt": "EIA source excerpt: week ending October 9, 2026; crude inventories decreased 8.6 million barrels and gasoline inventories increased 3.5 million barrels. Release date not supplied.",
+            "caption": "EIA petroleum balance: crude and gasoline stocks, U.S. Energy Information Administration. Source date: Week ending 2026-10-09; release date not supplied; read 2026-10-20.",
+            "complete": true,
+            "natural_width": 1600
+          }
+        ],
+        "preview_count": 8,
+        "preview_texts": [
+          {
+            "client_width": 357,
+            "destination": "telegram",
+            "scroll_width": 357,
+            "text": "telegram\nNEWSROOM BRIEF\n\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWhat to watch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nFull brief: [Canonical link pending]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "x",
+            "scroll_width": 357,
+            "text": "x\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\n[Canonical link pending]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWatch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nMain report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "linkedin",
+            "scroll_width": 357,
+            "text": "linkedin\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nWhy it matters: Capital Chronicle's conditional mechanism is that fewer imports or crude moving through refineries could reduce crude stocks without stronger end demand.\n\nContext: The report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nRead the full brief: [Canonical link pending]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "discord",
+            "scroll_width": 357,
+            "text": "discord\n**Newsroom brief: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]**\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\n**Context:** The report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nRead the article: [Canonical link pending]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "facebook_page",
+            "scroll_width": 357,
+            "text": "facebook page\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWhy it matters: Capital Chronicle's conditional mechanism is that fewer imports or crude moving through refineries could reduce crude stocks without stronger end demand.\n\nRead the full brief: [Canonical link pending]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "instagram_business",
+            "scroll_width": 357,
+            "text": "instagram business\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nIn focus: The report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nFull brief: [Canonical link pending]\n\n#CapitalChronicle\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "threads",
+            "scroll_width": 357,
+            "text": "threads\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nThe report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\n[Canonical link pending]\n\nWhat to watch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nMain report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "youtube",
+            "scroll_width": 357,
+            "text": "youtube\nUpdate: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWhat to watch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nRead the full brief: [Canonical link pending]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+          }
+        ],
+        "run": "goal26-main-oil-analysis-v2",
+        "title": "Capital Chronicle's oil report separates tighter stocks from stronger demand",
+        "visible_width": 391
+      },
+      {
+        "media": [
+          {
+            "alt": "Source document card for Weekly Natural Gas Storage Report - EIA from ir.eia.gov.",
+            "caption": "Weekly Natural Gas Storage Report - EIA, ir.eia.gov. Source date: 2026-10-15 (date only).",
+            "complete": true,
+            "natural_width": 1600
+          }
+        ],
+        "preview_count": 8,
+        "preview_texts": [
+          {
+            "client_width": 357,
+            "destination": "telegram",
+            "scroll_width": 357,
+            "text": "telegram\nNEWSROOM BRIEF\n\nCONFIRMED | Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước [Source 2026-10-15, 2026-01-22]\n\nChọn riêng một mốc sẽ làm mất nửa câu chuyện.\n\nWhat to watch: Mức bơm ròng 67 Bcf có khác kỳ vọng trước công bố không, và giá có phản ánh chênh lệch ấy không?\n\nFull brief: [Canonical link pending]\n\nSource date: 2026-10-15; Source date: 2026-01-22. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "x",
+            "scroll_width": 357,
+            "text": "x\nCONFIRMED | Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước [Source 2026-10-15, 2026-01-22]\n\nChọn riêng một mốc sẽ làm mất nửa câu chuyện.\n\n[Canonical link pending]\n\nWatch: Mức bơm ròng 67 Bcf có khác kỳ vọng trước công bố không, và giá có phản ánh chênh lệch ấy không?\n\nSource date: 2026-10-15; Source date: 2026-01-22.\n\nInterpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "linkedin",
+            "scroll_width": 357,
+            "text": "linkedin\nCONFIRMED | Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước [Source 2026-10-15, 2026-01-22]\n\nWhy it matters: Phân tích Capital Chronicle: nếu nhu cầu vượt nguồn cung, tồn kho có thể phải bù phần thiếu.\n\nContext: Đối trọng của luận điểm khan hiếm nằm ngay trong bản EIA: tồn kho tháng 10 vẫn cao hơn trung bình năm năm và trong khoảng lịch sử.\n\nRead the full brief: [Canonical link pending]\n\nSource date: 2026-10-15; Source date: 2026-01-22. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "discord",
+            "scroll_width": 357,
+            "text": "discord\n**Newsroom brief: CONFIRMED | Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước [Source 2026-10-15, 2026-01-22]**\n\nChọn riêng một mốc sẽ làm mất nửa câu chuyện.\n\n**Context:** Đối trọng của luận điểm khan hiếm nằm ngay trong bản EIA: tồn kho tháng 10 vẫn cao hơn trung bình năm năm và trong khoảng lịch sử.\n\nRead the article: [Canonical link pending]\n\nSource date: 2026-10-15; Source date: 2026-01-22. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "facebook_page",
+            "scroll_width": 357,
+            "text": "facebook page\nCONFIRMED | Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước [Source 2026-10-15, 2026-01-22]\n\nChọn riêng một mốc sẽ làm mất nửa câu chuyện.\n\nWhy it matters: Phân tích Capital Chronicle: nếu nhu cầu vượt nguồn cung, tồn kho có thể phải bù phần thiếu.\n\nRead the full brief: [Canonical link pending]\n\nSource date: 2026-10-15; Source date: 2026-01-22. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "instagram_business",
+            "scroll_width": 357,
+            "text": "instagram business\nCONFIRMED | Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước [Source 2026-10-15, 2026-01-22]\n\nChọn riêng một mốc sẽ làm mất nửa câu chuyện.\n\nIn focus: Đối trọng của luận điểm khan hiếm nằm ngay trong bản EIA: tồn kho tháng 10 vẫn cao hơn trung bình năm năm và trong khoảng lịch sử.\n\nFull brief: [Canonical link pending]\n\n#CapitalChronicle\n\nSource date: 2026-10-15; Source date: 2026-01-22. Interpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "threads",
+            "scroll_width": 357,
+            "text": "threads\nCONFIRMED | Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước [Source 2026-10-15, 2026-01-22]\n\nĐối trọng của luận điểm khan hiếm nằm ngay trong bản EIA: tồn kho tháng 10 vẫn cao hơn trung bình năm năm và trong khoảng lịch sử.\n\n[Canonical link pending]\n\nWhat to watch: Mức bơm ròng 67 Bcf có khác kỳ vọng trước công bố không, và giá có phản ánh chênh lệch ấy không?\n\nSource date: 2026-10-15; Source date: 2026-01-22.\n\nInterpretation remains analysis."
+          },
+          {
+            "client_width": 357,
+            "destination": "youtube",
+            "scroll_width": 357,
+            "text": "youtube\nUpdate: CONFIRMED | Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước [Source 2026-10-15, 2026-01-22]\n\nChọn riêng một mốc sẽ làm mất nửa câu chuyện.\n\nWhat to watch: Mức bơm ròng 67 Bcf có khác kỳ vọng trước công bố không, và giá có phản ánh chênh lệch ấy không?\n\nRead the full brief: [Canonical link pending]\n\nSource date: 2026-10-15; Source date: 2026-01-22. Interpretation remains analysis."
+          }
+        ],
+        "run": "goal26-gas-follow-up",
+        "title": "Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước",
+        "visible_width": 391
+      }
+    ],
+    "client_width": 415,
+    "frame_width": 430,
+    "scroll_width": 415
+  },
+  "limitations": [
+    "Two direct resized CDP screenshots timed out; actual screenshot succeeded using a stable 430px iframe containing the same rendered canonical component.",
+    "Static saved desk has read-only decisions; it does not invoke roles or dispatch.",
+    "One edition article is Vietnamese; two are English. Compiler platform labels remain English."
+  ]
+}

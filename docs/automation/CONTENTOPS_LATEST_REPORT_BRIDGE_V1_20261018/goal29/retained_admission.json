@@ -1,0 +1,2858 @@
+{
+  "cutoff_utc": "2026-10-20T23:13:17.595644Z",
+  "first": {
+    "schema_version": "contentops.main_report_feed.v1",
+    "producer_commit": "effe788bb2ab92781ff71e38498cff7a24adf567",
+    "observed_at_utc": "2026-10-20T23:13:17.595644Z",
+    "configured_bundle_count": 15,
+    "new_events": 5,
+    "events": [
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 1,
+        "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 2,
+        "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 3,
+        "receipt_id": "main-feed-a6738b5ae4435eda50396e6634c371bf1a6483903bc0838e6353ea8e173f6e2f",
+        "state": "LINEAGE_ONLY_NOOP",
+        "blockers": [],
+        "required_parent_report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 3,
+        "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 3,
+        "receipt_id": "main-feed-ba8d63f3aca0217663307742f41a00ff7eb865fc3294c268cbcf0af56f71d836",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 4,
+        "receipt_id": "main-feed-3b7a3024db4612aee04ac969b1a258759951e1e1b237ac8f93fea88c385efc95",
+        "state": "ADMITTED",
+        "blockers": [],
+        "required_parent_report_sha256": "82a2389ed302f6757167c8a1f71b4214fa645f5f3e37c8ea5525d849955ab5e0"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 4,
+        "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 4,
+        "receipt_id": "main-feed-d3841cf13a68387a891749f7db17410329f79651d03fd4871359e634a48b14e2",
+        "state": "LINEAGE_ONLY_NOOP",
+        "blockers": [],
+        "required_parent_report_sha256": "972a2edaac857763b9bca92a31edb1f945e03bccdf4e7bc96fc7d7f9d55383f2"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 5,
+        "receipt_id": "main-feed-45065410d7ff1379f85699a0daf59eab026e6652bc21247108dda9fe4c12f8ca",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 5,
+        "receipt_id": "main-feed-f4e3a0ee0d4a0afa3c94cb2c862fc4a022fa4d15562174e0c3cd34578e9e3453",
+        "state": "ADMITTED",
+        "blockers": [],
+        "required_parent_report_sha256": "eae4aa5b6a6b883abc540d7abdda4282bc1647d13a84a0629678407fcb2f8f10"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 6,
+        "receipt_id": "main-feed-6cf9a2c62bcd6647ff7713dabcf12f6bd64072cac766511e692b8432938f9f03",
+        "state": "ADMITTED",
+        "blockers": [],
+        "required_parent_report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27"
+      }
+    ],
+    "gaps": [],
+    "artifact_cache": {
+      "dbea3eb11aa4751deb58a2542be93bb450708e54cf61d339964d2e9e759b2c1c": {
+        "fingerprint": "9c6bdd213e52a941ad9209730e46212e5a288d292b5f5917b007e4e53a2e58d6",
+        "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72"
+      },
+      "924ab832fc3e40f5a632d64df4327dee9350eb930b80cabfd51e8de9bd33ef1c": {
+        "fingerprint": "2163343467ec7d43fe58e7cca2c628d2ad9c790dcfabccee8f2f973bbf23ef72",
+        "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba"
+      },
+      "644b81751cb6d535edcc09caa5befff61d4dd6044cddf024db6b61b2b3e4a203": {
+        "fingerprint": "2dcc0c4d58482cf3dfe18583772e09eb2ffe50d026acfa56b5212742559fd222",
+        "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed"
+      },
+      "385ebd7da0c1dab46279dc626d75384f671573c359dd983ef1f4dd6382f6e9f3": {
+        "fingerprint": "4a436173f7793f63035c8a6f9db695918f5afced6de1fd90f4f2f22f11fa74ae",
+        "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23"
+      },
+      "336cdaddffcabaa9a0f3cf77f9b22945093745181fdeca824492286c55ee9c94": {
+        "fingerprint": "bf8a25599685493c931bd8e94b8b107f12177f41088ad8d2e1716c2b0987f909",
+        "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd"
+      },
+      "d758e702fa271fc82f5e2f1e59d47437a69159c279679faf151b7c2dec658130": {
+        "fingerprint": "909a8f2dbdb9d656911ff5ae419cda439e23f89210332805909a36b7bce0fa27",
+        "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b"
+      },
+      "b17738518b4cf4049d79321255d87a92ead88baaa44aa6b16a2e8ed70a57cfd3": {
+        "fingerprint": "c01f4d06156e361a9d7e1ca372900b5954144cd433b1c87b39897848271fa0cc",
+        "receipt_id": "main-feed-a6738b5ae4435eda50396e6634c371bf1a6483903bc0838e6353ea8e173f6e2f"
+      },
+      "502a49a99faef1ef30dce43f3c50c8a7235c31b2da1d63d56325b5e306cdf3d4": {
+        "fingerprint": "6d8395cf8aa765ac776a7cc8f62034050c55c6e0043c4643cb83a3c28d18fed9",
+        "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7"
+      },
+      "1da2395d6f420ee7f549744e5587ba269fd1b4a8f42cc72b77cbd34a703ceb22": {
+        "fingerprint": "fa78c4686214a29acf86dd8a287e7dfcb9ff51d60ab34370eafccb65a38235e6",
+        "receipt_id": "main-feed-ba8d63f3aca0217663307742f41a00ff7eb865fc3294c268cbcf0af56f71d836"
+      },
+      "22176f53a8d771f9b953cfb50c771e32ecd21396ed0f38480c0ff3984c61777b": {
+        "fingerprint": "88e21ba517ed838cf25e9a5c1f7c0e7d86b38bfc10c312efc78ad238567992ec",
+        "receipt_id": "main-feed-3b7a3024db4612aee04ac969b1a258759951e1e1b237ac8f93fea88c385efc95"
+      },
+      "05f46f28602c7ee17466073287ef10abf8267d4f3768740b502df7220e38e4a8": {
+        "fingerprint": "a62cb75b17833f023e230462e83aecc5639201dac6bbf5efe5faaf04db3a81ff",
+        "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d"
+      },
+      "d9b8311094abbd75f56ed5fa4f2dc5efdcaa76efb608da884ae8c4530b34dc3a": {
+        "fingerprint": "12a206e15afb28f4e1548c5358c78238298d5b86e305d9c8e5f08c414ab418e8",
+        "receipt_id": "main-feed-d3841cf13a68387a891749f7db17410329f79651d03fd4871359e634a48b14e2"
+      },
+      "0e86bf3f1ae8a3f2767621a94771f56418f6d0a0e5f3ef29beef91df18d9d1d5": {
+        "fingerprint": "ee57dd690a7d5d3e87a5b26d14e75f7d113255d9570a04f3718d3bbde41b77d3",
+        "receipt_id": "main-feed-45065410d7ff1379f85699a0daf59eab026e6652bc21247108dda9fe4c12f8ca"
+      },
+      "cd93481274a81708d304a5ecd8a728cece186aa726c6df321f1edc29f4c86c0f": {
+        "fingerprint": "c45eeca47497387f0e06d5bff5a618def02b80e3714b07fd2b7d83842d76749d",
+        "receipt_id": "main-feed-f4e3a0ee0d4a0afa3c94cb2c862fc4a022fa4d15562174e0c3cd34578e9e3453"
+      },
+      "a17203bc97d3d11fdd9198074422e9ab0fddca40f15fb6076c0e80bc4f9b99a4": {
+        "fingerprint": "1940641a3496bad50b12778e6229d9aca59c8b300518c754cce813910016c4cf",
+        "receipt_id": "main-feed-6cf9a2c62bcd6647ff7713dabcf12f6bd64072cac766511e692b8432938f9f03"
+      }
+    },
+    "unchanged_artifact_bundles_reused": 0,
+    "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+    "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+    "public_write_performed": false
+  },
+  "replay": {
+    "schema_version": "contentops.main_report_feed.v1",
+    "producer_commit": "effe788bb2ab92781ff71e38498cff7a24adf567",
+    "observed_at_utc": "2026-10-20T23:13:17.595644Z",
+    "configured_bundle_count": 15,
+    "new_events": 0,
+    "events": [
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 1,
+        "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 1,
+        "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 2,
+        "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 2,
+        "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 3,
+        "receipt_id": "main-feed-a6738b5ae4435eda50396e6634c371bf1a6483903bc0838e6353ea8e173f6e2f",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 3,
+        "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 3,
+        "receipt_id": "main-feed-ba8d63f3aca0217663307742f41a00ff7eb865fc3294c268cbcf0af56f71d836",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:UKOIL",
+        "report_version": 4,
+        "receipt_id": "main-feed-3b7a3024db4612aee04ac969b1a258759951e1e1b237ac8f93fea88c385efc95",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 4,
+        "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 4,
+        "receipt_id": "main-feed-d3841cf13a68387a891749f7db17410329f79651d03fd4871359e634a48b14e2",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 5,
+        "receipt_id": "main-feed-45065410d7ff1379f85699a0daf59eab026e6652bc21247108dda9fe4c12f8ca",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:XNGUSD",
+        "report_version": 5,
+        "receipt_id": "main-feed-f4e3a0ee0d4a0afa3c94cb2c862fc4a022fa4d15562174e0c3cd34578e9e3453",
+        "state": "DUPLICATE_NOOP"
+      },
+      {
+        "report_id": "asset-report:USOIL",
+        "report_version": 6,
+        "receipt_id": "main-feed-6cf9a2c62bcd6647ff7713dabcf12f6bd64072cac766511e692b8432938f9f03",
+        "state": "DUPLICATE_NOOP"
+      }
+    ],
+    "gaps": [],
+    "artifact_cache": {
+      "336cdaddffcabaa9a0f3cf77f9b22945093745181fdeca824492286c55ee9c94": {
+        "fingerprint": "bf8a25599685493c931bd8e94b8b107f12177f41088ad8d2e1716c2b0987f909",
+        "receipt_id": "main-feed-27276b7ff5b51a23cfad75f2b1c9be25abe5a6d890bb3a8e781be6fcfb9b68fd"
+      },
+      "924ab832fc3e40f5a632d64df4327dee9350eb930b80cabfd51e8de9bd33ef1c": {
+        "fingerprint": "2163343467ec7d43fe58e7cca2c628d2ad9c790dcfabccee8f2f973bbf23ef72",
+        "receipt_id": "main-feed-58fa5a778eb6e9075fe042a650bf51c158d9f8b9f5964ee2bf27ad5c4794e2ba"
+      },
+      "dbea3eb11aa4751deb58a2542be93bb450708e54cf61d339964d2e9e759b2c1c": {
+        "fingerprint": "9c6bdd213e52a941ad9209730e46212e5a288d292b5f5917b007e4e53a2e58d6",
+        "receipt_id": "main-feed-0127e7c3e7302676b10a0226ae4fe75aebba299602086a40599e571e71933c72"
+      },
+      "502a49a99faef1ef30dce43f3c50c8a7235c31b2da1d63d56325b5e306cdf3d4": {
+        "fingerprint": "6d8395cf8aa765ac776a7cc8f62034050c55c6e0043c4643cb83a3c28d18fed9",
+        "receipt_id": "main-feed-26594b4368f08e984b88185e1bebf065d2a2ba06b5179cf420101f2921a1c0c7"
+      },
+      "644b81751cb6d535edcc09caa5befff61d4dd6044cddf024db6b61b2b3e4a203": {
+        "fingerprint": "2dcc0c4d58482cf3dfe18583772e09eb2ffe50d026acfa56b5212742559fd222",
+        "receipt_id": "main-feed-f8743c99beb620348fd56378095eee942a897465b0101c4ad67fabf6babb8eed"
+      },
+      "385ebd7da0c1dab46279dc626d75384f671573c359dd983ef1f4dd6382f6e9f3": {
+        "fingerprint": "4a436173f7793f63035c8a6f9db695918f5afced6de1fd90f4f2f22f11fa74ae",
+        "receipt_id": "main-feed-6f5f7ef8a4c3920b094eeadcc49de75c7a8af835568b0401588641a83b2faf23"
+      },
+      "05f46f28602c7ee17466073287ef10abf8267d4f3768740b502df7220e38e4a8": {
+        "fingerprint": "a62cb75b17833f023e230462e83aecc5639201dac6bbf5efe5faaf04db3a81ff",
+        "receipt_id": "main-feed-e30b9b1401fd4b619c1742ab0346b214f81d3f0c9da6dd1be3a35c041613e35d"
+      },
+      "d758e702fa271fc82f5e2f1e59d47437a69159c279679faf151b7c2dec658130": {
+        "fingerprint": "909a8f2dbdb9d656911ff5ae419cda439e23f89210332805909a36b7bce0fa27",
+        "receipt_id": "main-feed-5e53ef7199acd2728325121a542b97161e72d6cfbbc6f48c4445b55dc6b2d83b"
+      },
+      "1da2395d6f420ee7f549744e5587ba269fd1b4a8f42cc72b77cbd34a703ceb22": {
+        "fingerprint": "fa78c4686214a29acf86dd8a287e7dfcb9ff51d60ab34370eafccb65a38235e6",
+        "receipt_id": "main-feed-ba8d63f3aca0217663307742f41a00ff7eb865fc3294c268cbcf0af56f71d836"
+      },
+      "b17738518b4cf4049d79321255d87a92ead88baaa44aa6b16a2e8ed70a57cfd3": {
+        "fingerprint": "c01f4d06156e361a9d7e1ca372900b5954144cd433b1c87b39897848271fa0cc",
+        "receipt_id": "main-feed-a6738b5ae4435eda50396e6634c371bf1a6483903bc0838e6353ea8e173f6e2f"
+      },
+      "0e86bf3f1ae8a3f2767621a94771f56418f6d0a0e5f3ef29beef91df18d9d1d5": {
+        "fingerprint": "ee57dd690a7d5d3e87a5b26d14e75f7d113255d9570a04f3718d3bbde41b77d3",
+        "receipt_id": "main-feed-45065410d7ff1379f85699a0daf59eab026e6652bc21247108dda9fe4c12f8ca"
+      },
+      "d9b8311094abbd75f56ed5fa4f2dc5efdcaa76efb608da884ae8c4530b34dc3a": {
+        "fingerprint": "12a206e15afb28f4e1548c5358c78238298d5b86e305d9c8e5f08c414ab418e8",
+        "receipt_id": "main-feed-d3841cf13a68387a891749f7db17410329f79651d03fd4871359e634a48b14e2"
+      },
+      "22176f53a8d771f9b953cfb50c771e32ecd21396ed0f38480c0ff3984c61777b": {
+        "fingerprint": "88e21ba517ed838cf25e9a5c1f7c0e7d86b38bfc10c312efc78ad238567992ec",
+        "receipt_id": "main-feed-3b7a3024db4612aee04ac969b1a258759951e1e1b237ac8f93fea88c385efc95"
+      },
+      "a17203bc97d3d11fdd9198074422e9ab0fddca40f15fb6076c0e80bc4f9b99a4": {
+        "fingerprint": "1940641a3496bad50b12778e6229d9aca59c8b300518c754cce813910016c4cf",
+        "receipt_id": "main-feed-6cf9a2c62bcd6647ff7713dabcf12f6bd64072cac766511e692b8432938f9f03"
+      },
+      "cd93481274a81708d304a5ecd8a728cece186aa726c6df321f1edc29f4c86c0f": {
+        "fingerprint": "c45eeca47497387f0e06d5bff5a618def02b80e3714b07fd2b7d83842d76749d",
+        "receipt_id": "main-feed-f4e3a0ee0d4a0afa3c94cb2c862fc4a022fa4d15562174e0c3cd34578e9e3453"
+      }
+    },
+    "unchanged_artifact_bundles_reused": 15,
+    "coverage": "MAIN_PUBLIC_FILE_OUTBOX",
+    "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+    "export_root_id": "capital-chronicle-public-analysis-reports-v1",
+    "public_write_performed": false
+  },
+  "latest_admissions": [
+    {
+      "affected_drafts": [
+        {
+          "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+          "preview_ids": [
+            "cc-preview-466d03ea2329680b2caec9a2f3bc4a342a64691d902cef7948f3d94c946fc377",
+            "cc-preview-c761fdfb6f39ea12fff2dec88027fcc346e2ee8be417f1b2f54e943a84db90ef",
+            "cc-preview-3a53c30956e8b03c2f18ea540acfc80adc528e9e228f88caf20884a953a6afaa",
+            "cc-preview-3da51262f240719fd85da7d6756a4da398031a962b9337825eda6bf341b983f8",
+            "cc-preview-0875001a94e1ca66fe677b1e8caf3b4bf546c5c45f923ac1a33929830f4b4b11",
+            "cc-preview-70e9617e264c690eac58d6da06e99f422385465fe11e8cfc91267c1e147c3e01",
+            "cc-preview-b08212caa8392409be1ba5e8ab35971acd166a60dca7cd47997b24c50b0b1004",
+            "cc-preview-599403dbdb6683c2885ebfbf36019ce7ffd2fbe9752cc2e94ec32a5516123eb5"
+          ]
+        }
+      ],
+      "affected_prior_inputs": [
+        "cc-receipt-271e716f360befdf6f19d160894048569b65ee34bb2b4b3a49c9c91b7eee4ccd",
+        "cc-receipt-3d251602e1f8679bd1e8e3ea336f2bb9d9cf7ac3cd62db600bfe4c09bcba5795",
+        "cc-receipt-1ba07ca2c5187f3c03e2ae945afb4fd570ffa834939ee97ec1db5b47128634f4",
+        "cc-receipt-c18bbe749ad81e56cf326458a5ac6bb522ac0ea3fa33c3fe48ec10d533f3ded5"
+      ],
+      "affected_symbols": [
+        "XNGUSD"
+      ],
+      "asset_ids": [
+        "XNGUSD"
+      ],
+      "blockers": [],
+      "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+      "change_kind": "CORRECTION",
+      "changed_claim_ids": [
+        "xngusd-deep-alternative-0",
+        "xngusd-deep-contradictions-0",
+        "xngusd-deep-cross_asset-0",
+        "xngusd-deep-hold_conditions-0",
+        "xngusd-deep-known-0",
+        "xngusd-deep-long-base_case",
+        "xngusd-deep-long-downside_scenario",
+        "xngusd-deep-long-invalidation",
+        "xngusd-deep-long-upside_scenario",
+        "xngusd-deep-mechanism-0",
+        "xngusd-deep-missing-0",
+        "xngusd-deep-principle-0",
+        "xngusd-deep-review-0",
+        "xngusd-deep-short-base_case",
+        "xngusd-deep-short-downside_scenario",
+        "xngusd-deep-short-invalidation",
+        "xngusd-deep-short-upside_scenario",
+        "xngusd-deep-stop_holding_conditions-0",
+        "xngusd-deep-swing-base_case",
+        "xngusd-deep-swing-downside_scenario",
+        "xngusd-deep-swing-invalidation",
+        "xngusd-deep-swing-upside_scenario",
+        "xngusd-deep-timing_priced_in-0",
+        "xngusd-source"
+      ],
+      "claim_set_hash": "c0adc46d39fbddd61d507b20b1ecf3ee0a304e66d50f51031efc1ea984d9d732",
+      "claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "065607e3ad473f787b751fb1073dca726f475d4a2d7afff733f12e417d0d9cd4",
+          "claim_id": "xngusd-source",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "OBSERVED_FACT",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "The retained original EIA storage release records a 67 Bcf weekly injection, versus the 90 Bcf five-year same-week injection average. Stocks were 3567 Bcf, 45 Bcf above the five-year stock average and 143 Bcf below the prior-year level."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "0a794d256ec647d9239712938c9504675972186616dad4b5e670768a794ec050",
+          "claim_id": "xngusd-deep-known-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Bản EIA khí được lưu công bố ngày 15/10/2026 cho tuần quan sát 09/10/2026: bơm ròng vào kho 67 Bcf, bình quân cùng tuần 5 năm là 90 Bcf, cùng tuần năm trước là 80 Bcf. Lượng tồn 3567 Bcf, cao hơn bình quân tồn 5 năm 45 Bcf nhưng thấp hơn năm trước 143 Bcf. Nguồn đã tính khoảng chênh bơm so mùa vụ -23 Bcf. Bcf là đơn vị thể tích khí, không phải thùng dầu, giá khí hay đơn vị định giá năng lượng."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "96433375272c632dc33a4a3e88619edbbea90175ff4d3bbe216eb173f3cdc6ce",
+          "claim_id": "xngusd-deep-mechanism-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Bơm vào kho thấp hơn mức mùa vụ cho thấy tốc độ tích thêm đệm thấp hơn chuẩn đó nếu cùng định nghĩa/kỳ. Nó mở câu hỏi liệu quá trình bổ sung đệm có đang chặt dần một cách bền hay không. Nhưng 67 Bcf vẫn là bơm thêm: kho tăng trong tuần, không phải rút khí; mức tồn vẫn trên bình quân 5 năm. Cả hai điều cùng đúng mà chưa cho hướng giá."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "6a7a0b38b719ffad215b1b1a789c88effb1133294d76e7c538df7bc82e8a2e9d",
+          "claim_id": "xngusd-deep-alternative-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Thời tiết làm đổi tiêu thụ, sản lượng/nhập khẩu, LNG hoặc xuất đường ống, bảo dưỡng và cơ cấu khu vực có thể làm lượng bơm nhỏ. Bình quân lịch sử không phải kỳ vọng thị trường ngay trước tin. Thiếu các dòng này nên chưa gán bơm thấp cho cầu mạnh, đứt cung hay một bất ngờ được định lượng."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "bd045697bd00b1a8af848fd9c2428bb1e60adca7be574f4411550bf70f0a1755",
+          "claim_id": "xngusd-deep-contradictions-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Cao hơn bình quân 5 năm nhưng thấp hơn năm trước là so với hai mẫu khác nhau, không phải nguồn mâu thuẫn. Bơm chậm hơn và tồn còn dư theo mùa vụ cũng có thể cùng tồn tại. Riêng các chuẩn này chưa đo phần trăm công suất kho, số ngày đủ dùng hay mức đủ khí mùa đông vì thiếu công suất, cầu và phân bố khu vực. Bối cảnh ContentOps tháng 1 là thời kỳ khác, không được ghép thành lượng tồn tháng 10 mới."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "50d89639c5d5e7351f2e6ccdf6d2535fc1640d908209df623ca78dd39ce9c088",
+          "claim_id": "xngusd-deep-timing_priced_in-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Phải tách tuần quan sát 09/10/2026, ngày công bố 15/10/2026 và lúc lấy/biết 18/10/2026 lúc 13:03:41 UTC. Chưa có giờ công bố chính xác, kỳ vọng đóng băng trước tin hoặc bản công bố đầu để kiểm phản ứng. Nhãn bản mới nhất trong kho lưu không chứng minh mới nhất hôm nay. Không có panel giá XNGUSD hay đường cong khí để nói đã phản ánh vào giá."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "6bff2527750b30c81212884e354249b367ae7edb42c37b8a8a3bd47eeaca6266",
+          "claim_id": "xngusd-deep-cross_asset-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Thời tiết, cầu vùng, LNG và thay thế nhiên liệu có thể là đường truyền, nhưng cần công suất/dòng/nền giá thực. Rút kho dầu triệu thùng không xác nhận độc lập khí chặt theo Bcf. Danh mục chỉ ghi XNGUSD là Natural Gas vs US Dollar, tài sản cơ sở và niêm yết trống; chưa được giả định Henry Hub, tháng hợp đồng, quy đổi Bcf sang MMBtu hoặc đơn vị giá broker."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "b867c263443f9a23100272149c837930ad1ba1bdde5f6ae1e5562200c6dff118",
+          "claim_id": "xngusd-deep-hold_conditions-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Giữ câu hỏi về tính lặp lại của bổ sung kho khi còn truy nguồn đúng kỳ và có thể bổ sung thời tiết, sản lượng, thương mại và vùng. Chuẩn mùa vụ chưa tạo quyết định giữ vị thế hay WATCH hành động; tham chiếu, đường cong và chi phí phải được kiểm riêng."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "7c907537976c59f4a59e1c4ee5b9869dae237e8f6a84fddae2f2703b17c40499",
+          "claim_id": "xngusd-deep-stop_holding_conditions-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Rút nhận định bổ sung đệm chặt bền nếu các kỳ sau trở về bình thường, thời tiết/bảo dưỡng giải thích tính tạm thời hoặc sửa nguồn làm mất chênh. Giá thiếu không làm quan sát vật chất vô giá trị, nhưng ngăn dịch thành hướng/bất ngờ thị trường. Đến kỳ vẫn thiếu cập nhật thì ghi cũ, không mặc định chặt tiếp."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "7bc8554fef74f0687c111ce01afa3dae79ca433c0af8c34070d2315ddbcf8d65",
+          "claim_id": "xngusd-deep-review-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Cần bản EIA kế tiếp có ngày và sửa đổi; định nghĩa kho/bơm theo vùng; tiêu thụ điều chỉnh theo thời tiết; sản lượng, nhập, LNG và xuất đường ống; đường cong, đồng thuận trước tin và điều khoản tham chiếu/chuyển kỳ/tài trợ của XNGUSD. Hai ghi chú tháng 1 về mức tồn và di chuyển series chỉ giúp tìm đúng lịch sử/địa chỉ nguồn; không tạo số hiện tại hoặc xác nhận độc lập."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "bec9bca445ef3579decfdceacc816f7354d6f8371d7269d51c8fbbbea3018455",
+          "claim_id": "xngusd-deep-missing-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Thiếu giá/đường cong khí chính xác hiện tại, đồng bộ giờ–kỳ vọng, dòng thời tiết/sản xuất/LNG, công suất và hỗn hợp kho theo vùng, đơn vị năng lượng/tham chiếu hợp đồng và phí chuyển kỳ. Không tự quy đổi đơn vị, tính độ đầy kho, xác suất hay mục tiêu khi chưa có toán hạng."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "3c183a22db9c5cbc59cb829f0073ed7618695b3b943195129a11d40e72f90c98",
+          "claim_id": "xngusd-deep-principle-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Ràng buộc kho–dòng chỉ tách lượng bơm và lượng tồn, không xác định cầu hoặc cú sốc giá. Bơm chậm hơn mùa vụ có thể đối nghịch với tồn còn trên chuẩn và hiệu ứng thời tiết/cung tạm thời. Cần dòng, thời tiết và đường cong có quản trị để phân biệt. Readback COMMODITIES là NOT_RELEVANT_THIS_CYCLE; bộ nạp còn OUTCOME_RESOLVER_ARTIFACT_HASH_MISMATCH, chưa có điểm/quyền áp dụng. 63 phiên không thay một mùa đông cố định hoặc quý."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "3aa6f2ddc6b264be88218379540a5ff1cb4c98ab0c73882a189985533dfccc71",
+          "claim_id": "xngusd-deep-long-base_case",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Trong 63 phiên, xem đường đi tồn kho trước thời tiết, cung/xuất và nhu cầu vùng qua quan sát thật. Đây không phải một quý hoặc đại diện cố định cho mùa đông."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "878ed3323c247598f0b61a766cf2ce14bf24682ac9dd121f3c6b551dc63efd64",
+          "claim_id": "xngusd-deep-long-upside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Chuỗi kho/dòng cùng nghĩa hỗ trợ đệm chặt hơn tương đối với nhu cầu đã có chứng cứ; kinh tế giữ tài sản vẫn cần đường cong/chi phí."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "e5665c57595c58c4281f2d65c2726a8d017f993c51f4f5cb9a7e104bdefa56bf",
+          "claim_id": "xngusd-deep-long-downside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Cung thích nghi, thời tiết ôn hơn hoặc hạn chế xuất giúp tái tạo đệm; chi phí hợp đồng có thể riêng rẽ bù hỗ trợ vật chất."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "6bbff58cfdf34891f14859772a7a8635792a1d26016f9e1dffbad6e77ad4c043",
+          "claim_id": "xngusd-deep-long-invalidation",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Rút chặt kéo dài khi đường kho/dòng sau đó ngược lại; thiếu cầu/công suất vẫn ngăn đánh giá đủ khí hoặc lợi nhuận nắm giữ."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "cfa33caff1da4f7766bd2a7c6b0a4e6d0e96f596f790d9efbdcc8cf8d34687af",
+          "claim_id": "xngusd-deep-short-base_case",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Trong 5 phiên, xác định bản kho mới thật và ngữ cảnh ngày/giờ/kỳ vọng nếu có; số tháng 10 đã lưu vẫn giữ tuổi dữ liệu riêng."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "4ff2318118482b19d3110b05678aa8bea01060241eba1488d3bc2a489c2d72af",
+          "claim_id": "xngusd-deep-short-upside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Một công bố đúng kỳ và kỳ vọng có trước cho thấy bơm thấp hơn kỳ vọng, với nền vùng/hợp đồng hợp lệ để nghiên cứu tiếp."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "c0cc5206c87eef7b02bf2e3339f0f56eb2ebda60d093a4238f5f79fad13f121d",
+          "claim_id": "xngusd-deep-short-downside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Thời tiết hoặc bảo dưỡng giải thích bơm thấp tạm thời, hoặc báo cáo kế tiếp bình thường lại."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "5c3483be24e9ff49557324e90cc006b9f238a4b518aa736860f01c59ed6977b9",
+          "claim_id": "xngusd-deep-short-invalidation",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Bác bất ngờ mới nếu lấy bình quân 90 Bcf thay đồng thuận hoặc đổi bối cảnh tháng 1 thành tin hiện tại."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "f9d7ad8a6a038700e6007042437d515f22950bbd5cbe036813aab2f294a12f2f",
+          "claim_id": "xngusd-deep-swing-base_case",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Trong 21 phiên, so chuỗi bơm cùng định nghĩa cùng các dòng thời tiết, sản xuất và LNG, thay vì chỉ lặp một khoảng chênh mùa vụ."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "c760c50ea4c351f68f93cb9cf4e4a76926918b2500235b50ce85b7a6c3788292",
+          "claim_id": "xngusd-deep-swing-upside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Nhiều quan sát đã điều chỉnh đúng thời tiết hỗ trợ tích đệm chậm hơn ngoài biến động dòng ngắn."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "bed950de5e15de861a80f3fa984c0b4b42d604e1d5c980ae1791c0ffecf8c783",
+          "claim_id": "xngusd-deep-swing-downside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Lượng bơm bắt kịp, nguồn cung/nhập bình thường lại hoặc tiêu thụ giảm, trong khi tồn vẫn dư so mùa vụ."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "61a4eb5984ccd689bad28b8378065e4cbb86e3ff6a66a83f825a87359cabef48",
+          "claim_id": "xngusd-deep-swing-invalidation",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "goal17-eia-storage-actual-20261018",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T13:03:41Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "71cf53a771e5d831cf30cc6e5ca4ad2c2f054eba61682db11adeca7b8a0e7176",
+              "retrieval_time_utc": "2026-10-18T13:03:41Z",
+              "rights_evidence_sha256": "79fc8ce6c9d98a827da05b866e15e778b17833f137e24030c9b24910044095b9",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "e8adad549ee60106f3ab22295dc29a13f28da503cf5600057191a8d6b2ce8077",
+              "source_identity": "U.S. EIA Form EIA-912 / Weekly Natural Gas Storage Report Supplement",
+              "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Sửa tính bền khi dòng cùng nghĩa ủng hộ đối án tạm thời; thiếu panel giá không thể thành xác nhận giá."
+        }
+      ],
+      "contract_revision": "asset-analysis-report-v1.1.0",
+      "contract_version": "1.1.0",
+      "envelope_sha256": "74c55de58a3b6e5cd9c211c77e1084b7d6fb1ddd88a4317f86c89f83347f458f",
+      "event_id": "report-event:2df8b9fd4a638c4f9862f7e96b401e6199306b9e4205cb1f8c463b54036f6977",
+      "hold_and_invalidation_conditions": [
+        "Giữ câu hỏi về tính lặp lại của bổ sung kho khi còn truy nguồn đúng kỳ và có thể bổ sung thời tiết, sản lượng, thương mại và vùng. Chuẩn mùa vụ chưa tạo quyết định giữ vị thế hay WATCH hành động; tham chiếu, đường cong và chi phí phải được kiểm riêng.",
+        "Rút nhận định bổ sung đệm chặt bền nếu các kỳ sau trở về bình thường, thời tiết/bảo dưỡng giải thích tính tạm thời hoặc sửa nguồn làm mất chênh. Giá thiếu không làm quan sát vật chất vô giá trị, nhưng ngăn dịch thành hướng/bất ngờ thị trường. Đến kỳ vẫn thiếu cập nhật thì ghi cũ, không mặc định chặt tiếp."
+      ],
+      "horizon_blocks": [
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-10-27T15:27:29.653737Z",
+          "horizon": "short",
+          "outlook": "Trong 5 phiên, xác định bản kho mới thật và ngữ cảnh ngày/giờ/kỳ vọng nếu có; số tháng 10 đã lưu vẫn giữ tuổi dữ liệu riêng.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-20T15:27:29.653737Z",
+          "trading_sessions": 5
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-11-18T15:27:29.653737Z",
+          "horizon": "swing",
+          "outlook": "Trong 21 phiên, so chuỗi bơm cùng định nghĩa cùng các dòng thời tiết, sản xuất và LNG, thay vì chỉ lặp một khoảng chênh mùa vụ.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-20T15:27:29.653737Z",
+          "trading_sessions": 21
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2027-01-15T15:27:29.653737Z",
+          "horizon": "long",
+          "outlook": "Trong 63 phiên, xem đường đi tồn kho trước thời tiết, cung/xuất và nhu cầu vùng qua quan sát thật. Đây không phải một quý hoặc đại diện cố định cho mùa đông.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-20T15:27:29.653737Z",
+          "trading_sessions": 63
+        }
+      ],
+      "known_at_cutoff_utc": "2026-10-20T15:27:29.653737Z",
+      "limitations": [
+        "CC analysis is not external confirmation or an order.",
+        "No private holdings/account context is included.",
+        "Exact execution economics are unavailable."
+      ],
+      "lineage_only": false,
+      "machine_schema_verified": true,
+      "materiality_rationale": "Producer ASCII wire seal correction; unchanged dated native research and zero new economic observations.",
+      "missing_claims": [],
+      "native_public_lineage": {
+        "canonical_model_source_eligible": false,
+        "consumer_exact_public_bindings_verified": true,
+        "independent_native_runtime_verified": false,
+        "permitted_excerpt_count": 23,
+        "private_worker_artifacts_read": false,
+        "producer_attestation": {
+          "accepted_native_result_sha256": "656b6ca413626e0bafc9e0d5a32f9482cd80fd1d485848b36bd34bd9ea53fb66",
+          "asset_id": "XNGUSD",
+          "canonical_model_source_eligible": false,
+          "critical_review": {
+            "individual_review_sha256": "6a4cee24508f976c74f8284dbf5187d6665374242cc942ed6d1fcf3f80e3f2b3",
+            "state": "WITHHELD_NO_COMPLETE_PUBLIC_INPUT_JOIN"
+          },
+          "excerpts": [
+            {
+              "asset_analysis_path": [
+                "known",
+                0
+              ],
+              "claim_hash": "0a794d256ec647d9239712938c9504675972186616dad4b5e670768a794ec050",
+              "claim_id": "xngusd-deep-known-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "702ae122645b64ca6c603170540b433cf4edabdf9e5d89e2a3c20e8ef6b21b9c"
+            },
+            {
+              "asset_analysis_path": [
+                "mechanism",
+                0
+              ],
+              "claim_hash": "96433375272c632dc33a4a3e88619edbbea90175ff4d3bbe216eb173f3cdc6ce",
+              "claim_id": "xngusd-deep-mechanism-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "832c9727e1520c44618fe8f6590c5a18e5efeef4e55b0f8492e53384710a29e2"
+            },
+            {
+              "asset_analysis_path": [
+                "alternative",
+                0
+              ],
+              "claim_hash": "6a7a0b38b719ffad215b1b1a789c88effb1133294d76e7c538df7bc82e8a2e9d",
+              "claim_id": "xngusd-deep-alternative-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "cf9524352a6dd1d98d738625afdfd47da6935e497626720a47bd881fa25fa2a9"
+            },
+            {
+              "asset_analysis_path": [
+                "contradictions",
+                0
+              ],
+              "claim_hash": "bd045697bd00b1a8af848fd9c2428bb1e60adca7be574f4411550bf70f0a1755",
+              "claim_id": "xngusd-deep-contradictions-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "8019a6b63c75ef356d3454cbcecc9f47707038aed18c6442cdcbcbc78208da43"
+            },
+            {
+              "asset_analysis_path": [
+                "timing_priced_in",
+                0
+              ],
+              "claim_hash": "50d89639c5d5e7351f2e6ccdf6d2535fc1640d908209df623ca78dd39ce9c088",
+              "claim_id": "xngusd-deep-timing_priced_in-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "c75b7abf773f04b18a0746310ab034ce7790380599b079e2dad4a899cf4b0c43"
+            },
+            {
+              "asset_analysis_path": [
+                "cross_asset",
+                0
+              ],
+              "claim_hash": "6bff2527750b30c81212884e354249b367ae7edb42c37b8a8a3bd47eeaca6266",
+              "claim_id": "xngusd-deep-cross_asset-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "48c545cadb8a55cf568a9ba9d309aa63d2615e3f360b0c0e669d5371e3ba1561"
+            },
+            {
+              "asset_analysis_path": [
+                "hold_conditions",
+                0
+              ],
+              "claim_hash": "b867c263443f9a23100272149c837930ad1ba1bdde5f6ae1e5562200c6dff118",
+              "claim_id": "xngusd-deep-hold_conditions-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "cc01aa186239accef93ffbe0654796cda6073379990864a6cf1ac78800996c65"
+            },
+            {
+              "asset_analysis_path": [
+                "stop_holding_conditions",
+                0
+              ],
+              "claim_hash": "7c907537976c59f4a59e1c4ee5b9869dae237e8f6a84fddae2f2703b17c40499",
+              "claim_id": "xngusd-deep-stop_holding_conditions-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "3258f1bcf7c9bd53852a4017d3deeb91722285ce837853de8f5354ec1513437e"
+            },
+            {
+              "asset_analysis_path": [
+                "review",
+                0
+              ],
+              "claim_hash": "7bc8554fef74f0687c111ce01afa3dae79ca433c0af8c34070d2315ddbcf8d65",
+              "claim_id": "xngusd-deep-review-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "f6dd2c5093cabaa789a0e7694974e76d17046359ce22134541e762d2dbe28d99"
+            },
+            {
+              "asset_analysis_path": [
+                "missing",
+                0
+              ],
+              "claim_hash": "bec9bca445ef3579decfdceacc816f7354d6f8371d7269d51c8fbbbea3018455",
+              "claim_id": "xngusd-deep-missing-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "1ac13f4b66c2dff2b4462f39ab418670173a667915395be35c3820df1d33655e"
+            },
+            {
+              "asset_analysis_path": [
+                "principle",
+                0
+              ],
+              "claim_hash": "3c183a22db9c5cbc59cb829f0073ed7618695b3b943195129a11d40e72f90c98",
+              "claim_id": "xngusd-deep-principle-0",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "fd9bd880911ec34ec4eef4686d8664003ca799bb3c1d4a7c570ea30aaa047b30"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "long",
+                "base_case"
+              ],
+              "claim_hash": "3aa6f2ddc6b264be88218379540a5ff1cb4c98ab0c73882a189985533dfccc71",
+              "claim_id": "xngusd-deep-long-base_case",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "9c227aaf72f1ddc01a7d70f89e52a664eeff95e1e691f376687db78429ccc3c3"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "long",
+                "upside_scenario"
+              ],
+              "claim_hash": "878ed3323c247598f0b61a766cf2ce14bf24682ac9dd121f3c6b551dc63efd64",
+              "claim_id": "xngusd-deep-long-upside_scenario",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "c8a2d1e3fc3b823fb65c543493060c2a07ccacd1779b6dba75dd6d878a6a3f4e"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "long",
+                "downside_scenario"
+              ],
+              "claim_hash": "e5665c57595c58c4281f2d65c2726a8d017f993c51f4f5cb9a7e104bdefa56bf",
+              "claim_id": "xngusd-deep-long-downside_scenario",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "e5fa5ef5669338e57c22984d46fef3bda29fa8f2f30d379d67b058ff79672107"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "long",
+                "invalidation"
+              ],
+              "claim_hash": "6bbff58cfdf34891f14859772a7a8635792a1d26016f9e1dffbad6e77ad4c043",
+              "claim_id": "xngusd-deep-long-invalidation",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "7003e398d2c09f4f2ab423e07b0001bdb52b56382d97236d25cc41d995dd760f"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "short",
+                "base_case"
+              ],
+              "claim_hash": "cfa33caff1da4f7766bd2a7c6b0a4e6d0e96f596f790d9efbdcc8cf8d34687af",
+              "claim_id": "xngusd-deep-short-base_case",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "70206f62b20aa47b3d131802dc666b592d97e3a390d0057c969e28a02e004348"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "short",
+                "upside_scenario"
+              ],
+              "claim_hash": "4ff2318118482b19d3110b05678aa8bea01060241eba1488d3bc2a489c2d72af",
+              "claim_id": "xngusd-deep-short-upside_scenario",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "d745eaf0310e86c02924e5ce2b89005729232b1ce64187b886db8a43276cde9f"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "short",
+                "downside_scenario"
+              ],
+              "claim_hash": "c0cc5206c87eef7b02bf2e3339f0f56eb2ebda60d093a4238f5f79fad13f121d",
+              "claim_id": "xngusd-deep-short-downside_scenario",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "63edc5ff77fdef71f1f1f851b3bad1701010824658896b8458b6918287dc2161"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "short",
+                "invalidation"
+              ],
+              "claim_hash": "5c3483be24e9ff49557324e90cc006b9f238a4b518aa736860f01c59ed6977b9",
+              "claim_id": "xngusd-deep-short-invalidation",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "3c01787d21af790f93a2ac0aa25720718a77d2df2eca72ba80ba2401e0fd3180"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "swing",
+                "base_case"
+              ],
+              "claim_hash": "f9d7ad8a6a038700e6007042437d515f22950bbd5cbe036813aab2f294a12f2f",
+              "claim_id": "xngusd-deep-swing-base_case",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "1dca19c052a6b7194951cb5526843eabc9709979f39cd0a7a907096b043b4a18"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "swing",
+                "upside_scenario"
+              ],
+              "claim_hash": "c760c50ea4c351f68f93cb9cf4e4a76926918b2500235b50ce85b7a6c3788292",
+              "claim_id": "xngusd-deep-swing-upside_scenario",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "779551f3af8f238cdd32d95697999b2439881cbbed04d5da5da1499e60b71104"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "swing",
+                "downside_scenario"
+              ],
+              "claim_hash": "bed950de5e15de861a80f3fa984c0b4b42d604e1d5c980ae1791c0ffecf8c783",
+              "claim_id": "xngusd-deep-swing-downside_scenario",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "aee93023ceb8a774e4a38c2b8aeb9a33b7cb473093994a09434c6e9f3d71bf81"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "swing",
+                "invalidation"
+              ],
+              "claim_hash": "61a4eb5984ccd689bad28b8378065e4cbb86e3ff6a66a83f825a87359cabef48",
+              "claim_id": "xngusd-deep-swing-invalidation",
+              "evidence_refs": [
+                "goal17-eia-storage-actual-20261018"
+              ],
+              "text_sha256": "60fe0aaf8c088bd330dbb7d286f18b264a9027e1fd1817dcd92995cffd334c96"
+            }
+          ],
+          "execution_readiness": "BLOCKED",
+          "individual_asset_analysis_sha256": "936a0220b641e1b74030b1e6d17378709b3f62e7dc2778dee8ec92189fef709f",
+          "lineage_sha256": "e0364c31e7415529950d593898bfb91c3468ca997773fc0d9ee9827943033004",
+          "model": "gpt-6.1-sol",
+          "new_independent_observations": 0,
+          "reasoning_effort": "max",
+          "report_id": "asset-report:XNGUSD",
+          "report_sha256": "78290cc6023e495b249f786ffecb538ae299ca57d660ca860050f7b598488a4e",
+          "report_version": 5,
+          "research_eligibility": "PERMITTED_CLAIMS_ONLY",
+          "role_proof_sha256": {
+            "critical": "455637ce388d2f3bf75b5c8ca25caafcff10cf0f61136ced8d65bae0b53afb86",
+            "primary": "50fa160196c829438f5ccd421f78063901151c4cc2ab9af9cc21546161ce6c00",
+            "synthesis": "b1083e1b2a7f10d39d145052380332da93db615bf6fa56ac66eb0f8b74e0cf43"
+          },
+          "schema": "CapitalChroniclePublicNativeAssetLineageV1",
+          "state": "VERIFIED_ACCEPTED_NATIVE_EXCERPTS"
+        },
+        "publication_authority": false,
+        "state": "PRODUCER_ATTESTED_NATIVE_PUBLIC_EXCERPTS"
+      },
+      "parent_report_id": "asset-report:XNGUSD",
+      "parent_report_sha256": "eae4aa5b6a6b883abc540d7abdda4282bc1647d13a84a0629678407fcb2f8f10",
+      "producer_binding": {
+        "contract_revision": "asset-analysis-report-v1.1.0",
+        "envelope_schema_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+        "files": {
+          "report.json": {
+            "path": "outbox/0bac3f08c14878cb8becd47683ade318312220fefbd703d930b0c4b158704c43/public-report.json",
+            "sha256": "4f27341d55ecd04f17ddee5f56d1cb466609844ae904963e73adec707028a8e8"
+          }
+        },
+        "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+        "producer_commit": "effe788bb2ab92781ff71e38498cff7a24adf567",
+        "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+        "producer_revision": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+        "public_export_manifest_verified": true,
+        "public_lineage_only": false,
+        "public_report_locator": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:4f27341d55ecd04f17ddee5f56d1cb466609844ae904963e73adec707028a8e8",
+        "public_report_raw_sha256": "4f27341d55ecd04f17ddee5f56d1cb466609844ae904963e73adec707028a8e8"
+      },
+      "public_write_performed": false,
+      "raw_sha256": "dce562c6ed864fb8d2807e76811acc31ab83e96fa06740fe9d374bf0ca4b3c17",
+      "receipt_id": "main-feed-f4e3a0ee0d4a0afa3c94cb2c862fc4a022fa4d15562174e0c3cd34578e9e3453",
+      "report_id": "asset-report:XNGUSD",
+      "report_raw_sha256": [
+        "4f27341d55ecd04f17ddee5f56d1cb466609844ae904963e73adec707028a8e8"
+      ],
+      "report_version": 5,
+      "research_gaps": [],
+      "schema_diagnostics": [],
+      "schema_version": "contentops.capital_chronicle_latest_report_consumer.v1",
+      "source_report_sha256": "78290cc6023e495b249f786ffecb538ae299ca57d660ca860050f7b598488a4e",
+      "status": "ADMITTED",
+      "validated_at_utc": "2026-10-20T23:14:20.964803Z",
+      "withdrawal_only": false,
+      "writer_invoked": false,
+      "delivery_status": "REPORT_PENDING",
+      "message_id": "cc-receipt-6157ee50cf91ecbc7a165afabd22399724b3db5e398a206ec7f90edd9f3d4079"
+    },
+    {
+      "affected_drafts": [
+        {
+          "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+          "preview_ids": [
+            "cc-preview-847154e18f5542ca853176460d9219ff868bb25948a62b864bf7fed44d1dbb00",
+            "cc-preview-5ad36a5b38a7f27332360bea53194ac643d33fae6781e587e5381f0b7ae1f577",
+            "cc-preview-04d753f9a23de886d0664021df4a06b30cfde1fbc03ecdd3be7b28ffb2199ae5",
+            "cc-preview-fc05fe48f5d88dd45ae767109a788086eb9f6c551ce62709d150d6e69fa3395f",
+            "cc-preview-e416a22687350c02d3f4ca5ab3cc458845986ee913a447f4c3457848b4ae00c2",
+            "cc-preview-579647b0cf243c23193dbe3880d853648fdf98c9d6a3763205f05d438334936a",
+            "cc-preview-582d24c73825e9c2c0fa822e40f52fcdc7e7840c7a3c2472235ef2266474d165",
+            "cc-preview-36a285aae66c8938e5274e9a345fa2d7072d507d4de88c5fb0140f2155dc6cd3"
+          ]
+        },
+        {
+          "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+          "preview_ids": [
+            "cc-preview-957276f6ae31b0098e4a5c42dac9f4cc8755b6407ad84e6e046a1ea57c19e5c9",
+            "cc-preview-238dd21ae6ec21c62f30c92a33278b47b10d0cd6ddcffba44b1c119550ebcf95",
+            "cc-preview-e8d5253fb2845192915e44ba113222cc821a9a9e2be76726e8706e89828b7343",
+            "cc-preview-8d4df1423a29efa1ae99fec7024da9b88534d41fd8d1add1b85174e9fb351a83",
+            "cc-preview-e380340dcd2e5110e32a75e01c700d93d11e5d574b2c54c2034c33197be8c344",
+            "cc-preview-1e3a6a907d230305541b3223f2c2946fdb07de00bb02edc9eff1d97bae1274fa",
+            "cc-preview-7c7dbfde9788ed173ef9f77886fd5d009be126d38f470a7ee4b5e29582665039",
+            "cc-preview-e2b9267694ce27b8de9ad495f4663eeb31cca111ede62dd2dc02ae61e3fe9f92"
+          ]
+        }
+      ],
+      "affected_prior_inputs": [
+        "cc-receipt-bb669980fca5ba8cc1cda4ccb682f09a0e418f7c1dde325812a7c58ce1683da9",
+        "cc-receipt-dfa03032d0949501585d214d7ee0fbd9fa64f3aeec511018d81a07376f2293fc",
+        "cc-receipt-f4f88656f31e036cc9fef11f6c31a218b59a7e328088a4af665666bc0b9618b1",
+        "cc-receipt-76ccbd33870562568ac169caaaf14fb862227692971f3755321d8df314bea119",
+        "cc-receipt-5b2dc54959f61419de5fc7bd26533b7e089bb036b565b82c85c592fa31919787"
+      ],
+      "affected_symbols": [
+        "USOIL"
+      ],
+      "asset_ids": [
+        "USOIL"
+      ],
+      "blockers": [],
+      "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+      "change_kind": "CORRECTION",
+      "changed_claim_ids": [
+        "usoil-source"
+      ],
+      "claim_set_hash": "64be4b63d9e6dddb768e15c94370c11605573c442099591203cd4c3b29c835b5",
+      "claims": [
+        {
+          "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+          "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+          "claim_id": "usoil-source",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "OBSERVED_FACT",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+        }
+      ],
+      "contract_revision": "asset-analysis-report-v1.1.0",
+      "contract_version": "1.1.0",
+      "envelope_sha256": "49ad569544acf9aab09faaed17be2811a171fd988390f9b6b5c186b792584bdf",
+      "event_id": "report-event:f2cd44fcae587f272f8e00dbf1ec5d0617315dc74785f5d7a3eb3e9410c9d64d",
+      "hold_and_invalidation_conditions": [],
+      "horizon_blocks": [
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-10-26T12:25:00Z",
+          "horizon": "short",
+          "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 5
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-11-17T12:25:00Z",
+          "horizon": "swing",
+          "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 21
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2027-01-14T12:25:00Z",
+          "horizon": "long",
+          "outlook": "NO_PUBLIC_SAFE_OUTLOOK",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 63
+        }
+      ],
+      "known_at_cutoff_utc": "2026-10-19T12:25:00Z",
+      "limitations": [
+        "CC analysis is not external confirmation or an order.",
+        "No private holdings/account context is included.",
+        "Exact execution economics are unavailable."
+      ],
+      "lineage_only": false,
+      "machine_schema_verified": true,
+      "materiality_rationale": "Producer ASCII wire seal correction; unchanged dated native research and zero new economic observations.",
+      "missing_claims": [],
+      "native_public_lineage": null,
+      "parent_report_id": "asset-report:USOIL",
+      "parent_report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+      "producer_binding": {
+        "contract_revision": "asset-analysis-report-v1.1.0",
+        "envelope_schema_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+        "files": {
+          "report.json": {
+            "path": "outbox/8a8ba739ab680f3c217c70c5ac2b043a84f1bb1350a3c2d02eb2e761e04f7576/public-report.json",
+            "sha256": "8660d7f547e737950e3d0271b475d1414a646278e662cf68e839ba517e0acedd"
+          }
+        },
+        "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+        "producer_commit": "effe788bb2ab92781ff71e38498cff7a24adf567",
+        "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+        "producer_revision": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+        "public_export_manifest_verified": true,
+        "public_lineage_only": false,
+        "public_report_locator": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:8660d7f547e737950e3d0271b475d1414a646278e662cf68e839ba517e0acedd",
+        "public_report_raw_sha256": "8660d7f547e737950e3d0271b475d1414a646278e662cf68e839ba517e0acedd"
+      },
+      "public_write_performed": false,
+      "raw_sha256": "d242ab17bc61234b2e772883a9d194c1038e23a9b79fce7b961127546b7d282c",
+      "receipt_id": "main-feed-6cf9a2c62bcd6647ff7713dabcf12f6bd64072cac766511e692b8432938f9f03",
+      "report_id": "asset-report:USOIL",
+      "report_raw_sha256": [
+        "8660d7f547e737950e3d0271b475d1414a646278e662cf68e839ba517e0acedd"
+      ],
+      "report_version": 6,
+      "research_gaps": [],
+      "schema_diagnostics": [],
+      "schema_version": "contentops.capital_chronicle_latest_report_consumer.v1",
+      "source_report_sha256": "e5f74373ded4564fea8abc0e22d0ca57fef8a7af63e0a45cca9be90276e4417f",
+      "status": "ADMITTED",
+      "validated_at_utc": "2026-10-20T23:14:28.924617Z",
+      "withdrawal_only": false,
+      "writer_invoked": false,
+      "delivery_status": "REPORT_PENDING",
+      "message_id": "cc-receipt-9303913ec02891841cb8716179d35df7431aae680049ef4cf6a8127ce9b7af2b"
+    },
+    {
+      "affected_drafts": [],
+      "affected_prior_inputs": [
+        "cc-receipt-adeaa82788c99f8eeed35610c4c6b51118fb586a7566034e87c971b44966c005",
+        "cc-receipt-0aeb6b5bd91b538a98538a02dc6f421cb6e5ddffc497b67a29ed5ce7fd8dd56d",
+        "cc-receipt-5b4a31be08830c0e6be9823967a938b7a56185f3c772ecba1d2063d32cdf40c9"
+      ],
+      "affected_symbols": [
+        "UKOIL"
+      ],
+      "asset_ids": [
+        "UKOIL"
+      ],
+      "blockers": [],
+      "case": "FOUNDATION_DEEP_ASSET_ANALYSIS",
+      "change_kind": "CORRECTION",
+      "changed_claim_ids": [
+        "ukoil-deep-alternative-0",
+        "ukoil-deep-contradictions-0",
+        "ukoil-deep-cross_asset-0",
+        "ukoil-deep-hold_conditions-0",
+        "ukoil-deep-known-0",
+        "ukoil-deep-long-base_case",
+        "ukoil-deep-long-downside_scenario",
+        "ukoil-deep-long-invalidation",
+        "ukoil-deep-long-upside_scenario",
+        "ukoil-deep-mechanism-0",
+        "ukoil-deep-missing-0",
+        "ukoil-deep-principle-0",
+        "ukoil-deep-review-0",
+        "ukoil-deep-short-base_case",
+        "ukoil-deep-short-downside_scenario",
+        "ukoil-deep-short-invalidation",
+        "ukoil-deep-short-upside_scenario",
+        "ukoil-deep-stop_holding_conditions-0",
+        "ukoil-deep-swing-base_case",
+        "ukoil-deep-swing-downside_scenario",
+        "ukoil-deep-swing-invalidation",
+        "ukoil-deep-swing-upside_scenario",
+        "ukoil-deep-timing_priced_in-0",
+        "ukoil-source"
+      ],
+      "claim_set_hash": "c86351dc16ed76f47ca5e3202c382e16f758491150213186a12392381d886de8",
+      "claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "431462c5fd8bfe3e05369538592cef414052100ec0f5417c4d7503384ce10c74",
+          "claim_id": "ukoil-source",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "OBSERVED_FACT",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "091f33b0301664f4ed623849928dc0f5d254124d0250eb9b2175251571602c6b",
+          "claim_id": "ukoil-deep-known-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "UKOIL mang mô tả Brent trong danh mục broker đóng băng, nhưng mã tài sản cơ sở và mã niêm yết đang để trống. Nguồn vật chất duy nhất là cân đối dầu Mỹ EIA tuần 09/10/2026: dầu thô rút kho 8.6 triệu thùng xuống 415.6 triệu thùng; xăng tăng kho 3.5 triệu thùng; sản phẩm chưng cất rút 2.5 triệu thùng. Nhãn EXACT xác nhận bản trích nguồn Mỹ, chưa biến nó thành cân đối Brent hoặc giá UKOIL chính xác."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất có tính lặp lại, thương mại đường biển và chênh lệch giá có thể truyền tác động sang Brent. Cần chứng cứ tàu hàng/xuất nhập khẩu, vận tải, sản lượng toàn cầu và chênh Brent–WTI để nối cơ chế đó. Hiện chỉ có câu hỏi về đường truyền khu vực–toàn cầu, chưa biết nó mạnh bao nhiêu hoặc đang tác động theo hướng nào."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "claim_id": "ukoil-deep-alternative-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Nhập khẩu Mỹ giảm 791000 thùng/ngày và tỷ lệ sử dụng nhà máy lọc dầu là 93.5%. Thời điểm hàng nhập về hoặc xử lý dầu thô ở nhà máy có thể làm kho Mỹ giảm mà không có thiếu hụt toàn cầu. Brent còn có nguồn cung, phẩm cấp và vận tải riêng. Không có số sản lượng/xuất khẩu toàn cầu để chọn giữa các cách giải thích."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+          "claim_id": "ukoil-deep-contradictions-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Rút kho dầu thô đi cùng tăng kho xăng và trường chỉ báo cầu xăng trung bình bốn tuần trong nguồn giảm 0.4% so cùng kỳ. Sản phẩm chưng cất lại rút kho. Các dòng sản phẩm và cửa sổ đo khác nhau không hợp thành một tín hiệu “cầu mạnh”. Nhập khẩu đo thùng/ngày còn biến động kho đo triệu thùng trong tuần; chưa có đối chiếu đầy đủ để quy một phần chính xác của rút kho cho nhập khẩu."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Tuần quan sát là 09/10/2026, còn thời điểm lấy/biết bản lưu là 18/10/2026 lúc 15:13:09.289 UTC. Packet không cung cấp giờ công bố dầu chính xác hoặc bản biết ngay lần công bố đầu. “Bản tuần mới nhất được lưu” chưa xác nhận đó là bản mới nhất hôm nay. Chưa có giá/đường cong Brent hay UKOIL, kỳ vọng trước tin hoặc phản ứng giá để đo bất ngờ và mức đã phản ánh vào giá."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+          "claim_id": "ukoil-deep-cross_asset-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "UKOIL và USOIL dùng chung một bản EIA nên không được tính thành hai xác nhận độc lập. Chênh lệch giá, phẩm cấp và vận tải mới giúp kiểm tác động truyền giữa hai khu vực. Tác động tới lạm phát, hãng bay hoặc nước xuất/nhập dầu cần phơi nhiễm riêng. Giá CFD còn có thể khác tham chiếu vật chất/kỳ hạn do nền giá, chuyển kỳ, phí tài trợ và điều khoản broker, đều chưa có dữ liệu."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "257d2ff9a7f69a170576f65d7f10901a9aabede488f6e4df4a9d354546006eb1",
+          "claim_id": "ukoil-deep-hold_conditions-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Giữ câu hỏi nghiên cứu về truyền dẫn sang Brent khi còn truy được kỳ nguồn và có thể bổ sung chứng cứ thương mại/đường cong đúng phạm vi. Không chuyển việc giữ câu hỏi thành giữ vị thế hay một WATCH thị trường đủ điều kiện."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "a20314a4e02b97c77b46873f2e426aa5fd12c30dfd2fcd61620105540a437a59",
+          "claim_id": "ukoil-deep-stop_holding_conditions-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Rút cách đọc thiếu hụt toàn cầu nếu cân đối kế tiếp cho thấy rút kho là thời điểm nhập/lọc dầu, hoặc dòng thương mại và chênh Brent không hỗ trợ truyền dẫn. Đến lúc xem lại không có nguồn mới thì đánh dấu cũ/thiếu; không mặc định tình trạng khan hiếm tiếp diễn."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "302e35864a578d3f63dcdc7502e788ce58589a9ffd733eafdfb9ff0e0164c118",
+          "claim_id": "ukoil-deep-review-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Đầu vào kế tiếp: bản dầu EIA có ngày và sửa đổi; cấu phần dầu thô/sản phẩm riêng; sản lượng và xuất khẩu toàn cầu; đường cong Brent, chênh Brent–WTI, vận tải và phẩm cấp cùng thời điểm; tài sản tham chiếu, chuyển kỳ và phí của UKOIL. Làm rõ cầu nối địa lý trước khi diễn giải giá hiện tại."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "92b8b118aca9bed6133328edacddc662343e52bc2bda01d005c7169e3cb91601",
+          "claim_id": "ukoil-deep-missing-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Thiếu kho/nguồn cung trực tiếp Brent, sản lượng toàn cầu, phơi nhiễm vận tải/xuất khẩu, giá và đường cong hiện tại, đồng thuận trước tin, phản ứng sau tin và điều khoản CFD. Quyền trích dẫn EIA công khai không xác nhận được các ngữ nghĩa hợp đồng hoặc sự kiện còn thiếu; báo cáo này vẫn là nghiên cứu nội bộ."
+        },
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "50e596d6f196f5471c9c889e3d615635d7bb52011fc36bea8293596b46d70cc4",
+          "claim_id": "ukoil-deep-principle-0",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "CAPITAL_CHRONICLE_ANALYSIS",
+          "producer_layer": "CC_ANALYSIS",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Cân đối kho–dòng là cơ chế kinh tế có điều kiện, chưa phải Principle đang được kích hoạt. Readback COMMODITIES có trạng thái NOT_RELEVANT_THIS_CYCLE; không được gán danh mục lãi/vàng/thanh khoản cho Brent theo tên gọi. Khan vật chất có thể xung đột với thời điểm nhập hàng và sản phẩm yếu; cần cấu phần cùng kỳ, thương mại và đường cong để phân biệt. Bộ nạp đầy đủ bị chặn OUTCOME_RESOLVER_ARTIFACT_HASH_MISMATCH, chưa có điểm/quyền áp dụng; 63 phiên chưa ánh xạ thành một quý."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "9ce485d5f74c6c54bc81818e291895d15a512b69791e4f817933a5020cac0995",
+          "claim_id": "ukoil-deep-long-base_case",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Trong 63 phiên, xem cân đối tích lũy, phản ứng nguồn cung và chi phí phương tiện qua cập nhật thật; không thay cửa sổ bằng quý dương lịch."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "7c97471bb1334137d101afbf6aeadb93e3693119b98586c0c97c6f5ad6665c8b",
+          "claim_id": "ukoil-deep-long-upside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Chứng cứ khu vực và toàn cầu tiếp tục hỗ trợ cạnh tranh vật chất sau khi cung/vận tải phản ứng."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "a968d4be15fa43eed6f5768773481e11d6464aecd6722c1b93ae3db5f4c8f364",
+          "claim_id": "ukoil-deep-long-downside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Cung thích nghi, cầu vừa lại hoặc chi phí giữ/chuyển kỳ làm câu chuyện không còn hỗ trợ kinh tế nắm giữ."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "17d90c90d605623aa464a8a20dbf0f1ab6492911425227502e5fa5839562a8c0",
+          "claim_id": "ukoil-deep-long-invalidation",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Rút tính bền nếu cân đối cùng nghĩa sau đó đảo chiều; thiếu đường cong/điều khoản vẫn ngăn kết luận lợi nhuận giữ CFD."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+          "claim_id": "ukoil-deep-short-base_case",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Trong 5 phiên xem lại, xác định có cân đối mới hoặc thông tin riêng Brent thật sự có ngày hay không; không đọc lại số Mỹ cũ như cú sốc Brent mới."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "3b5c15ee646962dc0d1d14742d90b108d4f4ca0a8cef7744d8d4c62e6c351a8e",
+          "claim_id": "ukoil-deep-short-upside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Nguồn mới vừa hỗ trợ giảm khả năng cung ứng vật chất, vừa chứng minh được đường truyền thương mại và nền Brent."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "2da2af119936dae44c15ce4c331b0d4c7a63ddd6924d89a1caf80650a7fbe1a1",
+          "claim_id": "ukoil-deep-short-downside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Hàng nhập Mỹ trở lại hoặc nguồn cung riêng Brent bù được rút kho khu vực."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "99de362237b69143c6713c408cb74e73bb6b77efb9df7b8d1c4db36180e0e9a6",
+          "claim_id": "ukoil-deep-short-invalidation",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Bác cách đọc bất ngờ Brent hiện tại khi thiếu giờ công bố, kỳ vọng trước tin và chứng cứ Brent đồng thời."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "0dc0dea7516a2c3a76fbd70be65158e5b9839d77b8c192a16733d1e64549f87b",
+          "claim_id": "ukoil-deep-swing-base_case",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Trong 21 phiên, đối chiếu các bản dầu thô/sản phẩm lặp lại với thương mại, sản lượng toàn cầu và đường cong tương đối nếu có công bố."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "6e85c06cd0259aa7a70b2ecccfc4a428bece255eab86565681091fae8b7c43a9",
+          "claim_id": "ukoil-deep-swing-upside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Nhiều quan sát kho/dòng và cạnh tranh hàng đường biển hỗ trợ cơ chế truyền toàn cầu."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "1fa2398e03614dcf35f79826380927df801ccadb0df206dd02e87b5aaee52d3c",
+          "claim_id": "ukoil-deep-swing-downside_scenario",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Rút kho chủ yếu do nhập/lọc dầu theo thời điểm, trong khi sản phẩm hoặc nguồn cung toàn cầu không căng."
+        },
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "c05a55828f3bf5bb4b5d50215f596835cddfccf263a8e525515ee0c1007c433f",
+          "claim_id": "ukoil-deep-swing-invalidation",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "SCENARIO_OR_UNCERTAINTY",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "Bỏ giả thuyết khan toàn cầu khi cầu nối địa lý thất bại hoặc chỉ cùng một bản tin được lặp lại."
+        }
+      ],
+      "contract_revision": "asset-analysis-report-v1.1.0",
+      "contract_version": "1.1.0",
+      "envelope_sha256": "bb4be4ae7fd7f2745db280fe270b900f4085523c95916c36c0511c60b523dc72",
+      "event_id": "report-event:aa4c1e36bc8f21e181f6bdd503f29bd281684f9dce589dd6b927a660c598e8ba",
+      "hold_and_invalidation_conditions": [
+        "Giữ câu hỏi nghiên cứu về truyền dẫn sang Brent khi còn truy được kỳ nguồn và có thể bổ sung chứng cứ thương mại/đường cong đúng phạm vi. Không chuyển việc giữ câu hỏi thành giữ vị thế hay một WATCH thị trường đủ điều kiện.",
+        "Rút cách đọc thiếu hụt toàn cầu nếu cân đối kế tiếp cho thấy rút kho là thời điểm nhập/lọc dầu, hoặc dòng thương mại và chênh Brent không hỗ trợ truyền dẫn. Đến lúc xem lại không có nguồn mới thì đánh dấu cũ/thiếu; không mặc định tình trạng khan hiếm tiếp diễn."
+      ],
+      "horizon_blocks": [
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-10-26T12:25:00Z",
+          "horizon": "short",
+          "outlook": "Trong 5 phiên xem lại, xác định có cân đối mới hoặc thông tin riêng Brent thật sự có ngày hay không; không đọc lại số Mỹ cũ như cú sốc Brent mới.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 5
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2026-11-17T12:25:00Z",
+          "horizon": "swing",
+          "outlook": "Trong 21 phiên, đối chiếu các bản dầu thô/sản phẩm lặp lại với thương mại, sản lượng toàn cầu và đường cong tương đối nếu có công bố.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 21
+        },
+        {
+          "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+          "end_utc": "2027-01-14T12:25:00Z",
+          "horizon": "long",
+          "outlook": "Trong 63 phiên, xem cân đối tích lũy, phản ứng nguồn cung và chi phí phương tiện qua cập nhật thật; không thay cửa sổ bằng quý dương lịch.",
+          "report_state": "PARTIAL",
+          "scoreable_forecast": false,
+          "start_utc": "2026-10-19T12:25:00Z",
+          "trading_sessions": 63
+        }
+      ],
+      "known_at_cutoff_utc": "2026-10-19T12:25:00Z",
+      "limitations": [
+        "CC analysis is not external confirmation or an order.",
+        "No private holdings/account context is included.",
+        "Exact execution economics are unavailable."
+      ],
+      "lineage_only": false,
+      "machine_schema_verified": true,
+      "materiality_rationale": "Producer ASCII wire seal correction; unchanged dated native research and zero new economic observations.",
+      "missing_claims": [],
+      "native_public_lineage": {
+        "canonical_model_source_eligible": false,
+        "consumer_exact_public_bindings_verified": true,
+        "independent_native_runtime_verified": false,
+        "permitted_excerpt_count": 23,
+        "private_worker_artifacts_read": false,
+        "producer_attestation": {
+          "accepted_native_result_sha256": "656b6ca413626e0bafc9e0d5a32f9482cd80fd1d485848b36bd34bd9ea53fb66",
+          "asset_id": "UKOIL",
+          "canonical_model_source_eligible": false,
+          "critical_review": {
+            "evidence_refs": [
+              "neo:eia-petroleum:b7435f56ed43ebc7"
+            ],
+            "findings": [
+              "Strongest channel is transmission of US inventory tightening through seaborne arbitrage to Brent. Only the US balance is observed: no Brent physical differential, freight, trade capacity or global production identifies this transmission. EXACT in the extraction describes the source, not exact UKOIL economic exposure.",
+              "Import decline and refinery utilization can explain a regional crude draw without end-consumer demand strength. The gasoline build and source-labeled four-week demand decline are material counterevidence, but do not prove global demand collapse either.",
+              "Million-barrel stock/change, barrels-per-day import change and utilization percent are different measurements. No exact share of the draw can be assigned to imports without matched balance and period accounting.",
+              "Five sessions can locate dated evidence; twenty-one can seek persistence and the geographic bridge; sixty-three can assess adaptation only if updates exist. No window produces a Brent return or an active Principle scope."
+            ],
+            "individual_review_sha256": "dcb480750a6bea860a350bef02937797acad8ddb08adeb6d407c90a550e6e01a",
+            "required_repairs": [
+              "In Vietnamese synthesis make the US-versus-Brent geography and null underlying/reference coordinates explicit; retain both physical-tightness and import/refinery timing alternatives without ranking them.",
+              "Do not infer production loss, consumer demand, an exact import contribution or current Brent carry from this single release."
+            ],
+            "retained_dissent": [
+              "The same observed draw is compatible with local trade timing and global physical competition; lack of Brent evidence prevents choosing."
+            ],
+            "state": "PUBLIC_EXCERPTS_VERIFIED",
+            "verdict": "ACCEPT_QUALIFIED"
+          },
+          "excerpts": [
+            {
+              "asset_analysis_path": [
+                "known",
+                0
+              ],
+              "claim_hash": "091f33b0301664f4ed623849928dc0f5d254124d0250eb9b2175251571602c6b",
+              "claim_id": "ukoil-deep-known-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "84bd91f64f983148f088a8f84321e949b7bb0150b5757ad783becc9a08269533"
+            },
+            {
+              "asset_analysis_path": [
+                "mechanism",
+                0
+              ],
+              "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+              "claim_id": "ukoil-deep-mechanism-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2"
+            },
+            {
+              "asset_analysis_path": [
+                "alternative",
+                0
+              ],
+              "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+              "claim_id": "ukoil-deep-alternative-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933"
+            },
+            {
+              "asset_analysis_path": [
+                "contradictions",
+                0
+              ],
+              "claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+              "claim_id": "ukoil-deep-contradictions-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "6e33a1d09ac5fc939c083a5aff9b18d1cab5b44e019e3f93c475e57aa17f866d"
+            },
+            {
+              "asset_analysis_path": [
+                "timing_priced_in",
+                0
+              ],
+              "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+              "claim_id": "ukoil-deep-timing_priced_in-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "06ac0f3761728b3d9ab2602325e5232a420ad5e1293e1c25dc4004d71f35cb80"
+            },
+            {
+              "asset_analysis_path": [
+                "cross_asset",
+                0
+              ],
+              "claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+              "claim_id": "ukoil-deep-cross_asset-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "a1b4477254762eed3df8cad7037d5f36583f4698b18c3cb028cd166855e69de7"
+            },
+            {
+              "asset_analysis_path": [
+                "hold_conditions",
+                0
+              ],
+              "claim_hash": "257d2ff9a7f69a170576f65d7f10901a9aabede488f6e4df4a9d354546006eb1",
+              "claim_id": "ukoil-deep-hold_conditions-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "93825df6bd5b3fee145a11c197f846b23f248788436b07bb9b41a12bf7bf2cba"
+            },
+            {
+              "asset_analysis_path": [
+                "stop_holding_conditions",
+                0
+              ],
+              "claim_hash": "a20314a4e02b97c77b46873f2e426aa5fd12c30dfd2fcd61620105540a437a59",
+              "claim_id": "ukoil-deep-stop_holding_conditions-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "c14335409058d50c460ed7ef826469974fd7cd9b73e30b774c126f16715b45d5"
+            },
+            {
+              "asset_analysis_path": [
+                "review",
+                0
+              ],
+              "claim_hash": "302e35864a578d3f63dcdc7502e788ce58589a9ffd733eafdfb9ff0e0164c118",
+              "claim_id": "ukoil-deep-review-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "0e1df4f47a003c758f533f9e77354c3f96b9e1a3a76ae3ca6d2e5dcf011c6967"
+            },
+            {
+              "asset_analysis_path": [
+                "missing",
+                0
+              ],
+              "claim_hash": "92b8b118aca9bed6133328edacddc662343e52bc2bda01d005c7169e3cb91601",
+              "claim_id": "ukoil-deep-missing-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "6e83dc6a9f340fe30eca2ced0d2dbeac4f40220a2d20cd0af4a7aec2f71d0509"
+            },
+            {
+              "asset_analysis_path": [
+                "principle",
+                0
+              ],
+              "claim_hash": "50e596d6f196f5471c9c889e3d615635d7bb52011fc36bea8293596b46d70cc4",
+              "claim_id": "ukoil-deep-principle-0",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "d293173d65b4bbc3b3f1978cc38be64c3eb48eafaccfacc066776548d1e24127"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "long",
+                "base_case"
+              ],
+              "claim_hash": "9ce485d5f74c6c54bc81818e291895d15a512b69791e4f817933a5020cac0995",
+              "claim_id": "ukoil-deep-long-base_case",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "3cfb2ee2fc017757967fc0228f1519f0d1ffc90837f20af486666d8ff2664376"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "long",
+                "upside_scenario"
+              ],
+              "claim_hash": "7c97471bb1334137d101afbf6aeadb93e3693119b98586c0c97c6f5ad6665c8b",
+              "claim_id": "ukoil-deep-long-upside_scenario",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "d8b17d20b4d3ae76c70d970ecbba839fff893d433063f2713789406c243a59d8"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "long",
+                "downside_scenario"
+              ],
+              "claim_hash": "a968d4be15fa43eed6f5768773481e11d6464aecd6722c1b93ae3db5f4c8f364",
+              "claim_id": "ukoil-deep-long-downside_scenario",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "a5e90a0107b6d01c988bb909abd5dddb9510492ba72fcdfa649d10b78d92cfa6"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "long",
+                "invalidation"
+              ],
+              "claim_hash": "17d90c90d605623aa464a8a20dbf0f1ab6492911425227502e5fa5839562a8c0",
+              "claim_id": "ukoil-deep-long-invalidation",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "f5f7f6cb7029bd1c6f3caf74b538da847e0d4fed988b49adc7f02c1bf50f7fda"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "short",
+                "base_case"
+              ],
+              "claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+              "claim_id": "ukoil-deep-short-base_case",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "d940fa4966c788949c6e9b3396e6cec2fcf117fce2f1cbd5e5d1c808bca8570a"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "short",
+                "upside_scenario"
+              ],
+              "claim_hash": "3b5c15ee646962dc0d1d14742d90b108d4f4ca0a8cef7744d8d4c62e6c351a8e",
+              "claim_id": "ukoil-deep-short-upside_scenario",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "ba1871be1115ab5de236c535a033116833551d3a8998acb77ead4c68f0ce4724"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "short",
+                "downside_scenario"
+              ],
+              "claim_hash": "2da2af119936dae44c15ce4c331b0d4c7a63ddd6924d89a1caf80650a7fbe1a1",
+              "claim_id": "ukoil-deep-short-downside_scenario",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "b5b20be41f00938e26dd888771b4a01a66e9a4a6f4c355124f9adf6335e02234"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "short",
+                "invalidation"
+              ],
+              "claim_hash": "99de362237b69143c6713c408cb74e73bb6b77efb9df7b8d1c4db36180e0e9a6",
+              "claim_id": "ukoil-deep-short-invalidation",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "dc85884b39f7c25db7a8824d55df67cc2079a69ce23e3bcca96bf973ad49f43a"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "swing",
+                "base_case"
+              ],
+              "claim_hash": "0dc0dea7516a2c3a76fbd70be65158e5b9839d77b8c192a16733d1e64549f87b",
+              "claim_id": "ukoil-deep-swing-base_case",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "50be1cdeb968da40b6af506702f6142511281b7acc6e2766902e90db920c67af"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "swing",
+                "upside_scenario"
+              ],
+              "claim_hash": "6e85c06cd0259aa7a70b2ecccfc4a428bece255eab86565681091fae8b7c43a9",
+              "claim_id": "ukoil-deep-swing-upside_scenario",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "c075e95f769dc3adc69b53030a3343045c02c74beb357b9ec995858527c41c7f"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "swing",
+                "downside_scenario"
+              ],
+              "claim_hash": "1fa2398e03614dcf35f79826380927df801ccadb0df206dd02e87b5aaee52d3c",
+              "claim_id": "ukoil-deep-swing-downside_scenario",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "1c238502df404707e70da60c9c966fb64d1ca98e4d51455c8fd73103fc46f3e7"
+            },
+            {
+              "asset_analysis_path": [
+                "horizons",
+                "swing",
+                "invalidation"
+              ],
+              "claim_hash": "c05a55828f3bf5bb4b5d50215f596835cddfccf263a8e525515ee0c1007c433f",
+              "claim_id": "ukoil-deep-swing-invalidation",
+              "evidence_refs": [
+                "neo:eia-petroleum:b7435f56ed43ebc7"
+              ],
+              "text_sha256": "6912acb29728f40dbdc47bf47bc87d01ceffd57e6b178fd493b73fccd99a9e53"
+            }
+          ],
+          "execution_readiness": "BLOCKED",
+          "individual_asset_analysis_sha256": "72ef3ee9cb6d2ddd75d61830a2910658a2bfba45cbf437b1eaf6ee2c8a655968",
+          "lineage_sha256": "239fa5307432aa2ac45500119acde8eaadd43c3706bf8f3d26208546a040d2d0",
+          "model": "gpt-6.1-sol",
+          "new_independent_observations": 0,
+          "reasoning_effort": "max",
+          "report_id": "asset-report:UKOIL",
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "report_version": 4,
+          "research_eligibility": "PERMITTED_CLAIMS_ONLY",
+          "role_proof_sha256": {
+            "critical": "455637ce388d2f3bf75b5c8ca25caafcff10cf0f61136ced8d65bae0b53afb86",
+            "primary": "50fa160196c829438f5ccd421f78063901151c4cc2ab9af9cc21546161ce6c00",
+            "synthesis": "b1083e1b2a7f10d39d145052380332da93db615bf6fa56ac66eb0f8b74e0cf43"
+          },
+          "schema": "CapitalChroniclePublicNativeAssetLineageV1",
+          "state": "VERIFIED_ACCEPTED_NATIVE_EXCERPTS"
+        },
+        "publication_authority": false,
+        "state": "PRODUCER_ATTESTED_NATIVE_PUBLIC_EXCERPTS"
+      },
+      "parent_report_id": "asset-report:UKOIL",
+      "parent_report_sha256": "82a2389ed302f6757167c8a1f71b4214fa645f5f3e37c8ea5525d849955ab5e0",
+      "producer_binding": {
+        "contract_revision": "asset-analysis-report-v1.1.0",
+        "envelope_schema_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+        "files": {
+          "report.json": {
+            "path": "outbox/ea08067f49ed0573350060222c9a0304e38130ac8e1c44f844896bca95699feb/public-report.json",
+            "sha256": "684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198"
+          }
+        },
+        "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+        "producer_commit": "effe788bb2ab92781ff71e38498cff7a24adf567",
+        "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+        "producer_revision": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+        "public_export_manifest_verified": true,
+        "public_lineage_only": false,
+        "public_report_locator": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198",
+        "public_report_raw_sha256": "684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198"
+      },
+      "public_write_performed": false,
+      "raw_sha256": "2f83d341393105593b4eaf6813c8a1341164f9435a5f1e2cfd826855f264704e",
+      "receipt_id": "main-feed-3b7a3024db4612aee04ac969b1a258759951e1e1b237ac8f93fea88c385efc95",
+      "report_id": "asset-report:UKOIL",
+      "report_raw_sha256": [
+        "684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198"
+      ],
+      "report_version": 4,
+      "research_gaps": [],
+      "schema_diagnostics": [],
+      "schema_version": "contentops.capital_chronicle_latest_report_consumer.v1",
+      "source_report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "status": "ADMITTED",
+      "validated_at_utc": "2026-10-20T23:13:55.583176Z",
+      "withdrawal_only": false,
+      "writer_invoked": false,
+      "delivery_status": "REPORT_PENDING",
+      "message_id": "cc-receipt-d4583ff517420912dd20ea5ec6cb08b41063d3fba306f43e7019ec03ababd0bc"
+    }
+  ]
+}

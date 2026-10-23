@@ -1,0 +1,90 @@
+{
+  "canonical_slug_candidate": "usd-ty-gia-song-phuong-chi-so-rong-cach-doc",
+  "dek": "Chỉ số USD rộng (broad dollar index) là bình quân có trọng số theo định nghĩa Fed đã xác nhận (CONFIRMED). Một cặp tỷ giá chưa đủ quyết định hướng của cả rổ.",
+  "editorial_context": {
+    "editorial_delta": "Bài giải thích chuyên biệt về chiều yết giá, kỳ quan sát, rổ có trọng số và phép kiểm tra sự phân kỳ; không tái đóng gói thành số liệu hay tin thị trường mới.",
+    "factual_authority_from_prior_copy": false,
+    "final_dedupe": "EXISTING_WORKFLOW_REQUIRED",
+    "prior_unpublished_packages": [
+      {
+        "article_identity": "c62f581d8cbe74ab0872077412c9ec85c768819886dd524ae4017831d5429c0e",
+        "relation": "Kế thừa câu hỏi về phạm vi biến động USD; phát triển riêng cách đọc đơn vị, thời điểm và rổ.",
+        "title": "Nghiên cứu: Đọc một quyết định Fed mà không nhầm nó với dự báo USD"
+      },
+      {
+        "article_identity": "552b31885ff151cb02689c5fb1bd41eb94b7934b563d335093a4593769ecf788",
+        "relation": "Thu hẹp từ phân loại rủi ro xuyên tài sản sang phép so sánh tỷ giá song phương với chỉ số rộng.",
+        "title": "Nghiên cứu: Một tin, hai kênh rủi ro: kỳ vọng giá và quyền sở hữu cần bằng chứng khác nhau"
+      }
+    ],
+    "published_corpus_scope": "Chỉ có ngữ cảnh và kết quả liên quan đã cung cấp; không có toàn văn corpus để tự chứng nhận khử trùng lặp cuối.",
+    "source_delta": "UNCHANGED_RETAINED_SOURCE_TEXT"
+  },
+  "entities": [
+    "USD",
+    "Cục Dự trữ Liên bang Mỹ (Fed)",
+    "H.10",
+    "Chỉ số USD rộng"
+  ],
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.federalreserve.gov",
+    "primary_reporting_source_identity": "www.federalreserve.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal21-fx-broad-index"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "internal_link_candidates": [],
+  "meta_description": "Đọc tỷ giá song phương và chỉ số USD rộng qua quy ước H.10 của Fed: kiểm tra đơn vị yết giá, ngày quan sát và phạm vi rổ có trọng số.",
+  "primary_reader_question": "Vì sao USD lên so với một đồng tiền nhưng chỉ số USD rộng không nhất thiết tăng, và cần đọc đơn vị, ngày quan sát cùng rổ so sánh thế nào trước khi kết luận?",
+  "public_write_performed": false,
+  "resolved_article_mode": "EVERGREEN_EXPLAINER",
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_freshness_class": "EVERGREEN",
+  "search_title": "Vì sao USD tăng ở một cặp nhưng chỉ số USD rộng không tăng?",
+  "secondary_reader_questions": [
+    "Khi số yết tỷ giá tăng, làm sao biết USD hay đồng tiền đối ứng mạnh hơn?",
+    "Vì sao một thành phần không quyết định kết quả của cả rổ có trọng số?",
+    "Cần những ngày quan sát và tài liệu phương pháp nào để kiểm tra một trường hợp cụ thể?"
+  ],
+  "social_cross_asset_summary": "Phép kiểm tra tiếp theo của Capital Chronicle là: sau khi đọc đúng chiều yết giá, ghép đúng kỳ quan sát và đối chiếu rổ có trọng số, hai tín hiệu còn khác nhau không? Nếu chênh lệch biến mất khi sửa đơn vị hoặc kỳ so sánh, cách giải thích bằng sự khác biệt giữa một cặp và cả rổ không còn đủ cho trường hợp ấy.",
+  "social_hook": "USD lên so với ai? Trước khi xem một cặp là sức mạnh chung của đồng USD, hãy kiểm tra chiều yết giá, ngày quan sát và rổ so sánh.",
+  "social_mechanism_summary": "Phân tích Capital Chronicle: nếu USD mạnh lên trước một đồng tiền trong rổ nhưng yếu đi trước các đồng tiền khác, kết quả tổng hợp còn phụ thuộc trọng số và mức dịch chuyển của các thành phần. Vì thế, một cặp cho tín hiệu USD mạnh hơn vẫn có thể đi cùng chỉ số rộng giảm hoặc ít đổi. Đây là khả năng từ cấu trúc bình quân có trọng số, chưa phải mô tả một phiên thị trường.",
+  "social_policy_summary": "Phản đề từ cấu trúc rổ: nếu USD cùng mạnh lên trước các đồng tiền trong rổ trên một kỳ so sánh phù hợp, một cặp và chỉ số rộng có thể cùng cho tín hiệu USD mạnh hơn. Khác phạm vi đo không buộc chúng phải phân kỳ. Định nghĩa của Fed chưa chứng minh trường hợp cùng hướng hay trái hướng nào đã xảy ra.",
+  "source_date_notice": "Source date: 2026-10-13. Interpretation remains analysis.",
+  "source_document_ids": [
+    "goal21-fx-broad-index",
+    "goal21-fed-policy",
+    "goal21-fed-inflation",
+    "goal21-fx-convention"
+  ],
+  "story_identity": "simple-story-a072cb6da224fa28afe84691",
+  "structured_data_packet": null,
+  "substack_body_markdown": "USD lên trước một đồng tiền thì vì sao chỉ số USD rộng vẫn có thể không tăng? Fed định nghĩa chỉ số rộng là bình quân có trọng số của giá trị USD so với tiền tệ của nhóm rộng các đối tác thương mại lớn của Mỹ; đây là điểm đã xác nhận (CONFIRMED). Phân tích của Capital Chronicle: một cặp chưa đủ quyết định hướng của cả rổ, và hai tín hiệu cũng có thể cùng hướng. [[SOURCE:SOURCE_1]]\n\nCách đọc dưới đây dựa trên định nghĩa và quy ước được giữ lại từ bản H.10 phát hành ngày 13/10/2026. Mốc này là ngày phát hành tài liệu; các đoạn nguồn được sử dụng chưa cung cấp hàng tỷ giá và ngày quan sát để xác định một biến động thực tế. [[SOURCE:SOURCE_4]] [[SOURCE:SOURCE_1]]\n\n## Đọc đơn vị trước khi đọc chiều tăng\n\nBản H.10 nêu quy ước chung: tỷ giá được ghi bằng số đơn vị tiền tệ trên mỗi USD, trừ những trường hợp được đánh dấu sao. Nghĩa là trước khi gọi một con số tăng là USD mạnh lên, người đọc phải biết con số ấy đang đếm bao nhiêu đơn vị tiền nào cho một USD. [[SOURCE:SOURCE_4]]\n\nTừ quy ước đó, nếu một dòng yết theo đơn vị ngoại tệ trên USD tăng qua hai quan sát phù hợp, cùng một USD đổi được nhiều đơn vị ngoại tệ hơn: USD mạnh hơn so với đồng tiền ấy. Nếu số đó giảm, chiều đọc đảo lại. Đây là diễn giải theo đơn vị yết giá, không phải một kết luận rằng USD đã tăng hay giảm trong kỳ cụ thể. [[SOURCE:SOURCE_4]]\n\nVới dòng có dấu sao, cần đọc chú thích riêng trước khi áp dụng quy tắc trên. Chẳng hạn, nếu chú thích quy định cách yết là USD trên mỗi đơn vị ngoại tệ, số tăng sẽ có nghĩa đồng ngoại tệ đổi được nhiều USD hơn. Đây là trường hợp có điều kiện; đoạn H.10 được giữ lại chưa cho biết những dòng nào mang dấu sao hoặc cách yết riêng của chúng. [[SOURCE:SOURCE_4]]\n\n## Một quan hệ tiền tệ và một rổ có trọng số\n\nTrong định nghĩa của Fed, chỉ số USD rộng tổng hợp giá trị đồng USD trước tiền tệ của một nhóm rộng các đối tác thương mại lớn của Mỹ. Cụm từ có trọng số là điểm then chốt: đây là một phép tổng hợp nhiều quan hệ tiền tệ. Đoạn định nghĩa không liệt kê các đồng tiền hoặc tỷ trọng cụ thể để người đọc tự gán cho rổ. [[SOURCE:SOURCE_1]]\n\nPhân tích Capital Chronicle: nếu USD mạnh lên trước một đồng tiền trong rổ nhưng yếu đi trước các đồng tiền khác, kết quả tổng hợp còn phụ thuộc trọng số và mức dịch chuyển của các thành phần. Vì thế, một cặp cho tín hiệu USD mạnh hơn vẫn có thể đi cùng chỉ số rộng giảm hoặc ít đổi. Đây là khả năng từ cấu trúc bình quân có trọng số, chưa phải mô tả một phiên thị trường. [[SOURCE:SOURCE_1]]\n\nCách chọn thước đo đi theo câu hỏi. Muốn biết USD thay đổi ra sao trước một đồng tiền cụ thể, hãy đọc đúng cặp và đơn vị của nó. Muốn biết USD thay đổi ra sao trước nhóm tiền tệ mà Fed dùng để tổng hợp, hãy đọc chỉ số rộng tương ứng. Phân tích của Capital Chronicle là dùng mỗi thước đo trong đúng phạm vi; chỉ số rộng không tự trả lời thay cho mọi cặp. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_4]]\n\n## Ghép cùng kỳ quan sát\n\nH.10 ghi rõ ngày phát hành 13/10/2026. Dòng ghi ngày phát hành chưa xác định ngày của từng quan sát tỷ giá: muốn biết số nào thuộc thời điểm nào, cần phần bảng và nhãn ngày tương ứng. Những phần đó chưa có trong các đoạn nguồn dùng ở đây, nên không thể lấy ngày phát hành làm ngày của một mức giá. [[SOURCE:SOURCE_4]]\n\nTrong phép kiểm tra của Capital Chronicle, chiều yết giá và kỳ so sánh phải được làm rõ cùng lúc. Nếu cặp tỷ giá được so từ một mốc còn chỉ số rộng được so từ mốc khác, hai kết quả chưa kiểm tra cùng một câu hỏi. Cần ghép ngày đầu, ngày cuối và cách ghi quan sát trước khi giải thích sự khác nhau bằng cấu trúc rổ. [[SOURCE:SOURCE_4]] [[SOURCE:SOURCE_1]]\n\n## Phản đề: khác phạm vi vẫn có thể cùng hướng\n\nPhản đề từ cấu trúc rổ: nếu USD cùng mạnh lên trước các đồng tiền trong rổ trên một kỳ so sánh phù hợp, một cặp và chỉ số rộng có thể cùng cho tín hiệu USD mạnh hơn. Khác phạm vi đo không buộc chúng phải phân kỳ. Định nghĩa của Fed chưa chứng minh trường hợp cùng hướng hay trái hướng nào đã xảy ra. [[SOURCE:SOURCE_1]]\n\nMột lời giải cạnh tranh cần kiểm tra trước là cách đọc dữ liệu: điều trông như hai tín hiệu trái nhau có thể biến mất sau khi xử lý đúng chiều yết giá hoặc ghép lại kỳ quan sát. Nếu vậy, riêng sự khác biệt giữa một cặp và cả rổ chưa giải thích được trường hợp ấy. Đây là điều kiện kiểm tra của Capital Chronicle, không phải bằng chứng đã quan sát được một sai lệch dữ liệu. [[SOURCE:SOURCE_4]] [[SOURCE:SOURCE_1]]\n\n## Bằng chứng tiếp theo cần trả lời điều gì?\n\nĐể chuyển từ khả năng giải thích sang nhận định về một trường hợp thực, cần chuỗi quan sát của chính cặp tỷ giá và chỉ số rộng, kèm đơn vị cùng kỳ so sánh. Để đi tiếp tới câu hỏi thành phần nào đóng góp, cần danh sách tiền tệ, trọng số và tài liệu phương pháp áp dụng cho đúng giai đoạn. Định nghĩa bình quân có trọng số và quy ước chung H.10 là điểm xuất phát cho phép kiểm tra ấy. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_4]]\n\nPhép kiểm tra tiếp theo của Capital Chronicle là: sau khi đọc đúng chiều yết giá, ghép đúng kỳ quan sát và đối chiếu rổ có trọng số, hai tín hiệu còn khác nhau không? Nếu chênh lệch biến mất khi sửa đơn vị hoặc kỳ so sánh, cách giải thích bằng sự khác biệt giữa một cặp và cả rổ không còn đủ cho trường hợp ấy. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_4]]\n\n## Ghi chú nguồn\n\nNguồn sử dụng: [Federal Reserve, Foreign Exchange Rates — H.10](https://www.federalreserve.gov/releases/h10/current/), với hai đoạn giữ lại về quy ước yết tỷ giá và định nghĩa chỉ số rộng, gắn bản phát hành ngày 13/10/2026. Đoạn nguồn không cung cấp giờ phát hành. Bài giải thích dùng lại các đoạn này và chưa đưa ra nhận định về giá thị trường hiện tại. [[SOURCE:SOURCE_4]] [[SOURCE:SOURCE_1]]",
+  "title": "USD lên trước một đồng tiền chưa có nghĩa cả rổ cùng tăng",
+  "topics": [
+    "Tỷ giá song phương",
+    "Quy ước yết tỷ giá",
+    "Chỉ số có trọng số",
+    "Ngày quan sát và ngày phát hành"
+  ],
+  "update_chain_identity": "simple-story-a072cb6da224fa28afe84691"
+}

@@ -1,0 +1,40 @@
+{
+  "scope": "ACTUAL_NEO_STATIC_READ_ONLY_ARTIFACT_ONLY",
+  "desktop_render_inspected": true,
+  "gas_sources_counterevidence_revision_history_and_native_preview_opened": true,
+  "gas_media_loaded": true,
+  "gas_media_new_card_directly_inspected": true,
+  "six_unchanged_media_reused_from_Goal21": true,
+  "mobile_long_relation_label_overflow_found": {
+    "viewport_client_width": 430,
+    "scroll_width": 448,
+    "cause": "LIMITS_OR_CONTRADICTS_OVERBROAD_READING label"
+  },
+  "mobile_fix": "Translated reader-facing label and overflowWrap:anywhere in decision region",
+  "final_mobile_render": "PASS_ACTUAL_NEO_RENDER_INSPECTION",
+  "api_save_via_GUI": "NOT_CLAIMED_STATIC_READ_ONLY_FILE",
+  "api_save_restart_CAS": "VERIFIED_SEPARATELY_IN_ISOLATED_TESTS",
+  "automatic_review": "Task-local hidden preview-server launch rejected: blocked by policy; no process started. Static file rendering succeeded instead.",
+  "production_runtime_started": false,
+  "preview_server_started": false,
+  "fresh_provider_calls": 0,
+  "public_writes": 0,
+  "durable_screenshot": "final_mobile.jpg, final_desktop_summary.jpg, final_desktop_article.jpg",
+  "current_UI_source_blobs": {
+    "ui/contentops_v5/src/views/ResearchPackageDecision.tsx": "355f0c6b8755e370d6b88cb26b82dbfb8572dc74",
+    "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx": "54bc3e211938a59740a862fb32b4cd6b774ad24b"
+  },
+  "final_mobile_widths": {
+    "clientWidth": 430,
+    "innerWidth": 430,
+    "scrollWidth": 430
+  },
+  "final_mobile_source_history_and_preview_opened": true,
+  "final_desktop_current_UI_render_inspected": true,
+  "task_preview_tab_closed": true,
+  "screenshots_sha256": {
+    "final_desktop_article.jpg": "a6ace9781289c3a1838a14608bcb84908dc0e09570d6c3e8bab179f4a5b75e9a",
+    "final_desktop_summary.jpg": "739e77198d92f7f3f75e2d8fc475d9a50506e9d40d67bb4afa5e91e5bd9a01e3",
+    "final_mobile.jpg": "c28240e7a480433f2846abceb2707dc7a974e2c214fd489b8dc8981b98d16c7f"
+  }
+}

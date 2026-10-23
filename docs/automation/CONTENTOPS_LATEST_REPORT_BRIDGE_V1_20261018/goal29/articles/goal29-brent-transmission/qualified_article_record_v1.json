@@ -1,0 +1,506 @@
+{
+  "accepted_evidence_ids": [
+    "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+  ],
+  "accepted_evidence_sha256": "f4913cca025e2c3056616c7d7e7222c3ab4b83a1d8b66bb547692cfbf60989d8",
+  "article_body_sha256": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+  "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+  "article_path": null,
+  "attempt_run_id": "goal29-brent-transmission",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm?\n\nWhat to watch: Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "658a3804da1253698bdee0b4afe6aa9aace1f328aa217829aa652c46a6e87a3f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCapital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm?\n\nWatch: Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Capital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm?\n\nWatch: Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.\n\nCC report / event unconfirmed."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Facts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.754,
+            0.661,
+            0.736
+          ],
+          "post_character_counts": [
+            211,
+            185,
+            206
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.877,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Capital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm?\n\nWatch: Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.\n\nCC report / event unconfirmed.",
+          "Facts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0",
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0"
+      },
+      "payload_sha256": "63ba43b86cd5b00bff92805d27defd49d5bb24c01ef09aadf5241f709351a6e5",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]**\n\nCapital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm?\n\n**Context:** B\u1ed9 ngu\u1ed3n ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 ch\u1ecdn ph\u1ea3n \u0111\u1ec1 n\u00e0y hay c\u01a1 ch\u1ebf c\u1ea1nh tranh v\u1eadt ch\u1ea5t.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "19897cf67daf6bda3ad6b2eb117f6d0ac9cd984a0ff44552a493b45e9f06b12d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nWhy it matters: Ph\u00e2n t\u00edch CC c\u00f3 \u0111i\u1ec1u ki\u1ec7n: n\u1ebfu r\u00fat kho M\u1ef9 ph\u1ea3n \u00e1nh c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t l\u1eb7p l\u1ea1i, th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n v\u00e0 ch\u00eanh gi\u00e1 c\u00f3 th\u1ec3 truy\u1ec1n t\u00e1c \u0111\u1ed9ng sang Brent.\n\nContext: B\u1ed9 ngu\u1ed3n ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 ch\u1ecdn ph\u1ea3n \u0111\u1ec1 n\u00e0y hay c\u01a1 ch\u1ebf c\u1ea1nh tranh v\u1eadt ch\u1ea5t.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "9ffc0bed60427cf8b3f084e8a49f579dde1c1e72c66a6859b3f12d0010bffb10",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm?\n\nWhy it matters: Ph\u00e2n t\u00edch CC c\u00f3 \u0111i\u1ec1u ki\u1ec7n: n\u1ebfu r\u00fat kho M\u1ef9 ph\u1ea3n \u00e1nh c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t l\u1eb7p l\u1ea1i, th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n v\u00e0 ch\u00eanh gi\u00e1 c\u00f3 th\u1ec3 truy\u1ec1n t\u00e1c \u0111\u1ed9ng sang Brent.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "5d97de84ad1c6fb22d08675b45d581482ab905149d9fd77a2a3dfc9c57ec2fd5",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm?\n\nIn focus: B\u1ed9 ngu\u1ed3n ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 ch\u1ecdn ph\u1ea3n \u0111\u1ec1 n\u00e0y hay c\u01a1 ch\u1ebf c\u1ea1nh tranh v\u1eadt ch\u1ea5t.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\n#CapitalChronicle\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "0f588c2247c3d10cfedabca64689e8d2bf1e6eb47b7ab558371040e9f85f003f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nB\u1ed9 ngu\u1ed3n ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 ch\u1ecdn ph\u1ea3n \u0111\u1ec1 n\u00e0y hay c\u01a1 ch\u1ebf c\u1ea1nh tranh v\u1eadt ch\u1ea5t.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nWhat to watch: Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nB\u1ed9 ngu\u1ed3n ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 ch\u1ecdn ph\u1ea3n \u0111\u1ec1 n\u00e0y hay c\u01a1 ch\u1ebf c\u1ea1nh tranh v\u1eadt ch\u1ea5t.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.562,
+            0.648
+          ],
+          "post_character_counts": [
+            281,
+            324
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.867,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nB\u1ed9 ngu\u1ed3n ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 ch\u1ecdn ph\u1ea3n \u0111\u1ec1 n\u00e0y hay c\u01a1 ch\u1ebf c\u1ea1nh tranh v\u1eadt ch\u1ea5t.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0",
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nB\u1ed9 ngu\u1ed3n ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 ch\u1ecdn ph\u1ea3n \u0111\u1ec1 n\u00e0y hay c\u01a1 ch\u1ebf c\u1ea1nh tranh v\u1eadt ch\u1ea5t.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0"
+      },
+      "payload_sha256": "7169565422b5ce0f6595e948cd7d64dd6f99e6ba04bc388e1dfd7c5c8b04e813",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:UKOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm?\n\nWhat to watch: Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "126337e3517dae96b2af1d95f198d9581f62a40e4a424d641ee693d24c18caa2",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal29_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed.",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal29_brent_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal29_brent_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+          "reasoning_effort": "max",
+          "role": "revise",
+          "speed": "standard",
+          "stage": "revise",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 3,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 3
+  },
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:UKOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-21-bangkok",
+  "parent_window_id": "goal29-brent-transmission",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "deda70a8920b48108d54ec2bb317421b0b4cc18484fb1d00f4c83138759dfc73",
+  "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-93077be7d9d04ac72cb7cb5e",
+  "title": "Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm",
+  "unknown_write_count": 0,
+  "update_chain_identity": "energy-balance-transmission"
+}

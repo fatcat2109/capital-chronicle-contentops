@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal35-meta",
+      "source_id": "goal35-meta",
+      "source_url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+      "url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+      "publisher": "Reuters",
+      "source_identity": "reuters.com",
+      "title": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+      "raw_sha256": "cf41b2f98b0ae3cc9ab39bd11f95198fd3cdad4ab824b02cfe89bdbde603249a",
+      "canonical_content_text": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments\n\nMeta will issue a new class of non-voting Class C common stock in January ​2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI ​race.\n\nThe company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.\n\nThe company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.\n\nMeta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash ​flow of $10.63 billion a year earlier.",
+      "source_adapter_family": "reputable_secondary_report",
+      "source_authority_class": "reputable_secondary_source",
+      "source_interest_role": "NEWS_REPORTER",
+      "report_truth_only": true,
+      "published_at_utc": "2026-10-21T20:05:00Z",
+      "published_at_source": "2026-10-21T20:05:00Z",
+      "published_at_precision": "MINUTE",
+      "content_truncated": false,
+      "public_claim_allowed": true,
+      "original_reporting_identity": "Reuters",
+      "syndication_host": "www.reuters.com"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-21T22:27:23.026Z",
+    "request_count_for_call": 0
+  }
+}

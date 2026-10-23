@@ -1,0 +1,44 @@
+{
+  "browser": "BROWSEROS_NEO_MCP",
+  "component": "ReportEditorialWorkspace",
+  "artifact_source": "Actual same HTML rendered by Neo, archived via browser PDF export; pages rasterized using Poppler and visually inspected",
+  "desktop": {
+    "client": 1434,
+    "scroll": 1434,
+    "article_client": 1002,
+    "article_scroll": 1002,
+    "verified_images": 5,
+    "previews": 40,
+    "viewed_artifacts": [
+      "render/desktop-first.png",
+      "render/desktop-article.png"
+    ],
+    "screen_media_pdf": "render/desktop-screen-media.pdf",
+    "full_browser_pdf": "render/desktop-full.pdf"
+  },
+  "mobile": {
+    "mode": "Same actual HTML in a 430px iframe; not device emulation",
+    "client": 415,
+    "scroll": 415,
+    "article_client": 389,
+    "article_scroll": 389,
+    "article_count": 5,
+    "images": 5,
+    "previews": 40,
+    "viewed_artifacts": [
+      "render/mobile-first.png",
+      "render/mobile-article.png"
+    ],
+    "browser_pdf": [
+      "render/mobile-iframe.pdf",
+      "render/mobile-article.pdf"
+    ]
+  },
+  "source_media_images_inspected": 5,
+  "full_articles_read": 5,
+  "native_packages_read": 40,
+  "rendered_visual_inspection": "PASS_FOR_INSPECTED_DESKTOP_AND_MOBILE_WIDTH_ARTIFACTS",
+  "screenshot_capture": "NOT_AVAILABLE_CDP_TIMEOUT; no screenshot claimed",
+  "text_and_metadata": "Dated source scope, sparse cited IDs, KEEP/HOLD and pending canonical links preserved",
+  "public_write_performed": false
+}

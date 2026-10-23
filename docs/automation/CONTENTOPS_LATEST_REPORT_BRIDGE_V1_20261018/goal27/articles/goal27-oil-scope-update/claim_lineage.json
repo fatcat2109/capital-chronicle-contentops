@@ -1,0 +1,430 @@
+[
+  {
+    "article_section_ids": [],
+    "attribution_required": true,
+    "claim_id": "oil-metadata-title",
+    "claim_kind": "FACT",
+    "claim_text": "Capital Chronicle's oil update leaves the demand question open",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+        "claim_id": "usoil-source",
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "producer_layer": "OBSERVED_SOURCE_FACT"
+      }
+    ],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "article_section_ids": [],
+    "attribution_required": true,
+    "claim_id": "oil-metadata-dek",
+    "claim_kind": "FACT",
+    "claim_text": "CC REPORT / EVENT UNCONFIRMED — Capital Chronicle retains the October 9 EIA stock observations and withdraws the prepared analytical watch. The crude draw still needs an explanation.",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+        "claim_id": "usoil-source",
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "producer_layer": "OBSERVED_SOURCE_FACT"
+      }
+    ],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "article_section_ids": [],
+    "attribution_required": true,
+    "claim_id": "oil-metadata-search_title",
+    "claim_kind": "FACT",
+    "claim_text": "Capital Chronicle oil update: what the retained EIA draw tells us",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+        "claim_id": "usoil-source",
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "producer_layer": "OBSERVED_SOURCE_FACT"
+      }
+    ],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "article_section_ids": [],
+    "attribution_required": true,
+    "claim_id": "oil-metadata-meta_description",
+    "claim_kind": "FACT",
+    "claim_text": "Capital Chronicle narrows its oil interpretation around the unchanged October 9 EIA stock figures. Lower crude stocks leave demand and persistence unresolved.",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+        "claim_id": "usoil-source",
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "producer_layer": "OBSERVED_SOURCE_FACT"
+      }
+    ],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "article_section_ids": [],
+    "attribution_required": true,
+    "claim_id": "oil-metadata-social_hook",
+    "claim_kind": "FACT",
+    "claim_text": "Capital Chronicle's oil revision keeps the October 9 crude draw in view. A falling crude buffer and a gasoline build still leave the demand question open.",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+        "claim_id": "usoil-source",
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "producer_layer": "OBSERVED_SOURCE_FACT"
+      }
+    ],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "attribution_required": true,
+    "claim_id": "oil-opening-stock-tension",
+    "claim_kind": "FACT",
+    "claim_text": "crude and distillate stocks fell while gasoline accumulated.",
+    "document_id": "goal27-oil-original",
+    "source_id": "SOURCE_2",
+    "support_excerpt_sha256": "e9ec4abbafbe8fe2e4356e03f0f0ce0cb05d446872abfb3a26889aaa46c2966b",
+    "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+  },
+  {
+    "attribution_required": true,
+    "claim_id": "oil-retained-stocks",
+    "claim_kind": "NUMBER",
+    "claim_text": "For the October 9, 2026 observation, the retained EIA summary records commercial crude inventories, excluding the Strategic Petroleum Reserve, falling by 8.6 million barrels to 415.6 million barrels, 3% below their five-year average. Gasoline inventories rose by 3.5 million barrels and stood 4% below their average; distillate stocks fell by 2.5 million barrels and were 12% below their average. These are the unchanged stock observations underlying the revision.",
+    "document_id": "goal27-oil-original",
+    "source_id": "SOURCE_2",
+    "support_excerpt_sha256": "e9ec4abbafbe8fe2e4356e03f0f0ce0cb05d446872abfb3a26889aaa46c2966b",
+    "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+  },
+  {
+    "attribution_required": true,
+    "claim_id": "oil-stock-change-mechanism-limit",
+    "claim_kind": "FACT",
+    "claim_text": "Capital Chronicle's reading is that a fall in stored crude describes a change in the buffer; it does not identify which flows produced it. EIA's gasoline build also leaves the stronger-demand explanation open.",
+    "document_id": "goal27-oil-original",
+    "source_id": "SOURCE_2",
+    "support_excerpt_sha256": "e9ec4abbafbe8fe2e4356e03f0f0ce0cb05d446872abfb3a26889aaa46c2966b",
+    "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+  },
+  {
+    "article_section_ids": [
+      "paragraph:5"
+    ],
+    "attribution_required": true,
+    "claim_id": "oil-retained-main-source-scope",
+    "claim_kind": "FACT",
+    "claim_text": "Capital Chronicle's current USOIL version retains only the source-fact claim.",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+        "claim_id": "usoil-source",
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "producer_layer": "OBSERVED_SOURCE_FACT"
+      }
+    ],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "attribution_required": true,
+    "claim_id": "oil-unchanged-observations",
+    "claim_kind": "FACT",
+    "claim_text": "the October 9 inventory observations have not been retracted or revised in the retained EIA text.",
+    "document_id": "goal27-oil-original",
+    "source_id": "SOURCE_2",
+    "support_excerpt_sha256": "e9ec4abbafbe8fe2e4356e03f0f0ce0cb05d446872abfb3a26889aaa46c2966b",
+    "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+  },
+  {
+    "attribution_required": true,
+    "claim_id": "oil-import-comparisons",
+    "claim_kind": "NUMBER",
+    "claim_text": "The retained EIA summary also reports crude imports falling by 791,000 barrels a day to 6.0 million barrels a day. Its four-week import average was 6.1 million barrels a day, 0.9% above the year-earlier level. A weekly flow change, a four-week comparison and a stock change answer different questions; they do not supply a complete explanation of the crude draw.",
+    "document_id": "goal27-oil-original",
+    "source_id": "SOURCE_2",
+    "support_excerpt_sha256": "51fc3c9242fa1f3a68e2bff376d20a865ae4abcafdf9fe4f54458930457e4dc6",
+    "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+  },
+  {
+    "attribution_required": true,
+    "claim_id": "oil-lower-buffer-countercase",
+    "claim_kind": "FACT",
+    "claim_text": "The countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages. Lower buffers could matter for availability even if stronger end demand has not been shown; persistence is the missing test.",
+    "document_id": "goal27-oil-original",
+    "source_id": "SOURCE_2",
+    "support_excerpt_sha256": "e9ec4abbafbe8fe2e4356e03f0f0ce0cb05d446872abfb3a26889aaa46c2966b",
+    "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+  },
+  {
+    "article_section_ids": [
+      "paragraph:9"
+    ],
+    "attribution_required": true,
+    "claim_id": "oil-market-evidence-limits",
+    "claim_kind": "FACT",
+    "claim_text": "A seasonal stock comparison is also different from a market surprise. Capital Chronicle has no separately captured pre-release expectation, contemporaneous WTI price response or current futures curve in this record. It therefore cannot establish what traders anticipated, how prices responded or whether that response reflected the inventory figures.",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [
+      {
+        "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+        "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+        "claim_id": "usoil-source",
+        "evidence": [
+          {
+            "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+            "exact_or_proxy": "EXACT",
+            "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+            "known_at_utc": "2026-10-18T15:13:09.289Z",
+            "observation_time_utc": "2026-10-09T00:00:00Z",
+            "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+            "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+            "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+            "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+            "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+            "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+            "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+            "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+          }
+        ],
+        "producer_layer": "OBSERVED_SOURCE_FACT"
+      }
+    ],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "attribution_required": true,
+    "claim_id": "oil-next-comparable-balance-question",
+    "claim_kind": "FACT",
+    "claim_text": "Does a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading? The retained October 9 figures cannot answer either question.",
+    "document_id": "goal27-oil-original",
+    "source_id": "SOURCE_2",
+    "support_excerpt_sha256": "e9ec4abbafbe8fe2e4356e03f0f0ce0cb05d446872abfb3a26889aaa46c2966b",
+    "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+  },
+  {
+    "article_section_ids": [
+      "paragraph:12"
+    ],
+    "attribution_required": true,
+    "claim_id": "oil-observation-date",
+    "claim_kind": "FACT",
+    "claim_text": "the observation date is October 9, 2026.",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [
+      {
+        "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+        "field": "observation_time_utc",
+        "text": "Main evidence neo:eia-petroleum:b7435f56ed43ebc7 observation_time_utc: 2026-10-09T00:00:00Z",
+        "value": "2026-10-09T00:00:00Z"
+      }
+    ],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "4ef45fe5fbb0ec53bf29af2dde50d6ab6bd32a6007d79d53a6bd89af8c23f90f",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "article_section_ids": [
+      "paragraph:12"
+    ],
+    "attribution_required": true,
+    "claim_id": "oil-retrieval-time",
+    "claim_kind": "FACT",
+    "claim_text": "Main's evidence metadata records retrieval and known-at time as October 18 at 15:13:09.289 UTC.",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [
+      {
+        "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+        "field": "retrieval_time_utc",
+        "text": "Main evidence neo:eia-petroleum:b7435f56ed43ebc7 retrieval_time_utc: 2026-10-18T15:13:09.289Z",
+        "value": "2026-10-18T15:13:09.289Z"
+      }
+    ],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "8019693ebaad45cbe6efde92a88ecbdde1d891eccf3adcbfc77db57d7b13c20c",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  },
+  {
+    "article_section_ids": [
+      "paragraph:12"
+    ],
+    "attribution_required": true,
+    "claim_id": "oil-report-cutoff",
+    "claim_kind": "FACT",
+    "claim_text": "The USOIL report cutoff is October 19 at 12:25 UTC; it is not the EIA release time.",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_claims": [],
+    "report_id": "asset-report:USOIL",
+    "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "report_version": 5,
+    "source_clock_metadata_bindings": [
+      {
+        "field": "known_at_cutoff_utc",
+        "text": "Main report known-at cutoff (not source release): 2026-10-19T12:25:00Z",
+        "value": "2026-10-19T12:25:00Z"
+      }
+    ],
+    "source_id": "SOURCE_1",
+    "support_excerpt_sha256": "36497bc18feebad03370e1c01028be8ecfa8eb0f8ad9dfff4bc67b3a6d6657a8",
+    "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+  }
+]

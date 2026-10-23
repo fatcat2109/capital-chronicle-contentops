@@ -1,0 +1,75 @@
+{
+  "schema": "contentops.signal_clips.review_return.v1",
+  "binding": {
+    "package_sha256": "41fb4f61d8926df1606d1a25293c35e4df383c3a20c9a04415f70a2b8c5a3836",
+    "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+    "original_media_sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+    "transcript_sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1",
+    "edit_sha256": "b1dc36c15fc77e0bd59257a3f8aeb5bbaf50b81eafdf8ceba3a20dda179e1330",
+    "affected_outputs": {
+      "master_vertical_clean_1080x1920.mp4": "de5c41ece8a32055d37b5fcdf726117894ca7321e770ec9223b13b4ff2c55a2d",
+      "derivative_vertical_captioned_1080x1920.mp4": "836e29b8df9e3ec20757061aa3d4d3fcd9379b3adaff2d8a6449ab920654e472",
+      "captions.srt": "190c472c56ed6eb872c47eeaa2389b9a3966a718cfd941b9ea051f9c958e0135",
+      "captions.vtt": "eb93b7bbd169f5d70ef7689301069ba792be8a64d5ae6759615412e8f1fc5000",
+      "captions.json": "be7d194ef818e51be2374550a81fc4a6dbf303c9f9ffd8043dcf55bf119aeb81",
+      "selection_request.json": "69a89a151da5bc6d0242861784f0e8bb7d30b0b9f7a09e56ec9133d2a53ef296",
+      "meaning_request.json": "f56b221b9f532f998d54b3d9fddb96d1bb483bbcdca2aad47733c85061004b82",
+      "extracted_clip.mp4": "d416db4da4c7a6ad61cfec558295d2e305a9018d35d619375040b9c07e78d9ab",
+      "current_source.json": "7e8b1870922e68b4f806257ed231f529d265139d511a39e2d34f6001525584f6",
+      "selection_return.json": "d12571304e8f1dd2a720d28c193f9c96f8c9ce74e1f57ed586bbf04c72668b67",
+      "meaning_return.json": "356ada9eb74543d40f8f931429abdfcb6d62c428b5905bec39329ac2e3853942",
+      "destination_metadata.json": "e7992721a2830410ce6de261f81f76e40d113be1a142b73001f844c6d989ffa5",
+      "review_request.json": "98dddc07e6f3ecb2afb530433c15dfbd448e3753b16fc0d3c682e4bcfdbe9bf6"
+    }
+  },
+  "reviewer": {
+    "identity": "Codex Goal38 operator / visual review only",
+    "method": "Inspected actual Goal37 frame and five-frame contact sheet; Neo source/cut playback and seeking verified mechanically only",
+    "capability": "VISUAL_ONLY",
+    "limitations": "Identity and method are self-reported, not independently attested. No audio/timing/rights acceptance implied.",
+    "attestation": "SELF_REPORTED_NOT_INDEPENDENTLY_ATTESTED"
+  },
+  "findings": {
+    "VISUAL": {
+      "status": "REVISION_REQUESTED",
+      "notes": "Original picture occupies about 26% of portrait while static blocks dominate. Increase source picture to a central phone treatment; keep all original speech/captions and dated uncertainty. Preserve the full room-wide shot at the existing camera cut. Technical review findings belong in this page, not the hook.",
+      "evidence": [
+        {
+          "file": ".task-runtime/speech_highlight_relay_v1/goal37/fed-contact-sheet.png",
+          "sha256": "a3cee583990ee7dcacf8c3666bb171c4f03c2c4a5e571e16aebb1c0ced89a977"
+        }
+      ],
+      "method": ""
+    },
+    "CAPTIONS": {
+      "status": "NOT_VERIFIED",
+      "notes": "Not independently reviewed.",
+      "evidence": [],
+      "method": ""
+    },
+    "AUDIO": {
+      "status": "NOT_VERIFIED",
+      "notes": "No capable original-audio hearing was performed. Muted playback/time advance is mechanics only.",
+      "evidence": [],
+      "method": ""
+    },
+    "TIMING": {
+      "status": "NOT_VERIFIED",
+      "notes": "Publisher cues are not verified against original audio or cut sound.",
+      "evidence": [],
+      "method": ""
+    },
+    "CONTEXT": {
+      "status": "NOT_VERIFIED",
+      "notes": "Only supplied provisional caption context reviewed; full-event context and attribution are not independently verified.",
+      "evidence": [],
+      "method": ""
+    },
+    "RIGHTS": {
+      "status": "NOT_VERIFIED",
+      "notes": "Asset-specific permissions, source seal and third-party room participants remain unresolved.",
+      "evidence": [],
+      "method": ""
+    }
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "schema_version": "contentops.goal27.updating_edition.v1",
+  "observed_at_utc": "2026-10-20T20:03:19.377911+00:00",
+  "articles": [
+    {
+      "run_id": "goal27-oil-scope-update",
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "title": "Capital Chronicle's oil update leaves the demand question open",
+      "prior_article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "source_review_id": "native-source-review-cc77db435e31663eaf22ae204b262a4fbab46f3c53bb748fcc64550f9003d5fc",
+      "story_identity": "simple-story-a45c2527525a19c2d7a67db2",
+      "update_chain_identity": "simple-story-692b942cd8b193e1514f3ebc",
+      "qualified_article_count": 1,
+      "derivative_intent_count": 8,
+      "candidate_count": 15,
+      "admitted_candidate_count": 1,
+      "editorial_execution": {
+        "cost_usd": null,
+        "external_provider_attempt_count": 0,
+        "maximum_repair_count": 1,
+        "native_invocation_count_observed": 2,
+        "observations": [
+          {
+            "invocation_id": "/root/goal27_sol_light",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+            "reasoning_effort": "low",
+            "role": "select",
+            "source_spawn_metadata": {
+              "canonical_task_name": "/root/goal27_sol_light",
+              "fork_turns": "none",
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low",
+              "task_name": "goal27_sol_light",
+              "uuid_exposed": false
+            },
+            "speed": "standard",
+            "stage": "select",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          },
+          {
+            "invocation_id": "/root/goal27_sol_max_writer",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+            "reasoning_effort": "max",
+            "role": "write",
+            "speed": "standard",
+            "stage": "write",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          },
+          {
+            "invocation_id": "/root/goal27_sol_max_writer",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+            "reasoning_effort": "max",
+            "role": "revise",
+            "speed": "standard",
+            "stage": "revise",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          }
+        ],
+        "observed_efforts": [
+          "low",
+          "max"
+        ],
+        "observed_models": [
+          "gpt-6.1-sol"
+        ],
+        "owner": "NATIVE_CODEX_DESKTOP",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "low",
+        "role_assignments": {
+          "filter": {
+            "model": "gpt-6-luna",
+            "reasoning_effort": "max"
+          },
+          "revise": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          },
+          "select": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low"
+          },
+          "write": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          }
+        },
+        "semantic_response_count": 3,
+        "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+        "usage_tokens": null
+      },
+      "handoff": {
+        "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+        "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+        "review_id": "native-article-review-568fcc107ed44261b473f7f6b60a848f",
+        "plan_hash": "ffa9948300f389ebe02282499b8cf593d4d42f7d1a83aa37aae55bbd92735be7",
+        "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal27-oil-scope-update\\reviewed-handoff",
+        "media_reuse_count": 1,
+        "preview_count": 8,
+        "new_qualified_articles": 0,
+        "model_invocations": 0,
+        "source_requests": 0,
+        "public_write_performed": false
+      },
+      "deterministic_retrieval_source_requests": 0,
+      "named_source_requests_before_freeze": 1,
+      "total_source_requests": 1
+    },
+    {
+      "run_id": "goal27-gas-refill-update",
+      "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+      "title": "Gas tuần 9/10: bơm thêm dưới chuẩn, tồn kho trên trung bình năm năm",
+      "prior_article_identity": "9cb401822f1df3223ca23269da7d499f6b4272e9ca70546e066dca01161e397f",
+      "source_review_id": "native-source-review-5ff078571cfc098c51a40cac14209ac2763ae570d1a63633744e53283d637a06",
+      "story_identity": "simple-story-890582887a74cac23d71e366",
+      "update_chain_identity": "simple-story-8380cdb9d4dbf363c652f48a",
+      "qualified_article_count": 1,
+      "derivative_intent_count": 8,
+      "candidate_count": 15,
+      "admitted_candidate_count": 1,
+      "editorial_execution": {
+        "cost_usd": null,
+        "external_provider_attempt_count": 0,
+        "maximum_repair_count": 1,
+        "native_invocation_count_observed": 2,
+        "observations": [
+          {
+            "invocation_id": "/root/goal27_sol_light",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+            "reasoning_effort": "low",
+            "role": "select",
+            "source_spawn_metadata": {
+              "canonical_task_name": "/root/goal27_sol_light",
+              "fork_turns": "none",
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low",
+              "task_name": "goal27_sol_light",
+              "uuid_exposed": false
+            },
+            "speed": "standard",
+            "stage": "select",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          },
+          {
+            "invocation_id": "/root/goal27_sol_max_writer",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+            "reasoning_effort": "max",
+            "role": "write",
+            "speed": "standard",
+            "stage": "write",
+            "surface": "CODEX_NATIVE_SUBAGENT"
+          }
+        ],
+        "observed_efforts": [
+          "low",
+          "max"
+        ],
+        "observed_models": [
+          "gpt-6.1-sol"
+        ],
+        "owner": "NATIVE_CODEX_DESKTOP",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "low",
+        "role_assignments": {
+          "filter": {
+            "model": "gpt-6-luna",
+            "reasoning_effort": "max"
+          },
+          "revise": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          },
+          "select": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low"
+          },
+          "write": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          }
+        },
+        "semantic_response_count": 2,
+        "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+        "usage_tokens": null
+      },
+      "handoff": {
+        "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+        "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+        "review_id": "native-article-review-f99308c6f055447a960395bc7027745b",
+        "plan_hash": "30357b280336667c89a5a74a2ba623949baf562d1ada2976d5c6d97d4b884c00",
+        "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal27-gas-refill-update\\reviewed-handoff",
+        "media_reuse_count": 1,
+        "preview_count": 8,
+        "new_qualified_articles": 0,
+        "model_invocations": 0,
+        "source_requests": 0,
+        "public_write_performed": false
+      },
+      "deterministic_retrieval_source_requests": 0,
+      "named_source_requests_before_freeze": 2,
+      "total_source_requests": 2
+    }
+  ],
+  "usable_updated_articles": 2,
+  "required_story_comparisons": 3,
+  "completed_story_comparisons": 3,
+  "unchanged_story_disposition_count": 0,
+  "source_gap_story_count": 1,
+  "new_native_previews": 16,
+  "actual_native_invocations": 2,
+  "accepted_semantic_returns": 5,
+  "external_provider_model_calls": 0,
+  "usage_tokens": null,
+  "cost_usd": null,
+  "public_posts": 0,
+  "saved_platform_drafts": 0,
+  "dispatches": 0,
+  "pause_release": false,
+  "activation": false,
+  "main_or_db_edits": 0,
+  "main_messages_sent": 0,
+  "sync": "PENDING_OWNER_RECEIVER",
+  "initial_frozen_input_counter_limitation": "source_requests_before_writer_freeze remained 0 in initial immutable snapshot; exact frozen editorial stage arguments reserve actual oil1/gas2. Future new snapshots now record the source-review count."
+}

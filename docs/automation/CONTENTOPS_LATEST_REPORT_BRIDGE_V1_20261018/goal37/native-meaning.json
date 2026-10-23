@@ -1,0 +1,50 @@
+{
+  "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+  "selection_sha256": "be0db6a746b45aa52709711a42f892bc456db6b56f232be04984b60311109c6f",
+  "role": "MEANING",
+  "model": "gpt-6.1-sol",
+  "reasoning_effort": "max",
+  "native_turn_id": "/root/goal37_meaning",
+  "provenance_limitation": "Actual native agent task identity supplied to this task. A separate native turn ID and runtime model/effort attestation are unavailable to this role. The model and reasoning_effort fields identify the assigned role contract, not independently attested runtime settings.",
+  "decision": "KEEP",
+  "reason": "KEEP for a narrowly dated MOMENT_CONTEXT private render only. The continuous selected publisher-caption passage connects the speaker's qualified assessment of economic activity and broad financial conditions to his stated policy rationale. Preserve appears to be strengthening, broad financial conditions, the personal formulation hard pressed, and widely shared without turning the last phrase into unanimity. The September 16, 2026 event is historical context; its October acquisition does not establish current October policy or breaking news. This semantic decision is provisional because the publisher subtitle excerpt and selected boundaries have not been checked against original audio. Final audio/wording, timing, speaker and third-party continuity, and asset-specific rights gates remain open; production_eligible remains false.",
+  "headline": "Warsh on broad\nfinancial conditions",
+  "context": "16 Sep 2026 | FOMC\nHis view: hard to call\nbroad conditions restrictive.\nCaptions; audio unverified.",
+  "speaker_claim": "In the supplied publisher captions, Kevin Warsh says the American economy appears to be strengthening; he describes improvements in hiring, private-sector earnings and business investment, and robust credit flows, particularly for businesses. He says he would be hard pressed to describe broad financial conditions as restrictive, that this view was widely shared by the Committee, and that they removed a dose of accommodation. These are attributed speaker assessments and a stated rationale. No policy rate, direction or size of a rate change is independently established by this review.",
+  "independent_evidence": "None supplied or independently verified for the underlying economic or policy claims in this review. The publisher-caption excerpt, source metadata and prior selection are one source lineage. They provide provisional attributed context and do not constitute independent corroboration. No browsing, listening, transcript-to-audio comparison, market-data check or rights verification was performed.",
+  "cc_interpretation": "The useful audience question is why the speaker linked his policy step to his assessment of the economy and broad financial conditions. The passage illustrates his stated rationale and preserves its qualifiers. This is qualitative editorial interpretation of the supplied dated text. Economic strength, policy effectiveness, current October conditions and future market or policy outcomes remain unverified. No trade, numerical forecast or Core Analyzer conclusion follows.",
+  "format": "MOMENT_CONTEXT",
+  "review_scope": "PRIVATE_RENDER_EDITORIAL_MEANING_ONLY",
+  "event_date": "2026-09-16",
+  "date_and_identity_basis": "Supplied source packet and publisher-caption attribution only; not independently verified by this role.",
+  "selected_span": {
+    "start_seconds": 80.88600000000001,
+    "end_seconds": 118.336
+  },
+  "exact_quote": "Our decision comes at a time when the American economy appears to be strengthening. New hiring, private-sector earnings, business capital investment-each of these markers has improved in recent months and is pointing in a good direction. Credit flows have been robust, particularly for businesses. And, as I said at the policy symposium in Jackson Hole, I would be hard pressed to describe broad financial conditions as restrictive. This view was widely shared by the Committee. So we removed a dose of accommodation.",
+  "qualifiers_to_preserve": [
+    "appears to be strengthening",
+    "in recent months",
+    "particularly for businesses",
+    "I would be hard pressed",
+    "broad financial conditions",
+    "This view was widely shared by the Committee",
+    "So we removed a dose of accommodation"
+  ],
+  "context_limits": [
+    "Only the supplied approximately 60-146 second caption context was reviewed; the full event was not reviewed.",
+    "Preceding supplied captions discuss elevated inflation and price stability; following supplied captions discuss geopolitical shocks and economic resilience.",
+    "The September 16 event date and October 22 acquisition date must remain distinct."
+  ],
+  "remaining_gates": {
+    "original_audio_wording_and_speaker": "NOT_VERIFIED",
+    "caption_alignment_and_cut_boundaries": "PUBLISHER_CAPTIONS_UNVERIFIED_AGAINST_AUDIO",
+    "full_event_context": "NOT_VERIFIED",
+    "third_party_continuity": "NOT_VERIFIED",
+    "asset_specific_rights": "REVIEW_REQUIRED",
+    "final_render_picture_and_audio_quality": "NOT_REVIEWED_BY_THIS_ROLE"
+  },
+  "publication_status": "PUBLICATION_HOLD",
+  "production_eligible": false,
+  "public_write_authority": false
+}

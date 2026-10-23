@@ -1,0 +1,69 @@
+{
+  "schema": "contentops.signal_clips.discovery.v1",
+  "candidates": [
+    {
+      "source_id": "FED_FOMC_20260916_CURRENT_ACQUISITION",
+      "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260916.htm",
+      "publisher": "Board of Governors of the Federal Reserve System",
+      "event_date": "2026-09-16",
+      "speaker": {
+        "name": "Kevin Warsh",
+        "basis": "Publisher caption attribution; independent audio/identity review remains open"
+      },
+      "relevance": "Dated attributed rationale connecting broad financial conditions to a stated policy step; not October breaking news",
+      "input_origin": "EXPLICIT_SOURCE"
+    },
+    {
+      "source_id": "IBM_EARNINGS_20261021",
+      "canonical_source_url": "https://www.ibm.com/investor/events/earnings-3q26",
+      "publisher": "IBM",
+      "event_date": "2026-10-21",
+      "source_event_clock": "5:00PM ET, from event page",
+      "speaker": {
+        "state": "NOT_VERIFIED"
+      },
+      "relevance": "Distinct business earnings / new demand versus delayed-deal scope",
+      "existing_stream": "Existing IBM investor events page; bounded manual/Neo discovery",
+      "recording_reference": "https://event.choruscall.com/mediaframe/webcast.html?webcastid=LQHB2b39",
+      "adjudication": "HOLD_REUSE_SCOPE_NOT_ESTABLISHED",
+      "reason": "Official event page offers webcast audio and documents; an independently reusable original speech video and permission for editing/republication were not established. IBM general terms provide limited non-commercial web access/display, not an affirmative clip reuse grant.",
+      "rights_evidence_url": "https://www.ibm.com/legal/terms",
+      "proposed_format": "WHAT_CHANGED",
+      "format_limit": "No before/after comparison or new-demand conclusion can be asserted without exact source editions and original audio. No business clip delivered.",
+      "input_origin": "EXISTING_STREAM"
+    },
+    {
+      "source_id": "FED_BOWMAN_20261014",
+      "canonical_source_url": "https://www.federalreserve.gov/newsevents/speech/bowman20261014a.htm",
+      "publisher": "Board of Governors of the Federal Reserve System",
+      "event_date": "2026-10-14",
+      "speaker": {
+        "name": "Michelle W. Bowman",
+        "role": "Vice Chair for Supervision; official speech-page attribution"
+      },
+      "relevance": "Supervisory modernization following SVB; distinct source lead after IBM hold",
+      "existing_stream": "https://www.federalreserve.gov/newsevents/speeches-testimony.htm",
+      "recording_reference": "https://www.youtube.com/live/V7H5F2C5PNc",
+      "adjudication": "HOLD_RECORDING_REUSE_AND_ORIGINAL_AUDIO_NOT_ESTABLISHED",
+      "reason": "Official text links a Watch Live recording of an external Bangkok Economic Festival event. Board text policy does not establish ownership/reuse permission for that external recording. No recording acquired or audio review claimed.",
+      "proposed_format": "CONSEQUENCE_WATCHPOINT",
+      "format_limit": "Potential only; no clip accepted or current causal claim made.",
+      "input_origin": "EXISTING_STREAM"
+    }
+  ],
+  "input_hashes": {
+    "owner_source": "a30c06aff2443d573943759cb9cf19d7be16d9a8c3846fa4988b5420bf173f1f",
+    "existing_stream": "51158f34aa32fcef327e1be29bf5fccaaed9865baa333e22b29e2d54c4c07ce6"
+  },
+  "publication_control": {
+    "publication_state": "PUBLICATION_HOLD",
+    "write_authority": "ZERO_PUBLIC_WRITE",
+    "public_writes": 0,
+    "unknown_writes": 0,
+    "network_calls_made": 0,
+    "provider_calls": 0,
+    "browser_calls": 0,
+    "transport_dispatched": false,
+    "destination_intents": []
+  }
+}

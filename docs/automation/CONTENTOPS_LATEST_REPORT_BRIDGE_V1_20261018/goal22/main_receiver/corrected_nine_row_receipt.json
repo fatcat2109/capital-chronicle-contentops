@@ -1,0 +1,85 @@
+{
+  "status": "PASS_ACTUAL_MAIN_OWNER_NINE_CONTEXT_ROWS",
+  "consumer_owner": "tools.product.primary_demo_workspace_v1.load_headline_context",
+  "source_jsonl_sha256": "5d6b6bbeb90c5c315dce7a65d681495c7a9dc227583bc4639c213a5d4600d0fb",
+  "accepted": 9,
+  "rejected": [],
+  "accepted_rows": [
+    {
+      "headline_id": "goal21-fed-policy",
+      "projection_sha256": "cbeedc11f1e9f7ff7175c07c7578dc1262c9197142db50cc0346f86b75e15ca5",
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    },
+    {
+      "headline_id": "goal21-fed-inflation",
+      "projection_sha256": "be0c22f1d87e1d3e852426dffd2823e02fa99a723c92861f357770f8248a36b7",
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    },
+    {
+      "headline_id": "goal21-fx-convention",
+      "projection_sha256": "a632e530e84d257e6c9d523d285cc35edbdfac3d47da1d87f627a2051d2b5c33",
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    },
+    {
+      "headline_id": "goal21-fx-broad-index",
+      "projection_sha256": "c2f9676499e0c35ab4680b9e8ed911a827b8e60b3c8ba91ede8990ae564fe699",
+      "context_kind": "FOUNDATION_BACKGROUND",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    },
+    {
+      "headline_id": "goal21-sec-cross-trading",
+      "projection_sha256": "9ab719a6e25259dbe327b918e199dd4546f1e32d97bd9cd83d16de5daf5e20f0",
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    },
+    {
+      "headline_id": "goal21-crypto-custody-proposal",
+      "projection_sha256": "44cae4133dcf01638a380c1b98782fb146d855fdbaf7433919d0611bc8458011",
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    },
+    {
+      "headline_id": "goal21-crypto-custody-conditions",
+      "projection_sha256": "b9b813df40758240d63df55dce1519c9c3e676e6e11b188217dd92e71760f815",
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    },
+    {
+      "headline_id": "goal21-gas-storage",
+      "projection_sha256": "3c1689bd12c2df3ed921ae30a4a981096671f3ee58a14c243120ad6a79710673",
+      "context_kind": "HISTORICAL_OBSERVATION_NOT_CURRENT_INVENTORY",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    },
+    {
+      "headline_id": "goal21-gas-series-migration",
+      "projection_sha256": "8293d7dab3c597131d8baa0eddde47694dc6ed763e6eb645693b8ba98efd2f7e",
+      "context_kind": "SOURCE_SERIES_MIGRATION",
+      "severity": "CONTEXT_UPDATE_ONLY"
+    }
+  ],
+  "earlier_cutoff_accepted": 0,
+  "earlier_cutoff_rejected": 9,
+  "context_only": 9,
+  "numeric_authority": 0,
+  "fresh_catalysts": 0,
+  "private_runtime_reads": 0,
+  "Main_files_written": 0,
+  "broker_or_database_calls": 0,
+  "provider_calls": 0,
+  "public_writes": 0,
+  "audit_guard_denials": [],
+  "actor": "CONTENTOPS_OPERATOR_INVOKED_EXISTING_MAIN_RECEIVER_ISOLATED_NOT_MAIN_PRODUCTION_INGESTION",
+  "Main_source_commit": "9fcb917d698f92b284195d8d248c40a5ae75b382",
+  "Main_receiver_source_sha256": {
+    "tools/product/primary_demo_workspace_v1.py": "48aa7b9befa01ed65b08338b4a2f2142b8c8315ad69be310314df12c5a3c9da2",
+    "tools/product/asset_analysis_reporting_v1.py": "2964abbd468b1f0c56b429023b7d2a901973983712b175025bb60b991f743f2f",
+    "tools/product/mwp_common_v1.py": "5e9e38571fe509e00e05093eb510945a5cf1b95c6df860dad0fe27cc7a6662a5",
+    "tools/product/continuous_catalyst_trigger_fabric_v1.py": "d41205e682f0afe960360f43fb7c3c10f35b6ec3114733e5cf1b1b188b415558"
+  },
+  "initial_Main_independent_receipt_commit": "43b853ae4a41c1313827f7ec0a687bc59e8fcf6e",
+  "undated_dispositions": 5,
+  "wire_revision": 3
+}

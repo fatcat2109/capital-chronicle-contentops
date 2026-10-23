@@ -1,0 +1,253 @@
+{
+  "observed_at_utc": "2026-10-23T00:10:02.991408+00:00",
+  "result": "PRIVATE_ENGINEERING_CANDIDATE_WITH_EXPLICIT_HELD_DIMENSIONS",
+  "schema": "contentops.goal37.delivery_evidence.v1",
+  "source": {
+    "schema": "contentops.speech_highlight_relay.current_source_private.v1",
+    "source_id": "FED_FOMC_20260916_CURRENT_ACQUISITION",
+    "publisher": "Board of Governors of the Federal Reserve System",
+    "canonical_source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260916.htm",
+    "event_date": "2026-09-16",
+    "speaker": {
+      "name": "Kevin Warsh",
+      "role": "Chairman; publisher caption attribution"
+    },
+    "production_eligible": false,
+    "media": {
+      "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\fed-original.mp4",
+      "sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+      "duration_seconds": 1722.431667
+    },
+    "transcript": {
+      "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\timed-captions.json",
+      "sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1"
+    },
+    "acquisition": {
+      "method": "NEO_PUBLIC_PLAYER_SUPPORTED_DOWNLOAD",
+      "captured_at_utc": "2026-10-22T23:43:50.215742+00:00",
+      "video_id": "6405157968112",
+      "source_age": "DATED_SEPTEMBER_EVENT_NOT_OCTOBER_BREAKING",
+      "caption_method": "PUBLIC_PLAYER_SUBTITLE_CUES",
+      "caption_boundary": "PARTIAL_CONTEXT_WINDOWS_60_146_SECONDS_NOT_FULL_TRANSCRIPT"
+    },
+    "rights": {
+      "private_processing_basis": "PERMITTED",
+      "evidence": {
+        "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\fed-policy.md",
+        "sha256": "99fa77c091f1a4a2265b18885cd2fd6d7cf13e46e6bc20fea46a22017c80ab38"
+      },
+      "media_sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+      "limitations": [
+        "Private preparation only; source Board information default public domain subject to exceptions",
+        "No seal/logo endorsement or third-party reporter material clearance",
+        "Final asset-specific rights and continuity remain review required"
+      ]
+    },
+    "audio_review": {
+      "status": "NOT_VERIFIED"
+    },
+    "timing_review": {
+      "status": "PUBLISHER_CAPTIONS_UNVERIFIED_AGAINST_AUDIO"
+    }
+  },
+  "selected_span": {
+    "start_seconds": 80.88600000000001,
+    "end_seconds": 118.336
+  },
+  "probes": {
+    "extracted_clip.mp4": {
+      "duration_seconds": "37.470400",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 960,
+          "height": 540
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      ]
+    },
+    "master_vertical_clean_1080x1920.mp4": {
+      "duration_seconds": "37.466667",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1080,
+          "height": 1920
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      ]
+    },
+    "derivative_vertical_captioned_1080x1920.mp4": {
+      "duration_seconds": "37.466667",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1080,
+          "height": 1920
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      ]
+    }
+  },
+  "audio_bitstream_hashes": {
+    "extracted_clip.mp4": "SHA256=95facb4f5c3500df0418b95bab45188355b8d51872ffec5eaf266f013d7d78bd",
+    "master_vertical_clean_1080x1920.mp4": "SHA256=95facb4f5c3500df0418b95bab45188355b8d51872ffec5eaf266f013d7d78bd",
+    "derivative_vertical_captioned_1080x1920.mp4": "SHA256=95facb4f5c3500df0418b95bab45188355b8d51872ffec5eaf266f013d7d78bd"
+  },
+  "master_derivative_audio_equal": true,
+  "audio_hash_scope": "Mechanical encoded audio identity only; not listening, wording or source-clock proof.",
+  "repeated_request": {
+    "command": "python -m live_contentops.cli speech-highlight-current-source --source-config .task-runtime/speech_highlight_relay_v1/goal37/source.json --repo-root . --output-dir .task-runtime/speech_highlight_relay_v1/goal37/fed-job",
+    "result_equal": true,
+    "rendered_and_native_return_mtimes_unchanged": true,
+    "exact_assets": {
+      "master_vertical_clean_1080x1920.mp4": {
+        "sha256": "de5c41ece8a32055d37b5fcdf726117894ca7321e770ec9223b13b4ff2c55a2d",
+        "mtime_ns": 1792713494132079600
+      },
+      "derivative_vertical_captioned_1080x1920.mp4": {
+        "sha256": "836e29b8df9e3ec20757061aa3d4d3fcd9379b3adaff2d8a6449ab920654e472",
+        "mtime_ns": 1792713506456629300
+      },
+      "captions.srt": {
+        "sha256": "190c472c56ed6eb872c47eeaa2389b9a3966a718cfd941b9ea051f9c958e0135",
+        "mtime_ns": 1792713506673136300
+      },
+      "captions.vtt": {
+        "sha256": "eb93b7bbd169f5d70ef7689301069ba792be8a64d5ae6759615412e8f1fc5000",
+        "mtime_ns": 1792713506674180500
+      },
+      "captions.json": {
+        "sha256": "be7d194ef818e51be2374550a81fc4a6dbf303c9f9ffd8043dcf55bf119aeb81",
+        "mtime_ns": 1792713506675195900
+      },
+      "selection_return.json": {
+        "sha256": "d12571304e8f1dd2a720d28c193f9c96f8c9ce74e1f57ed586bbf04c72668b67",
+        "mtime_ns": 1792712675868370100
+      },
+      "meaning_return.json": {
+        "sha256": "356ada9eb74543d40f8f931429abdfcb6d62c428b5905bec39329ac2e3853942",
+        "mtime_ns": 1792713470992784800
+      },
+      "current_source.json": {
+        "sha256": "7e8b1870922e68b4f806257ed231f529d265139d511a39e2d34f6001525584f6",
+        "mtime_ns": 1792712630755039800
+      },
+      "extracted_clip.mp4": {
+        "sha256": "d416db4da4c7a6ad61cfec558295d2e305a9018d35d619375040b9c07e78d9ab",
+        "mtime_ns": 1792713477518027000
+      }
+    },
+    "jobs_created": 0,
+    "model_turns": 0,
+    "actual_cli_equal": true,
+    "actual_discovery_plan_equal_and_mtime_unchanged": true
+  },
+  "recovery": {
+    "actual": "Persisted original media/transcript and completed native selection were resumed after conversation/quota interruption; meaning/render then completed. Subsequent replay reuses sealed actual renders.",
+    "controlled_test": "test_interrupted_render_discards_partial_and_reuses_sealed_clip: injected mid-render interruption; partial rebuilt and sealed clip reused. No actual FFmpeg crash is claimed."
+  },
+  "frozen_paths": {
+    "live_contentops/speech_highlight_relay_v1.py": {
+      "base_checkout_bytes_sha256": "459d655de260d4d466fb162012ac7ef4d07eddd60e147c4efa9db4eab27b7495",
+      "current_sha256": "459d655de260d4d466fb162012ac7ef4d07eddd60e147c4efa9db4eab27b7495",
+      "unchanged": true,
+      "basis": "Base commit checkout bytes via git cat-file --filters; Windows text files retain existing CRLF, frozen JSON/probe retain LF"
+    },
+    "video/speech_highlight_relay_v1/retained_replay_fed_20260729.json": {
+      "base_checkout_bytes_sha256": "f3de955a6519b8771d43beeb050064fbf4d5945219b89f20a11dd4adaad9f2b8",
+      "current_sha256": "f3de955a6519b8771d43beeb050064fbf4d5945219b89f20a11dd4adaad9f2b8",
+      "unchanged": true,
+      "basis": "Base commit checkout bytes via git cat-file --filters; Windows text files retain existing CRLF, frozen JSON/probe retain LF"
+    },
+    "video/speech_highlight_relay_v1/retained_source_probe_fed_20260729.json": {
+      "base_checkout_bytes_sha256": "5db7aaca30b42c77045107500ab03aeda4d4b1859ea7b758f75029343dad7fbc",
+      "current_sha256": "5db7aaca30b42c77045107500ab03aeda4d4b1859ea7b758f75029343dad7fbc",
+      "unchanged": true,
+      "basis": "Base commit checkout bytes via git cat-file --filters; Windows text files retain existing CRLF, frozen JSON/probe retain LF"
+    },
+    "tests/test_speech_highlight_relay_v1.py": {
+      "base_checkout_bytes_sha256": "33848422c784cc12a158185af9de274f448a9966746525c07c5bdd46d0b0f73a",
+      "current_sha256": "33848422c784cc12a158185af9de274f448a9966746525c07c5bdd46d0b0f73a",
+      "unchanged": true,
+      "basis": "Base commit checkout bytes via git cat-file --filters; Windows text files retain existing CRLF, frozen JSON/probe retain LF"
+    }
+  },
+  "owner_store": {
+    "mode": "ro",
+    "tables_sha256": "da8abdc52ca18c263809f71d08e63277eb35b277b80c203cc498a2177b320ccc",
+    "unchanged_since_desk_capture": true,
+    "table_counts": {
+      "outbox_messages": 529,
+      "review_records": 46,
+      "platform_dispatches": 0,
+      "reconciliations": 0,
+      "destination_readiness": 0
+    }
+  },
+  "inspection": {
+    "frames": [
+      {
+        "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\fed-captioned-frame.png",
+        "sha256": "35170678e1e3fe91c2a8cd180adadb18949450476687ef45265cd4d9aa1733f5"
+      },
+      {
+        "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\fed-clean-frame.png",
+        "sha256": "d11f28223861286d9a9865f4fc85e8817a67e169aeb3cc8f2805e2dd38809252"
+      },
+      {
+        "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\fed-contact-sheet.png",
+        "sha256": "a3cee583990ee7dcacf8c3666bb171c4f03c2c4a5e571e16aebb1c0ced89a977"
+      },
+      {
+        "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\ibm-desk-render.png",
+        "sha256": "36314313a3e37ab117fc7a880d79e05ebce0fe4c8db81e127979a45a71bfe75b"
+      }
+    ],
+    "status": "ACTUAL_PICTURE_AND_DESK_INSPECTED_ONLY",
+    "findings": [
+      "Source picture, caption qualifiers, source/date/context and private hold label legible at inspected frames.",
+      "Five sampled source frames in contact sheet; final empty tile is layout padding, not a black source frame.",
+      "An actual source camera cut to a room-wide view includes audience/reporters. Third-party continuity/rights remains open.",
+      "IBM disclosure, unknown date, retained conditional thesis and missing evidence visible in actual Neo React render."
+    ],
+    "unverified": [
+      "Original-audio hearing and literal wording",
+      "Source-to-caption timing and cut-boundary sound",
+      "Full-event context and third-party permissions",
+      "Final publication/monetization rights"
+    ]
+  },
+  "verification": {
+    "backend": "30 passed; tests/test_goal37_current_speech_v1.py, tests/test_goal37_story_observation_v1.py, retained relay and native Desktop controls",
+    "ui": "11 focused ReportEditorialWorkspace tests passed; tsc -b and Vite production build succeeded",
+    "lint": "Ruff new helper/tests passed; existing unrelated E702 not changed",
+    "canonical_seams": "33 passed; tests/test_cli.py tests/test_contentops_editorial_desk_v1.py tests/test_capital_chronicle_report_editorial_workspace_v1.py"
+  },
+  "publication": {
+    "uploads": 0,
+    "platform_drafts": 0,
+    "public_writes": 0,
+    "production_mutations": 0,
+    "merge": false,
+    "deployment": false
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+  "assets": [
+    {
+      "asset_id": "official_source_document_card",
+      "role": "lead_contextual",
+      "media_role": "lead_source_document_card",
+      "modality": "source_document_card",
+      "media_class": "source_backed_render",
+      "evidence_dimension": "official_document_identity",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-sec-amf-supervision\\media_assets\\source_document_card.png",
+      "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service",
+      "source_label": "www.sec.gov",
+      "publisher": "www.sec.gov",
+      "source": "www.sec.gov",
+      "publication_date": "20 October 2026; release hour not supplied",
+      "rights_status": "capital_chronicle_owned",
+      "render_rights_status": "capital_chronicle_owned",
+      "underlying_source_rights_status": "public_domain",
+      "source_reuse_basis": "explicit_governed_government_public_domain",
+      "provenance_status": "SOURCE_BACKED",
+      "chart_title": "SEC and AMF supervisory MOU \u2014 20 October 2026, www.sec.gov. Source date: 20 October 2026; release hour not su\u2026",
+      "caption": "SEC and AMF supervisory MOU \u2014 20 October 2026, www.sec.gov. Source date: 20 October 2026; release hour not supplied.",
+      "alt_text": "SEC agency excerpt dated 20 October 2026: the SEC will process new and pending registration applications from AMF-supervised asset management companies. No individual approval is shown.",
+      "width": 1600,
+      "height": 900,
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "sha256": "c72cc7bfaa11d4e9c6e7c3150d61d07ec6ec78570ae9b1906d99b4057f8848a9",
+      "article_section": "source_record",
+      "canonical_article_section_association": "source_record",
+      "relevance_rationale": "Establishes the exact official record the grounded article reports.",
+      "supports_headline": true,
+      "is_logo": false,
+      "is_avatar": false,
+      "is_thumbnail": false,
+      "is_synthetic": false,
+      "is_manipulated": false,
+      "ai_generated_image": false,
+      "underlying_series_ids": []
+    }
+  ]
+}

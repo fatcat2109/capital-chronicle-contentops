@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-568fcc107ed44261b473f7f6b60a848f",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal27-oil-scope-update",
+  "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+  "package_revision": "40354a600d60e10b39b4b0ce5d12efcea558352a970ddf45175e1dc6c92e4be1",
+  "article_metadata_sha256": "405241a632ae69f50cc2429083dca29124faebaf91511130ea4e969bc6d87c7e",
+  "rationale": "KEEP: Same dated Oct9 EIA facts, distinct accepted USOIL v5 scope withdrawal; no factual EIA correction or fresh market event asserted. Reader question and countercase lead; exact limits and detailed clocks in source notes. Same MAX writer removed repeated opening label once. All eight copies read; deterministic package dates now restricted to sources actually cited, unused gas context excluded. Existing relevant EIA media bytes inspected and reused. Prior unpublished version preserved.",
+  "publication_authority": false
+}

@@ -1,0 +1,42 @@
+{
+  "dek": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle đọc lại số liệu EIA tuần 09/10/2026: rút kho Mỹ chỉ có thể thành câu chuyện Brent nếu có cầu nối thương mại; nhập hàng và lọc dầu vẫn là phản đề.",
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:UKOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "meta_description": "Capital Chronicle phân tích có điều kiện: rút kho dầu Mỹ cần bằng chứng dòng hàng và chênh giá để nối sang Brent; nhập hàng và lọc dầu vẫn là phản đề.",
+  "public_write_performed": false,
+  "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+  "schema_version": "contentops.v1_simple_article_manifest.v1",
+  "search_title": "Capital Chronicle: Rút kho dầu Mỹ có truyền sang Brent?",
+  "social_cross_asset_summary": "Nếu dòng thương mại và chênh Brent không hỗ trợ truyền dẫn, CC phải rút cách đọc thiếu hụt toàn cầu. Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.",
+  "social_hook": "Capital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm? Cần kiểm dòng hàng, chênh giá và phản đề nhập khẩu.",
+  "social_mechanism_summary": "Phân tích CC có điều kiện: nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất lặp lại, thương mại đường biển và chênh giá có thể truyền tác động sang Brent. Bộ nguồn chưa chứng minh đường truyền ấy.",
+  "social_policy_summary": "Phản đề của CC: thời điểm hàng nhập về hoặc hoạt động lọc dầu có thể làm kho Mỹ giảm mà không có thiếu hụt toàn cầu. Bộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.",
+  "source_date_notice": "Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis.",
+  "source_document_ids": [
+    "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+  ],
+  "story_identity": "simple-story-93077be7d9d04ac72cb7cb5e",
+  "substack_body_markdown": "Vì sao rút kho dầu Mỹ chưa đủ chứng minh Brent khan hiếm toàn cầu? Báo cáo Capital Chronicle giữ hai khả năng: cạnh tranh dầu vật chất truyền qua thương mại đường biển, hoặc thời điểm nhập hàng và lọc dầu làm kho Mỹ giảm. Với số liệu được giữ cho tuần 09/10/2026, đường truyền sang Brent vẫn chưa được chứng minh. **CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.** [[SOURCE:SOURCE_1]]\n\n## Dữ kiện Mỹ được giữ lại\n\nDữ kiện nguồn được báo cáo CC lưu lại: dầu thô giảm 8,6 triệu thùng, còn 415,6 triệu thùng; xăng tăng 3,5 triệu thùng; sản phẩm chưng cất giảm 2,5 triệu thùng. Nhập khẩu giảm 791.000 thùng/ngày, tỷ lệ sử dụng nhà máy lọc dầu là 93,5%; chỉ báo cầu xăng trung bình bốn tuần thấp hơn 0,4% so với cùng kỳ năm trước. Đây là các số báo cáo quy cho bản EIA được giữ lại. [[SOURCE:SOURCE_1]]\n\n## Cầu nối sang Brent phải được kiểm bằng dòng hàng\n\nPhân tích CC có điều kiện: nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất lặp lại, thương mại đường biển và chênh giá có thể truyền tác động sang Brent. Bộ nguồn chưa chứng minh đường truyền ấy. [[SOURCE:SOURCE_1]]\n\nPhần tiếp nối này tập trung vào phép kiểm địa lý của luận điểm. Cần nối cân đối Mỹ với luồng hàng và nền Brent bằng chứng cứ cụ thể; một con số rút kho khu vực chưa cho biết tác động sang Brent mạnh bao nhiêu, hay đang theo hướng nào. [[SOURCE:SOURCE_1]]\n\n- Dòng tàu hàng và xuất nhập khẩu có cho thấy cạnh tranh dầu vật chất lặp lại hay không? Đây là câu hỏi cần kiểm, chưa phải luồng thương mại đã được quan sát trong bộ nguồn. [[SOURCE:SOURCE_1]]\n\n- Nguồn cung riêng Brent, phẩm cấp và vận tải có hỗ trợ đường truyền đó hay tạo ra một cách giải thích khác? Báo cáo chưa có số sản lượng và xuất khẩu toàn cầu để lựa chọn giữa các cách đọc. [[SOURCE:SOURCE_1]]\n\n- Đường cong Brent, chênh Brent–WTI, vận tải và phẩm cấp cùng thời điểm sẽ là các đầu vào cần đối chiếu. Bộ nguồn chưa có chúng để diễn giải giá hiện tại hoặc đo tác động đã phản ánh vào giá. [[SOURCE:SOURCE_1]]\n\n## Phản đề: thời điểm nhập hàng và lọc dầu\n\nPhản đề của CC: thời điểm hàng nhập về hoặc hoạt động lọc dầu có thể làm kho Mỹ giảm mà không có thiếu hụt toàn cầu. Bộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất. [[SOURCE:SOURCE_1]]\n\nNếu các số được xác nhận, cách đọc “cầu cuối mạnh” vẫn phải đối diện phản chứng mà CC giữ lại: xăng tăng kho và chỉ báo cầu xăng bốn tuần giảm so cùng kỳ, trong khi sản phẩm chưng cất lại rút kho. Các sản phẩm và cửa sổ đo khác nhau chưa hợp thành một tín hiệu cầu thống nhất. [[SOURCE:SOURCE_1]]\n\nCC cũng lưu ý nhập khẩu đo bằng thùng/ngày, còn thay đổi tồn kho đo bằng triệu thùng trong tuần. Chưa có đối chiếu cân đối đầy đủ để quy một phần chính xác của rút kho cho nhập khẩu; bài này không tự tính tỷ lệ đóng góp từ hai số khác đơn vị ấy. [[SOURCE:SOURCE_1]]\n\nUKOIL và USOIL dùng chung một bản EIA, theo báo cáo CC. Đặt hai báo cáo cạnh nhau không tạo ra hai xác nhận độc lập; bằng chứng về chênh giá, phẩm cấp và vận tải vẫn cần để kiểm đường truyền giữa hai khu vực. [[SOURCE:SOURCE_1]]\n\n## Khi nào phải rút cách đọc khan hiếm?\n\nNếu dòng thương mại và chênh Brent không hỗ trợ truyền dẫn, CC phải rút cách đọc thiếu hụt toàn cầu. Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu. [[SOURCE:SOURCE_1]]\n\nCác cửa sổ dưới đây là kế hoạch xem lại bằng chứng và kịch bản có điều kiện trong báo cáo, không phải dự báo đường giá: [[SOURCE:SOURCE_1]]\n\n- Trong 5 phiên xem lại: tìm cân đối mới hoặc thông tin riêng Brent có ngày rõ ràng; không đọc lại số Mỹ cũ như một cú sốc Brent mới. [[SOURCE:SOURCE_1]]\n\n- Trong 21 phiên: đối chiếu các kỳ dầu thô và sản phẩm lặp lại với thương mại, sản lượng toàn cầu và đường cong tương đối, nếu có công bố. [[SOURCE:SOURCE_1]]\n\n- Trong 63 phiên: xem cân đối tích lũy, phản ứng nguồn cung và chi phí phương tiện qua cập nhật thực; không đổi cửa sổ này thành một quý dương lịch. [[SOURCE:SOURCE_1]]\n\nBáo cáo CC ghi UKOIL mang mô tả Brent trong danh mục broker được giữ lại, nhưng mã tài sản cơ sở và mã niêm yết còn trống. Giá CFD — hợp đồng chênh lệch — còn có thể khác tham chiếu vật chất hoặc kỳ hạn do nền giá, chuyển kỳ, phí tài trợ và điều khoản broker chưa có dữ liệu. Câu hỏi nghiên cứu vì vậy chưa tạo ra kết luận về lợi nhuận nắm giữ hay một lệnh giao dịch. [[SOURCE:SOURCE_1]]\n\n## Ghi chú nguồn và phạm vi\n\nTuần quan sát: 09/10/2026. Bản EIA được báo cáo lưu và biết vào 18/10/2026 lúc 15:13:09.289 UTC; mốc thông tin của báo cáo CC là 19/10/2026 lúc 12:25 UTC. Mốc này không phải giờ công bố EIA. Ghi chú nguồn không cung cấp giờ công bố dầu chính xác hoặc bản biết ngay lần công bố đầu; không coi số được giữ lại là dữ liệu mới hôm nay. [[SOURCE:SOURCE_1]]",
+  "title": "Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm",
+  "update_chain_identity": "energy-balance-transmission"
+}

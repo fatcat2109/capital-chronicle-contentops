@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-59c11c748bab400c82cbb25471eee87b",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal28-cross-trade",
+  "article_identity": "da4fec298265c19520d81b4081741f52cf877f3cf40dcdbd8111414898724ea3",
+  "package_revision": "99f128c9669ad08e6681fe1cf06ef996db1dac569a811102798f9f087014cef6",
+  "article_metadata_sha256": "f5b33c07f34ce01c1ff246598d59baf5110a477601b5c130b8dbc4fca172fcad",
+  "rationale": "KEEP: Phân biệt lợi ích chi phí toàn nhóm với công bằng giá cho từng quỹ, phản đề có thể tiết kiệm thực khi bảo vệ đủ tốt. Giữ mốc đề xuất 9/10/2026, không sáng tác nghĩa vụ định giá/giám sát hoặc hiệu lực. Đã đọc toàn bài, 8 bản native và ảnh nguồn; bằng chứng cần tìm được chỉ rõ.",
+  "publication_authority": false
+}

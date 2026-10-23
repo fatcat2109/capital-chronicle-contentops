@@ -1,0 +1,41 @@
+{
+  "observed_at_utc": "2026-10-20T03:51:37.121938+00:00",
+  "method": "Actual Neo-rendered existing React components with actual isolated stored result; network/actions disabled",
+  "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+  "views": [
+    "canonical gas article desktop",
+    "same article actual emulated mobile",
+    "all eight native packages expanded desktop",
+    "media and Telegram preview mobile",
+    "Platforms actual stored console"
+  ],
+  "desktop": {
+    "viewport_width": 1449,
+    "scroll_width": 1439
+  },
+  "mobile": {
+    "viewport_width": 430,
+    "scroll_width": 430,
+    "device_metrics_override_cleared_after_inspection": true
+  },
+  "rendered_media": {
+    "natural_width": 1600,
+    "natural_height": 900,
+    "bytes_reused": true,
+    "rights": "existing reviewed EIA source-context card; no new rights grant"
+  },
+  "native_preview_count": 8,
+  "all_previews_expanded": true,
+  "reader_review": "English copy wraps without horizontal overflow; source clocks visible; stock vs refill explanation and competing explanations retained; canonical pending URL visibly non-dispatchable",
+  "limitations": [
+    "Static component preview is not deployed server/runtime evidence",
+    "Source card fine print is not readable at phone scale; source title/date/caption remain readable and article carries the usable facts",
+    "Social hooks omit observation date and have internal Main/source-pack vocabulary; polish before any separately authorized public release",
+    "Existing retained-source card date does not convert writer Main projection into independently retrieved EIA bytes"
+  ],
+  "screenshots": [
+    "native-mobile.jpeg",
+    "native-packages.jpeg"
+  ],
+  "public_writes": 0
+}

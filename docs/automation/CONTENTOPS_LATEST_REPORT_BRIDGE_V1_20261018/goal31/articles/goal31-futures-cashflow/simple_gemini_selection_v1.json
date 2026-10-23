@@ -1,0 +1,73 @@
+{
+  "candidate_count": 22,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "6be050dae4ec640ba0971ae6ba9cfc910eeed8ed30a99c80c190ac49bc5b768b",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal31_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "Actual native /root/goal31_sol_light followup, inherited assigned gpt-6.1-sol / low; UUID and usage not exposed.",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "c7b0b3073ef1a133882094a522d05f3687adb1277f99f38fbbd0eb02423c38b6",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "f7ae967150a530feffa4d4f3ab48533eea8730ce7e17fe2008ba0c1797ada315",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Phòng hộ giúp ổn định việc kinh doanh nhưng tài khoản futures vẫn có thể cần tiền mặt: phải đọc tài sản thực và dòng ký quỹ ở hai thời điểm khác nhau.",
+        "article_mode": "EVERGREEN_EXPLAINER",
+        "candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+        "evidence_plan": "Resolver hiện hữu dùng exact admitted goal31-futures-economic-purpose, raw SHA và canonical text đã chụp; ngày xuất bản NOT_VERIFIED, không lấy ngày truy xuất làm ngày công bố. Ràng buộc cơ chế vào các phần Futures Contracts, Exchanges, Margin và ví dụ nông dân: bán futures để giảm bất định giá hàng thực; có thể offset rồi bán hàng tại chỗ; ký quỹ là bảo đảm thực hiện, vị thế được mark-to-market hằng ngày và có thể cần bổ sung tiền. Tách kết quả tổng thể của hàng thực cộng vị thế với tiền trong tài khoản futures trước lúc bán hàng; nêu đây là phép giải thích có điều kiện theo ví dụ, không đảm bảo hedge hoàn hảo. Phản đề: chuẩn hóa hỗ trợ thanh khoản/phòng hộ nhưng địa điểm, phẩm cấp và thời điểm của hàng thực có thể không trùng hợp đồng; nguồn minh họa việc tránh giao hàng vì vận chuyển. Không tuyên bố đo được mức lệch hay tình trạng thiếu tài trợ. Phép kiểm/falsifier cho trường hợp cụ thể: cần tài sản/rủi ro được hedge, khối lượng và kỳ bán hàng, điều khoản hợp đồng/địa điểm/phẩm cấp, lịch tiền nhận được và tiền ký quỹ phải nộp; không có chúng thì rút mọi kết luận rằng hedge ấy giảm rủi ro tổng thể hoặc đủ tiền duy trì. Không tự tính ví dụ, không đưa tỷ lệ ký quỹ hay cỡ hợp đồng trong tài liệu thành thông số hiện hành. Không áp dụng câu chung về forward vào mọi hợp đồng; không thêm kiến thức luật/settlement chưa có nguồn. Giữ HOLD suy vị thế hiện tại thành dự báo: chưa có mục đích kinh tế cụ thể, chain/IV/OI cùng kỳ. Code sở hữu mọi số/phép tính; không lời khuyên giao dịch, xác suất hay dự báo.",
+        "primary_reader_question": "Vì sao người sản xuất đã phòng hộ rủi ro giá vẫn có thể phải nộp thêm tiền cho vị thế futures trước khi bán hàng thực?",
+        "research_queries": [
+          "CFTC Economic Purpose Futures Markets hedging farmer offset spot margin daily mark to market",
+          "CFTC standardized futures delivery location grade performance bond variation margin"
+        ],
+        "selection_rationale": "Nguồn CFTC Economic Purpose được thừa nhận mới có cơ chế vượt hai định nghĩa của cơ hội cũ: nông dân bán futures, offset và bán hàng spot, hợp đồng chuẩn hóa cùng ký quỹ/mark-to-market hằng ngày. Góc mới giải thích rủi ro kinh doanh và nhu cầu tiền mặt, khác bài Goal26 về quyền sở hữu, khoản vay và lưu ký kim loại. Có ích như nền, không phải tin mới hay diễn giải vị thế hiện tại."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một explainer nền về rủi ro giá và nhu cầu tiền mặt, có source delta thực so với cơ hội futures-purpose đã ABSTAIN. Giữ quyết định cũ và HOLD nhận định thị trường hiện tại; không thêm fallback cho đủ số.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 22,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

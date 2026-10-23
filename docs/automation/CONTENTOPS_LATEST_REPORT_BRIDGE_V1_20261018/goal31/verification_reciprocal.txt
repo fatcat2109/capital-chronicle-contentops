@@ -1,0 +1,31 @@
+F.............                                                           [100%]
+================================== FAILURES ===================================
+____ test_verified_undated_background_preserves_unknown_publication_clock _____
+
+    def test_verified_undated_background_preserves_unknown_publication_clock():
+        root = Path(__file__).parents[1] / "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research"
+        research = RetainedSourceResearch(root)
+        row = research.records["goal21-futures-hedgers"]
+        cutoff = "2026-10-21T12:00:00Z"
+        projected, reason = project_headline(row, cutoff_utc=cutoff, locator={}, permission_resolver=research.permission_for)
+        assert reason is None
+        assert projected["headline_timestamp"] is None
+        assert projected["publication_clock_basis"] == "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME"
+        assert projected["known_at_utc"] == row["known_at_utc"]
+        assert projected["context_only"] and not projected["numeric_authority_granted"]
+        assert not projected["public_republication_authority"]
+        # An ordinary news row cannot borrow this exception, even with a controlled rights grant.
+        altered = {**row, "source_platform": "ORDINARY_NEWS"}
+        assert project_headline(altered, cutoff_utc=cutoff, locator={},
+                                permission_resolver=lambda *a: row["source_permissions"])[1] == "HEADLINE_CLOCK_UNAVAILABLE"
+        future = {**row, "revision_at_utc": "2027-01-01T00:00:00Z"}
+>       assert project_headline(future, cutoff_utc=cutoff, locator={}, permission_resolver=research.permission_for)[1] == "FUTURE_HEADLINE_DEFERRED"
+E       AssertionError: assert 'SOURCE_RIGHT...D_INHERITANCE' == 'FUTURE_HEADLINE_DEFERRED'
+E         
+E         - FUTURE_HEADLINE_DEFERRED
+E         + SOURCE_RIGHTS_MISSING_NO_GOVERNED_INHERITANCE
+
+tests\test_contentops_main_headline_projection_v1.py:42: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_contentops_main_headline_projection_v1.py::test_verified_undated_background_preserves_unknown_publication_clock
+1 failed, 13 passed in 14.52s

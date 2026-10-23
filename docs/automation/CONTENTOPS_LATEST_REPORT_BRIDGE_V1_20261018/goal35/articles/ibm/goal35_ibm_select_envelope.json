@@ -1,0 +1,30 @@
+{
+  "request_sha256": "48e95a2e968fa49d655b930c067f0ce16f4cd2bb6a7e2d7f38f95cc2df717a1e",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "IBM raises the floor of annual software growth guidance while leaving the ceiling unchanged. Separate delayed transaction-processing deals from management-described net new business before judging durable demand.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-cfa3cb4bdb5389780c472d78",
+        "evidence_plan": "Use only sealed goal35-ibm Reuters facts, published 2026-10-21T20:12:00Z and known at 2026-10-21T22:27:23.029Z. Preserve the single Reuters origin and attribute Kavanaugh statements through Reuters. Annual SOFTWARE revenue growth outlook is about 7%-8% versus prior 6%-8%: lower bound raised, upper bound unchanged. Total Q3 revenue +4.7% to $17.10 billion versus $16.82 billion LSEG estimate, and software revenue +8.3% to $7.80 billion versus $7.62 billion estimate, are separate metrics. About 25% from deferred Q2 deals and remaining 75% net new business describe TRANSACTION PROCESSING revenue only, per Kavanaugh via Reuters; never all IBM/software revenue or growth contributions. Do not compute dollar contributions or organic growth. Code owns arithmetic. Reported extended-session share rise about 4% proves neither lasting demand nor the cause of the move. Missing: transaction-processing denominator/comparisons, normalized growth excluding deferred deals, margins/cash conversion, recurrence and independent company-release corroboration. No additional retrieval, requests, quotations or media.",
+        "primary_reader_question": "Does the higher IBM software outlook signal durable new demand, or partly the arrival of deals delayed from the previous quarter?",
+        "research_queries": [
+          "IBM October 21 2026 software outlook transaction processing deferred Q2 net new business"
+        ],
+        "selection_rationale": "Fresh software guidance and a reported narrow revenue composition support a useful current company question. Explain what improved and the limits of the deal-mix evidence. Distinct from handled oil and historical filing-reading explainers; other current company/FX reports remain separate operations. Single-source report truth is not independent event confirmation."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select only IBM. The raised software guidance floor and delayed-versus-new transaction-processing revenue warrant analysis; the ceiling did not rise and the revenue split does not cover all IBM.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "invocation_id": "/root/goal35_sol_light",
+    "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+    "speed": "standard"
+  }
+}

@@ -111,6 +111,7 @@ _NEWS_PEG_TOPIC_GROUPS = (
     frozenset({"financing", "capital", "mou", "mous", "platform", "platforms"}),
     frozenset({"pce", "inflation", "income", "outlays", "spending", "price"}),
     frozenset({"imf", "chile", "credit", "fcl", "arrangement"}),
+    frozenset({"futures", "hedging", "collateral"}),
 )
 _NEWS_PEG_STOPWORDS = frozenset({
     "about", "after", "amid", "and", "despite", "from", "future", "into", "more",
@@ -291,14 +292,31 @@ def _candidate_universe(
         if not headline_id or len(normalized) < 12:
             continue
         story_identity = "simple-story-" + _text_hash(normalized)[:24]
+        revision_identity = {k: row[k] for k in (
+            "correction_of", "supersedes_headline_id", "update_chain_identity", "revision_id", "revision_at_utc"
+        ) if isinstance(row.get(k), str) and row[k].strip()}
+        explicit_revision = any(k in revision_identity for k in ("correction_of", "supersedes_headline_id", "revision_id"))
+        dedupe_title = normalized
+        external = row.get("external_content")
+        external = external if isinstance(external, Mapping) else {}
+        report_context = external.get("report_editorial_context") or {}
+        if headline_id.startswith("cc-report:") and report_context.get("report_id"):
+            # Two assets may quote the same first source fact. Their public report
+            # identity/version and analytical scope remain separate candidates.
+            report_identity = [report_context["report_id"], report_context.get("report_version"), headline_id]
+            story_identity = "simple-story-" + _hash([normalized, report_identity])[:24]
+            dedupe_title += ":main-report:" + _hash(report_identity)
+        if explicit_revision:
+            story_identity = "simple-story-" + _hash([normalized, revision_identity])[:24]
+            dedupe_title = normalized + ":revision:" + _hash(revision_identity)
         if (
-            headline_id in published_headline_ids
+            (headline_id in published_headline_ids and not explicit_revision)
             or story_identity in published_story_ids
-            or normalized in published_titles
-            or normalized in seen_titles
+            or (normalized in published_titles and not explicit_revision)
+            or dedupe_title in seen_titles
         ):
             continue
-        seen_titles.add(normalized)
+        seen_titles.add(dedupe_title)
         external = row.get("external_content")
         external = external if isinstance(external, Mapping) else {}
         source_url = _safe_https_locator(_headline_url(row))
@@ -327,7 +345,10 @@ def _candidate_universe(
         result.append({
             "candidate_id": story_identity,
             "story_identity": story_identity,
+            "update_chain_identity": row.get("update_chain_identity") or ((external.get("evolving_story_context") or [{}])[0].get("update_chain_identity", story_identity)
+                if len(external.get("evolving_story_context") or []) == 1 else story_identity),
             "headline_id": headline_id,
+            **revision_identity,
             "headline_text": text,
             "source_timestamp_utc": str(row.get("source_timestamp_utc") or ""),
             "source_account": _headline_account(row),
@@ -339,6 +360,7 @@ def _candidate_universe(
             ),
             "source_platform": str(external.get("source_platform") or ""),
             "report_editorial_context": dict(external.get("report_editorial_context") or {}),
+            "evolving_story_context": list(external.get("evolving_story_context") or []),
             "canonical_x_list_provenance": dict(
                 external.get("canonical_x_list_provenance") or {}
             )
@@ -354,6 +376,7 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
         for key in (
             "candidate_id",
             "story_identity",
+            "update_chain_identity",
             "headline_id",
             "headline_text",
             "source_timestamp_utc",
@@ -364,9 +387,13 @@ def _selection_candidate(row: Mapping[str, Any]) -> dict[str, Any]:
             "source_platform",
             "canonical_x_list_provenance",
             "report_editorial_context",
+            "evolving_story_context",
         )
     }
     sourceability = row.get("sourceability_work_order")
+    candidate.update({k: row[k] for k in (
+        "correction_of", "supersedes_headline_id", "revision_id", "revision_at_utc"
+    ) if k in row})
     sourceability = sourceability if isinstance(sourceability, Mapping) else {}
     candidate["sourceability_route_hint"] = {
         "canonical_x_zero_get_route_available": bool(
@@ -393,6 +420,7 @@ def _candidate_packet_and_preselection(
     *,
     source_route_health: Mapping[str, Any] | None = None,
     attempted_candidate_ids: Sequence[str] = (),
+    learning_policy: Mapping[str, Any] | None = None,
 ) -> tuple[list[dict[str, Any]], dict[str, Any]]:
     attempted = {str(value) for value in attempted_candidate_ids if str(value)}
     unfiltered_universe = _candidate_universe(rolling_input, published_memory)
@@ -405,10 +433,29 @@ def _candidate_packet_and_preselection(
         for row in unfiltered_universe
         if str(row.get("candidate_id") or "") not in excluded
     ]
+    if learning_policy:
+        # Preserve supplied editorial tags for the existing bounded work-order bonus.
+        # Do not infer a topic/mode from headline prose or alter legacy packets.
+        original_rows = {str(r.get("headline_id")): r for r in rolling_input.get("headlines", [])
+            if isinstance(r, Mapping)}
+        for candidate in universe:
+            original = original_rows.get(candidate["headline_id"], {})
+            external = original.get("external_content") or {}
+            external = external if isinstance(external, Mapping) else {}
+            report = candidate.get("report_editorial_context") or {}
+            tags = original.get("entities_topics") or original.get("topic_families") or external.get("topic_families") or []
+            family = original.get("topic_family") or external.get("topic_family")
+            candidate.update(entities_topics=list(tags) if isinstance(tags, (list, tuple)) else [],
+                article_mode=original.get("article_mode") or external.get("article_mode") or report.get("mode_hint"),
+                story_type=original.get("story_type") or external.get("story_type"),
+                update_mode=original.get("update_mode") or external.get("update_mode"))
+            if isinstance(family, str) and family not in candidate["entities_topics"]:
+                candidate["entities_topics"].append(family)
     ranked = rank_simple_headline_candidate_universe(
         universe,
         max_candidates=MAX_SELECTION_CANDIDATES,
         source_route_health=source_route_health,
+        learning_policy=learning_policy,
     )
     candidates = [
         _selection_candidate(row)
@@ -476,7 +523,7 @@ def _published_memory_summary(published_memory: Sequence[Any]) -> dict[str, Any]
 
 
 def _validate_selection_text(
-    text: str, *, candidate_ids: set[str]
+    text: str, *, candidate_ids: set[str], native_plan: bool = False
 ) -> tuple[bool, str | None, Any, str | None]:
     try:
         value = json.loads(str(text or ""))
@@ -520,6 +567,8 @@ def _validate_selection_text(
         "selection_rationale",
         "research_queries",
     }
+    if native_plan:
+        plan_fields.update({"angle", "primary_reader_question", "evidence_plan"})
     for position, raw in enumerate(plan, start=1):
         if not isinstance(raw, Mapping) or set(raw) != plan_fields:
             return False, "structured_output_schema_invalid", None, "candidate_plan_entry_fields_invalid"
@@ -535,6 +584,9 @@ def _validate_selection_text(
         rationale = str(raw.get("selection_rationale") or "").strip()
         if len(rationale) < 8:
             return False, "structured_output_schema_invalid", None, "candidate_rationale_required"
+        if native_plan and any(not isinstance(raw.get(k), str) or len(raw[k].strip()) < 8
+                               for k in ("angle", "primary_reader_question", "evidence_plan")):
+            return False, "structured_output_schema_invalid", None, "native_angle_question_evidence_plan_required"
         queries = raw.get("research_queries")
         if not isinstance(queries, list) or not 1 <= len(queries) <= 3:
             return False, "structured_output_schema_invalid", None, "research_query_count_invalid"
@@ -549,6 +601,7 @@ def _validate_selection_text(
                 "research_queries": cleaned,
                 "plan_position": position,
                 "plan_role": "PRIMARY" if position == 1 else "FALLBACK",
+                **({k: raw[k] for k in ("angle", "primary_reader_question", "evidence_plan")} if native_plan else {}),
             }
         )
     result = dict(value)
@@ -596,20 +649,23 @@ def _validate_worker_text(text: str) -> tuple[bool, str | None, Any, str | None]
         return False, "structured_output_schema_invalid", None, "cited_source_count_invalid"
     if not isinstance(claims, list) or not claims:
         return False, "structured_output_schema_invalid", None, "material_claim_bindings_missing"
-    for index, source in enumerate(sources, start=1):
+    prior_source_number = 0
+    for source in sources:
         if not isinstance(source, Mapping):
             return False, "structured_output_schema_invalid", None, "cited_source_object_required"
         if set(source) != {"source_id", "url", "publisher", "published_at_utc"}:
             return False, "structured_output_schema_invalid", None, "cited_source_fields_invalid"
-        if str(source.get("source_id") or "") != f"SOURCE_{index}":
+        marker = re.fullmatch(r"SOURCE_([1-9][0-9]*)", str(source.get("source_id") or ""))
+        if not marker or int(marker.group(1)) <= prior_source_number:
             return False, "structured_output_schema_invalid", None, "cited_source_order_invalid"
+        prior_source_number = int(marker.group(1))
         if not (str(source.get("url") or "").startswith("https://")
                 or re.fullmatch(r"urn:cc-public-report:[a-zA-Z0-9_-]{1,100}:[a-f0-9]{64}", str(source.get("url") or ""))):
             return False, "structured_output_schema_invalid", None, "cited_source_https_required"
     for claim in claims:
         if not isinstance(claim, Mapping):
             return False, "structured_output_schema_invalid", None, "claim_object_required"
-        if set(claim) != {
+        if set(claim) - {"research_reference"} != {
             "claim_id",
             "claim_text",
             "claim_kind",
@@ -804,6 +860,12 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "selection_summary": "specific reason no candidate is genuinely useful",
         "public_write_attempted": False,
     }
+    if governed.get("native_role_plan_required"):
+        select_contract["ordered_candidate_plan"][0].update({
+            "angle": "specific evidence-led editorial angle",
+            "primary_reader_question": "the concrete audience question this article answers",
+            "evidence_plan": "existing tool/source resolution steps; named missing dimensions; code owns arithmetic",
+        })
     return (
         "Return exactly one JSON object. Do not use markdown, code fences, commentary, prefixes, or suffixes. "
         "Use exactly the five top-level keys shown in one OUTPUT_CONTRACT variant and preserve their JSON types. "
@@ -820,6 +882,14 @@ def _selection_prompt(governed: Mapping[str, Any]) -> str:
         "A report_editorial_context is a sealed Main public projection: compare its new evidence, changed claims, "
         "competing mechanisms, horizons and limits when choosing a useful angle or update mode. "
         "Its presence creates no quota or preference over a more useful independent story; no private Main input is authorized. "
+        "An evolving_story_context binds existing story/update identities, prior unpublished research, exact evidence delta, "
+        "current review and missing inputs. A prior research package is not a published article. Prefer a follow-up only "
+        "when its stated delta adds reader value; an identical rescan or Main recirculation is not independent confirmation. "
+        "Preserve any public research_semantics descriptor in claim/edition context: target, proxy, horizon, "
+        "measure, method, evaluation, selection and dependence belong to that exact claim. Unknown remains "
+        "unknown and does not block useful factual/qualitative journalism. Never select an inferred win rate "
+        "from a score, review window, subjective challenger or risk-neutral valuation probability. "
+        "A HOLD applies to its exact scope; missing option-chain data does not veto a narrow attributable index announcement. "
         "Use institutional_edge_mode_guide to choose the mode the story genuinely warrants. Prefer the strongest "
         "defensible tension over generic recap, and prioritize a proposition that can explain why the reader should care now. "
         "Do not force a house view or market-missing mode when the headline does not support one. "
@@ -897,6 +967,7 @@ def _evidence_request(candidate: Mapping[str, Any], plan_entry: Mapping[str, Any
             "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
             "public_source_url_bindings": bindings,
             "candidate_packet_locators_grant_factual_authority": False,
+            "evolving_story_context": list(candidate.get("evolving_story_context") or []),
         },
     }
 
@@ -975,6 +1046,8 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                     document.get("canonical_content_sha256") or _text_hash(text)
                 ),
                 "canonical_content_text": text[:MAX_SOURCE_TEXT_CHARS],
+                **({"source_reuse_constraints": dict(document["source_reuse_constraints"])}
+                   if document.get("source_reuse_constraints") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
             }
         )
@@ -1060,6 +1133,9 @@ def _worker_prompt(governed: Mapping[str, Any]) -> str:
         "a publication attempt: public_write_attempted MUST be the JSON boolean false, never true or a string. "
         "When epistemic_state.event_confirmation_state is not CONFIRMED, every material claim about the underlying "
         "event must set attribution_required to true. "
+        "Use evolving_story_context to explain what the prior article/package said and what changed. Keep unpublished "
+        "research history distinct from exact reconciled published history. Mark corrections, withdrawals, disputes and "
+        "unchanged evidence explicitly; previous copy and Main recirculation never provide independent factual support. "
         "Return strict JSON only.\nOUTPUT_CONTRACT:\n"
         + json.dumps(contract, sort_keys=True, ensure_ascii=False)
         + "\nGOVERNED_INPUT:\n"
@@ -1161,11 +1237,20 @@ def _paragraph_marker_blockers(body: str, valid_source_ids: set[str]) -> list[st
 
 
 def _peg_terms(value: Any) -> set[str]:
-    return {
+    normalized = _normal(value)
+    terms = {
         term
-        for term in re.findall(r"[a-z][a-z0-9'-]{2,}", _normal(value))
+        for term in re.findall(r"[a-z][a-z0-9'-]{2,}", normalized)
         if term not in _NEWS_PEG_STOPWORDS and not term.startswith("http")
     }
+    # A Vietnamese lead may express the exact selected topic without English keywords.
+    for phrase, topic in (("lạm phát", "inflation"), ("chi tiêu", "spending"), ("thu nhập", "income"),
+                          ("doanh thu", "revenue"), ("lợi nhuận", "earnings"), ("tài trợ", "financing"),
+                          ("dữ liệu", "data"), ("tọa đàm", "roundtable"),
+                          ("phòng hộ", "hedging"), ("hợp đồng tương lai", "futures")):
+        if re.search(r"(?<!\w)" + re.escape(phrase) + r"(?!\w)", normalized):
+            terms.add(topic)
+    return terms
 
 
 def _selected_news_peg_blockers(
@@ -1261,6 +1346,8 @@ def _epistemic_copy_blockers(
     publisher = str(epistemic_state.get("primary_reporting_publisher") or "")
     relay = str(epistemic_state.get("relay_source_identity") or "")
     label = str(epistemic_state.get("reader_visible_epistemic_label") or "")
+    if label and str(article.get("substack_body_markdown") or "").casefold().count(label.casefold()) > 1:
+        blockers.append("repeated_epistemic_label_in_body_use_source_notes_once")
     title = str(article.get("title") or "")
     dek = str(article.get("dek") or "")
     first = _first_body_paragraph(str(article.get("substack_body_markdown") or ""))
@@ -1355,23 +1442,38 @@ def _validate_article_against_source_pack(
     epistemic_state: Mapping[str, Any] | None = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     article = _strip_duplicate_leading_h1(dict(worker_output.get("article") or {}))
+    # Only source-bound validation may attach this compiler metadata. A writer's
+    # extra article fields cannot self-certify a permitted probability descriptor.
+    article.pop("public_research_descriptors", None)
     sources = [dict(row) for row in worker_output.get("cited_sources") or [] if isinstance(row, Mapping)]
     claims = [dict(row) for row in worker_output.get("material_claim_bindings") or [] if isinstance(row, Mapping)]
-    available_by_url = {str(row.get("url") or ""): dict(row) for row in source_pack}
+    available_by_id = {str(row.get("source_id") or ""): dict(row) for row in source_pack}
     cited_by_id: dict[str, dict[str, Any]] = {}
     blockers: list[str] = []
-    for index, source in enumerate(sources, start=1):
+    source_order = {str(row.get("source_id") or ""): i for i, row in enumerate(source_pack)}
+    prior_source_position = -1
+    for source in sources:
         source_id = str(source.get("source_id") or "")
         url = str(source.get("url") or "")
-        if source_id != f"SOURCE_{index}":
+        position = source_order.get(source_id, -1)
+        if position <= prior_source_position:
             blockers.append(f"source_marker_order_invalid:{source_id}")
             continue
-        available = available_by_url.get(url)
-        if available is None:
+        prior_source_position = position
+        available = available_by_id.get(source_id)
+        if available is None or str(available.get("url") or "") != url:
             blockers.append(f"source_not_in_retrieved_pack:{source_id}")
             continue
         cited_by_id[source_id] = available
     public_copy_normal = _normal(_public_copy(article))
+    for document in source_pack:
+        constraints = document.get("source_reuse_constraints") or {}
+        if constraints.get("public_expression_reuse_allowed") is False:
+            # Facts-only admission cannot silently become verbatim public reuse.
+            words = re.findall(r"\w+", str(document.get("canonical_content_text") or "").casefold())
+            public_words = " ".join(re.findall(r"\w+", public_copy_normal))
+            if any(" ".join(words[i:i + 16]) in public_words for i in range(max(0, len(words) - 15))):
+                blockers.append(f"facts_only_source_expression_reuse:{document.get('source_id')}")
     supported: list[dict[str, Any]] = []
     for claim in claims:
         claim_id = str(claim.get("claim_id") or "UNKNOWN")
@@ -1392,9 +1494,24 @@ def _validate_article_against_source_pack(
             continue
         report_lineage = document.get("report_lineage") or {}
         report_claims = [c for c in report_lineage.get("claims", []) if _normal(excerpt) in _normal(c["text"])]
-        if report_lineage and not report_claims:
+        report_metadata = [m for m in report_lineage.get("source_clock_metadata", [])
+                           if _normal(excerpt) == _normal(m["text"])]
+        report_metadata += [m for m in report_lineage.get("source_research_metadata", [])
+                            if _normal(excerpt) == _normal(m["text"])]
+        if report_lineage and not report_claims and not report_metadata:
             blockers.append(f"report_claim_excerpt_unbound:{claim_id}")
             continue
+        from live_contentops.capital_chronicle_public_research_semantics_v1 import reference_blockers, dependence_copy_blockers
+        semantics = [c["research_semantics"] for c in report_claims if c.get("research_semantics")]
+        blockers.extend(dependence_copy_blockers(claim_text, semantics))
+        typed = [s for s in semantics if s.get("probability_descriptor")]
+        if typed and not claim.get("research_reference"):
+            blockers.append("public_probability_reference_missing:" + claim_id)
+        if claim.get("research_reference"):
+            if len(typed) != 1:
+                blockers.append("public_probability_reference_ambiguous:" + claim_id)
+            else:
+                blockers.extend(reference_blockers(claim["research_reference"], typed[0], claim_text=claim_text))
         supported.append(
             {
                 "claim_id": claim_id,
@@ -1405,9 +1522,11 @@ def _validate_article_against_source_pack(
                 "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION" if report_lineage else "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES",
                 "attribution_required": bool(claim.get("attribution_required")),
                 "support_excerpt_sha256": _text_hash(excerpt),
+                **({"research_semantics": semantics} if semantics else {}),
                 **({"report_id": report_lineage["report_id"], "report_version": report_lineage["report_version"],
                     "report_sha256": report_lineage["report_sha256"],
                     "report_claims": [{k: c[k] for k in ("claim_id", "claim_hash", "producer_layer", "basis_risk", "evidence")} for c in report_claims],
+                    "source_clock_metadata_bindings": report_metadata,
                     "article_section_ids": ["paragraph:" + str(i) for i, p in enumerate(str(article.get("substack_body_markdown") or "").split("\n\n")) if _normal(claim_text) in _normal(p)]}
                     if report_lineage else {}),
             }
@@ -1422,6 +1541,10 @@ def _validate_article_against_source_pack(
         _editorial_growth_edge_blockers(article, article_mode=article_mode)
     )
     blockers.extend(_epistemic_copy_blockers(article, claims, epistemic_state))
+    body = _normal(_SOURCE_MARKER_RE.sub("", str(article.get("substack_body_markdown") or "")))
+    for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
+        if key in article and (_normal(article[key]) not in body or len(str(article[key])) < 24):
+            blockers.append("native_summary_not_in_bound_article:" + key)
     blockers.extend(
         _paragraph_marker_blockers(
             str(article.get("substack_body_markdown") or ""), set(cited_by_id)
@@ -1429,6 +1552,14 @@ def _validate_article_against_source_pack(
     )
     if blockers:
         raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", blockers)
+    descriptors = {s["probability_descriptor"]["descriptor_sha256"]: s["probability_descriptor"]
+        for c in supported for s in c.get("research_semantics", []) if s.get("probability_descriptor")}
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
+    for descriptor in descriptors.values():
+        if any(_normal(notice) not in body for notice in reader_notices(descriptor)):
+            raise SimpleGeminiNewsroomError("deterministic_article_validation_failed", ["public_probability_reader_disclosure_missing"])
+    if descriptors:
+        article["public_research_descriptors"] = list(descriptors.values())
     return article, {
         "schema_version": VALIDATION_SCHEMA_VERSION,
         "status": "PASS",
@@ -1512,6 +1643,23 @@ def _safe_source_blockers(values: Sequence[Any]) -> list[str]:
     )
 
 
+def native_source_date_notice(source_pack, used_source_ids):
+    """Reader dates come from used claim sources, never unused context documents."""
+    dates = []
+    for row in source_pack:
+        if row["source_id"] not in used_source_ids:
+            continue
+        if row.get("published_at_source") == "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME":
+            for claim in row.get("report_lineage", {}).get("claims", []):
+                for evidence in claim.get("evidence", []):
+                    if evidence.get("observation_time_utc"):
+                        dates.append("Observation: " + evidence["observation_time_utc"][:10])
+            dates.append("Main report cutoff: " + str(row["published_at_utc"])[:10])
+        else:
+            dates.append("Source date: " + (str(row["published_at_utc"])[:10] if row.get("published_at_utc") else "not supplied (retained background)"))
+    return "; ".join(dict.fromkeys(dates)) + ". Interpretation remains analysis."
+
+
 def _reader_safe_native_article(
     article: Mapping[str, Any],
     *,
@@ -1525,16 +1673,31 @@ def _reader_safe_native_article(
     label = str((epistemic_state or {}).get("reader_visible_epistemic_label") or "")
     if label and label.casefold() not in title.casefold():
         title = f"{label} | {title}"
+    notice = str(article.get("source_date_notice") or "")
+    if notice:
+        dates = list(dict.fromkeys(re.findall(r"\d{4}-\d{2}-\d{2}", notice)))
+        date_tag = ("Main report " if "Main report cutoff:" in notice else "Source ") + ", ".join(dates[:2]) if dates else "Source undated"
+        title += " [" + date_tag + "]"
     result = {
         "title": title,
+        "native_brief_layout": True,
         "subtitle": str(article.get("dek") or ""),
         "social_hook": str(article.get("social_hook") or ""),
         "effective_article_mode": str(article_mode),
         "substack_body_markdown": body,
-        **({"editorial_scope_notice": epistemic_state["report_scope_notice"]}
-           if (epistemic_state or {}).get("report_scope_notice") else {}),
+        "editorial_scope_notice": " ".join(s for s in (
+            str((epistemic_state or {}).get("report_scope_notice") or ""),
+            str(article.get("source_date_notice") or "")) if s),
     }
-    if (epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED":
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import reader_notices
+    notices = [text for d in article.get("public_research_descriptors", []) for text in reader_notices(d)]
+    if notices:
+        result["editorial_scope_notice"] += " " + " ".join(notices)
+    for key in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"):
+        if article.get(key):
+            result[key] = article[key]
+    if ((epistemic_state or {}).get("event_confirmation_state") == "UNCONFIRMED"
+            and not all(article.get(k) for k in ("social_mechanism_summary", "social_policy_summary", "social_cross_asset_summary"))):
         result.update(
             {
                 "social_mechanism_summary": (
@@ -1557,6 +1720,7 @@ def _native_preview_bundle(
     article_mode: str,
     article_identity: str,
     epistemic_state: Mapping[str, Any] | None = None,
+    media_asset_ids: Sequence[str] = (),
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     from live_contentops.eight_platform_substack_first_pipeline_v1 import (
         build_native_derivative_payloads,
@@ -1575,7 +1739,7 @@ def _native_preview_bundle(
         article=compiler_article,
         selection={},
         canonical_url=pending_url,
-        media_asset_ids=(),
+        media_asset_ids=media_asset_ids,
     )
     expected = set(V1_REQUIRED_DERIVATIVE_DESTINATIONS)
     if len(payloads) != 8 or set(payloads) != expected:
@@ -1683,6 +1847,7 @@ def _build_simple_publication_lifecycle_plan(
     native_previews: Mapping[str, Any],
     qualified_record: Mapping[str, Any],
     epistemic_state: Mapping[str, Any] | None,
+    media_assets: Sequence[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
     """Adapt one qualified Simple result to the existing durable coordinator contract.
 
@@ -1697,10 +1862,12 @@ def _build_simple_publication_lifecycle_plan(
     )
     context = {
         "schema_version": "contentops.simple_durable_run_context.v1",
+        **({"audience_learning_binding": article["audience_learning_binding"]}
+            if article.get("audience_learning_binding") else {}),
         "run_id": run_id,
         "selection": dict(selected_candidate),
         "article": compiler_article,
-        "media": {"assets": [], "delivery_only_assets": []},
+        "media": {"assets": [dict(a) for a in media_assets], "delivery_only_assets": []},
         "epistemic_state": dict(epistemic_state or {}),
         "article_identity": article_identity,
         "article_content_sha256": _text_hash(_public_copy(article)),
@@ -1761,6 +1928,7 @@ def _build_simple_publication_lifecycle_plan(
             "article_content_sha256": context["article_content_sha256"],
             "compiler_input_sha256": context["compiler_input_sha256"],
             "epistemic_state": dict(epistemic_state or {}),
+            **({"media_sha256": [a["sha256"] for a in media_assets]} if media_assets else {}),
             "required_derivative_destinations": list(
                 V1_REQUIRED_DERIVATIVE_DESTINATIONS
             ),
@@ -1771,9 +1939,11 @@ def _build_simple_publication_lifecycle_plan(
         "bridge_schema_version": PUBLICATION_BRIDGE_SCHEMA_VERSION,
         "run_id": run_id,
         "story_identity": str(selected_candidate.get("story_identity") or ""),
-        "update_chain_identity": str(selected_candidate.get("story_identity") or ""),
+        "update_chain_identity": str(article.get("update_chain_identity") or selected_candidate.get("update_chain_identity") or selected_candidate.get("story_identity") or ""),
         "resolved_article_mode": str(selected_plan_entry.get("article_mode") or ""),
-        "editorial_classification": "QUALIFIED_SIMPLE_GEMINI_ARTICLE",
+        "editorial_classification": ("QUALIFIED_NATIVE_DESKTOP_ARTICLE"
+            if qualified_record.get("editorial_worker", {}).get("provider") == "NATIVE_CODEX_DESKTOP"
+            else "QUALIFIED_SIMPLE_GEMINI_ARTICLE"),
         "article_identity": article_identity,
         "article_content_sha256": context["article_content_sha256"],
         "compiler_input_sha256": context["compiler_input_sha256"],
@@ -1834,6 +2004,18 @@ def run_v1_simple_gemini_newsroom(
     run_id: str | None = None,
 ) -> dict[str, Any]:
     """Run one zero-write V1 opportunity through one bounded Simple-Gemini plan."""
+    native = getattr(llm_invoke, "native_desktop_protocol", False)
+    audience_learning = getattr(llm_invoke, "audience_learning", None) if native else None
+
+    def persist(path, value):
+        if native:
+            from live_contentops.native_desktop_editorial_v1 import normalize_native_receipt
+            # Intermediate immutable source artifacts must not vary as responses arrive.
+            # Full invocation telemetry belongs only to the terminal receipt.
+            normalize_native_receipt(value, llm_invoke.telemetry()
+                if Path(path).name == "simple_gemini_newsroom_receipt_v1.json" else None)
+        _write_json(path, value)
+
     cutoff_utc = _iso_utc(cutoff_utc)
     root = Path(output_dir).resolve()
     root.mkdir(parents=True, exist_ok=True)
@@ -1849,9 +2031,15 @@ def run_v1_simple_gemini_newsroom(
         published_memory,
         source_route_health=source_route_health,
         attempted_candidate_ids=attempted_candidate_ids,
+        learning_policy=(audience_learning or {}).get("policy"),
     )
     sourceability_path = root / "simple_sourceability_preselection_v1.json"
-    _write_json(sourceability_path, sourceability_preselection)
+    frozen_request = getattr(llm_invoke, "frozen_request", lambda _stage: None)("select") if native else None
+    if frozen_request:
+        # A new source revision cannot rerank an already claimed semantic request.
+        candidates = frozen_request["governed_input"]["candidates"]
+        sourceability_preselection = json.loads(sourceability_path.read_bytes())
+    persist(sourceability_path, sourceability_preselection)
     sourceability_summary = {
         "artifact_path": str(sourceability_path),
         "full_eligible_deduped_universe_count": sourceability_preselection[
@@ -1903,7 +2091,7 @@ def run_v1_simple_gemini_newsroom(
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
     memory_summary = _published_memory_summary(published_memory)
@@ -1919,7 +2107,13 @@ def run_v1_simple_gemini_newsroom(
         "capital_chronicle_context_present": bool(capital_chronicle_context),
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_mode_guide": _institutional_edge_mode_guide(),
+        "native_role_plan_required": native,
+        **({"audience_learning": audience_learning} if audience_learning else {}),
+        **({"owner_editorial_request": capital_chronicle_context["owner_editorial_request"]}
+           if native and (capital_chronicle_context or {}).get("owner_editorial_request") else {}),
     }
+    if frozen_request:
+        selection_governed = frozen_request["governed_input"]
     candidate_ids = {row["candidate_id"] for row in candidates}
     try:
         selection, selection_receipt = _invoke(
@@ -1929,7 +2123,7 @@ def run_v1_simple_gemini_newsroom(
             prompt=_selection_prompt(selection_governed),
             governed_input=selection_governed,
             validator=lambda text: _validate_selection_text(
-                text, candidate_ids=candidate_ids
+                text, candidate_ids=candidate_ids, native_plan=native
             ),
         )
     except SimpleGeminiNewsroomError as exc:
@@ -1956,7 +2150,7 @@ def run_v1_simple_gemini_newsroom(
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
     selection_artifact = {
         "schema_version": SELECTION_SCHEMA_VERSION,
@@ -1969,7 +2163,7 @@ def run_v1_simple_gemini_newsroom(
         "published_memory_summary": memory_summary,
         "public_write_performed": False,
     }
-    _write_json(root / "simple_gemini_selection_v1.json", selection_artifact)
+    persist(root / "simple_gemini_selection_v1.json", selection_artifact)
     if selection.get("status") == _SELECTION_STATUS_ABSTAIN:
         receipt = {
             "schema_version": SCHEMA_VERSION,
@@ -1992,7 +2186,7 @@ def run_v1_simple_gemini_newsroom(
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
     candidate_by_id = {row["candidate_id"]: row for row in candidates}
@@ -2014,6 +2208,14 @@ def run_v1_simple_gemini_newsroom(
         plan_entry.setdefault("plan_role", "PRIMARY" if plan_index == 1 else "FALLBACK")
         candidate = candidate_by_id[str(plan_entry["candidate_id"])]
         request = _evidence_request(candidate, plan_entry)
+        prior_evidence_path = root / "simple_gemini_evidence_v1.json"
+        if native and prior_evidence_path.is_file():
+            prior_walk = json.loads(prior_evidence_path.read_bytes())
+            prior_attempt = next((a for a in prior_walk.get("evidence_attempts", [])
+                                  if a.get("candidate_id") == candidate["candidate_id"]
+                                  and a.get("status") == "SOURCE_QUALIFIED"), None)
+            if prior_attempt:
+                request = dict(prior_attempt["request"])
         zero_request_document, _zero_request_blockers = canonical_x_report_document(
             request
         )
@@ -2150,7 +2352,7 @@ def run_v1_simple_gemini_newsroom(
         "public_write_performed": False,
         "updated_source_route_health": _updated_source_route_health(loader),
     }
-    _write_json(root / "simple_gemini_evidence_v1.json", evidence_artifact)
+    persist(root / "simple_gemini_evidence_v1.json", evidence_artifact)
     if selected is None or selected_plan_entry is None or not source_pack:
         receipt = {
             "schema_version": SCHEMA_VERSION,
@@ -2177,11 +2379,11 @@ def run_v1_simple_gemini_newsroom(
             "unknown_write_count": 0,
             "updated_source_route_health": _updated_source_route_health(loader),
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
 
     if selected_epistemic_state is not None:
-        _write_json(
+        persist(
             root / "simple_epistemic_state_v1.json",
             selected_epistemic_state,
         )
@@ -2190,7 +2392,7 @@ def run_v1_simple_gemini_newsroom(
         article_mode=str(selected_plan_entry["article_mode"]),
         source_pack=source_pack,
     )
-    _write_json(
+    persist(
         root / "simple_gemini_editorial_edge_v1.json",
         {
             "schema_version": "contentops.v1_simple_editorial_edge_adaptation.v1",
@@ -2203,8 +2405,14 @@ def run_v1_simple_gemini_newsroom(
     writer_governed = {
         "cutoff_utc": cutoff_utc,
         "selected_candidate": selected,
+        "evolving_story_context": [s for s in ((capital_chronicle_context or {}).get("foundation_library") or {}).get("stories", [])
+                if s["brief_id"] in {c.get("brief_id") for c in selected.get("evolving_story_context", [])}],
+            "native_evolving_article_context": [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")],
         "article_mode": selected_plan_entry["article_mode"],
         "selection_rationale": selected_plan_entry["selection_rationale"],
+        "selection_angle": selected_plan_entry.get("angle"),
+        "primary_reader_question": selected_plan_entry.get("primary_reader_question"),
+        "evidence_plan": selected_plan_entry.get("evidence_plan"),
         "source_pack": source_pack,
         "epistemic_state": dict(selected_epistemic_state or {}),
         "report_truth": (
@@ -2233,7 +2441,21 @@ def run_v1_simple_gemini_newsroom(
         "capital_chronicle_proprietary_claims_authorized_in_this_lane": False,
         "institutional_edge_editorial_packet": editorial_packet,
         "source_marker_contract": "every non-heading body paragraph uses [[SOURCE:SOURCE_N]]",
+        **({"audience_learning": audience_learning} if audience_learning else {}),
     }
+    frozen_writer = getattr(llm_invoke, "frozen_request", lambda _stage: None)("write") if native else None
+    if frozen_writer:
+        original = frozen_writer["governed_input"]
+        if original["source_pack"] != source_pack or original["selected_candidate"] != selected:
+            raise SimpleGeminiNewsroomError("native_writer_source_changed_requires_recovery")
+        writer_governed = original
+    elif native:
+        # Source pack, exact style packet and selected prior story retain authority;
+        # unselected research/media and all-report copies do not enter the writer.
+        writer_governed["capital_chronicle_context"] = {
+            "owner_editorial_request": (capital_chronicle_context or {}).get("owner_editorial_request"),
+            "full_frozen_context_sha256": _hash(capital_chronicle_context or {}),
+            "scope": "SELECTED_SOURCE_PACK_AND_PRIOR_STORY_ONLY_PUBLIC_MAIN_LINEAGE_PRESERVED"}
     try:
         worker_output, worker_receipt = _invoke(
             llm_invoke=llm_invoke,
@@ -2270,7 +2492,7 @@ def run_v1_simple_gemini_newsroom(
             "provider_publication_writes": 0,
             "unknown_write_count": 0,
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
     revision_receipt: dict[str, Any] | None = None
     revision_performed = False
@@ -2329,7 +2551,7 @@ def run_v1_simple_gemini_newsroom(
                 "provider_publication_writes": 0,
                 "unknown_write_count": 0,
             }
-            _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+            persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
             return receipt
         revision_performed = True
         worker_output, revised_normalization_count = _normalize_relay_attribution(
@@ -2370,20 +2592,36 @@ def run_v1_simple_gemini_newsroom(
                     relay_normalization_count
                 ),
             }
-            _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+            persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
             return receipt
 
+    if native:
+        article = {**article, "source_date_notice": native_source_date_notice(source_pack,
+            {c["source_id"] for c in worker_output["material_claim_bindings"]})}
+    native_prior = [c for c in selected.get("evolving_story_context", []) if c.get("source_review_id")]
+    prior_chain = {c["update_chain_identity"] for c in native_prior}
+    if len(prior_chain) > 1:
+        raise ValueError("CONFLICTING_NATIVE_PRIOR_STORY_IDENTITIES")
+    update_chain = next(iter(prior_chain)) if prior_chain else selected.get("update_chain_identity") or selected["story_identity"]
+    if audience_learning:
+        article["audience_learning_binding"] = {
+            "snapshot_sha256": audience_learning["snapshot_sha256"],
+            "policy_version": audience_learning["policy"].get("policy_version"),
+            "preference_only": True,
+        }
     article_manifest = {
         "schema_version": "contentops.v1_simple_article_manifest.v1",
         **article,
         "resolved_article_mode": selected_plan_entry["article_mode"],
         "story_identity": selected["story_identity"],
-        "update_chain_identity": selected["story_identity"],
+        "update_chain_identity": update_chain,
+        **({"prior_article_identity": native_prior[0]["prior_package"]["article_identity"],
+            "source_review_id": native_prior[0]["source_review_id"]} if native_prior else {}),
         "source_document_ids": [row["document_id"] for row in source_pack],
         "epistemic_state": dict(selected_epistemic_state or {}),
         "public_write_performed": False,
     }
-    _write_json(root / "article_manifest_v1.json", article_manifest)
+    persist(root / "article_manifest_v1.json", article_manifest)
     validation_artifact = {
         **validation,
         "worker_router_receipt": worker_receipt,
@@ -2392,7 +2630,7 @@ def run_v1_simple_gemini_newsroom(
         "maximum_revision_rounds": MAX_REVISION_ROUNDS,
         "epistemic_state": dict(selected_epistemic_state or {}),
     }
-    _write_json(root / "simple_gemini_validation_v1.json", validation_artifact)
+    persist(root / "simple_gemini_validation_v1.json", validation_artifact)
 
     article_identity = _text_hash(str(article["substack_body_markdown"]))
     try:
@@ -2426,11 +2664,14 @@ def run_v1_simple_gemini_newsroom(
                 relay_normalization_count
             ),
         }
-        _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+        persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
         return receipt
-    _write_json(root / "native_derivative_previews_v1.json", native_previews)
+    if audience_learning:
+        native_previews["audience_learning_binding"] = article["audience_learning_binding"]
+    persist(root / "native_derivative_previews_v1.json", native_previews)
     intents_artifact = {
         "schema_version": DERIVATIVE_INTENTS_SCHEMA_VERSION,
+        **({"audience_learning_binding": article["audience_learning_binding"]} if audience_learning else {}),
         "article_identity": article_identity,
         "intent_count": len(intents),
         "intents": intents,
@@ -2446,7 +2687,7 @@ def run_v1_simple_gemini_newsroom(
         V1_REQUIRED_DERIVATIVE_DESTINATIONS
     ):
         raise SimpleGeminiNewsroomError("exact_eight_derivative_intent_contract_failed")
-    _write_json(root / "derivative_intents_v1.json", intents_artifact)
+    persist(root / "derivative_intents_v1.json", intents_artifact)
 
     accepted_documents = [
         {
@@ -2467,15 +2708,18 @@ def run_v1_simple_gemini_newsroom(
         attempt_run_id=run_id,
         article=article_manifest,
         story_identity=selected["story_identity"],
-        update_chain_identity=selected["story_identity"],
+        update_chain_identity=update_chain,
         resolved_article_mode=selected_plan_entry["article_mode"],
         accepted_evidence_documents=accepted_documents,
-        editorial_provider="9router",
-        editorial_model=str(worker_receipt.get("selected_model") or "9router-gemini"),
-        editorial_reasoning_effort="HIGH",
+        editorial_provider=str(worker_receipt.get("provider") or "9router"),
+        editorial_model=str(worker_receipt.get("selected_model") or (
+            "UNOBSERVED" if getattr(llm_invoke, "native_desktop_protocol", False) else "9router-gemini")),
+        editorial_reasoning_effort=str(worker_receipt.get("reasoning_effort") or (
+            "UNOBSERVED" if getattr(llm_invoke, "native_desktop_protocol", False) else "HIGH")),
         logical_model_invocation_count=len(model_receipts),
         derivative_package_intents=intents,
         epistemic_state=selected_epistemic_state,
+        native_execution_observation=(llm_invoke.telemetry() if getattr(llm_invoke, "native_desktop_protocol", False) else None),
     )
     persist_qualified_article_record(root, record)
     publication_lifecycle_plan = _build_simple_publication_lifecycle_plan(
@@ -2535,5 +2779,5 @@ def run_v1_simple_gemini_newsroom(
         ),
         "updated_source_route_health": _updated_source_route_health(loader),
     }
-    _write_json(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
+    persist(root / "simple_gemini_newsroom_receipt_v1.json", receipt)
     return receipt

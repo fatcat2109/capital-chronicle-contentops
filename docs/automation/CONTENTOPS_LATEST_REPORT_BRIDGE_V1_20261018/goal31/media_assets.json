@@ -1,0 +1,42 @@
+[
+  {
+    "asset_id": "official_source_document_card",
+    "role": "lead_contextual",
+    "media_role": "lead_source_document_card",
+    "modality": "source_document_card",
+    "media_class": "source_backed_render",
+    "evidence_dimension": "official_document_identity",
+    "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading\\media_assets\\source_document_card.png",
+    "source_page_url": "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence",
+    "source_label": "U.S. Securities and Exchange Commission",
+    "publisher": "U.S. Securities and Exchange Commission",
+    "source": "U.S. Securities and Exchange Commission",
+    "publication_date": "19 October 2026; roundtable planned for 9 November",
+    "rights_status": "capital_chronicle_owned",
+    "render_rights_status": "capital_chronicle_owned",
+    "underlying_source_rights_status": "public_domain",
+    "source_reuse_basis": "explicit_governed_government_public_domain",
+    "provenance_status": "SOURCE_BACKED",
+    "chart_title": "SEC roundtable: machine-understandable data, U.S. Securities and Exchange Commission. Source date: 19 October…",
+    "caption": "Thông báo SEC ngày 19/10/2026 về tọa đàm dự kiến ngày 9/11. Nội dung thảo luận gồm cách dùng dữ liệu máy hiểu, rủi ro và chi phí; chưa phải kết quả đánh giá hiệu quả.",
+    "alt_text": "Thẻ tài liệu SEC: ngày thông báo 19/10/2026, tọa đàm dự kiến 9/11 về machine-understandable data, rủi ro và chi phí.",
+    "width": 1600,
+    "height": 900,
+    "dimensions": {
+      "width": 1600,
+      "height": 900
+    },
+    "sha256": "ed1832d41bcc3225e01379d8c393f1314cf820a4cdd9e08ec910edd57febc5c5",
+    "article_section": "source_record",
+    "canonical_article_section_association": "source_record",
+    "relevance_rationale": "Establishes the exact official record the grounded article reports.",
+    "supports_headline": true,
+    "is_logo": false,
+    "is_avatar": false,
+    "is_thumbnail": false,
+    "is_synthetic": false,
+    "is_manipulated": false,
+    "ai_generated_image": false,
+    "underlying_series_ids": []
+  }
+]

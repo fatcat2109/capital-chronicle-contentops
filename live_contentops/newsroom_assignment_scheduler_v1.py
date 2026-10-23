@@ -353,6 +353,12 @@ def load_rolling_x_headline_sidecars(
                 continue
             dedupe_field, dedupe_value = _rolling_x_dedupe_identity(row, normalized_text)
             dedupe_identity = f"{dedupe_field}:{dedupe_value}"
+            revision_identity = {k: row[k] for k in (
+                "correction_of", "supersedes_headline_id", "update_chain_identity", "revision_id", "revision_at_utc"
+            ) if isinstance(row.get(k), str) and row[k].strip()}
+            if any(k in revision_identity for k in ("correction_of", "supersedes_headline_id", "revision_id")):
+                dedupe_identity += ":revision:" + hashlib.sha256(json.dumps(
+                    [revision_identity, normalized_text], sort_keys=True).encode()).hexdigest()
             if dedupe_identity in seen_dedupe_identities:
                 duplicates += 1
                 continue
@@ -409,6 +415,7 @@ def load_rolling_x_headline_sidecars(
                 )
             accepted.append({
                 "headline_id": headline_id,
+                **revision_identity,
                 "source_timestamp_utc": _iso_utc(source_dt),
                 "source_timestamp_field": timestamp_field,
                 "dedupe_identity": dedupe_identity,

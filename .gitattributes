@@ -15,3 +15,47 @@ docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/grid_acquisit
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/retained_research/** binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/acceptance/**/*.json binary
 docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal20/bls_browser/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/acquisition/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/integrated/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/main_batch/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/**/*.jsonl binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/retained_research/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/**/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/**/*.jsonl binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/retained_research/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal27/source_editions/** binary
+
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal28/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal28/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal28/source_editions/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal29/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal29/verification/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal30/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal30/verification/** binary
+config/main_legacy_public_parent_recovery_v1.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/** -text whitespace=cr-at-eol
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/source_editions/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/verification*.txt binary
+
+# Goal34 retained captures, native packets and exact console transcripts keep original bytes.
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/source_editions/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/article/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/focused-controls.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/media-rights-consumer-controls.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/ui-controls.txt binary
+
+# Preserve exact Goal35 source captures, native packets and verification transcripts.
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/source_editions/** binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/articles/**/*.json binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/renders/**/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/**/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/*.txt binary
+docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal36/**/*.json binary

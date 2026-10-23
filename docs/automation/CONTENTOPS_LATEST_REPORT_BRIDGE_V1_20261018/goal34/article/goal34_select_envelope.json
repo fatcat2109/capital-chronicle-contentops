@@ -1,0 +1,30 @@
+{
+  "request_sha256": "da11b4c32dcba4dc79aaf53cf17ae78a6d18c7f6273c7028fb07879d313be366",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "A dated Southwest 2025 filing case separates the cash received when OTC fuel options closed, the expense recognized in Q2, and future expense recognition tied to originally forecast fuel transactions.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-58c20e2b812d839f223fed99",
+        "evidence_plan": "Use only admitted goal34-southwest-hedge-clocks exact filing extracts and existing source review; preserve original goal31 futures explainer as background. Bind approximately $40m cash proceeds, $36m Q2 premium-expense reclassification, and $209m remaining AOCI net of proceeds and before tax to exact spans. Distinguish June 30 collateral snapshot from a cashflow history and OTC options from exchange variation margin. Code owns any arithmetic; no new calculation or source request is needed. Retain the historical 2025 dates prominently and Vietnamese owner-edition reader language.",
+        "primary_reader_question": "When a company closes a fuel hedge and receives cash, why can related fuel expense still appear in later periods, and what does its collateral disclosure actually establish?",
+        "research_queries": [
+          "Southwest second quarter 2025 fuel hedge termination cash proceeds AOCI recognition"
+        ],
+        "selection_rationale": "The newly admitted named issuer filing answers part of the saved hedge question with an actual case and a useful cash-versus-accounting distinction absent from the prior general futures article. It does not establish a margin call, liquidity distress, hedge failure or current 2026 position."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one dated document-lens follow-up from the 23 compared candidates. Gas is unchanged October 9/October 15 evidence; the SEC November 9 event remains future at the sealed cutoff. Other retained proposals, historical explainers, source-convention items and Main recirculations do not improve this exact three-brief task. Audience policy remains HOLD with no observed independent reader questions. Query text is required plan metadata only: execute no further requests.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "invocation_id": "/root/goal34_sol_light",
+    "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+    "speed": "standard"
+  }
+}

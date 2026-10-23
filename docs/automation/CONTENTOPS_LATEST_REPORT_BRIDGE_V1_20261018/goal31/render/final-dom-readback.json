@@ -1,0 +1,38 @@
+{
+  "articles": [
+    {
+      "images": [
+        {
+          "loaded": true
+        }
+      ],
+      "previews": 8,
+      "run": "goal31-company-machine-reading",
+      "title": "SEC lên lịch tọa đàm dữ liệu máy hiểu: người đọc cần kiểm gì?"
+    },
+    {
+      "images": [
+        {
+          "loaded": true
+        }
+      ],
+      "previews": 8,
+      "run": "goal31-futures-cashflow",
+      "title": "Phòng hộ bằng futures vẫn có thể cần thêm tiền mặt"
+    },
+    {
+      "images": [
+        {
+          "loaded": true
+        }
+      ],
+      "previews": 8,
+      "run": "goal27-gas-refill-update",
+      "title": "Gas tuần 9/10: bơm thêm dưới chuẩn, tồn kho trên trung bình năm năm"
+    }
+  ],
+  "counts": "3 bài sẵn đọc · 1 đề tài giữ chờ · 0 bài còn thiếu · 24 bản xem trước · chưa xuất bản.\n\n2 bài mới · 0 cập nhật · 1 giữ nguyên · 1 giữ chờ · 1 thiếu nguồn (trong các quyết định trên). Bài giữ nguyên không tính là bài mới.\n\nBài mới riêng tư: thông báo SEC19/10 mở câu hỏi về chất lượng dữ liệu máy hiểu khi đọc công bố doanh nghiệp. Tọa đàm9/11 còn ở tương lai; không chứng minh hiệu quả AI hoặc thay quy định.\n\nBài nền mới từ phần CFTC vừa đọc: phòng hộ giá kinh doanh và dòng tiền ký quỹ. Không có ngày phát hành xác minh, không suy thành vị thế hiện tại. Phạm vi vị thế hiện tại bên dưới vẫn giữ chờ.\n\nGiữ nguyên gas: EIA vẫn là tuần9/10, phát hành15/10; không có kỳ mới để viết cập nhật. Bài cũ và tám bản xem trước được dùng nguyên vẹn.\n\nGiữ chờ nhận định vị thế hiện tại: thiếu hợp đồng/kỳ hạn/thanh toán, chuỗi quyền chọn/IV/open interest và mục đích hedge cụ thể. Không viết bài dự báo từ hai định nghĩa nền.\n\nGiữ chờ: Vị thế futures/options hiện tại có thực sự là dự báo giá?\n\nSEC lên lịch tọa đàm dữ liệu máy hiểu: người đọc cần kiểm gì?\n\nPhòng hộ bằng futures vẫn có thể cần thêm tiền mặt\n\nGas tuần 9/10: bơm thêm dưới chuẩn, tồn kho trên trung bình năm năm",
+  "history": "c duyệt\nSEO và ngày nguồn\nNguồn và ngày\nGas storage: refill pace versus stock level, U.S. Energy Information Administration. Source date: Observed Oct 9, 2026; released Oct 15; reread Oct 20.\n8/8 bản xem trước theo nền tảng\ntelegram\nx\nlinkedin\ndiscord\nfacebook page\ninstagram business\nthreads\nyoutube",
+  "scroll": 1185,
+  "width": 1200
+}

@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+  "title": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+  "reporting_publisher": "Reuters",
+  "attribution_text": "Reuters",
+  "observed_at_utc": "2026-10-21T22:27:23.049Z",
+  "full_text_sha256": "7901d378f9cedd31cc1d16396a82456e654afb57ca67c06f5c6598477add8642",
+  "full_text_characters": 2966,
+  "excerpts": [
+    {
+      "text": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+      "start": 0,
+      "end": 69
+    },
+    {
+      "text": "HOUSTON, Oct 21 (Reuters) - Oil prices settled with little change on Wednesday as investors weighed possible progress toward Russia-Ukraine talks against declining US oil stocks and a lack of US-Iran dialogue.",
+      "start": 274,
+      "end": 483
+    },
+    {
+      "text": "Brent crude futures settled 3 ‌cents, or 0.03% higher, at $108.82 a barrel. US West Texas Intermediate crude closed down 67 cents, or 0.7%, at $97.15.",
+      "start": 485,
+      "end": 635
+    },
+    {
+      "text": "Both ‌benchmarks had gained more than $2 earlier in the session, with Brent hovering near five-month highs.",
+      "start": 637,
+      "end": 744
+    }
+  ],
+  "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS",
+  "credential_or_session_material_read": false,
+  "public_write_performed": false,
+  "capture_scope": "EXACT_SELECTED_FACTUAL_PASSAGES_NOT_FULL_ARTICLE",
+  "publication_visible_clock": {
+    "datetime": "2026-10-21T19:17:12+00:00",
+    "text": "Thu, October 22, 2026 at 2:17 AM GMT+7"
+  },
+  "publisher_machine_clock_metadata": [],
+  "origin": "Reuters syndication; not independent confirmation",
+  "publication_clock_basis": "PUBLISHER_TIMESTAMP_METADATA",
+  "clock_limit": "Reuters time element may represent update rather than original publication; visible original minute retained separately. No future outcome is inferred."
+}

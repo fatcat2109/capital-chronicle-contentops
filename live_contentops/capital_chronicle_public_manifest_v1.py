@@ -33,6 +33,12 @@ MANIFEST_SCHEMAS = {
 }
 
 
+class ManifestHistoryPending(LatestReportConsumerError):
+    def __init__(self, checkpoint):
+        super().__init__("MAIN_PUBLIC_MANIFEST_HISTORY_CONTINUATION_REQUIRED")
+        self.checkpoint = checkpoint
+
+
 def _schema(version):
     if version not in MANIFEST_SCHEMAS:
         raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_VERSION_UNSUPPORTED")
@@ -121,17 +127,35 @@ class PublicMainFileSource:
             raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_FUTURE_DEFERRED")
         # Follow only the bounded hash-addressed parent chain. Missed intervals need
         # no Git pointer edits and previously accepted events cannot disappear.
-        current, chain = manifest, []
+        current, count = manifest, 0
         wanted = (previous or {}).get("manifest_sha256")
+        checkpoint = (previous or {}).get("history_checkpoint") or {}
+        if checkpoint and checkpoint.get("target_manifest_sha256") != manifest["manifest_sha256"]:
+            # Finish the already observed immutable target before chasing a newer pointer.
+            manifest = self._manifest(_load(self._read("manifests/" + checkpoint["target_manifest_sha256"] + ".json"), max_bytes=8 * 1024 * 1024))
+            if manifest["manifest_sha256"] != checkpoint["target_manifest_sha256"]:
+                raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_HISTORY_CHANGED")
+        if checkpoint.get("target_manifest_sha256") == manifest["manifest_sha256"]:
+            wanted = checkpoint.get("accepted_anchor_sha256")
+            current = self._manifest(_load(self._read("manifests/" + checkpoint["resume_manifest_sha256"] + ".json"), max_bytes=8 * 1024 * 1024))
+            if current["manifest_sha256"] != checkpoint["resume_manifest_sha256"]:
+                raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_HISTORY_CHANGED")
         while current["manifest_sha256"] != wanted:
-            chain.append(current)
+            count += 1
             parent = current.get("parent_manifest_sha256")
             if not parent:
                 if wanted:
                     raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_HISTORY_FORK")
                 break
-            if not re.fullmatch(r"[0-9a-f]{64}", str(parent)) or len(chain) > 128:
+            if not re.fullmatch(r"[0-9a-f]{64}", str(parent)):
                 raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_HISTORY_BOUND")
+            if count > 128:
+                raise ManifestHistoryPending({
+                    "target_manifest_sha256": manifest["manifest_sha256"],
+                    "accepted_anchor_sha256": wanted,
+                    "resume_manifest_sha256": current["manifest_sha256"],
+                    "verified_links": checkpoint.get("verified_links", 0) + count - 1,
+                })
             parent_value = self._manifest(
                 _load(
                     self._read("manifests/" + parent + ".json"),
@@ -151,6 +175,22 @@ class PublicMainFileSource:
             raise LatestReportConsumerError("MAIN_PUBLIC_MANIFEST_HISTORY_FORK")
         self.manifest = manifest
         return manifest
+
+    def artifact_fingerprint(self, spec):
+        """Local change detector for already hash-verified immutable artifacts, never admission authority."""
+        if not self._row_validators[self.manifest["version"]].is_valid(spec):
+            raise LatestReportConsumerError("MAIN_PUBLIC_EVENT_SCHEMA_INVALID")
+        stamps = []
+        for key in ("envelope", "public_report", "schema_ref"):
+            relative = spec[key]["path"]
+            if not PATH.fullmatch(relative):
+                raise LatestReportConsumerError("MAIN_PUBLIC_EXPORT_PATH_OUTSIDE_CONTRACT")
+            target = (self.root / relative).resolve()
+            if not target.is_relative_to(self.root):
+                raise LatestReportConsumerError("MAIN_PUBLIC_EXPORT_PATH_OUTSIDE_CONTRACT")
+            stat = target.stat()
+            stamps.append([relative, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns])
+        return sha256_of([str(self.root), spec, stamps])
 
     def bundle(self, spec: Mapping[str, Any]) -> dict[str, Any]:
         if not self._row_validators[self.manifest["version"]].is_valid(spec):
@@ -218,6 +258,14 @@ class PublicMainFileSource:
                 }
             },
         }
+        from live_contentops.capital_chronicle_legacy_parent_recovery_v1 import recovery_binding
+        recovery = recovery_binding(self.pointer, self.manifest, spec,
+            self._read("manifests/" + self.manifest["manifest_sha256"] + ".json"))
+        if recovery:
+            child = self.manifest["latest_by_asset"][spec["asset_id"]]
+            for key in ("envelope", "public_report"):
+                self._read(child[key]["path"], child[key]["bytes_sha256"])
+            binding["legacy_parent_recovery"] = recovery
         return {
             "envelope": envelope,
             "report": b"",

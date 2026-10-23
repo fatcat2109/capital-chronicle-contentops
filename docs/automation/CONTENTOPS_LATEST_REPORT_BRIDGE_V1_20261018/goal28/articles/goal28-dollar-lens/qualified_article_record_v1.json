@@ -1,0 +1,526 @@
+{
+  "accepted_evidence_ids": [
+    "goal21-fed-inflation",
+    "goal21-fed-policy",
+    "goal21-fx-broad-index",
+    "goal21-fx-convention"
+  ],
+  "accepted_evidence_sha256": "f148b9f4746ceff354e6fad16bba7acb98ff8610b72db87ee37f263fef232508",
+  "article_body_sha256": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+  "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+  "article_path": null,
+  "attempt_run_id": "goal28-dollar-lens",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal21-fx-broad-index"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nUSD l\u00ean so v\u1edbi ai?\n\nWhat to watch: Ph\u00e9p ki\u1ec3m tra ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: sau khi \u0111\u1ecdc \u0111\u00fang chi\u1ec1u y\u1ebft gi\u00e1, gh\u00e9p \u0111\u00fang k\u1ef3 quan s\u00e1t v\u00e0 \u0111\u1ed1i chi\u1ebfu r\u1ed5 c\u00f3 tr\u1ecdng s\u1ed1, hai t\u00edn hi\u1ec7u c\u00f2n kh\u00e1c nhau kh\u00f4ng?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22\n\nSource date: 2026-10-13. Interpretation remains analysis."
+      },
+      "payload_sha256": "cdcac9f760683d64cec09d7d4f6d5dff6461640927baba0e7a00a594527710dc",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal21-fx-broad-index"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nUSD l\u00ean so v\u1edbi ai?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22\n\nWatch: Ph\u00e9p ki\u1ec3m tra ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: sau khi \u0111\u1ecdc \u0111\u00fang chi\u1ec1u y\u1ebft gi\u00e1, gh\u00e9p \u0111\u00fang k\u1ef3 quan s\u00e1t v\u00e0 \u0111\u1ed1i chi\u1ebfu r\u1ed5 c\u00f3 tr\u1ecdng s\u1ed1, hai t\u00edn hi\u1ec7u c\u00f2n kh\u00e1c nhau kh\u00f4ng?\n\nSource date: 2026-10-13.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nUSD l\u00ean so v\u1edbi ai?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: Ph\u00e9p ki\u1ec3m tra ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: sau khi \u0111\u1ecdc \u0111\u00fang chi\u1ec1u y\u1ebft gi\u00e1, gh\u00e9p \u0111\u00fang k\u1ef3 quan s\u00e1t v\u00e0 \u0111\u1ed1i chi\u1ebfu r\u1ed5 c\u00f3 tr\u1ecdng s\u1ed1, hai t\u00edn hi\u1ec7u c\u00f2n kh\u00e1c nhau kh\u00f4ng?\n\nSource date: 2026-10-13.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.668,
+            0.832
+          ],
+          "post_character_counts": [
+            187,
+            233
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.803,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: Ph\u00e9p ki\u1ec3m tra ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: sau khi \u0111\u1ecdc \u0111\u00fang chi\u1ec1u y\u1ebft gi\u00e1, gh\u00e9p \u0111\u00fang k\u1ef3 quan s\u00e1t v\u00e0 \u0111\u1ed1i chi\u1ebfu r\u1ed5 c\u00f3 tr\u1ecdng s\u1ed1, hai t\u00edn hi\u1ec7u c\u00f2n kh\u00e1c nhau kh\u00f4ng?\n\nSource date: 2026-10-13.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nUSD l\u00ean so v\u1edbi ai?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22",
+        "text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nUSD l\u00ean so v\u1edbi ai?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22"
+      },
+      "payload_sha256": "86facbfe8c8c08c976fa8a44d55ad0657ec5b246f106934cdb8dc5875bc60557",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal21-fx-broad-index"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]**\n\nUSD l\u00ean so v\u1edbi ai?\n\n**Context:** Kh\u00e1c ph\u1ea1m vi \u0111o kh\u00f4ng bu\u1ed9c ch\u00fang ph\u1ea3i ph\u00e2n k\u1ef3.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22\n\nSource date: 2026-10-13. Interpretation remains analysis."
+      },
+      "payload_sha256": "4a813eb1e7aeb4665a9263567e3a382b4464c2a0996fb629049edb336d6434dc",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal21-fx-broad-index"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nWhy it matters: Ph\u00e2n t\u00edch Capital Chronicle: n\u1ebfu USD m\u1ea1nh l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n trong r\u1ed5 nh\u01b0ng y\u1ebfu \u0111i tr\u01b0\u1edbc c\u00e1c \u0111\u1ed3ng ti\u1ec1n kh\u00e1c, k\u1ebft qu\u1ea3 t\u1ed5ng h\u1ee3p c\u00f2n ph\u1ee5 thu\u1ed9c tr\u1ecdng s\u1ed1 v\u00e0 m\u1ee9c d\u1ecbch chuy\u1ec3n c\u1ee7a c\u00e1c th\u00e0nh ph\u1ea7n.\n\nContext: Kh\u00e1c ph\u1ea1m vi \u0111o kh\u00f4ng bu\u1ed9c ch\u00fang ph\u1ea3i ph\u00e2n k\u1ef3.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22\n\nSource date: 2026-10-13. Interpretation remains analysis."
+      },
+      "payload_sha256": "48154dbbb4992a289ecc8f8452fe73c67abb9c76421d1e8996fd8c02ac01cb2d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal21-fx-broad-index"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nUSD l\u00ean so v\u1edbi ai?\n\nWhy it matters: Ph\u00e2n t\u00edch Capital Chronicle: n\u1ebfu USD m\u1ea1nh l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n trong r\u1ed5 nh\u01b0ng y\u1ebfu \u0111i tr\u01b0\u1edbc c\u00e1c \u0111\u1ed3ng ti\u1ec1n kh\u00e1c, k\u1ebft qu\u1ea3 t\u1ed5ng h\u1ee3p c\u00f2n ph\u1ee5 thu\u1ed9c tr\u1ecdng s\u1ed1 v\u00e0 m\u1ee9c d\u1ecbch chuy\u1ec3n c\u1ee7a c\u00e1c th\u00e0nh ph\u1ea7n.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22\n\nSource date: 2026-10-13. Interpretation remains analysis."
+      },
+      "payload_sha256": "34ba0754cd76c9a89230be8238c711baff6f921a49531061719825ca22f8d07f",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal21-fx-broad-index"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nUSD l\u00ean so v\u1edbi ai?\n\nIn focus: Kh\u00e1c ph\u1ea1m vi \u0111o kh\u00f4ng bu\u1ed9c ch\u00fang ph\u1ea3i ph\u00e2n k\u1ef3.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22\n\n#CapitalChronicle\n\nSource date: 2026-10-13. Interpretation remains analysis."
+      },
+      "payload_sha256": "e5492b7685647777908a136f44efc60306c661961836ebfff884430abd6ce158",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal21-fx-broad-index"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nKh\u00e1c ph\u1ea1m vi \u0111o kh\u00f4ng bu\u1ed9c ch\u00fang ph\u1ea3i ph\u00e2n k\u1ef3.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22\n\nWhat to watch: Ph\u00e9p ki\u1ec3m tra ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: sau khi \u0111\u1ecdc \u0111\u00fang chi\u1ec1u y\u1ebft gi\u00e1, gh\u00e9p \u0111\u00fang k\u1ef3 quan s\u00e1t v\u00e0 \u0111\u1ed1i chi\u1ebfu r\u1ed5 c\u00f3 tr\u1ecdng s\u1ed1, hai t\u00edn hi\u1ec7u c\u00f2n kh\u00e1c nhau kh\u00f4ng?\n\nSource date: 2026-10-13.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nKh\u00e1c ph\u1ea1m vi \u0111o kh\u00f4ng bu\u1ed9c ch\u00fang ph\u1ea3i ph\u00e2n k\u1ef3.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Ph\u00e9p ki\u1ec3m tra ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: sau khi \u0111\u1ecdc \u0111\u00fang chi\u1ec1u y\u1ebft gi\u00e1, gh\u00e9p \u0111\u00fang k\u1ef3 quan s\u00e1t v\u00e0 \u0111\u1ed1i chi\u1ebfu r\u1ed5 c\u00f3 tr\u1ecdng s\u1ed1, hai t\u00edn hi\u1ec7u c\u00f2n kh\u00e1c nhau kh\u00f4ng?\n\nSource date: 2026-10-13.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.43,
+            0.482
+          ],
+          "post_character_counts": [
+            215,
+            241
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.892,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Ph\u00e9p ki\u1ec3m tra ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: sau khi \u0111\u1ecdc \u0111\u00fang chi\u1ec1u y\u1ebft gi\u00e1, gh\u00e9p \u0111\u00fang k\u1ef3 quan s\u00e1t v\u00e0 \u0111\u1ed1i chi\u1ebfu r\u1ed5 c\u00f3 tr\u1ecdng s\u1ed1, hai t\u00edn hi\u1ec7u c\u00f2n kh\u00e1c nhau kh\u00f4ng?\n\nSource date: 2026-10-13.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nKh\u00e1c ph\u1ea1m vi \u0111o kh\u00f4ng bu\u1ed9c ch\u00fang ph\u1ea3i ph\u00e2n k\u1ef3.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22",
+        "text": "CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nKh\u00e1c ph\u1ea1m vi \u0111o kh\u00f4ng bu\u1ed9c ch\u00fang ph\u1ea3i ph\u00e2n k\u1ef3.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22"
+      },
+      "payload_sha256": "e328e6883443329477fc1e0f153971a68030c9c8d2f1b0d596c715a8f648072b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal21-fx-broad-index"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CONFIRMED | USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng [Source 2026-10-13]\n\nUSD l\u00ean so v\u1edbi ai?\n\nWhat to watch: Ph\u00e9p ki\u1ec3m tra ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: sau khi \u0111\u1ecdc \u0111\u00fang chi\u1ec1u y\u1ebft gi\u00e1, gh\u00e9p \u0111\u00fang k\u1ef3 quan s\u00e1t v\u00e0 \u0111\u1ed1i chi\u1ebfu r\u1ed5 c\u00f3 tr\u1ecdng s\u1ed1, hai t\u00edn hi\u1ec7u c\u00f2n kh\u00e1c nhau kh\u00f4ng?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-9e7152f22d29bb22\n\nSource date: 2026-10-13. Interpretation remains analysis."
+      },
+      "payload_sha256": "19ad8feb371d778fbd915cd926efa170870e0f3fdd845a18e9561c6682d72c7d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal28_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task name with explicitly requested gpt-6.1-sol low; UUID not exposed",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal28_sol_max_a",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent exposed canonical task name with explicitly requested gpt-6.1-sol/max; UUID not exposed",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.federalreserve.gov",
+    "primary_reporting_source_identity": "www.federalreserve.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal21-fx-broad-index"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-21-bangkok",
+  "parent_window_id": "goal28-dollar-lens",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "6c20ad93af274591ee48633625f75c30d0eaf7cad70bbb38f754e5a266849ff4",
+  "resolved_article_mode": "EVERGREEN_EXPLAINER",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-a072cb6da224fa28afe84691",
+  "title": "USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n ch\u01b0a c\u00f3 ngh\u0129a c\u1ea3 r\u1ed5 c\u00f9ng t\u0103ng",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-a072cb6da224fa28afe84691"
+}

@@ -1,0 +1,194 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "headline_id": "goal28-company-reading",
+      "headline_text": "Item 7 - “Management’s Discussion and Analysis of Financial Condition and Results of Operations”** gives the company’s perspective on the business results of the past financial year. This section, known as the MD&A for short, allows company management to tell its story in its own words. The MD&A presents: > > > > > The company’s operations and financial results, including information about the company’s liquidity and capital resources and any known trends or uncertainties that could materially affect the company’s results. This section may also discuss management’s views of key business risks and what it is doing to address them. > > > > **Discussion of Risk in the MD&A** > > Here are examples of how an MD&A may discuss risks that the company faces. > > • A consumer company might discuss ways in which it seeks to meet changing tastes. > > • A manufacturing company that relies on natural resources may discuss how it assesses commodity risks and conducts resource management programs. > > • A financial institution may discuss ways that management monitors liquidity and assures adequate capital under various scenarios, such as a rise in interest rates or a ratings downgrade. > > • A global company may discuss how it handles exchange rate risks. > > • Companies may discuss how they handle competition, build their brands, or manage in an economic downturn. > > • Companies also may discuss how they ensure compliance with laws and regulations, or how they are addressing the impact of new or anticipated laws and regulations. > > > > > Material changes in the company’s results compared to the prior period, as well as off-balance sheet arrangements and the company’s contractual obligations. > > > > Critical accounting judgments, such as estimates and assumptions.",
+      "capture_path": "goal28-company-reading-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "03272824c29645642aa68cc1220fe0aedc9da26e4a7fd44105c78ce1a4526748",
+      "loader_result_path": "goal28-company-reading-admission.json",
+      "policy_capture_path": "policy-neo-page-67-revision2-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "revision_at_utc": "2026-10-20T21:08:39.442744Z",
+      "proposition_span": [
+        4408,
+        6190
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "US_EQUITIES"
+        ],
+        "context_kind": "HISTORICAL_EDUCATIONAL_SOURCE_NOT_CURRENT_REQUIREMENT",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": "2011-07-01T00:00:00Z",
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "How to compare management narrative with audited statements without inventing a company valuation?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK",
+        "period_relation": "ADDITIONAL_AGENCY_TEXT_FOR_NEW_OWNER_EXPLAINER",
+        "observation_date": null,
+        "release_date": null
+      },
+      "context_spans": [
+        [
+          6190,
+          8655
+        ]
+      ]
+    },
+    {
+      "headline_id": "goal28-cross-trade",
+      "headline_text": "The Securities and Exchange Commission today proposed amendments to the Investment Company Act “cross-trading rule,” which permits transactions in securities between a registered fund and its affiliates under certain conditions. The proposed amendments would modernize and expand the cross-trading rule and would allow cross trades that are beneficial to registered funds and their shareholders (by, for example, reducing a fund’s trading costs), subject to enhanced investor protection measures. “Today, the Commission took another step toward modernizing our regulatory frameworks to meet the realities of today’s markets by proposing amendments to Rule 17a-7 under the Investment Company Act of 1940, which permits trades in securities between registered funds and certain affiliates. When executed appropriately, cross trades allow registered funds to avoid costs associated with open market trades and to then pass those savings on to investors. The amendments we are proposing today would modernize and expand the cross-trading rule, helping to deliver additional cost savings to those investors,” said SEC Chairman Paul S. Atkins in a [statement](https://www.sec.gov/newsroom/speeches-statements/atkins-statement-cross-trading-10-09-2026-statement-proposed-amendments-investment-company-cross-trading). Following the initial adoption of Rule 17a-7 in 1966, registered funds relied on the cross-trading rule to trade both equity and fixed-income securities. However, adoption of the Investment Company Act’s “fund valuation rule” in 2020 effectively restricted cross trading most fixed-income securities, although at the time the Commission recognized that potential revisions to the cross-trading rule were under consideration.",
+      "capture_path": "goal28-cross-trade-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "0a5605b6dd36965d62ae9deb58f8b3f5457d7456854b91803be495a3eed6a455",
+      "loader_result_path": "goal28-cross-trade-admission.json",
+      "policy_capture_path": "policy-neo-page-67-revision2-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "revision_at_utc": "2026-10-20T21:08:39.486360Z",
+      "proposition_span": [
+        1782,
+        3516
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "REGISTERED_FUNDS",
+          "US_RATES"
+        ],
+        "context_kind": "DATED_POLICY_DOCUMENT_NOT_CURRENT_MARKET",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Can a cost-saving affiliated-fund trade be fair to both sides, and what pricing/oversight evidence is needed?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK",
+        "period_relation": "ADDITIONAL_AGENCY_TEXT_FOR_NEW_OWNER_EXPLAINER",
+        "observation_date": "2026-10-09",
+        "release_date": "2026-10-09"
+      },
+      "context_spans": [
+        [
+          3516,
+          4033
+        ]
+      ]
+    },
+    {
+      "headline_id": "goal28-crypto-safeguards",
+      "headline_text": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission’s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser’s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. “Since the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today’s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before—and replacing the grey of uncertainty created by custody rules crafted for a bygone era,” said SEC Chairman Paul S. Atkins in a [statement](https://www.sec.gov/newsroom/speeches-statements/atkins-crypto-custody-100126-statement-proposal-address-custody-crypto-assets-under-investment-advisers-act-investment-company). The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets.",
+      "capture_path": "goal28-crypto-safeguards-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "4a02eaa409a672cacf840510ed7400ca38405786feb7dbc73546efa67f2ead3c",
+      "loader_result_path": "goal28-crypto-safeguards-admission.json",
+      "policy_capture_path": "policy-neo-page-67-revision2-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "revision_at_utc": "2026-10-20T21:08:39.489817Z",
+      "proposition_span": [
+        1908,
+        3801
+      ],
+      "candidate_catalyst_tags": [
+        "crypto"
+      ],
+      "research_metadata": {
+        "family": "CRYPTO",
+        "assets": [
+          "BTCUSD",
+          "ETHUSD",
+          "REGULATED_FUNDS"
+        ],
+        "context_kind": "DATED_POLICY_DOCUMENT_NOT_CURRENT_MARKET",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Which investor and custodian arrangements are covered by the proposal, and why is that different from a price catalyst or effective rule?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK",
+        "period_relation": "ADDITIONAL_AGENCY_TEXT_FOR_NEW_OWNER_EXPLAINER",
+        "observation_date": "2026-10-01",
+        "release_date": "2026-10-01"
+      },
+      "context_spans": [
+        [
+          3801,
+          3802
+        ]
+      ]
+    },
+    {
+      "headline_id": "goal28-fed-policy-lens",
+      "headline_text": "The Federal Open Market Committee approved the following statement for release by a 12 – 0 vote: The Committee decided to raise the target range for the federal funds rate by 1/4 percentage pointto 3-3/4to 4 percent, in support of the Federal Reserve's dual mandate. The Committee is continuing its policy of maintaining ample reserves in the banking system. Economic activity is expanding at a solid pace. While uncertainty remains elevated owing, in part, to geopolitical developments,domestic spending has been resilient. Productivity growth is strong, and capital investment is robust. Job gains have kept pace with the workforce, and the unemployment rate has changed little. Inflation remains elevated. Today's policy action will support a timelier return to the Committee's 2 percent goal. The Committee will deliver price stability.",
+      "capture_path": "goal28-fed-policy-lens-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "8ac5894a6ba83f851969570b975b87260b7683f15680c922223e9941a28ca0ec",
+      "loader_result_path": "goal28-fed-policy-lens-admission.json",
+      "policy_capture_path": "policy-neo-page-65-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.federalreserve.gov/disclaimer.htm",
+      "policy_capture_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "policy_retrieved_at_utc": "2026-10-19T09:14:51.267Z",
+      "revision_at_utc": "2026-10-20T21:09:38.827128Z",
+      "proposition_span": [
+        2469,
+        3309
+      ],
+      "candidate_catalyst_tags": [
+        "fx_rates"
+      ],
+      "research_metadata": {
+        "family": "FX_RATES",
+        "assets": [
+          "EURUSD",
+          "USDJPY",
+          "US_RATES"
+        ],
+        "context_kind": "DATED_POLICY_DOCUMENT_NOT_CURRENT_MARKET",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Why does the published policy decision not by itself establish the next market rate path or price surprise?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK",
+        "period_relation": "ADDITIONAL_AGENCY_TEXT_FOR_NEW_OWNER_EXPLAINER",
+        "observation_date": "2026-09-16",
+        "release_date": "2026-09-16"
+      },
+      "context_spans": [
+        [
+          3309,
+          3310
+        ]
+      ]
+    }
+  ]
+}

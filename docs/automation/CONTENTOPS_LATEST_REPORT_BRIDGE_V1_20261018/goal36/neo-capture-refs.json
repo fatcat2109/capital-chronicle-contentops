@@ -1,0 +1,32 @@
+{
+  "content": {
+    "contentLength": 18026,
+    "page": 59,
+    "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\evaluate-1792697048046-c5d50cba-75c0-4752-a213-39733671585d.txt",
+    "writtenToFile": true
+  },
+  "desktop": {
+    "bytes": 389764,
+    "page": 59,
+    "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792697050257-19ce6157-9cac-4503-b97b-5d786df7ae09.pdf"
+  },
+  "desktopMetrics": {
+    "page": 59,
+    "value": {
+      "scrollWidth": 1012,
+      "viewport": 1024
+    }
+  },
+  "mobile": {
+    "bytes": 395490,
+    "page": 59,
+    "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792697054580-e0f878cb-4eba-44bf-b70a-d4452d89ea8f.pdf"
+  },
+  "mobileMetrics": {
+    "page": 59,
+    "value": {
+      "scrollWidth": 390,
+      "viewport": 390
+    }
+  }
+}

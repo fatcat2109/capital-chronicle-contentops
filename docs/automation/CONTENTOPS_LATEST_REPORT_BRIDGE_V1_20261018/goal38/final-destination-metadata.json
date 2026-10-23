@@ -1,0 +1,32 @@
+{
+  "youtube_shorts": {
+    "title": "Warsh on broad\nfinancial conditions",
+    "description": "16 Sep 2026 | FOMC\nHis view: hard to call\nbroad conditions restrictive.\nCaptions; audio unverified.",
+    "source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260916.htm",
+    "event_date": "2026-09-16",
+    "speaker": {
+      "name": "Kevin Warsh",
+      "role": "Chairman; publisher caption attribution"
+    },
+    "format": "MOMENT_CONTEXT",
+    "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+    "edit_sha256": "91155511fe87a602ef1f2da8b6d80753e639a4e50201ea68255671612f7b48ef",
+    "media_sha256": "5baf203573a0c546a361649ca411de213cbfbef8dc7d5a4ff675e66f61037280",
+    "state": "PRIVATE_REVIEW_REQUIRED"
+  },
+  "tiktok": {
+    "title": "Warsh on broad\nfinancial conditions",
+    "description": "16 Sep 2026 | FOMC\nHis view: hard to call\nbroad conditions restrictive.\nCaptions; audio unverified.",
+    "source_url": "https://www.federalreserve.gov/monetarypolicy/fomcpresconf20260916.htm",
+    "event_date": "2026-09-16",
+    "speaker": {
+      "name": "Kevin Warsh",
+      "role": "Chairman; publisher caption attribution"
+    },
+    "format": "MOMENT_CONTEXT",
+    "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+    "edit_sha256": "91155511fe87a602ef1f2da8b6d80753e639a4e50201ea68255671612f7b48ef",
+    "media_sha256": "5baf203573a0c546a361649ca411de213cbfbef8dc7d5a4ff675e66f61037280",
+    "state": "PRIVATE_REVIEW_REQUIRED"
+  }
+}

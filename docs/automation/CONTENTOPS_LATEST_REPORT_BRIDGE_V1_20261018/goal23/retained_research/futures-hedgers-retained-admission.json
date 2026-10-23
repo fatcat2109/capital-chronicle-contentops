@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal21-futures-hedgers",
+      "title": "Basics of Futures Trading | CFTC",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+      "publisher": "www.cftc.gov",
+      "source_identity": "www.cftc.gov",
+      "raw_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "canonical_content_text": "Skip to main content Transparency Contact Us Search Main navigation About the CFTC Industry Oversight Law & Regulation Market Data & Economic Analysis Forms & Submissions Learn & Protect News & Events Learn & Protect Understanding Prediction Markets and Event Contracts Check Registration & Disciplinary History Submit a Tip or Complaint RED List Office of Proceedings Learning Resources Basics of Futures Trading A commodity futures contract is an agreement to buy or sell a particular commodity at a future date The price and the amount of the commodity are fixed at the time of the agreement Most contracts contemplate that the agreement will be fulfilled by actual delivery of the commodity Some contracts allow cash settlement in lieu of delivery Most contracts are liquidated before the delivery date A commodity futures option gives the purchaser the right to buy or sell a particular futures contract at a future date for a particular price With limited exceptions, commodity futures and options must be traded through an exchange by persons and firms who are registered with the CFTC Typical Users of the Futures Markets Most participants in the futures markets are commercial or institutional commodities producers or consumers Most participants are “hedgers” who trade futures to maximize the value of their assets, and to reduce the risk of financial losses from price changes Other participants are “speculators” who attempt to profit from price changes in futures contracts Regulation of Futures Professionals Companies and individuals who handle customer funds or give trading advice must register with the National Futures Association (NFA), a self-regulatory organization approved by the CFTC The CFTC seeks to protect customers by requiring: market risks and past performance to be disclosed to prospective customers; customer funds to be kept in accounts separate from the firm’s own funds; and customer accounts to be adjusted to reflect each trading day’s current market value at close The CFTC also monitors registrant supervision systems, internal controls and sales practice compliance programs The NFA provides detailed information for traders. Please visit the site for more information Before You Purchase Commodity Futures or Options Contracts Consider your financial experience, goals and financial resources Know how much you can afford to lose above and beyond your initial investment Understand all of the obligations for any contract that you purchase Thoroughly review the risk disclosure documents that are required to be provided by the broker Know whom to contact with a problem or question Ask questions and gather information before opening a trading account If you have questions, are aware of suspicious activities, or believe you have been defrauded, please contact the CFTC immediately. Call the CFTC’s Consumer Protection Hotline at 866.366.2382 or file a tip or complaint. Approach the Futures Markets with Caution Speculating in commodity futures and options is a volatile, complex and risky venture that is rarely suitable for individual investors or “retail customers” Many individuals lose all of their money, and can be required to pay more than they invested initially Learn about fraudulent activities in the futures markets RELATED LINKS Customer Advisory: Understand Risks and Markets before Reacting to Internet Hype Customer Advisory: Learn About Risks Before Investing in Commodity ETPs or Funds Article: Economic Purpose of Futures Markets and How They Work Policy and Notices Privacy Policy Web Policy FOIA EEO No FEAR Act Accessibility Statement Whistleblower Protection Enhancement Act Resources CFTC Regulations Commodity Exchange Act Procurement USA.gov Glossary Actions Search Public Comments Submit Tips & Complaints Search Industry Filings Whistleblower.gov Inspector General Sitemap CFTC Headquarters Three Lafayette Centre 1155 21st Street, NW Washington, DC 20581 202.418.5000",
+      "canonical_content_sha256": "50ddcf82058ef326ca339c32172036291ea5623b42536d347f49e2826192af89",
+      "source_adapter_family": "official_regulatory_fiscal",
+      "source_authority_class": "official_public_primary_source",
+      "published_at_utc": null,
+      "publication_time_precision": "NOT_VERIFIED",
+      "published_at_source": "SOURCE_UNDATED_NOT_INFERRED_FROM_CAPTURE",
+      "source_modified_at_utc": null,
+      "content_truncated": false,
+      "retrieval_method": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-19T09:17:57.714Z",
+    "capture_operation": "EDITORIAL_READ_ONLY_VISIBLE_TEXT",
+    "network_calls_by_materializer": 0
+  }
+}

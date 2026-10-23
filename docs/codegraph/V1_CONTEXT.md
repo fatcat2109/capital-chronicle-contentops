@@ -1,182 +1,156 @@
-# ContentOps V1 Current Context Map
+# ContentOps V1 current source map
 
-Authority date: 2026-09-01
+Authority date: 2026-10-20. Descriptive source map; root authority and exact host evidence govern.
 
-This is a curated implementation/discovery map, not product authority. Jim's latest instruction, root authority, fresh GitHub bytes, exact code/tests/evidence, and current runtime evidence outrank this map when they conflict.
+Target source owner: `NATIVE_CODEX_DESKTOP`; Luna/Terra MAX filters X headlines,
+`gpt-6.1-sol / low` selects content/prepares data, and `gpt-6.1-sol / max` writes. Read
+`docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md`; target-method adoption
+does not claim deployed runtime or three-stage model proof.
+The App-owned four windows are prepared and PAUSED; production pause/deployed bytes are unchanged.
 
-## Current product state
+## Current source paths
 
-`V1_FINAL_PRODUCT_ACCEPTED / ROUTINE_PUBLIC_WRITE_GRANTED / ROUTINE_PUBLICATION_BRIDGE_CLOSED / PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`
+- `scripts/run_native_desktop_editorial.py`: owner-manual/scheduled request/return, reviewed preparation/status and authority-checked publication continuation; no model API.
+- `live_contentops/native_desktop_schedule_binding_v1.py`: maps existing App IDs to window/day/slot identities and bounded deficit slots; no timer.
+- `live_contentops/native_desktop_editorial_v1.py`: immutable request/return and truthful native telemetry in existing outbox.
+- `live_contentops/capital_chronicle_report_feed_v1.py` and `capital_chronicle_report_editorial_workspace_v1.py`: public Main feed, frozen ordinary/research/report pool, evolving story and source checkpoints.
+- `live_contentops/contentops_editorial_desk_v1.py` and `contentops_foundation_library_v1.py`: revision-bound decisions, prior unpublished research and exact canonical memory kept distinct.
+- `live_contentops/v1_simple_gemini_newsroom_v1.py`: accepted deterministic selection/source/claim/epistemic/compiler functions reused by native protocol. Compatibility filenames do not prove a Gemini invocation.
+- `live_contentops/newsroom_production_day_v1.py`: existing production-day accounting and native qualification; following 01:00 belongs to previous day, 4/32 is telemetry.
+- `live_contentops/durable_operational_store_v1.py`: sole store/outbox/lease authority.
+- `live_contentops/publication_coordinator_v1.py` and `v1_simple_publication_handoff_v1.py`: sole canonical-first publisher/recovery and no-model handoff.
+- `live_contentops/destination_transport_registry_v1.py` and `neo_destination_handoff_v1.py`: API/bot reuse; scoped Neo request/readback with exact identity, no Edge fallback. Missing executor is explicit pre-write block.
+- `live_contentops/daily_app_ui_read_model_v1.py`, `ui/contentops_v5/src/views/DailyAppConsole.tsx`, `ReportEditorialWorkspace.tsx`: target vs observed deployment and channel-specific setup.
 
-Current routine editorial ownership is the Simple Gemini runtime, not Desktop Automations or the legacy rolling-X split-phase path.
+Current owner policy/paused rollout: `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md`
+and `config/native_desktop_rollout_v1.json`. Current lane pointer:
+`docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md`.
+Owning checkpoint: `docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/RELEASE_HANDOFF.md`.
+The existing native script's `newsroom`/`desk` entry and `.agents/skills/contentops-newsroom/SKILL.md`
+prepare normal-language manual requests through the same profile, roles, store and review owner.
+Goal20–23 evidence, old Simple publication/scheduler proofs and old Desktop HIGH/SDK proofs remain
+historical provenance, not current invocation instructions. No duplicate index/store/scheduler/publisher.
 
-Accepted editorial flow:
+## Boundaries
 
-```text
-current sidecars + canonical reconciled published memory
--> deterministic dedupe/sourceability ordering
--> <=32 candidates
--> one strict gemini-3.5-flash(high) selector
--> one primary + <=2 useful fallbacks
--> shared <=6 deterministic source/provenance GETs
--> exact report-truth/event-truth epistemic state
--> one Flash writer
--> deterministic material-claim/source/epistemic validation
--> optional one Flash revision without source expansion
--> one qualified article
--> exactly eight native derivative packages
-```
+<=32 candidates / <=3 admissions / <=6 source requests / <=1 repair; no Gemini/API/SDK/paid fallback.
+No private Main/company/database/broker input. Main owns analytical/numeric truth.
+Canonical Substack `/p/...` readback precedes exactly eight rematerialized derivatives.
+`UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`. V2 stays isolated, no public-write authority.
+Natural 5–8/day reliability, current destination readiness and unattended calendar proof require
+future actual execution. Git/CI/configuration do not establish those states.
+Protected v1.0 remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
 
-Codex runtime model calls are zero. Exact canonical-X records may support only narrow relay-of-reporting or explicit market-rumor propositions under the accepted record-scoped provenance contract; underlying event truth remains unconfirmed unless separately proven.
+Goal25 extends the same native seam with `native_headline_filter_v1.py` (resumable exact-record
+semantic judgments) and `native_neo_executor_v1.py` / `scripts/run_native_neo_executor.py`
+(active Desktop tool requests, begin/return binding and existing coordinator readback).
+The source default remains executor-unbound and definite-no-write; an active operation binds
+the concrete executor explicitly. Target settings are not deployed/host execution proof.
 
-## Current owner state
+Goal27 extends the same owner operation with frozen current input and append-only source
+editions, source-bound story review, prior-article continuity and prepared-review invalidation.
+A fresh scan is not a fresh economic period; only material changes route to native roles.
+Goal26 remains immutable edition evidence; Goal27 remains source-continuity history; current delivery is in the Goal31 owning handoff.
 
-Merge commit `db0befb8ad44f1080c67fcb801e5470ce7852369` records:
+Goal28 relocates the same existing owner-manual SQLite through its WAL-safe backup to
+`%LOCALAPPDATA%/CapitalChronicle/ContentOps/owner-newsroom/editorial-v4.sqlite3`.
+The verified relocation manifest resolves historical absolute references without changing
+sealed bytes; the original Temp store is a non-operating recovery copy. No production migration.
+The same profile/newsroom/desk now presents the bounded owner edition first: five KEEP articles,
+one held candidate, zero missing articles, forty native previews and five inspected source images.
+Actual roles: five Sol6.1-low selection returns and five Sol6.1-max writer returns; zero Luna
+for the empty X interval, zero writer repairs and zero dispatches. These are owner-manual
+results; natural 5–8/day production reliability and current channel readiness remain unproven.
 
-- `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
-- routine V1 public-write/readback authority granted for the accepted V1 path;
-- V2 public-write authority remains zero unless separately granted.
+Goal29 extends existing public-manifest admission with exact-pinned ancestry-only recovery in
+`capital_chronicle_legacy_parent_recovery_v1.py` and optional exact public native attestation
+in `capital_chronicle_public_native_lineage_v1.py`. It preserves original failures/bytes and
+separates producer attestation from independent runtime proof. Latest admitted versions are
+UKOIL v4 / USOIL v6 / XNGUSD v5. The same owner desk adds two useful native articles to the
+five preserved Goal28 articles: seven KEEP / one held / zero missing / fifty-six previews.
+Prior oil/gas prose is retained with source-change reasons. Unicode-aware native sentence
+dedupe preserves distinct Vietnamese mechanism/countercase/watch copy. This does not deploy,
+release pause, alter schedules, grant publication or modify Main/database authority.
 
-Stale wording that still says routine V1 public-write/readback is ungranted or V1 acceptance is pending must not route current work.
+Goal30 preserves the exact seven current articles/fifty-six previews, with zero revisions
+and one held candidate. Public research target/measure/method/evaluation/selection/dependence
+metadata is carried only when supplied and exactly bound; missing stays unknown. The optional
+consumer descriptor is not a new Main producer forecast. See
+`docs/editorial/CONTENTOPS_PUBLIC_RESEARCH_SEMANTICS_V1.md` and the current owning handoff.
+No new model/source cycle, engine, status/store, publication or runtime authority is created.
 
-## Canonical implementation path
+## Goal31 source-led manual edition (2026-10-21)
 
-Latest Main report input: `live_contentops/capital_chronicle_latest_report_consumer_v1.py`
-validates Main-owned exact report/envelope bytes and prepares existing Simple context.
-Version/delivery tracking reuses the durable store. Its owning plan and dated checkpoint are
-`docs/automation/CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1.md` and
-`docs/automation/CONTENTOPS_CAPITAL_CHRONICLE_LATEST_REPORT_BRIDGE_V1_20261018.md`.
-Consumer tests or input preparation do not prove a real admitted report, writer execution,
-compiled derivatives, deployment or public output.
+Three useful questions are closed through the same store/profile/Desk: two new private
+articles (SEC machine-understandable data and CFTC hedge cashflow), one unchanged gas
+article, plus a retained HOLD on current futures/options positioning. The current edition
+shows 3 KEEP / 24 previews / 0 missing; the prior seven articles and withdrawal history
+remain. Two actual Sol6.1-MAX writers and the existing Sol-Light selector supplied the new
+copy; the empty X interval needed no Luna call. Neo source and desktop/mobile render
+inspection are recorded in
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal31/RELEASE_HANDOFF.md`. This is private reviewed/prepared output, not publication,
+activation, deployment or daily-production proof. The four tasks and production remain paused.
 
-Current routine implementation areas:
 
-- `live_contentops/v1_simple_gemini_newsroom_v1.py` — accepted selected-story Simple runtime; materializes a qualified zero-write article plus eight preview-only pending-canonical-URL packages and exposes the existing coordinator-compatible lifecycle plan only for qualified results;
-- `live_contentops/nine_router_llm_seam_v2.py` / `nine_router_ordered_model_router_v2.py` — bounded Gemini model seam;
-- `live_contentops/v1_simple_evidence_resolver_v1.py` — shared-ledger source/provenance route arbitration;
-- `live_contentops/v1_simple_epistemic_state_v1.py` — report/event proposition, provenance, risk, and reader labels;
-- `live_contentops/public_secondary_evidence_loader_v1.py` plus accepted official-primary locator/loaders — deterministic evidence donors;
-- `live_contentops/newsroom_production_day_v1.py` — production-day/accounting foundation; live pacing/counting now uses strict reconciled-published truth while qualified telemetry remains separate;
-- `live_contentops/v1_simple_gemini_scheduler_v1.py` — actual four-window routine owner, deterministic slot checkpoints, recover-before-fresh-work, qualified publication-pending checkpoint, no-model interrupted-publication resume, and terminal idempotency;
-- `live_contentops/v1_simple_gemini_scheduler_process_v1.py` — persistent exactly-one-process Simple scheduler control; process control performs no public write itself and records public-write authority as delegated to the existing durable coordinator;
-- `scripts/run_v1_simple_gemini_scheduler.py` — actual persistent runner; injects the canonical Simple publication handoff for one-tick/run-forever production execution while status/start/stop/restart remain control-only;
-- `live_contentops/v1_simple_publication_handoff_v1.py` — narrow adapter only: validates qualified artifacts, persists/reconstructs the same coordinator plan without semantic work, maps stable slot id to durable work-item id, delegates to existing coordinator, and uses coordinator recovery/readback semantics on restart;
-- `live_contentops/production_orchestrator_v1.py` — current Simple semantic operation boundary;
-- `live_contentops/publication_coordinator_v1.py` — sole durable public-write/readback/reconciliation owner;
-- its existing canonical-first `finalize_intent` seam rematerializes the eight Simple derivatives with the reconciled `/p/...` URL and no model/source work;
-- `live_contentops/destination_transport_registry_v1.py` — canonical destination transport/readiness registry;
-- `live_contentops/durable_operational_store_v1.py` — single V1 durable state authority;
-- `live_contentops/production_runtime_v1.py` / `daily_app_supervisor_v1.py` — accepted production foundations and compatibility composition; merged PR #39 keeps routine editorial ownership explicitly `SIMPLE_GEMINI_RUNTIME`, with Native Desktop/legacy rolling-X non-routing.
+## Goal32 reviewed-packet publisher composition (2026-10-21)
 
-Use CodeGraph for exact call paths and affected tests. Do not revive superseded ownership merely because historical code still exists.
+`PARTIAL_CAPABILITY_REUSE_COMPONENTS`: the native owner continuation now seals a reviewed
+packet and resumes the existing Simple handoff, sole DurablePublicationCoordinator and
+native Neo request/begin/observed-return loop. The existing Desk/CLI expose actual
+per-destination states. Manual proof remains isolated; zero-write windows can continue
+editorial work. No live dispatch, task activation, deployment or daily-output proof is
+claimed. The finite RC, controls, retained Goal31 packets and activation boundary are in
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal32/RELEASE_HANDOFF.md`.
+Control Tower receiver synchronization remains pending; the current pointers are discoverable.
+## Goal33 audience feedback continuation (2026-10-22)
 
-## Accepted capability reconciliation
+`PARTIAL_CAPABILITY_REUSE_COMPONENTS`: native new opportunities freeze the existing guarded
+performance policy, dated eligible feedback and canonical published memory. Compact preferences
+reach Sol Light selection and warranted Sol MAX writing/SEO/eight native packages; old frozen
+requests and prepared articles remain unchanged. Existing metrics, caps, sample/dependence,
+rollback, source/rights/numeric/uncertainty and sole coordinator boundaries remain authoritative.
+Two exact historical public objects were observed through read-only Neo; no independent reader
+question was found and the policy remained HOLD. Actual native selection reused retained articles
+and saved three ranked research briefs rather than creating a duplicate. Current edition remains
+3 ready / 24 previews / 0 missing; production and four tasks remain paused. No public write,
+activation, account change, merge or deployment is claimed. The CLI, Desk and installed
+`contentops-newsroom` continuation are documented in
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal33/RELEASE_HANDOFF.md`.
+Exact remote/CI evidence follows in that directory's `delivery.json`; Control Tower receiver
+synchronization remains pending, with these pointers as the discoverable handoff.
 
-### `CURRENTLY_PROVEN_AND_REUSE`
+## Goal34 source-led edition (2026-10-22)
 
-- PR #37 sourceability, early-attributed-intelligence, epistemic-state, publisher pinning, canonical-X relay/rumor static path, native eight-destination packaging, and X/Threads quality correction;
-- Simple 32/6/3/1 economics and current article path;
-- four-window scheduler mechanics plus persistent zero-write exactly-one-process host proof;
-- PR #38 authority/static-safety closure and Simple emergency-stop/process coverage;
-- PR #39 current single-owner production composition plus exact-head and master-push CI;
-- corrected PR #42 actual persistent routine handoff into the existing durable coordinator/native compiler: deterministic slot/work-item/plan identity, recover-before-fresh-work, no-model crash resume, unresolved-backlog fail-closed behavior, terminal duplicate idempotency, canonical-first readback, and exactly-eight rematerialization;
-- durable V1 store;
-- destination registry;
-- `DurablePublicationCoordinator`, canonical Substack-first transports, strict readback/reconciliation, UNKNOWN-write recovery;
-- historical Italy nine-surface publication canary as transport/reconciliation proof;
-- V5 live read model/UI foundation.
+`CURRENTLY_PROVEN_AND_REUSE`: the saved EIA/SEC/hedge briefs were resolved through the existing
+DB-first research, bounded read-only Neo, source comparison, native roles and sole preparation
+path. Current owner edition: **3 ready / 24 previews / 0 missing**, **1 UPDATE / 2 KEEP**, plus
+one historical current-position HOLD. Actual Sol6.1 low selected and Sol6.1 MAX wrote a dated
+Southwest 2025 case; no new X/Luna invocation was warranted. The source adapter now admits only
+bounded attributed issuer facts through an explicit filing class, without government-authorship
+or expression/image reuse. Writer constraints, shared media consumer and date-only Desk display
+preserve that boundary. Original Goal32 packets remain unchanged; the prior futures preparation
+is invalidated by its material source review, and the new exact KEEP packet is PREPARED without
+dispatch. One permitted source context is in the reciprocal outbox; Main receipt is not verified.
+Four existing tasks and production stay paused, canonical store unchanged, no public/account
+write, merge or deployment. See
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal34/RELEASE_HANDOFF.md`,
+`COMPLETION_AUDIT.md` and `delivery.json` for exact scope, clocks, preserved bytes and remote CI.
+Control Tower receiver synchronization remains pending; this is the discoverable handoff.
 
-The corrected PR #42 proof is static/CI and controlled disposable-store evidence. It is not fresh host/browser/account/readiness/public-write proof.
 
-### `HISTORICALLY_PROVEN_CURRENT_REVALIDATION_ONLY`
+## Goal35 current market issue (2026-10-22)
 
-- current live destination/account/session readiness across the nine surfaces;
-- current Edge 9223 publication profile/account identity;
-- current production-store recovery/UNKNOWN state.
-
-### `NEW_IMPLEMENTATION_GAP`
-
-None. Strictly reconciled published-count accounting is closed. The current route is
-`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`: deploy current bytes, run natural windows, observe real
-failures, and fix them. A standalone host preflight/canary is conditional diagnosis only when
-current evidence materially raises an exact hard boundary.
-
-Single-owner composition, Simple emergency-stop coverage, and the routine publication bridge are already proven and must not route another implementation task.
-
-### `CURRENT_HOST_RUNTIME_PROOF_REQUIRED`
-
-At every actual live-write boundary: production DB integrity/schema, no unresolved UNKNOWN/
-ambiguous dispatch/recovery backlog, exactly one production owner/process, Edge
-`contentops-social-main` CDP 9223, exact account/destination identity, and destination readiness
-must remain fail-closed. A standalone preflight is conditional diagnosis only. Do not inspect or
-expose secrets/session material.
-
-### `SUPERSEDED_DO_NOT_REUSE`
-
-- native Desktop Automations as routine V1 editorial owner;
-- SDK/App-Server editorial fallback as routine critical path;
-- legacy rolling-X monolith/broad evidence-ready pool as current owner;
-- stale pre-acceptance owner-gate wording;
-- pre-PR38 claims that Simple emergency-stop coverage is missing;
-- pre-PR39 claims that current production ownership is ambiguous;
-- pre-correction PR #42 inference that the Daily App supervisor component seam alone proves the persistent scheduler route.
-
-## Canonical product flow after accounting closure
-
-```text
-four owner-locked routine windows
--> persistent Simple scheduler opportunity
--> accepted qualified article + epistemic state
--> deterministic slot/work-item publication handoff
--> sole existing DurablePublicationCoordinator
--> canonical Substack publish/readback with exact public /p/... identity
--> exactly eight derivative packages rematerialized against the real canonical URL
--> destination-local dispatch/readback/reconciliation
--> strictly reconciled published-count update
--> V5 read model/performance observation
-```
-
-No second store, publisher, scheduler, or packager.
-
-## Runtime/browser identities
-
-- production DB: `A:\Capital Chronicle\Runtime\ContentOps\contentops_daily_app_v1.sqlite3`
-- output root: `A:\Capital Chronicle\Runtime\ContentOps\daily_app_outputs`
-- canonical Simple scheduler root: `A:\Capital Chronicle\Runtime\ContentOps\simple_gemini_scheduler_v1`
-- Capital Chronicle Main App read-only root: `A:\Capital Chronicle\Main App`
-- Chrome `CapitalChronicleBot`, CDP 9222: ingestion only
-- Edge `contentops-social-main`, CDP 9223: publication/media/readback and explicitly authorized observation only
-
-These are identities, not permission to inspect credentials/session material.
-
-## Focused test families for current activation work
-
-Current bridge regression evidence includes:
-
-- `tests/test_v1_simple_gemini_scheduler_v1.py`
-- `tests/test_v1_simple_gemini_scheduler_process_v1.py`
-- `tests/test_v1_simple_durable_publication_bridge_v1.py`
-- `tests/test_v1_simple_routine_publication_handoff_v1.py`
-- `tests/test_v1_simple_publication_handoff_recovery_v1.py`
-- `tests/test_publication_coordinator_v1.py`
-
-For the next accounting slice, use CodeGraph to refine the smallest affected production-day/read-model/store tests rather than reopening the bridge suite unnecessarily.
-
-Do not run broad historical canaries merely to prove already-accepted capability.
-
-## Current product sequence
-
-`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`:
-
-1. merge/deploy/load corrected current bytes;
-2. run the already-activated four natural routine windows;
-3. observe real evidence/article/publication/readback/reconciliation failures;
-4. fix measured blockers toward 5–8 useful articles/day.
-
-Use a standalone read-only preflight or one-off canary only when current evidence materially
-requires an exact hard-boundary diagnosis. Existing live-write identity/readiness/readback and
-UNKNOWN gates remain fail-closed.
-
-Candidate-level abstention remains valid. A below-target live production day without an exact hard external blocker is `DEGRADED_DAILY_OUTPUT_DEFICIT`.
-
-Protected `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+The finite Goal35 editorial issue is complete: five distinct NEW articles, forty
+desktop/mobile visually inspected previews and five KEEP/PREPARED handoffs without
+dispatch; ready5 / held1 / missing0. FX remains source-blocked. The frozen cutoff,
+exact operation/revision/source identities, thirteen native responses, media gaps,
+preservation and focused verification are owned by
+`docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal35/CHECKPOINT.md`
+and `COMPLETION_AUDIT.md`. Goal34 history is preserved without new-article credit.
+The existing Desk selected-item read contract is documented there; no new reader,
+store, publisher or workflow owner was added. Five prepared articles do not establish
+publication, a production-day floor, platform-native rendering or automatic execution.
+Four tasks and production remain paused. Same draft PR90; exact final remote/CI and
+graph identity are read back in the existing local Desk's `goal35_delivery.json`.
+No public/account write, activation, merge or deployment. Receiver consumption is
+NOT VERIFIED; Control Tower synchronization is pending with this durable handoff.

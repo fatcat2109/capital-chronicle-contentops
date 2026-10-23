@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Stale Docs Manifest V1
 
-Authority date: 2026-09-01
+Authority date: 2026-10-20
 Status: `CURRENT_STALE_AUTHORITY_MANIFEST`
 
 Purpose: prevent fresh sessions from reviving obsolete V1 quota, scheduler, canary, owner-gate, or sequencing assumptions.
@@ -17,7 +17,7 @@ Fresh V1 work must route from:
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 8. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md`
-9. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md`
+9. `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md`
 10. `docs/codegraph/V1_CONTEXT.md`
 11. current V1 lane pointer
 12. exact current code/tests/evidence/host truth.
@@ -45,7 +45,7 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 - PR #19 discovery donors, PR #20 article/package proof, or PR #37 early-attributed-intelligence/epistemic/native-preview capability are unimplemented;
 - first-party locator/publisher pinning is the next V1 implementation task;
 - per-trigger 35-call discovery is accepted routine production policy;
-- native Desktop Automations or SDK/App-Server fallback own routine V1 editorial execution;
+- Gemini/9Router, the historical Desktop HIGH fleet or SDK/App-Server owns routine V1 editorial execution;
 - legacy rolling-X split-phase ownership is the current critical path;
 - arbitrary X-list membership grants factual/relay/rumor authority;
 - official/primary confirmation is required before every reputable attributed report;
@@ -63,21 +63,30 @@ Treat the following claims as stale/non-routing unless an even newer explicit ow
 
 ## 4. Current replacement semantics
 
-- V1 is `EARLY_ATTRIBUTED_INTELLIGENCE`: one exact reputable report may support a narrow attributed proposition while the underlying event remains visibly unconfirmed.
-- Exact owner-curated canonical-X records may support only narrow relay-of-reporting or explicit-rumor propositions under the accepted record-scoped provenance contract.
-- Routine editorial ownership is Simple Gemini under the accepted 32/6/3/1 economics; Desktop/SDK/legacy rolling-X routes are historical/non-routing.
-- Merged PR #38 already closes current authority/static-safety and emergency-stop/process coverage for the canonical Simple scheduler/runtime.
-- Merged PR #39 already closes single-owner composition: current Final Daily App production composition routes routine V1 through `SIMPLE_GEMINI_RUNTIME`; Native Desktop/legacy rolling-X are compatibility-only/non-routing.
-- Corrected PR #42 closes the actual persistent Simple scheduler -> existing `DurablePublicationCoordinator` handoff. Stable slot identity is the durable work-item identity; the publication plan is persisted/reconstructed without model/source re-execution; recovery runs before fresh work; interrupted qualified slots resume without another Simple/model/source call; unresolved backlog blocks current-plan registration/republication; terminal duplicate ticks do not duplicate semantic/public intent.
-- `DurablePublicationCoordinator` remains the sole public-write/readback/reconciliation owner. Canonical Substack `/p/...` reconciliation precedes exactly-eight derivative rematerialization. Do not build another publisher/store/scheduler/package stack.
-- Historical Italy publication plus the current completed lifecycle prove the nine-surface
-  transport/reconciliation stack. Exact identity/readiness/recovery remains fail-closed at each
-  actual live-write boundary; a separate read-only revalidation campaign is conditional on current
-  evidence, not universal ceremony.
-- Live daily-output success is based on strictly reconciled published canonical articles, not merely zero-write qualified article records.
-- Published-vs-qualified accounting is implemented in the current master lineage.
-- Current product order is `PRODUCT_FIRST_AUTONOMOUS_V1_RESUME`: deploy current bytes -> run the
-  already-activated natural four-window routine -> observe real failures -> fix them.
+Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, with the owner-approved three-stage method:
+Luna/Terra MAX filters X headlines; `gpt-6.1-sol / low` (Light) selects content and prepares data;
+`gpt-6.1-sol / max` writes the article and SEO/house-style package, including a bounded useful revision.
+Read `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md` for exact role,
+source/tool, style and checkpoint rules. This target supersedes the earlier Sol-low-only method;
+the Goal24 isolated proof remains evidence for its older configuration, not this complete pipeline.
+Reuse MainReportFeed/current intake, canonical publication memory, reviewed retained research,
+evolving story/revision context, <=32 candidates, <=3 admissions and <=6 source requests.
+Existing source/claim/epistemic checks and the native eight-channel compiler remain authoritative.
+There is no Gemini/9Router, SDK/App-Server, headless or paid API model fallback.
+
+The existing four App tasks own routine scheduling; existing window/day/slot IDs, bounded
+catch-up, store/outbox/lease and sole DurablePublicationCoordinator are reused. Legacy Simple
+scheduler/start paths are non-routing in target source. Bulk X CDP ingestion remains unchanged;
+Neo is the browser path for research and prepared browser-only destination handoffs. Existing
+Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
+
+Current engineering/deployed state: **PAUSED_NOT_DEPLOYED**. Host schedules, production pause,
+store and deployed bytes were not changed by this migration. Native manual proof is isolated.
+No current configuration grants activation or public writes. Historical Simple and old Desktop
+proofs establish only their exact epochs; do not rebuild their accepted deterministic components.
+See `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the supported operation,
+exact paused rollout, truthful telemetry, bound native Neo request/return/readback loop and separate activation boundary.
+
 
 ## 5. Historical/non-routing families
 
@@ -92,7 +101,7 @@ Treat these as historical/non-routing unless current authority explicitly promot
 - old browser/design QA evidence
 - branch-specific handoffs
 - prior generated status snapshots
-- old Desktop Automation/SDK routine-editorial instructions
+- old Desktop HIGH fleet/SDK routine-editorial instructions
 - protected `v1.0` release evidence.
 
 ## 6. Current-looking files that may contain stale historical wording
@@ -131,3 +140,13 @@ Legacy CI compatibility markers retained in current authority files are semantic
 - `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`.
 - V2 public-write authority remains zero.
 - Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca81ff699348b`.
+
+## 9. Signal Clips scope and retained-proof correction — 2026-10-23
+
+For V3, the current root North Star/Master Plan and updated relay pointer/scoped instructions
+supersede retained-only wording solely to admit compatible **current-source private engineering**.
+They do not supersede the frozen retained packet, its validator meaning, historic hashes or
+unresolved review states. Do not infer that a root filename ending V3 means the speech product
+was already built, that V2 was replaced, that PR50 seeded selection/REUSE_CLEAR is restored,
+or that rendering/captions, permission and platform monetization are interchangeable.
+No historical acceptance or current source implementation is rewritten by a product label.

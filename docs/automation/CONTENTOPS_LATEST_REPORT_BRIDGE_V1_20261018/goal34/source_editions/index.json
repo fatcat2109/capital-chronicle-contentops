@@ -1,0 +1,48 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "authorship_class": "ISSUER_FILING_FACTS_ONLY",
+      "headline_id": "goal34-southwest-hedge-clocks",
+      "headline_text": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio.",
+      "capture_path": "southwest-extracts.json",
+      "source_capture_sha256": "972f088288e252878b4cc7ae3157af456759bd3f1c48da16532d32868d8ba7c8",
+      "loader_result_path": "southwest-admission.json",
+      "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+      "policy_capture_path": "facts-policy.json",
+      "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+      "filing_index_capture_path": "filing-index.json",
+      "filing_index_capture_sha256": "3380524559934c6d65dbb234bc6d9a4d07dfaf541aa71944571bd58efb941828",
+      "filing_date": "2025-07-24",
+      "public_expression_reuse_allowed": false,
+      "revision_at_utc": "2026-10-21T21:04:05.991322Z",
+      "proposition_span": [
+        0,
+        195
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "supporting_headline_ids": [
+        "goal31-futures-economic-purpose",
+        "goal21-futures-hedgers"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "CORPORATE_HEDGING",
+          "FUEL",
+          "OPTIONS"
+        ],
+        "context_kind": "DATED_2025_ISSUER_CASE_NOT_2026_NEWS_OR_EXCHANGE_MARGIN_PROOF",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2025-06-30",
+        "release_date": "2025-07-24",
+        "source_interest_role": "ISSUER",
+        "next_editorial_question": "Why do hedge cash proceeds, earnings recognition and future fuel purchases follow different clocks?",
+        "rights_limit": "Independently paraphrase issuer-attributed facts. No public reuse of expression, images, logos or exhibits."
+      }
+    }
+  ]
+}

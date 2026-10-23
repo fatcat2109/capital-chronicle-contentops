@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal35-ibm",
+      "source_id": "goal35-ibm",
+      "source_url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+      "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+      "publisher": "Reuters",
+      "source_identity": "reuters.com",
+      "title": "IBM raises annual software revenue outlook as deal delays ease",
+      "raw_sha256": "468ebc08e76e964e126e926ac97c922e6053d588b781d60968257e146e93c9d6",
+      "canonical_content_text": "IBM raises annual software revenue outlook as deal delays ease\n\nIn an interview with Reuters, Kavanaugh said ​IBM now expects annual software revenue growth of about ​7% to 8%, up from 6% to 8% ⁠previously. IBM's shares rose about 4% in extended trading.\n\nThird-quarter revenue rose 4.7% to $17.10 billion, above ​analysts' average estimate of $16.82 billion, according to data compiled by LSEG\n\nSoftware revenue rose 8.3% to $7.80 billion in the third quarter, topping estimates of $7.62 billion\n\nKavanaugh ​said about 25% of the transaction processing ​revenue came ⁠from deals deferred from the second quarter and \"the remaining 75% is net new business\"",
+      "source_adapter_family": "reputable_secondary_report",
+      "source_authority_class": "reputable_secondary_source",
+      "source_interest_role": "NEWS_REPORTER",
+      "report_truth_only": true,
+      "published_at_utc": "2026-10-21T20:12:00Z",
+      "published_at_source": "2026-10-21T20:12:00Z",
+      "published_at_precision": "MINUTE",
+      "content_truncated": false,
+      "public_claim_allowed": true,
+      "original_reporting_identity": "Reuters",
+      "syndication_host": "www.reuters.com"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-21T22:27:23.029Z",
+    "request_count_for_call": 0
+  }
+}

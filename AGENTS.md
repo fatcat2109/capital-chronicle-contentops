@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Root Repository Contract
 
-Authority date: 2026-09-01
+Authority date: 2026-10-20
 Status: `CURRENT_ROOT_AUTHORITY`
 Repository: `fatcat2109/capital-chronicle-contentops`
 
@@ -16,7 +16,7 @@ For every current implementation, audit, task framing, or owner decision, read i
 6. `docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md`
 7. `docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md`
 8. `docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md` for current V1 activation
-9. `docs/automation/CONTENTOPS_V1_SIMPLE_GEMINI_RUNTIME_RESET_V1.md` for Simple V1 mechanics
+9. `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for current editorial mechanics
 10. `docs/codegraph/V1_CONTEXT.md` or `docs/codegraph/V2_CONTEXT.md`
 11. current lane pointer
 12. nearest scoped `AGENTS.md`
@@ -48,7 +48,7 @@ Jim's current explicit decisions establish:
 
 - `V1_FINAL_PRODUCT_ACCEPTED = TRUE`;
 - routine V1 public-write/readback authority is granted for the accepted V1 path;
-- routine V1 editorial owner is `SIMPLE_GEMINI_RUNTIME`;
+- pre-migration deployed V1 used `SIMPLE_GEMINI_RUNTIME`; current paused target is `NATIVE_CODEX_DESKTOP` as defined in section 5;
 - `DurablePublicationCoordinator` remains the sole public-write/readback owner;
 - V2 public-write authority remains zero unless separately granted;
 - product progress is `BUILD -> RUN -> OBSERVE REAL FAILURES -> FIX`; ceremony or safety architecture is not a prerequisite unless a real failure or irreversible-risk boundary requires it.
@@ -81,28 +81,32 @@ Routine windows remain 17:00, 21:00, 23:00, and following 01:00 Asia/Bangkok und
 
 ## 5. Current V1 editorial architecture
 
-Current routine editorial ownership is `SIMPLE_GEMINI_RUNTIME`, not Desktop Automations.
+Routine V1 target ownership is `NATIVE_CODEX_DESKTOP`, with the owner-approved three-stage method:
+Luna/Terra MAX filters X headlines; `gpt-6.1-sol / low` (Light) selects content and prepares data;
+`gpt-6.1-sol / max` writes the article and SEO/house-style package, including a bounded useful revision.
+Read `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md` for exact role,
+source/tool, style and checkpoint rules. This target supersedes the earlier Sol-low-only method;
+the Goal24 isolated proof remains evidence for its older configuration, not this complete pipeline.
+Reuse MainReportFeed/current intake, canonical publication memory, reviewed retained research,
+evolving story/revision context, <=32 candidates, <=3 admissions and <=6 source requests.
+Existing source/claim/epistemic checks and the native eight-channel compiler remain authoritative.
+There is no Gemini/9Router, SDK/App-Server, headless or paid API model fallback.
 
-The accepted article path is:
+The existing four App tasks own routine scheduling; existing window/day/slot IDs, bounded
+catch-up, store/outbox/lease and sole DurablePublicationCoordinator are reused. Legacy Simple
+scheduler/start paths are non-routing in target source. Bulk X CDP ingestion remains unchanged;
+Neo is the browser path for research and prepared browser-only destination handoffs. Existing
+Telegram/Discord/Meta/Threads/LinkedIn API transports remain channel-specific.
 
-`current sidecars + canonical reconciled published memory -> deterministic dedupe/sourceability order -> <=32 candidates -> one vx/gemini-3.5-flash(high) selector -> one primary + <=2 useful fallbacks -> shared <=6 deterministic source/provenance GETs -> explicit report/event epistemic state -> one Flash writer -> deterministic material-claim/source/epistemic validation -> <=1 Flash revision without source expansion -> one qualified article -> exactly eight native derivative packages`.
+Current engineering/deployed state: **PAUSED_NOT_DEPLOYED**. Host schedules, production pause,
+store and deployed bytes were not changed by this migration. Native manual proof is isolated.
+No current configuration grants activation or public writes. Historical Simple and old Desktop
+proofs establish only their exact epochs; do not rebuild their accepted deterministic components.
+See `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md` for the supported operation,
+exact paused rollout, truthful telemetry, bound native Neo request/return/readback loop and separate activation boundary.
 
-Locked per-opportunity ceilings:
 
-- candidate packet <=32;
-- one selector;
-- <=3 admitted candidates;
-- <=6 deterministic source/provenance GETs total;
-- one writer;
-- one revision maximum;
-- <=3 logical Flash calls total;
-- Codex runtime model calls = 0.
-
-One exact owner-curated canonical-X record may support only its narrow relay-of-reporting or explicit market-rumor proposition under the accepted record-scoped provenance contract. It remains `UNCONFIRMED`, never proves the cited publisher's original report or the underlying event, and cannot bypass high-harm evidence handling.
-
-Native Desktop Automations, SDK/App-Server editorial fallback, legacy rolling-X ownership, broad evidence-ready pools, and split-phase PREPARE/COMPLETE handoffs are historical/non-routing for routine V1.
-
-## 6. Current V1 runtime/product truth locked on 2026-09-01
+## 6. Historical accepted foundation (2026-09-01 provenance)
 
 Reuse, do not rebuild:
 
@@ -171,7 +175,7 @@ A counted published article requires exact canonical identity/readback under the
 
 `UNKNOWN_WRITE = STOP RETRY -> READ BACK -> RECONCILE`
 
-Chrome `CapitalChronicleBot` CDP 9222 is ingestion only. Edge `contentops-social-main` CDP 9223 is publication/media/readback/authorized observation only.
+Chrome `CapitalChronicleBot` CDP 9222 remains bulk ingestion only. Target browser path is Neo; Edge CDP 9223 is historical deployment provenance, not automatic transport fallback.
 
 Do not replace the current production publication/browser ownership merely because a new browser-agent abstraction is being evaluated. Any later transport change must be justified by product evidence and must preserve exact identity/readback/reconciliation truth.
 
@@ -190,38 +194,14 @@ Use the cheapest lane that can produce evidence strong enough for the claim.
 
 ## 11. Locked current sequence
 
-The isolated `BROWSER_RENDERED_SOURCE_RECOVERY_ARCHITECTURE` objective is implemented and
-live-shadow-proven. The capability is documented in
-`docs/automation/CONTENTOPS_BROWSER_RENDERED_SOURCE_RECOVERY_V1.md`.
+1. Implement and independently audit the native Desktop migration on PR90, preserving Goal20–23 evidence.
+2. Reuse Goal25's isolated Luna-MAX -> Sol-Light -> Sol-MAX flow and byte-stable restart; retain the exact dated source, eight native previews and readback limits in its owning checkpoint.
+3. Preserve the exact paused four-task rollout and per-channel API/Neo setup/readback handoff.
+4. After separate audit/deployment authority, apply the one documented activation transition with pause release last.
+5. Observe natural runtime separately; 5–8/day reliability is unproven until actual reconciled output establishes it.
 
-The implementation is hybrid rather than a wholesale CDP replacement:
+No production activation, public write, pause release, self-merge or deployment is part of Goal25.
 
-- deterministic HTTP remains the first source-retrieval path;
-- one exact allowlisted publisher URL may use BrowserOS Neo only after an eligible 403/429,
-  render-only/insufficient-body failure, or exact route-health suppression;
-- rendered evidence carries distinct `READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE` provenance,
-  final-host identity, timestamp, semantic scope, and dual hashes; it never masquerades as raw
-  HTTP bytes;
-- browser acquisition uses only a task-owned tab with `name_session`, `tabs`, and `read`, with
-  no click, login, consent, storage, credential/session inspection, model call, or public write;
-- browser acquisition shares the existing six-request evidence ledger and is capped at one
-  recovery attempt per loader invocation;
-- BrowserOS Neo is a source-recovery/diagnostic layer, not V1 publication authority;
-- `SIMPLE_GEMINI_RUNTIME`, the existing evidence/claim/epistemic validators, and
-  `DurablePublicationCoordinator` remain the owners; current CDP publication transports,
-  scheduler, store, and numeric authority remain unchanged.
-
-`PRODUCT_FIRST_AUTONOMOUS_V1_RESUME` is now the repository route. Merge/deploy the corrected
-capability, let the already-activated four natural routine windows run under their existing
-owner-locked contracts, observe real intake-to-publication/reconciliation failures, and repair
-those failures toward 5–8 useful articles/day. A new standalone activation preflight or fresh
-canary is not a prerequisite unless current evidence materially raises identity/readiness
-ambiguity, an unresolved `UNKNOWN_WRITE`, a destructive/irreversible boundary, or another exact
-hard stop. Existing inline destination identity, readiness, canonical readback, and reconciliation
-gates remain fail-closed at the live-write boundary. The browser shadow proof itself is not a
-public-write result and does not prove the daily target.
-
-Do not reinterpret the architecture slice as V2 progress.
 
 ## 12. Change discipline
 
@@ -252,3 +232,15 @@ Protected historical `v1.0` remains immutable at `6983bfb3ef300414b744f3f8f97ca8
 ## 14. Visual/media acceptance
 
 UI/video/audio PASS requires actual rendered artifact inspection. Tests and worker judgment prove mechanics, not final viewer-facing quality.
+
+## 15. Signal Clips product adoption — 2026-10-23
+
+ContentOps has three product lanes: V1 original newsroom/articles, V2 original analytical
+video, and V3 **Capital Chronicle Signal Clips** for authentic speech excerpts. The V3 in
+the root North Star/Master Plan filenames is a document revision, not this lane's readiness.
+Read their current Signal Clips sections and the existing Lightweight Speech Highlight
+Relay pointer/scoped instructions before V3 work. Reuse the existing relay and media
+owners. Preserve the frozen retained mode; current-source engineering is a deliberate
+compatible extension, not permission to relabel its evidence. Video upload, draft and
+public-write authority remain zero. One L2 integrator reserves shared policy/CLI/schema/UI;
+Builders own only their admitted paths. Existing V1 production and four windows stay paused.

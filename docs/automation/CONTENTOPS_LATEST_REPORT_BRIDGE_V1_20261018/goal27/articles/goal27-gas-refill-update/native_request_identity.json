@@ -1,0 +1,20 @@
+{
+  "desktop_request_select.json": {
+    "request_sha256": "44c61f46861f1b0d98910e56aa53c237b2e357de95876ff7669b34768ff44f4a",
+    "stage": "select",
+    "role": "select",
+    "run_id": "goal27-gas-refill-update",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2"
+  },
+  "desktop_request_write.json": {
+    "request_sha256": "9c48a49fbeeee255db8152dc8bbb2c265603f7a6ac98b47f5d81d7a2929021d4",
+    "stage": "write",
+    "role": "write",
+    "run_id": "goal27-gas-refill-update",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "state": "ACTUAL_NEO_TOOL_SURFACE_UNAVAILABLE",
+  "human_reconnection_reported": true,
+  "available_neo_tools": [],
+  "pending_operations": [
+    "goal35-ibm",
+    "goal35-tesla",
+    "goal35-meta",
+    "goal35-southwest"
+  ],
+  "all_article_and_package_text_read": true,
+  "visual_pass_claimed": false,
+  "completed_native_roles_repeated": false,
+  "other_browser_used": false,
+  "next_action": "Restore Neo MCP tool exposure, list existing group, inspect the exact prepared candidate component. Preserve accepted native returns.",
+  "observed_at_utc": "2026-10-22T10:10:28Z",
+  "preview_server_state": "EXPIRED_BOUNDED_LOCAL_SERVER; restart same read-only helper hidden only when needed for Neo inspection"
+}

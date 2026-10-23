@@ -1,0 +1,248 @@
+{
+  "cited_source_count": 1,
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Securities and Exchange Commission today proposed amendments to the Investment Company Act “cross-trading rule,” which permits transactions in securities between a registered fund and its affiliates under certain conditions. The proposed amendments would modernize and expand the cross-trading rule and would allow cross trades that are beneficial to registered funds and their shareholders (by, for example, reducing a fund’s trading costs), subject to enhanced investor protection measures. “Today, the Commission took another step toward modernizing our regulatory frameworks to meet the realities of today’s markets by proposing amendments to Rule 17a-7 under the Investment Company Act of 1940, which permits trades in securities between registered funds and certain affiliates. When executed appropriately, cross trades allow registered funds to avoid costs associated with open market trades and to then pass those savings on to investors. The amendments we are proposing today would modernize and expand the cross-trading rule, helping to deliver additional cost savings to those investors,” said SEC Chairman Paul S. Atkins in a [statement]( Following the initial adoption of Rule 17a-7 in 1966, registered funds relied on the cross-trading rule to trade both equity and fixed-income securities. However, adoption of the Investment Company Act’s “fund valuation rule” in 2020 effectively restricted cross trading most fixed-income securities, although at the time the Commission recognized that potential revisions to the cross-trading rule were under consideration",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.sec.gov",
+    "primary_reporting_source_identity": "www.sec.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed amendments to the Investment Company Act “cross-trading rule,” which permits transactions in securities between a registered fund and its affiliates under certain conditions. The proposed amendments would modernize and expand the cross-trading rule and would allow cross trades that are beneficial to registered funds and their shareholders (by, for example, reducing a fund’s trading costs), subject to enhanced investor protection measures. “Today, the Commission took another step toward modernizing our regulatory frameworks to meet the realities of today’s markets by proposing amendments to Rule 17a-7 under the Investment Company Act of 1940, which permits trades in securities between registered funds and certain affiliates. When executed appropriately, cross trades allow registered funds to avoid costs associated with open market trades and to then pass those savings on to investors. The amendments we are proposing today would modernize and expand the cross-trading rule, helping to deliver additional cost savings to those investors,” said SEC Chairman Paul S. Atkins in a [statement]( Following the initial adoption of Rule 17a-7 in 1966, registered funds relied on the cross-trading rule to trade both equity and fixed-income securities. However, adoption of the Investment Company Act’s “fund valuation rule” in 2020 effectively restricted cross trading most fixed-income securities, although at the time the Commission recognized that potential revisions to the cross-trading rule were under consideration",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal28-cross-trade"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "maximum_revision_rounds": 1,
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "public_write_performed": false,
+  "report_truth_validated_separately_from_event_truth": true,
+  "revision_performed": false,
+  "revision_router_receipt": null,
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "source_urls": [
+    "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds"
+  ],
+  "status": "PASS",
+  "supported_material_claim_count": 18,
+  "supported_material_claims": [
+    {
+      "attribution_required": false,
+      "claim_id": "cross-meta-title",
+      "claim_kind": "FACT",
+      "claim_text": "SEC muốn mở rộng giao dịch chéo: giá công bằng cho cả hai quỹ?",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2f4723475dabb6b9c66b4d7b3afcf310443f450924ecf6b45469f0699936e28f",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-meta-dek",
+      "claim_kind": "FACT",
+      "claim_text": "Đề xuất ngày 9/10/2026 về cross trading kỳ vọng giảm chi phí cho quỹ. Phép thử là cách định giá và giám sát có bảo vệ người góp vốn ở cả bên mua lẫn bên bán hay không.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2f4723475dabb6b9c66b4d7b3afcf310443f450924ecf6b45469f0699936e28f",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-meta-search_title",
+      "claim_kind": "FACT",
+      "claim_text": "Đề xuất SEC về giao dịch chéo: lợi ích chi phí và công bằng giá",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2f4723475dabb6b9c66b4d7b3afcf310443f450924ecf6b45469f0699936e28f",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-meta-meta_description",
+      "claim_kind": "FACT",
+      "claim_text": "Đọc đề xuất SEC ngày 9/10/2026 qua quyền lợi hai quỹ: chi phí giao dịch, cơ sở định giá, giám sát và báo cáo tổng hợp. Lợi ích thực tế còn cần bằng chứng.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2f4723475dabb6b9c66b4d7b3afcf310443f450924ecf6b45469f0699936e28f",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-meta-social_hook",
+      "claim_kind": "FACT",
+      "claim_text": "Tiết kiệm chi phí giao dịch chưa tự chứng minh giá công bằng cho cả hai quỹ liên kết.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2f4723475dabb6b9c66b4d7b3afcf310443f450924ecf6b45469f0699936e28f",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-01",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Nếu hai quỹ cùng một nhóm mua bán chứng khoán với nhau, phần chi phí tiết kiệm được có thực sự làm lợi cho người góp vốn ở cả hai phía? Đó là câu hỏi cần đặt vào giữa đề xuất giao dịch chéo của SEC ngày 9/10/2026. Theo cách đọc của Capital Chronicle, lợi ích chi phí và sự công bằng của giá cần được chứng minh riêng cho từng quỹ. Phản đề cũng rõ: nếu cách định giá và giám sát đủ tốt, giao dịch chéo có thể đem lại khoản tiết kiệm thực sự; quan hệ liên kết chưa tự chứng minh giao dịch gây hại.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "3a414d4aedff7c3bceccbe7b82b3395662de500238c84f88c488279574ee8a5a",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-02",
+      "claim_kind": "FACT",
+      "claim_text": "Giao dịch chéo, hay cross trading, trong thông cáo này là giao dịch chứng khoán giữa quỹ đăng ký và bên liên kết theo những điều kiện nhất định. SEC đã đề xuất sửa Rule 17a-7, trong đó có việc khôi phục khả năng giao dịch chéo đối với phần lớn chứng khoán có thu nhập cố định và cập nhật các điều kiện về định giá, giám sát. Bài viết xem xét thiết kế của đề xuất tại ngày nguồn; thông cáo về một đề xuất không xác lập rằng những sửa đổi đã có hiệu lực.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1798de52bfc051a0973e969819fffb5409afe711e8ad825c05153c87a928a3fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-03",
+      "claim_kind": "FACT",
+      "claim_text": "Theo lịch sử được SEC nêu trong thông cáo, các quỹ từng dựa vào quy tắc giao dịch chéo để mua bán cả cổ phiếu và chứng khoán có thu nhập cố định. Việc thông qua quy tắc định giá quỹ năm 2020 trên thực tế đã hạn chế giao dịch chéo đối với phần lớn chứng khoán có thu nhập cố định. Vì thế, phần khôi phục phạm vi này là thay đổi có ý nghĩa trong đề xuất: nó mở lại một phương thức giao dịch, đồng thời đặt câu hỏi các điều kiện bảo vệ sẽ vận hành ra sao.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "58e98914b66193047b8d9703ae36d0d9d23ec5d756cc58e8bc5f0b844aaa7885",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-04",
+      "claim_kind": "FACT",
+      "claim_text": "Lập luận chi phí của SEC có một điều kiện quan trọng. Chủ tịch SEC Paul S. Atkins nói rằng khi được thực hiện phù hợp, giao dịch chéo cho phép quỹ tránh chi phí gắn với giao dịch trên thị trường mở và chuyển phần tiết kiệm đó tới nhà đầu tư. Đây là cơ chế lợi ích mà cơ quan quản lý trình bày, chưa phải kết quả đo được của một giao dịch cụ thể. Muốn đánh giá lợi ích thực tế, người đọc cần biết quỹ đã tránh được chi phí nào và bằng chứng nào cho thấy người góp vốn nhận được lợi ích ấy.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c698492dc0fb6104380187272df7ac7db3811b461c3c7930c0a0519fe7847ad0",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-05",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Điểm căng nằm ở chỗ một mức giá được cả bên mua và bên bán sử dụng có hệ quả khác nhau cho hai phía. Trong tình huống hai quỹ có chung bên quản lý, một mức giá thuận lợi hơn cho quỹ bán có thể kém thuận lợi hơn cho quỹ mua. Suy luận của Capital Chronicle là khoản tiết kiệm giao dịch được nêu cho cả nhóm chưa trả lời được lợi ích phân bổ ra sao giữa những người góp vốn khác nhau. Đây là câu hỏi về xung đột lợi ích cần kiểm tra, không phải cáo buộc rằng một quỹ đã bị đối xử bất lợi.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "b2827efc2fc43bc07a918d54b653211c1621f4aa3263b72b671c1884770b5f2d",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-06",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Bởi vậy, phép thử đầu tiên là đặt câu hỏi từ từng phía. Quỹ mua có cơ sở nào để coi giá mua và chi phí liên quan là hợp lý? Quỹ bán có cơ sở tương ứng nào cho giá bán? Nếu chỉ có lời giải thích về tiết kiệm chi phí mà không có bằng chứng định giá cho từng bên, phần lợi ích được kỳ vọng vẫn chưa được kiểm chứng đầy đủ. Ngược lại, dữ liệu cho thấy cả hai bên nhận điều kiện phù hợp sẽ trực tiếp củng cố lập luận ủng hộ giao dịch chéo.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "3a414d4aedff7c3bceccbe7b82b3395662de500238c84f88c488279574ee8a5a",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-07",
+      "claim_kind": "FACT",
+      "claim_text": "SEC nói các cập nhật đề xuất sẽ ghi nhận những phát triển của thị trường đã giúp giá dễ kiểm chứng và minh bạch hơn. Tuy nhiên, thông cáo không trình bày phương pháp định giá chi tiết cho từng loại chứng khoán. Vì vậy, dễ kiểm chứng hơn là một cơ sở mà SEC đưa ra cho đề xuất, chưa phải bằng chứng rằng mọi giá giao dịch chéo đều công bằng. Câu hỏi cần tìm tiếp là giá tham chiếu được xác định từ đâu, tại thời điểm nào và có thể được đối chiếu bằng tài liệu nào.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "da0505a85c03865052630c65396a8a4f5d2109fe4613f5e03ad5871a5bcafb8b",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-08",
+      "claim_kind": "FACT",
+      "claim_text": "Giám sát là phần còn lại của phép thử đó. Thông cáo nêu việc hiện đại hóa các điều kiện liên quan tới giám sát, nhưng không cung cấp ở đây quy trình cụ thể hay hồ sơ của một quỹ. Với tình huống có chung bên quản lý, những câu hỏi phân tích hữu ích là ai xem xét lợi ích của từng quỹ, ai kiểm tra cơ sở giá và điều gì xảy ra khi cách đánh giá của hai phía khác nhau. Đây là những bằng chứng cần tìm trong văn bản và thực hành liên quan, không phải danh sách nghĩa vụ mà bài viết tự gán cho đề xuất.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1798de52bfc051a0973e969819fffb5409afe711e8ad825c05153c87a928a3fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-09",
+      "claim_kind": "FACT",
+      "claim_text": "Đề xuất còn bao gồm yêu cầu báo cáo tổng hợp về hoạt động giao dịch và giao dịch chéo của các quỹ đăng ký có thực hiện giao dịch chéo, theo thông cáo SEC, nhằm tăng tính minh bạch. Cần giữ đúng cấp độ của thông tin này: báo cáo tổng hợp có thể giúp quan sát hoạt động, nhưng riêng mô tả đó chưa cho biết giá của một giao dịch cụ thể đã được xác định thế nào. Thông cáo cũng không cung cấp tại đây cấu trúc dữ liệu hay mức chi tiết của báo cáo để người đọc tự kiểm tra từng giao dịch.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "ecdb037c6bae3dde29117a99f80a50afc1706fed3453cc4579341c128efb346f",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-10",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phản đề với cách đọc quá hoài nghi là các biện pháp bảo vệ có thể giúp thực hiện đúng lợi ích mà SEC kỳ vọng. Nếu giá có cơ sở kiểm chứng, việc giám sát bảo vệ được từng quỹ và chi phí thực tế thấp hơn phương án giao dịch tương ứng ngoài thị trường, người góp vốn có thể được lợi. Khi đó, quan hệ liên kết không đủ để bác bỏ giao dịch. Phép thử công bằng phải sẵn sàng chấp nhận bằng chứng tích cực, cũng như sẵn sàng chất vấn một tuyên bố tiết kiệm thiếu đối chiếu.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c698492dc0fb6104380187272df7ac7db3811b461c3c7930c0a0519fe7847ad0",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-11",
+      "claim_kind": "FACT",
+      "claim_text": "Bằng chứng tiếp theo nên bắt đầu từ một hồ sơ giao dịch cụ thể: chứng khoán nào được chuyển, cơ sở xác định giá là gì, chi phí liên quan của từng quỹ được giải thích ra sao và hồ sơ giám sát cho thấy điều gì. Những câu hỏi này nối trực tiếp hai vế trong đề xuất — lợi ích chi phí và bảo vệ nhà đầu tư. Thông cáo đang đọc không có dữ liệu giao dịch hay khoản tiết kiệm thực hiện, nên chưa thể kết luận quỹ nào đã hưởng lợi hoặc chịu thiệt.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "3a414d4aedff7c3bceccbe7b82b3395662de500238c84f88c488279574ee8a5a",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-12",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Ngay cả khi có thông tin về chi phí thấp hơn, vẫn cần kiểm tra phương án được dùng để so sánh. Câu hỏi là điều kiện giao dịch ngoài thị trường có tương ứng với giao dịch chéo đang xét hay không. Nếu điều kiện khác nhau, riêng chênh lệch chi phí chưa đủ để xác định lợi ích đến từ phương thức giao dịch nào. Đây là một phép kiểm tra lập luận tiết kiệm mà SEC đưa ra, không phải nhận định rằng chi phí thị trường đã thay đổi theo một hướng cụ thể.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c698492dc0fb6104380187272df7ac7db3811b461c3c7930c0a0519fe7847ad0",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "cross-body-13",
+      "claim_kind": "FACT",
+      "claim_text": "Điểm theo dõi có ích là văn bản chi tiết và diễn biến tiếp theo của đề xuất sẽ trả lời ra sao về định giá, giám sát và báo cáo; sau đó mới là bằng chứng thực hiện ở từng quỹ nếu cơ chế được áp dụng. Nếu chỉ thấy hoạt động giao dịch chéo tăng lên, câu hỏi về lợi ích vẫn còn mở. Bằng chứng có sức nặng hơn là giá và chi phí được giải thích đủ để người đọc đánh giá quyền lợi của cả bên mua lẫn bên bán.",
+      "document_id": "goal28-cross-trade",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "1798de52bfc051a0973e969819fffb5409afe711e8ad825c05153c87a928a3fc",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    }
+  ],
+  "unknown_write_detected": false,
+  "unsupported_material_claim_count": 0,
+  "worker_router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal28_sol_max_b",
+      "model": "gpt-6.1-sol",
+      "observation_source": "collaboration.spawn_agent exposed canonical task name with explicitly requested gpt-6.1-sol/max; UUID not exposed",
+      "reasoning_effort": "max",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "max",
+    "request_sha256": "5bafb01f948b845e0de6cc94ac2d21a138fdab67675b8a6e1a2810067cb34a52",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "response_sha256": "4ac0993fb8ed294ae22905002d95e6c67e32e452068c010bda5a84866384e5cc",
+    "role": "write",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "write"
+  }
+}

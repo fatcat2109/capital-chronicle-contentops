@@ -1,0 +1,40 @@
+{
+  "scope": "THREE_DISTINCT_OWNER_MANUAL_EDITORIAL_OPPORTUNITIES_NO_PUBLIC_WRITES",
+  "company_sec": {
+    "source_requests": 2,
+    "routes": [
+      "https://www.sec.gov/newsroom/press-releases",
+      "https://www.sec.gov/newsroom/press-releases/2026-106-sec-announces-roundtable-machine-understandable-data-age-super-intelligence"
+    ],
+    "result": "ADMITTED_AGENCY_NARRATIVE_AND_ATTRIBUTED_SEC_OFFICIAL_STATEMENT",
+    "observation_period": "2026-10-19 announcement; 2026-11-09 scheduled future roundtable",
+    "rights": "Exact retained SEC authorship policy reused; no third-party material",
+    "retrieval_clock": "capture observed_at is materialization after actual Neo read, no publisher release hour inferred"
+  },
+  "gas": {
+    "source_requests": 2,
+    "routes": [
+      "https://ir.eia.gov/ngs/ngs.html",
+      "https://ir.eia.gov/ngs/wngsr.txt"
+    ],
+    "result": "PASS_SAME_2026_10_09_OBSERVATION_NO_NEW_PERIOD",
+    "publication_date": "2026-10-15",
+    "note": "Redirect query parameters excluded from durable evidence; clean public URL retained. Later visible readback is a read of the already loaded page."
+  },
+  "structural": {
+    "source_requests": 2,
+    "routes": [
+      "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+      "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+    ],
+    "result": "INITIAL_CHALLENGE_SELF_RESOLVED_THEN_NEW_EDUCATIONAL_SOURCE_ADMITTED",
+    "note": "Initial challenge was not retried/bypassed. Later DOM read on same loaded page showed Basics; its own Economic Purpose link led to materially richer hedging/margin prose. Initial ABSTAIN and source-gap decision preserved. No current position/contract/expiry/IV/OI proof; publication date remains unknown. New question cashflow uses a new immutable operation."
+  },
+  "count_basis": "Named public page navigations; browser physical requests not measured. Deterministic retained resolutions/recovery add zero new source requests.",
+  "limits": {
+    "per_operation_source_requests": 6,
+    "candidate_pool": 32,
+    "admissions": 3
+  },
+  "public_write_performed": false
+}

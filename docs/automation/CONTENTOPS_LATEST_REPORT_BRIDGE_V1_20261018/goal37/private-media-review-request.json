@@ -1,0 +1,41 @@
+{
+  "schema": "contentops.signal_clips.media_review_request.v1",
+  "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+  "edit_sha256": "b1dc36c15fc77e0bd59257a3f8aeb5bbaf50b81eafdf8ceba3a20dda179e1330",
+  "original_media": {
+    "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\fed-original.mp4",
+    "sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+    "duration_seconds": 1722.431667
+  },
+  "transcript": {
+    "file": ".task-runtime\\speech_highlight_relay_v1\\goal37\\timed-captions.json",
+    "sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1"
+  },
+  "span": {
+    "start_seconds": 80.88600000000001,
+    "end_seconds": 118.336
+  },
+  "format": "MOMENT_CONTEXT",
+  "assets": {
+    "master_vertical_clean_1080x1920.mp4": "de5c41ece8a32055d37b5fcdf726117894ca7321e770ec9223b13b4ff2c55a2d",
+    "derivative_vertical_captioned_1080x1920.mp4": "836e29b8df9e3ec20757061aa3d4d3fcd9379b3adaff2d8a6449ab920654e472",
+    "captions.srt": "190c472c56ed6eb872c47eeaa2389b9a3966a718cfd941b9ea051f9c958e0135",
+    "captions.vtt": "eb93b7bbd169f5d70ef7689301069ba792be8a64d5ae6759615412e8f1fc5000",
+    "captions.json": "be7d194ef818e51be2374550a81fc4a6dbf303c9f9ffd8043dcf55bf119aeb81"
+  },
+  "meaning_layers": {
+    "speaker_claim": "In the supplied publisher captions, Kevin Warsh says the American economy appears to be strengthening; he describes improvements in hiring, private-sector earnings and business investment, and robust credit flows, particularly for businesses. He says he would be hard pressed to describe broad financial conditions as restrictive, that this view was widely shared by the Committee, and that they removed a dose of accommodation. These are attributed speaker assessments and a stated rationale. No policy rate, direction or size of a rate change is independently established by this review.",
+    "independent_evidence": "None supplied or independently verified for the underlying economic or policy claims in this review. The publisher-caption excerpt, source metadata and prior selection are one source lineage. They provide provisional attributed context and do not constitute independent corroboration. No browsing, listening, transcript-to-audio comparison, market-data check or rights verification was performed.",
+    "cc_interpretation": "The useful audience question is why the speaker linked his policy step to his assessment of the economy and broad financial conditions. The passage illustrates his stated rationale and preserves its qualifiers. This is qualitative editorial interpretation of the supplied dated text. Economic strength, policy effectiveness, current October conditions and future market or policy outcomes remain unverified. No trade, numerical forecast or Core Analyzer conclusion follows."
+  },
+  "gates": [
+    "ORIGINAL_AUDIO_LISTENING",
+    "SOURCE_AUDIO_ALIGNMENT",
+    "CONTEXT_AND_QUALIFIERS",
+    "VISUAL_AND_CAPTION_LEGIBILITY",
+    "ASSET_SPECIFIC_RIGHTS",
+    "SEPARATE_PUBLICATION_AUTHORITY"
+  ],
+  "review_state": "NOT_REVIEWED",
+  "production_eligible": false
+}

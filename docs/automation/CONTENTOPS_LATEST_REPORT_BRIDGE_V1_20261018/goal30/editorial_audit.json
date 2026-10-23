@@ -1,0 +1,230 @@
+{
+  "scope": "Actual current7 plus5 native energy/revision history; no unrelated research audit",
+  "current_unchanged": 7,
+  "current_revised": 0,
+  "current_held_candidates": 1,
+  "missing": 0,
+  "previews_retained": 56,
+  "history_energy_reviewed": 5,
+  "material_reader_issue_found": 0,
+  "new_source_cycles": 0,
+  "new_model_cycles": 0,
+  "findings": [
+    {
+      "run_id": "goal29-brent-transmission",
+      "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "current_edition": true,
+      "full_copy_sha256": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "US stock observation is separate from Brent transmission; current prices, CFD payoff and global scarcity are not inferred. Conditional mechanism, import/refining countercase and next-evidence test retained. No numeric probability supplied.",
+      "relevant_passages": [
+        "V\u00ec sao r\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 ch\u1ee9ng minh Brent khan hi\u1ebfm to\u00e0n c\u1ea7u? B\u00e1o c\u00e1o Capital Chronicle gi\u1eef hai kh\u1ea3 n\u0103ng: c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t truy\u1ec1n qua th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n, ho\u1eb7c th\u1eddi \u0111i\u1ec3m nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u l\u00e0m kho M\u1ef9 gi\u1ea3m. V\u1edbi s\u1ed1 li\u1ec7u \u0111\u01b0\u1ee3c gi\u1eef cho tu\u1ea7n 09/10/2026, \u0111\u01b0\u1eddng truy\u1ec1n sang Brent v\u1eabn ch\u01b0a \u0111\u01b0\u1ee3c ch\u1ee9ng minh. **CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.** [[SOURCE:SOURCE_1]]",
+        "Ph\u00e2n t\u00edch CC c\u00f3 \u0111i\u1ec1u ki\u1ec7n: n\u1ebfu r\u00fat kho M\u1ef9 ph\u1ea3n \u00e1nh c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t l\u1eb7p l\u1ea1i, th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n v\u00e0 ch\u00eanh gi\u00e1 c\u00f3 th\u1ec3 truy\u1ec1n t\u00e1c \u0111\u1ed9ng sang Brent. B\u1ed9 ngu\u1ed3n ch\u01b0a ch\u1ee9ng minh \u0111\u01b0\u1eddng truy\u1ec1n \u1ea5y. [[SOURCE:SOURCE_1]]",
+        "Ph\u1ea7n ti\u1ebfp n\u1ed1i n\u00e0y t\u1eadp trung v\u00e0o ph\u00e9p ki\u1ec3m \u0111\u1ecba l\u00fd c\u1ee7a lu\u1eadn \u0111i\u1ec3m. C\u1ea7n n\u1ed1i c\u00e2n \u0111\u1ed1i M\u1ef9 v\u1edbi lu\u1ed3ng h\u00e0ng v\u00e0 n\u1ec1n Brent b\u1eb1ng ch\u1ee9ng c\u1ee9 c\u1ee5 th\u1ec3; m\u1ed9t con s\u1ed1 r\u00fat kho khu v\u1ef1c ch\u01b0a cho bi\u1ebft t\u00e1c \u0111\u1ed9ng sang Brent m\u1ea1nh bao nhi\u00eau, hay \u0111ang theo h\u01b0\u1edbng n\u00e0o. [[SOURCE:SOURCE_1]]",
+        "- D\u00f2ng t\u00e0u h\u00e0ng v\u00e0 xu\u1ea5t nh\u1eadp kh\u1ea9u c\u00f3 cho th\u1ea5y c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t l\u1eb7p l\u1ea1i hay kh\u00f4ng? \u0110\u00e2y l\u00e0 c\u00e2u h\u1ecfi c\u1ea7n ki\u1ec3m, ch\u01b0a ph\u1ea3i lu\u1ed3ng th\u01b0\u01a1ng m\u1ea1i \u0111\u00e3 \u0111\u01b0\u1ee3c quan s\u00e1t trong b\u1ed9 ngu\u1ed3n. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": null,
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal29-sec-amf-supervision",
+      "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+      "current_edition": true,
+      "full_copy_sha256": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "20Oct announcement/process is distinct from individual approval, capital flows or actual protection outcomes. No claim that multiple institutions imply independent empirical confirmation.",
+      "relevant_passages": [
+        "CONFIRMED: ng\u00e0y 20/10/2026, SEC c\u00f4ng b\u1ed1 th\u1ecfa thu\u1eadn h\u1ee3p t\u00e1c gi\u00e1m s\u00e1t v\u1edbi AMF c\u1ee7a Ph\u00e1p v\u00e0 cho bi\u1ebft s\u1ebd x\u1eed l\u00fd c\u00e1c \u0111\u01a1n \u0111\u0103ng k\u00fd m\u1edbi c\u00f9ng \u0111\u01a1n \u0111ang ch\u1edd c\u1ee7a c\u00f4ng ty qu\u1ea3n l\u00fd t\u00e0i s\u1ea3n do AMF gi\u00e1m s\u00e1t. \u0110i\u1ec3m c\u00f3 \u00fd ngh\u0129a v\u1edbi \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn th\u1ecb tr\u01b0\u1eddng M\u1ef9 l\u00e0 m\u1ed1i n\u1ed1i gi\u1eefa ph\u1ed1i h\u1ee3p gi\u00e1m s\u00e1t v\u00e0 x\u1eed l\u00fd h\u1ed3 s\u01a1; th\u00f4ng c\u00e1o ch\u01b0a cho bi\u1ebft c\u00f4ng ty n\u00e0o \u0111\u00e3 \u0111\u0103ng k\u00fd th\u00e0nh c\u00f4ng. [[SOURCE:SOURCE_1]]",
+        "C\u1ea7n ph\u00e2n bi\u1ec7t vi\u1ec7c c\u00f3 khu\u00f4n kh\u1ed5 gi\u00e1m s\u00e1t, x\u1eed l\u00fd \u0111\u01a1n \u0111\u0103ng k\u00fd v\u00e0 k\u1ebft qu\u1ea3 \u0111\u0103ng k\u00fd th\u1ef1c t\u1ebf. Th\u00f4ng c\u00e1o x\u00e1c nh\u1eadn khu\u00f4n kh\u1ed5 c\u00f9ng vi\u1ec7c SEC s\u1ebd x\u1eed l\u00fd c\u00e1c \u0111\u01a1n m\u1edbi v\u00e0 \u0111ang ch\u1edd; n\u00f3 kh\u00f4ng n\u00eau quy\u1ebft \u0111\u1ecbnh cho t\u1eebng h\u1ed3 s\u01a1. M\u1ed9t th\u00f4ng b\u00e1o v\u1ec1 c\u00e1ch c\u01a1 quan ph\u1ed1i h\u1ee3p c\u0169ng ch\u01b0a \u0111o \u0111\u01b0\u1ee3c nh\u00e0 \u0111\u1ea7u t\u01b0 c\u00f3 \u0111\u01b0\u1ee3c b\u1ea3o v\u1ec7 t\u1ed1t h\u01a1n hay kh\u00f4ng. [[SOURCE:SOURCE_1]]",
+        "Ph\u00e2n t\u00edch c\u1ee7a Capital Chronicle \u1edf \u0111\u00e2y gi\u1edbi h\u1ea1n trong ph\u1ea7n th\u00f4ng c\u00e1o c\u00f4ng khai \u0111\u00e3 l\u01b0u; g\u00f3i ngu\u1ed3n kh\u00f4ng c\u00f3 to\u00e0n v\u0103n MOU. Ph\u1ea7n v\u0103n b\u1ea3n n\u00e0y kh\u00f4ng cung c\u1ea5p th\u1eddi h\u1ea1n x\u1eed l\u00fd, quy\u1ebft \u0111\u1ecbnh cho t\u1eebng h\u1ed3 s\u01a1 hay d\u1eef li\u1ec7u v\u1ec1 d\u00f2ng v\u1ed1n, l\u1ee3i nhu\u1eadn v\u00e0 gi\u00e1 t\u00e0i s\u1ea3n. V\u00ec v\u1eady, c\u00e1c k\u1ebft lu\u1eadn v\u1ec1 nh\u1eefng k\u1ebft qu\u1ea3 \u0111\u00f3 n\u1eb1m ngo\u00e0i b\u1eb1ng ch\u1ee9ng hi\u1ec7n c\u00f3. [[SOURCE:SOURCE_1]]",
+        "\u0110\u1ed1i \u00e1n \u0111\u00e1ng c\u00e2n nh\u1eafc l\u00e0 m\u1ed9t khu\u00f4n kh\u1ed5 h\u1ee3p t\u00e1c c\u00f3 th\u1ec3 c\u00f3 gi\u00e1 tr\u1ecb ngay \u1edf kh\u00e2u ph\u1ed1i h\u1ee3p gi\u00e1m s\u00e1t, tr\u01b0\u1edbc khi c\u00f3 k\u1ebft qu\u1ea3 \u0111\u0103ng k\u00fd \u0111\u1ec3 th\u1ed1ng k\u00ea. Theo c\u00e1ch \u0111\u1ecdc c\u1ee7a Capital Chronicle, \u0111\u00f3 l\u00e0 l\u00fd do kh\u00f4ng n\u00ean \u0111\u00e1nh gi\u00e1 th\u1ecfa thu\u1eadn ch\u1ec9 qua s\u1ed1 h\u1ed3 s\u01a1 ho\u00e0n t\u1ea5t. Tuy v\u1eady, th\u00f4ng c\u00e1o ch\u01b0a cho th\u1ea5y m\u1ee9c s\u1eed d\u1ee5ng khu\u00f4n kh\u1ed5 hay hi\u1ec7u qu\u1ea3 th\u1ef1c thi. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": null,
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal28-dollar-lens",
+      "article_identity": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "current_edition": true,
+      "full_copy_sha256": "9e7152f22d29bb22787f81904dffec14f450ec008aa7c7695aa37a15415c490c",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Pair versus basket, quote orientation and matched observations are different targets. No actual market direction inferred from definitions or release date.",
+      "relevant_passages": [
+        "USD l\u00ean tr\u01b0\u1edbc m\u1ed9t \u0111\u1ed3ng ti\u1ec1n th\u00ec v\u00ec sao ch\u1ec9 s\u1ed1 USD r\u1ed9ng v\u1eabn c\u00f3 th\u1ec3 kh\u00f4ng t\u0103ng? Fed \u0111\u1ecbnh ngh\u0129a ch\u1ec9 s\u1ed1 r\u1ed9ng l\u00e0 b\u00ecnh qu\u00e2n c\u00f3 tr\u1ecdng s\u1ed1 c\u1ee7a gi\u00e1 tr\u1ecb USD so v\u1edbi ti\u1ec1n t\u1ec7 c\u1ee7a nh\u00f3m r\u1ed9ng c\u00e1c \u0111\u1ed1i t\u00e1c th\u01b0\u01a1ng m\u1ea1i l\u1edbn c\u1ee7a M\u1ef9; \u0111\u00e2y l\u00e0 \u0111i\u1ec3m \u0111\u00e3 x\u00e1c nh\u1eadn (CONFIRMED). Ph\u00e2n t\u00edch c\u1ee7a Capital Chronicle: m\u1ed9t c\u1eb7p ch\u01b0a \u0111\u1ee7 quy\u1ebft \u0111\u1ecbnh h\u01b0\u1edbng c\u1ee7a c\u1ea3 r\u1ed5, v\u00e0 hai t\u00edn hi\u1ec7u c\u0169ng c\u00f3 th\u1ec3 c\u00f9ng h\u01b0\u1edbng. [[SOURCE:SOURCE_1]]",
+        "C\u00e1ch \u0111\u1ecdc d\u01b0\u1edbi \u0111\u00e2y d\u1ef1a tr\u00ean \u0111\u1ecbnh ngh\u0129a v\u00e0 quy \u01b0\u1edbc \u0111\u01b0\u1ee3c gi\u1eef l\u1ea1i t\u1eeb b\u1ea3n H.10 ph\u00e1t h\u00e0nh ng\u00e0y 13/10/2026. M\u1ed1c n\u00e0y l\u00e0 ng\u00e0y ph\u00e1t h\u00e0nh t\u00e0i li\u1ec7u; c\u00e1c \u0111o\u1ea1n ngu\u1ed3n \u0111\u01b0\u1ee3c s\u1eed d\u1ee5ng ch\u01b0a cung c\u1ea5p h\u00e0ng t\u1ef7 gi\u00e1 v\u00e0 ng\u00e0y quan s\u00e1t \u0111\u1ec3 x\u00e1c \u0111\u1ecbnh m\u1ed9t bi\u1ebfn \u0111\u1ed9ng th\u1ef1c t\u1ebf. [[SOURCE:SOURCE_4]] [[SOURCE:SOURCE_1]]",
+        "T\u1eeb quy \u01b0\u1edbc \u0111\u00f3, n\u1ebfu m\u1ed9t d\u00f2ng y\u1ebft theo \u0111\u01a1n v\u1ecb ngo\u1ea1i t\u1ec7 tr\u00ean USD t\u0103ng qua hai quan s\u00e1t ph\u00f9 h\u1ee3p, c\u00f9ng m\u1ed9t USD \u0111\u1ed5i \u0111\u01b0\u1ee3c nhi\u1ec1u \u0111\u01a1n v\u1ecb ngo\u1ea1i t\u1ec7 h\u01a1n: USD m\u1ea1nh h\u01a1n so v\u1edbi \u0111\u1ed3ng ti\u1ec1n \u1ea5y. N\u1ebfu s\u1ed1 \u0111\u00f3 gi\u1ea3m, chi\u1ec1u \u0111\u1ecdc \u0111\u1ea3o l\u1ea1i. \u0110\u00e2y l\u00e0 di\u1ec5n gi\u1ea3i theo \u0111\u01a1n v\u1ecb y\u1ebft gi\u00e1, kh\u00f4ng ph\u1ea3i m\u1ed9t k\u1ebft lu\u1eadn r\u1eb1ng USD \u0111\u00e3 t\u0103ng hay gi\u1ea3m trong k\u1ef3 c\u1ee5 th\u1ec3. [[SOURCE:SOURCE_4]]",
+        "V\u1edbi d\u00f2ng c\u00f3 d\u1ea5u sao, c\u1ea7n \u0111\u1ecdc ch\u00fa th\u00edch ri\u00eang tr\u01b0\u1edbc khi \u00e1p d\u1ee5ng quy t\u1eafc tr\u00ean. Ch\u1eb3ng h\u1ea1n, n\u1ebfu ch\u00fa th\u00edch quy \u0111\u1ecbnh c\u00e1ch y\u1ebft l\u00e0 USD tr\u00ean m\u1ed7i \u0111\u01a1n v\u1ecb ngo\u1ea1i t\u1ec7, s\u1ed1 t\u0103ng s\u1ebd c\u00f3 ngh\u0129a \u0111\u1ed3ng ngo\u1ea1i t\u1ec7 \u0111\u1ed5i \u0111\u01b0\u1ee3c nhi\u1ec1u USD h\u01a1n. \u0110\u00e2y l\u00e0 tr\u01b0\u1eddng h\u1ee3p c\u00f3 \u0111i\u1ec1u ki\u1ec7n; \u0111o\u1ea1n H.10 \u0111\u01b0\u1ee3c gi\u1eef l\u1ea1i ch\u01b0a cho bi\u1ebft nh\u1eefng d\u00f2ng n\u00e0o mang d\u1ea5u sao ho\u1eb7c c\u00e1ch y\u1ebft ri\u00eang c\u1ee7a ch\u00fang. [[SOURCE:SOURCE_4]]"
+      ],
+      "existing_source_decision": null,
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal28-fed-policy-lens",
+      "article_identity": "bb7d0abd53c87074f73dc9abbfce9b444ea9483175ffe2aa41f0bcc44d5d2aac",
+      "current_edition": true,
+      "full_copy_sha256": "bb7d0abd53c87074f73dc9abbfce9b444ea9483175ffe2aa41f0bcc44d5d2aac",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Decision, Fed economic assessment, forward rate path and surprise are distinguished. No probability derived from votes, inflation target or repeated text.",
+      "relevant_passages": [
+        "M\u1ed9t l\u1ea7n Fed t\u0103ng l\u00e3i su\u1ea5t c\u00f3 \u0111\u1ee7 \u0111\u1ec3 n\u00f3i c\u00e1c l\u1ea7n t\u0103ng s\u1ebd ti\u1ebfp t\u1ee5c, hay th\u1ecb tr\u01b0\u1eddng v\u1eeba nh\u1eadn m\u1ed9t b\u1ea5t ng\u1edd c\u00f3 th\u1ec3 d\u00f9ng \u0111\u1ec3 \u0111\u1ea7u t\u01b0? Tuy\u00ean b\u1ed1 ng\u00e0y 16/9/2026 x\u00e1c nh\u1eadn quy\u1ebft \u0111\u1ecbnh t\u0103ng (CONFIRMED). Ph\u00e2n t\u00edch c\u1ee7a Capital Chronicle: c\u1ea7n t\u00e1ch quy\u1ebft \u0111\u1ecbnh \u0111\u00e3 c\u00f4ng b\u1ed1, l\u00fd do kinh t\u1ebf m\u00e0 Fed n\u00eau v\u00e0 b\u1eb1ng ch\u1ee9ng v\u1ec1 k\u1ef3 v\u1ecdng th\u1ecb tr\u01b0\u1eddng. Quy\u1ebft \u0111\u1ecbnh c\u00f9ng nh\u1eadn \u0111\u1ecbnh l\u1ea1m ph\u00e1t v\u1eabn c\u00f3 gi\u00e1 tr\u1ecb th\u00f4ng tin; ch\u00fang ch\u01b0a t\u1ef1 x\u00e1c l\u1eadp chu\u1ed7i quy\u1ebft \u0111\u1ecbnh k\u1ebf ti\u1ebfp. [[SOURCE:SOURCE_1]]",
+        "Tuy\u00ean b\u1ed1 c\u0169ng n\u00f3i \u1ee6y ban ti\u1ebfp t\u1ee5c ch\u00ednh s\u00e1ch duy tr\u00ec d\u1ef1 tr\u1eef d\u1ed3i d\u00e0o trong h\u1ec7 th\u1ed1ng ng\u00e2n h\u00e0ng. C\u00e2u n\u00e0y m\u00f4 t\u1ea3 m\u1ed9t ph\u1ea7n ch\u00ednh s\u00e1ch \u0111\u01b0\u1ee3c duy tr\u00ec, b\u00ean c\u1ea1nh quy\u1ebft \u0111\u1ecbnh thay \u0111\u1ed5i d\u1ea3i l\u00e3i su\u1ea5t. V\u0103n b\u1ea3n gi\u1eef l\u1ea1i ch\u01b0a x\u00e1c \u0111\u1ecbnh m\u1ed9t l\u1ecbch thay \u0111\u1ed5i d\u1ef1 tr\u1eef hay l\u1ecbch \u0111i\u1ec1u ch\u1ec9nh l\u00e3i su\u1ea5t cho c\u00e1c k\u1ef3 sau. [[SOURCE:SOURCE_1]]",
+        "V\u1ec1 ho\u1ea1t \u0111\u1ed9ng kinh t\u1ebf, Fed \u0111\u00e1nh gi\u00e1 n\u1ec1n kinh t\u1ebf t\u0103ng tr\u01b0\u1edfng v\u1edbi nh\u1ecbp \u0111\u1ed9 v\u1eefng ch\u1eafc v\u00e0 chi ti\u00eau trong n\u01b0\u1edbc v\u1eabn b\u1ec1n b\u1ec9. Tuy\u00ean b\u1ed1 \u0111\u1ed3ng th\u1eddi n\u00eau b\u1ea5t \u0111\u1ecbnh c\u00f2n cao, m\u1ed9t ph\u1ea7n do di\u1ec5n bi\u1ebfn \u0111\u1ecba ch\u00ednh tr\u1ecb. Nh\u1eefng m\u00f4 t\u1ea3 \u0111\u00f3 thu\u1ed9c c\u00f9ng nh\u1eadn \u0111\u1ecbnh kinh t\u1ebf c\u1ee7a c\u01a1 quan n\u00e0y; b\u00e0i vi\u1ebft ch\u01b0a d\u00f9ng m\u1ed9t b\u1ed9 s\u1ed1 li\u1ec7u \u0111\u1ed9c l\u1eadp \u0111\u1ec3 ki\u1ec3m tra l\u1ea1i ch\u00fang. [[SOURCE:SOURCE_1]]",
+        "M\u1ed9t c\u00e1ch \u0111\u1ecdc c\u00f3 \u0111i\u1ec1u ki\u1ec7n c\u1ee7a Capital Chronicle l\u00e0: n\u1ebfu \u00e1p l\u1ef1c l\u1ea1m ph\u00e1t m\u00e0 Fed m\u00f4 t\u1ea3 ti\u1ebfp t\u1ee5c k\u00e9o d\u00e0i, l\u00fd do duy tr\u00ec s\u1ef1 ki\u1ec1m ch\u1ebf \u0111\u1ed1i v\u1edbi l\u1ea1m ph\u00e1t v\u1eabn \u0111\u00e1ng \u0111\u01b0\u1ee3c theo d\u00f5i. C\u01a1 s\u1edf c\u1ee7a c\u00e1ch \u0111\u1ecdc n\u00e0y l\u00e0 c\u00e2u l\u1ea1m ph\u00e1t c\u00f2n cao v\u00e0 m\u1ee5c ti\u00eau \u1ed5n \u0111\u1ecbnh gi\u00e1 c\u1ea3. N\u00f3 ch\u01b0a x\u00e1c \u0111\u1ecbnh Fed s\u1ebd d\u00f9ng c\u00f4ng c\u1ee5 n\u00e0o, v\u00e0o k\u1ef3 n\u00e0o ho\u1eb7c \u0111i\u1ec1u ch\u1ec9nh th\u00eam bao nhi\u00eau. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": null,
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal28-company-reading",
+      "article_identity": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "current_edition": true,
+      "full_copy_sha256": "a3939d3e904a7891de55d29cf46b870de5d35d984f3150dfc87d2818a0b00d8b",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Historical guide, accounting presentation and future company performance are different questions. No confidence score or auditor opinion becomes profit likelihood.",
+      "relevant_passages": [
+        "L\u00e0m sao bi\u1ebft l\u1eddi ban l\u00e3nh \u0111\u1ea1o k\u1ec3 v\u1ec1 doanh nghi\u1ec7p c\u00f3 \u0111\u1ee9ng v\u1eefng khi m\u1edf b\u00e1o c\u00e1o t\u00e0i ch\u00ednh? C\u00e1ch \u0111\u1ecdc c\u1ee7a Capital Chronicle l\u00e0 bi\u1ebfn MD&A \u2014 ph\u1ea7n th\u1ea3o lu\u1eadn v\u00e0 ph\u00e2n t\u00edch c\u1ee7a ban l\u00e3nh \u0111\u1ea1o \u2014 th\u00e0nh m\u1ed9t t\u1eadp h\u1ee3p c\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed1i chi\u1ebfu v\u1edbi s\u1ed1 li\u1ec7u, thuy\u1ebft minh v\u00e0 b\u00e1o c\u00e1o ki\u1ec3m to\u00e1n. Ph\u00e9p th\u1eed n\u00e0y c\u0169ng ph\u1ea3i c\u00f4ng b\u1eb1ng: m\u1ed9t kh\u00e1c bi\u1ec7t c\u1ea7n l\u1eddi gi\u1ea3i th\u00edch, nh\u01b0ng ch\u01b0a t\u1ef1 ch\u1ee9ng minh c\u00f3 sai ph\u1ea1m. Ch\u00ednh c\u00e1c \u01b0\u1edbc t\u00ednh k\u1ebf to\u00e1n v\u00e0 c\u00e1ch tr\u00ecnh b\u00e0y k\u1ebft qu\u1ea3 khi\u1ebfn vi\u1ec7c \u0111\u1ed1i chi\u1ebfu quan tr\u1ecdng h\u01a1n vi\u1ec7c t\u00ecm m\u1ed9t c\u00e2u k\u1ebft lu\u1eadn th\u1eadt nhanh. [[SOURCE:SOURCE_1]]",
+        "B\u01b0\u1edbc ti\u1ebfp theo l\u00e0 l\u00e0m r\u00f5 r\u1ee7i ro c\u00f3 \u0111\u01b0\u1eddng \u0111i n\u00e0o v\u00e0o doanh nghi\u1ec7p. H\u01b0\u1edbng d\u1eabn m\u00f4 t\u1ea3 ph\u1ea7n r\u1ee7i ro th\u1ecb tr\u01b0\u1eddng \u0111\u1ec1 c\u1eadp t\u1edbi l\u00e3i su\u1ea5t, t\u1ef7 gi\u00e1, gi\u00e1 h\u00e0ng h\u00f3a ho\u1eb7c gi\u00e1 c\u1ed5 phi\u1ebfu, c\u00f9ng c\u00e1ch doanh nghi\u1ec7p qu\u1ea3n l\u00fd m\u1ee9c \u0111\u1ed9 ph\u01a1i nhi\u1ec5m. C\u00e2u h\u1ecfi \u0111\u1ecdc t\u00e0i li\u1ec7u l\u00e0: r\u1ee7i ro ban l\u00e3nh \u0111\u1ea1o nh\u1ea5n m\u1ea1nh trong MD&A c\u00f3 \u0111\u01b0\u1ee3c gi\u1ea3i th\u00edch nh\u1ea5t qu\u00e1n \u1edf ph\u1ea7n r\u1ee7i ro th\u1ecb tr\u01b0\u1eddng kh\u00f4ng? M\u1ed9t tuy\u00ean b\u1ed1 v\u1ec1 qu\u1ea3n l\u00fd r\u1ee7i ro c\u1ea7n \u0111\u01b0\u1ee3c \u0111\u1ecdc c\u00f9ng m\u00f4 t\u1ea3 m\u1ee9c \u0111\u1ed9 ph\u01a1i nhi\u1ec5m; ri\u00eang vi\u1ec7c c\u00f3 ch\u00ednh s\u00e1ch ch\u01b0a tr\u1ea3 l\u1eddi \u0111\u01b0\u1ee3c doanh nghi\u1ec7p c\u00f2n ch\u1ecbu r\u1ee7i ro n\u00e0o. [[SOURCE:SOURCE_1]]",
+        "H\u01b0\u1edbng d\u1eabn c\u0169ng \u0111\u1eb7t thay \u0111\u1ed5i k\u1ebft qu\u1ea3 so v\u1edbi k\u1ef3 tr\u01b0\u1edbc b\u00ean c\u1ea1nh c\u00e1c th\u1ecfa thu\u1eadn ngo\u00e0i b\u1ea3ng c\u00e2n \u0111\u1ed1i v\u00e0 ngh\u0129a v\u1ee5 theo h\u1ee3p \u0111\u1ed3ng. V\u00ec v\u1eady, khi l\u1eddi k\u1ec3 t\u1eadp trung v\u00e0o k\u1ebft qu\u1ea3 ho\u1ea1t \u0111\u1ed9ng, h\u00e3y m\u1edf r\u1ed9ng c\u00e2u h\u1ecfi sang nh\u1eefng cam k\u1ebft v\u00e0 nhu c\u1ea7u v\u1ed1n m\u00e0 ch\u00ednh doanh nghi\u1ec7p tr\u00ecnh b\u00e0y. \u0110\u00e2y l\u00e0 ph\u00e9p ki\u1ec3m tra ph\u1ea1m vi: l\u1eddi gi\u1ea3i th\u00edch c\u00f3 bao qu\u00e1t c\u00e1c ngh\u0129a v\u1ee5 li\u00ean quan hay ch\u1ec9 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc hi\u1ec3u m\u1ed9t ph\u1ea7n k\u1ebft qu\u1ea3? Kh\u00f4ng c\u00f3 d\u1eef li\u1ec7u doanh nghi\u1ec7p c\u1ee5 th\u1ec3, c\u00e2u h\u1ecfi \u1ea5y ch\u01b0a th\u1ec3 bi\u1ebfn th\u00e0nh nh\u1eadn \u0111\u1ecbnh v\u1ec1 s\u1ee9c kh\u1ecfe t\u00e0i ch\u00ednh c\u1ee7a b\u1ea5t k\u1ef3 c\u00f4ng ty n\u00e0o. [[SOURCE:SOURCE_1]]",
+        "M\u1ed9t thao t\u00e1c th\u1ef1c h\u00e0nh l\u00e0 ch\u1ecdn m\u1ed9t l\u1eddi gi\u1ea3i th\u00edch quan tr\u1ecdng trong MD&A v\u00e0 vi\u1ebft l\u1ea1i th\u00e0nh c\u00e2u h\u1ecfi c\u00f3 th\u1ec3 ki\u1ec3m tra. N\u1ebfu doanh nghi\u1ec7p b\u00e0n v\u1ec1 thanh kho\u1ea3n, h\u00e3y t\u00ecm th\u00f4ng tin li\u00ean quan trong b\u00e1o c\u00e1o l\u01b0u chuy\u1ec3n ti\u1ec1n t\u1ec7, b\u1ea3ng c\u00e2n \u0111\u1ed1i v\u00e0 thuy\u1ebft minh. N\u1ebfu doanh nghi\u1ec7p gi\u1ea3i th\u00edch thay \u0111\u1ed5i k\u1ebft qu\u1ea3, h\u00e3y t\u00ecm kho\u1ea3n m\u1ee5c v\u00e0 l\u1eddi gi\u1ea3i th\u00edch t\u01b0\u01a1ng \u1ee9ng. M\u1ee5c ti\u00eau l\u00e0 x\u00e1c \u0111\u1ecbnh l\u1eddi k\u1ec3 v\u00e0 b\u1eb1ng ch\u1ee9ng c\u00f3 \u0111ang n\u00f3i v\u1ec1 c\u00f9ng v\u1ea5n \u0111\u1ec1, c\u00f9ng k\u1ef3 v\u00e0 c\u00f9ng ph\u1ea1m vi hay kh\u00f4ng; vi\u1ec7c ch\u01b0a t\u00ecm \u0111\u01b0\u1ee3c ch\u1ed7 \u0111\u1ed1i chi\u1ebfu l\u00e0 l\u00fd do h\u1ecfi ti\u1ebfp, ch\u01b0a ph\u1ea3i k\u1ebft lu\u1eadn v\u1ec1 gian l\u1eadn. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": null,
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal28-cross-trade",
+      "article_identity": "da4fec298265c19520d81b4081741f52cf877f3cf40dcdbd8111414898724ea3",
+      "current_edition": true,
+      "full_copy_sha256": "da4fec298265c19520d81b4081741f52cf877f3cf40dcdbd8111414898724ea3",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Proposed framework and group savings are distinct from each fund actual price/cost fairness; comparison conditions and observed outcomes are required.",
+      "relevant_passages": [
+        "N\u1ebfu hai qu\u1ef9 c\u00f9ng m\u1ed9t nh\u00f3m mua b\u00e1n ch\u1ee9ng kho\u00e1n v\u1edbi nhau, ph\u1ea7n chi ph\u00ed ti\u1ebft ki\u1ec7m \u0111\u01b0\u1ee3c c\u00f3 th\u1ef1c s\u1ef1 l\u00e0m l\u1ee3i cho ng\u01b0\u1eddi g\u00f3p v\u1ed1n \u1edf c\u1ea3 hai ph\u00eda? \u0110\u00f3 l\u00e0 c\u00e2u h\u1ecfi c\u1ea7n \u0111\u1eb7t v\u00e0o gi\u1eefa \u0111\u1ec1 xu\u1ea5t giao d\u1ecbch ch\u00e9o c\u1ee7a SEC ng\u00e0y 9/10/2026. Theo c\u00e1ch \u0111\u1ecdc c\u1ee7a Capital Chronicle, l\u1ee3i \u00edch chi ph\u00ed v\u00e0 s\u1ef1 c\u00f4ng b\u1eb1ng c\u1ee7a gi\u00e1 c\u1ea7n \u0111\u01b0\u1ee3c ch\u1ee9ng minh ri\u00eang cho t\u1eebng qu\u1ef9. Ph\u1ea3n \u0111\u1ec1 c\u0169ng r\u00f5: n\u1ebfu c\u00e1ch \u0111\u1ecbnh gi\u00e1 v\u00e0 gi\u00e1m s\u00e1t \u0111\u1ee7 t\u1ed1t, giao d\u1ecbch ch\u00e9o c\u00f3 th\u1ec3 \u0111em l\u1ea1i kho\u1ea3n ti\u1ebft ki\u1ec7m th\u1ef1c s\u1ef1; quan h\u1ec7 li\u00ean k\u1ebft ch\u01b0a t\u1ef1 ch\u1ee9ng minh giao d\u1ecbch g\u00e2y h\u1ea1i. [[SOURCE:SOURCE_1]]",
+        "Giao d\u1ecbch ch\u00e9o, hay cross trading, trong th\u00f4ng c\u00e1o n\u00e0y l\u00e0 giao d\u1ecbch ch\u1ee9ng kho\u00e1n gi\u1eefa qu\u1ef9 \u0111\u0103ng k\u00fd v\u00e0 b\u00ean li\u00ean k\u1ebft theo nh\u1eefng \u0111i\u1ec1u ki\u1ec7n nh\u1ea5t \u0111\u1ecbnh. SEC \u0111\u00e3 \u0111\u1ec1 xu\u1ea5t s\u1eeda Rule 17a-7, trong \u0111\u00f3 c\u00f3 vi\u1ec7c kh\u00f4i ph\u1ee5c kh\u1ea3 n\u0103ng giao d\u1ecbch ch\u00e9o \u0111\u1ed1i v\u1edbi ph\u1ea7n l\u1edbn ch\u1ee9ng kho\u00e1n c\u00f3 thu nh\u1eadp c\u1ed1 \u0111\u1ecbnh v\u00e0 c\u1eadp nh\u1eadt c\u00e1c \u0111i\u1ec1u ki\u1ec7n v\u1ec1 \u0111\u1ecbnh gi\u00e1, gi\u00e1m s\u00e1t. B\u00e0i vi\u1ebft xem x\u00e9t thi\u1ebft k\u1ebf c\u1ee7a \u0111\u1ec1 xu\u1ea5t t\u1ea1i ng\u00e0y ngu\u1ed3n; th\u00f4ng c\u00e1o v\u1ec1 m\u1ed9t \u0111\u1ec1 xu\u1ea5t kh\u00f4ng x\u00e1c l\u1eadp r\u1eb1ng nh\u1eefng s\u1eeda \u0111\u1ed5i \u0111\u00e3 c\u00f3 hi\u1ec7u l\u1ef1c. [[SOURCE:SOURCE_1]]",
+        "L\u1eadp lu\u1eadn chi ph\u00ed c\u1ee7a SEC c\u00f3 m\u1ed9t \u0111i\u1ec1u ki\u1ec7n quan tr\u1ecdng. Ch\u1ee7 t\u1ecbch SEC Paul S. Atkins n\u00f3i r\u1eb1ng khi \u0111\u01b0\u1ee3c th\u1ef1c hi\u1ec7n ph\u00f9 h\u1ee3p, giao d\u1ecbch ch\u00e9o cho ph\u00e9p qu\u1ef9 tr\u00e1nh chi ph\u00ed g\u1eafn v\u1edbi giao d\u1ecbch tr\u00ean th\u1ecb tr\u01b0\u1eddng m\u1edf v\u00e0 chuy\u1ec3n ph\u1ea7n ti\u1ebft ki\u1ec7m \u0111\u00f3 t\u1edbi nh\u00e0 \u0111\u1ea7u t\u01b0. \u0110\u00e2y l\u00e0 c\u01a1 ch\u1ebf l\u1ee3i \u00edch m\u00e0 c\u01a1 quan qu\u1ea3n l\u00fd tr\u00ecnh b\u00e0y, ch\u01b0a ph\u1ea3i k\u1ebft qu\u1ea3 \u0111o \u0111\u01b0\u1ee3c c\u1ee7a m\u1ed9t giao d\u1ecbch c\u1ee5 th\u1ec3. Mu\u1ed1n \u0111\u00e1nh gi\u00e1 l\u1ee3i \u00edch th\u1ef1c t\u1ebf, ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n bi\u1ebft qu\u1ef9 \u0111\u00e3 tr\u00e1nh \u0111\u01b0\u1ee3c chi ph\u00ed n\u00e0o v\u00e0 b\u1eb1ng ch\u1ee9ng n\u00e0o cho th\u1ea5y ng\u01b0\u1eddi g\u00f3p v\u1ed1n nh\u1eadn \u0111\u01b0\u1ee3c l\u1ee3i \u00edch \u1ea5y. [[SOURCE:SOURCE_1]]",
+        "\u0110i\u1ec3m c\u0103ng n\u1eb1m \u1edf ch\u1ed7 m\u1ed9t m\u1ee9c gi\u00e1 \u0111\u01b0\u1ee3c c\u1ea3 b\u00ean mua v\u00e0 b\u00ean b\u00e1n s\u1eed d\u1ee5ng c\u00f3 h\u1ec7 qu\u1ea3 kh\u00e1c nhau cho hai ph\u00eda. Trong t\u00ecnh hu\u1ed1ng hai qu\u1ef9 c\u00f3 chung b\u00ean qu\u1ea3n l\u00fd, m\u1ed9t m\u1ee9c gi\u00e1 thu\u1eadn l\u1ee3i h\u01a1n cho qu\u1ef9 b\u00e1n c\u00f3 th\u1ec3 k\u00e9m thu\u1eadn l\u1ee3i h\u01a1n cho qu\u1ef9 mua. Suy lu\u1eadn c\u1ee7a Capital Chronicle l\u00e0 kho\u1ea3n ti\u1ebft ki\u1ec7m giao d\u1ecbch \u0111\u01b0\u1ee3c n\u00eau cho c\u1ea3 nh\u00f3m ch\u01b0a tr\u1ea3 l\u1eddi \u0111\u01b0\u1ee3c l\u1ee3i \u00edch ph\u00e2n b\u1ed5 ra sao gi\u1eefa nh\u1eefng ng\u01b0\u1eddi g\u00f3p v\u1ed1n kh\u00e1c nhau. \u0110\u00e2y l\u00e0 c\u00e2u h\u1ecfi v\u1ec1 xung \u0111\u1ed9t l\u1ee3i \u00edch c\u1ea7n ki\u1ec3m tra, kh\u00f4ng ph\u1ea3i c\u00e1o bu\u1ed9c r\u1eb1ng m\u1ed9t qu\u1ef9 \u0111\u00e3 b\u1ecb \u0111\u1ed1i x\u1eed b\u1ea5t l\u1ee3i. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": null,
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal28-crypto-safeguards",
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "current_edition": true,
+      "full_copy_sha256": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Proposed custody options, subject scope, conditions and actual protection/token prices remain distinct; no numeric or deterministic investment outcome.",
+      "relevant_passages": [
+        "SEC m\u00f4 t\u1ea3 m\u1ed9t khu\u00f4n kh\u1ed5 l\u01b0u k\u00fd t\u00e0i s\u1ea3n crypto d\u00e0nh cho b\u00ean t\u01b0 v\u1ea5n \u0111\u1ea7u t\u01b0 \u0111\u00e3 \u0111\u0103ng k\u00fd v\u00e0 c\u00e1c qu\u1ef9 thu\u1ed9c di\u1ec7n \u0111i\u1ec1u ti\u1ebft. Th\u00f4ng c\u00e1o x\u00e1c \u0111\u1ecbnh nh\u00f3m qu\u1ef9 n\u00e0y g\u1ed3m c\u00f4ng ty \u0111\u1ea7u t\u01b0 \u0111\u00e3 \u0111\u0103ng k\u00fd v\u00e0 c\u00f4ng ty ph\u00e1t tri\u1ec3n kinh doanh. V\u00ec v\u1eady, khi \u0111\u1ecdc \u0111\u1ec1 xu\u1ea5t cho m\u1ed9t tr\u01b0\u1eddng h\u1ee3p c\u1ee5 th\u1ec3, c\u00e2u h\u1ecfi \u0111\u1ea7u ti\u00ean l\u00e0 ch\u1ee7 th\u1ec3 \u0111\u00f3 c\u00f3 thu\u1ed9c nh\u00f3m \u0111\u01b0\u1ee3c v\u0103n b\u1ea3n n\u00eau hay kh\u00f4ng. [[SOURCE:SOURCE_1]]",
+        "\u0110\u00f3 l\u00e0 \u0111i\u1ec3m ph\u00e2n bi\u1ec7t \u0111\u1ea7u ti\u00ean trong c\u00e1ch \u0111\u1ecdc c\u1ee7a Capital Chronicle: \u0111\u1ec1 xu\u1ea5t n\u00f3i t\u1edbi nh\u1eefng trung gian v\u00e0 ph\u01b0\u01a1ng \u00e1n ph\u1ee5c v\u1ee5 kh\u00e1ch h\u00e0ng nh\u1ea5t \u0111\u1ecbnh. Ch\u1ec9 vi\u1ec7c m\u1ed9t ng\u01b0\u1eddi s\u1edf h\u1eefu crypto ch\u01b0a cho bi\u1ebft ng\u01b0\u1eddi \u1ea5y c\u00f3 \u0111ang \u0111\u01b0\u1ee3c ph\u1ee5c v\u1ee5 qua \u0111\u00fang lo\u1ea1i b\u00ean t\u01b0 v\u1ea5n ho\u1eb7c qu\u1ef9 \u0111\u01b0\u1ee3c nh\u1eafc \u0111\u1ebfn. Mu\u1ed1n n\u1ed1i n\u1ed9i dung \u0111\u1ec1 xu\u1ea5t v\u1edbi quy\u1ec1n l\u1ee3i c\u1ee7a m\u00ecnh, ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n x\u00e1c \u0111\u1ecbnh tr\u01b0\u1edbc m\u1ed1i quan h\u1ec7 \u0111\u00f3. [[SOURCE:SOURCE_1]]",
+        "Th\u00f4ng c\u00e1o cho bi\u1ebft \u0111\u1ec1 xu\u1ea5t s\u1ebd cho ph\u00e9p t\u00e0i s\u1ea3n crypto \u0111\u01b0\u1ee3c t\u1ef1 l\u01b0u k\u00fd trong m\u1ed9t s\u1ed1 ho\u00e0n c\u1ea3nh nh\u1ea5t \u0111\u1ecbnh. \u0110\u1ec1 xu\u1ea5t c\u0169ng s\u1ebd cho ph\u00e9p d\u00f9ng c\u00f4ng ty t\u00edn th\u00e1c c\u1ea5p bang l\u00e0m b\u00ean l\u01b0u k\u00fd t\u00e0i s\u1ea3n crypto c\u1ee7a kh\u00e1ch h\u00e0ng v\u00e0 c\u00e1c qu\u1ef9 thu\u1ed9c ph\u1ea1m vi. \u0110\u00e2y l\u00e0 hai c\u00e1ch s\u1eafp x\u1ebfp \u0111\u01b0\u1ee3c n\u00eau trong \u0111\u1ec1 xu\u1ea5t; chi ti\u1ebft v\u1ec1 ho\u00e0n c\u1ea3nh v\u00e0 \u0111i\u1ec1u ki\u1ec7n \u00e1p d\u1ee5ng ch\u01b0a \u0111\u01b0\u1ee3c tr\u00ecnh b\u00e0y \u0111\u1ea7y \u0111\u1ee7 trong \u0111o\u1ea1n th\u00f4ng c\u00e1o s\u1eed d\u1ee5ng \u1edf \u0111\u00e2y. [[SOURCE:SOURCE_1]]",
+        "SEC cho bi\u1ebft c\u00e1c quy t\u1eafc v\u00e0 s\u1eeda \u0111\u1ed5i \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t theo lu\u1eadt v\u1ec1 t\u01b0 v\u1ea5n \u0111\u1ea7u t\u01b0 v\u00e0 c\u00f4ng ty \u0111\u1ea7u t\u01b0 s\u1ebd c\u1eadp nh\u1eadt m\u1ed9t s\u1ed1 y\u00eau c\u1ea7u, trong \u0111\u00f3 c\u00f3 ki\u1ec3m to\u00e1n b\u00e1o c\u00e1o t\u00e0i ch\u00ednh \u0111\u1ed1i v\u1edbi b\u00ean t\u01b0 v\u1ea5n \u0111\u1ea7u t\u01b0 \u0111\u00e3 \u0111\u0103ng k\u00fd v\u00e0 d\u1ecbch v\u1ee5 l\u01b0u k\u00fd c\u1ee7a c\u00f4ng ty m\u00f4i gi\u1edbi, kinh doanh ch\u1ee9ng kho\u00e1n \u0111\u1ed1i v\u1edbi c\u00e1c qu\u1ef9 thu\u1ed9c ph\u1ea1m vi. Th\u00f4ng c\u00e1o n\u00eau hai m\u1ea3ng n\u00e0y v\u1edbi nh\u1eefng \u0111\u1ed1i t\u01b0\u1ee3ng t\u01b0\u01a1ng \u1ee9ng; n\u00f3 ch\u01b0a tr\u00ecnh b\u00e0y \u0111\u1ea7y \u0111\u1ee7 n\u1ed9i dung s\u1eeda \u0111\u1ed5i. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": null,
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal24-native-owner-manual-v4",
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "current_edition": false,
+      "full_copy_sha256": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Main gas review windows explicitly are questions to test, not price targets or probabilities. Main recirculation explicitly supplies no independent confirmation.",
+      "relevant_passages": [
+        "CC REPORT / EVENT UNCONFIRMED \u2014 Capital Chronicle reports a dated tension: less gas added than the same-week seasonal average, yet more gas already stored than the five-year stock average. If confirmed, that combination calls for separating the available buffer from the pace at which it is being replenished. It does not by itself establish a shortage or a price direction. [[SOURCE:SOURCE_1]]",
+        "According to Capital Chronicle, the Main evidence metadata dates the observation to October 9, 2026 and records retrieval on October 18. The Main report cutoff is October 19; that is not the source release date. No source release date is supplied in this source pack. These are retained observations, not a fresh storage announcement or a current executable market quote. [[SOURCE:SOURCE_1]]",
+        "Capital Chronicle analysis: if confirmed, slower refill can coexist with above-average stocks; a seasonal comparison is not a consensus surprise. [[SOURCE:SOURCE_1]]",
+        "According to Capital Chronicle, the competing explanations in Main are weather, supply or import changes, and shoulder-season demand. Its seasonal benchmark is not pre-release market consensus. Without that consensus and a matched price reaction, the reader cannot infer from this report that traders received an unexpected tightening signal. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": null,
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal26-main-oil-analysis-v2",
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "current_edition": false,
+      "full_copy_sha256": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Historical conditional import/refinery watch is not a probability forecast. Existing source-permission withdrawal invalidates prepared KEEP; no new factual reversal invented.",
+      "relevant_passages": [
+        "CC REPORT / EVENT UNCONFIRMED: Capital Chronicle's USOIL version 4 reports an 8.6 million barrel crude draw alongside a 3.5 million barrel gasoline build. Its conditional analysis asks whether import and refinery flows could account for the crude decline without stronger end demand. The reader's task is to test that mechanism before treating the stock decline as a demand signal. [[SOURCE:SOURCE_1]]",
+        "According to the report's timing metadata, the evidence has an observation date of 9 October 2026 and was retrieved on 18 October at 15:13:09.289 UTC. Its own known-at cutoff is 19 October at 09:14:42.517584 UTC. Those dates describe observation, retrieval and report cutoff separately. An original source release time is not supplied here; the report cutoff does not make the observations new. [[SOURCE:SOURCE_1]]",
+        "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. [[SOURCE:SOURCE_1]]",
+        "Capital Chronicle reports crude stocks falling by 8.6 million barrels to 415.6 million barrels. It also records gasoline stocks rising by 3.5 million barrels and distillate stocks falling by 2.5 million barrels. This article analyzes that dated report; its import does not independently confirm the underlying observations. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": "CORRECTION_OR_WITHDRAWAL",
+      "existing_prepared_state": "INVALIDATED_BY_SOURCE_REVIEW",
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal26-gas-follow-up",
+      "article_identity": "9cb401822f1df3223ca23269da7d499f6b4272e9ca70546e066dca01161e397f",
+      "current_edition": false,
+      "full_copy_sha256": "9cb401822f1df3223ca23269da7d499f6b4272e9ca70546e066dca01161e397f",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "January/October seasonal comparisons are distinct periods, not a demonstrated tightening path. Existing seasonal follow-up remains visible.",
+      "relevant_passages": [
+        "CONFIRMED \u2014 EIA \u01b0\u1edbc t\u00ednh t\u1ed3n kho gas ng\u00e0y 9/10/2026 \u1edf m\u1ee9c 3.567 Bcf, cao h\u01a1n trung b\u00ecnh n\u0103m n\u0103m 45 Bcf nh\u01b0ng th\u1ea5p h\u01a1n c\u00f9ng k\u1ef3 n\u0103m tr\u01b0\u1edbc 143 Bcf. So v\u1edbi b\u1ea3n l\u01b0u th\u00e1ng 1 t\u1eebng ghi m\u1ee9c d\u01b0 177 Bcf, \u0111i\u1ec3m c\u1ea7n \u0111\u1ed5i l\u00e0 k\u1ef3 d\u1eef li\u1ec7u d\u00f9ng \u0111\u1ec3 \u0111\u00e1nh gi\u00e1 c\u00e2n b\u1eb1ng; hai m\u1ed1c r\u1eddi nhau ch\u01b0a ch\u1ee9ng minh m\u1ed9t qu\u00e1 tr\u00ecnh th\u1eaft ch\u1eb7t li\u00ean t\u1ee5c. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]",
+        "B\u1ea3n Natural Gas Weekly Update mang ng\u00e0y 22/1/2026 ghi t\u1ed3n kho 3.065 Bcf, cao h\u01a1n trung b\u00ecnh n\u0103m n\u0103m 177 Bcf. \u0110o\u1ea1n ngu\u1ed3n \u0111\u01b0\u1ee3c l\u01b0u kh\u00f4ng n\u00eau ng\u00e0y quan s\u00e1t c\u1ee7a s\u1ed1 n\u00e0y; kh\u00f4ng th\u1ec3 l\u1ea5y ng\u00e0y t\u00e0i li\u1ec7u l\u00e0m ng\u00e0y \u0111o t\u1ed3n kho. [[SOURCE:SOURCE_3]]",
+        "B\u1ea3n Weekly Natural Gas Storage Report mang ng\u00e0y ph\u00e1t h\u00e0nh 15/10/2026 ghi r\u00f5 quan s\u00e1t ng\u00e0y 9/10: 3.567 Bcf, t\u0103ng r\u00f2ng 67 Bcf trong tu\u1ea7n. Trung b\u00ecnh n\u0103m n\u0103m t\u01b0\u01a1ng \u1ee9ng l\u00e0 3.522 Bcf; t\u1ed5ng t\u1ed3n kho v\u1eabn n\u1eb1m trong kho\u1ea3ng l\u1ecbch s\u1eed n\u0103m n\u0103m. Ng\u00e0y ph\u00e1t h\u00e0nh v\u00e0 ng\u00e0y quan s\u00e1t l\u00e0 hai m\u1ed1c ri\u00eang; gi\u1edd ph\u00e1t h\u00e0nh k\u00e8m m\u00fai gi\u1edd kh\u00f4ng \u0111\u01b0\u1ee3c cung c\u1ea5p \u0111\u1ea7y \u0111\u1ee7 trong ph\u1ea7n ngu\u1ed3n d\u00f9ng \u1edf \u0111\u00e2y. [[SOURCE:SOURCE_1]]",
+        "Ph\u00e2n t\u00edch Capital Chronicle: chu\u1ea9n n\u0103m n\u0103m c\u1ee7a th\u00e1ng 1 v\u00e0 chu\u1ea9n c\u1ee7a tu\u1ea7n th\u00e1ng 10 ph\u1ea3n \u00e1nh hai th\u1eddi \u0111i\u1ec3m m\u00f9a v\u1ee5 kh\u00e1c nhau. Tr\u1eeb hai m\u1ee9c t\u1ed3n kho, ho\u1eb7c hai ph\u1ea7n d\u01b0, s\u1ebd b\u1ecf qua \u0111\u01b0\u1eddng \u0111i gi\u1eefa ch\u00fang; ph\u00e9p \u0111\u1ed1i chi\u1ebfu \u0111\u00f3 kh\u00f4ng t\u1ef1 x\u00e1c \u0111\u1ecbnh t\u1ed1c \u0111\u1ed9 th\u1eaft ch\u1eb7t, m\u1ee9c khan hi\u1ebfm hay b\u1ea5t ng\u1edd th\u1ecb tr\u01b0\u1eddng. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]"
+      ],
+      "existing_source_decision": "MATERIAL_FOLLOW_UP",
+      "existing_prepared_state": "INVALIDATED_BY_SOURCE_REVIEW",
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal27-gas-refill-update",
+      "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+      "current_edition": false,
+      "full_copy_sha256": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Same-week injection average is distinct from stock buffer and pre-release expectations; no seasonal benchmark becomes market-surprise probability.",
+      "relevant_passages": [
+        "B\u01a1m th\u00eam d\u01b0\u1edbi chu\u1ea9n m\u00f9a v\u1ee5 c\u00f3 ngh\u0129a kho gas \u0111\u00e3 thi\u1ebfu? CONFIRMED \u2014 EIA ghi nh\u1eadn m\u1ee9c t\u0103ng r\u00f2ng 67 Bcf trong tu\u1ea7n k\u1ebft th\u00fac ng\u00e0y 9/10/2026, so v\u1edbi b\u00ecnh qu\u00e2n c\u00f9ng tu\u1ea7n 90 Bcf. Tuy nhi\u00ean, t\u1ed5ng t\u1ed3n kho v\u1eabn cao h\u01a1n trung b\u00ecnh n\u0103m n\u0103m. \u0110i\u1ec3m \u0111\u00e1ng theo d\u00f5i l\u00e0 nh\u1ecbp b\u1ed5 sung ph\u1ea7n \u0111\u1ec7m; s\u1ed1 li\u1ec7u n\u00e0y ch\u01b0a x\u00e1c l\u1eadp t\u00ecnh tr\u1ea1ng khan hi\u1ebfm. [[SOURCE:SOURCE_1]]",
+        "B\u00e0i nghi\u00ean c\u1ee9u tr\u01b0\u1edbc, v\u1eabn ch\u01b0a c\u00f4ng b\u1ed1, \u0111\u1ed1i chi\u1ebfu m\u1ee9c t\u1ed3n th\u00e1ng 10 v\u1edbi m\u1ed9t b\u1ea3n l\u01b0u th\u00e1ng 1. L\u1ea7n c\u1eadp nh\u1eadt n\u00e0y b\u1ed5 sung ph\u00e9p so m\u1ee9c b\u01a1m th\u00eam \u0111\u00fang c\u00f9ng tu\u1ea7n. S\u1ed1 kho ng\u00e0y 9/10 \u0111\u01b0\u1ee3c gi\u1eef nguy\u00ean; \u0111\u00e2y l\u00e0 th\u00eam c\u00e1ch \u0111\u1ecdc cho c\u00f9ng k\u1ef3 quan s\u00e1t. [[SOURCE:SOURCE_1]]",
+        "EIA so m\u1ee9c b\u01a1m r\u00f2ng 67 Bcf v\u1edbi b\u00ecnh qu\u00e2n 90 Bcf c\u1ee7a c\u00f9ng tu\u1ea7n trong giai \u0111o\u1ea1n 2021\u20132025 v\u00e0 m\u1ee9c 80 Bcf c\u1ee7a c\u00f9ng tu\u1ea7n n\u0103m tr\u01b0\u1edbc. Chu\u1ea9n n\u00e0y tr\u1ea3 l\u1eddi kho \u0111\u01b0\u1ee3c b\u1ed5 sung nhanh \u0111\u1ebfn \u0111\u00e2u theo m\u00f9a v\u1ee5. T\u1ed5ng t\u1ed3n kho tr\u1ea3 l\u1eddi ph\u1ea7n \u0111\u1ec7m \u0111ang l\u1edbn \u0111\u1ebfn \u0111\u00e2u. Hai c\u00e2u tr\u1ea3 l\u1eddi c\u00f3 th\u1ec3 kh\u00e1c h\u01b0\u1edbng m\u00e0 kh\u00f4ng m\u00e2u thu\u1eabn. [[SOURCE:SOURCE_1]]",
+        "\u0110\u1ed1i tr\u1ecdng c\u1ee7a c\u00e1ch \u0111\u1ecdc khan hi\u1ebfm l\u00e0 t\u1ed3n kho v\u1eabn cao h\u01a1n trung b\u00ecnh n\u0103m n\u0103m. M\u1ee9c t\u0103ng r\u00f2ng d\u01b0\u1edbi chu\u1ea9n trong m\u1ed9t tu\u1ea7n ch\u01b0a \u0111\u1ee7 ch\u1ee9ng minh ph\u1ea7n \u0111\u1ec7m \u0111\u00e3 thi\u1ebfu, c\u0169ng ch\u01b0a cho bi\u1ebft v\u00ec sao nh\u1ecbp b\u1ed5 sung th\u1ea5p h\u01a1n. [[SOURCE:SOURCE_1]]"
+      ],
+      "existing_source_decision": "USE_UNCHANGED",
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    },
+    {
+      "run_id": "goal27-oil-scope-update",
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "current_edition": false,
+      "full_copy_sha256": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "copy_changed": false,
+      "certainty_or_target_drift_found": false,
+      "reason": "Source facts retained while analytical watch withdrawn; scope/permission reduction is not an observation or measured demand reversal.",
+      "relevant_passages": [
+        "What can a crude draw tell us about demand? Capital Chronicle's oil update retains the October 9 EIA stock figures while removing the earlier analytical watch. The retained record leaves a tension: crude and distillate stocks fell while gasoline accumulated. Lower buffers could matter for availability, but this combination does not settle why they fell or whether the decline persists. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]",
+        "Capital Chronicle's reading is that a fall in stored crude describes a change in the buffer; it does not identify which flows produced it. EIA's gasoline build also leaves the stronger-demand explanation open. [[SOURCE:SOURCE_2]]",
+        "The earlier unpublished article developed a conditional import-and-refinery explanation and a watch across short, swing and longer horizons. This replacement withdraws that prepared interpretation and its conditions for retaining or invalidating the watch. The original draft remains research history. It was never a published article in this story chain. [[SOURCE:SOURCE_1]]",
+        "Capital Chronicle's current USOIL version retains only the source-fact claim. The removed analysis cannot serve as continuing support for the earlier draft. That change concerns the scope of our interpretation: the October 9 inventory observations have not been retracted or revised in the retained EIA text. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]"
+      ],
+      "existing_source_decision": "USE_UNCHANGED",
+      "existing_prepared_state": null,
+      "new_writer_required": false
+    }
+  ]
+}

@@ -1,0 +1,3215 @@
+{
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "status": "PASS",
+  "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+  "supported_material_claim_count": 31,
+  "unsupported_material_claim_count": 0,
+  "supported_material_claims": [
+    {
+      "claim_id": "g29-title-transmission",
+      "claim_text": "Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-dek-mechanism",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle \u0111\u1ecdc l\u1ea1i s\u1ed1 li\u1ec7u EIA tu\u1ea7n 09/10/2026: r\u00fat kho M\u1ef9 ch\u1ec9 c\u00f3 th\u1ec3 th\u00e0nh c\u00e2u chuy\u1ec7n Brent n\u1ebfu c\u00f3 c\u1ea7u n\u1ed1i th\u01b0\u01a1ng m\u1ea1i; nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u v\u1eabn l\u00e0 ph\u1ea3n \u0111\u1ec1.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-dek-date",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle \u0111\u1ecdc l\u1ea1i s\u1ed1 li\u1ec7u EIA tu\u1ea7n 09/10/2026: r\u00fat kho M\u1ef9 ch\u1ec9 c\u00f3 th\u1ec3 th\u00e0nh c\u00e2u chuy\u1ec7n Brent n\u1ebfu c\u00f3 c\u1ea7u n\u1ed1i th\u01b0\u01a1ng m\u1ea1i; nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u v\u1eabn l\u00e0 ph\u1ea3n \u0111\u1ec1.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "06ac0f3761728b3d9ab2602325e5232a420ad5e1293e1c25dc4004d71f35cb80",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f3fe265c8bb074e965e3560ff7d27f6667c368f45672a9f187311ca8a9462dc3"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-dek-countercase",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle \u0111\u1ecdc l\u1ea1i s\u1ed1 li\u1ec7u EIA tu\u1ea7n 09/10/2026: r\u00fat kho M\u1ef9 ch\u1ec9 c\u00f3 th\u1ec3 th\u00e0nh c\u00e2u chuy\u1ec7n Brent n\u1ebfu c\u00f3 c\u1ea7u n\u1ed1i th\u01b0\u01a1ng m\u1ea1i; nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u v\u1eabn l\u00e0 ph\u1ea3n \u0111\u1ec1.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "3c46f0449c19270bdcfcfae71173db68d2ef166275a74300f098ac9817c6b048"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-search-title",
+      "claim_text": "Capital Chronicle: R\u00fat kho d\u1ea7u M\u1ef9 c\u00f3 truy\u1ec1n sang Brent?",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-meta-mechanism",
+      "claim_text": "Capital Chronicle ph\u00e2n t\u00edch c\u00f3 \u0111i\u1ec1u ki\u1ec7n: r\u00fat kho d\u1ea7u M\u1ef9 c\u1ea7n b\u1eb1ng ch\u1ee9ng d\u00f2ng h\u00e0ng v\u00e0 ch\u00eanh gi\u00e1 \u0111\u1ec3 n\u1ed1i sang Brent; nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u v\u1eabn l\u00e0 ph\u1ea3n \u0111\u1ec1.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-meta-countercase",
+      "claim_text": "Capital Chronicle ph\u00e2n t\u00edch c\u00f3 \u0111i\u1ec1u ki\u1ec7n: r\u00fat kho d\u1ea7u M\u1ef9 c\u1ea7n b\u1eb1ng ch\u1ee9ng d\u00f2ng h\u00e0ng v\u00e0 ch\u00eanh gi\u00e1 \u0111\u1ec3 n\u1ed1i sang Brent; nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u v\u1eabn l\u00e0 ph\u1ea3n \u0111\u1ec1.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "3c46f0449c19270bdcfcfae71173db68d2ef166275a74300f098ac9817c6b048"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-hook-mechanism",
+      "claim_text": "Capital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm? C\u1ea7n ki\u1ec3m d\u00f2ng h\u00e0ng, ch\u00eanh gi\u00e1 v\u00e0 ph\u1ea3n \u0111\u1ec1 nh\u1eadp kh\u1ea9u.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-hook-countercase",
+      "claim_text": "Capital Chronicle \u0111\u1eb7t c\u00e2u h\u1ecfi: r\u00fat kho d\u1ea7u M\u1ef9 \u0111\u00e3 \u0111\u1ee7 \u0111\u1ec3 g\u1ecdi Brent khan hi\u1ebfm? C\u1ea7n ki\u1ec3m d\u00f2ng h\u00e0ng, ch\u00eanh gi\u00e1 v\u00e0 ph\u1ea3n \u0111\u1ec1 nh\u1eadp kh\u1ea9u.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "3c46f0449c19270bdcfcfae71173db68d2ef166275a74300f098ac9817c6b048"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": []
+    },
+    {
+      "claim_id": "g29-opening-mechanism",
+      "claim_text": "V\u00ec sao r\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 ch\u1ee9ng minh Brent khan hi\u1ebfm to\u00e0n c\u1ea7u? B\u00e1o c\u00e1o Capital Chronicle gi\u1eef hai kh\u1ea3 n\u0103ng: c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t truy\u1ec1n qua th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n, ho\u1eb7c th\u1eddi \u0111i\u1ec3m nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u l\u00e0m kho M\u1ef9 gi\u1ea3m. V\u1edbi s\u1ed1 li\u1ec7u \u0111\u01b0\u1ee3c gi\u1eef cho tu\u1ea7n 09/10/2026, \u0111\u01b0\u1eddng truy\u1ec1n sang Brent v\u1eabn ch\u01b0a \u0111\u01b0\u1ee3c ch\u1ee9ng minh.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:0"
+      ]
+    },
+    {
+      "claim_id": "g29-opening-countercase",
+      "claim_text": "V\u00ec sao r\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 ch\u1ee9ng minh Brent khan hi\u1ebfm to\u00e0n c\u1ea7u? B\u00e1o c\u00e1o Capital Chronicle gi\u1eef hai kh\u1ea3 n\u0103ng: c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t truy\u1ec1n qua th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n, ho\u1eb7c th\u1eddi \u0111i\u1ec3m nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u l\u00e0m kho M\u1ef9 gi\u1ea3m. V\u1edbi s\u1ed1 li\u1ec7u \u0111\u01b0\u1ee3c gi\u1eef cho tu\u1ea7n 09/10/2026, \u0111\u01b0\u1eddng truy\u1ec1n sang Brent v\u1eabn ch\u01b0a \u0111\u01b0\u1ee3c ch\u1ee9ng minh.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "3c46f0449c19270bdcfcfae71173db68d2ef166275a74300f098ac9817c6b048"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:0"
+      ]
+    },
+    {
+      "claim_id": "g29-opening-date",
+      "claim_text": "V\u00ec sao r\u00fat kho d\u1ea7u M\u1ef9 ch\u01b0a \u0111\u1ee7 ch\u1ee9ng minh Brent khan hi\u1ebfm to\u00e0n c\u1ea7u? B\u00e1o c\u00e1o Capital Chronicle gi\u1eef hai kh\u1ea3 n\u0103ng: c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t truy\u1ec1n qua th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n, ho\u1eb7c th\u1eddi \u0111i\u1ec3m nh\u1eadp h\u00e0ng v\u00e0 l\u1ecdc d\u1ea7u l\u00e0m kho M\u1ef9 gi\u1ea3m. V\u1edbi s\u1ed1 li\u1ec7u \u0111\u01b0\u1ee3c gi\u1eef cho tu\u1ea7n 09/10/2026, \u0111\u01b0\u1eddng truy\u1ec1n sang Brent v\u1eabn ch\u01b0a \u0111\u01b0\u1ee3c ch\u1ee9ng minh.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "06ac0f3761728b3d9ab2602325e5232a420ad5e1293e1c25dc4004d71f35cb80",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f3fe265c8bb074e965e3560ff7d27f6667c368f45672a9f187311ca8a9462dc3"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:0"
+      ]
+    },
+    {
+      "claim_id": "g29-observed-balance",
+      "claim_text": "D\u1eef ki\u1ec7n ngu\u1ed3n \u0111\u01b0\u1ee3c b\u00e1o c\u00e1o CC l\u01b0u l\u1ea1i: d\u1ea7u th\u00f4 gi\u1ea3m 8,6 tri\u1ec7u th\u00f9ng, c\u00f2n 415,6 tri\u1ec7u th\u00f9ng; x\u0103ng t\u0103ng 3,5 tri\u1ec7u th\u00f9ng; s\u1ea3n ph\u1ea9m ch\u01b0ng c\u1ea5t gi\u1ea3m 2,5 tri\u1ec7u th\u00f9ng. Nh\u1eadp kh\u1ea9u gi\u1ea3m 791.000 th\u00f9ng/ng\u00e0y, t\u1ef7 l\u1ec7 s\u1eed d\u1ee5ng nh\u00e0 m\u00e1y l\u1ecdc d\u1ea7u l\u00e0 93,5%; ch\u1ec9 b\u00e1o c\u1ea7u x\u0103ng trung b\u00ecnh b\u1ed1n tu\u1ea7n th\u1ea5p h\u01a1n 0,4% so v\u1edbi c\u00f9ng k\u1ef3 n\u0103m tr\u01b0\u1edbc. \u0110\u00e2y l\u00e0 c\u00e1c s\u1ed1 b\u00e1o c\u00e1o quy cho b\u1ea3n EIA \u0111\u01b0\u1ee3c gi\u1eef l\u1ea1i.",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-source",
+          "claim_hash": "431462c5fd8bfe3e05369538592cef414052100ec0f5417c4d7503384ce10c74",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "431462c5fd8bfe3e05369538592cef414052100ec0f5417c4d7503384ce10c74",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "8e08ceb331e60ab85be1a8c1f16cef69c8bc92ffd026e8c64bbcddd7f1a0caa7"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-source",
+          "claim_hash": "431462c5fd8bfe3e05369538592cef414052100ec0f5417c4d7503384ce10c74",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:2"
+      ]
+    },
+    {
+      "claim_id": "g29-mechanism",
+      "claim_text": "Ph\u00e2n t\u00edch CC c\u00f3 \u0111i\u1ec1u ki\u1ec7n: n\u1ebfu r\u00fat kho M\u1ef9 ph\u1ea3n \u00e1nh c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t l\u1eb7p l\u1ea1i, th\u01b0\u01a1ng m\u1ea1i \u0111\u01b0\u1eddng bi\u1ec3n v\u00e0 ch\u00eanh gi\u00e1 c\u00f3 th\u1ec3 truy\u1ec1n t\u00e1c \u0111\u1ed9ng sang Brent. B\u1ed9 ngu\u1ed3n ch\u01b0a ch\u1ee9ng minh \u0111\u01b0\u1eddng truy\u1ec1n \u1ea5y.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:4"
+      ]
+    },
+    {
+      "claim_id": "g29-geographic-test",
+      "claim_text": "Ph\u1ea7n ti\u1ebfp n\u1ed1i n\u00e0y t\u1eadp trung v\u00e0o ph\u00e9p ki\u1ec3m \u0111\u1ecba l\u00fd c\u1ee7a lu\u1eadn \u0111i\u1ec3m. C\u1ea7n n\u1ed1i c\u00e2n \u0111\u1ed1i M\u1ef9 v\u1edbi lu\u1ed3ng h\u00e0ng v\u00e0 n\u1ec1n Brent b\u1eb1ng ch\u1ee9ng c\u1ee9 c\u1ee5 th\u1ec3; m\u1ed9t con s\u1ed1 r\u00fat kho khu v\u1ef1c ch\u01b0a cho bi\u1ebft t\u00e1c \u0111\u1ed9ng sang Brent m\u1ea1nh bao nhi\u00eau, hay \u0111ang theo h\u01b0\u1edbng n\u00e0o.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:5"
+      ]
+    },
+    {
+      "claim_id": "g29-trade-test",
+      "claim_text": "D\u00f2ng t\u00e0u h\u00e0ng v\u00e0 xu\u1ea5t nh\u1eadp kh\u1ea9u c\u00f3 cho th\u1ea5y c\u1ea1nh tranh d\u1ea7u v\u1eadt ch\u1ea5t l\u1eb7p l\u1ea1i hay kh\u00f4ng? \u0110\u00e2y l\u00e0 c\u00e2u h\u1ecfi c\u1ea7n ki\u1ec3m, ch\u01b0a ph\u1ea3i lu\u1ed3ng th\u01b0\u01a1ng m\u1ea1i \u0111\u00e3 \u0111\u01b0\u1ee3c quan s\u00e1t trong b\u1ed9 ngu\u1ed3n.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f354e8b35677a6319497d2bda9e0407804925b13b4aeaf81812ccabddccaac07"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-mechanism-0",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:6"
+      ]
+    },
+    {
+      "claim_id": "g29-transport-test",
+      "claim_text": "Ngu\u1ed3n cung ri\u00eang Brent, ph\u1ea9m c\u1ea5p v\u00e0 v\u1eadn t\u1ea3i c\u00f3 h\u1ed7 tr\u1ee3 \u0111\u01b0\u1eddng truy\u1ec1n \u0111\u00f3 hay t\u1ea1o ra m\u1ed9t c\u00e1ch gi\u1ea3i th\u00edch kh\u00e1c? B\u00e1o c\u00e1o ch\u01b0a c\u00f3 s\u1ed1 s\u1ea3n l\u01b0\u1ee3ng v\u00e0 xu\u1ea5t kh\u1ea9u to\u00e0n c\u1ea7u \u0111\u1ec3 l\u1ef1a ch\u1ecdn gi\u1eefa c\u00e1c c\u00e1ch \u0111\u1ecdc.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "3c46f0449c19270bdcfcfae71173db68d2ef166275a74300f098ac9817c6b048"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:7"
+      ]
+    },
+    {
+      "claim_id": "g29-spread-inputs",
+      "claim_text": "\u0110\u01b0\u1eddng cong Brent, ch\u00eanh Brent\u2013WTI, v\u1eadn t\u1ea3i v\u00e0 ph\u1ea9m c\u1ea5p c\u00f9ng th\u1eddi \u0111i\u1ec3m s\u1ebd l\u00e0 c\u00e1c \u0111\u1ea7u v\u00e0o c\u1ea7n \u0111\u1ed1i chi\u1ebfu. B\u1ed9 ngu\u1ed3n ch\u01b0a c\u00f3 ch\u00fang \u0111\u1ec3 di\u1ec5n gi\u1ea3i gi\u00e1 hi\u1ec7n t\u1ea1i ho\u1eb7c \u0111o t\u00e1c \u0111\u1ed9ng \u0111\u00e3 ph\u1ea3n \u00e1nh v\u00e0o gi\u00e1.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "0e1df4f47a003c758f533f9e77354c3f96b9e1a3a76ae3ca6d2e5dcf011c6967",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-review-0",
+          "claim_hash": "302e35864a578d3f63dcdc7502e788ce58589a9ffd733eafdfb9ff0e0164c118",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "302e35864a578d3f63dcdc7502e788ce58589a9ffd733eafdfb9ff0e0164c118",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "1cf1125939475c77edcb353d8e936fab5e4187e5221c664a483e446219a963d3"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-review-0",
+          "claim_hash": "302e35864a578d3f63dcdc7502e788ce58589a9ffd733eafdfb9ff0e0164c118",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:8"
+      ]
+    },
+    {
+      "claim_id": "g29-spread-missing",
+      "claim_text": "\u0110\u01b0\u1eddng cong Brent, ch\u00eanh Brent\u2013WTI, v\u1eadn t\u1ea3i v\u00e0 ph\u1ea9m c\u1ea5p c\u00f9ng th\u1eddi \u0111i\u1ec3m s\u1ebd l\u00e0 c\u00e1c \u0111\u1ea7u v\u00e0o c\u1ea7n \u0111\u1ed1i chi\u1ebfu. B\u1ed9 ngu\u1ed3n ch\u01b0a c\u00f3 ch\u00fang \u0111\u1ec3 di\u1ec5n gi\u1ea3i gi\u00e1 hi\u1ec7n t\u1ea1i ho\u1eb7c \u0111o t\u00e1c \u0111\u1ed9ng \u0111\u00e3 ph\u1ea3n \u00e1nh v\u00e0o gi\u00e1.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "06ac0f3761728b3d9ab2602325e5232a420ad5e1293e1c25dc4004d71f35cb80",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "f3fe265c8bb074e965e3560ff7d27f6667c368f45672a9f187311ca8a9462dc3"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:8"
+      ]
+    },
+    {
+      "claim_id": "g29-alternative",
+      "claim_text": "Ph\u1ea3n \u0111\u1ec1 c\u1ee7a CC: th\u1eddi \u0111i\u1ec3m h\u00e0ng nh\u1eadp v\u1ec1 ho\u1eb7c ho\u1ea1t \u0111\u1ed9ng l\u1ecdc d\u1ea7u c\u00f3 th\u1ec3 l\u00e0m kho M\u1ef9 gi\u1ea3m m\u00e0 kh\u00f4ng c\u00f3 thi\u1ebfu h\u1ee5t to\u00e0n c\u1ea7u. B\u1ed9 ngu\u1ed3n ch\u01b0a \u0111\u1ee7 \u0111\u1ec3 ch\u1ecdn ph\u1ea3n \u0111\u1ec1 n\u00e0y hay c\u01a1 ch\u1ebf c\u1ea1nh tranh v\u1eadt ch\u1ea5t.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "3c46f0449c19270bdcfcfae71173db68d2ef166275a74300f098ac9817c6b048"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-alternative-0",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:10"
+      ]
+    },
+    {
+      "claim_id": "g29-product-counterevidence",
+      "claim_text": "N\u1ebfu c\u00e1c s\u1ed1 \u0111\u01b0\u1ee3c x\u00e1c nh\u1eadn, c\u00e1ch \u0111\u1ecdc \u201cc\u1ea7u cu\u1ed1i m\u1ea1nh\u201d v\u1eabn ph\u1ea3i \u0111\u1ed1i di\u1ec7n ph\u1ea3n ch\u1ee9ng m\u00e0 CC gi\u1eef l\u1ea1i: x\u0103ng t\u0103ng kho v\u00e0 ch\u1ec9 b\u00e1o c\u1ea7u x\u0103ng b\u1ed1n tu\u1ea7n gi\u1ea3m so c\u00f9ng k\u1ef3, trong khi s\u1ea3n ph\u1ea9m ch\u01b0ng c\u1ea5t l\u1ea1i r\u00fat kho. C\u00e1c s\u1ea3n ph\u1ea9m v\u00e0 c\u1eeda s\u1ed5 \u0111o kh\u00e1c nhau ch\u01b0a h\u1ee3p th\u00e0nh m\u1ed9t t\u00edn hi\u1ec7u c\u1ea7u th\u1ed1ng nh\u1ea5t.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "6e33a1d09ac5fc939c083a5aff9b18d1cab5b44e019e3f93c475e57aa17f866d",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-contradictions-0",
+          "claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "ab8ace91dd98208eb8089a240694dc94681bb23bce2685f81a6d1930957c99bf"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-contradictions-0",
+          "claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:11"
+      ]
+    },
+    {
+      "claim_id": "g29-units",
+      "claim_text": "CC c\u0169ng l\u01b0u \u00fd nh\u1eadp kh\u1ea9u \u0111o b\u1eb1ng th\u00f9ng/ng\u00e0y, c\u00f2n thay \u0111\u1ed5i t\u1ed3n kho \u0111o b\u1eb1ng tri\u1ec7u th\u00f9ng trong tu\u1ea7n. Ch\u01b0a c\u00f3 \u0111\u1ed1i chi\u1ebfu c\u00e2n \u0111\u1ed1i \u0111\u1ea7y \u0111\u1ee7 \u0111\u1ec3 quy m\u1ed9t ph\u1ea7n ch\u00ednh x\u00e1c c\u1ee7a r\u00fat kho cho nh\u1eadp kh\u1ea9u; b\u00e0i n\u00e0y kh\u00f4ng t\u1ef1 t\u00ednh t\u1ef7 l\u1ec7 \u0111\u00f3ng g\u00f3p t\u1eeb hai s\u1ed1 kh\u00e1c \u0111\u01a1n v\u1ecb \u1ea5y.",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "6e33a1d09ac5fc939c083a5aff9b18d1cab5b44e019e3f93c475e57aa17f866d",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-contradictions-0",
+          "claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "ab8ace91dd98208eb8089a240694dc94681bb23bce2685f81a6d1930957c99bf"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-contradictions-0",
+          "claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:12"
+      ]
+    },
+    {
+      "claim_id": "g29-shared-source",
+      "claim_text": "UKOIL v\u00e0 USOIL d\u00f9ng chung m\u1ed9t b\u1ea3n EIA, theo b\u00e1o c\u00e1o CC. \u0110\u1eb7t hai b\u00e1o c\u00e1o c\u1ea1nh nhau kh\u00f4ng t\u1ea1o ra hai x\u00e1c nh\u1eadn \u0111\u1ed9c l\u1eadp; b\u1eb1ng ch\u1ee9ng v\u1ec1 ch\u00eanh gi\u00e1, ph\u1ea9m c\u1ea5p v\u00e0 v\u1eadn t\u1ea3i v\u1eabn c\u1ea7n \u0111\u1ec3 ki\u1ec3m \u0111\u01b0\u1eddng truy\u1ec1n gi\u1eefa hai khu v\u1ef1c.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "a1b4477254762eed3df8cad7037d5f36583f4698b18c3cb028cd166855e69de7",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-cross_asset-0",
+          "claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "234e9556c8e5cbb5657ec09a06b81f85b763b830651218e83831f57dad83d91b"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-cross_asset-0",
+          "claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:13"
+      ]
+    },
+    {
+      "claim_id": "g29-invalidation",
+      "claim_text": "N\u1ebfu d\u00f2ng th\u01b0\u01a1ng m\u1ea1i v\u00e0 ch\u00eanh Brent kh\u00f4ng h\u1ed7 tr\u1ee3 truy\u1ec1n d\u1eabn, CC ph\u1ea3i r\u00fat c\u00e1ch \u0111\u1ecdc thi\u1ebfu h\u1ee5t to\u00e0n c\u1ea7u. Kh\u00f4ng c\u00f3 ngu\u1ed3n m\u1edbi khi xem l\u1ea1i th\u00ec \u0111\u00e1nh d\u1ea5u b\u1eb1ng ch\u1ee9ng c\u0169 ho\u1eb7c thi\u1ebfu.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "c14335409058d50c460ed7ef826469974fd7cd9b73e30b774c126f16715b45d5",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-stop_holding_conditions-0",
+          "claim_hash": "a20314a4e02b97c77b46873f2e426aa5fd12c30dfd2fcd61620105540a437a59",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "a20314a4e02b97c77b46873f2e426aa5fd12c30dfd2fcd61620105540a437a59",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "e6815cceb8d06df6529dc801a25eec08f5b4752310837a0c094dbf5d6d674903"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-stop_holding_conditions-0",
+          "claim_hash": "a20314a4e02b97c77b46873f2e426aa5fd12c30dfd2fcd61620105540a437a59",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:15"
+      ]
+    },
+    {
+      "claim_id": "g29-review-intro",
+      "claim_text": "C\u00e1c c\u1eeda s\u1ed5 d\u01b0\u1edbi \u0111\u00e2y l\u00e0 k\u1ebf ho\u1ea1ch xem l\u1ea1i b\u1eb1ng ch\u1ee9ng v\u00e0 k\u1ecbch b\u1ea3n c\u00f3 \u0111i\u1ec1u ki\u1ec7n trong b\u00e1o c\u00e1o, kh\u00f4ng ph\u1ea3i d\u1ef1 b\u00e1o \u0111\u01b0\u1eddng gi\u00e1:",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "d940fa4966c788949c6e9b3396e6cec2fcf117fce2f1cbd5e5d1c808bca8570a",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-short-base_case",
+          "claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "1975596c592fec7e618dc85581b50e44288a769e2a5f09775bd40fc94f480878"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-short-base_case",
+          "claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:16"
+      ]
+    },
+    {
+      "claim_id": "g29-short-review",
+      "claim_text": "Trong 5 phi\u00ean xem l\u1ea1i: t\u00ecm c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent c\u00f3 ng\u00e0y r\u00f5 r\u00e0ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 m\u1ed9t c\u00fa s\u1ed1c Brent m\u1edbi.",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "d940fa4966c788949c6e9b3396e6cec2fcf117fce2f1cbd5e5d1c808bca8570a",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-short-base_case",
+          "claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "1975596c592fec7e618dc85581b50e44288a769e2a5f09775bd40fc94f480878"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-short-base_case",
+          "claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:17"
+      ]
+    },
+    {
+      "claim_id": "g29-swing-review",
+      "claim_text": "Trong 21 phi\u00ean: \u0111\u1ed1i chi\u1ebfu c\u00e1c k\u1ef3 d\u1ea7u th\u00f4 v\u00e0 s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i, n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "50be1cdeb968da40b6af506702f6142511281b7acc6e2766902e90db920c67af",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-swing-base_case",
+          "claim_hash": "0dc0dea7516a2c3a76fbd70be65158e5b9839d77b8c192a16733d1e64549f87b",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "0dc0dea7516a2c3a76fbd70be65158e5b9839d77b8c192a16733d1e64549f87b",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "458799abca0a77a4230753bad07959bed775648203aa68052fc595a3ef558334"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-swing-base_case",
+          "claim_hash": "0dc0dea7516a2c3a76fbd70be65158e5b9839d77b8c192a16733d1e64549f87b",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:18"
+      ]
+    },
+    {
+      "claim_id": "g29-long-review",
+      "claim_text": "Trong 63 phi\u00ean: xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1ef1c; kh\u00f4ng \u0111\u1ed5i c\u1eeda s\u1ed5 n\u00e0y th\u00e0nh m\u1ed9t qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+      "claim_kind": "NUMBER",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "3cfb2ee2fc017757967fc0228f1519f0d1ffc90837f20af486666d8ff2664376",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-long-base_case",
+          "claim_hash": "9ce485d5f74c6c54bc81818e291895d15a512b69791e4f817933a5020cac0995",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "9ce485d5f74c6c54bc81818e291895d15a512b69791e4f817933a5020cac0995",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "62e5fab3eed9f3892ce2cf0785513dd601415f7d5d028cdf4fbbdad9e07568be"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-long-base_case",
+          "claim_hash": "9ce485d5f74c6c54bc81818e291895d15a512b69791e4f817933a5020cac0995",
+          "producer_layer": "CONDITIONAL_SCENARIO",
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:19"
+      ]
+    },
+    {
+      "claim_id": "g29-ukoil-proxy",
+      "claim_text": "B\u00e1o c\u00e1o CC ghi UKOIL mang m\u00f4 t\u1ea3 Brent trong danh m\u1ee5c broker \u0111\u01b0\u1ee3c gi\u1eef l\u1ea1i, nh\u01b0ng m\u00e3 t\u00e0i s\u1ea3n c\u01a1 s\u1edf v\u00e0 m\u00e3 ni\u00eam y\u1ebft c\u00f2n tr\u1ed1ng. Gi\u00e1 CFD \u2014 h\u1ee3p \u0111\u1ed3ng ch\u00eanh l\u1ec7ch \u2014 c\u00f2n c\u00f3 th\u1ec3 kh\u00e1c tham chi\u1ebfu v\u1eadt ch\u1ea5t ho\u1eb7c k\u1ef3 h\u1ea1n do n\u1ec1n gi\u00e1, chuy\u1ec3n k\u1ef3, ph\u00ed t\u00e0i tr\u1ee3 v\u00e0 \u0111i\u1ec1u kho\u1ea3n broker ch\u01b0a c\u00f3 d\u1eef li\u1ec7u. C\u00e2u h\u1ecfi nghi\u00ean c\u1ee9u v\u00ec v\u1eady ch\u01b0a t\u1ea1o ra k\u1ebft lu\u1eadn v\u1ec1 l\u1ee3i nhu\u1eadn n\u1eafm gi\u1eef hay m\u1ed9t l\u1ec7nh giao d\u1ecbch.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "84bd91f64f983148f088a8f84321e949b7bb0150b5757ad783becc9a08269533",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-known-0",
+          "claim_hash": "091f33b0301664f4ed623849928dc0f5d254124d0250eb9b2175251571602c6b",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "091f33b0301664f4ed623849928dc0f5d254124d0250eb9b2175251571602c6b",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "a64f68176cf5ee0836f6135d481c5250e41d319b9c6916f093fa50aba17bdf9a"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-known-0",
+          "claim_hash": "091f33b0301664f4ed623849928dc0f5d254124d0250eb9b2175251571602c6b",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:20"
+      ]
+    },
+    {
+      "claim_id": "g29-cfd-economics",
+      "claim_text": "B\u00e1o c\u00e1o CC ghi UKOIL mang m\u00f4 t\u1ea3 Brent trong danh m\u1ee5c broker \u0111\u01b0\u1ee3c gi\u1eef l\u1ea1i, nh\u01b0ng m\u00e3 t\u00e0i s\u1ea3n c\u01a1 s\u1edf v\u00e0 m\u00e3 ni\u00eam y\u1ebft c\u00f2n tr\u1ed1ng. Gi\u00e1 CFD \u2014 h\u1ee3p \u0111\u1ed3ng ch\u00eanh l\u1ec7ch \u2014 c\u00f2n c\u00f3 th\u1ec3 kh\u00e1c tham chi\u1ebfu v\u1eadt ch\u1ea5t ho\u1eb7c k\u1ef3 h\u1ea1n do n\u1ec1n gi\u00e1, chuy\u1ec3n k\u1ef3, ph\u00ed t\u00e0i tr\u1ee3 v\u00e0 \u0111i\u1ec1u kho\u1ea3n broker ch\u01b0a c\u00f3 d\u1eef li\u1ec7u. C\u00e2u h\u1ecfi nghi\u00ean c\u1ee9u v\u00ec v\u1eady ch\u01b0a t\u1ea1o ra k\u1ebft lu\u1eadn v\u1ec1 l\u1ee3i nhu\u1eadn n\u1eafm gi\u1eef hay m\u1ed9t l\u1ec7nh giao d\u1ecbch.",
+      "claim_kind": "CAUSALITY",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "a1b4477254762eed3df8cad7037d5f36583f4698b18c3cb028cd166855e69de7",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-cross_asset-0",
+          "claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "234e9556c8e5cbb5657ec09a06b81f85b763b830651218e83831f57dad83d91b"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-cross_asset-0",
+          "claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:20"
+      ]
+    },
+    {
+      "claim_id": "g29-no-position-admission",
+      "claim_text": "B\u00e1o c\u00e1o CC ghi UKOIL mang m\u00f4 t\u1ea3 Brent trong danh m\u1ee5c broker \u0111\u01b0\u1ee3c gi\u1eef l\u1ea1i, nh\u01b0ng m\u00e3 t\u00e0i s\u1ea3n c\u01a1 s\u1edf v\u00e0 m\u00e3 ni\u00eam y\u1ebft c\u00f2n tr\u1ed1ng. Gi\u00e1 CFD \u2014 h\u1ee3p \u0111\u1ed3ng ch\u00eanh l\u1ec7ch \u2014 c\u00f2n c\u00f3 th\u1ec3 kh\u00e1c tham chi\u1ebfu v\u1eadt ch\u1ea5t ho\u1eb7c k\u1ef3 h\u1ea1n do n\u1ec1n gi\u00e1, chuy\u1ec3n k\u1ef3, ph\u00ed t\u00e0i tr\u1ee3 v\u00e0 \u0111i\u1ec1u kho\u1ea3n broker ch\u01b0a c\u00f3 d\u1eef li\u1ec7u. C\u00e2u h\u1ecfi nghi\u00ean c\u1ee9u v\u00ec v\u1eady ch\u01b0a t\u1ea1o ra k\u1ebft lu\u1eadn v\u1ec1 l\u1ee3i nhu\u1eadn n\u1eafm gi\u1eef hay m\u1ed9t l\u1ec7nh giao d\u1ecbch.",
+      "claim_kind": "FACT",
+      "source_id": "SOURCE_1",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION",
+      "attribution_required": true,
+      "support_excerpt_sha256": "93825df6bd5b3fee145a11c197f846b23f248788436b07bb9b41a12bf7bf2cba",
+      "research_semantics": [
+        {
+          "report_id": "asset-report:UKOIL",
+          "report_version": 4,
+          "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+          "claim_id": "ukoil-deep-hold_conditions-0",
+          "claim_hash": "257d2ff9a7f69a170576f65d7f10901a9aabede488f6e4df4a9d354546006eb1",
+          "producer_layer": "CC_ANALYSIS",
+          "exact_or_proxy": "EXACT",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "review_horizons": [
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-10-26T12:25:00Z",
+              "horizon": "short",
+              "outlook": "Trong 5 phi\u00ean xem l\u1ea1i, x\u00e1c \u0111\u1ecbnh c\u00f3 c\u00e2n \u0111\u1ed1i m\u1edbi ho\u1eb7c th\u00f4ng tin ri\u00eang Brent th\u1eadt s\u1ef1 c\u00f3 ng\u00e0y hay kh\u00f4ng; kh\u00f4ng \u0111\u1ecdc l\u1ea1i s\u1ed1 M\u1ef9 c\u0169 nh\u01b0 c\u00fa s\u1ed1c Brent m\u1edbi.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 5
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2026-11-17T12:25:00Z",
+              "horizon": "swing",
+              "outlook": "Trong 21 phi\u00ean, \u0111\u1ed1i chi\u1ebfu c\u00e1c b\u1ea3n d\u1ea7u th\u00f4/s\u1ea3n ph\u1ea9m l\u1eb7p l\u1ea1i v\u1edbi th\u01b0\u01a1ng m\u1ea1i, s\u1ea3n l\u01b0\u1ee3ng to\u00e0n c\u1ea7u v\u00e0 \u0111\u01b0\u1eddng cong t\u01b0\u01a1ng \u0111\u1ed1i n\u1ebfu c\u00f3 c\u00f4ng b\u1ed1.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 21
+            },
+            {
+              "calendar_state": "WEEKDAY_ONLY_PROVISIONAL_HOLIDAYS_NOT_VERIFIED",
+              "end_utc": "2027-01-14T12:25:00Z",
+              "horizon": "long",
+              "outlook": "Trong 63 phi\u00ean, xem c\u00e2n \u0111\u1ed1i t\u00edch l\u0169y, ph\u1ea3n \u1ee9ng ngu\u1ed3n cung v\u00e0 chi ph\u00ed ph\u01b0\u01a1ng ti\u1ec7n qua c\u1eadp nh\u1eadt th\u1eadt; kh\u00f4ng thay c\u1eeda s\u1ed5 b\u1eb1ng qu\u00fd d\u01b0\u01a1ng l\u1ecbch.",
+              "report_state": "PARTIAL",
+              "scoreable_forecast": false,
+              "start_utc": "2026-10-19T12:25:00Z",
+              "trading_sessions": 63
+            }
+          ],
+          "probability_descriptor": null,
+          "probability_metadata_state": "UNKNOWN_NOT_SUPPLIED",
+          "selection": {
+            "channel": "MAIN_PERMITTED_PUBLIC_REPORT",
+            "population": null,
+            "filter_identity": null
+          },
+          "dependence": {
+            "source_hashes": [
+              "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7"
+            ],
+            "component_claim_hash": "257d2ff9a7f69a170576f65d7f10901a9aabede488f6e4df4a9d354546006eb1",
+            "independence": "NOT_ESTABLISHED",
+            "main_recirculation_is_independent_confirmation": false
+          },
+          "numeric_authority_granted": false,
+          "semantics_sha256": "a73f9530a3bd0537b0433c118bb64ddb4bd2bcc75001683bc2f445e69f4c98c4"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_version": 4,
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "claim_id": "ukoil-deep-hold_conditions-0",
+          "claim_hash": "257d2ff9a7f69a170576f65d7f10901a9aabede488f6e4df4a9d354546006eb1",
+          "producer_layer": "CC_ANALYSIS",
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ]
+        }
+      ],
+      "source_clock_metadata_bindings": [],
+      "article_section_ids": [
+        "paragraph:20"
+      ]
+    }
+  ],
+  "cited_source_count": 1,
+  "source_urls": [
+    "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198"
+  ],
+  "source_timestamps_are_model_authority": false,
+  "source_bytes_precede_writer": true,
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:UKOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "report_truth_validated_separately_from_event_truth": true,
+  "public_write_performed": false,
+  "unknown_write_detected": false
+}
