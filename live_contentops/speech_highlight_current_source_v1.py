@@ -438,10 +438,58 @@ def command(argv=None):
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--selection-return")
     parser.add_argument("--meaning-return")
+    parser.add_argument("--review-package", type=Path)
+    parser.add_argument("--review-return", type=Path)
+    parser.add_argument("--review-surface", action="store_true")
+    parser.add_argument("--revision-from", type=Path)
+    parser.add_argument("--revision-spec", type=Path)
     args = parser.parse_args(argv)
 
     def load(path):
         return json.loads(Path(path).read_text(encoding="utf-8")) if path else None
+
+    if args.review_package or args.revision_from:
+        from . import speech_highlight_review_v1 as review
+
+        if any(
+            (
+                args.source_config,
+                args.owner_source,
+                args.stream_file,
+                args.selection_return,
+                args.meaning_return,
+            )
+        ) or (args.review_package and args.revision_from):
+            parser.error(
+                "Preparation, review and successor revision are separate bound operations"
+            )
+        if args.revision_from:
+            if not args.revision_spec or not args.review_return or args.review_surface:
+                parser.error("Revision requires exact spec and reviewer return")
+            result = review.revise(
+                args.revision_from,
+                args.repo_root,
+                args.output_dir,
+                load(args.revision_spec),
+                load(args.review_return),
+            )
+        else:
+            if args.revision_spec or not (args.review_return or args.review_surface):
+                parser.error("Review requires a return or local surface")
+            result = {}
+            values = [load(args.review_return)] if args.review_return else []
+            if values:
+                result["review"] = review.ingest_review(
+                    args.review_package, args.repo_root, values[0], args.output_dir
+                )
+            if args.review_surface:
+                result["surface"] = review.review_entry(
+                    args.review_package, args.repo_root, args.output_dir, values
+                )
+        print(json.dumps(result, ensure_ascii=False))
+        return 0
+    if args.review_return or args.review_surface or args.revision_spec:
+        parser.error("Review or revision needs its exact existing package")
 
     if not args.source_config:
         if not (args.owner_source or args.stream_file):

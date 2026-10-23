@@ -1,0 +1,277 @@
+{
+  "schema": "contentops.goal38.delivery_evidence.v1",
+  "observed_at_utc": "2026-10-23T01:29:49.012780+00:00",
+  "scope": "PRIVATE_REVIEW_REVISION_JOURNEY_VISUAL_ONLY_ACCEPTANCE",
+  "jobs": 1,
+  "source_walks": 0,
+  "new_native_turns": 0,
+  "revision_attempts": 3,
+  "accepted_current_presentation": "revision-3",
+  "parent_manifest_sha256": "41fb4f61d8926df1606d1a25293c35e4df383c3a20c9a04415f70a2b8c5a3836",
+  "final_binding": {
+    "package_sha256": "6d3d9861e4ea3c0b86cc8c0f0c916e9e6f6fd7544a390659594b8bfe07184620",
+    "source_sha256": "73e486e1da7775352d6a37e041bfc688d77e28f58da82b78b16cd89463d544fb",
+    "original_media_sha256": "7c538b54fcc7a75380791aca95f97010450ec058163058db1947455650473dfa",
+    "transcript_sha256": "e460e87aad826fa619daf7fed06e3c5afebe528e30a9fbe50c3f7e548f5c0fa1",
+    "edit_sha256": "91155511fe87a602ef1f2da8b6d80753e639a4e50201ea68255671612f7b48ef",
+    "affected_outputs": {
+      "master_vertical_clean_1080x1920.mp4": "5764959c458a43be75e8841dd1aa949fb4a3433819422ea9a530c699cd346dd3",
+      "derivative_vertical_captioned_1080x1920.mp4": "5baf203573a0c546a361649ca411de213cbfbef8dc7d5a4ff675e66f61037280",
+      "captions.srt": "190c472c56ed6eb872c47eeaa2389b9a3966a718cfd941b9ea051f9c958e0135",
+      "captions.vtt": "eb93b7bbd169f5d70ef7689301069ba792be8a64d5ae6759615412e8f1fc5000",
+      "captions.json": "be7d194ef818e51be2374550a81fc4a6dbf303c9f9ffd8043dcf55bf119aeb81",
+      "current_source.json": "7e8b1870922e68b4f806257ed231f529d265139d511a39e2d34f6001525584f6",
+      "selection_request.json": "69a89a151da5bc6d0242861784f0e8bb7d30b0b9f7a09e56ec9133d2a53ef296",
+      "selection_return.json": "d12571304e8f1dd2a720d28c193f9c96f8c9ce74e1f57ed586bbf04c72668b67",
+      "meaning_request.json": "f56b221b9f532f998d54b3d9fddb96d1bb483bbcdca2aad47733c85061004b82",
+      "meaning_return.json": "356ada9eb74543d40f8f931429abdfcb6d62c428b5905bec39329ac2e3853942",
+      "extracted_clip.mp4": "d416db4da4c7a6ad61cfec558295d2e305a9018d35d619375040b9c07e78d9ab",
+      "destination_metadata.json": "ad2ba482f3757fbbf0b145a931da268b2e8ac965d071475c68b6ed55f2177d6e",
+      "review_request.json": "c06abd292b8145842d42fd3e4d1afda6b1f56df8bbda9463a792582393528364",
+      "revision.json": "51430cb3132e02592400181686c1fc299639c9248f039c61dc0223fb03a68a55",
+      "parent_review.json": "f6ecece60ab87b0e554f4dd19fab2a149f7326b5753546f01e00392d3b8e144f",
+      "presentation.json": "a47dbf2141c538d424c9b62b3f055641fa9e0aa1a3d989609c12f13ba89a63c7"
+    }
+  },
+  "immutable_history": [
+    {
+      "package": "4b70fa17f3d975b1eb73998fb7d385bf6ed5344e3189ceb60e6f945ccccf2c06",
+      "directory": "revision-1"
+    },
+    {
+      "package": "39d851dd1d2ff2a4e59e98e464affbf19b047e8240d97e7189f7a5fa676b9974",
+      "directory": "revision-2"
+    },
+    {
+      "package": "6d3d9861e4ea3c0b86cc8c0f0c916e9e6f6fd7544a390659594b8bfe07184620",
+      "directory": "revision-3"
+    }
+  ],
+  "actual_journey": [
+    "Original page source and rendered playback, adjacent-context and cue seeking observed through Neo; muted playback mechanics only",
+    "Actual form export/CLI ingest requested source-central presentation",
+    "Revision1 rendered; actual frames showed CRLF double-line-spacing defect",
+    "Bound visual re-review requested layout correction; revision2 retained LF layout",
+    "Audit removed first-three-input-line truncation; revision3 retains entire saved context or fails fit",
+    "Actual final clean/captioned frames and source-camera transition samples inspected; bound form export/CLI re-review records visual PASS and five NOT_VERIFIED dimensions"
+  ],
+  "actual_dedupe": {
+    "revision_cli_identical": true,
+    "all_final_asset_hashes_and_mtimes_unchanged": true,
+    "review_cli_identical_files_and_mtimes": true,
+    "duplicate_jobs_created": 0,
+    "new_renders": 0
+  },
+  "actual_stale_rejection": {
+    "returncode": 1,
+    "reason": "Stale or mismatched review binding",
+    "created_output": false
+  },
+  "recovery": {
+    "actual": "Same predecessor source/native/clip stages reused in all three successors; exact completed successor CLI replay reuses all outputs",
+    "controlled": "Injected captioned-render interruption in focused test resumes sealed clean render and original clip; controlled mechanics, not a real FFmpeg failure"
+  },
+  "frozen_relay_paths": {
+    "live_contentops/speech_highlight_relay_v1.py": {
+      "sha256": "459d655de260d4d466fb162012ac7ef4d07eddd60e147c4efa9db4eab27b7495",
+      "unchanged": true
+    },
+    "video/speech_highlight_relay_v1/retained_replay_fed_20260729.json": {
+      "sha256": "f3de955a6519b8771d43beeb050064fbf4d5945219b89f20a11dd4adaad9f2b8",
+      "unchanged": true
+    },
+    "video/speech_highlight_relay_v1/retained_source_probe_fed_20260729.json": {
+      "sha256": "5db7aaca30b42c77045107500ab03aeda4d4b1859ea7b758f75029343dad7fbc",
+      "unchanged": true
+    },
+    "tests/test_speech_highlight_relay_v1.py": {
+      "sha256": "33848422c784cc12a158185af9de274f448a9966746525c07c5bdd46d0b0f73a",
+      "unchanged": true
+    }
+  },
+  "goal37_package_preserved": {
+    "published_manifest_equal": true,
+    "all_original_package_files_match": true
+  },
+  "unaffected_artifacts": [
+    {
+      "file": "current_source.json",
+      "sha256": "7e8b1870922e68b4f806257ed231f529d265139d511a39e2d34f6001525584f6",
+      "same_as_goal37": true
+    },
+    {
+      "file": "selection_request.json",
+      "sha256": "69a89a151da5bc6d0242861784f0e8bb7d30b0b9f7a09e56ec9133d2a53ef296",
+      "same_as_goal37": true
+    },
+    {
+      "file": "selection_return.json",
+      "sha256": "d12571304e8f1dd2a720d28c193f9c96f8c9ce74e1f57ed586bbf04c72668b67",
+      "same_as_goal37": true
+    },
+    {
+      "file": "meaning_request.json",
+      "sha256": "f56b221b9f532f998d54b3d9fddb96d1bb483bbcdca2aad47733c85061004b82",
+      "same_as_goal37": true
+    },
+    {
+      "file": "meaning_return.json",
+      "sha256": "356ada9eb74543d40f8f931429abdfcb6d62c428b5905bec39329ac2e3853942",
+      "same_as_goal37": true
+    },
+    {
+      "file": "extracted_clip.mp4",
+      "sha256": "d416db4da4c7a6ad61cfec558295d2e305a9018d35d619375040b9c07e78d9ab",
+      "same_as_goal37": true
+    },
+    {
+      "file": "captions.srt",
+      "sha256": "190c472c56ed6eb872c47eeaa2389b9a3966a718cfd941b9ea051f9c958e0135",
+      "same_as_goal37": true
+    },
+    {
+      "file": "captions.vtt",
+      "sha256": "eb93b7bbd169f5d70ef7689301069ba792be8a64d5ae6759615412e8f1fc5000",
+      "same_as_goal37": true
+    },
+    {
+      "file": "captions.json",
+      "sha256": "be7d194ef818e51be2374550a81fc4a6dbf303c9f9ffd8043dcf55bf119aeb81",
+      "same_as_goal37": true
+    }
+  ],
+  "final_probes": {
+    "extracted_clip.mp4": {
+      "duration_seconds": "37.470400",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 960,
+          "height": 540
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      ]
+    },
+    "master_vertical_clean_1080x1920.mp4": {
+      "duration_seconds": "37.466667",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1080,
+          "height": 1920
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      ]
+    },
+    "derivative_vertical_captioned_1080x1920.mp4": {
+      "duration_seconds": "37.466667",
+      "streams": [
+        {
+          "codec_type": "video",
+          "codec_name": "h264",
+          "width": 1080,
+          "height": 1920
+        },
+        {
+          "codec_type": "audio",
+          "codec_name": "aac",
+          "sample_rate": "48000",
+          "channels": 2
+        }
+      ]
+    }
+  },
+  "encoded_audio_stream_hashes": {
+    "extracted_clip.mp4": "SHA256=95facb4f5c3500df0418b95bab45188355b8d51872ffec5eaf266f013d7d78bd",
+    "master_vertical_clean_1080x1920.mp4": "SHA256=95facb4f5c3500df0418b95bab45188355b8d51872ffec5eaf266f013d7d78bd",
+    "derivative_vertical_captioned_1080x1920.mp4": "SHA256=95facb4f5c3500df0418b95bab45188355b8d51872ffec5eaf266f013d7d78bd"
+  },
+  "audio_scope": "Mechanical bitstream identity only, not hearing/wording/alignment/identity proof",
+  "actual_review": {
+    "review_sha256": "1bfb9d96f4a5a51e64773f6c9ef256029c120da638e08e02761cdef4d6ae7e2d",
+    "dimension_status": {
+      "VISUAL": "PASS",
+      "CAPTIONS": "NOT_VERIFIED",
+      "AUDIO": "NOT_VERIFIED",
+      "TIMING": "NOT_VERIFIED",
+      "CONTEXT": "NOT_VERIFIED",
+      "RIGHTS": "NOT_VERIFIED"
+    },
+    "unresolved": [
+      "CAPTIONS",
+      "AUDIO",
+      "TIMING",
+      "CONTEXT",
+      "RIGHTS"
+    ],
+    "attestation": "SELF_REPORTED_NOT_INDEPENDENTLY_ATTESTED"
+  },
+  "inspected_frames": [
+    {
+      "file": ".task-runtime\\speech_highlight_relay_v1\\goal38\\release-phone-frame.png",
+      "sha256": "df1bfd792833cbeb149080628be8e6b0cf75d971a68acc918900dd5112e6cf05"
+    },
+    {
+      "file": ".task-runtime\\speech_highlight_relay_v1\\goal38\\release-clean-frame.png",
+      "sha256": "335693a4bb0b287eada7c9f28c6f0a981b239cef5eefad8ebbdb3e2b6fb4c415"
+    },
+    {
+      "file": ".task-runtime\\speech_highlight_relay_v1\\goal38\\release-transition-sheet.png",
+      "sha256": "de822523c22c52d1f28765e30db3c2b22a18fb2bc53f512a7a746ca63345d00b"
+    }
+  ],
+  "picture_area": {
+    "original_close_shot_fraction": 0.23935185185185184,
+    "successor_close_shot_fraction": 0.50625,
+    "wide_shot": "Uncropped entire source frame; smaller area intentionally preserves room evidence"
+  },
+  "verification": {
+    "focused_tests": "23 passed",
+    "controlled_scope": "Review provenance/stale/evidence rejection, partial-stage recovery, caption/semantic descendant invalidation, LF/no-context-truncation, retained relay/CLI compatibility",
+    "ruff": "New/changed helper and focused tests passed"
+  },
+  "entry": ".task-runtime\\speech_highlight_relay_v1\\goal38\\release-reviewed\\index.html",
+  "publication_control": {
+    "publication_state": "PUBLICATION_HOLD",
+    "write_authority": "ZERO_PUBLIC_WRITE",
+    "public_writes": 0,
+    "unknown_writes": 0,
+    "network_calls_made": 0,
+    "provider_calls": 0,
+    "browser_calls": 0,
+    "transport_dispatched": false,
+    "destination_intents": []
+  },
+  "prohibited_effects": {
+    "platform_uploads": 0,
+    "private_or_unlisted_posts": 0,
+    "platform_drafts": 0,
+    "public_writes": 0,
+    "production_mutations": 0,
+    "merge": false,
+    "deployment": false
+  },
+  "implementation_checkout_bytes": {
+    "live_contentops/speech_highlight_current_source_v1.py": "57f8248f5998c706285f207c555486ad47d1595273b06afed863a1a5dcf3b8b1",
+    "live_contentops/speech_highlight_review_v1.py": "d7ed087031db6f2d7d33fc793bb8107e7365878cbee9521b6ce4f83dc4451f62",
+    "live_contentops/speech_highlight_presentation_v1.py": "30d4d59df7085a311e6e38bb4def2cb2f66989d79b6d5dd6aab8e5a9c9d18b11",
+    "live_contentops/speech_highlight_review_v1.html": "edf76ddfbf021b9c3b2fc81bae5043d3fea289744b58949f67b4e2373403431d"
+  },
+  "local_review_surface": {
+    "index.html": "db4249f19c2961bfbbe1b36148d34d56e01a6bb2f530d5cc16b9e43dde8e4cce",
+    "review_context.json": "462bf91797ec291cd81eae579e6ec42f6c86a216ab44f940ff7a4f752e2e3774"
+  },
+  "implementation_hash_scope": "Local compiler/input bytes observed with actual release media; Git text normalization may change serialized newline bytes"
+}
