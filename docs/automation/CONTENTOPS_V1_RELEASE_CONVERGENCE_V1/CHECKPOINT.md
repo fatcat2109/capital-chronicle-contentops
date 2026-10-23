@@ -1,6 +1,6 @@
 # V1 native newsroom release convergence
 
-Status: IN_PROGRESS. Native integration and live operation are not yet accepted.
+Status: RELEASE_CANDIDATE_DELIVERED. Native merge/deployment/live operation remain incomplete.
 
 Mission: CONTENTOPS_V1_NATIVE_NEWSROOM_RELEASE_CONVERGENCE_V1. Owning chat: `01a16a43-bfad-7191-bd78-ef708c3468d7`; assigned L2: `01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`.
 
@@ -107,3 +107,15 @@ V1 implementation/tests and initial release packet committed as `2977e6b33a66bd5
 Implementation source commit: `2977e6b33a66bd59326464610494cc416e3dcd1f`. Existing CodeGraph generated successfully for that source, digest `5c448fd990b2796ff7680e62e1f9e48638c2b7a9f48e9ac5cf3f566bc835d6f7`; generator --check returned `CODEGRAPH_CURRENT`. Only the existing three generated graph files change. No duplicate .codegraph index or V2 source edit. Final metadata explicitly binds canonical Git bytes/proposal LF bytes.
 
 Release decision/proposal are concrete and source repair tests pass. Branch publication/PR and exact-head CI still require actual readback; no merge, deployment or live-output claim. Same mission is preserved, with the native-tool goal-state discrepancy recorded above. Completion notification NOT SENT.
+
+## Sealed release-candidate delivery and completion audit
+
+Draft PR92: https://github.com/fatcat2109/capital-chronicle-contentops/pull/92 (attached to this chat). Remote source/graph/evidence seal `955cae1b395e8cb1cf1c0e184734dcb77e769f47`; implementation `2977e6b33a66bd59326464610494cc416e3dcd1f`; exact base remains PR90 `a1b08f96bf551681bca8196038f8b7060def4fd1`. Fresh ls-remote and PR readback agree. PR is OPEN/DRAFT, targets `codex/goal21-multi-asset-research-library`, not accepted master `bc79e30c8088a9deb47f3942aa15914a59b69799`. The closeout commit containing this section changes only this checkpoint. No integration/merge/deployment performed.
+
+Exact-head statusCheckRollup is empty. Source `.github/workflows/ci-fast.yml` triggers pull requests to master, plus pushes to master/agent-web branches; this dependent branch does not trigger it. CI is NOT_RUN, not PASS. Do not add infrastructure or silently retarget the dependent PR. Local25 impacted tests, scoped Ruff/diff checks and CODEGRAPH_CURRENT are the applicable current verification; earlier36-pass baseline is retained with overlap. Committed source hashes and committed proposal bytes match release-evidence.json. Proposal SHA-256 `43864815ff63c0719652940b65eacb8f2859387d7a3996c47f8383262baf4806`. Four host Automation files and existing production fuse were rechecked byte-identical at closeout. No runtime/source/provider/account/public operation was performed.
+
+Requirement audit: isolated exact-base checkout recovered with WIP preserved; same mission/native-state discrepancy retained; one-time actual strategic/context receipt and ownership synthesis recorded; material intake/role/source/story/article/eight-package/review/coordinator/recovery seams reconciled; one reproduced read-only restart gap repaired and covered; actual old publish claims remain fenced; retained article/render evidence hashes preserved; understandable existing owner/reader entry documented; source/graph/branch/PR delivered; one exact source/configuration/deployment/four-existing-window/pause/native-dispatch decision prepared. No new publisher/store/scheduler, fifth window, article filler, API fallback or video work.
+
+This seals the bounded release-candidate-and-decision deliverable, not final native live operation. Historical V1 acceptance stays TRUE. Merge/deployment/current destination readiness/calendar operation/natural5-8publishedarticles-per-day remain separate incomplete or unproven states. The single next owner action is to review/approve the exact transition in RELEASE_DECISION.md and its hash-bound proposal, then resume this same V1 work for the authorized production boundary. No automatic activation or V2/V3 resumption follows.
+
+Completion-only human authority verified directly through read_thread: L1 chat `01a0c999-b6b3-7b52-8f8a-a7ecf53d3220`, turn `01a1661d-8e7f-7ca2-a8a1-640664bd8207`, actual user message `01a1661d-90f0-74c1-8cd3-44fa35a9eeb6`. Jim permits an L3 completion handoff to its own L2 after completing the assigned goal; major owner decisions are handed off and stopped. Assigned destination remains L2 ContentOps `01a1657e-f5d0-76a1-b52b-ec6c78b6fe35`. No previous successful completion notification for this mission/delivery exists in this checkpoint. Native tool completion and notification results, if permitted, will be recorded below as a labelled local post-delivery receipt; no interim ping is authorized.
