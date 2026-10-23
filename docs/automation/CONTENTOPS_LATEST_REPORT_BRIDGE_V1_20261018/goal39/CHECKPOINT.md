@@ -1,6 +1,8 @@
 # Goal39 — Current native V2 factory private integration
 
-Latest checkpoint: **PARTIAL / PROXY_RENDERED**. Retail now has seven completed
+Historical checkpoint below is superseded by the final bounded-cohort section.
+
+Earlier checkpoint: **PARTIAL / PROXY_RENDERED**. Retail now has seven completed
 saved stages, a validated fresh native motion return and a real 41-second current
 proxy. The independent visual-review worker failed at an account usage limit
 before returning; Japan remains at its saved editorial request. See the final
@@ -242,3 +244,94 @@ Current total engineering renders: one retained technical replay plus one fresh 
 proxy. Fresh native completed current-contract factory packages: 0. Retained technical
 package/caption-successor proof remains separate and cannot supply the missing item.
 No completion notice, runtime activation, publication, paid execution or new source crawl.
+
+
+### Resume attempt after actual reset-time readback
+
+Actual clock `2026-10-23 13:11:02 UTC` is after the review worker's stated
+16:45 local reset. Supported account read reports ordinary usage available
+(primary44%used/secondary56%used). No review or Japan return exists yet; retail
+still has seven saved stages at `PROXY_RENDERED`.
+
+One fresh independent reviewer `/root/goal39_review_after_reset` and one fresh
+Japan editor `/root/goal39_japan_after_reset` were dispatched on the exact existing
+requests. Former child handles were absent, so no running process was replaced.
+These are bounded attempts after changed availability evidence, with the same
+approved model/role contracts and no fallback or stage regeneration. Dispatch
+alone does not prove startup/completion. Parent ends while these children work;
+no polling/wait loop, scheduler, completion claim or L2 message follows.
+This receipt is local pending the next substantive artifact delivery.
+
+
+## Final bounded cohort — engineering delivery, release acceptance remains open
+
+The independent reviewer completed the exact sampled proxy audit. Its draft crop finding
+was contradicted by the bound39.5second image; after reopening that image alone, the
+reviewer withdrew the unsupported defect and returned NO_MATERIAL_REVISION. The final
+request/return and inspected frame hashes match; no visual correction or new creative
+source was applied. Sampling does not establish continuous motion or hearing.
+
+Retail completed all13applicable native factory stages in its original run, then actual
+stream checking found a mux defect: `-shortest` dropped the final frame (1,229instead
+of1,230). The old package/caption successor are preserved as superseded. The existing
+factory now offers narrow `repair-mux`, using the same media/package/store owners:
+remove `-shortest`, verify exact video stream and frame identity, retain picture/audio/
+source/captions, and produce a distinct corrected package. Its existing ledger records
+three affected descendant invalidations and three corrected stage events. No picture
+render, narration synthesis, mix or creative work was repeated for the repair. Current
+package resolution follows the latest accepted ledger artifact; future caption revisions
+cannot silently bind the superseded truncated video. An unnecessary repeated repair is
+rejected because the current mux has no observed picture defect.
+
+Current exact entry:
+`.task-runtime/goal39/runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/review.html`.
+Current canonical package is the sibling `manifest.json`. Its caption-only successor is
+`../caption-corrected-picture-32/platform_neutral_package_manifest.json`. All bound artifact
+hashes match. Corrected video is41seconds/1,230frames and its encoded picture stream
+matches the locked original. One actual current cache hit and one caption-only successor
+prove unchanged-picture reuse with0delta renders/0delta syntheses. Old proof epochs and
+the retained technical replay are kept separate.
+
+Neo's restored connection loaded this actual corrected final video, six sidecar cues,
+1080x1920dimensions,readyState4and no media error. Builder inspected the corrected
+contact sheet and actual browser15second frame. Segment-length captions remain crowded
+and overlap the lower card; mobile caption quality is NOT_ACCEPTED. The operation proves
+private caption/package mechanics, not final viewer quality or word-level alignment.
+Measured audio is-15.9LUFS/-1.3dBFSpeak; hearing remains NOT_VERIFIED. Independent final
+continuous AV, voice and rights-release acceptance remain ungranted. These are explicit
+release gaps, not invented engineering PASS claims.
+
+Japan's fresh native editor return was ingested into its original job. Source/editorial
+checks passed; real local narration then failed the preserved current payoff QA rule:
+first designated payoff ends at30.452seconds, beyond30seconds. The job is QUARANTINED,
+with original3successful stages, failure event, eight audio files and source/return intact.
+No package was produced, gate weakened, run reset or duplicate replacement created.
+This is the distinct second story's actual governed failure disposition; it is not a
+second delivered video. `japan-disposition.json` binds the measured segment evidence.
+
+Final repeated admissions still return the same2jobs/runs, with no new stage events.
+Retail has19total events (13initial successes plus3invalidations/3corrections); Japan
+has4events (3successes/1failure). Current effective retail stages remain13. Fresh native
+returns:2editors/1motion/1independent visual review. Render count this task:1retained
+technical replay,1current native proxy,1current native picture lock. Corrections and
+caption deltas rendered0pictures. Real provider/platform/public/draft writes remain0.
+All23locales and six surfaces are unchanged capabilities;5short-surface shadow contracts
+prepare with live gate closed, normalYouTube correctly rejects the short format.
+
+Final focused current/donor checks: **25passed**, including a real FFmpeg regression for
+short audio preserving every video frame. Scoped Ruff/diff hygiene pass. The older expanded
+selection's56pass/1missingignoredmedia failure remains documented and independently
+reproduced on unchangedPR90; no full-suite or exact-headCI success is implied.
+
+Requirement-by-requirement audit: `REQUIREMENT_AUDIT.md`. Exact evidence and current paths:
+`INTEGRATION_EVIDENCE_V1.json`. This seals the requested bounded two-story private
+integration cohort:1current native engineering media/package journey and1honest failure,
+with actual process recovery, dedupe and picture-unchanged caption correction. It does
+not certify the full two-video/all-locale/six-live-surface product or final AV readiness.
+
+The original human completion-only amendment was freshly verified through read_thread:
+L1turn01a1661d-8e7f-7ca2-a8a1-640664bd8207,
+humanmessage01a1661d-90f0-74c1-8cd3-44fa35a9eeb6. No later human instruction in the read
+revoked this exact L3-to-own-L2 completion authority. One notice remains pending until
+source/evidence/graph and dependent draft PR final remote readback are sealed. No notice
+has yet been sent for Goal39; do not send a partial progress notice.

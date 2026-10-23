@@ -38,6 +38,7 @@ python -m video.unattended_core_factory_v1.manual step --config <config.json> --
 python -m video.unattended_core_factory_v1.manual submit --config <config.json> --job <identity> --return-file <native-return.json>
 python -m video.unattended_core_factory_v1.manual status --config <config.json>
 python -m video.unattended_core_factory_v1.manual caption-layout --config <config.json> --job <sealed-identity> --revision <new-identity> --width 32
+python -m video.unattended_core_factory_v1.manual repair-mux --config <config.json> --job <sealed-identity> --revision <new-identity>
 ```
 
 `step` resumes the saved run after reacquiring a released claim. Its optional exact
@@ -60,6 +61,13 @@ For a qualified published candidate, governed expansion must bind
 published story. This closes the donor's unrelated-packet activation gap. Dated
 owner-permitted engineering inputs remain separate from published qualification.
 Qualification's batch bound is caller-selected, not a daily product output ceiling.
+
+`repair-mux` applies only after an observed picture-stream mismatch in a sealed
+private package. It preserves original files, reuses picture/narration/mix/captions,
+and rebuilds only mux/package/review descendants in a distinct revision. The same
+ledger records the three affected stages as invalidated and superseded. Future
+caption revisions resolve that ledger's latest package, avoiding superseded media.
+The final mux never uses `-shortest` and verifies exact video stream/frame identity.
 
 ## Acceptance limits
 

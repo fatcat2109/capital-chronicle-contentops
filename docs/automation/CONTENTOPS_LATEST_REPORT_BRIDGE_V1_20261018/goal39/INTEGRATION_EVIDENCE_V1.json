@@ -1,6 +1,6 @@
 {
   "schema": "contentops.goal39.private_integration_evidence.v1",
-  "status": "PARTIAL_NATIVE_MEDIA_COMPLETION_PENDING",
+  "status": "BOUNDED_ENGINEERING_DELIVERED_FINAL_REMOTE_SEAL_PENDING",
   "base_head": "a1b08f96bf551681bca8196038f8b7060def4fd1",
   "donor_head": "10d18873e2d716dcd53b681a4370ef7726a27f9b",
   "source_epoch": "UNCOMMITTED_SCOPED_GOAL39_SOURCE_ON_RECORDED_BASE; job implementation_head is base identity, not proof those bytes were committed",
@@ -30,10 +30,11 @@
     {
       "video_job_id": "g39-retail",
       "run_id": "run_60474ad47f7d414d8c17413145fec6f9",
-      "state": "RUNNING",
-      "last_valid_checkpoint": "PROXY_RENDERED",
-      "resume_count": 2,
-      "stage_events": [
+      "state": "OWNER_REVIEW_READY",
+      "last_valid_checkpoint": "OWNER_REVIEW_READY",
+      "terminal_result": "PRIVATE_ENGINEERING_PACKAGE_REVIEW_REQUIRED",
+      "resume_count": 3,
+      "events": [
         {
           "stage": "CLAIMED",
           "result": "PASS_ATOMIC_CLAIM_WITH_HIGH_PARENT_PROVENANCE"
@@ -61,16 +62,65 @@
         {
           "stage": "PROXY_RENDERED",
           "result": "PASS_PROXY_RENDER"
+        },
+        {
+          "stage": "ACTUAL_MEDIA_REVIEWED",
+          "result": "PASS_ACTUAL_MEDIA_REVIEW"
+        },
+        {
+          "stage": "PICTURE_LOCKED",
+          "result": "PASS_PICTURE_LOCK"
+        },
+        {
+          "stage": "AUDIO_BUILT",
+          "result": "PASS_AUDIO_BUILD_REUSING_LOCKED_NARRATION"
+        },
+        {
+          "stage": "FINAL_MEDIA_BUILT",
+          "result": "PASS_FINAL_MEDIA"
+        },
+        {
+          "stage": "PACKAGE_QA_PASSED",
+          "result": "PASS_PACKAGE_QA"
+        },
+        {
+          "stage": "OWNER_REVIEW_READY",
+          "result": "PASS_OWNER_REVIEW_READY"
+        },
+        {
+          "stage": "FINAL_MEDIA_BUILT",
+          "result": "INVALIDATED_TRUNCATED_MUX_DESCENDANT"
+        },
+        {
+          "stage": "PACKAGE_QA_PASSED",
+          "result": "INVALIDATED_TRUNCATED_MUX_DESCENDANT"
+        },
+        {
+          "stage": "OWNER_REVIEW_READY",
+          "result": "INVALIDATED_TRUNCATED_MUX_DESCENDANT"
+        },
+        {
+          "stage": "FINAL_MEDIA_BUILT",
+          "result": "PASS_CORRECTED_FINAL_MEDIA_BUILT"
+        },
+        {
+          "stage": "PACKAGE_QA_PASSED",
+          "result": "PASS_CORRECTED_PACKAGE_QA_PASSED"
+        },
+        {
+          "stage": "OWNER_REVIEW_READY",
+          "result": "PASS_CORRECTED_OWNER_REVIEW_READY"
         }
       ]
     },
     {
       "video_job_id": "g39-japan",
       "run_id": "run_3615db290d094769a0b8db85708657a5",
-      "state": "RUNNING",
-      "last_valid_checkpoint": "GOVERNED_INPUT_LOCKED",
-      "resume_count": 0,
-      "stage_events": [
+      "state": "QUARANTINED",
+      "last_valid_checkpoint": "QUARANTINED",
+      "terminal_result": "HARD_FAILURE:TranscriptContractError:voiceover_qa_failed:retention_payoff_outside_first_30_seconds",
+      "resume_count": 1,
+      "events": [
         {
           "stage": "CLAIMED",
           "result": "PASS_ATOMIC_CLAIM_WITH_HIGH_PARENT_PROVENANCE"
@@ -78,6 +128,14 @@
         {
           "stage": "GOVERNED_INPUT_LOCKED",
           "result": "PASS_GOVERNED_INPUT_LOCK"
+        },
+        {
+          "stage": "CREATIVE_EDITOR_LOCKED",
+          "result": "PASS_CREATIVE_EDITOR_LOCK"
+        },
+        {
+          "stage": "HARD_FAILURE",
+          "result": "FAIL_QUARANTINED"
         }
       ]
     }
@@ -85,9 +143,9 @@
   "counts": {
     "governed_story_cases": 2,
     "current_news_winners": 0,
-    "fresh_native_editorial_returns": 1,
+    "fresh_native_editorial_returns": 2,
     "fresh_native_motion_returns": 1,
-    "fresh_native_completed_factory_packages": 0,
+    "fresh_native_completed_factory_packages": 1,
     "current_contract_narration_locks": 1,
     "new_retained_technical_picture_renders": 1,
     "new_retained_audio_mixes": 1,
@@ -100,7 +158,15 @@
     "surface_registry": 6,
     "public_or_platform_draft_writes": 0,
     "fresh_native_proxy_renders": 1,
-    "fresh_native_independent_visual_returns": 0
+    "fresh_native_independent_visual_returns": 1,
+    "current_native_picture_lock_renders": 1,
+    "current_native_proxy_renders": 1,
+    "current_native_audio_mixes": 1,
+    "current_native_caption_successors": 1,
+    "mechanical_mux_corrections": 1,
+    "correction_picture_renders": 0,
+    "correction_syntheses": 0,
+    "terminal_held_story_cases": 1
   },
   "native_limit": {
     "task": "/root/goal39_retail_native_editor",
@@ -108,10 +174,10 @@
     "motion": "VALIDATED_AND_INGESTED",
     "actual_runtime_model_attestation": "NOT_AVAILABLE",
     "bounded_resume": "One followup after fresh supported ordinaryUsageAllowed=true; no completion claimed from dispatch",
-    "independent_visual_review": "TERMINAL_ACCOUNT_USAGE_LIMIT_BEFORE_RETURN",
+    "independent_visual_review": "RETURNED_VALIDATED_NO_MATERIAL_REVISION_AFTER_EXACT_FRAME_RECHECK",
     "independent_review_task": "/root/goal39_retail_independent_review",
-    "japan_editor_task": "/root/goal39_japan_native_editor",
-    "japan_child_current_state": "HANDLE_MISSING_NO_RETURN",
+    "japan_editor_task": "/root/goal39_japan_after_reset",
+    "japan_child_current_state": "RETURNED_AND_INGESTED_MEASURED_AUDIO_QA_FAILED",
     "latest_supported_agent_inventory": "ROOT_ONLY"
   },
   "retained_technical_gate": {
@@ -135,7 +201,7 @@
     "fresh_native_creativity_claimed": false
   },
   "focused_tests": {
-    "changed_and_donor_contract_selection": "24 passed (latest selective picture dependency case included)",
+    "changed_and_donor_contract_selection": "25 passed, including real FFmpeg short-audio picture-preservation regression",
     "expanded_existing_substrate_selection": "56 passed, 1 failed",
     "failure": "test_video_only_chapter_render_never_regenerates_audio: missing ignored grocery_cashier_pexels_4121754.mp4",
     "baseline_reproduction": "Same exact failure reproduced in unchanged PR90 base checkout; no gate weakened"
@@ -384,6 +450,106 @@
       "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\pr91-final-api-readback.json",
       "sha256": "fae95d49b743333b774d625338acca3c975d972247c706b34a3e8553f1abba35",
       "size_bytes": 206
+    },
+    "native-returns/japan-editor.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\native-returns\\japan-editor.json",
+      "sha256": "34f197239d4149dd7391b101bca00400ece2ccf164fdf4e33211494e0362132d",
+      "size_bytes": 3164
+    },
+    "native-returns/retail-review.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\native-returns\\retail-review.json",
+      "sha256": "c0b5ba4d8bf9b7692edf90e06312bc404d37a981ba0f46bc84bd477f0845edb9",
+      "size_bytes": 5977
+    },
+    "japan-editor-submit.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\japan-editor-submit.json",
+      "sha256": "991fb5f23b35ece667c943ae05d292de86f8835b3e6f6cbca115485ddce4f9b3",
+      "size_bytes": 489
+    },
+    "japan-editor-lock.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\japan-editor-lock.json",
+      "sha256": "4363d3e6032bea6ed4c6d20ee2399e589963912ce39a11c132aff9e1a62c24a9",
+      "size_bytes": 6184
+    },
+    "japan-disposition.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\japan-disposition.json",
+      "sha256": "60ba4a03cdd840e13e01bbb0508986f2defe81dc4b8cdeb8f62369e8343988a2",
+      "size_bytes": 2201
+    },
+    "retail-review-submit.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-review-submit.json",
+      "sha256": "c35446dc6a0be166b5082138391d4bbc559498202f6c1b0abba4166855180a0e",
+      "size_bytes": 477
+    },
+    "retail-review-lock.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-review-lock.json",
+      "sha256": "febc36830330fa93c1c7f518a74e52c2043d4e1d00a7a9a7493283a4b2674544",
+      "size_bytes": 6195
+    },
+    "retail-final-stages-resumed.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-final-stages-resumed.json",
+      "sha256": "da8d9b669b58e9d9284c5a273e35155cf2f11af64a0a0c6b7be3a5f5631e83df",
+      "size_bytes": 6264
+    },
+    "retail-mux-correction.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-mux-correction.json",
+      "sha256": "079bc8489ece0bd837692e103b517b18af278bcce295dd1f646c6c35986563c4",
+      "size_bytes": 4194
+    },
+    "retail-corrected-caption-revision.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-corrected-caption-revision.json",
+      "sha256": "7e9fb6400fb5349ebd69dec8ae0e284340298e961bf0e90f534f3b33d7ffdd56",
+      "size_bytes": 1056
+    },
+    "retail-native-reuse-proof.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\retail-native-reuse-proof.json",
+      "sha256": "97f2031026e0b3b1cb72779bea7c0db751fdd9b94400f6b9b0f4fd8dba16544d",
+      "size_bytes": 8377
+    },
+    "current-package-integrity-surfaces.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\current-package-integrity-surfaces.json",
+      "sha256": "b82502d719bf96e98aabbe990b7d8a25f809616f62c8cbeda9b530c3cbb8f4b0",
+      "size_bytes": 1697
+    },
+    "final-dedupe-proof.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\final-dedupe-proof.json",
+      "sha256": "efa47e3c800bace0552e4713f32aeef2a519ab891b477dd4ece67456667f01dc",
+      "size_bytes": 560
+    },
+    "current-final-tests.txt": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\current-final-tests.txt",
+      "sha256": "5df020a6fcc075bd0c10acaaafb6eb813fcd91c54d6eeee4d45103dbfd44e804",
+      "size_bytes": 101
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/manifest.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\manifest.json",
+      "sha256": "e0f172435f9fae82e24f1ba0a4eadbb0b0227c298f8af6f3002c1f376f41645d",
+      "size_bytes": 6639
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/owner_review_bundle.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\owner_review_bundle.json",
+      "sha256": "aa2e06a55456734550a361147b812a9563bfc336baeaa0b39072de853fb8e17c",
+      "size_bytes": 9587
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/correction_receipt.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\correction_receipt.json",
+      "sha256": "658a0f006931f8d2a9aef2fb5bbb311fed8f0eb3544da7c99f3758b77af18038",
+      "size_bytes": 5027
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/review.html": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\review.html",
+      "sha256": "6b4b67a4b7e72101437d0d3a4324823c816d49e53b268504992ad0aa2432bb5a",
+      "size_bytes": 3479
+    },
+    "runtime/jobs/g39-retail/revisions/mux-picture-integrity-v1/inspected-frame-bindings.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\inspected-frame-bindings.json",
+      "sha256": "07e25b4ea49ee7152310ddb96894c8188f67ca7312e211330b17b200e113c985",
+      "size_bytes": 2032
+    },
+    "runtime/jobs/g39-retail/revisions/caption-corrected-picture-32/platform_neutral_package_manifest.json": {
+      "path": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\caption-corrected-picture-32\\platform_neutral_package_manifest.json",
+      "sha256": "9cc72ffdca00e5906056dc4853051c3b69afc80f4c6c48026a06a4d7d6d8565b",
+      "size_bytes": 6750
     }
   },
   "zero_authority": {
@@ -396,16 +562,16 @@
     "fresh_source_crawl": false,
     "completion_notice_sent": false
   },
-  "resume": "Actual independent review return required at current native ACTUAL_MEDIA_REVIEW request; do not ingest old retained review. Then step saved retail run through picture/audio/final/package, inspect actual artifact and caption-only successor. Finish saved Japan editorial request/disposition. Native creative capacity and lost handles are external conditions; no fabricated review/model substitution.",
+  "resume": "No further independent integration is required for the bounded engineering cohort. Release readiness requires capable audio/continuousAV and caption-quality review/correction, rights/voice/account decisions and separately authorized runtime/publication. Japan remains held; future correction must preserve its original failure/history.",
   "cache_source_epoch": "Final selective dependency seam actually rendered the current-native proxy; earlier retained technical replay/cache hit remains its own historical broad-key proof.",
   "tested_source_bytes": {
     "video/unattended_core_factory_v1/caption_revision.py": "867254eb75294dcf16cbf639f5731b4fe5cd89f29e942fa7fc1b7461c848f6e1",
     "video/unattended_core_factory_v1/creative.py": "9999eacd59e4474f50b10d8afdb5060eb1dac1a7c008270c0ad56f47e00ecda3",
     "video/unattended_core_factory_v1/desktop_session.py": "4bd3da380a14d4ed227964e8d1798e3f910d6e503beefe0b6e68f00975e7cf77",
-    "video/unattended_core_factory_v1/manual.py": "176621509243b7a17bfebd4cf7a42b244f819ec0c3bdbb83854fad70b0af2ed6",
-    "video/unattended_core_factory_v1/media.py": "2c0bca04a4868387403ab6f97aaa7449b5d40c59d4f3e95ecee2ab5aafb9767d",
+    "video/unattended_core_factory_v1/manual.py": "997e5ab6e8252bea9460a55dfaadd856f28f8816de7368cf3b21d986528ad6b9",
+    "video/unattended_core_factory_v1/media.py": "ec5159a4f35764973550850357545f48e633e495251c6b1ff58d87a6f850c89d",
     "video/unattended_core_factory_v1/store.py": "716af4cbee34e5c11c1657f069b0569fba7d49cf0fe90b89dfef25b7388b56ca",
-    "video/unattended_core_factory_v1/supervisor.py": "60ffe1a80e62d210745dec78f92ecce5a2ebd7e63e00813a533a2a5f6fcccb9c",
+    "video/unattended_core_factory_v1/supervisor.py": "7a846a7985d0c37ee91f699d6c0d5892ad88891e2a88c32f9fddc56b1fcff26a",
     "video/unattended_core_factory_v1/transcript.py": "d148fbe84ab2594bf39bde8b1c5eb01ab9a8aec6259a8e34999d3ee083bf2d9c",
     "video/unattended_core_factory_v1/__init__.py": "3b26f97c783899dd582e71fc68520c684f8bd50ab98b17e01a552ad3d97c6c36",
     "video/locale_activation_hardening_v1/factory.py": "4fc1063a6afc90d810b20ef3402c139d3d4cddcda7a6fcec9b4195c63931f20c",
@@ -443,9 +609,49 @@
       39.5
     ],
     "builder_contact_sheet_inspected": true,
-    "independent_visual_review": "NO_RETURN_QUOTA_LIMIT",
+    "independent_visual_review": "NO_MATERIAL_REVISION_SAMPLED_FRAMES_ONLY",
     "hearing": "NOT_VERIFIED_SILENT_PROXY",
-    "final_package": "NOT_BUILT",
+    "final_package": "CORRECTED_CURRENT_FACTORY_SUCCESSOR_AVAILABLE",
     "browser": "Neo loaded native proxy review page before MCP disconnected"
+  },
+  "current_result": {
+    "retail": "OWNER_REVIEW_READY_WITH_CORRECTED_MUX_SUCCESSOR",
+    "japan": "QUARANTINED_ACTUAL_RETENTION_QA_FAILURE",
+    "native_private_media_package": true,
+    "current_native_caption_successor": true,
+    "final_AV_acceptance": "NOT_GRANTED",
+    "production_acceptance": "NOT_GRANTED",
+    "hearing": "NOT_VERIFIED",
+    "caption_mobile_quality": "NOT_ACCEPTED_CROWDED_SEGMENT_CUES",
+    "rights_release": "NOT_GRANTED",
+    "published_corpus_winners": 0
+  },
+  "current_native_inspection": {
+    "final_browser": "Neo loaded corrected41second1080x1920final,6sidecar cues,readyState4,errornull; actual15second screenshot inspected",
+    "builder_visual": "corrected contact sheet inspected; no final continuous-motion PASS",
+    "caption_finding": "Long segment cue wraps to5lines at15seconds and overlaps lower card: mobilequality NOT_ACCEPTED; timing/words remain original",
+    "independent_review": "actual native proxy contact sheet and6bound frames; no material picture revision after unsupported crop finding was withdrawn on exact image recheck",
+    "hearing": "NOT_VERIFIED",
+    "audio_measurement": {
+      "result": "PASS_AUDIO_MEASURED",
+      "integrated_lufs": -15.9,
+      "true_peak_dbfs": -1.3
+    }
+  },
+  "mux_failure_correction": {
+    "observed_initial_frames": 1229,
+    "required_locked_frames": 1230,
+    "cause": "ffmpeg-shortest",
+    "current_frames": 1230,
+    "current_video_seconds": 41,
+    "exact_stream_identity_verified": true,
+    "old_artifacts": "PRESERVED_SUPERSEDED",
+    "affected_stages": [
+      "FINAL_MEDIA_BUILT",
+      "PACKAGE_QA_PASSED",
+      "OWNER_REVIEW_READY"
+    ],
+    "durable_invalidation_and_successor_events": true,
+    "current_manifest": "C:\\Users\\bullw\\.codex\\worktrees\\v2-current-native-factory\\ContentOps\\.task-runtime\\goal39\\runtime\\jobs\\g39-retail\\revisions\\mux-picture-integrity-v1\\manifest.json"
   }
 }

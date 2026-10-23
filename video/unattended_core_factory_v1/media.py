@@ -756,17 +756,29 @@ def mux_final_media(*, picture: Path, mix: Path, output: Path) -> dict[str, Any]
             "aac",
             "-b:a",
             "192k",
-            "-shortest",
             "-movflags",
             "+faststart",
             str(output),
         ],
         timeout=600,
     )
+    # Reuse the existing locale media identity verifier: container success alone
+    # must not hide a truncated final frame after audio encoder timestamp shifts.
+    from video.locale_activation_hardening_v1.factory import inspect_picture
+
+    source = inspect_picture(picture)
+    observed = inspect_picture(output)
+    if (
+        source["video_stream_sha256"] != observed["video_stream_sha256"]
+        or source["frame_count"] != observed["frame_count"]
+    ):
+        raise MediaExecutionError("final_mux_picture_stream_or_frame_identity_mismatch")
     return {
         "result": "PASS_FINAL_MUX",
         "final_media": artifact(output),
         "mux_execution": mux_result,
+        "picture_identity": {"source": source, "mux": observed},
+        "ffmpeg_shortest_used": False,
     }
 
 

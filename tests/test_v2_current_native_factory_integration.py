@@ -1,4 +1,6 @@
 import json
+import shutil
+import subprocess
 
 import pytest
 
@@ -8,6 +10,54 @@ from video.unattended_core_factory_v1.desktop_session import (
     ParentSessionProvenance,
     build_parent_session_receipt,
 )
+
+
+@pytest.mark.skipif(not shutil.which("ffmpeg"), reason="ffmpeg runtime unavailable")
+def test_final_mux_preserves_all_picture_frames_with_short_audio(tmp_path):
+    from video.unattended_core_factory_v1.media import mux_final_media
+    from video.locale_activation_hardening_v1.factory import inspect_picture
+
+    picture, audio, output = (
+        tmp_path / "picture.mp4",
+        tmp_path / "short.wav",
+        tmp_path / "final.mp4",
+    )
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-v",
+            "error",
+            "-f",
+            "lavfi",
+            "-i",
+            "color=c=blue:s=160x284:r=30:d=2",
+            "-an",
+            "-c:v",
+            "libx264",
+            "-pix_fmt",
+            "yuv420p",
+            str(picture),
+        ],
+        check=True,
+    )
+    subprocess.run(
+        [
+            "ffmpeg",
+            "-v",
+            "error",
+            "-f",
+            "lavfi",
+            "-i",
+            "sine=frequency=440:duration=1.9",
+            str(audio),
+        ],
+        check=True,
+    )
+    receipt = mux_final_media(picture=picture, mix=audio, output=output)
+    before, after = inspect_picture(picture), inspect_picture(output)
+    assert before["frame_count"] == after["frame_count"] == 60
+    assert before["video_stream_sha256"] == after["video_stream_sha256"]
+    assert receipt["ffmpeg_shortest_used"] is False
 
 
 def test_exact_job_claim_does_not_take_another_story(tmp_path):

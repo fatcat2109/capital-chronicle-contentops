@@ -93,7 +93,8 @@ def request_for(f, result):
 def command(argv=None):
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument(
-        "command", choices=["admit", "step", "submit", "status", "caption-layout"]
+        "command",
+        choices=["admit", "step", "submit", "status", "caption-layout", "repair-mux"],
     )
     p.add_argument("--config", type=Path, required=True)
     p.add_argument("--packet", type=Path)
@@ -117,6 +118,10 @@ def command(argv=None):
         )
     elif a.command == "status":
         result = dict(jobs=f.store.jobs(), public_write_authority=False)
+    elif a.command == "repair-mux":
+        if not a.job or not a.revision:
+            p.error("repair-mux requires job and distinct revision identity")
+        result = f.repair_mux_package(video_job_id=a.job, revision=a.revision)
     elif a.command == "caption-layout":
         if not a.job or not re.fullmatch(r"[A-Za-z0-9_.-]+", a.revision or ""):
             p.error("caption-layout needs job and safe revision identity")
@@ -129,7 +134,9 @@ def command(argv=None):
 
         paths = f._paths(a.job)
         result = revise_caption_layout(
-            paths["package"], paths["root"] / "revisions" / a.revision, width=a.width
+            f.current_package_path(a.job),
+            paths["root"] / "revisions" / a.revision,
+            width=a.width,
         )
     elif a.command == "submit":
         if not a.job or not a.return_file:

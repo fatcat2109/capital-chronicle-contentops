@@ -60,11 +60,11 @@ SECRET_PATTERNS = (
     re.compile(r"(?i)authorization\s*:\s*bearer\s+\S+"),
     re.compile(r"\bsk-[A-Za-z0-9_-]{16,}\b"),
     re.compile(r"\b(?:eyJ[A-Za-z0-9_-]+\.){2}[A-Za-z0-9_-]+\b"),
-    re.compile(r"(?i)(?:api[_-]?key|access[_-]?token|client[_-]?secret)\s*[=:]\s*['\"]?[A-Za-z0-9_./+-]{12,}"),
+    re.compile(
+        r"(?i)(?:api[_-]?key|access[_-]?token|client[_-]?secret)\s*[=:]\s*['\"]?[A-Za-z0-9_./+-]{12,}"
+    ),
 )
-OWNED_TEXT_SUFFIXES = frozenset(
-    {".json", ".md", ".txt", ".tsx", ".ts", ".srt", ".vtt"}
-)
+OWNED_TEXT_SUFFIXES = frozenset({".json", ".md", ".txt", ".tsx", ".ts", ".srt", ".vtt"})
 OWNED_TEXT_SURFACE_LABELS = (
     "artifacts",
     "desktop_session_inbox",
@@ -123,7 +123,9 @@ class FactoryConfig:
 
 def _json_artifact(path: Path, value: Any) -> dict[str, Any]:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
     return {
         "path": str(path.resolve()),
         "sha256": hash_file(path),
@@ -243,22 +245,31 @@ class DesktopSessionV2Factory:
             "artifacts": artifacts,
             "project": root / "generated_project",
             "session_inbox": root / "desktop_session_inbox",
-            "editorial_submission": root / "desktop_session_inbox" / "editorial_narration.json",
-            "editorial_revision_submission": root / "desktop_session_inbox" / "editorial_timing_revision.json",
+            "editorial_submission": root
+            / "desktop_session_inbox"
+            / "editorial_narration.json",
+            "editorial_revision_submission": root
+            / "desktop_session_inbox"
+            / "editorial_timing_revision.json",
             "motion_submission": root / "desktop_session_inbox" / "motion_visual.json",
-            "review_submission": root / "desktop_session_inbox" / "actual_media_review.json",
+            "review_submission": root
+            / "desktop_session_inbox"
+            / "actual_media_review.json",
             "parent_receipt": artifacts / "parent_high_session_receipt.json",
             "editor_initial": artifacts / "creative_editor_initial.json",
             "editor": artifacts / "creative_editor.json",
-            "editor_initial_validation": artifacts / "creative_editor_initial_validation.json",
+            "editor_initial_validation": artifacts
+            / "creative_editor_initial_validation.json",
             "editor_validation": artifacts / "creative_editor_validation.json",
             "editor_receipt": artifacts / "codex_initial_execution_receipt.json",
-            "editor_revision_receipt": artifacts / "codex_editorial_timing_revision_receipt.json",
+            "editor_revision_receipt": artifacts
+            / "codex_editorial_timing_revision_receipt.json",
             "narration_overrun": artifacts / "narration_overrun_pre_motion.json",
             "timing_lock": artifacts / "actual_narration_timing_lock.json",
             "motion": artifacts / "motion_source.json",
             "asset_selection": artifacts / "post_transcript_asset_selection.json",
-            "asset_selection_validation": artifacts / "post_transcript_asset_selection_validation.json",
+            "asset_selection_validation": artifacts
+            / "post_transcript_asset_selection_validation.json",
             "motion_validation": artifacts / "motion_source_validation.json",
             "motion_receipt": artifacts / "codex_motion_lock_receipt.json",
             "source_validation": artifacts / "hard_source_validation.json",
@@ -337,9 +348,15 @@ class DesktopSessionV2Factory:
         parent_receipt = self._parent_receipt(
             paths=paths, video_job_id=video_job_id, run_id=run_id
         )
-        if provenance.parent.continuity_key != self.config.parent_provenance.continuity_key:
+        if (
+            provenance.parent.continuity_key
+            != self.config.parent_provenance.continuity_key
+        ):
             raise SupervisorError("creative_parent_session_continuity_mismatch")
-        if provenance.parent.continuity_key != parent_receipt["parent_session_continuity_key"]:
+        if (
+            provenance.parent.continuity_key
+            != parent_receipt["parent_session_continuity_key"]
+        ):
             raise SupervisorError("creative_parent_receipt_continuity_mismatch")
         validate_editor_artifact(editor, packet)
         receipt = build_bounded_creative_receipt(
@@ -523,9 +540,15 @@ class DesktopSessionV2Factory:
         parent_receipt = self._parent_receipt(
             paths=paths, video_job_id=video_job_id, run_id=run_id
         )
-        if provenance.parent.continuity_key != self.config.parent_provenance.continuity_key:
+        if (
+            provenance.parent.continuity_key
+            != self.config.parent_provenance.continuity_key
+        ):
             raise SupervisorError("creative_parent_session_continuity_mismatch")
-        if provenance.parent.continuity_key != parent_receipt["parent_session_continuity_key"]:
+        if (
+            provenance.parent.continuity_key
+            != parent_receipt["parent_session_continuity_key"]
+        ):
             raise SupervisorError("creative_parent_receipt_continuity_mismatch")
         validate_revision_artifact(review, packet, editor, motion, timing_lock)
         receipt = build_bounded_creative_receipt(
@@ -583,8 +606,12 @@ class DesktopSessionV2Factory:
                 invalid_from = index
             for record in records:
                 path = Path(str(record.get("path", "")))
-                if not path.is_file() or hash_file(path) != str(record.get("sha256", "")):
-                    invalid_from = index if invalid_from is None else min(invalid_from, index)
+                if not path.is_file() or hash_file(path) != str(
+                    record.get("sha256", "")
+                ):
+                    invalid_from = (
+                        index if invalid_from is None else min(invalid_from, index)
+                    )
                     break
             if invalid_from is not None:
                 break
@@ -621,7 +648,10 @@ class DesktopSessionV2Factory:
         self, latest: Mapping[str, Mapping[str, Any]], paths: Mapping[str, Path]
     ) -> str | None:
         for stage in STAGES:
-            if stage == "CREATIVE_REVISION_LOCKED" and self._review_decision(paths) == "NO_MATERIAL_REVISION":
+            if (
+                stage == "CREATIVE_REVISION_LOCKED"
+                and self._review_decision(paths) == "NO_MATERIAL_REVISION"
+            ):
                 continue
             if stage not in latest:
                 return stage
@@ -699,7 +729,9 @@ class DesktopSessionV2Factory:
             return
         if stage == "GOVERNED_INPUT_LOCKED":
             validation = validate_input_packet(packet)
-            locked = _json_artifact(paths["artifacts"] / "governed_input_lock.json", validation)
+            locked = _json_artifact(
+                paths["artifacts"] / "governed_input_lock.json", validation
+            )
             self._append(
                 job=job,
                 run_id=run_id,
@@ -716,12 +748,24 @@ class DesktopSessionV2Factory:
             if not paths["editorial_submission"].is_file():
                 raise DesktopSessionInputRequired("EDITORIAL_NARRATION")
             submission = _load(paths["editorial_submission"])
-            if submission.get("schema") != "contentops.v2.desktop_session_editorial_submission.v1":
-                raise SupervisorError("desktop_session_editorial_submission_schema_invalid")
-            if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
-                raise SupervisorError("desktop_session_editorial_submission_identity_mismatch")
+            if (
+                submission.get("schema")
+                != "contentops.v2.desktop_session_editorial_submission.v1"
+            ):
+                raise SupervisorError(
+                    "desktop_session_editorial_submission_schema_invalid"
+                )
+            if (
+                submission.get("video_job_id") != job["video_job_id"]
+                or submission.get("run_id") != run_id
+            ):
+                raise SupervisorError(
+                    "desktop_session_editorial_submission_identity_mismatch"
+                )
             if submission.get("governed_input_hash") != input_hash:
-                raise SupervisorError("desktop_session_editorial_submission_input_hash_mismatch")
+                raise SupervisorError(
+                    "desktop_session_editorial_submission_input_hash_mismatch"
+                )
             output = dict(submission.get("editor") or {})
             receipt = dict(submission.get("receipt") or {})
             validate_bounded_creative_receipt(
@@ -767,12 +811,24 @@ class DesktopSessionV2Factory:
             revision_receipt: dict[str, Any] | None = None
             if paths["editorial_revision_submission"].is_file():
                 submission = _load(paths["editorial_revision_submission"])
-                if submission.get("schema") != "contentops.v2.desktop_session_editorial_timing_revision.v1":
-                    raise SupervisorError("desktop_session_editorial_revision_schema_invalid")
-                if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
-                    raise SupervisorError("desktop_session_editorial_revision_identity_mismatch")
+                if (
+                    submission.get("schema")
+                    != "contentops.v2.desktop_session_editorial_timing_revision.v1"
+                ):
+                    raise SupervisorError(
+                        "desktop_session_editorial_revision_schema_invalid"
+                    )
+                if (
+                    submission.get("video_job_id") != job["video_job_id"]
+                    or submission.get("run_id") != run_id
+                ):
+                    raise SupervisorError(
+                        "desktop_session_editorial_revision_identity_mismatch"
+                    )
                 if submission.get("governed_input_hash") != input_hash:
-                    raise SupervisorError("desktop_session_editorial_revision_input_hash_mismatch")
+                    raise SupervisorError(
+                        "desktop_session_editorial_revision_input_hash_mismatch"
+                    )
                 editor = dict(submission.get("editor") or {})
                 revision_receipt = dict(submission.get("receipt") or {})
                 validate_bounded_creative_receipt(
@@ -785,7 +841,9 @@ class DesktopSessionV2Factory:
                 if dict(revision_receipt.get("output_artifact_hashes") or {}).get(
                     "editorial"
                 ) != hash_value(editor):
-                    raise SupervisorError("desktop_session_editorial_revision_hash_mismatch")
+                    raise SupervisorError(
+                        "desktop_session_editorial_revision_hash_mismatch"
+                    )
             validation = validate_editor_artifact(editor, packet)
             narration = self.media.synthesize_narration(
                 editor=editor,
@@ -794,7 +852,10 @@ class DesktopSessionV2Factory:
                 output_dir=paths["narration_dir"],
             )
             actual_duration = float(narration["duration_seconds"])
-            if actual_duration + MINIMUM_PICTURE_TAIL_ROOM_SECONDS > SHORT_MAX_SECONDS + 0.00001:
+            if (
+                actual_duration + MINIMUM_PICTURE_TAIL_ROOM_SECONDS
+                > SHORT_MAX_SECONDS + 0.00001
+            ):
                 _json_artifact(
                     paths["narration_overrun"],
                     {
@@ -863,7 +924,9 @@ class DesktopSessionV2Factory:
             ]
             if revision_receipt is not None:
                 records.append(
-                    _write_immutable_json(paths["editor_revision_receipt"], revision_receipt)
+                    _write_immutable_json(
+                        paths["editor_revision_receipt"], revision_receipt
+                    )
                 )
             self._append(
                 job=job,
@@ -891,16 +954,33 @@ class DesktopSessionV2Factory:
             if not paths["motion_submission"].is_file():
                 raise DesktopSessionInputRequired("MOTION_VISUAL_AUTHORSHIP")
             submission = _load(paths["motion_submission"])
-            if submission.get("schema") != "contentops.v2.desktop_session_motion_submission.v1":
-                raise SupervisorError("desktop_session_motion_submission_schema_invalid")
-            if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
-                raise SupervisorError("desktop_session_motion_submission_identity_mismatch")
+            if (
+                submission.get("schema")
+                != "contentops.v2.desktop_session_motion_submission.v1"
+            ):
+                raise SupervisorError(
+                    "desktop_session_motion_submission_schema_invalid"
+                )
+            if (
+                submission.get("video_job_id") != job["video_job_id"]
+                or submission.get("run_id") != run_id
+            ):
+                raise SupervisorError(
+                    "desktop_session_motion_submission_identity_mismatch"
+                )
             if submission.get("governed_input_hash") != input_hash:
-                raise SupervisorError("desktop_session_motion_submission_input_hash_mismatch")
+                raise SupervisorError(
+                    "desktop_session_motion_submission_input_hash_mismatch"
+                )
             if submission.get("editorial_narration_hash") != hash_value(editor):
                 raise SupervisorError("desktop_session_motion_editorial_hash_mismatch")
-            if submission.get("narration_timing_lock_hash") != timing_lock["timing_lock_hash"]:
-                raise SupervisorError("desktop_session_motion_timing_lock_hash_mismatch")
+            if (
+                submission.get("narration_timing_lock_hash")
+                != timing_lock["timing_lock_hash"]
+            ):
+                raise SupervisorError(
+                    "desktop_session_motion_timing_lock_hash_mismatch"
+                )
             output = dict(submission.get("motion") or {})
             receipt = dict(submission.get("receipt") or {})
             validate_bounded_creative_receipt(
@@ -915,11 +995,15 @@ class DesktopSessionV2Factory:
             if not expected_hash or hash_value(output) != expected_hash:
                 raise SupervisorError("codex_motion_output_hash_mismatch")
             validation = validate_motion_artifact(output, packet, editor, timing_lock)
-            if submission.get("asset_selection_hash") != validation["asset_selection_hash"]:
+            if (
+                submission.get("asset_selection_hash")
+                != validation["asset_selection_hash"]
+            ):
                 raise SupervisorError("desktop_session_asset_selection_hash_mismatch")
-            if expected_outputs.get("post_transcript_asset_selection") != validation[
-                "asset_selection_hash"
-            ]:
+            if (
+                expected_outputs.get("post_transcript_asset_selection")
+                != validation["asset_selection_hash"]
+            ):
                 raise SupervisorError("codex_asset_selection_output_hash_mismatch")
             source_records = materialize_source(output["files"], paths["project"])
             records = [
@@ -1034,13 +1118,25 @@ class DesktopSessionV2Factory:
             if not paths["review_submission"].is_file():
                 raise DesktopSessionInputRequired("ACTUAL_MEDIA_REVIEW")
             submission = _load(paths["review_submission"])
-            if submission.get("schema") != "contentops.v2.desktop_session_review_submission.v1":
-                raise SupervisorError("desktop_session_review_submission_schema_invalid")
-            if submission.get("video_job_id") != job["video_job_id"] or submission.get("run_id") != run_id:
-                raise SupervisorError("desktop_session_review_submission_identity_mismatch")
+            if (
+                submission.get("schema")
+                != "contentops.v2.desktop_session_review_submission.v1"
+            ):
+                raise SupervisorError(
+                    "desktop_session_review_submission_schema_invalid"
+                )
+            if (
+                submission.get("video_job_id") != job["video_job_id"]
+                or submission.get("run_id") != run_id
+            ):
+                raise SupervisorError(
+                    "desktop_session_review_submission_identity_mismatch"
+                )
             if submission.get("proxy_sha256") != hash_file(paths["proxy"]):
                 raise SupervisorError("desktop_session_review_proxy_hash_mismatch")
-            if submission.get("proxy_contact_sheet_sha256") != hash_file(paths["proxy_sheet"]):
+            if submission.get("proxy_contact_sheet_sha256") != hash_file(
+                paths["proxy_sheet"]
+            ):
                 raise SupervisorError("desktop_session_review_surface_hash_mismatch")
             output = dict(submission.get("review") or {})
             receipt = dict(submission.get("receipt") or {})
@@ -1054,7 +1150,9 @@ class DesktopSessionV2Factory:
             validation = validate_revision_artifact(
                 output, packet, editor, motion, timing_lock
             )
-            if dict(receipt.get("output_artifact_hashes") or {}).get("review") != hash_value(output):
+            if dict(receipt.get("output_artifact_hashes") or {}).get(
+                "review"
+            ) != hash_value(output):
                 raise SupervisorError("desktop_session_review_output_hash_mismatch")
             records = [
                 _json_artifact(paths["review"], output),
@@ -1084,7 +1182,9 @@ class DesktopSessionV2Factory:
         if stage == "CREATIVE_REVISION_LOCKED":
             if review["decision"] != "MATERIAL_REVISION_REQUIRED":
                 raise SupervisorError("revision_stage_without_material_decision")
-            source_records = materialize_source(review["replacement_files"], paths["project"])
+            source_records = materialize_source(
+                review["replacement_files"], paths["project"]
+            )
             validate_source_files(review["replacement_files"])
             typecheck = self.media.typecheck_project(
                 paths["project"], self.config.dependency_root
@@ -1129,7 +1229,10 @@ class DesktopSessionV2Factory:
             narration_duration = float(
                 timing_lock["actual_total_narration_duration_seconds"]
             )
-            if picture_duration + 0.001 < narration_duration + MINIMUM_PICTURE_TAIL_ROOM_SECONDS:
+            if (
+                picture_duration + 0.001
+                < narration_duration + MINIMUM_PICTURE_TAIL_ROOM_SECONDS
+            ):
                 raise SupervisorError("picture_ends_before_locked_narration")
             if abs(picture_duration - float(motion["duration_seconds"])) > 0.05:
                 raise SupervisorError("picture_duration_differs_from_motion_lock")
@@ -1140,7 +1243,9 @@ class DesktopSessionV2Factory:
                 started=started,
                 inputs={
                     "motion_or_revision": hash_value(
-                        review if review["decision"] == "MATERIAL_REVISION_REQUIRED" else motion
+                        review
+                        if review["decision"] == "MATERIAL_REVISION_REQUIRED"
+                        else motion
                     ),
                     "actual_narration_timing_lock": timing_lock["timing_lock_hash"],
                 },
@@ -1174,7 +1279,9 @@ class DesktopSessionV2Factory:
                 inputs={
                     "picture": hash_file(paths["picture"]),
                     "actual_narration_timing_lock": timing_lock["timing_lock_hash"],
-                    "locked_narration_audio": timing_lock["locked_narration_audio"]["sha256"],
+                    "locked_narration_audio": timing_lock["locked_narration_audio"][
+                        "sha256"
+                    ],
                 },
                 artifacts=[mix["mix"], mix_record],
                 result="PASS_AUDIO_BUILD_REUSING_LOCKED_NARRATION",
@@ -1193,7 +1300,10 @@ class DesktopSessionV2Factory:
                 run_id=run_id,
                 stage=stage,
                 started=started,
-                inputs={"picture": hash_file(paths["picture"]), "audio": hash_file(paths["mix"])},
+                inputs={
+                    "picture": hash_file(paths["picture"]),
+                    "audio": hash_file(paths["mix"]),
+                },
                 artifacts=[mux["final_media"], record],
                 result="PASS_FINAL_MEDIA",
                 next_stage="PACKAGE_QA_PASSED",
@@ -1214,16 +1324,16 @@ class DesktopSessionV2Factory:
                 media_duration_seconds=float(motion["duration_seconds"]),
                 output_dir=paths["captions"],
             )
-            technical = self.media.technical_media_report(paths["final"], paths["technical"])
+            technical = self.media.technical_media_report(
+                paths["final"], paths["technical"]
+            )
             factual = {
                 "schema": "contentops.v2.factual_anchor_audit.v1",
                 "result": "PASS_FACTUAL_ANCHORS",
                 "input_packet_hash": input_hash,
                 "editor_validation": _load(paths["editor_validation"]),
                 "motion_validation": _load(paths["motion_validation"]),
-                "canonical_transcript_hash": transcript[
-                    "canonical_transcript_hash"
-                ],
+                "canonical_transcript_hash": transcript["canonical_transcript_hash"],
                 "voiceover_qa_hash": voiceover_qa["voiceover_qa_hash"],
                 "seo_package_hash": seo["seo_package_hash"],
                 "prior_creative_source_reused_as_input": False,
@@ -1250,9 +1360,9 @@ class DesktopSessionV2Factory:
                 "schema": "contentops.v2.rights_provenance_summary.v1",
                 "result": "PASS_RIGHTS_REFERENCES",
                 "assets": all_rights_assets,
-                "post_transcript_asset_selection_hash": motion[
-                    "asset_selection"
-                ]["asset_selection_hash"],
+                "post_transcript_asset_selection_hash": motion["asset_selection"][
+                    "asset_selection_hash"
+                ],
                 "rendered_asset_ids": [
                     str(item["asset_id"]) for item in rendered_assets
                 ],
@@ -1285,8 +1395,12 @@ class DesktopSessionV2Factory:
                     6,
                 ),
                 "render_count": 2,
-                "rerender_count": 1 if review["decision"] == "MATERIAL_REVISION_REQUIRED" else 0,
-                "creative_rerender_count": 1 if review["decision"] == "MATERIAL_REVISION_REQUIRED" else 0,
+                "rerender_count": 1
+                if review["decision"] == "MATERIAL_REVISION_REQUIRED"
+                else 0,
+                "creative_rerender_count": 1
+                if review["decision"] == "MATERIAL_REVISION_REQUIRED"
+                else 0,
                 "xhigh_mechanical_work_execution_count": 0,
                 "operator_intervention_minutes": None,
                 "execution_mode": "MANUALLY_STEPPED_PRIVATE_ENGINEERING",
@@ -1333,7 +1447,10 @@ class DesktopSessionV2Factory:
                 run_id=run_id,
                 stage=stage,
                 started=started,
-                inputs={"final_media": hash_file(paths["final"]), "input_packet": input_hash},
+                inputs={
+                    "final_media": hash_file(paths["final"]),
+                    "input_packet": input_hash,
+                },
                 artifacts=[
                     technical["report_artifact"],
                     factual_record,
@@ -1358,8 +1475,14 @@ class DesktopSessionV2Factory:
                 "video_job_id": str(job["video_job_id"]),
                 "run_id": run_id,
                 "immutable_event_count": len(events) + 1,
-                "completed_stages": [event["stage"] for event in events if event["result"].startswith("PASS")],
-                "resume_count": int(self.store.job(str(job["video_job_id"]))["resume_count"]),
+                "completed_stages": [
+                    event["stage"]
+                    for event in events
+                    if event["result"].startswith("PASS")
+                ],
+                "resume_count": int(
+                    self.store.job(str(job["video_job_id"]))["resume_count"]
+                ),
                 "public_write_authority": False,
             }
             ledger_record = _json_artifact(paths["ledger"], ledger)
@@ -1392,16 +1515,16 @@ class DesktopSessionV2Factory:
                 "narration_timing_lock": str(paths["timing_lock"]),
                 "narration_timing_lock_hash": timing_lock["timing_lock_hash"],
                 "post_transcript_asset_selection": str(paths["asset_selection"]),
-                "post_transcript_asset_selection_hash": motion[
-                    "asset_selection"
-                ]["asset_selection_hash"],
+                "post_transcript_asset_selection_hash": motion["asset_selection"][
+                    "asset_selection_hash"
+                ],
                 "canonical_transcript_path": str(paths["timing_lock"]),
-                "canonical_transcript_hash": timing_lock[
-                    "canonical_spoken_transcript"
-                ]["canonical_transcript_hash"],
-                "locked_narration_audio_sha256": timing_lock[
-                    "locked_narration_audio"
-                ]["sha256"],
+                "canonical_transcript_hash": timing_lock["canonical_spoken_transcript"][
+                    "canonical_transcript_hash"
+                ],
+                "locked_narration_audio_sha256": timing_lock["locked_narration_audio"][
+                    "sha256"
+                ],
                 "final_audio_sha256": local_media.artifact(paths["mix"])["sha256"],
                 "caption_artifact_hashes": {
                     key.removeprefix("caption_"): value["sha256"]
@@ -1472,7 +1595,9 @@ class DesktopSessionV2Factory:
                     "manual_source_edits_after_start": None,
                     "manual_media_edits_after_start": None,
                     "manual_checkpoint_edits": None,
-                    "operator_intervention_minutes": cost["operator_intervention_minutes"],
+                    "operator_intervention_minutes": cost[
+                        "operator_intervention_minutes"
+                    ],
                 },
                 "public_write_authority": False,
             }
@@ -1483,7 +1608,10 @@ class DesktopSessionV2Factory:
                 run_id=run_id,
                 stage=stage,
                 started=started,
-                inputs={"package": hash_file(paths["package"]), "final_media": hash_file(paths["final"])},
+                inputs={
+                    "package": hash_file(paths["package"]),
+                    "final_media": hash_file(paths["final"]),
+                },
                 artifacts=[final_sheet["artifact"], ledger_record, bundle_record],
                 result="PASS_OWNER_REVIEW_READY",
                 next_stage=None,
@@ -1584,7 +1712,10 @@ class DesktopSessionV2Factory:
                     if path.is_dir():
                         pending.append(path)
                         continue
-                    if not path.is_file() or path.suffix.lower() not in OWNED_TEXT_SUFFIXES:
+                    if (
+                        not path.is_file()
+                        or path.suffix.lower() not in OWNED_TEXT_SUFFIXES
+                    ):
                         continue
                     try:
                         text = path.read_text(encoding="utf-8", errors="replace")
@@ -1712,6 +1843,163 @@ class DesktopSessionV2Factory:
                 except BaseException:
                     pass
             raise
+
+    def current_package_path(self, video_job_id: str) -> Path:
+        """Resolve the latest accepted package from this owner's append-only ledger."""
+        event = self.store.latest_success_by_stage(video_job_id).get(
+            "PACKAGE_QA_PASSED"
+        )
+        if event is None:
+            raise SupervisorError("current_package_stage_missing")
+        for record in json.loads(event["artifact_records_json"]):
+            path = Path(record["path"])
+            if path.suffix != ".json":
+                continue
+            if not path.is_file() or hash_file(path) != record["sha256"]:
+                raise SupervisorError("current_package_stage_artifact_drift")
+            if (
+                _load(path).get("schema")
+                == "contentops.v2.platform_neutral_publication_package.v1"
+            ):
+                return path
+        raise SupervisorError("current_package_manifest_missing")
+
+    def repair_mux_package(self, *, video_job_id: str, revision: str) -> dict[str, Any]:
+        """Supersede a proven truncated mux, preserving original files and ledger.
+
+        This narrow mechanical repair reuses the accepted picture, measured audio,
+        source, creative review, captions and SEO. It does not reopen creativity or
+        grant final quality acceptance. Corrected descendants live in a new revision.
+        """
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+", revision):
+            raise SupervisorError("safe_mux_revision_required")
+        job = self.store.job(video_job_id)
+        if job["state"] != "OWNER_REVIEW_READY":
+            raise SupervisorError("mux_repair_requires_sealed_private_package")
+        paths = self._paths(video_job_id)
+        root = paths["root"] / "revisions" / revision
+        if root.exists():
+            raise SupervisorError("mux_revision_already_exists")
+        from video.locale_activation_hardening_v1.factory import inspect_picture
+
+        package_path = self.current_package_path(video_job_id)
+        original = _load(package_path)
+        for record in original["artifacts"].values():
+            if record is not None and hash_file(record["path"]) != record["sha256"]:
+                raise SupervisorError("mux_repair_original_package_drift")
+        source = inspect_picture(paths["picture"])
+        prior = inspect_picture(
+            Path(original["artifacts"]["canonical_picture"]["path"])
+        )
+        if source["video_stream_sha256"] == prior["video_stream_sha256"]:
+            raise SupervisorError("mux_repair_has_no_observed_picture_defect")
+        # Verify preserved stage artifacts before selectively replacing descendants.
+        valid = self._validate_checkpoint_chain(job=job, run_id=job["run_id"])
+        if "OWNER_REVIEW_READY" not in valid:
+            raise SupervisorError("mux_repair_preserved_stage_drift_requires_recovery")
+        timing = _load(paths["timing_lock"])
+        started = time.monotonic()
+        mux = self.media.mux_final_media(
+            picture=paths["picture"], mix=paths["mix"], output=root / "corrected.mp4"
+        )
+        technical = self.media.technical_media_report(
+            root / "corrected.mp4", root / "technical.json"
+        )
+        captions = {
+            "artifacts": {
+                k: original["artifacts"]["caption_" + k] for k in ("json", "srt", "vtt")
+            }
+        }
+        package = self.media.build_neutral_package(
+            story_id=original["source_story_id"],
+            run_id=job["run_id"],
+            final_media=root / "corrected.mp4",
+            audio=paths["mix"],
+            captions=captions,
+            rights_refs=original["rights_provenance_refs"],
+            evidence_refs=original["factual_evidence_refs"],
+            input_hash=job["input_packet_hash"],
+            timing_lock=timing,
+            seo_package=_load(paths["seo"]),
+            output=root / "manifest.json",
+        )
+        sheet = self.media.contact_sheet(
+            root / "corrected.mp4", root / "contact_sheet.jpg"
+        )
+        bundle = _load(paths["bundle"])
+        bundle.update(
+            final_mp4=mux["final_media"],
+            contact_sheet=sheet["artifact"],
+            package_id=package["package_id"],
+            technical_media_report=str(root / "technical.json"),
+        )
+        bundle["supersedes_package_id"] = original["package_id"]
+        bundle["quality_acceptance"]["final_audio_hearing"] = "NOT_VERIFIED"
+        _json_artifact(root / "owner_review_bundle.json", bundle)
+        receipt = {
+            "result": "PASS_PRIVATE_MUX_PACKAGE_CORRECTION",
+            "video_job_id": video_job_id,
+            "run_id": job["run_id"],
+            "superseded_package_id": original["package_id"],
+            "superseded_package_sha256": hash_file(paths["package"]),
+            "original_picture_identity": prior,
+            "corrected_mux": mux,
+            "package_id": package["package_id"],
+            "manifest": str(root / "manifest.json"),
+            "owner_review_bundle": str(root / "owner_review_bundle.json"),
+            "picture_render_count": 0,
+            "narration_synthesis_count": 0,
+            "audio_mix_count": 0,
+            "creative_invocation_count": 0,
+            "hearing": "NOT_VERIFIED",
+            "public_write_authority": False,
+        }
+        record = _json_artifact(root / "correction_receipt.json", receipt)
+        for stage in ("FINAL_MEDIA_BUILT", "PACKAGE_QA_PASSED", "OWNER_REVIEW_READY"):
+            self.store.append_event(
+                video_job_id=video_job_id,
+                run_id=job["run_id"],
+                stage=stage,
+                input_hashes={"superseded_package": hash_file(paths["package"])},
+                output_hashes={},
+                artifacts=[],
+                role_tool_identity="DesktopSessionV2Factory.mux_repair",
+                model_provenance={},
+                wall_time_seconds=0,
+                safe_usage={},
+                result="INVALIDATED_TRUNCATED_MUX_DESCENDANT",
+                retry_state={"revision": revision},
+                next_legal_stage="FINAL_MEDIA_BUILT",
+            )
+        for stage, artifacts in (
+            ("FINAL_MEDIA_BUILT", [mux["final_media"], record]),
+            (
+                "PACKAGE_QA_PASSED",
+                [
+                    local_media.artifact(root / "manifest.json"),
+                    technical["report_artifact"],
+                ],
+            ),
+            (
+                "OWNER_REVIEW_READY",
+                [
+                    local_media.artifact(root / "owner_review_bundle.json"),
+                    sheet["artifact"],
+                ],
+            ),
+        ):
+            self._append(
+                job=job,
+                run_id=job["run_id"],
+                stage=stage,
+                started=started,
+                inputs={"preserved_picture": source["video_stream_sha256"]},
+                artifacts=artifacts,
+                result="PASS_CORRECTED_" + stage,
+                next_stage=None,
+                role="existing_media_and_package_owners_zero_picture_rerender",
+            )
+        return receipt
 
     def run_once(
         self,
