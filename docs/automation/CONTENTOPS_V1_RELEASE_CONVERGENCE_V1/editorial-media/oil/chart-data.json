@@ -1,0 +1,33 @@
+{
+  "chart": {
+    "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts.",
+    "rows": [
+      {
+        "label": "Brent settlement",
+        "metric_source_text": "Brent crude futures",
+        "observation_kind": "ACTUAL",
+        "period": "2026-10-21",
+        "source_document_id": "goal35-oil",
+        "support_excerpt": "Brent crude futures settled 3 \u200ccents, or 0.03% higher, at $108.82 a barrel. US West Texas Intermediate crude closed down 67 cents, or 0.7%, at $97.15.",
+        "unit": "USD/barrel",
+        "value_context": "Brent crude futures settled 3 \u200ccents, or 0.03% higher, at $108.82 a barrel.",
+        "value_text": "108.82"
+      },
+      {
+        "label": "WTI close",
+        "metric_source_text": "US West Texas Intermediate crude",
+        "observation_kind": "ACTUAL",
+        "period": "2026-10-21",
+        "source_document_id": "goal35-oil",
+        "support_excerpt": "Brent crude futures settled 3 \u200ccents, or 0.03% higher, at $108.82 a barrel. US West Texas Intermediate crude closed down 67 cents, or 0.7%, at $97.15.",
+        "unit": "USD/barrel",
+        "value_context": "US West Texas Intermediate crude closed down 67 cents, or 0.7%, at $97.15.",
+        "value_text": "97.15"
+      }
+    ],
+    "title": "Reported October 21 oil settlements",
+    "unit": "USD/barrel"
+  },
+  "plan_request_sha256": "df248dda5b88ed6771de7927f5515facfe847fcfd343f31a8e34b7f02a198abc",
+  "source_exactness_adapter": "EXACT_VALUE_CONTEXT_SUBSTRINGS_ONLY_NO_NUMERIC_CHANGE"
+}

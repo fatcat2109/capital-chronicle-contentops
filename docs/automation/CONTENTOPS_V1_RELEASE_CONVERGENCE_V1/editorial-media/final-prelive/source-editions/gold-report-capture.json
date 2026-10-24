@@ -1,0 +1,54 @@
+{
+  "url": "https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike",
+  "title": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+  "observed_at_utc": "2026-10-23T23:40:05.724Z",
+  "full_text_sha256": "2e9532514a6bcdcc872c6cbfd9be6526f5b9c260a9f47843e0aa2626909b40ff",
+  "full_text_characters": 4958,
+  "excerpts": [
+    {
+      "end": 802,
+      "start": 724,
+      "text": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets"
+    },
+    {
+      "end": 1137,
+      "start": 873,
+      "text": "Oct 23 (Reuters) - Gold fell to a three-month low on ‌Friday and was headed for its steepest weekly decline in over four months as higher energy prices fueled inflation concerns and reinforced US rate hike expectations ahead of next week's Federal Reserve meeting."
+    },
+    {
+      "end": 1318,
+      "start": 1139,
+      "text": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), ​slipping below the $4,000 mark for the first time since mid-July and touching a session low ​of $3,975.23."
+    },
+    {
+      "end": 1404,
+      "start": 1320,
+      "text": "Bullion has fallen 4% this week, putting it on track for its worst ⁠week since June."
+    },
+    {
+      "end": 3283,
+      "start": 3039,
+      "text": "Among other metals, spot silver slid 1% to $53.97 per ounce, ⁠and palladium ​dropped 0.5% to $1,048.31, hitting their lowest since November 2025 and June ​2025 respectively. Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July."
+    }
+  ],
+  "status": "PASS",
+  "reporting_publisher": "Reuters",
+  "attribution_text": "By Reuters; syndicated by Kitco",
+  "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS",
+  "credential_or_session_material_read": false,
+  "public_write_performed": false,
+  "capture_scope": "EXACT_SELECTED_FACTUAL_PASSAGES_NOT_FULL_ARTICLE",
+  "publication_visible_clock": {
+    "text": "02:17, site display time zone unspecified"
+  },
+  "publisher_machine_clock_metadata": [
+    {
+      "content": "2026-10-23T15:17:01-04:00",
+      "name": "article:published_time"
+    },
+    {
+      "content": "2026-10-23T15:18:51-04:00",
+      "name": "article:modified_time"
+    }
+  ]
+}

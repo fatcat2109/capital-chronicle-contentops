@@ -1,0 +1,125 @@
+{
+  "accepted_evidence_sha256": "ecf36d9879dba4baa3686077f412f74512af724039f2c209bd61d172b03e064c",
+  "article_identity": "941b6728350853dd90cbe45a4669a89c3a9a1fd0df46e138ec6f29480fae9a9a",
+  "artifact_sha256": {
+    "article_manifest_v1.json": "a3c9ac7f0096704cd14721e1c3ff259167bcbee64a4a4b32646b3233ea35920f",
+    "native_derivative_previews_v1.json": "07e82f975a445c4227afd6981b4bbae204b5dbceda91404932a682a736401f1e",
+    "publication_lifecycle_plan_v1.json": "76362c84066bf2bbcb070d71eccad007fba2052fcf3fdd6e364c99ff0feeed3f",
+    "qualified_article_record_v1.json": "9e78b00fa6511a2fa490413abe216ed7ce96ab00ffaed6a386cc4d61da52edc5",
+    "run_context_v1.json": "7d95b9a91eee8dc4d83a382e3d05eafc2bbcd4cdd243f02a1a17ec516590fe39"
+  },
+  "binding_sha256": "e2b18c9f73172e8c94692ad2673ea984a70acc618a413788804456e46cd05665",
+  "media_sha256": {
+    "documentary_southwest": "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4",
+    "source_value_comparison": "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242"
+  },
+  "native_result_sha256": "f0fe709a5cf3b3edc78e9d3f828dfddd4b3a9dc14fc55fff8d242f6746cd9c48",
+  "plan_hash": "15569e79c4e5702d05e0c8540b1989fbd0f0c9f4e4f67c07e54bbcee4f8352b6",
+  "prepared_handoff_sha256": "b7b4cab690d68bc70aed7fb68492791fbd4ece5a26d8869106b14416ffae98ce",
+  "publication_authority": false,
+  "review_id": "native-article-review-b9ea9b85e3134cfe92f7f88859534894",
+  "review_notes_sha256": "b111d92b2c7597dcf17845affd704f0287cafea04a5c665466c00d7e7bde2dfa",
+  "run_id": "v1-prelive-southwest-r2",
+  "schema_version": "contentops.native_publication_binding.v1",
+  "work_item_id": "v1-prelive-southwest-r2",
+  "state": "PREPARED",
+  "operation_scope": "OWNER_MANUAL_ISOLATED",
+  "destinations": [
+    {
+      "destination": "substack",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_6ca1171562154b94980ae2a2539a406b",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "telegram",
+      "transport": "BOT_API",
+      "dispatch_id": "dispatch_e7c55039fb456931c62f4d52442254ac",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "discord",
+      "transport": "WEBHOOK_API",
+      "dispatch_id": "dispatch_59857216c500b05f4c2f1b674607a5bf",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "x",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_6cce2c9c9d0c0099100ccc3fc8d5bd2d",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "linkedin",
+      "transport": "OFFICIAL_MEMBER_API",
+      "dispatch_id": "dispatch_dd9c645dcdf273ebd6200f267fb80e23",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "facebook_page",
+      "transport": "META_GRAPH_API",
+      "dispatch_id": "dispatch_c35392d183a270f2a894ba3008a7da62",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "instagram_business",
+      "transport": "META_GRAPH_API",
+      "dispatch_id": "dispatch_9d433a584d93d3ad2545b2f52b806deb",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "threads",
+      "transport": "THREADS_API",
+      "dispatch_id": "dispatch_3f180d74a5bffc2b3957e2b0b8a2ef39",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "youtube",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_85269ee34f77034115b0ea714deeb206",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    }
+  ],
+  "pending_requests": [],
+  "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+  "next_operation": "publication-status",
+  "dispatch_continuation_operation": "publication-resume",
+  "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-prelive-southwest-r2\\binding.json\"",
+  "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+}

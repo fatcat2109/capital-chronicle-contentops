@@ -1,0 +1,83 @@
+{
+  "story_plan": {
+    "thesis": "The single Reuters-origin report describes gold and three other precious metals falling, complicating a simple safe-haven shorthand without proving what caused the moves.",
+    "lead_direction": "Anchor the analysis in Reuters October 23 report and its specific spot-gold reading at 15:20 UTC, then use a labelled four-metal comparison to show reported declines. Separate intraday observation from publication, weekly trajectory and any later outcome; no market-close claim.",
+    "countercase": "A common reported direction is not proof of a common cause. Different industrial exposures, liquidity and observation conventions could matter, but this packet measures none of those channels and supplies no independent causal confirmation.",
+    "watchpoint": "Later separately admitted comparable-clock metals, energy and rate-expectation evidence could test the proposed mechanism; absent those inputs, retain attributed framing and uncertainty rather than a forecast or trading inference.",
+    "photo_plan": {
+      "asset_id": "prelive-documentary-gold",
+      "asset_sha256": "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Gold_ingot_and_bar_of_Banque_de_France.jpg",
+      "license_url": "https://creativecommons.org/licenses/by/4.0",
+      "rights_status": "OPEN_LICENSED",
+      "depicted_date": "2022-09-17 11:09:59",
+      "attribution": "Ibex73 / Wikimedia Commons, CC BY 4.0. September 17, 2022; no edits.",
+      "caption": "Gold ingot and bar on display at the Banque de France, Paris, September 17, 2022. Archive context, not a photograph of October 2026 trading or current holdings.",
+      "alt_text": "A large gold ingot and a smaller gold bar displayed on a dark surface at the Banque de France in 2022.",
+      "relevance": "Authentic physical gold provides commodity context for the attributed precious-metals price report; no price or inventory claim is derived from the photograph.",
+      "archive_event_distinction": "September 17, 2022 Banque de France gold display, authentic archive context; not October 2026 trading, current holdings or corroboration of financial observations.",
+      "context_only": true,
+      "corroborates_article_facts": false,
+      "inspection_basis": "Retained exact root-inspected original and rights evidence; no new pixel inspection by this worker."
+    },
+    "chart_plan": {
+      "title": "Precious-metal percentage declines reported by Reuters, October 23, 2026",
+      "unit": "%",
+      "source_id": "SOURCE_1",
+      "source_url": "https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike",
+      "source_content_sha256": "53f87f918b9e92a4947d4465c600115e9ff9e175844c23dfbb7684adec0dbfea",
+      "rows": [
+        {
+          "label": "Gold",
+          "metric_source_text": "Spot gold",
+          "period": "2026-10-23",
+          "unit": "%",
+          "observation_kind": "ACTUAL",
+          "support_excerpt": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), ​slipping below the $4,000 mark for the first time since mid-July and touching a session low ​of $3,975.23.",
+          "value_context": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), ​slipping below the $4,000 mark for the first time since mid-July and touching a session low ​of $3,975.23.",
+          "value_text": "0.6",
+          "negative_evidence": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), ​slipping below the $4,000 mark for the first time since mid-July and touching a session low ​of $3,975.23."
+        },
+        {
+          "label": "Silver",
+          "metric_source_text": "spot silver",
+          "period": "2026-10-23",
+          "unit": "%",
+          "observation_kind": "ACTUAL",
+          "support_excerpt": "Among other metals, spot silver slid 1% to $53.97 per ounce",
+          "value_context": "Among other metals, spot silver slid 1% to $53.97 per ounce",
+          "value_text": "1",
+          "negative_evidence": "Among other metals, spot silver slid 1% to $53.97 per ounce"
+        },
+        {
+          "label": "Palladium",
+          "metric_source_text": "palladium",
+          "period": "2026-10-23",
+          "unit": "%",
+          "observation_kind": "ACTUAL",
+          "support_excerpt": "Among other metals, spot silver slid 1% to $53.97 per ounce, ⁠and palladium ​dropped 0.5% to $1,048.31, hitting their lowest since November 2025 and June ​2025 respectively.",
+          "value_context": "palladium ​dropped 0.5% to $1,048.31",
+          "value_text": "0.5",
+          "negative_evidence": "palladium ​dropped 0.5% to $1,048.31"
+        },
+        {
+          "label": "Platinum",
+          "metric_source_text": "Spot platinum",
+          "period": "2026-10-23",
+          "unit": "%",
+          "observation_kind": "ACTUAL",
+          "support_excerpt": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July.",
+          "value_context": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July.",
+          "value_text": "0.9",
+          "negative_evidence": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July."
+        }
+      ],
+      "period_binding": "2026-10-23 is the exact document publication date component; the body observation clauses do not repeat the date.",
+      "timing_limit": "Only spot gold explicitly has a 15:20 UTC reading. The four metals have no proven exact shared observation clock in this packet. Compare reported percentage changes, not synchronized closes or measured correlation.",
+      "presentation": "One categorical comparison; code parses the explicit negative_evidence to signed declines. Value_text preserves original positive magnitude spelling, with direction retained separately. Do not add the separate 4% weekly gold move to this comparison or invent historical points.",
+      "observation_scope": "ACTUAL denotes a reported observation in one Reuters-origin report syndicated by Kitco; it grants no independent underlying-event confirmation, new source, probability or causal proof.",
+      "source_expression_scope": "Independent attributed paraphrase and original deterministic chart only; no copied publisher prose, photograph or chart."
+    }
+  }
+}

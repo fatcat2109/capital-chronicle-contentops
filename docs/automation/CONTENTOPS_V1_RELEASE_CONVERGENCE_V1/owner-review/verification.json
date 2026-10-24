@@ -1,0 +1,91 @@
+{
+  "goal": "CONTENTOPS_V1_OWNER_REVIEW_READY_V1",
+  "created_at": 1792826320,
+  "verified_at_utc": "2026-10-24T07:49:24.148036+00:00",
+  "entry": "START_HERE.html",
+  "html_sha256": "4977879d9fb6c6885d4e6863b95ea597590a193b6a669272954e3c93fc84faa0",
+  "html_bytes": 2593257,
+  "approved_content_sha256": {
+    "v1-media-oil-r1": "7fb390e3bd527862cf2f0f7007d4ac28bd66b435e4e369d94fa26ffd10775bfc",
+    "v1-media-ibm-r1": "d9af7148bb7a09740660c8ebfd175758712ef1cd9667d7dc4b2b82482c14d43d",
+    "v1-media-meta-r1": "62015534f0a1f4558988e5e0da59d3d861578984838f79e990c8b7bfa5a04c43",
+    "v1-prelive-tesla-r2": "360bf0a6812a3dc514ffa7be3017c3f6f071f24b0dc0832572d37a1d4a507381",
+    "v1-prelive-fed-policy": "90779a9c07a231febb4b6d90eced47f88054136891c6e9e6fcc3cca13ba17af0",
+    "v1-prelive-southwest-r2": "e95b4883fe095e1478d65e98cdc02178ff933ad6c15a6d687e0278ed3ac36a20",
+    "v1-prelive-gold-oct23": "104ab0731514c9a101a7609aa35f4afc2c99d36e963e90cc5a4d28fd9c13e702"
+  },
+  "approved_content_unchanged": true,
+  "originals_hash_verified": {
+    "0225a86141a374d4640a96bdac842f19ba86fe2da34b1f4325864ac00c962e41": "editorial-media/oil/media_assets/source_value_comparison.png",
+    "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b": "editorial-media/oil/documentary_original.jpg",
+    "d67221435268d2c676c408dbdfe6ee535e4c62bec4933c62265af6f9477d23c9": "editorial-media/ibm/media_assets/source_value_comparison.png",
+    "48c82af1e097e69ccb07911d25d4a69f283110501da99b17173cce6c8c17c087": "editorial-media/ibm/documentary_original.jpg",
+    "bb7650d03d73bc9f13d1a588fd411a571563f1be6fc238f39ad19647bb478e22": "editorial-media/tesla/media_assets/source_value_comparison.png",
+    "a08499ae2b5f5ebfc223dde6525ab8992cdcfe13e605c01dce575d0187347d43": "editorial-media/tesla/documentary_original.jpg",
+    "bb357416797f93b203e919344509b15dd3e1c4c755d263c865d63dfc4705bf45": "editorial-media/meta/media_assets/source_value_comparison.png",
+    "142485163942db43c6c5786440dad2413f5c91ead7ee2c4252172b7ad5355f53": "editorial-media/meta/documentary_original.jpg",
+    "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242": "editorial-media/southwest/media_assets/source_value_comparison.png",
+    "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4": "editorial-media/southwest/documentary_original.jpg",
+    "cfa598246a6b3b77eb5cfc603085d5bb7e0aca76c5785ca53537103e85e00fe7": "editorial-media/final-prelive/policy/media_assets/source_value_comparison.png",
+    "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0": "editorial-media/final-prelive/policy/documentary_original.jpg",
+    "407830ed2fdc3d164f3a653f08e2985b565c56d93ee00b081c2cd3a38388d1a9": "editorial-media/final-prelive/gold/media_assets/source_value_comparison.png",
+    "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d": "editorial-media/final-prelive/gold/documentary_original.jpg"
+  },
+  "navigation": {
+    "navigation-desktop.json": {
+      "view_count": 63,
+      "width": 1440,
+      "sha256": "9e297791bb9fae4922b4e7d0d8fa102b71ba1ec6c11b5ee32abe39d49df70eb2"
+    },
+    "navigation-phone.json": {
+      "view_count": 63,
+      "width": 390,
+      "sha256": "86861702d18f53b8a9b476fbd8c7094f98974a5fab76eddf92ccb9b89bfe1146"
+    }
+  },
+  "checks": {
+    "ui-checks.xml": {
+      "passed_cases": 17,
+      "sha256": "6262abad6c2689f465470a88c24222b840b2af3cf7fa150e7e5b6baf2dd70032"
+    },
+    "desk-checks.xml": {
+      "passed_cases": 3,
+      "sha256": "d338d89e1c54a7740d0018f1c6ba257c364a820812364cace3e0a36bb57772f4"
+    }
+  },
+  "tested_source_sha256": {
+    "scripts/run_native_desktop_editorial.py": "77f774fcc31f91144cf1a013124a5b3562f494167ddf854d0ad4d8fea063706a",
+    "tests/test_native_desktop_workspace_v1.py": "3dab612a2b58f7699e38ef7bf8885db71d1d8eb4f4dac136da4b345dc8b5af55",
+    "ui/contentops_v5/scripts/render-report-workspace.mjs": "95456b6daa2102788b41bd24d467bf3188940c0e6714e5627293fa01a31ae886",
+    "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx": "bb00630435e5e45f405460d17d4b5559d3d12bf6b2a8039cc0a0904737741673",
+    "ui/contentops_v5/src/dailyAppTypes.ts": "081770349b702498ba19c1169ffab6fbff078fad964e1c71476e7e6adbce3465",
+    "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx": "0fdce53aab10f06146932dd74584bae038e014010067e7eb1bfefd7f8c5bc0da"
+  },
+  "accepted_backend_cases_reused": 81,
+  "accepted_backend_source_unchanged": {
+    "live_contentops/native_desktop_editorial_v1.py": "690eba1159fe776542e01f5a626a7925d869694e2acd41bd75017df1255ed0ed",
+    "live_contentops/visual_asset_discovery_v1.py": "4e64cc50a65d2783c9a5c95c11d0debf8e1a07f6a0babf06a452a8e9377301b4",
+    "live_contentops/rolling_x_grounded_article_media_builder_v1.py": "d33221b16c36bb8af76c42ebe28d73599f6c6155dbb06a99037fcbdd2798a1d9",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py": "6a6125c468720b9bbdd6f32310fbabe6e8f5e3e14e7ace832ba9f8bd72d04045",
+    "tests/test_native_editorial_media_standard_v1.py": "1737bb49865f67676cc1c3e7efbee01143797a2236c3c1722e4e61e0a39cba2e",
+    "tests/test_contentops_source_research_v1.py": "c5d571c18ed6755c44de4cde2d7b626bac87f42347075e4e71ddcdffe10ff584",
+    "tests/test_native_desktop_editorial_v1.py": "04b9d1c6d27184899ef1b00c94365ba5e69acf342bedd6b751c556a7fe858875",
+    "tests/test_contentops_editorial_desk_v1.py": "86f5926d96c458597957c64544910f89fc2f169331158b1285e8f026dbb98acd",
+    "tests/test_public_research_semantics_v1.py": "4c30ba447079c40259243dc176b6d3935e10aeb627588e40350af4257b10c3c6",
+    "tests/test_capital_chronicle_report_editorial_workspace_v1.py": "4b3fd03ad0f991a0ba42b99a63709a334d7a8cf835492ee3d5e2e62fe6781e57",
+    "live_contentops/contentops_editorial_desk_v1.py": "dc2c64d63e8302aca22d043247acbbcf651fbfba5578d96bbd1ff9ada65dc4a3",
+    "live_contentops/capital_chronicle_report_editorial_workspace_v1.py": "4da3c129d3c3657d0b1644b778c77ec82fffca9cedc1beea11c541ef5c061197"
+  },
+  "ui_build": "PASS",
+  "changed_python_ruff": "PASS",
+  "prior_artifacts_unchanged": true,
+  "four_host_files_and_pause_unchanged": true,
+  "read_only_offline": true,
+  "requires_server": false,
+  "public_write_performed": false,
+  "merged": false,
+  "deployed": false,
+  "v2_v3": "OWNER_PAUSED",
+  "release_authority": "NOT_GRANTED",
+  "scope": "Changed presentation/export only; no repeated editorial/rights/source/model acceptance"
+}

@@ -1,0 +1,67 @@
+{
+  "story_plan": {
+    "thesis": "The dated September 16 decision and September 17 implementation are distinct: three announced administered settings specify operational instructions, while they do not establish observed market rates or bank/customer pass-through.",
+    "lead_direction": "Orient the reader to the September 16, 2026 decision and next-day effective date, then use the exact three-setting comparison to explain the implementation document. Keep original statement SOURCE_2 separate from implementation SOURCE_1; neither is a new current decision.",
+    "countercase": "An announced operational framework alone does not prove actual execution, effective funding conditions or deposit/loan-rate transmission. The packet supplies settings, not a measured pass-through test or asset-price cause.",
+    "watchpoint": "A later separately admitted official implementation instruction or documented operation would test what changed after these dated instructions; an observed-market-rate or bank-cash transmission claim needs its own exact dated evidence. No later outcome is supplied.",
+    "photo_plan": {
+      "asset_id": "prelive-documentary-policy",
+      "asset_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+      "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+      "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House%2C_Friday%2C_May_22%2C_2026._%28Cropped%29.jpg",
+      "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+      "rights_status": "PUBLIC_DOMAIN",
+      "depicted_date": "22 May 2026, 12:12:50",
+      "attribution": "Official White House photograph by Daniel Torok, May 22, 2026. Public domain (US federal government). Commons crop; no further edits.",
+      "responsible_person_identity": "Kevin Warsh, Federal Reserve Chair; retained photo metadata records the September 15-16 FOMC minutes identifying him as Chairman and voting for the decision. This planning turn does not newly verify those minutes.",
+      "archive_event_distinction": "Authentic May 22, 2026 swearing-in archive photograph; not September 16 decision-event photography, current appearance or factual corroboration.",
+      "caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the September decision.",
+      "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony.",
+      "relevance": "The September 15-16 FOMC minutes list Kevin Warsh as Chairman and voting for the decision; the person responsible is shown, with image and policy event dates separate.",
+      "context_only": true,
+      "corroborates_article_facts": false,
+      "inspection_basis": "Reuse exact root-inspected asset and rights evidence; no new pixel inspection by this worker."
+    },
+    "chart_plan": {
+      "title": "Announced Fed implementation rates effective September 17, 2026",
+      "unit": "%",
+      "source_id": "SOURCE_1",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm",
+      "source_content_sha256": "66bb6a69148a52b34afff9c73a9ff974dcef04b15d8cb02f57a91db997cf6f1d",
+      "rows": [
+        {
+          "label": "Reserve-balance interest",
+          "metric_source_text": "interest rate paid on reserve balances",
+          "period": "September 17, 2026",
+          "observation_kind": "ANNOUNCED_POLICY",
+          "unit": "%",
+          "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.",
+          "value_context": "raise the interest rate paid on reserve balances to 3.90 percent",
+          "value_text": "3.90"
+        },
+        {
+          "label": "Standing overnight repo",
+          "metric_source_text": "standing overnight repurchase agreement operations",
+          "period": "September 17, 2026",
+          "observation_kind": "ANNOUNCED_POLICY",
+          "unit": "%",
+          "support_excerpt": "\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+          "value_context": "Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent.",
+          "value_text": "4.0"
+        },
+        {
+          "label": "Standing overnight reverse repo",
+          "metric_source_text": "standing overnight reverse repurchase agreement operations",
+          "period": "September 17, 2026",
+          "observation_kind": "ANNOUNCED_POLICY",
+          "unit": "%",
+          "support_excerpt": "\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+          "value_context": "Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent",
+          "value_text": "3.75"
+        }
+      ],
+      "presentation": "One categorical comparison of three administered settings for the same effective date; no historical line or forecast. Keep original numeric spelling in source bindings; code owns numeric parsing and rendering.",
+      "limits": "ANNOUNCED_POLICY, not observed market rates. No prior series or realized pass-through data supplied. The reverse-repo counterparty limit is not a fourth rate; primary credit is not substituted for standing repo."
+    }
+  }
+}

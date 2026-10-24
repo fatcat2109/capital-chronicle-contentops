@@ -1,0 +1,30 @@
+{
+  "invocation_observation": {
+    "invocation_id": "/root/v1_media_revision_plan",
+    "model": "gpt-6.1-sol",
+    "observation_source": "Actual collaboration.followup_task and FINAL_ANSWER; configured native low model; exact written return",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "surface": "CODEX_NATIVE_SUBAGENT"
+  },
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Reported quarterly gains can coexist with a lower annual forecast: the completed quarter and future outlook answer different questions.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-f2a30d4ebd709c3c05cb0692",
+        "evidence_plan": "Resolve only the existing retained source goal35-southwest through the established retained-source seam; preserve Reuters publication 2026-10-21T20:23:00Z, original cutoff and source certainty. Single Reuters origin supports attributed report truth only, not independent event confirmation. Preserve story/update chain simple-story-f2a30d4ebd709c3c05cb0692 and prior article 5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9; this is EDITORIAL_REVISION with no new factual evidence. Use exact chart-data.json: Prior 2026 forecast: 3.25 to 4.25 USD/share (FORECAST, 2026); Current 2026 forecast: 2.60 to 2.85 USD/share (FORECAST, 2026). Keep units, periods, actual/estimate/forecast and negative signs; code owns extraction, arithmetic and rendering, with no new calculation or invented history. Use exact cleared contextual archive photo documentary_southwest dated 2025-06-26 with supplied credit, source/license links and change disclosure; honor ShareAlike where applicable. It corroborates no article fact. Original prose paraphrases attributed facts; Reuters source expression and images are not licensed for public reuse. Countercase: Higher adjusted operating margin despite fuel costs challenges a failed-turnaround account; a quarterly beat does not prove protection against future costs. Missing/test dimensions: An earnings bridge separating fares/mix, traffic, nonfuel costs and fuel price/volume plus later realized results would test durability. Preserve the separate historical 2025 hedge/AOCI case. No new retrieval, proprietary authority or public-write grant. Article layout acceptance remains separate. File EXIF DateTimeOriginal and Commons agree on 2025-06-26; retain raw description prefix 2010 as metadata text, not a capture date. No current hedge-status update is established.",
+        "primary_reader_question": "How can reported quarterly operating gains coexist with a lower 2026 earnings forecast?",
+        "research_queries": [
+          "southwest Reuters October 21 2026 reported earnings cash flow outlook"
+        ],
+        "selection_rationale": "The owner-scoped retained revision has a distinct useful analytical tension and a warranted chart/context photo. Lead with lower 2026 guidance beside the stronger quarter; keep issuer forecasts distinct from realized results and avoid repeated question openings."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select the single governed retained southwest story for the exact owner-directed editorial/media revision. Request 94e2eece3d6701746a4c0fe606e5bcfd996970cea1be71cc83c59ae692ac9ada. Preserve existing identity/history and October 21 source date; no fresh-news or independent-confirmation claim. No fallback or extra story is admitted.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "request_sha256": "94e2eece3d6701746a4c0fe606e5bcfd996970cea1be71cc83c59ae692ac9ada"
+}

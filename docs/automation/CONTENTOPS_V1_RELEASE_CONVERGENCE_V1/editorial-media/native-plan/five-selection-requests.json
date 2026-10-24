@@ -1,0 +1,32 @@
+[
+  {
+    "candidate_count": 1,
+    "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-media-oil-r1\\desktop_request_select.json",
+    "request_sha256": "51e19da96cd25a688833c02b85b1cc700774dbc92cbadecfd0e5a7155477d47a",
+    "slug": "oil"
+  },
+  {
+    "candidate_count": 1,
+    "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-media-ibm-r1\\desktop_request_select.json",
+    "request_sha256": "ea371db61c32d4d1785432666a0c9dffc2c8d88b209bf15da6ae5659ab1408e4",
+    "slug": "ibm"
+  },
+  {
+    "candidate_count": 1,
+    "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-media-tesla-r1\\desktop_request_select.json",
+    "request_sha256": "309af8e24ca465d580d14ef137dd99f1f169c6384625978fbf03915afe50f348",
+    "slug": "tesla"
+  },
+  {
+    "candidate_count": 1,
+    "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-media-meta-r1\\desktop_request_select.json",
+    "request_sha256": "d1a01c9a5102ecff8273031d3192aa4c913c2f291b0c1409957d33c7c2d46913",
+    "slug": "meta"
+  },
+  {
+    "candidate_count": 1,
+    "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-media-southwest-r1\\desktop_request_select.json",
+    "request_sha256": "94e2eece3d6701746a4c0fe606e5bcfd996970cea1be71cc83c59ae692ac9ada",
+    "slug": "southwest"
+  }
+]

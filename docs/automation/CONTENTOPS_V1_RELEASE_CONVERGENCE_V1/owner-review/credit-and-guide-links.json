@@ -1,0 +1,27 @@
+[
+  [
+    {
+      "page": 323,
+      "title": "",
+      "url": "https://commons.wikimedia.org/wiki/Template:PD-USGov"
+    }
+  ],
+  {
+    "page": 320,
+    "value": {
+      "bodyWidth": 375,
+      "buttons": [
+        {
+          "disabled": false,
+          "text": "Previous story"
+        },
+        {
+          "disabled": false,
+          "text": "Next story"
+        }
+      ],
+      "hash": "#review-top",
+      "width": 390
+    }
+  }
+]

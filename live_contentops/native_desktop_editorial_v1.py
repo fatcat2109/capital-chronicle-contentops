@@ -20,6 +20,12 @@ EFFORT = "low"
 DESTINATION = "internal:native-desktop-editorial"
 SCHEMA = "contentops.native_desktop_editorial.v1"
 STAGES = ("select", "write", "revise", "feedback")
+PUBLIC_SOURCE_DATE_GUIDANCE = (
+    "Keep detailed retrieval/known-at/cutoff chronology in evidence metadata. Public source notes use "
+    "concise material dates or useful observation times, without microseconds or internal audit vocabulary. "
+    "Do not repeat epistemic labels. "
+)
+LEGACY_SOURCE_DATE_GUIDANCE = "Put detailed retrieval/known-at chronology in source notes, and do not repeat epistemic labels. "
 ROLE_ASSIGNMENTS = {
     "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
     "select": {"model": MODEL, "reasoning_effort": "low"},
@@ -29,6 +35,8 @@ ROLE_ASSIGNMENTS = {
 
 
 def native_role(stage):
+    if stage == "media-plan":
+        return "select"
     if stage in STAGES:
         return stage
     if re.fullmatch(r"filter-[a-f0-9]{64}", stage):
@@ -94,14 +102,34 @@ class NativeDesktopTurn:
     def __call__(self, **kwargs):
         self._check_pause()
         stage = str(kwargs["logical_invocation_id"]).rsplit(":", 1)[-1]
+        media_row = self.store.get_outbox_message("native-editorial-media-plan-" + sha256_of(self.run_id))
+        media_plan = json.loads(media_row["payload"]) if media_row else None
+        frozen_writer = self.frozen_request("write") if stage == "write" else None
+        if (stage == "write" and "source_pack" in kwargs["governed_input"]
+                and (not frozen_writer or "editorial_media_plan" in frozen_writer["governed_input"])):
+            if not media_plan:
+                pending = {"stage": "media-plan", "run_id": self.run_id,
+                    "source_pack": kwargs["governed_input"]["source_pack"],
+                    "instruction": "Use existing discovery/chart owners; bind an inspected lawful photo, useful source-bound chart and native Light plan before freezing the MAX writer. No model/public operation here."}
+                pending["request_sha256"] = sha256_of(pending)
+                self.root.mkdir(parents=True, exist_ok=True)
+                path = self.root / "editorial_media_plan_required.json"
+                path.write_bytes(canonical_bytes(pending))
+                raise DesktopInputRequired({**pending, "request_path": str(path)})
+            validate_release_media({"media_assets": media_plan["assets"], "evidence": kwargs["governed_input"]["source_pack"]})
+            kwargs["governed_input"] = {**kwargs["governed_input"], "editorial_media_plan": media_plan}
+            kwargs["prompt"] += "\nEXACT_ADMITTED_EDITORIAL_MEDIA_PLAN: " + canonical_bytes(media_plan).decode()
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
+        frozen = self.frozen_request(stage)
+        date_guidance = (LEGACY_SOURCE_DATE_GUIDANCE
+            if frozen and LEGACY_SOURCE_DATE_GUIDANCE in frozen["prompt"] else PUBLIC_SOURCE_DATE_GUIDANCE)
         native_guidance = (
             "\nNATIVE_DESKTOP_PRODUCT_RULES: Use one consistent reader language. Include dated observation "
             "and a concise material source date when present in SOURCE_PACK; never confuse report generation "
             "with source release. Say retained/unchanged rather than today's new data. If release time is absent, "
             "say it is not supplied in source notes. Lead with the reader question, thesis and countercase, not an audit "
-            "paragraph. Put detailed retrieval/known-at chronology in source notes, and do not repeat epistemic labels. "
+            "paragraph. " + date_guidance +
             "Scope notice and source-clock metadata are metadata; do not bind scope notice "
             "as a Main analytical claim. Include article.social_mechanism_summary, article.social_policy_summary "
             "and article.social_cross_asset_summary: useful story-specific mechanism, competing explanation and "
@@ -291,11 +319,18 @@ def bind_editorial_media(store, *, run_id, article_identity, assets):
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
     if not 1 <= len(assets) <= 3 or _private(assets):
         raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
+    # The owned quantitative visual carries the story's evidence into short-form
+    # channels; canonical rendering still places the contextual hero by its role.
+    assets = sorted(assets, key=lambda a: a.get("modality") != "source_backed_chart")
     for asset in assets:
+        if asset.get("modality") == "documentary_photo":
+            from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
+            validate_contextual_photo(asset)
+            continue
         urls = {asset.get("source_page_url")} | {s.get("source_url") for s in asset.get("source_lineage", [])}
         urls.discard(None)
         if (not urls or not urls <= allowed or not asset.get("caption") or not asset.get("alt_text")
-                or asset.get("underlying_source_rights_status") != "public_domain"
+                or asset.get("underlying_source_rights_status") not in {"public_domain", "attributed_facts_independent_chart"}
                 or sha256(resolve_workspace_path(asset["path"]).read_bytes()).hexdigest() != asset.get("sha256")):
             raise ValueError("MEDIA_SOURCE_RIGHTS_OR_BYTES_UNBOUND")
     from live_contentops.v1_simple_gemini_newsroom_v1 import native_source_date_notice
@@ -307,9 +342,79 @@ def bind_editorial_media(store, *, run_id, article_identity, assets):
     store.register_outbox_message(message_id=key + "-package-history-" + sha256_of(result),
         work_item_id=row["work_item_id"], destination="internal:native-editorial-package-history",
         payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
-    updated = {**result, "article": article, "media_assets": assets, "media_reuse_count": sum(a.get("reuse_state") == "EXACT_BYTES_REUSED_NO_RENDER" for a in assets)}
+    from live_contentops.v1_simple_gemini_newsroom_v1 import _native_preview_bundle
+    bundle, _ = _native_preview_bundle(article=article, article_mode=article["resolved_article_mode"],
+        article_identity=article_identity, epistemic_state=article.get("epistemic_state"),
+        media_asset_ids=[a["asset_id"] for a in assets], media_assets=assets)
+    previews = [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([article_identity, k, v]),
+        "article_identity": article_identity, "claim_lineage": result.get("claim_lineage", [])}
+        for k, v in bundle["packages"].items()]
+    updated = {**result, "article": article, "media_assets": assets, "previews": previews,
+        "media_preview_binding_sha256": sha256_of(previews),
+        "media_reuse_count": sum(a.get("reuse_state") == "EXACT_BYTES_REUSED_NO_RENDER" for a in assets)}
     store.finalize_outbox_payload_before_dispatch(message_id=key, payload=canonical_bytes(updated).decode(), status="EDITORIAL_INTERNAL")
     return {"classification": "MEDIA_BOUND_REVIEW_REQUIRED", "article_identity": article_identity, "media_count": len(assets), "public_write_performed": False}
+
+
+def validate_release_media(result):
+    """Current release standard; historical evidence stays readable without promotion."""
+    from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_source_value_chart
+    assets = result.get("media_assets") or []
+    if not 2 <= len(assets) <= 3:
+        raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
+    photos = [a for a in assets if a.get("modality") == "documentary_photo"]
+    charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
+    if not photos or not charts:
+        raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
+    for photo in photos:
+        validate_contextual_photo(photo)
+    for chart in charts:
+        validate_source_value_chart(chart, result.get("evidence") or [])
+        review = chart.get("visual_review") or {}
+        if (review.get("asset_sha256") != chart.get("sha256") or review.get("pixels_inspected") is not True
+                or review.get("labels_and_units_legible") is not True or not review.get("reviewer")):
+            raise ValueError("CHART_EXACT_RENDER_REVIEW_REQUIRED")
+    return {"standard": "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
+            "photo_count": len(photos), "chart_count": len(charts)}
+
+
+def bind_editorial_media_plan(store, *, run_id, output_dir, plan, assets):
+    """Bind prepared assets to the exact pre-writer sources in the existing outbox."""
+    turn = NativeDesktopTurn(store, run_id=run_id, output_dir=output_dir, owner_manual_validation=True)
+    if turn.frozen_request("write"):
+        raise ValueError("WRITER_ALREADY_FROZEN_MEDIA_PLAN_IMMUTABLE")
+    pending = json.loads((resolve_workspace_path(output_dir) / "editorial_media_plan_required.json").read_bytes())
+    if not plan.get("native_plan_request_sha256") or not plan.get("story_plan") or not plan.get("native_plan_run_id"):
+        raise ValueError("NATIVE_STORY_DATA_VISUAL_PLAN_REQUIRED")
+    planner = NativeDesktopTurn(store, run_id=plan["native_plan_run_id"], output_dir=output_dir, owner_manual_validation=True)
+    plan_stage = plan.get("native_plan_stage", "select")
+    if plan_stage not in {"select", "media-plan"}:
+        raise ValueError("NATIVE_VISUAL_PLAN_ROLE_REQUIRED")
+    request, response = planner.frozen_request(plan_stage), planner._get(plan_stage, "response")
+    if (not request or not response or request["request_sha256"] != plan["native_plan_request_sha256"]
+            or response["request_sha256"] != request["request_sha256"]
+            or plan["story_plan"] not in response["output"].get("stories", [response["output"].get("story_plan")])):
+        raise ValueError("EXACT_COMPLETED_NATIVE_VISUAL_PLAN_REQUIRED")
+    validate_release_media({"media_assets": assets, "evidence": pending["source_pack"]})
+    packet = {"run_id": run_id, "source_request_sha256": pending["request_sha256"],
+              "plan": plan, "assets": assets, "public_write_performed": False}
+    store.register_outbox_message(message_id="native-editorial-media-plan-" + sha256_of(run_id),
+        work_item_id=turn.work, destination="internal:native-editorial-media-plan",
+        payload=canonical_bytes(packet).decode(), status="EDITORIAL_INTERNAL")
+    return {"classification": "EDITORIAL_MEDIA_PLANNED_WRITER_READY", "asset_count": len(assets), "public_write_performed": False}
+
+
+def native_review_revision(result, *, include_metadata=True):
+    """One exact revision identity shared by review, preparation and reader readiness."""
+    prior_plan = result["simple_result"]["publication_lifecycle_plan"]
+    revision_input = [result["article_identity"], prior_plan["plan_hash"], result.get("claim_lineage"), result.get("media_assets")]
+    if include_metadata:
+        revision_input.append(sha256_of(result["article"]))
+    if result.get("media_preview_binding_sha256"):
+        # Include the actual current previews, so altered preview copy invalidates review.
+        revision_input.append(sha256_of(result.get("previews", [])))
+    return sha256_of(revision_input)
 
 
 def validated_native_review(store, *, run_id):
@@ -329,11 +434,7 @@ def validated_native_review(store, *, run_id):
     if not reviews or reviews[-1]["decision"] != "KEEP":
         raise ValueError("REVISION_BOUND_NATIVE_KEEP_REVIEW_REQUIRED")
     review = json.loads(reviews[-1]["notes"])
-    prior_plan = result["simple_result"]["publication_lifecycle_plan"]
-    revision_input = [result["article_identity"], prior_plan["plan_hash"], result.get("claim_lineage"), result.get("media_assets")]
-    if review.get("article_metadata_sha256"):
-        revision_input.append(sha256_of(result["article"]))
-    revision = sha256_of(revision_input)
+    revision = native_review_revision(result, include_metadata=bool(review.get("article_metadata_sha256")))
     if review["package_revision"] != revision:
         raise ValueError("NATIVE_REVIEW_REVISION_CHANGED")
     assets = result.get("media_assets", [])
@@ -356,7 +457,12 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     mode = article["resolved_article_mode"]
     identity = result["article_identity"]
     previews, intents = _native_preview_bundle(article=article, article_mode=mode, article_identity=identity,
-        epistemic_state=state, media_asset_ids=[a["asset_id"] for a in assets])
+        epistemic_state=state, media_asset_ids=[a["asset_id"] for a in assets], media_assets=assets)
+    current_previews = [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([identity, k, v]),
+        "article_identity": identity, "claim_lineage": result.get("claim_lineage", [])}
+        for k, v in previews["packages"].items()]
+    if result.get("media_preview_binding_sha256") and current_previews != result.get("previews"):
+        raise ValueError("COMPILED_PREVIEW_CHANGED_REVIEW_REQUIRED")
     record = json.loads((resolve_workspace_path(output_dir) / "qualified_article_record_v1.json").read_bytes())
     # Same article/source/worker identity; only the pre-publication package/media binding changes.
     record["derivative_package_intents"] = intents
@@ -380,8 +486,7 @@ def prepare_reviewed_handoff(store, *, run_id, output_dir):
     plan = handoff.ensure_plan(slot_id=run_id, slot_output_dir=root, returned_plan=plan)
     prepared = {"article_identity": identity, "review_id": current_review["review_id"], "run_id": run_id,
         "plan_hash": plan["plan_hash"], "output_dir": str(root),
-        "previews": [{"destination": k, "payload": v, "preview_id": "cc-preview-" + sha256_of([identity, k, v]),
-            "article_identity": identity, "claim_lineage": result.get("claim_lineage", [])} for k, v in previews["packages"].items()],
+        "previews": current_previews,
         "media_assets": assets, "public_write_performed": False}
     store.register_outbox_message(message_id="native-prepared-handoff-" + sha256_of(prepared),
         work_item_id=row["work_item_id"], destination="internal:native-prepared-handoff",

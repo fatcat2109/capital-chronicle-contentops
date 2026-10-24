@@ -1,0 +1,19 @@
+{
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "status": "SELECT_CANDIDATE_PLAN",
+  "ordered_candidate_plan": [
+    {
+      "candidate_id": "simple-story-3c160cea87fca66d7c13eb55",
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "selection_rationale": "The owner-scoped retained revision has a distinct useful analytical tension and a warranted chart/context photo. Lead with Brent nearly flat and WTI lower on October 21, rather than a question; distinguish closing observations from earlier gains.",
+      "research_queries": [
+        "oil Reuters October 21 2026 oil Brent WTI settlements"
+      ],
+      "angle": "The reported closing outcome limits a sustained-rally reading after earlier gains.",
+      "primary_reader_question": "What does the reported October 21 oil close establish after the earlier rally faded?",
+      "evidence_plan": "Resolve only the existing retained source goal35-oil through the established retained-source seam; preserve Reuters publication 2026-10-21T19:17:12Z, original cutoff and source certainty. Single Reuters origin supports attributed report truth only, not independent event confirmation. Preserve story/update chain simple-story-3c160cea87fca66d7c13eb55 and prior article dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1; this is EDITORIAL_REVISION with no new factual evidence. Use exact chart-data.json: Brent settlement: 108.82 USD/barrel (ACTUAL, 2026-10-21); WTI close: 97.15 USD/barrel (ACTUAL, 2026-10-21). Keep units, periods, actual/estimate/forecast and negative signs; code owns extraction, arithmetic and rendering, with no new calculation or invented history. Use exact cleared contextual archive photo documentary_oil dated 2017-06-16 with supplied credit, source/license links and change disclosure; honor ShareAlike where applicable. It corroborates no article fact. Original prose paraphrases attributed facts; Reuters source expression and images are not licensed for public reuse. Countercase: Opposing pressures may remain unresolved; a faded rally does not mean supply concerns disappeared. Missing/test dimensions: Matched contract/time, inventory expectations and independently checked diplomatic developments would test persistence. No new retrieval, proprietary authority or public-write grant. Article layout acceptance remains separate."
+    }
+  ],
+  "selection_summary": "Select the single governed retained oil story for the exact owner-directed editorial/media revision. Request 51e19da96cd25a688833c02b85b1cc700774dbc92cbadecfd0e5a7155477d47a. Preserve existing identity/history and October 21 source date; no fresh-news or independent-confirmation claim. No fallback or extra story is admitted.",
+  "public_write_attempted": false
+}

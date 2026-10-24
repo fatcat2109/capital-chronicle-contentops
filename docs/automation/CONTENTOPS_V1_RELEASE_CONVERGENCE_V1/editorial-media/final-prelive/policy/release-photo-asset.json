@@ -1,0 +1,31 @@
+{
+  "asset_id": "prelive-documentary-policy",
+  "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\policy\\documentary_original.jpg",
+  "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+  "width": 635,
+  "height": 900,
+  "modality": "documentary_photo",
+  "documentary_generated_classification": "AUTHENTIC_DOCUMENTARY_PHOTOGRAPH",
+  "rights_status": "PUBLIC_DOMAIN",
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House%2C_Friday%2C_May_22%2C_2026._%28Cropped%29.jpg",
+  "creator_publisher": "The White House",
+  "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+  "depicted_date": "22 May 2026, 12:12:50",
+  "attribution": "Official White House photograph by Daniel Torok, May 22, 2026. Public domain (US federal government). Commons crop; no further edits.",
+  "source_reuse_basis": "Exact Commons PD-USGov template, federal authorship and retained public-domain policy",
+  "caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the September decision.",
+  "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony.",
+  "relevance_rationale": "The September 15-16 FOMC minutes list Kevin Warsh as Chairman and voting for the decision; the person responsible is shown, with image and policy event dates separate.",
+  "context_only": true,
+  "corroborates_article_facts": false,
+  "is_thumbnail": false,
+  "visual_review": {
+    "asset_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+    "pixels_inspected": true,
+    "relevant_subject": true,
+    "reviewer": "root actual view_image inspection; original photograph, identifiable subject, no added labels or edits"
+  },
+  "rights_evidence_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\policy\\release-photo-rights.json",
+  "rights_evidence_sha256": "299fdb6ebb3b469115ddcfc40449ee94cd6929d8a359a9f1b3725ce30fe775e8"
+}

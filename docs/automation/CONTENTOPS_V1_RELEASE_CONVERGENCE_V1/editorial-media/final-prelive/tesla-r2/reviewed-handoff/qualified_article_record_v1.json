@@ -1,0 +1,544 @@
+{
+  "accepted_evidence_ids": [
+    "goal35-tesla"
+  ],
+  "accepted_evidence_sha256": "6d3f929de8282bd8ac57ba0634b4661cae1d8a3903a5182547b7ff6285a4f0b7",
+  "article_body_sha256": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+  "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+  "article_path": null,
+  "attempt_run_id": "v1-prelive-tesla-r2",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nSINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\nWhat to watch: The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "ce88cc627a07e7fa8f5d308b89b284d779db3f47ddd983c33f7e3d8e0402e4dc",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d\n\nWatch: The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.982,
+            0.729
+          ],
+          "post_character_counts": [
+            275,
+            204
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.742,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d",
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d"
+      },
+      "payload_sha256": "e5b5b526d0db3aa11521decc8dcb075ae64d74f7bfe590d705ca87441e7bf113",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]**\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\n**Context:** The serious countercase is that operating cash may also have strengthened.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "6bfcbf7422296c52b97b7d03f5e4951d268f0542ba8af9349ec2fd540176fd93",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 3000,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nWhy it matters: Capital Chronicle's analysis: if the report is accurate, lower capital outlays than analysts assumed could help leave more cash after investment without establishing a stronger operating business.\n\nContext: The serious countercase is that operating cash may also have strengthened.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "b9a54fddd55b9fd3ef8673739e3401da7ddf14d93eef63709b367de4c4d637b1",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 63206,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\nWhy it matters: Capital Chronicle's analysis: if the report is accurate, lower capital outlays than analysts assumed could help leave more cash after investment without establishing a stronger operating business.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "935c9bc6b836746ec2aa7da9b6d4e97a0747c76da5aae599b18e14d578ca7b33",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2200,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\nIn focus: The serious countercase is that operating cash may also have strengthened.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d\n\n#CapitalChronicle\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "16ad1bb7d152c44a264033b6f705ec5cc812d63328f956bb77b98f39d05e26bc",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nThe serious countercase is that operating cash may also have strengthened.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d\n\nWhat to watch: The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nThe serious countercase is that operating cash may also have strengthened.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.554,
+            0.424
+          ],
+          "post_character_counts": [
+            277,
+            212
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.765,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments.\n\nSource date: 2026-10-21.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nThe serious countercase is that operating cash may also have strengthened.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d",
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nThe serious countercase is that operating cash may also have strengthened.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d"
+      },
+      "payload_sha256": "f2bdb4ff359ec4130f9a018978fc6b38390bfa6f38c9a33becde178130fa7546",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1000,
+        "text": "Update: SINGLE-SOURCE REPORT - REUTERS | Reuters: Tesla's cash-flow surprise leaves the operating question open [Source 2026-10-21]\n\nReuters reports positive Tesla free cash flow as capex misses estimates.\n\nWhat to watch: The next useful test is an operating-cash-flow and working-capital bridge, alongside capex composition and future investment commitments.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-c47f988c19cc4d7d\n\nSource date: 2026-10-21. Interpretation remains analysis."
+      },
+      "payload_sha256": "ca3db10fe5f0b737985b68c3ec9234926230adc9869b88969e9efe4cb4bf22dd",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/v1_prelive_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.spawn_agent and returned native worker files; exact request and execution note retained",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/v1_max_tesla",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration dispatch/resume and completed worker return with execution note; no model API",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "DIRECT_REPUTABLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-tesla"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-22-bangkok",
+  "parent_window_id": "v1-prelive-tesla-r2",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "5081cf32adaf7bab2dc88d4f9d2f5830f4cd00d32ccde23becfffd03c632262a",
+  "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-6c6ae25852f4519d9a6d2168",
+  "title": "Reuters: Tesla's cash-flow surprise leaves the operating question open",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-6c6ae25852f4519d9a6d2168"
+}

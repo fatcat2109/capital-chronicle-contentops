@@ -66,6 +66,12 @@ def seeded(tmp_path, monkeypatch, *, manual=False):
         target = out / "source_document_card.png"
         shutil.copyfile(source, target)
         asset["path"] = str(target)
+    # Preserve the dated article fixture while supplying synthetic current-standard
+    # assets for transport/control tests. These are not real photo/financial proof.
+    from test_native_editorial_media_standard_v1 import controlled_release_packet
+    controlled_source, photo, chart = controlled_release_packet(out / "CONTROLLED_RELEASE_MEDIA")
+    result["evidence"].append(controlled_source)
+    result["media_assets"] = [photo, chart]
     record = fixture["qualified_record"]
     record.update(
         attempt_run_id=run,
@@ -347,6 +353,32 @@ def test_real_packet_preparation_manual_isolation_and_seals(tmp_path, monkeypatc
         operation.validate()
 
 
+def test_compiler_change_after_keep_requires_a_new_preview_review(tmp_path, monkeypatch):
+    store, binding, _, result, review = seeded(tmp_path, monkeypatch, manual=True)
+    import live_contentops.v1_simple_gemini_newsroom_v1 as compiler
+    bundle, _ = compiler._native_preview_bundle(article=result["article"],
+        article_mode=result["article"]["resolved_article_mode"], article_identity=result["article_identity"],
+        epistemic_state=result["article"].get("epistemic_state"),
+        media_asset_ids=[a["asset_id"] for a in result["media_assets"]], media_assets=result["media_assets"])
+    result["previews"] = [{"destination": k, "payload": v,
+        "preview_id": "cc-preview-" + sha256_of([result["article_identity"], k, v]),
+        "article_identity": result["article_identity"], "claim_lineage": result.get("claim_lineage", [])}
+        for k, v in bundle["packages"].items()]
+    result["media_preview_binding_sha256"] = sha256_of(result["previews"])
+    store.finalize_outbox_payload_before_dispatch(message_id="cc-editorial-final-" + sha256_of(binding["run_id"]),
+        payload=canonical_bytes(result).decode(), status="EDITORIAL_INTERNAL")
+    record_native_article_review(store, run_id=binding["run_id"], article_identity=result["article_identity"], decision="KEEP",
+        expected_review_id=review["review_id"], rationale="Controlled review of the unchanged article and exact compiled previews.")
+    original = compiler._native_preview_bundle
+    def changed(**kwargs):
+        regenerated, intents = original(**kwargs)
+        regenerated["packages"]["telegram"]["text"] += " Unreviewed compiler change."
+        return regenerated, intents
+    monkeypatch.setattr(compiler, "_native_preview_bundle", changed)
+    with pytest.raises(ValueError, match="COMPILED_PREVIEW_CHANGED_REVIEW_REQUIRED"):
+        prepare_native_publication(store, binding)
+
+
 def test_canonical_first_real_url_eight_native_packages_restart_dedupe(
     tmp_path, monkeypatch
 ):
@@ -436,6 +468,23 @@ def test_claimed_lost_publish_readback_before_retry_and_local_failure(
     assert value["publication"]["state"] == "RECONCILED"
     assert transport.calls.count("telegram") == 2
     assert len(store.list_platform_dispatches()) == 9
+
+
+def test_lost_readback_projects_new_turn_begin_but_never_a_second_publish(tmp_path, monkeypatch):
+    store, binding, rollout, _, _ = seeded(tmp_path, monkeypatch)
+    operation, executor, _ = composed(store, binding, rollout, monkeypatch)
+    operation.resume()
+    publish = executor.pending()[0]
+    operation.tool("begin", request_hash=publish["request"]["request_sha256"])
+    operation.resume()
+    readback = next(p for p in executor.pending() if p["request"]["action"] == "READBACK")
+    operation.tool("begin", request_hash=readback["request"]["request_sha256"])
+    restarted = NativeReviewedPublication(store, binding, rollout=rollout, native_invocation_id="RESUMED")
+    projection = restarted.projection()
+    assert projection["next_operation"] == "publication-tool-begin"
+    assert readback["request"]["request_sha256"] in projection["next_command"]
+    assert next(p for p in projection["pending_requests"] if p["request"]["action"] == "PUBLISH")["action_claimed"]
+    assert not next(p for p in projection["pending_requests"] if p["request"]["action"] == "READBACK")["action_claimed"]
 
 
 def test_source_and_artifact_changes_revoke_continuation_before_tool(

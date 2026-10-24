@@ -1,0 +1,202 @@
+{
+  "native_submit": {
+    "public_write_performed": false,
+    "response_sha256": "b70353ad1a57df096ac805bbd23343a082c661f436c2e6e6cb508e8287baf7e0",
+    "stage": "write"
+  },
+  "schema_valid": true,
+  "source_validation": {
+    "cited_source_count": 1,
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "IBM raises annual software revenue outlook as deal delays ease",
+      "event_truth_support_status": "UNCONFIRMED",
+      "event_truth_supported": false,
+      "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+      "origin_character": "UNSPECIFIED",
+      "primary_reporting_publisher": "Reuters",
+      "primary_reporting_source_identity": "reuters.com",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+      "relay_source_identity": null,
+      "report_proposition": "Reuters reports that IBM raises annual software revenue outlook as deal delays ease",
+      "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "DIRECT_REPUTABLE_REPORT",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal35-ibm"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+    "public_write_performed": false,
+    "report_truth_validated_separately_from_event_truth": true,
+    "schema_version": "contentops.v1_simple_gemini_validation.v1",
+    "source_bytes_precede_writer": true,
+    "source_timestamps_are_model_authority": false,
+    "source_urls": [
+      "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/"
+    ],
+    "status": "PASS",
+    "supported_material_claim_count": 15,
+    "supported_material_claims": [
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_title",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters: IBM's higher software revenue growth floor leaves a durability test",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "4cf7fb8ddb4635090bf0f87d199b37d5cc52613480ba8bce6c2efe647c892b8c",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_dek",
+        "claim_kind": "FACT",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software revenue growth range has a higher floor and unchanged ceiling. Demand after delayed deals clear remains the test.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "4cf7fb8ddb4635090bf0f87d199b37d5cc52613480ba8bce6c2efe647c892b8c",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_search_title",
+        "claim_kind": "FACT",
+        "claim_text": "IBM software revenue outlook: Reuters reports a higher floor",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "4cf7fb8ddb4635090bf0f87d199b37d5cc52613480ba8bce6c2efe647c892b8c",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_meta_description",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters' October 21 account of IBM's higher software growth floor leaves a key test: whether demand lasts after delayed deals clear.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "4cf7fb8ddb4635090bf0f87d199b37d5cc52613480ba8bce6c2efe647c892b8c",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_metadata_social_hook",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters reports a higher IBM software growth floor with the same ceiling. The demand test comes after delayed deals clear.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "4cf7fb8ddb4635090bf0f87d199b37d5cc52613480ba8bce6c2efe647c892b8c",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_reported_software_outlook",
+        "claim_kind": "NUMBER",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS: IBM's reported software outlook lifts the growth floor while keeping the ceiling unchanged. Reuters' October 21, 2026 account of Kavanaugh's comments puts annual software revenue growth at about 7% to 8%, compared with 6% to 8% previously.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "4cf7fb8ddb4635090bf0f87d199b37d5cc52613480ba8bce6c2efe647c892b8c",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_range_interpretation",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If accurate, that revision would narrow the weaker end of management's range without establishing lasting demand after delayed deals clear.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "4cf7fb8ddb4635090bf0f87d199b37d5cc52613480ba8bce6c2efe647c892b8c",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_company_revenue_comparison",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters puts third-quarter company-wide revenue at $17.10 billion, with reported growth of 4.7%, against a $16.82 billion average analyst estimate compiled by LSEG.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "8509ba689e916cc7e870f757d382e993e2910d2563afe689afa227524afa7a78",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_software_revenue_comparison",
+        "claim_kind": "NUMBER",
+        "claim_text": "Its separate software figures are $7.80 billion in quarterly revenue, growth of 8.3% and a $7.62 billion estimate.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "008d1af7c058789fbea500aa50415bf1585c7c5f49c82cdc5ffeb0eb853b40fe",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_management_transaction_processing_mix",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters attributes a narrower revenue split to Kavanaugh: about 25% of transaction-processing revenue came from business deferred from the second quarter, while he characterized the other 75% as net new business.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ccdc727a84aab45a654434c69cd02c20b239bac266508cdd6950b413fcd20061",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_transaction_processing_denominator",
+        "claim_kind": "FACT",
+        "claim_text": "Those shares describe transaction-processing revenue; they cannot be applied to all IBM revenue or treated as a breakdown of software revenue growth.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ccdc727a84aab45a654434c69cd02c20b239bac266508cdd6950b413fcd20061",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_conditional_timing_mechanism",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If Reuters' account is accurate, delayed deals reaching the current quarter could strengthen reported revenue without establishing a lasting increase in fresh demand. Capital Chronicle's timing test is whether new business can sustain growth once that catch-up fades.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ccdc727a84aab45a654434c69cd02c20b239bac266508cdd6950b413fcd20061",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_new_business_countercase",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If Kavanaugh's transaction-processing breakdown reported by Reuters is accurate, the new-business component would challenge a catch-up-only explanation. Fresh business and delayed deals could coexist.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ccdc727a84aab45a654434c69cd02c20b239bac266508cdd6950b413fcd20061",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_conditional_follow_through_test",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "Comparable disclosures of new and deferred transaction-processing business would test recurrence. Continued software growth supported by margins and cash conversion would strengthen the durable-demand reading; weaker follow-through would challenge it.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ccdc727a84aab45a654434c69cd02c20b239bac266508cdd6950b413fcd20061",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "ibm_retained_attribution",
+        "claim_kind": "FACT",
+        "claim_text": "The figures and Kavanaugh's comments remain attributed through Reuters.",
+        "document_id": "goal35-ibm",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "4cf7fb8ddb4635090bf0f87d199b37d5cc52613480ba8bce6c2efe647c892b8c",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      }
+    ],
+    "unknown_write_detected": false,
+    "unsupported_material_claim_count": 0
+  }
+}

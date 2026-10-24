@@ -165,7 +165,12 @@ class _Stages:
         self.store = tracker.store
         self.work = "cc-report-" + sha256_of(receipt_id) if not opportunity_id else "cc-opportunity-" + sha256_of(opportunity_id)
         if opportunity_id:
-            self.store.create_work_item(story_id=self.work, title="Main-enriched newsroom opportunity",
+            from live_contentops.durable_operational_store_v1 import WorkItemNotFoundError
+            try:
+                title = self.store.get_work_item(self.work)["title"]
+            except WorkItemNotFoundError:
+                title = "Main-enriched newsroom opportunity"
+            self.store.create_work_item(story_id=self.work, title=title,
                                        target_surface="CONTENTOPS_EDITORIAL_ONLY", work_item_id=self.work)
 
     def get(self, key: str) -> dict[str, Any] | None:
@@ -376,6 +381,8 @@ def run_report_editorial_cycle(
                         "disposition": review["decision"], "reason": review["reader_change_summary"],
                         "source_review_id": review["review_id"], "source_item_ids": [s["item_id"] for s in review["source_editions"]],
                         "changed_evidence": review["source_changes"], "prior_package": review["prior_story"],
+                        **({"retained_sources": review["previous_sources"], "new_factual_evidence": False}
+                           if review["decision"] == "EDITORIAL_REVISION" else {}),
                         "publication_state": "UNPUBLISHED_RESEARCH", "removed_main_claim_ids": review["removed_main_claim_ids"]}
                     headline["external_content"] = {**external, "evolving_story_context": [*external.get("evolving_story_context", []), context]}
         from live_contentops.contentops_editorial_desk_v1 import read_reviews, publication_story_context, selection_story_context
@@ -810,14 +817,18 @@ def report_workspace_projection(
         simple = item.get("simple_result", {})
         plan = simple.get("selected_plan_entry", {})
         review = next((r for r in reversed(native_reviews) if r["article_identity"] == item["article_identity"]), None)
+        from live_contentops.native_desktop_editorial_v1 import native_review_revision
+        review_current = bool(review and review.get("package_revision") == native_review_revision(
+            item, include_metadata=bool(review.get("article_metadata_sha256"))))
         prepared = next((json.loads(r["payload"]) for r in reversed(rows) if r["destination"] == "internal:native-prepared-handoff"
             and json.loads(r["payload"]).get("article_identity") == item["article_identity"]
-            and json.loads(r["payload"]).get("review_id") == (review or {}).get("review_id")), None)
+            and json.loads(r["payload"]).get("review_id") == (review or {}).get("review_id")), None) if review_current else None
         edition[item["article_identity"]] = {
             **{k: item.get(k) for k in ("article_identity", "article", "previews", "evidence", "media_assets", "report_id", "report_version", "source_report_sha256")},
             "run_id": simple.get("run_id"), "angle": plan.get("angle"),
             "reader_question": plan.get("primary_reader_question"),
             "mode": plan.get("article_mode"), "review": review,
+            **({"prepared_state": "INVALIDATED_BY_ARTICLE_OR_MEDIA_REVISION"} if review and not review_current else {}),
             "source_review": None,
             "editorial_execution": item.get("editorial_execution"),
             "prior_story": simple.get("selected_candidate", {}).get("evolving_story_context", []),
@@ -827,6 +838,12 @@ def report_workspace_projection(
     from live_contentops.contentops_editorial_desk_v1 import source_review_projection
     source_reviews = source_review_projection(rows)
     for item in edition.values():
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
+        # Display the public compiler's exact citation conversion; retain source IDs in the evidence desk.
+        public_copy = _reader_safe_native_article(item["article"], article_mode=item.get("mode") or "",
+            epistemic_state=item["article"].get("epistemic_state"))
+        if item["article"].get("public_source_bindings"):
+            item["article"] = {**item["article"], "substack_body_markdown": public_copy["substack_body_markdown"]}
         from live_contentops.native_desktop_publication_v1 import publication_projection
         item["publication"] = publication_projection(rows, dispatches, reconciliations,
             run_id=item["run_id"], readiness=readiness)
@@ -837,17 +854,34 @@ def report_workspace_projection(
         for asset in item.get("media_assets") or []:
             try:
                 path = resolve_workspace_path(asset["path"])
-                if path.stat().st_size > 1_500_000:
+                if path.stat().st_size > 20_000_000:
                     continue
                 raw = path.read_bytes()
-                if raw.startswith(b"\x89PNG\r\n\x1a\n") and sha256(raw).hexdigest() == asset.get("sha256"):
+                if sha256(raw).hexdigest() != asset.get("sha256"):
+                    continue
+                if raw.startswith(b"\x89PNG\r\n\x1a\n") and len(raw) <= 1_500_000:
                     asset["preview_data_url"] = "data:image/png;base64," + base64.b64encode(raw).decode("ascii")
+                elif asset.get("modality") == "documentary_photo":
+                    import io
+                    from PIL import Image, ImageOps
+                    with Image.open(io.BytesIO(raw)) as photo:
+                        preview = ImageOps.exif_transpose(photo).convert("RGB")
+                        preview.thumbnail((1200, 1200))
+                        buffer = io.BytesIO()
+                        preview.save(buffer, format="JPEG", quality=85)
+                    asset["preview_data_url"] = "data:image/jpeg;base64," + base64.b64encode(buffer.getvalue()).decode("ascii")
+                    asset["preview_basis"] = "DISPLAY_ONLY_DERIVATIVE_OF_HASH_VERIFIED_DELIVERY_ORIGINAL"
             except (OSError, ValueError, KeyError):
                 pass
         matching = [s for s in source_reviews if s["article_identity"] == item["article_identity"]]
         item["source_review"] = matching[-1] if matching else None
         if matching and matching[-1]["invalidates_prepared_review"]:
             item["prepared_state"] = "INVALIDATED_BY_SOURCE_REVIEW"
+        from live_contentops.native_desktop_editorial_v1 import validate_release_media
+        try:
+            item["release_media"] = {"state": "READY", **validate_release_media(item)}
+        except (ValueError, OSError, KeyError) as exc:
+            item["release_media"] = {"state": "HELD", "blocker": str(exc)}
         if item.get("prepared_state") or (item.get("review") or {}).get("decision") != "KEEP":
             item["publication"] = {**item["publication"], "state": "REVIEW_REQUIRED", "next_operation": "review",
                 "next_command": "Review the current exact source/article packet; prior preparation grants no dispatch."}
@@ -855,8 +889,10 @@ def report_workspace_projection(
     owner_edition = owner_groups[-1] if owner_groups else None
     if owner_edition:
         current = [e for e in edition.values() if e["run_id"] in owner_edition["operation_ids"]]
-        ready = [e for e in current if (e.get("review") or {}).get("decision") == "KEEP" and not e.get("prepared_state")]
-        held = [e for e in current if (e.get("review") or {}).get("decision") == "HOLD"]
+        ready = [e for e in current if (e.get("review") or {}).get("decision") == "KEEP" and not e.get("prepared_state")
+                 and e.get("release_media", {}).get("state") == "READY"]
+        held = [e for e in current if (e.get("review") or {}).get("decision") == "HOLD"
+                or e.get("release_media", {}).get("state") == "HELD"]
         owner_edition = {**owner_edition, "ready": len(ready), "held": len(held) + len(owner_edition["held_candidates"]),
             "missing": len(owner_edition["operation_ids"]) - len(ready) - len(held),
             "preview_count": sum(len(e["previews"]) for e in ready)}

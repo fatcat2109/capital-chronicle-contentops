@@ -1,0 +1,226 @@
+{
+  "request_sha256": "20e949017909a741fe0f43c0b5a80774fbb3bd9ed3ec4fd97eafa57a9dafb1c8",
+  "output": {
+    "schema_version": "contentops.v1_simple_gemini_article.v1",
+    "article": {
+      "title": "The Fed's September decision: three rates with different jobs",
+      "dek": "Confirmed September 16, 2026 instructions set reserve-balance interest at 3.90%, standing repo at 4.0% and reverse repo at 3.75%, effective September 17. The settings explain implementation; they do not measure what banks or markets subsequently paid.",
+      "search_title": "Fed September 2026 implementation: reserve interest, repo and reverse repo",
+      "meta_description": "A dated guide to the Fed's September 17, 2026 reserve-interest, repo and reverse-repo settings, and the evidence needed to judge their effect.",
+      "social_hook": "The Fed's September 17 settings give three rates different jobs. Judging their effect requires more than the announcement.",
+      "substack_body_markdown": "The Federal Reserve's confirmed September 16, 2026 implementation note set a 3.90% interest rate on reserve balances, a 4.0% standing overnight repo rate and a 3.75% standing overnight reverse-repo offering rate, all effective September 17. These are announced terms for putting a policy decision into operation, not observations of what banks or markets subsequently paid. [[SOURCE:SOURCE_1]]\n\nThe companion FOMC statement records a quarter-percentage-point increase in the federal funds target range to 3.75%-4% and continuation of the ample-reserves policy. The implementation note translates that objective into instructions for the Fed's trading Desk. This is a dated explanation of the September decision, not a new policy announcement. [[SOURCE:SOURCE_2]] [[SOURCE:SOURCE_1]]\n\n## Three operational roles\n\nReserve-balance interest is the payment attached to reserve balances. The Board voted unanimously to set it at 3.90%, effective September 17. For a bank holding such balances, the relevant question is what those balances earn; this is distinct from the terms for obtaining or placing cash overnight. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle's interpretation is that the three settings address different sides of cash management: remuneration for reserve balances, temporary cash provision through standing repo, and overnight cash placement through reverse repo. That distinction helps explain how the tools serve a shared policy objective; it does not establish that a particular operation occurred or that a customer's bank rate changed. [[SOURCE:SOURCE_1]]\n\nThe document's explicit objective for the Desk was to maintain the federal funds rate within the target range using open-market operations as necessary. Its 4.0% standing repo rate and 3.75% reverse-repo offering rate are instructions for separate operations. The chart compares those settings with reserve-balance interest for the same effective date; it is a comparison of announced policy terms, not a market-rate history. [[SOURCE:SOURCE_1]]\n\n## What would establish transmission?\n\nThe strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions. These documents supply no observed effective funding rates or matched bank deposit and loan rates, so they cannot establish how much of the decision reached bank customers. An account of policy transmission needs those observations as well as the announced settings. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nFor bonds, currencies and other assets, Capital Chronicle's view is conditional: even if the tools influence the overnight cost of cash, the documents alone cannot establish the direction, timing or size of an asset-price response. They describe the policy terms, not a measured market reaction. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nThe next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up? A later implementation notice could establish changed settings. Neither record alone would settle bank-customer pass-through; that question requires its own dated rate evidence. [[SOURCE:SOURCE_1]]\n\n## Sources\n\nSource dates: Federal Reserve implementation note and FOMC statement, September 16, 2026. These are separate documents from the same institution, not independent confirmations by different publishers. The implementation text used here supplies no release time. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]",
+      "canonical_editorial_headline": "The Fed's September decision: three rates with different jobs",
+      "subtitle": "Confirmed September 16, 2026 instructions set reserve-balance interest at 3.90%, standing repo at 4.0% and reverse repo at 3.75%, effective September 17. The settings explain implementation; they do not measure what banks or markets subsequently paid.",
+      "seo_title": "Fed September 2026 implementation: reserve interest, repo and reverse repo",
+      "social_lede": "The Fed's September 17 settings give three rates different jobs. Judging their effect requires more than the announcement.",
+      "canonical_slug_candidate": "fed-september-2026-implementation-reserve-interest-repo-reverse-repo",
+      "slug": "fed-september-2026-implementation-reserve-interest-repo-reverse-repo",
+      "primary_reader_question": "How do the three announced administered rates implement this dated Fed decision, and why do those settings alone not establish current borrowing costs, realized market rates or a direction for currencies and other assets?",
+      "secondary_reader_questions": [
+        "What separates the September 16 policy decision from the settings effective September 17?",
+        "Which roles do reserve-balance interest, standing repo and reverse repo play?",
+        "What evidence would show whether the announced terms reached bank customers?"
+      ],
+      "entities": [
+        "Federal Reserve",
+        "Federal Open Market Committee",
+        "Board of Governors"
+      ],
+      "topics": [
+        "monetary policy implementation",
+        "reserve-balance interest",
+        "standing overnight repo",
+        "overnight reverse repo",
+        "policy transmission"
+      ],
+      "search_freshness_class": "EVERGREEN",
+      "internal_link_candidates": [],
+      "structured_data_packet": null,
+      "author_identity": "Capital Chronicle",
+      "publisher_identity": "Capital Chronicle",
+      "institutional_edge_editorial_packet_sha256": "e4c93f9bf7832b17d6f8b524af5cc3b21cefc5a6f9f1a26ab32da3294200a2bd",
+      "quote_source_records": [],
+      "humor_lines": [],
+      "social_mechanism_summary": "Capital Chronicle's interpretation is that the three settings address different sides of cash management: remuneration for reserve balances, temporary cash provision through standing repo, and overnight cash placement through reverse repo. That distinction helps explain how the tools serve a shared policy objective; it does not establish that a particular operation occurred or that a customer's bank rate changed.",
+      "social_policy_summary": "The strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions. These documents supply no observed effective funding rates or matched bank deposit and loan rates, so they cannot establish how much of the decision reached bank customers. An account of policy transmission needs those observations as well as the announced settings.",
+      "social_cross_asset_summary": "The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up? A later implementation notice could establish changed settings. Neither record alone would settle bank-customer pass-through; that question requires its own dated rate evidence."
+    },
+    "cited_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm",
+        "publisher": "www.federalreserve.gov",
+        "published_at_utc": "2026-09-16T00:00:00Z"
+      },
+      {
+        "source_id": "SOURCE_2",
+        "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+        "publisher": "www.federalreserve.gov",
+        "published_at_utc": "2026-09-16T18:00:00Z"
+      }
+    ],
+    "material_claim_bindings": [
+      {
+        "claim_id": "policy-title",
+        "claim_text": "The Fed's September decision: three rates with different jobs",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-dek",
+        "claim_text": "Confirmed September 16, 2026 instructions set reserve-balance interest at 3.90%, standing repo at 4.0% and reverse repo at 3.75%, effective September 17. The settings explain implementation; they do not measure what banks or markets subsequently paid.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-search-title",
+        "claim_text": "Fed September 2026 implementation: reserve interest, repo and reverse repo",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-meta-description",
+        "claim_text": "A dated guide to the Fed's September 17, 2026 reserve-interest, repo and reverse-repo settings, and the evidence needed to judge their effect.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-social-hook",
+        "claim_text": "The Fed's September 17 settings give three rates different jobs. Judging their effect requires more than the announcement.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-announced-settings",
+        "claim_text": "The Federal Reserve's confirmed September 16, 2026 implementation note set a 3.90% interest rate on reserve balances, a 4.0% standing overnight repo rate and a 3.75% standing overnight reverse-repo offering rate, all effective September 17. These are announced terms for putting a policy decision into operation, not observations of what banks or markets subsequently paid.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-statement-decision",
+        "claim_text": "The companion FOMC statement records a quarter-percentage-point increase in the federal funds target range to 3.75%-4% and continuation of the ample-reserves policy.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate. The Committee is continuing its policy of maintaining ample reserves in the banking system.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-implementation-directions",
+        "claim_text": "The implementation note translates that objective into instructions for the Fed's trading Desk.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-dated-scope",
+        "claim_text": "This is a dated explanation of the September decision, not a new policy announcement.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-reserve-interest",
+        "claim_text": "Reserve-balance interest is the payment attached to reserve balances. The Board voted unanimously to set it at 3.90%, effective September 17. For a bank holding such balances, the relevant question is what those balances earn; this is distinct from the terms for obtaining or placing cash overnight.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-tool-roles-interpretation",
+        "claim_text": "Capital Chronicle's interpretation is that the three settings address different sides of cash management: remuneration for reserve balances, temporary cash provision through standing repo, and overnight cash placement through reverse repo. That distinction helps explain how the tools serve a shared policy objective; it does not establish that a particular operation occurred or that a customer's bank rate changed.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-desk-objective",
+        "claim_text": "The document's explicit objective for the Desk was to maintain the federal funds rate within the target range using open-market operations as necessary.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-repo-reverse-terms",
+        "claim_text": "Its 4.0% standing repo rate and 3.75% reverse-repo offering rate are instructions for separate operations.",
+        "claim_kind": "NUMBER",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-chart-comparison-scope",
+        "claim_text": "The chart compares those settings with reserve-balance interest for the same effective date; it is a comparison of announced policy terms, not a market-rate history.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-transmission-countercase",
+        "claim_text": "The strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions. These documents supply no observed effective funding rates or matched bank deposit and loan rates, so they cannot establish how much of the decision reached bank customers. An account of policy transmission needs those observations as well as the announced settings.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-asset-interpretation-limit",
+        "claim_text": "For bonds, currencies and other assets, Capital Chronicle's view is conditional: even if the tools influence the overnight cost of cash, the documents alone cannot establish the direction, timing or size of an asset-price response. They describe the policy terms, not a measured market reaction.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-next-observation-question",
+        "claim_text": "The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up? A later implementation notice could establish changed settings. Neither record alone would settle bank-customer pass-through; that question requires its own dated rate evidence.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-source-note-document-distinction",
+        "claim_text": "Source dates: Federal Reserve implementation note and FOMC statement, September 16, 2026. These are separate documents from the same institution, not independent confirmations by different publishers. The implementation text used here supplies no release time.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_1",
+        "support_excerpt": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026.\n\n\"Effective September 17, 2026, the Federal Open Market Committee directs the Desk to: Undertake open market operations as necessary to maintain the federal funds rate in a target range of 3-3/4 to 4 percent. Conduct standing overnight repurchase agreement operations at a rate of 4.0 percent. Conduct standing overnight reverse repurchase agreement operations at an offering rate of 3.75 percent and with a per-counterparty limit of $160 billion per day.",
+        "attribution_required": true
+      },
+      {
+        "claim_id": "policy-source-note-statement-lineage",
+        "claim_text": "These are separate documents from the same institution, not independent confirmations by different publishers.",
+        "claim_kind": "FACT",
+        "source_id": "SOURCE_2",
+        "support_excerpt": "The Committee decided to raise the target range for the federal funds rate by 1/4 percentage point to 3-3/4 to 4 percent, in support of the Federal Reserve's dual mandate. The Committee is continuing its policy of maintaining ample reserves in the banking system.",
+        "attribution_required": true
+      }
+    ],
+    "public_write_attempted": false
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "invocation_id": "/root/v1_prelive_max_policy",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "max",
+    "speed": "standard",
+    "observation_source": "Actual collaboration dispatch/resume and completed worker return with execution note; no model API"
+  }
+}

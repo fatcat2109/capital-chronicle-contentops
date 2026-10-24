@@ -1,0 +1,111 @@
+{
+  "asset_id": "source_value_comparison",
+  "role": "supporting_fact_context",
+  "media_role": "source_value_comparison",
+  "modality": "source_backed_chart",
+  "media_class": "source_backed_render",
+  "evidence_dimension": "source_value_comparison",
+  "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\gold\\media_assets\\source_value_comparison.png",
+  "source_page_url": "https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike",
+  "source_label": "Reuters",
+  "publisher": "Reuters",
+  "source": "Reuters",
+  "publication_date": "2026-10-23T19:17:01Z",
+  "rights_status": "capital_chronicle_owned",
+  "render_rights_status": "capital_chronicle_owned",
+  "underlying_source_rights_status": "attributed_facts_independent_chart",
+  "source_reuse_basis": "Independent CC chart of attributed reported facts; no source expression or chart reused.",
+  "provenance_status": "SOURCE_BACKED",
+  "chart_title": "Precious-metal percentage declines reported by Reuters, October 23, 2026 Source: Reuters; retained report 202\u2026",
+  "caption": "Precious-metal percentage declines reported by Reuters, October 23, 2026 Source: Reuters; retained report 2026-10-23.",
+  "alt_text": "Gold (2026-10-23, actual): -0.6 %; Silver (2026-10-23, actual): -1.0 %; Palladium (2026-10-23, actual): -0.5 %; Platinum (2026-10-23, actual): -0.9 %",
+  "width": 1680,
+  "height": 980,
+  "dimensions": {
+    "width": 1680,
+    "height": 980
+  },
+  "sha256": "407830ed2fdc3d164f3a653f08e2985b565c56d93ee00b081c2cd3a38388d1a9",
+  "article_section": "key_facts",
+  "canonical_article_section_association": "key_facts",
+  "relevance_rationale": "Compares the exact reported observations or forecast bounds relevant to this thesis.",
+  "supports_headline": false,
+  "is_logo": false,
+  "is_avatar": false,
+  "is_thumbnail": false,
+  "is_synthetic": false,
+  "is_manipulated": false,
+  "ai_generated_image": false,
+  "underlying_series_ids": [],
+  "source_content_sha256": "53f87f918b9e92a4947d4465c600115e9ff9e175844c23dfbb7684adec0dbfea",
+  "source_value_bindings": [
+    {
+      "label": "Gold",
+      "metric_source_text": "Spot gold",
+      "period": "2026-10-23",
+      "unit": "%",
+      "observation_kind": "ACTUAL",
+      "support_excerpt": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), \u200bslipping below the $4,000 mark for the first time since mid-July and touching a session low \u200bof $3,975.23.",
+      "value_context": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), \u200bslipping below the $4,000 mark for the first time since mid-July and touching a session low \u200bof $3,975.23.",
+      "value_text": "0.6",
+      "negative_evidence": "Spot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), \u200bslipping below the $4,000 mark for the first time since mid-July and touching a session low \u200bof $3,975.23."
+    },
+    {
+      "label": "Silver",
+      "metric_source_text": "spot silver",
+      "period": "2026-10-23",
+      "unit": "%",
+      "observation_kind": "ACTUAL",
+      "support_excerpt": "Among other metals, spot silver slid 1% to $53.97 per ounce",
+      "value_context": "Among other metals, spot silver slid 1% to $53.97 per ounce",
+      "value_text": "1",
+      "negative_evidence": "Among other metals, spot silver slid 1% to $53.97 per ounce"
+    },
+    {
+      "label": "Palladium",
+      "metric_source_text": "palladium",
+      "period": "2026-10-23",
+      "unit": "%",
+      "observation_kind": "ACTUAL",
+      "support_excerpt": "Among other metals, spot silver slid 1% to $53.97 per ounce, \u2060and palladium \u200bdropped 0.5% to $1,048.31, hitting their lowest since November 2025 and June \u200b2025 respectively.",
+      "value_context": "palladium \u200bdropped 0.5% to $1,048.31",
+      "value_text": "0.5",
+      "negative_evidence": "palladium \u200bdropped 0.5% to $1,048.31"
+    },
+    {
+      "label": "Platinum",
+      "metric_source_text": "Spot platinum",
+      "period": "2026-10-23",
+      "unit": "%",
+      "observation_kind": "ACTUAL",
+      "support_excerpt": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July.",
+      "value_context": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July.",
+      "value_text": "0.9",
+      "negative_evidence": "Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July."
+    }
+  ],
+  "chart_unit": "%",
+  "computed_values": [
+    [
+      -0.6
+    ],
+    [
+      -1.0
+    ],
+    [
+      -0.5
+    ],
+    [
+      -0.9
+    ]
+  ],
+  "missingness": "NO_VALUES_FILLED_OR_INTERPOLATED",
+  "transformation": "EXACT_REPORTED_MAGNITUDES_WITH_EXPLICIT_SIGN_AND_RANGE_BOUNDS",
+  "transform_sha256": "e1c2a9a224b6ace9f59fce3250a78fa2f23b5bfc6e49bcf18a0648790e1bcfdf",
+  "visual_review": {
+    "asset_sha256": "407830ed2fdc3d164f3a653f08e2985b565c56d93ee00b081c2cd3a38388d1a9",
+    "pixels_inspected": true,
+    "labels_and_units_legible": true,
+    "reviewer": "root actual full-size view_image inspection after reported/timing labels; all four signed values, source/date, chart/title/axes legible"
+  }
+}

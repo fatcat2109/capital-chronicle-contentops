@@ -17,6 +17,94 @@ function data(): ReportWorkspaceData {
 }
 
 describe('Main report editorial workspace', () => {
+  function ownerData() {
+    const snapshot = data();
+    snapshot.native_edition = ['one', 'two', 'history'].map(id => ({ run_id: id, article_identity: id,
+      article: { ...snapshot.article!, title: `Owner story ${id}` },
+      review: { decision: 'KEEP', rationale: 'Exact controlled edition review.' },
+      previews: snapshot.previews.map(p => ({ ...p, article_identity: id, preview_id: `${id}-${p.destination}` })),
+      evidence: [{ source_id: 'SOURCE_1', publisher: 'Controlled agency', url: 'https://example.com/source',
+        published_at_utc: '2026-09-16T00:00:00Z', published_at_source: 'September 16, 2026' }],
+      publication: { state: 'PREPARED', operation_scope: 'OWNER_MANUAL_ISOLATED', next_operation: 'BLOCKED',
+        destinations: [{ destination: 'substack', status: 'NOT_DISPATCHED', cached_readiness: 'NOT_VERIFIED' }] } }));
+    snapshot.owner_edition = { edition_id: 'controlled-owner', title: 'Controlled selected edition', operation_ids: ['one', 'two'],
+      ready: 2, held: 1, missing: 0, preview_count: 16, held_candidates: [{ title: 'Held FX', reason: 'Missing exact source.' }] };
+    return snapshot;
+  }
+
+  it('navigates the exact selected owner edition and resets channel selection without exposing history actions', () => {
+    render(<ReportEditorialWorkspace data={ownerData()} mode="owner-review" />);
+    expect(screen.getByRole('heading', { name: 'Owner story one' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Previous story' })).toBeDisabled();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'x' } });
+    fireEvent.click(screen.getByRole('button', { name: 'Next story' }));
+    expect(screen.getByRole('heading', { name: 'Owner story two' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Choose reading view' })).toHaveValue('canonical');
+    expect(screen.getByRole('button', { name: 'Next story' })).toBeDisabled();
+    expect(screen.queryByRole('option', { name: /Owner story history/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: /approve|publish|dispatch|keep|revise/i })).not.toBeInTheDocument();
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose story' }), { target: { value: '0' } });
+    expect(screen.getByRole('heading', { name: 'Owner story one' })).toBeInTheDocument();
+  });
+
+  it('renders all eight actual native packages with pending canonical links in the read-only owner mode', () => {
+    render(<ReportEditorialWorkspace data={ownerData()} mode="owner-review" />);
+    const view = screen.getByRole('combobox', { name: 'Choose reading view' });
+    for (const destination of ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube']) {
+      fireEvent.change(view, { target: { value: destination } });
+      const article = screen.getByRole('article', { name: 'Selected article' });
+      expect(article).toHaveAttribute('data-reading-view', destination);
+      expect(within(article).getByText(new RegExp(`${destination}: controlled native text`))).toBeInTheDocument();
+      expect(within(article).getByText(/Canonical link pending/)).toBeInTheDocument();
+      expect(within(article).queryByRole('link', { name: /pending-publication/ })).not.toBeInTheDocument();
+    }
+  });
+
+  it('keeps source dates, held scope and real insufficient metrics visible and opens the release guide', () => {
+    const snapshot = ownerData();
+    snapshot.native_edition![0].media_assets = [{ asset_id: 'controlled-photo', path: 'controlled.jpg', sha256: 'photo-hash',
+      caption: 'Controlled archival photograph.', modality: 'documentary_photo' }];
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" reviewContext={{ captured_at_utc: '2026-10-24T07:00:00Z',
+      original_media_links: { 'photo-hash': 'editorial-media/controlled.jpg' },
+      audience: { sample_count: 0, content_state: 'INSUFFICIENT_REAL_SAMPLE', search_state: 'INSUFFICIENT_REAL_SEARCH_SAMPLE', destination_state: 'INSUFFICIENT_REAL_DESTINATION_SAMPLE' } }} />);
+    expect(screen.getByText('September 16, 2026 (date only; release time not supplied)')).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Read original source' })).toHaveAttribute('href', 'https://example.com/source');
+    expect(screen.getByRole('link', { name: 'Open original image · full resolution' })).toHaveAttribute('href', 'editorial-media/controlled.jpg');
+    expect(screen.getByText(/Real audience samples: 0/)).toHaveTextContent('INSUFFICIENT REAL SEARCH SAMPLE');
+    expect(screen.getByText(/Held: Held FX/)).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('link', { name: 'Proposed release decision' }));
+    expect(screen.getByText('One proposed release decision · not approved').closest('details')).toHaveAttribute('open');
+    expect(screen.getByText(/Frozen, read-only review/)).toBeInTheDocument();
+  });
+
+  it('fails visibly when the owner edition has no exact selected record', () => {
+    const missing = ownerData(); missing.native_edition = [];
+    render(<ReportEditorialWorkspace data={missing} mode="owner-review" />);
+    expect(screen.getByRole('status')).toHaveTextContent('No selected owner edition');
+    expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
+  });
+
+  it('shows photo pixels, credits and exact license/source links with release readiness', () => {
+    const snapshot = data();
+    snapshot.previews[0].payload.media_asset_ids = ['photo'];
+    snapshot.native_edition = [{ run_id: 'controlled-photo-reader', article_identity: 'controlled-media-id',
+      article: { title: 'Controlled media article', dek: 'Dated source scope.', substack_body_markdown: 'Source-bound copy.' },
+      release_media: { state: 'READY', photo_count: 1, chart_count: 1 }, previews: snapshot.previews,
+      media_assets: [{ asset_id: 'photo', path: 'controlled.jpg', sha256: 'controlled-hash', modality: 'documentary_photo', width: 640,
+        caption: 'Archive context photograph.', alt_text: 'Controlled contextual subject',
+        preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==', attribution: 'Controlled creator / CC BY 2.0',
+        license_url: 'https://creativecommons.org/licenses/by/2.0/', source_page_url: 'https://commons.wikimedia.org/wiki/File:Controlled.jpg' }] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const edition = screen.getByLabelText('Ấn bản newsroom');
+    expect(within(edition).getByText('Release media: READY')).toBeInTheDocument();
+    expect(within(edition).getAllByRole('img', { name: 'Controlled contextual subject' })).toHaveLength(2);
+    expect(within(edition).getAllByRole('img')[0]).toHaveAttribute('src', 'data:image/jpeg;base64,Y29udHJvbGxlZA==');
+    const preview = edition.querySelector('[data-edition-destination="telegram"]') as HTMLElement;
+    expect(within(preview).getByRole('img', { name: 'Controlled contextual subject', exact: true })).toHaveStyle({ maxWidth: '640px' });
+    expect(within(preview).getByText(/Controlled creator/)).toBeInTheDocument();
+    expect(within(preview).getByRole('link', { name: 'License' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/2.0/');
+    expect(within(preview).getByRole('link', { name: 'Image source' })).toHaveAttribute('href', 'https://commons.wikimedia.org/wiki/File:Controlled.jpg');
+  });
   it('opens exact maintained versions and keeps partial coverage, dates and preparation distinct', () => {
     const snapshot = data();
     const version = { run_id: 'controlled-current', article_identity: 'current-id', article: snapshot.article!,
@@ -146,7 +234,8 @@ describe('Main report editorial workspace', () => {
       angle: 'Separate contract risks', reader_question: 'What is actually owned?', mode: 'EVERGREEN_EXPLAINER',
       review: { decision: 'KEEP', rationale: 'Bounded educational scope and exact source dates retained.' },
       evidence: [{ source_id: 'SOURCE_1', publisher: 'CFTC', url: 'https://www.cftc.gov/example', published_at_utc: '' },
-        { source_id: 'SOURCE_2', publisher: 'Issuer', url: 'https://www.sec.gov/Archives/example.htm', published_at_utc: '2025-07-24T00:00:00Z', published_at_source: '2025-07-24' }],
+        { source_id: 'SOURCE_2', publisher: 'Issuer', url: 'https://www.sec.gov/Archives/example.htm', published_at_utc: '2025-07-24T00:00:00Z', published_at_source: '2025-07-24' },
+        { source_id: 'SOURCE_3', publisher: 'Controlled dated agency', url: 'https://example.com/policy', published_at_utc: '2026-09-16T00:00:00Z', published_at_source: 'September 16, 2026' }],
       previews: snapshot.previews }];
     render(<ReportEditorialWorkspace data={snapshot} />);
     const edition = screen.getByLabelText('Ấn bản newsroom');
@@ -156,11 +245,28 @@ describe('Main report editorial workspace', () => {
     expect(within(edition).getByText(/Không cung cấp ngày xuất bản/)).toBeInTheDocument();
     expect(within(edition).getByText(/2025-07-24 \(date only; release time not supplied\)/)).toBeInTheDocument();
     expect(edition.textContent).not.toContain('2025-07-24T00:00:00Z');
+    expect(within(edition).getByText(/September 16, 2026 \(date only; release time not supplied\)/)).toBeInTheDocument();
+    expect(edition.textContent).not.toContain('2026-09-16T00:00:00Z');
     expect(edition.querySelectorAll('[data-edition-destination]')).toHaveLength(8);
     expect(within(edition).getByText('Mechanism')).toBeInTheDocument();
     expect(within(edition).getByText('Dated educational interpretation.').tagName).toBe('STRONG');
     expect(within(edition).getByRole('link', { name: 'Agency source' })).toHaveAttribute('href', 'https://www.cftc.gov/example');
     expect(within(edition).getByRole('listitem')).toHaveTextContent('Exact dated scope.');
+  });
+  it('renders an exact minimal editorial revision source record without inventing missing metadata', () => {
+    const snapshot = data();
+    snapshot.source_reviews = [{ review_id: 'editorial-revision-control', run_id: 'revision', title: 'Same-facts editorial revision',
+      decision: 'EDITORIAL_REVISION', reader_change_summary: 'Reader-facing prose change; no new facts.',
+      cutoff_utc: '2026-10-21T22:29:51Z', invalidates_prepared_review: false,
+      media_state: 'REPLAN_LAWFUL_CONTEXTUAL_PHOTO_AND_SOURCE_BOUND_CHART', removed_main_claim_ids: [],
+      source_editions: [{ item_id: 'retained-source', source_url: 'https://example.com/retained', published_at_utc: '2026-10-21T20:06:00Z' }],
+      source_attempts: [] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    expect(screen.getByText('Same-facts editorial revision')).toBeInTheDocument();
+    expect(screen.getByText(/No new observation period declared/)).toBeInTheDocument();
+    expect(screen.getByText(/not separately recorded in this revision/)).toBeInTheDocument();
+    expect(screen.getByText(/See the exact retained source rights record/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Nguồn gốc' })).toHaveAttribute('href', 'https://example.com/retained');
   });
   it('keeps independent evidence, recirculation, controlled conversion and media visible', () => {
     const snapshot = data();

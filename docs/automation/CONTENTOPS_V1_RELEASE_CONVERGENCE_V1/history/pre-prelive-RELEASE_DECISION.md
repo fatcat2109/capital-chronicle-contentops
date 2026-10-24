@@ -1,0 +1,34 @@
+# Native V1 editorial/media release candidate and owner decision
+
+The five required retained articles now meet the local editorial/media standard: **5 ready /5 required /0 missing,5 cleared archive photos,5 chart/data packets,40 native packages and5 exact KEEP/prepared handoffs**. One additional FX topic remains held. Nothing was published, merged, deployed, enabled or restarted.
+
+Read the five articles and their desktop/mobile packages in [the reader cohort](editorial-media/README.md). Actual native Sol6.1 MAX returns refine the leads, mechanisms, countercases and watchpoints. The October21 sources, original story/update chains and prior articles remain intact. These are editorial revisions, with zero new financial observations or daily-output credit.
+
+The same native owners now plan media before writing, admit separately cleared contextual photos without treating them as factual corroboration, and build signed/range/currency charts from exact permitted source values. The reader resolves citations and displays canonical media plus exact channel attachments. Owned charts serve the eight channel packages; the canonical article retains the separately credited documentary photo. Review binds copy, media metadata and current previews. Changed compiler output requires review again. Preparation and new sends require the mandatory media; historical unknown writes retain readback-only recovery. The prior lost-read-only-observation repair remains preserved.
+
+## What is verified
+
+- Five authentic photo originals with known archive subject/date, creator/license/source, caption and alt text. Oil's640x427 original was inspected at intrinsic size.
+- Five original quantitative charts and exact admitted data. Currency, negative burn/deficit, actual/estimate/forecast labels, periods and forecast bounds are explicit; no invented midpoint or intervening history.
+- Actual native Desktop role returns, followed by deterministic claim checks:11/15/14/13/21 supported bindings for oil/IBM/Tesla/Meta/Southwest; zero unsupported claims. Each has one retained Reuters origin, not independent event confirmation.
+- The actual reader component at1440px/390px:5 canonical plus40 channel previews at both widths,75 PDF pages and20 visually inspected sheets. No missing images, horizontal page overflow or raw SOURCE marker. A real inline-enlargement click exposes the1680px chart inside the332px phone container without widening the390px page.
+- Five exact KEEP/prepared packets in the existing owner-manual store, with all45 destination records NOT_DISPATCHED. The current reader shows5 ready,1 additional held and0 missing; its article/preview/media objects exactly equal the inspected content.
+- Forty distinct backend cases across39 impacted tests and a19-case final media rerun (18 overlap),12 reader tests, and the TypeScript/Vite production build. No new Ruff diagnostics; seven unchanged baseline findings remain. CI is not a claimed pass: this dependent PR base does not trigger the current master-only PR workflow.
+
+Exact evidence and limits are in [the completion audit](editorial-media/COMPLETION_AUDIT.md), [source evidence](release-evidence.json) and [the checkpoint](CHECKPOINT.md). None of these facts proves SEO ranking, audience response, institutional-publication equivalence, live platform layout, native calendar execution or natural5-8 useful published articles/day. Historical acceptance remains history; this native release has no daily-live acceptance.
+
+## One exact transition decision
+
+Recommendation: independently review this sealed PR92 delivery, then decide the single source/deployment/four-window/pause/native-dispatch transition in [the proposal](release-transition-proposal.json). Its outer object is deliberately non-executable and says NOT_GRANTED. The old proposal is preserved byte-for-byte in [history](history/pre-media-release-transition-proposal.json) and is superseded for this source.
+
+Implementation commit: `43f8b34b220029294a6566e2e785e673621c1a0f`. The final delivery head adds graph/evidence metadata and must be read back and named in any approval. PR92 remains dependent on PR90's exact `a1b08f96bf551681bca8196038f8b7060def4fd1`; accepted master is `bc79e30c8088a9deb47f3942aa15914a59b69799`. No merge or base rewrite occurred. Proposal SHA-256: `50d7e089ad3395b1df1021c6223c74b7bd6fd18e11b298a760af5b285847127a`.
+
+The reviewable target contains the same four IDs, weekday/Bangkok windows, deployed code path, complete current media/role prompts and native publication continuation. Coordinator uses Sol6.1 Light; actual final writing uses native Sol6.1 MAX. It preserves the canonical SQLite/output, intake/state task, sole coordinator, account pins and source/factual/numeric/rights gates. It creates no fifth scheduler, new store, public-media broker or API model fallback.
+
+Approval must explicitly name the final source/head and proposal hash, normal integration/deployment, supported retarget/readback of the same four App objects, production mode/pause transition and the exact existing nine-destination V1 article scope. Manual examples and their database/bindings remain non-dispatchable; they cannot be copied into scheduled authority or relabelled fresh news.
+
+All four observed host objects are still PAUSED on their unchanged old5.6/high prompts; the existing global pause marker is present. Source rollout stays PAUSED/zero-write. A grant would first permit normal source integration and an isolated code deployment, then retargeting only the existing runtime task and four App objects while paused. Preserve the canonical store/history and shared WIP. Read back the exact new source/model/prompts/schedules, enable only those four and release the existing fuse last. A partial change keeps pause closed. No direct TOML edit, run-now invention or account/credential expansion is authorized by this packet.
+
+At the actual approved boundary, require current identity/readiness and the exact reviewed media/source packet. Substack is canonical; strict reconciliation with a real `/p/` URL precedes rematerializing the eight derivatives. UNKNOWN_WRITE means stop retrying, read back and reconcile through the same coordinator. API/bot destinations retain their existing exact gates. Unavailable destinations remain explicit; no facts, rights or package gates are weakened to reach output targets.
+
+Observe genuine calendar windows and a deterministic newsroom day before claiming natural5-8/day operation. Neither five dated prepared examples nor a test is that evidence. Rollback closes the existing pause, pauses the same four objects and preserves all attempts/history; uncertain writes remain readback-only. V2/V3 remain owner-paused until V1 actually operates live daily. Tower synchronization is L1-owned and pending with this handoff; no upward message or automatic activation follows.

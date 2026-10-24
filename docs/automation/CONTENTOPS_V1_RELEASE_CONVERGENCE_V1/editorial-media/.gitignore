@@ -1,0 +1,16 @@
+# Public provider responses remain local; delivered rights receipts contain curated fields.
+neo-commons-discovery-*.json
+*/photo-source.json
+*/photo-rights.json
+# Keep generated inspection intermediates local. Deliver the final PDFs and inspection sheets.
+renders/*
+!renders/index.html.gz
+!renders/workspace.json.gz
+!renders/render-receipt.json
+!renders/final/
+renders/final/*
+!renders/final/*.pdf
+!renders/final/*-inspection-*.jpg
+!renders/final/browser-observations.json
+!renders/final/visual-review.json
+!renders/final/chart-enlargement-observation.json

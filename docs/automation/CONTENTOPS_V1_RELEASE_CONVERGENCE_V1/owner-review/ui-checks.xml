@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="17" failures="0" errors="0" time="3.76">
+    <testsuite name="src/test/report_editorial_workspace.test.tsx" timestamp="2026-10-24T07:42:06.429Z" hostname="J-P" tests="17" failures="0" errors="0" skipped="0" time="0.8230389">
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; navigates the exact selected owner edition and resets channel selection without exposing history actions" time="0.2023214">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; renders all eight actual native packages with pending canonical links in the read-only owner mode" time="0.0787899">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps source dates, held scope and real insufficient metrics visible and opens the release guide" time="0.0366029">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; fails visibly when the owner edition has no exact selected record" time="0.0049843">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows photo pixels, credits and exact license/source links with release readiness" time="0.045929">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; opens exact maintained versions and keeps partial coverage, dates and preparation distinct" time="0.0973348">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps dated audience HOLD separate from research questions and frozen opportunities" time="0.0290007">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows actual continuation states and destination-local blockers without claiming login" time="0.0279836">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows latest admitted public lineage as producer attestation" time="0.0311115">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; leads with the current edition and keeps prior full copy in history" time="0.0445652">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows edition angle, dated sources, revision review and every native preview" time="0.0440202">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; renders an exact minimal editorial revision source record without inventing missing metadata" time="0.0265572">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; keeps independent evidence, recirculation, controlled conversion and media visible" time="0.0416165">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows multi-asset feed coverage, lifecycle and exact headline permission gaps" time="0.0353105">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows canonical copy, eight native previews and lineage with controlled-output label" time="0.0491673">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; shows the exact pause blocker and zero created previews without claiming a draft" time="0.0141143">
+        </testcase>
+        <testcase classname="src/test/report_editorial_workspace.test.tsx" name="Main report editorial workspace &gt; withdraws current copy while retaining historical identities" time="0.0111334">
+        </testcase>
+    </testsuite>
+</testsuites>

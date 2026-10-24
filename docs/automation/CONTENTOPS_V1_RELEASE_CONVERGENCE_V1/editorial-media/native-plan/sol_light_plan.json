@@ -1,0 +1,245 @@
+{
+  "request_sha256": "df248dda5b88ed6771de7927f5515facfe847fcfd343f31a8e34b7f02a198abc",
+  "scope": "RETAINED_OCT21_EDITORIAL_REVISION_NOT_NEW_NEWS",
+  "stories": [
+    {
+      "slug": "oil",
+      "thesis": "The reported closing outcome limits a sustained-rally reading after earlier gains.",
+      "lead_direction": "Lead with Brent nearly flat and WTI lower on October 21, rather than a question; distinguish closing observations from earlier gains.",
+      "countercase": "Opposing pressures may remain unresolved; a faded rally does not mean supply concerns disappeared.",
+      "watchpoint": "Matched contract/time, inventory expectations and independently checked diplomatic developments would test persistence.",
+      "source_report_date": "2026-10-21T19:17:12Z",
+      "epistemic_boundary": "Retained October 21 single Reuters report; report truth only, underlying event not independently confirmed. State attribution/date clearly near lead and preserve conditional analysis without repeating caveats mechanically. No new news, corroboration or trade.",
+      "photo_plan": {
+        "caption": "Fawley Oil Refinery. Archive context image; Commons DateTimeOriginal records 2017-06-16. Not evidence of the reported October 21 developments.",
+        "alt": "Archive aerial photograph of Fawley Oil Refinery.",
+        "archive_date": "2017-06-16",
+        "relevance": "Oil-industry context only; no claim about reported inventories or diplomacy.",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Fawley_Oil_Refinery,_aerial_2017_-_geograph.org.uk_-_5439355.jpg",
+        "credit": "Chris ",
+        "license": "CC BY-SA 2.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+        "release_instruction": "Preserve credit, source/license links, change disclosure and ShareAlike where applicable. Inspect actual image and rendered crop before visual acceptance. Caption date is metadata-attributed; Southwest date conflict remains unresolved."
+      },
+      "chart_plan": {
+        "title": "Reported October 21 oil settlements",
+        "unit": "USD/barrel",
+        "rows": [
+          {
+            "label": "Brent settlement",
+            "metric_source_text": "Brent crude futures",
+            "period": "2026-10-21",
+            "observation_kind": "ACTUAL",
+            "unit": "USD/barrel",
+            "support_excerpt": "Brent crude futures settled 3 ‌cents, or 0.03% higher, at $108.82 a barrel. US West Texas Intermediate crude closed down 67 cents, or 0.7%, at $97.15.",
+            "source_document_id": "goal35-oil",
+            "value_text": "108.82"
+          },
+          {
+            "label": "WTI close",
+            "metric_source_text": "US West Texas Intermediate crude",
+            "period": "2026-10-21",
+            "observation_kind": "ACTUAL",
+            "unit": "USD/barrel",
+            "support_excerpt": "Brent crude futures settled 3 ‌cents, or 0.03% higher, at $108.82 a barrel. US West Texas Intermediate crude closed down 67 cents, or 0.7%, at $97.15.",
+            "source_document_id": "goal35-oil",
+            "value_text": "97.15"
+          }
+        ],
+        "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts."
+      }
+    },
+    {
+      "slug": "ibm",
+      "thesis": "A higher software-growth floor does not establish durable demand after delayed deals clear.",
+      "lead_direction": "Lead with the raised floor and unchanged ceiling, then separate company-wide revenue, software and transaction-processing denominators.",
+      "countercase": "Management-described new transaction-processing business challenges a catch-up-only account; deferred deals still limit a durable-growth claim.",
+      "watchpoint": "Comparable new/deferred business, margins and cash conversion would test recurrence.",
+      "source_report_date": "2026-10-21T20:12:00Z",
+      "epistemic_boundary": "Retained October 21 single Reuters report; report truth only, underlying event not independently confirmed. State attribution/date clearly near lead and preserve conditional analysis without repeating caveats mechanically. No new news, corroboration or trade.",
+      "photo_plan": {
+        "caption": "IBM headquarters in Armonk. Archive context image; Commons DateTimeOriginal records 2010-08-03. Not evidence of the reported October 21 developments.",
+        "alt": "Archive view of IBM headquarters in Armonk, New York.",
+        "archive_date": "2010-08-03",
+        "relevance": "Company setting only; no corroboration of demand or earnings.",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:IBM_Armonk_corporate_headquarters_unusual_view.jpg",
+        "credit": "Mark Hillary",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "release_instruction": "Preserve credit, source/license links, change disclosure and ShareAlike where applicable. Inspect actual image and rendered crop before visual acceptance. Caption date is metadata-attributed; Southwest date conflict remains unresolved."
+      },
+      "chart_plan": {
+        "title": "Reported IBM third-quarter revenue: actual and estimate",
+        "unit": "USD billion",
+        "rows": [
+          {
+            "label": "Company-wide revenue — actual",
+            "metric_source_text": "Third-quarter revenue",
+            "period": "Third-quarter",
+            "observation_kind": "ACTUAL",
+            "unit": "USD billion",
+            "support_excerpt": "Third-quarter revenue rose 4.7% to $17.10 billion, above ​analysts' average estimate of $16.82 billion, according to data compiled by LSEG",
+            "source_document_id": "goal35-ibm",
+            "value_text": "17.10"
+          },
+          {
+            "label": "Company-wide revenue — analyst estimate",
+            "metric_source_text": "analysts' average estimate",
+            "period": "Third-quarter",
+            "observation_kind": "ESTIMATE",
+            "unit": "USD billion",
+            "support_excerpt": "Third-quarter revenue rose 4.7% to $17.10 billion, above ​analysts' average estimate of $16.82 billion, according to data compiled by LSEG",
+            "source_document_id": "goal35-ibm",
+            "value_text": "16.82"
+          }
+        ],
+        "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts."
+      }
+    },
+    {
+      "slug": "tesla",
+      "thesis": "Reported positive free cash flow against expected burn does not isolate stronger operating cash generation when capex also undershot estimates.",
+      "lead_direction": "Lead with the cash result against expected burn; explain capex below expectations yet more than double a year earlier. Total capex is not an AI-only measure.",
+      "countercase": "Operating cash may also have improved; positive cash flow should not be dismissed as timing, and below-estimate capex is not a year-on-year spending retreat.",
+      "watchpoint": "Operating-cash-flow and working-capital bridges, capex composition and commitments would test repeatability.",
+      "source_report_date": "2026-10-21T20:06:00Z",
+      "epistemic_boundary": "Retained October 21 single Reuters report; report truth only, underlying event not independently confirmed. State attribution/date clearly near lead and preserve conditional analysis without repeating caveats mechanically. No new news, corroboration or trade.",
+      "photo_plan": {
+        "caption": "Tesla factory pickup scene in Fremont. Archive context image; Commons DateTimeOriginal records 2012-12-08 17:28:26. Not evidence of the reported October 21 developments.",
+        "alt": "Archive Tesla vehicle pickup scene at the Fremont factory.",
+        "archive_date": "2012-12-08 17:28:26",
+        "relevance": "Company context only; not current output, AI capex or demand. Metadata flags trademarks.",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:New_Teslas_at_the_factory.jpg",
+        "credit": "Steve Jurvetson",
+        "license": "CC BY 2.0",
+        "license_url": "https://creativecommons.org/licenses/by/2.0",
+        "release_instruction": "Preserve credit, source/license links, change disclosure and ShareAlike where applicable. Inspect actual image and rendered crop before visual acceptance. Caption date is metadata-attributed; Southwest date conflict remains unresolved."
+      },
+      "chart_plan": {
+        "title": "Reported Tesla September-quarter free cash flow: actual and expected burn",
+        "unit": "USD billion",
+        "rows": [
+          {
+            "label": "Free cash flow — actual",
+            "metric_source_text": "Free",
+            "period": "September quarter",
+            "observation_kind": "ACTUAL",
+            "unit": "USD billion",
+            "support_excerpt": "Free ​cash flow in the September quarter came in at $1.53 billion, compared with an expectation of cash burn of $4.92 billion.",
+            "source_document_id": "goal35-tesla",
+            "value_text": "1.53"
+          },
+          {
+            "label": "Free cash flow — analyst expected burn",
+            "metric_source_text": "cash burn",
+            "period": "September quarter",
+            "observation_kind": "ESTIMATE",
+            "unit": "USD billion",
+            "support_excerpt": "Free ​cash flow in the September quarter came in at $1.53 billion, compared with an expectation of cash burn of $4.92 billion.",
+            "source_document_id": "goal35-tesla",
+            "value_text": "4.92",
+            "negative_evidence": "cash burn of $4.92 billion"
+          }
+        ],
+        "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts."
+      }
+    },
+    {
+      "slug": "meta",
+      "thesis": "Reported non-voting shares may offer acquisition and talent flexibility while preserving control; a split establishes neither cash proceeds nor investment returns.",
+      "lead_direction": "Lead with the funding/control distinction beside the reported quarterly cash deficit; retain January 2027 as future intention, not completed issuance.",
+      "countercase": "Reported revenue above estimates and one deficit quarter leave a timing explanation open; neither distress nor failed investment is established.",
+      "watchpoint": "Final share terms and actual use, a cash-flow bridge and later investment returns would test the interpretation.",
+      "source_report_date": "2026-10-21T20:05:00Z",
+      "epistemic_boundary": "Retained October 21 single Reuters report; report truth only, underlying event not independently confirmed. State attribution/date clearly near lead and preserve conditional analysis without repeating caveats mechanically. No new news, corroboration or trade.",
+      "photo_plan": {
+        "caption": "Entrance to Meta headquarters in Menlo Park. Archive context image; Commons DateTimeOriginal records 2022-03-27 17:48:57. Not evidence of the reported October 21 developments.",
+        "alt": "Archive entrance to Meta headquarters in Menlo Park, California.",
+        "archive_date": "2022-03-27 17:48:57",
+        "relevance": "Company setting only; not Muse adoption or a depiction of the spending program.",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Meta_Platforms_Headquarters_Menlo_Park_California.jpg",
+        "credit": "LPS.1",
+        "license": "CC0",
+        "license_url": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "release_instruction": "Preserve credit, source/license links, change disclosure and ShareAlike where applicable. Inspect actual image and rendered crop before visual acceptance. Caption date is metadata-attributed; Southwest date conflict remains unresolved."
+      },
+      "chart_plan": {
+        "title": "Reported Meta free cash flow: third quarter and year earlier",
+        "unit": "USD billion",
+        "rows": [
+          {
+            "label": "Third-quarter free cash flow — deficit",
+            "metric_source_text": "free cash flow deficit",
+            "period": "third quarter",
+            "observation_kind": "ACTUAL",
+            "unit": "USD billion",
+            "support_excerpt": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash ​flow of $10.63 billion a year earlier.",
+            "source_document_id": "goal35-meta",
+            "value_text": "2.12",
+            "negative_evidence": "free cash flow deficit of $2.12 billion"
+          },
+          {
+            "label": "Free cash flow — year earlier",
+            "metric_source_text": "positive free cash ​flow",
+            "period": "a year earlier",
+            "observation_kind": "ACTUAL",
+            "unit": "USD billion",
+            "support_excerpt": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash ​flow of $10.63 billion a year earlier.",
+            "source_document_id": "goal35-meta",
+            "value_text": "10.63"
+          }
+        ],
+        "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts."
+      }
+    },
+    {
+      "slug": "southwest",
+      "thesis": "Reported quarterly gains can coexist with a lower annual forecast: the completed quarter and future outlook answer different questions.",
+      "lead_direction": "Lead with lower 2026 guidance beside the stronger quarter; keep issuer forecasts distinct from realized results and avoid repeated question openings.",
+      "countercase": "Higher adjusted operating margin despite fuel costs challenges a failed-turnaround account; a quarterly beat does not prove protection against future costs.",
+      "watchpoint": "An earnings bridge separating fares/mix, traffic, nonfuel costs and fuel price/volume plus later realized results would test durability. Preserve the separate historical 2025 hedge/AOCI case.",
+      "source_report_date": "2026-10-21T20:23:00Z",
+      "epistemic_boundary": "Retained October 21 single Reuters report; report truth only, underlying event not independently confirmed. State attribution/date clearly near lead and preserve conditional analysis without repeating caveats mechanically. No new news, corroboration or trade.",
+      "photo_plan": {
+        "caption": "Southwest aircraft N947WN at Baltimore-Washington International Airport. Archive context image; Commons DateTimeOriginal records 2025-06-26. Not evidence of the reported October 21 developments.",
+        "alt": "Archive Southwest Boeing 737-700 N947WN taking off at Baltimore-Washington International Airport.",
+        "archive_date": "2025-06-26",
+        "relevance": "Airline context only. Description begins with 2010 while DateTimeOriginal is 2025-06-26: unresolved capture-date conflict.",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Southwest_Boeing_737-700_N947WN_BWI_MD1.jpg",
+        "credit": "Acroterion",
+        "license": "CC BY-SA 4.0",
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "release_instruction": "Preserve credit, source/license links, change disclosure and ShareAlike where applicable. Inspect actual image and rendered crop before visual acceptance. Caption date is metadata-attributed; Southwest date conflict remains unresolved."
+      },
+      "chart_plan": {
+        "title": "Reported Southwest 2026 adjusted EPS forecast ranges",
+        "unit": "USD/share",
+        "rows": [
+          {
+            "label": "Prior 2026 forecast",
+            "metric_source_text": "earlier forecast",
+            "period": "2026",
+            "observation_kind": "FORECAST",
+            "unit": "USD/share",
+            "support_excerpt": "The Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.",
+            "source_document_id": "goal35-southwest",
+            "lower_text": "3.25",
+            "upper_text": "4.25"
+          },
+          {
+            "label": "Current 2026 forecast",
+            "metric_source_text": "adjusted earnings",
+            "period": "2026",
+            "observation_kind": "FORECAST",
+            "unit": "USD/share",
+            "support_excerpt": "The Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.",
+            "source_document_id": "goal35-southwest",
+            "lower_text": "2.60",
+            "upper_text": "2.85"
+          }
+        ],
+        "render_instruction": "Clearly labelled comparison bars with visible zero baseline and signed negative burn/deficit; forecast ranges use intervals, no midpoint. Attribute retained Reuters October 21 report. Preserve ACTUAL/ESTIMATE/FORECAST labels and distinct periods. No spreads, growth or surprise calculations. Exact excerpts are internal evidence only; public prose paraphrases facts."
+      }
+    }
+  ]
+}

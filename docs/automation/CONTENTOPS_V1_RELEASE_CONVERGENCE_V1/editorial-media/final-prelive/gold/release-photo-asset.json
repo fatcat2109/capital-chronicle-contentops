@@ -1,0 +1,31 @@
+{
+  "asset_id": "prelive-documentary-gold",
+  "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\gold\\documentary_original.jpg",
+  "sha256": "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d",
+  "width": 3107,
+  "height": 2122,
+  "modality": "documentary_photo",
+  "documentary_generated_classification": "AUTHENTIC_DOCUMENTARY_PHOTOGRAPH",
+  "rights_status": "OPEN_LICENSED",
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Gold_ingot_and_bar_of_Banque_de_France.jpg",
+  "creator_publisher": "Ibex73",
+  "license_url": "https://creativecommons.org/licenses/by/4.0",
+  "depicted_date": "2022-09-17 11:09:59",
+  "attribution": "Ibex73 / Wikimedia Commons, CC BY 4.0. September 17, 2022; no edits.",
+  "source_reuse_basis": "Exact Commons CC BY 4.0 original and attribution",
+  "caption": "Gold ingot and bar on display at the Banque de France, Paris, September 17, 2022. Archive context, not a photograph of October 2026 trading or current holdings.",
+  "alt_text": "A large gold ingot and a smaller gold bar displayed on a dark surface at the Banque de France in 2022.",
+  "relevance_rationale": "Authentic physical gold provides commodity context for the attributed precious-metals price report; no price or inventory claim is derived from the photograph.",
+  "context_only": true,
+  "corroborates_article_facts": false,
+  "is_thumbnail": false,
+  "visual_review": {
+    "asset_sha256": "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d",
+    "pixels_inspected": true,
+    "relevant_subject": true,
+    "reviewer": "root actual view_image inspection; original photograph, identifiable subject, no added labels or edits"
+  },
+  "rights_evidence_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\gold\\release-photo-rights.json",
+  "rights_evidence_sha256": "30fa82302ce30afcbb2800a8ee84a8f6b1d6a680c3e3ab32aeaf4df9d0556f00"
+}

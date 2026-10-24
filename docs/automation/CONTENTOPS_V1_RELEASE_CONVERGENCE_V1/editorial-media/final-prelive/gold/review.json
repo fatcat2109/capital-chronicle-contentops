@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-c30eb589fedb462f9bbf31062409489b",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "v1-prelive-gold-oct23",
+  "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+  "package_revision": "4e3ef14cd04b3a5de8f7ea9ee0a6d7d44db918075f8c01ffce79a63a55d12da3",
+  "article_metadata_sha256": "43a61d71e1046c4107f24c7cc8a4863c8e3a9fb1e83ec99c53bf812b06a60c15",
+  "rationale": "KEEP: genuinely October23 single-Reuters-origin report via Kitco, gold15:20observation/publication/update/capture distinct. Mechanism and alternatives remain attributed/conditional, no causal proof or synchronized4metalclock. Exact archive2022CCBY4gold photo and reported signed -0.6/-1/-0.5/-0.9percent chart inspected. Canonical/eight appropriate previews at desktop/mobile retain source date, uncertainty, pending link and owned chart; exact public citations and captions visible. No new confirmation, probability or publication authority.",
+  "publication_authority": false
+}

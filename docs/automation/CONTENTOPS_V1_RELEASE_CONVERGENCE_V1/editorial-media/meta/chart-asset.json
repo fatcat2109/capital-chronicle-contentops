@@ -1,0 +1,85 @@
+{
+  "ai_generated_image": false,
+  "alt_text": "Third-quarter free cash flow \u2014 deficit (third quarter, actual): -2.12 USD billion; Free cash flow \u2014 year earlier (a year earlier, actual): 10.63 USD billion",
+  "article_section": "key_facts",
+  "asset_id": "source_value_comparison",
+  "canonical_article_section_association": "key_facts",
+  "caption": "Reported Meta free cash flow: third quarter and year earlier Source: Reuters; retained report 2026-10-21.",
+  "chart_title": "Reported Meta free cash flow: third quarter and year earlier Source: Reuters; retained report 2026-10-21.",
+  "chart_unit": "USD billion",
+  "computed_values": [
+    [
+      -2.12
+    ],
+    [
+      10.63
+    ]
+  ],
+  "dimensions": {
+    "height": 980,
+    "width": 1680
+  },
+  "evidence_dimension": "source_value_comparison",
+  "height": 980,
+  "is_avatar": false,
+  "is_logo": false,
+  "is_manipulated": false,
+  "is_synthetic": false,
+  "is_thumbnail": false,
+  "media_class": "source_backed_render",
+  "media_role": "source_value_comparison",
+  "missingness": "NO_VALUES_FILLED_OR_INTERPOLATED",
+  "modality": "source_backed_chart",
+  "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\meta\\media_assets\\source_value_comparison.png",
+  "provenance_status": "SOURCE_BACKED",
+  "publication_date": "2026-10-21T20:05:00Z",
+  "publisher": "Reuters",
+  "relevance_rationale": "Compares the exact reported observations or forecast bounds relevant to this thesis.",
+  "render_rights_status": "capital_chronicle_owned",
+  "rights_status": "capital_chronicle_owned",
+  "role": "supporting_fact_context",
+  "sha256": "bb357416797f93b203e919344509b15dd3e1c4c755d263c865d63dfc4705bf45",
+  "source": "Reuters",
+  "source_content_sha256": "6b077431bc6cbf1fcc18b9e95aa8a59366004d23c99f4334829f3616ce32ba33",
+  "source_label": "Reuters",
+  "source_page_url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+  "source_reuse_basis": "Independent CC chart of attributed reported facts; no source expression or chart reused.",
+  "source_value_bindings": [
+    {
+      "label": "Third-quarter free cash flow \u2014 deficit",
+      "metric_source_text": "free cash flow deficit",
+      "negative_evidence": "free cash flow deficit of $2.12 billion",
+      "observation_kind": "ACTUAL",
+      "period": "third quarter",
+      "source_document_id": "goal35-meta",
+      "support_excerpt": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier.",
+      "unit": "USD billion",
+      "value_context": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter",
+      "value_text": "2.12"
+    },
+    {
+      "label": "Free cash flow \u2014 year earlier",
+      "metric_source_text": "positive free cash \u200bflow",
+      "observation_kind": "ACTUAL",
+      "period": "a year earlier",
+      "source_document_id": "goal35-meta",
+      "support_excerpt": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash \u200bflow of $10.63 billion a year earlier.",
+      "unit": "USD billion",
+      "value_context": "positive free cash \u200bflow of $10.63 billion a year earlier",
+      "value_text": "10.63"
+    }
+  ],
+  "supports_headline": false,
+  "transform_sha256": "b76874a7e27bdf630260d3a6f3c4fcecf0c503fd832b1d1f1da04c2630ce237c",
+  "transformation": "EXACT_REPORTED_MAGNITUDES_WITH_EXPLICIT_SIGN_AND_RANGE_BOUNDS",
+  "underlying_series_ids": [],
+  "underlying_source_rights_status": "attributed_facts_independent_chart",
+  "visual_review": {
+    "asset_sha256": "bb357416797f93b203e919344509b15dd3e1c4c755d263c865d63dfc4705bf45",
+    "labels_and_units_legible": true,
+    "pixels_inspected": true,
+    "review_scope": "Exact full-size PNG reviewed after title/label wrap repair; mobile embedded preview pending.",
+    "reviewer": "Codex parent actual view_image per final chart"
+  },
+  "width": 1680
+}

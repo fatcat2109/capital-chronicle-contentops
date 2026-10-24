@@ -1,0 +1,55 @@
+{
+  "classification": "NATIVE_DESKTOP_INPUT_REQUIRED",
+  "stage": "media-plan",
+  "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-prelive-fed-policy\\editorial_media_plan_required.json",
+  "request_sha256": "61da5837b7f0267f78e5667814651f7faa98a47528d86bb8fe6c3940cb39c67e",
+  "editorial_execution": {
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "observed_efforts": [
+      "low"
+    ],
+    "native_invocation_count_observed": 1,
+    "semantic_response_count": 1,
+    "maximum_repair_count": 1,
+    "external_provider_attempt_count": 0,
+    "usage_tokens": null,
+    "cost_usd": null,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "observations": [
+      {
+        "invocation_id": "/root/v1_prelive_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent and returned native worker files; exact request and execution note retained",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "select",
+        "role": "select"
+      }
+    ]
+  },
+  "public_write_performed": false
+}

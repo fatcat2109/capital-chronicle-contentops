@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-2cf6479f0160418e8fb8ab7f1ede933c",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "v1-prelive-fed-policy",
+  "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+  "package_revision": "48d27a751dd2eef51d6124858504e8dea65914ae8069a5e91e428c62fce8b55a",
+  "article_metadata_sha256": "c28756888c3f7196986aed973923e7a6ec0dc2f3a05feba620c597ab61a675ac",
+  "rationale": "KEEP: useful dated September16/17 policy/document explanation with3announced settings, distinct source documents and operational roles, conditional transmission/countercase/watchpoint. Exact authentic KevinWarsh May22person/archive/PD-USGov photo and3.90/4.0/3.75percent chart inspected. Canonical and8packages desktop/mobile inspected; date-onlysource, links, captions, uncertainty, legibility and enlargement checked. Settings do not establish realized rates or asset moves; same Fed origin not independent confirmations. No publication authority.",
+  "publication_authority": false
+}

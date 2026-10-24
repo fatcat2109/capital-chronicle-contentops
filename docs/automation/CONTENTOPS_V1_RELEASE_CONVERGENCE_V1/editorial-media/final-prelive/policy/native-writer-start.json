@@ -1,0 +1,65 @@
+{
+  "classification": "NATIVE_DESKTOP_INPUT_REQUIRED",
+  "stage": "write",
+  "request_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-prelive-fed-policy\\desktop_request_write.json",
+  "request_sha256": "20e949017909a741fe0f43c0b5a80774fbb3bd9ed3ec4fd97eafa57a9dafb1c8",
+  "editorial_execution": {
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "observed_efforts": [
+      "low"
+    ],
+    "native_invocation_count_observed": 1,
+    "semantic_response_count": 2,
+    "maximum_repair_count": 1,
+    "external_provider_attempt_count": 0,
+    "usage_tokens": null,
+    "cost_usd": null,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "observations": [
+      {
+        "invocation_id": "/root/v1_prelive_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration.spawn_agent and returned native worker files; exact request and execution note retained",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "select",
+        "role": "select"
+      },
+      {
+        "invocation_id": "/root/v1_prelive_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "Actual collaboration role request and returned native worker files",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT",
+        "stage": "media-plan",
+        "role": "select"
+      }
+    ]
+  },
+  "public_write_performed": false
+}

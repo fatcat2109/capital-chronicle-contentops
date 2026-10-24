@@ -529,9 +529,10 @@ def build_native_derivative_payloads(
     media_ids = [str(value) for value in media_asset_ids if str(value)]
     text_only_package = not media_ids
     scope_notice = str(article.get("editorial_scope_notice") or "")
+    media_attribution = str(article.get("native_media_attribution") or "")
     if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package or article.get("native_brief_layout") is True:
         def native_brief_text(*parts: str, limit: int, platform: str) -> str:
-            text = "\n\n".join(part for part in (*parts, scope_notice) if part)
+            text = "\n\n".join(part for part in (*parts, media_attribution, scope_notice) if part)
             if len(text) > limit:
                 raise ValueError(f"{platform}_native_brief_exceeds_platform_limit")
             return text
@@ -582,7 +583,7 @@ def build_native_derivative_payloads(
                 title=title,
                 dek=detail,
                 canonical_url=canonical_url,
-                continuation_parts=tuple(p for p in (continuation, scope_notice) if p),
+                continuation_parts=tuple(p for p in (continuation, media_attribution, scope_notice) if p),
                 limit=limit,
             )
             posts = [
@@ -636,6 +637,7 @@ def build_native_derivative_payloads(
             "x": {"format": "text_brief", **x_brief},
             "linkedin": {
                 "format": "professional_brief",
+                "media_asset_ids": media_ids[:1],
                 "text": native_brief_text(
                     title,
                     f"Why it matters: {mechanism}" if mechanism else "",
@@ -649,6 +651,7 @@ def build_native_derivative_payloads(
             },
             "discord": {
                 "format": "newsroom_brief",
+                "media_asset_ids": media_ids[:1],
                 "text": native_brief_text(
                     f"**Newsroom brief: {title}**",
                     brief_dek,
@@ -662,6 +665,7 @@ def build_native_derivative_payloads(
             },
             "facebook_page": {
                 "format": "page_brief",
+                "media_asset_ids": media_ids[:1],
                 "text": native_brief_text(
                     title,
                     brief_dek,
@@ -675,6 +679,7 @@ def build_native_derivative_payloads(
             },
             "instagram_business": {
                 "format": "brief_caption",
+                "media_asset_ids": media_ids[:1],
                 "text": native_brief_text(
                     title,
                     brief_dek,
@@ -690,6 +695,7 @@ def build_native_derivative_payloads(
             "threads": {"format": "text_brief", **threads_brief},
             "youtube": {
                 "format": "community_brief",
+                "media_asset_ids": media_ids[:1],
                 "text": native_brief_text(
                     f"Update: {title}",
                     brief_dek,

@@ -52,6 +52,12 @@ class NativeNeoExecutor:
         row = self.store.get_outbox_message(self._key(request_hash, kind))
         return json.loads(row["payload"]) if row else None
 
+    def _claim(self, request_hash, invocation_id):
+        original = self._get(request_hash, "started")
+        if original and original["native_invocation_id"] == invocation_id:
+            return original
+        return self._get(request_hash, "started-readonly-" + sha256_of(invocation_id))
+
     def _put(self, request_hash, kind, value, work):
         if _private(value):
             raise ValueError("PRIVATE_NATIVE_NEO_MATERIAL_EXCLUDED")
@@ -101,8 +107,14 @@ class NativeNeoExecutor:
         if not packet:
             raise ValueError("NATIVE_NEO_REQUEST_NOT_FOUND")
         request = packet["request"]
-        if self._get(request_hash, "started"):
-            raise ValueError("NATIVE_NEO_ACTION_ALREADY_CLAIMED_READBACK_ONLY")
+        original = self._get(request_hash, "started")
+        claim_kind = "started"
+        if original:
+            # Lost observations can be reacquired by a later native turn. Keep the
+            # original claim immutable; a claimed public write is NEVER reclaimed.
+            if request["action"] not in {"READBACK", "VERIFY_IDENTITY"} or self._claim(request_hash, self.native_invocation_id):
+                raise ValueError("NATIVE_NEO_ACTION_ALREADY_CLAIMED_READBACK_ONLY")
+            claim_kind = "started-readonly-" + sha256_of(self.native_invocation_id)
         if request["action"] == "PUBLISH":
             from live_contentops.llm_operator_control_v1 import assert_llm_operator_execution_enabled
             assert_llm_operator_execution_enabled()
@@ -127,15 +139,15 @@ class NativeNeoExecutor:
                  "native_invocation_id": self.native_invocation_id,
                  "begun_at_utc": self.clock().isoformat(), "required_tool": TOOL}
         # The unique immutable outbox key fences simultaneous Desktop claimers too.
-        self._put(request_hash, "started", claim, request["work_item_id"])
+        self._put(request_hash, claim_kind, claim, request["work_item_id"])
         return packet
 
     def submit(self, request_hash: str, response: Mapping[str, Any]):
         packet = self._get(request_hash, "request")
-        claim = self._get(request_hash, "started")
+        observation = dict(response.get("tool_observation") or {})
+        claim = self._claim(request_hash, observation.get("native_invocation_id"))
         if not packet or not claim or response.get("tool_request_sha256") != packet["tool_request_sha256"]:
             raise ValueError("NATIVE_NEO_TOOL_RETURN_BINDING_REQUIRED")
-        observation = dict(response.get("tool_observation") or {})
         if (observation.get("tool_name") != TOOL
                 or observation.get("native_invocation_id") != claim["native_invocation_id"]
                 or observation.get("surface") not in {"CODEX_DESKTOP_CONVERSATION", "CODEX_NATIVE_SUBAGENT"}
@@ -163,6 +175,7 @@ class NativeNeoExecutor:
                                    title="Native Neo exact identity observation", target_surface="CONTENTOPS_READ_ONLY")
         request = {"schema_version": "contentops.neo_identity_probe.v1", "destination": destination,
                    "probe_epoch": int(self.clock().timestamp()) // 300,
+                   "native_invocation_id": self.native_invocation_id,
                    "action": "VERIFY_IDENTITY", "surface": surface, "expected_identity": IDENTITIES[destination],
                    "entry_url": ROOTS[destination], "work_item_id": work,
                    "forbidden": ["login", "account_switch", "public_write", "saved_draft", "private_storage"]}
@@ -187,9 +200,14 @@ class NativeNeoExecutor:
             payload = json.loads(row["payload"])
             if payload.get("schema_version") != SCHEMA or payload.get("operation_id") != self.operation_id:
                 continue
+            if (payload["request"]["action"] == "VERIFY_IDENTITY"
+                    and payload["request"].get("native_invocation_id") not in {None, self.native_invocation_id}):
+                continue
             request_hash = payload["request"]["request_sha256"]
             if self._get(request_hash, "response") is None:
-                rows.append({**payload, "action_claimed": self._get(request_hash, "started") is not None})
+                claim = (self._get(request_hash, "started") if payload["request"]["action"] == "PUBLISH"
+                         else self._claim(request_hash, self.native_invocation_id))
+                rows.append({**payload, "action_claimed": claim is not None})
         return rows
 
 

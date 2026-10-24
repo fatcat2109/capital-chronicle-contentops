@@ -1,0 +1,262 @@
+{
+  "native_submit": {
+    "public_write_performed": false,
+    "response_sha256": "6ba7df8b5df1f40ecb1c9768bd12aaf8fccbf5a435a1dfbd40115246ca9099da",
+    "stage": "write"
+  },
+  "schema_valid": true,
+  "source_validation": {
+    "cited_source_count": 1,
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+      "event_truth_support_status": "UNCONFIRMED",
+      "event_truth_supported": false,
+      "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+      "origin_character": "UNSPECIFIED",
+      "primary_reporting_publisher": "Reuters",
+      "primary_reporting_source_identity": "reuters.com",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+      "relay_source_identity": null,
+      "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+      "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "DIRECT_REPUTABLE_REPORT",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal35-southwest"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "ordering": "DETERMINISTIC_SOURCEABILITY_PRESELECTION_THEN_GEMINI_SELECT_THEN_PROVENANCE_AWARE_BOUNDED_HTTP_THEN_BROWSER_RENDERED_RECOVERY_THEN_EPISTEMIC_STATE_THEN_GEMINI_WRITE_THEN_DETERMINISTIC_VALIDATE",
+    "public_write_performed": false,
+    "report_truth_validated_separately_from_event_truth": true,
+    "schema_version": "contentops.v1_simple_gemini_validation.v1",
+    "source_bytes_precede_writer": true,
+    "source_timestamps_are_model_authority": false,
+    "source_urls": [
+      "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/"
+    ],
+    "status": "PASS",
+    "supported_material_claim_count": 21,
+    "supported_material_claims": [
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_metadata_title",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_metadata_dek",
+        "claim_kind": "FACT",
+        "claim_text": "SINGLE-SOURCE REPORT - REUTERS. A retained October 21 report sets quarterly gains against a lower annual forecast. If accurate, fuel pressure tests how durable the improvement is.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_metadata_search_title",
+        "claim_kind": "FACT",
+        "claim_text": "Southwest 2026 outlook cut and quarterly earnings beat: Reuters report",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_metadata_meta_description",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters' retained October 21, 2026 report pairs Southwest's lower annual earnings forecast with quarterly gains, leaving fuel-cost durability in question.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_metadata_social_hook",
+        "claim_kind": "FACT",
+        "claim_text": "Reuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_annual_forecast",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters' retained October 21, 2026 account gives an adjusted earnings forecast of $2.60-$2.85 a share for the year, previously $3.25-$4.25.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ab8d6a17584570bfb2fb4976ac11722f80beddccfe01d6b444d989df46dea9d7",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_completed_quarter",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters puts third-quarter adjusted earnings at 66 cents a share, against analysts' 58-cent expectation and 11 cents a year earlier.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "b2dce1197a646bb5db209671c22dda4cbfbdb05f7bd3c2f589d4a9a65fd4ce16",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_forecast_not_actual",
+        "claim_kind": "FACT",
+        "claim_text": "The lower annual range is Southwest's expectation for 2026, as relayed by Reuters; it is not an actual full-year result.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ab8d6a17584570bfb2fb4976ac11722f80beddccfe01d6b444d989df46dea9d7",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_fare_and_revenue",
+        "claim_kind": "NUMBER",
+        "claim_text": "According to Reuters, average passenger fare rose nearly 27% in the third quarter, and revenue reached $8.4 billion, a record for that quarter.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ab722d50fdf8f55243a42727a1ae97b530e02986e04de66663e5c1f1c86f46fc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_operating_margin",
+        "claim_kind": "FACT",
+        "claim_text": "The report also says adjusted operating margin improved despite higher fuel costs.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "ab722d50fdf8f55243a42727a1ae97b530e02986e04de66663e5c1f1c86f46fc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_fuel_bill",
+        "claim_kind": "NUMBER",
+        "claim_text": "Reuters puts the fuel bill $821 million above a year earlier.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "30fdb2762b00bc9163ebc0b2715e98606275dfa5dcab2a4f727950282900f30e",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_fuel_expectation",
+        "claim_kind": "FACT",
+        "claim_text": "It also relays Southwest's expectation of further jet-fuel price increases in the year's final three months.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "30fdb2762b00bc9163ebc0b2715e98606275dfa5dcab2a4f727950282900f30e",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_conditional_durability",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If accurate, it leaves the durability of operating gains exposed to a less favorable fuel outlook.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_mechanism",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "If Reuters' account is accurate, Capital Chronicle's reading is that higher fares can strengthen revenue while a heavier fuel bill absorbs some of the benefit. The quarterly beat shows performance against that quarter's expectations; it does not establish how well the business can absorb the fuel costs anticipated in the annual outlook.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_countercase",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "The strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs. On that account, operating gains could persist even with a lower annual forecast. The cut alone cannot establish that the turnaround has failed.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_missing_bridge",
+        "claim_kind": "FACT",
+        "claim_text": "The retained Reuters account does not supply an earnings bridge separating fares and passenger mix, traffic, nonfuel costs, and fuel price from fuel volume. Without that bridge, assigning the entire forecast reduction to fuel would overstate the evidence. Nor does a higher average fare alone establish stronger demand.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_watchpoint",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "Would later company results show fare and operating gains continuing to absorb the fuel burden? A bridge explaining those contributions, together with later realized margins and earnings, would challenge a cautious reading if it showed the gains holding up; deterioration would strengthen it.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_lead_inference",
+        "claim_kind": "CAUSALITY",
+        "claim_text": "Southwest's reported 2026 outlook cut puts a limit on what its stronger quarter can prove.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_quarter_scope",
+        "claim_kind": "FACT",
+        "claim_text": "Those are completed-quarter earnings and a quarterly consensus comparison.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_volume_mix_limit",
+        "claim_kind": "FACT",
+        "claim_text": "These figures do not identify how much of the improvement came from passenger volume or mix.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      },
+      {
+        "attribution_required": true,
+        "claim_id": "southwest_fuel_forecast_scope",
+        "claim_kind": "FACT",
+        "claim_text": "That expectation belongs to the outlook in the retained report; it is not evidence of what fuel prices later did.",
+        "document_id": "goal35-southwest",
+        "source_id": "SOURCE_1",
+        "support_excerpt_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+      }
+    ],
+    "unknown_write_detected": false,
+    "unsupported_material_claim_count": 0
+  }
+}

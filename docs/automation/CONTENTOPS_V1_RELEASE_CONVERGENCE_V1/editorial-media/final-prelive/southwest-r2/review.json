@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-b9ea9b85e3134cfe92f7f88859534894",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "v1-prelive-southwest-r2",
+  "article_identity": "941b6728350853dd90cbe45a4669a89c3a9a1fd0df46e138ec6f29480fae9a9a",
+  "package_revision": "d6f0d740a89c1b6bdbc72fc45728986e0c84a21582dfcc441355ae8468686472",
+  "article_metadata_sha256": "a3c9ac7f0096704cd14721e1c3ff259167bcbee64a4a4b32646b3233ea35920f",
+  "rationale": "KEEP: bounded public source-note repair retains October21report, quarterly actual/estimate versus annualforecast distinction, fare/fuel/margin mechanism/countercase, missing earningsbridge and no current hedge-status assertion. Same prior article/story/updatechain; C9bytes/history intact and exact lawful photo/range chart reused. Canonical/eightpackages desktop/mobile inspected with source dates/links/captions/forecast bounds and retained report certainty. No new facts, independent confirmation or publication authority.",
+  "publication_authority": false
+}

@@ -1,0 +1,283 @@
+{
+  "accepted_evidence_ids": [
+    "goal35-southwest"
+  ],
+  "accepted_evidence_sha256": "ecf36d9879dba4baa3686077f412f74512af724039f2c209bd61d172b03e064c",
+  "article": {
+    "editorial_scope_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+    "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "native_brief_layout": true,
+    "social_cross_asset_summary": "Would later company results show fare and operating gains continuing to absorb the fuel burden? A bridge explaining those contributions, together with later realized margins and earnings, would challenge a cautious reading if it showed the gains holding up; deterioration would strengthen it.",
+    "social_hook": "Reuters reports a Southwest earnings beat and a lower 2026 forecast; the test is whether fare gains can keep absorbing fuel costs.",
+    "social_mechanism_summary": "If Reuters' account is accurate, Capital Chronicle's reading is that higher fares can strengthen revenue while a heavier fuel bill absorbs some of the benefit. The quarterly beat shows performance against that quarter's expectations; it does not establish how well the business can absorb the fuel costs anticipated in the annual outlook.",
+    "social_policy_summary": "The strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs. On that account, operating gains could persist even with a lower annual forecast. The cut alone cannot establish that the turnaround has failed.",
+    "substack_body_markdown": "Southwest's reported 2026 outlook cut puts a limit on what its stronger quarter can prove. Reuters' retained October 21, 2026 account gives an adjusted earnings forecast of $2.60-$2.85 a share for the year, previously $3.25-$4.25. **SINGLE-SOURCE REPORT - REUTERS.** If accurate, it leaves the durability of operating gains exposed to a less favorable fuel outlook. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)\n\nThe earnings beat and the forecast answer different questions\n\nReuters puts third-quarter adjusted earnings at 66 cents a share, against analysts' 58-cent expectation and 11 cents a year earlier. Those are completed-quarter earnings and a quarterly consensus comparison. The lower annual range is Southwest's expectation for 2026, as relayed by Reuters; it is not an actual full-year result. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)\n\nReported fare gains face the fuel bill\n\nAccording to Reuters, average passenger fare rose nearly 27% in the third quarter, and revenue reached $8.4 billion, a record for that quarter. The report also says adjusted operating margin improved despite higher fuel costs. These figures do not identify how much of the improvement came from passenger volume or mix. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)\n\nReuters puts the fuel bill $821 million above a year earlier. It also relays Southwest's expectation of further jet-fuel price increases in the year's final three months. That expectation belongs to the outlook in the retained report; it is not evidence of what fuel prices later did. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)\n\nIf Reuters' account is accurate, Capital Chronicle's reading is that higher fares can strengthen revenue while a heavier fuel bill absorbs some of the benefit. The quarterly beat shows performance against that quarter's expectations; it does not establish how well the business can absorb the fuel costs anticipated in the annual outlook. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)\n\nThe strongest countercase to a failed-turnaround story is in the same report: adjusted operating margin improved despite higher fuel costs. On that account, operating gains could persist even with a lower annual forecast. The cut alone cannot establish that the turnaround has failed. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)\n\nThe missing earnings bridge is the next test\n\nThe retained Reuters account does not supply an earnings bridge separating fares and passenger mix, traffic, nonfuel costs, and fuel price from fuel volume. Without that bridge, assigning the entire forecast reduction to fuel would overstate the evidence. Nor does a higher average fare alone establish stronger demand. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)\n\nWould later company results show fare and operating gains continuing to absorb the fuel burden? A bridge explaining those contributions, together with later realized margins and earnings, would challenge a cautious reading if it showed the gains holding up; deterioration would strengthen it. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)\n\nSource notes\n\nSource notes: Reuters, published October 21, 2026 at 20:23 UTC. The retained editorial cutoff is October 21 at 22:29:51.437174 UTC. This editorial/media revision refines earlier unpublished analysis using unchanged financial facts; it adds no factual evidence or independent event confirmation. The separate historical 2025 hedge/AOCI case remains historical context, and this report supplies no current hedge-status update. [Reuters](https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/)",
+    "subtitle": "SINGLE-SOURCE REPORT - REUTERS. A retained October 21 report sets quarterly gains against a lower annual forecast. If accurate, fuel pressure tests how durable the improvement is.",
+    "title": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat [Source 2026-10-21]"
+  },
+  "article_content_sha256": "3c30003158e1383fa908a7465821d99d8e665af9123c7e44977e72fcc84e56b9",
+  "article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+  "compiler_input_sha256": "a422c2942dcabd4f4cccecd046686c0a955d6563fdd46d07bdfa27445ee0f807",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "DIRECT_REPUTABLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-southwest"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "media": {
+    "assets": [
+      {
+        "ai_generated_image": false,
+        "alt_text": "Prior 2026 forecast (2026, forecast): 3.25 to 4.25 USD/share; Current 2026 forecast (2026, forecast): 2.6 to 2.85 USD/share",
+        "article_section": "key_facts",
+        "asset_id": "source_value_comparison",
+        "canonical_article_section_association": "key_facts",
+        "caption": "Reported Southwest 2026 adjusted EPS forecast ranges Source: Reuters; retained report 2026-10-21.",
+        "chart_title": "Reported Southwest 2026 adjusted EPS forecast ranges Source: Reuters; retained report 2026-10-21.",
+        "chart_unit": "USD/share",
+        "computed_values": [
+          [
+            3.25,
+            4.25
+          ],
+          [
+            2.6,
+            2.85
+          ]
+        ],
+        "dimensions": {
+          "height": 980,
+          "width": 1680
+        },
+        "evidence_dimension": "source_value_comparison",
+        "height": 980,
+        "is_avatar": false,
+        "is_logo": false,
+        "is_manipulated": false,
+        "is_synthetic": false,
+        "is_thumbnail": false,
+        "media_class": "source_backed_render",
+        "media_role": "source_value_comparison",
+        "missingness": "NO_VALUES_FILLED_OR_INTERPOLATED",
+        "modality": "source_backed_chart",
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\southwest\\media_assets\\source_value_comparison.png",
+        "provenance_status": "SOURCE_BACKED",
+        "publication_date": "2026-10-21T20:23:00Z",
+        "publisher": "Reuters",
+        "relevance_rationale": "Compares the exact reported observations or forecast bounds relevant to this thesis.",
+        "render_rights_status": "capital_chronicle_owned",
+        "rights_status": "capital_chronicle_owned",
+        "role": "supporting_fact_context",
+        "sha256": "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242",
+        "source": "Reuters",
+        "source_content_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+        "source_label": "Reuters",
+        "source_page_url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
+        "source_reuse_basis": "Independent CC chart of attributed reported facts; no source expression or chart reused.",
+        "source_value_bindings": [
+          {
+            "label": "Prior 2026 forecast",
+            "lower_text": "3.25",
+            "metric_source_text": "earlier forecast",
+            "observation_kind": "FORECAST",
+            "period": "2026",
+            "source_document_id": "goal35-southwest",
+            "support_excerpt": "The Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.",
+            "unit": "USD/share",
+            "upper_text": "4.25",
+            "value_context": "earlier forecast of $3.25 to $4.25"
+          },
+          {
+            "label": "Current 2026 forecast",
+            "lower_text": "2.60",
+            "metric_source_text": "adjusted earnings",
+            "observation_kind": "FORECAST",
+            "period": "2026",
+            "source_document_id": "goal35-southwest",
+            "support_excerpt": "The Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.",
+            "unit": "USD/share",
+            "upper_text": "2.85",
+            "value_context": "expects adjusted earnings of $2.60 to $2.85 per share in 2026"
+          }
+        ],
+        "supports_headline": false,
+        "transform_sha256": "b73393138f5f2ab07813235d864c7b342eaf428e26f517d2c05eb6ca88b896fc",
+        "transformation": "EXACT_REPORTED_MAGNITUDES_WITH_EXPLICIT_SIGN_AND_RANGE_BOUNDS",
+        "underlying_series_ids": [],
+        "underlying_source_rights_status": "attributed_facts_independent_chart",
+        "visual_review": {
+          "asset_sha256": "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242",
+          "labels_and_units_legible": true,
+          "pixels_inspected": true,
+          "review_scope": "Exact full-size PNG reviewed after title/label wrap repair; mobile embedded preview pending.",
+          "reviewer": "Codex parent actual view_image per final chart"
+        },
+        "width": 1680
+      },
+      {
+        "ai_generated_image": false,
+        "alt_text": "Archive Southwest Boeing 737-700 N947WN taking off at Baltimore-Washington International Airport.",
+        "article_section": "lead",
+        "asset_id": "documentary_southwest",
+        "attribution": "Acroterion / Wikimedia Commons / Creative Commons Attribution-Share Alike 4.0",
+        "canonical_article_section_association": "lead",
+        "caption": "Photo: Acroterion. Southwest Airlines Boeing 737-700 N947WN taking off at Baltimore-Washington airport. Archive photograph; file EXIF and Commons date field record June26,2025. License: https://creativecommons.org/licenses/by-sa/4.0. Source: https://commons.wikimedia.org/wiki/File:Southwest_Boeing_737-700_N947WN_BWI_MD1.jpg. Changes: Unchanged original; display resizing only.",
+        "changes_description": "Unchanged original; display resizing only.",
+        "context_only": true,
+        "corroborates_article_facts": false,
+        "creator_publisher": "Acroterion",
+        "depicted_date": "2025-06-26",
+        "dimensions": {
+          "height": 4480,
+          "width": 6184
+        },
+        "evidence_dimension": "documentary_context",
+        "height": 4480,
+        "is_logo": false,
+        "is_synthetic": false,
+        "is_thumbnail": false,
+        "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+        "media_class": "documentary",
+        "media_role": "contextual_photo",
+        "modality": "documentary_photo",
+        "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/6/68/Southwest_Boeing_737-700_N947WN_BWI_MD1.jpg",
+        "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\southwest\\documentary_original.jpg",
+        "publication_date": "2025-06-26",
+        "publisher": "Acroterion",
+        "relevance_rationale": "Airline context only. Description begins with 2010 while DateTimeOriginal is 2025-06-26: unresolved capture-date conflict.",
+        "rights_evidence_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\southwest\\release-photo-rights.json",
+        "rights_evidence_sha256": "616a9d7f377663e0ef4aa0509a9da40f9f7fa05a833a5388f7189ed967ce9364",
+        "rights_status": "OPEN_LICENSED",
+        "role": "hero",
+        "sha256": "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4",
+        "source_label": "Acroterion",
+        "source_page_url": "https://commons.wikimedia.org/wiki/File:Southwest_Boeing_737-700_N947WN_BWI_MD1.jpg",
+        "source_reuse_basis": "Creative Commons Attribution-Share Alike 4.0; exact original retained. Delivery image unchanged; reader display may resize.",
+        "supports_headline": false,
+        "underlying_source_rights_status": "open_licensed",
+        "visual_review": {
+          "asset_sha256": "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4",
+          "pixels_inspected": true,
+          "relevant_subject": true,
+          "review_scope": "Source originals shown in photo-contact-sheet-1/2; delivery retained original. Article desktop/mobile layout still pending.",
+          "reviewer": "Codex parent actual contact-sheet and original-pixel inspection; contextual subject/date review"
+        },
+        "width": 6184
+      }
+    ],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "v1-media-southwest-r1",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-f2a30d4ebd709c3c05cb0692",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [
+      {
+        "changed_evidence": [],
+        "disposition": "EDITORIAL_REVISION",
+        "new_factual_evidence": false,
+        "prior_package": {
+          "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+          "full_text": "Why can Southwest beat quarterly earnings expectations yet lower its annual outlook? Reuters' October 21, 2026 report says the carrier reduced its expected adjusted earnings to $2.60–$2.85 a share for 2026, from an earlier $3.25–$4.25 forecast. **SINGLE-SOURCE REPORT - REUTERS.** If accurate, the account describes quarterly progress facing a less favorable fuel outlook. [[SOURCE:SOURCE_1]]\n\n## The quarter and the forecast\n\nAccording to Reuters, third-quarter adjusted earnings came to 66 cents a share, versus the 58 cents analysts expected and 11 cents a year earlier. The report also places the midpoint of the revised annual range below LSEG's $2.85 average analyst estimate. That latter comparison concerns expectations for the year, rather than earnings already achieved. [[SOURCE:SOURCE_1]]\n\nReuters reports an almost 27% rise in average passenger fare in the third quarter and revenue of $8.4 billion, a record for that quarter. It also describes an improvement in adjusted operating margin despite higher fuel costs. The retained figures do not establish passenger-volume growth. [[SOURCE:SOURCE_1]]\n\nThe cost pressure in the report is concrete: Reuters puts Southwest's fuel bill $821 million above a year earlier. It separately attributes to the carrier an expectation that jet-fuel prices would rise further in the year's final three months. That second statement is an issuer forecast relayed by Reuters, rather than a realized fuel-price outcome. [[SOURCE:SOURCE_1]]\n\n## What the tension means\n\nIf Reuters' account is accurate, the earnings beat and outlook cut answer different questions: how the completed quarter performed against expectations, and what Southwest expects for the full year. Capital Chronicle's reading is that reported fare gains show progress, while anticipated fuel pressure leaves the durability of that progress unresolved. [[SOURCE:SOURCE_1]]\n\nIf the report is accurate, the serious countercase to a failing-turnaround narrative is the reported improvement in adjusted operating margin despite higher fuel costs. That leaves room for operating gains to persist; a lower annual forecast alone does not establish that the turnaround has stopped working. [[SOURCE:SOURCE_1]]\n\nThe retained account gives no exact adjusted operating margin, traffic or capacity comparison, revenue mix, split between fuel quantity and unit cost, or bridge from the old earnings forecast to the revised one. It cannot establish how much of the forecast reduction belongs to fuel, or whether the higher average fare reflects stronger demand. Assigning the entire revision to fuel would go beyond this evidence. [[SOURCE:SOURCE_1]]\n\n## What would change the reading\n\nIf the report is accurate, the next test is whether later results show revenue gains continuing to absorb fuel pressure. Evidence that those gains outweigh the fuel burden would challenge a cautious reading; weaker margins and further forecast cuts would reinforce it. Which pattern do subsequent company disclosures support? [[SOURCE:SOURCE_1]]\n\n## Source notes\n\nSource notes: Reuters, published October 21, 2026 at 20:23 UTC. Retained facts were known at 22:27:23.031 UTC that day; the frozen cutoff is 22:29:51.437174 UTC. This article addresses the reported 2026 outlook and third-quarter results. The separately retained 2025 hedge/AOCI case remains unchanged historical context, answering a different question; this report supplies no current hedge-status update. [[SOURCE:SOURCE_1]]",
+          "stage": "UNPUBLISHED_REVIEWED_ARTICLE",
+          "story_identity": "simple-story-f2a30d4ebd709c3c05cb0692",
+          "title": "Reuters reports Southwest's 2026 profit outlook cut despite quarterly gains"
+        },
+        "publication_state": "UNPUBLISHED_RESEARCH",
+        "reason": "Owner-directed dated editorial/media revision: Reported quarterly gains can coexist with a lower annual forecast: the completed quarter and future outlook answer different questions. Lead with lower 2026 guidance beside the stronger quarter; keep issuer forecasts distinct from realized results and avoid repeated question openings. Add the exact independently cleared archival contextual photo and useful source-bound chart; preserve the original facts, report-only authority and dates.",
+        "removed_main_claim_ids": [],
+        "retained_sources": [
+          {
+            "browser_rendered_acquisition": null,
+            "canonical_content_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+            "canonical_content_text": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier.",
+            "canonical_resolution_status": "",
+            "document_id": "goal35-southwest",
+            "published_at_source": "2026-10-21T20:23:00Z",
+            "published_at_utc": "2026-10-21T20:23:00Z",
+            "publisher": "Reuters",
+            "report_truth_only": true,
+            "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+            "secondary_listing_only": false,
+            "source_authority_class": "reputable_secondary_source",
+            "source_id": "SOURCE_1",
+            "source_identity": "reuters.com",
+            "source_reuse_constraints": {
+              "INTERNAL_ANALYSIS_ALLOWED": true,
+              "LLM_INPUT_ALLOWED": true,
+              "MODEL_INPUT_ALLOWED": true,
+              "attribution_required": true,
+              "canonical_text_sha256": "711e372d5d722a62a8ba101d5c243b4bad8444d1b6738306e6d8b5f4a4bdb4bc",
+              "content_sha256": "19b22f919f1213b0da4c1d7f1c450f4b8941ef25341f67ec35e455ec1750da6f",
+              "government_authorship": false,
+              "images_logos_exhibits_reuse_allowed": false,
+              "permitted_consumers": [
+                "internal_research",
+                "narrative_context"
+              ],
+              "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+              "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+              "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+              "provider_safe": true,
+              "public_expression_reuse_allowed": false,
+              "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+              "source_capture_sha256": "dd89d20a58c56dae496919ba74bb08bed6753187503671d19ebcc6edfdc61225",
+              "underlying_event_truth_granted": false
+            },
+            "url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/"
+          }
+        ],
+        "source_item_ids": [
+          "goal35-southwest"
+        ],
+        "source_review_id": "native-editorial-revision-0e48a8428ce06846cc924edadd198ad38202bd79b0b1e1c4fe1b85b43c103384",
+        "story_identity": "simple-story-f2a30d4ebd709c3c05cb0692",
+        "update_chain_identity": "simple-story-f2a30d4ebd709c3c05cb0692"
+      }
+    ],
+    "headline_id": "goal35-southwest",
+    "headline_text": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+    "official_source_urls": [],
+    "public_source_urls": [
+      "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+    "source_account": "Reuters",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-21T20:23:00Z",
+    "source_url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": true,
+      "known_official_path": false,
+      "reputable_public_secondary_path": true,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-f2a30d4ebd709c3c05cb0692",
+    "update_chain_identity": "simple-story-f2a30d4ebd709c3c05cb0692"
+  }
+}
