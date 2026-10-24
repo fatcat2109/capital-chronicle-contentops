@@ -1,0 +1,28 @@
+{
+  "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+  "schema_version": "contentops.native_publication_binding.v1",
+  "run_id": "v1-prelive-gold-oct23",
+  "work_item_id": "v1-prelive-gold-oct23",
+  "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+  "review_id": "native-article-review-c30eb589fedb462f9bbf31062409489b",
+  "review_notes_sha256": "c2c6bc480dbfc80bfb4f2193c3396c05eef4e0d885469c899b7f6a3cd4c065a7",
+  "prepared_handoff_sha256": "5efe54ea17d8dabdce95f9792215806eef274dad00cc9cf1e0f76efcbf6d3764",
+  "plan_hash": "ebfa49a67c53482a28215530bef87e2f51e54056eda2e3dba4edcc2377491202",
+  "binding_sha256": "f54929ccb8d31916c055b0020eacd7ef780f8890029090db850b93bd00ccda5e",
+  "accepted_evidence_sha256": "cabda157d470e1f0a219ec4ff5486c0bda3223b4fce1ba9ca477de2be85b7960",
+  "native_result_sha256": "5b74dd1b46ba88c67bf72780400edee6d572de90691a7016c31388aa1c7f8022",
+  "artifact_sha256": {
+    "article_manifest_v1.json": "43a61d71e1046c4107f24c7cc8a4863c8e3a9fb1e83ec99c53bf812b06a60c15",
+    "qualified_article_record_v1.json": "afd753245ae1d9e6ab3b0ae626a98d709f7bb8f77f011c6ec2b0f1833bb65e37",
+    "native_derivative_previews_v1.json": "b1ef72fcbacfde7364012503e421b4d8e25c5ffd337c95a964076b9873a5ab0f",
+    "publication_lifecycle_plan_v1.json": "466df43cf8bb6b140627620e44850136fd153c2d0fa79ba0087f22f23edaaae1",
+    "run_context_v1.json": "4cf8986f8c224e48abdbc6b0bfe80d2c98a0a56ef54abfe83d1a20813a9b6e3f"
+  },
+  "media_sha256": {
+    "source_value_comparison": "407830ed2fdc3d164f3a653f08e2985b565c56d93ee00b081c2cd3a38388d1a9",
+    "prelive-documentary-gold": "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d"
+  },
+  "publication_authority": false,
+  "next_operation": "publication-status",
+  "public_write_performed": false
+}

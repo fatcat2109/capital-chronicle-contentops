@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "prelive-gold-20261023",
+      "title": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+      "source_url": "https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike",
+      "publisher": "Reuters",
+      "source_identity": "reuters.com",
+      "raw_sha256": "c27d86d664a1026d862676ad2352f6d8d169ae2bb4ea1bf5e0babc156eb8e4ac",
+      "canonical_content_text": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets\n\nOct 23 (Reuters) - Gold fell to a three-month low on ‌Friday and was headed for its steepest weekly decline in over four months as higher energy prices fueled inflation concerns and reinforced US rate hike expectations ahead of next week's Federal Reserve meeting.\n\nSpot gold fell 0.6% to $3,998.35 an ounce by 11:20 a.m. EDT (1520 GMT), ​slipping below the $4,000 mark for the first time since mid-July and touching a session low ​of $3,975.23.\n\nBullion has fallen 4% this week, putting it on track for its worst ⁠week since June.\n\nAmong other metals, spot silver slid 1% to $53.97 per ounce, ⁠and palladium ​dropped 0.5% to $1,048.31, hitting their lowest since November 2025 and June ​2025 respectively. Spot platinum fell 0.9% to $1,555.84 per ounce, its lowest since July.",
+      "canonical_content_sha256": "53f87f918b9e92a4947d4465c600115e9ff9e175844c23dfbb7684adec0dbfea",
+      "source_adapter_family": "reputable_secondary_report",
+      "source_authority_class": "reputable_secondary_source",
+      "report_truth_only": true,
+      "published_at_utc": "2026-10-23T19:17:01Z",
+      "published_at_source": "2026-10-23T15:17:01-04:00",
+      "published_at_precision": "PUBLISHER_MACHINE_TIMESTAMP",
+      "source_modified_at_utc": "2026-10-23T19:18:51Z",
+      "content_truncated": false,
+      "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-23T23:40:05.724Z",
+    "loader": "EXACT_OBSERVED_NEO_BOUNDED_REPORT_FACTS"
+  }
+}

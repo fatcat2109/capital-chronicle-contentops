@@ -1,0 +1,361 @@
+{
+  "policy": {
+    "policy_version": "policy.bootstrap.v1",
+    "parent_policy_version": null,
+    "decision": "BOOTSTRAP_NOT_YET_PERSISTED",
+    "decision_reason": null,
+    "sample_count": 0,
+    "confidence": 0.0,
+    "formula_version": "qualified_engagement.formula.v1",
+    "provenance": "CONFIGURED_DEFAULT",
+    "content": {
+      "state": "INSUFFICIENT_REAL_SAMPLE",
+      "recommendations": [],
+      "sample_count": 0,
+      "confidence": 0.0,
+      "repetition_concentration_penalty_mutable": false
+    },
+    "seo": {
+      "state": "INSUFFICIENT_REAL_SEARCH_SAMPLE",
+      "recommendations": [],
+      "sample_count": 0,
+      "confidence": 0.0,
+      "deterministic_score_is_observed_success": false
+    },
+    "package": {
+      "state": "INSUFFICIENT_REAL_DESTINATION_SAMPLE",
+      "by_destination": {},
+      "sample_count": 0,
+      "confidence": 0.0
+    },
+    "rollback_reference": null,
+    "policy_created_at_utc": null,
+    "observation_set_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "latest_collected_at_utc": null,
+    "preference_only": true,
+    "ranking_bonus_cap": 6.0,
+    "grants_factual_or_numeric_authority": false,
+    "grants_evidence_or_permission_authority": false,
+    "grants_publication_authority": false,
+    "timing_schedule_changes_allowed": false
+  },
+  "feedback": [],
+  "follow_up_briefs": [
+    {
+      "audience_demand_inferred": false,
+      "brief_packet": {
+        "blocked_controls": [
+          "approve",
+          "dispatch",
+          "publish",
+          "schedule",
+          "send"
+        ],
+        "brief_candidate": {
+          "audience_need": "No independent reader question observed. No preference, SEO, package, schedule or authority change is supported. Rankings below are editorial research priorities, not audience-demand evidence.",
+          "brief_id": "next_article_brief_candidate_native-follow-up-44882c18079c21c5ebd8b1bd9ba78290ffa36c2a42d0f0da24d83bba1a50d3b6",
+          "brief_title": "Review-only brief candidate: Does a later EIA release change the seasonal refill comparison, rather than merely repeat the October 9 observation?",
+          "canonical_draft_requested": false,
+          "editorial_angle": "Does a later EIA release change the seasonal refill comparison, rather than merely repeat the October 9 observation?",
+          "not_financial_advice": true,
+          "publication_or_dispatch_requested": false,
+          "required_operator_review_notes": [
+            "Confirm the source feedback text is approved for editorial planning use.",
+            "Attach a separate source pack before any canonical draft is requested.",
+            "Keep all copy educational and non-advisory."
+          ],
+          "suggested_outline": [
+            "Restate the audience question in plain English.",
+            "Define the key financial-quality concepts without advice wording.",
+            "Show caveats operators should verify before drafting.",
+            "Close with educational takeaways and human-review notes."
+          ],
+          "working_headline": "Does a later EIA release change the seasonal refill comparison, rather than merely repeat the October 9 observation?"
+        },
+        "browser_session_used": false,
+        "candidate_review_status": "ready_for_operator_review_only",
+        "canonical_draft_created": false,
+        "credential_read_made": false,
+        "env_value_read_made": false,
+        "exact_payload_hash": "9136fc36d74ad80d8334e166502226b6a1ce7a6c04c7f2485749cd7255ae26ef",
+        "forbidden_financial_advice_or_signal_wording_present": false,
+        "live_publish_performed_by_contentops": false,
+        "llm_provider_call_made": false,
+        "network_call_made": false,
+        "next_article_brief_packet_id": "feedback_backlog_next_article_brief_9136fc36d74ad80d",
+        "non_readiness_claims": {
+          "api_readiness_claimed": false,
+          "canonical_draft_readiness_claimed": false,
+          "dispatch_readiness_claimed": false,
+          "live_readiness_claimed": false,
+          "llm_summary_claimed": false,
+          "public_url_verification_claimed": false
+        },
+        "operator_review_required": true,
+        "packet_kind": "feedback_backlog_next_article_brief_candidate_v0",
+        "platform_api_used": false,
+        "provider_call_made": false,
+        "public_url_fetch_made": false,
+        "schema_version": "6.0.0",
+        "selected_backlog_candidate_id": "native-follow-up-44882c18079c21c5ebd8b1bd9ba78290ffa36c2a42d0f0da24d83bba1a50d3b6",
+        "selected_priority_score": 3,
+        "selected_source_feedback_item_ids": [],
+        "selected_source_platforms": [],
+        "selected_topic_tags": [],
+        "selection_method": "deterministic_highest_priority_score_then_candidate_id",
+        "source_audit_index_hash": "d9867483d8a1d07d70d0b6fe866c154d6e34313339f6d31b50b7ed8289283ea7",
+        "source_audit_index_packet_id": "/root/goal33_sol_light",
+        "source_backlog_summary_hash": "fffd99d6f05725441140d57b806b43be003fd484c5665cfdb0258ff66c26158e",
+        "source_backlog_summary_packet_id": "native-selection-cbeccf520789231762c1ba66d8bb335e3aa559c202bcd6ed5997b9db4eaae84c",
+        "source_feedback_intake_hash": "5ead0b92f252c3ffd1a52b839d7394c75954e14dd9f92fe56485ef72537549ae",
+        "source_feedback_intake_packet_id": "NO_INDEPENDENT_READER_QUESTION",
+        "source_pack_required_before_drafting": true,
+        "task_label": "TASK_CONTENTOPS_V6_FEEDBACK_BACKLOG_REVIEW_TO_NEXT_ARTICLE_BRIEF_LOOP_V0"
+      },
+      "feedback_effect": "No independent reader question observed. No preference, SEO, package, schedule or authority change is supported. Rankings below are editorial research priorities, not audience-demand evidence.",
+      "native_observation": {
+        "invocation_id": "/root/goal33_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "NATIVE_SUBAGENT_SPAWN_MODEL_EFFORT",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "next_operation": "Compare the next named primary-source edition through refresh; reuse the exact article until material evidence changes.",
+      "public_write_performed": false,
+      "ranked_questions": [
+        {
+          "action": "Reuse unchanged for the October 9 question; one bounded source comparison after an actual later release if requested.",
+          "allowed_for_drafting": true,
+          "allowed_for_publication": false,
+          "article_angle": "Does a later EIA release change the seasonal refill comparison, rather than merely repeat the October 9 observation?",
+          "auto_reply_created": false,
+          "blocked_reasons": [],
+          "candidate_id": "native-follow-up-44882c18079c21c5ebd8b1bd9ba78290ffa36c2a42d0f0da24d83bba1a50d3b6",
+          "candidate_ids": [
+            "simple-story-890582887a74cac23d71e366",
+            "simple-story-8380cdb9d4dbf363c652f48a"
+          ],
+          "exact_article_match": {
+            "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+            "run_id": "goal27-gas-refill-update"
+          },
+          "human_review_required": true,
+          "missing_evidence": [
+            "Exact new release bytes, observation/release dates, revision status and comparable seasonal benchmarks",
+            "Pre-release expectations and matched price/curve, weather, production and LNG inputs before claiming surprise, cause or price direction"
+          ],
+          "no_auto_response": true,
+          "priority_score": 3,
+          "public_ready": false,
+          "question": "Does a later EIA release change the seasonal refill comparison, rather than merely repeat the October 9 observation?",
+          "rank": 1,
+          "rationale": "No independent reader question observed. No preference, SEO, package, schedule or authority change is supported. Rankings below are editorial research priorities, not audience-demand evidence.",
+          "source_feedback_item_ids": [],
+          "source_item_ids": [
+            "goal27-gas-seasonal",
+            "goal22-gas-storage"
+          ],
+          "source_platforms": [],
+          "source_verification_required": true,
+          "title": "Does a later EIA release change the seasonal refill comparison, rather than merely repeat the October 9 observation?",
+          "topic_tags": []
+        },
+        {
+          "action": "Reuse the accepted announcement explainer; do not recast the future event as an outcome or rewrite the already retained 10-K guide article.",
+          "allowed_for_drafting": true,
+          "allowed_for_publication": false,
+          "article_angle": "What concrete data-quality questions does the announced SEC roundtable subsequently answer?",
+          "auto_reply_created": false,
+          "blocked_reasons": [],
+          "candidate_id": "native-follow-up-584ec6aa6ab0872defac32c355d060438865cb45be7084b9d8b8ed7b62205a21",
+          "candidate_ids": [
+            "simple-story-182cbc812476b1abee25b1c8",
+            "simple-story-01a2d51afcef52787341c1ce"
+          ],
+          "exact_article_match": {
+            "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+            "run_id": "goal31-company-machine-reading"
+          },
+          "human_review_required": true,
+          "missing_evidence": [
+            "Actual new agenda, submissions, transcript or staff output with exact dates and source spans",
+            "Measured tool-performance evidence or a named company filing before making performance or current-company claims"
+          ],
+          "no_auto_response": true,
+          "priority_score": 2,
+          "public_ready": false,
+          "question": "What concrete data-quality questions does the announced SEC roundtable subsequently answer?",
+          "rank": 2,
+          "rationale": "No independent reader question observed. No preference, SEO, package, schedule or authority change is supported. Rankings below are editorial research priorities, not audience-demand evidence.",
+          "source_feedback_item_ids": [],
+          "source_item_ids": [
+            "goal31-sec-machine-data",
+            "goal28-company-reading"
+          ],
+          "source_platforms": [],
+          "source_verification_required": true,
+          "title": "What concrete data-quality questions does the announced SEC roundtable subsequently answer?",
+          "topic_tags": []
+        },
+        {
+          "action": "Reuse the accepted background explanation. Pursue a separate case only with primary case-specific disclosures; no current position inference from the CFTC tutorial.",
+          "allowed_for_drafting": true,
+          "allowed_for_publication": false,
+          "article_angle": "In a named hedge, do the cash receipts and contract margin obligations actually line up?",
+          "auto_reply_created": false,
+          "blocked_reasons": [],
+          "candidate_id": "native-follow-up-503add29ee12025d022c430151b7ec4a3890e63f2d01b478214a6348b661cf21",
+          "candidate_ids": [
+            "simple-story-90948260be9bd56524b7f2c8"
+          ],
+          "exact_article_match": {
+            "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+            "run_id": "goal31-futures-cashflow"
+          },
+          "human_review_required": true,
+          "missing_evidence": [
+            "Named owner disclosure of economic exposure and hedge purpose",
+            "Exact contract, expiry, settlement, cash/margin schedule and matched-period position evidence; chain/IV/open interest when an options claim needs them"
+          ],
+          "no_auto_response": true,
+          "priority_score": 1,
+          "public_ready": false,
+          "question": "In a named hedge, do the cash receipts and contract margin obligations actually line up?",
+          "rank": 3,
+          "rationale": "No independent reader question observed. No preference, SEO, package, schedule or authority change is supported. Rankings below are editorial research priorities, not audience-demand evidence.",
+          "source_feedback_item_ids": [],
+          "source_item_ids": [
+            "goal31-futures-economic-purpose"
+          ],
+          "source_platforms": [],
+          "source_verification_required": true,
+          "title": "In a named hedge, do the cash receipts and contract margin obligations actually line up?",
+          "topic_tags": []
+        }
+      ],
+      "run_id": "goal33-feedback-next-story",
+      "selection_request_sha256": "cbeccf520789231762c1ba66d8bb335e3aa559c202bcd6ed5997b9db4eaae84c"
+    }
+  ],
+  "observation_counts": {},
+  "capabilities": [
+    {
+      "destination": "substack",
+      "collector_state": "AVAILABLE_FIRST_PARTY_VISIBLE_POST_STATS",
+      "metrics": [
+        "total_views",
+        "free_subscriptions",
+        "paid_subscriptions",
+        "recipients",
+        "open_rate",
+        "delivery_rate",
+        "likes",
+        "comments",
+        "shares",
+        "restacks",
+        "subscriber_conversions"
+      ],
+      "interaction_text_observation": "NOT_EXPOSED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    },
+    {
+      "destination": "telegram",
+      "collector_state": "NOT_EXPOSED_BY_CURRENT_BOT_BINDING",
+      "metrics": [],
+      "interaction_text_observation": "NOT_EXPOSED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    },
+    {
+      "destination": "x",
+      "collector_state": "NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING",
+      "metrics": [],
+      "interaction_text_observation": "NOT_EXPOSED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    },
+    {
+      "destination": "discord",
+      "collector_state": "AVAILABLE_IF_CURRENT_WEBHOOK_BINDING_AUTHORIZES_EXACT_READ",
+      "metrics": [
+        "reactions"
+      ],
+      "interaction_text_observation": "NOT_EXPOSED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    },
+    {
+      "destination": "linkedin",
+      "collector_state": "PERMISSION_REQUIRED_RESTRICTED_MEMBER_SOCIAL_READ",
+      "metrics": [
+        "likes",
+        "comments"
+      ],
+      "interaction_text_observation": "PERMISSION_REQUIRED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    },
+    {
+      "destination": "facebook_page",
+      "collector_state": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "metrics": [
+        "likes",
+        "comments",
+        "shares"
+      ],
+      "interaction_text_observation": "AVAILABLE_IF_AUTHORIZED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    },
+    {
+      "destination": "instagram_business",
+      "collector_state": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "metrics": [
+        "likes",
+        "comments"
+      ],
+      "interaction_text_observation": "AVAILABLE_IF_AUTHORIZED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    },
+    {
+      "destination": "threads",
+      "collector_state": "AVAILABLE_IF_CURRENT_BINDING_AUTHORIZES_EXACT_READ",
+      "metrics": [
+        "replies"
+      ],
+      "interaction_text_observation": "AVAILABLE_IF_AUTHORIZED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    },
+    {
+      "destination": "youtube",
+      "collector_state": "NOT_EXPOSED_BY_CURRENT_AUTHORIZED_BINDING",
+      "metrics": [],
+      "interaction_text_observation": "NOT_EXPOSED",
+      "search_console_channel": "OPERATOR_SETUP_REQUIRED",
+      "unavailable_is_zero": false,
+      "additional_scope_granted": false,
+      "max_provider_requests_per_observation": 1
+    }
+  ],
+  "metrics_model_calls": 0
+}

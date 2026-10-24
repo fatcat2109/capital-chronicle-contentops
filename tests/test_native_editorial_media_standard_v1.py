@@ -274,3 +274,68 @@ def test_cleared_photo_credit_reaches_all_previews_and_exact_transport_media(tmp
         assert photo["license_url"] not in (payload.get("full_text") or payload["text"])
         _, binding = _payload_binding({"native_payload": payload, "media_assets": [chart, photo]}, destination)
         assert [a["asset_id"] for a in binding["media_manifest"]] == [chart["asset_id"]]
+
+
+def test_announced_policy_rates_preserve_percent_words_and_effective_date(tmp_path):
+    doc, _, _ = controlled_release_packet(tmp_path)
+    text = ('Effective September 17, 2026, the interest rate on reserve balances is 3.90 percent. '
+            'Effective September 17, 2026, the standing repo rate is 4.0 percent.')
+    doc['canonical_content_text'] = text
+    rows = [{'label':label, 'metric_source_text':metric, 'period':'September 17, 2026',
+             'unit':'%', 'observation_kind':'ANNOUNCED_POLICY', 'support_excerpt':sentence,
+             'value_context':sentence, 'value_text':value}
+            for label, metric, value, sentence in (
+                ('Reserve interest','interest rate','3.90',text.split('. Effective')[0]+'.'),
+                ('Repo','repo rate','4.0','Effective September 17, 2026, the standing repo rate is 4.0 percent.'))]
+    chart = build_source_value_comparison_chart(doc, rows=rows, title='Controlled announced rates', unit='%', output_dir=tmp_path)
+    assert chart['computed_values'] == [[3.9], [4.0]]
+    rows[0]['period'] = 'September 18, 2026'
+    with pytest.raises(ValueError, match='period_or_kind_unbound'):
+        build_source_value_comparison_chart(doc, rows=rows, title='Wrong date', unit='%', output_dir=tmp_path)
+
+
+def test_reported_percentage_declines_require_exact_negative_binding(tmp_path):
+    doc, _, _ = controlled_release_packet(tmp_path)
+    text = 'On October 23 gold fell 0.6%. On October 23 silver slid 1%.'
+    doc['canonical_content_text'] = text
+    rows = [{'label':label, 'metric_source_text':metric, 'period':'October 23', 'unit':'%',
+             'observation_kind':'ACTUAL', 'support_excerpt':sentence, 'value_context':sentence,
+             'value_text':value, 'negative_evidence':negative}
+            for label, metric, value, sentence, negative in (
+                ('Gold','gold','0.6','On October 23 gold fell 0.6%.','fell 0.6%'),
+                ('Silver','silver','1','On October 23 silver slid 1%.','slid 1%'))]
+    chart = build_source_value_comparison_chart(doc, rows=rows, title='Controlled declines', unit='%', output_dir=tmp_path)
+    assert chart['computed_values'] == [[-0.6], [-1.0]]
+    rows[0].pop('negative_evidence')
+    with pytest.raises(ValueError, match='explicit_sign_binding'):
+        build_source_value_comparison_chart(doc, rows=rows, title='Lost sign', unit='%', output_dir=tmp_path)
+
+
+def test_commons_federal_photo_without_license_url_needs_bound_policy(tmp_path):
+    _, photo, _ = controlled_release_packet(tmp_path)
+    receipt_path = Path(photo['rights_evidence_path'])
+    receipt = json.loads(receipt_path.read_bytes())
+    meta = receipt['provider_metadata']['page']['imageinfo'][0]['extmetadata']
+    meta.pop('LicenseUrl')
+    meta.update(License={'value':'pd'}, LicenseShortName={'value':'Public domain'}, Copyrighted={'value':'False'})
+    receipt['provider_metadata']['page']['license_wikitext'] = '{{PD-USGov}}'
+    photo['license_url'] = receipt['license_url'] = 'https://commons.wikimedia.org/wiki/Template:PD-USGov'
+    policy = tmp_path/'controlled-policy.json'
+    policy.write_text(json.dumps({'status':'PASS','final_url':photo['license_url'],
+        'retrieval_method':'READ_ONLY_BROWSEROS_NEO_PUBLIC_LICENSE',
+        'canonical_content_text':'Public domain: United States Federal Government official duties under Section 105.',
+        'credential_or_session_material_read':False,'public_write_performed':False}))
+    receipt['public_domain_basis'] = {'policy_url':photo['license_url'], 'policy_capture_path':str(policy),
+                                      'policy_capture_sha256':sha256(policy.read_bytes()).hexdigest()}
+    def seal():
+        receipt_path.write_text(json.dumps(receipt))
+        photo['rights_evidence_sha256'] = sha256(receipt_path.read_bytes()).hexdigest()
+    seal()
+    validate_contextual_photo(photo)
+    policy.write_text('changed')
+    with pytest.raises(ValueError):
+        validate_contextual_photo(photo)
+    receipt['provider_metadata']['page']['license_wikitext'] = '{{Unrelated}}'
+    seal()
+    with pytest.raises(ValueError, match='PUBLIC_DOMAIN_BASIS'):
+        validate_contextual_photo(photo)

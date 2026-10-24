@@ -20,6 +20,12 @@ EFFORT = "low"
 DESTINATION = "internal:native-desktop-editorial"
 SCHEMA = "contentops.native_desktop_editorial.v1"
 STAGES = ("select", "write", "revise", "feedback")
+PUBLIC_SOURCE_DATE_GUIDANCE = (
+    "Keep detailed retrieval/known-at/cutoff chronology in evidence metadata. Public source notes use "
+    "concise material dates or useful observation times, without microseconds or internal audit vocabulary. "
+    "Do not repeat epistemic labels. "
+)
+LEGACY_SOURCE_DATE_GUIDANCE = "Put detailed retrieval/known-at chronology in source notes, and do not repeat epistemic labels. "
 ROLE_ASSIGNMENTS = {
     "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
     "select": {"model": MODEL, "reasoning_effort": "low"},
@@ -115,12 +121,15 @@ class NativeDesktopTurn:
             kwargs["prompt"] += "\nEXACT_ADMITTED_EDITORIAL_MEDIA_PLAN: " + canonical_bytes(media_plan).decode()
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
+        frozen = self.frozen_request(stage)
+        date_guidance = (LEGACY_SOURCE_DATE_GUIDANCE
+            if frozen and LEGACY_SOURCE_DATE_GUIDANCE in frozen["prompt"] else PUBLIC_SOURCE_DATE_GUIDANCE)
         native_guidance = (
             "\nNATIVE_DESKTOP_PRODUCT_RULES: Use one consistent reader language. Include dated observation "
             "and a concise material source date when present in SOURCE_PACK; never confuse report generation "
             "with source release. Say retained/unchanged rather than today's new data. If release time is absent, "
             "say it is not supplied in source notes. Lead with the reader question, thesis and countercase, not an audit "
-            "paragraph. Put detailed retrieval/known-at chronology in source notes, and do not repeat epistemic labels. "
+            "paragraph. " + date_guidance +
             "Scope notice and source-clock metadata are metadata; do not bind scope notice "
             "as a Main analytical claim. Include article.social_mechanism_summary, article.social_policy_summary "
             "and article.social_cross_asset_summary: useful story-specific mechanism, competing explanation and "

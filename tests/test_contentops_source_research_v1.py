@@ -312,6 +312,8 @@ def test_verified_frozen_record_without_loader_id_reaches_source_pack(missing_id
     pack = _source_pack(evidence["evidence_documents"])
     assert [p["document_id"] for p in pack] == [selected, context]
     assert pack[0]["canonical_content_text"] == research.records[selected]["permitted_source_text"]
+    assert pack[0]["underlying_reuse_classification"] == "governed_government_public_domain"
+    assert pack[0]["rights_evidence_sha256"] == research.records[selected]["rights_evidence_sha256"]
     assert evidence["evidence_documents"][1]["context_only"] is True
     assert evidence["provenance"]["request_count_for_call"] == 0
     assert evidence["publication_authority"] is False

@@ -1,0 +1,50 @@
+{
+  "files": {
+    "live_contentops/native_desktop_editorial_v1.py": "690eba1159fe776542e01f5a626a7925d869694e2acd41bd75017df1255ed0ed",
+    "live_contentops/visual_asset_discovery_v1.py": "4e64cc50a65d2783c9a5c95c11d0debf8e1a07f6a0babf06a452a8e9377301b4",
+    "live_contentops/rolling_x_grounded_article_media_builder_v1.py": "d33221b16c36bb8af76c42ebe28d73599f6c6155dbb06a99037fcbdd2798a1d9",
+    "live_contentops/v1_simple_gemini_newsroom_v1.py": "6a6125c468720b9bbdd6f32310fbabe6e8f5e3e14e7ace832ba9f8bd72d04045",
+    "tests/test_native_editorial_media_standard_v1.py": "1737bb49865f67676cc1c3e7efbee01143797a2236c3c1722e4e61e0a39cba2e",
+    "tests/test_contentops_source_research_v1.py": "c5d571c18ed6755c44de4cde2d7b626bac87f42347075e4e71ddcdffe10ff584",
+    "tests/test_native_desktop_editorial_v1.py": "04b9d1c6d27184899ef1b00c94365ba5e69acf342bedd6b751c556a7fe858875",
+    "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx": "789b70aa0b56756f86fed8e76827f7ef4d3be3d9745a815dabc80c3beef9e649",
+    "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx": "71e520411be26bda7d6ad2d86205a57c2f2fa81f249be1fe9ab542b0cbc69c41",
+    "ui/contentops_v5/src/dailyAppTypes.ts": "285c34eea39dab8808da2d450fe2d499906e46b9910d292adcd6137ee6b4546e",
+    "tests/test_contentops_editorial_desk_v1.py": "86f5926d96c458597957c64544910f89fc2f169331158b1285e8f026dbb98acd"
+  },
+  "tests": {
+    "final-media-delta-checks.xml": {
+      "cases": 23,
+      "failures": 0,
+      "errors": 0
+    },
+    "newsroom-regression.xml": {
+      "cases": 40,
+      "failures": 0,
+      "errors": 0
+    },
+    "native-date-guidance-checks.xml": {
+      "cases": 12,
+      "failures": 0,
+      "errors": 0
+    },
+    "ui-date-checks.xml": {
+      "cases": 13,
+      "failures": 0,
+      "errors": 0
+    },
+    "desk-history-checks.xml": {
+      "cases": 4,
+      "failures": 0,
+      "errors": 0
+    }
+  },
+  "backend_distinct_cases": 79,
+  "ui_cases": 13,
+  "build_log": "ui-build.log",
+  "build": "PASS_TYPESCRIPT_VITE_1584_MODULES",
+  "live_or_published": false,
+  "reader_delta": "Full actual owner projection exposed minimal editorial source-history shape; UI/types now retain missing metadata as explicit unknown; thirteen tests and final actual renderer pass.",
+  "source_bytes_reverified_at_utc": "2026-10-24T06:15:06.546058+00:00",
+  "additional_focused_scope": "Four source/history/preview/update-identity controls directly exercised because previous receipt had source pointers without retained pass evidence in this package."
+}

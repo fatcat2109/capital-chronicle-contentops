@@ -1,0 +1,31 @@
+{
+  "policy": {
+    "decision_date": "2026-09-16",
+    "implementation_effective_date": "2026-09-17",
+    "source_capture_utc": "2026-10-23T23:38:44.887Z",
+    "classification": "DATED_POLICY_EXPLAINER_NOT_CURRENT_NEWS",
+    "responsible_official": {
+      "identity_text": "policy action will support a timelier return to the Committee's 2 percent goal. The Committee will deliver price stability.\"\n\nVoting for this action: Kevin Warsh, John C. Williams, Michael S. Barr, Michelle W. Bowman, Lisa D. Cook, Beth M. Hammack, Philip N. Jefferson, Neel Kashkari, Lorie K. Logan, Anna Paulson, Jerome H. Powell, and Christopher J. Waller.\n\nVoting against this action: None.\n\nConsistent with the Committee's decision to raise the target range for the federal funds rate to 3-3/4 to 4 percent, the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026. The Board of Governors of the Federal Reserve System voted unanimously to approve a 1/4 percentage point increase in the primary credit rate to 4.0 percent, effective September 17, 2026.2\n\nIt was agreed that the next meeting of the Committee would be held on Tuesday\u2013Wednesday, October 27\u201328, 2026. The meeting adjourned at 10:15 a.m. on September 16, 2026.\n\nNotation Vote\nBy notation vote completed on August 18, 2026, the Committee unanimously approved the minutes of the Committee meeting held on July 28\u201329, 2026.\n\nAttendance\nKevin Warsh, Chairman\nJohn C. Williams, Vice Chair\nMichael S. Barr\nMichelle W. Bowman\nLisa D. Cook\nBeth M. Hammack\nPhilip N. Jefferson\nNe",
+      "observed": "2026-10-23T23:39:20.830Z",
+      "title": "The Fed - Monetary Policy:",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcminutes20260916.htm"
+    },
+    "photograph_date": "2026-05-22",
+    "image_is_decision_event_photo": false
+  },
+  "gold": {
+    "event_report_date": "2026-10-23",
+    "spot_gold_observation_utc": "2026-10-23T15:20:00Z",
+    "publisher_published_utc": "2026-10-23T19:17:01Z",
+    "publisher_modified_utc": "2026-10-23T19:18:51Z",
+    "known_capture_utc": "2026-10-23T23:40:05.724Z",
+    "report_origin": "Reuters",
+    "syndicator": "Kitco",
+    "independent_source_count": 1,
+    "event_confirmation": "UNCONFIRMED",
+    "comparison_clock": "NO_EXACT_SHARED_FOUR_METAL_CLOCK_SUPPLIED",
+    "photograph_date": "2022-09-17",
+    "capture_is_new_event": false
+  },
+  "scope": "Exact observed clocks and identity; financial report truth distinct from independent event truth; no Core numeric authority"
+}

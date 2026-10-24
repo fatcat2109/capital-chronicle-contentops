@@ -6,7 +6,7 @@ import type { ReportWorkspaceData, MaintainedNativeStory } from '../dailyAppType
 const DESTINATIONS = ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube'];
 const display = (value: string) => value.replace(/_/g, ' ');
 const retainedSourceDate = (source: { published_at_source?: string; published_at_utc: string }) =>
-  /^\d{4}-\d{2}-\d{2}$/.test(source.published_at_source ?? '')
+  /^(?:\d{4}-\d{2}-\d{2}|(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4})$/.test(source.published_at_source ?? '')
     ? `${source.published_at_source} (date only; release time not supplied)`
     : source.published_at_utc || 'Không cung cấp ngày xuất bản';
 const sourceDecision: Record<string, string> = {
@@ -229,7 +229,7 @@ export function ReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData 
         {s.invalidates_prepared_review && <p>Chuẩn bị phát hành bản cũ cần xem lại; chưa được dùng quyết định KEEP trước đây để phát hành.</p>}
         <p>Media: {sourceDecision[s.media_state] ?? display(s.media_state)}.</p>
         <details><summary>Đối chiếu nguồn, ngày và giới hạn</summary>
-          {s.source_editions.map(e => <p key={e.item_id}>{e.proposition}<br />Quan sát: {e.observation_date ?? 'không ghi'} · Công bố: {e.published_at_utc?.slice(0, 10) ?? 'chưa xác minh'} · Lấy nguồn: {e.retrieved_at_utc}<br />{display(e.period_relation)} · {e.rights_state} · <a href={e.source_url}>Nguồn gốc</a></p>)}
+          {s.source_editions.map(e => <p key={e.item_id}>{e.proposition ?? 'Retained source identity; no new source proposition recorded.'}<br />Quan sát: {e.observation_date ?? 'không ghi'} · Công bố: {e.published_at_utc?.slice(0, 10) ?? 'chưa xác minh'} · Lấy nguồn: {e.retrieved_at_utc ?? 'not separately recorded in this revision'}<br />{e.period_relation ? display(e.period_relation) : 'No new observation period declared'} · {e.rights_state ?? 'See the exact retained source rights record'} · <a href={e.source_url}>Nguồn gốc</a></p>)}
           {s.source_attempts.map((a, i) => <p key={i}>{display(a.status)} · <a href={a.url}>Nguồn đã kiểm tra</a> · {a.observed_at_utc}</p>)}
           {!!s.removed_main_claim_ids.length && <p>Main đã rút: {s.removed_main_claim_ids.join(', ')}.</p>}
         </details>

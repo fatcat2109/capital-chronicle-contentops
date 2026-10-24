@@ -167,7 +167,8 @@ describe('Main report editorial workspace', () => {
       angle: 'Separate contract risks', reader_question: 'What is actually owned?', mode: 'EVERGREEN_EXPLAINER',
       review: { decision: 'KEEP', rationale: 'Bounded educational scope and exact source dates retained.' },
       evidence: [{ source_id: 'SOURCE_1', publisher: 'CFTC', url: 'https://www.cftc.gov/example', published_at_utc: '' },
-        { source_id: 'SOURCE_2', publisher: 'Issuer', url: 'https://www.sec.gov/Archives/example.htm', published_at_utc: '2025-07-24T00:00:00Z', published_at_source: '2025-07-24' }],
+        { source_id: 'SOURCE_2', publisher: 'Issuer', url: 'https://www.sec.gov/Archives/example.htm', published_at_utc: '2025-07-24T00:00:00Z', published_at_source: '2025-07-24' },
+        { source_id: 'SOURCE_3', publisher: 'Controlled dated agency', url: 'https://example.com/policy', published_at_utc: '2026-09-16T00:00:00Z', published_at_source: 'September 16, 2026' }],
       previews: snapshot.previews }];
     render(<ReportEditorialWorkspace data={snapshot} />);
     const edition = screen.getByLabelText('Ấn bản newsroom');
@@ -177,11 +178,28 @@ describe('Main report editorial workspace', () => {
     expect(within(edition).getByText(/Không cung cấp ngày xuất bản/)).toBeInTheDocument();
     expect(within(edition).getByText(/2025-07-24 \(date only; release time not supplied\)/)).toBeInTheDocument();
     expect(edition.textContent).not.toContain('2025-07-24T00:00:00Z');
+    expect(within(edition).getByText(/September 16, 2026 \(date only; release time not supplied\)/)).toBeInTheDocument();
+    expect(edition.textContent).not.toContain('2026-09-16T00:00:00Z');
     expect(edition.querySelectorAll('[data-edition-destination]')).toHaveLength(8);
     expect(within(edition).getByText('Mechanism')).toBeInTheDocument();
     expect(within(edition).getByText('Dated educational interpretation.').tagName).toBe('STRONG');
     expect(within(edition).getByRole('link', { name: 'Agency source' })).toHaveAttribute('href', 'https://www.cftc.gov/example');
     expect(within(edition).getByRole('listitem')).toHaveTextContent('Exact dated scope.');
+  });
+  it('renders an exact minimal editorial revision source record without inventing missing metadata', () => {
+    const snapshot = data();
+    snapshot.source_reviews = [{ review_id: 'editorial-revision-control', run_id: 'revision', title: 'Same-facts editorial revision',
+      decision: 'EDITORIAL_REVISION', reader_change_summary: 'Reader-facing prose change; no new facts.',
+      cutoff_utc: '2026-10-21T22:29:51Z', invalidates_prepared_review: false,
+      media_state: 'REPLAN_LAWFUL_CONTEXTUAL_PHOTO_AND_SOURCE_BOUND_CHART', removed_main_claim_ids: [],
+      source_editions: [{ item_id: 'retained-source', source_url: 'https://example.com/retained', published_at_utc: '2026-10-21T20:06:00Z' }],
+      source_attempts: [] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    expect(screen.getByText('Same-facts editorial revision')).toBeInTheDocument();
+    expect(screen.getByText(/No new observation period declared/)).toBeInTheDocument();
+    expect(screen.getByText(/not separately recorded in this revision/)).toBeInTheDocument();
+    expect(screen.getByText(/See the exact retained source rights record/)).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Nguồn gốc' })).toHaveAttribute('href', 'https://example.com/retained');
   });
   it('keeps independent evidence, recirculation, controlled conversion and media visible', () => {
     const snapshot = data();

@@ -915,10 +915,13 @@ def _typed_chart_values(document, rows, unit):
         value_context = " ".join(str(row.get("value_context") or "").split())
         if (not excerpt or excerpt not in text or not metric or metric not in excerpt or not period
                 or (period not in excerpt and period != str(document.get("published_at_utc", ""))[:10])
-                or any(token not in excerpt for token in units[unit])
+                or (not re.search(r"%|\bpercent\b", excerpt) if unit == "%" else any(token not in excerpt for token in units[unit]))
                 or row.get("unit") != unit or not row.get("label") or not value_context or value_context not in excerpt
-                or kind not in {"ACTUAL", "ESTIMATE", "FORECAST"}):
+                or kind not in {"ACTUAL", "ESTIMATE", "FORECAST", "ANNOUNCED_POLICY"}):
             raise GroundedArticleBuilderError("chart_metric_unit_period_or_kind_unbound")
+        if kind == "ANNOUNCED_POLICY" and (unit != "%" or not re.search(r"\brate\b", value_context, re.I)
+                                             or not re.search(r"\beffective\b", excerpt, re.I)):
+            raise GroundedArticleBuilderError("chart_announced_policy_unbound")
         if kind == "ESTIMATE" and not re.search(r"expect|estimate", value_context, re.I):
             raise GroundedArticleBuilderError("chart_estimate_label_unbound")
         if kind == "FORECAST" and not re.search(r"expect|forecast|outlook|previously", value_context, re.I):
@@ -937,13 +940,15 @@ def _typed_chart_values(document, rows, unit):
             if not math.isfinite(number):
                 raise GroundedArticleBuilderError("chart_value_not_finite")
             vals.append(number)
+        decline = r"\b(?:fell|fallen|slid|dropped|declined)\b" if unit == "%" else r"(?!)"
+        negative_pattern = r"\b(deficit|cash burn|loss)\b|" + decline
         if row.get("negative_evidence"):
             negative = " ".join(str(row["negative_evidence"]).split())
             if (len(vals) != 1 or negative not in value_context or str(spellings[0]) not in negative
-                    or not re.search(r"\b(deficit|cash burn|loss)\b", negative, re.I) or vals[0] < 0):
+                    or not re.search(negative_pattern, negative, re.I) or vals[0] < 0):
                 raise GroundedArticleBuilderError("chart_negative_sign_unbound")
             vals[0] = -vals[0]
-        elif re.search(r"\b(deficit|cash burn|loss)\b", value_context, re.I) and not all(v < 0 for v in vals):
+        elif re.search(negative_pattern, value_context, re.I) and not all(v < 0 for v in vals):
             raise GroundedArticleBuilderError("chart_negative_magnitude_requires_explicit_sign_binding")
         if len(vals) == 2 and vals[0] > vals[1]:
             raise GroundedArticleBuilderError("chart_range_inverted")
@@ -967,7 +972,10 @@ def _build_typed_source_value_chart(document, *, rows, title, unit, output_dir):
         flat = [v for pair in values for v in pair] + [0]
         span = max(flat) - min(flat) or 1
         for i, (row, pair) in enumerate(zip(rows, values)):
-            labels.append(textwrap.fill(row["label"], 28) + "\n" + row["period"] + " · " + row["observation_kind"].lower())
+            kind_label = row["observation_kind"].lower().replace("_", " ")
+            if document.get("report_truth_only") and row["observation_kind"] == "ACTUAL":
+                kind_label = "reported actual"
+            labels.append(textwrap.fill(row["label"], 28) + "\n" + row["period"] + " · " + kind_label)
             color = "#12666a" if row["observation_kind"] == "ACTUAL" else "#8a6b36"
             if len(pair) == 2:
                 ax.plot(pair, [i, i], linewidth=9, color=color, solid_capstyle="butt")
@@ -990,7 +998,8 @@ def _build_typed_source_value_chart(document, *, rows, title, unit, output_dir):
                  str(document["published_at_utc"])[:10] +
                  "\nReported values, independently redrawn. " +
                  ("Ranges are bounds, not midpoint estimates." if any(len(v) == 2 for v in values)
-                  else "No missing values filled or forecasts derived."), fontsize=10)
+                 else "Reported observations; timing may differ. No causal inference or forecasts."
+                 if document.get("report_truth_only") else "No missing values filled or forecasts derived."), fontsize=10)
         fig.subplots_adjust(left=.34, right=.96, top=.78, bottom=.21)
         fig.savefig(path, facecolor=fig.get_facecolor())
         plt.close(fig)

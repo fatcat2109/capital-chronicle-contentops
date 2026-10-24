@@ -10,6 +10,7 @@ import io
 import json
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Callable, Mapping, Sequence
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
@@ -86,7 +87,7 @@ def validate_contextual_photo(asset: Mapping[str, Any]) -> None:
             return sanitize_source_text(re.sub(r"<[^>]*>", "", str(value))).strip()
         if (info["descriptionurl"] != asset["source_page_url"]
                 or info["url"].split("?", 1)[0] != asset["original_asset_url"]
-                or _normalise_license_url(meta["LicenseUrl"]["value"].replace("http://", "https://", 1)) != asset["license_url"]
+                or _contextual_license_url(receipt, provider, meta) != asset["license_url"]
                 or _rights_from_license(meta["LicenseShortName"]["value"]) != asset["rights_status"]
                 or plain(meta["DateTimeOriginal"]["value"]) != asset["depicted_date"]
                 or receipt.get("original_sha256") != digest):
@@ -105,6 +106,32 @@ def validate_contextual_photo(asset: Mapping[str, Any]) -> None:
             raise ValueError("PHOTO_DELIVERY_DIMENSIONS_INVALID")
     if asset.get("context_only") is not True or asset.get("corroborates_article_facts") is not False:
         raise ValueError("CONTEXTUAL_PHOTO_IS_NOT_FACTUAL_CORROBORATION")
+
+
+def _contextual_license_url(receipt, provider, meta):
+    """Commons US federal works may have no LicenseUrl; verify its exact basis."""
+    if meta.get("LicenseUrl", {}).get("value"):
+        return _normalise_license_url(meta["LicenseUrl"]["value"].replace("http://", "https://", 1))
+    basis = receipt.get("public_domain_basis") or {}
+    policy_url = "https://commons.wikimedia.org/wiki/Template:PD-USGov"
+    if (meta.get("License", {}).get("value") != "pd"
+            or meta.get("LicenseShortName", {}).get("value") != "Public domain"
+            or meta.get("Copyrighted", {}).get("value") != "False"
+            or "{{PD-USGov}}" not in provider["page"].get("license_wikitext", "")
+            or basis.get("policy_url") != policy_url):
+        raise ValueError("PHOTO_PUBLIC_DOMAIN_BASIS_REQUIRED")
+    raw = Path(basis["policy_capture_path"]).read_bytes()
+    policy = json.loads(raw)
+    text = " ".join(str(policy.get("canonical_content_text") or "").split()).lower()
+    if (hashlib.sha256(raw).hexdigest() != basis.get("policy_capture_sha256")
+            or policy.get("status") != "PASS" or policy.get("final_url") != policy_url
+            or policy.get("retrieval_method") != "READ_ONLY_BROWSEROS_NEO_PUBLIC_LICENSE"
+            or not all(s in text for s in ("public domain", "united states federal government",
+                                          "official duties", "section 105"))
+            or policy.get("credential_or_session_material_read") is not False
+            or policy.get("public_write_performed") is not False):
+        raise ValueError("PHOTO_PUBLIC_DOMAIN_POLICY_NOT_VERIFIED")
+    return policy_url
 REQUIRED_CANDIDATE_FIELDS = (
     "visual_intent", "discovery_provider", "query", "source_page_url",
     "original_asset_url", "creator_publisher", "reuse_basis", "attribution", "width",

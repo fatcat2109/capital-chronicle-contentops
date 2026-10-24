@@ -1,0 +1,458 @@
+[
+  {
+    "layout": {
+      "date_only_visible": true,
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1060.0625
+        },
+        {
+          "destination": "x",
+          "height": 1150.15625
+        },
+        {
+          "destination": "linkedin",
+          "height": 1071.109375
+        },
+        {
+          "destination": "discord",
+          "height": 1015.015625
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1043.0625
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1060.0625
+        },
+        {
+          "destination": "threads",
+          "height": 1178.203125
+        },
+        {
+          "destination": "youtube",
+          "height": 1015.015625
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 12657,
+      "images_loaded": true,
+      "run": "v1-prelive-fed-policy",
+      "scrollWidth": 1425,
+      "source_link_count": 26,
+      "text_length": 10649,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "sha256": "d1817991fd46471c9d8e0b4c5ef40b6338aa8e6a86e02f051146eec5c981f8e2",
+      "pages": 8,
+      "bytes": 309871,
+      "retained_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\final\\policy-desktop.pdf",
+      "text_characters": 10430
+    },
+    "slug": "policy",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "date_only_visible": false,
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1116.15625
+        },
+        {
+          "destination": "x",
+          "height": 1251.296875
+        },
+        {
+          "destination": "linkedin",
+          "height": 1071.109375
+        },
+        {
+          "destination": "discord",
+          "height": 1071.109375
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1071.109375
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1116.15625
+        },
+        {
+          "destination": "threads",
+          "height": 1206.25
+        },
+        {
+          "destination": "youtube",
+          "height": 1071.109375
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 12386,
+      "images_loaded": true,
+      "run": "v1-prelive-gold-oct23",
+      "scrollWidth": 1425,
+      "source_link_count": 19,
+      "text_length": 9935,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "sha256": "f68fbd874e199d45e0f129a177310c399987c51744d884abf6fc202cacdb577b",
+      "pages": 8,
+      "bytes": 402553,
+      "retained_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\final\\gold-desktop.pdf",
+      "text_characters": 9724
+    },
+    "slug": "gold",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "date_only_visible": false,
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1088.109375
+        },
+        {
+          "destination": "x",
+          "height": 1178.203125
+        },
+        {
+          "destination": "linkedin",
+          "height": 1043.0625
+        },
+        {
+          "destination": "discord",
+          "height": 1015.015625
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1043.0625
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1060.0625
+        },
+        {
+          "destination": "threads",
+          "height": 1178.203125
+        },
+        {
+          "destination": "youtube",
+          "height": 1043.0625
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 12084,
+      "images_loaded": true,
+      "run": "v1-prelive-tesla-r2",
+      "scrollWidth": 1425,
+      "source_link_count": 19,
+      "text_length": 8964,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "sha256": "9165d0eb047e849a905d24cd200ca6187b9712ee71eead063af2ae511023549c",
+      "pages": 8,
+      "bytes": 433520,
+      "retained_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\final\\tesla-r2-desktop.pdf",
+      "text_characters": 8747
+    },
+    "slug": "tesla-r2",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "date_only_visible": false,
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 1060.0625
+        },
+        {
+          "destination": "x",
+          "height": 1195.203125
+        },
+        {
+          "destination": "linkedin",
+          "height": 1043.0625
+        },
+        {
+          "destination": "discord",
+          "height": 1043.0625
+        },
+        {
+          "destination": "facebook_page",
+          "height": 1043.0625
+        },
+        {
+          "destination": "instagram_business",
+          "height": 1088.109375
+        },
+        {
+          "destination": "threads",
+          "height": 1150.15625
+        },
+        {
+          "destination": "youtube",
+          "height": 1015.015625
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 12212,
+      "images_loaded": true,
+      "run": "v1-prelive-southwest-r2",
+      "scrollWidth": 1425,
+      "source_link_count": 21,
+      "text_length": 9674,
+      "visible_image_count": 10,
+      "width": 1440
+    },
+    "pdf": {
+      "sha256": "ec4e233feec375f907d41bdaa26cb0b1cb34ba28e68fc3ac923adc1ddcf2a7cb",
+      "pages": 8,
+      "bytes": 289616,
+      "retained_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\final\\southwest-r2-desktop.pdf",
+      "text_characters": 9446
+    },
+    "slug": "southwest-r2",
+    "viewport": "desktop"
+  },
+  {
+    "layout": {
+      "date_only_visible": true,
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 909.859375
+        },
+        {
+          "destination": "x",
+          "height": 968.25
+        },
+        {
+          "destination": "linkedin",
+          "height": 946.640625
+        },
+        {
+          "destination": "discord",
+          "height": 841.078125
+        },
+        {
+          "destination": "facebook_page",
+          "height": 920.25
+        },
+        {
+          "destination": "instagram_business",
+          "height": 857.078125
+        },
+        {
+          "destination": "threads",
+          "height": 994.640625
+        },
+        {
+          "destination": "youtube",
+          "height": 867.46875
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 12444,
+      "images_loaded": true,
+      "run": "v1-prelive-fed-policy",
+      "scrollWidth": 390,
+      "source_link_count": 26,
+      "text_length": 10649,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "sha256": "93bacafc9a42fb57b5a5e4949f5713e98171c74e09aa35674685fde9b000fa2a",
+      "pages": 9,
+      "bytes": 317163,
+      "retained_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\final\\policy-mobile.pdf",
+      "text_characters": 10455
+    },
+    "slug": "policy",
+    "viewport": "mobile"
+  },
+  {
+    "layout": {
+      "date_only_visible": false,
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 962.640625
+        },
+        {
+          "destination": "x",
+          "height": 1037.03125
+        },
+        {
+          "destination": "linkedin",
+          "height": 893.859375
+        },
+        {
+          "destination": "discord",
+          "height": 920.25
+        },
+        {
+          "destination": "facebook_page",
+          "height": 893.859375
+        },
+        {
+          "destination": "instagram_business",
+          "height": 936.25
+        },
+        {
+          "destination": "threads",
+          "height": 1021.03125
+        },
+        {
+          "destination": "youtube",
+          "height": 946.640625
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 11597,
+      "images_loaded": true,
+      "run": "v1-prelive-gold-oct23",
+      "scrollWidth": 390,
+      "source_link_count": 19,
+      "text_length": 9935,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "sha256": "7ccac870e3de8a3304c8d8d9f8fdd85d33ff1acfee11c392d3c4fdb6487b9970",
+      "pages": 8,
+      "bytes": 403504,
+      "retained_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\final\\gold-mobile.pdf",
+      "text_characters": 9753
+    },
+    "slug": "gold",
+    "viewport": "mobile"
+  },
+  {
+    "layout": {
+      "date_only_visible": false,
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 883.46875
+        },
+        {
+          "destination": "x",
+          "height": 941.859375
+        },
+        {
+          "destination": "linkedin",
+          "height": 867.46875
+        },
+        {
+          "destination": "discord",
+          "height": 814.6875
+        },
+        {
+          "destination": "facebook_page",
+          "height": 867.46875
+        },
+        {
+          "destination": "instagram_business",
+          "height": 830.6875
+        },
+        {
+          "destination": "threads",
+          "height": 941.859375
+        },
+        {
+          "destination": "youtube",
+          "height": 867.46875
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 10979,
+      "images_loaded": true,
+      "run": "v1-prelive-tesla-r2",
+      "scrollWidth": 390,
+      "source_link_count": 19,
+      "text_length": 8964,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "sha256": "3aec5fe7dd71d688792d5940eb5b7a5aacb432868462add91a895ef33b8f3279",
+      "pages": 7,
+      "bytes": 433336,
+      "retained_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\final\\tesla-r2-mobile.pdf",
+      "text_characters": 8780
+    },
+    "slug": "tesla-r2",
+    "viewport": "mobile"
+  },
+  {
+    "layout": {
+      "date_only_visible": false,
+      "destinations": [
+        {
+          "destination": "telegram",
+          "height": 883.46875
+        },
+        {
+          "destination": "x",
+          "height": 984.25
+        },
+        {
+          "destination": "linkedin",
+          "height": 893.859375
+        },
+        {
+          "destination": "discord",
+          "height": 893.859375
+        },
+        {
+          "destination": "facebook_page",
+          "height": 867.46875
+        },
+        {
+          "destination": "instagram_business",
+          "height": 909.859375
+        },
+        {
+          "destination": "threads",
+          "height": 968.25
+        },
+        {
+          "destination": "youtube",
+          "height": 841.078125
+        }
+      ],
+      "has_internal_source_marker": false,
+      "height": 11490,
+      "images_loaded": true,
+      "run": "v1-prelive-southwest-r2",
+      "scrollWidth": 390,
+      "source_link_count": 21,
+      "text_length": 9674,
+      "visible_image_count": 10,
+      "width": 390
+    },
+    "pdf": {
+      "sha256": "7388da80916f7037c5df1bf342e5307f1bef1d62c1de7ce53a8eac693bc7e488",
+      "pages": 8,
+      "bytes": 290617,
+      "retained_path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\renders\\final\\southwest-r2-mobile.pdf",
+      "text_characters": 9474
+    },
+    "slug": "southwest-r2",
+    "viewport": "mobile"
+  }
+]

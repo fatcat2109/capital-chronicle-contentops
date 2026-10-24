@@ -1048,6 +1048,9 @@ def _source_pack(documents: Sequence[Mapping[str, Any]]) -> list[dict[str, Any]]
                 "canonical_content_text": text[:MAX_SOURCE_TEXT_CHARS],
                 **({"source_reuse_constraints": dict(document["source_reuse_constraints"])}
                    if document.get("source_reuse_constraints") else {}),
+                **({k: document[k] for k in ("underlying_reuse_classification", "rights_evidence_sha256")}
+                   if document.get("underlying_reuse_classification") == "governed_government_public_domain"
+                   and document.get("rights_evidence_sha256") else {}),
                 **({"report_lineage": dict(document["report_lineage"])} if document.get("report_lineage") else {}),
             }
         )

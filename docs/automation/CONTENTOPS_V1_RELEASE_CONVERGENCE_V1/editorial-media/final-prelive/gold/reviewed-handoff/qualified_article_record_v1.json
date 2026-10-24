@@ -1,0 +1,563 @@
+{
+  "accepted_evidence_ids": [
+    "prelive-gold-20261023"
+  ],
+  "accepted_evidence_sha256": "cabda157d470e1f0a219ec4ff5486c0bda3223b4fce1ba9ca477de2be85b7960",
+  "article_body_sha256": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+  "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+  "article_path": null,
+  "attempt_run_id": "v1-prelive-gold-oct23",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-gold-20261023"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nSINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nSINGLE-SOURCE REPORT - REUTERS: gold below $4,000 and declines in silver, platinum and palladium complicate a simple safe-haven story.\n\nWhat to watch: For the single-source Reuters account, the next useful test is whether comparable-time observations of metals, energy and rate expectations support the proposed sequence.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-252873df545bc899\n\nSource date: 2026-10-23. Interpretation remains analysis."
+      },
+      "payload_sha256": "6e8d0b985eafeae12232d0425c66921642f2b0151ad781c1c156152c1ec1aa36",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-gold-20261023"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-252873df545bc899\n\nSINGLE-SOURCE REPORT - REUTERS: gold below $4,000 and declines in silver, platinum and palladium complicate a simple safe-haven story.\n\nWatch: For the single-source Reuters account, the next useful test is whether comparable-time observations of metals, energy and rate expectations support the proposed sequence.\n\nSource date: 2026-10-23.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-252873df545bc899"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "SINGLE-SOURCE REPORT - REUTERS: gold below $4,000 and declines in silver, platinum and palladium complicate a simple safe-haven story."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Watch: For the single-source Reuters account, the next useful test is whether comparable-time observations of metals, energy and rate expectations support the proposed sequence.\n\nSource date: 2026-10-23.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.704,
+            0.479,
+            0.846
+          ],
+          "post_character_counts": [
+            197,
+            134,
+            237
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.565,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "SINGLE-SOURCE REPORT - REUTERS: gold below $4,000 and declines in silver, platinum and palladium complicate a simple safe-haven story.",
+          "Watch: For the single-source Reuters account, the next useful test is whether comparable-time observations of metals, energy and rate expectations support the proposed sequence.\n\nSource date: 2026-10-23.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-252873df545bc899",
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-252873df545bc899"
+      },
+      "payload_sha256": "2b902a50baea9a13477198080217623f2234322b92ccf448383c382b5398964c",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-gold-20261023"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]**\n\nSINGLE-SOURCE REPORT - REUTERS: gold below $4,000 and declines in silver, platinum and palladium complicate a simple safe-haven story.\n\n**Context:** Reuters attributed the pressure to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-252873df545bc899\n\nSource date: 2026-10-23. Interpretation remains analysis."
+      },
+      "payload_sha256": "93560a4dc53fb610d933792034aa9f3731cbf5b6b6fb64c7daf14f3c92a4ece7",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-gold-20261023"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 3000,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nWhy it matters: Capital Chronicle's analysis: if Reuters' account is accurate, expectations of tighter policy could compete with demand for gold as protection against uncertainty.\n\nContext: Reuters attributed the pressure to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-252873df545bc899\n\nSource date: 2026-10-23. Interpretation remains analysis."
+      },
+      "payload_sha256": "58f45a96b5befe118758697df14607f1e794d3f38bf2a85ba790a92915cbf481",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-gold-20261023"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 63206,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nSINGLE-SOURCE REPORT - REUTERS: gold below $4,000 and declines in silver, platinum and palladium complicate a simple safe-haven story.\n\nWhy it matters: Capital Chronicle's analysis: if Reuters' account is accurate, expectations of tighter policy could compete with demand for gold as protection against uncertainty.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-252873df545bc899\n\nSource date: 2026-10-23. Interpretation remains analysis."
+      },
+      "payload_sha256": "bc6095ee4875a2848d582a35284f2709ee0ad43f13b02e1883417d3eb7912885",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-gold-20261023"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2200,
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nSINGLE-SOURCE REPORT - REUTERS: gold below $4,000 and declines in silver, platinum and palladium complicate a simple safe-haven story.\n\nIn focus: Reuters attributed the pressure to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-252873df545bc899\n\n#CapitalChronicle\n\nSource date: 2026-10-23. Interpretation remains analysis."
+      },
+      "payload_sha256": "6260d58cc2f771b452dd1c8378b66ceacec795002215f9cfd538f85b8d0eb9cc",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-gold-20261023"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nReuters attributed the pressure to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-252873df545bc899\n\nWhat to watch: For the single-source Reuters account, the next useful test is whether comparable-time observations of metals, energy and rate expectations support the proposed sequence.\n\nSource date: 2026-10-23.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nReuters attributed the pressure to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-252873df545bc899"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: For the single-source Reuters account, the next useful test is whether comparable-time observations of metals, energy and rate expectations support the proposed sequence.\n\nSource date: 2026-10-23.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.736,
+            0.49
+          ],
+          "post_character_counts": [
+            368,
+            245
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.666,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: For the single-source Reuters account, the next useful test is whether comparable-time observations of metals, energy and rate expectations support the proposed sequence.\n\nSource date: 2026-10-23.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nReuters attributed the pressure to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-252873df545bc899",
+        "text": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nReuters attributed the pressure to higher energy prices, inflation concerns and expectations of a US rate increase ahead of the following week's Federal Reserve meeting.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-252873df545bc899"
+      },
+      "payload_sha256": "7e023544ca1ab6a0d21aefe09c9c1b5ac78abf0c48fcb5a9ead86c9e97fdb3a0",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "DIRECT_REPUTABLE_REPORT",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-gold-20261023"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1000,
+        "text": "Update: SINGLE-SOURCE REPORT - REUTERS | Reuters reports gold below $4,000: a test for the safe-haven story [Source 2026-10-23]\n\nSINGLE-SOURCE REPORT - REUTERS: gold below $4,000 and declines in silver, platinum and palladium complicate a simple safe-haven story.\n\nWhat to watch: For the single-source Reuters account, the next useful test is whether comparable-time observations of metals, energy and rate expectations support the proposed sequence.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-252873df545bc899\n\nSource date: 2026-10-23. Interpretation remains analysis."
+      },
+      "payload_sha256": "94a13b8409d82aba73c902fdc8a423698cd1c4f98bbcc89c5ff5d536cd275590",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/v1_prelive_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.spawn_agent and returned native worker files; exact request and execution note retained",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/v1_prelive_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration role request and returned native worker files",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "media-plan",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/v1_prelive_max_gold",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration dispatch/resume and completed worker return with execution note; no model API",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 3,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that gold set for steep weekly loss as rising oil prices bolster Fed rate hike bets",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "DIRECT_REPUTABLE_REPORT",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "prelive-gold-20261023"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-24-bangkok",
+  "parent_window_id": "v1-prelive-gold-oct23",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "3a415715438841e6bdb30e54090eb85be3edfcb327bda9d42962f884417b0836",
+  "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-231c501f96a7eb733a96a29b",
+  "title": "Reuters reports gold below $4,000: a test for the safe-haven story",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-231c501f96a7eb733a96a29b"
+}

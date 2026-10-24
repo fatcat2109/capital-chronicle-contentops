@@ -1,0 +1,26 @@
+{
+  "policy": {
+    "request_sha256": "20e949017909a741fe0f43c0b5a80774fbb3bd9ed3ec4fd97eafa57a9dafb1c8",
+    "run_id": "v1-prelive-fed-policy",
+    "request_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\policy\\desktop_request_write.json",
+    "worker_output_exists": false
+  },
+  "gold": {
+    "request_sha256": "f7b7cf5d86c923fa19fd4346baa4731fc8bb64ba4f1b69e7bfd86a4e6113f1ad",
+    "run_id": "v1-prelive-gold-oct23",
+    "request_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\gold\\desktop_request_write.json",
+    "worker_output_exists": false
+  },
+  "tesla-r2": {
+    "request_sha256": "ba2197472c9a9863c3a9e0251dfbb415c7cef5694849ef509bc66eeb1d824e7b",
+    "run_id": "v1-prelive-tesla-r2",
+    "request_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\tesla-r2\\desktop_request_write.json",
+    "worker_output_exists": true
+  },
+  "southwest-r2": {
+    "request_sha256": "f5053f074c0444fb3fdcac5ba10ec783886331bd3e4dc84153088f8d36a055a3",
+    "run_id": "v1-prelive-southwest-r2",
+    "request_path": "docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\southwest-r2\\desktop_request_write.json",
+    "worker_output_exists": false
+  }
+}

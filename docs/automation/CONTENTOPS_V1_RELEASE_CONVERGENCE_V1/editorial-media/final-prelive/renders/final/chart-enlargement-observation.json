@@ -1,0 +1,13 @@
+{
+  "surface": "Actual BrowserOS Neo mobile DOM-measured control coordinates and native CDP mouse click, closed-to-open",
+  "run_id": "v1-prelive-southwest-r2",
+  "page_width": 390,
+  "page_scroll_width": 390,
+  "open": true,
+  "container_width": 332,
+  "scroll_width": 1680,
+  "natural_width": 1680,
+  "display_width": 1680,
+  "image_loaded": true,
+  "public_write_performed": false
+}

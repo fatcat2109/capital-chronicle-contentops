@@ -1,0 +1,13 @@
+{
+  "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+  "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+  "review_id": "native-article-review-0a8210a4ee884f11904413351da535ce",
+  "plan_hash": "73facf0fb0d2de531ced59b0da93d0c7f8c73e551ff7e58772c7d45d2f28f5b5",
+  "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-prelive-tesla-r2\\reviewed-handoff",
+  "media_reuse_count": 2,
+  "preview_count": 8,
+  "new_qualified_articles": 0,
+  "model_invocations": 0,
+  "source_requests": 0,
+  "public_write_performed": false
+}

@@ -1,0 +1,14 @@
+observed-public-sources.json
+raw-*.json
+photo-original-downloads.json
+renders/*
+!renders/*.gz
+!renders/*receipt.json
+!renders/inspected-content-sha256.json
+!renders/final/
+renders/final/*
+!renders/final/*.pdf
+!renders/final/*inspection*.jpg
+!renders/final/browser-observations.json
+!renders/final/visual-review.json
+!renders/final/chart-enlargement-observation.json

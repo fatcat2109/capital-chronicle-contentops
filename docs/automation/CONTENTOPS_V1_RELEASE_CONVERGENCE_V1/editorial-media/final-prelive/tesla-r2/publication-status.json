@@ -1,0 +1,125 @@
+{
+  "accepted_evidence_sha256": "6d3f929de8282bd8ac57ba0634b4661cae1d8a3903a5182547b7ff6285a4f0b7",
+  "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+  "artifact_sha256": {
+    "article_manifest_v1.json": "c3499fc83ee7b0ab5d2442fe5f5f9decb8adf25c2ad0db3b6f8bfbd4a83ce00f",
+    "native_derivative_previews_v1.json": "9f3db77cd76407a83c0dfdc4d6b4387eedb454f2cea2513b9b2367993043ccc2",
+    "publication_lifecycle_plan_v1.json": "40904827f67d853fd131b00195176b72d0403ae7d73b6551033a320081c0edef",
+    "qualified_article_record_v1.json": "75360bb0582714d70a472fddc90cbac73573939b2d6e7b8b4b7af86e8899aa04",
+    "run_context_v1.json": "42dcfe5eecd342cbae28e9419416ddd0168d605db4b3f7a95820cfee2ba4e413"
+  },
+  "binding_sha256": "85686e06382a0ba5a5e0a3e6e381f7f95145b0ce86f2e5ae386fc54b7abba558",
+  "media_sha256": {
+    "documentary_tesla": "a08499ae2b5f5ebfc223dde6525ab8992cdcfe13e605c01dce575d0187347d43",
+    "source_value_comparison": "bb7650d03d73bc9f13d1a588fd411a571563f1be6fc238f39ad19647bb478e22"
+  },
+  "native_result_sha256": "9431690346ce762c1434748cf0e07d5a3d1a90cb5f75a993106e78aceec2b925",
+  "plan_hash": "73facf0fb0d2de531ced59b0da93d0c7f8c73e551ff7e58772c7d45d2f28f5b5",
+  "prepared_handoff_sha256": "cacc85e077805abc67485b6ff97f5825c7030e92bc01107a97baab61637f08d2",
+  "publication_authority": false,
+  "review_id": "native-article-review-0a8210a4ee884f11904413351da535ce",
+  "review_notes_sha256": "7b0e351c4dabfb06a1df2163bb99b25e710fcc00d7466f828165e6e70ef9ac94",
+  "run_id": "v1-prelive-tesla-r2",
+  "schema_version": "contentops.native_publication_binding.v1",
+  "work_item_id": "v1-prelive-tesla-r2",
+  "state": "PREPARED",
+  "operation_scope": "OWNER_MANUAL_ISOLATED",
+  "destinations": [
+    {
+      "destination": "substack",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_4c78c07e9ec74cde4768735015c556fb",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "telegram",
+      "transport": "BOT_API",
+      "dispatch_id": "dispatch_19b4c19ea77d2a67799eff71e38080b0",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "discord",
+      "transport": "WEBHOOK_API",
+      "dispatch_id": "dispatch_7efd6fd94791e79cfd1c778cc3369fa5",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "x",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_c7bc4d789b14dd7b119ae5faa6e55a2d",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "linkedin",
+      "transport": "OFFICIAL_MEMBER_API",
+      "dispatch_id": "dispatch_f25ac1d6b8247cbf8af03f5e7fb632a6",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "facebook_page",
+      "transport": "META_GRAPH_API",
+      "dispatch_id": "dispatch_1b23c25012caff18d959049c40ab4299",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "instagram_business",
+      "transport": "META_GRAPH_API",
+      "dispatch_id": "dispatch_7c49076f0669ad6365a3a495202179de",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "threads",
+      "transport": "THREADS_API",
+      "dispatch_id": "dispatch_0a1f1e18b206a60c6ac57bfbf907989e",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    },
+    {
+      "destination": "youtube",
+      "transport": "BROWSEROS_NEO_MCP",
+      "dispatch_id": "dispatch_576b37f34e6122b7c0e045eae367678a",
+      "status": "NOT_DISPATCHED",
+      "reconciliation_status": null,
+      "public_object_url": null,
+      "cached_readiness": "NOT_VERIFIED",
+      "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+    }
+  ],
+  "pending_requests": [],
+  "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+  "next_operation": "publication-status",
+  "dispatch_continuation_operation": "publication-resume",
+  "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\v1-prelive-tesla-r2\\binding.json\"",
+  "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+}

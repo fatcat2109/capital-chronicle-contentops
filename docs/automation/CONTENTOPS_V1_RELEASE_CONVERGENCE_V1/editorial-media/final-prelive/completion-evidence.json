@@ -1,0 +1,393 @@
+{
+  "schema_version": "contentops.final_prelive_editorial_acceptance_evidence.v1",
+  "observed_at_utc": "2026-10-24T06:15:06.546058+00:00",
+  "goal": "CONTENTOPS_V1_FINAL_PRELIVE_EDITORIAL_ACCEPTANCE_V1",
+  "native_goal_created_at": 1792798166,
+  "local_acceptance": "COMPLETE_FOR_L2_INTERNAL_AUDIT",
+  "counts": {
+    "ready": 7,
+    "required": 7,
+    "missing": 0,
+    "held_fx": 1,
+    "photos": 7,
+    "charts_and_data": 7,
+    "native_packages": 56,
+    "keep_prepared": 7,
+    "destinations_not_dispatched": 63,
+    "published": 0,
+    "unchanged_c9_articles": 3,
+    "bounded_c9_copy_revisions": 2,
+    "new_dated_policy_explainer": 1,
+    "new_october23_attributed_news_report": 1
+  },
+  "articles": [
+    {
+      "operation_id": "v1-media-oil-r1",
+      "article_identity": "dd35549524995218637cdda1395043471fb775ef939e8d37f9c4b7c86bd88429",
+      "title": "Reuters: Oil prices lost early momentum by the October 21 close",
+      "mode": "STANDARD_NEWS_ANALYSIS",
+      "source_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+      "story_identity": "simple-story-3c160cea87fca66d7c13eb55",
+      "update_chain_identity": "simple-story-3c160cea87fca66d7c13eb55",
+      "prior_article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+      "review_id": "native-article-review-05f1f81301b2498e844daeb15714b0e2",
+      "decision": "KEEP",
+      "publication_state": "PREPARED",
+      "publication_authority": false,
+      "destinations_not_dispatched": 9,
+      "native_packages": 8,
+      "inspected_content_sha256": "7fb390e3bd527862cf2f0f7007d4ac28bd66b435e4e369d94fa26ffd10775bfc",
+      "evidence_directory": "../oil",
+      "sources": [
+        {
+          "published_at_utc": "2026-10-21T19:17:12Z",
+          "publisher": "Reuters",
+          "source_id": "SOURCE_1",
+          "url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html"
+        }
+      ],
+      "media": [
+        {
+          "asset_id": "source_value_comparison",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\oil\\media_assets\\source_value_comparison.png",
+          "sha256": "0225a86141a374d4640a96bdac842f19ba86fe2da34b1f4325864ac00c962e41",
+          "source_page_url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+          "license_url": null,
+          "caption": "Reported October 21 oil settlements Source: Reuters; retained report 2026-10-21.",
+          "alt_text": "Brent settlement (2026-10-21, actual): 108.82 USD/barrel; WTI close (2026-10-21, actual): 97.15 USD/barrel"
+        },
+        {
+          "asset_id": "documentary_oil",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\oil\\documentary_original.jpg",
+          "sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:Fawley_Oil_Refinery,_aerial_2017_-_geograph.org.uk_-_5439355.jpg",
+          "license_url": "https://creativecommons.org/licenses/by-sa/2.0",
+          "caption": "Fawley Oil Refinery. Archive context image; Commons DateTimeOriginal records 2017-06-16.",
+          "alt_text": "Archive aerial photograph of Fawley Oil Refinery."
+        }
+      ]
+    },
+    {
+      "operation_id": "v1-media-ibm-r1",
+      "article_identity": "05b6d7610301815ddaaf01559fe66c2a751bb7eb3d5c8001f8372a1c9336e188",
+      "title": "Reuters: IBM's higher software revenue growth floor leaves a durability test",
+      "mode": "STANDARD_NEWS_ANALYSIS",
+      "source_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+      "story_identity": "simple-story-cfa3cb4bdb5389780c472d78",
+      "update_chain_identity": "simple-story-cfa3cb4bdb5389780c472d78",
+      "prior_article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+      "review_id": "native-article-review-30988c0c910b45659f847f70cf32025b",
+      "decision": "KEEP",
+      "publication_state": "PREPARED",
+      "publication_authority": false,
+      "destinations_not_dispatched": 9,
+      "native_packages": 8,
+      "inspected_content_sha256": "d9af7148bb7a09740660c8ebfd175758712ef1cd9667d7dc4b2b82482c14d43d",
+      "evidence_directory": "../ibm",
+      "sources": [
+        {
+          "published_at_utc": "2026-10-21T20:12:00Z",
+          "publisher": "Reuters",
+          "source_id": "SOURCE_1",
+          "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/"
+        }
+      ],
+      "media": [
+        {
+          "asset_id": "source_value_comparison",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\ibm\\media_assets\\source_value_comparison.png",
+          "sha256": "d67221435268d2c676c408dbdfe6ee535e4c62bec4933c62265af6f9477d23c9",
+          "source_page_url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+          "license_url": null,
+          "caption": "Reported IBM third-quarter revenue: actual and estimate Source: Reuters; retained report 2026-10-21.",
+          "alt_text": "Company-wide revenue — actual (Third-quarter, actual): 17.1 USD billion; Company-wide revenue — analyst estimate (Third-quarter, estimate): 16.82 USD billion"
+        },
+        {
+          "asset_id": "documentary_ibm",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\ibm\\documentary_original.jpg",
+          "sha256": "48c82af1e097e69ccb07911d25d4a69f283110501da99b17173cce6c8c17c087",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:IBM_Armonk_corporate_headquarters_unusual_view.jpg",
+          "license_url": "https://creativecommons.org/licenses/by/2.0",
+          "caption": "IBM headquarters in Armonk. Archive context image; Commons DateTimeOriginal records 2010-08-03.",
+          "alt_text": "Archive view of IBM headquarters in Armonk, New York."
+        }
+      ]
+    },
+    {
+      "operation_id": "v1-media-meta-r1",
+      "article_identity": "f6b226fef09122f4c44fb63fae17b16abed7b3abfa856b3cb7a382fcfe2d1c35",
+      "title": "Reuters: Meta's planned non-voting shares leave the cash test open",
+      "mode": "STANDARD_NEWS_ANALYSIS",
+      "source_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+      "story_identity": "simple-story-fac27d440fa75893480ecc46",
+      "update_chain_identity": "simple-story-fac27d440fa75893480ecc46",
+      "prior_article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+      "review_id": "native-article-review-00d67b952c5d43e5a334d84e51c96efc",
+      "decision": "KEEP",
+      "publication_state": "PREPARED",
+      "publication_authority": false,
+      "destinations_not_dispatched": 9,
+      "native_packages": 8,
+      "inspected_content_sha256": "62015534f0a1f4558988e5e0da59d3d861578984838f79e990c8b7bfa5a04c43",
+      "evidence_directory": "../meta",
+      "sources": [
+        {
+          "published_at_utc": "2026-10-21T20:05:00Z",
+          "publisher": "Reuters",
+          "source_id": "SOURCE_1",
+          "url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+        }
+      ],
+      "media": [
+        {
+          "asset_id": "source_value_comparison",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\meta\\media_assets\\source_value_comparison.png",
+          "sha256": "bb357416797f93b203e919344509b15dd3e1c4c755d263c865d63dfc4705bf45",
+          "source_page_url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+          "license_url": null,
+          "caption": "Reported Meta free cash flow: third quarter and year earlier Source: Reuters; retained report 2026-10-21.",
+          "alt_text": "Third-quarter free cash flow — deficit (third quarter, actual): -2.12 USD billion; Free cash flow — year earlier (a year earlier, actual): 10.63 USD billion"
+        },
+        {
+          "asset_id": "documentary_meta",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\meta\\documentary_original.jpg",
+          "sha256": "142485163942db43c6c5786440dad2413f5c91ead7ee2c4252172b7ad5355f53",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:Meta_Platforms_Headquarters_Menlo_Park_California.jpg",
+          "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+          "caption": "Entrance to Meta headquarters in Menlo Park. Archive context image; Commons DateTimeOriginal records 2022-03-27 17:48:57.",
+          "alt_text": "Archive entrance to Meta headquarters in Menlo Park, California."
+        }
+      ]
+    },
+    {
+      "operation_id": "v1-prelive-tesla-r2",
+      "article_identity": "c47f988c19cc4d7d27a1db3a6f008dba05666e7755e8d6ff6c7e5d3e0a849cc4",
+      "title": "Reuters: Tesla's cash-flow surprise leaves the operating question open",
+      "mode": "STANDARD_NEWS_ANALYSIS",
+      "source_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+      "story_identity": "simple-story-6c6ae25852f4519d9a6d2168",
+      "update_chain_identity": "simple-story-6c6ae25852f4519d9a6d2168",
+      "prior_article_identity": "44561321bc94626d866e87985e4778435e0a497417f2a76fb3cbdd830b6b6705",
+      "review_id": "native-article-review-0a8210a4ee884f11904413351da535ce",
+      "decision": "KEEP",
+      "publication_state": "PREPARED",
+      "publication_authority": false,
+      "destinations_not_dispatched": 9,
+      "native_packages": 8,
+      "inspected_content_sha256": "360bf0a6812a3dc514ffa7be3017c3f6f071f24b0dc0832572d37a1d4a507381",
+      "evidence_directory": "tesla-r2",
+      "sources": [
+        {
+          "published_at_utc": "2026-10-21T20:06:00Z",
+          "publisher": "Reuters",
+          "source_id": "SOURCE_1",
+          "url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+        }
+      ],
+      "media": [
+        {
+          "asset_id": "source_value_comparison",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\tesla\\media_assets\\source_value_comparison.png",
+          "sha256": "bb7650d03d73bc9f13d1a588fd411a571563f1be6fc238f39ad19647bb478e22",
+          "source_page_url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/",
+          "license_url": null,
+          "caption": "Reported Tesla September-quarter free cash flow: actual and expected burn Source: Reuters; retained report 2026-10-21.",
+          "alt_text": "Free cash flow — actual (September quarter, actual): 1.53 USD billion; Free cash flow — analyst expected burn (September quarter, estimate): -4.92 USD billion"
+        },
+        {
+          "asset_id": "documentary_tesla",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\tesla\\documentary_original.jpg",
+          "sha256": "a08499ae2b5f5ebfc223dde6525ab8992cdcfe13e605c01dce575d0187347d43",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:New_Teslas_at_the_factory.jpg",
+          "license_url": "https://creativecommons.org/licenses/by/2.0",
+          "caption": "Tesla factory pickup scene in Fremont. Archive context image; Commons DateTimeOriginal records 2012-12-08 17:28:26.",
+          "alt_text": "Archive Tesla vehicle pickup scene at the Fremont factory."
+        }
+      ]
+    },
+    {
+      "operation_id": "v1-prelive-fed-policy",
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "title": "The Fed's September decision: three rates with different jobs",
+      "mode": "DATA_OR_DOCUMENT_LENS",
+      "source_notice": "Source date: 2026-09-16. Interpretation remains analysis.",
+      "story_identity": "simple-story-9a564d15cef7ff0407ce3862",
+      "update_chain_identity": "simple-story-9a564d15cef7ff0407ce3862",
+      "prior_article_identity": null,
+      "review_id": "native-article-review-2cf6479f0160418e8fb8ab7f1ede933c",
+      "decision": "KEEP",
+      "publication_state": "PREPARED",
+      "publication_authority": false,
+      "destinations_not_dispatched": 9,
+      "native_packages": 8,
+      "inspected_content_sha256": "90779a9c07a231febb4b6d90eced47f88054136891c6e9e6fcc3cca13ba17af0",
+      "evidence_directory": "policy",
+      "sources": [
+        {
+          "published_at_utc": "2026-09-16T00:00:00Z",
+          "publisher": "www.federalreserve.gov",
+          "source_id": "SOURCE_1",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm"
+        },
+        {
+          "published_at_utc": "2026-09-16T18:00:00Z",
+          "publisher": "www.federalreserve.gov",
+          "source_id": "SOURCE_2",
+          "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+        }
+      ],
+      "media": [
+        {
+          "asset_id": "source_value_comparison",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\policy\\media_assets\\source_value_comparison.png",
+          "sha256": "cfa598246a6b3b77eb5cfc603085d5bb7e0aca76c5785ca53537103e85e00fe7",
+          "source_page_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a1.htm",
+          "license_url": null,
+          "caption": "Announced Fed implementation rates effective September 17, 2026 Source: www.federalreserve.gov; retained report 2026-09-16.",
+          "alt_text": "Reserve-balance interest (September 17, 2026, announced_policy): 3.9 %; Standing overnight repo (September 17, 2026, announced_policy): 4.0 %; Standing overnight reverse repo (September 17, 2026, announced_policy): 3.75 %"
+        },
+        {
+          "asset_id": "prelive-documentary-policy",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\policy\\documentary_original.jpg",
+          "sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:Federal_Reserve_Chair_Kevin_Warsh_delivers_remarks_at_his_swearing-in_ceremony_in_the_East_Room_of_the_White_House,_Friday,_May_22,_2026._(Cropped).jpg",
+          "license_url": "https://commons.wikimedia.org/wiki/Template:PD-USGov",
+          "caption": "Federal Reserve Chair Kevin Warsh at his May 22, 2026 swearing-in ceremony. Archive context; this is not a photograph of the September decision.",
+          "alt_text": "Archive portrait of Kevin Warsh in a navy suit at his May 22, 2026 swearing-in ceremony."
+        }
+      ]
+    },
+    {
+      "operation_id": "v1-prelive-southwest-r2",
+      "article_identity": "941b6728350853dd90cbe45a4669a89c3a9a1fd0df46e138ec6f29480fae9a9a",
+      "title": "Reuters reports Southwest cuts 2026 outlook despite quarterly earnings beat",
+      "mode": "STANDARD_NEWS_ANALYSIS",
+      "source_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+      "story_identity": "simple-story-f2a30d4ebd709c3c05cb0692",
+      "update_chain_identity": "simple-story-f2a30d4ebd709c3c05cb0692",
+      "prior_article_identity": "857f96cfc5871ccf64e49d33ba1224ccbc275ff7f9b91ef1061982d7d4572f2f",
+      "review_id": "native-article-review-b9ea9b85e3134cfe92f7f88859534894",
+      "decision": "KEEP",
+      "publication_state": "PREPARED",
+      "publication_authority": false,
+      "destinations_not_dispatched": 9,
+      "native_packages": 8,
+      "inspected_content_sha256": "e95b4883fe095e1478d65e98cdc02178ff933ad6c15a6d687e0278ed3ac36a20",
+      "evidence_directory": "southwest-r2",
+      "sources": [
+        {
+          "published_at_utc": "2026-10-21T20:23:00Z",
+          "publisher": "Reuters",
+          "source_id": "SOURCE_1",
+          "url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/"
+        }
+      ],
+      "media": [
+        {
+          "asset_id": "source_value_comparison",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\southwest\\media_assets\\source_value_comparison.png",
+          "sha256": "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242",
+          "source_page_url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
+          "license_url": null,
+          "caption": "Reported Southwest 2026 adjusted EPS forecast ranges Source: Reuters; retained report 2026-10-21.",
+          "alt_text": "Prior 2026 forecast (2026, forecast): 3.25 to 4.25 USD/share; Current 2026 forecast (2026, forecast): 2.6 to 2.85 USD/share"
+        },
+        {
+          "asset_id": "documentary_southwest",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\southwest\\documentary_original.jpg",
+          "sha256": "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:Southwest_Boeing_737-700_N947WN_BWI_MD1.jpg",
+          "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+          "caption": "Southwest Airlines Boeing 737-700 N947WN taking off at Baltimore-Washington airport. Archive photograph; file EXIF and Commons date field record June26,2025.",
+          "alt_text": "Archive Southwest Boeing 737-700 N947WN taking off at Baltimore-Washington International Airport."
+        }
+      ]
+    },
+    {
+      "operation_id": "v1-prelive-gold-oct23",
+      "article_identity": "252873df545bc899c6a2c117bf1b949c37012f88277155d874e192e1feee975e",
+      "title": "Reuters reports gold below $4,000: a test for the safe-haven story",
+      "mode": "STANDARD_NEWS_ANALYSIS",
+      "source_notice": "Source date: 2026-10-23. Interpretation remains analysis.",
+      "story_identity": "simple-story-231c501f96a7eb733a96a29b",
+      "update_chain_identity": "simple-story-231c501f96a7eb733a96a29b",
+      "prior_article_identity": null,
+      "review_id": "native-article-review-c30eb589fedb462f9bbf31062409489b",
+      "decision": "KEEP",
+      "publication_state": "PREPARED",
+      "publication_authority": false,
+      "destinations_not_dispatched": 9,
+      "native_packages": 8,
+      "inspected_content_sha256": "104ab0731514c9a101a7609aa35f4afc2c99d36e963e90cc5a4d28fd9c13e702",
+      "evidence_directory": "gold",
+      "sources": [
+        {
+          "published_at_utc": "2026-10-23T19:17:01Z",
+          "publisher": "Reuters",
+          "source_id": "SOURCE_1",
+          "url": "https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike"
+        }
+      ],
+      "media": [
+        {
+          "asset_id": "source_value_comparison",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\gold\\media_assets\\source_value_comparison.png",
+          "sha256": "407830ed2fdc3d164f3a653f08e2985b565c56d93ee00b081c2cd3a38388d1a9",
+          "source_page_url": "https://www.kitco.com/news/off-the-wire/2026-10-23/gold-set-steep-weekly-loss-rising-oil-prices-bolster-fed-rate-hike",
+          "license_url": null,
+          "caption": "Precious-metal percentage declines reported by Reuters, October 23, 2026 Source: Reuters; retained report 2026-10-23.",
+          "alt_text": "Gold (2026-10-23, actual): -0.6 %; Silver (2026-10-23, actual): -1.0 %; Palladium (2026-10-23, actual): -0.5 %; Platinum (2026-10-23, actual): -0.9 %"
+        },
+        {
+          "asset_id": "prelive-documentary-gold",
+          "path": "C:\\Users\\bullw\\.codex\\worktrees\\v1-newsroom-release-recovered\\ContentOps\\docs\\automation\\CONTENTOPS_V1_RELEASE_CONVERGENCE_V1\\editorial-media\\final-prelive\\gold\\documentary_original.jpg",
+          "sha256": "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d",
+          "source_page_url": "https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg",
+          "license_url": "https://creativecommons.org/licenses/by/4.0",
+          "caption": "Gold ingot and bar on display at the Banque de France, Paris, September 17, 2022. Archive context, not a photograph of October 2026 trading or current holdings.",
+          "alt_text": "A large gold ingot and a smaller gold bar displayed on a dark surface at the Banque de France in 2022."
+        }
+      ]
+    }
+  ],
+  "four_new_changed_native_writer_returns": "frozen-writer-requests.json and per-case native_write_execution.md/native_write_output.json",
+  "new_changed_visual_review": "renders/final/visual-review.json",
+  "prior_unchanged_visual_review": "../renders/final/visual-review.json",
+  "final_content_equality": "final-reader-content-receipt.json",
+  "five_copy_assessment": "FIVE_ARTICLE_ASSESSMENT.md",
+  "six_requirement_matrix": "../COMPLETION_AUDIT.md",
+  "focused_verification": "verification-source-hashes.json",
+  "focused_backend_distinct_cases": 79,
+  "focused_ui_cases": 13,
+  "typescript_and_vite": "PASS",
+  "prior_history": {
+    "baseline": "c9dfcdc5eb848114db0ffb4b3ebb69e82871ee03",
+    "tracked_prior_files": 430,
+    "git_diff_changed_paths": [],
+    "state": "EXACT_TRACKED_PRIOR_ARTIFACTS_PRESERVED",
+    "scope": "Goal35 and all five C9 story directories; existing acceptance matrix/checkpoint legitimately extended; ignored local captures are not Git proof",
+    "final_scope_unchanged": true,
+    "final_enumerated_paths": 430
+  },
+  "host_final_readback": "host-boundary-final-readback.json",
+  "current_audience_context": "audience-context-readback.json",
+  "not_proven": [
+    "accepted-master integration",
+    "deployment",
+    "natural calendar execution",
+    "sustained 5-8 useful published articles/day",
+    "live platform UI or current identity/readiness",
+    "SEO ranking",
+    "audience uplift",
+    "publisher parity"
+  ],
+  "merged": false,
+  "deployed": false,
+  "public_write_performed": false,
+  "production": "PAUSED",
+  "four_automations": "PAUSED_BYTE_IDENTICAL",
+  "v2_v3": "OWNER_PAUSED",
+  "release_authority": "NOT_GRANTED",
+  "source_pr_graph_proposal_seal": "Owning release-evidence.json and CHECKPOINT.md; no activation inferred",
+  "completion_notice": "NOT_SENT_AT_LOCAL_EVIDENCE_SEAL"
+}

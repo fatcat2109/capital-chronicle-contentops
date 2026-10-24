@@ -165,3 +165,30 @@ def test_scheduled_resume_keeps_qualified_article_at_review_boundary(tmp_path, m
     assert resumed["classification"] == "NATIVE_WINDOW_REVIEW_REQUIRED"
     assert resumed["binding_path"] == first["binding_path"]
     assert resumed["slot_ordinal"] == first["slot_ordinal"]
+
+
+def test_public_source_date_guidance_preserves_frozen_legacy_requests(tmp_path, monkeypatch):
+    """Controlled prompt compatibility; no actual model invocation or article."""
+    import live_contentops.native_desktop_editorial_v1 as module
+    store = ContentOpsDurableStore(tmp_path / 'state.sqlite3')
+    for run in ('new-date-policy', 'legacy-date-policy'):
+        work = 'cc-opportunity-' + module.sha256_of(run)
+        store.create_work_item(story_id=work, work_item_id=work, title='Controlled prompt', target_surface='CONTENTOPS_EDITORIAL_ONLY')
+    new = NativeDesktopTurn(store, run_id='new-date-policy', output_dir=tmp_path/'new', owner_manual_validation=True)
+    args = dict(logical_invocation_id='new-date-policy:write', prompt='Exact controlled request',
+                governed_input={'CONTROLLED_TEST_ONLY':True}, validator=lambda raw: (True,None,json.loads(raw),None))
+    with pytest.raises(DesktopInputRequired) as pending:
+        new(**args)
+    assert 'chronology in evidence metadata' in pending.value.request['prompt']
+    assert 'without microseconds or internal audit vocabulary' in pending.value.request['prompt']
+    legacy = NativeDesktopTurn(store, run_id='legacy-date-policy', output_dir=tmp_path/'legacy', owner_manual_validation=True)
+    with monkeypatch.context() as patch:
+        patch.setattr(module, 'PUBLIC_SOURCE_DATE_GUIDANCE', module.LEGACY_SOURCE_DATE_GUIDANCE)
+        with pytest.raises(DesktopInputRequired) as prior:
+            legacy(**{**args, 'logical_invocation_id':'legacy-date-policy:write'})
+    with pytest.raises(DesktopInputRequired) as resumed:
+        legacy(**{**args, 'logical_invocation_id':'legacy-date-policy:write'})
+    assert resumed.value.request['request_sha256'] == prior.value.request['request_sha256']
+    assert resumed.value.request['prompt'] == prior.value.request['prompt']
+    with pytest.raises(ValueError, match='CONFLICT'):
+        legacy(**{**args, 'logical_invocation_id':'legacy-date-policy:write', 'prompt':'Changed controlled request'})

@@ -1,0 +1,65 @@
+{
+  "source_page_url": "https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg",
+  "original_asset_url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Gold_ingot_and_bar_of_Banque_de_France.jpg",
+  "creator_publisher": "Ibex73",
+  "license_url": "https://creativecommons.org/licenses/by/4.0",
+  "rights_status": "OPEN_LICENSED",
+  "depicted_date": "2022-09-17 11:09:59",
+  "license_text": "Creative Commons Attribution 4.0",
+  "original_sha256": "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d",
+  "provider_metadata": {
+    "page": {
+      "title": "File:Gold ingot and bar of Banque de France.jpg",
+      "imageinfo": [
+        {
+          "url": "https://upload.wikimedia.org/wikipedia/commons/5/50/Gold_ingot_and_bar_of_Banque_de_France.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+          "descriptionurl": "https://commons.wikimedia.org/wiki/File:Gold_ingot_and_bar_of_Banque_de_France.jpg",
+          "width": 3107,
+          "height": 2122,
+          "mime": "image/jpeg",
+          "extmetadata": {
+            "Artist": {
+              "source": "commons-desc-page",
+              "value": "<a href=\"//commons.wikimedia.org/wiki/User:Ibex73\" title=\"User:Ibex73\">Ibex73</a>"
+            },
+            "Copyrighted": {
+              "hidden": "",
+              "source": "commons-desc-page",
+              "value": "True"
+            },
+            "Credit": {
+              "source": "commons-desc-page",
+              "value": "<span class=\"int-own-work\" lang=\"en\">Own work</span>"
+            },
+            "DateTimeOriginal": {
+              "source": "commons-desc-page",
+              "value": "2022-09-17 11:09:59"
+            },
+            "ImageDescription": {
+              "source": "commons-desc-page",
+              "value": "Gold ingot and bar on display at the Banque de France, Paris, European Heritage Days, September 2022"
+            },
+            "License": {
+              "hidden": "",
+              "source": "commons-templates",
+              "value": "cc-by-4.0"
+            },
+            "LicenseShortName": {
+              "hidden": "",
+              "source": "commons-desc-page",
+              "value": "CC BY 4.0"
+            },
+            "LicenseUrl": {
+              "source": "commons-desc-page",
+              "value": "https://creativecommons.org/licenses/by/4.0"
+            },
+            "UsageTerms": {
+              "source": "commons-desc-page",
+              "value": "Creative Commons Attribution 4.0"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

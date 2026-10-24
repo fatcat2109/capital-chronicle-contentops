@@ -1,0 +1,555 @@
+{
+  "accepted_evidence_ids": [
+    "goal21-fed-policy",
+    "prelive-fed-implementation-20260916"
+  ],
+  "accepted_evidence_sha256": "d0e92b3a1b01e1a23bf4108ad159bf0f120e9686a5e54335136b8c248e825482",
+  "article_body_sha256": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+  "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+  "article_path": null,
+  "attempt_run_id": "v1-prelive-fed-policy",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-fed-implementation-20260916"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe Fed's September 17 settings give three rates different jobs.\n\nWhat to watch: The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c\n\nSource date: 2026-09-16. Interpretation remains analysis."
+      },
+      "payload_sha256": "61aa0711aa226e4cf37bf5a71bb93b52b6bc5db202dfa3bb9dddb5e592a93b82",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-fed-implementation-20260916"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe Fed's September 17 settings give three rates different jobs.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c\n\nWatch: The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up?\n\nSource date: 2026-09-16.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe Fed's September 17 settings give three rates different jobs.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up?\n\nSource date: 2026-09-16.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.846,
+            0.961
+          ],
+          "post_character_counts": [
+            237,
+            269
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.881,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up?\n\nSource date: 2026-09-16.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe Fed's September 17 settings give three rates different jobs.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c",
+        "text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe Fed's September 17 settings give three rates different jobs.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c"
+      },
+      "payload_sha256": "88981bcc31c6557e4ead0ee1dd9cbdba21aab8f92286a535fd00b0c163b3162b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-fed-implementation-20260916"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]**\n\nThe Fed's September 17 settings give three rates different jobs.\n\n**Context:** The strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c\n\nSource date: 2026-09-16. Interpretation remains analysis."
+      },
+      "payload_sha256": "f16c58101a38797fd11f88b466d7c197bd7249c530ecef45b43d0cfcefbb87ea",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-fed-implementation-20260916"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 3000,
+        "text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nWhy it matters: Capital Chronicle's interpretation is that the three settings address different sides of cash management: remuneration for reserve balances, temporary cash provision through standing repo, and overnight cash placement through reverse repo.\n\nContext: The strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c\n\nSource date: 2026-09-16. Interpretation remains analysis."
+      },
+      "payload_sha256": "e083dfd879d121cf8ba74bed48099b98a818bb38ce98bb4b02941775c7201646",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-fed-implementation-20260916"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 63206,
+        "text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe Fed's September 17 settings give three rates different jobs.\n\nWhy it matters: Capital Chronicle's interpretation is that the three settings address different sides of cash management: remuneration for reserve balances, temporary cash provision through standing repo, and overnight cash placement through reverse repo.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c\n\nSource date: 2026-09-16. Interpretation remains analysis."
+      },
+      "payload_sha256": "a0da655931e5119de27512480a33f0e17ec867f514399fdd10ccb2949fd605c6",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-fed-implementation-20260916"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 2200,
+        "text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe Fed's September 17 settings give three rates different jobs.\n\nIn focus: The strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c\n\n#CapitalChronicle\n\nSource date: 2026-09-16. Interpretation remains analysis."
+      },
+      "payload_sha256": "5a0b4b77e65b19e46da4b626f89aa55abefae2dacf023273d8137ebd89f004dd",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-fed-implementation-20260916"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c\n\nWhat to watch: The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up?\n\nSource date: 2026-09-16.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "source_value_comparison"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up?\n\nSource date: 2026-09-16.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.604,
+            0.554
+          ],
+          "post_character_counts": [
+            302,
+            277
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.917,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up?\n\nSource date: 2026-09-16.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c",
+        "text": "CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe strongest countercase to treating the announcement as a verdict on borrowing costs is that instructions are not transactions.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c"
+      },
+      "payload_sha256": "ee9f4d4a4090c7e58a4d5edf9210eebf74e480f8c1eee7a67410e77355d37f1a",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "e3b14f3175704b8c72b31e23955a3276ae675a4baff935884325a537a72547f5",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.federalreserve.gov",
+        "primary_reporting_source_identity": "www.federalreserve.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "prelive-fed-implementation-20260916"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "source_value_comparison"
+        ],
+        "platform_limit": 1000,
+        "text": "Update: CONFIRMED | The Fed's September decision: three rates with different jobs [Source 2026-09-16]\n\nThe Fed's September 17 settings give three rates different jobs.\n\nWhat to watch: The next useful check is an official operation record dated September 17, 2026 or later, compared with the terms announced on September 16: did an operation occur, on which terms, and with what take-up?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-e3b14f3175704b8c\n\nSource date: 2026-09-16. Interpretation remains analysis."
+      },
+      "payload_sha256": "edfbe5823bc134036a54098c3ac48695dcd34f36c40cf7e71a7e2ab3073f7a4b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/v1_prelive_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration.spawn_agent and returned native worker files; exact request and execution note retained",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/v1_prelive_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration role request and returned native worker files",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "media-plan",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/v1_prelive_max_policy",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual collaboration dispatch/resume and completed worker return with execution note; no model API",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 3,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.federalreserve.gov",
+    "primary_reporting_source_identity": "www.federalreserve.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.federalreserve.gov reports that the Board of Governors of the Federal Reserve System voted unanimously to raise the interest rate paid on reserve balances to 3.90 percent, effective September 17, 2026",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "prelive-fed-implementation-20260916"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-24-bangkok",
+  "parent_window_id": "v1-prelive-fed-policy",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "b5ed1a27c8870dd4fcddcfbb73bc48a427e3769f7dc79006022311be7844dbb7",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-9a564d15cef7ff0407ce3862",
+  "title": "The Fed's September decision: three rates with different jobs",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-9a564d15cef7ff0407ce3862"
+}

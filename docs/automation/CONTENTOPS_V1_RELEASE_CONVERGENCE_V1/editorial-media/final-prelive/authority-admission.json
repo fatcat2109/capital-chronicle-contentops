@@ -1,0 +1,32 @@
+{
+  "schema": "contentops.final_prelive_admission.v1",
+  "observed_at_utc": "2026-10-23T23:33:53.799179+00:00",
+  "goal": "CONTENTOPS_V1_FINAL_PRELIVE_EDITORIAL_ACCEPTANCE_V1",
+  "native_goal_created_at": 1792798166,
+  "native_status": "active",
+  "branch": "codex/v1-newsroom-release-convergence",
+  "head": "c9dfcdc5eb848114db0ffb4b3ebb69e82871ee03",
+  "read_reuse": "Full strategic receipts reused; current hashes verified. Exact study, mode rubrics and scoped source read for this milestone.",
+  "files": {
+    "AGENTS.md": "ebad0f6744cd0f0757b4aebb01d8d0f4938eda29adced4eb60aef3ca1b41c51b",
+    "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md": "896b7a9e61ad3a2fb7d3c2f5a664a69730f8ec02e1cd46832f57a04a2dc4ae7a",
+    "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md": "9ab020f12d41032829344b816df68a1d4419c4876e034073a40dc3b685c00659",
+    "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md": "657ed8947f5c347df8cae25d2610d23ddaec83e0a9b7b10cb846579ef3901e90",
+    "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md": "2ef7d5b2b9ad4e7d620cc30a5db2fa9a819a22b087100c747c65553737a6e0e2",
+    "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md": "8f52d9c9d05718c201cdbd46a3e87acffc77c3cf3cb2769268ac9da58da3d0f6",
+    "docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md": "191361175dc79fd2c0947cddb2a66111f7b438c2bb4e518351b0826bccb78a4b",
+    "docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md": "ae68ca47d8ba77dc7a62b3bbac7d94680b476dc8f9f00d287d3b71f4934c77a4",
+    "docs/codegraph/V1_CONTEXT.md": "a79334ea5f0e44a3cd3846277c503d491e4d38a4a1cc037a0372530f971e660f",
+    "docs/editorial/CAPITAL_CHRONICLE_INSTITUTIONAL_EDGE_V1.md": "89d8f5de5ca5ac21f8aca2ad91c08fa71de77f0db8c0bdc1ec068422a745a8bb",
+    "docs/automation/TASK_CONTENTOPS_V1_CAPITAL_CHRONICLE_INSTITUTIONAL_EDGE_VOICE_SEO_AND_READER_VALUE_HARDENING_V1/README.md": "e1ca0acabc81402f27b4d0209ea24ccd54bb4b5d3c6a10b6beb40d618586c6ab",
+    "docs/automation/CAPITAL_CHRONICLE_CONTENTOPS_NEWSROOM_INTELLIGENCE_EDITORIAL_SEO_AND_PERFORMANCE_MASTER_PLAN_V1.md": "ed15c82face39fae3dd58b8902e04f7b63ac408136b4defa4d61ff207a99cd32"
+  },
+  "human_delegation": {
+    "thread": "01a1657e-f5d0-76a1-b52b-ec6c78b6fe35",
+    "turn": "01a16b14-3ad1-72b1-85f0-013fc2ab0024",
+    "user_message": "01a16b14-3b49-73e0-b7d0-31241e74f0e3",
+    "verified_using": "read_thread actual user message",
+    "scope": "L2 internal owner/auditor, no production activation"
+  },
+  "synthesis": "One V1 pre-live acceptance milestone. Main public/private research and independent database ownership remain distinct. Existing North Stars and Master Plans remain complete. Retain sole store/outbox/coordinator and four paused windows; actual native Light selects/plans, MAX writes, Luna only genuine new X. This milestone assesses five dated revisions, demonstrates a responsible-person policy case and a distinct current report, verifies exact local reader/review/recovery semantics and preserves unobserved live/SEO/audience dimensions. No merge/deploy/account/public/spend/broker authority."
+}

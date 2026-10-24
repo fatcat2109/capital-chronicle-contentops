@@ -1,0 +1,27 @@
+{
+  "observed_at_utc": "2026-10-24T06:15:06.546058+00:00",
+  "source": "Actual owner outbox/review/publication projection",
+  "all_seven_article_preview_media_objects_equal_inspected_content": true,
+  "hash_method": "SHA256 UTF8 json.dumps({article,previews,media_assets}, ensure_ascii=False, sort_keys=True, separators=(',',':'))",
+  "content_sha256": {
+    "v1-media-oil-r1": "7fb390e3bd527862cf2f0f7007d4ac28bd66b435e4e369d94fa26ffd10775bfc",
+    "v1-media-ibm-r1": "d9af7148bb7a09740660c8ebfd175758712ef1cd9667d7dc4b2b82482c14d43d",
+    "v1-media-meta-r1": "62015534f0a1f4558988e5e0da59d3d861578984838f79e990c8b7bfa5a04c43",
+    "v1-prelive-tesla-r2": "360bf0a6812a3dc514ffa7be3017c3f6f071f24b0dc0832572d37a1d4a507381",
+    "v1-prelive-fed-policy": "90779a9c07a231febb4b6d90eced47f88054136891c6e9e6fcc3cca13ba17af0",
+    "v1-prelive-southwest-r2": "e95b4883fe095e1478d65e98cdc02178ff933ad6c15a6d687e0278ed3ac36a20",
+    "v1-prelive-gold-oct23": "104ab0731514c9a101a7609aa35f4afc2c99d36e963e90cc5a4d28fd9c13e702"
+  },
+  "ready": 7,
+  "required": 7,
+  "missing": 0,
+  "held": 1,
+  "previews": 56,
+  "exact_keep_prepared": 7,
+  "destinations_not_dispatched": 63,
+  "published": 0,
+  "projection_sha256": "e54f94e0982a33bed06685232ebf8dc8bdd876a398edc980a31783e3497f3f50",
+  "html_sha256": "c84f956af05de73fdcb147f7efc12063c5531c64c0772826d7a57ec89bae1ca1",
+  "review_metadata_refreshed_after_inspection": true,
+  "public_write_performed": false
+}

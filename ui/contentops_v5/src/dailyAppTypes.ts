@@ -395,8 +395,8 @@ export interface ReportWorkspaceData {
     opportunity_outcomes?: Array<{ operation_id: string; outcome: string; reason: string; source_blocked: boolean }> } | null;
   source_reviews?: Array<{ review_id: string; run_id: string; title: string; decision: string; reader_change_summary: string;
     cutoff_utc: string; invalidates_prepared_review: boolean; media_state: string; removed_main_claim_ids: string[];
-    source_editions: Array<{ item_id: string; proposition: string; source_url: string; published_at_utc: string | null;
-      observation_date?: string; retrieved_at_utc: string; period_relation: string; rights_state: string }>;
+    source_editions: Array<{ item_id: string; proposition?: string; source_url: string; published_at_utc: string | null;
+      observation_date?: string; retrieved_at_utc?: string; period_relation?: string; rights_state?: string }>;
     source_attempts: Array<{ url: string; status: string; observed_at_utc: string }> }>;
   native_edition?: Array<{
     run_id: string; article_identity: string; article: NonNullable<ReportWorkspaceData['article']>;

@@ -177,3 +177,15 @@ This is bounded retained-example evidence, not fresh news, publication, merge, d
 search/audience success or natural daily operation. Production and the same four Automations
 remain paused; V2/V3 remain owner-paused. Exact current delivery and the superseding
 unapproved release transition remain in the existing V1 release checkpoint.
+
+Final pre-live acceptance extends these existing owners for exact government reuse-rights
+projection, source-spelled percent/announced-policy settings, signed reported percentage
+declines and authentic federal-person photo rights without an invented license URL.
+The existing six-requirement acceptance matrix under
+`docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/COMPLETION_AUDIT.md`
+records the study-based five-copy assessment, dated policy/current-report cases and exact
+producer/consumer/proof limits. These are local V1 capabilities; live operation, audience
+and search outcomes remain separate and four host objects remain paused.
+Native public-source guidance keeps detailed internal clocks in evidence metadata while
+resuming frozen legacy requests unchanged. The existing reader preserves date-only releases
+and minimal revision-history records, with explicit unknown metadata rather than a crash.
