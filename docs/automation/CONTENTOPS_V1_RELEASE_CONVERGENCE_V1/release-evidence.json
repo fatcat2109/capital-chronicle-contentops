@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.v1_release_convergence_evidence.v3",
-  "observed_at_utc": "2026-10-24T06:23:11.772127+00:00",
+  "observed_at_utc": "2026-10-24T06:34:46.235384+00:00",
   "goal": "CONTENTOPS_V1_FINAL_PRELIVE_EDITORIAL_ACCEPTANCE_V1",
   "native_goal_created_at": 1792798166,
   "implementation_commit": "fce99f1a548d03f610258559eaa4eb15e3bca750",
@@ -22,11 +22,11 @@
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
       "git_blob_sha256": "9bb581a5b14bb8d359d6a056131b36b9250d7beda92408e65d5bfe8b0dbefec4",
-      "checkout_sha256_at_metadata_seal": "3e159ce65c9fe9dc14dec67adb5011b105168c264118f282480018fdd9e6bc13"
+      "checkout_sha256_at_metadata_seal": "b5675dae62c13d4d3d7b46c7ffde8447e2ded2e42da834fbe095120185c606b3"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/COMPLETION_AUDIT.md": {
       "git_blob_sha256": "afc5c606d3465ae2ead9c33d67d0b360e9e39f9e1ae5c81cae01d1fde6855288",
-      "checkout_sha256_at_metadata_seal": "afc5c606d3465ae2ead9c33d67d0b360e9e39f9e1ae5c81cae01d1fde6855288"
+      "checkout_sha256_at_metadata_seal": "083708c999bc46d41d46bd3d3240030cfda473f8bf89ec68078094dd8dd2bbad"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/.gitattributes": {
       "git_blob_sha256": "4059e0fff3a4011ca58eed4fd9c5693daa15376e7c1004ab42ab62143eedd8b1",
@@ -42,7 +42,7 @@
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/README.md": {
       "git_blob_sha256": "460bdf523f82048a57783cd3b047863f60e68ec7dd09c5556e5da258cb2c3ada",
-      "checkout_sha256_at_metadata_seal": "460bdf523f82048a57783cd3b047863f60e68ec7dd09c5556e5da258cb2c3ada"
+      "checkout_sha256_at_metadata_seal": "2813955ab4206d0f19fef352f67b4280dd2131a3a0df762a64e761c30d6db6a4"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/advance_native_case.py": {
       "git_blob_sha256": "0fdd088a118735d07b6455e33f86929275916a0dc335f1c916ee1b56407d84e1",
@@ -66,7 +66,7 @@
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/completion-evidence.json": {
       "git_blob_sha256": "a5e5a8e9f0f477c4a93b6d815f9b76674007c9c468c9c20a31e85f10ad9fecef",
-      "checkout_sha256_at_metadata_seal": "a5e5a8e9f0f477c4a93b6d815f9b76674007c9c468c9c20a31e85f10ad9fecef"
+      "checkout_sha256_at_metadata_seal": "2b5ec6b8af25d5017d40c46f6696cda3e45ac1c219e9e3e7b2e38678070bbef6"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/desk-history-checks.xml": {
       "git_blob_sha256": "3c2e7d80e16a06f1bd90ad9374288cf4abf239275aea9221fb0ea25b22c1f69a",
@@ -78,7 +78,7 @@
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/final-reader-content-receipt.json": {
       "git_blob_sha256": "b3a464f0c9ec11b7af7552aee128e7f189d1cb42ca8b5da49ab606f036b94f6e",
-      "checkout_sha256_at_metadata_seal": "b3a464f0c9ec11b7af7552aee128e7f189d1cb42ca8b5da49ab606f036b94f6e"
+      "checkout_sha256_at_metadata_seal": "2f2aa7de165ddc9b1cdecca1af1edf565f45ffe1b988f7d28c8fbef9ad285cf0"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/freeze_remaining_writers.py": {
       "git_blob_sha256": "e7ba5d0bb0e0f69f59a1290c81df84751ba9b52840e671df5b54955b5f8e943f",
@@ -270,7 +270,7 @@
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/host-boundary-final-readback.json": {
       "git_blob_sha256": "f2d33aacd87fa2d4beec40e108393fbffb260c689d2753e7be7365c9ec4de825",
-      "checkout_sha256_at_metadata_seal": "f2d33aacd87fa2d4beec40e108393fbffb260c689d2753e7be7365c9ec4de825"
+      "checkout_sha256_at_metadata_seal": "519e0433250c473d3b6f0480b05068998e3bd285f265fea1c7eba4ee19ad4ae6"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/host-boundary-readback.json": {
       "git_blob_sha256": "420f6e497de60c0cb9c84510981ba31368bef0bfaf9f3d4cbb406fa13f48b408",
@@ -642,7 +642,7 @@
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/seal_acceptance_evidence.py": {
       "git_blob_sha256": "ab30e1f810c3f4cb51e8379f1d4a029d19f8241fab6ae13ecb9dc0ec5c4d739f",
-      "checkout_sha256_at_metadata_seal": "ab30e1f810c3f4cb51e8379f1d4a029d19f8241fab6ae13ecb9dc0ec5c4d739f"
+      "checkout_sha256_at_metadata_seal": "e4469dc433cfa5412ee2328f5a8e95d78bc9f1e959c666089c5521cfe4fb9658"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-admission-result.json": {
       "git_blob_sha256": "454d5eeeefc0a3cbb00632608764304bcc5ca264108745a959eb081437bb1a9c",
@@ -994,7 +994,7 @@
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/verification-source-hashes.json": {
       "git_blob_sha256": "4814e8ea0cfdca26b3500efb0607e9d668f19c9b2370d6c1b16ba29c20ef8145",
-      "checkout_sha256_at_metadata_seal": "4814e8ea0cfdca26b3500efb0607e9d668f19c9b2370d6c1b16ba29c20ef8145"
+      "checkout_sha256_at_metadata_seal": "dcac6db6a7c2a1934a9ee6307f7a5517638ccdf1809a9b0a45c4b6b497b999a1"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/history/pre-prelive-RELEASE_DECISION.md": {
       "git_blob_sha256": "1a1887d8b6ac55152e3f559f10229c7245157e6aa471e457ab908a4a6f7cbd00",
@@ -1060,6 +1060,7 @@
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/review-prepare.log": "1a80a45eaf4e9112b6838a6a77e14deabb43d303c815144eaeab26bbd9489983",
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/ui-build.log": "ea4c25e037b508dfbdadb299477d2056ae4151fc3722dace65401190671edfec",
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/ui-date-checks.log": "2b8f688965ec02b2089ffc40359cf2f382176d89385a737c77a48bc8d0c54e1f",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/withdrawal-controls.log": "8bbba38cf6dc80e90d23fe6f2ac58ec88fb21735fe1f60e92ef4fc61a8b8514d",
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/parent-compile.log": "d2b2b14157a77361bd5c22475e7cfbaba4627e4c16caab1cf9093464dec1d609"
   },
   "local_acceptance": "COMPLETE_FOR_L2_INTERNAL_AUDIT",
@@ -1084,13 +1085,13 @@
   },
   "six_requirement_matrix": "editorial-media/COMPLETION_AUDIT.md",
   "editorial_evidence_path": "editorial-media/final-prelive/completion-evidence.json",
-  "editorial_evidence_sha256": "a5e5a8e9f0f477c4a93b6d815f9b76674007c9c468c9c20a31e85f10ad9fecef",
-  "reader_equality_sha256": "b3a464f0c9ec11b7af7552aee128e7f189d1cb42ca8b5da49ab606f036b94f6e",
+  "editorial_evidence_sha256": "2b5ec6b8af25d5017d40c46f6696cda3e45ac1c219e9e3e7b2e38678070bbef6",
+  "reader_equality_sha256": "2f2aa7de165ddc9b1cdecca1af1edf565f45ffe1b988f7d28c8fbef9ad285cf0",
   "visual_review_sha256": "185bef5ddb244dfdbff2554db997f56f9d793a8ce1dbf3b3b50c2fec6f160367",
-  "host_boundary_sha256": "f2d33aacd87fa2d4beec40e108393fbffb260c689d2753e7be7365c9ec4de825",
-  "verification_source_hashes_sha256": "4814e8ea0cfdca26b3500efb0607e9d668f19c9b2370d6c1b16ba29c20ef8145",
+  "host_boundary_sha256": "519e0433250c473d3b6f0480b05068998e3bd285f265fea1c7eba4ee19ad4ae6",
+  "verification_source_hashes_sha256": "dcac6db6a7c2a1934a9ee6307f7a5517638ccdf1809a9b0a45c4b6b497b999a1",
   "local_verification": {
-    "distinct_backend_cases": 79,
+    "distinct_backend_cases": 81,
     "frontend_cases": 13,
     "typescript_and_vite": "PASS_1584_MODULES",
     "changed_python_files_ruff": "PASS_ALL_SEVEN",
@@ -1127,5 +1128,17 @@
   "publisher_parity": "NOT_CERTIFIED",
   "release_authority": "NOT_GRANTED",
   "completion_notice": "NOT_SENT_AT_METADATA_SEAL",
-  "tower_sync": "L1_OWNED_PENDING_DURABLE_HANDOFF; no upward message"
+  "tower_sync": "L1_OWNED_PENDING_DURABLE_HANDOFF; no upward message",
+  "supplemental_final_audit_files": {
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/README.md": "2813955ab4206d0f19fef352f67b4280dd2131a3a0df762a64e761c30d6db6a4",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/completion-evidence.json": "2b5ec6b8af25d5017d40c46f6696cda3e45ac1c219e9e3e7b2e38678070bbef6",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/final-reader-content-receipt.json": "2f2aa7de165ddc9b1cdecca1af1edf565f45ffe1b988f7d28c8fbef9ad285cf0",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/host-boundary-final-readback.json": "519e0433250c473d3b6f0480b05068998e3bd285f265fea1c7eba4ee19ad4ae6",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/verification-source-hashes.json": "dcac6db6a7c2a1934a9ee6307f7a5517638ccdf1809a9b0a45c4b6b497b999a1",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/seal_acceptance_evidence.py": "e4469dc433cfa5412ee2328f5a8e95d78bc9f1e959c666089c5521cfe4fb9658",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/withdrawal-controls.xml": "650d8881a1bae7233bf38b472f587200bb2211faf076f875ca84d1eea8fe225b",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/withdrawal-controls.log": "8bbba38cf6dc80e90d23fe6f2ac58ec88fb21735fe1f60e92ef4fc61a8b8514d",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/COMPLETION_AUDIT.md": "083708c999bc46d41d46bd3d3240030cfda473f8bf89ec68078094dd8dd2bbad"
+  },
+  "final_audit_addition": "Two existing exact source-withdrawal/preparation/obsolete-preview controls passed. Source unchanged; explicit local limits remain. Total81 distinct backend cases, no historical overlap added."
 }

@@ -86,7 +86,7 @@ def main():
             keys = {(t.get("classname"), t.get("name")) for t in rows}
             assert not backend.intersection(keys), "OVERLAPPING_BACKEND_CASES"
             backend.update(keys)
-    assert len(backend) == verification["backend_distinct_cases"] == 79 and verification["ui_cases"] == 13
+    assert len(backend) == verification["backend_distinct_cases"] == 81 and verification["ui_cases"] == 13
     verification["source_bytes_reverified_at_utc"] = now
     write(ROOT / "verification-source-hashes.json", verification)
     old_host = read(ROOT / "host-boundary-readback.json")

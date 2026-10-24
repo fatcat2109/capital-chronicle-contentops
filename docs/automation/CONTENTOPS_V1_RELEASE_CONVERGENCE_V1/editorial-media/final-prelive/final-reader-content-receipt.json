@@ -1,5 +1,5 @@
 {
-  "observed_at_utc": "2026-10-24T06:15:06.546058+00:00",
+  "observed_at_utc": "2026-10-24T06:34:23.100443+00:00",
   "source": "Actual owner outbox/review/publication projection",
   "all_seven_article_preview_media_objects_equal_inspected_content": true,
   "hash_method": "SHA256 UTF8 json.dumps({article,previews,media_assets}, ensure_ascii=False, sort_keys=True, separators=(',',':'))",

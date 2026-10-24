@@ -1,6 +1,6 @@
 {
   "schema_version": "contentops.final_prelive_editorial_acceptance_evidence.v1",
-  "observed_at_utc": "2026-10-24T06:15:06.546058+00:00",
+  "observed_at_utc": "2026-10-24T06:34:23.100443+00:00",
   "goal": "CONTENTOPS_V1_FINAL_PRELIVE_EDITORIAL_ACCEPTANCE_V1",
   "native_goal_created_at": 1792798166,
   "local_acceptance": "COMPLETE_FOR_L2_INTERNAL_AUDIT",
@@ -357,7 +357,7 @@
   "five_copy_assessment": "FIVE_ARTICLE_ASSESSMENT.md",
   "six_requirement_matrix": "../COMPLETION_AUDIT.md",
   "focused_verification": "verification-source-hashes.json",
-  "focused_backend_distinct_cases": 79,
+  "focused_backend_distinct_cases": 81,
   "focused_ui_cases": 13,
   "typescript_and_vite": "PASS",
   "prior_history": {
