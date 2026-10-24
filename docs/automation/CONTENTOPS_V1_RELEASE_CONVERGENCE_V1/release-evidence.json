@@ -1,1074 +1,1131 @@
 {
-  "schema_version": "contentops.v1_release_convergence_evidence.v2",
-  "observed_at_utc": "2026-10-23T22:59:00.409767+00:00",
-  "implementation_commit": "43f8b34b220029294a6566e2e785e673621c1a0f",
-  "implementation_tree": "ec01a4f75cde31bcb1cafddd5988941aebccb120",
+  "schema_version": "contentops.v1_release_convergence_evidence.v3",
+  "observed_at_utc": "2026-10-24T06:23:11.772127+00:00",
+  "goal": "CONTENTOPS_V1_FINAL_PRELIVE_EDITORIAL_ACCEPTANCE_V1",
+  "native_goal_created_at": 1792798166,
+  "implementation_commit": "fce99f1a548d03f610258559eaa4eb15e3bca750",
+  "implementation_tree": "4a7cf713976738bbab373b5099b50568a31f8480",
+  "prior_c9_delivery": "c9dfcdc5eb848114db0ffb4b3ebb69e82871ee03",
   "exact_pr90_base": "a1b08f96bf551681bca8196038f8b7060def4fd1",
   "accepted_master": "bc79e30c8088a9deb47f3942aa15914a59b69799",
-  "superseded_proposal_sha256": "43864815ff63c0719652940b65eacb8f2859387d7a3996c47f8383262baf4806",
-  "proposal_sha256": "50d7e089ad3395b1df1021c6223c74b7bd6fd18e11b298a760af5b285847127a",
+  "proposal_sha256": "0bb921f2b323aed46fa631bc94ee8c4f502e28b4e3176e15d863bbb66ac413a5",
+  "superseded_proposal_sha256": "50d7e089ad3395b1df1021c6223c74b7bd6fd18e11b298a760af5b285847127a",
+  "superseded_bytes_path": "history/pre-prelive-release-transition-proposal.json",
   "source_commit_changed_files": {
-    "AGENTS.md": {
-      "git_blob_sha256": "7e625cfecccded3122f0edf9f87a6f5b35d5b9942003db02f17b3fbe09ee3bd3",
-      "checkout_sha256": "ebad0f6744cd0f0757b4aebb01d8d0f4938eda29adced4eb60aef3ca1b41c51b"
-    },
-    "config/native_desktop_rollout_v1.json": {
-      "git_blob_sha256": "9dd67882864e4e0fa33131dd2aebd12bc41a24ef8e9d773d0e14c42150aea5fd",
-      "checkout_sha256": "64b02b599aad4995a7c401416a1be10471be357794b7f6a8bcad19357042cd7b"
-    },
-    "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md": {
-      "git_blob_sha256": "4a867f3c60cbe364d7355dd9702762088a6525b5e17b6b3cb94b89457a54187a",
-      "checkout_sha256": "896b7a9e61ad3a2fb7d3c2f5a664a69730f8ec02e1cd46832f57a04a2dc4ae7a"
-    },
-    "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md": {
-      "git_blob_sha256": "fd4b2f658e38fc31360554de5e228d50edeee0a34edf9c641d9c35e1ba97ea04",
-      "checkout_sha256": "9ab020f12d41032829344b816df68a1d4419c4876e034073a40dc3b685c00659"
-    },
-    "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md": {
-      "git_blob_sha256": "74fa9c73b2686bb6fa0e1018d634a81d262ffe5d9b9f61f05a420c08ff4cd6de",
-      "checkout_sha256": "70f79817c5a05634f7d582fc3784a5ca8e74023075fbf957b6b96e7cbb6cd1b0"
-    },
-    "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md": {
-      "git_blob_sha256": "96a52f18bd07fe918e0ab0f16dc3d07afc4d291e5f1225138d561e9a44d02ee5",
-      "checkout_sha256": "8f52d9c9d05718c201cdbd46a3e87acffc77c3cf3cb2769268ac9da58da3d0f6"
-    },
-    "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md": {
-      "git_blob_sha256": "a087a59046f64dabb521ce056b3f203904dae0c47e2106ce0876d0c351eaf8e1",
-      "checkout_sha256": "2ef7d5b2b9ad4e7d620cc30a5db2fa9a819a22b087100c747c65553737a6e0e2"
-    },
-    "docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2.md": {
-      "git_blob_sha256": "36e2435ecc67123ec20767dcbecba9a3946b43b846b8c4590ad27371e214b9cb",
-      "checkout_sha256": "191361175dc79fd2c0947cddb2a66111f7b438c2bb4e518351b0826bccb78a4b"
+    "config/native_desktop_operator_profile_v1.json": {
+      "git_blob_sha256": "aac223286e6ed52b77f097838d5c996a3e455005459c067c6eb792eec360989e",
+      "checkout_sha256_at_metadata_seal": "f56a4065e635b283e65f65233659a10eaebff49f1b15fd86dcf567f6a2c414e7"
     },
     "docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md": {
-      "git_blob_sha256": "92e37dffee08afe5dd10a922380bd45e23b3c4f6aa346b966b6c7fdfc8a4d104",
-      "checkout_sha256": "ae68ca47d8ba77dc7a62b3bbac7d94680b476dc8f9f00d287d3b71f4934c77a4"
+      "git_blob_sha256": "641d7f141967795ba876e770cb99f84295da4059bd0ea76025e503e500fc04a9",
+      "checkout_sha256_at_metadata_seal": "941f376a9f0bf4ec7a98d90fc328c9421db8fd96330326509971a3dca34412ba"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/CHECKPOINT.md": {
-      "git_blob_sha256": "7f602fd44423da10d5c6b7e4a6ba190bcb1fd736ba4148821558d86382dfcb40",
-      "checkout_sha256": "bf773ce9dc2d3a23f0fb124c02fbeae50aeac6496716d81f055e7120caec636d"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/.gitattributes": {
-      "git_blob_sha256": "cb122890429895439727754af1cde2ffe762aff85dd40e2330e378309abf7a1a",
-      "checkout_sha256": "cb122890429895439727754af1cde2ffe762aff85dd40e2330e378309abf7a1a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/.gitignore": {
-      "git_blob_sha256": "59d463f4a08dd37c74ea576896721388b608ffc46e3c6252573549107e21bfbf",
-      "checkout_sha256": "59d463f4a08dd37c74ea576896721388b608ffc46e3c6252573549107e21bfbf"
+      "git_blob_sha256": "9bb581a5b14bb8d359d6a056131b36b9250d7beda92408e65d5bfe8b0dbefec4",
+      "checkout_sha256_at_metadata_seal": "3e159ce65c9fe9dc14dec67adb5011b105168c264118f282480018fdd9e6bc13"
     },
     "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/COMPLETION_AUDIT.md": {
-      "git_blob_sha256": "a7487a391e91ea07b1b346ee44834b537f11854e67fe4c8e14954a9dcf00be6a",
-      "checkout_sha256": "a7487a391e91ea07b1b346ee44834b537f11854e67fe4c8e14954a9dcf00be6a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/README.md": {
-      "git_blob_sha256": "91478e15f4b4ec9df04f9d35857a9a4bd8dca06fbc84150c6596b19b114c7cc3",
-      "checkout_sha256": "91478e15f4b4ec9df04f9d35857a9a4bd8dca06fbc84150c6596b19b114c7cc3"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/completion-evidence.json": {
-      "git_blob_sha256": "5f66fa02e9e6e7992f037218cd410040dc63312426076e098a5f0be09dc5abc3",
-      "checkout_sha256": "5f66fa02e9e6e7992f037218cd410040dc63312426076e098a5f0be09dc5abc3"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-media-additions.xml": {
-      "git_blob_sha256": "bfc4c01c98a70ca7dec421053f2815bfe5a1c3d1f73eabe226d834327d27c0da",
-      "checkout_sha256": "bfc4c01c98a70ca7dec421053f2815bfe5a1c3d1f73eabe226d834327d27c0da"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-media-checks.xml": {
-      "git_blob_sha256": "021e3a5e3819fb29b9374de7d1730f6ea78b3acea0fbe8c415346cfdc5cf5e04",
-      "checkout_sha256": "021e3a5e3819fb29b9374de7d1730f6ea78b3acea0fbe8c415346cfdc5cf5e04"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/focused-checks.xml": {
-      "git_blob_sha256": "78050783918256c7691254c2088d48cb27cb80eea83249f7b9b6829715314239",
-      "checkout_sha256": "78050783918256c7691254c2088d48cb27cb80eea83249f7b9b6829715314239"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/host-boundary-readback.json": {
-      "git_blob_sha256": "506e7a0899b21ab3d69e4ce78dff5ce1a5fa2c25ef361d6e2ecc535692c82a8e",
-      "checkout_sha256": "506e7a0899b21ab3d69e4ce78dff5ce1a5fa2c25ef361d6e2ecc535692c82a8e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/chart-asset.json": {
-      "git_blob_sha256": "ade8a3feef60f1b8dc42fc1638e50d88ecebd301a5445eedf970e63842dc8bbc",
-      "checkout_sha256": "ade8a3feef60f1b8dc42fc1638e50d88ecebd301a5445eedf970e63842dc8bbc"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/chart-data.json": {
-      "git_blob_sha256": "82defeb585002af635a6d98984dea0e72a75b185869e7d7605d2edabde7e0ec6",
-      "checkout_sha256": "82defeb585002af635a6d98984dea0e72a75b185869e7d7605d2edabde7e0ec6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/desktop_request_select.json": {
-      "git_blob_sha256": "376af6eb2f72b6065824319f1fd373a471797ae753fe37f94383a6172a3d979d",
-      "checkout_sha256": "376af6eb2f72b6065824319f1fd373a471797ae753fe37f94383a6172a3d979d"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/desktop_request_write.json": {
-      "git_blob_sha256": "5340f0c986c3965c6a24bbc999c19c9c03c9f9c0f0c02e205369e4987ce39563",
-      "checkout_sha256": "5340f0c986c3965c6a24bbc999c19c9c03c9f9c0f0c02e205369e4987ce39563"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/documentary_original.jpg": {
-      "git_blob_sha256": "48c82af1e097e69ccb07911d25d4a69f283110501da99b17173cce6c8c17c087",
-      "checkout_sha256": "48c82af1e097e69ccb07911d25d4a69f283110501da99b17173cce6c8c17c087"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/editorial-revision-request.json": {
-      "git_blob_sha256": "917802df6a7bdae1b70d480a3b5e9a1e60873b4da05ee964d20365e9d5918d04",
-      "checkout_sha256": "917802df6a7bdae1b70d480a3b5e9a1e60873b4da05ee964d20365e9d5918d04"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/editorial_media_plan_required.json": {
-      "git_blob_sha256": "7b3dc07a669815c8f6b1d925407e0b84c028a6b93040dba01db53f0aa74cc9db",
-      "checkout_sha256": "7b3dc07a669815c8f6b1d925407e0b84c028a6b93040dba01db53f0aa74cc9db"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/media-binding.json": {
-      "git_blob_sha256": "8b137b4f46ef46736bf2a9c26f731754df5868621be169e00f02f336406fd958",
-      "checkout_sha256": "8b137b4f46ef46736bf2a9c26f731754df5868621be169e00f02f336406fd958"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/media-plan-binding-receipt.json": {
-      "git_blob_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485",
-      "checkout_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/media_assets/source_value_comparison.png": {
-      "git_blob_sha256": "d67221435268d2c676c408dbdfe6ee535e4c62bec4933c62265af6f9477d23c9",
-      "checkout_sha256": "d67221435268d2c676c408dbdfe6ee535e4c62bec4933c62265af6f9477d23c9"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native-after-select.json": {
-      "git_blob_sha256": "960b41e7cf04d4d17ba3943ab41f1f07d41b8e3c89b411e7ac99009e7970605a",
-      "checkout_sha256": "960b41e7cf04d4d17ba3943ab41f1f07d41b8e3c89b411e7ac99009e7970605a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native-after-write.json": {
-      "git_blob_sha256": "73d64709a44067502b2cd0c6127a3afb7689f79e2115487fdce180d550185bb6",
-      "checkout_sha256": "73d64709a44067502b2cd0c6127a3afb7689f79e2115487fdce180d550185bb6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native-final-media-result.json": {
-      "git_blob_sha256": "d3632e3eb940cbc4888973a5145bc5d54583ca73b9d75195451d43ca9692f0e8",
-      "checkout_sha256": "d3632e3eb940cbc4888973a5145bc5d54583ca73b9d75195451d43ca9692f0e8"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native-start.json": {
-      "git_blob_sha256": "bd3a41326bac5684ef9663aa219cb09788544441f1f20c993c4ccc03fd278605",
-      "checkout_sha256": "bd3a41326bac5684ef9663aa219cb09788544441f1f20c993c4ccc03fd278605"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native-writer-start.json": {
-      "git_blob_sha256": "cb54122859e855e4ea100afcfc4990ac946c46c5b7016c0b950c6584d3647c6b",
-      "checkout_sha256": "cb54122859e855e4ea100afcfc4990ac946c46c5b7016c0b950c6584d3647c6b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native_select_output.json": {
-      "git_blob_sha256": "b9b53e708c3b623daabee87118a0ac62f0b3250fea6adee754e561da200545e5",
-      "checkout_sha256": "b9b53e708c3b623daabee87118a0ac62f0b3250fea6adee754e561da200545e5"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native_select_return_envelope.json": {
-      "git_blob_sha256": "97a772bdb219495d18449e574cafebe763883d3669675c7180993927cef39679",
-      "checkout_sha256": "97a772bdb219495d18449e574cafebe763883d3669675c7180993927cef39679"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native_write_execution.md": {
-      "git_blob_sha256": "88d09b3a91a0d6c5d453aeea550d1b8152c70b98e2fa982d156fe3b37b723e37",
-      "checkout_sha256": "88d09b3a91a0d6c5d453aeea550d1b8152c70b98e2fa982d156fe3b37b723e37"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native_write_output.json": {
-      "git_blob_sha256": "1d12ef21f1030f51d37af74a3d6f60a8286055caa79f8d1337c4875811f9e064",
-      "checkout_sha256": "1d12ef21f1030f51d37af74a3d6f60a8286055caa79f8d1337c4875811f9e064"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/native_write_return_envelope.json": {
-      "git_blob_sha256": "86117f002c16e038ff2cfbefe4a832925d11a32fb238e84db33483a26138602b",
-      "checkout_sha256": "86117f002c16e038ff2cfbefe4a832925d11a32fb238e84db33483a26138602b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/parent-write-validation.json": {
-      "git_blob_sha256": "8e02a68bd15182171e4610b79d990e6f64fe477d168f9b27ad9adf72797cca1e",
-      "checkout_sha256": "8e02a68bd15182171e4610b79d990e6f64fe477d168f9b27ad9adf72797cca1e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/photo-asset.json": {
-      "git_blob_sha256": "db284e16b0c8233d6726eb4d31df5aa16c3c28269ea55d61aa89c29d6e8a1bee",
-      "checkout_sha256": "db284e16b0c8233d6726eb4d31df5aa16c3c28269ea55d61aa89c29d6e8a1bee"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/publication-prepared.json": {
-      "git_blob_sha256": "aaab5344bcfc788a99b7fbbc5cb6c0fe68fadfd21689b536a38f2e620288246e",
-      "checkout_sha256": "aaab5344bcfc788a99b7fbbc5cb6c0fe68fadfd21689b536a38f2e620288246e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/publication-status.json": {
-      "git_blob_sha256": "098eeb341c0e3284ac1f19ee58dabbbeeb6d34947f056e274ca4cdf7508e34de",
-      "checkout_sha256": "098eeb341c0e3284ac1f19ee58dabbbeeb6d34947f056e274ca4cdf7508e34de"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/release-media-binding.json": {
-      "git_blob_sha256": "8b137b4f46ef46736bf2a9c26f731754df5868621be169e00f02f336406fd958",
-      "checkout_sha256": "8b137b4f46ef46736bf2a9c26f731754df5868621be169e00f02f336406fd958"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/release-photo-asset.json": {
-      "git_blob_sha256": "55e1194ad50c859cb01afe24d41029f042bac74a5aa587bb26454106ea222d32",
-      "checkout_sha256": "55e1194ad50c859cb01afe24d41029f042bac74a5aa587bb26454106ea222d32"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/release-photo-rights.json": {
-      "git_blob_sha256": "35376a6ac1ab6d4c7462459338463d4f887bdcbd36943d731d33df4154069ff6",
-      "checkout_sha256": "35376a6ac1ab6d4c7462459338463d4f887bdcbd36943d731d33df4154069ff6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/review.json": {
-      "git_blob_sha256": "5f53bc7218376bd3f5fcbd43166eddd4c4e4df18eca816cf748fdff25c6a54de",
-      "checkout_sha256": "5f53bc7218376bd3f5fcbd43166eddd4c4e4df18eca816cf748fdff25c6a54de"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/reviewed-handoff/article_manifest_v1.json": {
-      "git_blob_sha256": "43bd089db810ed4eb05bdedb1af7567af581d894362287b85b3a80c7bc522eec",
-      "checkout_sha256": "43bd089db810ed4eb05bdedb1af7567af581d894362287b85b3a80c7bc522eec"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/reviewed-handoff/native_derivative_previews_v1.json": {
-      "git_blob_sha256": "52c1bffee4afe4adf421f85ae6b6258af5503a29a9600108cc584552623d3710",
-      "checkout_sha256": "52c1bffee4afe4adf421f85ae6b6258af5503a29a9600108cc584552623d3710"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/reviewed-handoff/publication_lifecycle_plan_v1.json": {
-      "git_blob_sha256": "9ed399c8e16cef947992207b4275cb6d0643679a3db873a630707acb0cb68583",
-      "checkout_sha256": "9ed399c8e16cef947992207b4275cb6d0643679a3db873a630707acb0cb68583"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/reviewed-handoff/qualified_article_record_v1.json": {
-      "git_blob_sha256": "43b3d9fadfff1e60eb88d1476f82c9533e0e88e6ee1931726deeb89c4ba4c15b",
-      "checkout_sha256": "43b3d9fadfff1e60eb88d1476f82c9533e0e88e6ee1931726deeb89c4ba4c15b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/ibm/reviewed-handoff/run_context_v1.json": {
-      "git_blob_sha256": "2ebca1c3998afcc8ea63a067f12ee7f3e398f90fa8dc2c7aa37eed806d43240a",
-      "checkout_sha256": "2ebca1c3998afcc8ea63a067f12ee7f3e398f90fa8dc2c7aa37eed806d43240a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/lint-baseline-comparison.json": {
-      "git_blob_sha256": "de17bd37cc99dcd98875116b56e610c4e0a76549ce017b62483a985075cdf439",
-      "checkout_sha256": "de17bd37cc99dcd98875116b56e610c4e0a76549ce017b62483a985075cdf439"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/media-plan-checks.xml": {
-      "git_blob_sha256": "df8e6211ceaa310f826f33e3b8d5f95583eec1152fc93a5de76f98437c71b98c",
-      "checkout_sha256": "df8e6211ceaa310f826f33e3b8d5f95583eec1152fc93a5de76f98437c71b98c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/chart-asset.json": {
-      "git_blob_sha256": "14011fdac7aa2a248dd9dfc7cc5f6d37de19cf2bde674b4bc5105587e98c2d77",
-      "checkout_sha256": "14011fdac7aa2a248dd9dfc7cc5f6d37de19cf2bde674b4bc5105587e98c2d77"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/chart-data.json": {
-      "git_blob_sha256": "56462ad88766a851f24ef8bb524a3c7397d8a1b832fe940f961e701df07628b1",
-      "checkout_sha256": "56462ad88766a851f24ef8bb524a3c7397d8a1b832fe940f961e701df07628b1"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/desktop_request_select.json": {
-      "git_blob_sha256": "925b9ebaa4d7ae1f6c27e022ea7993bc3f57545376c3b6fafbc499be93663bae",
-      "checkout_sha256": "925b9ebaa4d7ae1f6c27e022ea7993bc3f57545376c3b6fafbc499be93663bae"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/desktop_request_write.json": {
-      "git_blob_sha256": "32d8c08a961c6e7ec8c0fee33d8b713cd7801ba62d8807e981c972ebc3294cb7",
-      "checkout_sha256": "32d8c08a961c6e7ec8c0fee33d8b713cd7801ba62d8807e981c972ebc3294cb7"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/documentary_original.jpg": {
-      "git_blob_sha256": "142485163942db43c6c5786440dad2413f5c91ead7ee2c4252172b7ad5355f53",
-      "checkout_sha256": "142485163942db43c6c5786440dad2413f5c91ead7ee2c4252172b7ad5355f53"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/editorial-revision-request.json": {
-      "git_blob_sha256": "2758d6ed16aa14ed48b766cbb5cd79bccad364697d19747e335036277d5e742c",
-      "checkout_sha256": "2758d6ed16aa14ed48b766cbb5cd79bccad364697d19747e335036277d5e742c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/editorial_media_plan_required.json": {
-      "git_blob_sha256": "ecff015fcb15d4666dddd1ba5277f4b8bd38ad8f8ec326945c2f03636ae84264",
-      "checkout_sha256": "ecff015fcb15d4666dddd1ba5277f4b8bd38ad8f8ec326945c2f03636ae84264"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/media-binding.json": {
-      "git_blob_sha256": "b2b05c74b4e06c6000f5f449e083052bc300c1bf7463e8bed2d297aaafc2e7e9",
-      "checkout_sha256": "b2b05c74b4e06c6000f5f449e083052bc300c1bf7463e8bed2d297aaafc2e7e9"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/media-plan-binding-receipt.json": {
-      "git_blob_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485",
-      "checkout_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/media_assets/source_value_comparison.png": {
-      "git_blob_sha256": "bb357416797f93b203e919344509b15dd3e1c4c755d263c865d63dfc4705bf45",
-      "checkout_sha256": "bb357416797f93b203e919344509b15dd3e1c4c755d263c865d63dfc4705bf45"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native-after-select.json": {
-      "git_blob_sha256": "2d57fe0d9d219560f281657549465cc1b665b63c32569798e2e87e2930695486",
-      "checkout_sha256": "2d57fe0d9d219560f281657549465cc1b665b63c32569798e2e87e2930695486"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native-after-write.json": {
-      "git_blob_sha256": "4d21ad3ba3993b362be7d5595f872fddaf6f86aac9e08e6380c9c17ec5b7edab",
-      "checkout_sha256": "4d21ad3ba3993b362be7d5595f872fddaf6f86aac9e08e6380c9c17ec5b7edab"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native-final-media-result.json": {
-      "git_blob_sha256": "0456454be7586f4c12302fdb90cd1d77e98996559b82c0823dfefd4df3a26f37",
-      "checkout_sha256": "0456454be7586f4c12302fdb90cd1d77e98996559b82c0823dfefd4df3a26f37"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native-start.json": {
-      "git_blob_sha256": "680ad571c2633b8f4751e90db278040ad90e413f7e203c7cd532dd2f0c2976a2",
-      "checkout_sha256": "680ad571c2633b8f4751e90db278040ad90e413f7e203c7cd532dd2f0c2976a2"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native-writer-start.json": {
-      "git_blob_sha256": "b9dd9c66809fbc3b5babc8f691578e89e65723088bd9c19f3c368eed7b3d8a62",
-      "checkout_sha256": "b9dd9c66809fbc3b5babc8f691578e89e65723088bd9c19f3c368eed7b3d8a62"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native_select_output.json": {
-      "git_blob_sha256": "e813ac596829051b06c698553ed881a21a5efd681026c73b62ff089d65132d19",
-      "checkout_sha256": "e813ac596829051b06c698553ed881a21a5efd681026c73b62ff089d65132d19"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native_select_return_envelope.json": {
-      "git_blob_sha256": "89cc0646d58c8e40d9c6eed0eb6714ffb0296ebe75eb8caf3542a2f6fc148619",
-      "checkout_sha256": "89cc0646d58c8e40d9c6eed0eb6714ffb0296ebe75eb8caf3542a2f6fc148619"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native_write_execution.md": {
-      "git_blob_sha256": "cd3197a3f562dddb5181429c2cb4265d94f42b35dd102a0e5fece820e4947414",
-      "checkout_sha256": "cd3197a3f562dddb5181429c2cb4265d94f42b35dd102a0e5fece820e4947414"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native_write_output.json": {
-      "git_blob_sha256": "95667a9fd2a4e3ef27d3b57f4b562496e273ea82874d19ade67025e4fd2780dd",
-      "checkout_sha256": "95667a9fd2a4e3ef27d3b57f4b562496e273ea82874d19ade67025e4fd2780dd"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/native_write_return_envelope.json": {
-      "git_blob_sha256": "fce168aa2c210a8e4e1a62114b2852d6e475ef1f8529211133f7cbe7642da139",
-      "checkout_sha256": "fce168aa2c210a8e4e1a62114b2852d6e475ef1f8529211133f7cbe7642da139"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/parent-write-validation.json": {
-      "git_blob_sha256": "0c1e6b6dc6704dac8397a7251f5868b1cd783e614151ef6d54ce5fde43e00fef",
-      "checkout_sha256": "0c1e6b6dc6704dac8397a7251f5868b1cd783e614151ef6d54ce5fde43e00fef"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/photo-asset.json": {
-      "git_blob_sha256": "485067f65389d4872985a8f9b7853f1fbe395955089ae526b90fd6a7d1b8dbd1",
-      "checkout_sha256": "485067f65389d4872985a8f9b7853f1fbe395955089ae526b90fd6a7d1b8dbd1"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/publication-prepared.json": {
-      "git_blob_sha256": "dfad1c5eefb48dd595f936c986e82d2af7dfa9657b741bfaa799f0fee71e9668",
-      "checkout_sha256": "dfad1c5eefb48dd595f936c986e82d2af7dfa9657b741bfaa799f0fee71e9668"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/publication-status.json": {
-      "git_blob_sha256": "8ce9cc625071136aca72f5a4598246154df4633decd7ede3c2eafdb294d1da3c",
-      "checkout_sha256": "8ce9cc625071136aca72f5a4598246154df4633decd7ede3c2eafdb294d1da3c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/release-media-binding.json": {
-      "git_blob_sha256": "b2b05c74b4e06c6000f5f449e083052bc300c1bf7463e8bed2d297aaafc2e7e9",
-      "checkout_sha256": "b2b05c74b4e06c6000f5f449e083052bc300c1bf7463e8bed2d297aaafc2e7e9"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/release-photo-asset.json": {
-      "git_blob_sha256": "23d997d9796ff3fb0cabf1db3486101bfb5d826bf0abd1bf59dae68e679c6542",
-      "checkout_sha256": "23d997d9796ff3fb0cabf1db3486101bfb5d826bf0abd1bf59dae68e679c6542"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/release-photo-rights.json": {
-      "git_blob_sha256": "619e5f5b900e3bd6911359a38cdf9ce422f12007fb5bd7cd27975baef3604ae3",
-      "checkout_sha256": "619e5f5b900e3bd6911359a38cdf9ce422f12007fb5bd7cd27975baef3604ae3"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/review.json": {
-      "git_blob_sha256": "9415742b5fdae6ee7b7ae5dd59d6fcf1823b7d51e0ece4de62e06c3e74c2e203",
-      "checkout_sha256": "9415742b5fdae6ee7b7ae5dd59d6fcf1823b7d51e0ece4de62e06c3e74c2e203"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/reviewed-handoff/article_manifest_v1.json": {
-      "git_blob_sha256": "59f193547746db3060d239941897e930c5322b96de49949160d0a9ac939bc3a2",
-      "checkout_sha256": "59f193547746db3060d239941897e930c5322b96de49949160d0a9ac939bc3a2"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/reviewed-handoff/native_derivative_previews_v1.json": {
-      "git_blob_sha256": "f1aeee945c5873e023079b8d1879764ed4ba1d55c4caa9c5ccab761094f8f728",
-      "checkout_sha256": "f1aeee945c5873e023079b8d1879764ed4ba1d55c4caa9c5ccab761094f8f728"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/reviewed-handoff/publication_lifecycle_plan_v1.json": {
-      "git_blob_sha256": "b03abf11c27e7e528af38f983bbfe476298fbea87db6a8cee44c36ade51fe34a",
-      "checkout_sha256": "b03abf11c27e7e528af38f983bbfe476298fbea87db6a8cee44c36ade51fe34a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/reviewed-handoff/qualified_article_record_v1.json": {
-      "git_blob_sha256": "928a0b29b8fe67241979febc0262e73da781874c5121f2d825e1b8ee350ed52b",
-      "checkout_sha256": "928a0b29b8fe67241979febc0262e73da781874c5121f2d825e1b8ee350ed52b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/meta/reviewed-handoff/run_context_v1.json": {
-      "git_blob_sha256": "aae8db371ee6ff7d13212aaa2003588edc8fb8e721859b5a716c0127926f5345",
-      "checkout_sha256": "aae8db371ee6ff7d13212aaa2003588edc8fb8e721859b5a716c0127926f5345"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/native-plan/desktop_request_select.json": {
-      "git_blob_sha256": "dccba74aebe3b057b608578e1d6fc2ffb42cbbe463ea7572d2374e280f86fe05",
-      "checkout_sha256": "dccba74aebe3b057b608578e1d6fc2ffb42cbbe463ea7572d2374e280f86fe05"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/native-plan/five-selection-requests.json": {
-      "git_blob_sha256": "f66d59cf98baef35ee3bdf2e726cf825f87cbd7ddc0dcd21df7ee30a854e98fc",
-      "checkout_sha256": "f66d59cf98baef35ee3bdf2e726cf825f87cbd7ddc0dcd21df7ee30a854e98fc"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/native-plan/sol_light_execution.md": {
-      "git_blob_sha256": "59192593cf40dae332caa146151646c45fe27d1eb3530b0a33a1ac46eac6a722",
-      "checkout_sha256": "59192593cf40dae332caa146151646c45fe27d1eb3530b0a33a1ac46eac6a722"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/native-plan/sol_light_plan.json": {
-      "git_blob_sha256": "99b231ec6a2afd3c6345a754796d5ec942e0c87e5bac73d9b694feb82c5ab5ca",
-      "checkout_sha256": "99b231ec6a2afd3c6345a754796d5ec942e0c87e5bac73d9b694feb82c5ab5ca"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/native-plan/sol_light_return_envelope.json": {
-      "git_blob_sha256": "6a3afdbec65529af0d2b219e50ea66b2cd1bec13f420509e8a33246a2d294f47",
-      "checkout_sha256": "6a3afdbec65529af0d2b219e50ea66b2cd1bec13f420509e8a33246a2d294f47"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/chart-asset.json": {
-      "git_blob_sha256": "89c988c1d72056ec7fabab0c5911bef351b0978525123109e31f05605b0feb3d",
-      "checkout_sha256": "89c988c1d72056ec7fabab0c5911bef351b0978525123109e31f05605b0feb3d"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/chart-data.json": {
-      "git_blob_sha256": "a5563b1e5979a0678012c1d94f3e35ec62a66fdbd496473039dba44c20cd9e09",
-      "checkout_sha256": "a5563b1e5979a0678012c1d94f3e35ec62a66fdbd496473039dba44c20cd9e09"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/desktop_request_select.json": {
-      "git_blob_sha256": "82902627f21580883878752eb81161225f6e7b431035104f9333a44abb5631ad",
-      "checkout_sha256": "82902627f21580883878752eb81161225f6e7b431035104f9333a44abb5631ad"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/desktop_request_write.json": {
-      "git_blob_sha256": "08d7c1be30e9daaf3f4343e7771f19ed7eba20bdf95c68a8cf6109be3b932b87",
-      "checkout_sha256": "08d7c1be30e9daaf3f4343e7771f19ed7eba20bdf95c68a8cf6109be3b932b87"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/documentary_original.jpg": {
-      "git_blob_sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b",
-      "checkout_sha256": "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/editorial-revision-request.json": {
-      "git_blob_sha256": "593e75072ceaf6431ee54c3a632a73c1fac67228979afe2df3a6d3b30285482b",
-      "checkout_sha256": "593e75072ceaf6431ee54c3a632a73c1fac67228979afe2df3a6d3b30285482b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/editorial_media_plan_required.json": {
-      "git_blob_sha256": "db6d304017f53094424abcf39931ac2ea14a394b530d169f379fca92a7be3e2e",
-      "checkout_sha256": "db6d304017f53094424abcf39931ac2ea14a394b530d169f379fca92a7be3e2e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/media-binding.json": {
-      "git_blob_sha256": "6185471fd331b6d4ce856cc377bc737f20696104c8e1bc4cafc372785cd4bc4c",
-      "checkout_sha256": "6185471fd331b6d4ce856cc377bc737f20696104c8e1bc4cafc372785cd4bc4c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/media-plan-binding-receipt.json": {
-      "git_blob_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485",
-      "checkout_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/media_assets/source_value_comparison.png": {
-      "git_blob_sha256": "0225a86141a374d4640a96bdac842f19ba86fe2da34b1f4325864ac00c962e41",
-      "checkout_sha256": "0225a86141a374d4640a96bdac842f19ba86fe2da34b1f4325864ac00c962e41"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native-after-select.json": {
-      "git_blob_sha256": "756bbdbeb9d633a6abb8c813d49b7a6afd66cd68847ca6252d100245c8f1caf6",
-      "checkout_sha256": "756bbdbeb9d633a6abb8c813d49b7a6afd66cd68847ca6252d100245c8f1caf6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native-after-write.json": {
-      "git_blob_sha256": "33bce895fdaab1f782d489d4289b22bdac417f44136ce902d3a67db15adcc18c",
-      "checkout_sha256": "33bce895fdaab1f782d489d4289b22bdac417f44136ce902d3a67db15adcc18c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native-final-media-result.json": {
-      "git_blob_sha256": "a19df3787d8cc85f3cb0ffc541b206284a9929d69af100076995db2a08e827b5",
-      "checkout_sha256": "a19df3787d8cc85f3cb0ffc541b206284a9929d69af100076995db2a08e827b5"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native-start.json": {
-      "git_blob_sha256": "423d08c7a1bae4c0e5b3593ae52189d311bfa064122acd5d13612828397310b8",
-      "checkout_sha256": "423d08c7a1bae4c0e5b3593ae52189d311bfa064122acd5d13612828397310b8"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native-writer-start.json": {
-      "git_blob_sha256": "27df4e948361688b2e8dd50a9bfa46ff71c261b11ddc2105e4d00f18a360429f",
-      "checkout_sha256": "27df4e948361688b2e8dd50a9bfa46ff71c261b11ddc2105e4d00f18a360429f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native_select_output.json": {
-      "git_blob_sha256": "d449bd7a70146cdb691d284c612b55253f6b1bc1c00796300dab0c379f7e57d8",
-      "checkout_sha256": "d449bd7a70146cdb691d284c612b55253f6b1bc1c00796300dab0c379f7e57d8"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native_select_return_envelope.json": {
-      "git_blob_sha256": "26c245654aec451b82ee5ecd1d199a8e9e616253af45b108f583a7b2bbbebd78",
-      "checkout_sha256": "26c245654aec451b82ee5ecd1d199a8e9e616253af45b108f583a7b2bbbebd78"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native_write_execution.md": {
-      "git_blob_sha256": "19d3eaedc8bec7c8de2f2fc1e26b4a58c629b257d140cfd48ec8545dce82bcb5",
-      "checkout_sha256": "19d3eaedc8bec7c8de2f2fc1e26b4a58c629b257d140cfd48ec8545dce82bcb5"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native_write_output.json": {
-      "git_blob_sha256": "59cabe27a4659383f52c1f9aff909d87e35135193bdf578beec13eeb144731c9",
-      "checkout_sha256": "59cabe27a4659383f52c1f9aff909d87e35135193bdf578beec13eeb144731c9"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/native_write_return_envelope.json": {
-      "git_blob_sha256": "a8710888eef5f1b0bc61d1883fdefbc05e732d421d332991a7322b91bd92b808",
-      "checkout_sha256": "a8710888eef5f1b0bc61d1883fdefbc05e732d421d332991a7322b91bd92b808"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/parent-write-validation.json": {
-      "git_blob_sha256": "34b2ae1a3cb2e5641cdc5e636ca1fc3435757bc4cdf35479068aaba17e2211c0",
-      "checkout_sha256": "34b2ae1a3cb2e5641cdc5e636ca1fc3435757bc4cdf35479068aaba17e2211c0"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/photo-asset.json": {
-      "git_blob_sha256": "0040cfe30a24b529aadac53b7341243279ef4d0f37d9932f50eee7651c87ed82",
-      "checkout_sha256": "0040cfe30a24b529aadac53b7341243279ef4d0f37d9932f50eee7651c87ed82"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/publication-prepared.json": {
-      "git_blob_sha256": "db9b7d50adec3e3a4155633611d7ce27893b2426a21b0a0282fbc51f5136bfd6",
-      "checkout_sha256": "db9b7d50adec3e3a4155633611d7ce27893b2426a21b0a0282fbc51f5136bfd6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/publication-status.json": {
-      "git_blob_sha256": "767f04e10f7d98b6bb9ba76410ac80a5a12fbd37f26df0bd4f2bc4474caa1b5c",
-      "checkout_sha256": "767f04e10f7d98b6bb9ba76410ac80a5a12fbd37f26df0bd4f2bc4474caa1b5c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/release-media-binding.json": {
-      "git_blob_sha256": "6185471fd331b6d4ce856cc377bc737f20696104c8e1bc4cafc372785cd4bc4c",
-      "checkout_sha256": "6185471fd331b6d4ce856cc377bc737f20696104c8e1bc4cafc372785cd4bc4c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/release-photo-asset.json": {
-      "git_blob_sha256": "9f3824f87e14a06c35c793d3047a0fd407c055d7e82fbc80cbdf76d07296f21f",
-      "checkout_sha256": "9f3824f87e14a06c35c793d3047a0fd407c055d7e82fbc80cbdf76d07296f21f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/release-photo-rights.json": {
-      "git_blob_sha256": "f9046e511ed2a142d7226ffd2f65d1ba6d002c668218882b3db95b2c377dde93",
-      "checkout_sha256": "f9046e511ed2a142d7226ffd2f65d1ba6d002c668218882b3db95b2c377dde93"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/review.json": {
-      "git_blob_sha256": "7184fc9cdb4e50315e03986827239a34eb936f0474440cf9e1c8bb9b200153ae",
-      "checkout_sha256": "7184fc9cdb4e50315e03986827239a34eb936f0474440cf9e1c8bb9b200153ae"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/reviewed-handoff/article_manifest_v1.json": {
-      "git_blob_sha256": "1ff96a153d262c389d2a0fca3ee657765a979ba00f83a13ab5cd84b5f0a5ec07",
-      "checkout_sha256": "1ff96a153d262c389d2a0fca3ee657765a979ba00f83a13ab5cd84b5f0a5ec07"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/reviewed-handoff/native_derivative_previews_v1.json": {
-      "git_blob_sha256": "058a15bef0158fab8ae8a266d8982ae303efb8e6112af38dab8016fb67b3256a",
-      "checkout_sha256": "058a15bef0158fab8ae8a266d8982ae303efb8e6112af38dab8016fb67b3256a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/reviewed-handoff/publication_lifecycle_plan_v1.json": {
-      "git_blob_sha256": "84dde0a6d575dacfa64b58f6d5b4f1988086bc6a193bf9715a7f859aaa752bdc",
-      "checkout_sha256": "84dde0a6d575dacfa64b58f6d5b4f1988086bc6a193bf9715a7f859aaa752bdc"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/reviewed-handoff/qualified_article_record_v1.json": {
-      "git_blob_sha256": "e1a7c4b0d277e39ffbf07fd94d53c9f55f8bbaab9464ab4e02668362c787c3d0",
-      "checkout_sha256": "e1a7c4b0d277e39ffbf07fd94d53c9f55f8bbaab9464ab4e02668362c787c3d0"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/oil/reviewed-handoff/run_context_v1.json": {
-      "git_blob_sha256": "64c51c5fb224256bc256f9dd5fd1d2c4ed6d6c6f8491e5cfc768d0e41cbb6cef",
-      "checkout_sha256": "64c51c5fb224256bc256f9dd5fd1d2c4ed6d6c6f8491e5cfc768d0e41cbb6cef"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/owner-edition.json": {
-      "git_blob_sha256": "5bdcc82943e83b26a6eca29c9a2074c58495614c399956c33983adb11bb72d49",
-      "checkout_sha256": "5bdcc82943e83b26a6eca29c9a2074c58495614c399956c33983adb11bb72d49"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/photo-contact-sheet-1.jpg": {
-      "git_blob_sha256": "80e32005bcffa2c3feca74405f4de1c0b362645b5f588e4d8b5fd756a0290508",
-      "checkout_sha256": "80e32005bcffa2c3feca74405f4de1c0b362645b5f588e4d8b5fd756a0290508"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/photo-contact-sheet-2.jpg": {
-      "git_blob_sha256": "b6c7d4aa4679ee906e59eab916c4371496590b8cf5a7c5261dfaca7487c5662c",
-      "checkout_sha256": "b6c7d4aa4679ee906e59eab916c4371496590b8cf5a7c5261dfaca7487c5662c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/browser-observations.json": {
-      "git_blob_sha256": "80d71f62f4ea64b9d8304661fe4843506747ae52b69b8288b1b39150eed3c1d5",
-      "checkout_sha256": "80d71f62f4ea64b9d8304661fe4843506747ae52b69b8288b1b39150eed3c1d5"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/chart-enlargement-observation.json": {
-      "git_blob_sha256": "e03ab741adcb2afe211cca22a0404aad1f76f907f3927a4dd012cf6c4873ce9f",
-      "checkout_sha256": "e03ab741adcb2afe211cca22a0404aad1f76f907f3927a4dd012cf6c4873ce9f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/ibm-desktop-inspection-1.jpg": {
-      "git_blob_sha256": "3069bb9068ec7631dc9c9d957a15e406c2154f22c86f55be50766433b1b9197c",
-      "checkout_sha256": "3069bb9068ec7631dc9c9d957a15e406c2154f22c86f55be50766433b1b9197c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/ibm-desktop-inspection-2.jpg": {
-      "git_blob_sha256": "389b023938c73ead00bde401e220e1f4a26884ad4ad76ac0699028909bb5d4b5",
-      "checkout_sha256": "389b023938c73ead00bde401e220e1f4a26884ad4ad76ac0699028909bb5d4b5"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/ibm-desktop.pdf": {
-      "git_blob_sha256": "a8af8508d79d56ba044f20ccabcacae9e1f0edad08c71da6dbc98b7bd6bbd954",
-      "checkout_sha256": "a8af8508d79d56ba044f20ccabcacae9e1f0edad08c71da6dbc98b7bd6bbd954"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/ibm-mobile-inspection-1.jpg": {
-      "git_blob_sha256": "db2e3157a895ea2b47b4fe2c104d7e5db1f3a2f8d68ec3366b4723fa43a2afc1",
-      "checkout_sha256": "db2e3157a895ea2b47b4fe2c104d7e5db1f3a2f8d68ec3366b4723fa43a2afc1"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/ibm-mobile-inspection-2.jpg": {
-      "git_blob_sha256": "2979d9e963c8a4662ea1b43bf3f08c8572188e6742eeb5b5f1845c6294e05552",
-      "checkout_sha256": "2979d9e963c8a4662ea1b43bf3f08c8572188e6742eeb5b5f1845c6294e05552"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/ibm-mobile.pdf": {
-      "git_blob_sha256": "c8ae20c7dd98e1222289c710d7773e907d115e9dd7335559086281f6b834eba0",
-      "checkout_sha256": "c8ae20c7dd98e1222289c710d7773e907d115e9dd7335559086281f6b834eba0"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/meta-desktop-inspection-1.jpg": {
-      "git_blob_sha256": "14f4f870780fb2650c6d5f9ef9532ebcc52251795412bfa3b8d1063f71e9d6be",
-      "checkout_sha256": "14f4f870780fb2650c6d5f9ef9532ebcc52251795412bfa3b8d1063f71e9d6be"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/meta-desktop-inspection-2.jpg": {
-      "git_blob_sha256": "3af5718227b420d892bc981246a86861321cba52bc5053fca2690d464df70599",
-      "checkout_sha256": "3af5718227b420d892bc981246a86861321cba52bc5053fca2690d464df70599"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/meta-desktop.pdf": {
-      "git_blob_sha256": "6477ca1cbff13326e817b1c4e2cdc91774d0458478d2f055c0698af7387e3c7f",
-      "checkout_sha256": "6477ca1cbff13326e817b1c4e2cdc91774d0458478d2f055c0698af7387e3c7f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/meta-mobile-inspection-1.jpg": {
-      "git_blob_sha256": "7d09c4fd796438ec5e370796f210ab518a7b6347690afaa2610607f050dd7ab4",
-      "checkout_sha256": "7d09c4fd796438ec5e370796f210ab518a7b6347690afaa2610607f050dd7ab4"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/meta-mobile-inspection-2.jpg": {
-      "git_blob_sha256": "3ad99ca168b4150c64942b1e3ff04efa64137e00b62ecee709d58d9e2dfdd706",
-      "checkout_sha256": "3ad99ca168b4150c64942b1e3ff04efa64137e00b62ecee709d58d9e2dfdd706"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/meta-mobile.pdf": {
-      "git_blob_sha256": "b4ee6a7ee3e7eb1b4f51cb33796b07081ede756fad0a5de7d50b808a8b258c6c",
-      "checkout_sha256": "b4ee6a7ee3e7eb1b4f51cb33796b07081ede756fad0a5de7d50b808a8b258c6c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/oil-desktop-inspection-1.jpg": {
-      "git_blob_sha256": "b6afff27acff57869ae31aedbe681af83136cf074e1c3d86fd8b65c65fc2bac8",
-      "checkout_sha256": "b6afff27acff57869ae31aedbe681af83136cf074e1c3d86fd8b65c65fc2bac8"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/oil-desktop-inspection-2.jpg": {
-      "git_blob_sha256": "36ac5e572b84f63f8708db74709c76f1fe05338b9b40050b00431b128883e12d",
-      "checkout_sha256": "36ac5e572b84f63f8708db74709c76f1fe05338b9b40050b00431b128883e12d"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/oil-desktop.pdf": {
-      "git_blob_sha256": "4c9f2404f519ab5a54c7b2f53343ac7261ce7f4990a8272f658b9177d54b3562",
-      "checkout_sha256": "4c9f2404f519ab5a54c7b2f53343ac7261ce7f4990a8272f658b9177d54b3562"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/oil-mobile-inspection-1.jpg": {
-      "git_blob_sha256": "f5833fd06e9eff571ee58f8abedcb6304f229487d514e30c75606614ee2f1897",
-      "checkout_sha256": "f5833fd06e9eff571ee58f8abedcb6304f229487d514e30c75606614ee2f1897"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/oil-mobile-inspection-2.jpg": {
-      "git_blob_sha256": "aca0ee0f396bc86a6202d843af9aa850c5def72f5abc7b3717be091edbdf7881",
-      "checkout_sha256": "aca0ee0f396bc86a6202d843af9aa850c5def72f5abc7b3717be091edbdf7881"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/oil-mobile.pdf": {
-      "git_blob_sha256": "c064e9d83ee33ab26f94798f956d7325d2242adbe240a929f4e4d6a9c1ba74a2",
-      "checkout_sha256": "c064e9d83ee33ab26f94798f956d7325d2242adbe240a929f4e4d6a9c1ba74a2"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/southwest-desktop-inspection-1.jpg": {
-      "git_blob_sha256": "27335c4fa86476984748ab8de81ce4e37e6445756c8a3cbd3490b8fa14907bd6",
-      "checkout_sha256": "27335c4fa86476984748ab8de81ce4e37e6445756c8a3cbd3490b8fa14907bd6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/southwest-desktop-inspection-2.jpg": {
-      "git_blob_sha256": "f423d021f67a91e1f616f58b7fa502cd95a4823f76ca2fc0291128956ff1f5ed",
-      "checkout_sha256": "f423d021f67a91e1f616f58b7fa502cd95a4823f76ca2fc0291128956ff1f5ed"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/southwest-desktop.pdf": {
-      "git_blob_sha256": "5929ca90d010264d684c756a4d9fe3a2b79e934f73abd4e46b837daae44c2bd9",
-      "checkout_sha256": "5929ca90d010264d684c756a4d9fe3a2b79e934f73abd4e46b837daae44c2bd9"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/southwest-mobile-inspection-1.jpg": {
-      "git_blob_sha256": "dff8f563aefa69c5ddbb748af2790c52195206688eba83709bc70e860b6ea99b",
-      "checkout_sha256": "dff8f563aefa69c5ddbb748af2790c52195206688eba83709bc70e860b6ea99b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/southwest-mobile-inspection-2.jpg": {
-      "git_blob_sha256": "43109bc0a45ae1221ee2642376db716fef05df64230533c6dd659f10e3807b2f",
-      "checkout_sha256": "43109bc0a45ae1221ee2642376db716fef05df64230533c6dd659f10e3807b2f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/southwest-mobile.pdf": {
-      "git_blob_sha256": "44ceadd12ea624435dcf34759271f74ef9404904844d4a29f6929fadcb3742f8",
-      "checkout_sha256": "44ceadd12ea624435dcf34759271f74ef9404904844d4a29f6929fadcb3742f8"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/tesla-desktop-inspection-1.jpg": {
-      "git_blob_sha256": "d2e624c612d184962aae35202503a11e1572a183909f088f1eccbb887a8eb8bc",
-      "checkout_sha256": "d2e624c612d184962aae35202503a11e1572a183909f088f1eccbb887a8eb8bc"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/tesla-desktop-inspection-2.jpg": {
-      "git_blob_sha256": "547349f1a5756499fca5f077018d52c38c07ff9fc6fdb2bb467e1e30f3b7896e",
-      "checkout_sha256": "547349f1a5756499fca5f077018d52c38c07ff9fc6fdb2bb467e1e30f3b7896e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/tesla-desktop.pdf": {
-      "git_blob_sha256": "27239b45bb788e9e11addfd92f04d66f0a8ee84e89c9d323fd0a3dc616777ce0",
-      "checkout_sha256": "27239b45bb788e9e11addfd92f04d66f0a8ee84e89c9d323fd0a3dc616777ce0"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/tesla-mobile-inspection-1.jpg": {
-      "git_blob_sha256": "f5d56b457ebed1c7667379deb912a124e6f7d4aa9db7f13259de86630bab7377",
-      "checkout_sha256": "f5d56b457ebed1c7667379deb912a124e6f7d4aa9db7f13259de86630bab7377"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/tesla-mobile-inspection-2.jpg": {
-      "git_blob_sha256": "a0be6479965648f915b633a1ddef9c6f28876505ed14ce303a5430baf453e8ac",
-      "checkout_sha256": "a0be6479965648f915b633a1ddef9c6f28876505ed14ce303a5430baf453e8ac"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/tesla-mobile.pdf": {
-      "git_blob_sha256": "675919b6326cfebacae8b63c89d766d33d56970e2661f04a195e0b83f26d7f52",
-      "checkout_sha256": "675919b6326cfebacae8b63c89d766d33d56970e2661f04a195e0b83f26d7f52"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/final/visual-review.json": {
-      "git_blob_sha256": "9ad12bd3bb84f3e6c5cd9687d345afa82f5a9cf03195b2b76f645d6ff9eb55ba",
-      "checkout_sha256": "9ad12bd3bb84f3e6c5cd9687d345afa82f5a9cf03195b2b76f645d6ff9eb55ba"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/index.html.gz": {
-      "git_blob_sha256": "42d86e6ada3dcf5a35ce84ab3fd8c06a0d5977c71ba5bd695530de678c9a5bfa",
-      "checkout_sha256": "42d86e6ada3dcf5a35ce84ab3fd8c06a0d5977c71ba5bd695530de678c9a5bfa"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/render-receipt.json": {
-      "git_blob_sha256": "554400028462fb0bfecb719404801e8c5f4b9d5e952d90be8a8e27fcf46532b0",
-      "checkout_sha256": "554400028462fb0bfecb719404801e8c5f4b9d5e952d90be8a8e27fcf46532b0"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/renders/workspace.json.gz": {
-      "git_blob_sha256": "1b88df1addc57b7d053e55374c762ae1f85057dbce4b79b805f4ccc13597e090",
-      "checkout_sha256": "1b88df1addc57b7d053e55374c762ae1f85057dbce4b79b805f4ccc13597e090"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/revision-plan-input.json": {
-      "git_blob_sha256": "9bc1878f53857a78de392997cf6a71c29559d3c396e9d6e21fd29a0fbdc6820f",
-      "checkout_sha256": "9bc1878f53857a78de392997cf6a71c29559d3c396e9d6e21fd29a0fbdc6820f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/chart-asset.json": {
-      "git_blob_sha256": "d5dffda2ff0fc304f3826a09f4df28003dd23a436b4ace83a993475c23f174a2",
-      "checkout_sha256": "d5dffda2ff0fc304f3826a09f4df28003dd23a436b4ace83a993475c23f174a2"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/chart-data.json": {
-      "git_blob_sha256": "90427ee2ff25d5b6106df5fab8f0e2206ec81be5d87a0fd42125fb8e2a9798bc",
-      "checkout_sha256": "90427ee2ff25d5b6106df5fab8f0e2206ec81be5d87a0fd42125fb8e2a9798bc"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/desktop_request_select.json": {
-      "git_blob_sha256": "33a4cfdab08b22647cbf580292cddb1cdfe7bc013cab24e7a5b49067ead9ef54",
-      "checkout_sha256": "33a4cfdab08b22647cbf580292cddb1cdfe7bc013cab24e7a5b49067ead9ef54"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/desktop_request_write.json": {
-      "git_blob_sha256": "15f99e535959203821de0d7d6fb67d2b45e2a3c8d431205fb69b64861499dd3b",
-      "checkout_sha256": "15f99e535959203821de0d7d6fb67d2b45e2a3c8d431205fb69b64861499dd3b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/documentary_original.jpg": {
-      "git_blob_sha256": "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4",
-      "checkout_sha256": "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/editorial-revision-request.json": {
-      "git_blob_sha256": "0ab49cdb4f4c169c43d95b33b1b4ceca7277f5edeb20b3e51d39fe06f0899ad4",
-      "checkout_sha256": "0ab49cdb4f4c169c43d95b33b1b4ceca7277f5edeb20b3e51d39fe06f0899ad4"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/editorial_media_plan_required.json": {
-      "git_blob_sha256": "568af1f0deadcf397252f09c3104151c0f3d878a0771f1b7cccbbf05130f65d4",
-      "checkout_sha256": "568af1f0deadcf397252f09c3104151c0f3d878a0771f1b7cccbbf05130f65d4"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/media-binding.json": {
-      "git_blob_sha256": "4715350aeaed4f00d2626e40d5659cbf85c724099c2f2d3e850d72174cff328f",
-      "checkout_sha256": "4715350aeaed4f00d2626e40d5659cbf85c724099c2f2d3e850d72174cff328f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/media-plan-binding-receipt.json": {
-      "git_blob_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485",
-      "checkout_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/media_assets/source_value_comparison.png": {
-      "git_blob_sha256": "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242",
-      "checkout_sha256": "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native-after-select.json": {
-      "git_blob_sha256": "34e1e09f455c3f92d2853b65e363ef285335f6dc784ea58d6d8891dc3a19a579",
-      "checkout_sha256": "34e1e09f455c3f92d2853b65e363ef285335f6dc784ea58d6d8891dc3a19a579"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native-after-write.json": {
-      "git_blob_sha256": "bbfa9834d886263440884c2346ce2048b7584c86c43fdfb10b47127d77c1be5b",
-      "checkout_sha256": "bbfa9834d886263440884c2346ce2048b7584c86c43fdfb10b47127d77c1be5b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native-final-media-result.json": {
-      "git_blob_sha256": "983e80a4c93268d4a04c79c22cb25bbe1f8c0dfcb5cda7885acf878634018284",
-      "checkout_sha256": "983e80a4c93268d4a04c79c22cb25bbe1f8c0dfcb5cda7885acf878634018284"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native-start.json": {
-      "git_blob_sha256": "7b854b2dc81699e61d9d63bf95168497613c49e65603d2d360ce36ea966f7a1d",
-      "checkout_sha256": "7b854b2dc81699e61d9d63bf95168497613c49e65603d2d360ce36ea966f7a1d"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native-writer-start.json": {
-      "git_blob_sha256": "846db2105fd612ef5c534c52dc5a47289de9d2fe940032fc0f0c0d6f11e4f3e6",
-      "checkout_sha256": "846db2105fd612ef5c534c52dc5a47289de9d2fe940032fc0f0c0d6f11e4f3e6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native_select_output.json": {
-      "git_blob_sha256": "bf202e6be576d894dec8514cc64a9680f0f53646726a45cd6193912b99e2ea04",
-      "checkout_sha256": "bf202e6be576d894dec8514cc64a9680f0f53646726a45cd6193912b99e2ea04"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native_select_return_envelope.json": {
-      "git_blob_sha256": "28715432ae88b3157703c6f2eb274c317d69c4eec51d4cb991b01043bce0b7e8",
-      "checkout_sha256": "28715432ae88b3157703c6f2eb274c317d69c4eec51d4cb991b01043bce0b7e8"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native_write_execution.md": {
-      "git_blob_sha256": "0afd1f691374ee247531e77853fa0cc86e02b56d985d4161c6b92cade1387b12",
-      "checkout_sha256": "0afd1f691374ee247531e77853fa0cc86e02b56d985d4161c6b92cade1387b12"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native_write_output.json": {
-      "git_blob_sha256": "a3b52ba2b4825d735d355fcf2e9b2aee496d96637b88c1c9a6b2286e31653df2",
-      "checkout_sha256": "a3b52ba2b4825d735d355fcf2e9b2aee496d96637b88c1c9a6b2286e31653df2"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/native_write_return_envelope.json": {
-      "git_blob_sha256": "998d8a3151b751ff5b4f2b9d09c632ed90e288e2c97bc6bab167870ba73db668",
-      "checkout_sha256": "998d8a3151b751ff5b4f2b9d09c632ed90e288e2c97bc6bab167870ba73db668"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/parent-write-validation.json": {
-      "git_blob_sha256": "be5325cd580aedd24e7e76c13992629d85070e4ab659fc208160bab113ac4c30",
-      "checkout_sha256": "be5325cd580aedd24e7e76c13992629d85070e4ab659fc208160bab113ac4c30"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/photo-asset.json": {
-      "git_blob_sha256": "ff4bcaf72528df1c47d4388659b1bb5f9415c543258abe9f17f10783d9ab518b",
-      "checkout_sha256": "ff4bcaf72528df1c47d4388659b1bb5f9415c543258abe9f17f10783d9ab518b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/photo-date-readback.json": {
-      "git_blob_sha256": "2d7211d3a074c63ea450586306d8f5d3f91e57166318f8b7de37210cca140025",
-      "checkout_sha256": "2d7211d3a074c63ea450586306d8f5d3f91e57166318f8b7de37210cca140025"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/publication-prepared.json": {
-      "git_blob_sha256": "f99d4b94f7eeceb4aa672044fd3e5eb55545a665628c4bd173c3f4f09d4b257e",
-      "checkout_sha256": "f99d4b94f7eeceb4aa672044fd3e5eb55545a665628c4bd173c3f4f09d4b257e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/publication-status.json": {
-      "git_blob_sha256": "fd4ae05083d8509592eb965ed05a93468f9603bb523bea6da751af409eeffbd6",
-      "checkout_sha256": "fd4ae05083d8509592eb965ed05a93468f9603bb523bea6da751af409eeffbd6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/release-media-binding.json": {
-      "git_blob_sha256": "4715350aeaed4f00d2626e40d5659cbf85c724099c2f2d3e850d72174cff328f",
-      "checkout_sha256": "4715350aeaed4f00d2626e40d5659cbf85c724099c2f2d3e850d72174cff328f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/release-photo-asset.json": {
-      "git_blob_sha256": "fd510695de3658f9fa54e2b736379ea7943cff22794ea854e9467808b3e7b29e",
-      "checkout_sha256": "fd510695de3658f9fa54e2b736379ea7943cff22794ea854e9467808b3e7b29e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/release-photo-rights.json": {
-      "git_blob_sha256": "616a9d7f377663e0ef4aa0509a9da40f9f7fa05a833a5388f7189ed967ce9364",
-      "checkout_sha256": "616a9d7f377663e0ef4aa0509a9da40f9f7fa05a833a5388f7189ed967ce9364"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/review.json": {
-      "git_blob_sha256": "3d16034264d85fa99600fdeb55efea4456cebe8ea3580eabb2e2fdbb78f79fa6",
-      "checkout_sha256": "3d16034264d85fa99600fdeb55efea4456cebe8ea3580eabb2e2fdbb78f79fa6"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/reviewed-handoff/article_manifest_v1.json": {
-      "git_blob_sha256": "cd25aa6023e00df447990005d79a384c7151fa6391892eac186b9b0a255fbcab",
-      "checkout_sha256": "cd25aa6023e00df447990005d79a384c7151fa6391892eac186b9b0a255fbcab"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/reviewed-handoff/native_derivative_previews_v1.json": {
-      "git_blob_sha256": "6de3034016d834b2813a41949870b799659ddf2b56c155d4a47f7dcbf5e79031",
-      "checkout_sha256": "6de3034016d834b2813a41949870b799659ddf2b56c155d4a47f7dcbf5e79031"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/reviewed-handoff/publication_lifecycle_plan_v1.json": {
-      "git_blob_sha256": "02e7551674488c78581b0f07a74b790fcf86f286dc6219aab784ab70c6a1981a",
-      "checkout_sha256": "02e7551674488c78581b0f07a74b790fcf86f286dc6219aab784ab70c6a1981a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/reviewed-handoff/qualified_article_record_v1.json": {
-      "git_blob_sha256": "7314ca3c1bb2f78e77a938cfea2e55ad363b40e88b769cdb387b13dfea701e5c",
-      "checkout_sha256": "7314ca3c1bb2f78e77a938cfea2e55ad363b40e88b769cdb387b13dfea701e5c"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/southwest/reviewed-handoff/run_context_v1.json": {
-      "git_blob_sha256": "b767c0bd0f5a10f281de47283df0f756ccfbcb8f14a50957cfe7f5cf9e9e78d3",
-      "checkout_sha256": "b767c0bd0f5a10f281de47283df0f756ccfbcb8f14a50957cfe7f5cf9e9e78d3"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/chart-asset.json": {
-      "git_blob_sha256": "b4a9daa7bc4ec3e8778ae8c1bc03bcadce72310efeaf18fbf2e871592da23c4a",
-      "checkout_sha256": "b4a9daa7bc4ec3e8778ae8c1bc03bcadce72310efeaf18fbf2e871592da23c4a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/chart-data.json": {
-      "git_blob_sha256": "0f8c3e6c3b7bd92fadef1b908a2ecf3b3fecf5862e66cc5dc76f3fcc2fcb5872",
-      "checkout_sha256": "0f8c3e6c3b7bd92fadef1b908a2ecf3b3fecf5862e66cc5dc76f3fcc2fcb5872"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/desktop_request_select.json": {
-      "git_blob_sha256": "a0acdaecfd9d8d01fba4d4f6d0533d69e5b3d1eaa86becb1c9416d7d128dc934",
-      "checkout_sha256": "a0acdaecfd9d8d01fba4d4f6d0533d69e5b3d1eaa86becb1c9416d7d128dc934"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/desktop_request_write.json": {
-      "git_blob_sha256": "31c4057c9a5f2192232dee24401a638850c9f4714407817babdd952a473fdb8e",
-      "checkout_sha256": "31c4057c9a5f2192232dee24401a638850c9f4714407817babdd952a473fdb8e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/documentary_original.jpg": {
-      "git_blob_sha256": "a08499ae2b5f5ebfc223dde6525ab8992cdcfe13e605c01dce575d0187347d43",
-      "checkout_sha256": "a08499ae2b5f5ebfc223dde6525ab8992cdcfe13e605c01dce575d0187347d43"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/editorial-revision-request.json": {
-      "git_blob_sha256": "786c27aaeaa7f500daa7d0ab6963212e84af2eb87606c6c32429698ceb5281f5",
-      "checkout_sha256": "786c27aaeaa7f500daa7d0ab6963212e84af2eb87606c6c32429698ceb5281f5"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/editorial_media_plan_required.json": {
-      "git_blob_sha256": "c5edadc894fcc96761fc1b10e87906d4d5c761759eb3b64264ff9e5ec5ff0615",
-      "checkout_sha256": "c5edadc894fcc96761fc1b10e87906d4d5c761759eb3b64264ff9e5ec5ff0615"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/media-binding.json": {
-      "git_blob_sha256": "b89318b91f72d4491a9b0f5ca0912db3688176c9fae2ed8357849d440ca856a7",
-      "checkout_sha256": "b89318b91f72d4491a9b0f5ca0912db3688176c9fae2ed8357849d440ca856a7"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/media-plan-binding-receipt.json": {
-      "git_blob_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485",
-      "checkout_sha256": "164a05981c6e887561fc69e2a5c7ed208b8e3b534f663eab7be074dff50e7485"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/media_assets/source_value_comparison.png": {
-      "git_blob_sha256": "bb7650d03d73bc9f13d1a588fd411a571563f1be6fc238f39ad19647bb478e22",
-      "checkout_sha256": "bb7650d03d73bc9f13d1a588fd411a571563f1be6fc238f39ad19647bb478e22"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native-after-select.json": {
-      "git_blob_sha256": "7ad52ab32f1d79b9b6edf74e91e988d28e98f08cfb05fbd756a9e314ec50a1d0",
-      "checkout_sha256": "7ad52ab32f1d79b9b6edf74e91e988d28e98f08cfb05fbd756a9e314ec50a1d0"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native-after-write.json": {
-      "git_blob_sha256": "daf81dd05826c47b27d1a679ea2a76a9648cd3db92880113c29d78d8b21ddafa",
-      "checkout_sha256": "daf81dd05826c47b27d1a679ea2a76a9648cd3db92880113c29d78d8b21ddafa"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native-final-media-result.json": {
-      "git_blob_sha256": "1f0091ab7d7d1df13e59379c1291b4f45e05e63b06c4af9672d6396336d15747",
-      "checkout_sha256": "1f0091ab7d7d1df13e59379c1291b4f45e05e63b06c4af9672d6396336d15747"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native-start.json": {
-      "git_blob_sha256": "11ed6502a8209f150542e122912b9543915c449dfb521f0fa6275845c8fa2b8f",
-      "checkout_sha256": "11ed6502a8209f150542e122912b9543915c449dfb521f0fa6275845c8fa2b8f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native-writer-start.json": {
-      "git_blob_sha256": "b94e816c84bccedee9b160df31bb66e7439d5257e52638ba3a58ca1d7094fb84",
-      "checkout_sha256": "b94e816c84bccedee9b160df31bb66e7439d5257e52638ba3a58ca1d7094fb84"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native_select_output.json": {
-      "git_blob_sha256": "698b8ec192518ec2d4bf52e8c360b9a9a1ac0db46fabce7a4a5f87b8552d7f5d",
-      "checkout_sha256": "698b8ec192518ec2d4bf52e8c360b9a9a1ac0db46fabce7a4a5f87b8552d7f5d"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native_select_return_envelope.json": {
-      "git_blob_sha256": "5fd28bc50eeed6ec3a632e892ac4e4c76c5d131a8885ec94be6ebdf86c011bdb",
-      "checkout_sha256": "5fd28bc50eeed6ec3a632e892ac4e4c76c5d131a8885ec94be6ebdf86c011bdb"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native_write_execution.md": {
-      "git_blob_sha256": "fd78591ff99c542eb08390f463325a001d56b7c55a5cdf0d0b5dbbfda65f8793",
-      "checkout_sha256": "fd78591ff99c542eb08390f463325a001d56b7c55a5cdf0d0b5dbbfda65f8793"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native_write_output.json": {
-      "git_blob_sha256": "61116cf0a3deb18367ea949bbfd781c851215d677499c47e904b72aafa67c127",
-      "checkout_sha256": "61116cf0a3deb18367ea949bbfd781c851215d677499c47e904b72aafa67c127"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/native_write_return_envelope.json": {
-      "git_blob_sha256": "fb3ada870d320d2d2c3ef39422b6991b1a9a325313194b819f00e22700305a9e",
-      "checkout_sha256": "fb3ada870d320d2d2c3ef39422b6991b1a9a325313194b819f00e22700305a9e"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/parent-write-validation.json": {
-      "git_blob_sha256": "21df113952bfd8eab97177768384500949adf3f493bb04cba44060b03fd5d261",
-      "checkout_sha256": "21df113952bfd8eab97177768384500949adf3f493bb04cba44060b03fd5d261"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/photo-asset.json": {
-      "git_blob_sha256": "2fb00f1c7f5d48f6284dd7afea4a32a08db0486ab04ab150b97f6859f4d7d02b",
-      "checkout_sha256": "2fb00f1c7f5d48f6284dd7afea4a32a08db0486ab04ab150b97f6859f4d7d02b"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/publication-prepared.json": {
-      "git_blob_sha256": "5d9355b7faae3453f5214150bb65a76aeacf132d364b1cde2fd3c96ae33809ff",
-      "checkout_sha256": "5d9355b7faae3453f5214150bb65a76aeacf132d364b1cde2fd3c96ae33809ff"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/publication-status.json": {
-      "git_blob_sha256": "d2e2bedae53edae4152855182789214c8ac77415ad8a076d4a50180317a0e9bd",
-      "checkout_sha256": "d2e2bedae53edae4152855182789214c8ac77415ad8a076d4a50180317a0e9bd"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/release-media-binding.json": {
-      "git_blob_sha256": "b89318b91f72d4491a9b0f5ca0912db3688176c9fae2ed8357849d440ca856a7",
-      "checkout_sha256": "b89318b91f72d4491a9b0f5ca0912db3688176c9fae2ed8357849d440ca856a7"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/release-photo-asset.json": {
-      "git_blob_sha256": "970f37158d7b4ed2d7c47c8e591581d41554b08edd81d14f3a1eaf911ff45905",
-      "checkout_sha256": "970f37158d7b4ed2d7c47c8e591581d41554b08edd81d14f3a1eaf911ff45905"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/release-photo-rights.json": {
-      "git_blob_sha256": "d36d090aaaef41f09d6c17183747bcf0e7be3b490d5711084957e97ec290510f",
-      "checkout_sha256": "d36d090aaaef41f09d6c17183747bcf0e7be3b490d5711084957e97ec290510f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/review.json": {
-      "git_blob_sha256": "520f78687d3837c8a13a599bb1f6404238e0b7ef54d90180a058d4314a9711e5",
-      "checkout_sha256": "520f78687d3837c8a13a599bb1f6404238e0b7ef54d90180a058d4314a9711e5"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/reviewed-handoff/article_manifest_v1.json": {
-      "git_blob_sha256": "0ee1d4a2499381d6098a4f4b5c2512ac5bdafb44996005fde6023bc1d37a6c7a",
-      "checkout_sha256": "0ee1d4a2499381d6098a4f4b5c2512ac5bdafb44996005fde6023bc1d37a6c7a"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/reviewed-handoff/native_derivative_previews_v1.json": {
-      "git_blob_sha256": "f70659a0ddebd5a6fc8e77dd17431e312c97510282bd8cd61f384c0400e4a784",
-      "checkout_sha256": "f70659a0ddebd5a6fc8e77dd17431e312c97510282bd8cd61f384c0400e4a784"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/reviewed-handoff/publication_lifecycle_plan_v1.json": {
-      "git_blob_sha256": "95f4669bf55e347f3359cdb52d09a678d6c903c6dc281feb1741fed5148a6820",
-      "checkout_sha256": "95f4669bf55e347f3359cdb52d09a678d6c903c6dc281feb1741fed5148a6820"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/reviewed-handoff/qualified_article_record_v1.json": {
-      "git_blob_sha256": "2022e7c512e9ce608fd99773f25428d1a279653ac8db942242b45da55dc98211",
-      "checkout_sha256": "2022e7c512e9ce608fd99773f25428d1a279653ac8db942242b45da55dc98211"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/tesla/reviewed-handoff/run_context_v1.json": {
-      "git_blob_sha256": "e043e978300c79d389e3a5234ecef40214aabc792727ebd004e4c9568f9f1b49",
-      "checkout_sha256": "e043e978300c79d389e3a5234ecef40214aabc792727ebd004e4c9568f9f1b49"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/history/.gitattributes": {
-      "git_blob_sha256": "308a40fa1d89ae5ea4390b4c9b46a0108b09f171f07898f25d451fa0c69c4e9f",
-      "checkout_sha256": "308a40fa1d89ae5ea4390b4c9b46a0108b09f171f07898f25d451fa0c69c4e9f"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/history/pre-media-RELEASE_DECISION.md": {
-      "git_blob_sha256": "53ae5db7f235618f0213240441b472fb6c31209f828c0cd89f368878cafe89bd",
-      "checkout_sha256": "53ae5db7f235618f0213240441b472fb6c31209f828c0cd89f368878cafe89bd"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/history/pre-media-release-evidence.json": {
-      "git_blob_sha256": "fea14b6911fc812f7741e97c7ea8b352d2af6176e49e00cdabd81ca94112dac2",
-      "checkout_sha256": "fea14b6911fc812f7741e97c7ea8b352d2af6176e49e00cdabd81ca94112dac2"
-    },
-    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/history/pre-media-release-transition-proposal.json": {
-      "git_blob_sha256": "43864815ff63c0719652940b65eacb8f2859387d7a3996c47f8383262baf4806",
-      "checkout_sha256": "43864815ff63c0719652940b65eacb8f2859387d7a3996c47f8383262baf4806"
+      "git_blob_sha256": "afc5c606d3465ae2ead9c33d67d0b360e9e39f9e1ae5c81cae01d1fde6855288",
+      "checkout_sha256_at_metadata_seal": "afc5c606d3465ae2ead9c33d67d0b360e9e39f9e1ae5c81cae01d1fde6855288"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/.gitattributes": {
+      "git_blob_sha256": "4059e0fff3a4011ca58eed4fd9c5693daa15376e7c1004ab42ab62143eedd8b1",
+      "checkout_sha256_at_metadata_seal": "c17ca23e36f05b8b7388860d2c8777d8b011f6217c3671dd4fce44c2c840bb15"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/.gitignore": {
+      "git_blob_sha256": "b724cbce791ad40290f45378834f7c14bdb06d40f866bca76600501e11e49987",
+      "checkout_sha256_at_metadata_seal": "ad7ec58d40b59d396c719d84a7c1ccf665968401d965b4ef8420f2a7d271c475"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/FIVE_ARTICLE_ASSESSMENT.md": {
+      "git_blob_sha256": "a77a7c5aefeaeb34699b13caf9c19e8bdf1860e72865ef0addf0900971f793cd",
+      "checkout_sha256_at_metadata_seal": "a77a7c5aefeaeb34699b13caf9c19e8bdf1860e72865ef0addf0900971f793cd"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/README.md": {
+      "git_blob_sha256": "460bdf523f82048a57783cd3b047863f60e68ec7dd09c5556e5da258cb2c3ada",
+      "checkout_sha256_at_metadata_seal": "460bdf523f82048a57783cd3b047863f60e68ec7dd09c5556e5da258cb2c3ada"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/advance_native_case.py": {
+      "git_blob_sha256": "0fdd088a118735d07b6455e33f86929275916a0dc335f1c916ee1b56407d84e1",
+      "checkout_sha256_at_metadata_seal": "0fdd088a118735d07b6455e33f86929275916a0dc335f1c916ee1b56407d84e1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/audience-context-readback.json": {
+      "git_blob_sha256": "cfba9b08b174502cea192502323961ac241ab94b8851ea9c17ac76591232513b",
+      "checkout_sha256_at_metadata_seal": "cfba9b08b174502cea192502323961ac241ab94b8851ea9c17ac76591232513b"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/authority-admission.json": {
+      "git_blob_sha256": "6635d8b2bef22f85f988e907cef482e47fe5a9a063e2ea7a86267651476f36e5",
+      "checkout_sha256_at_metadata_seal": "6635d8b2bef22f85f988e907cef482e47fe5a9a063e2ea7a86267651476f36e5"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/bind_media_case.py": {
+      "git_blob_sha256": "a0dae1447e984bb2b7ee12358e5763ee0568e93313a3073b1d8cc3e25249b342",
+      "checkout_sha256_at_metadata_seal": "a0dae1447e984bb2b7ee12358e5763ee0568e93313a3073b1d8cc3e25249b342"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/changed-python-lint.txt": {
+      "git_blob_sha256": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0",
+      "checkout_sha256_at_metadata_seal": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/completion-evidence.json": {
+      "git_blob_sha256": "a5e5a8e9f0f477c4a93b6d815f9b76674007c9c468c9c20a31e85f10ad9fecef",
+      "checkout_sha256_at_metadata_seal": "a5e5a8e9f0f477c4a93b6d815f9b76674007c9c468c9c20a31e85f10ad9fecef"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/desk-history-checks.xml": {
+      "git_blob_sha256": "3c2e7d80e16a06f1bd90ad9374288cf4abf239275aea9221fb0ea25b22c1f69a",
+      "checkout_sha256_at_metadata_seal": "3c2e7d80e16a06f1bd90ad9374288cf4abf239275aea9221fb0ea25b22c1f69a"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/final-media-delta-checks.xml": {
+      "git_blob_sha256": "a2563cad42bbd616fa3d2b66fb869032fd94c65a171a6c20de65f7c15979d63d",
+      "checkout_sha256_at_metadata_seal": "a2563cad42bbd616fa3d2b66fb869032fd94c65a171a6c20de65f7c15979d63d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/final-reader-content-receipt.json": {
+      "git_blob_sha256": "b3a464f0c9ec11b7af7552aee128e7f189d1cb42ca8b5da49ab606f036b94f6e",
+      "checkout_sha256_at_metadata_seal": "b3a464f0c9ec11b7af7552aee128e7f189d1cb42ca8b5da49ab606f036b94f6e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/freeze_remaining_writers.py": {
+      "git_blob_sha256": "e7ba5d0bb0e0f69f59a1290c81df84751ba9b52840e671df5b54955b5f8e943f",
+      "checkout_sha256_at_metadata_seal": "e7ba5d0bb0e0f69f59a1290c81df84751ba9b52840e671df5b54955b5f8e943f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/frozen-writer-requests.json": {
+      "git_blob_sha256": "87ea9bd1ca1b509953f3a298ea37b4fb1cc855cb38dca3eb902b60c28b2747ca",
+      "checkout_sha256_at_metadata_seal": "87ea9bd1ca1b509953f3a298ea37b4fb1cc855cb38dca3eb902b60c28b2747ca"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/article.md": {
+      "git_blob_sha256": "3191a89dcfc2102cad3fa4c9d6a6123692aee466529c9e418096f3d474504330",
+      "checkout_sha256_at_metadata_seal": "3191a89dcfc2102cad3fa4c9d6a6123692aee466529c9e418096f3d474504330"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/binding.json": {
+      "git_blob_sha256": "f54929ccb8d31916c055b0020eacd7ef780f8890029090db850b93bd00ccda5e",
+      "checkout_sha256_at_metadata_seal": "f54929ccb8d31916c055b0020eacd7ef780f8890029090db850b93bd00ccda5e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/bound-media-assets.json": {
+      "git_blob_sha256": "0cb06a71c42e5912f272aa162e6bcaa28bf3483e28b233381e260a1437f7430b",
+      "checkout_sha256_at_metadata_seal": "0cb06a71c42e5912f272aa162e6bcaa28bf3483e28b233381e260a1437f7430b"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/chart-asset.json": {
+      "git_blob_sha256": "126d3e94e686b9ff74dc67ec432e7947d94c7251be2626cba59693bb1020723b",
+      "checkout_sha256_at_metadata_seal": "126d3e94e686b9ff74dc67ec432e7947d94c7251be2626cba59693bb1020723b"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/chart-data.json": {
+      "git_blob_sha256": "93c339f3aa1874c7f6d21f177c4636cb59c32e5cf547539856189f1cf2918aa1",
+      "checkout_sha256_at_metadata_seal": "93c339f3aa1874c7f6d21f177c4636cb59c32e5cf547539856189f1cf2918aa1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/desktop_request_media-plan.json": {
+      "git_blob_sha256": "143aaab5eeaf26f2778758ce21357c71ab2a285e19c4f1947217799b7f6efc33",
+      "checkout_sha256_at_metadata_seal": "143aaab5eeaf26f2778758ce21357c71ab2a285e19c4f1947217799b7f6efc33"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/desktop_request_select.json": {
+      "git_blob_sha256": "821d945c23e0f53889c5030448cd318f5e8711bdfd3a1bd35606506f3d883806",
+      "checkout_sha256_at_metadata_seal": "821d945c23e0f53889c5030448cd318f5e8711bdfd3a1bd35606506f3d883806"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/desktop_request_write.json": {
+      "git_blob_sha256": "3a0c070938a9f10928df87f7780b0828f60ae78e060632f89eb0746e0489177d",
+      "checkout_sha256_at_metadata_seal": "3a0c070938a9f10928df87f7780b0828f60ae78e060632f89eb0746e0489177d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/documentary_original.jpg": {
+      "git_blob_sha256": "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d",
+      "checkout_sha256_at_metadata_seal": "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/editorial_media_plan_required.json": {
+      "git_blob_sha256": "0950cd53a9a3d07fab6b47371749c23e7b2e8136cfd48cef318a4265c5a33008",
+      "checkout_sha256_at_metadata_seal": "0950cd53a9a3d07fab6b47371749c23e7b2e8136cfd48cef318a4265c5a33008"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/media-binding.json": {
+      "git_blob_sha256": "3dcc0580d975271ad3af12169a4d44914f3c902486f87104bf21c4517f3bce9e",
+      "checkout_sha256_at_metadata_seal": "3dcc0580d975271ad3af12169a4d44914f3c902486f87104bf21c4517f3bce9e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/media-plan-binding.json": {
+      "git_blob_sha256": "c163ad0e44cde081fd7677778d4e177fc4834ba3ae7c4ae2378ef9e9791dc8be",
+      "checkout_sha256_at_metadata_seal": "c163ad0e44cde081fd7677778d4e177fc4834ba3ae7c4ae2378ef9e9791dc8be"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/media_assets/source_value_comparison.png": {
+      "git_blob_sha256": "407830ed2fdc3d164f3a653f08e2985b565c56d93ee00b081c2cd3a38388d1a9",
+      "checkout_sha256_at_metadata_seal": "407830ed2fdc3d164f3a653f08e2985b565c56d93ee00b081c2cd3a38388d1a9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-after-select.json": {
+      "git_blob_sha256": "c8f5c35edbd0daee8bcd2b7c30ef019c40e07c4284cae9cb5eaf1e98f34cc4e8",
+      "checkout_sha256_at_metadata_seal": "c8f5c35edbd0daee8bcd2b7c30ef019c40e07c4284cae9cb5eaf1e98f34cc4e8"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-after-write.json": {
+      "git_blob_sha256": "6ae14ff4c1ba0b955c8c6dcde148dd8655b9e2ca8d25df9881a6bf21b2fccf09",
+      "checkout_sha256_at_metadata_seal": "6ae14ff4c1ba0b955c8c6dcde148dd8655b9e2ca8d25df9881a6bf21b2fccf09"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-final-media-result.json": {
+      "git_blob_sha256": "e34245d2de08e6336b72e562ef494b161510d5375a993a36652d9693224128e8",
+      "checkout_sha256_at_metadata_seal": "e34245d2de08e6336b72e562ef494b161510d5375a993a36652d9693224128e8"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-media-plan-start.json": {
+      "git_blob_sha256": "8a8558640527b595514a4fd5a1de680aff26d31fdaf385ccf7bb54b40fa316bd",
+      "checkout_sha256_at_metadata_seal": "8a8558640527b595514a4fd5a1de680aff26d31fdaf385ccf7bb54b40fa316bd"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-select-submit.json": {
+      "git_blob_sha256": "89b7d4afcda05988d99b9c4ef1d3a478483e4de3c8e035d5ceaad552c12e44e6",
+      "checkout_sha256_at_metadata_seal": "89b7d4afcda05988d99b9c4ef1d3a478483e4de3c8e035d5ceaad552c12e44e6"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-start.json": {
+      "git_blob_sha256": "e3de848204039bfea54005b17f508ea33664ad40a2a18fa9a038070f7ea143dd",
+      "checkout_sha256_at_metadata_seal": "e3de848204039bfea54005b17f508ea33664ad40a2a18fa9a038070f7ea143dd"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-start.stderr.txt": {
+      "git_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_sha256_at_metadata_seal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-start.stdout.txt": {
+      "git_blob_sha256": "e9d530a5c761945ba6dc83f8edfa8b65375765a635d4b3dc0b7d443bccbae403",
+      "checkout_sha256_at_metadata_seal": "e9d530a5c761945ba6dc83f8edfa8b65375765a635d4b3dc0b7d443bccbae403"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native-writer-start.json": {
+      "git_blob_sha256": "862798a172301cc6d2f1cf3b6141421670f8fd8ef7f5c9da5b8058d10763277e",
+      "checkout_sha256_at_metadata_seal": "862798a172301cc6d2f1cf3b6141421670f8fd8ef7f5c9da5b8058d10763277e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_media_plan_execution.md": {
+      "git_blob_sha256": "ffc96b80ea4a85e5241eebc2fc554e221c6c1ad4fb7c363c22e293d9ccc6df4f",
+      "checkout_sha256_at_metadata_seal": "ffc96b80ea4a85e5241eebc2fc554e221c6c1ad4fb7c363c22e293d9ccc6df4f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_media_plan_output.json": {
+      "git_blob_sha256": "85a3d9c9c5924bc6f758e434b49637d206a3ebd9625e6188b0ff59f1339b806e",
+      "checkout_sha256_at_metadata_seal": "85a3d9c9c5924bc6f758e434b49637d206a3ebd9625e6188b0ff59f1339b806e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_media_plan_return_envelope.json": {
+      "git_blob_sha256": "985f0ea7140e4046de51068471e4e5baf8ce09553782748611889f1a6f633b50",
+      "checkout_sha256_at_metadata_seal": "985f0ea7140e4046de51068471e4e5baf8ce09553782748611889f1a6f633b50"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_select_execution.md": {
+      "git_blob_sha256": "e6a740c88bd0f2bf3d31553d84aa15a3fed2b9819b19ba1bcf40e55e2d4425e4",
+      "checkout_sha256_at_metadata_seal": "e6a740c88bd0f2bf3d31553d84aa15a3fed2b9819b19ba1bcf40e55e2d4425e4"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_select_output.json": {
+      "git_blob_sha256": "6d7b3a695b77f694a3a959b02c7dd3275b5146c6ded80d35b45a9678ddcc8ae9",
+      "checkout_sha256_at_metadata_seal": "6d7b3a695b77f694a3a959b02c7dd3275b5146c6ded80d35b45a9678ddcc8ae9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_select_return_envelope.json": {
+      "git_blob_sha256": "ffbe8517e58dbec9f64210d4508b83646d005bc093106f93b3b497ce5a86ad60",
+      "checkout_sha256_at_metadata_seal": "ffbe8517e58dbec9f64210d4508b83646d005bc093106f93b3b497ce5a86ad60"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_write_execution.md": {
+      "git_blob_sha256": "afb5c9f5a318329fe17a8419c06e34abab4d699d669589aad7be07cd99e92cc1",
+      "checkout_sha256_at_metadata_seal": "afb5c9f5a318329fe17a8419c06e34abab4d699d669589aad7be07cd99e92cc1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_write_output.json": {
+      "git_blob_sha256": "a9eaa9bdd38ee94106758ee514fa393698ff74ec245ea34a340528ebf7149350",
+      "checkout_sha256_at_metadata_seal": "a9eaa9bdd38ee94106758ee514fa393698ff74ec245ea34a340528ebf7149350"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/native_write_return_envelope.json": {
+      "git_blob_sha256": "fb2f404adf2af1cce70d8473d7e336ac2761684462e918d9ba929a8458368ce9",
+      "checkout_sha256_at_metadata_seal": "fb2f404adf2af1cce70d8473d7e336ac2761684462e918d9ba929a8458368ce9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/owner-request.txt": {
+      "git_blob_sha256": "aee8bdd4370ad734f95b87d2512c44b9fde0a4502c2945ef3a1d1067f9ddd15c",
+      "checkout_sha256_at_metadata_seal": "aee8bdd4370ad734f95b87d2512c44b9fde0a4502c2945ef3a1d1067f9ddd15c"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/parent-compile.exit": {
+      "git_blob_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "checkout_sha256_at_metadata_seal": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/parent-write-validation.json": {
+      "git_blob_sha256": "2d3407e3f8aecf6c9ef2caebbefd750437e08821941a26995a615284547acaec",
+      "checkout_sha256_at_metadata_seal": "2d3407e3f8aecf6c9ef2caebbefd750437e08821941a26995a615284547acaec"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/publication-prepared.json": {
+      "git_blob_sha256": "1a39119cc3991ff8f6963c42efd58c8430e0fc3d84bf201564e86691b97ef34c",
+      "checkout_sha256_at_metadata_seal": "1a39119cc3991ff8f6963c42efd58c8430e0fc3d84bf201564e86691b97ef34c"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/publication-status.json": {
+      "git_blob_sha256": "992a26023c558af261862be40ddfa7d68a03f253213f7a14d4c0b2a3e0620391",
+      "checkout_sha256_at_metadata_seal": "992a26023c558af261862be40ddfa7d68a03f253213f7a14d4c0b2a3e0620391"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/release-photo-asset.json": {
+      "git_blob_sha256": "25103a6c1d2309116d8fb73950a7ada6065d915dec37fab056df8b4b35194867",
+      "checkout_sha256_at_metadata_seal": "25103a6c1d2309116d8fb73950a7ada6065d915dec37fab056df8b4b35194867"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/release-photo-rights.json": {
+      "git_blob_sha256": "30fa82302ce30afcbb2800a8ee84a8f6b1d6a680c3e3ab32aeaf4df9d0556f00",
+      "checkout_sha256_at_metadata_seal": "30fa82302ce30afcbb2800a8ee84a8f6b1d6a680c3e3ab32aeaf4df9d0556f00"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/review.json": {
+      "git_blob_sha256": "23c11e131e74868f5314ca75fd77caa7421c1ff970a91387c92334ff0af04f63",
+      "checkout_sha256_at_metadata_seal": "23c11e131e74868f5314ca75fd77caa7421c1ff970a91387c92334ff0af04f63"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/reviewed-handoff.json": {
+      "git_blob_sha256": "1c0bad38b48b08a58a691553471fa166d70de69fe7dd21a6aea82580a8ea765c",
+      "checkout_sha256_at_metadata_seal": "1c0bad38b48b08a58a691553471fa166d70de69fe7dd21a6aea82580a8ea765c"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/reviewed-handoff/article_manifest_v1.json": {
+      "git_blob_sha256": "43a61d71e1046c4107f24c7cc8a4863c8e3a9fb1e83ec99c53bf812b06a60c15",
+      "checkout_sha256_at_metadata_seal": "43a61d71e1046c4107f24c7cc8a4863c8e3a9fb1e83ec99c53bf812b06a60c15"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/reviewed-handoff/native_derivative_previews_v1.json": {
+      "git_blob_sha256": "b1ef72fcbacfde7364012503e421b4d8e25c5ffd337c95a964076b9873a5ab0f",
+      "checkout_sha256_at_metadata_seal": "b1ef72fcbacfde7364012503e421b4d8e25c5ffd337c95a964076b9873a5ab0f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/reviewed-handoff/publication_lifecycle_plan_v1.json": {
+      "git_blob_sha256": "466df43cf8bb6b140627620e44850136fd153c2d0fa79ba0087f22f23edaaae1",
+      "checkout_sha256_at_metadata_seal": "466df43cf8bb6b140627620e44850136fd153c2d0fa79ba0087f22f23edaaae1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/reviewed-handoff/qualified_article_record_v1.json": {
+      "git_blob_sha256": "afd753245ae1d9e6ab3b0ae626a98d709f7bb8f77f011c6ec2b0f1833bb65e37",
+      "checkout_sha256_at_metadata_seal": "afd753245ae1d9e6ab3b0ae626a98d709f7bb8f77f011c6ec2b0f1833bb65e37"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/reviewed-handoff/run_context_v1.json": {
+      "git_blob_sha256": "4cf8986f8c224e48abdbc6b0bfe80d2c98a0a56ef54abfe83d1a20813a9b6e3f",
+      "checkout_sha256_at_metadata_seal": "4cf8986f8c224e48abdbc6b0bfe80d2c98a0a56ef54abfe83d1a20813a9b6e3f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/host-boundary-final-readback.json": {
+      "git_blob_sha256": "f2d33aacd87fa2d4beec40e108393fbffb260c689d2753e7be7365c9ec4de825",
+      "checkout_sha256_at_metadata_seal": "f2d33aacd87fa2d4beec40e108393fbffb260c689d2753e7be7365c9ec4de825"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/host-boundary-readback.json": {
+      "git_blob_sha256": "420f6e497de60c0cb9c84510981ba31368bef0bfaf9f3d4cbb406fa13f48b408",
+      "checkout_sha256_at_metadata_seal": "420f6e497de60c0cb9c84510981ba31368bef0bfaf9f3d4cbb406fa13f48b408"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/media-delta-checks.xml": {
+      "git_blob_sha256": "0decef8c1305e419c85f0b5ff34d7029d8846de63d5b1292219a7baf9870f0ae",
+      "checkout_sha256_at_metadata_seal": "0decef8c1305e419c85f0b5ff34d7029d8846de63d5b1292219a7baf9870f0ae"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/native-date-guidance-checks.xml": {
+      "git_blob_sha256": "dd0666362da8026ed03020d8753af0c3dfa3d691a1d79f9e52604b59905f1849",
+      "checkout_sha256_at_metadata_seal": "dd0666362da8026ed03020d8753af0c3dfa3d691a1d79f9e52604b59905f1849"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/newsroom-regression.xml": {
+      "git_blob_sha256": "3208051e837e7a569475989dc9b9553b5690e511acce7dea9a55e23d968a8f71",
+      "checkout_sha256_at_metadata_seal": "3208051e837e7a569475989dc9b9553b5690e511acce7dea9a55e23d968a8f71"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/article.md": {
+      "git_blob_sha256": "cc6dd9b2ac7f97e330e9481f34250533d633dacf69c596f171cfe2f764598d6b",
+      "checkout_sha256_at_metadata_seal": "cc6dd9b2ac7f97e330e9481f34250533d633dacf69c596f171cfe2f764598d6b"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/binding.json": {
+      "git_blob_sha256": "8dcb69a10697d542294851efa5641887aadd8793b57dcb38fe6cd18327fb6a22",
+      "checkout_sha256_at_metadata_seal": "8dcb69a10697d542294851efa5641887aadd8793b57dcb38fe6cd18327fb6a22"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/bound-media-assets.json": {
+      "git_blob_sha256": "353177ed092c8db5caf12885844ee3e59d31c20a8c3e312707fb71d223711ff6",
+      "checkout_sha256_at_metadata_seal": "353177ed092c8db5caf12885844ee3e59d31c20a8c3e312707fb71d223711ff6"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/chart-asset.json": {
+      "git_blob_sha256": "a21ce268067c465e1dc815288c43ef8a1d3a6993c785213b0ca8ce2659d0cf85",
+      "checkout_sha256_at_metadata_seal": "a21ce268067c465e1dc815288c43ef8a1d3a6993c785213b0ca8ce2659d0cf85"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/chart-data.json": {
+      "git_blob_sha256": "813a0c03a91ab9a8b61cf3c722959931d5587b8b7331b739c6680d1c92c65eb7",
+      "checkout_sha256_at_metadata_seal": "813a0c03a91ab9a8b61cf3c722959931d5587b8b7331b739c6680d1c92c65eb7"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/desktop_request_media-plan.json": {
+      "git_blob_sha256": "df9acf16af36eb44bc7bb2b51d4f2456d197d590743c935e3b363e18c74fc9ba",
+      "checkout_sha256_at_metadata_seal": "df9acf16af36eb44bc7bb2b51d4f2456d197d590743c935e3b363e18c74fc9ba"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/desktop_request_select.json": {
+      "git_blob_sha256": "9b8f50039f8cb45f6388f88ed645f5bde757dce8a37de16dd36b25b4774b0eae",
+      "checkout_sha256_at_metadata_seal": "9b8f50039f8cb45f6388f88ed645f5bde757dce8a37de16dd36b25b4774b0eae"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/desktop_request_write.json": {
+      "git_blob_sha256": "6e1fc3c780f20d58300946b52e73c35bc477553705df69fd6ff695c75864ec8a",
+      "checkout_sha256_at_metadata_seal": "6e1fc3c780f20d58300946b52e73c35bc477553705df69fd6ff695c75864ec8a"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/documentary_original.jpg": {
+      "git_blob_sha256": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0",
+      "checkout_sha256_at_metadata_seal": "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/editorial_media_plan_required.json": {
+      "git_blob_sha256": "33c05067a358e57c83c622854f5cfdaa1a0f899f8605868c17f237af828e4687",
+      "checkout_sha256_at_metadata_seal": "33c05067a358e57c83c622854f5cfdaa1a0f899f8605868c17f237af828e4687"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/media-binding.json": {
+      "git_blob_sha256": "ef01ccd82144424f70f64c6c6719ed9a84e75884dc5e10be4fa7679064cb2b3e",
+      "checkout_sha256_at_metadata_seal": "ef01ccd82144424f70f64c6c6719ed9a84e75884dc5e10be4fa7679064cb2b3e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/media-plan-binding.json": {
+      "git_blob_sha256": "c163ad0e44cde081fd7677778d4e177fc4834ba3ae7c4ae2378ef9e9791dc8be",
+      "checkout_sha256_at_metadata_seal": "c163ad0e44cde081fd7677778d4e177fc4834ba3ae7c4ae2378ef9e9791dc8be"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/media_assets/source_value_comparison.png": {
+      "git_blob_sha256": "cfa598246a6b3b77eb5cfc603085d5bb7e0aca76c5785ca53537103e85e00fe7",
+      "checkout_sha256_at_metadata_seal": "cfa598246a6b3b77eb5cfc603085d5bb7e0aca76c5785ca53537103e85e00fe7"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-after-select.json": {
+      "git_blob_sha256": "77c3d96f24533ea358e59696d36251c7f6dce8f6a21c0504df9dbb28867d2bac",
+      "checkout_sha256_at_metadata_seal": "77c3d96f24533ea358e59696d36251c7f6dce8f6a21c0504df9dbb28867d2bac"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-after-write.json": {
+      "git_blob_sha256": "e4028bbbed0ccef7502f1bf1baa28f028038e68b0129f5c6654e600887fea1ff",
+      "checkout_sha256_at_metadata_seal": "e4028bbbed0ccef7502f1bf1baa28f028038e68b0129f5c6654e600887fea1ff"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-final-media-result.json": {
+      "git_blob_sha256": "31c9059fa39c34e225e0d2c71e0af04874290b4cf5b8a4ffa470cfec99b667eb",
+      "checkout_sha256_at_metadata_seal": "31c9059fa39c34e225e0d2c71e0af04874290b4cf5b8a4ffa470cfec99b667eb"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-media-plan-start.json": {
+      "git_blob_sha256": "ff80b634ed9140a354e6bdd7a78c359be930b96af4ab8059e1a9623569462eb4",
+      "checkout_sha256_at_metadata_seal": "ff80b634ed9140a354e6bdd7a78c359be930b96af4ab8059e1a9623569462eb4"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-select-submit.json": {
+      "git_blob_sha256": "f0dc372938328ea922f0383bd021d2cf704a9977d78e56970f05df536f2ddf51",
+      "checkout_sha256_at_metadata_seal": "f0dc372938328ea922f0383bd021d2cf704a9977d78e56970f05df536f2ddf51"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-start.json": {
+      "git_blob_sha256": "6fc218f4328eb1b01d33553781120c360bc81e4c84f2ed7b417b66c8435a41de",
+      "checkout_sha256_at_metadata_seal": "6fc218f4328eb1b01d33553781120c360bc81e4c84f2ed7b417b66c8435a41de"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-start.stderr.txt": {
+      "git_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_sha256_at_metadata_seal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-start.stdout.txt": {
+      "git_blob_sha256": "1c88dbd528da79e1176e32f2352c00775e53e0f563e807b84a2d44a3c6400fd1",
+      "checkout_sha256_at_metadata_seal": "1c88dbd528da79e1176e32f2352c00775e53e0f563e807b84a2d44a3c6400fd1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native-writer-start.json": {
+      "git_blob_sha256": "377c75c55d489b5fd8dad87a2c921b58c9645f628dc6c2968e60de5ddcaf516e",
+      "checkout_sha256_at_metadata_seal": "377c75c55d489b5fd8dad87a2c921b58c9645f628dc6c2968e60de5ddcaf516e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_media_plan_execution.md": {
+      "git_blob_sha256": "0d91b388b2ecd7fb83b79805813a261902264b756664687052f8387ad67cabdd",
+      "checkout_sha256_at_metadata_seal": "0d91b388b2ecd7fb83b79805813a261902264b756664687052f8387ad67cabdd"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_media_plan_output.json": {
+      "git_blob_sha256": "ed9af3a93d15e8fcda7b80470578d0d46072fd7a5964c1f63579c4b41cd9f512",
+      "checkout_sha256_at_metadata_seal": "ed9af3a93d15e8fcda7b80470578d0d46072fd7a5964c1f63579c4b41cd9f512"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_media_plan_return_envelope.json": {
+      "git_blob_sha256": "c8b807170fec79bc89ebb72eca5ffea8234a391d933c48bdaa100dcb31a88d34",
+      "checkout_sha256_at_metadata_seal": "c8b807170fec79bc89ebb72eca5ffea8234a391d933c48bdaa100dcb31a88d34"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_select_execution.md": {
+      "git_blob_sha256": "b0cc51e5afc134bb3890f603b703274d9845e3f73bc394c1c8e7eddda6805b93",
+      "checkout_sha256_at_metadata_seal": "b0cc51e5afc134bb3890f603b703274d9845e3f73bc394c1c8e7eddda6805b93"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_select_output.json": {
+      "git_blob_sha256": "9192446336bcb4573213098b9b633118f2787ba83894cf0ef87626f39db021c5",
+      "checkout_sha256_at_metadata_seal": "9192446336bcb4573213098b9b633118f2787ba83894cf0ef87626f39db021c5"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_select_return_envelope.json": {
+      "git_blob_sha256": "0eff10c748a9b77a9e5530f4ced606e4c892f1537afad567e2faf06a92e44f1f",
+      "checkout_sha256_at_metadata_seal": "0eff10c748a9b77a9e5530f4ced606e4c892f1537afad567e2faf06a92e44f1f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_write_execution.md": {
+      "git_blob_sha256": "a5b7ffcb3468bc3ccbfe034fd9fd835a9f62d350f57073ddcaabb1127238fba9",
+      "checkout_sha256_at_metadata_seal": "a5b7ffcb3468bc3ccbfe034fd9fd835a9f62d350f57073ddcaabb1127238fba9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_write_output.json": {
+      "git_blob_sha256": "0ddbff6929a15e5783e44d626151386da7c1e35e9fa4c6efa6e256fca50a8f21",
+      "checkout_sha256_at_metadata_seal": "0ddbff6929a15e5783e44d626151386da7c1e35e9fa4c6efa6e256fca50a8f21"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/native_write_return_envelope.json": {
+      "git_blob_sha256": "1686c4d91f9dd9f841da2ad0958d99fe6fe43a5786a9d48ecd4103be477302b7",
+      "checkout_sha256_at_metadata_seal": "1686c4d91f9dd9f841da2ad0958d99fe6fe43a5786a9d48ecd4103be477302b7"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/owner-request.txt": {
+      "git_blob_sha256": "3c220b1fe74dedd2ddc3a4e046ee75c54ac7cd6f1f50fb5fee4484de3d15ae1f",
+      "checkout_sha256_at_metadata_seal": "3c220b1fe74dedd2ddc3a4e046ee75c54ac7cd6f1f50fb5fee4484de3d15ae1f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/parent-write-validation.json": {
+      "git_blob_sha256": "a2f43978e7c645b546dd54d828f9b8d31f61116ad9e958cf3a1299c765e29f05",
+      "checkout_sha256_at_metadata_seal": "a2f43978e7c645b546dd54d828f9b8d31f61116ad9e958cf3a1299c765e29f05"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/public-domain-policy.json": {
+      "git_blob_sha256": "912ced1b4aaabbf261558f55ab1cdc25e1bf74cde3c7db6cc0a76d70c5560619",
+      "checkout_sha256_at_metadata_seal": "912ced1b4aaabbf261558f55ab1cdc25e1bf74cde3c7db6cc0a76d70c5560619"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/publication-prepared.json": {
+      "git_blob_sha256": "2230898fad5e4f377f6ff2a3d8903e76ab6e201bf9845b9320cb6cf74a6e2e1d",
+      "checkout_sha256_at_metadata_seal": "2230898fad5e4f377f6ff2a3d8903e76ab6e201bf9845b9320cb6cf74a6e2e1d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/publication-status.json": {
+      "git_blob_sha256": "70e35984450fb1a224a171d2c7eaf7191b4b91e97cf2a81c25044e7004421a09",
+      "checkout_sha256_at_metadata_seal": "70e35984450fb1a224a171d2c7eaf7191b4b91e97cf2a81c25044e7004421a09"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/release-photo-asset.json": {
+      "git_blob_sha256": "3b892aa3a4c9d88ba470ed27fcf6b6d4d50cc268ab042c49598db6a64e6001d0",
+      "checkout_sha256_at_metadata_seal": "3b892aa3a4c9d88ba470ed27fcf6b6d4d50cc268ab042c49598db6a64e6001d0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/release-photo-rights.json": {
+      "git_blob_sha256": "299fdb6ebb3b469115ddcfc40449ee94cd6929d8a359a9f1b3725ce30fe775e8",
+      "checkout_sha256_at_metadata_seal": "299fdb6ebb3b469115ddcfc40449ee94cd6929d8a359a9f1b3725ce30fe775e8"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/review.json": {
+      "git_blob_sha256": "73ae3403aa15e015102caac41e7562e66d630b57aaa5f50c415ffb42bff423f4",
+      "checkout_sha256_at_metadata_seal": "73ae3403aa15e015102caac41e7562e66d630b57aaa5f50c415ffb42bff423f4"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/reviewed-handoff.json": {
+      "git_blob_sha256": "24cba5e45960a3e9039ab45db54f7ab96525a6a464159bc34d29ad1bf7d17d9b",
+      "checkout_sha256_at_metadata_seal": "24cba5e45960a3e9039ab45db54f7ab96525a6a464159bc34d29ad1bf7d17d9b"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/reviewed-handoff/article_manifest_v1.json": {
+      "git_blob_sha256": "c28756888c3f7196986aed973923e7a6ec0dc2f3a05feba620c597ab61a675ac",
+      "checkout_sha256_at_metadata_seal": "c28756888c3f7196986aed973923e7a6ec0dc2f3a05feba620c597ab61a675ac"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/reviewed-handoff/native_derivative_previews_v1.json": {
+      "git_blob_sha256": "95818b1ec2095ba757485d39c0d89d6100a6d617910686685bda46027ce87e23",
+      "checkout_sha256_at_metadata_seal": "95818b1ec2095ba757485d39c0d89d6100a6d617910686685bda46027ce87e23"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/reviewed-handoff/publication_lifecycle_plan_v1.json": {
+      "git_blob_sha256": "8d837c8b3c1c6387236e94afab406c92958211de0ca76facf6b46075127bb2b6",
+      "checkout_sha256_at_metadata_seal": "8d837c8b3c1c6387236e94afab406c92958211de0ca76facf6b46075127bb2b6"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/reviewed-handoff/qualified_article_record_v1.json": {
+      "git_blob_sha256": "664d7b5475ffa4b7cc1d2cccaee28d9fdd2d8c05b75dc986d8cb74a80b2a6375",
+      "checkout_sha256_at_metadata_seal": "664d7b5475ffa4b7cc1d2cccaee28d9fdd2d8c05b75dc986d8cb74a80b2a6375"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/reviewed-handoff/run_context_v1.json": {
+      "git_blob_sha256": "3216511c1ed4ed3b9e57275ca48af41481bb01a07fc20b3799f9dc637ecba7ba",
+      "checkout_sha256_at_metadata_seal": "3216511c1ed4ed3b9e57275ca48af41481bb01a07fc20b3799f9dc637ecba7ba"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/rights-projection-refresh.json": {
+      "git_blob_sha256": "6754fd2c36f603f8c5d1022f576add1a6c274f32667f5edc3d749797d8d15569",
+      "checkout_sha256_at_metadata_seal": "6754fd2c36f603f8c5d1022f576add1a6c274f32667f5edc3d749797d8d15569"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/writer-freeze.stderr.txt": {
+      "git_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_sha256_at_metadata_seal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/policy/writer-freeze.stdout.txt": {
+      "git_blob_sha256": "2d68dcda6bceebe073a3e48b6858e35c3a31b71c0292c9f9566318da0a901d79",
+      "checkout_sha256_at_metadata_seal": "2d68dcda6bceebe073a3e48b6858e35c3a31b71c0292c9f9566318da0a901d79"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/prepare_admitted_cases.py": {
+      "git_blob_sha256": "b5ff0d32ce33b55bbe33488a3cdf10b7b887050cdea35204663a76cefa5ce605",
+      "checkout_sha256_at_metadata_seal": "b5ff0d32ce33b55bbe33488a3cdf10b7b887050cdea35204663a76cefa5ce605"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/prepare_native_requests.py": {
+      "git_blob_sha256": "7b4eff43d0a9f6e36813b1b1498daab1db0c69e5f47d50d775f9454b4cc2e1d0",
+      "checkout_sha256_at_metadata_seal": "7b4eff43d0a9f6e36813b1b1498daab1db0c69e5f47d50d775f9454b4cc2e1d0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/prepare_pdf_inspection.py": {
+      "git_blob_sha256": "d242d25a14104cf11f06196f0e892648f7b28cf0a5e03c7605689838e984140c",
+      "checkout_sha256_at_metadata_seal": "d242d25a14104cf11f06196f0e892648f7b28cf0a5e03c7605689838e984140c"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/preservation.json": {
+      "git_blob_sha256": "ed6742b1637c57846a467bc89ec2f89cbb8aee6f9dcde1b83c441182968868d8",
+      "checkout_sha256_at_metadata_seal": "ed6742b1637c57846a467bc89ec2f89cbb8aee6f9dcde1b83c441182968868d8"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/refresh_policy_permission_packet.py": {
+      "git_blob_sha256": "4aa6a2bfe98297e6e64b25f1e796a6aab56b0020efd9ee1b53763e8aa2bb5dab",
+      "checkout_sha256_at_metadata_seal": "4aa6a2bfe98297e6e64b25f1e796a6aab56b0020efd9ee1b53763e8aa2bb5dab"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/render_owner_workspace.py": {
+      "git_blob_sha256": "f0163b4307a671d6be2a55976d6a714717429c65f2b62d2e8156932b6ba14fbc",
+      "checkout_sha256_at_metadata_seal": "f0163b4307a671d6be2a55976d6a714717429c65f2b62d2e8156932b6ba14fbc"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/browser-observations.json": {
+      "git_blob_sha256": "5cdc40c1e5b8b99a446c060b788cf96131e9a1e7ad9c65bc18fac9021753b22f",
+      "checkout_sha256_at_metadata_seal": "5cdc40c1e5b8b99a446c060b788cf96131e9a1e7ad9c65bc18fac9021753b22f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/chart-enlargement-observation.json": {
+      "git_blob_sha256": "9f9f12db2a8d73afd9d4fd036cc8bbdc914709c945b871b7214a4162575c5cff",
+      "checkout_sha256_at_metadata_seal": "9f9f12db2a8d73afd9d4fd036cc8bbdc914709c945b871b7214a4162575c5cff"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/gold-desktop-inspection-1.jpg": {
+      "git_blob_sha256": "92cbeb1b54b429ae28614e1efed4c2261c453fd855566bcba2fb1332c84c9263",
+      "checkout_sha256_at_metadata_seal": "92cbeb1b54b429ae28614e1efed4c2261c453fd855566bcba2fb1332c84c9263"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/gold-desktop-inspection-2.jpg": {
+      "git_blob_sha256": "67ec7a283dd4387c81a71b359b4810d6edacc203d7cac4416ccd3100901c6d0d",
+      "checkout_sha256_at_metadata_seal": "67ec7a283dd4387c81a71b359b4810d6edacc203d7cac4416ccd3100901c6d0d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/gold-desktop.pdf": {
+      "git_blob_sha256": "f68fbd874e199d45e0f129a177310c399987c51744d884abf6fc202cacdb577b",
+      "checkout_sha256_at_metadata_seal": "f68fbd874e199d45e0f129a177310c399987c51744d884abf6fc202cacdb577b"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/gold-mobile-inspection-1.jpg": {
+      "git_blob_sha256": "8cc6d5241e29bf735ccb0b9c293eefb64cc10d62f0550996f5b00b05d571b526",
+      "checkout_sha256_at_metadata_seal": "8cc6d5241e29bf735ccb0b9c293eefb64cc10d62f0550996f5b00b05d571b526"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/gold-mobile-inspection-2.jpg": {
+      "git_blob_sha256": "113c306b8035ebcdc19a3cad40ce47018f4e3c31c70007264cc81ce23d1daede",
+      "checkout_sha256_at_metadata_seal": "113c306b8035ebcdc19a3cad40ce47018f4e3c31c70007264cc81ce23d1daede"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/gold-mobile.pdf": {
+      "git_blob_sha256": "7ccac870e3de8a3304c8d8d9f8fdd85d33ff1acfee11c392d3c4fdb6487b9970",
+      "checkout_sha256_at_metadata_seal": "7ccac870e3de8a3304c8d8d9f8fdd85d33ff1acfee11c392d3c4fdb6487b9970"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/policy-desktop-inspection-1.jpg": {
+      "git_blob_sha256": "8ced9988c8e38f4109effc23c58e38fb42093063bbc061ab413e13d5a0ccc901",
+      "checkout_sha256_at_metadata_seal": "8ced9988c8e38f4109effc23c58e38fb42093063bbc061ab413e13d5a0ccc901"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/policy-desktop-inspection-2.jpg": {
+      "git_blob_sha256": "133ef61450bfe2212886f1e112b57239ecd3cc5ecc718a9da16de6035d7752ca",
+      "checkout_sha256_at_metadata_seal": "133ef61450bfe2212886f1e112b57239ecd3cc5ecc718a9da16de6035d7752ca"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/policy-desktop.pdf": {
+      "git_blob_sha256": "d1817991fd46471c9d8e0b4c5ef40b6338aa8e6a86e02f051146eec5c981f8e2",
+      "checkout_sha256_at_metadata_seal": "d1817991fd46471c9d8e0b4c5ef40b6338aa8e6a86e02f051146eec5c981f8e2"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/policy-mobile-inspection-1.jpg": {
+      "git_blob_sha256": "edf0a24ec48ccc4c13cf353dffc242f934a2f6627570eacf46510c80ec5a2082",
+      "checkout_sha256_at_metadata_seal": "edf0a24ec48ccc4c13cf353dffc242f934a2f6627570eacf46510c80ec5a2082"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/policy-mobile-inspection-2.jpg": {
+      "git_blob_sha256": "9940f1cc8e7bd5630d1a361235c7337becbd0c1b39658c0251e5751b6a982aa0",
+      "checkout_sha256_at_metadata_seal": "9940f1cc8e7bd5630d1a361235c7337becbd0c1b39658c0251e5751b6a982aa0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/policy-mobile-inspection-3.jpg": {
+      "git_blob_sha256": "c3fe30d7dc63b2dc002fba678486a2cd7bf5285ddcc2bfbe528b1b0d26ca759e",
+      "checkout_sha256_at_metadata_seal": "c3fe30d7dc63b2dc002fba678486a2cd7bf5285ddcc2bfbe528b1b0d26ca759e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/policy-mobile.pdf": {
+      "git_blob_sha256": "93bacafc9a42fb57b5a5e4949f5713e98171c74e09aa35674685fde9b000fa2a",
+      "checkout_sha256_at_metadata_seal": "93bacafc9a42fb57b5a5e4949f5713e98171c74e09aa35674685fde9b000fa2a"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/southwest-r2-desktop-inspection-1.jpg": {
+      "git_blob_sha256": "d2f26a4c39ad2f63415adb388312296bd952ec4e5d29d8be18cd35dc98274208",
+      "checkout_sha256_at_metadata_seal": "d2f26a4c39ad2f63415adb388312296bd952ec4e5d29d8be18cd35dc98274208"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/southwest-r2-desktop-inspection-2.jpg": {
+      "git_blob_sha256": "51f8b320f478b503a853c8ff83baaa05a313c3bf8544df0e742cb22a34ad1f2a",
+      "checkout_sha256_at_metadata_seal": "51f8b320f478b503a853c8ff83baaa05a313c3bf8544df0e742cb22a34ad1f2a"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/southwest-r2-desktop.pdf": {
+      "git_blob_sha256": "ec4e233feec375f907d41bdaa26cb0b1cb34ba28e68fc3ac923adc1ddcf2a7cb",
+      "checkout_sha256_at_metadata_seal": "ec4e233feec375f907d41bdaa26cb0b1cb34ba28e68fc3ac923adc1ddcf2a7cb"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/southwest-r2-mobile-inspection-1.jpg": {
+      "git_blob_sha256": "bb7195418873c513facaab1b1dca6d5415a4b7425a0468e803bdf27ae215f65e",
+      "checkout_sha256_at_metadata_seal": "bb7195418873c513facaab1b1dca6d5415a4b7425a0468e803bdf27ae215f65e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/southwest-r2-mobile-inspection-2.jpg": {
+      "git_blob_sha256": "2982329b801cccfe4985b1a6d1a914950026a331998da1aa08e8a17e518e22f7",
+      "checkout_sha256_at_metadata_seal": "2982329b801cccfe4985b1a6d1a914950026a331998da1aa08e8a17e518e22f7"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/southwest-r2-mobile.pdf": {
+      "git_blob_sha256": "7388da80916f7037c5df1bf342e5307f1bef1d62c1de7ce53a8eac693bc7e488",
+      "checkout_sha256_at_metadata_seal": "7388da80916f7037c5df1bf342e5307f1bef1d62c1de7ce53a8eac693bc7e488"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/tesla-r2-desktop-inspection-1.jpg": {
+      "git_blob_sha256": "0ecf92e69fd7f57a1d7cc0d8b562860af67ac6a7bcb4facf2717e89085ce772d",
+      "checkout_sha256_at_metadata_seal": "0ecf92e69fd7f57a1d7cc0d8b562860af67ac6a7bcb4facf2717e89085ce772d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/tesla-r2-desktop-inspection-2.jpg": {
+      "git_blob_sha256": "52ba46bd64d678b4d78ab95ceab8cf44ff4ce674269a002204d77cee60bacb82",
+      "checkout_sha256_at_metadata_seal": "52ba46bd64d678b4d78ab95ceab8cf44ff4ce674269a002204d77cee60bacb82"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/tesla-r2-desktop.pdf": {
+      "git_blob_sha256": "9165d0eb047e849a905d24cd200ca6187b9712ee71eead063af2ae511023549c",
+      "checkout_sha256_at_metadata_seal": "9165d0eb047e849a905d24cd200ca6187b9712ee71eead063af2ae511023549c"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/tesla-r2-mobile-inspection-1.jpg": {
+      "git_blob_sha256": "317458d34f54385bba3a350d629c686a88a3f320f21084ce35e9cacd7ae40f83",
+      "checkout_sha256_at_metadata_seal": "317458d34f54385bba3a350d629c686a88a3f320f21084ce35e9cacd7ae40f83"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/tesla-r2-mobile-inspection-2.jpg": {
+      "git_blob_sha256": "d3504ddb38dbb91e20dbeb8737995533e4df8ce0239bc7c488d14ef5b986d4fc",
+      "checkout_sha256_at_metadata_seal": "d3504ddb38dbb91e20dbeb8737995533e4df8ce0239bc7c488d14ef5b986d4fc"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/tesla-r2-mobile.pdf": {
+      "git_blob_sha256": "3aec5fe7dd71d688792d5940eb5b7a5aacb432868462add91a895ef33b8f3279",
+      "checkout_sha256_at_metadata_seal": "3aec5fe7dd71d688792d5940eb5b7a5aacb432868462add91a895ef33b8f3279"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/final/visual-review.json": {
+      "git_blob_sha256": "185bef5ddb244dfdbff2554db997f56f9d793a8ce1dbf3b3b50c2fec6f160367",
+      "checkout_sha256_at_metadata_seal": "185bef5ddb244dfdbff2554db997f56f9d793a8ce1dbf3b3b50c2fec6f160367"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/index.html.gz": {
+      "git_blob_sha256": "0ceab103a1d9e6d5307151db524aeeed8d1b9c72faef7008d179c30cd26dba36",
+      "checkout_sha256_at_metadata_seal": "0ceab103a1d9e6d5307151db524aeeed8d1b9c72faef7008d179c30cd26dba36"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/inspected-content-sha256.json": {
+      "git_blob_sha256": "b118f89774753e35cd53538a80287398623371dceda792aae0068ef76842929e",
+      "checkout_sha256_at_metadata_seal": "b118f89774753e35cd53538a80287398623371dceda792aae0068ef76842929e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/render-receipt.json": {
+      "git_blob_sha256": "1bc9a09ea85136b063548b81187707249a8152e490e5d246f410d1501888d71b",
+      "checkout_sha256_at_metadata_seal": "1bc9a09ea85136b063548b81187707249a8152e490e5d246f410d1501888d71b"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/renders/workspace.json.gz": {
+      "git_blob_sha256": "2c9f611bbee12e5596381e70ee85e413a715b3d020fe319e983a3989fe6a54d7",
+      "checkout_sha256_at_metadata_seal": "2c9f611bbee12e5596381e70ee85e413a715b3d020fe319e983a3989fe6a54d7"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/review-prepare.exit": {
+      "git_blob_sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354",
+      "checkout_sha256_at_metadata_seal": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/review_and_prepare.py": {
+      "git_blob_sha256": "3914cb3c7c1b7e50091df6a7def12c00ddaea8c7e64daad16507002871d53fa6",
+      "checkout_sha256_at_metadata_seal": "3914cb3c7c1b7e50091df6a7def12c00ddaea8c7e64daad16507002871d53fa6"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/seal_acceptance_evidence.py": {
+      "git_blob_sha256": "ab30e1f810c3f4cb51e8379f1d4a029d19f8241fab6ae13ecb9dc0ec5c4d739f",
+      "checkout_sha256_at_metadata_seal": "ab30e1f810c3f4cb51e8379f1d4a029d19f8241fab6ae13ecb9dc0ec5c4d739f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-admission-result.json": {
+      "git_blob_sha256": "454d5eeeefc0a3cbb00632608764304bcc5ca264108745a959eb081437bb1a9c",
+      "checkout_sha256_at_metadata_seal": "454d5eeeefc0a3cbb00632608764304bcc5ca264108745a959eb081437bb1a9c"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-editions/facts-policy.json": {
+      "git_blob_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+      "checkout_sha256_at_metadata_seal": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-editions/fed-implementation-admission.json": {
+      "git_blob_sha256": "e76bfcba222f05292e514d92e40388eca65ed223bc013146aa836aded0c15058",
+      "checkout_sha256_at_metadata_seal": "e76bfcba222f05292e514d92e40388eca65ed223bc013146aa836aded0c15058"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-editions/fed-implementation-capture.json": {
+      "git_blob_sha256": "50edfc56df0ec4e4ce7ddc77d608f0cc083c4a1f50d85053a74f71ed1799a6ab",
+      "checkout_sha256_at_metadata_seal": "50edfc56df0ec4e4ce7ddc77d608f0cc083c4a1f50d85053a74f71ed1799a6ab"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-editions/fed-permission.json": {
+      "git_blob_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "checkout_sha256_at_metadata_seal": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-editions/gold-report-admission.json": {
+      "git_blob_sha256": "46743aa85fc1d46e9d147eac9684570e8f8233e34863714d8cc5b5b94eea44ae",
+      "checkout_sha256_at_metadata_seal": "46743aa85fc1d46e9d147eac9684570e8f8233e34863714d8cc5b5b94eea44ae"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-editions/gold-report-capture.json": {
+      "git_blob_sha256": "c27d86d664a1026d862676ad2352f6d8d169ae2bb4ea1bf5e0babc156eb8e4ac",
+      "checkout_sha256_at_metadata_seal": "c27d86d664a1026d862676ad2352f6d8d169ae2bb4ea1bf5e0babc156eb8e4ac"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-editions/index.json": {
+      "git_blob_sha256": "419bd044b6d2265d743e9746534ab7aa38ea7b379612477ab0dc841cd8345f7f",
+      "checkout_sha256_at_metadata_seal": "419bd044b6d2265d743e9746534ab7aa38ea7b379612477ab0dc841cd8345f7f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/source-identity-and-dates.json": {
+      "git_blob_sha256": "99b469ace2d3cd111542ba082a2a077c78554682876416b356cfb0f0c55f7772",
+      "checkout_sha256_at_metadata_seal": "99b469ace2d3cd111542ba082a2a077c78554682876416b356cfb0f0c55f7772"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/article.md": {
+      "git_blob_sha256": "e50e430a41b46c508d1d62d96ed394ba75591a48e811a16a77e8238d1a3c9cd1",
+      "checkout_sha256_at_metadata_seal": "e50e430a41b46c508d1d62d96ed394ba75591a48e811a16a77e8238d1a3c9cd1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/binding.json": {
+      "git_blob_sha256": "e2b18c9f73172e8c94692ad2673ea984a70acc618a413788804456e46cd05665",
+      "checkout_sha256_at_metadata_seal": "e2b18c9f73172e8c94692ad2673ea984a70acc618a413788804456e46cd05665"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/bound-media-assets.json": {
+      "git_blob_sha256": "9314b977941056b6d77d2f38e61024646ca0a0822998beac2a3ff8c20ce54bd3",
+      "checkout_sha256_at_metadata_seal": "9314b977941056b6d77d2f38e61024646ca0a0822998beac2a3ff8c20ce54bd3"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/copy-before-after.diff": {
+      "git_blob_sha256": "5eacbb4b34285c041f7136ff9c4dbc9bfd73600e92019f1afacde6469dfd27a8",
+      "checkout_sha256_at_metadata_seal": "5eacbb4b34285c041f7136ff9c4dbc9bfd73600e92019f1afacde6469dfd27a8"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/desktop_request_media-plan.json": {
+      "git_blob_sha256": "1937d254d6d100ce3c615661393de1d4ac5d6d76755b4f987c3a4c290035e618",
+      "checkout_sha256_at_metadata_seal": "1937d254d6d100ce3c615661393de1d4ac5d6d76755b4f987c3a4c290035e618"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/desktop_request_select.json": {
+      "git_blob_sha256": "6ae3245ae371ad458ac23fb6ecee5af9738bb4dd39b63336d1e704a03ae888b9",
+      "checkout_sha256_at_metadata_seal": "6ae3245ae371ad458ac23fb6ecee5af9738bb4dd39b63336d1e704a03ae888b9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/desktop_request_write.json": {
+      "git_blob_sha256": "d1709030d7a1ce0a0196b21b98de94b342de72ce75a7d1eb320a002c0e0de320",
+      "checkout_sha256_at_metadata_seal": "d1709030d7a1ce0a0196b21b98de94b342de72ce75a7d1eb320a002c0e0de320"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/editorial-revision-request.json": {
+      "git_blob_sha256": "5637fe4b6b71b272227ffa035835baaf37f46158cdb8481872f6704c49d72417",
+      "checkout_sha256_at_metadata_seal": "5637fe4b6b71b272227ffa035835baaf37f46158cdb8481872f6704c49d72417"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/editorial_media_plan_required.json": {
+      "git_blob_sha256": "461e46061330258fb8b831e25ca337e0336e3d6a64116bf255fde05ace4dff80",
+      "checkout_sha256_at_metadata_seal": "461e46061330258fb8b831e25ca337e0336e3d6a64116bf255fde05ace4dff80"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/media-binding.json": {
+      "git_blob_sha256": "a248b5e70fedd346e570e3ad9a422c7fd2293d562a4813a8140e40944680b267",
+      "checkout_sha256_at_metadata_seal": "a248b5e70fedd346e570e3ad9a422c7fd2293d562a4813a8140e40944680b267"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/media-plan-binding.json": {
+      "git_blob_sha256": "c163ad0e44cde081fd7677778d4e177fc4834ba3ae7c4ae2378ef9e9791dc8be",
+      "checkout_sha256_at_metadata_seal": "c163ad0e44cde081fd7677778d4e177fc4834ba3ae7c4ae2378ef9e9791dc8be"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-after-select.json": {
+      "git_blob_sha256": "715f07edef4e75abd252a7dae37251b7d7e9c5ce58c8c45950c6d907b34b9ff9",
+      "checkout_sha256_at_metadata_seal": "715f07edef4e75abd252a7dae37251b7d7e9c5ce58c8c45950c6d907b34b9ff9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-after-write.json": {
+      "git_blob_sha256": "446da5f930f14da6cbd54c6a98595ff08da90f9103fd1552c220e7e6557d37d7",
+      "checkout_sha256_at_metadata_seal": "446da5f930f14da6cbd54c6a98595ff08da90f9103fd1552c220e7e6557d37d7"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-final-media-result.json": {
+      "git_blob_sha256": "39264ebaa478fca2b11d55baad18d0040239107002bda130bfb4fb83dc4a9c8f",
+      "checkout_sha256_at_metadata_seal": "39264ebaa478fca2b11d55baad18d0040239107002bda130bfb4fb83dc4a9c8f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-media-plan-start.json": {
+      "git_blob_sha256": "7271461b69b3135687cc2a7bc8e831203ced1335005b27bdc33f5516124de36f",
+      "checkout_sha256_at_metadata_seal": "7271461b69b3135687cc2a7bc8e831203ced1335005b27bdc33f5516124de36f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-select-submit.json": {
+      "git_blob_sha256": "763b76387e159c9f24d4595b051fb0dd19cafa685c43fb0ceabb927557453d95",
+      "checkout_sha256_at_metadata_seal": "763b76387e159c9f24d4595b051fb0dd19cafa685c43fb0ceabb927557453d95"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-start.json": {
+      "git_blob_sha256": "b75fecb635ed0af463238b17ccb456a53bc14e89c8f959bcf067fd71eb6132d5",
+      "checkout_sha256_at_metadata_seal": "b75fecb635ed0af463238b17ccb456a53bc14e89c8f959bcf067fd71eb6132d5"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-start.stderr.txt": {
+      "git_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_sha256_at_metadata_seal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-start.stdout.txt": {
+      "git_blob_sha256": "615952a8e1867e74cabbb65482524aa7929d109588b27f5e548e348d9e9060f7",
+      "checkout_sha256_at_metadata_seal": "615952a8e1867e74cabbb65482524aa7929d109588b27f5e548e348d9e9060f7"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native-writer-start.json": {
+      "git_blob_sha256": "7d47935c98efd6b00673cb47480ca7c4fe1e159cbab32a3d62c93c924212bbd6",
+      "checkout_sha256_at_metadata_seal": "7d47935c98efd6b00673cb47480ca7c4fe1e159cbab32a3d62c93c924212bbd6"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native_select_execution.md": {
+      "git_blob_sha256": "2e71d1444722b5b7a5078e5f8bdc6aea8ba00ec5512b94e9c94b2107f2eeda7f",
+      "checkout_sha256_at_metadata_seal": "2e71d1444722b5b7a5078e5f8bdc6aea8ba00ec5512b94e9c94b2107f2eeda7f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native_select_output.json": {
+      "git_blob_sha256": "9f8f8a8a7e999d3241c923ecbaf7a0b7f55a470ec1aae3cc7bbad7459fbf7b62",
+      "checkout_sha256_at_metadata_seal": "9f8f8a8a7e999d3241c923ecbaf7a0b7f55a470ec1aae3cc7bbad7459fbf7b62"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native_select_return_envelope.json": {
+      "git_blob_sha256": "39c15605cedd5ad4f8c9b5aedb0b0d74cf51a3f1cd5fd2463698227691182fde",
+      "checkout_sha256_at_metadata_seal": "39c15605cedd5ad4f8c9b5aedb0b0d74cf51a3f1cd5fd2463698227691182fde"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native_write_execution.md": {
+      "git_blob_sha256": "f0f92d735b1128d50ef08bec4d5089acc642ac2e9c1abc707aee54086e4df1e7",
+      "checkout_sha256_at_metadata_seal": "f0f92d735b1128d50ef08bec4d5089acc642ac2e9c1abc707aee54086e4df1e7"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native_write_output.json": {
+      "git_blob_sha256": "a09ccff7e99dedaa49874014c4d5707151d80a90433f7e6efb3ee32d1c8e2af0",
+      "checkout_sha256_at_metadata_seal": "a09ccff7e99dedaa49874014c4d5707151d80a90433f7e6efb3ee32d1c8e2af0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/native_write_return_envelope.json": {
+      "git_blob_sha256": "10e39c25e4374663cc5fc52d2c46fb2ce5faf5ee5c76a18517b765bea4891662",
+      "checkout_sha256_at_metadata_seal": "10e39c25e4374663cc5fc52d2c46fb2ce5faf5ee5c76a18517b765bea4891662"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/parent-write-validation.json": {
+      "git_blob_sha256": "dbdb8c9f4a2731e4a9714e27d3c9798dd178f4305099a3472b99d6f3faa2353b",
+      "checkout_sha256_at_metadata_seal": "dbdb8c9f4a2731e4a9714e27d3c9798dd178f4305099a3472b99d6f3faa2353b"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/publication-prepared.json": {
+      "git_blob_sha256": "c02bdcd40e7d39b90ef2e762b3df553f6131690956552f3645bc1271a329e794",
+      "checkout_sha256_at_metadata_seal": "c02bdcd40e7d39b90ef2e762b3df553f6131690956552f3645bc1271a329e794"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/publication-status.json": {
+      "git_blob_sha256": "1f398cd57b6eb8d7411aedd6cc64c10e42f8f827af94cffa4b6ae189c66e94e2",
+      "checkout_sha256_at_metadata_seal": "1f398cd57b6eb8d7411aedd6cc64c10e42f8f827af94cffa4b6ae189c66e94e2"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/review.json": {
+      "git_blob_sha256": "5496c26bf05e01c65e3f03bb0094f8cdcc1cbc2a51c2044144a72c71d5e0ab7d",
+      "checkout_sha256_at_metadata_seal": "5496c26bf05e01c65e3f03bb0094f8cdcc1cbc2a51c2044144a72c71d5e0ab7d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/reviewed-handoff.json": {
+      "git_blob_sha256": "a0ac4d5ff146bb8b2cc40a9e1ed188b8a18816b200219f7ca8a32553c37541d9",
+      "checkout_sha256_at_metadata_seal": "a0ac4d5ff146bb8b2cc40a9e1ed188b8a18816b200219f7ca8a32553c37541d9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/reviewed-handoff/article_manifest_v1.json": {
+      "git_blob_sha256": "a3c9ac7f0096704cd14721e1c3ff259167bcbee64a4a4b32646b3233ea35920f",
+      "checkout_sha256_at_metadata_seal": "a3c9ac7f0096704cd14721e1c3ff259167bcbee64a4a4b32646b3233ea35920f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/reviewed-handoff/native_derivative_previews_v1.json": {
+      "git_blob_sha256": "07e82f975a445c4227afd6981b4bbae204b5dbceda91404932a682a736401f1e",
+      "checkout_sha256_at_metadata_seal": "07e82f975a445c4227afd6981b4bbae204b5dbceda91404932a682a736401f1e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/reviewed-handoff/publication_lifecycle_plan_v1.json": {
+      "git_blob_sha256": "76362c84066bf2bbcb070d71eccad007fba2052fcf3fdd6e364c99ff0feeed3f",
+      "checkout_sha256_at_metadata_seal": "76362c84066bf2bbcb070d71eccad007fba2052fcf3fdd6e364c99ff0feeed3f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/reviewed-handoff/qualified_article_record_v1.json": {
+      "git_blob_sha256": "9e78b00fa6511a2fa490413abe216ed7ce96ab00ffaed6a386cc4d61da52edc5",
+      "checkout_sha256_at_metadata_seal": "9e78b00fa6511a2fa490413abe216ed7ce96ab00ffaed6a386cc4d61da52edc5"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/reviewed-handoff/run_context_v1.json": {
+      "git_blob_sha256": "7d95b9a91eee8dc4d83a382e3d05eafc2bbcd4cdd243f02a1a17ec516590fe39",
+      "checkout_sha256_at_metadata_seal": "7d95b9a91eee8dc4d83a382e3d05eafc2bbcd4cdd243f02a1a17ec516590fe39"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/writer-freeze.stderr.txt": {
+      "git_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_sha256_at_metadata_seal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/southwest-r2/writer-freeze.stdout.txt": {
+      "git_blob_sha256": "d2f10ce33992e2385ef6cf7e6e4b6c323fb24a44a35d7797f2f51e481895a6d1",
+      "checkout_sha256_at_metadata_seal": "d2f10ce33992e2385ef6cf7e6e4b6c323fb24a44a35d7797f2f51e481895a6d1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/submit_actual_writer.py": {
+      "git_blob_sha256": "af4be45650a1115af5f2260f3b95e3840bf96c149cf9155ff30886ac7b41ee03",
+      "checkout_sha256_at_metadata_seal": "af4be45650a1115af5f2260f3b95e3840bf96c149cf9155ff30886ac7b41ee03"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/article.md": {
+      "git_blob_sha256": "df2aa28605d058fc19d3f7a7cc01a8b8094918a5a07cf3a2925f2fe478dbf427",
+      "checkout_sha256_at_metadata_seal": "df2aa28605d058fc19d3f7a7cc01a8b8094918a5a07cf3a2925f2fe478dbf427"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/binding.json": {
+      "git_blob_sha256": "85686e06382a0ba5a5e0a3e6e381f7f95145b0ce86f2e5ae386fc54b7abba558",
+      "checkout_sha256_at_metadata_seal": "85686e06382a0ba5a5e0a3e6e381f7f95145b0ce86f2e5ae386fc54b7abba558"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/bound-media-assets.json": {
+      "git_blob_sha256": "e1f474d6e1616686d2d2c78c48f723251a81cb9a246e1a8bbfa764cf8058204a",
+      "checkout_sha256_at_metadata_seal": "e1f474d6e1616686d2d2c78c48f723251a81cb9a246e1a8bbfa764cf8058204a"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/copy-before-after.diff": {
+      "git_blob_sha256": "054457fe9645679d982bafe4971a503db8d315c7fbfa4a3c3e23855cde58267f",
+      "checkout_sha256_at_metadata_seal": "054457fe9645679d982bafe4971a503db8d315c7fbfa4a3c3e23855cde58267f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/desktop_request_media-plan.json": {
+      "git_blob_sha256": "c80d632ce5065e0a5bef8762719fa706ba965e177f999fe3e82387dc117c4866",
+      "checkout_sha256_at_metadata_seal": "c80d632ce5065e0a5bef8762719fa706ba965e177f999fe3e82387dc117c4866"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/desktop_request_select.json": {
+      "git_blob_sha256": "db2492b16bd18f65e003964b68989d3a36eca17c6cf61dbb42c1195c9ccbd8b1",
+      "checkout_sha256_at_metadata_seal": "db2492b16bd18f65e003964b68989d3a36eca17c6cf61dbb42c1195c9ccbd8b1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/desktop_request_write.json": {
+      "git_blob_sha256": "e0efcea8b697e2f74304006546f32ff035c193b12a52f1a76fb48bdbf5730435",
+      "checkout_sha256_at_metadata_seal": "e0efcea8b697e2f74304006546f32ff035c193b12a52f1a76fb48bdbf5730435"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/editorial-revision-request.json": {
+      "git_blob_sha256": "73c79aa35093b73c5e569d5d9de403ce0ce3b1f51ad3b8aa7c337088d8d017ec",
+      "checkout_sha256_at_metadata_seal": "73c79aa35093b73c5e569d5d9de403ce0ce3b1f51ad3b8aa7c337088d8d017ec"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/editorial_media_plan_required.json": {
+      "git_blob_sha256": "387920094a938a29bc2862a8abdb58c3ef5e4838d98efaaff7ad1e335078cfe0",
+      "checkout_sha256_at_metadata_seal": "387920094a938a29bc2862a8abdb58c3ef5e4838d98efaaff7ad1e335078cfe0"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/media-binding.json": {
+      "git_blob_sha256": "a4a3cc61a003eefe009dbf65a81e44ca37b73fc99c507ba87eef0cd026103d21",
+      "checkout_sha256_at_metadata_seal": "a4a3cc61a003eefe009dbf65a81e44ca37b73fc99c507ba87eef0cd026103d21"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/media-plan-binding.json": {
+      "git_blob_sha256": "c163ad0e44cde081fd7677778d4e177fc4834ba3ae7c4ae2378ef9e9791dc8be",
+      "checkout_sha256_at_metadata_seal": "c163ad0e44cde081fd7677778d4e177fc4834ba3ae7c4ae2378ef9e9791dc8be"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-after-select.json": {
+      "git_blob_sha256": "3c04fe8b0aa2e1f6cf3e7786877ffbb323cb22b9ed0ba199ad56addfdf36fb2d",
+      "checkout_sha256_at_metadata_seal": "3c04fe8b0aa2e1f6cf3e7786877ffbb323cb22b9ed0ba199ad56addfdf36fb2d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-after-write.json": {
+      "git_blob_sha256": "2549eaeccd9f2018df548d373f19356af6895a740ecf47bc6abd40fd3b0da431",
+      "checkout_sha256_at_metadata_seal": "2549eaeccd9f2018df548d373f19356af6895a740ecf47bc6abd40fd3b0da431"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-final-media-result.json": {
+      "git_blob_sha256": "c082fe899b015a1c14264b4d9a7d8cedc07d8db3d20146e6265b9eb58dfd39c9",
+      "checkout_sha256_at_metadata_seal": "c082fe899b015a1c14264b4d9a7d8cedc07d8db3d20146e6265b9eb58dfd39c9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-media-plan-start.json": {
+      "git_blob_sha256": "9b1ce1f16cdb2de73038f6b9a118acd94e702c790b90c96b99a97b2676febc5e",
+      "checkout_sha256_at_metadata_seal": "9b1ce1f16cdb2de73038f6b9a118acd94e702c790b90c96b99a97b2676febc5e"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-select-submit.json": {
+      "git_blob_sha256": "7fa12b349f4e0767be513e69db836e24176fdadda0015f624973e8600cace116",
+      "checkout_sha256_at_metadata_seal": "7fa12b349f4e0767be513e69db836e24176fdadda0015f624973e8600cace116"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-start.json": {
+      "git_blob_sha256": "a491e206250bc72b8fffd229ba3ea73ca97b598fb8b53fba4e518d716a3b1168",
+      "checkout_sha256_at_metadata_seal": "a491e206250bc72b8fffd229ba3ea73ca97b598fb8b53fba4e518d716a3b1168"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-start.stderr.txt": {
+      "git_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_sha256_at_metadata_seal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-start.stdout.txt": {
+      "git_blob_sha256": "45cea78248878763be225da7a68362a0c0ca17c958b5de6f30482e1d17fad9b9",
+      "checkout_sha256_at_metadata_seal": "45cea78248878763be225da7a68362a0c0ca17c958b5de6f30482e1d17fad9b9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native-writer-start.json": {
+      "git_blob_sha256": "9fbedef4f6ef555c1d523adda8f27f38903de60f0c15968a2df225b6d0510483",
+      "checkout_sha256_at_metadata_seal": "9fbedef4f6ef555c1d523adda8f27f38903de60f0c15968a2df225b6d0510483"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native_select_execution.md": {
+      "git_blob_sha256": "22372fcdd53888d321f4cc6ba8707b26a48d289577b97241b6830c01f9a1436d",
+      "checkout_sha256_at_metadata_seal": "22372fcdd53888d321f4cc6ba8707b26a48d289577b97241b6830c01f9a1436d"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native_select_output.json": {
+      "git_blob_sha256": "357680dc836248676d721c6c27e48e211de60be445faf985bac3c8c9935e61b4",
+      "checkout_sha256_at_metadata_seal": "357680dc836248676d721c6c27e48e211de60be445faf985bac3c8c9935e61b4"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native_select_return_envelope.json": {
+      "git_blob_sha256": "74ef59318583b4b89e2f066e8817ac3c19e96cabbbba3fb07663b8f8053c9eb1",
+      "checkout_sha256_at_metadata_seal": "74ef59318583b4b89e2f066e8817ac3c19e96cabbbba3fb07663b8f8053c9eb1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native_write_execution.md": {
+      "git_blob_sha256": "910bec27d0cb04981c04d248af979ee9ab72bd43b5f10ebc5889af0a204914ef",
+      "checkout_sha256_at_metadata_seal": "910bec27d0cb04981c04d248af979ee9ab72bd43b5f10ebc5889af0a204914ef"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native_write_output.json": {
+      "git_blob_sha256": "2759696d35beb56cb4776c6ace142f26a0f21fc4d4dda57746e080f087235ed9",
+      "checkout_sha256_at_metadata_seal": "2759696d35beb56cb4776c6ace142f26a0f21fc4d4dda57746e080f087235ed9"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/native_write_return_envelope.json": {
+      "git_blob_sha256": "b9771b1289ee9f014fc492dbb6b0766498dffb231eb517c40a8acb6f5e47bfaa",
+      "checkout_sha256_at_metadata_seal": "b9771b1289ee9f014fc492dbb6b0766498dffb231eb517c40a8acb6f5e47bfaa"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/parent-write-validation.json": {
+      "git_blob_sha256": "cdf6a90d95546995275c5fed9e7234f59335209cd140ce0e53a33c8d6d38f751",
+      "checkout_sha256_at_metadata_seal": "cdf6a90d95546995275c5fed9e7234f59335209cd140ce0e53a33c8d6d38f751"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/publication-prepared.json": {
+      "git_blob_sha256": "a4ceb53fe042f9f188e5bc2467d16e4b3b10077370085336b6756ac2ad8df687",
+      "checkout_sha256_at_metadata_seal": "a4ceb53fe042f9f188e5bc2467d16e4b3b10077370085336b6756ac2ad8df687"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/publication-status.json": {
+      "git_blob_sha256": "b6d318122ac8c600618a0bb083a0cdd93bfe834674348b1f567756eaf2c8a494",
+      "checkout_sha256_at_metadata_seal": "b6d318122ac8c600618a0bb083a0cdd93bfe834674348b1f567756eaf2c8a494"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/review.json": {
+      "git_blob_sha256": "725a602581eda0aefda8f84a8e7eaa315fc86fda6b55d9b069b10b16e9ea73a1",
+      "checkout_sha256_at_metadata_seal": "725a602581eda0aefda8f84a8e7eaa315fc86fda6b55d9b069b10b16e9ea73a1"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/reviewed-handoff.json": {
+      "git_blob_sha256": "fbbc52b3a4364e6d9d571c02966090b796460ad043bb6b99a86c1e4d145c6016",
+      "checkout_sha256_at_metadata_seal": "fbbc52b3a4364e6d9d571c02966090b796460ad043bb6b99a86c1e4d145c6016"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/reviewed-handoff/article_manifest_v1.json": {
+      "git_blob_sha256": "c3499fc83ee7b0ab5d2442fe5f5f9decb8adf25c2ad0db3b6f8bfbd4a83ce00f",
+      "checkout_sha256_at_metadata_seal": "c3499fc83ee7b0ab5d2442fe5f5f9decb8adf25c2ad0db3b6f8bfbd4a83ce00f"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/reviewed-handoff/native_derivative_previews_v1.json": {
+      "git_blob_sha256": "9f3db77cd76407a83c0dfdc4d6b4387eedb454f2cea2513b9b2367993043ccc2",
+      "checkout_sha256_at_metadata_seal": "9f3db77cd76407a83c0dfdc4d6b4387eedb454f2cea2513b9b2367993043ccc2"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/reviewed-handoff/publication_lifecycle_plan_v1.json": {
+      "git_blob_sha256": "40904827f67d853fd131b00195176b72d0403ae7d73b6551033a320081c0edef",
+      "checkout_sha256_at_metadata_seal": "40904827f67d853fd131b00195176b72d0403ae7d73b6551033a320081c0edef"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/reviewed-handoff/qualified_article_record_v1.json": {
+      "git_blob_sha256": "75360bb0582714d70a472fddc90cbac73573939b2d6e7b8b4b7af86e8899aa04",
+      "checkout_sha256_at_metadata_seal": "75360bb0582714d70a472fddc90cbac73573939b2d6e7b8b4b7af86e8899aa04"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/reviewed-handoff/run_context_v1.json": {
+      "git_blob_sha256": "42dcfe5eecd342cbae28e9419416ddd0168d605db4b3f7a95820cfee2ba4e413",
+      "checkout_sha256_at_metadata_seal": "42dcfe5eecd342cbae28e9419416ddd0168d605db4b3f7a95820cfee2ba4e413"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/writer-freeze.stderr.txt": {
+      "git_blob_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "checkout_sha256_at_metadata_seal": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/tesla-r2/writer-freeze.stdout.txt": {
+      "git_blob_sha256": "d9a6efa9224ce58f0e7a1ea416df8a77aac8af7fe0e9a95b4578f3f76229ca46",
+      "checkout_sha256_at_metadata_seal": "d9a6efa9224ce58f0e7a1ea416df8a77aac8af7fe0e9a95b4578f3f76229ca46"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/ui-date-checks.xml": {
+      "git_blob_sha256": "3ad06aa36e6843f4551368efa07b4fe3c94c43c75e7b47e1f561fc28ed5cb400",
+      "checkout_sha256_at_metadata_seal": "3ad06aa36e6843f4551368efa07b4fe3c94c43c75e7b47e1f561fc28ed5cb400"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/verification-source-hashes.json": {
+      "git_blob_sha256": "4814e8ea0cfdca26b3500efb0607e9d668f19c9b2370d6c1b16ba29c20ef8145",
+      "checkout_sha256_at_metadata_seal": "4814e8ea0cfdca26b3500efb0607e9d668f19c9b2370d6c1b16ba29c20ef8145"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/history/pre-prelive-RELEASE_DECISION.md": {
+      "git_blob_sha256": "1a1887d8b6ac55152e3f559f10229c7245157e6aa471e457ab908a4a6f7cbd00",
+      "checkout_sha256_at_metadata_seal": "1a1887d8b6ac55152e3f559f10229c7245157e6aa471e457ab908a4a6f7cbd00"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/history/pre-prelive-release-evidence.json": {
+      "git_blob_sha256": "6fc544d43301e5fb436db5a5866feaf39608e2a045030a6ab1abd606373a7740",
+      "checkout_sha256_at_metadata_seal": "6fc544d43301e5fb436db5a5866feaf39608e2a045030a6ab1abd606373a7740"
+    },
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/history/pre-prelive-release-transition-proposal.json": {
+      "git_blob_sha256": "50d7e089ad3395b1df1021c6223c74b7bd6fd18e11b298a760af5b285847127a",
+      "checkout_sha256_at_metadata_seal": "50d7e089ad3395b1df1021c6223c74b7bd6fd18e11b298a760af5b285847127a"
     },
     "docs/codegraph/V1_CONTEXT.md": {
-      "git_blob_sha256": "999d5c0ea894c9dc1ddec4e91714d7dd9fae83aa18e792f11c8583fceb5f4e55",
-      "checkout_sha256": "a79334ea5f0e44a3cd3846277c503d491e4d38a4a1cc037a0372530f971e660f"
-    },
-    "docs/editorial/CAPITAL_CHRONICLE_EDITORIAL_SEO_CONTRACT_V1.json": {
-      "git_blob_sha256": "3d3388d8cff3b0b753116e0f28d3b39e560cd9bafc5888c95a91d4bb40948f05",
-      "checkout_sha256": "6d93ebc4cb99088e58c8325750380cddcd3afb8ce538c74ebece6a5eef8f032d"
-    },
-    "live_contentops/_eight_platform_substack_first_pipeline_impl_v1.py": {
-      "git_blob_sha256": "f8f72eafd9c7dfd0b45976b5fc2a8f3fff98a32ab7a2fa3b19373c11138c3f57",
-      "checkout_sha256": "640481d00661c5112f61accb31892464c3d31c4a445e2cfc1dcf357c1df2e1fd"
-    },
-    "live_contentops/capital_chronicle_report_editorial_workspace_v1.py": {
-      "git_blob_sha256": "9e790197cb8dd734dd06eab91d3d49757ca6648af5db0b8d695f02e3aa6d1cb8",
-      "checkout_sha256": "4da3c129d3c3657d0b1644b778c77ec82fffca9cedc1beea11c541ef5c061197"
-    },
-    "live_contentops/codex_desktop_newsroom_operator_v1.py": {
-      "git_blob_sha256": "37d0d45522fa6cd08040bd61a6bc5122a77f2f8827508e4a871ff4cd5a977eff",
-      "checkout_sha256": "31f2ea2f3a273861750946cd38fc5b9c62455a61a740a86cb7df3532d4b7f77d"
-    },
-    "live_contentops/contentops_editorial_desk_v1.py": {
-      "git_blob_sha256": "d0b02b530f46a02a3e2be0e2a366290755e0f377fa6ecc7f0ef0745794b94c2d",
-      "checkout_sha256": "dc2c64d63e8302aca22d043247acbbcf651fbfba5578d96bbd1ff9ada65dc4a3"
+      "git_blob_sha256": "b01261cb8162e4c29e649a9b11ee10ff60dbbb3a5a09ea155dcca6fff3cd4321",
+      "checkout_sha256_at_metadata_seal": "31c63a3fb7780cf8ece5b927594c560f719c2d9a1e0ab3cb9d5363a6bbd7d5f1"
     },
     "live_contentops/native_desktop_editorial_v1.py": {
-      "git_blob_sha256": "c2a662320a2099137a2de49d37f8d7e164d5a2289393ed7a97ad10b50a7361a8",
-      "checkout_sha256": "cc54292dfde12bbf976caefa5a1932918a59e290194f4fd8b8b9d82001a96579"
-    },
-    "live_contentops/native_desktop_publication_v1.py": {
-      "git_blob_sha256": "8b9f8bfe3107e02d473cd5efbdce2157c69804a1a3ecb14cff5eef2021428198",
-      "checkout_sha256": "d99607e5da61906d534bc2ed7bc46373a3571cc447b6980fd626181dc8684404"
-    },
-    "live_contentops/neo_destination_handoff_v1.py": {
-      "git_blob_sha256": "9873a1c4e4dd61fe7e6d924b9a9ea704a8336a2223ddcea85830f102a1755964",
-      "checkout_sha256": "c7df2e240a342b12dfecd61764cb76865ad82b4f3c53e6fc659a5d602636ca6e"
+      "git_blob_sha256": "b589c3726267dab295f73eb989897391500d13d991f942ef13229f4a058a9666",
+      "checkout_sha256_at_metadata_seal": "690eba1159fe776542e01f5a626a7925d869694e2acd41bd75017df1255ed0ed"
     },
     "live_contentops/rolling_x_grounded_article_media_builder_v1.py": {
-      "git_blob_sha256": "12349c7efa8ee460ad1fd5896ac8dae2808860a484240708661d4b1e4e2811fc",
-      "checkout_sha256": "3e3fcd92524672a6b44d62bbc838c89737a2dfa06a231051fe32f01fb38381cd"
+      "git_blob_sha256": "2eb14cd72b9365de0969eba4cd7c288321fc69a2cc1e708cc775665a2fbd1286",
+      "checkout_sha256_at_metadata_seal": "d33221b16c36bb8af76c42ebe28d73599f6c6155dbb06a99037fcbdd2798a1d9"
     },
     "live_contentops/v1_simple_gemini_newsroom_v1.py": {
-      "git_blob_sha256": "71ad8bed3eb2f6b5fe61c5528486052ad3e99ce6bcb0ad882f9082285f8f92cd",
-      "checkout_sha256": "40fb7b04b041632f72d9bcadeb51eaf11581e559f4ca1424d22a03c8a8a84c2a"
+      "git_blob_sha256": "b6a4ebb9d91c157b1e9327718d9387a57f2e3fefed753028506e9baf42924bcf",
+      "checkout_sha256_at_metadata_seal": "6a6125c468720b9bbdd6f32310fbabe6e8f5e3e14e7ace832ba9f8bd72d04045"
     },
     "live_contentops/visual_asset_discovery_v1.py": {
-      "git_blob_sha256": "98711eb517de43ca37b668aef31eb4c06bf64683d75e9cfd53a5e113a3e14a13",
-      "checkout_sha256": "62fc59b3f1cc753b3dd5404330f42d071a77a853c8842bbbd326a476915524d2"
+      "git_blob_sha256": "38167b939282f0778dfce10151dfaf5c0a32cafcc6605239a57d0268272bfef3",
+      "checkout_sha256_at_metadata_seal": "4e64cc50a65d2783c9a5c95c11d0debf8e1a07f6a0babf06a452a8e9377301b4"
     },
-    "scripts/run_native_desktop_editorial.py": {
-      "git_blob_sha256": "93b206e8783310978bfe0d7ebb121deb17498874a847cc1b224bceb1e04d02da",
-      "checkout_sha256": "c065612c886a479b2dfb6c0ea1905d953fa58cbf8b82d0f7607e8a8ea306311a"
+    "tests/test_contentops_source_research_v1.py": {
+      "git_blob_sha256": "40749d6138be18b46309d4580276d7a8958edb654ef4ced658fbd3bc6cfe1433",
+      "checkout_sha256_at_metadata_seal": "c5d571c18ed6755c44de4cde2d7b626bac87f42347075e4e71ddcdffe10ff584"
     },
-    "tests/test_native_desktop_publication_v1.py": {
-      "git_blob_sha256": "5d0f090cc1860641a49cb96f197bef210be40d024425f5f260c06ff56e4ddb9d",
-      "checkout_sha256": "15e90c37d48ed293d2c2f0c9414224fa9e7df57f32a9f4b620e79d2f33a01e60"
+    "tests/test_native_desktop_editorial_v1.py": {
+      "git_blob_sha256": "f94b0b55ab2bab2e2e16ebeb4d44535792e75e3e8cfca9aba1fa10e3a58fb1c4",
+      "checkout_sha256_at_metadata_seal": "04b9d1c6d27184899ef1b00c94365ba5e69acf342bedd6b751c556a7fe858875"
     },
     "tests/test_native_editorial_media_standard_v1.py": {
-      "git_blob_sha256": "d7f6e903c73d40f0f219c8bb1395e587eababe97d96aa2a65a88128e4a5507eb",
-      "checkout_sha256": "d7f6e903c73d40f0f219c8bb1395e587eababe97d96aa2a65a88128e4a5507eb"
-    },
-    "tests/test_native_newsroom_owner_operation_v1.py": {
-      "git_blob_sha256": "fa08379377a7690c9ac2816fb014ce7010a8871f3ec7e30056a213632f37d915",
-      "checkout_sha256": "58d7394916327eae3e1bff8273a5993685e3d80ca2e82a3049859debe5dfc0fd"
+      "git_blob_sha256": "1737bb49865f67676cc1c3e7efbee01143797a2236c3c1722e4e61e0a39cba2e",
+      "checkout_sha256_at_metadata_seal": "1737bb49865f67676cc1c3e7efbee01143797a2236c3c1722e4e61e0a39cba2e"
     },
     "ui/contentops_v5/src/dailyAppTypes.ts": {
-      "git_blob_sha256": "d586775b81635a1d016ce2cde642a9d0942e4a1458b426d522c82dac71724a08",
-      "checkout_sha256": "96d75a4eeab673927824df338d70f46e842ae2f2153f8291854fc0670689be09"
+      "git_blob_sha256": "9ec6d0630874cbbbe4e6359cc978e57a9fc62dab80dda1deefeee71d6b6695f4",
+      "checkout_sha256_at_metadata_seal": "285c34eea39dab8808da2d450fe2d499906e46b9910d292adcd6137ee6b4546e"
     },
     "ui/contentops_v5/src/test/report_editorial_workspace.test.tsx": {
-      "git_blob_sha256": "9b73b71a114cad5e7570ffe540d4bb896a1ce17a2acee34b6dbdf67f737f6805",
-      "checkout_sha256": "d793e3bdb96c64c9993ff274875a371b6f110652084ccebae3df5aeac2602c75"
+      "git_blob_sha256": "f605d28784c6f863bc854bc604fcd097cd7924391fb5402906673e0134defd46",
+      "checkout_sha256_at_metadata_seal": "71e520411be26bda7d6ad2d86205a57c2f2fa81f249be1fe9ab542b0cbc69c41"
     },
     "ui/contentops_v5/src/views/ReportEditorialWorkspace.tsx": {
-      "git_blob_sha256": "6e5abe495fd3515877daf414fd059fc64619400bd62db90d27eec7d578d2403f",
-      "checkout_sha256": "4ac1fab6eda7a1715c0c27b0483360ccb77a6b00a6f3b61eed89f738b8a32653"
+      "git_blob_sha256": "e4892f992d0aeeca250cff3741bf0ebc75022537fc37a672385ce6c4e6a0aaf1",
+      "checkout_sha256_at_metadata_seal": "789b70aa0b56756f86fed8e76827f7ef4d3be3d9745a815dabc80c3beef9e649"
     }
   },
-  "editorial_evidence_path": "editorial-media/completion-evidence.json",
-  "editorial_evidence_sha256": "5f66fa02e9e6e7992f037218cd410040dc63312426076e098a5f0be09dc5abc3",
-  "visual_review_sha256": "9ad12bd3bb84f3e6c5cd9687d345afa82f5a9cf03195b2b76f645d6ff9eb55ba",
-  "reader_receipt_sha256": "554400028462fb0bfecb719404801e8c5f4b9d5e952d90be8a8e27fcf46532b0",
-  "lint_baseline_sha256": "de17bd37cc99dcd98875116b56e610c4e0a76549ce017b62483a985075cdf439",
-  "host_boundary_sha256": "506e7a0899b21ab3d69e4ce78dff5ce1a5fa2c25ef361d6e2ecc535692c82a8e",
-  "local_verification": {
-    "distinct_backend_cases": 40,
-    "frontend_tests": 12,
-    "typescript_and_vite": "PASS_1584_MODULES",
-    "introduced_ruff_diagnostics": 0,
-    "preexisting_ruff_diagnostics": 7,
-    "diff_whitespace": "PASS_WITH_EXACT_EVIDENCE_CRLF_AND_THREE_INTENTIONAL_MARKDOWN_BREAKS_PRESERVED"
+  "source_pin_scope": "Immutable Git blob hashes at implementation source commit; checkout hashes observed at metadata seal. Metadata-only evidence ignore/attributes preserve literal retained logs, unified-diff context and CRLF packet bytes; no implementation changed.",
+  "additional_check_render_logs": {
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/desk-history-checks.log": "b397efb1b71021f932b7be8c8dcf7db19bc919d59f2d65a83f9f502ead3d0d96",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/final-owner-render.log": "c34e626e53d29eb8afd81bf2c21b881b786343a9ddab583301fc0eb6b810ad20",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/review-prepare.log": "1a80a45eaf4e9112b6838a6a77e14deabb43d303c815144eaeab26bbd9489983",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/ui-build.log": "ea4c25e037b508dfbdadb299477d2056ae4151fc3722dace65401190671edfec",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/ui-date-checks.log": "2b8f688965ec02b2089ffc40359cf2f382176d89385a737c77a48bc8d0c54e1f",
+    "docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/gold/parent-compile.log": "d2b2b14157a77361bd5c22475e7cfbaba4627e4c16caab1cf9093464dec1d609"
   },
-  "ci_state": "NOT_RUN_FOR_DEPENDENT_BASE_FINAL_HEAD_READBACK_REQUIRED",
+  "local_acceptance": "COMPLETE_FOR_L2_INTERNAL_AUDIT",
+  "internal_auditor": "L2 | ContentOps",
+  "internal_acceptance": "AWAITING_L2_AUDIT",
+  "preliminary_Jim_approval_required": false,
+  "counts": {
+    "ready": 7,
+    "required": 7,
+    "missing": 0,
+    "held_fx": 1,
+    "photos": 7,
+    "charts_and_data": 7,
+    "native_packages": 56,
+    "keep_prepared": 7,
+    "destinations_not_dispatched": 63,
+    "published": 0,
+    "unchanged_c9_articles": 3,
+    "bounded_c9_copy_revisions": 2,
+    "new_dated_policy_explainer": 1,
+    "new_october23_attributed_news_report": 1
+  },
+  "six_requirement_matrix": "editorial-media/COMPLETION_AUDIT.md",
+  "editorial_evidence_path": "editorial-media/final-prelive/completion-evidence.json",
+  "editorial_evidence_sha256": "a5e5a8e9f0f477c4a93b6d815f9b76674007c9c468c9c20a31e85f10ad9fecef",
+  "reader_equality_sha256": "b3a464f0c9ec11b7af7552aee128e7f189d1cb42ca8b5da49ab606f036b94f6e",
+  "visual_review_sha256": "185bef5ddb244dfdbff2554db997f56f9d793a8ce1dbf3b3b50c2fec6f160367",
+  "host_boundary_sha256": "f2d33aacd87fa2d4beec40e108393fbffb260c689d2753e7be7365c9ec4de825",
+  "verification_source_hashes_sha256": "4814e8ea0cfdca26b3500efb0607e9d668f19c9b2370d6c1b16ba29c20ef8145",
+  "local_verification": {
+    "distinct_backend_cases": 79,
+    "frontend_cases": 13,
+    "typescript_and_vite": "PASS_1584_MODULES",
+    "changed_python_files_ruff": "PASS_ALL_SEVEN",
+    "diff_whitespace": "PASS_SOURCE_AND_EVIDENCE_WITH_NARROW_UNIFIED_DIFF_CONTEXT_EXCEPTION"
+  },
+  "codegraph": {
+    "source_head": "fce99f1a548d03f610258559eaa4eb15e3bca750",
+    "source_tree_digest": "e112b84485c9fb3209845c1bc102c35d37683e78e11fddc25cb7f290aecb4088",
+    "files": {
+      "docs/codegraph/INDEX.md": "dcb64057af8c2fdce4d13be5d447b1fe12acf5c0f18e06c296491bda58be4180",
+      "docs/codegraph/graph.json": "157f77dbae14b5b7fb4e22e230d5e72214df38d3e05697dec3da750338ad7bae",
+      "docs/codegraph/V2_CONTEXT.md": "57c93cb828faa5e820713e8dce6a88f704e732048307ceaf81145d549ef2ed51"
+    },
+    "files_hash_scope": "Observed generated checkout bytes; files_git_blob_sha256 separately pins staged Git bytes.",
+    "files_git_blob_sha256": {
+      "docs/codegraph/INDEX.md": "dcb64057af8c2fdce4d13be5d447b1fe12acf5c0f18e06c296491bda58be4180",
+      "docs/codegraph/graph.json": "157f77dbae14b5b7fb4e22e230d5e72214df38d3e05697dec3da750338ad7bae",
+      "docs/codegraph/V2_CONTEXT.md": "57c93cb828faa5e820713e8dce6a88f704e732048307ceaf81145d549ef2ed51"
+    }
+  },
+  "ci_state": "NOT_RUN_FOR_DEPENDENT_BASE; exact final head readback required after push in owning checkpoint",
+  "pr": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/92",
   "integration": "LOCAL_NATIVE_SEAMS_PROVEN_ACCEPTED_MASTER_NOT_INTEGRATED",
   "merged": false,
   "deployed": false,
   "public_write_performed": false,
+  "production": "PAUSED",
+  "four_automations": "PAUSED_BYTE_IDENTICAL",
+  "v2_v3": "OWNER_PAUSED",
   "calendar_execution": "NOT_PROVEN",
   "natural_daily_output": "NOT_PROVEN",
-  "v2_v3": "OWNER_PAUSED",
-  "completion_notice": "NOT_SENT_AT_SOURCE_SEAL",
-  "source_commit_changed_files_checkout_scope": "Observed at implementation source seal, before final metadata update; Git blob hashes are the immutable source pins.",
-  "codegraph": {
-    "source_head": "43f8b34b220029294a6566e2e785e673621c1a0f",
-    "source_tree_digest": "01a9cc1644678a2217e94fecbbe89b0c3a7b6bdaf4254bbc0526e740f85b3a26",
-    "files": {
-      "docs/codegraph/graph.json": {
-        "git_blob_sha256": "65724b0960fb505bd41b84c85b5dbaa1fa96e2a3d1ec9a34937869164e8b29d8",
-        "checkout_sha256": "65724b0960fb505bd41b84c85b5dbaa1fa96e2a3d1ec9a34937869164e8b29d8"
-      },
-      "docs/codegraph/INDEX.md": {
-        "git_blob_sha256": "4fd0507fe560bd55eaa01078208d65448b1aa397b10440516650cd26e4f278b1",
-        "checkout_sha256": "4fd0507fe560bd55eaa01078208d65448b1aa397b10440516650cd26e4f278b1"
-      },
-      "docs/codegraph/V2_CONTEXT.md": {
-        "git_blob_sha256": "9a4b4ac033f153537df1feaad02d8fbb7c3aea08df9817b335e87d82a21bca53",
-        "checkout_sha256": "9a4b4ac033f153537df1feaad02d8fbb7c3aea08df9817b335e87d82a21bca53"
-      }
-    }
-  }
+  "live_identity_and_layout": "NOT_PROVEN",
+  "search_audience_outcome": "NOT_PROVEN_INSUFFICIENT_SAMPLES",
+  "publisher_parity": "NOT_CERTIFIED",
+  "release_authority": "NOT_GRANTED",
+  "completion_notice": "NOT_SENT_AT_METADATA_SEAL",
+  "tower_sync": "L1_OWNED_PENDING_DURABLE_HANDOFF; no upward message"
 }

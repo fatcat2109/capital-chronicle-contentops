@@ -1,7 +1,7 @@
 {
-  "schema_version": "contentops.v1_release_transition_proposal.v2",
+  "schema_version": "contentops.v1_release_transition_proposal.v3",
   "authority": "NOT_GRANTED_NOT_AN_EXECUTABLE_ROLLOUT",
-  "observed_at_utc": "2026-10-23T22:58:39.465661+00:00",
+  "observed_at_utc": "2026-10-24T06:23:11.772127+00:00",
   "base_candidate": "a1b08f96bf551681bca8196038f8b7060def4fd1",
   "accepted_master": "bc79e30c8088a9deb47f3942aa15914a59b69799",
   "proposed_source_root": "A:/Capital Chronicle/Runtime/ContentOps/native-v1-release/ContentOps",
@@ -10,33 +10,37 @@
     {
       "id": "v1-newsroom-london-1700",
       "status": "PAUSED",
+      "file_sha256": "e337a377b9778d5cda476ee665967e40f85050d48866157ed4f0dad4c70b805a",
+      "unchanged": true,
       "model": "gpt-5.6-sol",
       "reasoning_effort": "high",
-      "file_sha256": "e337a377b9778d5cda476ee665967e40f85050d48866157ed4f0dad4c70b805a",
       "prompt_sha256": "f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71"
     },
     {
       "id": "v1-newsroom-new-york-2100",
       "status": "PAUSED",
+      "file_sha256": "3d7f3794fe9b6925484a4b687a030c09fa75c612bc369176aebe869fcbd310d1",
+      "unchanged": true,
       "model": "gpt-5.6-sol",
       "reasoning_effort": "high",
-      "file_sha256": "3d7f3794fe9b6925484a4b687a030c09fa75c612bc369176aebe869fcbd310d1",
       "prompt_sha256": "f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71"
     },
     {
       "id": "v1-newsroom-new-york-2300",
       "status": "PAUSED",
+      "file_sha256": "1deb31ee664a822719470cb28dd0472ee8ec63d142461538b6ec8893c527a3f6",
+      "unchanged": true,
       "model": "gpt-5.6-sol",
       "reasoning_effort": "high",
-      "file_sha256": "1deb31ee664a822719470cb28dd0472ee8ec63d142461538b6ec8893c527a3f6",
       "prompt_sha256": "f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71"
     },
     {
       "id": "v1-newsroom-new-york-0100",
       "status": "PAUSED",
+      "file_sha256": "587b71cb1bbc84becc8e407b799586c68e0f8d705289922280ae08aa091b6365",
+      "unchanged": true,
       "model": "gpt-5.6-sol",
       "reasoning_effort": "high",
-      "file_sha256": "587b71cb1bbc84becc8e407b799586c68e0f8d705289922280ae08aa091b6365",
       "prompt_sha256": "f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71"
     }
   ],
@@ -240,27 +244,36 @@
     "v1-newsroom-new-york-2300": "1eeeb826c7906511df30cf82fb5306c8a66fafa14c0a9f89c045b4eacc83b20f",
     "v1-newsroom-new-york-0100": "bc66308a1d08de09762c6649be320b82653f3a9b35fe71760b0046ed0b4ebf01"
   },
-  "supersedes_proposal_sha256": "43864815ff63c0719652940b65eacb8f2859387d7a3996c47f8383262baf4806",
-  "editorial_standard": "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
+  "supersedes_proposal_sha256": "50d7e089ad3395b1df1021c6223c74b7bd6fd18e11b298a760af5b285847127a",
+  "editorial_standard": "CONTENTOPS_V1_FINAL_PRELIVE_EDITORIAL_ACCEPTANCE_V1",
   "source_delivery": {
-    "implementation_commit": "43f8b34b220029294a6566e2e785e673621c1a0f",
-    "implementation_tree": "ec01a4f75cde31bcb1cafddd5988941aebccb120",
+    "implementation_commit": "fce99f1a548d03f610258559eaa4eb15e3bca750",
+    "implementation_tree": "4a7cf713976738bbab373b5099b50568a31f8480",
     "dependent_pr": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/92",
     "exact_base_commit": "a1b08f96bf551681bca8196038f8b7060def4fd1",
     "accepted_master": "bc79e30c8088a9deb47f3942aa15914a59b69799",
     "deployment_ref_policy": "Final sealed PR head must be read back and named in the separate owner grant; it must contain this exact implementation commit. Source and metadata seal are distinct."
   },
   "retained_examples": {
-    "required": 5,
-    "ready": 5,
-    "photos": 5,
-    "charts_and_data": 5,
-    "native_derivative_packages": 40,
-    "new_economic_observations": 0,
+    "required": 7,
+    "ready": 7,
+    "missing": 0,
+    "held_fx": 1,
+    "photos": 7,
+    "charts_and_data": 7,
+    "native_derivative_packages": 56,
+    "exact_keep_prepared": 7,
+    "destinations_not_dispatched": 63,
     "published": 0,
+    "unchanged_c9_articles": 3,
+    "traceable_c9_editorial_revisions": 2,
+    "new_dated_policy_explainer": 1,
+    "new_october23_attributed_report": 1,
     "owner_manual_bindings_non_dispatchable": true,
-    "evidence_path": "editorial-media/completion-evidence.json",
-    "visual_review_path": "editorial-media/renders/final/visual-review.json"
+    "production_day_credit": false,
+    "evidence_path": "editorial-media/final-prelive/completion-evidence.json",
+    "visual_review_path": "editorial-media/final-prelive/renders/final/visual-review.json",
+    "unchanged_c9_visual_review_path": "editorial-media/renders/final/visual-review.json"
   },
   "mandatory_new_release_gates": [
     "Exact lawful documentary photo provenance, rights, pixels, archive label, credit/caption/alt text",
@@ -279,5 +292,14 @@
     "eol_normalized_equal": true,
     "public_write_authority": false,
     "all_four_tasks_paused": true
-  }
+  },
+  "superseded_bytes_path": "history/pre-prelive-release-transition-proposal.json",
+  "internal_prelive_acceptance": {
+    "local_delivery": "COMPLETE_FOR_L2_AUDIT",
+    "internal_owner_and_auditor": "L2 | ContentOps",
+    "preliminary_Jim_approval_required": false,
+    "production_activation": "NOT_GRANTED",
+    "matrix": "editorial-media/COMPLETION_AUDIT.md"
+  },
+  "host_readback_path": "editorial-media/final-prelive/host-boundary-final-readback.json"
 }

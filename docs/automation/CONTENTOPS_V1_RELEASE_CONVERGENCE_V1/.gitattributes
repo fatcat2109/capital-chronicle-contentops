@@ -1,0 +1,4 @@
+# Release decisions bind exact reviewed bytes across Git and Windows checkouts.
+release-transition-proposal.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+release-evidence.json -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol
+RELEASE_DECISION.md -text whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol

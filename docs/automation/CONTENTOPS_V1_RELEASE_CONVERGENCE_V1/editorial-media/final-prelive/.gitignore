@@ -1,6 +1,7 @@
 observed-public-sources.json
 raw-*.json
 photo-original-downloads.json
+!*.log
 renders/*
 !renders/*.gz
 !renders/*receipt.json

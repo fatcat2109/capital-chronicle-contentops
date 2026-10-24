@@ -1,0 +1,15 @@
+
+> contentops-v5@0.0.0 test
+> vitest run src/test/report_editorial_workspace.test.tsx --reporter=default --reporter=junit --outputFile=../../docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/ui-date-checks.xml
+
+
+ RUN  v2.1.8 C:/Users/bullw/.codex/worktrees/v1-newsroom-release-recovered/ContentOps/ui/contentops_v5
+
+ ✓ src/test/report_editorial_workspace.test.tsx (13 tests) 550ms
+
+ Test Files  1 passed (1)
+      Tests  13 passed (13)
+   Start at  12:36:59
+   Duration  2.77s (transform 185ms, setup 184ms, collect 332ms, tests 550ms, environment 814ms, prepare 127ms)
+
+JUNIT report written to C:/Users/bullw/.codex/worktrees/v1-newsroom-release-recovered/ContentOps/docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/editorial-media/final-prelive/ui-date-checks.xml
