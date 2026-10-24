@@ -1,7 +1,7 @@
 {
-  "schema_version": "contentops.v1_release_transition_proposal.v3",
+  "schema_version": "contentops.v1_release_transition_proposal.v4",
   "authority": "NOT_GRANTED_NOT_AN_EXECUTABLE_ROLLOUT",
-  "observed_at_utc": "2026-10-24T06:23:11.772127+00:00",
+  "observed_at_utc": "2026-10-24T07:49:20.860891+00:00",
   "base_candidate": "a1b08f96bf551681bca8196038f8b7060def4fd1",
   "accepted_master": "bc79e30c8088a9deb47f3942aa15914a59b69799",
   "proposed_source_root": "A:/Capital Chronicle/Runtime/ContentOps/native-v1-release/ContentOps",
@@ -244,15 +244,17 @@
     "v1-newsroom-new-york-2300": "1eeeb826c7906511df30cf82fb5306c8a66fafa14c0a9f89c045b4eacc83b20f",
     "v1-newsroom-new-york-0100": "bc66308a1d08de09762c6649be320b82653f3a9b35fe71760b0046ed0b4ebf01"
   },
-  "supersedes_proposal_sha256": "50d7e089ad3395b1df1021c6223c74b7bd6fd18e11b298a760af5b285847127a",
+  "supersedes_proposal_sha256": "0bb921f2b323aed46fa631bc94ee8c4f502e28b4e3176e15d863bbb66ac413a5",
   "editorial_standard": "CONTENTOPS_V1_FINAL_PRELIVE_EDITORIAL_ACCEPTANCE_V1",
   "source_delivery": {
-    "implementation_commit": "fce99f1a548d03f610258559eaa4eb15e3bca750",
-    "implementation_tree": "4a7cf713976738bbab373b5099b50568a31f8480",
+    "implementation_commit": "f88fd2a9c09a6b719bf577666a2dbc9828000c71",
+    "implementation_tree": "8d3b1a6838d0c471bcd9a3a1438ebc8e84447a76",
     "dependent_pr": "https://github.com/fatcat2109/capital-chronicle-contentops/pull/92",
     "exact_base_commit": "a1b08f96bf551681bca8196038f8b7060def4fd1",
     "accepted_master": "bc79e30c8088a9deb47f3942aa15914a59b69799",
-    "deployment_ref_policy": "Final sealed PR head must be read back and named in the separate owner grant; it must contain this exact implementation commit. Source and metadata seal are distinct."
+    "deployment_ref_policy": "Final sealed PR head must be read back and named in the separate owner grant; it must contain this exact implementation commit. Source and metadata seal are distinct.",
+    "accepted_editorial_source_commit": "fce99f1a548d03f610258559eaa4eb15e3bca750",
+    "accepted_editorial_delivery_head": "92c78afb869a65ea813076183bce3bc50b4ab97b"
   },
   "retained_examples": {
     "required": 7,
@@ -293,13 +295,52 @@
     "public_write_authority": false,
     "all_four_tasks_paused": true
   },
-  "superseded_bytes_path": "history/pre-prelive-release-transition-proposal.json",
+  "superseded_bytes_path": "history/pre-owner-review-release-transition-proposal.json",
   "internal_prelive_acceptance": {
-    "local_delivery": "COMPLETE_FOR_L2_AUDIT",
+    "local_delivery": "L2_ACCEPTED_FINAL_PRELIVE_MILESTONE",
+    "accepted_delivery_head": "92c78afb869a65ea813076183bce3bc50b4ab97b",
     "internal_owner_and_auditor": "L2 | ContentOps",
+    "acceptance_source": "L2 exclusive HANDOFF: Delegated final pre-live milestone acceptance",
     "preliminary_Jim_approval_required": false,
     "production_activation": "NOT_GRANTED",
     "matrix": "editorial-media/COMPLETION_AUDIT.md"
   },
-  "host_readback_path": "editorial-media/final-prelive/host-boundary-final-readback.json"
+  "host_readback_path": "editorial-media/final-prelive/host-boundary-final-readback.json",
+  "owner_review": {
+    "entry": "START_HERE.html",
+    "guide": "START_HERE.md",
+    "mode": "OFFLINE_READ_ONLY_EXISTING_READER",
+    "requires_server": false,
+    "can_approve_or_publish": false,
+    "content": "EXACT_ACCEPTED_7_ARTICLES_7_PHOTOS_7_CHARTS_56_PACKAGES_UNCHANGED",
+    "original_media": "14 existing hash-verified relative local original-file links; embedded previews remain unchanged",
+    "frozen_examples_not_production_day": true,
+    "artifact_hash_binding": "release-evidence.json binds the final HTML bytes; final approved delivery head must contain them"
+  },
+  "initial_observed_day_plan": {
+    "authority": "PROPOSED_ONLY_NO_EXECUTION_GRANTED",
+    "start": "After the single exact Jim release grant and complete supported installation/readback, select the first complete available newsroom production day. Verify its following01:00 occurrence against the actual four calendars; partial windows cannot establish a full day.",
+    "timezone": "Asia/Bangkok",
+    "routine_windows": [
+      "17:00",
+      "21:00",
+      "23:00",
+      "following01:00"
+    ],
+    "day_identity": "Existing deterministic newsroom production-day/window/slot owner, not naive calendar date",
+    "source": "Fresh admitted inputs through existing intake, public-safe Main and reviewed independent source flow; never copy/relabel these isolated manual examples",
+    "record_per_window": [
+      "actual host calendar start and canonical existing window/slot/run identity",
+      "actual native assigned Light/MAX requests/returns and resulting source/media/review seals",
+      "canonical Substack identity, exact content and real /p/ URL readback before derivatives",
+      "each of eight destination outcomes/identity/readback/reconciliation with exact unavailable blockers",
+      "restart/dedupe/claimed-write recovery using the same coordinator, no forced duplicate publish"
+    ],
+    "daily_target": "5-8 useful reconciled published canonical articles; no filler. Existing bounded catch-up; no fifth scheduler/task.",
+    "deficit": "Below5 without exact hard external blocker remains DEGRADED_DAILY_OUTPUT_DEFICIT; preserve required/usable/missing/blocked counts and cause rather than call success",
+    "uncertain_write": "STOP RETRY -> READ BACK -> RECONCILE through existing coordinator; keep affected ambiguity closed",
+    "metrics": "Collect only actual available public object observations; missing values remain null/INSUFFICIENT/HOLD. A live first day does not establish growth, SEO ranking, publisher parity or sustained reliability.",
+    "rollback": "Close existing pause fuse first, pause same four objects; retain store/outbox/history/pending readback. No reset or destructive mutation.",
+    "output": "Existing runtime/day evidence and sole checkpoint record actual operating result. No new status owner, monitor or autonomous messaging."
+  }
 }

@@ -2,7 +2,7 @@
   "captured_at_utc": "2026-10-24T07:26:25.173431+00:00",
   "source_commit": "fce99f1a548d03f610258559eaa4eb15e3bca750",
   "accepted_delivery_head": "92c78afb869a65ea813076183bce3bc50b4ab97b",
-  "proposal_sha256": "0bb921f2b323aed46fa631bc94ee8c4f502e28b4e3176e15d863bbb66ac413a5",
+  "proposal_sha256": "ea5cb0aa3e0fb859b94c9d867d1d28182afdea7c9dab23e4f6c784c9eef58386",
   "proposal_href": "release-transition-proposal.json",
   "decision_href": "RELEASE_DECISION.md",
   "acceptance_href": "editorial-media/COMPLETION_AUDIT.md",
@@ -13,5 +13,6 @@
     "search_state": "INSUFFICIENT_REAL_SEARCH_SAMPLE",
     "destination_state": "INSUFFICIENT_REAL_DESTINATION_SAMPLE",
     "observed_at_utc": "2026-10-24; accepted isolated owner context"
-  }
+  },
+  "reader_source_commit": "f88fd2a9c09a6b719bf577666a2dbc9828000c71"
 }
