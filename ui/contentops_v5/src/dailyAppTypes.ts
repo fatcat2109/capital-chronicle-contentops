@@ -380,6 +380,20 @@ export interface MaintainedNativeStory {
       after?: { proposition?: string } | null }> };
   versions: MaintainedStoryVersion[]; current_version: MaintainedStoryVersion; observed_at_utc: string;
 }
+export interface OwnerReviewContext {
+  captured_at_utc: string;
+  source_commit?: string;
+  reader_source_commit?: string;
+  accepted_delivery_head?: string;
+  proposal_sha256?: string;
+  proposal_href?: string;
+  decision_href?: string;
+  acceptance_href?: string;
+  history_href?: string;
+  original_media_links?: Record<string, string>;
+  audience?: { sample_count: number; content_state: string; search_state: string; destination_state: string; observed_at_utc?: string };
+}
+
 export interface ReportWorkspaceData {
   maintained_stories?: MaintainedNativeStory[];
   audience_learning?: {

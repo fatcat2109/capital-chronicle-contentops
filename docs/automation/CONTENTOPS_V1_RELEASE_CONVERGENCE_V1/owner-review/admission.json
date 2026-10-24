@@ -1,0 +1,29 @@
+{
+  "goal": "CONTENTOPS_V1_OWNER_REVIEW_READY_V1",
+  "created_at": 1792826320,
+  "native_goal_initial_read": "null; previous whole goal complete, new goal registered ACTIVE",
+  "admitted_at_utc": "2026-10-24T07:24:27.019698+00:00",
+  "source_head": "92c78afb869a65ea813076183bce3bc50b4ab97b",
+  "source_branch": "codex/v1-newsroom-release-convergence",
+  "accepted_milestone": "L2 HANDOFF section Delegated final pre-live milestone acceptance",
+  "human_request": {
+    "thread": "01a1657e-f5d0-76a1-b52b-ec6c78b6fe35",
+    "turn": "01a16cc1-5919-7051-8204-4934c2d22ec0",
+    "message": "01a16cc1-5ac8-7590-8134-14e9a62bf7dd",
+    "read_thread_verified": true
+  },
+  "strategy": "Reuse unchanged root/NorthStar/MasterPlan/role context and accepted seven-article source/rights/model/reader proofs. Repair only the existing reader/export handoff. No second app/store/scheduler, prose/source/model rerun or live activation. Main/DB separate and V2/V3 paused.",
+  "authority_hashes": {
+    "AGENTS.md": "ebad0f6744cd0f0757b4aebb01d8d0f4938eda29adced4eb60aef3ca1b41c51b",
+    "docs/codegraph/INDEX.md": "dcb64057af8c2fdce4d13be5d447b1fe12acf5c0f18e06c296491bda58be4180",
+    "docs/automation/CONTENTOPS_CURRENT_AUTHORITY_AND_SUPERSESSION_MAP_V1.md": "896b7a9e61ad3a2fb7d3c2f5a664a69730f8ec02e1cd46832f57a04a2dc4ae7a",
+    "docs/automation/CONTENTOPS_CURRENT_STALE_DOCS_MANIFEST_V1.md": "9ab020f12d41032829344b816df68a1d4419c4876e034073a40dc3b685c00659",
+    "docs/automation/CONTENTOPS_CAPABILITY_ROUTED_HYBRID_EXECUTION_POLICY_V1.md": "657ed8947f5c347df8cae25d2610d23ddaec83e0a9b7b10cb846579ef3901e90",
+    "docs/automation/CONTENTOPS_FINAL_PRODUCT_NORTH_STAR_V3.md": "2ef7d5b2b9ad4e7d620cc30a5db2fa9a819a22b087100c747c65553737a6e0e2",
+    "docs/automation/CONTENTOPS_FINAL_PRODUCT_MASTER_PLAN_V3.md": "8f52d9c9d05718c201cdbd46a3e87acffc77c3cf3cb2769268ac9da58da3d0f6",
+    "docs/automation/CONTENTOPS_V1_POST_ACCEPTANCE_ACTIVATION_AUTHORITY_V1.md": "c466c2bafd0bd70d3fa75c9166bdb9b411e9986b635b7c6163241804a5fd0034",
+    "docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md": "941f376a9f0bf4ec7a98d90fc328c9421db8fd96330326509971a3dca34412ba",
+    "docs/codegraph/V1_CONTEXT.md": "31c63a3fb7780cf8ece5b927594c560f719c2d9a1e0ab3cb9d5363a6bbd7d5f1",
+    "docs/automation/CONTENTOPS_FINAL_DAILY_APP_V1_CURRENT_EXECUTION_POINTER_V3.md": "70f79817c5a05634f7d582fc3784a5ca8e74023075fbf957b6b96e7cbb6cd1b0"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "accepted_delivery": "92c78afb869a65ea813076183bce3bc50b4ab97b",
+  "content_sha256": {
+    "v1-media-oil-r1": "7fb390e3bd527862cf2f0f7007d4ac28bd66b435e4e369d94fa26ffd10775bfc",
+    "v1-media-ibm-r1": "d9af7148bb7a09740660c8ebfd175758712ef1cd9667d7dc4b2b82482c14d43d",
+    "v1-media-meta-r1": "62015534f0a1f4558988e5e0da59d3d861578984838f79e990c8b7bfa5a04c43",
+    "v1-prelive-tesla-r2": "360bf0a6812a3dc514ffa7be3017c3f6f071f24b0dc0832572d37a1d4a507381",
+    "v1-prelive-fed-policy": "90779a9c07a231febb4b6d90eced47f88054136891c6e9e6fcc3cca13ba17af0",
+    "v1-prelive-southwest-r2": "e95b4883fe095e1478d65e98cdc02178ff933ad6c15a6d687e0278ed3ac36a20",
+    "v1-prelive-gold-oct23": "104ab0731514c9a101a7609aa35f4afc2c99d36e963e90cc5a4d28fd9c13e702"
+  },
+  "article_preview_media_equal": true,
+  "original_media_links": {
+    "0225a86141a374d4640a96bdac842f19ba86fe2da34b1f4325864ac00c962e41": "editorial-media/oil/media_assets/source_value_comparison.png",
+    "d6d1d02e8a6c4ca550604976ee07e1e3aa78844188984de71159253403dd124b": "editorial-media/oil/documentary_original.jpg",
+    "d67221435268d2c676c408dbdfe6ee535e4c62bec4933c62265af6f9477d23c9": "editorial-media/ibm/media_assets/source_value_comparison.png",
+    "48c82af1e097e69ccb07911d25d4a69f283110501da99b17173cce6c8c17c087": "editorial-media/ibm/documentary_original.jpg",
+    "bb7650d03d73bc9f13d1a588fd411a571563f1be6fc238f39ad19647bb478e22": "editorial-media/tesla/media_assets/source_value_comparison.png",
+    "a08499ae2b5f5ebfc223dde6525ab8992cdcfe13e605c01dce575d0187347d43": "editorial-media/tesla/documentary_original.jpg",
+    "bb357416797f93b203e919344509b15dd3e1c4c755d263c865d63dfc4705bf45": "editorial-media/meta/media_assets/source_value_comparison.png",
+    "142485163942db43c6c5786440dad2413f5c91ead7ee2c4252172b7ad5355f53": "editorial-media/meta/documentary_original.jpg",
+    "78b9380ca8668ace03d60a578038a3de581db009bab3f31c14ed85d1306d6242": "editorial-media/southwest/media_assets/source_value_comparison.png",
+    "80db21feff928cbad4c83480b48daa70158fd1baf3cd855de882fc03aab040a4": "editorial-media/southwest/documentary_original.jpg",
+    "cfa598246a6b3b77eb5cfc603085d5bb7e0aca76c5785ca53537103e85e00fe7": "editorial-media/final-prelive/policy/media_assets/source_value_comparison.png",
+    "a9c3ddd24441eec393f3d819e3df001c3d19ce3a6bdbd6372cffad83f1fbbcc0": "editorial-media/final-prelive/policy/documentary_original.jpg",
+    "407830ed2fdc3d164f3a653f08e2985b565c56d93ee00b081c2cd3a38388d1a9": "editorial-media/final-prelive/gold/media_assets/source_value_comparison.png",
+    "31b26c1326c28f131904dbd85f9908365dfa5708876b5c1e72435a024d54819d": "editorial-media/final-prelive/gold/documentary_original.jpg"
+  },
+  "original_link_bytes_hash_verified": true,
+  "numeric_spelling_preserved": true,
+  "html_sha256": "1e6350df1ebe9b50ef052a5ac25ec870aa3774c62f5645df03617c4b1ced73aa"
+}

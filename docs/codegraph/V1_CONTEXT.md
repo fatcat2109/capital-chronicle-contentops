@@ -189,3 +189,8 @@ and search outcomes remain separate and four host objects remain paused.
 Native public-source guidance keeps detailed internal clocks in evidence metadata while
 resuming frozen legacy requests unchanged. The existing reader preserves date-only releases
 and minimal revision-history records, with explicit unknown metadata rather than a crash.
+
+The same React reader/export has an offline owner-review mode for the exact selected edition.
+`scripts/run_native_desktop_editorial.py desk` reads the isolated owner and renders that
+mode; it creates no runtime, store, review or dispatch authority. The durable private entry
+is `docs/automation/CONTENTOPS_V1_RELEASE_CONVERGENCE_V1/START_HERE.md`.

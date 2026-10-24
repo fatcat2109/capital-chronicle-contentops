@@ -462,7 +462,10 @@ def main(argv=None):
         root.mkdir(parents=True, exist_ok=True)
         (root / "workspace.json").write_bytes(canonical_bytes(projection))
         renderer = Path(__file__).resolve().parents[1] / "ui/contentops_v5/scripts/render-report-workspace.mjs"
-        subprocess.run(["node", str(renderer), str(root / "workspace.json"), str(root / "index.html")], check=True)
+        subprocess.run(["node", str(renderer), str(root / "workspace.json"), str(root / "index.html"), "--owner-review"], check=True)
+        print(json.dumps({"review_entry": str(root / "index.html"), "mode": "OFFLINE_READ_ONLY_OWNER_REVIEW",
+                          "reopen": "Open the same HTML file in a browser; no preview server is required.",
+                          "publication_authority": False}, ensure_ascii=True))
         return 0
     if args.command == "newsroom":
         try:
