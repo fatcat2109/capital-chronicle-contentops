@@ -1,0 +1,223 @@
+{
+  "asset_id": "ibm-dj-software-margins-r2",
+  "title": "Two Software margins moved in opposite directions",
+  "question": "Did stronger Software segment profit margin coincide with stronger gross profitability per dollar of Software sales?",
+  "unit": "percent",
+  "source_links": [
+    {
+      "document_id": "dj-ibm-q1-2026",
+      "label": "IBM · 22 Apr 2026",
+      "url": "https://newsroom.ibm.com/2026-04-22-IBM-RELEASES-FIRST-QUARTER-RESULTS"
+    },
+    {
+      "document_id": "dj-ibm-q2-2026",
+      "label": "IBM · 22 Jul 2026",
+      "url": "https://newsroom.ibm.com/2026-07-22-IBM-RELEASES-SECOND-QUARTER-RESULTS"
+    },
+    {
+      "document_id": "dj-ibm-q3-2026",
+      "label": "IBM · 21 Oct 2026",
+      "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+    }
+  ],
+  "comparability_limits": [
+    "The twelve margin levels remain the exact prior reported observations. Only six displayed percentage-point differences are new deterministic arithmetic, not new financial evidence.",
+    "Both ratios use the corresponding Software revenue denominator, but gross profit and IBM segment profit are different numerators/accounting definitions. Segment profit is not company GAAP net income or the operating non-GAAP company margin.",
+    "The releases do not isolate how acquisitions, amortization, product mix, expense timing or productivity account for the difference. Do not imply a proven reconciliation or claim gross-margin pressure erased the improved segment margin.",
+    "Quarterly rates are same-quarter comparisons, not an implied unbroken seasonal trend, organic margin or forecast."
+  ],
+  "series": [
+    {
+      "name": "Software gross profit margin - 2025",
+      "points": [
+        {
+          "period": "Q1",
+          "value": 83.6,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Q2",
+          "value": 83.9,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": 83.1,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Software gross profit margin - 2026",
+      "points": [
+        {
+          "period": "Q1",
+          "value": 82.8,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Q2",
+          "value": 82.6,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": 82.5,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Software segment profit margin - 2025",
+      "points": [
+        {
+          "period": "Q1",
+          "value": 29.1,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Q2",
+          "value": 31.1,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": 32.9,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Software segment profit margin - 2026",
+      "points": [
+        {
+          "period": "Q1",
+          "value": 29.8,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Q2",
+          "value": 32.2,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": 35.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Software gross profit margin - change in percentage points",
+      "points": [
+        {
+          "period": "Q1",
+          "value": -0.8,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Q2",
+          "value": -1.3,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": -0.6,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Software segment profit margin - change in percentage points",
+      "points": [
+        {
+          "period": "Q1",
+          "value": 0.7,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q1-2026"
+          ]
+        },
+        {
+          "period": "Q2",
+          "value": 1.1,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": 2.1,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "asset_id": "ibm-dj-cash-improvement-r2",
+  "title": "A smaller gain after IBM's cash adjustments",
+  "question": "Why was the nine-month gain in IBM-defined free cash flow smaller than the operating-cash gain?",
+  "unit": "USD million",
+  "source_links": [
+    {
+      "document_id": "dj-ibm-q3-2026",
+      "label": "IBM · 21 Oct 2026",
+      "url": "https://newsroom.ibm.com/2026-10-21-IBM-RELEASES-THIRD-QUARTER-RESULTS"
+    }
+  ],
+  "comparability_limits": [
+    "Use the directly reported nine-month columns together in Q3 table 8. Do not sum the three quarterly cash tables or substitute Q3-only cash.",
+    "GAAP operating cash and IBM-defined non-GAAP free cash flow are separate measures. IBM removes the change in Financing receivables, then adds signed net capital expenditures. Free cash flow is not merely consolidated OCF less capex.",
+    "DIFFERENCE inputs are current then prior. Financing delta is (2,805 - 905) times -1; capex delta is -1,200 minus -1,067, with no second negation. Gain in reported FCF is 7,787 minus 7,181.",
+    "2026 rounded levels yield 11,791 - 2,805 - 1,200 = 7,786, versus reported 7,787. Prior levels reconcile exactly to 7,181. The resulting change bridge yields 605 versus reported 606. These are the same one-million cash rounding issue, separate from revenue's two-million differences.",
+    "The financing adjustment is an accounting-definition reconciliation. Its increase alone proves neither deteriorating credit, manipulated earnings nor weak Software demand.",
+    "Consolidated cash does not establish Software-specific cash generation, deferred-business conversion, distributable shareholder cash or a full cash-balance bridge. Acquisitions, debt and dividends are outside this FCF comparison."
+  ],
+  "series": [
+    {
+      "name": "2026 vs 2025 nine-month cash change",
+      "points": [
+        {
+          "period": "Operating cash gain",
+          "value": 2638,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Larger Financing adjustment",
+          "value": -1900,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Higher net capital spending",
+          "value": -133,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "IBM free-cash gain (reported totals)",
+          "value": 606,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    }
+  ],
+  "reported_reference_series": [
+    {
+      "name": "Nine months to September 30, 2025",
+      "points": [
+        {
+          "period": "Operating cash flow",
+          "value": 9153,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Financing receivables adjustment",
+          "value": -905,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Net capital expenditures",
+          "value": -1067,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Free cash flow",
+          "value": 7181,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Nine months to September 30, 2026",
+      "points": [
+        {
+          "period": "Operating cash flow",
+          "value": 11791,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Financing receivables adjustment",
+          "value": -2805,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Net capital expenditures",
+          "value": -1200,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        },
+        {
+          "period": "Free cash flow",
+          "value": 7787,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-ibm-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

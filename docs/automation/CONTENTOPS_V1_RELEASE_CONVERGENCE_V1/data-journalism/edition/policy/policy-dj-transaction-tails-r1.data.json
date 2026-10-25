@@ -1,0 +1,477 @@
+{
+  "asset_id": "policy-dj-transaction-tails-r1",
+  "title": "The median stayed put; transaction tails did not",
+  "question": "How far from a steady EFFR did the lower and upper tails of reported transaction rates reach across the observed business days?",
+  "unit": "basis points relative to daily EFFR",
+  "source_links": [],
+  "comparability_limits": [
+    "Daily business-day transaction observations only; no calendar-day filling or zero-volume assumption for absent dates.",
+    "The source table prints month/day. The year 2026 is resolved from the same captured page's chart context, not a literal full-date field in each table row. The table includes October 22 although its chart To field reads October 21; use the table rows and preserve that discrepancy in source notes.",
+    "EFFR is the volume-weighted median of overnight federal funds transactions reported in FR 2420. A transaction percentile is neither the FOMC target range nor a forecast/confidence interval.",
+    "The New York Fed is the original reference-rate producer and a policy-implementation institution. The columns and the Fed implementation document are related official evidence, not independent corroboration or proof of broad customer-rate transmission.",
+    "No causal account of funding demand, calendar effects, reserve scarcity, policy effectiveness, bank deposit/loan pass-through or asset-price reaction follows from this single bounded sample.",
+    "Use the exact same-day EFFR denominator/reference for each difference. Percentiles are those published by the source; do not infer a mean, full rate distribution, transaction count, forecast probability or unobserved tail values."
+  ],
+  "series": [
+    {
+      "name": "1st transaction-rate percentile minus EFFR",
+      "points": [
+        {
+          "period": "2026-09-17",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-18",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-21",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-22",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-23",
+          "value": -2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-24",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-25",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-28",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-29",
+          "value": -2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-30",
+          "value": -2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-01",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-02",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-05",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-06",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-07",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-08",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-09",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-13",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-14",
+          "value": -8.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-15",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-16",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-19",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-20",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-21",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-22",
+          "value": -3.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "99th transaction-rate percentile minus EFFR",
+      "points": [
+        {
+          "period": "2026-09-17",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-18",
+          "value": 2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-21",
+          "value": 2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-22",
+          "value": 6.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-23",
+          "value": 5.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-24",
+          "value": 6.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-25",
+          "value": 2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-28",
+          "value": 2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-29",
+          "value": 2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-09-30",
+          "value": 4.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-01",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-02",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-05",
+          "value": 2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-06",
+          "value": 2.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-07",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-08",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-09",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-13",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-14",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-15",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-16",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-19",
+          "value": 1.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-20",
+          "value": 5.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-21",
+          "value": 6.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        },
+        {
+          "period": "2026-10-22",
+          "value": 4.0,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-effr"
+          ]
+        }
+      ]
+    }
+  ]
+}

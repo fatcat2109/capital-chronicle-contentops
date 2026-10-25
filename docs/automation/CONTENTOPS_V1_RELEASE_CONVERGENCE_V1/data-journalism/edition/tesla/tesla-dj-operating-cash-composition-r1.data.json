@@ -1,0 +1,168 @@
+{
+  "asset_id": "tesla-dj-operating-cash-composition-r1",
+  "title": "Liability movements loom larger in Q3 cash flow",
+  "question": "Does a stronger operating-cash total reflect a comparable mix of cash sources?",
+  "unit": "USD billion",
+  "source_links": [],
+  "comparability_limits": [
+    "The two new series are exact original-source rows from p. 29, not estimates, balance-sheet differences or model-created working-capital proxies.",
+    "Positive and negative amounts represent their reported contributions to quarterly operating cash; retain the negative Q4 2025 deferred-revenue amount.",
+    "The combined payables/accruals/other-liabilities line does not isolate supplier financing, payment timing, overdue obligations or any single business.",
+    "Deferred-revenue contributions are not current-period revenue, current-period profit or unrestricted recurring cash generation; related future obligations remain.",
+    "These are selected cash-flow components, not an exhaustive decomposition. Do not sum the plotted columns and label that sum total operating cash.",
+    "A change in composition supports a question about persistence, not proof of earnings manipulation, cash distress or an inevitable reversal.",
+    "Use a common axis in USD billions and an explicit zero; source USD millions are rescaled by 0.001."
+  ],
+  "series": [
+    {
+      "name": "Payables, accruals and other liabilities",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 1.646,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 1.397,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 1.401,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 1.94,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 3.991,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Deferred revenue",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 0.507,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": -0.462,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 0.263,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 0.228,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 1.255,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Operating cash flow (GAAP)",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 6.238,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 3.813,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 3.937,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 4.697,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 6.263,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

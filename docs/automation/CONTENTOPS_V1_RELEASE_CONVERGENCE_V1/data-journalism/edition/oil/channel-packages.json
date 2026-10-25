@@ -1,0 +1,188 @@
+[
+  {
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "oil-dj-stock-path-versus-prior-year-r1",
+        "oil-dj-weekly-draw-pace-r1"
+      ],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nUS crude stocks kept falling, but the latest draw slowed\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\nWhat to watch: EIA listed October 28 as the next release date.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f"
+    },
+    "preview_id": "cc-preview-a2dbf0862709132f7a5819147f41eab89899b814d90e7e8a2a89f437ee2c3a26"
+  },
+  {
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "US crude stocks kept falling, but the latest draw slowed\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f\n\nWatch: EIA listed October 28 as the next release date.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "oil-dj-weekly-draw-pace-r1"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "oil-dj-weekly-draw-pace-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "US crude stocks kept falling, but the latest draw slowed\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: EIA listed October 28 as the next release date."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.907,
+          0.193
+        ],
+        "post_character_counts": [
+          254,
+          54
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.213,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: EIA listed October 28 as the next release date."
+      ],
+      "root_text": "US crude stocks kept falling, but the latest draw slowed\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f",
+      "text": "US crude stocks kept falling, but the latest draw slowed\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f"
+    },
+    "preview_id": "cc-preview-8add219fc50b58e79ae82ac589209b6f61683b142bf7240f2ada270bab4fb6a7"
+  },
+  {
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "oil-dj-stock-path-versus-prior-year-r1"
+      ],
+      "platform_limit": 3000,
+      "text": "US crude stocks kept falling, but the latest draw slowed\n\nWhy it matters: A draw means fewer barrels remain in commercial storage at week's end.\n\nContext: The smaller latest draw is the counterweight to an accelerating-tightness story.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f\n\nSource: EIA."
+    },
+    "preview_id": "cc-preview-d87555ea7d47b5307c87536bee360070a342a654c356f91f50a5262a06adfa63"
+  },
+  {
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "oil-dj-stock-path-versus-prior-year-r1"
+      ],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: US crude stocks kept falling, but the latest draw slowed**\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\n**Context:** The smaller latest draw is the counterweight to an accelerating-tightness story.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f"
+    },
+    "preview_id": "cc-preview-1ab731b406019172a7cf1a3c52c2dde60fa6247532a4298f1d1e590739096166"
+  },
+  {
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "oil-dj-stock-path-versus-prior-year-r1"
+      ],
+      "platform_limit": 63206,
+      "text": "US crude stocks kept falling, but the latest draw slowed\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\nWhy it matters: A draw means fewer barrels remain in commercial storage at week's end.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f"
+    },
+    "preview_id": "cc-preview-90da2340228a388963a7cb244f9aca3eb76b59d08472a740b8f7d81d3a6f5685"
+  },
+  {
+    "destination": "instagram_business",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "oil-dj-stock-path-versus-prior-year-r1",
+        "oil-dj-weekly-draw-pace-r1"
+      ],
+      "platform_limit": 2200,
+      "text": "US crude stocks kept falling, but the latest draw slowed\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\nIn focus: The smaller latest draw is the counterweight to an accelerating-tightness story.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f\n\n#CapitalChronicle"
+    },
+    "preview_id": "cc-preview-4f83d57bed592c1c09cdb9a256785db5f4e1b644fcd4af0e371c40d9fd500aed"
+  },
+  {
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "US crude stocks kept falling, but the latest draw slowed\n\nThe smaller latest draw is the counterweight to an accelerating-tightness story.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f\n\nWhat to watch: EIA listed October 28 as the next release date.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "oil-dj-weekly-draw-pace-r1"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "oil-dj-weekly-draw-pace-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "US crude stocks kept falling, but the latest draw slowed\n\nThe smaller latest draw is the counterweight to an accelerating-tightness story.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: EIA listed October 28 as the next release date."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.432,
+          0.124
+        ],
+        "post_character_counts": [
+          216,
+          62
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.287,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: EIA listed October 28 as the next release date."
+      ],
+      "root_text": "US crude stocks kept falling, but the latest draw slowed\n\nThe smaller latest draw is the counterweight to an accelerating-tightness story.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f",
+      "text": "US crude stocks kept falling, but the latest draw slowed\n\nThe smaller latest draw is the counterweight to an accelerating-tightness story.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f"
+    },
+    "preview_id": "cc-preview-8008e33bd41c5550562359f11469cf9d6b7ce76fc777a6abb0bb6a9b9405e936"
+  },
+  {
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "oil-dj-stock-path-versus-prior-year-r1"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: US crude stocks kept falling, but the latest draw slowed\n\nA smaller US crude cushion, a slower draw: EIA's October 21 figures separate the stock level from the pace of decline.\n\nWhat to watch: EIA listed October 28 as the next release date.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2073ac9bca91e29f"
+    },
+    "preview_id": "cc-preview-f16f7851b27b069a52337b2dc8fc6fcc6f3333dc6a3e51b5f90b55446bf07acd"
+  }
+]

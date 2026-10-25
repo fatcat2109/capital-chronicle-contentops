@@ -1,0 +1,97 @@
+{
+  "asset_id": "meta-dj-profit-charge-r1",
+  "title": "Legal charges complicate the profit slowdown",
+  "question": "How should readers interpret the reported profit slowdown alongside the disclosed legal charges?",
+  "unit": "US$ billion",
+  "source_links": [
+    {
+      "document_id": "dj-meta-q2-2026",
+      "label": "Meta · 29 Jul 2026",
+      "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+    },
+    {
+      "document_id": "dj-meta-q3-2026",
+      "label": "Meta · 21 Oct 2026",
+      "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+    }
+  ],
+  "comparability_limits": [
+    "The two GAAP-income series compare the same three-month quarters year over year. The charge series contains only the specifically disclosed current-year charges; it does not claim that prior-year legal charges were zero.",
+    "The Q2 release also discloses $1.18 billion of severance expenses. Adding back only the plotted legal charge would not create a consistently normalized earnings series across these quarters.",
+    "The Q3 company's charge-excluded illustration is $22.88 billion, rounded in the source. Exact reported operating income of $12.988 billion plus the $9.890 billion charge yields $22.878 billion before rounding. Neither number is a measure of recurring profit or AI return.",
+    "A GAAP expense recognized in a quarter is not evidence that the same amount was paid in cash in that quarter. No legal-payment cash adjustment is made to operating cash flow or free cash flow.",
+    "The 2025 Q3 effective tax rate was 87%, versus 24% in Q3 2026. The net-income/EPS growth comparison is therefore not interchangeable with the operating-income comparison shown here.",
+    "Legal obligations remain an economic cost. The company has an interest in emphasizing charge-excluded results; do not use its illustration as independent proof of underlying profitability or investment success."
+  ],
+  "series": [
+    {
+      "name": "2025 GAAP operating income",
+      "points": [
+        {
+          "period": "Q2",
+          "value": 20.441,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": 20.535,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2026 GAAP operating income",
+      "points": [
+        {
+          "period": "Q2",
+          "value": 18.775,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": 12.988,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2026 disclosed legal charge",
+      "points": [
+        {
+          "period": "Q2",
+          "value": 2.4,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3",
+          "value": 9.89,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

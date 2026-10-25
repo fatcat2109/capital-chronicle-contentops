@@ -1,0 +1,192 @@
+{
+  "asset_id": "meta-dj-cash-reinvestment-r1",
+  "title": "Meta's investment bill overtook operating cash generation",
+  "question": "Why did free cash flow turn negative even though operating cash generation increased?",
+  "unit": "US$ billion",
+  "source_links": [
+    {
+      "document_id": "dj-meta-q2-2026",
+      "label": "Meta · 29 Jul 2026",
+      "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Second-Quarter-2026-Results/default.aspx"
+    },
+    {
+      "document_id": "dj-meta-q3-2026",
+      "label": "Meta · 21 Oct 2026",
+      "url": "https://investor.atmeta.com/investor-news/press-release-details/2026/Meta-Reports-Third-Quarter-2026-Results/default.aspx"
+    }
+  ],
+  "comparability_limits": [
+    "All points are reported three-month actuals. The order groups each 2026 quarter beside its 2025 seasonal comparator; it is intentionally not a continuous chronological series. Q4 2025 and Q1 2026 are not plotted or interpolated.",
+    "Free cash flow is a company-defined non-GAAP measure: operating cash flow less cash purchases of property and equipment and less principal payments on finance leases. It is not GAAP net cash change or cash available for every discretionary purpose.",
+    "The source capital-expenditure headline includes finance-lease principal. Do not add that principal a second time to the headline capital-expenditure number. The plotted purchase line excludes the separately plotted lease-principal line.",
+    "Property/equipment purchases and finance-lease principal are cash payments. They do not measure all economic investment, new noncash lease additions, all investing cash flows or an AI-only spending allocation.",
+    "The bridge is an accounting reconciliation, not causal attribution to AI, legal payments or working-capital changes. The releases do not isolate an investment-return measure for the spending shown.",
+    "Quarterly cash timing can vary. These two matched comparisons support a bounded spending-versus-generation argument, not a multi-year trend or a prediction of future cash coverage."
+  ],
+  "series": [
+    {
+      "name": "Operating cash flow",
+      "points": [
+        {
+          "period": "Q2 2025",
+          "value": 25.561,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 31.862,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3 2025",
+          "value": 29.999,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 32.786,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Property/equipment purchases",
+      "points": [
+        {
+          "period": "Q2 2025",
+          "value": -16.538,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": -30.116,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3 2025",
+          "value": -18.829,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": -33.942,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Finance-lease principal",
+      "points": [
+        {
+          "period": "Q2 2025",
+          "value": -0.474,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": -0.962,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3 2025",
+          "value": -0.545,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": -0.964,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Free cash flow (residual)",
+      "points": [
+        {
+          "period": "Q2 2025",
+          "value": 8.549,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 0.784,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q2-2026"
+          ]
+        },
+        {
+          "period": "Q3 2025",
+          "value": 10.625,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": -2.12,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-meta-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

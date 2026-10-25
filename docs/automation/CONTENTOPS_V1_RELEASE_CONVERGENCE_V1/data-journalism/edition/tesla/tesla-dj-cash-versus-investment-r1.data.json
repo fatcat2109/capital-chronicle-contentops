@@ -1,0 +1,167 @@
+{
+  "asset_id": "tesla-dj-cash-versus-investment-r1",
+  "title": "Cash recovered under a heavier investment load",
+  "question": "Did the return to positive free cash flow come from stronger operating cash, lower investment, or both, and how does it compare with a year earlier?",
+  "unit": "USD billion",
+  "source_links": [],
+  "comparability_limits": [
+    "All observations are unaudited reported quarterly actuals from the same source edition, not forecasts.",
+    "Operating cash is a GAAP cash-flow measure. Free cash flow is Tesla's company-defined non-GAAP measure: operating cash flow plus the negative capital-expenditure amount.",
+    "Source USD millions are rescaled by 0.001 to USD billions; negative expenditure and negative free cash flow keep their signs.",
+    "The source states that capital expenditure includes purchases of energy-generation and storage systems, with prior periods adjusted to the same presentation.",
+    "Aggregate capital expenditure is not an AI-only measure. The chart cannot establish investment efficiency, deferral or the return on individual projects.",
+    "Free cash flow is not the change in cash or total liquidity; financing, investments and other cash movements are outside this measure."
+  ],
+  "series": [
+    {
+      "name": "Operating cash flow (GAAP)",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 6.238,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 3.813,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 3.937,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": 4.697,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 6.263,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Capital expenditure outflow",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": -2.248,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": -2.393,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": -2.493,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": -5.789,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": -4.732,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Free cash flow (non-GAAP)",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 3.99,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q4 2025",
+          "value": 1.42,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q1 2026",
+          "value": 1.444,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q2 2026",
+          "value": -1.092,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 1.531,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-tesla-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

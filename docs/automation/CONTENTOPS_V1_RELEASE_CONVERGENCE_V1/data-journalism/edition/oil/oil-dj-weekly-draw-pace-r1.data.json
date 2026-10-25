@@ -1,0 +1,48 @@
+{
+  "asset_id": "oil-dj-weekly-draw-pace-r1",
+  "title": "Crude stocks fell again, but the latest draw slowed",
+  "question": "Did the latest weekly draw intensify, or did it slow after the preceding decline?",
+  "unit": "thousand barrels",
+  "source_links": [],
+  "comparability_limits": [
+    "U.S. commercial crude stocks excluding the Strategic Petroleum Reserve; not global oil supply, end-user demand, or a price series.",
+    "EIA release dated October 21, 2026; final observation is the week ending October 16. This is not a new October 24/25 release.",
+    "Captured vintage only; no revision history or market-expectations series supplied.",
+    "Changes are deterministic current-minus-previous differences from the same original EIA stock series, not separately reported demand figures or forecast surprises.",
+    "Three weekly changes describe this short interval; they do not establish a persistent tightening regime or isolate the driver of any futures-price movement."
+  ],
+  "series": [
+    {
+      "name": "Stock change; negative = draw",
+      "points": [
+        {
+          "period": "Week ending\n2026-10-02",
+          "value": -3186,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "Week ending\n2026-10-09",
+          "value": -8557,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        },
+        {
+          "period": "Week ending\n2026-10-16",
+          "value": -3060,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "DIFFERENCE",
+          "source_document_ids": [
+            "dj-crude-stocks"
+          ]
+        }
+      ]
+    }
+  ]
+}

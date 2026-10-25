@@ -1,0 +1,63 @@
+{
+  "asset_id": "southwest-dj-unit-revenue-versus-cost-r1",
+  "title": "Revenue per seat mile pulled further ahead of cost",
+  "question": "After accounting for a common seat-mile denominator, did operating revenue pull ahead of all-in operating expense?",
+  "unit": "US cents per available seat mile",
+  "source_links": [],
+  "comparability_limits": [
+    "RASM equals operating revenue divided by available seat miles; CASM equals operating expenses divided by the same available seat miles. Both rows cover the three months ended September 30.",
+    "The difference in cents per seat mile is a unit operating spread, not net margin, cash flow or an EPS forecast. Rounding of reported inputs limits precision.",
+    "CASM includes fuel and all reported operating expenses. Company-defined CASM-X excludes fuel, special items and profit sharing and must not be labelled all-in cost.",
+    "Reported cost and profit quality may reflect asset-sale and sale-leaseback gains. A wider reported spread alone does not establish recurring operating strength.",
+    "Use two labelled horizontal dumbbells with connectors only between revenue and cost within the same quarter, not a time-series line. Shared linear scale, a clearly disclosed axis extent and exact two-decimal endpoint labels are required; no bar-shaped marks on a truncated baseline.",
+    "Mobile layout: two generous rows, direct endpoint labels with collision avoidance, and a concise legend above the plot. Do not enlarge the tiny prior-year spread into an unlabelled visual exaggeration."
+  ],
+  "series": [
+    {
+      "name": "Revenue per available seat mile (RASM)",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 15.25,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 18.55,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "All-in operating expense per seat mile (CASM)",
+      "points": [
+        {
+          "period": "Q3 2025",
+          "value": 15.17,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        },
+        {
+          "period": "Q3 2026",
+          "value": 17.72,
+          "observation_kind": "REPORTED_ACTUAL",
+          "transform": "IDENTITY",
+          "source_document_ids": [
+            "dj-southwest-q3-2026"
+          ]
+        }
+      ]
+    }
+  ]
+}

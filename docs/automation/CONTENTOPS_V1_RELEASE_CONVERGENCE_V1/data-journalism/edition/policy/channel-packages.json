@@ -1,0 +1,197 @@
+[
+  {
+    "destination": "telegram",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "policy-dj-transaction-tails-r1"
+      ],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nA steady federal funds median, a changing pattern of trading\n\nA flat federal funds median did not mean unchanged trading: the New York Fed's September 17-October 22, 2026 data show changing rate percentiles and volume.\n\nWhat to watch: The next useful observation is whether the median moves within or outside the target range reported for the same date, and whether a change in the transaction-rate percentiles persists across several business days.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2"
+    },
+    "preview_id": "cc-preview-9744d048c229f90c3774cec5c63eb3b2fa9fa549724e445716faaadafbcf21d3"
+  },
+  {
+    "destination": "x",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "A steady federal funds median, a changing pattern of trading\n\nhttps://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2\n\nA flat federal funds median did not mean unchanged trading: the New York Fed's September 17-October 22, 2026 data show changing rate percentiles and volume.\n\nWatch: The next useful observation is whether the median moves within or outside the target range reported for the same date, and whether a change in the transaction-rate percentiles persists across several business days.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "policy-dj-transaction-tails-r1"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "policy-dj-transaction-tails-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "A steady federal funds median, a changing pattern of trading\n\nhttps://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "A flat federal funds median did not mean unchanged trading: the New York Fed's September 17-October 22, 2026 data show changing rate percentiles and volume."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 2,
+          "role": "reply",
+          "text": "Watch: The next useful observation is whether the median moves within or outside the target range reported for the same date, and whether a change in the transaction-rate percentiles persists across several business days."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.493,
+          0.557,
+          0.789
+        ],
+        "post_character_counts": [
+          138,
+          156,
+          221
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.624,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "A flat federal funds median did not mean unchanged trading: the New York Fed's September 17-October 22, 2026 data show changing rate percentiles and volume.",
+        "Watch: The next useful observation is whether the median moves within or outside the target range reported for the same date, and whether a change in the transaction-rate percentiles persists across several business days."
+      ],
+      "root_text": "A steady federal funds median, a changing pattern of trading\n\nhttps://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2",
+      "text": "A steady federal funds median, a changing pattern of trading\n\nhttps://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2"
+    },
+    "preview_id": "cc-preview-393ae62d00d2151a283253917cb3fcc61c25334c2fb064f2674cb21f46756784"
+  },
+  {
+    "destination": "linkedin",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "policy-dj-transaction-tails-r1",
+        "policy-dj-reported-volume-r1"
+      ],
+      "platform_limit": 3000,
+      "text": "A steady federal funds median, a changing pattern of trading\n\nWhy it matters: A median can stay fixed while transactions away from its center change price.\n\nContext: The strongest countercase to reading these variations as a warning is the steady median itself: EFFR remained within the reported policy target on every observed date.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2\n\nSource: New York Fed."
+    },
+    "preview_id": "cc-preview-e42759f742630cc71997c4f64a42a801351bd9cadd48b81ce860f63023c52f1c"
+  },
+  {
+    "destination": "discord",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "policy-dj-transaction-tails-r1",
+        "policy-dj-reported-volume-r1"
+      ],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: A steady federal funds median, a changing pattern of trading**\n\nA flat federal funds median did not mean unchanged trading: the New York Fed's September 17-October 22, 2026 data show changing rate percentiles and volume.\n\n**Context:** The strongest countercase to reading these variations as a warning is the steady median itself: EFFR remained within the reported policy target on every observed date.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2"
+    },
+    "preview_id": "cc-preview-c4dc07fc6d21af3c625e0096d84811ac3938453b6a58d03104dd8509e3ab1e04"
+  },
+  {
+    "destination": "facebook_page",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "policy-dj-transaction-tails-r1"
+      ],
+      "platform_limit": 63206,
+      "text": "A steady federal funds median, a changing pattern of trading\n\nA flat federal funds median did not mean unchanged trading: the New York Fed's September 17-October 22, 2026 data show changing rate percentiles and volume.\n\nWhy it matters: A median can stay fixed while transactions away from its center change price.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2"
+    },
+    "preview_id": "cc-preview-ce4862e07bdb71a6509691bf965d330a0e123ef0ba06dfdc8ef379dcb1be9e45"
+  },
+  {
+    "destination": "instagram_business",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "policy-dj-transaction-tails-r1"
+      ],
+      "platform_limit": 2200,
+      "text": "A steady federal funds median, a changing pattern of trading\n\nA flat federal funds median did not mean unchanged trading: the New York Fed's September 17-October 22, 2026 data show changing rate percentiles and volume.\n\nIn focus: The strongest countercase to reading these variations as a warning is the steady median itself: EFFR remained within the reported policy target on every observed date.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2\n\n#CapitalChronicle"
+    },
+    "preview_id": "cc-preview-1e5f6a0df6f1410c0db986d2eb2c3524eee56c43241c561e970ca11d655ac645"
+  },
+  {
+    "destination": "threads",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "A steady federal funds median, a changing pattern of trading\n\nThe strongest countercase to reading these variations as a warning is the steady median itself: EFFR remained within the reported policy target on every observed date.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2\n\nWhat to watch: The next useful observation is whether the median moves within or outside the target range reported for the same date, and whether a change in the transaction-rate percentiles persists across several business days.\n\nSource: New York Fed.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "policy-dj-transaction-tails-r1"
+      ],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [
+            "policy-dj-transaction-tails-r1"
+          ],
+          "order": 0,
+          "role": "root",
+          "text": "A steady federal funds median, a changing pattern of trading\n\nThe strongest countercase to reading these variations as a warning is the steady median itself: EFFR remained within the reported policy target on every observed date.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2\n\nSource: New York Fed."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: The next useful observation is whether the median moves within or outside the target range reported for the same date, and whether a change in the transaction-rate percentiles persists across several business days."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 1,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.66,
+          0.458
+        ],
+        "post_character_counts": [
+          330,
+          229
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.694,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: The next useful observation is whether the median moves within or outside the target range reported for the same date, and whether a change in the transaction-rate percentiles persists across several business days."
+      ],
+      "root_text": "A steady federal funds median, a changing pattern of trading\n\nThe strongest countercase to reading these variations as a warning is the steady median itself: EFFR remained within the reported policy target on every observed date.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2\n\nSource: New York Fed.",
+      "text": "A steady federal funds median, a changing pattern of trading\n\nThe strongest countercase to reading these variations as a warning is the steady median itself: EFFR remained within the reported policy target on every observed date.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2\n\nSource: New York Fed."
+    },
+    "preview_id": "cc-preview-be77e7b90311a3e169dcf19d5f631bd774b790c8bd28cc49bb86fd094e90bb05"
+  },
+  {
+    "destination": "youtube",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "policy-dj-transaction-tails-r1"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: A steady federal funds median, a changing pattern of trading\n\nA flat federal funds median did not mean unchanged trading: the New York Fed's September 17-October 22, 2026 data show changing rate percentiles and volume.\n\nWhat to watch: The next useful observation is whether the median moves within or outside the target range reported for the same date, and whether a change in the transaction-rate percentiles persists across several business days.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-fe4afe86931bd7e2"
+    },
+    "preview_id": "cc-preview-9eb3586420ba2612cca61ac968745bc3d187de265136cd4d075d79d9bf4d139f"
+  }
+]
