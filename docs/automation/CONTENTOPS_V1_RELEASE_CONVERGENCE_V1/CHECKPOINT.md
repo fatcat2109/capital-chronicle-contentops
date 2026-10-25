@@ -4,7 +4,7 @@ Goal: one bounded visual correction from Jim's later feedback; prior two-copy go
 Owner: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Sole execution root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
 One branch/integration writer: codex/v1-newsroom-release-convergence / this V1 Builder.
-[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): same OPEN/DRAFT branch; visual delivery pending push/readback.
+[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): OPEN/DRAFT; visual product da12fe31a6ae0895566f87f4c7d699e3238a8f0c pushed/read back.
 Human feedback verified through read_thread: L2 turn01a173ea-6a4e-7340-9033-fedb8d724383/message01a173ea-6c4d-7162-a325-44c582578043.
 Source: final section of A:/Capital Chronicle/research-audits/2026-10-25-contentops-ibm-chart-audit/IBM_CHART_AUDIT.md.
 
@@ -29,6 +29,6 @@ Jim visual approval remains open; prior blanket acceptance is qualified by his l
 Production/four schedules/publication/V2/V3 stay paused; no merge/deploy/platform write/spend/CUA or model migration.
 [Activation procedure](ACTIVATION.md) and missing Jim integration/deployment/four-window/publication decision unchanged.
 Existing dependent-base CI_NOT_RUN; no live operation/performance claim.
-Current visual-correction completion notice NOT_SENT; send once to assigned L2 after remote delivery.
+Whole visual-correction completion notice SENT_ONCE to assigned L2; exact destination/isError=false returned.
 Human completion authority reverified via read_thread: L1 turn01a17171-3498-7471-8ec3-cdf4faa93051.
-Next: commit/push this scoped delivery, verify remote, send one whole-goal handoff and stop without polling.
+Whole bounded correction delivered; L2/Jim visual readback remains separate. Stop; no polling, reply or acknowledgement chain.
