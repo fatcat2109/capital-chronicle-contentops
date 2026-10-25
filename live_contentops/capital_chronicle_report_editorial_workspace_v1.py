@@ -502,6 +502,7 @@ def run_report_editorial_cycle(
             model.filter_headlines = llm_invoke.filter_headlines
             model.frozen_request = llm_invoke.frozen_request
             model.source_recovery = llm_invoke.source_recovery
+            model.admitted_editorial_media = getattr(llm_invoke, "admitted_editorial_media", lambda: [])
             model.audience_learning = getattr(llm_invoke, "audience_learning", None)
 
         default_loader = _default_evidence_loader(cutoff_utc, source_route_health=source_route_health)
@@ -534,6 +535,20 @@ def run_report_editorial_cycle(
                     # Keep the prior empty-pack result; only this metadata repair gets a new cache identity.
                     stage += ":verified-record-document-id-v1"
             cached = stages.get("cc-step-" + sha256_of([stages.work, stage]))
+            if (cached and native
+                    and (not llm_invoke.frozen_request("write") or stages.get("cc-step-" + sha256_of(
+                        [stages.work, stage + ":issuer-publication-proposition-v1"])))
+                    and "epistemic_selected_event_not_supported_by_route" in
+                        cached.get("result", {}).get("blockers", [])
+                    and retained_research and any(
+                        retained_research.records[h]["document"].get("source_interest_role") == "ISSUER"
+                        and retained_research.records[h]["source_permissions"].get("scope")
+                            == "ATTRIBUTED_ORIGINAL_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE"
+                        for h in request.get("headline_ids", []) if h in retained_research.records)):
+                # Preserve the failed result. Only the corrected, narrower issuer
+                # publication proposition receives a new deterministic cache key.
+                stage += ":issuer-publication-proposition-v1"
+                cached = stages.get("cc-step-" + sha256_of([stages.work, stage]))
             evidence_file = root / "simple_gemini_evidence_v1.json"
             if native and cached and evidence_file.is_file():
                 for attempt in json.loads(evidence_file.read_bytes()).get("evidence_attempts", []):
@@ -681,7 +696,9 @@ def run_report_editorial_cycle(
                             reused.append({**asset, "reuse_state": "EXACT_BYTES_REUSED_NO_RENDER",
                                 "supports_headline": False, "role": "DATED_SOURCE_CONTEXT",
                                 "relevance_rationale": "Historical source context; Main report claims retain their separate provenance."})
-                result["media_assets"] = reused[:1] or result.get("media_assets", [])
+                result["media_assets"] = (simple.get("media_assets", [])
+                    if native and article.get("reader_first_version") == "DATA_JOURNALISM_V1"
+                    else reused[:1] or result.get("media_assets", []))
                 result["media_reuse_count"] = len(result["media_assets"])
         stages.put(final_id, result, SIMPLE_RESULT)
         return result
@@ -818,7 +835,9 @@ def report_workspace_projection(
         plan = simple.get("selected_plan_entry", {})
         review = next((r for r in reversed(native_reviews) if r["article_identity"] == item["article_identity"]), None)
         from live_contentops.native_desktop_editorial_v1 import native_review_revision
-        review_current = bool(review and review.get("package_revision") == native_review_revision(
+        review_current = bool(review and review.get("package_revision")
+            and simple.get("publication_lifecycle_plan", {}).get("plan_hash")
+            and review.get("package_revision") == native_review_revision(
             item, include_metadata=bool(review.get("article_metadata_sha256"))))
         prepared = next((json.loads(r["payload"]) for r in reversed(rows) if r["destination"] == "internal:native-prepared-handoff"
             and json.loads(r["payload"]).get("article_identity") == item["article_identity"]
@@ -838,7 +857,10 @@ def report_workspace_projection(
     from live_contentops.contentops_editorial_desk_v1 import source_review_projection
     source_reviews = source_review_projection(rows)
     for item in edition.values():
-        from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article, reader_photo_caption
+        if item["article"].get("reader_first_version") == "DATA_JOURNALISM_V1":
+            item["media_assets"] = [{**a, **({"reader_caption": reader_photo_caption(a)}
+                if a.get("modality") == "documentary_photo" else {})} for a in item.get("media_assets", [])]
         # Display the public compiler's exact citation conversion; retain source IDs in the evidence desk.
         public_copy = _reader_safe_native_article(item["article"], article_mode=item.get("mode") or "",
             epistemic_state=item["article"].get("epistemic_state"))

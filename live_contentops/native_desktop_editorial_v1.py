@@ -19,7 +19,7 @@ MODEL = "gpt-6.1-sol"
 EFFORT = "low"
 DESTINATION = "internal:native-desktop-editorial"
 SCHEMA = "contentops.native_desktop_editorial.v1"
-STAGES = ("select", "write", "revise", "feedback")
+STAGES = ("select", "visual-edit", "visual-edit-amend", "write", "revise", "feedback")
 PUBLIC_SOURCE_DATE_GUIDANCE = (
     "Keep detailed retrieval/known-at/cutoff chronology in evidence metadata. Public source notes use "
     "concise material dates or useful observation times, without microseconds or internal audit vocabulary. "
@@ -29,12 +29,15 @@ LEGACY_SOURCE_DATE_GUIDANCE = "Put detailed retrieval/known-at chronology in sou
 ROLE_ASSIGNMENTS = {
     "filter": {"model": "gpt-6-luna", "reasoning_effort": "max"},
     "select": {"model": MODEL, "reasoning_effort": "low"},
+    "visual-edit": {"model": MODEL, "reasoning_effort": "max"},
     "write": {"model": MODEL, "reasoning_effort": "max"},
     "revise": {"model": MODEL, "reasoning_effort": "max"},
 }
 
 
 def native_role(stage):
+    if stage == "visual-edit-amend":
+        return "visual-edit"
     if stage == "media-plan":
         return "select"
     if stage in STAGES:
@@ -42,6 +45,43 @@ def native_role(stage):
     if re.fullmatch(r"filter-[a-f0-9]{64}", stage):
         return "filter"
     raise ValueError("NATIVE_DESKTOP_STAGE_INVALID")
+
+
+def validate_visual_decision(value):
+    """Validate the MAX editor's explicit choice, without scoring its judgment."""
+    if not isinstance(value, dict) or value.get("reader_first_version") != "DATA_JOURNALISM_V1":
+        raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
+    if value.get("story_kind") not in {"ANALYSIS", "NEWS", "POLICY"} or not value.get("editorial_thesis"):
+        raise ValueError("VISUAL_EDITORIAL_ARGUMENT_REQUIRED")
+    charts = value.get("charts")
+    if not isinstance(charts, list) or len(charts) > 5:
+        raise ValueError("BOUNDED_VISUAL_DECISION_REQUIRED")
+    if value["story_kind"] == "ANALYSIS" and not 2 <= len(charts) <= 5:
+        raise ValueError("ANALYSIS_REQUIRES_TWO_TO_FIVE_USEFUL_CHARTS")
+    if len(charts) < 2 and (value["story_kind"] == "ANALYSIS" or not value.get("exception_reason")):
+        raise ValueError("NEWS_POLICY_EXCEPTION_REASON_REQUIRED")
+    ids, questions = [], []
+    for chart in charts:
+        if not all(chart.get(k) for k in ("asset_id", "question", "why_useful", "placement_after", "data_spec")):
+            raise ValueError("VISUAL_QUESTION_DATA_PLACEMENT_REQUIRED")
+        ids.append(chart["asset_id"])
+        questions.append(chart["question"].strip().casefold())
+    if len(set(ids)) != len(ids) or len(set(questions)) != len(questions):
+        raise ValueError("DISTINCT_VISUAL_IDENTITIES_AND_QUESTIONS_REQUIRED")
+    destinations = {"telegram", "discord", "x", "linkedin", "facebook_page", "instagram_business", "threads", "youtube"}
+    photo_ids = value.get("contextual_photo_ids", [])
+    if not isinstance(photo_ids, list) or len(photo_ids) > 2 or len(set(photo_ids)) != len(photo_ids):
+        raise ValueError("BOUNDED_CONTEXTUAL_PHOTO_CHOICES_REQUIRED")
+    channels = value.get("channel_media")
+    if not isinstance(channels, dict) or set(channels) != destinations:
+        raise ValueError("EXACT_EIGHT_MAX_CHANNEL_MEDIA_CHOICES_REQUIRED")
+    for choices in channels.values():
+        if (not isinstance(choices, list) or len(set(choices)) != len(choices)
+                or not set(choices) <= set(ids + photo_ids)):
+            raise ValueError("MAX_CHANNEL_MEDIA_CHOICE_UNBOUND")
+    if not channels["instagram_business"]:
+        raise ValueError("INSTAGRAM_REQUIRES_EDITOR_SELECTED_IMAGE")
+    return value
 
 
 class DesktopInputRequired(Exception):
@@ -83,6 +123,81 @@ class NativeDesktopTurn:
     def frozen_request(self, stage):
         return self._get(stage, "request")
 
+    def admitted_editorial_media(self):
+        row = self.store.get_outbox_message("native-editorial-media-plan-" + sha256_of(self.run_id))
+        return json.loads(row["payload"])["assets"] if row else []
+
+    def visual_response(self):
+        amendment = self.frozen_request("visual-edit-amend")
+        if amendment:
+            response = self._get("visual-edit-amend", "response")
+            if not response:
+                raise DesktopInputRequired({**amendment,
+                    "request_path": str(self.root / "desktop_request_visual-edit-amend.json")})
+            return response
+        return self._get("visual-edit", "response")
+
+    def request_visual_amendment(self, *, reason, contextual_assets):
+        """One same-editor amendment before media binding/writing; preserve the original."""
+        self._check_pause()
+        original = self._get("visual-edit", "response")
+        if (not original or self.frozen_request("write") or self.admitted_editorial_media()
+                or not isinstance(reason, str) or len(reason.strip()) < 20):
+            raise ValueError("EXACT_UNBOUND_PREWRITER_VISUAL_AMENDMENT_REQUIRED")
+        from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
+        for asset in contextual_assets:
+            validate_contextual_photo(asset)
+        if not 1 <= len(contextual_assets) <= 2:
+            raise ValueError("BOUNDED_EXACT_CONTEXTUAL_PHOTOS_REQUIRED")
+        governed = {**self.frozen_request("visual-edit")["governed_input"],
+            "prior_visual_return_sha256": sha256_of(original),
+            "prior_visual_decision": original["output"], "amendment_reason": reason,
+            "exact_contextual_photos": contextual_assets}
+        return self(logical_invocation_id=self.run_id + ":visual-edit-amend",
+            governed_input=governed,
+            prompt=("Amend your existing visual decision in the SAME native MAX context. "
+                "Retain source scope, chart questions/count and genuine news exception unless the stated "
+                "constraint requires a bounded change. Choose exact contextual_photo_ids and appropriate "
+                "channel_media explicitly; Instagram requires an image. Preserve source/photo dates, "
+                "rights and archive limits. Return the complete DATA_JOURNALISM_V1 decision JSON, "
+                "no final prose, source acquisition or public action. GOVERNED_INPUT:\n"
+                + canonical_bytes(governed).decode()),
+            validator=lambda text: (True, None, json.loads(text), None))
+
+    def request_visual_decision(self, *, source_packet, preparation):
+        """Make the real MAX visual stage follow a completed, bound Light plan."""
+        planner = NativeDesktopTurn(self.store, run_id=preparation["native_plan_run_id"],
+            output_dir=self.root, owner_manual_validation=self.owner_manual_validation)
+        stage = preparation.get("native_plan_stage", "media-plan")
+        request, response = planner.frozen_request(stage), planner._get(stage, "response")
+        if (stage not in {"select", "media-plan"} or not request or not response
+                or request["request_sha256"] != preparation.get("native_plan_request_sha256")
+                or response["request_sha256"] != request["request_sha256"]
+                or preparation["story_plan"] not in response["output"].get("stories", [response["output"].get("story_plan")])):
+            raise ValueError("EXACT_COMPLETED_LIGHT_PREPARATION_REQUIRED")
+        if self.frozen_request("write"):
+            raise ValueError("VISUAL_DECISION_MUST_PRECEDE_WRITER_FREEZE")
+        governed = {"reader_first_version": "DATA_JOURNALISM_V1", "source_packet": source_packet,
+            "actual_light_preparation": preparation}
+        value, _ = self(logical_invocation_id=self.run_id + ":visual-edit", governed_input=governed,
+            prompt=("You are the native Sol6.1 MAX visual editor and final writer in the SAME context. "
+                "Choose the article's defensible argument, serious countercase and source/data limits from "
+                "the actual Light preparation and admitted sources. Return DATA_JOURNALISM_V1 JSON with "
+                "slug, story_kind ANALYSIS/NEWS/POLICY, editorial_thesis, countercase, charts, channel_media, "
+                "rejected_visuals and essential_gaps. Every analytical article needs 2-5 distinct useful "
+                "charts, each with unique asset_id, question, why_useful, placement_after (exact proposed "
+                "article section heading), data_spec (exact source series/units/periods/transform/chart form). "
+                "For genuine narrow news/policy, fewer charts need a substantive exception_reason; never "
+                "relabel analysis, manufacture data or pad panels. Choose contextual_photo_ids and exact "
+                "media subsets for all eight keys telegram,discord,x,linkedin,facebook_page,instagram_business,"
+                "threads,youtube. Instagram needs an exact lawful image. If evidence or photo identity is "
+                "missing, retain the gap for retrieval; do not invent an ID or claim acceptance. Preserve "
+                "actual/estimate/forecast, missingness, provenance, dates, rights and Core boundaries. "
+                "Code computes/renders; no prose/public action in this stage. GOVERNED_INPUT:\n"
+                + canonical_bytes(governed).decode()),
+            validator=lambda text: (True, None, json.loads(text), None))
+        return validate_visual_decision(value)
+
     def _put(self, stage: str, kind: str, value: Mapping[str, Any]) -> None:
         if _private(value):
             raise ValueError("PRIVATE_NATIVE_EDITORIAL_INPUT_EXCLUDED")
@@ -105,20 +220,39 @@ class NativeDesktopTurn:
         media_row = self.store.get_outbox_message("native-editorial-media-plan-" + sha256_of(self.run_id))
         media_plan = json.loads(media_row["payload"]) if media_row else None
         frozen_writer = self.frozen_request("write") if stage == "write" else None
+        visual = self.visual_response() if stage == "write" else None
+        if visual:
+            decision = validate_visual_decision(visual["output"])
+            kwargs["governed_input"] = {**kwargs["governed_input"],
+                "reader_first_version": "DATA_JOURNALISM_V1", "visual_editorial_decision": decision}
+            from live_contentops.v1_simple_gemini_newsroom_v1 import _worker_prompt
+            kwargs["prompt"] = _worker_prompt(kwargs["governed_input"])
         if (stage == "write" and "source_pack" in kwargs["governed_input"]
                 and (not frozen_writer or "editorial_media_plan" in frozen_writer["governed_input"])):
             if not media_plan:
                 pending = {"stage": "media-plan", "run_id": self.run_id,
                     "source_pack": kwargs["governed_input"]["source_pack"],
-                    "instruction": "Use existing discovery/chart owners; bind an inspected lawful photo, useful source-bound chart and native Light plan before freezing the MAX writer. No model/public operation here."}
+                    "visual_editorial_decision_required": True,
+                    "instruction": "Use existing discovery/chart owners; bind inspected lawful media before freezing the MAX writer. Light proposes; the same MAX visual editor/writer chooses data, count, type and placement. No model/public operation here."}
+                if visual:
+                    pending["visual_editorial_decision"] = decision
+                    pending["visual_request_sha256"] = visual["request_sha256"]
                 pending["request_sha256"] = sha256_of(pending)
                 self.root.mkdir(parents=True, exist_ok=True)
                 path = self.root / "editorial_media_plan_required.json"
                 path.write_bytes(canonical_bytes(pending))
                 raise DesktopInputRequired({**pending, "request_path": str(path)})
-            validate_release_media({"media_assets": media_plan["assets"], "evidence": kwargs["governed_input"]["source_pack"]})
+            validate_release_media({"media_assets": media_plan["assets"], "evidence": kwargs["governed_input"]["source_pack"],
+                "visual_editorial_decision": visual["output"] if visual else None})
             kwargs["governed_input"] = {**kwargs["governed_input"], "editorial_media_plan": media_plan}
-            kwargs["prompt"] += "\nEXACT_ADMITTED_EDITORIAL_MEDIA_PLAN: " + canonical_bytes(media_plan).decode()
+            prompt_media = media_plan
+            if visual:
+                prompt_media = {"source_request_sha256": media_plan["source_request_sha256"],
+                    "exact_full_packet_sha256": sha256_of(media_plan), "assets": [
+                        {k:a[k] for k in ("asset_id", "path", "sha256", "modality", "caption", "attribution",
+                            "placement_after", "transform_sha256", "computed_values", "license_url") if k in a}
+                        for a in media_plan["assets"]], "full_exact_packet_retained_in_governed_input": True}
+            kwargs["prompt"] += "\nEXACT_ADMITTED_EDITORIAL_MEDIA_PLAN: " + canonical_bytes(prompt_media).decode()
         role = native_role(stage)
         target = ROLE_ASSIGNMENTS["select" if role == "feedback" else role]
         frozen = self.frozen_request(stage)
@@ -143,6 +277,9 @@ class NativeDesktopTurn:
             "or turn a risk-neutral valuation probability into a win rate. Shared-release copies and "
             "Main recirculation do not independently confirm a claim. Review windows are not forecasts.\n"
         ) if stage in {"write", "revise"} else ""
+        if visual:
+            native_guidance = native_guidance.replace(
+                "say it is not supplied in source notes.", "retain that missing clock in internal evidence metadata.")
         request = {
             "schema_version": SCHEMA, "stage": stage, "run_id": self.run_id,
             "role": role, "role_policy": "CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_ROLE_POLICY_V2",
@@ -199,12 +336,28 @@ class NativeDesktopTurn:
             writer = self._get("write", "response")
             if not writer or observation["invocation_id"] != writer["invocation_observation"]["invocation_id"]:
                 raise ValueError("NATIVE_DESKTOP_SAME_WRITER_REPAIR_REQUIRED")
+        if stage == "visual-edit-amend":
+            original = self._get("visual-edit", "response")
+            if (not original or self.frozen_request("write") or self.admitted_editorial_media()
+                    or request["governed_input"]["prior_visual_return_sha256"] != sha256_of(original)
+                    or observation["invocation_id"] != original["invocation_observation"]["invocation_id"]):
+                raise ValueError("NATIVE_DESKTOP_SAME_PREWRITER_VISUAL_EDITOR_REQUIRED")
+        if stage in {"write", "revise"} and (visual := self.visual_response()):
+            if observation["invocation_id"] != visual["invocation_observation"]["invocation_id"]:
+                raise ValueError("NATIVE_DESKTOP_SAME_VISUAL_EDITOR_WRITER_REQUIRED")
+            article = response.get("output", {}).get("article", {})
+            if (article.get("reader_first_version") != "DATA_JOURNALISM_V1"
+                    or article.get("visual_editorial_decision") != visual["output"]):
+                raise ValueError("NATIVE_DESKTOP_EXACT_VISUAL_ARGUMENT_REQUIRED")
         role = native_role(stage)
         if role == "filter":
             from live_contentops.native_headline_filter_v1 import _validate
             expected = {r["input_sha256"]: r["original_record"]["headline_id"]
                         for r in request["governed_input"]["records"]}
             ok, _, _, reason = _validate(json.dumps(response["output"]), expected)
+        elif role == "visual-edit":
+            validate_visual_decision(response["output"])
+            ok, reason = True, None
         elif role == "feedback":
             from live_contentops.native_newsroom_learning_v1 import validate_feedback_output
             ok = validate_feedback_output(response["output"], request["governed_input"]["records"])
@@ -317,11 +470,15 @@ def bind_editorial_media(store, *, run_id, article_identity, assets):
     allowed = {d["url"] for d in result.get("evidence", [])}
     for d in result.get("evidence", []):
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
-    if not 1 <= len(assets) <= 3 or _private(assets):
+    reader_first = result["article"].get("reader_first_version") == "DATA_JOURNALISM_V1"
+    if not 1 <= len(assets) <= (7 if reader_first else 3) or _private(assets):
         raise ValueError("BOUNDED_PUBLIC_MEDIA_REQUIRED")
     # The owned quantitative visual carries the story's evidence into short-form
     # channels; canonical rendering still places the contextual hero by its role.
-    assets = sorted(assets, key=lambda a: a.get("modality") != "source_backed_chart")
+    if not reader_first:
+        assets = sorted(assets, key=lambda a: a.get("modality") != "source_backed_chart")
+    else:
+        validate_release_media({**result, "media_assets": assets})
     for asset in assets:
         if asset.get("modality") == "documentary_photo":
             from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
@@ -361,11 +518,34 @@ def validate_release_media(result):
     from live_contentops.visual_asset_discovery_v1 import validate_contextual_photo
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import validate_source_value_chart
     assets = result.get("media_assets") or []
-    if not 2 <= len(assets) <= 3:
+    decision = result.get("visual_editorial_decision") or (result.get("article") or {}).get("visual_editorial_decision")
+    if (result.get("article") or {}).get("reader_first_version") == "DATA_JOURNALISM_V1" and not decision:
+        raise ValueError("MAX_VISUAL_DECISION_REQUIRED")
+    reader_first = bool(decision)
+    if not reader_first and not 2 <= len(assets) <= 3:
         raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
     photos = [a for a in assets if a.get("modality") == "documentary_photo"]
     charts = [a for a in assets if a.get("modality") == "source_backed_chart"]
-    if not photos or not charts:
+    if reader_first:
+        validate_visual_decision(decision)
+        if not 1 <= len(photos) <= 2 or len(assets) != len(photos) + len(charts):
+            raise ValueError("RELEASE_REQUIRES_GROUNDED_CONTEXTUAL_PHOTO")
+        chosen = {c["asset_id"]: c for c in decision["charts"]}
+        if len(charts) != len(chosen) or {c.get("asset_id") for c in charts} != set(chosen):
+            raise ValueError("RELEASE_CHARTS_DIFFER_FROM_MAX_EDITORIAL_DECISION")
+        if len({a.get("asset_id") for a in assets}) != len(assets) or len({a.get("path") for a in assets}) != len(assets):
+            raise ValueError("RELEASE_DISTINCT_MEDIA_IDS_AND_PATHS_REQUIRED")
+        for chart in charts:
+            selected = chosen[chart["asset_id"]]
+            if (chart.get("placement_after") != selected["placement_after"]
+                    or chart.get("editorial_data_packet", {}).get("question") != selected["question"]):
+                raise ValueError("RELEASE_CHART_EDITORIAL_PLACEMENT_UNBOUND")
+        article = result.get("article") or {}
+        if article.get("substack_body_markdown"):
+            headings = set(re.findall(r"(?m)^#{1,6}\s+([^\n]+)", article["substack_body_markdown"]))
+            if any(c["placement_after"] not in headings for c in decision["charts"]):
+                raise ValueError("RELEASE_CHART_EXPLANATION_SECTION_MISSING")
+    elif not photos or not charts:
         raise ValueError("RELEASE_REQUIRES_GROUNDED_PHOTO_AND_QUANTITATIVE_CHART")
     for photo in photos:
         validate_contextual_photo(photo)
@@ -375,7 +555,7 @@ def validate_release_media(result):
         if (review.get("asset_sha256") != chart.get("sha256") or review.get("pixels_inspected") is not True
                 or review.get("labels_and_units_legible") is not True or not review.get("reviewer")):
             raise ValueError("CHART_EXACT_RENDER_REVIEW_REQUIRED")
-    return {"standard": "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
+    return {"standard": "DATA_JOURNALISM_V1" if reader_first else "CONTENTOPS_V1_EDITORIAL_MEDIA_AND_DATA_RELEASE_STANDARD_V1",
             "photo_count": len(photos), "chart_count": len(charts)}
 
 
@@ -396,7 +576,15 @@ def bind_editorial_media_plan(store, *, run_id, output_dir, plan, assets):
             or response["request_sha256"] != request["request_sha256"]
             or plan["story_plan"] not in response["output"].get("stories", [response["output"].get("story_plan")])):
         raise ValueError("EXACT_COMPLETED_NATIVE_VISUAL_PLAN_REQUIRED")
-    validate_release_media({"media_assets": assets, "evidence": pending["source_pack"]})
+    visual = turn.visual_response()
+    if pending.get("visual_editorial_decision_required") and not visual:
+        raise ValueError("ACTUAL_MAX_VISUAL_DECISION_REQUIRED_BEFORE_MEDIA_BINDING")
+    if pending.get("visual_request_sha256"):
+        if (not visual or visual["request_sha256"] != pending["visual_request_sha256"]
+                or visual["output"] != pending["visual_editorial_decision"]):
+            raise ValueError("EXACT_COMPLETED_MAX_VISUAL_DECISION_REQUIRED")
+    validate_release_media({"media_assets": assets, "evidence": pending["source_pack"],
+        "visual_editorial_decision": visual["output"] if visual else None})
     packet = {"run_id": run_id, "source_request_sha256": pending["request_sha256"],
               "plan": plan, "assets": assets, "public_write_performed": False}
     store.register_outbox_message(message_id="native-editorial-media-plan-" + sha256_of(run_id),
@@ -411,7 +599,15 @@ def native_review_revision(result, *, include_metadata=True):
     revision_input = [result["article_identity"], prior_plan["plan_hash"], result.get("claim_lineage"), result.get("media_assets")]
     if include_metadata:
         revision_input.append(sha256_of(result["article"]))
-    if result.get("media_preview_binding_sha256"):
+    reader_first = result["article"].get("reader_first_version") == "DATA_JOURNALISM_V1"
+    if reader_first:
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _reader_safe_native_article
+        # The reviewed reader text is a deterministic projection. A converter
+        # change must invalidate KEEP even when the internal source markers stay.
+        revision_input.append(sha256_of(_reader_safe_native_article(result["article"],
+            article_mode=result["article"].get("resolved_article_mode", ""),
+            epistemic_state=result["article"].get("epistemic_state"))))
+    if result.get("media_preview_binding_sha256") or reader_first:
         # Include the actual current previews, so altered preview copy invalidates review.
         revision_input.append(sha256_of(result.get("previews", [])))
     return sha256_of(revision_input)

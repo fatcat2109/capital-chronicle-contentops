@@ -510,6 +510,73 @@ def build_native_derivative_payloads(
     selection: Mapping[str, Any],
     canonical_url: str,
     media_asset_ids: Sequence[str] = ("primary", "policy_corridor", "sofr_context"),
+) -> dict[str, Any]:
+    """Compile native packages and preserve the MAX editor's destination subsets."""
+    payloads = _build_native_derivative_payloads(
+        article=article,
+        selection=selection,
+        canonical_url=canonical_url,
+        media_asset_ids=media_asset_ids,
+    )
+    if article.get("reader_first_version") != "DATA_JOURNALISM_V1":
+        return payloads
+    choices = article.get("native_destination_media")
+    if not isinstance(choices, Mapping) or set(choices) != set(payloads):
+        raise ValueError("EXACT_EIGHT_MAX_DESTINATION_MEDIA_CHOICES_REQUIRED")
+    allowed = set(media_asset_ids)
+    for destination, payload in payloads.items():
+        chosen = choices[destination]
+        if (
+            not isinstance(chosen, list)
+            or len(chosen) > 5
+            or len(set(chosen)) != len(chosen)
+            or not set(chosen) <= allowed
+        ):
+            raise ValueError("NATIVE_EDITORIAL_MEDIA_SUBSET_UNBOUND:" + destination)
+        if destination == "instagram_business" and not chosen:
+            raise ValueError("NATIVE_EDITORIAL_INSTAGRAM_IMAGE_REQUIRED")
+        payload["media_asset_ids"] = chosen
+        credit = (article.get("native_destination_credits") or {}).get(destination)
+        source = article.get("native_source_attribution") or {}
+        names = [str(source.get(k) or "").casefold() for k in ("publisher", "display_name") if source.get(k)]
+        visible = "\n".join(str(payload.get(k) or "") for k in ("text", "full_text", "root_text"))
+        if names and not any(name in visible.casefold() for name in names):
+            source_credit = "Source: " + str(source["display_name"]).rstrip(".") + "."
+            credit = "\n".join(filter(None, (credit, source_credit)))
+        for field in ("text", "full_text", "root_text"):
+            if credit and payload.get(field):
+                payload[field] += "\n\n" + credit
+        posts = payload.get("posts") or []
+        for index, post in enumerate(posts):
+            post["media_asset_ids"] = chosen if index == 0 else []
+            if credit and index == 0:
+                post["text"] = str(post.get("text") or "") + "\n\n" + credit
+        limit = int(
+            payload.get("platform_limit")
+            or (280 if destination == "x" else 500 if destination == "threads" else 0)
+        )
+        texts = (
+            [str(p.get("text") or "") for p in posts]
+            if posts
+            else [str(payload.get("text") or payload.get("full_text") or "")]
+        )
+        if limit and any(len(t) > limit for t in texts):
+            raise ValueError(
+                "NATIVE_EDITORIAL_CREDIT_EXCEEDS_PLATFORM_LIMIT:" + destination
+            )
+        if destination in {"x", "threads"} and posts:
+            payload["quality_metrics"] = _thread_quality(
+                posts, limit=limit, expected_media_ids=chosen
+            )
+    return payloads
+
+
+def _build_native_derivative_payloads(
+    *,
+    article: Mapping[str, Any],
+    selection: Mapping[str, Any],
+    canonical_url: str,
+    media_asset_ids: Sequence[str] = ("primary", "policy_corridor", "sofr_context"),
 ) -> dict[str, dict[str, Any]]:
     """Create distinct, publication-ready platform copy from the canonical article."""
     title = str(article["title"])

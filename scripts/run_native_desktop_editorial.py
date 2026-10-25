@@ -210,16 +210,27 @@ def operation(binding, *, command="advance", response=None, stage=None, rollout=
     if command == "media-plan":
         from live_contentops.native_desktop_editorial_v1 import bind_editorial_media_plan
         if response is None:
-            governed = json.loads((resolve_workspace_path(binding["output_dir"]) / "editorial_media_plan_required.json").read_bytes())
+            frozen_plan = turn.frozen_request("media-plan")
+            governed = (frozen_plan["governed_input"] if frozen_plan else
+                json.loads((resolve_workspace_path(binding["output_dir"]) / "editorial_media_plan_required.json").read_bytes()))
             try:
                 output, receipt = turn(logical_invocation_id=binding["run_id"] + ":media-plan",
-                    prompt=("Return JSON {story_plan: {thesis, photo_plan, chart_plan}}. Plan relevant authentic "
+                    prompt=(frozen_plan["prompt"] if frozen_plan else
+                            "Return JSON {story_plan: {thesis, photo_plan, chart_plan}}. Prepare exact comparable "
+                            "primary-data series and useful visual proposals; MAX decides the count, chart forms "
+                            "and placement. Substantial analysis needs 2-5 distinct useful charts; genuine narrow "
+                            "news/policy may justify zero internally. Plan relevant authentic "
                             "photo discovery with subject/archive caption and lawful exact license/source evidence, "
-                            "and one useful quantitative chart from the exact source_pack. Preserve metric/unit/currency/period, "
+                            "using the exact source_pack. Preserve metric/unit/currency/period, "
                             "actual/estimate/forecast and missingness. No prose, new numbers, forecasts, copied charts or public action. "
-                            "Code/tools retrieve exact originals and compile/validate admitted values; then bind inspected assets "
-                            "with media-plan before MAX writing."),
+                            "Code/tools retrieve exact originals and compute/validate/render admitted values. "
+                            "This Light proposal is followed by actual same-context MAX visual editing and writing."),
                     governed_input=governed, validator=lambda raw: (True, None, json.loads(raw), None))
+                if not turn.visual_response():
+                    turn.request_visual_decision(source_packet=governed, preparation={
+                        "native_plan_run_id": binding["run_id"], "native_plan_stage": "media-plan",
+                        "native_plan_request_sha256": turn.frozen_request("media-plan")["request_sha256"],
+                        "story_plan": output["story_plan"]})
             except DesktopInputRequired as pending:
                 return {"classification": "NATIVE_DESKTOP_INPUT_REQUIRED", "stage": pending.request["stage"],
                         "request_path": pending.request["request_path"], "request_sha256": pending.request["request_sha256"],

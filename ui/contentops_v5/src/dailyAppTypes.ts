@@ -426,7 +426,7 @@ export interface ReportWorkspaceData {
     review?: { decision: string; rationale: string } | null;
     previews: ReportWorkspaceData['previews'];
     evidence?: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string; published_at_source?: string }>;
-    media_assets?: Array<{ asset_id: string; caption: string; alt_text?: string; preview_data_url?: string; path: string; sha256: string; attribution?: string; license_url?: string; source_page_url?: string; modality?: string; width?: number }>;
+    media_assets?: Array<{ asset_id: string; caption: string; reader_caption?: string; alt_text?: string; preview_data_url?: string; path: string; sha256: string; attribution?: string; reader_credit?: string; license_name?: string; license_url?: string; source_page_url?: string; modality?: string; width?: number; placement_after?: string }>;
   }>;
   media_assets?: Array<{ asset_id: string; path: string; sha256: string; caption: string; alt_text?: string; preview_data_url?: string; reuse_state?: string }>;
   native_article_reviews?: Array<{ article_identity: string; decision: string; rationale: string; package_revision: string; publication_authority: boolean }>;
@@ -476,7 +476,8 @@ export interface ReportWorkspaceData {
   latest_editorial_input?: Record<string, unknown> | null;
   latest_simple_result?: { classification?: string; model_execution_state?: string; draft_count?: number; preview_count?: number; claim_lineage?: Array<Record<string, unknown>> } | null;
   article: null | { title: string; dek: string; substack_body_markdown: string; search_title?: string;
-    meta_description?: string; canonical_slug_candidate?: string; source_date_notice?: string; source_notes?: string[] };
+    meta_description?: string; canonical_slug_candidate?: string; source_date_notice?: string; source_notes?: string[];
+    reader_first_version?: string; display_date?: string };
   previews: Array<{ destination: string; preview_id: string; article_identity: string; payload: Record<string, unknown>; claim_lineage: Array<Record<string, unknown>> }>;
   history: Array<{ report_version: number; state: string; article_identity: string; preview_ids: string[]; superseded_by_version: number }>;
   workspaces?: ReportWorkspaceData[];

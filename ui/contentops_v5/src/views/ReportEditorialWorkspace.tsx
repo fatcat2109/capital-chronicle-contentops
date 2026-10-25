@@ -1,6 +1,6 @@
 import { ResearchPackageDecision } from './ResearchPackageDecision';
 import { EvolvingStoryWorkspace } from './EvolvingStoryWorkspace';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { ReportWorkspaceData, MaintainedNativeStory, OwnerReviewContext } from '../dailyAppTypes';
 
 const DESTINATIONS = ['telegram', 'discord', 'x', 'linkedin', 'facebook_page', 'instagram_business', 'threads', 'youtube'];
@@ -44,19 +44,54 @@ function previewText(payload: Record<string, unknown>): string {
 
 type EditorialMedia = NonNullable<NonNullable<ReportWorkspaceData['native_edition']>[number]['media_assets']>[number];
 function MediaFigure({ asset: a, originalHref }: { asset: EditorialMedia; originalHref?: string }) {
+  const [expanded, setExpanded] = useState(false);
+  const dialog = useRef<HTMLDialogElement>(null);
+  const opener = useRef<HTMLAnchorElement>(null);
+  useEffect(() => {
+    if (!expanded || !dialog.current) return;
+    dialog.current.showModal();
+    return () => { opener.current?.focus(); };
+  }, [expanded]);
+  const credit = a.reader_credit ?? a.attribution;
+  const imageHref = originalHref ?? a.preview_data_url;
   return <figure data-media-asset={a.asset_id}>
-    {a.preview_data_url && <>
+    {a.preview_data_url && <a ref={opener} className="media-zoom" href={imageHref} target="_blank" rel="noreferrer" aria-label={`View full-size ${a.alt_text ?? a.caption}`}
+      onClick={event => { if (!originalHref || a.modality === 'source_backed_chart') { event.preventDefault(); setExpanded(true); } }}>
       <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', maxWidth: a.width ?? '100%', height: 'auto' }} />
-      <details className="media-enlarge"><summary>Enlarge image</summary>
-        <div style={{ overflowX: 'auto', maxWidth: '100%' }}><img src={a.preview_data_url} alt={`Enlarged ${a.alt_text ?? a.caption}`} style={{ width: 'auto', maxWidth: 'none', height: 'auto' }} /></div>
-      </details>
-    </>}
-    {originalHref && <p><a href={originalHref} target="_blank" rel="noreferrer">Open original image · full resolution</a></p>}
-    <figcaption>{a.caption}{a.attribution && <> · {a.attribution}</>}
-      {a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">License</a></>}
-      {a.source_page_url?.startsWith('https://') && <> · <a href={a.source_page_url} target="_blank" rel="noreferrer">Image source</a></>}
+    </a>}
+    <figcaption>{a.reader_caption ?? a.caption}{credit && <> · {a.source_page_url?.startsWith('https://')
+      ? <a href={a.source_page_url} target="_blank" rel="noreferrer">{credit}</a> : credit}</>}
+      {a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">{a.license_name ?? 'Reuse terms'}</a></>}
     </figcaption>
+    {expanded && <dialog ref={dialog} aria-modal="true" aria-label={`Full-size ${a.alt_text ?? a.caption}`}
+      onCancel={event => { event.preventDefault(); setExpanded(false); }}
+      onKeyDown={event => {
+        if (event.key === 'Escape') setExpanded(false);
+        if (event.key === 'Tab' && !event.ctrlKey && !event.metaKey && !event.altKey) {
+          event.preventDefault(); event.currentTarget.querySelector('button')?.focus();
+        }
+      }}
+      style={{ position: 'fixed', inset: 0, width: '100vw', height: '100vh', maxWidth: 'none', maxHeight: 'none', margin: 0, zIndex: 20, overflow: 'auto', background: '#faf9f5' }}>
+      <button type="button" autoFocus onClick={() => setExpanded(false)}>Close image</button>
+      <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ display: 'block', width: a.width ?? 'auto', maxWidth: 'none', height: 'auto' }} />
+    </dialog>}
   </figure>;
+}
+
+function ArticleWithMedia({ text, assets = [], originals }: { text: string; assets?: EditorialMedia[]; originals?: Record<string, string> }) {
+  const sections = text.split(/(?=^#{1,6}\s)/m).filter(Boolean);
+  const placed = new Set<string>();
+  const figure = (a: EditorialMedia) => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} />;
+  return <>
+    {assets.filter(a => a.modality === 'documentary_photo').map(figure)}
+    {sections.map((section, i) => {
+      const heading = /^#{1,6}\s+([^\n]+)/.exec(section)?.[1].trim();
+      const inline = assets.filter(a => a.modality !== 'documentary_photo' && !!heading && a.placement_after === heading);
+      inline.forEach(a => placed.add(a.asset_id));
+      return <div key={i}><ArticleParagraphs text={section.trim()} />{inline.map(figure)}</div>;
+    })}
+    {assets.filter(a => a.modality !== 'documentary_photo' && !placed.has(a.asset_id)).map(figure)}
+  </>;
 }
 function PackagePreview({ payload, assets = [], originals }: { payload: Record<string, unknown>; assets?: EditorialMedia[]; originals?: Record<string, string> }) {
   const posts = Array.isArray(payload.posts) ? payload.posts as Array<Record<string, unknown>> : [];
@@ -161,10 +196,12 @@ function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; con
       <p>Read the canonical article, then choose how the same reporting appears on each channel.</p>
       <p className="review-mode" role="status"><strong>Frozen, read-only review.</strong> Navigation and media enlargement work offline.
         This file cannot save a review, approve a release or publish. External source and credit links need an internet connection.</p>
-      <p className="review-counts">{edition.ready} ready · {edition.missing} missing · {edition.held} held · {edition.preview_count} channel previews · {undispatched} destination states not dispatched</p>
-      <p>Snapshot: {context?.captured_at_utc ?? 'capture time not supplied'}. Source dates below remain their original dates; these examples are not a production day.</p>
+      <details><summary>Edition status</summary>
+        <p className="review-counts">{edition.ready} ready · {edition.missing} missing · {edition.held} held · {edition.preview_count} channel previews · {undispatched} destination states not dispatched</p>
+        <p>Snapshot: {context?.captured_at_utc ?? 'capture time not supplied'}. Source dates remain their original dates; these examples are not a production day.</p>
+      </details>
       <nav className="guide-links" aria-label="Review guide"><a href="#how-v1-works">How V1 works</a>
-        <a href="#release-decision" onClick={() => setReleaseOpen(true)}>Proposed release decision</a></nav>
+        <a href="#release-decision" onClick={() => setReleaseOpen(true)}>Activation boundary</a></nav>
     </header>
     <div className="reading-controls">
       <label>Story <select aria-label="Choose story" value={position} onChange={e => selectStory(Number(e.target.value))}>
@@ -179,19 +216,18 @@ function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; con
     <article className="report-copy owner-article" data-owner-story={item.run_id} data-reading-view={channel} aria-label="Selected article">
       <p className="eyebrow">{channel === 'canonical' ? 'Canonical article · Substack preview' : `${channelNames[channel]} · channel preview`}</p>
       <h2>{item.article.title}</h2><p className="article-dek">{item.article.dek}</p>
-      <p className="article-state">Editorial review: <strong>{item.review?.decision ?? 'not recorded'}</strong> · Preparation: <strong>{pub?.state ?? 'not prepared'}</strong> · Not published</p>
-      <p className="source-notice">{item.article.source_date_notice ?? 'See dated source support below.'}</p>
+      {item.article.display_date && <p className="article-date">{item.article.display_date}</p>}
       {channel === 'canonical' ? <>
-        {item.media_assets?.filter(a => a.modality === 'documentary_photo').map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={context?.original_media_links?.[a.sha256]} />)}
-        <ArticleParagraphs text={item.article.substack_body_markdown} />
-        {item.media_assets?.filter(a => a.modality !== 'documentary_photo').map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={context?.original_media_links?.[a.sha256]} />)}
-      </> : preview ? <><p className="channel-boundary">This is the prepared native package. The canonical URL is pending; no destination post exists.</p>
+        <ArticleWithMedia text={item.article.substack_body_markdown} assets={item.media_assets} originals={context?.original_media_links} />
+      </> : preview ? <>
         <PackagePreview payload={preview.payload} assets={item.media_assets} originals={context?.original_media_links} /></> : <p role="status">No package is recorded for this destination.</p>}
-      <section className="dated-sources" aria-label="Dated sources"><h3>Sources and dates</h3>
+      <details className="dated-sources" aria-label="Dated sources"><summary>Source editions and review details</summary>
+        <p>Editorial review: {item.review?.decision ?? 'not recorded'} · Preparation: {pub?.state ?? 'not prepared'} · Not published</p>
+        <p>{item.article.source_date_notice}</p>
         {item.evidence?.map(s => <p key={s.source_id}><strong>{s.source_id} · {s.publisher}</strong><br />{retainedSourceDate(s)}<br />
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Read original source</a> : 'Retained public report; no external source URL recorded.'}</p>)}
         <p>A source check does not create a new event. Attributed reporting and independently confirmed event truth remain distinct.</p>
-      </section>
+      </details>
       <details><summary>SEO, editorial review and exact record</summary><p>Search title: {item.article.search_title ?? 'not separately recorded'}</p>
         <p>{item.article.meta_description}</p><p>Slug: {item.article.canonical_slug_candidate ?? 'not separately recorded'}</p><p>{item.review?.rationale}</p>
         <p>Article identity: <code>{item.article_identity}</code></p><p>Operation: <code>{item.run_id}</code>.</p>
@@ -200,25 +236,25 @@ function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; con
       </details>
     </article>
     <section className="owner-guide" id="how-v1-works"><h2>What you are reviewing</h2>
-      <p>V1 turns admitted public reporting and public-safe Capital Chronicle research into a sourced article, a lawful contextual photograph, a useful data chart and eight channel-specific packages. The existing store, outbox and publication coordinator retain source, revision and delivery history.</p>
+      <p>V1 turns admitted public reporting and public-safe Capital Chronicle research into a sourced article, lawful contextual photography and eight channel-specific packages. Substantial analysis uses two to five distinct useful charts drawn from primary data. A news or policy story may omit charts when no defensible useful comparison exists; its editorial reason stays in the record.</p>
       <details><summary>How to use the working manual newsroom</summary>
         <p>In the existing ContentOps Codex chat, ask: “Prepare an article about [your question]” or “Continue the existing [story]”. Codex uses the configured manual newsroom entry, handles the native requests and returns the reader. Resume the same operation after interruption; a changed question gets its own identity.</p>
-        <p>The working manual flow selects an angle and evidence with Sol6.1 Light, uses Sol6.1 MAX for prose/SEO and a bounded same-writer revision, and uses Luna MAX only for genuinely new X filtering. Code retrieves, computes and validates. Source changes invalidate affected review/preparation rather than overwrite history.</p>
-        <p>This offline file only demonstrates the accepted edition. It does not send a question, run a model, refresh sources or record KEEP. Give revision/review instructions to the existing owner in Codex; no JSON assembly is needed from you.</p>
+        <p>Sol6.1 Light selects and prepares evidence and proposes visuals. Sol6.1 MAX decides the argument, data, chart forms, count and placement, then writes prose and SEO in that same context. A bounded revision stays with that writer. Luna MAX filters genuinely new X intake. Code retrieves, computes, renders and validates. Source changes invalidate affected review/preparation while preserving history.</p>
+        <p>This offline file shows the selected edition. It does not send a question, run a model, refresh sources or record KEEP. Give revision/review instructions to the existing owner in Codex; no JSON assembly is needed from you.</p>
         <details><summary>Existing operator entry</summary><code>python scripts/run_native_desktop_editorial.py newsroom --operation-id &lt;stable-id&gt; --request-file &lt;UTF-8 request&gt;</code>
           <p><code>desk</code> reopens an export of the existing owner edition. Manual preparation remains isolated from production.</p></details>
       </details>
-      <details><summary>What the six requirements demonstrate</summary><ol>
+      <details><summary>What the release review checks</summary><ol>
         <li>People-first SEO and house voice: supported titles, descriptions and readable original copy; ranking remains unknown.</li>
         <li>Reporting quality: fact-led thesis, mechanism, serious countercase and next evidence, assessed against the existing publication study; no publisher-parity certification.</li>
         <li>Evidence-led analysis: exact source support and truthful dates; attributed reports remain distinct from confirmed events.</li>
-        <li>Authentic lawful photographs: seven archive images, including the relevant policy decision-maker, with identity/date/credit/license.</li>
+        <li>Authentic lawful photographs: relevant archive context, exact identity/date/credit/license and inspected pixels.</li>
         <li>Useful quantitative charts: exact signed values, units, periods and actual/estimate/forecast or announced-setting distinctions.</li>
         <li>Existing V1 scope: eight modes, native roles, public-safe intake, review/history/corrections, canonical plus eight packages, recovery, four windows, privacy and guarded learning. Live operational dimensions remain unobserved.</li>
       </ol>{context?.acceptance_href && <a href={context.acceptance_href}>Exact acceptance matrix and evidence</a>}</details>
       <details><summary>Held story, history and measured availability</summary>
         {edition.held_candidates.map((h, i) => <p key={i}><strong>Held: {h.title}.</strong> {h.reason}</p>)}
-        <p>Original articles, source captures, review versions and the FX hold remain history. Three copies were retained, two had bounded editorial source-note repairs, one is a dated policy explanation and one is October23 attributed reporting.</p>
+        <p>Original articles, source captures, review versions and held candidates remain history. Revised copy and media need their own current review; a later capture does not create a new event.</p>
         <p>Real audience samples: {context?.audience?.sample_count ?? 'unavailable'}. Content: {context?.audience ? display(context.audience.content_state) : 'not supplied'}.
           Search: {context?.audience ? display(context.audience.search_state) : 'not supplied'}. Destination metrics: {context?.audience ? display(context.audience.destination_state) : 'not supplied'}.</p>
         <p>No traffic improvement, SEO ranking, audience uplift or publisher parity is inferred. Sustained output and platform behavior require actual authorized operation.</p>
@@ -226,24 +262,17 @@ function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; con
       </details>
     </section>
     <details id="release-decision" className="release-decision" open={releaseOpen} onToggle={e => setReleaseOpen(e.currentTarget.open)}>
-      <summary>One proposed release decision · not approved</summary>
-      <p>Approve only an exact sealed source/head and proposal. This review cannot enact that decision. Internal pre-live acceptance does not authorize production activation.</p>
-      <ol><li>Integrate the reviewed PR90/PR92 stack through normal protected review, then deploy the approved code to its isolated source path, preserving the canonical production store/output and history.</li>
-        <li>While paused, retarget the existing intake/state runtime task and the same four native Desktop Automations; read back exact source, model roles, prompts, destination pins and schedules. No fifth task or new publisher/store.</li>
-        <li>Use the four existing weekday windows:17:00,21:00,23:00 and following01:00 Asia/Bangkok. Enable only after complete supported readback; release the existing pause fuse last. Partial installation keeps pause closed.</li>
-        <li>Authorize the exact V1 Substack plus eight-destination scope. Fresh independent articles need current sources, lawful media, exact KEEP and current identity/readiness. These private examples are never copied into production or relabelled fresh.</li>
-        <li>Observe the first complete newsroom production day using existing window/day/slot records. Record actual calendar execution, canonical real URL/readback, destination-local outcomes, duplicate prevention and interruption recovery. Target5–8 useful published articles; no filler. Report an actual deficit and its cause.</li>
-        <li>Collect only available real audience/search observations. Insufficient samples stay unknown; one observed day establishes initial operation, not sustained reliability or growth.</li></ol>
-      <p>If a write is uncertain: stop retrying, read back and reconcile through the existing coordinator. Canonical Substack reconciliation precedes eight derivative rematerialization. Rollback closes the existing fuse and pauses the same four tasks while preserving attempts/history.</p>
-      <p>Current boundary: production/four schedules/V2/V3 paused; no merge, deployment, public/account action, spend or broker operation. V2/V3 need separate later resumption.</p>
-      <details><summary>Exact proposed source and decision packet</summary>
-        <p>Accepted editorial source: <code>{context?.source_commit ?? 'not pinned in this export'}</code></p>
-        {context?.reader_source_commit && <p>Reader/export source: <code>{context.reader_source_commit}</code></p>}
-        <p>Accepted editorial delivery: <code>{context?.accepted_delivery_head ?? 'not pinned in this export'}</code></p>
-        <p>Proposal SHA256: <code>{context?.proposal_sha256 ?? 'not bound in this export; no release decision can be inferred'}</code></p>
-        {context?.decision_href && <p><a href={context.decision_href}>Full release decision</a></p>}
-        {context?.proposal_href && <p><a href={context.proposal_href}>Exact unapproved proposal</a></p>}
-      </details>
+      <summary>Production activation needs Jim's decision</summary>
+      <p>Private article acceptance does not enable production. Jim's remaining decision must name the code to deploy,
+        whether to enable the same four newsroom windows, and the permitted publication destinations. Production,
+        schedules, publication and V2/V3 remain paused until their respective authority changes.</p>
+      <p>Fresh production articles require current sources, lawful media and exact review. These dated private examples
+        are not copied into production or credited as a new production day.</p>
+      <p>The existing coordinator publishes Substack first, reads it back, then prepares the eight derivatives with
+        the real article URL. An uncertain write stops retries until readback and reconciliation.</p>
+      <p>Calendar execution, published output and audience/search results require actual operating evidence.
+        Private previews establish none of those results.</p>
+      {context?.accepted_delivery_head && <p>Reviewed code: <code>{context.accepted_delivery_head}</code></p>}
     </details>
     <p className="review-footer"><a href="#review-top">Back to story navigation</a> · Close and reopen this HTML file to return; no preview process or local server is required.</p>
   </section>;
@@ -303,8 +332,7 @@ function FullReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData }) 
         {item.prepared_state && <p role="status">The retained article remains available. This copy, source or media revision needs a current review before preparation.</p>}
         {item.source_review && <p>{sourceDecision[item.source_review.decision] ?? display(item.source_review.decision)}: {item.source_review.reader_change_summary}</p>}
         {item.report_id && <p>Bổ sung từ {item.report_id} bản {item.report_version}; phân tích Main có điều kiện, không phải xác nhận độc lập.</p>}
-        {item.media_assets?.filter(a => a.modality === 'documentary_photo').map(a => <MediaFigure key={a.asset_id} asset={a} />)}
-        <details open><summary>Đọc toàn bài</summary><ArticleParagraphs text={item.article.substack_body_markdown} /></details>
+        <details open><summary>Đọc toàn bài</summary><ArticleWithMedia text={item.article.substack_body_markdown} assets={item.media_assets} /></details>
         <details><summary>Góc bài và quyết định đọc duyệt</summary><p>{item.angle ?? item.mode}</p><p>{item.review?.rationale}</p></details>
         {item.article.search_title && <details><summary>SEO và ngày nguồn</summary><p>{item.article.search_title}</p><p>{item.article.meta_description}</p><p>Slug: {item.article.canonical_slug_candidate}</p><p>{item.article.source_date_notice}</p></details>}
         <details><summary>Nguồn và ngày</summary>{item.evidence?.map(s => <p key={s.source_id} style={{ overflowWrap: 'anywhere' }}>
@@ -312,7 +340,6 @@ function FullReportEditorialWorkspace({ data }: { data?: ReportWorkspaceData }) 
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Đọc nguồn gốc</a> : 'Bản báo cáo công khai có định danh bất biến'}
         </p>)}</details>
         <p role="status">Release media: {item.release_media?.state ?? 'NOT VERIFIED'}{item.release_media?.blocker ? ` · ${item.release_media.blocker}` : ''}</p>
-        {item.media_assets?.filter(a => a.modality !== 'documentary_photo').map(a => <MediaFigure key={a.asset_id} asset={a} />)}
         {!item.media_assets?.length && <p role="status">Media gap: no inspected, rights-cleared image is bound to this article. Text previews remain available.</p>}
         <h4>{item.previews.length}/8 bản xem trước theo nền tảng</h4>
         {item.publication && <details aria-label="Publication continuation"><summary>Publication: {display(item.publication.state)}</summary>

@@ -19,9 +19,11 @@ if (ownerReview) {
   if (!edition?.operation_ids?.length) throw new Error('EXACT_OWNER_EDITION_REQUIRED');
   const articles = edition.operation_ids.map(id => {
     const matches = (inputData.native_edition ?? []).filter(a => a.run_id === id);
-    if (matches.length !== 1) throw new Error('EXACT_EDITION_ARTICLE_REQUIRED:' + id);
+    if (matches.length > 1) throw new Error('DUPLICATE_EDITION_ARTICLE:' + id);
     return matches[0];
-  });
+  }).filter(Boolean);
+  if (!articles.length) throw new Error('EXISTING_EDITION_ARTICLE_REQUIRED');
+  const missing = edition.operation_ids.filter(id => !articles.some(a => a.run_id === id));
   // Display projection only: preserve the complete selected records, omit unrelated history.
   // In particular article/previews/media_assets objects are never rewritten for export.
   const data = { owner_edition: edition, native_edition: articles };
@@ -48,8 +50,8 @@ if (ownerReview) {
   // The browser still parses ordinary JSON numbers; this avoids a checksum-only rewrite.
   const rawInput = JSON.parse(inputText, (_key, value, source) =>
     typeof value === 'number' ? JSON.rawJSON(source.source) : value);
-  const rawData = { owner_edition: rawInput.owner_edition, native_edition: edition.operation_ids.map(id =>
-    rawInput.native_edition.find(a => a.run_id === id)) };
+  const rawData = { owner_edition: rawInput.owner_edition, native_edition: articles.map(item =>
+    rawInput.native_edition.find(a => a.run_id === item.run_id)) };
   const payload = JSON.stringify({ data: rawData, context: reviewContext }).replace(/</g, '\\u003c');
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
@@ -69,7 +71,9 @@ if (ownerReview) {
   writeFileSync(output, html, 'utf8');
   console.log(JSON.stringify({ html_path: resolve(output), bytes: Buffer.byteLength(html), component: 'ReportEditorialWorkspace',
     mode: 'OFFLINE_READ_ONLY_OWNER_REVIEW', selected_articles: articles.length,
-    selected_previews: articles.reduce((n, a) => n + a.previews.length, 0), requires_server: false, public_write_performed: false }));
+    selected_previews: articles.reduce((n, a) => n + a.previews.length, 0),
+    required_operation_ids: edition.operation_ids, missing_operation_ids: missing,
+    requires_server: false, public_write_performed: false }));
   process.exit(0);
 }
 const bundle = resolve(dirname(output), 'workspace-renderer.cjs');

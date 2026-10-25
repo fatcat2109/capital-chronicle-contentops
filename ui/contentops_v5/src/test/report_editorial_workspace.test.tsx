@@ -1,5 +1,5 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { ReportEditorialWorkspace } from '../views/ReportEditorialWorkspace';
 import type { ReportWorkspaceData } from '../dailyAppTypes';
 
@@ -63,17 +63,18 @@ describe('Main report editorial workspace', () => {
   it('keeps source dates, held scope and real insufficient metrics visible and opens the release guide', () => {
     const snapshot = ownerData();
     snapshot.native_edition![0].media_assets = [{ asset_id: 'controlled-photo', path: 'controlled.jpg', sha256: 'photo-hash',
-      caption: 'Controlled archival photograph.', modality: 'documentary_photo' }];
+      caption: 'Controlled archival photograph.', alt_text: 'Controlled archive subject', preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==', modality: 'documentary_photo' }];
     render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" reviewContext={{ captured_at_utc: '2026-10-24T07:00:00Z',
       original_media_links: { 'photo-hash': 'editorial-media/controlled.jpg' },
       audience: { sample_count: 0, content_state: 'INSUFFICIENT_REAL_SAMPLE', search_state: 'INSUFFICIENT_REAL_SEARCH_SAMPLE', destination_state: 'INSUFFICIENT_REAL_DESTINATION_SAMPLE' } }} />);
     expect(screen.getByText('September 16, 2026 (date only; release time not supplied)')).toBeInTheDocument();
+    fireEvent.click(screen.getByText('Source editions and review details'));
     expect(screen.getByRole('link', { name: 'Read original source' })).toHaveAttribute('href', 'https://example.com/source');
-    expect(screen.getByRole('link', { name: 'Open original image · full resolution' })).toHaveAttribute('href', 'editorial-media/controlled.jpg');
+    expect(screen.getByRole('link', { name: 'View full-size Controlled archive subject' })).toHaveAttribute('href', 'editorial-media/controlled.jpg');
     expect(screen.getByText(/Real audience samples: 0/)).toHaveTextContent('INSUFFICIENT REAL SEARCH SAMPLE');
     expect(screen.getByText(/Held: Held FX/)).toBeInTheDocument();
-    fireEvent.click(screen.getByRole('link', { name: 'Proposed release decision' }));
-    expect(screen.getByText('One proposed release decision · not approved').closest('details')).toHaveAttribute('open');
+    fireEvent.click(screen.getByRole('link', { name: 'Activation boundary' }));
+    expect(screen.getByText("Production activation needs Jim's decision").closest('details')).toHaveAttribute('open');
     expect(screen.getByText(/Frozen, read-only review/)).toBeInTheDocument();
   });
 
@@ -82,6 +83,46 @@ describe('Main report editorial workspace', () => {
     render(<ReportEditorialWorkspace data={missing} mode="owner-review" />);
     expect(screen.getByRole('status')).toHaveTextContent('No selected owner edition');
     expect(screen.queryByRole('combobox')).not.toBeInTheDocument();
+  });
+
+  it('places a chosen chart beside its explanation and keeps workflow details collapsed', () => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    item.article = { ...item.article, reader_first_version: 'DATA_JOURNALISM_V1', display_date: 'Updated 24 October 2026',
+      substack_body_markdown: 'Opening argument.\n\n### Cash conversion\n\nCash explanation.\n\n### Countercase\n\nCompeting explanation.' };
+    item.media_assets = [{ asset_id: 'cash-chart', path: 'cash.png', sha256: 'chart-hash', modality: 'source_backed_chart',
+      caption: 'Cash comparison.', alt_text: 'Comparable cash series', placement_after: 'Cash conversion',
+      preview_data_url: 'data:image/png;base64,Y29udHJvbGxlZA==' }];
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" reviewContext={{ original_media_links: { 'chart-hash': 'cash.png' } }} />);
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    const explanation = within(article).getByText('Cash explanation.');
+    const chart = within(article).getByRole('img', { name: 'Comparable cash series' });
+    const next = within(article).getByRole('heading', { name: 'Countercase' });
+    expect(explanation.compareDocumentPosition(chart) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(chart.compareDocumentPosition(next) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(within(article).getByRole('link', { name: 'View full-size Comparable cash series' })).toHaveAttribute('href', 'cash.png');
+    expect(within(article).getByText(/Editorial review:/).closest('details')).not.toHaveAttribute('open');
+    expect(within(article).queryByText(/Open original image|Enlarge image|Interpretation remains analysis/)).not.toBeInTheDocument();
+    expect(within(article).getByText('Updated 24 October 2026')).toBeVisible();
+  });
+
+  it('uses a native modal for full-size media and returns keyboard focus on close', () => {
+    const showModal = vi.fn(function (this: HTMLDialogElement) { this.setAttribute('open', ''); });
+    Object.defineProperty(HTMLDialogElement.prototype, 'showModal', { configurable: true, value: showModal });
+    const snapshot = ownerData();
+    snapshot.native_edition![0].media_assets = [{ asset_id: 'cash', path: 'cash.png', sha256: 'cash-hash',
+      caption: 'Exact chart.', alt_text: 'Cash series', modality: 'source_backed_chart', preview_data_url: 'data:image/png;base64,Y29udHJvbGxlZA==' }];
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" reviewContext={{ original_media_links: { 'cash-hash': 'original-cash.png' } }} />);
+    const opener = screen.getByRole('link', { name: 'View full-size Cash series' });
+    opener.focus(); fireEvent.click(opener);
+    expect(showModal).toHaveBeenCalledOnce();
+    const modal = screen.getByRole('dialog', { name: 'Full-size Cash series' });
+    expect(modal).toHaveAttribute('aria-modal', 'true');
+    fireEvent.keyDown(modal, { key: 'Tab' });
+    expect(within(modal).getByRole('button', { name: 'Close image' })).toHaveFocus();
+    fireEvent.keyDown(modal, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+    expect(opener).toHaveFocus();
   });
 
   it('shows photo pixels, credits and exact license/source links with release readiness', () => {
@@ -102,8 +143,8 @@ describe('Main report editorial workspace', () => {
     const preview = edition.querySelector('[data-edition-destination="telegram"]') as HTMLElement;
     expect(within(preview).getByRole('img', { name: 'Controlled contextual subject', exact: true })).toHaveStyle({ maxWidth: '640px' });
     expect(within(preview).getByText(/Controlled creator/)).toBeInTheDocument();
-    expect(within(preview).getByRole('link', { name: 'License' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/2.0/');
-    expect(within(preview).getByRole('link', { name: 'Image source' })).toHaveAttribute('href', 'https://commons.wikimedia.org/wiki/File:Controlled.jpg');
+    expect(within(preview).getByRole('link', { name: 'Reuse terms' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/2.0/');
+    expect(within(preview).getByRole('link', { name: 'Controlled creator / CC BY 2.0' })).toHaveAttribute('href', 'https://commons.wikimedia.org/wiki/File:Controlled.jpg');
   });
   it('opens exact maintained versions and keeps partial coverage, dates and preparation distinct', () => {
     const snapshot = data();
