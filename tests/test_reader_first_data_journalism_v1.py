@@ -234,6 +234,109 @@ def test_compact_cash_reference_table_cannot_change_reported_levels(tmp_path):
         _editorial_data_values(packet,docs)
 
 
+def _signed_cash_render_packet(sign=1):
+    values = [sign * v for v in (2638, -1900, -133, 606)]
+    return {
+        "title": "A smaller gain after IBM's cash adjustments",
+        "subtitle": "Nine months ended September 30 | 2026 minus 2025 | USD million",
+        "value_roles": {"rounded_component_sum": {"value": sum(values[:3])},
+            "reported_gain_minus_rounded_component_sum": {"value": values[3] - sum(values[:3])}},
+        "render_spec": {"width_inches": 5.6, "height_inches": 13.2,
+            "plotted_point_indices": [0, 1, 2], "value_domain": [-3000, 3000],
+            "palette": {"background": "#FAF8F4", "company_total": "#183D40", "negative": "#B46632",
+                        "neutral": "#778C8A", "positive": "#136C70"},
+            "contribution_panel_title": "Three changes in the cash reconciliation",
+            "component_rows": [{"point_ref": {"series_index": 0, "point_index": index},
+                "display_label": label, "display_value": f"{value:+,.0f}", "start": 0, "end": value,
+                "direction": "LEFT_FROM_ZERO" if value < 0 else "RIGHT_FROM_ZERO",
+                "color_role": "negative" if value < 0 else "positive"}
+                for index, (label, value) in enumerate(zip([
+                    "GAAP operating-cash gain", "Larger removal of\nFinancing receivables", "Higher net capital spending"], values[:3]))],
+            "axis": {"domain": [-3000, 3000], "visible": True, "ticks": [-3000, -1500, 0, 1500, 3000],
+                "tick_labels": ["-3,000", "-1,500", "0", "+1,500", "+3,000"], "axis_label": "Change | USD million",
+                "direction_key": {"negative_half": "← Reduces free-cash gain", "positive_half": "Adds to free-cash gain →"},
+                "grid": {"values": [-3000, -1500, 1500, 3000], "color": "#D8DEDA"}},
+            "reported_result_panel": {"point_ref": {"series_index": 0, "point_index": 3}, "display_value": f"{values[3]:+,.0f}",
+                "heading": "Reported IBM-defined free-cash gain", "background": "#EEF1EB",
+                "definition": "Company-defined non-GAAP measure", "reported_levels": "7,181 in 2025 → 7,787 in 2026"},
+            "reference_table": {"heading": "Reported nine-month levels | USD million", "year_order": [2025, 2026],
+                "rows": [{"label": label, "values": pair} for label, pair in [
+                    ("GAAP operating cash flow", [9153, 11791]), ("Less: Financing-receivables change", [905, 2805]),
+                    ("Net capital expenditures (signed)", [-1067, -1200]), ("IBM-defined free cash flow", [7181, 7787])]],
+                "definition_note": "GAAP operating cash flow; IBM-defined free cash flow is non-GAAP."},
+            "scope_note": "Consolidated IBM cash; not Software cash conversion or a full cash-balance bridge."}}, [values]
+
+
+@pytest.mark.parametrize("sign", [1, -1])
+def test_signed_cash_actual_marks_use_common_zero_and_keep_reported_result_out_of_sum(sign):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from matplotlib.colors import to_rgba
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _draw_signed_cash_contributions
+
+    packet, values = _signed_cash_render_packet(sign)
+    fig = _draw_signed_cash_contributions(packet, values, plt)
+    canvas, plot = fig.axes
+    assert len(plot.patches) == 3
+    assert plot.get_xscale() == "linear" and plot.get_xlim() == (-3000, 3000)
+    assert list(plot.get_xticks()) == [-3000, -1500, 0, 1500, 3000]
+    assert plot.spines["bottom"].get_visible()
+    for index, (bar, value) in enumerate(zip(plot.patches, values[0][:3])):
+        assert bar.get_gid() == f"cash-contribution-{index}"
+        assert bar.get_x() == 0 and bar.get_width() == value
+        start, end = plot.transData.transform([(0, 0), (value, 0)])[:, 0]
+        assert (end < start) == (value < 0)
+        role = "negative" if value < 0 else "positive"
+        assert bar.get_facecolor() == to_rgba(packet["render_spec"]["palette"][role])
+    visible = "\n".join(text.get_text() for axis in fig.axes for text in axis.texts)
+    expression = ("+2,638 - 1,900 - 133 = +605" if sign == 1 else "-2,638 + 1,900 + 133 = -605")
+    assert expression in visible and f"Reported gain: {sign * 606:+,}" in visible
+    assert "$1 million rounding difference." in visible
+    assert not any(abs(bar.get_width()) == 606 for bar in plot.patches)
+    assert plot.get_xlabel() == "Change | USD million"
+    plt.close(fig)
+
+
+def test_signed_cash_all_essential_text_stays_inside_actual_rendered_image():
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _draw_signed_cash_contributions
+
+    packet, values = _signed_cash_render_packet()
+    fig = _draw_signed_cash_contributions(packet, values, plt)
+    fig.canvas.draw()
+    renderer = fig.canvas.get_renderer()
+    texts = [text for axis in fig.axes for text in [*axis.texts,
+        *([*axis.get_xticklabels(), axis.xaxis.label] if axis.axison else [])] if text.get_text()]
+    for text in texts:
+        box = text.get_window_extent(renderer)
+        assert 0 <= box.x0 <= box.x1 <= fig.bbox.width, text.get_text()
+        assert 0 <= box.y0 <= box.y1 <= fig.bbox.height, text.get_text()
+    plt.close(fig)
+
+
+@pytest.mark.parametrize("mutation", ["result_as_component", "wrong_direction", "missing_zero", "invented_rounding"])
+def test_signed_cash_rejects_misleading_geometry_or_result_semantics(mutation):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _draw_signed_cash_contributions
+
+    packet, values = _signed_cash_render_packet()
+    if mutation == "result_as_component":
+        packet["render_spec"]["plotted_point_indices"].append(3)
+    elif mutation == "wrong_direction":
+        packet["render_spec"]["component_rows"][1]["end"] = 1900
+    elif mutation == "missing_zero":
+        packet["render_spec"]["axis"]["ticks"].remove(0)
+    else:
+        packet["value_roles"]["rounded_component_sum"]["value"] += 606
+    with pytest.raises(ValueError, match="SIGNED_CASH_"):
+        _draw_signed_cash_contributions(packet, values, plt)
+
+
 def test_compact_authored_links_retain_distinct_sources_and_internal_markers():
     article = {
         "reader_first_version": "DATA_JOURNALISM_V1",

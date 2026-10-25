@@ -1057,6 +1057,7 @@ def _editorial_data_values(packet, documents):
         "QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
         "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE",
         "HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS",
+        "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT",
     }:
         raise ValueError("EDITORIAL_CHART_TYPE_UNSUPPORTED")
     if not packet.get("question") or not packet.get("title") or not packet.get("unit"):
@@ -1352,6 +1353,127 @@ def _draw_compact_editorial_comparison(packet, values, plt):
     return fig
 
 
+def _draw_signed_cash_contributions(packet, values, plt):
+    """Render signed changes from one zero; the reported result is never an addend."""
+    import textwrap
+
+    spec = packet["render_spec"]
+    if len(values) != 1 or len(values[0]) != 4:
+        raise ValueError("SIGNED_CASH_REQUIRES_THREE_COMPONENTS_AND_REPORTED_RESULT")
+    nums = values[0]
+    component_indices = spec["plotted_point_indices"]
+    result_index = spec["reported_result_panel"]["point_ref"]["point_index"]
+    if component_indices != [0, 1, 2] or result_index != 3:
+        raise ValueError("SIGNED_CASH_RESULT_MUST_BE_SEPARATE_FROM_COMPONENTS")
+    low, high = spec["value_domain"]
+    axis_spec = spec["axis"]
+    if (not low < 0 < high or axis_spec["domain"] != [low, high]
+            or 0 not in axis_spec["ticks"] or not axis_spec["visible"]):
+        raise ValueError("SIGNED_CASH_VISIBLE_SHARED_ZERO_REQUIRED")
+    rows = spec["component_rows"]
+    if len(rows) != 3:
+        raise ValueError("SIGNED_CASH_EXACT_COMPONENT_ROWS_REQUIRED")
+    for index, row in enumerate(rows):
+        if (row["point_ref"] != {"series_index": 0, "point_index": index}
+                or row["start"] != 0 or row["end"] != nums[index]
+                or not low <= nums[index] <= high
+                or row["display_value"] != f"{nums[index]:+,.0f}"
+                or row["direction"] != ("LEFT_FROM_ZERO" if nums[index] < 0 else "RIGHT_FROM_ZERO")
+                or row["color_role"] != ("negative" if nums[index] < 0 else "positive")):
+            raise ValueError("SIGNED_CASH_MARK_DIFFERS_FROM_BOUND_CONTRIBUTION")
+    roles = packet["value_roles"]
+    component_sum = sum(nums[index] for index in component_indices)
+    if (roles["rounded_component_sum"]["value"] != component_sum
+            or roles["reported_gain_minus_rounded_component_sum"]["value"] != nums[result_index] - component_sum
+            or spec["reported_result_panel"]["display_value"] != f"{nums[result_index]:+,.0f}"):
+        raise ValueError("SIGNED_CASH_RESULT_OR_ROUNDING_DIFFERS_FROM_BOUND_VALUES")
+
+    # The MAX layout explicitly permits more height to preserve mobile type size.
+    height = max(float(spec["height_inches"]), 15.8)
+    palette = spec["palette"]
+    ink = palette["company_total"]
+    fig = plt.figure(figsize=(spec["width_inches"], height), dpi=200)
+    fig.patch.set_facecolor(palette["background"])
+    canvas = fig.add_axes([0, 0, 1, 1])
+    canvas.set(xlim=(0, 1), ylim=(0, height))
+    canvas.axis("off")
+
+    def text(x, y, label, size=16, **kwargs):
+        return canvas.text(x, y, label, fontsize=size, color=kwargs.pop("color", ink),
+                           va=kwargs.pop("va", "top"), linespacing=1.15, **kwargs)
+
+    text(.055, height - .20, textwrap.fill(packet["title"], 29), size=23, weight="bold")
+    period, *comparison = packet["subtitle"].split("|")
+    text(.055, height - 1.10, period.strip() + "\n" + " | ".join(s.strip() for s in comparison), size=16)
+    text(.055, height - 1.88, textwrap.fill(spec["contribution_panel_title"], 43), size=16, weight="bold")
+    key = axis_spec["direction_key"]
+    text(.27, height - 2.45, textwrap.fill(key["negative_half"], 22), size=15,
+         ha="center", color=palette["negative"])
+    text(.73, height - 2.45, textwrap.fill(key["positive_half"], 22), size=15,
+         ha="center", color=palette["positive"])
+
+    top = height - 3.15
+    bottom = top - 2.80
+    plot = fig.add_axes([.055, bottom / height, .89, (top - bottom) / height])
+    plot.set_facecolor(palette["background"])
+    plot.set(xlim=(low, high), ylim=(-.1, 3.2))
+    plot.set_yticks([])
+    for side in ("top", "left", "right"):
+        plot.spines[side].set_visible(False)
+    plot.spines["bottom"].set_color(ink)
+    plot.set_xticks(axis_spec["ticks"], axis_spec["tick_labels"], fontsize=15, color=ink)
+    plot.tick_params(axis="x", length=4, color=ink, pad=6)
+    plot.get_xticklabels()[0].set_ha("left")
+    plot.get_xticklabels()[-1].set_ha("right")
+    for label, value in zip(plot.get_xticklabels(), axis_spec["ticks"]):
+        if value == 0:
+            label.set_weight("bold")
+    plot.set_xlabel(axis_spec["axis_label"], fontsize=15, color=ink, labelpad=10)
+    for index, (row, y) in enumerate(zip(rows, [2.3, 1.3, .3])):
+        label = "\n".join(textwrap.fill(line, 27) for line in row["display_label"].splitlines())
+        plot.text(0, y + .70, label, transform=plot.get_yaxis_transform(),
+                  va="top", fontsize=16, color=ink, linespacing=1.12)
+        plot.text(1, y + .70, f"{nums[index]:+,.0f}", transform=plot.get_yaxis_transform(),
+                  va="top", ha="right", fontsize=17, weight="bold", color=palette[row["color_role"]])
+        for tick in axis_spec["grid"]["values"]:
+            plot.plot([tick, tick], [y - .15, y + .15], color=axis_spec["grid"]["color"], lw=.7, zorder=1)
+        bar = plot.barh(y, nums[index], left=0, height=.19, color=palette[row["color_role"]], zorder=2)[0]
+        bar.set_gid(f"cash-contribution-{index}")
+        # The zero spine stays out of the full-width label bands above each bar.
+        plot.plot([0, 0], [y - .16, y + .16], color=ink, lw=1.8, zorder=3)
+
+    result = spec["reported_result_panel"]
+    panel_top = bottom - .92
+    panel_bottom = panel_top - 3.12
+    from matplotlib.patches import Rectangle
+    canvas.add_patch(Rectangle((.035, panel_bottom), .93, panel_top - panel_bottom,
+                               facecolor=result["background"], edgecolor="none"))
+    canvas.plot([.055, .945], [panel_top, panel_top], color=palette["neutral"], lw=1)
+    text(.065, panel_top - .14, textwrap.fill(result["heading"], 40), size=16, weight="bold")
+    text(.065, panel_top - .70, f"{nums[result_index]:+,.0f}", size=25, weight="bold")
+    text(.065, panel_top - 1.18, result["definition"], size=15)
+    text(.065, panel_top - 1.56, result["reported_levels"], size=16)
+    expression = f"{nums[0]:+,.0f}" + "".join(
+        f" {'-' if value < 0 else '+'} {abs(value):,.0f}" for value in nums[1:3])
+    rounding = (f"Rounded components:\n{expression} = {component_sum:+,.0f}\n"
+                f"Reported gain: {nums[result_index]:+,.0f}\n"
+                f"${abs(nums[result_index] - component_sum):g} million rounding difference.")
+    text(.065, panel_top - 1.96, rounding, size=16)
+
+    table = spec["reference_table"]
+    table_top = panel_bottom - .35
+    text(.055, table_top, textwrap.fill(table["heading"], 43), size=16, weight="bold")
+    for index, row in enumerate(table["rows"]):
+        y = table_top - .62 - index * .90
+        weight = "bold" if index == 3 else "normal"
+        text(.055, y, textwrap.fill(row["label"], 42), size=16, weight=weight)
+        for x, year, value in zip([.055, .55], table["year_order"], row["values"]):
+            text(x, y - .48, f"{year}  {value:,.0f}", size=17, weight=weight)
+    text(.055, 1.08, textwrap.fill(table["definition_note"], 43), size=16)
+    text(.055, .52, textwrap.fill(spec["scope_note"], 43), size=16)
+    return fig
+
+
 def _draw_editorial_chart(packet, values, plt, np):
     """Render the editor's selected grammar; no content or chart-count decision here."""
     import textwrap
@@ -1359,6 +1481,8 @@ def _draw_editorial_chart(packet, values, plt, np):
     colors = ["#12666a", "#b96b37", "#718e8a", "#7c6296", "#c39838", "#6b788a"]
     kind = packet["chart_type"]
     series = packet["series"]
+    if kind == "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT":
+        return _draw_signed_cash_contributions(packet, values, plt)
     if kind in {"QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
             "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE","HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS"}:
         return _draw_compact_editorial_comparison(packet,values,plt)

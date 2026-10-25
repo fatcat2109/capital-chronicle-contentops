@@ -144,5 +144,19 @@
         }
       ]
     }
+  ],
+  "chart_type": "SIGNED_CASH_CONTRIBUTIONS_WITH_SEPARATE_REPORTED_RESULT",
+  "contribution_point_indices": [
+    0,
+    1,
+    2
+  ],
+  "reported_result_point_index": 3,
+  "rounded_component_sum": 605,
+  "reported_result": 606,
+  "rounding_difference": 1,
+  "displayed_contribution_domain": [
+    -3000,
+    3000
   ]
 }
