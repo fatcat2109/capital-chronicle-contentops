@@ -5,7 +5,7 @@ Owner: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-
 Sole root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
 One branch/integration writer: codex/v1-newsroom-release-convergence / this V1 Builder.
 Prior delivery: c0b46d3d2e3246e4f40902864d67d8e2e3ef28d4; prior notice receipt: db60dec1272a25708a993afd1166f93299998d92.
-[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): same existing OPEN/DRAFT; two-copy delivery pending push/readback.
+[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): same existing OPEN/DRAFT; two-copy delivery b2497f534657fd60e55c4865e02460fcb0369aa4 pushed/read back.
 Original seven-story2ed733ae remains an ancestor; preserved unrelated WIP and existing private store.
 
 L2's final audit section: A:/Capital Chronicle/research-audits/2026-10-25-contentops-ibm-chart-audit/IBM_CHART_AUDIT.md.
@@ -26,6 +26,6 @@ Private current result/history: LocalAppData/CapitalChronicle/ContentOps/reader-
 Production/four schedules/publication/V2/V3 stay paused; no merge/deploy/platform write/spend/native Computer Use.
 [Activation procedure](ACTIVATION.md) and missing Jim integration/deployment/four-window/publication decision unchanged.
 CI_NOT_RUN on the existing dependent base; no live output, ranking or growth claim.
-Whole-follow-up completion notice to assigned L2 NOT_SENT; send once after remote delivery.
+Whole-follow-up completion notice SENT_ONCE to assigned L2; exact destination/isError=false returned.
 Human notice authority reverified via read_thread: L1 turn01a17171-3498-7471-8ec3-cdf4faa93051.
 L2 next readback is only the two corrected fields/current identities; no seven-story audit restart or polling.
