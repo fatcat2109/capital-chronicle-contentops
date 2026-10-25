@@ -5,8 +5,8 @@ Jim's post-Argon amendment authorizes seven articles/16 charts/56 packages on ex
 Owner: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Sole execution root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
 One branch/integration writer: codex/v1-newsroom-release-convergence / this V1 Builder.
-Scoped correction code: aa5527a47c2fd411b1eb7f60d93d1d232f9853fa; product delivery commit follows in Git history.
-[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92) last remote2ed733ae; OPEN/DRAFT, no merge/deployment.
+Correction code: aa5527a47c2fd411b1eb7f60d93d1d232f9853fa; product delivery: c0b46d3d2e3246e4f40902864d67d8e2e3ef28d4.
+[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): product c0b46d3d pushed/read back; OPEN/DRAFT; CI_NOT_RUN; no merge/deployment.
 Managed checkout disappeared; cause unknown. Same Git worktree recovered to fixed root; old product-path junction retained.
 Existing private owner store remains at LocalAppData/CapitalChronicle/ContentOps/owner-newsroom/editorial-v4.sqlite3.
 Private recovery/returns: LocalAppData/CapitalChronicle/ContentOps/reader-first-review/ibm-correction-20261025/.
@@ -32,4 +32,6 @@ Production/four schedules/publication remain paused; V2/V3 stay paused; no platf
 [Final activation procedure](ACTIVATION.md): exact four existing objects, host readback, zero-write/public scope and pause-release-last.
 Fresh host readback:4 PAUSED gpt-5.6-sol/high objects with older prompts; corrected Sol6.1 target remains unapplied.
 Remaining Jim decision after L2 acceptance: exact integration/deployment, four-window enablement/time and publication destinations.
-Correction completion notice to assigned L2 NOT_SENT; send once only after the whole correction delivery is complete.
+Whole-correction completion notice SENT_ONCE to assigned L2; exact destination/isError=false returned.
+Human authority reverified via read_thread: L1 turn01a17171-3498-7471-8ec3-cdf4faa93051, message01a17171-351a-70f0-85c6-43490491d490.
+L2 single material acceptance remains pending; no startup/acceptance inferred from message transport; no polling/reply chain.
