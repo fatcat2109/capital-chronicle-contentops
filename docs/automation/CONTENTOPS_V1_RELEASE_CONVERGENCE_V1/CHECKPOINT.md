@@ -5,9 +5,9 @@ App amendment1792909040 is ACTIVE; earlier continuation1792869256 is preserved h
 Owner: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Execution root: C:/Users/bullw/.codex/worktrees/v1-newsroom-release-recovered/ContentOps.
 One branch/integration writer: codex/v1-newsroom-release-convergence / this V1 Builder.
-Git source: reader-first delivery on this branch atop be8eb40a6a41c534429bef12d2e0e70d630677d8.
+Implemented/tested source: c087081ef32a6de37fbf4412a27649869da5a9e6; delivery HEAD is current Git history.
 Fresh observed master: bc79e30c8088a9deb47f3942aa15914a59b69799; no merge/deployment.
-[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92) remains the sole code delivery; source commit/push pending below acceptance.
+[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92) is the sole draft code delivery on the existing dependent base; no merge.
 Reservation: current V1 source/CLI/reader/types/tests/contracts; other WIP/Main/database untouched.
 
 Actual private product:7/7 revised articles accepted/prepared;0 missing;56 native packages;63 NOT_DISPATCHED destinations.
@@ -26,11 +26,11 @@ Implementation: actual MAX visual stage/count/placement, source-bound multi-char
 channel media subsets/URL rematerialization, inline reader/accessible zoom and exact review invalidation use existing owners.
 Verification:102 distinct current focused backend tests,19 reader UI tests, TypeScript/Vite build and changed-source Ruff PASS.
 Existing unchanged native-role/media controls reused; dependent-base exact-head CI NOT_RUN, not PASS.
-Next: complete ordinary scoped code commit/push/PR update and reconcile final reader/prepared states; no product-authoring gap.
+Final owner reconciliation PASS:7 current KEEP/PREPARED,56 packages,63 NOT_DISPATCHED; inspected content unchanged.
 Private full captures/returns/article packages stay local; portable code/controlled tests/docs only go to the public PR.
 No proposal seal/global closure/historical-byte/mandatory CodeGraph regeneration requirement remains.
 
 Jim's ContentOps-specific mandate source1f8deea1 applied; human L1 turn01a171af-6e35-78e0-a0ff-51ad8b16384a verified via read_thread.
 Production/four schedules/publication/V2/V3 remain paused; zero public/platform/broker/account writes or native Computer Use.
 Remaining owner decision: exact code deployment, whether to enable existing four windows, and publication destinations.
-One assigned-L2 whole-goal completion notice remains pending until code delivery and final reconciliation; no progress/ack chain.
+Private seven-story product accepted; source committed. One whole-goal assigned-L2 notice pending final push/readback; no progress/ack chain.
