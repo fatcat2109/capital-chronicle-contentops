@@ -53,13 +53,17 @@ function MediaFigure({ asset: a, originalHref }: { asset: EditorialMedia; origin
     return () => { opener.current?.focus(); };
   }, [expanded]);
   const credit = a.reader_credit ?? a.attribution;
+  const sources = a.modality === 'source_backed_chart' ? a.source_links ?? [] : [];
   const imageHref = originalHref ?? a.preview_data_url;
   return <figure data-media-asset={a.asset_id}>
     {a.preview_data_url && <a ref={opener} className="media-zoom" href={imageHref} target="_blank" rel="noreferrer" aria-label={`View full-size ${a.alt_text ?? a.caption}`}
       onClick={event => { if (!originalHref || a.modality === 'source_backed_chart') { event.preventDefault(); setExpanded(true); } }}>
       <img src={a.preview_data_url} alt={a.alt_text ?? a.caption} style={{ width: '100%', maxWidth: a.width ?? '100%', height: 'auto' }} />
     </a>}
-    <figcaption>{a.reader_caption ?? a.caption}{credit && <> · {a.source_page_url?.startsWith('https://')
+    <figcaption>{a.reader_caption ?? a.caption}{sources.length ? <> · {sources.length > 1 ? 'Sources: ' : 'Source: '}
+      {sources.map((source,index) => <span key={source.document_id}>{index > 0 && '; '}
+        <a href={source.url} target="_blank" rel="noreferrer">{source.label}</a></span>)}</>
+      : credit && <> · {a.source_page_url?.startsWith('https://')
       ? <a href={a.source_page_url} target="_blank" rel="noreferrer">{credit}</a> : credit}</>}
       {a.license_url?.startsWith('https://') && <> · <a href={a.license_url} target="_blank" rel="noreferrer">{a.license_name ?? 'Reuse terms'}</a></>}
     </figcaption>
@@ -192,7 +196,7 @@ function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; con
   const undispatched = articles.reduce((sum, a) => sum + (a.publication?.destinations.filter(d => d.status === 'NOT_DISPATCHED').length ?? 0), 0);
   return <section className="owner-review" aria-label="Private owner review">
     <header className="owner-intro" id="review-top">
-      <p className="eyebrow">Capital Chronicle · ContentOps V1</p><h1>Your private newsroom review</h1>
+      <p className="eyebrow">Capital Chronicle · ContentOps V1</p><h1>Your newsroom review</h1>
       <p>Read the canonical article, then choose how the same reporting appears on each channel.</p>
       <p className="review-mode" role="status"><strong>Frozen, read-only review.</strong> Navigation and media enlargement work offline.
         This file cannot save a review, approve a release or publish. External source and credit links need an internet connection.</p>

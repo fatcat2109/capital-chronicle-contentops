@@ -55,7 +55,7 @@ if (ownerReview) {
   const payload = JSON.stringify({ data: rawData, context: reviewContext }).replace(/</g, '\\u003c');
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
-  <title>START HERE · Capital Chronicle private review</title><style>
+  <title>Capital Chronicle · Prepared newsroom review</title><style>
   *{box-sizing:border-box;min-width:0}html{scroll-behavior:smooth}body{margin:0;background:#f4f3ee;color:#1c3338;font:17px/1.65 system-ui,Arial,sans-serif}
   main{max-width:1000px;margin:auto;padding:32px 28px 72px}h1,h2,h3{line-height:1.22;letter-spacing:-.02em}h1{font-size:2.4rem;margin:.3em 0}h2{font-size:1.9rem}h3{font-size:1.2rem}p{margin:.85em 0}
   .eyebrow{color:#526b68;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700}.owner-intro{padding:12px 4px 20px}.review-mode{background:#e6eeea;border-left:4px solid #40746b;padding:14px 18px;border-radius:4px}.review-counts{font-weight:650}.guide-links{display:flex;gap:20px;flex-wrap:wrap}

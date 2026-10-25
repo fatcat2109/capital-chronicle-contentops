@@ -146,6 +146,24 @@ describe('Main report editorial workspace', () => {
     expect(within(preview).getByRole('link', { name: 'Reuse terms' })).toHaveAttribute('href', 'https://creativecommons.org/licenses/by/2.0/');
     expect(within(preview).getByRole('link', { name: 'Controlled creator / CC BY 2.0' })).toHaveAttribute('href', 'https://commons.wikimedia.org/wiki/File:Controlled.jpg');
   });
+  it('keeps exact single and multiple chart sources in the article and selected channel', () => {
+    const snapshot = data();
+    snapshot.native_edition = [{ run_id: 'controlled-source-links', article_identity: 'controlled-source-id',
+      article: { title: 'Controlled source chart', dek: 'Dated facts.', substack_body_markdown: 'Bound comparison.' },
+      media_assets: [{ asset_id: 'chart', path: 'chart.png', sha256: 'controlled-chart', modality: 'source_backed_chart',
+        caption: 'Quarterly comparison.', source_page_url: 'https://example.org/wrong-quarter',
+        source_links: [{ document_id: 'q1', url: 'https://example.org/q1', label: 'Issuer · Q1' },
+          { document_id: 'q3', url: 'https://example.org/q3', label: 'Issuer · Q3' }] }],
+      previews: [{ preview_id: 'controlled-preview', destination: 'telegram', payload: { text: 'Comparison.', media_asset_ids: ['chart'] } }] }];
+    render(<ReportEditorialWorkspace data={snapshot} />);
+    const figures = document.querySelectorAll('[data-media-asset="chart"]');
+    expect(figures).toHaveLength(2);
+    for (const figure of figures) {
+      expect(within(figure as HTMLElement).getByRole('link', { name: 'Issuer · Q1' })).toHaveAttribute('href', 'https://example.org/q1');
+      expect(within(figure as HTMLElement).getByRole('link', { name: 'Issuer · Q3' })).toHaveAttribute('href', 'https://example.org/q3');
+      expect(figure.querySelector('[href="https://example.org/wrong-quarter"]')).toBeNull();
+    }
+  });
   it('opens exact maintained versions and keeps partial coverage, dates and preparation distinct', () => {
     const snapshot = data();
     const version = { run_id: 'controlled-current', article_identity: 'current-id', article: snapshot.article!,

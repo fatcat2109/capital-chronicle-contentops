@@ -1815,6 +1815,9 @@ def _publication_media_metadata(media_assets, *, compact=False):
     assets, credits = [], []
     for original in media_assets:
         asset = dict(original)
+        if asset.get("modality") == "source_backed_chart" and asset.get("source_links"):
+            links = "; ".join(f"[{s['label']}]({s['url']})" for s in asset["source_links"])
+            asset["caption"] = str(asset.get("caption") or "") + " Sources: " + links + "."
         if asset.get("modality") == "documentary_photo":
             credit = " ".join((
                 "Photo: " + str(asset["creator_publisher"]).strip().rstrip(".") + ".",
@@ -1860,6 +1863,8 @@ def _native_preview_bundle(
     )
     reader_first = article.get("reader_first_version") == "DATA_JOURNALISM_V1"
     if reader_first:
+        compiler_article["native_media_sources"] = {a["asset_id"]:a["source_links"]
+            for a in media_assets if a.get("source_links")}
         compiler_article["native_destination_credits"] = {d: _publication_media_metadata(
             [a for a in media_assets if a["asset_id"] in ids],compact=True)[1]
             for d,ids in compiler_article["native_destination_media"].items()}
@@ -2006,6 +2011,8 @@ def _build_simple_publication_lifecycle_plan(
     publication_assets, attribution = _publication_media_metadata(media_assets, compact=reader_first)
     _, attribution = _publication_media_metadata([] if reader_first else media_assets[:1])
     if reader_first:
+        compiler_article["native_media_sources"] = {a["asset_id"]:a["source_links"]
+            for a in media_assets if a.get("source_links")}
         compiler_article["native_destination_credits"] = {d: _publication_media_metadata(
             [a for a in media_assets if a["asset_id"] in ids],compact=True)[1]
             for d,ids in compiler_article["native_destination_media"].items()}

@@ -426,7 +426,7 @@ export interface ReportWorkspaceData {
     review?: { decision: string; rationale: string } | null;
     previews: ReportWorkspaceData['previews'];
     evidence?: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string; published_at_source?: string }>;
-    media_assets?: Array<{ asset_id: string; caption: string; reader_caption?: string; alt_text?: string; preview_data_url?: string; path: string; sha256: string; attribution?: string; reader_credit?: string; license_name?: string; license_url?: string; source_page_url?: string; modality?: string; width?: number; placement_after?: string }>;
+    media_assets?: Array<{ asset_id: string; caption: string; reader_caption?: string; alt_text?: string; preview_data_url?: string; path: string; sha256: string; attribution?: string; reader_credit?: string; license_name?: string; license_url?: string; source_page_url?: string; source_links?: Array<{ document_id: string; url: string; label: string }>; modality?: string; width?: number; placement_after?: string }>;
   }>;
   media_assets?: Array<{ asset_id: string; path: string; sha256: string; caption: string; alt_text?: string; preview_data_url?: string; reuse_state?: string }>;
   native_article_reviews?: Array<{ article_identity: string; decision: string; rationale: string; package_revision: string; publication_authority: boolean }>;

@@ -151,6 +151,89 @@ def test_original_chart_values_units_periods_and_source_hash_fail_closed(tmp_pat
     assert asset["path"] != second["path"]
 
 
+@pytest.mark.parametrize("values", [(83.1,82.5),(31.2,33.0),(82.5,82.5),(82.50,82.51)])
+def test_paired_label_years_stay_bound_for_falling_rising_equal_and_close(values):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _label_paired_endpoints
+    fig,ax=plt.subplots()
+    _label_paired_endpoints(ax,values,0,["2025","2026"],["#718e8a","#12666a"],suffix="%")
+    for index,annotation in enumerate(ax.texts):
+        assert annotation.xy==(values[index],0)
+        assert annotation.get_text()==f"{2025+index}: {values[index]:g}%"
+        if values[0]!=values[1]:
+            assert (annotation.get_position()[0]<0)==(values[index]<values[1-index])
+        assert annotation.arrow_patch is not None
+    assert ax.texts[0].get_position()[1]<0<ax.texts[1].get_position()[1]
+    plt.close(fig)
+
+
+def test_point_bound_chart_links_exclude_wrong_quarter_and_retain_multiple_sources(tmp_path):
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import editorial_chart_source_links,validate_editorial_data_chart
+    packet,docs=chart_packet()
+    unrelated={**docs[0],"document_id":"unused","url":"https://example.org/wrong-quarter"}
+    asset=build_editorial_data_chart(packet,[unrelated,*docs],output_dir=tmp_path)
+    assert asset["source_page_url"]==docs[0]["url"]
+    assert [s["document_id"] for s in asset["source_links"]]==["controlled"]
+    second={**docs[0],"document_id":"second","url":"https://example.org/second-quarter"}
+    multi=deepcopy(packet)
+    multi["series"][0]["points"][1]["inputs"][0]["document_id"]="second"
+    assert [s["url"] for s in editorial_chart_source_links(multi,[unrelated,second,*docs])]==[docs[0]["url"],second["url"]]
+    asset["source_links"][0]["url"]=unrelated["url"]
+    with pytest.raises(ValueError,match="SOURCE_LINKS_CHANGED"):
+        validate_editorial_data_chart(asset,[unrelated,*docs])
+
+
+def test_reviewed_media_correction_invalidates_keep_and_checks_exact_revision(tmp_path,monkeypatch):
+    from live_contentops.native_desktop_editorial_v1 import bind_editorial_media,native_review_revision,validated_native_review
+    from live_contentops.contentops_editorial_desk_v1 import record_native_article_review
+    import live_contentops.v1_simple_gemini_newsroom_v1 as compiler
+    store=ContentOpsDurableStore(tmp_path/"controlled.sqlite3")
+    run="controlled-media-correction"
+    work="cc-opportunity-"+sha256_of(run)
+    store.create_work_item(story_id=work,work_item_id=work,title="Controlled",target_surface="CONTENTOPS_EDITORIAL_ONLY")
+    path=tmp_path/"controlled.png"
+    path.write_bytes(b"controlled")
+    asset={"asset_id":"chart","path":str(path),"sha256":sha256(path.read_bytes()).hexdigest(),"caption":"Prior caption","alt_text":"Controlled chart","source_page_url":"https://example.org/source","underlying_source_rights_status":"public_domain"}
+    result={"model_execution_state":"NATIVE_DESKTOP_REQUEST_RETURN","qualified_article_count":1,"article_identity":"a"*64,
+        "article":{"title":"Controlled","substack_body_markdown":"Fact [[SOURCE:SOURCE_1]].","resolved_article_mode":"DATA_OR_DOCUMENT_LENS"},
+        "media_assets":[asset],"evidence":[{"source_id":"SOURCE_1","url":asset["source_page_url"],"published_at_utc":"2026-10-21T00:00:00Z"}],
+        "simple_result":{"publication_lifecycle_plan":{"plan_hash":"b"*64}}}
+    key="cc-editorial-final-"+sha256_of(run)
+    store.register_outbox_message(message_id=key,work_item_id=work,destination="internal:cc-report-simple-result",payload=json.dumps(result),status="EDITORIAL_INTERNAL")
+    record_native_article_review(store,run_id=run,article_identity=result["article_identity"],decision="KEEP",rationale="Controlled revision review, not owner acceptance.")
+    changed={**asset,"caption":"Corrected caption"}
+    with pytest.raises(ValueError,match="EXACT_REVIEWED_REVISION"):
+        bind_editorial_media(store,run_id=run,article_identity=result["article_identity"],assets=[changed])
+    monkeypatch.setattr(compiler,"_native_preview_bundle",lambda **_:({"packages":{"telegram":{"text":"Controlled"}}},[]))
+    bind_editorial_media(store,run_id=run,article_identity=result["article_identity"],assets=[changed],expected_package_revision=native_review_revision(result))
+    with pytest.raises(ValueError,match="NATIVE_REVIEW_REVISION_CHANGED"):
+        validated_native_review(store,run_id=run)
+
+
+def test_compact_cash_reference_table_cannot_change_reported_levels(tmp_path):
+    packet,docs=chart_packet()
+    old,new=packet["series"][0]["points"]
+    def point(source,period,negative=False):
+        p=deepcopy(source)
+        p.update(period=period,scale=-1 if negative else 1,value=-source["value"] if negative else source["value"])
+        if negative:
+            p["sign_presentation_reason"]="Controlled reconciliation removes this reported quantity."
+        return p
+    labels=["Opening","Financing","Capital expenditure","Reported total"]
+    reference=[{"name":year,"points":[point(source,label,j in {1,2}) for j,label in enumerate(labels)]} for year,source in [("2025",old),("2026",new)]]
+    packet.update(chart_type="HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS",reported_reference_series=reference,subtitle="Controlled periods and units",
+        render_spec={"height_inches":8.8,"value_domain":[0,150],"row_order":labels,"small_note":"Controlled rounding note.",
+            "reference_table":{"columns":["Reported levels","2025","2026"],"rows":[{"label":name,"values":[100 if j!=2 else -100,120 if j!=2 else -120]} for j,name in enumerate(labels)]}})
+    packet["series"]=[{"name":"Controlled change","points":[point(new,label) for label in labels]}]
+    asset=build_editorial_data_chart(packet,docs,output_dir=tmp_path)
+    assert asset["width"]==1120 and asset["height"]==1760
+    packet["render_spec"]["reference_table"]["rows"][3]["values"][1]=119
+    with pytest.raises(ValueError,match="REFERENCE_LEVELS_CHANGED"):
+        _editorial_data_values(packet,docs)
+
+
 def test_compact_authored_links_retain_distinct_sources_and_internal_markers():
     article = {
         "reader_first_version": "DATA_JOURNALISM_V1",
@@ -375,6 +458,9 @@ def test_actual_native_compiler_retains_distinct_subsets_after_canonical_readbac
         "reader_first_version": "DATA_JOURNALISM_V1",
         "native_destination_media": choices,
         "native_destination_credits": {},
+        "native_media_sources": {"chart-a":[{"document_id":"q3","url":"https://example.org/q3","label":"Q3 source"}],
+            "chart-b":[{"document_id":"q1","url":"https://example.org/q1","label":"Q1 source"},
+                {"document_id":"q2","url":"https://example.org/q2","label":"Q2 source"}]},
     }
     pending = build_native_derivative_payloads(
         article=article,
@@ -395,6 +481,8 @@ def test_actual_native_compiler_retains_distinct_subsets_after_canonical_readbac
             == observed[destination]["media_asset_ids"]
             == choices[destination]
         )
+        assert pending[destination]["media_source_links"]==observed[destination]["media_source_links"]
+        assert set(observed[destination]["media_source_links"])<=set(choices[destination])
         posts = observed[destination].get("posts", [])
         if posts:
             assert posts[0]["media_asset_ids"] == choices[destination]

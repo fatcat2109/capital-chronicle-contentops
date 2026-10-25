@@ -1054,6 +1054,9 @@ def _editorial_data_values(packet, documents):
         "stacked_columns",
         "horizontal_diverging_bar",
         "paired_dumbbell",
+        "QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
+        "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE",
+        "HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS",
     }:
         raise ValueError("EDITORIAL_CHART_TYPE_UNSUPPORTED")
     if not packet.get("question") or not packet.get("title") or not packet.get("unit"):
@@ -1212,7 +1215,141 @@ def _editorial_data_values(packet, documents):
         output.append(points)
     if not output or len(output) > 12:
         raise ValueError("EDITORIAL_CHART_SERIES_SCOPE_INVALID")
+    if reference := packet.get("reported_reference_series"):
+        levels = _editorial_data_values({**packet,"series":reference,"reported_reference_series":None},documents)
+        # Reference levels show the financing quantity removed as positive, while
+        # the reconciliation's source-bound operand keeps its subtraction sign.
+        displayed = [[abs(v) if j == 1 else v for j,v in enumerate(row)] for row in levels]
+        if [row["values"] for row in packet["render_spec"]["reference_table"]["rows"]] != [list(p) for p in zip(*displayed)]:
+            raise ValueError("EDITORIAL_CHART_REFERENCE_LEVELS_CHANGED")
     return output
+
+
+def editorial_chart_source_links(packet, documents):
+    """Attribute the documents actually used by chart point operands."""
+    from datetime import datetime
+    sources = {d.get("document_id"): d for d in documents}
+    ids = dict.fromkeys(i["document_id"] for s in packet["series"]
+        for p in s["points"] for i in p["inputs"])
+    links = []
+    for identity in ids:
+        doc = sources.get(identity) or {}
+        url = doc.get("url") or doc.get("source_url") or ""
+        if not url.startswith("https://"):
+            raise ValueError("EDITORIAL_CHART_BOUND_SOURCE_LINK_REQUIRED")
+        publisher = str(doc.get("publisher") or doc.get("source_identity") or "Source")
+        date = str(doc.get("published_at_source") or doc.get("published_at_utc") or "")[:10]
+        try:
+            label = publisher + " · " + datetime.strptime(date, "%Y-%m-%d").strftime("%d %b %Y")
+        except ValueError:
+            label = str(doc.get("title") or publisher)
+        links.append({"document_id": identity, "url": url, "label": label})
+    if not links:
+        raise ValueError("EDITORIAL_CHART_BOUND_SOURCE_LINK_REQUIRED")
+    return links
+
+
+def _label_paired_endpoints(ax, values, y, periods, colors, *, suffix=""):
+    """Direct year/value labels stay attached for rising, falling and equal pairs."""
+    for index, (value, period, color) in enumerate(zip(values, periods, colors)):
+        other = values[1-index]
+        side = -1 if value < other or (value == other and index == 0) else 1
+        ax.annotate(f"{period}: {value:g}{suffix}", xy=(value,y),
+            xytext=(side*9, -19 if index == 0 else 13), textcoords="offset points",
+            ha="right" if side < 0 else "left", va="center", fontsize=11, color=color,
+            arrowprops={"arrowstyle":"-", "color":color, "linewidth":.7},
+            bbox={"facecolor":"#faf9f5", "edgecolor":"none", "pad":.5})
+
+
+def _draw_compact_editorial_comparison(packet, values, plt):
+    """Render the native editor's compact comparison, with source-validated values."""
+    import textwrap
+    spec = packet["render_spec"]
+    kind, series = packet["chart_type"],packet["series"]
+    fig, ax = plt.subplots(figsize=(5.6,spec["height_inches"]),dpi=200)
+    fig.subplots_adjust(left=0,right=1,bottom=0,top=1)
+    ax.set(xlim=(0,1),ylim=(0,1))
+    ax.axis("off")
+    fig.patch.set_facecolor("#faf9f5")
+    ink, positive, negative = "#193b3e","#12666a","#b96b37"
+    def text(x,y,label,*,size=16,**kwargs):
+        ax.text(x,y,label,fontsize=size,color=kwargs.pop("color",ink),
+            va=kwargs.pop("va","center"),**kwargs)
+    text(.04,.975,textwrap.fill(packet["title"],26),size=20,weight="bold",va="top")
+    text(.04,.855,textwrap.fill(packet["subtitle"],42),size=12,va="top")
+    if kind == "QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR":
+        if len(values)!=3 or any(len(row)!=6 for row in values):
+            raise ValueError("CONTRIBUTION_MATRIX_REQUIRES_THREE_QUARTERS_SIX_ROWS")
+        columns = [.47,.68,.89]
+        for x,header in zip(columns,["Q1","Q2","Q3"]):
+            text(x,.755,header,size=16,ha="center")
+        low,high = spec["shared_cell_value_domain"]
+        for row_index,name in enumerate(spec["row_order"]):
+            y = .635-row_index*.098
+            text(.025,y,name,size=15.5,weight="bold" if row_index==0 else "normal")
+            for column,source,nums in zip(columns,series,values):
+                value = nums[[p["period"] for p in source["points"]].index(name)]
+                color = ink if row_index==0 else positive if value>=0 else negative
+                text(column,y+.018,f"{value:+,.0f}",size=17,ha="center",color=color,
+                    weight="bold" if row_index==0 else "normal")
+                if row_index<4:
+                    left,width = column-.085,.17
+                    zero = left+(0-low)/(high-low)*width
+                    end = left+(value-low)/(high-low)*width
+                    ax.plot([zero,zero],[y-.035,y-.005],color="#9caeaa",lw=.7)
+                    ax.barh(y-.02,abs(end-zero),left=min(end,zero),height=.014,color=color)
+            if row_index==0:
+                ax.plot([.025,.98],[y-.055,y-.055],color="#a3b4af",lw=.8)
+    elif kind == "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE":
+        if len(values)!=6 or any(len(row)!=3 for row in values):
+            raise ValueError("MARGIN_TABLE_REQUIRES_TWO_THREE_QUARTER_COMPARISONS")
+        for panel,old_index,change_index,top in zip(spec["panels"],[0,2],[4,5],[.765,.405]):
+            text(.04,top,panel["title"],size=16.5,weight="bold")
+            text(.04,top-.04,panel["definition"],size=13)
+            for x,label in zip([.12,.37,.60,.85],["Quarter","2025 (%)","2026 (%)","Change (pp)"]):
+                text(x,top-.09,label,size=14,ha="center")
+            for q in range(3):
+                y = top-.155-q*.075
+                old,new,delta = values[old_index][q],values[old_index+1][q],values[change_index][q]
+                if abs(new-old-delta)>1e-7:
+                    raise ValueError("MARGIN_TABLE_CHANGE_DIFFERS_FROM_LEVELS")
+                for x,label in zip([.12,.37,.60,.85],[f"Q{q+1}",f"{old:.1f}",f"{new:.1f}",f"{delta:+.1f}"]):
+                    text(x,y,label,size=17,ha="center")
+                low,high = spec["change_domain_pp"]
+                zero = .74+(0-low)/(high-low)*.22
+                end = .74+(delta-low)/(high-low)*.22
+                ax.barh(y-.025,abs(end-zero),left=min(zero,end),height=.012,color=positive if delta>=0 else negative)
+                ax.plot([zero,zero],[y-.036,y-.014],color="#829992",lw=.8)
+    else:
+        if len(values)!=1 or len(values[0])!=4:
+            raise ValueError("CASH_CHANGE_BRIDGE_REQUIRES_OPEN_TWO_ADJUSTMENTS_CLOSE")
+        nums = values[0]
+        level = nums[0]
+        low,high = spec["value_domain"]
+        def coord(n):
+            return .48+(n-low)/(high-low)*.41
+        previous_end = None
+        for j,(name,value) in enumerate(zip(spec["row_order"],nums)):
+            y = .74-j*.085
+            start = 0 if j in {0,3} else level
+            end = value if j in {0,3} else level+value
+            if previous_end is not None:
+                ax.plot([coord(previous_end),coord(previous_end)],[y+.072,y+.015],color="#849b94",lw=1)
+            ax.barh(y,abs(coord(end)-coord(start)),left=min(coord(start),coord(end)),height=.022,color=ink if j in {0,3} else negative)
+            text(.025,y,textwrap.fill(name,22),size=13.5)
+            text(.96,y+.024,f"{value:+,.0f}",size=17,ha="right",weight="bold" if j in {0,3} else "normal")
+            if j<3:
+                level=end
+            previous_end=end
+        text(.04,.405,textwrap.fill(spec["small_note"],52),size=13.5)
+        for x,label in zip([.04,.70,.94],spec["reference_table"]["columns"]):
+            text(x,.335,label,size=14,ha="left" if x==.04 else "right",weight="bold")
+        for j,row in enumerate(spec["reference_table"]["rows"]):
+            y=.27-j*.067
+            text(.025,y,textwrap.fill(row["label"],23),size=13.5,weight="bold" if j==3 else "normal")
+            for x,value in zip([.70,.94],row["values"]):
+                text(x,y,f"{value:,.0f}",size=16.5,ha="right",weight="bold" if j==3 else "normal")
+    return fig
 
 
 def _draw_editorial_chart(packet, values, plt, np):
@@ -1222,6 +1359,9 @@ def _draw_editorial_chart(packet, values, plt, np):
     colors = ["#12666a", "#b96b37", "#718e8a", "#7c6296", "#c39838", "#6b788a"]
     kind = packet["chart_type"]
     series = packet["series"]
+    if kind in {"QUARTER_CONTRIBUTION_MATRIX_WITH_COMPANY_ANCHOR",
+            "MARGIN_LEVEL_TABLE_WITH_DIVERGING_PP_CHANGE","HORIZONTAL_CHANGE_BRIDGE_WITH_REPORTED_LEVELS"}:
+        return _draw_compact_editorial_comparison(packet,values,plt)
     labels = [s.get("name") or s["label"] for s in series]
     periods = list(dict.fromkeys(p["period"] for s in series for p in s["points"]))
     small = kind in {
@@ -1251,12 +1391,11 @@ def _draw_editorial_chart(packet, values, plt, np):
                     raise ValueError("PAIRED_DUMBBELL_REQUIRES_TWO_COMPARABLE_PERIODS")
                 ax.plot(nums,[i,i],color="#a6b7b2",linewidth=3)
                 ax.scatter(nums,[i,i],color=[colors[2],colors[0]],s=85,zorder=3)
-                ax.annotate(f"{nums[0]:g}",(nums[0],i),xytext=(-6,-18),textcoords="offset points",ha="right")
-                ax.annotate(f"{nums[1]:g}",(nums[1],i),xytext=(6,12),textcoords="offset points",ha="left")
+                _label_paired_endpoints(ax, nums, i,
+                    [p["period"] for p in series[i]["points"]], [colors[2],colors[0]])
             ax.set_yticks(range(len(labels)),[textwrap.fill(s,24) for s in labels],fontsize=10)
             ax.set_ylim(len(labels)-.55,-.55)
             ax.set_xlim(min(n for row in values for n in row)-.9,max(n for row in values for n in row)+.9)
-            ax.text(0,1.08,"Lighter: Q3 2025 · darker: Q3 2026",transform=ax.transAxes,fontsize=10)
         ax.set_xlabel(packet["unit"])
         ax.grid(axis="x",alpha=.16)
         fig.subplots_adjust(left=.35,right=.94,top=.69,bottom=.21)
@@ -1322,10 +1461,9 @@ def _draw_editorial_chart(packet, values, plt, np):
                         s=65,
                         zorder=3,
                     )
-                    ax.text(left - 0.25, q + 0.17, f"{left:g}", ha="right", fontsize=10)
-                    ax.text(
-                        right + 0.25, q - 0.17, f"{right:g}", ha="left", fontsize=10
-                    )
+                    _label_paired_endpoints(ax, [left,right], q,
+                        [labels[i*2].rsplit(" - ",1)[-1], labels[i*2+1].rsplit(" - ",1)[-1]],
+                        [colors[2],colors[0]], suffix="%")
                 ax.set_yticks(range(3), ["Q1", "Q2", "Q3"])
                 ax.set_ylim(2.45, -0.5)
                 ax.set_xlabel("Percent · lighter: 2025; darker: 2026")
@@ -1509,6 +1647,7 @@ def _draw_editorial_chart(packet, values, plt, np):
 def build_editorial_data_chart(packet, documents, *, output_dir):
     """Existing media owner renders the actual MAX editor's source-bound visual choice."""
     values = _editorial_data_values(packet, documents)
+    source_links = editorial_chart_source_links(packet, documents)
     asset_id = packet["asset_id"]
     if not re.fullmatch(r"[a-z][a-z0-9-]{2,90}", asset_id):
         raise ValueError("EDITORIAL_CHART_DISTINCT_ID_REQUIRED")
@@ -1545,13 +1684,14 @@ def build_editorial_data_chart(packet, documents, *, output_dir):
         "caption": packet.get("caption") or packet["question"],
         "attribution": packet["source_caption"],
         "alt_text": packet.get("alt_text") or packet["question"],
-        "source_page_url": documents[0].get("url") or documents[0].get("source_url"),
+        "source_page_url": source_links[0]["url"],
+        "source_links": source_links,
         "source_lineage": [
             {
-                "source_url": d.get("url") or d.get("source_url"),
-                "document_id": d.get("document_id"),
+                "source_url": link["url"],
+                "document_id": link["document_id"],
             }
-            for d in documents
+            for link in source_links
         ],
         "underlying_source_rights_status": "attributed_facts_independent_chart",
         "source_reuse_basis": "Independent chart of attributed original-source facts; no source expression reused.",
@@ -1571,6 +1711,11 @@ def validate_editorial_data_chart(asset, documents):
 
     packet = asset["editorial_data_packet"]
     values = _editorial_data_values(packet, documents)
+    if "source_links" in asset:
+        links = editorial_chart_source_links(packet, documents)
+        if (asset["source_links"] != links or asset.get("source_page_url") != links[0]["url"]
+                or asset.get("source_lineage") != [{"source_url":s["url"],"document_id":s["document_id"]} for s in links]):
+            raise ValueError("EDITORIAL_CHART_SOURCE_LINKS_CHANGED")
     if (
         sha256_of(packet) != asset.get("transform_sha256")
         or values != asset.get("computed_values")

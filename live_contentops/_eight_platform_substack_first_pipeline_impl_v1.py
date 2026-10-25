@@ -536,6 +536,9 @@ def build_native_derivative_payloads(
         if destination == "instagram_business" and not chosen:
             raise ValueError("NATIVE_EDITORIAL_INSTAGRAM_IMAGE_REQUIRED")
         payload["media_asset_ids"] = chosen
+        source_map = article.get("native_media_sources") or {}
+        if source_map:
+            payload["media_source_links"] = {asset:source_map[asset] for asset in chosen if asset in source_map}
         credit = (article.get("native_destination_credits") or {}).get(destination)
         source = article.get("native_source_attribution") or {}
         names = [str(source.get(k) or "").casefold() for k in ("publisher", "display_name") if source.get(k)]

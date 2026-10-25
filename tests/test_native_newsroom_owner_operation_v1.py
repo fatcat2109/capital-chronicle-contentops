@@ -196,18 +196,20 @@ def test_oil_date_notice_excludes_unused_gas_context():
     assert "2026-10-15" not in notice
 
 
-def test_media_binding_keeps_dates_of_cited_sources_without_main_lineage(tmp_path):
+def test_media_binding_keeps_dates_of_cited_sources_without_main_lineage(tmp_path,monkeypatch):
     from hashlib import sha256
     from live_contentops.capital_chronicle_latest_report_consumer_v1 import sha256_of
     from live_contentops.durable_operational_store_v1 import ContentOpsDurableStore
     from live_contentops.native_desktop_editorial_v1 import bind_editorial_media
+    import live_contentops.v1_simple_gemini_newsroom_v1 as compiler
+    monkeypatch.setattr(compiler,"_native_preview_bundle",lambda **_:({"packages":{}},[]))
     store = ContentOpsDurableStore(tmp_path / "state.sqlite3")
     work = "cc-opportunity-" + sha256_of("source-dates")
     store.create_work_item(story_id=work, work_item_id=work, title="Controlled dated copy", target_surface="CONTENTOPS_EDITORIAL_ONLY")
     key = "cc-editorial-final-" + sha256_of("source-dates")
     source = "https://www.federalreserve.gov/controlled-source"
     value = {"qualified_article_count": 1, "article_identity": "a" * 64,
-        "article": {"substack_body_markdown": "Definition [[SOURCE:SOURCE_1]]. Convention [[SOURCE:SOURCE_4]]."},
+        "article": {"resolved_article_mode":"DATA_OR_DOCUMENT_LENS", "substack_body_markdown": "Definition [[SOURCE:SOURCE_1]]. Convention [[SOURCE:SOURCE_4]]."},
         "evidence": [{"source_id": "SOURCE_1", "url": source, "published_at_utc": "2026-10-13T00:00:00Z"},
             {"source_id": "SOURCE_2", "url": "https://www.sec.gov/unused", "published_at_utc": "2026-09-01T00:00:00Z"},
             {"source_id": "SOURCE_4", "url": source, "published_at_utc": "2026-10-13T00:00:00Z"}]}
@@ -215,7 +217,7 @@ def test_media_binding_keeps_dates_of_cited_sources_without_main_lineage(tmp_pat
     asset = tmp_path / "controlled-asset"
     asset.write_bytes(b"test-only")
     bind_editorial_media(store, run_id="source-dates", article_identity="a" * 64,
-        assets=[{"path": str(asset), "sha256": sha256(asset.read_bytes()).hexdigest(), "source_page_url": source,
+        assets=[{"asset_id":"controlled", "path": str(asset), "sha256": sha256(asset.read_bytes()).hexdigest(), "source_page_url": source,
             "caption": "Controlled source", "alt_text": "Controlled source", "underlying_source_rights_status": "public_domain"}])
     after = json.loads(store.get_outbox_message(key)["payload"])
     assert after["article"]["substack_body_markdown"] == value["article"]["substack_body_markdown"]

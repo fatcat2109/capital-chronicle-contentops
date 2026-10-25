@@ -453,10 +453,11 @@ def normalize_native_receipt(value: dict[str, Any], telemetry: Mapping[str, Any]
         value["exact_next_blocker"] = value["exact_next_blocker"].replace("GEMINI_", "DESKTOP_")
 
 
-def bind_editorial_media(store, *, run_id, article_identity, assets):
+def bind_editorial_media(store, *, run_id, article_identity, assets, expected_package_revision=None):
     """Seal relevant inspected media before review using the existing final outbox.
 
-    Earlier package bytes stay history; publication dispatch or a prior review blocks edits.
+    Earlier bytes stay history. A reviewed correction needs its exact revision and
+    no publication dispatch; changed media invalidates the prior KEEP/preparation.
     """
     from hashlib import sha256
     from live_contentops.contentops_editorial_desk_v1 import read_reviews
@@ -466,7 +467,14 @@ def bind_editorial_media(store, *, run_id, article_identity, assets):
     if result.get("article_identity") != article_identity or not result.get("qualified_article_count"):
         raise ValueError("EXACT_QUALIFIED_NATIVE_ARTICLE_REQUIRED")
     if any(r["work_item_id"] == row["work_item_id"] and r["reviewer_ref"] == "NATIVE_DESKTOP_ARTICLE_REVIEW" for r in read_reviews(store)):
-        raise ValueError("MEDIA_BINDING_REQUIRES_UNREVIEWED_REVISION")
+        if expected_package_revision != native_review_revision(result):
+            raise ValueError("MEDIA_BINDING_REQUIRES_EXACT_REVIEWED_REVISION")
+        with store.get_read_only_connection() as conn:
+            dispatched = conn.execute("SELECT 1 FROM platform_dispatches d JOIN outbox_messages o "
+                "ON d.message_id=o.message_id WHERE o.work_item_id IN (?,?) LIMIT 1",
+                (run_id,row["work_item_id"])).fetchone()
+        if dispatched:
+            raise ValueError("REVIEWED_MEDIA_IMMUTABLE_AFTER_PUBLICATION_DISPATCH")
     allowed = {d["url"] for d in result.get("evidence", [])}
     for d in result.get("evidence", []):
         allowed.update(e.get("source_url") for c in d.get("report_lineage", {}).get("claims", []) for e in c.get("evidence", []))
