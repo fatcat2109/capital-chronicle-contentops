@@ -1,13 +1,13 @@
 # V1 current execution — 25 October 2026
 
 Goal: CONTENTOPS_V1_READER_FIRST_DATA_JOURNALISM_V1; same original native1792829777.
-App amendment1792909040 is ACTIVE; earlier continuation1792869256 is preserved history.
+App amendment1792909040 retains the same mission; full private product and scoped branch delivery are complete.
 Owner: chat01a16a43-bfad-7191-bd78-ef708c3468d7; assigned L2:01a1657e-f5d0-76a1-b52b-ec6c78b6fe35.
 Execution root: C:/Users/bullw/.codex/worktrees/v1-newsroom-release-recovered/ContentOps.
 One branch/integration writer: codex/v1-newsroom-release-convergence / this V1 Builder.
 Implemented/tested source: c087081ef32a6de37fbf4412a27649869da5a9e6; delivery HEAD is current Git history.
 Fresh observed master: bc79e30c8088a9deb47f3942aa15914a59b69799; no merge/deployment.
-[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92) is the sole draft code delivery on the existing dependent base; no merge.
+[PR92](https://github.com/fatcat2109/capital-chronicle-contentops/pull/92): OPEN/DRAFT; remote delivery7dc7ff88437517cc5d296a249326b46b89f021b9 verified; no merge.
 Reservation: current V1 source/CLI/reader/types/tests/contracts; other WIP/Main/database untouched.
 
 Actual private product:7/7 revised articles accepted/prepared;0 missing;56 native packages;63 NOT_DISPATCHED destinations.
@@ -33,4 +33,5 @@ No proposal seal/global closure/historical-byte/mandatory CodeGraph regeneration
 Jim's ContentOps-specific mandate source1f8deea1 applied; human L1 turn01a171af-6e35-78e0-a0ff-51ad8b16384a verified via read_thread.
 Production/four schedules/publication/V2/V3 remain paused; zero public/platform/broker/account writes or native Computer Use.
 Remaining owner decision: exact code deployment, whether to enable existing four windows, and publication destinations.
-Private seven-story product accepted; source committed. One whole-goal assigned-L2 notice pending final push/readback; no progress/ack chain.
+Whole-goal assigned-L2 completion notice SENT_ONCE to01a1657e-f5d0-76a1-b52b-ec6c78b6fe35; tool returned exact destination/isError=false.
+No parent startup/acceptance inferred from notice transport; no polling, reply, acknowledgement chain or further lane work.
