@@ -1,37 +1,30 @@
-# One current private newsroom edition — 26 October 2026
+# V1 live operating convergence — 26 October 2026
 
-Goal: CONTENTOPS_V1_CURRENT_NEWS_PRIVATE_EDITION_20261026 — COMPLETE private edition; no publication.
+Goal: CONTENTOPS_V1_LIVE_OPERATING_CONVERGENCE_V1 — acceptance complete; remote closeout pending.
 Root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
-Branch: codex/v1-newsroom-release-convergence; existing PR92; sole integration writer: this V1 chat.
-Assigned L2: 01a1657e-f5d0-76a1-b52b-ec6c78b6fe35. Initial source: 9b83649a; current delivery: Git history.
-Jim approval read: L1 turn01a17657/user01a17657-6d3f-7191-be09-371960792959 and proposal01a17651.
-Tower dispatch: cd91c3dd, docs/project_control_tower/dispatch/20261026_CONTENTOPS_ONE_FRESH_PRIVATE_EDITION_L2.txt.
-
-Result: one original Samsung SDI/Alpha Omega Power news brief, one lawful contextual photo, exactly eight private previews.
-Actual article identity: cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8.
-Review: native-article-review-e8105c28a63a4315a9d93805a68096fc; current revision KEEP/PREPARED.
-All nine destinations NOT_DISPATCHED; canonical public URL/time null; public_write_authority=false.
-Same operation: v1-current-news-private-20261026; existing isolated owner store retained.
-Output base: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/editorial-previews/v1-current-news-private-20261026.
-Reader: [one article and eight previews](<C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/editorial-previews/v1-current-news-private-20261026/reader/index.html>).
-Detailed result/readback/inspection: output base/current-result.json, prepared-readback.json, reader/inspection/inspection-result.json.
-
-Fixed cutoff: 2026-10-26T03:59:47Z (10:59:47 Asia/Saigon); never moved during recovery.
-Canonical backlog: zero eligible; 25,668 older rows excluded. CDP unavailable; no runtime/session change.
-Neo captured 56 distinct posts, 52 eligible; all52 filtered in24+24+4:36KEEP/13REJECT/3DEFER/0unprocessed.
-Coverage is the bounded observed capture, not complete24h X acquisition; exact IDs/decisions remain in existing operation.
-Downstream32candidates/3admissions. Original6requests failed; Jim directly approved3extraNeo reads; total9/9.
-One exact Yonhap report: published00:24:27Z, captured04:54:06.852Z; factual paraphrase only, underlying event unconfirmed.
-Native roles observed: Luna/MAX filter; Sol6.1/low selection and preparation; same Sol6.1/MAX visual/write/one repair.
-MAX chose genuine narrow NEWS, zerocharts with substantive internal reason; overlapping1/1.5GWh is no growth series.
-Photo: exact Commons CC BY-SA4.0 original, inspected1860x1047; archive2015/different vendor, context only.
-Twelve material claims PASS/zero unsupported; eight compiler packages PASS;98focused regressions and changed-sourceRuff PASS.
-Actual pixels: canonical desktop/mobile, all8desktop previews, Telegram mobile. Other mobile captures timed out, not counted.
-
-Interventions: frozen manual-resume snapshot, finite source recovery, exact Yonhap attribution alias, compiler-error resume.
-Existing7article identities/latestKEEP/prepared IDs and both retained artifact hashes unchanged; Main selection unchanged.
-No production store/fuse/four calendars/host prompts/paid modelAPI/SDK/spend/trade/merge/deploy/CUA changes.
-V2/V3 and unrelated runtime remain paused. Jim's old IBM visual/final-product verdict remains OPEN.
-Next: Jim may read this private edition; no new edition, publication or activation is authorized by completion.
-Completion notice authority re-read: L1turn01a17171/user01a17171-351a-70f0-85c6-43490491d490.
-One whole-goal notice SENT once to assigned L2; native send accepted after deliveryf042c9a8; startup not inferred.
+Branch: codex/v1-newsroom-release-convergence; existing PR92; sole V1 integration writer: this chat.
+Product: e7a12242e9c589882270758e443ea9e38e097c13; see [working reader](release-candidate/index.html).
+Scope/result:8retained articles,64native previews,16charts,8photos;3held candidates,0missing selected records.
+All72destination states NOT_DISPATCHED; retained examples are not a production day or daily-throughput proof.
+Fixed named-Yonhap routing, signed/zero axes/unit labels, repeated attribution and workflow inside reader articles.
+Accepted IBM cash PNG unchanged; same actual MAX judgments/prose/returns retained; no writer/new-edition rerun.
+Verified:122affected Python tests,17integration/recovery tests,27UI tests; UI build/Ruff and actual chart pixels.
+Actual Neo canonical desktop/Instagram mobile inspected; all8Samsung views checked;3photo views show one attribution.
+Extra screenshot timeouts not counted as inspected pixels; no126-view campaign; routine32/3/6bounds unchanged.
+Actual same-operation reopen: same article,0new sources/models; current KEEP/PREPARED and9NOT_DISPATCHED remain.
+Main selected artifact and old7workspace unchanged; Main adoption not assessed or modified.
+Current X dependency:07:13UTC CDP9222 cdp_list_unreachable;0current canonical rows; existing producer owner must restore.
+Independent route: both configured public Main feeds validate15entries emitted20October; dated support, not fresh X.
+Host07:30UTC:4PAUSED on old5.6/high/prompts; fuse active; generated6.1/low/native MAX target not applied.
+Integration: PR92 depends on OPEN/DRAFT PR90/a1b08f96; remote master bc79e30c; neither merged.
+Operating root07:49UTC: master/d0760bf1 with42dirty/0staged entries; preserve/reconcile through one integration writer.
+[ACTIVATION](ACTIVATION.md) pins source, root, four IDs/generated prompts, roles/fuse, canonical-first and UNKNOWN_WRITE.
+Recommendation: approved integration then four-window scheduled zero-write probation from27October17:00Bangkok; no writes.
+Missing decision: Jim's exact release/source/mode/time grant; runtime proof/public destinations/final acceptance stay separate.
+Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/live-operating-convergence-20261026/.
+Strategic sources: current root/26Oct North Star/Master Plan/tool handoff; prior unchanged strategic read reused.
+Human scope re-read: L2turn01a17703/user01a17703-ef5c-7e40-bdb5-1736be35a386.
+Completion permission re-read: L1turn01a17171/user01a17171-351a-70f0-85c6-43490491d490.
+Preserved six untracked data-journalism dirs, other WIP, V2/V3 pauses; no runtime/host/public/paid/CUA action.
+Next: verify remote delivery, close this whole goal, send one assigned-L2 completion notice and record its result here.
+Completion notice for THIS goal: NOT_SENT; assigned L2 only; no L1/peer/progress messages or polling.
