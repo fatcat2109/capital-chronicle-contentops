@@ -377,6 +377,7 @@ def main(argv=None):
     parser.add_argument("--binding", type=Path)
     parser.add_argument("--rollout", type=Path)
     parser.add_argument("--automation-id")
+    parser.add_argument("--continue-after", help="Exact completed scheduled run before deliberately requesting its next bounded slot")
     parser.add_argument("--native-invocation-id", help="Actual active Desktop conversation/turn identity")
     parser.add_argument("--request-sha256", help="Exact persisted native Neo request")
     parser.add_argument("--observation-id", help="Existing due canonical performance observation identity")
@@ -541,7 +542,13 @@ def main(argv=None):
         if not args.rollout or not args.automation_id:
             parser.error("scheduled requires --rollout and --automation-id")
         from live_contentops.native_desktop_schedule_binding_v1 import scheduled_binding
-        result = scheduled_binding(json.loads(args.rollout.read_bytes()), args.automation_id)
+        from live_contentops.durable_operational_store_v1 import LeaseConflictError
+        try:
+            result = scheduled_binding(json.loads(args.rollout.read_bytes()), args.automation_id,
+                                       continue_after=args.continue_after)
+        except (ValueError, OSError, KeyError, TypeError, LeaseConflictError) as exc:
+            print(json.dumps({"classification": "NATIVE_DESKTOP_BLOCKED", "blocker": str(exc)}))
+            return 2
         print(json.dumps(result))
         return 0
     if not args.binding:

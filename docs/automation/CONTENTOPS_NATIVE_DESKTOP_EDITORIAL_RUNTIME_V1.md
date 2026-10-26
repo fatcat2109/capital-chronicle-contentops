@@ -18,6 +18,23 @@ shared wording and preserve/resume the exact existing binding. See the recovery 
 
 ## One supported opportunity
 
+For each existing scheduled callback, read the current V1 root override and let the
+`scheduled --automation-id <existing-id> --rollout config/native_desktop_rollout_v1.json`
+entry enforce the pause boundary promptly. Obtain its binding before lengthy context
+reads; reuse the admitted strategic read and complete current role/source context before
+semantic work. The same entry discovers the latest issued binding after interruption,
+even outside its original due interval, and retains its exact cutoff and frozen requests.
+A never-bound expired window stays `OUTSIDE_EXACT_NATIVE_WINDOW` without source/store
+creation; the existing window and one-hour grace are unchanged.
+
+A duplicate completed callback returns `NATIVE_WINDOW_OPERATION_COMPLETE` with no new
+model/source work. Only an intentional `--continue-after <exact-completed-run-id>` may
+request the next bounded slot while that same window remains eligible; repeating that
+continuation returns its same slot. New-slot creation uses the existing store lease.
+Actual native-start, quota failure, binding creation and missed eligibility are separate
+observations in each existing automation's memory. Quota before binding cannot be
+recovered by inventing a past source snapshot, manual edition or extra scheduled task.
+
 Native App scheduled task or explicit owner-manual conversation
 → unchanged CDP X intake, deterministic exact dedupe and resumable Luna/Terra-MAX filtering
 → existing window/production-day/slot binding
