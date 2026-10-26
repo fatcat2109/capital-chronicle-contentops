@@ -1,0 +1,89 @@
+{
+  "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+  "classification": "PASS_REAL_NATIVE_SOL_LOW_ZERO_WRITE_AND_REPLAY",
+  "derivative_intents": 8,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 1,
+    "observations": [
+      {
+        "invocation_id": "/root/goal24_native_editor:followup-v4",
+        "model": "gpt-6.1-sol",
+        "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal24_native_editor:followup-v4",
+        "model": "gpt-6.1-sol",
+        "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal24_native_editor:followup-v4",
+        "model": "gpt-6.1-sol",
+        "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "semantic_response_count": 3,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "final_result_rows": 1,
+  "main_context_outbox_state": "EXISTING_OUTPUT_UNCHANGED_NO_MAIN_OR_DB_WRITE",
+  "media_reused_exact_bytes": true,
+  "media_sha256": [
+    "e9c12f6b971774e50e51e37c35073034d9e6b1f1e5aac01e7a0770b9d1ba5fa7"
+  ],
+  "native_response_rows": 3,
+  "new_media_renders": 0,
+  "observed_cost_usd": null,
+  "observed_token_usage": null,
+  "original_research_packages": 8,
+  "production_pause_sha256": "b0be68980cbfc2dd1a7fa80ac7eb2bfcfda7aa3b45b462dfd0a11788587e94de",
+  "public_dispatches": 0,
+  "qualified_articles": 1,
+  "research_decisions": {
+    "HOLD": 2,
+    "KEEP": 6,
+    "REVISE": 0,
+    "STALE": 0,
+    "UNREVIEWED": 0
+  },
+  "retained_propositions": 15,
+  "reviewed_handoff": {
+    "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+    "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+    "media_reuse_count": 1,
+    "model_invocations": 0,
+    "new_qualified_articles": 0,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal24-native-desktop-proof\\opportunity-v4\\reviewed-handoff",
+    "plan_hash": "e84e87f04746e0e1c8144900f0d25bc4ebff4dbe3591e382eb5c6d7f2af90ead",
+    "preview_count": 8,
+    "public_write_performed": false,
+    "review_id": "native-article-review-af642fb5e21247339267bbf543dc1b00",
+    "source_requests": 0
+  },
+  "reviewed_text_state": "ACCEPT_BOUNDED_DATED_EXPLAINER_PROOF_FUTURE_PUBLICATION_POLISH_REMAINS",
+  "run_id": "goal24-native-owner-manual-v4",
+  "source_requests": 0,
+  "visual_state": "PASS_ACTUAL_NEO_STORED_ARTICLE_EIGHT_PREVIEWS_MEDIA_DESKTOP_AND_MOBILE",
+  "visual_receipt": "../visual/inspection.json"
+}

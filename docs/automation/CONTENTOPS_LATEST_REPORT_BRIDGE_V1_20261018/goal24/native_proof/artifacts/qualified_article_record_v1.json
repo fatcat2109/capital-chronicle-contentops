@@ -1,0 +1,481 @@
+{
+  "accepted_evidence_ids": [
+    "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+  ],
+  "accepted_evidence_sha256": "35061938bb50c679083dc468caa07e26c945670fd7d43fab606601d4af41615b",
+  "article_body_sha256": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+  "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+  "article_path": null,
+  "attempt_run_id": "goal24-native-owner-manual-v4",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:XNGUSD",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\nWhat to watch: If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-64664743244f180a\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      },
+      "payload_sha256": "35d43c486f0a03fa6b3ac6c80df65c890f6b3fc3cc93de6313dc61cb6995012a",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:XNGUSD",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-64664743244f180a\n\nWatch: If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-64664743244f180a"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered."
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "CC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.996,
+            0.536,
+            0.521
+          ],
+          "post_character_counts": [
+            279,
+            150,
+            146
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.523,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.",
+          "CC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order."
+        ],
+        "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-64664743244f180a",
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-64664743244f180a"
+      },
+      "payload_sha256": "7bbdfca226ed144e23b2a502866179a2bc82e58c19c8e7180b971a8238e7c5d9",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:XNGUSD",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage**\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\n**Context:** Watch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-64664743244f180a\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      },
+      "payload_sha256": "506e864084dbf9864dfff79ff43f325368d2a69e01e12244c8892a421ff50a18",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:XNGUSD",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nWhy it matters: Capital Chronicle analysis: if confirmed, slower refill can coexist with above-average stocks; a seasonal comparison is not a consensus surprise.\n\nContext: Watch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-64664743244f180a\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      },
+      "payload_sha256": "ba5728971b8a9a5e217d2da91675f0a88c928a614bc837b056cc38a0051f4a57",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:XNGUSD",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\nWhy it matters: Capital Chronicle analysis: if confirmed, slower refill can coexist with above-average stocks; a seasonal comparison is not a consensus surprise.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-64664743244f180a\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      },
+      "payload_sha256": "2ce2e0b8917b8f35796726b163311bba789f58167ef2b12e024f3d09d13c9dc9",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:XNGUSD",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\nIn focus: Watch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-64664743244f180a\n\n#CapitalChronicle\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      },
+      "payload_sha256": "59132e5b7ef77842d3a082451d770b455fd21a5bd622af0d6338d8545b4f409b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:XNGUSD",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nWatch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-64664743244f180a\n\nWhat to watch: If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [],
+            "order": 0,
+            "role": "root",
+            "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nWatch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-64664743244f180a"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 0,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.638,
+            0.612
+          ],
+          "post_character_counts": [
+            319,
+            306
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.959,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order."
+        ],
+        "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nWatch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-64664743244f180a",
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nWatch the next storage reports, weather-adjusted demand, production, LNG exports and the gas curve before retaining the tightening thesis.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-64664743244f180a"
+      },
+      "payload_sha256": "14e74ee117d4c8e8f52913b0ff5b1606667b05bc2678b57e079cc964ab7e96c8",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:XNGUSD",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle on gas: slower refill does not establish a shortage\n\nCapital Chronicle: above-average gas stocks and slower seasonal refill answer different questions.\n\nWhat to watch: If later balances reverse the proposed tightening, or regional price differences block transmission, the analytical watch must be reconsidered.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-64664743244f180a\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      },
+      "payload_sha256": "b519260039468b3bce5d8cd798057e2697f358b6d269f40b7561c80fed32520b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 1,
+      "observations": [
+        {
+          "invocation_id": "/root/goal24_native_editor:followup-v4",
+          "model": "gpt-6.1-sol",
+          "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+          "reasoning_effort": "low",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal24_native_editor:followup-v4",
+          "model": "gpt-6.1-sol",
+          "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+          "reasoning_effort": "low",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal24_native_editor:followup-v4",
+          "model": "gpt-6.1-sol",
+          "observation_source": "native collaboration followup configured model/effort; output authored in this invocation",
+          "reasoning_effort": "low",
+          "speed": "standard",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "semantic_response_count": 3,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "LOW",
+    "semantic_response_count": 3
+  },
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:XNGUSD",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-19-bangkok",
+  "parent_window_id": "goal24-native-owner-manual-v4",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "16fc1f20bd50db58b95f5f662e8475073b80cd878b23e508c91526c9d4ff747c",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-7f4604468a05ac07064346c9",
+  "title": "Capital Chronicle on gas: slower refill does not establish a shortage",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-7f4604468a05ac07064346c9"
+}

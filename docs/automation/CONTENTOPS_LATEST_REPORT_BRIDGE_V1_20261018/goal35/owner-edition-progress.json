@@ -1,0 +1,58 @@
+{
+  "schema_version": "contentops.native_owner_edition.v1",
+  "edition_id": "goal35-current-market-issue",
+  "title": "October21 market issue: five new reviewed articles and forty prepared previews; one held source candidate",
+  "operation_ids": [
+    "goal35-oil",
+    "goal35-ibm",
+    "goal35-tesla",
+    "goal35-meta",
+    "goal35-southwest"
+  ],
+  "held_candidates": [
+    {
+      "operation_id": "goal35-fx",
+      "title": "FX conflict and inflation framing",
+      "reason": "HOLD: conflict-linked reporting remains one Reuters origin via Kitco, without independent corroboration. No new article or writer credit."
+    }
+  ],
+  "publication_authority": false,
+  "opportunity_outcomes": [
+    {
+      "operation_id": "goal35-oil",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW / KEEP / PREPARED without dispatch: the October21 closing snapshot is distinct from retained historical oil explainers. Exact native article, eight read and visually inspected previews, explicit text-only media gap. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained. Counts: 29 selection candidates; 3 logical source acquisitions within the six-request allocation; 3 actual accepted native responses. Issue scope: 102 intake files / 25,668 historical rows inspected; 0 admissible current X records / 0 new Luna responses. Six newly retained Reuters reports yielded five distinct NEW articles and one source HOLD. Native work: 5 Sol Light selections + 5 Sol MAX writes + 3 bounded revisions = 13 accepted responses. These issue counts are not daily published output."
+    },
+    {
+      "operation_id": "goal35-ibm",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW / KEEP / PREPARED without dispatch: higher software growth floor and transaction-processing demand persistence. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained. Counts: 28 selection candidates; 2 logical source acquisitions within the six-request allocation; 3 actual accepted native responses."
+    },
+    {
+      "operation_id": "goal35-tesla",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW / KEEP / PREPARED without dispatch: positive free cash flow versus below-estimate capital spending, still higher year on year. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained. Counts: 27 selection candidates; 2 logical source acquisitions within the six-request allocation; 3 actual accepted native responses."
+    },
+    {
+      "operation_id": "goal35-meta",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW / KEEP / PREPARED without dispatch: planned non-voting shares, control and cash-generation tradeoff. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained. Counts: 27 selection candidates; 2 logical source acquisitions within the six-request allocation; 2 actual accepted native responses."
+    },
+    {
+      "operation_id": "goal35-southwest",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "NEW / KEEP / PREPARED without dispatch: 2026 profit guidance versus reported quarterly fare/earnings progress and fuel pressure. Full canonical prose, SEO and eight packages read and visually inspected on desktop/mobile; explicit media gap; exact prepared payloads retained. Counts: 25 selection candidates; 2 logical source acquisitions within the six-request allocation; 2 actual accepted native responses."
+    },
+    {
+      "operation_id": "goal35-fx",
+      "outcome": "HOLD",
+      "source_blocked": true,
+      "reason": "HOLD: conflict-linked reporting remains one Reuters origin via Kitco, without independent corroboration. No new article or writer credit."
+    }
+  ]
+}

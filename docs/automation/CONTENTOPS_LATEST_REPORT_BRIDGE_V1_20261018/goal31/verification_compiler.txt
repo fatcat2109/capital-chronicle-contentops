@@ -1,0 +1,17 @@
+..F.....................................                                 [100%]
+================================== FAILURES ===================================
+_________ test_vietnamese_data_and_hedging_leads_keep_topic_alignment _________
+
+    def test_vietnamese_data_and_hedging_leads_keep_topic_alignment():
+        from live_contentops.v1_simple_gemini_newsroom_v1 import _selected_news_peg_blockers
+        data = {"headline_text": "SEC announces a roundtable about machine-understandable data."}
+        hedge = {"headline_text": "Futures markets allow hedging to limit commodity price risk."}
+        assert not _selected_news_peg_blockers({"title": "SEC l\xean l\u1ecbch t\u1ecda \u0111\xe0m d\u1eef li\u1ec7u m\xe1y hi\u1ec3u"}, data)
+>       assert not _selected_news_peg_blockers({"title": "Ph\xf2ng h\u1ed9 b\u1eb1ng h\u1ee3p \u0111\u1ed3ng t\u01b0\u01a1ng lai v\u1eabn c\u1ea7n ti\u1ec1n m\u1eb7t"}, hedge)
+E       AssertionError: assert not ['selected_current_news_peg_topic_missing_from_title_dek']
+E        +  where ['selected_current_news_peg_topic_missing_from_title_dek'] = <function _selected_news_peg_blockers at 0x00000261409C0AE0>({'title': 'Ph\xf2ng h\u1ed9 b\u1eb1ng h\u1ee3p \u0111\u1ed3ng t\u01b0\u01a1ng lai v\u1eabn c\u1ea7n ti\u1ec1n m\u1eb7t'}, {'headline_text': 'Futures markets allow hedging to limit commodity price risk.'})
+
+tests\test_v1_simple_gemini_newsroom_v1.py:78: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_v1_simple_gemini_newsroom_v1.py::test_vietnamese_data_and_hedging_leads_keep_topic_alignment
+1 failed, 39 passed in 4.63s

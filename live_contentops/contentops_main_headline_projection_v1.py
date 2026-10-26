@@ -24,6 +24,16 @@ SCHEMA = "contentops.main_headline_projection.v1"
 DESTINATION = "internal:contentops-main-headline-export"
 
 
+def projection_sha256(value):
+    """Match Main's existing mwp canonical UTF-8 (unescaped Unicode) row seal.
+
+    This wire-specific rule never changes the report/manifest canonicalization owner.
+    ASCII-only rows coincide under both encodings; curly quotes exposed the mismatch.
+    """
+    return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(",", ":"),
+                                     ensure_ascii=False, allow_nan=False).encode("utf-8")).hexdigest()
+
+
 def project_headline(
     row: Mapping[str, Any], *, cutoff_utc: str, locator: Mapping[str, Any], permission_resolver=None
 ) -> tuple[dict[str, Any] | None, str | None]:
@@ -69,10 +79,13 @@ def project_headline(
     retrieved = row.get("retrieval_time_utc") or row.get("captured_at_utc")
     published = row.get("headline_timestamp") or row.get("published_at_utc")
     revision = row.get("revision_at_utc") or known
+    undated_background = (published is None
+                          and row.get("source_platform") == "CONTENTOPS_ORIGINAL_OFFICIAL_ACQUISITION"
+                          and str((row.get("research_metadata") or {}).get("context_kind", "")).startswith("UNDATED_FOUNDATION_BACKGROUND"))
     try:
         if _time(retrieved) > _time(cutoff_utc) or _time(revision) > _time(cutoff_utc):
             return None, "FUTURE_HEADLINE_DEFERRED"
-        if not (_time(published) <= _time(known) <= _time(retrieved)) or _time(
+        if (not undated_background and _time(published) > _time(known)) or _time(known) > _time(retrieved) or _time(
             revision
         ) < _time(known):
             return None, "HEADLINE_CLOCK_ORDER_OR_FUTURE"
@@ -95,6 +108,7 @@ def project_headline(
         "source_url": url,
         "claimed_origins": [url],
         "headline_timestamp": published,
+        **({"publication_clock_basis": "UNKNOWN_UNDATED_FOUNDATION_NOT_CAPTURE_TIME"} if undated_background else {}),
         "captured_at_utc": known,
         "known_at_utc": known,
         "retrieval_time_utc": retrieved,
@@ -126,9 +140,12 @@ def project_headline(
         "upstream_report_lineage": row.get("upstream_report_lineage"),
         "originality": "MAIN_ORIGIN_RECIRCULATION" if row.get("upstream_report_lineage") else "INDEPENDENT_CONTENTOPS_ACQUISITION",
         "correction_of": row.get("correction_of"),
+        "research_context": {k: (row.get("research_metadata") or {}).get(k)
+                             for k in ("family", "assets", "context_kind", "source_modified_at_utc")},
+        "revision_clock_basis": row.get("revision_clock_basis", "RETAINED_RECORD_REVISION"),
         "source_permission_record_sha256": sha256_of(permissions),
     }
-    return {**output, "projection_sha256": sha256_of(output)}, None
+    return {**output, "projection_sha256": projection_sha256(output)}, None
 
 
 def permitted_report_headlines(
@@ -182,6 +199,7 @@ class MainHeadlineExporter:
     def __init__(self, store, *, research=None):
         self.store = store
         self.research = research
+        self._main_permission_rows = None
 
     def permission_for(self, row, cutoff):
         if self.research:
@@ -190,7 +208,9 @@ class MainHeadlineExporter:
                 return permission
         # Only exact rows reconstructed from accepted durable Main receipts inherit
         # the Main wire contract. A caller's lookalike row cannot grant itself rights.
-        for retained in permitted_report_headlines(LatestReportDeliveryTracker(self.store)):
+        if self._main_permission_rows is None:
+            self._main_permission_rows = permitted_report_headlines(LatestReportDeliveryTracker(self.store))
+        for retained in self._main_permission_rows:
             if sha256_of(retained) == sha256_of(row):
                 return {"content_sha256": hashlib.sha256(" ".join(row["headline_text"].split()).encode()).hexdigest(),
                         "INTERNAL_ANALYSIS_ALLOWED": True, "MODEL_INPUT_ALLOWED": True,
@@ -213,7 +233,7 @@ class MainHeadlineExporter:
     ) -> dict[str, Any]:
         if not 1 <= max_rows <= 1000 or not 1 <= max_files <= 16:
             raise ValueError("headline_export_bound_invalid")
-        authority_revision += ":verified-permission-records-v2:" + (self.research.revision if self.research else "sealed-main-only")
+        authority_revision += ":verified-permission-records-v2:main-native-utf8-seal-v1:undated-foundation-v1:" + (self.research.revision if self.research else "sealed-main-only")
         identity = "headline-export-" + sha256_of(batch_id)
         previous = self.store.get_outbox_message(identity)
         if previous:
@@ -241,6 +261,9 @@ class MainHeadlineExporter:
                         r["text_sha256"],
                         r["revision_at_utc"],
                         r["rights_evidence_sha256"],
+                        r.get("research_context"), r.get("correction_of"), r.get("upstream_report_lineage"),
+                        r.get("source_capture_sha256"),
+                        r.get("projection_sha256"),
                     ]
                 )
 
@@ -360,14 +383,30 @@ class MainHeadlineExporter:
                 projected, reason = project_headline(
                     row,
                     cutoff_utc=cutoff_utc,
-                    locator={"retained_authority": "SEALED_MAIN_PUBLIC_REPORT"},
+                    locator={"retained_authority": "SEALED_MAIN_PUBLIC_REPORT" if row.get("upstream_report_lineage")
+                             else "INDEPENDENT_RETAINED_SOURCE", "source_capture_sha256": row.get("source_capture_sha256")},
                     permission_resolver=self.permission_for,
                 )
                 if projected and content_identity(projected) not in seen:
                     rows.append(projected)
                     seen.add(content_identity(projected))
                 elif reason:
-                    gaps.append({"state": reason, "record_sha256": sha256_of(row)})
+                    gaps.append({"state": reason, "headline_id": row.get("headline_id"), "record_sha256": sha256_of(row)})
+            # Wire resealing/locator repair is delivery supersession, never nine new
+            # observations. Keep this on the existing page, outside Main's sealed row.
+            prior_by_id = {r["headline_id"]: r for p in sorted(pages, key=lambda p: p["sequence"]) for r in p["rows"]}
+            dispositions = []
+            for row in rows:
+                old = prior_by_id.get(row["headline_id"])
+                changed_fact = bool(old and (old["text_sha256"] != row["text_sha256"] or old.get("correction_of") != row.get("correction_of")))
+                changed_context = bool(old and any(old.get(k) != row.get(k) for k in (
+                    "research_context", "upstream_report_lineage", "rights_evidence_sha256", "revision_at_utc", "source_capture_sha256")))
+                kind = "NEW_PROPOSITION" if not old else "PROPOSITION_CORRECTION" if changed_fact else "CONTEXT_REVISION" if changed_context else "REPRESENTATION_SUPERSESSION"
+                dispositions.append({"headline_id": row["headline_id"], "change_kind": kind,
+                    "previous_projection_sha256": old.get("projection_sha256") if old else None,
+                    "projection_sha256": row["projection_sha256"], "originality": row["originality"],
+                    "new_independent_observation": not old and row["originality"] == "INDEPENDENT_CONTENTOPS_ACQUISITION",
+                    "material_context_change": not old or changed_fact or changed_context})
             page = {
                 "schema_version": SCHEMA,
                 "sequence": int(last.get("sequence", 0)) + 1,
@@ -382,6 +421,9 @@ class MainHeadlineExporter:
                 "missing_rows": len(gaps),
                 "independent_items": sum(r["originality"] == "INDEPENDENT_CONTENTOPS_ACQUISITION" for r in rows),
                 "main_origin_recirculated_items": sum(r["originality"] == "MAIN_ORIGIN_RECIRCULATION" for r in rows),
+                "change_dispositions": dispositions,
+                "new_independent_observations": sum(d["new_independent_observation"] for d in dispositions),
+                "representation_supersessions": sum(d["change_kind"] == "REPRESENTATION_SUPERSESSION" for d in dispositions),
                 "cursors": cursors,
                 "deferred": deferred,
                 "files": files,

@@ -1,0 +1,45 @@
+{
+  "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+  "assets": [
+    {
+      "asset_id": "official_source_document_card",
+      "role": "lead_contextual",
+      "media_role": "lead_source_document_card",
+      "modality": "source_document_card",
+      "media_class": "source_backed_render",
+      "evidence_dimension": "official_document_identity",
+      "path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow\\media_assets\\source_document_card.png",
+      "source_page_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+      "source_label": "www.cftc.gov",
+      "publisher": "www.cftc.gov",
+      "source": "www.cftc.gov",
+      "publication_date": "Publication date not supplied; retained 21 October 2026",
+      "rights_status": "capital_chronicle_owned",
+      "render_rights_status": "capital_chronicle_owned",
+      "underlying_source_rights_status": "public_domain",
+      "source_reuse_basis": "explicit_governed_government_public_domain",
+      "provenance_status": "SOURCE_BACKED",
+      "chart_title": "Futures hedging and the margin cashflow question, www.cftc.gov. Source date: Publication date not supplied; r…",
+      "caption": "Kiến thức nền CFTC: ký quỹ là bảo đảm thực hiện nghĩa vụ, có điều chỉnh theo thị trường. Ngày công bố nguồn chưa xác minh; đọc ngày21/10/2026. Không phải điều khoản hợp đồng hiện tại.",
+      "alt_text": "Thẻ nguồn CFTC về ký quỹ bảo đảm thực hiện nghĩa vụ; ngày công bố chưa được cung cấp, không phải số liệu thị trường hiện tại.",
+      "width": 1600,
+      "height": 900,
+      "dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "sha256": "373e8985d78a6408c16f2c272841ab8a7135dbf7de1416363aec169cdfa68c01",
+      "article_section": "source_record",
+      "canonical_article_section_association": "source_record",
+      "relevance_rationale": "Establishes the exact official record the grounded article reports.",
+      "supports_headline": true,
+      "is_logo": false,
+      "is_avatar": false,
+      "is_thumbnail": false,
+      "is_synthetic": false,
+      "is_manipulated": false,
+      "ai_generated_image": false,
+      "underlying_series_ids": []
+    }
+  ]
+}

@@ -1,0 +1,169 @@
+{
+  "article_identity": "d72fd713b4e0ed88fc3b9cab34daa34d8822bb1b12249fcc1609f541462adb73",
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88",
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "compiler_input_sha256": "9c927e45695ee6562fad60fc76396aaced9ab97fb207d35637c987b3d957affb",
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.sec.gov",
+    "primary_reporting_source_identity": "www.sec.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.sec.gov reports that the U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal29-sec-amf-supervision"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "every_preview_preserves_epistemic_state": true,
+  "final_validated_article_public_copy_sha256": "bc1bbee31857ada2478e14bbf507e0c1b8064a4462fd2c4dfd5c2d0fd4324b06",
+  "package_count": 8,
+  "packages": {
+    "discord": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]**\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\n**Context:** Đối án đáng cân nhắc là một khuôn khổ hợp tác có thể có giá trị ngay ở khâu phối hợp giám sát, trước khi có kết quả đăng ký để thống kê.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88\n\nSource date: 2026-10-20. Interpretation remains analysis."
+    },
+    "facebook_page": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 63206,
+      "text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\nWhy it matters: Mắt xích của thỏa thuận là thông tin phục vụ giám sát xuyên biên giới.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88\n\nSource date: 2026-10-20. Interpretation remains analysis."
+    },
+    "instagram_business": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "platform_limit": 2200,
+      "text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\nIn focus: Đối án đáng cân nhắc là một khuôn khổ hợp tác có thể có giá trị ngay ở khâu phối hợp giám sát, trước khi có kết quả đăng ký để thống kê.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88\n\n#CapitalChronicle\n\nSource date: 2026-10-20. Interpretation remains analysis."
+    },
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 3000,
+      "text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nWhy it matters: Mắt xích của thỏa thuận là thông tin phục vụ giám sát xuyên biên giới.\n\nContext: Đối án đáng cân nhắc là một khuôn khổ hợp tác có thể có giá trị ngay ở khâu phối hợp giám sát, trước khi có kết quả đăng ký để thống kê.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88\n\nSource date: 2026-10-20. Interpretation remains analysis."
+    },
+    "telegram": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nCONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\nWhat to watch: Với người đọc theo dõi khả năng tiếp cận thị trường Mỹ, dấu mốc đáng chờ là kết quả xử lý các hồ sơ mới và đang chờ.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88\n\nSource date: 2026-10-20. Interpretation remains analysis."
+    },
+    "threads": {
+      "format": "text_brief",
+      "full_text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nĐối án đáng cân nhắc là một khuôn khổ hợp tác có thể có giá trị ngay ở khâu phối hợp giám sát, trước khi có kết quả đăng ký để thống kê.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88\n\nWhat to watch: Với người đọc theo dõi khả năng tiếp cận thị trường Mỹ, dấu mốc đáng chờ là kết quả xử lý các hồ sơ mới và đang chờ.\n\nSource date: 2026-10-20.\n\nInterpretation remains analysis.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nĐối án đáng cân nhắc là một khuôn khổ hợp tác có thể có giá trị ngay ở khâu phối hợp giám sát, trước khi có kết quả đăng ký để thống kê.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: Với người đọc theo dõi khả năng tiếp cận thị trường Mỹ, dấu mốc đáng chờ là kết quả xử lý các hồ sơ mới và đang chờ.\n\nSource date: 2026-10-20.\n\nInterpretation remains analysis."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.622,
+          0.382
+        ],
+        "post_character_counts": [
+          311,
+          191
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.614,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: Với người đọc theo dõi khả năng tiếp cận thị trường Mỹ, dấu mốc đáng chờ là kết quả xử lý các hồ sơ mới và đang chờ.\n\nSource date: 2026-10-20.\n\nInterpretation remains analysis."
+      ],
+      "root_text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nĐối án đáng cân nhắc là một khuôn khổ hợp tác có thể có giá trị ngay ở khâu phối hợp giám sát, trước khi có kết quả đăng ký để thống kê.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88",
+      "text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nĐối án đáng cân nhắc là một khuôn khổ hợp tác có thể có giá trị ngay ở khâu phối hợp giám sát, trước khi có kết quả đăng ký để thống kê.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88"
+    },
+    "x": {
+      "format": "text_brief",
+      "full_text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88\n\nWatch: Với người đọc theo dõi khả năng tiếp cận thị trường Mỹ, dấu mốc đáng chờ là kết quả xử lý các hồ sơ mới và đang chờ.\n\nSource date: 2026-10-20.\n\nInterpretation remains analysis.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: Với người đọc theo dõi khả năng tiếp cận thị trường Mỹ, dấu mốc đáng chờ là kết quả xử lý các hồ sơ mới và đang chờ.\n\nSource date: 2026-10-20.\n\nInterpretation remains analysis."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.896,
+          0.654
+        ],
+        "post_character_counts": [
+          251,
+          183
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.729,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: Với người đọc theo dõi khả năng tiếp cận thị trường Mỹ, dấu mốc đáng chờ là kết quả xử lý các hồ sơ mới và đang chờ.\n\nSource date: 2026-10-20.\n\nInterpretation remains analysis."
+      ],
+      "root_text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88",
+      "text": "CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88"
+    },
+    "youtube": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 1000,
+      "text": "Update: CONFIRMED | MOU SEC–AMF nối hợp tác giám sát với xử lý hồ sơ đăng ký tại Mỹ [Source 2026-10-20]\n\nSEC–AMF gắn chia sẻ thông tin giám sát với xử lý đơn mới và đang chờ tại Mỹ.\n\nWhat to watch: Với người đọc theo dõi khả năng tiếp cận thị trường Mỹ, dấu mốc đáng chờ là kết quả xử lý các hồ sơ mới và đang chờ.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-d72fd713b4e0ed88\n\nSource date: 2026-10-20. Interpretation remains analysis."
+    }
+  },
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_coordinator_dispatch_count": 0,
+  "rematerialization_after_real_substack_url_required": true,
+  "schema_version": "contentops.v1_simple_native_derivative_previews.v1",
+  "unknown_write_count": 0
+}

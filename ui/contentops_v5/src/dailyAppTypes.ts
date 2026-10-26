@@ -164,6 +164,12 @@ export interface RuntimeCockpit {
 }
 
 export interface DailyAppSnapshot {
+  editorial_execution_target?: {
+    owner: string; model: string; reasoning_effort: string; target_status: string;
+    deployed_state: string; public_write_authority: boolean;
+    editorial_roles?: Record<string, { model: string; reasoning_effort: string }>;
+    role_settings_state?: string;
+  };
   schema_version: string;
   generated_at_utc: string;
   freshness: {
@@ -323,7 +329,107 @@ export type LoadState =
   | { kind: 'offline'; snapshot: DailyAppSnapshot | null; error: string };
 
 
+export interface ResearchPackage {
+  brief_id: string; article_identity: string; stage: string; source_revision_current: boolean;
+  package_revision?: string; editorial_kind?: string;
+  article: NonNullable<ReportWorkspaceData['article']>;
+  validation: { status: string; semantic_editorial_review: string; blockers: string[] };
+  previews: Record<string, Record<string, unknown>>;
+  media_assets: Array<{ asset_id: string; caption: string; preview_data_url?: string; alt_text?: string; sha256: string }>;
+  review?: { state: string; latest_review_id: string | null; rationale?: string | null; history: Array<{ review_id: string; reviewed_at: string; decision: string; rationale: string; package_revision: string }> };
+  supporting_claims?: Array<{ item_id: string; proposition: string; context_kind: string; source_url: string; published_at_utc: string | null; known_at_utc: string; rights_state: string; text_sha256: string; source_capture_sha256: string; permission_sha256: string }>;
+  counterevidence?: Array<{ kind?: string; relation?: string; text: string; editorial_inference?: string; source_item_ids?: string[]; external_counterevidence_observed: boolean }>;
+  missing_current_inputs?: string[];
+}
+
+export interface EvolvingStory {
+  story_identity: string; update_chain_identity: string; brief_id: string; title: string; families: string[];
+  disposition: string; reason: string; reader_question: string; follow_up_value: string;
+  changed_source_count: number; brief_changed: boolean; work_required: boolean; missing_inputs: string[];
+  publication_state: string; confirmation_state: string;
+  epistemic_states?: Array<{ item_id: string; state: string; context_kind: string; scope: string }>;
+  current_review?: ResearchPackage['review'];
+  prior_package: null | { article_identity: string; title: string; full_text: string; stage: string };
+  package_history: Array<{ article_identity: string; title: string; full_text?: string; package_sequence: number; stage: string }>;
+  evidence_delta: Array<{ item_id: string; state: string; material: boolean; before: null | { proposition: string; source_url: string; rights_state: string }; after: null | { proposition: string; source_url: string; rights_state: string } }>;
+  main_history: Array<{ report_id: string; report_version: number; change_kind: string; status: string; withdrawal_only?: boolean; withdrawn?: boolean; known_at_cutoff_utc: string; changed_claims: Array<{ claim_id: string; before: null | { text: string; producer_layer: string }; after: null | { text: string; producer_layer: string } }> }>;
+  published_prior?: null | { previous_title: string; previous_canonical_url: string; previous_full_text: string; previous_published_at_utc: string };
+  canonical_memory_article_count?: number;
+}
+
+export type MaintainedStoryVersion = NonNullable<ReportWorkspaceData['native_edition']>[number] & {
+  accepted_at_utc: string | null; analysis_as_of_utc: string | null; analysis_age_seconds: number | null;
+  source_dates: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string | null;
+    published_at_source?: string | null; canonical_content_sha256?: string; age_seconds: number | null; clock_kind?: string }>;
+  next_observation: string | null; last_source_check_utc: string | null; source_check_scope: string;
+};
+export interface MaintainedNativeStory {
+  story_identity: string; title: string; state: string; reader_question: string | null; current_view: string | null;
+  countercase?: string | null;
+  current_article_identity: string; prior_article_identity: string | null; next_observation: string | null;
+  conditional_thesis_test?: string | null;
+  next_observation_details?: { observable: string; expected_at_utc: string | null; date_state: string;
+    sources: string[]; discriminator: string | null; missing_evidence: string; source_review_id: string; scope: string } | null;
+  declared_prior_article_identity?: string | null; lineage_gap?: boolean;
+  latest_assessment?: { decision: string; summary: string; cutoff_utc: string; reviewed_at_utc: string | null;
+    missing_sources: Array<{ url: string; status: string }> } | null;
+  change: { decision: string | null; summary: string | null; interpretation_changed: boolean;
+    prior_interpretation: string | null; current_interpretation: string | null; coverage_complete: boolean | null;
+    missing_sources: Array<{ url: string; status: string }>;
+    source_changes: Array<{ item_id: string; state: string; before?: { proposition?: string } | null;
+      after?: { proposition?: string } | null }> };
+  versions: MaintainedStoryVersion[]; current_version: MaintainedStoryVersion; observed_at_utc: string;
+}
 export interface ReportWorkspaceData {
+  maintained_stories?: MaintainedNativeStory[];
+  audience_learning?: {
+    current?: { policy: { policy_version: string | null; decision?: string; decision_reason?: string; sample_count: number; confidence: number; latest_collected_at_utc?: string }; feedback: Array<{ observation_id: string; collected_at_utc: string; scheduled_for_utc: string; semantic_state: string; native_metrics?: Record<string, number | null>; metric_availability?: Record<string, string> }>; metrics_model_calls: number };
+    opportunities: Array<{ run_id: string; snapshot_sha256: string; policy: { policy_version: string | null }; feedback_count: number; next_operation: string }>;
+    follow_up_briefs: Array<{ run_id?: string; feedback_effect?: string; next_operation?: string; brief_candidate?: { working_headline: string; editorial_angle: string }; ranked_questions?: Array<{ candidate_id: string; rank: number; question: string; action: string; missing_evidence: string[]; exact_article_match: { run_id: string; article_identity: string } }> }>;
+  };
+  main_admission_summary?: Array<{ report_id: string; report_version: number; report_sha256: string; claims: number;
+    native_public_excerpts: number; provenance_state: string; independent_native_runtime_verified: boolean; known_at_cutoff_utc: string | null }>;
+  owner_edition?: { edition_id: string; title: string; operation_ids: string[]; ready: number; held: number; missing: number;
+    preview_count: number; held_candidates: Array<{ title: string; reason: string }>;
+    opportunity_counts?: { new: number; update: number; keep: number; hold: number; source_blocked: number };
+    opportunity_outcomes?: Array<{ operation_id: string; outcome: string; reason: string; source_blocked: boolean }> } | null;
+  source_reviews?: Array<{ review_id: string; run_id: string; title: string; decision: string; reader_change_summary: string;
+    cutoff_utc: string; invalidates_prepared_review: boolean; media_state: string; removed_main_claim_ids: string[];
+    source_editions: Array<{ item_id: string; proposition: string; source_url: string; published_at_utc: string | null;
+      observation_date?: string; retrieved_at_utc: string; period_relation: string; rights_state: string }>;
+    source_attempts: Array<{ url: string; status: string; observed_at_utc: string }> }>;
+  native_edition?: Array<{
+    run_id: string; article_identity: string; article: NonNullable<ReportWorkspaceData['article']>;
+    angle?: string; reader_question?: string; mode?: string;
+    prepared_state?: string;
+    publication?: { state: string; next_operation: string; next_command?: string; dispatch_blocker?: string; operation_scope?: string;
+      review_id?: string; plan_hash?: string; work_item_id?: string;
+      destinations: Array<{ destination: string; status: string; reconciliation_status?: string | null;
+        public_object_url?: string | null; blocker?: string | null; cached_readiness: string }> };
+    source_review?: { decision: string; reader_change_summary: string } | null;
+    report_id?: string | null; report_version?: number | null; source_report_sha256?: string | null;
+    review?: { decision: string; rationale: string } | null;
+    previews: ReportWorkspaceData['previews'];
+    evidence?: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string; published_at_source?: string }>;
+    media_assets?: Array<{ asset_id: string; caption: string; alt_text?: string; preview_data_url?: string; path: string; sha256: string }>;
+  }>;
+  media_assets?: Array<{ asset_id: string; path: string; sha256: string; caption: string; alt_text?: string; preview_data_url?: string; reuse_state?: string }>;
+  native_article_reviews?: Array<{ article_identity: string; decision: string; rationale: string; package_revision: string; publication_authority: boolean }>;
+  foundation_library?: {
+    stories?: EvolvingStory[];
+    publication_memory?: { observed_at_utc: string; article_count: number; source: string };
+    research_revision: string; observed_at_utc: string;
+    desk?: { decisions: Record<string, number>; useful_research_packages: number; missing_current_input_coordinates: string[]; kind_counts: Record<string, number>; affected_work: Array<{ brief_id: string; reason: string }> };
+    counts: { independent_items: number; independent_documents?: number; useful_families: number; briefs: number; fresh_provider_drafts: number; qualified: number; published: number; editor_authored_packages?: number; native_previews?: number; media?: number };
+    input_composition?: { independent_research_items: number; evidence_complete_briefs: number; main_editorial_reports: number; main_unchanged_reports: number; main_history_only_reports: number; owner: string; routine_window_count: number; model_execution_state: string };
+    packages?: ResearchPackage[];
+    families: Array<{ family: string; useful_items: number; briefs: number; missing_inputs: string[] }>;
+    items: Array<{ item_id: string; family: string; assets: string[]; horizons: string[]; proposition: string; context_kind: string; source_url: string; source_identity: string; rights_state: string; permission_sha256: string; source_capture_sha256: string; originality: string; known_at_utc: string; published_at_utc: string | null; source_modified_at_utc?: string | null; next_editorial_question: string; correction_of?: string | null }>;
+    briefs: Array<{ brief_id: string; title: string; families: string[]; stage: string; source_item_ids: string[]; audience_value: string; mechanism: string; competing_explanation: string; scenarios: string[]; falsifiers: string[]; missing_inputs: string[]; next_question: string; facts: Array<{ item_id: string; text: string; source_url: string; text_sha256: string }> }>;
+    gaps: Array<{ state: string }>; next_operation: string;
+    main_reports?: Array<{ report_id: string; report_version: number; asset_ids: string[]; families: string[]; status: string; change_kind: string; withdrawn: boolean; originality: string; next_editorial_question: string; context_kind: string; changed_claim_ids: string[]; limitations?: string[]; horizons: Array<{ horizon: string; trading_sessions: number; outlook: string }>; public_claims: Array<{ claim_id: string; producer_layer: string; text: string; freshness_state: string; exact_or_proxy: string; basis_risk?: string | null; evidence?: Array<{ evidence_id: string; source_url: string; observation_time_utc: string | null; known_at_utc: string | null; retrieval_time_utc: string | null; freshness_state: string; pit_state: string; exact_or_proxy: string; rights_state: string }> }> }>;
+    report_admissions_and_noops?: Record<string, number>;
+  } | null;
   source_inventory?: { independent_items: number; main_origin_recirculated_items: number; scope: string };
   freshness?: { report_age_at_last_scan_seconds: number | null; claims: string[]; current_market_refresh_verified: boolean; scope: string };
   independent_results?: Array<{ classification: string; model_execution_state: string; article_identity: string; article: ReportWorkspaceData['article']; previews: ReportWorkspaceData['previews']; evidence?: Array<{ source_id: string; url: string; publisher: string; published_at_utc: string }>; media_assets?: Array<{ asset_id: string; caption: string; path: string; sha256: string; underlying_source_rights_status: string; preview_data_url?: string; alt_text?: string }> }>;
@@ -354,7 +460,8 @@ export interface ReportWorkspaceData {
   };
   latest_editorial_input?: Record<string, unknown> | null;
   latest_simple_result?: { classification?: string; model_execution_state?: string; draft_count?: number; preview_count?: number; claim_lineage?: Array<Record<string, unknown>> } | null;
-  article: null | { title: string; dek: string; substack_body_markdown: string };
+  article: null | { title: string; dek: string; substack_body_markdown: string; search_title?: string;
+    meta_description?: string; canonical_slug_candidate?: string; source_date_notice?: string; source_notes?: string[] };
   previews: Array<{ destination: string; preview_id: string; article_identity: string; payload: Record<string, unknown>; claim_lineage: Array<Record<string, unknown>> }>;
   history: Array<{ report_version: number; state: string; article_identity: string; preview_ids: string[]; superseded_by_version: number }>;
   workspaces?: ReportWorkspaceData[];

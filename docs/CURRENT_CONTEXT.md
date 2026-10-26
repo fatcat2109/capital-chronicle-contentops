@@ -1,6 +1,6 @@
 # Capital Chronicle ContentOps — Current Context
 
-Authority date: 2026-09-01
+Authority date: 2026-10-20
 Status: `CURRENT_BOOTSTRAP_POINTER / MAIN_V1_STATE_LOCKED_BEFORE_BROWSER_SOURCE_ARCHITECTURE`
 
 This is a compact bootstrap only. Root `AGENTS.md`, the current authority/supersession map, North
@@ -21,7 +21,17 @@ Star V3, Master Plan V3, and exact current code/runtime evidence are stronger.
 
 Always fetch remote `master` and relevant branches before trusting recorded SHAs.
 
-## Locked V1 truth before the browser-source architecture detour
+## Current route (owner 2026-10-20)
+
+Native Desktop is target editorial owner, gpt-6.1-sol / low (Light), standard speed.
+Read `docs/automation/CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md`, the current lane pointer
+and Goal24 owning handoff. Four existing tasks and production LLM pause remain unchanged.
+No engineering activation/public write. Main public feed, evolving story/review and source/native
+compiler/store/coordinator foundations are reused; Neo is target browser path, API/bot reuse per channel.
+
+## Historical pre-migration provenance (2026-09-01)
+
+## Historical V1 truth before the browser-source architecture detour
 
 Protected/deployed V1 epoch before the detour:
 

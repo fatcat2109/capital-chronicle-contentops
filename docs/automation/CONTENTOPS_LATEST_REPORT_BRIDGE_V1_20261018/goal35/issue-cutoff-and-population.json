@@ -1,0 +1,100 @@
+{
+  "schema_version": "contentops.goal35.finite_issue.v1",
+  "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+  "acquisition_start_utc": "2026-10-21T22:24:27Z",
+  "publication_cutoff_utc": "2026-10-21T22:29:51.437174Z",
+  "all_retained_known_at_before_cutoff": true,
+  "current_candidates": [
+    {
+      "headline_id": "goal35-oil",
+      "title": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+      "url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+      "published_at_utc": "2026-10-21T19:17:12Z",
+      "known_at_utc": "2026-10-21T22:27:23.049Z",
+      "source_chars": 541,
+      "exact_source_requests_before_freeze": 3,
+      "source_scope": "Attributed report facts, not event confirmation; no expression/media reuse"
+    },
+    {
+      "headline_id": "goal35-fx",
+      "title": "Dollar holds steady as Middle East tensions simmer, oil rises",
+      "url": "https://www.kitco.com/news/off-the-wire/2026-10-21/dollar-holds-steady-middle-east-tensions-simmer-oil-rises",
+      "published_at_utc": "2026-10-21T13:18:01Z",
+      "known_at_utc": "2026-10-21T22:27:23.024Z",
+      "source_chars": 964,
+      "exact_source_requests_before_freeze": 3,
+      "source_scope": "Attributed report facts, not event confirmation; no expression/media reuse"
+    },
+    {
+      "headline_id": "goal35-ibm",
+      "title": "IBM raises annual software revenue outlook as deal delays ease",
+      "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+      "published_at_utc": "2026-10-21T20:12:00Z",
+      "known_at_utc": "2026-10-21T22:27:23.029Z",
+      "source_chars": 656,
+      "exact_source_requests_before_freeze": 2,
+      "source_scope": "Attributed report facts, not event confirmation; no expression/media reuse"
+    },
+    {
+      "headline_id": "goal35-southwest",
+      "title": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+      "url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
+      "published_at_utc": "2026-10-21T20:23:00Z",
+      "known_at_utc": "2026-10-21T22:27:23.031Z",
+      "source_chars": 895,
+      "exact_source_requests_before_freeze": 2,
+      "source_scope": "Attributed report facts, not event confirmation; no expression/media reuse"
+    },
+    {
+      "headline_id": "goal35-tesla",
+      "title": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+      "url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/",
+      "published_at_utc": "2026-10-21T20:06:00Z",
+      "known_at_utc": "2026-10-21T22:27:23.026Z",
+      "source_chars": 570,
+      "exact_source_requests_before_freeze": 2,
+      "source_scope": "Attributed report facts, not event confirmation; no expression/media reuse"
+    },
+    {
+      "headline_id": "goal35-meta",
+      "title": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+      "url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+      "published_at_utc": "2026-10-21T20:05:00Z",
+      "known_at_utc": "2026-10-21T22:27:23.026Z",
+      "source_chars": 916,
+      "exact_source_requests_before_freeze": 2,
+      "source_scope": "Attributed report facts, not event confirmation; no expression/media reuse"
+    }
+  ],
+  "other_discovery_dispositions": [
+    {
+      "identity": "Reuters markets landing",
+      "state": "ACCESS_GAP",
+      "reason": "Landing page showed verification; no captcha or access bypass. Exact public article paths were independently readable."
+    },
+    {
+      "identity": "Fed releases",
+      "state": "DUPLICATE_OR_NO_NEW_QUESTION",
+      "reason": "Latest bounded list ends October16; retained monetary and current SEC/public Main context already covers dated mechanisms. No fresh rate decision."
+    },
+    {
+      "identity": "EIA hybrid/solar/grid list",
+      "state": "REUSE_OR_CONTEXT_NOT_NEW_TODAY",
+      "reason": "Latest visible date October19; solar/grid already retained and not recast as breaking. Hybrid third-party Omdia chart rights not assumed."
+    },
+    {
+      "identity": "other Google locator titles",
+      "state": "NOT_ADMITTED",
+      "reason": "Locator metadata only; no source body retained and no source/event truth inferred. Discovery closed after the six exact readable current reports, without claiming universal market coverage."
+    }
+  ],
+  "discovery_closed": true,
+  "new_x_records": 0,
+  "max_story_operations": 8,
+  "target_new_or_material_update": [
+    5,
+    8
+  ],
+  "sources_are_report_truth_only": true,
+  "public_write_performed": false
+}

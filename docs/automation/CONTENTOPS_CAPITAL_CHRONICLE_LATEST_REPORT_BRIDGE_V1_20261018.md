@@ -360,3 +360,84 @@ Source/evidence continuation `a8894effa44d72950e4e91868c33bdfdd4fad7c9` is pushe
 refresh `bfae9d308edd717363cd46a599429549ec9db9f7` binds that source epoch. Final remote/PR head
 and exact-head CI readback are in PR88's final verification section. LLM pause and
 runtime remain unchanged. Fresh provider/natural-calendar runtime proof, merge and deployment are not claimed.
+
+## Goal21 — multi-asset newsroom research library
+
+Status: `REAL_MULTI_ASSET_LIBRARY_VERIFIED_SCOPED_DELIVERY`.
+[Owning Goal21 handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/RELEASE_HANDOFF.md)
+retains the full goal and Jim's Exness ownership amendment. Actual independent result:
+**6 families, 14 propositions from 8 documents, 7 substantive briefs, 7 editor-authored research
+packages, 56 native previews and 7 source-backed media**. These are research/editorial artifacts;
+fresh provider, qualified Simple and published counts remain zero. One connected cross-asset
+package separates the rate/FX mechanism from metal/crypto ownership and custody questions.
+Current market and source-family gaps remain explicit; no numerical historical backfill is done.
+
+The existing feed now continues history beyond 128 manifests using a verified checkpoint and
+avoids repeated content reads for unchanged hash-verified public bundles. The existing Daily App,
+store and four-window owner are extended; no parallel authority. Main commit
+`a50d8c6e8620cbf2e45aa93beee9e1b557484b30` and all 22 public files match exact committed and
+configured-root bytes. The same-store real readback received **4 ancestors + 4 editorial records,
+including 3 latest assets** (UKOIL v2, USOIL v4, XNGUSD v2); restart added **0**, with zero gaps.
+The joined library preserves clocks, PIT, rights, proxy limits and fact/analysis/scenario labels.
+Scoped [PR90](https://github.com/fatcat2109/capital-chronicle-contentops/pull/90) retains the final
+source/remote/exact-head CI readback and CodeGraph epoch; the owning handoff includes the full
+completion matrix and actual final Main render inspection. Merge/deploy are excluded. Exness data is Builder 3's
+exclusive producer lane; ContentOps neither reads private Main catalog/account/portfolio nor
+contacts database chats. LLM pause remains active.
+
+
+## Goal22 — revision-bound editorial desk and reciprocal research
+
+Status: `SCOPED_GOAL22_DELIVERY_COMPLETE_EXACT_HEAD_CI_IN_PR90`. [Owning Goal22 handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/RELEASE_HANDOFF.md)
+retains the full objective and requirement audit. Existing `review_records` now serves reasoned
+KEEP/REVISE/HOLD for exact source/brief/article/media/preview/Main revisions, with selective
+invalidation and existing-outbox affected work; no second owner. All seven research packages
+were substantively repaired: **5 KEEP / 2 HOLD**, **15 propositions / 9 documents**, **7 packages /
+56 previews / 7 media**. Six images reused, one changed gas source card. Twenty-one historical
+review rows describe seven unique packages; publication/qualified/fresh-provider counts are zero.
+
+The same isolated store reuses eight Main receipts and three current public reports; restart and
+one paused four-window composition retain decisions. Actual final Neo desktop/mobile inspection
+passed after repairing one label overflow (430px == scroll width). Nine dated context-only/non-numeric
+Main export rows plus five undated dispositions are pinned in revision2 at PR90. **Actual Main
+receiver receipt remains NOT_VERIFIED**. CodeGraph/final source/CI delivery is being closed on the
+same PR; no self-merge/deploy, production tick, pause release, public/provider writes, private
+Main/DB/broker reads or database/operator/builder messages. Full North Star remains unfinished.
+
+
+Goal22 final reciprocal repair: independent Main receipt initially accepted 8/9 from Goal21;
+Main's existing native UTF-8 row canonicalization differed for a curly apostrophe. ContentOps
+wire revision3 fixes only that seal and preserves source text/clocks/rights. Actual unchanged Main
+receiver code at `9fcb917d698f92b284195d8d248c40a5ae75b382` now accepts **9/9**, zero rejected,
+all context-only/non-numeric; five undated backgrounds remain separate. This is an isolated
+ContentOps-operator invocation of Main's exact receiver, not Main production ingestion or a
+public/native-calendar result. [Corrected exact receipt](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal22/main_receiver/corrected_nine_row_receipt.json)
+supersedes the earlier NOT_VERIFIED receiving state. Final corrected-wire commit/CodeGraph/CI
+will be recorded in PR90; no further product scope, merge, deployment or activation is implied.
+
+
+Goal22 closeout: final implementation `8959d6d8d3f389a5d9a3b090ba426b7e0bc9e49a` and
+CodeGraph `3997252d093f1216c56f28a89bf209cb9e542b9b` are delivered; the full requirement audit
+is in the owning handoff. Exact final remote/PR/head CI result is recorded in PR90 before native
+goal completion. Current 5 KEEP/2 HOLD, seven research packages, 56 previews/seven media and
+actual isolated Main 9/9 + five undated dispositions remain the useful scoped result. No full
+North Star, deployment, merge, provider/public-write or production-ingestion claim is made.
+
+## Goal23 — evolving story desk and connected energy research
+
+[Owning handoff](CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal23/RELEASE_HANDOFF.md): existing
+Daily App/outbox/review owners now show prior copy, source delta, Main history and withdrawals,
+reconciled publication memory and reader questions. One gas article updated; one connected
+energy article added; six old articles unchanged. **8 research packages / 64 previews / 8 media
+references**, **6 KEEP / 2 HOLD**, 15 propositions/9 independent documents. Bounded Apple/Nasdaq
+research sharpens two exact HOLD gaps without making options-chain data universal.
+
+Actual existing four-window delegate proof: 13 candidates, 7 canonical published-memory
+articles, stable frozen-pool restart, zero new work for identical next-day scan; no provider,
+injected callback, production tick or public write. Fresh opportunity intake/cutoff/memory and
+resume-input defects were fixed. Exact runnable paused draft command is retained. One immutable
+gas-context delta plus zero-delta page preserves nine-row Unicode supersession and five undated
+dispositions. Main Goal23 receiver and Control Tower synchronization remain pending on their
+owners; no messages or edits to Main/DB. Actual Neo desktop/mobile/media inspection and focused
+checks are retained; final source/CodeGraph/exact-head CI delivery is in existing PR90. No
+fresh/qualified/published/natural-runtime credit, pause release, deployment or self-merge.

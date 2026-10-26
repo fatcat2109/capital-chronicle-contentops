@@ -1,0 +1,26 @@
+{
+  "review": {
+    "review_id": "native-article-review-b06e87ad9b8e4757ae1bfb2b2f086a44",
+    "decision": "KEEP",
+    "schema_version": "contentops.native_article_review.v1",
+    "run_id": "goal31-futures-cashflow",
+    "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+    "package_revision": "9b4d4c75817468abe791a4c2a9a0e37e80cd4d3f86b757fcf8cae07f66aa298a",
+    "article_metadata_sha256": "fd89f7d28250942a4ebe5f5f78c408efdc55c99ad2969e5f7a5ab2c2e40c2fa2",
+    "rationale": "Đã đọc toàn bài và tám preview: ví dụ nông dân tách hàng thực/vị thế, mark-to-market và variation margin giải thích vì sao tác dụng bù rủi ro khác thời điểm tiền về. Có phản đề hedge hữu ích khi khớp rủi ro/tài trợ và điều kiện rút kết luận. Nguồn nền CFTC không có ngày phát hành xác minh; không lấy ví dụ thành spec/quy định/vị thế hiện tại, không tự tính số hoặc khuyên giao dịch. Đã xem thẻ nguồn có quyền và actual Neo mobile390, desktop1200; chữ rõ/ảnh nạp/không tràn ngang. KEEP riêng tư, không phát hành.",
+    "publication_authority": false
+  },
+  "handoff": {
+    "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+    "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+    "review_id": "native-article-review-b06e87ad9b8e4757ae1bfb2b2f086a44",
+    "plan_hash": "a2b9c8293dc841789b66f482806cf509d71bffc4fa1da1848d584d18383f5a82",
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow\\reviewed-handoff",
+    "media_reuse_count": 1,
+    "preview_count": 8,
+    "new_qualified_articles": 0,
+    "model_invocations": 0,
+    "source_requests": 0,
+    "public_write_performed": false
+  }
+}

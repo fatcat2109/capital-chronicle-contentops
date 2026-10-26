@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "blockers": [],
+  "validator": "existing_grounded_article_validator",
+  "material_claim_lineage": [
+    {
+      "item_id": "goal21-fed-policy",
+      "source_id": "SOURCE_1",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "text_sha256": "f3c2b2dba81a9c74413e075145026a0e08611a45353dc94bddfa82977fb9ba9a",
+      "source_capture_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "permission_sha256": "b2695d3dfaa57540d20b0fb50a3eb708ce7c016b61b61caa29946336d9faf363",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-fed-inflation",
+      "source_id": "SOURCE_2",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "text_sha256": "b7f0dbc8ffe5b459eda07719fd59c38344144b80c0a7386720f9b958895c8466",
+      "source_capture_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "permission_sha256": "8c8fa9aef23bbeec98e095219d31b69e55733746a5d4d9df9b4f18ea74341563",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-fx-convention",
+      "source_id": "SOURCE_3",
+      "source_url": "https://www.federalreserve.gov/releases/h10/current/",
+      "text_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "permission_sha256": "e3060a6ac87a3122a68f536a7dfbefdb12a27ba9260502e2f2407ccc61d485ff",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_4",
+      "source_url": "https://www.federalreserve.gov/releases/h10/current/",
+      "text_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "permission_sha256": "b39e81252d6155960fb9b58acd5b3c267c5f653f64d3095afdf2d0e58e4b8868",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    }
+  ],
+  "semantic_editorial_review": "REQUIRED",
+  "qualified_simple_article": false
+}

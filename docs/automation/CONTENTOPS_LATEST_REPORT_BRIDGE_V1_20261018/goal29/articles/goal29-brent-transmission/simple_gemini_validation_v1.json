@@ -1,0 +1,1368 @@
+{
+  "cited_source_count": 1,
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:UKOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "maximum_revision_rounds": 1,
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "public_write_performed": false,
+  "report_truth_validated_separately_from_event_truth": true,
+  "revision_performed": true,
+  "revision_router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal29_brent_writer",
+      "model": "gpt-6.1-sol",
+      "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+      "reasoning_effort": "max",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "max",
+    "request_sha256": "f8ae08944f62842ae984a60cf588357ec1288cc20bea386912f1ffdb0a1b1481",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "response_sha256": "71cd060cc7be5ec2fabeeb0421e39adba8dc2e809a55a7a8720108b6cb7f8676",
+    "role": "revise",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "revise"
+  },
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "source_urls": [
+    "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198"
+  ],
+  "status": "PASS",
+  "supported_material_claim_count": 31,
+  "supported_material_claims": [
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-title-transmission",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-dek-mechanism",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle đọc lại số liệu EIA tuần 09/10/2026: rút kho Mỹ chỉ có thể thành câu chuyện Brent nếu có cầu nối thương mại; nhập hàng và lọc dầu vẫn là phản đề.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-dek-date",
+      "claim_kind": "FACT",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle đọc lại số liệu EIA tuần 09/10/2026: rút kho Mỹ chỉ có thể thành câu chuyện Brent nếu có cầu nối thương mại; nhập hàng và lọc dầu vẫn là phản đề.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "06ac0f3761728b3d9ab2602325e5232a420ad5e1293e1c25dc4004d71f35cb80",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-dek-countercase",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "CC REPORT / EVENT UNCONFIRMED. Capital Chronicle đọc lại số liệu EIA tuần 09/10/2026: rút kho Mỹ chỉ có thể thành câu chuyện Brent nếu có cầu nối thương mại; nhập hàng và lọc dầu vẫn là phản đề.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "claim_id": "ukoil-deep-alternative-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-search-title",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Capital Chronicle: Rút kho dầu Mỹ có truyền sang Brent?",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-meta-mechanism",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Capital Chronicle phân tích có điều kiện: rút kho dầu Mỹ cần bằng chứng dòng hàng và chênh giá để nối sang Brent; nhập hàng và lọc dầu vẫn là phản đề.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-meta-countercase",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Capital Chronicle phân tích có điều kiện: rút kho dầu Mỹ cần bằng chứng dòng hàng và chênh giá để nối sang Brent; nhập hàng và lọc dầu vẫn là phản đề.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "claim_id": "ukoil-deep-alternative-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-hook-mechanism",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Capital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm? Cần kiểm dòng hàng, chênh giá và phản đề nhập khẩu.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [],
+      "attribution_required": true,
+      "claim_id": "g29-hook-countercase",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Capital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm? Cần kiểm dòng hàng, chênh giá và phản đề nhập khẩu.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "claim_id": "ukoil-deep-alternative-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:0"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-opening-mechanism",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Vì sao rút kho dầu Mỹ chưa đủ chứng minh Brent khan hiếm toàn cầu? Báo cáo Capital Chronicle giữ hai khả năng: cạnh tranh dầu vật chất truyền qua thương mại đường biển, hoặc thời điểm nhập hàng và lọc dầu làm kho Mỹ giảm. Với số liệu được giữ cho tuần 09/10/2026, đường truyền sang Brent vẫn chưa được chứng minh.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:0"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-opening-countercase",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Vì sao rút kho dầu Mỹ chưa đủ chứng minh Brent khan hiếm toàn cầu? Báo cáo Capital Chronicle giữ hai khả năng: cạnh tranh dầu vật chất truyền qua thương mại đường biển, hoặc thời điểm nhập hàng và lọc dầu làm kho Mỹ giảm. Với số liệu được giữ cho tuần 09/10/2026, đường truyền sang Brent vẫn chưa được chứng minh.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "claim_id": "ukoil-deep-alternative-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:0"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-opening-date",
+      "claim_kind": "FACT",
+      "claim_text": "Vì sao rút kho dầu Mỹ chưa đủ chứng minh Brent khan hiếm toàn cầu? Báo cáo Capital Chronicle giữ hai khả năng: cạnh tranh dầu vật chất truyền qua thương mại đường biển, hoặc thời điểm nhập hàng và lọc dầu làm kho Mỹ giảm. Với số liệu được giữ cho tuần 09/10/2026, đường truyền sang Brent vẫn chưa được chứng minh.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "06ac0f3761728b3d9ab2602325e5232a420ad5e1293e1c25dc4004d71f35cb80",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:2"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-observed-balance",
+      "claim_kind": "NUMBER",
+      "claim_text": "Dữ kiện nguồn được báo cáo CC lưu lại: dầu thô giảm 8,6 triệu thùng, còn 415,6 triệu thùng; xăng tăng 3,5 triệu thùng; sản phẩm chưng cất giảm 2,5 triệu thùng. Nhập khẩu giảm 791.000 thùng/ngày, tỷ lệ sử dụng nhà máy lọc dầu là 93,5%; chỉ báo cầu xăng trung bình bốn tuần thấp hơn 0,4% so với cùng kỳ năm trước. Đây là các số báo cáo quy cho bản EIA được giữ lại.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Official reference/underlying proxy; fixing time, market basis, dealer spread and carry differ from CFD economics.",
+          "claim_hash": "431462c5fd8bfe3e05369538592cef414052100ec0f5417c4d7503384ce10c74",
+          "claim_id": "ukoil-source",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "OBSERVED_SOURCE_FACT"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "2599f51f8e6756ae54a9af597c12aa4864ce0921dc302400b03eb911fef8d821",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:4"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-mechanism",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phân tích CC có điều kiện: nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất lặp lại, thương mại đường biển và chênh giá có thể truyền tác động sang Brent. Bộ nguồn chưa chứng minh đường truyền ấy.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:5"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-geographic-test",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phần tiếp nối này tập trung vào phép kiểm địa lý của luận điểm. Cần nối cân đối Mỹ với luồng hàng và nền Brent bằng chứng cứ cụ thể; một con số rút kho khu vực chưa cho biết tác động sang Brent mạnh bao nhiêu, hay đang theo hướng nào.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:6"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-trade-test",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Dòng tàu hàng và xuất nhập khẩu có cho thấy cạnh tranh dầu vật chất lặp lại hay không? Đây là câu hỏi cần kiểm, chưa phải luồng thương mại đã được quan sát trong bộ nguồn.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "708c967581f965b6f53448e5ffa22c70aec10e08a2c294214fe00ea7d9dcd162",
+          "claim_id": "ukoil-deep-mechanism-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "67da1d276cfebccde0761965d44f7dc2824292143facee4c6b3333511850fff2",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:7"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-transport-test",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Nguồn cung riêng Brent, phẩm cấp và vận tải có hỗ trợ đường truyền đó hay tạo ra một cách giải thích khác? Báo cáo chưa có số sản lượng và xuất khẩu toàn cầu để lựa chọn giữa các cách đọc.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "claim_id": "ukoil-deep-alternative-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:8"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-spread-inputs",
+      "claim_kind": "FACT",
+      "claim_text": "Đường cong Brent, chênh Brent–WTI, vận tải và phẩm cấp cùng thời điểm sẽ là các đầu vào cần đối chiếu. Bộ nguồn chưa có chúng để diễn giải giá hiện tại hoặc đo tác động đã phản ánh vào giá.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "302e35864a578d3f63dcdc7502e788ce58589a9ffd733eafdfb9ff0e0164c118",
+          "claim_id": "ukoil-deep-review-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "0e1df4f47a003c758f533f9e77354c3f96b9e1a3a76ae3ca6d2e5dcf011c6967",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:8"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-spread-missing",
+      "claim_kind": "FACT",
+      "claim_text": "Đường cong Brent, chênh Brent–WTI, vận tải và phẩm cấp cùng thời điểm sẽ là các đầu vào cần đối chiếu. Bộ nguồn chưa có chúng để diễn giải giá hiện tại hoặc đo tác động đã phản ánh vào giá.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "e6a40ae5e0234ca5de78f15e7ef688728c18677ffb09865ba331c9b42ca87a04",
+          "claim_id": "ukoil-deep-timing_priced_in-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "06ac0f3761728b3d9ab2602325e5232a420ad5e1293e1c25dc4004d71f35cb80",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:10"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-alternative",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phản đề của CC: thời điểm hàng nhập về hoặc hoạt động lọc dầu có thể làm kho Mỹ giảm mà không có thiếu hụt toàn cầu. Bộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "9f02eefac506e13d173edda1c239146d8c0baf7f873e875228c1fd1bb90d020b",
+          "claim_id": "ukoil-deep-alternative-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "aa2754925f5767e979b5e0620d875c1fe69e25e7736e1b52636149c313722933",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:11"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-product-counterevidence",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Nếu các số được xác nhận, cách đọc “cầu cuối mạnh” vẫn phải đối diện phản chứng mà CC giữ lại: xăng tăng kho và chỉ báo cầu xăng bốn tuần giảm so cùng kỳ, trong khi sản phẩm chưng cất lại rút kho. Các sản phẩm và cửa sổ đo khác nhau chưa hợp thành một tín hiệu cầu thống nhất.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+          "claim_id": "ukoil-deep-contradictions-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "6e33a1d09ac5fc939c083a5aff9b18d1cab5b44e019e3f93c475e57aa17f866d",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:12"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-units",
+      "claim_kind": "NUMBER",
+      "claim_text": "CC cũng lưu ý nhập khẩu đo bằng thùng/ngày, còn thay đổi tồn kho đo bằng triệu thùng trong tuần. Chưa có đối chiếu cân đối đầy đủ để quy một phần chính xác của rút kho cho nhập khẩu; bài này không tự tính tỷ lệ đóng góp từ hai số khác đơn vị ấy.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "2cd554b0a06972d36b6f62f1a6b9fcccb64d985e7fa30a33df5bf2c8075a9ed0",
+          "claim_id": "ukoil-deep-contradictions-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "6e33a1d09ac5fc939c083a5aff9b18d1cab5b44e019e3f93c475e57aa17f866d",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:13"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-shared-source",
+      "claim_kind": "FACT",
+      "claim_text": "UKOIL và USOIL dùng chung một bản EIA, theo báo cáo CC. Đặt hai báo cáo cạnh nhau không tạo ra hai xác nhận độc lập; bằng chứng về chênh giá, phẩm cấp và vận tải vẫn cần để kiểm đường truyền giữa hai khu vực.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+          "claim_id": "ukoil-deep-cross_asset-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "a1b4477254762eed3df8cad7037d5f36583f4698b18c3cb028cd166855e69de7",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:15"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-invalidation",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Nếu dòng thương mại và chênh Brent không hỗ trợ truyền dẫn, CC phải rút cách đọc thiếu hụt toàn cầu. Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "a20314a4e02b97c77b46873f2e426aa5fd12c30dfd2fcd61620105540a437a59",
+          "claim_id": "ukoil-deep-stop_holding_conditions-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "c14335409058d50c460ed7ef826469974fd7cd9b73e30b774c126f16715b45d5",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:16"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-review-intro",
+      "claim_kind": "FACT",
+      "claim_text": "Các cửa sổ dưới đây là kế hoạch xem lại bằng chứng và kịch bản có điều kiện trong báo cáo, không phải dự báo đường giá:",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+          "claim_id": "ukoil-deep-short-base_case",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "d940fa4966c788949c6e9b3396e6cec2fcf117fce2f1cbd5e5d1c808bca8570a",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:17"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-short-review",
+      "claim_kind": "NUMBER",
+      "claim_text": "Trong 5 phiên xem lại: tìm cân đối mới hoặc thông tin riêng Brent có ngày rõ ràng; không đọc lại số Mỹ cũ như một cú sốc Brent mới.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "d5b71046c671ec34d5b5b1f0433165e945d35c6899d5faf71f9a18a8a3443c8a",
+          "claim_id": "ukoil-deep-short-base_case",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "d940fa4966c788949c6e9b3396e6cec2fcf117fce2f1cbd5e5d1c808bca8570a",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:18"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-swing-review",
+      "claim_kind": "NUMBER",
+      "claim_text": "Trong 21 phiên: đối chiếu các kỳ dầu thô và sản phẩm lặp lại với thương mại, sản lượng toàn cầu và đường cong tương đối, nếu có công bố.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "0dc0dea7516a2c3a76fbd70be65158e5b9839d77b8c192a16733d1e64549f87b",
+          "claim_id": "ukoil-deep-swing-base_case",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "50be1cdeb968da40b6af506702f6142511281b7acc6e2766902e90db920c67af",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:19"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-long-review",
+      "claim_kind": "NUMBER",
+      "claim_text": "Trong 63 phiên: xem cân đối tích lũy, phản ứng nguồn cung và chi phí phương tiện qua cập nhật thực; không đổi cửa sổ này thành một quý dương lịch.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Review horizon under the retained 5/21/63-session policy; not a predicted price path.",
+          "claim_hash": "9ce485d5f74c6c54bc81818e291895d15a512b69791e4f817933a5020cac0995",
+          "claim_id": "ukoil-deep-long-base_case",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CONDITIONAL_SCENARIO"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "3cfb2ee2fc017757967fc0228f1519f0d1ffc90837f20af486666d8ff2664376",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:20"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-ukoil-proxy",
+      "claim_kind": "FACT",
+      "claim_text": "Báo cáo CC ghi UKOIL mang mô tả Brent trong danh mục broker được giữ lại, nhưng mã tài sản cơ sở và mã niêm yết còn trống. Giá CFD — hợp đồng chênh lệch — còn có thể khác tham chiếu vật chất hoặc kỳ hạn do nền giá, chuyển kỳ, phí tài trợ và điều khoản broker chưa có dữ liệu. Câu hỏi nghiên cứu vì vậy chưa tạo ra kết luận về lợi nhuận nắm giữ hay một lệnh giao dịch.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "091f33b0301664f4ed623849928dc0f5d254124d0250eb9b2175251571602c6b",
+          "claim_id": "ukoil-deep-known-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "84bd91f64f983148f088a8f84321e949b7bb0150b5757ad783becc9a08269533",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:20"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-cfd-economics",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Báo cáo CC ghi UKOIL mang mô tả Brent trong danh mục broker được giữ lại, nhưng mã tài sản cơ sở và mã niêm yết còn trống. Giá CFD — hợp đồng chênh lệch — còn có thể khác tham chiếu vật chất hoặc kỳ hạn do nền giá, chuyển kỳ, phí tài trợ và điều khoản broker chưa có dữ liệu. Câu hỏi nghiên cứu vì vậy chưa tạo ra kết luận về lợi nhuận nắm giữ hay một lệnh giao dịch.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "75de0a9ae975cfc3ac27714f789194a96bd1484094d6f07ccc7c580c8a2d9243",
+          "claim_id": "ukoil-deep-cross_asset-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "a1b4477254762eed3df8cad7037d5f36583f4698b18c3cb028cd166855e69de7",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    },
+    {
+      "article_section_ids": [
+        "paragraph:20"
+      ],
+      "attribution_required": true,
+      "claim_id": "g29-no-position-admission",
+      "claim_kind": "FACT",
+      "claim_text": "Báo cáo CC ghi UKOIL mang mô tả Brent trong danh mục broker được giữ lại, nhưng mã tài sản cơ sở và mã niêm yết còn trống. Giá CFD — hợp đồng chênh lệch — còn có thể khác tham chiếu vật chất hoặc kỳ hạn do nền giá, chuyển kỳ, phí tài trợ và điều khoản broker chưa có dữ liệu. Câu hỏi nghiên cứu vì vậy chưa tạo ra kết luận về lợi nhuận nắm giữ hay một lệnh giao dịch.",
+      "document_id": "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_claims": [
+        {
+          "basis_risk": "Retained candidate research; quoted contract and source-vintage limits apply; no canonical forecast or execution admission.",
+          "claim_hash": "257d2ff9a7f69a170576f65d7f10901a9aabede488f6e4df4a9d354546006eb1",
+          "claim_id": "ukoil-deep-hold_conditions-0",
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "producer_layer": "CC_ANALYSIS"
+        }
+      ],
+      "report_id": "asset-report:UKOIL",
+      "report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "report_version": 4,
+      "source_clock_metadata_bindings": [],
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "93825df6bd5b3fee145a11c197f846b23f248788436b07bb9b41a12bf7bf2cba",
+      "support_status": "SUPPORTED_SEALED_MAIN_REPORT_PROJECTION"
+    }
+  ],
+  "unknown_write_detected": false,
+  "unsupported_material_claim_count": 0,
+  "worker_router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal29_brent_writer",
+      "model": "gpt-6.1-sol",
+      "observation_source": "Actual collaboration.spawn_agent returned canonical task_name /root/goal29_brent_writer with explicit model gpt-6.1-sol and reasoning_effort max; fork_turns none. UUID and token usage not exposed.",
+      "reasoning_effort": "max",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "max",
+    "request_sha256": "23fdb723e9307d69bfbc57da9e00adee224e90a6dafbf8874f28e3259437e4eb",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "response_sha256": "ebf72b8f20cd4016fefe2fc22f29a780bc1a151aa2135ef87c9dee72b51a77c2",
+    "role": "write",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "write"
+  }
+}

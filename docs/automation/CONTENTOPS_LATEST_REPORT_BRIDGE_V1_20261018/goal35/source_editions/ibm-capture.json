@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "url": "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/",
+  "title": "IBM raises annual software revenue outlook as deal delays ease",
+  "reporting_publisher": "Reuters",
+  "attribution_text": "Reuters",
+  "observed_at_utc": "2026-10-21T22:27:23.029Z",
+  "full_text_sha256": "f746b81fb763384813bbafde302cd7b5895367998076f1d64be8a3197b11f902",
+  "full_text_characters": 2719,
+  "excerpts": [
+    {
+      "text": "IBM raises annual software revenue outlook as deal delays ease",
+      "start": 0,
+      "end": 62
+    },
+    {
+      "text": "In an interview with Reuters, Kavanaugh said ​IBM now expects annual software revenue growth of about ​7% to 8%, up from 6% to 8% ⁠previously. IBM's shares rose about 4% in extended trading.",
+      "start": 629,
+      "end": 819
+    },
+    {
+      "text": "Third-quarter revenue rose 4.7% to $17.10 billion, above ​analysts' average estimate of $16.82 billion, according to data compiled by LSEG",
+      "start": 988,
+      "end": 1126
+    },
+    {
+      "text": "Software revenue rose 8.3% to $7.80 billion in the third quarter, topping estimates of $7.62 billion",
+      "start": 1422,
+      "end": 1522
+    },
+    {
+      "text": "Kavanaugh ​said about 25% of the transaction processing ​revenue came ⁠from deals deferred from the second quarter and \"the remaining 75% is net new business\"",
+      "start": 1690,
+      "end": 1848
+    }
+  ],
+  "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS",
+  "credential_or_session_material_read": false,
+  "public_write_performed": false,
+  "capture_scope": "EXACT_SELECTED_FACTUAL_PASSAGES_NOT_FULL_ARTICLE",
+  "publication_visible_clock": {
+    "datetime": "2026-10-21T20:14:56.827Z",
+    "text": "October 22, 20263:12 AM GMT+7Updated 2 hours ago"
+  },
+  "publisher_machine_clock_metadata": [],
+  "origin": "Reuters original",
+  "publication_clock_basis": "VISIBLE_REUTERS_GMT_PLUS_7_MINUTE_CLOCK",
+  "clock_limit": "Reuters time element may represent update rather than original publication; visible original minute retained separately. No future outcome is inferred."
+}

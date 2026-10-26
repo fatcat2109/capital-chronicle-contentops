@@ -150,6 +150,7 @@ def test_public_compatibility_import_is_safe_and_all_live_apis_delegate_once(mon
         "repair_final_treasury_auction_logic": lambda: public_module.repair_final_treasury_auction_logic(output_dir=tmp_path, cdp_port=9223),
         "reconcile_linkedin_activity_pair": lambda: public_module.reconcile_linkedin_activity_pair(output_dir=tmp_path, cdp_port=9223, accepted_url="a", accepted_id="1", latest_url="b", latest_id="2"),
     }
+    invocations["run_native_desktop_newsroom"] = lambda: public_module.run_native_desktop_newsroom(output_dir=tmp_path, cutoff_utc="2026-10-20T00:00:00Z", llm_invoke=object())
     for expected_operation, invoke in invocations.items():
         calls.clear()
         result = invoke()
@@ -627,10 +628,10 @@ def test_orchestrator_marks_simple_as_the_only_current_routine_owner():
     assert (
         orchestrator.routine_editorial_owner
         == ROUTINE_EDITORIAL_OWNER
-        == "SIMPLE_GEMINI_RUNTIME"
+        == "NATIVE_CODEX_DESKTOP"
     )
     assert (
         orchestrator.routine_editorial_operation
         == ROUTINE_EDITORIAL_OPERATION
-        == "run_v1_simple_gemini_newsroom"
+        == "run_native_desktop_newsroom"
     )

@@ -198,7 +198,7 @@ def test_status_cli_needs_no_store_or_proof_directory_creation(tmp_path):
     assert '"state": "STOPPED"' in completed.stdout
 
 
-def test_injected_clock_is_forbidden_on_canonical_production_root():
+def test_legacy_tick_is_non_routing_on_canonical_production_root():
     completed = subprocess.run(
         [
             sys.executable,
@@ -214,7 +214,7 @@ def test_injected_clock_is_forbidden_on_canonical_production_root():
         timeout=20,
     )
     assert completed.returncode != 0
-    assert "forbidden on the canonical production scheduler root" in completed.stderr
+    assert "NON_ROUTING_LEGACY_SCHEDULER" in completed.stdout
 
 
 def test_windows_task_installer_owns_only_the_existing_runner():

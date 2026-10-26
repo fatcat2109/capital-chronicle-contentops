@@ -1,0 +1,19 @@
+
+> contentops-v5@0.0.0 test
+> vitest run --run src/test/report_editorial_workspace.test.tsx
+
+
+ RUN  v2.1.8 C:/Users/bullw/.codex/worktrees/latest-report-editorial-bridge/ContentOps/ui/contentops_v5
+
+ ✓ src/test/report_editorial_workspace.test.tsx (11 tests) 957ms
+   ✓ Main report editorial workspace > opens exact maintained versions and keeps partial coverage, dates and preparation distinct 397ms
+
+ Test Files  1 passed (1)
+      Tests  11 passed (11)
+   Start at  02:27:13
+   Duration  56.19s (transform 548ms, setup 8.42s, collect 3.84s, tests 957ms, environment 23.93s, prepare 17.76s)
+
+
+> contentops-v5@0.0.0 build
+> tsc -b && vite build
+

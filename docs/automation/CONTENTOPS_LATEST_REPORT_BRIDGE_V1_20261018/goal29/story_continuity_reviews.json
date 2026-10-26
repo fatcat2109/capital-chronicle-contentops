@@ -1,0 +1,178 @@
+[
+  {
+    "schema_version": "contentops.native_story_source_review.v1",
+    "review_id": "native-source-review-7137a7890ffddb9a59531e8d7037d69b6b5e50d39c946afae23794fc9ce5c94f",
+    "request_sha256": "789f18ad5b4154c3a8db0fcc2ecdf0029c1a1e8abe6db3757add458c319f6f09",
+    "run_id": "goal26-main-oil-analysis-v2",
+    "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+    "title": "Capital Chronicle's oil report separates tighter stocks from stronger demand",
+    "cutoff_utc": "2026-10-20T23:22:16.320511Z",
+    "decision": "CORRECTION_OR_WITHDRAWAL",
+    "reader_change_summary": "Bản USOIL v6 hiện chỉ cho phép SOURCE_FACT; sáu luận điểm cơ chế/kịch bản cũ không còn trong public wire. Đây là rút phạm vi quyền dùng, không chứng minh kinh tế đã đảo chiều. Giữ nguyên bài cũ và không dùng KEEP cũ để phát hành; bài dầu Goal27 đã thu hẹp, bài Brent mới chỉ dùng UKOIL v4 được thừa nhận.",
+    "source_editions": [],
+    "source_attempts": [
+      {
+        "url": "urn:cc-public-report:e5f74373ded4564fea8abc0e22d0ca57fef8a7af63e0a45cca9be90276e4417f",
+        "status": "PASS",
+        "observed_at_utc": "2026-10-20T23:22:16.320511Z",
+        "route": "EXISTING_ADMITTED_PUBLIC_BYTES_OR_RETAINED_SOURCE_COMPARISON",
+        "new_source_requests": 0
+      }
+    ],
+    "source_changes": [],
+    "removed_main_claim_ids": [
+      "usoil-hold",
+      "usoil-invalidate",
+      "usoil-long",
+      "usoil-mechanism",
+      "usoil-short",
+      "usoil-swing"
+    ],
+    "previous_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "url": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:87d4c78d4d921d07aefe4beb99c47d8b0ef427db2b96c6b4461008bd0b568ee8",
+        "published_at_utc": "2026-10-19T09:14:42.517584Z",
+        "canonical_content_sha256": "93f9f6dc7f63a81f4827e5074d23e4b9d005cecfe486342359264418b6b5685c",
+        "canonical_content_text": "OBSERVED_SOURCE_FACT: The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period.\nExact historical broker contract; financing and current executable quote remain separate.\n\nCC_ANALYSIS: Capital Chronicle conditional analysis: The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Import timing, refinery throughput and product imbalances can generate a crude draw without sustained end-demand strength. The Sep22 WTI price panel predates the original release.\nExact historical broker contract; financing and current executable quote remain separate.\n\nCONDITIONAL_SCENARIO: USOIL conditional short outlook: Over five sessions, identify the next actual release/quote reaction and distinguish a surprise from carry or position adjustment. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.\nExact historical broker contract; financing and current executable quote remain separate.\n\nCONDITIONAL_SCENARIO: USOIL conditional swing outlook: Over 21 sessions, require repeat releases and relative price/curve confirmation before retaining the proposed transmission. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.\nExact historical broker contract; financing and current executable quote remain separate.\n\nCONDITIONAL_SCENARIO: USOIL conditional long outlook: Over 63 sessions, compare cumulative cash-flow, supply/demand or policy changes with valuation and annualized vehicle costs; an old price pattern is insufficient. The original EIA 8.6m-barrel crude draw can tighten available supply, but the 791000 b/d import fall can explain part of it without stronger demand. Gasoline built 3.5m barrels and four-week demand was 0.4% lower YoY. Confirmation required: Subsequent crude/product balances, normalized imports/exports, current WTI curve and a separately captured pre-release expectation. No target or probability is estimated.\nExact historical broker contract; financing and current executable quote remain separate.\n\nCONDITIONAL_SCENARIO: Retain the USOIL analytical watch only if the next independent balance evidence confirms the mechanism; require current curve and cost checks before a separate holding decision.\nExact historical broker contract; financing and current executable quote remain separate.\n\nCONDITIONAL_SCENARIO: Invalidate the USOIL analytical watch if subsequent balances reverse the proposed tightening, the regional basis prevents transmission, or required current evidence remains unavailable.\nExact historical broker contract; financing and current executable quote remain separate.\n\nMain report known-at cutoff (not source release): 2026-10-19T09:14:42.517584Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 observation_time_utc: 2026-10-09T00:00:00Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 retrieval_time_utc: 2026-10-18T15:13:09.289Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 known_at_utc: 2026-10-18T15:13:09.289Z\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      }
+    ],
+    "main_receipt_id": "main-feed-6cf9a2c62bcd6647ff7713dabcf12f6bd64072cac766511e692b8432938f9f03",
+    "research_revision": "6837eb0145b01656e3a9f594b8a7045784981efb782dd46347b52c155fa899e0",
+    "invalidates_prepared_review": true,
+    "media_state": "REVALIDATE_CHANGED_SUPPORT",
+    "prior_story": {
+      "story_identity": "simple-story-692b942cd8b193e1514f3ebc",
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "title": "Capital Chronicle's oil report separates tighter stocks from stronger demand",
+      "full_text": "CC REPORT / EVENT UNCONFIRMED: Capital Chronicle's USOIL version 4 reports an 8.6 million barrel crude draw alongside a 3.5 million barrel gasoline build. Its conditional analysis asks whether import and refinery flows could account for the crude decline without stronger end demand. The reader's task is to test that mechanism before treating the stock decline as a demand signal. [[SOURCE:SOURCE_1]]\n\nAccording to the report's timing metadata, the evidence has an observation date of 9 October 2026 and was retrieved on 18 October at 15:13:09.289 UTC. Its own known-at cutoff is 19 October at 09:14:42.517584 UTC. Those dates describe observation, retrieval and report cutoff separately. An original source release time is not supplied here; the report cutoff does not make the observations new. [[SOURCE:SOURCE_1]]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. [[SOURCE:SOURCE_1]]\n\n## The reported balance pulls in different directions\n\nCapital Chronicle reports crude stocks falling by 8.6 million barrels to 415.6 million barrels. It also records gasoline stocks rising by 3.5 million barrels and distillate stocks falling by 2.5 million barrels. This article analyzes that dated report; its import does not independently confirm the underlying observations. [[SOURCE:SOURCE_1]]\n\nThe same report records imports falling by 791000 barrels per day, refinery utilization of 93.5%, and a four-week gasoline-demand comparison 0.4% below the prior-year period. The four-week comparison and the weekly stock movements cover different measures. Neither should be substituted for the other when explaining the balance. [[SOURCE:SOURCE_1]]\n\n## A crude draw has more than one route\n\nCapital Chronicle's conditional mechanism is that fewer imports or crude moving through refineries could reduce crude stocks without stronger end demand. [[SOURCE:SOURCE_1]]\n\nIf less crude arrives while refineries continue processing it, storage could supply part of the difference. If gasoline then accumulates, the crude decline could coexist with a looser product balance. That is a plausible reading of the report's combination of import decline, refinery activity and gasoline build; this record does not quantify how much each channel contributed. [[SOURCE:SOURCE_1]]\n\nThe import decline is reported as a daily flow, while the crude draw is a change in stored barrels. Subtracting the daily figure directly from the stock change would mix units. The report's wording supports a partial import explanation, not a completed accounting bridge. It does not establish that the import change fully explains the draw. [[SOURCE:SOURCE_1]]\n\nThe reported gasoline build and lower four-week year-on-year comparison challenge a simple claim of stronger end demand. They do not identify every cause of the product balance. Capital Chronicle's interpretation remains conditional: import timing, refinery throughput and product imbalances could produce this pattern without a sustained demand improvement. [[SOURCE:SOURCE_1]]\n\n## Lower stocks could still matter\n\nThe report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand. [[SOURCE:SOURCE_1]]\n\nAn import-led draw could therefore matter for availability even if it failed the stronger-demand test. Conversely, a later normalization of flows could challenge an interpretation built on persistent tightening. The useful distinction is between the reason inventories declined and the durability of that decline. The report requires subsequent crude and product balances, normalized flows and price-curve evidence to resolve it. [[SOURCE:SOURCE_1]]\n\n## The price reaction is a separate evidence problem\n\nThe report notes that its September 22 WTI price panel predates the original release. That panel cannot establish the release reaction. A claim that the reported draw surprised the market would also require a separately captured pre-release expectation. Neither an earlier chart nor the stock number alone fills that gap. [[SOURCE:SOURCE_1]]\n\nUnder the report's short-horizon conditions, a later price observation would need to be matched to the actual release and quote before being interpreted as a surprise. Carry and position adjustment remain competing explanations identified in that framework. This record supplies no contemporaneous WTI curve or executable quote with which to choose among them. [[SOURCE:SOURCE_1]]\n\n## Use the horizons as tests\n\nOver five sessions, the report would test the next actual release-and-quote comparison, with expectations captured separately. Over 21 sessions, its question is whether repeated releases and relative price or curve behavior support the proposed transmission. These are conditional observation windows anchored to the dated report, not promises of a price outcome. [[SOURCE:SOURCE_1]]\n\nOver 63 sessions, the report asks for cumulative supply, demand or policy evidence alongside valuation and annualized vehicle costs. An old price pattern is insufficient. Even a better-supported physical interpretation would leave the specific broker contract, market basis, financing and current execution economics to assess separately. [[SOURCE:SOURCE_1]]\n\nThe report would retain the analytical watch only if new independent balance evidence confirms the mechanism. It would invalidate the watch if later balances reverse the proposed tightening, regional basis prevents transmission or required current evidence remains unavailable. Missing evidence leaves the interpretation unresolved; it cannot be counted as confirmation. [[SOURCE:SOURCE_1]]\n\nDoes the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation? [[SOURCE:SOURCE_1]]",
+      "stage": "UNPUBLISHED_REVIEWED_ARTICLE"
+    },
+    "writer_required": true,
+    "publication_authority": false,
+    "public_write_performed": false
+  },
+  {
+    "schema_version": "contentops.native_story_source_review.v1",
+    "review_id": "native-source-review-4a176b8aa52b6dd3d1f02f57991eac165f0bc405dcaccba0a185c4c8f29e693f",
+    "request_sha256": "96e81a45e64a5aed774a956365685970fae63cf8cd1b6eee6397cbf521a0bea5",
+    "run_id": "goal27-oil-scope-update",
+    "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+    "title": "Capital Chronicle's oil update leaves the demand question open",
+    "cutoff_utc": "2026-10-20T23:22:16.320511Z",
+    "decision": "USE_UNCHANGED",
+    "reader_change_summary": "Giữ nguyên bài thu hẹp: USOIL v6 là sửa transport, vẫn cùng một SOURCE_FACT và kỳ dầu 09/10. Không có quan sát mới hay kết luận mới đủ yêu cầu viết lại. Bài Brent mới trả lời đường truyền khu vực–toàn cầu và dùng các đoạn UKOIL riêng, không khôi phục luận điểm USOIL đã rút.",
+    "source_editions": [],
+    "source_attempts": [
+      {
+        "url": "urn:cc-public-report:e5f74373ded4564fea8abc0e22d0ca57fef8a7af63e0a45cca9be90276e4417f",
+        "status": "PASS",
+        "observed_at_utc": "2026-10-20T23:22:16.320511Z",
+        "route": "EXISTING_ADMITTED_PUBLIC_BYTES_OR_RETAINED_SOURCE_COMPARISON",
+        "new_source_requests": 0
+      }
+    ],
+    "source_changes": [],
+    "removed_main_claim_ids": [],
+    "previous_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "url": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:c824ba0e997c2a0ebfc2c3d199019a42da1052446063819bacea67e9166bcfd8",
+        "published_at_utc": "2026-10-19T12:25:00Z",
+        "canonical_content_sha256": "1a45ca9a376b5b8dac13518f743ce3066ac2ecf117dbd9eb1723bbf4a769e34a",
+        "canonical_content_text": "OBSERVED_SOURCE_FACT: The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period.\nExact historical broker contract; financing and current executable quote remain separate.\n\nMain report known-at cutoff (not source release): 2026-10-19T12:25:00Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 observation_time_utc: 2026-10-09T00:00:00Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 retrieval_time_utc: 2026-10-18T15:13:09.289Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 known_at_utc: 2026-10-18T15:13:09.289Z\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order."
+      },
+      {
+        "source_id": "SOURCE_2",
+        "url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+        "published_at_utc": "",
+        "canonical_content_sha256": "4c3fe085b54cfc4a468e663deaf567539089461c67efe47eba5b964ebdd988de",
+        "canonical_content_text": "Commercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased 8.6 million barrels to 415.6 million barrels, 3% below the five-year average. Gasoline inventories increased 3.5 million barrels, 4% below the five-year average. Distillate inventories decreased 2.5 million barrels, 12% below the five-year average.\n\nCrude oil imports decreased 791,000 b/d to 6.0 million b/d, although the four-week average of 6.1 million b/d is 0.9% above the year-ago level. Gasoline imports averaged 508,000 b/d; distillate imports averaged 145,000 b/d."
+      },
+      {
+        "source_id": "SOURCE_3",
+        "url": "https://ir.eia.gov/secure/ngs/ngs.html",
+        "published_at_utc": "2026-10-15T00:00:00Z",
+        "canonical_content_sha256": "8da24713f6fe786a44b264f810687222da6ec1bc4a039f6e9d8806b28f500fb2",
+        "canonical_content_text": "Working gas in storage was 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. This represents a net increase of 67 Bcf from the previous week. Stocks were 143 Bcf less than last year at this time and 45 Bcf above the five-year average of 3,522 Bcf. At 3,567 Bcf, total working gas is within the five-year historical range."
+      }
+    ],
+    "main_receipt_id": "main-feed-6cf9a2c62bcd6647ff7713dabcf12f6bd64072cac766511e692b8432938f9f03",
+    "research_revision": "6837eb0145b01656e3a9f594b8a7045784981efb782dd46347b52c155fa899e0",
+    "invalidates_prepared_review": false,
+    "media_state": "RETAIN_EXACT_BYTES_DATED_SUPPORT",
+    "prior_story": {
+      "story_identity": "simple-story-a45c2527525a19c2d7a67db2",
+      "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+      "title": "Capital Chronicle's oil update leaves the demand question open",
+      "full_text": "What can a crude draw tell us about demand? Capital Chronicle's oil update retains the October 9 EIA stock figures while removing the earlier analytical watch. The retained record leaves a tension: crude and distillate stocks fell while gasoline accumulated. Lower buffers could matter for availability, but this combination does not settle why they fell or whether the decline persists. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\nFor the October 9, 2026 observation, the retained EIA summary records commercial crude inventories, excluding the Strategic Petroleum Reserve, falling by 8.6 million barrels to 415.6 million barrels, 3% below their five-year average. Gasoline inventories rose by 3.5 million barrels and stood 4% below their average; distillate stocks fell by 2.5 million barrels and were 12% below their average. These are the unchanged stock observations underlying the revision. [[SOURCE:SOURCE_2]]\n\nCapital Chronicle's reading is that a fall in stored crude describes a change in the buffer; it does not identify which flows produced it. EIA's gasoline build also leaves the stronger-demand explanation open. [[SOURCE:SOURCE_2]]\n\n## What changes in the article\n\nThe earlier unpublished article developed a conditional import-and-refinery explanation and a watch across short, swing and longer horizons. This replacement withdraws that prepared interpretation and its conditions for retaining or invalidating the watch. The original draft remains research history. It was never a published article in this story chain. [[SOURCE:SOURCE_1]]\n\nCapital Chronicle's current USOIL version retains only the source-fact claim. The removed analysis cannot serve as continuing support for the earlier draft. That change concerns the scope of our interpretation: the October 9 inventory observations have not been retracted or revised in the retained EIA text. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_2]]\n\n## The balance still needs an explanation\n\nThe retained EIA summary also reports crude imports falling by 791,000 barrels a day to 6.0 million barrels a day. Its four-week import average was 6.1 million barrels a day, 0.9% above the year-earlier level. A weekly flow change, a four-week comparison and a stock change answer different questions; they do not supply a complete explanation of the crude draw. [[SOURCE:SOURCE_2]]\n\nThe countercase to dismissing the draw is that EIA places crude and distillate stocks below their five-year averages. Lower buffers could matter for availability even if stronger end demand has not been shown; persistence is the missing test. [[SOURCE:SOURCE_2]]\n\nA seasonal stock comparison is also different from a market surprise. Capital Chronicle has no separately captured pre-release expectation, contemporaneous WTI price response or current futures curve in this record. It therefore cannot establish what traders anticipated, how prices responded or whether that response reflected the inventory figures. [[SOURCE:SOURCE_1]]\n\nDoes a subsequent comparable EIA balance preserve the lower crude and distillate buffers, and do contemporaneous expectations and prices support the same reading? The retained October 9 figures cannot answer either question. [[SOURCE:SOURCE_2]]\n\n## Source notes\n\nCapital Chronicle's source notes: the observation date is October 9, 2026. Main's evidence metadata records retrieval and known-at time as October 18 at 15:13:09.289 UTC. The USOIL report cutoff is October 19 at 12:25 UTC; it is not the EIA release time. The original EIA release time is not supplied in the retained source. [[SOURCE:SOURCE_1]]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. [[SOURCE:SOURCE_1]]",
+      "stage": "UNPUBLISHED_REVIEWED_ARTICLE"
+    },
+    "writer_required": false,
+    "publication_authority": false,
+    "public_write_performed": false
+  },
+  {
+    "schema_version": "contentops.native_story_source_review.v1",
+    "review_id": "native-source-review-7a01d22b6d42d02a7afd3501d1c86046a004ebbd970181700f3abde9cd96c4b3",
+    "request_sha256": "8a57043c9311d992e61046bf1e9f1ffef507820f9823a35b02b28010ba2dd561",
+    "run_id": "goal27-gas-refill-update",
+    "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+    "title": "Gas tuần 9/10: bơm thêm dưới chuẩn, tồn kho trên trung bình năm năm",
+    "cutoff_utc": "2026-10-20T23:22:16.320511Z",
+    "decision": "USE_UNCHANGED",
+    "reader_change_summary": "Giữ nguyên bài gas: gói Main XNGUSD v5 vừa thừa nhận lặp lại 67 Bcf so 90 Bcf cùng tuần 09/10; các đoạn phân tích mới có điều kiện không thêm quan sát hoặc làm sai bài hiện có. Không cần viết lại chỉ vì admission/provenance được sửa. Cần chuỗi mới để kết luận tính bền, giá hoặc nhu cầu.",
+    "source_editions": [
+      {
+        "item_id": "goal27-gas-seasonal",
+        "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+        "proposition": "Net injections into storage totaled 67 Bcf for the week ending October 9, compared with the five-year (2021–2025) average net injections of 90 Bcf and last year's net injections of 80 Bcf during the same week. Working natural gas stocks totaled 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. Stocks were 45 Bcf (1%) more than the five-year average and 143 Bcf (4%) lower than last year at this time.",
+        "text_sha256": "3ba2bb5597a080a56d19289955a840e1e4e8139a5843c61107e5d0dcaf2a5c6f",
+        "permission_sha256": "0d0d129203741f4bc8c07b3a78a2632f7fe087a5d61907539432549782ff7a19",
+        "capture_sha256": "aa827b90e16b6f2bbc0254ec1075dcf61b014ee1f01be5cfde22b8a907f75f1f",
+        "published_at_utc": "2026-10-15T00:00:00Z",
+        "retrieved_at_utc": "2026-10-20T18:22:14.693Z",
+        "observation_date": "2026-10-09",
+        "period_relation": "SAME_PERIOD_ADDITIONAL_SEASONAL_COMPARATOR",
+        "rights_state": "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN",
+        "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+        "context_kind": "DATED_OFFICIAL_OBSERVATION",
+        "stage": "RESEARCH_READY"
+      }
+    ],
+    "source_attempts": [
+      {
+        "url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+        "status": "PASS",
+        "observed_at_utc": "2026-10-20T23:22:16.320511Z",
+        "route": "EXISTING_ADMITTED_PUBLIC_BYTES_OR_RETAINED_SOURCE_COMPARISON",
+        "new_source_requests": 0
+      }
+    ],
+    "source_changes": [],
+    "removed_main_claim_ids": [],
+    "previous_sources": [
+      {
+        "source_id": "SOURCE_1",
+        "url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+        "published_at_utc": "2026-10-15T00:00:00Z",
+        "canonical_content_sha256": "3ba2bb5597a080a56d19289955a840e1e4e8139a5843c61107e5d0dcaf2a5c6f",
+        "canonical_content_text": "Net injections into storage totaled 67 Bcf for the week ending October 9, compared with the five-year (2021–2025) average net injections of 90 Bcf and last year's net injections of 80 Bcf during the same week. Working natural gas stocks totaled 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. Stocks were 45 Bcf (1%) more than the five-year average and 143 Bcf (4%) lower than last year at this time."
+      }
+    ],
+    "main_receipt_id": null,
+    "research_revision": "6837eb0145b01656e3a9f594b8a7045784981efb782dd46347b52c155fa899e0",
+    "invalidates_prepared_review": false,
+    "media_state": "RETAIN_EXACT_BYTES_DATED_SUPPORT",
+    "prior_story": {
+      "story_identity": "simple-story-890582887a74cac23d71e366",
+      "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+      "title": "Gas tuần 9/10: bơm thêm dưới chuẩn, tồn kho trên trung bình năm năm",
+      "full_text": "Bơm thêm dưới chuẩn mùa vụ có nghĩa kho gas đã thiếu? CONFIRMED — EIA ghi nhận mức tăng ròng 67 Bcf trong tuần kết thúc ngày 9/10/2026, so với bình quân cùng tuần 90 Bcf. Tuy nhiên, tổng tồn kho vẫn cao hơn trung bình năm năm. Điểm đáng theo dõi là nhịp bổ sung phần đệm; số liệu này chưa xác lập tình trạng khan hiếm. [[SOURCE:SOURCE_1]]\n\nBản EIA công bố ngày 15/10 ghi tổng tồn kho khí tự nhiên ở mức 3.567 Bcf vào ngày 9/10. Mức này cao hơn trung bình năm năm 45 Bcf, tương đương 1%, nhưng thấp hơn cùng kỳ năm trước 143 Bcf, tương đương 4%. Bcf là tỷ feet khối, đơn vị thể tích khí trong báo cáo. [[SOURCE:SOURCE_1]]\n\nBài nghiên cứu trước, vẫn chưa công bố, đối chiếu mức tồn tháng 10 với một bản lưu tháng 1. Lần cập nhật này bổ sung phép so mức bơm thêm đúng cùng tuần. Số kho ngày 9/10 được giữ nguyên; đây là thêm cách đọc cho cùng kỳ quan sát. [[SOURCE:SOURCE_1]]\n\n## Mức đệm và tốc độ bổ sung\n\nEIA so mức bơm ròng 67 Bcf với bình quân 90 Bcf của cùng tuần trong giai đoạn 2021–2025 và mức 80 Bcf của cùng tuần năm trước. Chuẩn này trả lời kho được bổ sung nhanh đến đâu theo mùa vụ. Tổng tồn kho trả lời phần đệm đang lớn đến đâu. Hai câu trả lời có thể khác hướng mà không mâu thuẫn. [[SOURCE:SOURCE_1]]\n\nPhân tích Capital Chronicle: phần đệm đã tích lũy vẫn có thể cao hơn trung bình trong một tuần được bổ sung ít hơn thông lệ mùa vụ. Vì vậy, dùng mức tồn cao hơn chuẩn để bỏ qua nhịp bơm dưới chuẩn sẽ mất thông tin; suy từ nhịp bơm ấy sang thiếu khí cũng vượt quá dữ kiện. [[SOURCE:SOURCE_1]]\n\nĐối trọng của cách đọc khan hiếm là tồn kho vẫn cao hơn trung bình năm năm. Mức tăng ròng dưới chuẩn trong một tuần chưa đủ chứng minh phần đệm đã thiếu, cũng chưa cho biết vì sao nhịp bổ sung thấp hơn. [[SOURCE:SOURCE_1]]\n\n## Chuẩn mùa vụ chưa phải bất ngờ giá\n\nBình quân mùa vụ không phải kỳ vọng thị trường trước công bố. Muốn gọi mức 67 Bcf là bất ngờ cần có kỳ vọng được ghi nhận trước đó; muốn gắn với phản ứng giá cần giá và đường cong kỳ hạn đúng thời điểm. Những dữ liệu ấy không có trong bộ nguồn này. [[SOURCE:SOURCE_1]]\n\nThời tiết, sản lượng và luồng khí LNG hoặc đường ống là những đầu vào còn phải kiểm tra trước khi giải thích nguyên nhân. Nếu các kỳ tiếp theo có nhịp bổ sung phục hồi và phần đệm tiếp tục cao hơn chuẩn, cách đọc sức ép kéo dài sẽ yếu đi. Nếu nhịp bổ sung vẫn dưới chuẩn và phần đệm thu hẹp, mới có thêm lý do xem xét sức ép; đây là điều kiện theo dõi, chưa phải diễn biến đã xác nhận. [[SOURCE:SOURCE_1]]\n\nKỳ tiếp theo còn bổ sung dưới chuẩn của chính tuần đó, hay nhịp bổ sung phục hồi trong khi phần đệm vẫn trên trung bình? Cần nối các kỳ cùng định nghĩa và kiểm tra sửa số trước khi gọi một tuần là xu hướng. [[SOURCE:SOURCE_1]]\n\n## Ghi chú nguồn\n\nGhi chú nguồn: kỳ quan sát là tuần kết thúc ngày 9/10/2026; ngày công bố được lưu là 15/10. Header 14/10 trên trang supplement là kỳ của trang, không thay ngày quan sát số kho. Bản nguồn được lưu lại ngày 20/10 lúc 18:22:14.693 UTC; mốc lấy nguồn không làm số liệu trở thành quan sát mới. Giờ phát hành kèm múi giờ không được cung cấp trong đoạn nguồn dùng ở đây. [[SOURCE:SOURCE_1]]",
+      "stage": "UNPUBLISHED_REVIEWED_ARTICLE"
+    },
+    "writer_required": false,
+    "publication_authority": false,
+    "public_write_performed": false
+  }
+]

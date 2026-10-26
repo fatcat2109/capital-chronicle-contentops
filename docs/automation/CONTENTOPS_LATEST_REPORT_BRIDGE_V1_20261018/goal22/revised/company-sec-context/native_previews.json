@@ -1,0 +1,127 @@
+{
+  "telegram": {
+    "format": "channel_brief",
+    "text": "NEWSROOM BRIEF\n\nNghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nWhat to watch: Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1024,
+    "hard_truncation_used": false,
+    "media_asset_ids": []
+  },
+  "x": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93",
+    "reply_texts": [
+      "Watch: Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93\n\nWatch: Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 280,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "Watch: Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        271,
+        198
+      ],
+      "per_post_character_utilization": [
+        0.968,
+        0.707
+      ],
+      "shortest_longest_reply_ratio": 0.731,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "linkedin": {
+    "format": "professional_brief",
+    "text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nWhy it matters: Suy luận ContentOps: chi phí giao dịch và cơ chế định giá có thể ảnh hưởng việc thực hiện giao dịch của quỹ; hồ sơ doanh nghiệp lại trả lời câu hỏi về hoạt động, rủi ro và kết quả kinh doanh.\n\nContext: Nghiên cứu biên tập chưa duyệt.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 3000,
+    "hard_truncation_used": false
+  },
+  "discord": {
+    "format": "newsroom_brief",
+    "text": "**Newsroom brief: Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ**\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\n**Context:** Nghiên cứu biên tập chưa duyệt.\n\nSource-bound brief: https://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2000,
+    "hard_truncation_used": false
+  },
+  "facebook_page": {
+    "format": "page_brief",
+    "text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nWhy it matters: Suy luận ContentOps: chi phí giao dịch và cơ chế định giá có thể ảnh hưởng việc thực hiện giao dịch của quỹ; hồ sơ doanh nghiệp lại trả lời câu hỏi về hoạt động, rủi ro và kết quả kinh doanh.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 63206,
+    "hard_truncation_used": false
+  },
+  "instagram_business": {
+    "format": "brief_caption",
+    "text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nIn focus: Nghiên cứu biên tập chưa duyệt.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93\n\n#CapitalChronicle\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 2200,
+    "hard_truncation_used": false
+  },
+  "threads": {
+    "format": "text_brief",
+    "root_text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93",
+    "reply_texts": [
+      "What to watch: Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+    ],
+    "full_text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93\n\nWhat to watch: Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 500,
+    "overflow_strategy": "ordered_reply_chain",
+    "hard_truncation_used": false,
+    "text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93",
+    "posts": [
+      {
+        "order": 0,
+        "role": "root",
+        "text": "Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nNghiên cứu biên tập chưa duyệt.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93",
+        "media_asset_ids": []
+      },
+      {
+        "order": 1,
+        "role": "reply",
+        "text": "What to watch: Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ.\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+        "media_asset_ids": []
+      }
+    ],
+    "quality_metrics": {
+      "reply_count": 1,
+      "post_character_counts": [
+        197,
+        206
+      ],
+      "per_post_character_utilization": [
+        0.394,
+        0.412
+      ],
+      "shortest_longest_reply_ratio": 0.956,
+      "sentence_boundary_pass": true,
+      "orphan_fragment_count": 0,
+      "visual_distribution_pass": true,
+      "complete_article_visual_count": 0,
+      "duplicated_sentence_count": 0,
+      "hard_character_slicing_used": false
+    }
+  },
+  "youtube": {
+    "format": "community_brief",
+    "text": "Update: Nghiên cứu: Cách đọc SEC: tách tài liệu doanh nghiệp khỏi một đề xuất về giao dịch quỹ\n\nGiúp độc giả biết nơi tìm rủi ro doanh nghiệp và tránh coi một đề xuất của SEC là quy tắc đã có hiệu lực.\n\nWhat to watch: Cần accession, kỳ báo cáo và bản sửa đổi của đúng issuer; tài liệu hướng dẫn không thay thế hồ sơ.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-625a97fb0fd68d93\n\nNghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch.",
+    "platform_limit": 1000,
+    "hard_truncation_used": false
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+  "schema_version": "contentops.native_publication_binding.v1",
+  "run_id": "goal35-oil",
+  "work_item_id": "goal35-oil",
+  "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+  "review_id": "native-article-review-2bfa7f0b88c84c699893f7f17b83343c",
+  "review_notes_sha256": "311eaa2d7b2847a8c451e17b395bee10799948ab0acdb411edd544fc60a793ed",
+  "prepared_handoff_sha256": "db74b881804d33f55263957e7d28bf75e0bffa6d83d2c0894ee10b22ef71fdfa",
+  "plan_hash": "6d90c91393870117dfe2ffe2ff23be2f1b9fc592727174c9534c8bc1f776b191",
+  "binding_sha256": "9041ffa03b55bb8ad653dd1b9c87f2c1710f11be7492f59af4fcb1bf52ccedf8",
+  "accepted_evidence_sha256": "22d40c90181dcb38e32a202f1b7041697cf566ecc8e17109243430a168b255ed",
+  "native_result_sha256": "38d7b354804c495e02de5f05d117313f7ff4fb13bd709ae5bb346f5493c91cd7",
+  "artifact_sha256": {
+    "article_manifest_v1.json": "19cfb4f745655bfcc0b9586836bca684b8319c4d4f4246ac296470bd4269f29f",
+    "qualified_article_record_v1.json": "07cbb4bdeb2bdd8c012667e6b27eb10e93d73079b28377c0cb99e216654ae5f9",
+    "native_derivative_previews_v1.json": "6f4f6c0c6966147c27936e7770a862e2935c3e356247453b3ba623f8ad932779",
+    "publication_lifecycle_plan_v1.json": "e6ef75d8488e892a09806caf1c8bbb7de7c8a0fa6472ece6f33ebbefe14a6e0d",
+    "run_context_v1.json": "f1fa9946c4301752980409bec0dc1ad80901d1208afcb970391463682919f5d2"
+  },
+  "media_sha256": {},
+  "publication_authority": false,
+  "next_operation": "publication-status",
+  "public_write_performed": false
+}

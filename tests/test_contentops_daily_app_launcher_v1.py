@@ -640,7 +640,7 @@ def test_daily_app_task_installer_owns_existing_runtime_not_editorial_scheduler(
     assert "New-ScheduledTaskSettingsSet -MultipleInstances IgnoreNew" in installer
     assert "RestartCount 999" in installer
     assert "RepetitionInterval (New-TimeSpan -Minutes 5)" in installer
-    assert "routine_editorial_owner = 'SIMPLE_GEMINI_RUNTIME'" in installer
+    assert "routine_editorial_owner = 'NATIVE_CODEX_DESKTOP'" in installer
     assert "daily_app_routine_editorial_execution = $false" in installer
     assert "run_v1_simple_gemini_scheduler.py" not in installer
     assert "publish" not in installer.casefold()

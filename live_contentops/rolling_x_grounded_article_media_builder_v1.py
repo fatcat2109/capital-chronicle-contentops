@@ -663,7 +663,7 @@ def build_source_backed_media_assets(
         primary.get("publisher") or primary.get("source_identity") or "Official source"
     )
     source_url = str(primary.get("source_url") or "")
-    published = str(primary.get("published_at_utc") or primary.get("event_time_utc") or "")
+    published = str(primary.get("source_date_display") or primary.get("published_at_utc") or primary.get("event_time_utc") or "")
     document_title = str(primary.get("title") or "Official primary source document")
     content_text = sanitize_source_text(str(primary.get("canonical_content_text") or ""))
     if primary.get("render_excerpt_text"):
@@ -686,7 +686,7 @@ def build_source_backed_media_assets(
     excerpt = _bounded_text(content_text, maximum=500 if primary.get("render_excerpt_text") else 180) if excerpt_permitted else ""
     doc_body_lines = [
         ("Publisher", publisher),
-        ("Published", published or "date as recorded"),
+        ("Source date" if primary.get("source_date_display") else "Published", published or "date as recorded"),
     ]
     if excerpt:
         doc_body_lines.append(("Record", excerpt))
@@ -707,7 +707,8 @@ def build_source_backed_media_assets(
             media_role="lead_source_document_card",
             modality="source_document_card",
             evidence_dimension="official_document_identity",
-            caption=f"{document_title}, published by {publisher} on {published or 'the recorded date'}.",
+            caption=(f"{document_title}, {publisher}. Source date: {published}." if primary.get("source_date_display")
+                     else f"{document_title}, published by {publisher} on {published or 'the recorded date'}."),
             alt_text=f"Source document card for {document_title} from {publisher}.",
             source_label=publisher,
             source_page_url=source_url,
@@ -794,6 +795,38 @@ def build_source_backed_media_assets(
     ):
         raise GroundedArticleBuilderError("excerpt_rendered_without_established_reuse_basis")
     return assets[:required_asset_count]
+
+
+def build_source_comparison_card(documents, *, output_dir: Path, title: str):
+    """Two exact public-domain excerpts side by side in meaning, with no inferred causal arrow."""
+    if len(documents) != 2:
+        raise GroundedArticleBuilderError("comparison_card_requires_two_sources")
+    rows, lineage, urls = [], [], []
+    for document in documents:
+        excerpt = str(document.get("render_excerpt_text") or "")
+        canonical = " ".join(str(document.get("canonical_content_text") or "").split())
+        rights, _ = _underlying_source_rights(document)
+        if (rights != UNDERLYING_RIGHTS_PUBLIC_DOMAIN or not excerpt or len(excerpt) > 480
+                or " ".join(excerpt.split()) not in canonical or not document.get("rights_evidence_sha256")):
+            raise GroundedArticleBuilderError("comparison_card_source_or_rights_unbound")
+        date_label = str(document.get("source_date_display") or document.get("published_at_utc") or "date not verified")
+        rows.append((str(document["publisher"]) + " | " + date_label, excerpt))
+        urls.append(document["source_url"])
+        lineage.append({"document_id": document["document_id"], "source_url": document["source_url"],
+                        "published_at_utc": document.get("published_at_utc"),
+                        "source_capture_sha256": document.get("raw_sha256"),
+                        "rights_evidence_sha256": document["rights_evidence_sha256"],
+                        "excerpt_sha256": hashlib.sha256(excerpt.encode()).hexdigest()})
+    path = output_dir / "media_assets/source_comparison.png"
+    _render_text_card(path=path, header="Two dated public sources", title_lines=[title], body_lines=rows,
+                      footer_lines=["Different dates and purposes. No causal link or effective-rule claim is established.", *urls], wrap_body=True)
+    raw = path.read_bytes()
+    return {"asset_id": "source_comparison", "path": str(path), "sha256": hashlib.sha256(raw).hexdigest(),
+            "role": "supporting_evidence", "media_role": "source_comparison", "modality": "source_document_card",
+            "caption": title + ". Dated sources; no causal link or current market claim.",
+            "alt_text": "Two separately attributed excerpts from public official sources.",
+            "underlying_source_rights_status": UNDERLYING_RIGHTS_PUBLIC_DOMAIN,
+            "source_lineage": lineage, "publication_authority": False}
 
 
 def build_source_value_comparison_chart(

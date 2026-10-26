@@ -1,0 +1,568 @@
+{
+  "accepted_source_count": 1,
+  "admitted_candidate_count": 1,
+  "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-oil\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html"
+      ],
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "blockers": [],
+      "candidate_id": "simple-story-3c160cea87fca66d7c13eb55",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that oil prices steady as investors weigh geopolitics, lower US stockpiles",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-oil"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Reuters October 21 2026 oil settlement Brent WTI intraday gains competing pressures"
+      ],
+      "selection_rationale": "A fresh current-session price-path question is distinct from the retained EIA inventory interpretation, gas seasonal refill, hedging and custody explainers. It gives readers practical protection against mistaking an intraday rally for the closing result. Other current Reuters reports are independent company or FX operations; they are not fallbacks for this oil-scoped operation. The single reporting origin supports attributed session facts only, with event truth UNCONFIRMED.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 29,
+  "candidate_limit": 32,
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 2,
+    "observations": [
+      {
+        "invocation_id": "/root/goal35_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal35_oil_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal35_oil_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "role": "revise",
+        "speed": "standard",
+        "stage": "revise",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low",
+      "max"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 3,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that oil prices steady as investors weigh geopolitics, lower US stockpiles",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-oil"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal35_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "c571fc6b406be522293a2d9b751894616e155416f4139a6d9e5e80672d82a473",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "bb43f494a502359a33b048bc8253808947d7c448404268b9a092bc3708cd11b2",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal35_oil_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "3eb68f488501eb7bf0133a169609fdff35b2518b466a7ea7c69686be6990e830",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "bb72a231dae1b2d7582da1a9dc689b0cfee7fe1ad8b6d87a5527ac18d8d2e8c2",
+      "role": "write",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "write"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal35_oil_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "c0c26a0ce36ca23772b76fdea5bf126bc6843248e7dbb4880630e72d1f459deb",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "f3a8139305ab9a229f374020c225077ae1c13d19d665edcfbbe495f5ea75736f",
+      "role": "revise",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "revise"
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-oil\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "goal35-oil"
+    ],
+    "accepted_evidence_sha256": "22d40c90181dcb38e32a202f1b7041697cf566ecc8e17109243430a168b255ed",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "bc58cb4c334b923d9e350055d162d4a0d4394383b6dc085c4151ac58008439b6",
+    "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "128988c122961153a927b2cc65e30666b87284e5153b45f4434bfa7d619567ad",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "5ff03c9002b77f285d666b12f531a1b55a9cb83f71685d2c108b03146be29b74",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "e238b108477ffa2422179305c4da6259cc416f1ead6262c7076c26bf62d71e2e",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "a0b1650c7c80d9585637d7aaa2108c2d496ebdfb0a68425673f2847d2cf1f593",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "be183823cdb849890574c1b1d75cba0040b9f14d5b6c85a0f469aa12da688428",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "a22241e3f2ec7767d2dce493990e6e1c18c9d2a47a1a9cd490b8d01b5cf1ef85",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "7ef6ceaa3e0e36e34f17774e1c65ac6d1fb5b8795a17b15510ef9c5bf23ce9fc",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "d9a83dc9c206d1f2445d7e792c99ccf4870b151d105c406b06552d6d26e47a4b",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "ccc208fb15b58f7c5e05ed9cc39dcb4b690b28fff532bb34d62b7a2d4395b384",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+      "event_truth_support_status": "UNCONFIRMED",
+      "event_truth_supported": false,
+      "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+      "origin_character": "UNSPECIFIED",
+      "primary_reporting_publisher": "Reuters",
+      "primary_reporting_source_identity": "reuters.com",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+      "relay_source_identity": null,
+      "report_proposition": "Reuters reports that oil prices steady as investors weigh geopolitics, lower US stockpiles",
+      "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal35-oil"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-oil",
+    "package_identity": "550145cb7e9d4617245b13209c8cb1e94a831d9e645e03acb3c80d6c1179f15b",
+    "plan_hash": "d6f38ff5dfba3ad6dd7a21def8a58cfa8e8196e0967102dcbe3489e3785769fc",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal35-oil"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "run_id": "goal35-oil",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-3c160cea87fca66d7c13eb55",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "update_chain_identity": "simple-story-3c160cea87fca66d7c13eb55"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-oil\\qualified_article_record_v1.json",
+  "revision_performed": true,
+  "run_id": "goal35-oil",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-3c160cea87fca66d7c13eb55",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal35-oil",
+    "headline_text": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+    "official_source_urls": [],
+    "public_source_urls": [
+      "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+    "source_account": "Reuters",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-21T19:17:12Z",
+    "source_url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "BOUNDED_DISCOVERY",
+      "known_access_risk": false,
+      "known_official_path": false,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-3c160cea87fca66d7c13eb55",
+    "update_chain_identity": "simple-story-3c160cea87fca66d7c13eb55"
+  },
+  "selected_plan_entry": {
+    "angle": "The October 21 oil close tells a narrower story than the intraday rally: reported competing forces left Brent nearly flat while WTI fell. Explain what the reversal permits readers to conclude and what it cannot establish.",
+    "article_mode": "STANDARD_NEWS_ANALYSIS",
+    "candidate_id": "simple-story-3c160cea87fca66d7c13eb55",
+    "evidence_plan": "Use only the sealed goal35-oil retained Reuters passages relayed by Yahoo; preserve original Reuters identity, Yahoo syndication, publication 2026-10-21T19:17:12Z and known-at 2026-10-21T22:27:23.049Z. Attribute every settlement, intraday and geopolitical statement to Reuters. Bind Brent settlement +3 cents/+0.03% at $108.82 and WTI close -67 cents/-0.7% at $97.15 separately; both had earlier gained more than $2. Code owns numeric extraction and arithmetic; no new spread or percentage calculation. Reuters describes possible Russia-Ukraine talks, declining US stocks and lack of US-Iran dialogue as competing considerations; retain possible and reported framing, never independently confirm those events or assign causal weights. Do not splice the older retained EIA 8.6-million-barrel draw into this session. No new retrieval, requests, APIs, quotes, photos, broker prices or proprietary Main claims. Missing: exact intraday timestamps and contracts, matched curve/volume data, inventory vintage and expectations, independently verified diplomacy/supply developments. These limit causality, persistence and forecasts, not this narrow attributed session analysis.",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "primary_reader_question": "If oil rallied more than $2 during the session but Brent ended nearly flat and WTI lower, what does the closing snapshot actually tell us about the competing pressures on oil?",
+    "research_queries": [
+      "Reuters October 21 2026 oil settlement Brent WTI intraday gains competing pressures"
+    ],
+    "selection_rationale": "A fresh current-session price-path question is distinct from the retained EIA inventory interpretation, gas seasonal refill, hedging and custody explainers. It gives readers practical protection against mistaking an intraday rally for the closing result. Other current Reuters reports are independent company or FX operations; they are not fallbacks for this oil-scoped operation. The single reporting origin supports attributed session facts only, with event truth UNCONFIRMED."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "The October 21 oil close tells a narrower story than the intraday rally: reported competing forces left Brent nearly flat while WTI fell. Explain what the reversal permits readers to conclude and what it cannot establish.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-3c160cea87fca66d7c13eb55",
+        "evidence_plan": "Use only the sealed goal35-oil retained Reuters passages relayed by Yahoo; preserve original Reuters identity, Yahoo syndication, publication 2026-10-21T19:17:12Z and known-at 2026-10-21T22:27:23.049Z. Attribute every settlement, intraday and geopolitical statement to Reuters. Bind Brent settlement +3 cents/+0.03% at $108.82 and WTI close -67 cents/-0.7% at $97.15 separately; both had earlier gained more than $2. Code owns numeric extraction and arithmetic; no new spread or percentage calculation. Reuters describes possible Russia-Ukraine talks, declining US stocks and lack of US-Iran dialogue as competing considerations; retain possible and reported framing, never independently confirm those events or assign causal weights. Do not splice the older retained EIA 8.6-million-barrel draw into this session. No new retrieval, requests, APIs, quotes, photos, broker prices or proprietary Main claims. Missing: exact intraday timestamps and contracts, matched curve/volume data, inventory vintage and expectations, independently verified diplomacy/supply developments. These limit causality, persistence and forecasts, not this narrow attributed session analysis.",
+        "primary_reader_question": "If oil rallied more than $2 during the session but Brent ended nearly flat and WTI lower, what does the closing snapshot actually tell us about the competing pressures on oil?",
+        "research_queries": [
+          "Reuters October 21 2026 oil settlement Brent WTI intraday gains competing pressures"
+        ],
+        "selection_rationale": "A fresh current-session price-path question is distinct from the retained EIA inventory interpretation, gas seasonal refill, hedging and custody explainers. It gives readers practical protection against mistaking an intraday rally for the closing result. Other current Reuters reports are independent company or FX operations; they are not fallbacks for this oil-scoped operation. The single reporting origin supports attributed session facts only, with event truth UNCONFIRMED."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one current oil session analysis from the full 29-candidate packet; no fallback and no recycled historical explainer. The defensible tension is intraday strength versus divergent settlement outcomes, with competing drivers explicitly attributed and causal certainty withheld.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "semantic_response_count": 3,
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-oil\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 29,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 12,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

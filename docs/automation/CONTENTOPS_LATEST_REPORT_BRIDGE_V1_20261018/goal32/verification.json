@@ -1,0 +1,54 @@
+{
+  "scope": "Goal32 operating composition RC only",
+  "focused_controls": {
+    "result": "PASS",
+    "tests": 9,
+    "evidence": "controlled_tests.xml",
+    "class": "CONTROLLED_NOT_BROWSER_OR_PROVIDER_PROOF"
+  },
+  "connected_regressions": {
+    "result": "PASS",
+    "tests": 50,
+    "includes_then_current_goal32_tests": 5,
+    "unique_existing_tests": 45,
+    "evidence": "observed pytest output in current task"
+  },
+  "existing_ui_read_model": {
+    "result": "PASS",
+    "tests": 30,
+    "evidence": "observed pytest output in current task"
+  },
+  "react_workspace": {
+    "result": "PASS",
+    "tests": 9,
+    "evidence": "observed final Vitest output in current task"
+  },
+  "ui_build": {
+    "result": "PASS",
+    "evidence": "ui_build.log"
+  },
+  "ruff_changed_python": "PASS",
+  "compileall_live_contentops_scripts": "PASS",
+  "neo": {
+    "desktop": "INSPECTED",
+    "mobile_390px": "INSPECTED_NO_HORIZONTAL_OVERFLOW",
+    "article_cards": 3,
+    "previews": 24,
+    "screenshots": [
+      "desktop-publication.png",
+      "mobile-publication.png"
+    ],
+    "scope": "local rendered reader only; screenshots precede final wording/next-command polish, same layout"
+  },
+  "actual_cli": {
+    "state": "PREPARED",
+    "evidence": "actual_cli_status.json"
+  },
+  "manual_store_dispatches": 0,
+  "new_model_source_cycles": 0,
+  "deployed": false,
+  "merged": false,
+  "live_published": false,
+  "calendar_reliability": "NOT_VERIFIED",
+  "control_tower_receiver_sync": "PENDING_NO_CONNECTOR_NO_BUILDER_MESSAGING_AUTHORITY"
+}

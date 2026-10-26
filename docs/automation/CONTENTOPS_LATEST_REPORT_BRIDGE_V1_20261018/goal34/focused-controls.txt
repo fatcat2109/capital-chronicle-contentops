@@ -1,0 +1,75 @@
+.......................................................................F [ 97%]
+..                                                                       [100%]
+================================== FAILURES ===================================
+________ test_review_api_origin_exact_revision_and_daily_app_readback _________
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-26977/test_review_api_origin_exact_r0')
+
+    def test_review_api_origin_exact_revision_and_daily_app_readback(tmp_path):
+        from live_contentops.server import make_handler
+        from live_contentops.daily_app_ui_read_model_v1 import build_daily_app_snapshot
+        store, _, _, _ = seeded(tmp_path)
+        p = view(store)["packages"][0]
+        server = HTTPServer(("127.0.0.1", 0), make_handler(store.db_path))
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        body = {"brief_id": p["brief_id"], "package_revision": p["package_revision"], "decision": "HOLD",
+                "rationale": "Hold exact package until its named current-input gap is closed.", "expected_review_id": None}
+        try:
+            url = f"http://127.0.0.1:{server.server_port}/api/daily-app/editorial-review"
+            with pytest.raises(HTTPError) as e:
+>               urlopen(Request(url, data=json.dumps(body).encode(), headers={"Content-Type": "application/json", "Origin": "https://example.org"}))
+
+tests\test_contentops_editorial_desk_v1.py:164: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py:189: in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py:489: in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py:506: in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py:466: in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py:1348: in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\urllib\request.py:1323: in do_open
+    r = h.getresponse()
+        ^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\http\client.py:1430: in getresponse
+    response.begin()
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\http\client.py:331: in begin
+    version, status, reason = self._read_status()
+                              ^^^^^^^^^^^^^^^^^^^
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\http\client.py:292: in _read_status
+    line = str(self.fp.readline(_MAXLINE + 1), "iso-8859-1")
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <socket.SocketIO object at 0x0000026617D108E0>
+b = <memory at 0x0000026615393F40>
+
+    def readinto(self, b):
+        """Read up to len(b) bytes into the writable buffer *b* and return
+        the number of bytes read.  If the socket is non-blocking and no bytes
+        are available, None is returned.
+    
+        If *b* is non-empty, a 0 return value indicates that the connection
+        was shutdown at the other end.
+        """
+        self._checkClosed()
+        self._checkReadable()
+        if self._timeout_occurred:
+            raise OSError("cannot read from timed out object")
+        try:
+>           return self._sock.recv_into(b)
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+E           ConnectionAbortedError: [WinError 10053] An established connection was aborted by the software in your host machine
+
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\socket.py:719: ConnectionAbortedError
+=========================== short test summary info ===========================
+FAILED tests/test_contentops_editorial_desk_v1.py::test_review_api_origin_exact_revision_and_daily_app_readback
+1 failed, 73 passed in 21.20s

@@ -1,0 +1,23 @@
+{
+  "title": "Nghiên cứu: Bản gas weekly cũ không phải tồn kho hiện tại",
+  "dek": "Ngăn người đọc dùng một trang mang tên weekly nhưng đã dừng phát hành để diễn giải thị trường hôm nay.",
+  "subtitle": "Ngăn người đọc dùng một trang mang tên weekly nhưng đã dừng phát hành để diễn giải thị trường hôm nay.",
+  "market_mechanism": "Suy luận ContentOps: so sánh tồn kho chỉ có ý nghĩa khi khớp kỳ quan sát, mùa vụ và phiên bản dữ liệu. Một mức dư lịch sử không bảo đảm thị trường hiện tại dư cung.",
+  "policy_context": "Nghiên cứu biên tập chưa duyệt. Thời tiết, xuất khẩu và sản lượng có thể thay đổi cân bằng gas sau kỳ được lưu lại; khác biệt nguồn cũng có thể tạo ra vẻ thay đổi giả.",
+  "cross_asset_implications": "Nguồn thay thế hiện tại có giữ nguyên đơn vị, địa bàn và kỳ đo không?",
+  "substack_body_markdown": "## Phạm vi\n\nBản nghiên cứu nền do biên tập soạn. Không phải kết quả Simple mới, dự báo Core, bài đã duyệt hay bản tin giá hiện tại.\n\n## Dữ kiện từ nguồn\n\nWorking natural gas stocks totaled 3,065 Bcf, which is 177 Bcf (6%) more than the five-year average and 141 Bcf (5%) more than last year at this time. [[SOURCE:SOURCE_1]]\n\nNgày nguồn: 2026-01-22T00:00:00Z. Tình trạng: HISTORICAL_OBSERVATION_NOT_CURRENT_INVENTORY.\n\n## Dữ kiện từ nguồn\n\nThis week is the final publication of the Natural Gas Weekly Update. On January 29, we are launching the Weekly Natural Gas Storage Report (WNGSR) Supplement on EIA's Beta site. This supplement will be published every Thursday afternoon. You can find information on our upcoming releases and how to contact us on our website. [[SOURCE:SOURCE_2]]\n\nNgày nguồn: 2026-01-22T00:00:00Z. Tình trạng: SOURCE_SERIES_MIGRATION.\n\n## Vì sao đáng đọc\n\nNgăn người đọc dùng một trang mang tên weekly nhưng đã dừng phát hành để diễn giải thị trường hôm nay.\n\n## Cơ chế cần kiểm tra\n\nSuy luận ContentOps: so sánh tồn kho chỉ có ý nghĩa khi khớp kỳ quan sát, mùa vụ và phiên bản dữ liệu. Một mức dư lịch sử không bảo đảm thị trường hiện tại dư cung.\n\n## Giải thích cạnh tranh\n\nThời tiết, xuất khẩu và sản lượng có thể thay đổi cân bằng gas sau kỳ được lưu lại; khác biệt nguồn cũng có thể tạo ra vẻ thay đổi giả.\n\n## Kịch bản điều kiện\n\nNếu nguồn thay thế giữ cùng định nghĩa, nối chuỗi có ghi nhận thay đổi nguồn.\nNếu định nghĩa hoặc tần suất đổi, trình bày hai chuỗi riêng và nêu hạn chế.\n\n## Điều kiện bác bỏ\n\nThiếu kỳ hiện tại hoặc sai đơn vị: không dùng để kết luận cung cầu mới nhất.\n\n## Còn thiếu\n\nBản WNGSR/Supplement mới nhất và lịch sửa số; Định nghĩa so sánh trước và sau chuyển nguồn\n\n## Câu hỏi tiếp\n\nNguồn thay thế hiện tại có giữ nguyên đơn vị, địa bàn và kỳ đo không?\n\n## Nguồn\n\n[1] https://www.eia.gov/naturalgas/weekly/\n[2] https://www.eia.gov/naturalgas/weekly/",
+  "authoring_origin": "EDITOR_AUTHORED_RESEARCH",
+  "article_mode": "DATA_OR_DOCUMENT_LENS",
+  "cluster_id": "gas-vintage",
+  "headline_ids": [
+    "goal21-gas-storage",
+    "goal21-gas-series-migration"
+  ],
+  "evidence_document_ids": [
+    "goal21-gas-storage",
+    "goal21-gas-series-migration"
+  ],
+  "x_content_grants_factual_authority": false,
+  "publication_authority": false,
+  "editorial_scope_notice": "Nghiên cứu biên tập chưa xuất bản; dữ liệu có ngày riêng; không phải khuyến nghị giao dịch."
+}

@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+  "title": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+  "reporting_publisher": "Reuters",
+  "attribution_text": "Reuters",
+  "observed_at_utc": "2026-10-21T22:27:23.026Z",
+  "full_text_sha256": "a6c2655dea9a6c9a14b2bb121c2d672076905aef83eb41c18899531fc79d90f8",
+  "full_text_characters": 6296,
+  "excerpts": [
+    {
+      "text": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+      "start": 0,
+      "end": 95
+    },
+    {
+      "text": "Meta will issue a new class of non-voting Class C common stock in January ​2027, effectively resulting in a two-for-one split, to fund acquisitions and retain top talent while maintaining CEO Mark Zuckerberg's control amid Silicon Valley's intensifying AI ​race.",
+      "start": 1324,
+      "end": 1586
+    },
+    {
+      "text": "The company raised the lower end of its annual spending forecast, now expecting capital expenditure to be between $135 billion and $145 billion this year, up from $130 billion to $145 billion expected previously.",
+      "start": 2155,
+      "end": 2367
+    },
+    {
+      "text": "The company reported better-than-expected revenue of $64.60 billion for the quarter ended September 30, ahead of Wall Street estimates of $63.37 billion, according to data compiled by LSEG.",
+      "start": 2368,
+      "end": 2557
+    },
+    {
+      "text": "Meta reported a free cash flow deficit of $2.12 billion in the third quarter, compared with positive free cash ​flow of $10.63 billion a year earlier.",
+      "start": 2676,
+      "end": 2826
+    }
+  ],
+  "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS",
+  "credential_or_session_material_read": false,
+  "public_write_performed": false,
+  "capture_scope": "EXACT_SELECTED_FACTUAL_PASSAGES_NOT_FULL_ARTICLE",
+  "publication_visible_clock": {
+    "datetime": "2026-10-21T21:23:34.244Z",
+    "text": "October 22, 20263:05 AM GMT+7Updated 1 hour ago"
+  },
+  "publisher_machine_clock_metadata": [],
+  "origin": "Reuters original",
+  "publication_clock_basis": "VISIBLE_REUTERS_GMT_PLUS_7_MINUTE_CLOCK",
+  "clock_limit": "Reuters time element may represent update rather than original publication; visible original minute retained separately. No future outcome is inferred."
+}

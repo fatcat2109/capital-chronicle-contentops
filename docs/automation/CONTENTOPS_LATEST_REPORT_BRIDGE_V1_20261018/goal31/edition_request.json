@@ -1,0 +1,42 @@
+{
+  "edition_id": "goal31-source-led-three-opportunities",
+  "title": "Đọc dữ liệu, giữ dòng tiền: ba câu hỏi nghiên cứu và phạm vi còn chờ",
+  "operation_ids": [
+    "goal31-company-machine-reading",
+    "goal31-futures-cashflow",
+    "goal27-gas-refill-update"
+  ],
+  "held_candidates": [
+    {
+      "operation_id": "goal31-futures-purpose",
+      "title": "Vị thế futures/options hiện tại có thực sự là dự báo giá?",
+      "reason": "Phạm vi hiện tại vẫn HOLD: Nguồn công khai mô tả mục đích hedge và tài sản/rủi ro đã có của một trường hợp cụ thể; Contract, expiry, settlement và mục đích kinh tế cụ thể; Chain, IV, open interest hoặc dữ liệu vị thế hiện tại có cùng kỳ và phạm vi phù hợp. Bước hữu hạn là một bộ nguồn hợp đồng/vị thế cùng kỳ hoặc công bố mục đích hedge của chính chủ. Nguồn nền CFTC đã tải được và giúp câu hỏi riêng về dòng tiền; không chứng minh vị thế hiện tại."
+    }
+  ],
+  "opportunity_outcomes": [
+    {
+      "operation_id": "goal31-company-machine-reading",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "Bài mới riêng tư: thông báo SEC19/10 mở câu hỏi về chất lượng dữ liệu máy hiểu khi đọc công bố doanh nghiệp. Tọa đàm9/11 còn ở tương lai; không chứng minh hiệu quả AI hoặc thay quy định."
+    },
+    {
+      "operation_id": "goal31-futures-cashflow",
+      "outcome": "NEW",
+      "source_blocked": false,
+      "reason": "Bài nền mới từ phần CFTC vừa đọc: phòng hộ giá kinh doanh và dòng tiền ký quỹ. Không có ngày phát hành xác minh, không suy thành vị thế hiện tại. Phạm vi vị thế hiện tại bên dưới vẫn giữ chờ."
+    },
+    {
+      "operation_id": "goal27-gas-refill-update",
+      "outcome": "KEEP",
+      "source_blocked": false,
+      "reason": "Giữ nguyên gas: EIA vẫn là tuần9/10, phát hành15/10; không có kỳ mới để viết cập nhật. Bài cũ và tám bản xem trước được dùng nguyên vẹn."
+    },
+    {
+      "operation_id": "goal31-futures-purpose",
+      "outcome": "HOLD",
+      "source_blocked": true,
+      "reason": "Giữ chờ nhận định vị thế hiện tại: thiếu hợp đồng/kỳ hạn/thanh toán, chuỗi quyền chọn/IV/open interest và mục đích hedge cụ thể. Không viết bài dự báo từ hai định nghĩa nền."
+    }
+  ]
+}

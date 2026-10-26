@@ -1,0 +1,31 @@
+{
+  "request_sha256": "72a869d87be424dbdbcf2b89a032b35b21bcddf1631b731f26b82e5015127cad",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "candidate_id": "simple-story-25946d84473ced782f95cb27",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "angle": "SEC–AMF ngày 20/10: hợp tác giám sát tạo điều kiện xử lý hồ sơ xuyên biên giới, còn kết quả phải được chứng minh riêng.",
+        "primary_reader_question": "Thỏa thuận chia sẻ thông tin SEC–AMF thay đổi việc xử lý hồ sơ nhà quản lý Pháp tại Mỹ như thế nào, và vì sao xử lý đơn chưa chứng minh đăng ký thành công hay bảo vệ nhà đầu tư thực tế?",
+        "selection_rationale": "Thông cáo có ngày 20/10 là nguồn mới khác năng lượng, nêu thay đổi thủ tục cụ thể: xử lý đơn mới và đang chờ trong khuôn khổ hợp tác giám sát. Câu hỏi hữu ích là thông tin giữa cơ quan giám sát tháo gỡ bước nào và còn thiếu bằng chứng nào về kết quả, không phải chỉ nhắc tên MOU.",
+        "research_queries": [
+          "SEC AMF October 20 2026 supervisory memorandum investment adviser registration pending applications",
+          "SEC AMF information sharing consultation supervision French asset management registration applications"
+        ],
+        "evidence_plan": "Dùng bản agency đã thu qua Neo và được xác minh quyền dùng qua resolver hiện hữu; đối chiếu ngày nguồn 20/10 với ngày truy xuất. Chỉ dùng các đoạn agency đã được cấp quyền, không dùng lời trích bên thứ ba. Gắn từng khẳng định vào đoạn nói về tham vấn, hợp tác, trao đổi thông tin và xử lý hồ sơ mới/đang chờ. Phân biệt ba tầng: cơ chế giám sát, quá trình xử lý đơn, và kết quả đăng ký/bảo vệ nhà đầu tư; tầng cuối chưa có dữ liệu. Nêu phản đề rằng hợp tác có ích nhưng thông cáo không đo hiệu quả thực thi. Không bịa hồ sơ đã duyệt, dòng vốn, thời hạn, lợi nhuận hay giá; code sở hữu mọi phép tính nếu cần."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một câu hỏi độc lập có giá trị theo yêu cầu chủ sở hữu; không thêm phương án dự phòng làm loãng phạm vi.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "invocation_id": "/root/goal29_sol_light",
+    "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed."
+  }
+}

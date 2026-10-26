@@ -1,0 +1,243 @@
+{
+  "admitted_candidate_count": 1,
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+      ],
+      "article_mode": "EVERGREEN_EXPLAINER",
+      "blockers": [],
+      "candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "EVERGREEN_EXPLAINER",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "CFTC Economic Purpose Futures Markets hedging farmer offset spot margin daily mark to market",
+        "CFTC standardized futures delivery location grade performance bond variation margin"
+      ],
+      "selection_rationale": "Nguồn CFTC Economic Purpose được thừa nhận mới có cơ chế vượt hai định nghĩa của cơ hội cũ: nông dân bán futures, offset và bán hàng spot, hợp đồng chuẩn hóa cùng ký quỹ/mark-to-market hằng ngày. Góc mới giải thích rủi ro kinh doanh và nhu cầu tiền mặt, khác bài Goal26 về quyền sở hữu, khoản vay và lưu ký kim loại. Có ích như nền, không phải tin mới hay diễn giải vị thế hiện tại.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "codex_runtime_model_calls_before_writer": null,
+  "evidence_attempts": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+      ],
+      "article_mode": "EVERGREEN_EXPLAINER",
+      "blockers": [],
+      "candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.cftc.gov",
+        "primary_reporting_source_identity": "www.cftc.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "EVERGREEN_EXPLAINER",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "provenance": {
+        "read_only_http_get_only": true,
+        "request_count_for_call": 0,
+        "retained_research_revision": "e5865d6dbae8d76743d0f7f40114156a21d9f3d289d6eecfadff4084fd1ba91c",
+        "selected_route": "OFFICIAL_PRIMARY"
+      },
+      "request": {
+        "cluster_id": "simple-story-90948260be9bd56524b7f2c8",
+        "effective_article_mode": "EVERGREEN_EXPLAINER",
+        "evidence_enrichment_context": {
+          "requested": true
+        },
+        "headline_ids": [
+          "goal31-futures-economic-purpose"
+        ],
+        "remaining_admitted_candidate_count": 0,
+        "request_logical_hash": "6f6a322c4c47a55ee976068b5bd866f967c55a2f7e178f162e367418f9026dd2",
+        "requested_article_mode": "EVERGREEN_EXPLAINER",
+        "required_evidence_capabilities": [
+          "credible_report_or_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "story_context": {
+          "candidate_packet_locators_grant_factual_authority": false,
+          "candidate_source_account": "www.cftc.gov",
+          "candidate_source_timestamp_utc": "",
+          "candidate_source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+          "evolving_story_context": [],
+          "grounded_research_queries": [
+            "CFTC Economic Purpose Futures Markets hedging farmer offset spot margin daily mark to market",
+            "CFTC standardized futures delivery location grade performance bond variation margin"
+          ],
+          "leaf_summaries": [
+            "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities"
+          ],
+          "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
+          "planned_research_query_count": 2,
+          "planned_research_query_set_sha256": "c0232c6e21d14472f2c885f1a5c404296e3d03da1e403521c746f6678a622332",
+          "public_source_url_bindings": [
+            {
+              "headline_id": "goal31-futures-economic-purpose",
+              "source_timestamp_utc": "",
+              "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+            }
+          ],
+          "report_provenance": {
+            "arbitrary_x_list_membership_grants_authority": false,
+            "attributed_reputable_sources": [],
+            "canonical_x_list_provenance": {},
+            "event_proposition": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+            "explicit_market_rumor": false,
+            "explicit_reputable_attribution": false,
+            "owner_curated_canonical_x_record": false,
+            "preferred_route": "DEFAULT_SHORTEST_GOVERNED_ROUTE",
+            "primary_reporting_publisher": null,
+            "primary_reporting_source_identity": null,
+            "report_or_event_authority_granted": false,
+            "report_proposition": null,
+            "schema_version": "contentops.v1_simple_candidate_report_provenance.v1",
+            "source_account": "www.cftc.gov",
+            "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+            "trusted_relay_identity_approved": false
+          }
+        },
+        "story_evidence_scope_id": "simple-story-90948260be9bd56524b7f2c8",
+        "story_type": "selected_current_news"
+      },
+      "research_queries": [
+        "CFTC Economic Purpose Futures Markets hedging farmer offset spot margin daily mark to market",
+        "CFTC standardized futures delivery location grade performance bond variation margin"
+      ],
+      "selection_rationale": "Nguồn CFTC Economic Purpose được thừa nhận mới có cơ chế vượt hai định nghĩa của cơ hội cũ: nông dân bán futures, offset và bán hàng spot, hợp đồng chuẩn hóa cùng ký quỹ/mark-to-market hằng ngày. Góc mới giải thích rủi ro kinh doanh và nhu cầu tiền mặt, khác bài Goal26 về quyền sở hữu, khoản vay và lưu ký kim loại. Có ích như nền, không phải tin mới hay diễn giải vị thế hiện tại.",
+      "source_pack": [
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "4bfd7e1c82e4b8f8fc80ae8c87319308a2e56aeea06ff8b250c8bcc7028520d2",
+          "canonical_content_text": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities\n\nFor example, a farmer who wants to deliver wheat to a grain elevator near Topeka might find Chicago Board of Trade (CBOT) wheat futures contracts useful for hedging, but would not want to make delivery on the contracts because the nearest CBOT delivery point is St. Louis. - Instead of making delivery, the farmer will buy back or offset the contracts before the delivery date and sell the wheat locally on the spot market - Most futures contracts (by volume) are liquidated by offsetting and do not result in delivery - The purpose of the delivery provision is to ensure convergence between the futures price and the cash market price -\n\nExchanges set standardized contract terms, including the amount of the commodity to be delivered (the contract size), delivery months, the last trading day, the delivery locations, and acceptable qualities or grades of the commodity - The exchange specifies that different varieties and grades can be delivered at various fixed differentials (premiums or discounts) to the contract price - This standardization enhances liquidity by making it possible for large numbers of market participants to trade the same instrument - This liquidity makes the contract more useful for hedging, but standardization reduces the usefulness of a futures contract as a merchandising vehicle - Futures trades made on an exchange are cleared through a “clearing house,” which acts as the buyer to all sellers and the seller to all buyers - When a futures contract is bought or sold, it is technically bought from or sold to the clearing house rather than the party with whom the transaction was executed on the trading floor or through an electronic trading platform - Since the contract is ultimately bought from and sold from the same party, if a futures contract is bought and subsequently sold, the position has been offset and the contract is extinguished\n\nMargins in the futures markets are not down payments like stock margins, but are performance bonds designed to ensure that traders can meet their financial obligations - When a futures trader enters into a futures position, he or she is required to post initial margin of an amount specified by the exchange or clearing house. Thereafter, the position is “marked to the market” daily - If the futures position loses value when the market moves against it—if, for example, you are buying and the market goes down—the amount of money in the margin account will decline accordingly - If the amount of money in the margin account falls below the specified maintenance margin (which is set at a level less than or equal to the initial margin), the futures trader will be required to post additional variation margin to bring the account up the initial margin level - On the other hand, if the futures position is profitable, the profits will be added to the margin account - Futures commission merchants (FCMs) often require their customers to maintain funds in their margin accounts that exceed the levels specified by an exchange",
+          "canonical_resolution_status": "",
+          "document_id": "goal31-futures-economic-purpose",
+          "published_at_source": "SOURCE_UNDATED_NOT_INFERRED_FROM_CAPTURE",
+          "published_at_utc": "",
+          "publisher": "www.cftc.gov",
+          "report_truth_only": false,
+          "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+          "secondary_listing_only": false,
+          "source_authority_class": "official_public_primary_source",
+          "source_id": "SOURCE_1",
+          "source_identity": "www.cftc.gov",
+          "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+        }
+      ],
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "model_calls_before_writer": 1,
+  "public_write_performed": false,
+  "request_count": 0,
+  "request_limit": 6,
+  "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
+  "selected_candidate_id": "simple-story-90948260be9bd56524b7f2c8",
+  "selected_epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.cftc.gov",
+    "primary_reporting_source_identity": "www.cftc.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.cftc.gov reports that futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal31-futures-economic-purpose"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "4bfd7e1c82e4b8f8fc80ae8c87319308a2e56aeea06ff8b250c8bcc7028520d2",
+      "canonical_content_text": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities\n\nFor example, a farmer who wants to deliver wheat to a grain elevator near Topeka might find Chicago Board of Trade (CBOT) wheat futures contracts useful for hedging, but would not want to make delivery on the contracts because the nearest CBOT delivery point is St. Louis. - Instead of making delivery, the farmer will buy back or offset the contracts before the delivery date and sell the wheat locally on the spot market - Most futures contracts (by volume) are liquidated by offsetting and do not result in delivery - The purpose of the delivery provision is to ensure convergence between the futures price and the cash market price -\n\nExchanges set standardized contract terms, including the amount of the commodity to be delivered (the contract size), delivery months, the last trading day, the delivery locations, and acceptable qualities or grades of the commodity - The exchange specifies that different varieties and grades can be delivered at various fixed differentials (premiums or discounts) to the contract price - This standardization enhances liquidity by making it possible for large numbers of market participants to trade the same instrument - This liquidity makes the contract more useful for hedging, but standardization reduces the usefulness of a futures contract as a merchandising vehicle - Futures trades made on an exchange are cleared through a “clearing house,” which acts as the buyer to all sellers and the seller to all buyers - When a futures contract is bought or sold, it is technically bought from or sold to the clearing house rather than the party with whom the transaction was executed on the trading floor or through an electronic trading platform - Since the contract is ultimately bought from and sold from the same party, if a futures contract is bought and subsequently sold, the position has been offset and the contract is extinguished\n\nMargins in the futures markets are not down payments like stock margins, but are performance bonds designed to ensure that traders can meet their financial obligations - When a futures trader enters into a futures position, he or she is required to post initial margin of an amount specified by the exchange or clearing house. Thereafter, the position is “marked to the market” daily - If the futures position loses value when the market moves against it—if, for example, you are buying and the market goes down—the amount of money in the margin account will decline accordingly - If the amount of money in the margin account falls below the specified maintenance margin (which is set at a level less than or equal to the initial margin), the futures trader will be required to post additional variation margin to bring the account up the initial margin level - On the other hand, if the futures position is profitable, the profits will be added to the margin account - Futures commission merchants (FCMs) often require their customers to maintain funds in their margin accounts that exceed the levels specified by an exchange",
+      "canonical_resolution_status": "",
+      "document_id": "goal31-futures-economic-purpose",
+      "published_at_source": "SOURCE_UNDATED_NOT_INFERRED_FROM_CAPTURE",
+      "published_at_utc": "",
+      "publisher": "www.cftc.gov",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+      "secondary_listing_only": false,
+      "source_authority_class": "official_public_primary_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "www.cftc.gov",
+      "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html"
+    }
+  ],
+  "status": "PASS",
+  "updated_source_route_health": {}
+}

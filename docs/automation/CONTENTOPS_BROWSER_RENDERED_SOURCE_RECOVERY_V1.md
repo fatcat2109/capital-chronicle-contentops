@@ -9,6 +9,12 @@ It improves evidence acquisition when a current, exact publisher URL is useful b
 HTTP cannot obtain the rendered article body. It does not replace the V1 scheduler, store,
 editorial owner, publication coordinator, browser publication profile, or Core Analyzer.
 
+## Current owner supersession (2026-10-20)
+
+Native Desktop gpt-6.1-sol / low owns target editorial work. Source recovery mechanics below
+remain accepted; Simple/Edge ownership references describe their historical deployment epoch.
+Current target browser path and paused rollout are in CONTENTOPS_NATIVE_DESKTOP_EDITORIAL_RUNTIME_V1.md.
+
 ## Architecture
 
 The recovery order is:

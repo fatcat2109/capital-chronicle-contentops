@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "blockers": [],
+  "validator": "existing_grounded_article_validator",
+  "material_claim_lineage": [
+    {
+      "item_id": "goal22-gas-storage",
+      "source_id": "SOURCE_1",
+      "source_url": "https://ir.eia.gov/secure/ngs/ngs.html",
+      "text_sha256": "8da24713f6fe786a44b264f810687222da6ec1bc4a039f6e9d8806b28f500fb2",
+      "source_capture_sha256": "3970381c141686c5bd75837bfdf4ef09a17a417402f869c674005b416350f5cd",
+      "permission_sha256": "5b1b014d1378be2f2005404bd778eebaa19f1a399ed3b58a6d0b61442b3c66dd",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "source_id": "SOURCE_2",
+      "claim_kind": "ATTRIBUTED_MAIN_PUBLIC_ANALYSIS_NOT_INDEPENDENT",
+      "report_id": "asset-report:UKOIL",
+      "source_report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810",
+      "source_url": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:50437428ab0a6e6baf04115e3d21a83d3c1583f04f379e58216cdb9334c6e9e2"
+    },
+    {
+      "source_id": "SOURCE_3",
+      "claim_kind": "ATTRIBUTED_MAIN_PUBLIC_ANALYSIS_NOT_INDEPENDENT",
+      "report_id": "asset-report:USOIL",
+      "source_report_sha256": "1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453",
+      "source_url": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:87d4c78d4d921d07aefe4beb99c47d8b0ef427db2b96c6b4461008bd0b568ee8"
+    },
+    {
+      "source_id": "SOURCE_4",
+      "claim_kind": "ATTRIBUTED_MAIN_PUBLIC_ANALYSIS_NOT_INDEPENDENT",
+      "report_id": "asset-report:XNGUSD",
+      "source_report_sha256": "40c12ded73f362b338a8224797d26c9eda8a562cdd5b7c542ebad1096a74e128",
+      "source_url": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:738a70d837faf2a72c7f5f98d8c5a713496c5f61e94445564544faac05d74646"
+    }
+  ],
+  "semantic_editorial_review": "REQUIRED",
+  "qualified_simple_article": false
+}

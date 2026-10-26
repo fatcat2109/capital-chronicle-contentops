@@ -1,0 +1,20 @@
+[
+  {
+    "run_id": "goal27-oil-scope-update",
+    "message_id": "cc-editorial-pool-e98caa36355f173605df56475a20be28a278268b9edceb1ac1faeb0a0bb25209",
+    "payload_sha256": "21c3584d5b9b1b04295b372609e3b3bdf8be90ed8258eb12bab3e02fc947f661",
+    "source_requests_before_writer_freeze": 1,
+    "source_review_ids": [
+      "native-source-review-cc77db435e31663eaf22ae204b262a4fbab46f3c53bb748fcc64550f9003d5fc"
+    ]
+  },
+  {
+    "run_id": "goal27-gas-refill-update",
+    "message_id": "cc-editorial-pool-efe0bb697e5f46e9785934b4fbbe5b05ad751986f1dd87a23b06535579d2e493",
+    "payload_sha256": "c35767bd819fec6089c995234847732861100c1396e6b9ba260255383f9ca118",
+    "source_requests_before_writer_freeze": 2,
+    "source_review_ids": [
+      "native-source-review-5ff078571cfc098c51a40cac14209ac2763ae570d1a63633744e53283d637a06"
+    ]
+  }
+]

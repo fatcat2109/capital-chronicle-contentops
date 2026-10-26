@@ -1,0 +1,50 @@
+{
+  "schema_version": "contentops.goal34.selector_data_plan.v1",
+  "native_agent": "/root/goal34_sol_light",
+  "assigned_model": "gpt-6.1-sol",
+  "assigned_reasoning_effort": "low",
+  "request_sha256": "da11b4c32dcba4dc79aaf53cf17ae78a6d18c7f6273c7028fb07879d313be366",
+  "frozen_request_cutoff_utc": "2026-10-21T21:04:06.088334Z",
+  "original_editorial_cutoff_utc": "2026-10-21T20:45:56Z",
+  "cutoff_note": "Southwest observation is June 30 2025 and filing publication July 24 2025; October 21 2026 retrieval is not a new event or economic period. Frozen request captures subsequent evidence handling; do not advance EIA/SEC event outcomes.",
+  "candidate_count_compared": 23,
+  "choice": "simple-story-58c20e2b812d839f223fed99",
+  "article_mode": "DATA_OR_DOCUMENT_LENS",
+  "source_ids": [
+    "goal34-southwest-hedge-clocks",
+    "goal31-futures-economic-purpose"
+  ],
+  "source_review_id": "native-source-review-419900a25c926621120e1346789394486c163343b67b43069a589f55e9a0b7b2",
+  "prior_article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+  "exact_facts": [
+    "Southwest terminated remaining fuel hedging portfolio in Q2 2025; contracts had been scheduled to settle through 2027.",
+    "Cash proceeds approximately $40 million; filing says they will reduce future premium costs.",
+    "Approximately $36 million reclassified from AOCI and recognized as an increase to Fuel and oil expense in Q2 2025, characterized as premium expense including terminated positions.",
+    "Approximately $209 million remained in AOCI as of June 30 2025; this is net of hedge-termination cash proceeds, excludes tax impact, and will be reclassified as premium expense when originally forecast transactions occur through end 2027.",
+    "No cash collateral posted or received as of June 30 2025.",
+    "Prior derivatives were OTC and not publicly exchange-traded; fuel derivatives historically solely option contracts."
+  ],
+  "limits": [
+    "Do not subtract $40m from $209m again or add the three figures into a total loss.",
+    "AOCI is an accounting balance, not a cash payment due; expense recognition is not a second payment on the recognition date.",
+    "No cash collateral is a single-date snapshot, not proof no collateral ever existed or could be required.",
+    "OTC option case cannot prove exchange variation margin or actual collateral call.",
+    "No current 2026 news, issuer position, stock forecast, broad hedge failure or liquidity distress claim.",
+    "No contractual payment-by-payment receipt/collateral reconciliation or full hedge P&L is available from these excerpts.",
+    "Reuse EIA and SEC accepted copy unchanged; do not infer audience demand, SEO results or destination preference from HOLD.",
+    "Use filing facts only with paraphrase; no expressive issuer reuse."
+  ],
+  "countercase": "Different recognition dates can be consistent with accounting for originally forecast purchases. Closing options and receiving cash does not by itself prove a bad hedge, cash shortage or disappearance of fuel-price exposure. Absence of cash collateral on June 30 supplies a direct limit to any margin-call narrative.",
+  "writer_structure": [
+    "Lead with dated named case and distinction between cash receipt and expense recognition.",
+    "Explain cash termination, Q2 recognition and future originally forecast transaction clocks with exact amounts and qualifiers.",
+    "Contrast OTC options with prior futures example without transferring margin mechanics.",
+    "State collateral snapshot and missing full reconciliation; provide fair countercase and bounded reader test."
+  ],
+  "reader_language": "Vietnamese as exact frozen owner packet directs",
+  "audience_policy": "HOLD_NO_POLICY_CHANGE",
+  "further_source_requests": 0,
+  "external_calls_performed": 0,
+  "public_write_attempted": false,
+  "final_prose_written": false
+}

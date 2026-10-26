@@ -1,0 +1,39 @@
+{
+  "scope": "FOCUSED_CHANGED_EDITORIAL_AND_RELOCATION_SEAMS_NOT_FULL_REPOSITORY_SUITE",
+  "backend": {
+    "command": "python -m pytest -q tests/test_native_desktop_workspace_v1.py tests/test_native_desktop_editorial_v1.py tests/test_native_newsroom_owner_operation_v1.py tests/test_capital_chronicle_report_editorial_workspace_v1.py tests/test_v1_simple_gemini_newsroom_v1.py tests/test_eight_platform_substack_first_pipeline_v1.py",
+    "passed": 128,
+    "log": "backend-check.txt"
+  },
+  "ui": {
+    "report_editorial_workspace_tests": 7,
+    "build": "PASS",
+    "log": "ui-check.txt"
+  },
+  "canonical_store_earlier_relocation_slice": {
+    "passed": 74,
+    "overlaps_later_checks": true,
+    "not_additive": true
+  },
+  "ruff": {
+    "focused_changed_paths": "PASS",
+    "expanded_legacy_pipeline": {
+      "baseline_errors": 5,
+      "current_errors": 5,
+      "codes": [
+        "F401",
+        "F401",
+        "F401",
+        "F401",
+        "E731"
+      ],
+      "same_as_HEAD": true,
+      "new_errors": 0
+    },
+    "scope_note": "Expanded legacy lint is not all-green; five pre-existing errors retained without unrelated edits."
+  },
+  "diff_check": "PASS",
+  "skill_validation": "PASS_REPO_AND_HOST_EXACT_BYTES",
+  "recovery": "preservation_final.json",
+  "host": "host_preservation.json"
+}

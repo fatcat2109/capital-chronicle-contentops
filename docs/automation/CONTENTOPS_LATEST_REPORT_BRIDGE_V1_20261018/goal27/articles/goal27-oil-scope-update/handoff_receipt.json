@@ -1,0 +1,13 @@
+{
+  "classification": "REVIEWED_NATIVE_HANDOFF_PREPARED_NO_DISPATCH",
+  "article_identity": "7f514a22b776c33f4603bf9b6992c4e994fa4ccacc12a798d2dcab58e23e2944",
+  "review_id": "native-article-review-568fcc107ed44261b473f7f6b60a848f",
+  "plan_hash": "ffa9948300f389ebe02282499b8cf593d4d42f7d1a83aa37aae55bbd92735be7",
+  "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal27-oil-scope-update\\reviewed-handoff",
+  "media_reuse_count": 1,
+  "preview_count": 8,
+  "new_qualified_articles": 0,
+  "model_invocations": 0,
+  "source_requests": 0,
+  "public_write_performed": false
+}

@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-f99308c6f055447a960395bc7027745b",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal27-gas-refill-update",
+  "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+  "package_revision": "afcfe4807e8feb99a553ec521f1f7480ed8111a51bee31ce7bf033937e73ebcb",
+  "article_metadata_sha256": "ec076bc4b3f889a44c5eb619192bc9de0370d34d9bb16282024ba51ca0fd7af5",
+  "rationale": "KEEP: Vietnamese material follow-up adds same-week 67 Bcf injection versus 90 Bcf seasonal comparator; stock surplus countercase remains explicit. Same Oct9 storage vintage, released Oct15; header14Oct is not substituted for storage observation. No inferred market surprise, price forecast, or third-party NGI/S&P facts. All eight copies and relevant newly inspected source excerpt with alt/caption reviewed. Prior unpublished article and January-vintage context remain history.",
+  "publication_authority": false
+}

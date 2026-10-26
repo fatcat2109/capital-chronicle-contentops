@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "independent_items": 14,
+  "families": [
+    "COMPANY_SEC",
+    "CRYPTO",
+    "ENERGY",
+    "FX_RATES",
+    "INDEX_OPTIONS",
+    "METALS"
+  ],
+  "gaps": [],
+  "raw_http_sources_claimed": 0,
+  "fresh_provider_calls": 0,
+  "private_main_reads": 0,
+  "public_writes": 0
+}

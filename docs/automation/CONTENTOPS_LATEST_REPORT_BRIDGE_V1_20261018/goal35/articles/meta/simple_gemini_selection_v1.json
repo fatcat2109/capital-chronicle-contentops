@@ -1,0 +1,72 @@
+{
+  "candidate_count": 27,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "30fa6004121a8d7e975e82e3d4d0209303c17e4de3f43315e268c812172f0ca7",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal35_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "d39ad96ed0340d15baffb91b2e3039e947afb31bb3b6b20914cd8b91ef9e8b2a",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "8f0ff5d6afbe77cb258aa7099f5bfaeb96adc1f8d7b7e1c2241dff9fa1ba3081",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Meta pairs a reported future non-voting share class with a higher capex floor and a quarterly cash deficit: explain how funding flexibility and voting control differ from cash generation, without treating a stock split as cash raised.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+        "evidence_plan": "Use only retained goal35-meta Reuters facts; published 2026-10-21T20:05:00Z, known 2026-10-21T22:27:23.026Z. Attribute the planned January 2027 non-voting Class C common stock, effectively two-for-one split, and stated acquisition/talent/control purpose to Reuters; it is a future plan, not completed issuance or cash proceeds. Do not infer terms, dilution, valuation, legality or money raised. Bind annual capex $135bn-$145bn versus prior $130bn-$145bn: floor higher, ceiling unchanged. Bind September30 quarter revenue $64.60bn versus $63.37bn LSEG estimate and Q3 free cash flow deficit $2.12bn versus positive $10.63bn a year earlier. Keep revenue, free cash flow and annual capex distinct; no fabricated cash bridge or causal contribution. The headline mentions Muse growth but no retained adoption count or measurement supports a quantified adoption thesis. No user counts, monetization or returns claimed. Missing: exact stock terms and future use, operating cash/working-capital bridge, spending composition and future investment returns. Code owns arithmetic. No new source requests, quotations, photos or retrieval.",
+        "primary_reader_question": "What does the planned Meta non-voting share class change about funding and control when capital spending guidance is higher and quarterly free cash flow is negative?",
+        "research_queries": [
+          "Meta October 21 2026 non voting Class C stock capex forecast free cash flow"
+        ],
+        "selection_rationale": "The reported capital-structure plan and cash-flow tension provide a distinct useful current company question. A revenue beat does not answer how expansion is financed or how voting control is preserved. This differs from Tesla spending-versus-expectations, IBM software demand, oil and historical filing/custody explainers. Single Reuters origin, underlying event truth unconfirmed."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select Meta only for a funding/control versus cash-generation analysis. Preserve future issuance status and unchanged $145bn capex ceiling; avoid unsupported AI-adoption claims.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-meta\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 29,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 2,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "ccb0290501e49ad16d01ad370ad54f86e16648553715cae04752b1c08145f14f",
+    "source_route_health_reused": false
+  }
+}

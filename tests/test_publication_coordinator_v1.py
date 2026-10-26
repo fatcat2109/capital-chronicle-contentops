@@ -177,7 +177,7 @@ def test_registry_locks_surface_transport_and_browser_roles():
     assert registry["chrome_publishing_allowed"] is False
     assert registry["silent_transport_fallback_allowed"] is False
     assert registration_for_destination("youtube").surface == "YOUTUBE_COMMUNITY_POST"
-    assert registration_for_destination("youtube").transport_type == "EDGE_CDP"
+    assert registration_for_destination("youtube").transport_type == "BROWSEROS_NEO_MCP"
     assert V1_REQUIRED_DERIVATIVE_DESTINATIONS == (
         "telegram", "x", "discord", "linkedin", "facebook_page",
         "instagram_business", "threads", "youtube",
@@ -1262,36 +1262,15 @@ def test_new_article_refuses_to_start_while_safe_backlog_remains_after_budget(tm
     assert len(transport.publish_calls) == 9
 
 
-def test_cases_h_i_edge_crash_bootstrap_and_reauth_classification(tmp_path, monkeypatch):
-    import live_contentops.edge_cdp_publishing_adapter_v1 as adapter
-    import live_contentops.publishing_profile_registry_v1 as profiles
-
+def test_neo_identity_must_be_current_and_does_not_bootstrap_edge(tmp_path):
     store = ContentOpsDurableStore(tmp_path / "store.sqlite3")
-    doctor_calls = [0]
-    def doctor(**kwargs):
-        doctor_calls[0] += 1
-        if doctor_calls[0] == 1:
-            return {"status": "READY_TO_LAUNCH", "recommended_cdp_port": 9223}
-        return {"status": "READY_TO_ATTACH", "recommended_cdp_port": 9223}
-    recoveries = []
-    manager = DestinationReadinessManager(
-        store=store, env={},
-        edge_runtime_ensurer=lambda: recoveries.append(9223) or {"status": "LAUNCHED_CANONICAL_EDGE"},
-    )
-    monkeypatch.setattr(profiles, "browser_doctor", doctor)
-    monkeypatch.setattr(adapter, "probe_authenticated_platform_session", lambda port, key: {
-        "authenticated": True, "destination_identity": "@Capitalnicle",
-        "login_control_detected": False,
-    })
-    row = manager.probe_surface("X_THREAD")
-    assert row["readiness_state"] == "READY_AUTHENTICATED"
-    assert recoveries == [9223]
-    assert row["sanitized_detail"]["edge_recovery_status"] == "LAUNCHED_CANONICAL_EDGE"
-    monkeypatch.setattr(adapter, "probe_authenticated_platform_session", lambda port, key: {
-        "authenticated": False, "destination_identity": None, "login_control_detected": True,
-    })
-    row = manager.probe_surface("X_THREAD")
-    assert row["readiness_state"] == "REAUTH_REQUIRED"
+    manager = DestinationReadinessManager(store=store, env={},
+        edge_runtime_ensurer=lambda: pytest.fail("Neo must never bootstrap Edge"),
+        neo_readiness_provider=lambda surface: {"public_handle": "@Capitalnicle", "authenticated": True,
+            "native_executor_bound": True, "proof_fresh": True, "observation_sha256": "controlled-test-observation"})
+    assert manager.probe_surface("X_THREAD")["readiness_state"] == "READY_AUTHENTICATED"
+    manager.neo_readiness_provider = lambda surface: {"public_handle": "@Capitalnicle", "authenticated": False}
+    assert manager.probe_surface("X_THREAD")["write_eligible"] is False
 
 
 @pytest.mark.parametrize("mode", ["KILL_SWITCH", "SUPERVISED_OPERATOR_GATE", "SHADOW_ONLY"])
@@ -1395,9 +1374,9 @@ def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):
     assert smoke["readback_wiring_not_none"] is True
     assert smoke["performance_wiring_not_none"] is True
     assert smoke["learning_enabled"] is True
-    assert smoke["scheduled_editorial_owner"] == "SIMPLE_GEMINI_RUNTIME"
+    assert smoke["scheduled_editorial_owner"] == "NATIVE_CODEX_DESKTOP"
     assert smoke["exactly_one_routine_editorial_owner"] is True
-    assert smoke["routine_editorial_owner"] == "SIMPLE_GEMINI_RUNTIME"
+    assert smoke["routine_editorial_owner"] == "NATIVE_CODEX_DESKTOP"
     assert smoke["native_desktop_routine_invocation_count"] == 0
     assert smoke["legacy_rolling_x_routine_invocation_count"] == 0
     assert smoke["codex_runtime_model_call_count"] == 0
@@ -1411,7 +1390,7 @@ def test_real_production_composition_has_no_fixture_or_none_wiring(tmp_path):
     assert smoke["coordinator_write_count"] == 0
     assert smoke["unknown_write_count"] == 0
     assert smoke["UNKNOWN_WRITE"] == 0
-    assert smoke["routine_scheduler"] == "SIMPLE_GEMINI_LOCAL_SCHEDULER"
+    assert smoke["routine_scheduler"] == "CODEX_DESKTOP_FOUR_NATIVE_AUTOMATIONS"
     assert smoke["public_write_performed"] is False
     assert callable(runtime.execute_native_desktop_scheduled_opportunity)
     assert callable(runtime.prepare_native_desktop_scheduled_opportunity)
@@ -1427,7 +1406,7 @@ def test_native_desktop_runtime_compatibility_seams_are_non_routing(tmp_path):
     )
     assert result["executed"] is False
     assert result["reason"] == "native_desktop_non_routing_current_composition"
-    assert result["routine_editorial_owner"] == "SIMPLE_GEMINI_RUNTIME"
+    assert result["routine_editorial_owner"] == "NATIVE_CODEX_DESKTOP"
     assert result["public_write_performed"] is False
     assert result["unknown_write_detected"] is False
 

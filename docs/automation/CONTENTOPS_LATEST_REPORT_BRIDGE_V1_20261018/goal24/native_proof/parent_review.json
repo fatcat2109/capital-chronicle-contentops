@@ -1,0 +1,6 @@
+{
+  "article_identity": "64664743244f180a426c31884dfb35a570416a3a6847e302905799a48e571154",
+  "decision": "KEEP",
+  "expected_review_id": null,
+  "rationale": "KEEP cho phép kiểm chứng biên tập zero-write: đã đọc bài và tám gói thực. Bài phân biệt mức tồn kho với tốc độ bơm; ghi đúng ngày quan sát/lấy dữ liệu/cutoff, Main là báo cáo dẫn lại chứ không xác nhận độc lập. Các gói giữ nhãn bất định, cơ chế gas và điều kiện kiểm tra. Media chỉ là thẻ nguồn lịch sử, giữ đúng bytes/rights, không chứng minh sự kiện. Trước xuất bản cần thêm ngày vào hook social, giảm thuật ngữ nội bộ, URL Substack thật và readiness từng kênh. Quyết định này không cấp quyền đăng bài."
+}

@@ -1,0 +1,68 @@
+{
+  "named_actual_source_requests": 5,
+  "successes": 4,
+  "blocked": 1,
+  "subsequent_writer_source_requests": 0,
+  "maximum_per_opportunity": 6,
+  "each_article_actual_new_source_requests": {
+    "goal28-dollar-lens": 0,
+    "goal28-fed-policy-lens": 1,
+    "goal28-company-reading": 1,
+    "goal28-cross-trade": 1,
+    "goal28-crypto-safeguards": 1
+  },
+  "requests": [
+    {
+      "article_operation": "goal28-company-reading",
+      "url": "https://www.sec.gov/answers/reada10k.htm",
+      "observed_at_utc": "2026-10-20T21:08:39.442744Z",
+      "status": "PASS",
+      "source_capture_sha256": "03272824c29645642aa68cc1220fe0aedc9da26e4a7fd44105c78ce1a4526748",
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "route": "BROWSEROS_NEO_RENDERED_PUBLIC_AGENCY_TEXT",
+      "request_count": 1
+    },
+    {
+      "article_operation": "goal28-cross-trade",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds",
+      "observed_at_utc": "2026-10-20T21:08:39.486360Z",
+      "status": "PASS",
+      "source_capture_sha256": "0a5605b6dd36965d62ae9deb58f8b3f5457d7456854b91803be495a3eed6a455",
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "route": "BROWSEROS_NEO_RENDERED_PUBLIC_AGENCY_TEXT",
+      "request_count": 1
+    },
+    {
+      "article_operation": "goal28-crypto-safeguards",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal",
+      "observed_at_utc": "2026-10-20T21:08:39.489817Z",
+      "status": "PASS",
+      "source_capture_sha256": "4a02eaa409a672cacf840510ed7400ca38405786feb7dbc73546efa67f2ead3c",
+      "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "route": "BROWSEROS_NEO_RENDERED_PUBLIC_AGENCY_TEXT",
+      "request_count": 1
+    },
+    {
+      "article_operation": "goal28-fed-policy-lens",
+      "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+      "observed_at_utc": "2026-10-20T21:09:38.827128Z",
+      "status": "PASS",
+      "source_capture_sha256": "8ac5894a6ba83f851969570b975b87260b7683f15680c922223e9941a28ca0ec",
+      "rights_evidence_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "route": "BROWSEROS_NEO_RENDERED_PUBLIC_AGENCY_TEXT",
+      "request_count": 1
+    },
+    {
+      "article_operation": "held-current-futures-options",
+      "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm",
+      "observed_at_utc": "2026-10-20T21:09:36.398Z",
+      "status": "ACCESS_SECURITY_CHALLENGE",
+      "request_count": 1,
+      "note": "One named Neo acquisition attempt. Browser challenge may refresh automatically; physical HTTP count not measured. No task retry or provider fallback.",
+      "clock_basis": "Neo browser history challenge redirect time, query/session material omitted"
+    }
+  ],
+  "existing_counter_scope": "Deterministic retained-evidence resolver only, not Neo pre-acquisition. Frozen counter preserved without rewriting sealed packets.",
+  "counter_unit": "NAMED_NEO_SOURCE_ACQUISITION_ATTEMPTS_NOT_PHYSICAL_BROWSER_HTTP_REQUESTS",
+  "physical_http_requests": null
+}

@@ -1,0 +1,71 @@
+{
+  "observed_at_utc": "2026-10-19T20:27:03.900559+00:00",
+  "method": "read-only exact selected App automation TOML config metadata; no run/enable/update",
+  "observed_configuration_not_calendar_execution": true,
+  "tasks": [
+    {
+      "id": "v1-newsroom-london-1700",
+      "status": "PAUSED",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "rrule": "RRULE:FREQ=WEEKLY;BYHOUR=17;BYMINUTE=0;BYDAY=MO,TU,WE,TH,FR",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps",
+        "A:\\Capital Chronicle"
+      ],
+      "kind": "cron",
+      "project_id": null,
+      "configuration_sha256": "e337a377b9778d5cda476ee665967e40f85050d48866157ed4f0dad4c70b805a",
+      "prompt_sha256": "f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71"
+    },
+    {
+      "id": "v1-newsroom-new-york-0100",
+      "status": "PAUSED",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=TU,WE,TH,FR,SA;BYHOUR=1;BYMINUTE=0",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps",
+        "A:\\Capital Chronicle"
+      ],
+      "kind": "cron",
+      "project_id": null,
+      "configuration_sha256": "587b71cb1bbc84becc8e407b799586c68e0f8d705289922280ae08aa091b6365",
+      "prompt_sha256": "f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71"
+    },
+    {
+      "id": "v1-newsroom-new-york-2100",
+      "status": "PAUSED",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=21;BYMINUTE=0",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps",
+        "A:\\Capital Chronicle"
+      ],
+      "kind": "cron",
+      "project_id": null,
+      "configuration_sha256": "3d7f3794fe9b6925484a4b687a030c09fa75c612bc369176aebe869fcbd310d1",
+      "prompt_sha256": "f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71"
+    },
+    {
+      "id": "v1-newsroom-new-york-2300",
+      "status": "PAUSED",
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "high",
+      "rrule": "RRULE:FREQ=WEEKLY;BYDAY=MO,TU,WE,TH,FR;BYHOUR=23;BYMINUTE=0",
+      "cwds": [
+        "A:\\Capital Chronicle\\ContentOps",
+        "A:\\Capital Chronicle"
+      ],
+      "kind": "cron",
+      "project_id": null,
+      "configuration_sha256": "1deb31ee664a822719470cb28dd0472ee8ec63d142461538b6ec8893c527a3f6",
+      "prompt_sha256": "f2acaa95924a00ea591b9e99c864cd4ad55f26897e43398b06a4dfbbb8a2ac71"
+    }
+  ],
+  "pause_present": true,
+  "pause_sha256": "b0be68980cbfc2dd1a7fa80ac7eb2bfcfda7aa3b45b462dfd0a11788587e94de",
+  "host_automation_mutations": 0,
+  "production_activation": false
+}

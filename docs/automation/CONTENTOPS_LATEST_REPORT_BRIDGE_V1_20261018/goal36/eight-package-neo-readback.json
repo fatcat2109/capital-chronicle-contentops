@@ -1,0 +1,19 @@
+{
+  "logs": [],
+  "ok": true,
+  "value": {
+    "metrics": {
+      "page": 57,
+      "value": {
+        "scrollWidth": 1434,
+        "viewport": 1449
+      }
+    },
+    "observed": {
+      "contentLength": 13756,
+      "page": 57,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\evaluate-1792697738371-ef9399e9-f110-40e7-8187-c1a167ca0234.txt",
+      "writtenToFile": true
+    }
+  }
+}

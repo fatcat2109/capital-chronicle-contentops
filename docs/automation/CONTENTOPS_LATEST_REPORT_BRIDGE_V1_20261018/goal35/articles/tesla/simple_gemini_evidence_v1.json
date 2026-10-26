@@ -1,0 +1,284 @@
+{
+  "admitted_candidate_count": 1,
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+      ],
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "blockers": [],
+      "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Tesla October 21 2026 free cash flow capital expenditure expectations AI spending"
+      ],
+      "selection_rationale": "A fresh cash-flow surprise supports a useful current question about the quality and persistence of cash generation. It is distinct from IBM software-demand composition, handled oil and historical company-reading research. The spending comparison prevents a misleading cost-cutting interpretation while preserving the real reported positive cash outcome. Single-source report truth only.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "codex_runtime_model_calls_before_writer": null,
+  "evidence_attempts": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+      ],
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "blockers": [],
+      "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "provenance": {
+        "read_only_http_get_only": true,
+        "request_count_for_call": 0,
+        "retained_research_revision": "369562fecd18ccf1d4752b52c4b2d6b9ba6569e7697dd962002fdec48f1e510f",
+        "selected_route": "OFFICIAL_PRIMARY"
+      },
+      "request": {
+        "cluster_id": "simple-story-6c6ae25852f4519d9a6d2168",
+        "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+        "evidence_enrichment_context": {
+          "requested": true
+        },
+        "headline_ids": [
+          "goal35-tesla"
+        ],
+        "remaining_admitted_candidate_count": 0,
+        "request_logical_hash": "e0d290f9d2a31a8d69ddedffd7b801328919fb3f483b082a9750b7f86f44a35b",
+        "requested_article_mode": "STANDARD_NEWS_ANALYSIS",
+        "required_evidence_capabilities": [
+          "credible_report_or_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "story_context": {
+          "candidate_packet_locators_grant_factual_authority": false,
+          "candidate_source_account": "Reuters",
+          "candidate_source_timestamp_utc": "2026-10-21T20:06:00Z",
+          "candidate_source_url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/",
+          "evolving_story_context": [],
+          "grounded_research_queries": [
+            "Tesla October 21 2026 free cash flow capital expenditure expectations AI spending"
+          ],
+          "leaf_summaries": [
+            "Tesla posts surprise positive cash flow on lower-than-expected AI spending"
+          ],
+          "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
+          "planned_research_query_count": 1,
+          "planned_research_query_set_sha256": "d2c60004387f476d393bc4c0b333d92c67f2b156c5c2ac13a49a49f355b00258",
+          "public_source_url_bindings": [
+            {
+              "headline_id": "goal35-tesla",
+              "source_timestamp_utc": "2026-10-21T20:06:00Z",
+              "url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+            }
+          ],
+          "report_provenance": {
+            "arbitrary_x_list_membership_grants_authority": false,
+            "attributed_reputable_sources": [],
+            "canonical_x_list_provenance": {},
+            "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+            "explicit_market_rumor": false,
+            "explicit_reputable_attribution": false,
+            "owner_curated_canonical_x_record": false,
+            "preferred_route": "DEFAULT_SHORTEST_GOVERNED_ROUTE",
+            "primary_reporting_publisher": null,
+            "primary_reporting_source_identity": null,
+            "report_or_event_authority_granted": false,
+            "report_proposition": null,
+            "schema_version": "contentops.v1_simple_candidate_report_provenance.v1",
+            "source_account": "reuters",
+            "source_url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/",
+            "trusted_relay_identity_approved": false
+          }
+        },
+        "story_evidence_scope_id": "simple-story-6c6ae25852f4519d9a6d2168",
+        "story_type": "selected_current_news"
+      },
+      "research_queries": [
+        "Tesla October 21 2026 free cash flow capital expenditure expectations AI spending"
+      ],
+      "selection_rationale": "A fresh cash-flow surprise supports a useful current question about the quality and persistence of cash generation. It is distinct from IBM software-demand composition, handled oil and historical company-reading research. The spending comparison prevents a misleading cost-cutting interpretation while preserving the real reported positive cash outcome. Single-source report truth only.",
+      "source_pack": [
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "71e2a19775f806406468b4705d5c5bdff4184cb7db6483ae6927d8e58fec9248",
+          "canonical_content_text": "Tesla posts surprise positive cash flow on lower-than-expected AI spending\n\nFree cash flow reaches $1.53 billion against analysts' expected $4.92 billion cash burn\n\nThird-quarter capital expenditure totals $4.73 billion, below analysts' roughly $7.5 billion estimate\n\nCapital expenditure at $4.7 billion was still more than double that of a year ago, but lower than the $7.5 billion analysts on average were expecting, according to LSEG data.\n\nFree ​cash flow in the September quarter came in at $1.53 billion, compared with an expectation of cash burn of $4.92 billion.",
+          "canonical_resolution_status": "",
+          "document_id": "goal35-tesla",
+          "published_at_source": "2026-10-21T20:06:00Z",
+          "published_at_utc": "2026-10-21T20:06:00Z",
+          "publisher": "Reuters",
+          "report_truth_only": true,
+          "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+          "secondary_listing_only": false,
+          "source_authority_class": "reputable_secondary_source",
+          "source_id": "SOURCE_1",
+          "source_identity": "reuters.com",
+          "source_reuse_constraints": {
+            "INTERNAL_ANALYSIS_ALLOWED": true,
+            "LLM_INPUT_ALLOWED": true,
+            "MODEL_INPUT_ALLOWED": true,
+            "attribution_required": true,
+            "canonical_text_sha256": "71e2a19775f806406468b4705d5c5bdff4184cb7db6483ae6927d8e58fec9248",
+            "content_sha256": "2e1260140957fd56a29204271fc9d4377e84c23d97205a790fc5c6efd0644791",
+            "government_authorship": false,
+            "images_logos_exhibits_reuse_allowed": false,
+            "permitted_consumers": [
+              "internal_research",
+              "narrative_context"
+            ],
+            "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+            "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+            "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+            "provider_safe": true,
+            "public_expression_reuse_allowed": false,
+            "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+            "source_capture_sha256": "64a5f9380382541e7f3d9997a2e9822b8290771b357cf489697bd2521aaf7f7b",
+            "underlying_event_truth_granted": false
+          },
+          "url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+        }
+      ],
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "model_calls_before_writer": 1,
+  "public_write_performed": false,
+  "request_count": 0,
+  "request_limit": 6,
+  "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
+  "selected_candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+  "selected_epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-tesla"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "71e2a19775f806406468b4705d5c5bdff4184cb7db6483ae6927d8e58fec9248",
+      "canonical_content_text": "Tesla posts surprise positive cash flow on lower-than-expected AI spending\n\nFree cash flow reaches $1.53 billion against analysts' expected $4.92 billion cash burn\n\nThird-quarter capital expenditure totals $4.73 billion, below analysts' roughly $7.5 billion estimate\n\nCapital expenditure at $4.7 billion was still more than double that of a year ago, but lower than the $7.5 billion analysts on average were expecting, according to LSEG data.\n\nFree ​cash flow in the September quarter came in at $1.53 billion, compared with an expectation of cash burn of $4.92 billion.",
+      "canonical_resolution_status": "",
+      "document_id": "goal35-tesla",
+      "published_at_source": "2026-10-21T20:06:00Z",
+      "published_at_utc": "2026-10-21T20:06:00Z",
+      "publisher": "Reuters",
+      "report_truth_only": true,
+      "retrieval_method": "RETAINED_PUBLIC_FACTS_ONLY",
+      "secondary_listing_only": false,
+      "source_authority_class": "reputable_secondary_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "reuters.com",
+      "source_reuse_constraints": {
+        "INTERNAL_ANALYSIS_ALLOWED": true,
+        "LLM_INPUT_ALLOWED": true,
+        "MODEL_INPUT_ALLOWED": true,
+        "attribution_required": true,
+        "canonical_text_sha256": "71e2a19775f806406468b4705d5c5bdff4184cb7db6483ae6927d8e58fec9248",
+        "content_sha256": "2e1260140957fd56a29204271fc9d4377e84c23d97205a790fc5c6efd0644791",
+        "government_authorship": false,
+        "images_logos_exhibits_reuse_allowed": false,
+        "permitted_consumers": [
+          "internal_research",
+          "narrative_context"
+        ],
+        "policy_capture_sha256": "eba11fa0224de991e2685090f8afab5c2cd4e0c73f1d0d285145d97f614d8809",
+        "policy_retrieved_at_utc": "2026-10-21T21:02:03.468Z",
+        "policy_url": "https://www.copyright.gov/help/faq/faq-protect.html",
+        "provider_safe": true,
+        "public_expression_reuse_allowed": false,
+        "scope": "ATTRIBUTED_REPORTED_FACTS_ONLY_INDEPENDENT_PUBLIC_PARAPHRASE",
+        "source_capture_sha256": "64a5f9380382541e7f3d9997a2e9822b8290771b357cf489697bd2521aaf7f7b",
+        "underlying_event_truth_granted": false
+      },
+      "url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+    }
+  ],
+  "status": "PASS",
+  "updated_source_route_health": {}
+}

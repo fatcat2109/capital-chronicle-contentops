@@ -1,0 +1,63 @@
+{
+  "goal25_expected_media_occurrences": 8,
+  "goal25_expected_unique_media": 7,
+  "all_expected_media_hashes_present": true,
+  "all_stored_media_match_bytes": true,
+  "verified_asset_paths": [
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal26-main-oil-analysis-v2\\media_assets\\source_document_card.png",
+      "5e85c94e463d6c6cf3d3de5df0793bdc0a572bbf21588230019ce56792c074d4",
+      "5e85c94e463d6c6cf3d3de5df0793bdc0a572bbf21588230019ce56792c074d4"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal27-gas-refill-update\\media_assets\\source_document_card.png",
+      "2c80cb7a64a494842e953f72e770035f17029ecbd8c521a0819c85c5cac7acc6",
+      "2c80cb7a64a494842e953f72e770035f17029ecbd8c521a0819c85c5cac7acc6"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal21-library-accepted\\company-sec-context\\media_assets\\source_document_card.png",
+      "1210a36625541a1052fd9dcb4b36b447a81e7d325d8a93be0f9527df4467b403",
+      "1210a36625541a1052fd9dcb4b36b447a81e7d325d8a93be0f9527df4467b403"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal21-library-accepted\\cross-asset-price-versus-custody\\media_assets\\source_comparison.png",
+      "f4dcd6ed9ae38c7f1f90751276e443adb3e97e7c8a94771b00e621508361195a",
+      "f4dcd6ed9ae38c7f1f90751276e443adb3e97e7c8a94771b00e621508361195a"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal21-library-accepted\\crypto-custody\\media_assets\\source_document_card.png",
+      "db17c91a34cf8be9d52af4ed9ed300239a941baf1bbe1037872c2a7d63a60bb2",
+      "db17c91a34cf8be9d52af4ed9ed300239a941baf1bbe1037872c2a7d63a60bb2"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal21-library-accepted\\gas-vintage\\media_assets\\source_document_card.png",
+      "41f795c953c75f7b7558ce991e9e37b1d012051c885b102889ce2ee623484266",
+      "41f795c953c75f7b7558ce991e9e37b1d012051c885b102889ce2ee623484266"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal21-library-accepted\\metals-exposure\\media_assets\\source_document_card.png",
+      "52e5325d1d07d0d2114fbb0f8f53eb4115e8dfc176d0ff98b1343eb8dee19624",
+      "52e5325d1d07d0d2114fbb0f8f53eb4115e8dfc176d0ff98b1343eb8dee19624"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal21-library-accepted\\options-positioning\\media_assets\\source_document_card.png",
+      "d6a7a5eb2898dedab5822a056b343cf4f526127e2bcdd9736edf070dd9232cc2",
+      "d6a7a5eb2898dedab5822a056b343cf4f526127e2bcdd9736edf070dd9232cc2"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal21-library-accepted\\rates-fx-transmission\\media_assets\\source_document_card.png",
+      "dbe2b4833c5940e63aaf3e16e39d6264ac16f62808b2b8cf0743ac818578e0a5",
+      "dbe2b4833c5940e63aaf3e16e39d6264ac16f62808b2b8cf0743ac818578e0a5"
+    ],
+    [
+      "C:\\Users\\bullw\\AppData\\Local\\Temp\\goal22-revised-research\\gas-vintage\\media_assets\\source_document_card.png",
+      "e9c12f6b971774e50e51e37c35073034d9e6b1f1e5aac01e7a0770b9d1ba5fa7",
+      "e9c12f6b971774e50e51e37c35073034d9e6b1f1e5aac01e7a0770b9d1ba5fa7"
+    ],
+    [
+      "docs\\automation\\CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018\\goal23\\revised-native\\energy-balance-transmission\\media_assets\\source_document_card.png",
+      "e9c12f6b971774e50e51e37c35073034d9e6b1f1e5aac01e7a0770b9d1ba5fa7",
+      "e9c12f6b971774e50e51e37c35073034d9e6b1f1e5aac01e7a0770b9d1ba5fa7"
+    ]
+  ]
+}

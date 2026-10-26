@@ -1,0 +1,57 @@
+F........................                                                [100%]
+================================== FAILURES ===================================
+_______ test_filing_cannot_gain_public_domain_through_legacy_media_path _______
+
+tmp_path = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-26984/test_filing_cannot_gain_public0')
+
+    def test_filing_cannot_gain_public_domain_through_legacy_media_path(tmp_path):
+        # Controlled reuse of the saved article exercises the otherwise shared
+        # non-native media consumer. It is not a fresh model/runtime claim.
+        research = RetainedSourceResearch(ROOT.parent.parent / "goal23/retained_research",
+            editions_root=[ROOT.parent.parent / f"goal{n}/source_editions" for n in (27, 28, 29, 31, 34)])
+        assert not research.gaps
+        calls = []
+        select = independent_writer(research, calls, target="goal34-southwest-hedge-clocks")
+        saved = json.loads((FILING_ROOT.parent / "article/goal34_writer_response.json").read_bytes())
+        def controlled(**kwargs):
+            if "candidates" in kwargs["governed_input"]:
+                return select(**kwargs)
+            calls.append(kwargs["logical_invocation_id"])
+            return deepcopy(saved), {"replay_only": True, "total_attempts": 0,
+                "model_identity_provider_verifiable": False, "selected_model": "controlled-retained-output"}
+        f = feed(tmp_path)
+        f.retained_research = research
+>       result = f.opportunity(output_dir=tmp_path / "filing-draft", cutoff_utc="2026-10-22T00:00:00Z",
+            run_id="controlled-filing-media", rolling_input={"headlines": []}, llm_invoke=controlled)["report_workspace_result"]
+
+tests\test_contentops_source_research_v1.py:336: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+live_contentops\capital_chronicle_report_feed_v1.py:628: in opportunity
+    result = run_report_editorial_cycle(
+live_contentops\capital_chronicle_report_editorial_workspace_v1.py:550: in run_report_editorial_cycle
+    simple = ContentOpsProductionOrchestrator().execute(
+live_contentops\production_orchestrator_v1.py:331: in execute
+    return self._resolve_dispatcher()(operation, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py:8776: in _dispatch_canonical_operation
+    return implementation(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\_eight_platform_substack_first_pipeline_impl_v1.py:8737: in _run_v1_simple_gemini_newsroom_impl
+    return run_v1_simple_gemini_newsroom(**kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+live_contentops\v1_simple_gemini_newsroom_v1.py:2724: in run_v1_simple_gemini_newsroom
+    persist_qualified_article_record(root, record)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+output_dir = WindowsPath('C:/Users/bullw/AppData/Local/Temp/pytest-of-bullw/pytest-26984/test_filing_cannot_gain_public0/filing-draft')
+record = {'accepted_evidence_ids': ['goal21-futures-hedgers', 'goal31-futures-economic-purpose', 'goal34-southwest-hedge-clocks...75b9f63f0bc9a38c84ad3d2f', 'article_identity': '79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f', ...}
+
+    def persist_qualified_article_record(output_dir: str | Path, record: Mapping[str, Any]) -> Path:
+        if record.get("qualified") is not True:
+>           raise ValueError("unqualified_article_record_cannot_be_persisted")
+E           ValueError: unqualified_article_record_cannot_be_persisted
+
+live_contentops\newsroom_production_day_v1.py:429: ValueError
+=========================== short test summary info ===========================
+FAILED tests/test_contentops_source_research_v1.py::test_filing_cannot_gain_public_domain_through_legacy_media_path
+1 failed, 24 passed in 24.18s

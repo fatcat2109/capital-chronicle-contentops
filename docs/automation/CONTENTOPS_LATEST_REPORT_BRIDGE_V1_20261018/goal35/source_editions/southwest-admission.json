@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal35-southwest",
+      "source_id": "goal35-southwest",
+      "source_url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
+      "url": "https://www.reuters.com/business/southwest-airlines-cuts-2026-profit-forecast-fuel-costs-spike-2026-10-21/",
+      "publisher": "Reuters",
+      "source_identity": "reuters.com",
+      "title": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains",
+      "raw_sha256": "dd89d20a58c56dae496919ba74bb08bed6753187503671d19ebcc6edfdc61225",
+      "canonical_content_text": "Southwest Airlines cuts profit forecast as fuel costs overshadow turnaround gains\n\nThe Dallas-based carrier expects adjusted earnings of $2.60 to $2.85 per share in 2026, down from its earlier forecast of $3.25 to $4.25. The midpoint of the new range is below ​analysts' average estimate of $2.85 per share, according to data compiled by LSEG.\n\nSouthwest's average passenger fare jumped nearly 27% in the third quarter, helping lift revenue to a third-quarter ​record of $8.4 billion. Southwest also reported higher adjusted operating margin despite sharply higher fuel costs.\n\nSouthwest's fuel bill rose $821 million from a year earlier, and the carrier expects jet fuel prices to increase further in the final three months of the year.\n\nThe company reported third-quarter adjusted earnings of ​66 cents per share, ​above analysts' expectations of ⁠58 cents and up from 11 cents a year earlier.",
+      "source_adapter_family": "reputable_secondary_report",
+      "source_authority_class": "reputable_secondary_source",
+      "source_interest_role": "NEWS_REPORTER",
+      "report_truth_only": true,
+      "published_at_utc": "2026-10-21T20:23:00Z",
+      "published_at_source": "2026-10-21T20:23:00Z",
+      "published_at_precision": "MINUTE",
+      "content_truncated": false,
+      "public_claim_allowed": true,
+      "original_reporting_identity": "Reuters",
+      "syndication_host": "www.reuters.com"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-21T22:27:23.031Z",
+    "request_count_for_call": 0
+  }
+}

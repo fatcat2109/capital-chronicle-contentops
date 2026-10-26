@@ -1,0 +1,502 @@
+{
+  "accepted_evidence_ids": [
+    "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+  ],
+  "accepted_evidence_sha256": "da24d9516cf79e2a283eeed1de5b0fff17c8e9202c004e002e9ec2900f4bc7df",
+  "article_body_sha256": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+  "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+  "article_path": null,
+  "attempt_run_id": "goal26-main-oil-analysis-v2",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "official_source_document_card"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWhat to watch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "217e4fcaf95114c4613d91217681310d5d4cd051b73b02cfafcdee885de2ab8e",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWatch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nMain report cutoff: 2026-10-19.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Capital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWatch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "CC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nMain report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.754,
+            0.929,
+            0.761
+          ],
+          "post_character_counts": [
+            211,
+            260,
+            213
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.812,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Capital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWatch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?",
+          "CC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nMain report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80",
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80"
+      },
+      "payload_sha256": "515e12e3dea239d735555ab1ff93f0ddcbfeb290473362d4c6489bebcffa1549",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]**\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\n**Context:** The report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "e5e0682a52021e5a519bea3ce6be3da0bc92764e2cabdecf6e3231618279f095",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nWhy it matters: Capital Chronicle's conditional mechanism is that fewer imports or crude moving through refineries could reduce crude stocks without stronger end demand.\n\nContext: The report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "510ba75f39faa1c24ad823e880b0d183798a0eb019fc40d65e233dc534106e03",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWhy it matters: Capital Chronicle's conditional mechanism is that fewer imports or crude moving through refineries could reduce crude stocks without stronger end demand.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "4cd541d8f1f00c4d27a2691013e0c6a2030bcaee5f90371b3d8231fbf29d4d6b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nIn focus: The report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80\n\n#CapitalChronicle\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "cead1b225e73741cc67a92a4cf7de37e4784669c311a10391b1a7d26dc7ba1c2",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nThe report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80\n\nWhat to watch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nMain report cutoff: 2026-10-19.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nThe report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nMain report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.782,
+            0.736
+          ],
+          "post_character_counts": [
+            391,
+            368
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.941,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nMain report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nThe report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80",
+        "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nThe report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80"
+      },
+      "payload_sha256": "83bafaf2dbe54dc7f301927076eca9c5c6371f8f7b8ae7703039b8e1a0e0ec7b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "This report import does not independently verify the underlying events.",
+        "event_truth_supported": false,
+        "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Capital Chronicle",
+        "primary_reporting_source_identity": "asset-report:USOIL",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+        "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+        "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle's oil report separates tighter stocks from stronger demand [Main report 2026-10-19]\n\nCapital Chronicle's oil report asks whether fewer imports, rather than stronger demand, helped draw crude stocks.\n\nWhat to watch: Does the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-4642f066d81e7d80\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Main report cutoff: 2026-10-19. Interpretation remains analysis."
+      },
+      "payload_sha256": "cde4627f3896dad471d85ef7c92a8c12bb448145411c6a869448a856aeb66182",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal26_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "supported collaboration.spawn_agent configuration and canonical task identity",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal26_sol_max_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Supported collaboration.spawn_agent configuration assigning gpt-6.1-sol / max and canonical task identity /root/goal26_sol_max_writer.",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:USOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-1282dbd3bc342ad7c555f80c43048137ab95ffe76f2de11ec4a5be9604af3453"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-20-bangkok",
+  "parent_window_id": "goal26-main-oil-analysis-v2",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "e65c4668ba44013c7c18de8b6bdea25492a22f7cd1433ef2894fd7b7fdffe456",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-692b942cd8b193e1514f3ebc",
+  "title": "Capital Chronicle's oil report separates tighter stocks from stronger demand",
+  "unknown_write_count": 0,
+  "update_chain_identity": "energy-balance-transmission"
+}

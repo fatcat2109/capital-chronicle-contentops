@@ -1,0 +1,13 @@
+
+> contentops-v5@0.0.0 test
+> vitest run --run src/test/report_editorial_workspace.test.tsx
+
+
+ RUN  v2.1.8 C:/Users/bullw/.codex/worktrees/latest-report-editorial-bridge/ContentOps/ui/contentops_v5
+
+ ✓ src/test/report_editorial_workspace.test.tsx (10 tests) 393ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  00:34:50
+   Duration  2.88s (transform 180ms, setup 233ms, collect 350ms, tests 393ms, environment 869ms, prepare 136ms)

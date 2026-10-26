@@ -1,0 +1,36 @@
+{
+  "schema_version": "contentops.goal27.rendered_inspection.v1",
+  "surface": "BROWSEROS_NEO",
+  "component": "actual React ReportEditorialWorkspace saved by existing desk command",
+  "desktop": {
+    "actual_rendered_screenshot_inspected_in_chat": true,
+    "document_client_width": 1434,
+    "document_scroll_width": 1434,
+    "article_client_width": 1002,
+    "article_scroll_width": 1002,
+    "final_rendered_copy_file": "desktop_rendered_copy.json",
+    "later_screenshot_export": "CDP_CAPTURE_TIMEOUT; no desktop image file claimed"
+  },
+  "mobile": {
+    "actual_rendered_screenshots_inspected_in_chat": [
+      "gas article",
+      "oil native previews"
+    ],
+    "saved_image": "mobile-oil.jpg",
+    "frame_width": 430,
+    "document_client_width": 415,
+    "document_scroll_width": 415,
+    "article_client_width": 389,
+    "article_scroll_width": 389,
+    "method": "same actual component in iframe; not a device override"
+  },
+  "read_full_articles": 2,
+  "read_final_native_copies": 16,
+  "inspected_relevant_images": 2,
+  "horizontal_overflow": false,
+  "reader_dates": "Oil final short copies cite observation Oct9/Main cutoff Oct19 and exclude unused gas Oct15. Gas remains storage observation Oct9/released Oct15, not a new period.",
+  "prose_unchanged_by_compiler": true,
+  "unpublished": true,
+  "desk_sha256": "fde502eb10978a0df659b04eaa52d48e661de285d3d5e3638e93aa76ea626f15",
+  "mobile_wrapper_sha256": "5f28edb22cca6387c3d3888aa56a3d316a6134a66c8f6cdf66a09c5df42db36e"
+}

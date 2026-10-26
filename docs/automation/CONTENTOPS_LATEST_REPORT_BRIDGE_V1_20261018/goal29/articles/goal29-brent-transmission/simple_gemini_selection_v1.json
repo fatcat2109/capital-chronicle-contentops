@@ -1,0 +1,73 @@
+{
+  "candidate_count": 21,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "199cb94054cd77e291ddbbb1926658ee6f5344efd4660ab5f10cad53b84a8e5b",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal29_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed.",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "0e35a3fd3fdcd2f3fb075bc69d1109c73e9757e9140a6864b0fcccf83b570026",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "b4b168d9f2bce19a291bb300f89397fefdc0e8240d55bc1ac43c58948555fe62",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Từ kho dầu Mỹ đến Brent: phải chứng minh cầu nối thương mại trước khi gọi đó là khan hiếm toàn cầu.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-93077be7d9d04ac72cb7cb5e",
+        "evidence_plan": "Dùng resolver hiện hữu đối chiếu UKOIL v4, USOIL v6 và bản EIA được giữ đúng tuần 09/10; cùng một nguồn không thành hai xác nhận. Tách ngày quan sát, ngày phân tích, ngày sửa wire và ngày truy xuất; wire correction không tạo dữ kiện mới. Đối chiếu bài dầu trước để giữ phần mới là cầu nối Mỹ–Brent. Ràng buộc từng số vào SOURCE_FACT; code sở hữu phép tính, không tự chia rút kho cho nhập khẩu. Diễn giải nhập khẩu, lọc dầu và sản phẩm như các cách giải thích cạnh tranh. Các điều kiện tàu hàng, xuất nhập khẩu, vận tải, phẩm cấp, sản lượng toàn cầu, đường cong và spread cùng kỳ hiện thiếu: trình bày như phép kiểm cần có, không tuyên bố đã quan sát. CC_ANALYSIS và kịch bản giữ nhãn có điều kiện; native provenance là producer-attested, consumer không tự xác minh worker. Không giá hiện tại, dự báo, target hay quyền giao dịch.",
+        "primary_reader_question": "Vì sao rút kho dầu Mỹ chưa đủ chứng minh Brent khan toàn cầu, và bằng chứng nào phân biệt truyền dẫn thương mại với thời điểm nhập hàng hay lọc dầu?",
+        "research_queries": [
+          "EIA October 9 2026 crude inventories imports refinery utilization gasoline distillate",
+          "Brent WTI seaborne crude trade freight quality differentials regional inventory transmission"
+        ],
+        "selection_rationale": "Bổ sung câu hỏi địa lý và thương mại cho lịch sử dầu đã có, thay vì nhắc lại số rút kho hoặc gộp dầu với gas. UKOIL v4 cung cấp cơ chế và phản đề có điều kiện; USOIL v6 chỉ có dữ kiện nguồn chung. Giá trị mới là cách kiểm chứng phạm vi suy luận, không phải một quan sát kinh tế mới."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một câu hỏi độc lập có giá trị theo yêu cầu chủ sở hữu; không thêm phương án dự phòng làm loãng phạm vi.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal29-brent-transmission\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 21,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

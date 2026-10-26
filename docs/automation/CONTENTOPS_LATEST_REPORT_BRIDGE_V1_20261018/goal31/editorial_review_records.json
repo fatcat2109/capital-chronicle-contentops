@@ -1,0 +1,18 @@
+[
+  {
+    "review_id": "native-article-review-2b76b644dbc647a6b343626b12f76f64",
+    "work_item_id": "cc-opportunity-b94e5824a5115fa3a149e267b69d646e92d62b1e36ceeaa445188508ccc3659a",
+    "reviewer_ref": "NATIVE_DESKTOP_ARTICLE_REVIEW",
+    "decision": "KEEP",
+    "notes": "{\"schema_version\": \"contentops.native_article_review.v1\", \"run_id\": \"goal31-company-machine-reading\", \"article_identity\": \"2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d\", \"package_revision\": \"de9d42bebe0d6fd82fae5d50a86775623ee0cdec4a789c0d3d04afc9b9d1b4bb\", \"article_metadata_sha256\": \"0ffd5cb33b02d2ed021e5fcaa7646e1c86498371d638c2cf794d7fecbaeded25\", \"rationale\": \"Đã đọc toàn văn và cả tám preview: câu hỏi mới về bước từ dữ liệu sang diễn giải, có kỳ/phạm vi/ước tính, phản đề lợi ích công cụ và điều kiện sửa quan điểm. Nguồn SEC19/10 chỉ xác nhận thông báo tọa đàm9/11, không quy định mới/hiệu quảAI; 10K là hướng dẫn lịch sử, không xác nhận filing hiện hành hay độc lập xác nhận thông báo. Đã xem ảnh nguồn có quyền và actual Neo desktop1200/mobile390: tiêu đề/đoạn/nhãn ngày rõ, không tràn ngang. Giá trị mới khác bài MD&A cũ, không số doanh nghiệp/probability bịa. KEEP cho bản nháp riêng tư, không cấp quyền phát hành.\", \"publication_authority\": false}",
+    "reviewed_at": "2026-10-21T11:54:57.944906+00:00"
+  },
+  {
+    "review_id": "native-article-review-b06e87ad9b8e4757ae1bfb2b2f086a44",
+    "work_item_id": "cc-opportunity-c31c72836997b672582e5210a16f895e6aefe8ab35d16457b8ddca2d37ee9117",
+    "reviewer_ref": "NATIVE_DESKTOP_ARTICLE_REVIEW",
+    "decision": "KEEP",
+    "notes": "{\"schema_version\": \"contentops.native_article_review.v1\", \"run_id\": \"goal31-futures-cashflow\", \"article_identity\": \"178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872\", \"package_revision\": \"9b4d4c75817468abe791a4c2a9a0e37e80cd4d3f86b757fcf8cae07f66aa298a\", \"article_metadata_sha256\": \"fd89f7d28250942a4ebe5f5f78c408efdc55c99ad2969e5f7a5ab2c2e40c2fa2\", \"rationale\": \"Đã đọc toàn bài và tám preview: ví dụ nông dân tách hàng thực/vị thế, mark-to-market và variation margin giải thích vì sao tác dụng bù rủi ro khác thời điểm tiền về. Có phản đề hedge hữu ích khi khớp rủi ro/tài trợ và điều kiện rút kết luận. Nguồn nền CFTC không có ngày phát hành xác minh; không lấy ví dụ thành spec/quy định/vị thế hiện tại, không tự tính số hoặc khuyên giao dịch. Đã xem thẻ nguồn có quyền và actual Neo mobile390, desktop1200; chữ rõ/ảnh nạp/không tràn ngang. KEEP riêng tư, không phát hành.\", \"publication_authority\": false}",
+    "reviewed_at": "2026-10-21T12:05:18.864685+00:00"
+  }
+]

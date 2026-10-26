@@ -1,0 +1,115 @@
+[
+  {
+    "browser_rendered_acquisition": null,
+    "canonical_content_sha256": "1a45ca9a376b5b8dac13518f743ce3066ac2ecf117dbd9eb1723bbf4a769e34a",
+    "canonical_content_text": "OBSERVED_SOURCE_FACT: The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period.\nExact historical broker contract; financing and current executable quote remain separate.\n\nMain report known-at cutoff (not source release): 2026-10-19T12:25:00Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 observation_time_utc: 2026-10-09T00:00:00Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 retrieval_time_utc: 2026-10-18T15:13:09.289Z\nMain evidence neo:eia-petroleum:b7435f56ed43ebc7 known_at_utc: 2026-10-18T15:13:09.289Z\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "canonical_resolution_status": "",
+    "document_id": "main-report-942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+    "published_at_source": "MAIN_REPORT_CUTOFF_NOT_SOURCE_RELEASE_TIME",
+    "published_at_utc": "2026-10-19T12:25:00Z",
+    "publisher": "Capital Chronicle",
+    "report_lineage": {
+      "claims": [
+        {
+          "basis_risk": "Exact historical broker contract; financing and current executable quote remain separate.",
+          "claim_hash": "f8a25d649a4e5bfe2a669e934d60dd3ffe305d8758e5e8d03b683e5db013587a",
+          "claim_id": "usoil-source",
+          "context_only": true,
+          "evidence": [
+            {
+              "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+              "exact_or_proxy": "EXACT",
+              "freshness_state": "LATEST_WEEKLY_RELEASE_RETAINED",
+              "known_at_utc": "2026-10-18T15:13:09.289Z",
+              "observation_time_utc": "2026-10-09T00:00:00Z",
+              "pit_state": "KNOWN_AT_RETRIEVAL_NOT_HISTORICAL_FIRST_PRINT",
+              "query_sha256": "530a5d77fc677a6ea120f55d5e0b0bd980ea87468dbc7d0583eeb934b85548e6",
+              "retrieval_time_utc": "2026-10-18T15:13:09.289Z",
+              "rights_evidence_sha256": "f52cd1027252b707ac2ea966a529fc713b2f891c61cbc0a6bb4f49399edea376",
+              "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+              "source_hash": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+              "source_identity": "U.S. EIA Weekly Petroleum Status Report original balance summary",
+              "source_url": "https://ir.eia.gov/wpsr/summary.txt"
+            }
+          ],
+          "exact_or_proxy": "EXACT",
+          "layer": "OBSERVED_FACT",
+          "producer_layer": "OBSERVED_SOURCE_FACT",
+          "rights_state": "PUBLIC_DOMAIN_EIA_ORIGINAL_WITH_ATTRIBUTION",
+          "source_report_ids": [],
+          "text": "The retained original EIA petroleum release records an 8.6 million barrel crude draw to 415.6 million barrels, a 3.5 million barrel gasoline build and a 2.5 million barrel distillate draw. Imports fell 791000 barrels per day; refinery utilization was 93.5%; four-week gasoline demand was 0.4% below the prior-year period."
+        }
+      ],
+      "report_id": "asset-report:USOIL",
+      "report_sha256": "942d613d6334a88796952cb3a0c99793b263356d06155fbd8a50f04fea964e27",
+      "report_version": 5,
+      "scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+      "source_clock_metadata": [
+        {
+          "field": "known_at_cutoff_utc",
+          "text": "Main report known-at cutoff (not source release): 2026-10-19T12:25:00Z",
+          "value": "2026-10-19T12:25:00Z"
+        },
+        {
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "field": "observation_time_utc",
+          "text": "Main evidence neo:eia-petroleum:b7435f56ed43ebc7 observation_time_utc: 2026-10-09T00:00:00Z",
+          "value": "2026-10-09T00:00:00Z"
+        },
+        {
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "field": "retrieval_time_utc",
+          "text": "Main evidence neo:eia-petroleum:b7435f56ed43ebc7 retrieval_time_utc: 2026-10-18T15:13:09.289Z",
+          "value": "2026-10-18T15:13:09.289Z"
+        },
+        {
+          "evidence_id": "neo:eia-petroleum:b7435f56ed43ebc7",
+          "field": "known_at_utc",
+          "text": "Main evidence neo:eia-petroleum:b7435f56ed43ebc7 known_at_utc: 2026-10-18T15:13:09.289Z",
+          "value": "2026-10-18T15:13:09.289Z"
+        }
+      ]
+    },
+    "report_truth_only": true,
+    "retrieval_method": "DERIVED_SEALED_MAIN_PUBLIC_PROJECTION",
+    "secondary_listing_only": false,
+    "source_authority_class": "governed_capital_chronicle_report_only",
+    "source_id": "SOURCE_1",
+    "source_identity": "asset-report:USOIL",
+    "url": "urn:cc-public-report:capital-chronicle-public-analysis-reports-v1:c824ba0e997c2a0ebfc2c3d199019a42da1052446063819bacea67e9166bcfd8"
+  },
+  {
+    "browser_rendered_acquisition": null,
+    "canonical_content_sha256": "4c3fe085b54cfc4a468e663deaf567539089461c67efe47eba5b964ebdd988de",
+    "canonical_content_text": "Commercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased 8.6 million barrels to 415.6 million barrels, 3% below the five-year average. Gasoline inventories increased 3.5 million barrels, 4% below the five-year average. Distillate inventories decreased 2.5 million barrels, 12% below the five-year average.\n\nCrude oil imports decreased 791,000 b/d to 6.0 million b/d, although the four-week average of 6.1 million b/d is 0.9% above the year-ago level. Gasoline imports averaged 508,000 b/d; distillate imports averaged 145,000 b/d.",
+    "canonical_resolution_status": "",
+    "document_id": "goal27-oil-original",
+    "published_at_source": "NOT_SUPPLIED",
+    "published_at_utc": "",
+    "publisher": "U.S. Energy Information Administration",
+    "report_truth_only": false,
+    "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+    "secondary_listing_only": false,
+    "source_authority_class": "official_public_primary_source",
+    "source_id": "SOURCE_2",
+    "source_identity": "U.S. Energy Information Administration",
+    "url": "https://ir.eia.gov/secure/wpsr/summary.txt"
+  },
+  {
+    "browser_rendered_acquisition": null,
+    "canonical_content_sha256": "8da24713f6fe786a44b264f810687222da6ec1bc4a039f6e9d8806b28f500fb2",
+    "canonical_content_text": "Working gas in storage was 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. This represents a net increase of 67 Bcf from the previous week. Stocks were 143 Bcf less than last year at this time and 45 Bcf above the five-year average of 3,522 Bcf. At 3,567 Bcf, total working gas is within the five-year historical range.",
+    "canonical_resolution_status": "",
+    "document_id": "goal22-gas-storage",
+    "published_at_source": "VISIBLE_RELEASE_DATE_TIMEZONE_NOT_VERIFIED",
+    "published_at_utc": "2026-10-15T00:00:00Z",
+    "publisher": "ir.eia.gov",
+    "report_truth_only": false,
+    "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_CONTEXT_SPANS",
+    "secondary_listing_only": false,
+    "source_authority_class": "official_public_primary_source",
+    "source_id": "SOURCE_3",
+    "source_identity": "ir.eia.gov",
+    "url": "https://ir.eia.gov/secure/ngs/ngs.html"
+  }
+]

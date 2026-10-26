@@ -322,6 +322,7 @@ def build_current_zero_write_qualified_article_record(
     logical_model_invocation_count: int,
     derivative_package_intents: Sequence[Mapping[str, Any]],
     epistemic_state: Mapping[str, Any] | None = None,
+    native_execution_observation: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build the current provider-neutral zero-write qualification record.
 
@@ -339,11 +340,19 @@ def build_current_zero_write_qualified_article_record(
     blockers: list[str] = []
     if not body or not title:
         blockers.append("article_body_or_title_missing")
-    if provider != "9router":
+    native = provider == "NATIVE_CODEX_DESKTOP"
+    if native:
+        if model not in {"gpt-6.1-sol", "UNOBSERVED"}:
+            blockers.append("native_desktop_model_mismatch")
+        if effort not in {"LOW", "MEDIUM", "HIGH", "MAX", "UNOBSERVED"}:
+            blockers.append("native_desktop_effort_invalid")
+        if not native_execution_observation or not native_execution_observation.get("observations"):
+            blockers.append("native_desktop_observation_missing")
+    elif provider != "9router":
         blockers.append("current_v1_editorial_provider_not_9router")
-    if not model.startswith("vx/gemini-"):
+    if not native and not model.startswith("vx/gemini-"):
         blockers.append("current_v1_editorial_model_not_authorized_gemini")
-    if effort != "HIGH":
+    if not native and effort != "HIGH":
         blockers.append("current_v1_editorial_reasoning_effort_not_high")
     if int(logical_model_invocation_count) not in {2, 3}:
         blockers.append("current_v1_logical_model_invocation_count_invalid")
@@ -407,6 +416,11 @@ def build_current_zero_write_qualified_article_record(
         "qualification_blockers": sorted(set(blockers)),
         "qualified": not blockers,
     }
+    if native:
+        worker = record_core["editorial_worker"]
+        worker["semantic_response_count"] = worker.pop("logical_model_invocation_count")
+        worker["codex_runtime_model_call_count"] = None
+        worker["native_execution_observation"] = dict(native_execution_observation or {})
     return {**record_core, "record_sha256": _logical_hash(record_core)}
 
 

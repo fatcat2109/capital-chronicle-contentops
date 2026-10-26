@@ -1,0 +1,568 @@
+{
+  "accepted_source_count": 1,
+  "admitted_candidate_count": 1,
+  "article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-tesla\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+      ],
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "blockers": [],
+      "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-tesla"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Tesla October 21 2026 free cash flow capital expenditure expectations AI spending"
+      ],
+      "selection_rationale": "A fresh cash-flow surprise supports a useful current question about the quality and persistence of cash generation. It is distinct from IBM software-demand composition, handled oil and historical company-reading research. The spending comparison prevents a misleading cost-cutting interpretation while preserving the real reported positive cash outcome. Single-source report truth only.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 27,
+  "candidate_limit": 32,
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 2,
+    "observations": [
+      {
+        "invocation_id": "/root/goal35_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal35_tesla_max_resume",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal35_tesla_max_resume",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "role": "revise",
+        "speed": "standard",
+        "stage": "revise",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low",
+      "max"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 3,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-tesla"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal35_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "553453a30706da2a0eb340c9c7d3d9ef42eed59a2a40b80979a9618d71a0a617",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "bf5d811ab813c81b1dde645d4066fa23253742ba12793b27e2f68542f8206af2",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal35_tesla_max_resume",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "6a0674fe623aa6c168203990bda5c8f99ba064e0e11f51a5b642a0fbe73f41a6",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "44556f0221e6475db50f8a91f459ae5f5e3f37df598b3c7f6fff45c2bf7c0f85",
+      "role": "write",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "write"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal35_tesla_max_resume",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "795646336db174ff8b6f16d347a266dad988cc3e9317fc73122aee8e06c21aa3",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "e0ec453ae7c352e087e84f94c2e22c966838997409de84f66a8c2351ff41b221",
+      "role": "revise",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "revise"
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-tesla\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "goal35-tesla"
+    ],
+    "accepted_evidence_sha256": "6d3f929de8282bd8ac57ba0634b4661cae1d8a3903a5182547b7ff6285a4f0b7",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "15ecfaf021bc4261c8e745aee46ffc4ee7343d1c0cfccb98d292be66ff180530",
+    "article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "c3f379148282ca6ab2651656bddee8090a5a6d22a70340ee0113bb997fdfc2c3",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "42bc5b723530be37d06163d272c3aad5ddc8d0310579cdc178273cda49f19a8f",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "4c061c5486c34caf22b6c76755e0c398a6664795667037cedf7f06632c15da33",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "c09744c0683d3a6de47b99863e907695564ad85a45dfa56998e30d0ec8a5018f",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "9b4e4fbd31101e3d2e61a245b33f0ec637bc5c677ba58bb7bdb92fc7e2b6233d",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "4811b148aded6a6d817eb69df4f088a567c2ea76ca1fee215a33d8d1f168f7ae",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "b598a06d84bf58011edae6497783df452ed24b3f87fc1c91dffd6f4c3ef9b2a5",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "69c49af35f81913d99a9d8944e0eeb92dab19aed3a66933340056dda96aaba55",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "0e0117f826223eac229f62eec9168ce5f9d282346a714e921319ba891df515fc",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+      "event_truth_support_status": "UNCONFIRMED",
+      "event_truth_supported": false,
+      "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+      "origin_character": "UNSPECIFIED",
+      "primary_reporting_publisher": "Reuters",
+      "primary_reporting_source_identity": "reuters.com",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+      "relay_source_identity": null,
+      "report_proposition": "Reuters reports that tesla posts surprise positive cash flow on lower-than-expected AI spending",
+      "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal35-tesla"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-tesla",
+    "package_identity": "bc5ec4260b03fd601211ff635e631696f45d309d71d4da141feed870e73dd0fd",
+    "plan_hash": "920171ac9400abb37c59729036b20c07cac9b67a9fcd20fd6fa889b924250213",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal35-tesla"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "run_id": "goal35-tesla",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-6c6ae25852f4519d9a6d2168",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "update_chain_identity": "simple-story-6c6ae25852f4519d9a6d2168"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-tesla\\qualified_article_record_v1.json",
+  "revision_performed": true,
+  "run_id": "goal35-tesla",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal35-tesla",
+    "headline_text": "Tesla posts surprise positive cash flow on lower-than-expected AI spending",
+    "official_source_urls": [],
+    "public_source_urls": [
+      "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+    "source_account": "Reuters",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-21T20:06:00Z",
+    "source_url": "https://www.reuters.com/business/media-telecom/tesla-revenue-beats-estimates-deliveries-rebound-energy-storage-grows-2026-10-21/",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": true,
+      "known_official_path": false,
+      "reputable_public_secondary_path": true,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-6c6ae25852f4519d9a6d2168",
+    "update_chain_identity": "simple-story-6c6ae25852f4519d9a6d2168"
+  },
+  "selected_plan_entry": {
+    "angle": "Positive Tesla free cash flow came alongside capital spending below expectations, even though spending remained more than double the prior-year level. Explain why this surprise needs a spending-versus-operating-cash distinction before it can be read as durable profitability.",
+    "article_mode": "STANDARD_NEWS_ANALYSIS",
+    "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+    "evidence_plan": "Use only retained goal35-tesla Reuters facts, published 2026-10-21T20:06:00Z and known at 2026-10-21T22:27:23.026Z. Bind September-quarter free cash flow $1.53 billion against expected cash burn $4.92 billion; Q3 capital expenditure $4.73 billion against roughly $7.5 billion analyst estimate. Preserve the separately rounded $4.7 billion statement and reported more-than-double year-ago comparison; do not treat lower than expected as a year-on-year spending cut. Reuters headline frames the AI-spending connection; the retained numbers are total capex, not an independently measured AI-only spending breakdown. Attribute all facts and estimates to Reuters/LSEG as supplied. Explain qualitatively that cash remaining after capital spending can improve when less cash is invested than expected; do not assert deferral, cancellation, efficiency, or timing is established. Missing: operating-cash-flow bridge, working-capital drivers, exact capex timing/composition, future commitments and repeatability. No inferred earnings improvement, demand acceleration or investment returns. Code owns arithmetic; no hand-calculated surprise bridge or residual attribution. No new sources, requests, quotations or media.",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "primary_reader_question": "How much does positive Tesla free cash flow tell investors when capital spending was below expectations but still more than double a year earlier?",
+    "research_queries": [
+      "Tesla October 21 2026 free cash flow capital expenditure expectations AI spending"
+    ],
+    "selection_rationale": "A fresh cash-flow surprise supports a useful current question about the quality and persistence of cash generation. It is distinct from IBM software-demand composition, handled oil and historical company-reading research. The spending comparison prevents a misleading cost-cutting interpretation while preserving the real reported positive cash outcome. Single-source report truth only."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Positive Tesla free cash flow came alongside capital spending below expectations, even though spending remained more than double the prior-year level. Explain why this surprise needs a spending-versus-operating-cash distinction before it can be read as durable profitability.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-6c6ae25852f4519d9a6d2168",
+        "evidence_plan": "Use only retained goal35-tesla Reuters facts, published 2026-10-21T20:06:00Z and known at 2026-10-21T22:27:23.026Z. Bind September-quarter free cash flow $1.53 billion against expected cash burn $4.92 billion; Q3 capital expenditure $4.73 billion against roughly $7.5 billion analyst estimate. Preserve the separately rounded $4.7 billion statement and reported more-than-double year-ago comparison; do not treat lower than expected as a year-on-year spending cut. Reuters headline frames the AI-spending connection; the retained numbers are total capex, not an independently measured AI-only spending breakdown. Attribute all facts and estimates to Reuters/LSEG as supplied. Explain qualitatively that cash remaining after capital spending can improve when less cash is invested than expected; do not assert deferral, cancellation, efficiency, or timing is established. Missing: operating-cash-flow bridge, working-capital drivers, exact capex timing/composition, future commitments and repeatability. No inferred earnings improvement, demand acceleration or investment returns. Code owns arithmetic; no hand-calculated surprise bridge or residual attribution. No new sources, requests, quotations or media.",
+        "primary_reader_question": "How much does positive Tesla free cash flow tell investors when capital spending was below expectations but still more than double a year earlier?",
+        "research_queries": [
+          "Tesla October 21 2026 free cash flow capital expenditure expectations AI spending"
+        ],
+        "selection_rationale": "A fresh cash-flow surprise supports a useful current question about the quality and persistence of cash generation. It is distinct from IBM software-demand composition, handled oil and historical company-reading research. The spending comparison prevents a misleading cost-cutting interpretation while preserving the real reported positive cash outcome. Single-source report truth only."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select Tesla only. Explain the cash-flow surprise alongside lower-than-expected but sharply higher year-on-year capex, without equating free cash flow with profit or proving the spending difference was deferred.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "semantic_response_count": 3,
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-tesla\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 29,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 2,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "ccb0290501e49ad16d01ad370ad54f86e16648553715cae04752b1c08145f14f",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 18,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

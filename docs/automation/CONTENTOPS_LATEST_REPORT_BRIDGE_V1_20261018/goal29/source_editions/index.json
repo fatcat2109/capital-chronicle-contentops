@@ -1,0 +1,46 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "headline_id": "goal29-sec-amf-supervision",
+      "headline_text": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement. ",
+      "capture_path": "goal29-sec-amf-capture.json",
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "source_capture_sha256": "da3c4a0a14b12d4050be904c3bc048548482579a51412476c68e3e0ae8339d25",
+      "loader_result_path": "goal29-sec-amf-admission.json",
+      "policy_capture_path": "policy-neo-page-67-revision2-rendered.json",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "revision_at_utc": "2026-10-20T23:12:09.381886Z",
+      "proposition_span": [
+        2269,
+        3310
+      ],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "CROSS_BORDER_ASSET_MANAGEMENT"
+        ],
+        "context_kind": "CURRENT_DATED_REGULATORY_ACTION",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": null,
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "What changes when SEC resumes processing French asset-manager applications, and why is a processing route not approval or proven investor protection?",
+        "authorship_scope": "AGENCY_AUTHORED_PROSE_ONLY_NO_THIRD_PARTY_SERIES_OR_ARTWORK",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-20",
+        "release_date": "2026-10-20"
+      },
+      "context_spans": []
+    }
+  ]
+}

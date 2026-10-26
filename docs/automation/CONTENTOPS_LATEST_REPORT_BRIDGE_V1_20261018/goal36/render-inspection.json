@@ -1,0 +1,73 @@
+{
+  "component": "ReportEditorialWorkspace",
+  "method": "Actual Neo rendered existing maintained-story region; exact four selected story elements isolated only for PDF pagination; source text unchanged",
+  "inspected_desktop_pages": 7,
+  "inspected_mobile_pages": 11,
+  "viewport_metrics": {
+    "content": {
+      "contentLength": 19107,
+      "page": 59,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\evaluate-1792697272900-5c833a86-7e48-4235-80c9-9b3df7f9b3d3.txt",
+      "writtenToFile": true
+    },
+    "desktop": {
+      "bytes": 392355,
+      "page": 59,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792697274641-f43147b1-dc70-45de-b5fe-04eddbad77cd.pdf"
+    },
+    "desktopMetrics": {
+      "page": 59,
+      "value": {
+        "scrollWidth": 1012,
+        "viewport": 1024
+      }
+    },
+    "mobile": {
+      "bytes": 399965,
+      "page": 59,
+      "path": "\\\\?\\C:\\Users\\bullw\\AppData\\Local\\BrowserClaw\\Application\\155.0.8311.26\\.browseros\\tool-output\\pdf-1792697276423-db5c6bf9-175e-41cd-aa18-5f195421ad57.pdf"
+    },
+    "mobileMetrics": {
+      "page": 59,
+      "value": {
+        "scrollWidth": 390,
+        "viewport": 390
+      }
+    }
+  },
+  "stories": 4,
+  "accepted_versions": 6,
+  "status": "PASS_ACTUAL_RENDER_INSPECTED",
+  "checks": [
+    "Readable current/prior comparison",
+    "Original fact delta retained beside later KEEP",
+    "Source/analysis/check clocks separate",
+    "Partial source gaps and prior preparation invalidation visible",
+    "Attribution and media limitations retained",
+    "No horizontal overflow observed"
+  ],
+  "artifacts_sha256": {
+    "desktop-1.png": "fc3ba833123bc2f227bfe8475a82837a7080a28bfc71aff2cceb3755af28d56c",
+    "desktop-2.png": "b7dce175576aa615041eb21a8757ba9b0a1e50ee7c9fd4dc27c7c3bca4526240",
+    "desktop-3.png": "c0580f6f5fc7add468be11d61b87d997d0a7f776e2d9f2f48c47350de41f9d2a",
+    "desktop-4.png": "9317b0a3969211aa471e074ac9af00b140d249e8466faf87dcfea926e0eb534f",
+    "desktop-5.png": "06c54c96a752dfb1844a90ec5c38e7d44967ba9f9cc89c2b77994c04996ef0d0",
+    "desktop-6.png": "5cd504b146746a8cdfd72b4041cfc4b4b9b68eb7aca908a788c0c1a3a81bd2ab",
+    "desktop-7.png": "51925e2d8d847736e9fa2968e4c4d539720e83a375702235d9a51a8219d941f3",
+    "desktop.pdf": "166c84d5064b630051cb8ab884f184df16b93667324fe1d33000c5e6c131ed8e",
+    "mobile-01.png": "a3a02f2e507a95589a72fe691945e4e51c75eca0499e069325585b78e318c4ac",
+    "mobile-02.png": "9614c8047fcd18ae0ef670e62c0d11f9a59baeabd4e0a1e1153db6b89d12555d",
+    "mobile-03.png": "70e13f9a1eb45003a4bdeeb9e3992c9ee69e330398ba6ffb6dee3ae74778ac47",
+    "mobile-04.png": "48607972c51c4bd8d22e9f6247dd1afe806a193694e4e3938ba02e065a4c1870",
+    "mobile-05.png": "bb0cb81e9debd9bf21d77c7699910159720604d16e0c92a93164c097d4d629d1",
+    "mobile-06.png": "cdd8929bedad9a862152b64b9707ea54c2361f2e8629797f114160e47b167bb4",
+    "mobile-07.png": "70f49b2298f18056d1e3112b1dbad9811af50cfb895a4ca77c0eb4c3e2fd2115",
+    "mobile-08.png": "272fa551f914e77444ac5b6f03270a418b53ec6f68a49e0610e8dbb5d4e6efe7",
+    "mobile-09.png": "4cc8c3ffd0fce96b9b48be5dd55daa822a7cb94581a2d1855f5ce4edfffeba0a",
+    "mobile-10.png": "cd1f07c4c03ebe8f45887ca38f0ac0182b65daab236bb1c26695dc1b0d23459a",
+    "mobile-11.png": "02583d548463f8a5cbbb3a0383e28db8960272ea0437b49db1018a8122cbcdcb",
+    "mobile.pdf": "4701ca8a625c85d8516dfa844b1d1cede47eeb4a8c69940e06658ee6629dc0a8",
+    "neo-maintained-story-dom.txt": "2050d39e7d11eb0bdc1d01aaea6ea0da91377cb847d66a67d32727081a68ff8a"
+  },
+  "scope_limit": "Local editorial preview; not platform-native rendering, publication, current market confirmation or new media rights."
+}

@@ -1,0 +1,73 @@
+{
+  "candidate_count": 18,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "b2278f681d940d6e7fb576a060232586c8aa318ee0bf3c1a540128e1cb0da655",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal28_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "collaboration.spawn_agent returned canonical task name with explicitly requested gpt-6.1-sol low; UUID not exposed",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "5683f8c7cd9464af91d81e7211d7176bb00c68ce16cf753b756f90bca318decb",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "11c87fcb5214482fa0cbab789f7a9fad23151309b2b88178d0803d48ee82f5eb",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Đọc tuyên bố Fed ngày 16/9/2026 thành ba lớp: quyết định đã công bố, nhận định kinh tế làm lý do và bằng chứng còn thiếu về đường lãi suất/thị trường. Một lần tăng không tự thiết lập chuỗi tăng kế tiếp hoặc chứng minh bất ngờ có thể đầu tư. Phản đề: quyết định và mô tả lạm phát vẫn chứa thông tin chính sách hữu ích; cần đọc cùng năng suất, đầu tư và lao động để tránh lược thành một nhãn diều hâu.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-2117e189e8454ce2c2e13cd7",
+        "evidence_plan": "Resolver đối chiếu exact source goal28-fed-policy-lens ngày 16/9/2026 18:00 UTC trước khi viết, giữ số biểu quyết, mức điều chỉnh, dải mục tiêu và ample-reserves đúng bytes. Quy nguồn Fed cho nhận định hoạt động, chi tiêu, năng suất, đầu tư, lao động, thất nghiệp và lạm phát; không coi là số liệu độc lập đã kiểm chứng. Tách lý do và cam kết mục tiêu trong tuyên bố với dự báo đường đi. Giải thích hai cách đọc có điều kiện: lạm phát còn cao có thể duy trì nhu cầu kiềm chế; năng suất/đầu tư cùng mô tả lao động có thể làm quan hệ tăng trưởng-lạm phát phức tạp hơn; đây là suy luận định tính, không gán dự báo cụ thể cho Fed. Thiếu expectations trước công bố, đường cong cùng thời điểm, phản ứng giá và thông tin sau ngày nguồn nên không kết luận surprise, hướng FX, lãi suất tương lai hay giao dịch. Code sở hữu phép tính nếu có dữ liệu hợp lệ, không tự quy đổi hay tính shock. Dedupe với goal21-fed-policy/inflation và brief rates-fx-transmission c62f581d8cbe74ab0872077412c9ec85c768819886dd524ae4017831d5429c0e qua workflow hiện hữu: phát triển phép đọc ba lớp, không coi nguồn lặp là tin mới. Bài này khác dollar quote/basket về đơn vị đo; không trộn hai câu hỏi. Corpus 7 bài chỉ có summary đã lọc, chưa được đọc toàn văn; không tuyên bố full-corpus review. Không suy rights/xuất bản từ URL công khai.",
+        "primary_reader_question": "Một lần ngân hàng trung ương tăng lãi suất cho biết điều gì đã xảy ra, và cần thêm bằng chứng nào trước khi nói chuỗi tăng sẽ tiếp tục hoặc thị trường đã bị bất ngờ?",
+        "research_queries": [
+          "Federal Reserve September 16 2026 FOMC statement productivity investment inflation employment",
+          "Federal Reserve policy decision statement market expectations rate path announcement surprise distinction"
+        ],
+        "selection_rationale": "Đúng yêu cầu owner, mang giá trị riêng ở cách đọc một văn bản có ngày: kiểm tra bước nhảy từ quyết định sang dự báo và tín hiệu giao dịch. Detailed agency source cho phép phân tích lý do cạnh tranh sâu hơn brief cũ mà không cần bịa kỳ vọng thị trường hoặc tin mới."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn một document lens về tuyên bố Fed ngày 16/9/2026, phân biệt quyết định, lý do kinh tế và đường lãi suất cần kiểm chứng. Không có fallback không liên quan; không xem đây là breaking hay dự báo.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-fed-policy-lens\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 18,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

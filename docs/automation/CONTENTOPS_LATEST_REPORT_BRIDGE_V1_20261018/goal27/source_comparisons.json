@@ -1,0 +1,196 @@
+[
+  {
+    "schema_version": "contentops.native_story_source_review.v1",
+    "review_id": "native-source-review-b60115128b39b6fbbdd8692df3e115ff65267ae03957b5c2368e43e077b60c7a",
+    "run_id": "goal26-original-explainer",
+    "article_identity": "5f0d4803bb08473fb67b4049f259974168668acb5a5ef39e563e7570d5ed1608",
+    "title": "Being right about gold does not verify what you own",
+    "cutoff_utc": "2026-10-20T18:23:21.054497Z",
+    "decision": "STALE_OR_SOURCE_GAP",
+    "reader_change_summary": "Giữ bài vàng như tài liệu nền không ghi ngày; chưa đọc lại được CFTC nên không gán độ mới hoặc gọi writer.",
+    "source_editions": [],
+    "source_attempts": [
+      {
+        "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/fraudadv_preciousmetals.html",
+        "status": "SECURITY_CHALLENGE",
+        "observed_at_utc": "2026-10-20T18:07:07.373Z"
+      }
+    ],
+    "source_changes": [],
+    "removed_main_claim_ids": [],
+    "main_receipt_id": null,
+    "research_revision": "0c1229d50c4b7aa8b89edad595958a8a6357b257a34382c74e0713040f9184e9",
+    "invalidates_prepared_review": true,
+    "media_state": "RETAIN_EXACT_BYTES_DATED_SUPPORT",
+    "prior_story": {
+      "story_identity": "simple-story-38e4ac4f4603af989e10e2c5",
+      "article_identity": "5f0d4803bb08473fb67b4049f259974168668acb5a5ef39e563e7570d5ed1608",
+      "title": "Being right about gold does not verify what you own",
+      "full_text": "CONFIRMED: The CFTC's precious-metals advisory describes offers combining a small initial payment, company-arranged borrowing and promised storage. Capital Chronicle's interpretation is that a view on gold's price cannot establish whether those other promises hold. A buyer needs separate answers about the exposure, the financing and the custody. [[SOURCE:SOURCE_1]]\n\nSource timing: this explainer uses unchanged CFTC text retained on 19 October 2026. The recorded capture time is 09:14:54.562 UTC; the research admission record is 09:15:58.668 UTC. The advisory's original publication and revision dates are not supplied. It provides educational guidance, with no fresh gold-price observation or finding against a particular seller. [[SOURCE:SOURCE_1]]\n\n## What the gold price leaves unresolved\n\nStart with what the offer promises. In the structure described here, the buyer is presented with a purchase, a loan and a storage arrangement. The word gold does not resolve whether each of those arrangements has actually been fulfilled. A price quotation cannot serve as a purchase record, a loan agreement or confirmation from a custodian. [[SOURCE:SOURCE_1]]\n\nSuppose your reason for buying is a future rise in the metal. Even if that view eventually proves correct, the price outcome would not establish that the seller bought metal for you, arranged the represented financing or placed it in independent storage. Those propositions require their own evidence. This is a hypothetical distinction, not a forecast for gold. [[SOURCE:SOURCE_1]]\n\n## Borrowing creates a funding question\n\nThe advisory describes buyers paying between 15% and 25% of the total purchase price, with a company-arranged loan financing the rest. This is the relevant meaning of leverage here: the buyer's initial payment supports a larger financed purchase. The percentage describes the offers in the warning; it is not a standard assumed for every gold product. [[SOURCE:SOURCE_1]]\n\nBorrowing can turn an adverse price move into a demand for more cash. The practical question is whether you can meet the contract's funding terms while your longer-term view remains unresolved. [[SOURCE:SOURCE_1]]\n\nThe warning specifically identifies the failure to tell buyers that an unfavorable price move can require additional payments. For any actual offer, ask what condition triggers a payment, how much time is allowed and what the agreement permits if payment is not made. The retained text supplies no universal trigger, deadline or liquidation rule. Those details must come from the relevant contract. [[SOURCE:SOURCE_1]]\n\n## Follow the storage promise to an independent record\n\nThe CFTC identifies schemes in which the promised purchase, independent financing or independent storage does not occur as represented. Its examples include interest charged without the represented independent loan and storage fees without the represented independent storage. These are features of the schemes described in the advisory, not findings about every financed purchase or custodian. [[SOURCE:SOURCE_1]]\n\nThe institutional issue is the counterparty: the entity that owes you performance. Where the seller arranges the borrowing and supplies the storage assurance, repeating that seller's assurance does not independently verify either promise. Our inference from the warning is to trace each obligation to the party supposed to fulfil it, then seek corroboration from that party. [[SOURCE:SOURCE_1]]\n\nFor a particular offer, request purchase and ownership records, the named custodian's independent confirmation, the metal's location and the agreement's delivery or withdrawal terms. Ask what the custodian can confirm for you and whether that record matches the seller's account. These are proposed verification questions. No product-specific documents have been examined for this explainer. [[SOURCE:SOURCE_1]]\n\nEvidence that metal exists would answer one question. The buyer would still need the agreement to establish the rights being purchased, the applicable charges and the conditions for obtaining the metal. A claimed location, on its own, leaves those terms unresolved. Verification should therefore connect the asset record to the buyer's contractual claim. [[SOURCE:SOURCE_1]]\n\n## The serious countercase: the promises can be documented\n\nFinancing and third-party storage are not proof of fraud. A real purchase, a real loan and independently corroborated custody could address the specific concerns in the warning. The remaining assessment would turn on that product's terms. [[SOURCE:SOURCE_1]]\n\nThat countercase limits how the advisory should be used. It describes misrepresentation and omitted funding obligations; it does not compare every ownership model or determine rights under a contract absent from this record. Equally, evidence of genuine custody would leave the metal's price risk and any contractual funding obligations to assess separately. Resolving one promise does not resolve the entire investment. [[SOURCE:SOURCE_1]]\n\n## Build a record before judging the offer\n\nPut the questions in three columns. Under price, identify the exposure and quotation you intend to assess. Under financing, list the lender, borrowing terms, interest, fees and conditions for additional cash. Under custody, list purchase evidence, ownership terms, independent storage confirmation and delivery rights. Mark missing answers as unverified. This is a way to organize the advisory's questions, not a certification that an offer passes them. [[SOURCE:SOURCE_1]]\n\nWhich independent record verifies the metal and your rights to it, and which contract term determines when you must add cash? [[SOURCE:SOURCE_1]]",
+      "stage": "UNPUBLISHED_REVIEWED_ARTICLE"
+    },
+    "writer_required": false,
+    "publication_authority": false,
+    "public_write_performed": false
+  },
+  {
+    "schema_version": "contentops.native_story_source_review.v1",
+    "review_id": "native-source-review-cc77db435e31663eaf22ae204b262a4fbab46f3c53bb748fcc64550f9003d5fc",
+    "run_id": "goal26-main-oil-analysis-v2",
+    "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+    "title": "Capital Chronicle's oil report separates tighter stocks from stronger demand",
+    "cutoff_utc": "2026-10-20T18:23:21.054497Z",
+    "decision": "CORRECTION_OR_WITHDRAWAL",
+    "reader_change_summary": "Main USOIL v5 đã rút các diễn giải được cấp phép ở v4, chỉ còn SOURCE_FACT. Số liệu EIA kỳ 9/10 không đổi; phải rút chuẩn bị phát hành bài dựa trên luận điểm cũ, thay bằng phạm vi dữ kiện và câu hỏi hẹp hơn.",
+    "source_editions": [
+      {
+        "item_id": "goal27-oil-original",
+        "source_url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+        "proposition": "Commercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased 8.6 million barrels to 415.6 million barrels, 3% below the five-year average. Gasoline inventories increased 3.5 million barrels, 4% below the five-year average. Distillate inventories decreased 2.5 million barrels, 12% below the five-year average.",
+        "text_sha256": "e9ec4abbafbe8fe2e4356e03f0f0ce0cb05d446872abfb3a26889aaa46c2966b",
+        "permission_sha256": "97c6079fc2911722634c826095bc5665796a6fbf5ce8ac7bfc7ab9702cd0a7c8",
+        "capture_sha256": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+        "published_at_utc": null,
+        "retrieved_at_utc": "2026-10-20T18:22:14.693Z",
+        "observation_date": "2026-10-09",
+        "period_relation": "SAME_PERIOD_UNCHANGED_STOCK_FACTS",
+        "rights_state": "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN",
+        "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+        "context_kind": "DATED_OFFICIAL_OBSERVATION",
+        "stage": "RESEARCH_READY"
+      }
+    ],
+    "source_attempts": [
+      {
+        "url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+        "status": "PASS",
+        "observed_at_utc": "2026-10-20T18:07:07.373Z"
+      }
+    ],
+    "source_changes": [
+      {
+        "item_id": "goal27-oil-original",
+        "state": "ADDED",
+        "before": null,
+        "after": {
+          "item_id": "goal27-oil-original",
+          "source_url": "https://ir.eia.gov/secure/wpsr/summary.txt",
+          "proposition": "Commercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased 8.6 million barrels to 415.6 million barrels, 3% below the five-year average. Gasoline inventories increased 3.5 million barrels, 4% below the five-year average. Distillate inventories decreased 2.5 million barrels, 12% below the five-year average.",
+          "text_sha256": "e9ec4abbafbe8fe2e4356e03f0f0ce0cb05d446872abfb3a26889aaa46c2966b",
+          "permission_sha256": "97c6079fc2911722634c826095bc5665796a6fbf5ce8ac7bfc7ab9702cd0a7c8",
+          "capture_sha256": "b7435f56ed43ebc706acba720164a324dbb2a28af175bfa20ceedd3e8a883bb7",
+          "published_at_utc": null,
+          "retrieved_at_utc": "2026-10-20T18:22:14.693Z",
+          "observation_date": "2026-10-09",
+          "period_relation": "SAME_PERIOD_UNCHANGED_STOCK_FACTS",
+          "rights_state": "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN",
+          "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+          "context_kind": "DATED_OFFICIAL_OBSERVATION",
+          "stage": "RESEARCH_READY"
+        },
+        "material": true
+      }
+    ],
+    "removed_main_claim_ids": [
+      "usoil-hold",
+      "usoil-invalidate",
+      "usoil-long",
+      "usoil-mechanism",
+      "usoil-short",
+      "usoil-swing"
+    ],
+    "main_receipt_id": "main-feed-45065410d7ff1379f85699a0daf59eab026e6652bc21247108dda9fe4c12f8ca",
+    "research_revision": "0c1229d50c4b7aa8b89edad595958a8a6357b257a34382c74e0713040f9184e9",
+    "invalidates_prepared_review": true,
+    "media_state": "REVALIDATE_CHANGED_SUPPORT",
+    "prior_story": {
+      "story_identity": "simple-story-692b942cd8b193e1514f3ebc",
+      "article_identity": "4642f066d81e7d80cbad17cfd13ec3cc65250ed1f50ffd85d1cea4765283d313",
+      "title": "Capital Chronicle's oil report separates tighter stocks from stronger demand",
+      "full_text": "CC REPORT / EVENT UNCONFIRMED: Capital Chronicle's USOIL version 4 reports an 8.6 million barrel crude draw alongside a 3.5 million barrel gasoline build. Its conditional analysis asks whether import and refinery flows could account for the crude decline without stronger end demand. The reader's task is to test that mechanism before treating the stock decline as a demand signal. [[SOURCE:SOURCE_1]]\n\nAccording to the report's timing metadata, the evidence has an observation date of 9 October 2026 and was retrieved on 18 October at 15:13:09.289 UTC. Its own known-at cutoff is 19 October at 09:14:42.517584 UTC. Those dates describe observation, retrieval and report cutoff separately. An original source release time is not supplied here; the report cutoff does not make the observations new. [[SOURCE:SOURCE_1]]\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. [[SOURCE:SOURCE_1]]\n\n## The reported balance pulls in different directions\n\nCapital Chronicle reports crude stocks falling by 8.6 million barrels to 415.6 million barrels. It also records gasoline stocks rising by 3.5 million barrels and distillate stocks falling by 2.5 million barrels. This article analyzes that dated report; its import does not independently confirm the underlying observations. [[SOURCE:SOURCE_1]]\n\nThe same report records imports falling by 791000 barrels per day, refinery utilization of 93.5%, and a four-week gasoline-demand comparison 0.4% below the prior-year period. The four-week comparison and the weekly stock movements cover different measures. Neither should be substituted for the other when explaining the balance. [[SOURCE:SOURCE_1]]\n\n## A crude draw has more than one route\n\nCapital Chronicle's conditional mechanism is that fewer imports or crude moving through refineries could reduce crude stocks without stronger end demand. [[SOURCE:SOURCE_1]]\n\nIf less crude arrives while refineries continue processing it, storage could supply part of the difference. If gasoline then accumulates, the crude decline could coexist with a looser product balance. That is a plausible reading of the report's combination of import decline, refinery activity and gasoline build; this record does not quantify how much each channel contributed. [[SOURCE:SOURCE_1]]\n\nThe import decline is reported as a daily flow, while the crude draw is a change in stored barrels. Subtracting the daily figure directly from the stock change would mix units. The report's wording supports a partial import explanation, not a completed accounting bridge. It does not establish that the import change fully explains the draw. [[SOURCE:SOURCE_1]]\n\nThe reported gasoline build and lower four-week year-on-year comparison challenge a simple claim of stronger end demand. They do not identify every cause of the product balance. Capital Chronicle's interpretation remains conditional: import timing, refinery throughput and product imbalances could produce this pattern without a sustained demand improvement. [[SOURCE:SOURCE_1]]\n\n## Lower stocks could still matter\n\nThe report's countercase still matters: if lower crude and distillate stocks persist, available supply could tighten even while gasoline weakens the case for stronger end demand. [[SOURCE:SOURCE_1]]\n\nAn import-led draw could therefore matter for availability even if it failed the stronger-demand test. Conversely, a later normalization of flows could challenge an interpretation built on persistent tightening. The useful distinction is between the reason inventories declined and the durability of that decline. The report requires subsequent crude and product balances, normalized flows and price-curve evidence to resolve it. [[SOURCE:SOURCE_1]]\n\n## The price reaction is a separate evidence problem\n\nThe report notes that its September 22 WTI price panel predates the original release. That panel cannot establish the release reaction. A claim that the reported draw surprised the market would also require a separately captured pre-release expectation. Neither an earlier chart nor the stock number alone fills that gap. [[SOURCE:SOURCE_1]]\n\nUnder the report's short-horizon conditions, a later price observation would need to be matched to the actual release and quote before being interpreted as a surprise. Carry and position adjustment remain competing explanations identified in that framework. This record supplies no contemporaneous WTI curve or executable quote with which to choose among them. [[SOURCE:SOURCE_1]]\n\n## Use the horizons as tests\n\nOver five sessions, the report would test the next actual release-and-quote comparison, with expectations captured separately. Over 21 sessions, its question is whether repeated releases and relative price or curve behavior support the proposed transmission. These are conditional observation windows anchored to the dated report, not promises of a price outcome. [[SOURCE:SOURCE_1]]\n\nOver 63 sessions, the report asks for cumulative supply, demand or policy evidence alongside valuation and annualized vehicle costs. An old price pattern is insufficient. Even a better-supported physical interpretation would leave the specific broker contract, market basis, financing and current execution economics to assess separately. [[SOURCE:SOURCE_1]]\n\nThe report would retain the analytical watch only if new independent balance evidence confirms the mechanism. It would invalidate the watch if later balances reverse the proposed tightening, regional basis prevents transmission or required current evidence remains unavailable. Missing evidence leaves the interpretation unresolved; it cannot be counted as confirmation. [[SOURCE:SOURCE_1]]\n\nDoes the next independent balance support persistent tightening, and do current WTI curve and cost checks support the same interpretation? [[SOURCE:SOURCE_1]]",
+      "stage": "UNPUBLISHED_REVIEWED_ARTICLE"
+    },
+    "writer_required": true,
+    "publication_authority": false,
+    "public_write_performed": false
+  },
+  {
+    "schema_version": "contentops.native_story_source_review.v1",
+    "review_id": "native-source-review-5ff078571cfc098c51a40cac14209ac2763ae570d1a63633744e53283d637a06",
+    "run_id": "goal26-gas-follow-up",
+    "article_identity": "9cb401822f1df3223ca23269da7d499f6b4272e9ca70546e066dca01161e397f",
+    "title": "Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước",
+    "cutoff_utc": "2026-10-20T18:23:21.054497Z",
+    "decision": "MATERIAL_FOLLOW_UP",
+    "reader_change_summary": "Nguồn supplement bổ sung so sánh cùng tuần 67 Bcf bơm thêm với 90 Bcf bình quân mùa vụ. Đây vẫn là kỳ quan sát 9/10, không phải số liệu tuần mới: tốc độ bơm chậm khác với mức tồn thấp; đối chiếu bài cũ chỉ so mức tồn qua tháng.",
+    "source_editions": [
+      {
+        "item_id": "goal27-gas-seasonal",
+        "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+        "proposition": "Net injections into storage totaled 67 Bcf for the week ending October 9, compared with the five-year (2021–2025) average net injections of 90 Bcf and last year's net injections of 80 Bcf during the same week. Working natural gas stocks totaled 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. Stocks were 45 Bcf (1%) more than the five-year average and 143 Bcf (4%) lower than last year at this time.",
+        "text_sha256": "3ba2bb5597a080a56d19289955a840e1e4e8139a5843c61107e5d0dcaf2a5c6f",
+        "permission_sha256": "0d0d129203741f4bc8c07b3a78a2632f7fe087a5d61907539432549782ff7a19",
+        "capture_sha256": "aa827b90e16b6f2bbc0254ec1075dcf61b014ee1f01be5cfde22b8a907f75f1f",
+        "published_at_utc": "2026-10-15T00:00:00Z",
+        "retrieved_at_utc": "2026-10-20T18:22:14.693Z",
+        "observation_date": "2026-10-09",
+        "period_relation": "SAME_PERIOD_ADDITIONAL_SEASONAL_COMPARATOR",
+        "rights_state": "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN",
+        "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+        "context_kind": "DATED_OFFICIAL_OBSERVATION",
+        "stage": "RESEARCH_READY"
+      }
+    ],
+    "source_attempts": [
+      {
+        "url": "https://ir.eia.gov/secure/ngs/ngs.html",
+        "status": "ACCESS_FORBIDDEN",
+        "observed_at_utc": "2026-10-20T18:07:07.379Z"
+      },
+      {
+        "url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+        "status": "PASS",
+        "observed_at_utc": "2026-10-20T18:22:14.693Z"
+      }
+    ],
+    "source_changes": [
+      {
+        "item_id": "goal27-gas-seasonal",
+        "state": "ADDED",
+        "before": null,
+        "after": {
+          "item_id": "goal27-gas-seasonal",
+          "source_url": "https://www.eia.gov/naturalgas/weekly/supplement/",
+          "proposition": "Net injections into storage totaled 67 Bcf for the week ending October 9, compared with the five-year (2021–2025) average net injections of 90 Bcf and last year's net injections of 80 Bcf during the same week. Working natural gas stocks totaled 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. Stocks were 45 Bcf (1%) more than the five-year average and 143 Bcf (4%) lower than last year at this time.",
+          "text_sha256": "3ba2bb5597a080a56d19289955a840e1e4e8139a5843c61107e5d0dcaf2a5c6f",
+          "permission_sha256": "0d0d129203741f4bc8c07b3a78a2632f7fe087a5d61907539432549782ff7a19",
+          "capture_sha256": "aa827b90e16b6f2bbc0254ec1075dcf61b014ee1f01be5cfde22b8a907f75f1f",
+          "published_at_utc": "2026-10-15T00:00:00Z",
+          "retrieved_at_utc": "2026-10-20T18:22:14.693Z",
+          "observation_date": "2026-10-09",
+          "period_relation": "SAME_PERIOD_ADDITIONAL_SEASONAL_COMPARATOR",
+          "rights_state": "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN",
+          "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+          "context_kind": "DATED_OFFICIAL_OBSERVATION",
+          "stage": "RESEARCH_READY"
+        },
+        "material": true
+      }
+    ],
+    "removed_main_claim_ids": [],
+    "main_receipt_id": null,
+    "research_revision": "0c1229d50c4b7aa8b89edad595958a8a6357b257a34382c74e0713040f9184e9",
+    "invalidates_prepared_review": true,
+    "media_state": "REVALIDATE_CHANGED_SUPPORT",
+    "prior_story": {
+      "story_identity": "simple-story-8380cdb9d4dbf363c652f48a",
+      "article_identity": "9cb401822f1df3223ca23269da7d499f6b4272e9ca70546e066dca01161e397f",
+      "title": "Tồn kho gas tháng 10: dư theo mùa vụ, thiếu so với năm trước",
+      "full_text": "CONFIRMED — EIA ước tính tồn kho gas ngày 9/10/2026 ở mức 3.567 Bcf, cao hơn trung bình năm năm 45 Bcf nhưng thấp hơn cùng kỳ năm trước 143 Bcf. So với bản lưu tháng 1 từng ghi mức dư 177 Bcf, điểm cần đổi là kỳ dữ liệu dùng để đánh giá cân bằng; hai mốc rời nhau chưa chứng minh một quá trình thắt chặt liên tục. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\n## Hai bản lưu, hai kỳ so sánh\n\nBản Natural Gas Weekly Update mang ngày 22/1/2026 ghi tồn kho 3.065 Bcf, cao hơn trung bình năm năm 177 Bcf. Đoạn nguồn được lưu không nêu ngày quan sát của số này; không thể lấy ngày tài liệu làm ngày đo tồn kho. [[SOURCE:SOURCE_3]]\n\nBản Weekly Natural Gas Storage Report mang ngày phát hành 15/10/2026 ghi rõ quan sát ngày 9/10: 3.567 Bcf, tăng ròng 67 Bcf trong tuần. Trung bình năm năm tương ứng là 3.522 Bcf; tổng tồn kho vẫn nằm trong khoảng lịch sử năm năm. Ngày phát hành và ngày quan sát là hai mốc riêng; giờ phát hành kèm múi giờ không được cung cấp đầy đủ trong phần nguồn dùng ở đây. [[SOURCE:SOURCE_1]]\n\nPhân tích Capital Chronicle: chuẩn năm năm của tháng 1 và chuẩn của tuần tháng 10 phản ánh hai thời điểm mùa vụ khác nhau. Trừ hai mức tồn kho, hoặc hai phần dư, sẽ bỏ qua đường đi giữa chúng; phép đối chiếu đó không tự xác định tốc độ thắt chặt, mức khan hiếm hay bất ngờ thị trường. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\n## Phần đệm tồn kho và đối trọng của luận điểm khan hiếm\n\nPhân tích Capital Chronicle: nếu nhu cầu vượt nguồn cung, tồn kho có thể phải bù phần thiếu. Số dư theo mùa vụ chỉ mô tả điểm xuất phát; cần thời tiết, sản lượng và luồng LNG để kiểm tra sức ép tiếp theo. [[SOURCE:SOURCE_1]]\n\nĐối trọng của luận điểm khan hiếm nằm ngay trong bản EIA: tồn kho tháng 10 vẫn cao hơn trung bình năm năm và trong khoảng lịch sử. Thấp hơn năm trước chưa đủ xác lập thiếu khí. [[SOURCE:SOURCE_1]]\n\nNếu thời tiết làm nhu cầu yếu đi, sản lượng tăng hoặc lượng khí dành cho xuất khẩu LNG giảm, phần đệm tồn kho có thể bớt chịu sức ép. Chiều ngược lại cũng cần kiểm chứng. Đây là các khả năng cạnh tranh, chưa phải những diễn biến đã quan sát được từ các số tồn kho này. [[SOURCE:SOURCE_1]]\n\n## Phép thử còn thiếu\n\nMức bơm ròng 67 Bcf có khác kỳ vọng trước công bố không, và giá có phản ánh chênh lệch ấy không? Chưa có kỳ vọng, giá hay đường cong kỳ hạn cùng thời điểm để trả lời. [[SOURCE:SOURCE_1]]\n\nBản nghiên cứu trước, “Tồn kho gas: trên trung bình năm năm nhưng dưới cùng kỳ không phải mâu thuẫn”, đã giải thích hai mốc so sánh của tháng 10 và vẫn chưa công bố. Phần tiếp nối này bổ sung đối chiếu với bản lưu tháng 1; không sửa lại con số của cùng một tuần và không đính chính một bài đã xuất bản. [[SOURCE:SOURCE_1]] [[SOURCE:SOURCE_3]]\n\nLần kiểm tra tiếp cần ghép các kỳ tồn kho cùng định nghĩa với thời tiết, sản lượng và luồng khí LNG/đường ống đúng kỳ. Nếu phần dư mùa vụ mở rộng cùng nguồn cung đủ bù nhu cầu, cách đọc thắt chặt sẽ yếu đi; nếu phần dư thu hẹp và nhu cầu tăng được xác nhận, mới có cơ sở xem xét sức ép. Bản sửa số hoặc thay đổi định nghĩa sẽ buộc kiểm tra lại phép nối. [[SOURCE:SOURCE_1]]",
+      "stage": "UNPUBLISHED_REVIEWED_ARTICLE"
+    },
+    "writer_required": true,
+    "publication_authority": false,
+    "public_write_performed": false
+  }
+]

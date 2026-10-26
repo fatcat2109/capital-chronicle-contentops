@@ -1,0 +1,73 @@
+{
+  "candidate_count": 18,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "15b8b56dc064cc541ec95c3286962c5c6ebc3e1d1564a5f9723c06364224b2f7",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal28_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "collaboration.spawn_agent returned canonical task name with explicitly requested gpt-6.1-sol low; UUID not exposed",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "bc174d7d2c96e9be931e42be288212959df89d53bbeb9ae1a03b1c057d8cc02e",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "6e05c5bfb659569d325821a76bcd8de08de879e52ecf047f47243e7e0ae6eefc",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Kiểm tra câu chuyện của ban lãnh đạo bằng một đường đọc xuyên Business, Risk Factors, MD&A, Market Risk và báo cáo tài chính cùng thuyết minh: lời giải thích có khớp kết quả, thanh khoản và các giả định kế toán không? Phản đề: số kiểm toán cũng dựa trên ước tính, còn thước đo non-GAAP có thể hữu ích khi đối chiếu minh bạch; không mặc định mọi khác biệt là gian lận.",
+        "article_mode": "EVERGREEN_EXPLAINER",
+        "candidate_id": "simple-story-01a2d51afcef52787341c1ce",
+        "evidence_plan": "Dùng exact agency prose của item goal28-company-reading đã được nạp trước khi viết. Đối chiếu từng mô tả Business/Risk/MD&A/Market Risk/Financial Statements, phạm vi báo cáo kiểm toán, accounting judgments và non-GAAP reconciliation với source bytes trong workflow hiện hữu; excerpt hiện chỉ hiển thị MD&A nên không tự bổ sung điều kiện pháp lý hay phạm vi kiểm toán. Nêu rõ đây là hướng dẫn giáo dục lịch sử sửa tháng 7/2011 theo owner request, không xác nhận quy tắc filing hiện hành. Không có issuer data: chỉ xây quy trình đọc và các câu hỏi có điều kiện, không bịa doanh thu, dòng tiền, tỷ lệ hay ví dụ công ty có thật. Code sở hữu mọi phép tính nếu có dữ liệu hợp lệ sau này. Tách phần nguồn nói với suy luận biên tập; không đồng nhất audit với bảo đảm tương lai. So với brief ngắn trước qua workflow dedupe để phần mới là phương pháp kiểm tra xuyên mục và phản đề, không tái đóng gói trích dẫn. Corpus 7 bài chỉ có summary đã lọc, chưa được đọc toàn văn; giữ final dedupe hiện hữu và không tuyên bố toàn corpus đã kiểm tra. Quyền xuất bản/media không suy từ URL công khai.",
+        "primary_reader_question": "Làm sao kiểm tra lời ban lãnh đạo kể về doanh nghiệp bằng chính báo cáo tài chính mà không nhầm một câu chuyện hay hoặc dấu kiểm toán với sức khỏe đã được bảo đảm?",
+        "research_queries": [
+          "SEC How to Read a 10-K July 2011 MD&A accounting judgments financial statements",
+          "SEC How to Read a 10-K non-GAAP reconciliation market risk business risk factors"
+        ],
+        "selection_rationale": "Đúng yêu cầu owner, tạo công cụ đọc doanh nghiệp dùng được thay cho một brief tóm tắt. Nguồn lịch sử đủ để định hướng giáo dục khi giới hạn ngày/phạm vi rõ; không cần và không được giả lập một khuyến nghị issuer hiện tại."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một chủ đề agency theo yêu cầu owner với câu hỏi độc lập; không có bài dự phòng không liên quan. Giữ ngày/phạm vi nguồn, chống trùng brief cũ và xác minh từng chi tiết trước khi viết.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal28-company-reading\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 18,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

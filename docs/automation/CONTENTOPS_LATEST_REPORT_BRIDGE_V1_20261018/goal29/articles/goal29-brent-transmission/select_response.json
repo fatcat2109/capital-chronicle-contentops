@@ -1,0 +1,31 @@
+{
+  "request_sha256": "0e35a3fd3fdcd2f3fb075bc69d1109c73e9757e9140a6864b0fcccf83b570026",
+  "output": {
+    "ordered_candidate_plan": [
+      {
+        "candidate_id": "simple-story-93077be7d9d04ac72cb7cb5e",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "angle": "Từ kho dầu Mỹ đến Brent: phải chứng minh cầu nối thương mại trước khi gọi đó là khan hiếm toàn cầu.",
+        "primary_reader_question": "Vì sao rút kho dầu Mỹ chưa đủ chứng minh Brent khan toàn cầu, và bằng chứng nào phân biệt truyền dẫn thương mại với thời điểm nhập hàng hay lọc dầu?",
+        "selection_rationale": "Bổ sung câu hỏi địa lý và thương mại cho lịch sử dầu đã có, thay vì nhắc lại số rút kho hoặc gộp dầu với gas. UKOIL v4 cung cấp cơ chế và phản đề có điều kiện; USOIL v6 chỉ có dữ kiện nguồn chung. Giá trị mới là cách kiểm chứng phạm vi suy luận, không phải một quan sát kinh tế mới.",
+        "research_queries": [
+          "EIA October 9 2026 crude inventories imports refinery utilization gasoline distillate",
+          "Brent WTI seaborne crude trade freight quality differentials regional inventory transmission"
+        ],
+        "evidence_plan": "Dùng resolver hiện hữu đối chiếu UKOIL v4, USOIL v6 và bản EIA được giữ đúng tuần 09/10; cùng một nguồn không thành hai xác nhận. Tách ngày quan sát, ngày phân tích, ngày sửa wire và ngày truy xuất; wire correction không tạo dữ kiện mới. Đối chiếu bài dầu trước để giữ phần mới là cầu nối Mỹ–Brent. Ràng buộc từng số vào SOURCE_FACT; code sở hữu phép tính, không tự chia rút kho cho nhập khẩu. Diễn giải nhập khẩu, lọc dầu và sản phẩm như các cách giải thích cạnh tranh. Các điều kiện tàu hàng, xuất nhập khẩu, vận tải, phẩm cấp, sản lượng toàn cầu, đường cong và spread cùng kỳ hiện thiếu: trình bày như phép kiểm cần có, không tuyên bố đã quan sát. CC_ANALYSIS và kịch bản giữ nhãn có điều kiện; native provenance là producer-attested, consumer không tự xác minh worker. Không giá hiện tại, dự báo, target hay quyền giao dịch."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn đúng một câu hỏi độc lập có giá trị theo yêu cầu chủ sở hữu; không thêm phương án dự phòng làm loãng phạm vi.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "invocation_observation": {
+    "surface": "CODEX_NATIVE_SUBAGENT",
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "low",
+    "speed": "standard",
+    "invocation_id": "/root/goal29_sol_light",
+    "observation_source": "Actual native subagent invocation /root/goal29_sol_light assigned select role with gpt-6.1-sol / low / standard; canonical invocation name exposed by spawn, UUID not exposed."
+  }
+}

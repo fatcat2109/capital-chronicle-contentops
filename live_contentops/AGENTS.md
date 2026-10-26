@@ -18,8 +18,9 @@ Tier2-A Python slice. Root safety and authority rules still apply.
   `rolling_x_grounded_article_media_builder_v1.py`
 - sole public-write owner and transport map: `publication_coordinator_v1.py`,
   `destination_transport_registry_v1.py`
-- canonical model seam: `nine_router_llm_seam_v2.py`, ordered policy in
-  `nine_router_ordered_model_router_v2.py`, transport in `nine_router_provider_adapter_v2.py`
+- current editorial seam: `native_desktop_editorial_v1.py`, scheduled/manual binding in
+  `native_desktop_schedule_binding_v1.py`, ordinary/research/Main input in `capital_chronicle_report_feed_v1.py`
+- historical 9Router/Gemini code is compatibility only; it is not a native Desktop fallback
 - Tier2-A local factory: `tier2_video_factory_v1.py`
 - accepted dedicated Tier2 direct-image diagnostic: `direct_image_api_v1.py`, with the bounded
   local runner in `scripts/run_direct_image_bakeoff_v1.py`

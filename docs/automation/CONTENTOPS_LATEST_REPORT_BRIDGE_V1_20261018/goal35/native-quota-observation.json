@@ -1,0 +1,11 @@
+{
+  "observed_at_utc": "2026-10-21T22:49:51Z",
+  "invocation_id": "/root/goal35_ibm_writer",
+  "assigned_model": "gpt-6.1-sol",
+  "assigned_effort": "max",
+  "state": "NATIVE_ROLE_FAILED_USAGE_LIMIT",
+  "raw_return_saved": false,
+  "reported_retry_clock": "10:33 AM",
+  "retry_timezone": "NOT_EXPOSED_BY_ERROR",
+  "next_action": "Resume the exact unanswered writer packet after quota; do not repeat completed selection or use a fallback."
+}

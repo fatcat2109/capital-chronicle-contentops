@@ -1,0 +1,15 @@
+{
+  "state": "READY_OFFICIAL_MEMBER_API",
+  "authenticated": true,
+  "expiry_at_utc": "2026-12-19T12:31:13.032712Z",
+  "days_remaining": 59,
+  "safe_identity": "Jim Pham",
+  "readback_capability": "READBACK_CAPABILITY_LIMITED",
+  "secure_store_binding": "WINDOWS_DPAPI_CURRENT_USER:contentops.linkedin.member.v1",
+  "error_class": null,
+  "checked_at_utc": "2026-10-20T22:23:17.674003+00:00",
+  "check_type": "EXISTING_SECURE_STORE_LOCAL_READINESS",
+  "provider_requests": 0,
+  "public_writes": 0,
+  "known_provider_dns_limit": "NOT_REPROBED"
+}

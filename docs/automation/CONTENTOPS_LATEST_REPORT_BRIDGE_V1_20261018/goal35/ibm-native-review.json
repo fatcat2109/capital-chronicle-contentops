@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-be5ef6f1450740e49983063f25eef609",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal35-ibm",
+  "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+  "package_revision": "590adbf55d92d7bfbfce8014b5746ba1b073f7e44ad5eaa061e1d646da9f0686",
+  "article_metadata_sha256": "5e5c9d856c5d3bfd351fe5d57a7b313e592ca6effbb0ec23d7b8309600fb71f0",
+  "rationale": "KEEP after reading the exact revised canonical prose, SEO and all eight preview packages and visually inspecting all five desktop and five mobile Neo PDF pages. The Reuters-only attribution and report-versus-event uncertainty remain explicit. The 7-8% software outlook raises the floor from 6-8%, not the ceiling; the 25% deferred/75% net-new split is limited to transaction-processing revenue, not all IBM growth. Persistence is a testable countercase, not established demand. Source and known-at clocks remain separate. No inspected rights-cleared media is available: accept the explicit text-only media gap. Preparation only; no dispatch authority.",
+  "publication_authority": false
+}

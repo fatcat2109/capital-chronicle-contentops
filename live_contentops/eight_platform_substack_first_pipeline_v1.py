@@ -275,6 +275,11 @@ def run_rolling_x_newsroom_cycle(
 
 
 
+def run_native_desktop_newsroom(**kwargs: Any) -> dict[str, Any]:
+    """Native request/return semantic operation; no provider fallback."""
+    return _execute("run_native_desktop_newsroom", **kwargs)
+
+
 def run_v1_simple_gemini_newsroom(
     *,
     output_dir: Path,

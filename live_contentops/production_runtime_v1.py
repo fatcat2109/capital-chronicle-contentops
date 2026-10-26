@@ -9,10 +9,10 @@ from typing import Any, Mapping, Optional
 
 from live_contentops.daily_app_supervisor_v1 import ContentOpsDailyAppSupervisor
 from live_contentops.daily_app_supervisor_v1 import (
-    SIMPLE_GEMINI_RUNTIME,
+    SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP,
 )
 from live_contentops.eight_platform_substack_first_pipeline_v1 import (
-    run_v1_simple_gemini_newsroom,
+    run_native_desktop_newsroom,
 )
 from live_contentops.browser_interaction_budget_v1 import (
     configure_browser_interaction_telemetry,
@@ -29,9 +29,6 @@ from live_contentops.publication_coordinator_v1 import (
     CanonicalDestinationTransportRuntimeV1,
     DurablePublicationCoordinator,
 )
-from live_contentops.daily_app_performance_v1 import (
-    classify_interactions_with_nine_router,
-)
 from live_contentops.server import make_handler
 
 
@@ -45,6 +42,18 @@ class FinalDailyAppProductionRuntime:
     supervisor: ContentOpsDailyAppSupervisor
     api_server: Optional[HTTPServer] = None
     api_thread: Optional[threading.Thread] = None
+    native_neo_executor: Any = None
+
+    def reviewed_publication(self, binding, *, rollout, native_invocation_id):
+        """Use this runtime's sole coordinator; no new publisher or activation."""
+        from live_contentops.native_desktop_publication_v1 import NativeReviewedPublication
+        if self.native_neo_executor is None or self.native_neo_executor.operation_id != binding["run_id"]:
+            raise ValueError("EXACT_NATIVE_NEO_EXECUTOR_BINDING_REQUIRED")
+        if self.native_neo_executor.native_invocation_id != native_invocation_id:
+            raise ValueError("EXACT_NATIVE_NEO_INVOCATION_REQUIRED")
+        return NativeReviewedPublication(self.store, binding, rollout=rollout,
+            native_invocation_id=native_invocation_id, coordinator=self.publication_coordinator,
+            executor=self.native_neo_executor)
 
     def start_api(self, *, port: int = 5174) -> None:
         if self.api_server is not None:
@@ -67,11 +76,11 @@ class FinalDailyAppProductionRuntime:
         self, *, automation_id: str, now: Any = None
     ) -> dict[str, Any]:
         """Compatibility-only seam; Native Desktop is non-routing in current production."""
-        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+        if self.supervisor.routine_editorial_owner in {SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP}:
             return {
                 "executed": False,
                 "reason": "native_desktop_non_routing_current_composition",
-                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "routine_editorial_owner": self.supervisor.routine_editorial_owner,
                 "public_write_performed": False,
                 "unknown_write_detected": False,
             }
@@ -84,11 +93,11 @@ class FinalDailyAppProductionRuntime:
         self, *, automation_id: str, now: Any = None
     ) -> dict[str, Any]:
         """Compatibility-only PREPARE seam; blocked for the current Simple owner."""
-        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+        if self.supervisor.routine_editorial_owner in {SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP}:
             return {
                 "executed": False,
                 "reason": "native_desktop_non_routing_current_composition",
-                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "routine_editorial_owner": self.supervisor.routine_editorial_owner,
                 "public_write_performed": False,
                 "unknown_write_detected": False,
             }
@@ -107,11 +116,11 @@ class FinalDailyAppProductionRuntime:
         now: Any = None,
     ) -> dict[str, Any]:
         """Compatibility-only COMPLETE seam; blocked for the current Simple owner."""
-        if self.supervisor.routine_editorial_owner == SIMPLE_GEMINI_RUNTIME:
+        if self.supervisor.routine_editorial_owner in {SIMPLE_GEMINI_RUNTIME, NATIVE_CODEX_DESKTOP}:
             return {
                 "executed": False,
                 "reason": "native_desktop_non_routing_current_composition",
-                "routine_editorial_owner": SIMPLE_GEMINI_RUNTIME,
+                "routine_editorial_owner": self.supervisor.routine_editorial_owner,
                 "public_write_performed": False,
                 "unknown_write_detected": False,
             }
@@ -138,7 +147,7 @@ class FinalDailyAppProductionRuntime:
             "learning_enabled": self.supervisor._performance_learning_enabled,
             **composition,
             "scheduled_editorial_owner": self.supervisor._scheduled_editorial_owner,
-            "routine_scheduler": "SIMPLE_GEMINI_LOCAL_SCHEDULER",
+            "routine_scheduler": "CODEX_DESKTOP_FOUR_NATIVE_AUTOMATIONS",
             "next_wake_utc": self.supervisor._next_wake(self.supervisor._clock()).isoformat().replace("+00:00", "Z"),
             "public_write_performed": False,
         }
@@ -153,6 +162,7 @@ def build_final_daily_app_production_runtime(
     clock: Any = None,
     ensure_edge_runtime: bool = False,
     run_readiness_probes: bool = False,
+    native_neo_executor: Any = None,
 ) -> FinalDailyAppProductionRuntime:
     validate_registry()
     store = ContentOpsDurableStore(store_path)
@@ -166,13 +176,16 @@ def build_final_daily_app_production_runtime(
         orchestrator.execute("ensure_canonical_edge_publishing_runtime", urls=())
     readiness = DestinationReadinessManager(
         store=store,
+        neo_readiness_provider=(native_neo_executor.readiness if native_neo_executor is not None else None),
         edge_runtime_ensurer=lambda **kwargs: orchestrator.execute(
             "ensure_canonical_edge_publishing_runtime", urls=tuple(kwargs.get("urls") or ())
         ),
     )
     if run_readiness_probes:
         readiness.probe_all(persist=True)
-    transport = CanonicalDestinationTransportRuntimeV1()
+    from live_contentops.neo_destination_handoff_v1 import NeoDestinationHandoff
+    transport = CanonicalDestinationTransportRuntimeV1(
+        neo_transport=NeoDestinationHandoff(native_executor=native_neo_executor))
     readiness_by_destination = lambda destination: (  # noqa: E731
         next((
             row for row in store.list_destination_readiness()
@@ -196,13 +209,13 @@ def build_final_daily_app_production_runtime(
         publication_coordinator=coordinator,
         enable_performance_observation=True,
         performance_collector=coordinator.collect_metrics,
-        interaction_classifier=classify_interactions_with_nine_router,
+        interaction_classifier=None,  # Native review owns semantic returns; no background 9Router fallback.
         performance_learning_enabled=True,
-        newsroom_cycle=run_v1_simple_gemini_newsroom,
-        scheduled_editorial_owner=SIMPLE_GEMINI_RUNTIME,
+        newsroom_cycle=run_native_desktop_newsroom,
+        scheduled_editorial_owner=NATIVE_CODEX_DESKTOP,
     )
     return FinalDailyAppProductionRuntime(
         store=store, orchestrator=orchestrator, readiness_manager=readiness,
         transport_runtime=transport, publication_coordinator=coordinator,
-        supervisor=supervisor,
+        supervisor=supervisor, native_neo_executor=native_neo_executor,
     )

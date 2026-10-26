@@ -1,0 +1,234 @@
+{
+  "actual_admission_owner": "primary_demo_workspace_v1.load_headline_context",
+  "background_items": [
+    {
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+      "headline_id": "goal21-metals-leverage",
+      "rights_policy_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc",
+      "state": "BACKGROUND_ONLY_HEADLINE_CLOCK_UNAVAILABLE"
+    },
+    {
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+      "headline_id": "goal21-metals-custody",
+      "rights_policy_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "source_capture_sha256": "09f29021cf99c515fdbeb28c653cb1f4462a23a55e2ff5adebe4543ca4cae1bc",
+      "state": "BACKGROUND_ONLY_HEADLINE_CLOCK_UNAVAILABLE"
+    },
+    {
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+      "headline_id": "goal21-futures-option",
+      "rights_policy_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "state": "BACKGROUND_ONLY_HEADLINE_CLOCK_UNAVAILABLE"
+    },
+    {
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND",
+      "headline_id": "goal21-futures-hedgers",
+      "rights_policy_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "source_capture_sha256": "60aee48fa564c2f3c7aaf766fdd44122139657d8b0c6b4cfa69c2560a68f5ba6",
+      "state": "BACKGROUND_ONLY_HEADLINE_CLOCK_UNAVAILABLE"
+    },
+    {
+      "context_kind": "HISTORICAL_FOUNDATION_BACKGROUND",
+      "headline_id": "goal21-sec-tenk-scope",
+      "rights_policy_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "source_capture_sha256": "b3f7b72aa4131a60ea124d7e4d6439b532b6ffbef02fd797dc90c0e839b8d6c8",
+      "state": "BACKGROUND_ONLY_HEADLINE_CLOCK_UNAVAILABLE"
+    }
+  ],
+  "content_hash": "5974a800940ec2ff7488067eaa3b2dafe09c6866e1127c5352da197025bf49e7",
+  "counts": {
+    "admitted": 8,
+    "context_only": 8,
+    "dated_wire_rows": 9,
+    "fresh_catalysts": 0,
+    "main_recirculation_independent_credit": 0,
+    "numeric_claims": 0,
+    "producer_research_items": 14,
+    "rejected_dated": 1,
+    "undated_background": 5
+  },
+  "cutoff": "2026-10-19T12:25:00Z",
+  "dated_items": [
+    {
+      "admission_state": "ADMITTED_CONTEXT_ONLY",
+      "affected_catalog_assets": [
+        "EURUSD",
+        "USDJPY"
+      ],
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "headline_id": "goal21-fed-policy",
+      "headline_timestamp": "2026-09-16T18:00:00Z",
+      "known_at_utc": "2026-10-19T09:14:51.352Z",
+      "rights_policy_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "source_capture_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+    },
+    {
+      "admission_state": "ADMITTED_CONTEXT_ONLY",
+      "affected_catalog_assets": [
+        "XAUUSD"
+      ],
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "headline_id": "goal21-fed-inflation",
+      "headline_timestamp": "2026-09-16T18:00:00Z",
+      "known_at_utc": "2026-10-19T09:14:51.352Z",
+      "rights_policy_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "source_capture_sha256": "889f0f54ff9e2c11c12bbda559efe3eeede39185570d2d4f61d36734fa3db84b",
+      "source_url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm"
+    },
+    {
+      "admission_state": "ADMITTED_CONTEXT_ONLY",
+      "affected_catalog_assets": [
+        "EURUSD",
+        "USDJPY"
+      ],
+      "context_kind": "DATED_OFFICIAL_OBSERVATION",
+      "headline_id": "goal21-fx-convention",
+      "headline_timestamp": "2026-10-13T00:00:00Z",
+      "known_at_utc": "2026-10-19T09:17:57.384Z",
+      "rights_policy_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "source_url": "https://www.federalreserve.gov/releases/h10/current/"
+    },
+    {
+      "admission_state": "ADMITTED_CONTEXT_ONLY",
+      "affected_catalog_assets": [
+        "EURUSD",
+        "USDJPY"
+      ],
+      "context_kind": "FOUNDATION_BACKGROUND",
+      "headline_id": "goal21-fx-broad-index",
+      "headline_timestamp": "2026-10-13T00:00:00Z",
+      "known_at_utc": "2026-10-19T09:17:57.384Z",
+      "rights_policy_sha256": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+      "source_capture_sha256": "e3b6fd4df6ff8c7693321cf8fd5e96098a9e178bd6912dd22f6c48f3e81850f5",
+      "source_url": "https://www.federalreserve.gov/releases/h10/current/"
+    },
+    {
+      "admission_state": "REJECTED_MAIN_WIRE_CONTRACT",
+      "affected_catalog_assets": [],
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "headline_id": "goal21-sec-cross-trading",
+      "headline_timestamp": "2026-10-09T00:00:00Z",
+      "known_at_utc": "2026-10-19T09:18:00.277Z",
+      "rights_policy_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "source_capture_sha256": "9357e7a9299740d1b09dbe2ab838118e7adf7a5e08928eeffe5c825372dd1669",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-104-sec-proposes-expanding-securities-eligible-cross-trading-registered-funds"
+    },
+    {
+      "admission_state": "ADMITTED_CONTEXT_ONLY",
+      "affected_catalog_assets": [
+        "BTCUSD",
+        "ETHUSD"
+      ],
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "headline_id": "goal21-crypto-custody-proposal",
+      "headline_timestamp": "2026-10-01T00:00:00Z",
+      "known_at_utc": "2026-10-19T09:18:00.480Z",
+      "rights_policy_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "source_capture_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal"
+    },
+    {
+      "admission_state": "ADMITTED_CONTEXT_ONLY",
+      "affected_catalog_assets": [
+        "BTCUSD",
+        "ETHUSD"
+      ],
+      "context_kind": "REGULATORY_PROPOSAL_NOT_EFFECTIVE_RULE",
+      "headline_id": "goal21-crypto-custody-conditions",
+      "headline_timestamp": "2026-10-01T00:00:00Z",
+      "known_at_utc": "2026-10-19T09:18:00.480Z",
+      "rights_policy_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "source_capture_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal"
+    },
+    {
+      "admission_state": "ADMITTED_CONTEXT_ONLY",
+      "affected_catalog_assets": [
+        "XNGUSD"
+      ],
+      "context_kind": "HISTORICAL_OBSERVATION_NOT_CURRENT_INVENTORY",
+      "headline_id": "goal21-gas-storage",
+      "headline_timestamp": "2026-01-22T00:00:00Z",
+      "known_at_utc": "2026-10-19T09:17:58.714Z",
+      "rights_policy_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "source_url": "https://www.eia.gov/naturalgas/weekly/"
+    },
+    {
+      "admission_state": "ADMITTED_CONTEXT_ONLY",
+      "affected_catalog_assets": [
+        "XNGUSD"
+      ],
+      "context_kind": "SOURCE_SERIES_MIGRATION",
+      "headline_id": "goal21-gas-series-migration",
+      "headline_timestamp": "2026-01-22T00:00:00Z",
+      "known_at_utc": "2026-10-19T09:17:58.714Z",
+      "rights_policy_sha256": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+      "source_capture_sha256": "ce9446dfaaec7a09f8a52aac44083814ac79f4be1a050b17b51866007af94af8",
+      "source_url": "https://www.eia.gov/naturalgas/weekly/"
+    }
+  ],
+  "earlier_cutoff_refusal": {
+    "admitted": 0,
+    "reasons": [
+      "HEADLINE_AFTER_ANALYSIS_CUTOFF",
+      "HEADLINE_AFTER_ANALYSIS_CUTOFF",
+      "HEADLINE_AFTER_ANALYSIS_CUTOFF",
+      "HEADLINE_AFTER_ANALYSIS_CUTOFF",
+      "CONTENTOPS_PROJECTION_HASH_OR_SCHEMA_INVALID",
+      "HEADLINE_AFTER_ANALYSIS_CUTOFF",
+      "HEADLINE_AFTER_ANALYSIS_CUTOFF",
+      "HEADLINE_AFTER_ANALYSIS_CUTOFF",
+      "HEADLINE_AFTER_ANALYSIS_CUTOFF"
+    ],
+    "rejected": 9
+  },
+  "fresh_catalysts": 0,
+  "numeric_authority_claims": 0,
+  "producer_commit": "92ab3136ac7ede44fe9e5ffae76631546279bb0f",
+  "provider_calls": 0,
+  "recirculation_credit": 0,
+  "rejected": [
+    {
+      "input_hash": "92a700be3a10145063ebaa7840cc0d143cbc5b3ccb552f1631295f76d4c8b6d1",
+      "reason": "CONTENTOPS_PROJECTION_HASH_OR_SCHEMA_INVALID"
+    }
+  ],
+  "rejected_source_text_resealed": false,
+  "schema": "CapitalChronicleGoal22ReciprocalContextProofV1",
+  "source_file_bindings": {
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/integrated/independent_main_context_projection.json": "a6cc65326bd0bd35dec485d70d307c395e568655c3f294b9bd21ca5a84a5c756",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/crypto-custody-conditions-retained-admission.json": "7b7096eca1728dc65120249b37ecdadf9f98908eab66bb1ad3d18bdb47f58742",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/crypto-custody-proposal-retained-admission.json": "e6fb984659a37ce888eb320f68e223557d581be2c6947e883945e6ab2b832d98",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/eia-policy-retained.html": "821ec2732035327f4df9e116780a7e1a3e93afa2c885067acb192d27b2d60df3",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/fed-inflation-retained-admission.json": "0070837eee9b01032cd9114d8613a88c0a2a01269b53c0824c2e377b5ec1b5fa",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/fed-policy-retained-admission.json": "53f4691339b973a81a1f60bfc630903d255cf98dd89c743fbfb94c3a8e3a80fd",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/futures-hedgers-retained-admission.json": "a142b2f26a8fb59e898d4d15d839794150639ca6461b882e747761846fd725b5",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/futures-option-retained-admission.json": "1d263a765de95c1faf446919759fbbc3aaf1758e6fe5f342a6f32a434927088e",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/fx-broad-index-retained-admission.json": "ea8799233713503338fefa90e2fbcccb7fecd434d14cd05447fdffb58685ce1d",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/fx-convention-retained-admission.json": "a442ace901ae63e4f8a774a76168a424fbe2366b5304a0944915a1cc96501f0b",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/gas-series-migration-retained-admission.json": "f8ebbd433666497ba0635a9b2864d31536a5ae51bcf3b17147f249f074d01ea5",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/gas-storage-retained-admission.json": "1e1c1e4901fd8886ce1a4c319727442e454cee5413d3afce2c738a3a05adbf4f",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/index.json": "3bfc2e0c77feae1002cac4601b8746f05277baebdcef0a6f180634349de2ec69",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/metals-custody-retained-admission.json": "135bc90e318a1664c8b58eb4d40d1fbd0a7a8177b718e10c6620ffe97bbc0836",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/metals-leverage-retained-admission.json": "74f1ea849953073ab791234a35c01db36bf3043baef8af4218ba4f82c3daba7e",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-64-rendered.json": "3a540189fec14b3a60130deb11875a9bb4132545dce27bc4a7c15e778a209a60",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-64-revision3-rendered.json": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-64-revision4-rendered.json": "05346597c031cc84d60e20602ff0d7bf6f022f6a76fe93963ae68ebaa9fa04cc",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-65-rendered.json": "1c73239bc905e992abf6e5d8e73acaa67f6ce8b67c3d3848ef8606708bf690a8",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-65-revision4-rendered.json": "4032c4c1bcfab417fe5505ec74d8211085b7da14741e7d59534486bf07e43941",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-66-rendered.json": "655a53a6a8624951f6dd0b5997d9250a1b5e1bcabd6be4efe615e95eb992f768",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-66-revision4-rendered.json": "78c2edaa6744e4be2f620b4482158b9f00817d96086b29c7e97c4e73f0adc88f",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-67-revision2-rendered.json": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-67-revision3-rendered.json": "0e1d1aad3cdfacd53950fa4c1a1287e3a2799029056683dc4a8b9f0a294b4743",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-67-revision4-rendered.json": "47bc3892b1cb39a98691419fbd3c3a940aef937d73668a60dca62f989c68213d",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/neo-page-68-revision4-rendered.json": "d9e3fc9a7d1f690229ac4e78e91d3fe3b0a81a166c7e16bb8e0fe31dbcb0de8a",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/sec-cross-trading-retained-admission.json": "d2dbcac8818a4c4a0364876d9fb3d91e3d2a44f5a51e2f5404b1277de8ed68e1",
+    "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal21/retained_research/sec-tenk-scope-retained-admission.json": "7945b1ca58a28feecd01f4b1c558d23e0d065c7b04a797d14cf4e312918cfabb"
+  },
+  "source_intake_sha256": "5677daf8d76a5ac0f0dd800fdbfaa418f6b5d2cb094cf14b23f08c99121af4a6"
+}

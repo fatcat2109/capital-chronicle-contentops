@@ -1,0 +1,30 @@
+{
+  "actual_main_outbox_receipt_sha256": "c53707e627b32711366793e59127faafc4480b11eed656e2a2388e64325b58bc",
+  "contains_private_account_or_financial_statement_values": false,
+  "content_hash": "b99951736a88d35238e75e2d0ce0e70ab5fb50fe7829662efcd0e4e74acfd5ae",
+  "contentops_context_source_commit": "92ab3136ac7ede44fe9e5ffae76631546279bb0f",
+  "financial_comparison_manifest_sha256": "3baa8a4392ef207746d5ee14f2e01ca13e35b428c2f3d4ff6c5ae5b22878af30",
+  "financial_history_manifest_sha256": "4f0217ae35ddc8d9f42489bfa61b78b2717c78b74ff545da0fc84fe6a6b5ed7c",
+  "financial_source_cutoff": "2026-10-19T05:42:24.321Z",
+  "new_company_public_claims": 0,
+  "new_editorial_events": 0,
+  "new_lineage_records": 0,
+  "new_public_report_events": 0,
+  "offered_changed_private_reports": 94,
+  "producer_source_commit": "9fcb917d698f92b284195d8d248c40a5ae75b382",
+  "public_discovery_pointer": {
+    "bytes_sha256": "995100ea232bca4e3fa77fc890db7690be56fc9a4c08baba5c99c1762f35d48e",
+    "manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+    "path": "manifests/36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68.json",
+    "schema": "CapitalChroniclePublicReportExportManifestV1"
+  },
+  "public_pointer_bytes_sha256": "553f08973e13b4bc433a930774ae23b0cb8f9842f63bec0c5f07c999e12fb0c0",
+  "public_pointer_unchanged": true,
+  "public_safe_reason": "Internal SEC research and dated context do not grant public-claim or evidence-freshness authority; no filler or recirculation credit. Existing lawful EIA package remains unchanged.",
+  "publisher_calls": 0,
+  "research_generation_cutoff": "2026-10-19T12:25:00Z",
+  "retained_cold_start_restart_proof_ref": "docs/research/analysis_reporting/goal21/CONSUMER_ADMISSION_PROOF.json",
+  "retained_public_files_ref": "docs/research/analysis_reporting/goal21/public-handoff/",
+  "retained_public_package_ref": "docs/research/analysis_reporting/goal21/COMPATIBILITY_HANDOFF.json",
+  "schema": "CapitalChronicleGoal22PublicSafeResearchHandoffV1"
+}

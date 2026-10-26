@@ -1,0 +1,67 @@
+{
+  "cost_usd": null,
+  "external_provider_attempt_count": 0,
+  "maximum_repair_count": 1,
+  "native_invocation_count_observed": 2,
+  "observations": [
+    {
+      "invocation_id": "/root/goal27_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+      "reasoning_effort": "low",
+      "role": "select",
+      "source_spawn_metadata": {
+        "canonical_task_name": "/root/goal27_sol_light",
+        "fork_turns": "none",
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low",
+        "task_name": "goal27_sol_light",
+        "uuid_exposed": false
+      },
+      "speed": "standard",
+      "stage": "select",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    {
+      "invocation_id": "/root/goal27_sol_max_writer",
+      "model": "gpt-6.1-sol",
+      "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+      "reasoning_effort": "max",
+      "role": "write",
+      "speed": "standard",
+      "stage": "write",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    }
+  ],
+  "observed_efforts": [
+    "low",
+    "max"
+  ],
+  "observed_models": [
+    "gpt-6.1-sol"
+  ],
+  "owner": "NATIVE_CODEX_DESKTOP",
+  "requested_model": "gpt-6.1-sol",
+  "requested_reasoning_effort": "low",
+  "role_assignments": {
+    "filter": {
+      "model": "gpt-6-luna",
+      "reasoning_effort": "max"
+    },
+    "revise": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "max"
+    },
+    "select": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low"
+    },
+    "write": {
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "max"
+    }
+  },
+  "semantic_response_count": 2,
+  "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+  "usage_tokens": null
+}

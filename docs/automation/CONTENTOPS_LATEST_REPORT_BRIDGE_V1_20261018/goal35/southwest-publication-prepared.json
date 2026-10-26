@@ -1,0 +1,25 @@
+{
+  "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+  "schema_version": "contentops.native_publication_binding.v1",
+  "run_id": "goal35-southwest",
+  "work_item_id": "goal35-southwest",
+  "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+  "review_id": "native-article-review-0fa7b6e89b24499e87637d2c394093f6",
+  "review_notes_sha256": "3b2e3c952a239298f5624b21fa451a21f04df0ffd2203d358f5daadfbade8c76",
+  "prepared_handoff_sha256": "7023b0e4dfd6c9870d5f5da43c135d70ea7e836344e501c42604c91e3d340281",
+  "plan_hash": "647eeab6489b81a1269f229d2ec7473a675aa815c648110f0af2960069070ce0",
+  "binding_sha256": "5abb7b912c48e5c8e34a3b830aac2da12506dc9b73f3f728d2697a77eb82f6e8",
+  "accepted_evidence_sha256": "ecf36d9879dba4baa3686077f412f74512af724039f2c209bd61d172b03e064c",
+  "native_result_sha256": "e2d0f0427dbe7a57f1f29d1fa0499a5d14296fb49fc437b385963378d51bad8b",
+  "artifact_sha256": {
+    "article_manifest_v1.json": "06d195c91492ccd66d471e57e7bf1353e21837d07d50bf869a5dcade52fa9095",
+    "qualified_article_record_v1.json": "b747947cbdadc60f736ac6cfa9c229d3de2a0a370bd1ca720e224f962b99b95c",
+    "native_derivative_previews_v1.json": "aa7ac5b8858b8211fa5248652e7733e3dd46c2e02368c261a78086ad7529d33a",
+    "publication_lifecycle_plan_v1.json": "c21cb457e93cb8632ce6123a47b315d448b1eb6e9796f863a633b8897705a008",
+    "run_context_v1.json": "eaf193c0765a9eb1b9cf66313d4269bf91317fd6ac4611be0db294e494cb891d"
+  },
+  "media_sha256": {},
+  "publication_authority": false,
+  "next_operation": "publication-status",
+  "public_write_performed": false
+}

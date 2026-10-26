@@ -1,0 +1,19 @@
+{
+  "edition_id": "goal29-evolving-owner-edition",
+  "title": "T\u1eeb b\u1eb1ng ch\u1ee9ng \u0111\u1ebfn c\u01a1 ch\u1ebf: Brent v\u00e0 h\u1ee3p t\u00e1c gi\u00e1m s\u00e1t xuy\u00ean bi\u00ean gi\u1edbi",
+  "operation_ids": [
+    "goal29-brent-transmission",
+    "goal29-sec-amf-supervision",
+    "goal28-dollar-lens",
+    "goal28-fed-policy-lens",
+    "goal28-company-reading",
+    "goal28-cross-trade",
+    "goal28-crypto-safeguards"
+  ],
+  "held_candidates": [
+    {
+      "reason": "HOLD ph\u1ea1m vi hi\u1ec7n t\u1ea1i: ch\u01b0a c\u00f3 chu\u1ed7i option, k\u1ef3 h\u1ea1n/thanh to\u00e1n, bi\u1ebfn \u0111\u1ed9ng h\u00e0m \u00fd v\u00e0 open interest; l\u1ea7n \u0111\u1ecdc m\u1edbi CFTC g\u1eb7p ki\u1ec3m tra truy c\u1eadp. Kh\u00f4ng suy t\u1eeb t\u00e0i li\u1ec7u n\u1ec1n sang v\u1ecb th\u1ebf hi\u1ec7n t\u1ea1i.",
+      "title": "Di\u1ec5n gi\u1ea3i v\u1ecb th\u1ebf futures v\u00e0 options hi\u1ec7n t\u1ea1i"
+    }
+  ]
+}

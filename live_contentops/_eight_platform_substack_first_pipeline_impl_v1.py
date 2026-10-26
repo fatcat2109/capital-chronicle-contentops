@@ -307,7 +307,9 @@ _SEMANTIC_DEDUP_STOP_WORDS = frozenset(
 def _semantic_dedup_terms(value: str) -> set[str]:
     """Return a small deterministic fingerprint for reader-facing derivative deduplication."""
     terms: set[str] = set()
-    for raw in re.findall(r"[a-z0-9]+", str(value or "").casefold()):
+    # Preserve accented words: ASCII fragments made distinct Vietnamese causal
+    # explanations look identical and discarded the writer's counter-case.
+    for raw in re.findall(r"[^\W_]+", str(value or "").casefold()):
         if raw in _SEMANTIC_DEDUP_STOP_WORDS:
             continue
         term = raw
@@ -348,6 +350,14 @@ def _next_distinct_derivative_sentence(
     for value in values:
         for sentence in _sentence_units(str(value or "")):
             candidate = _punctuate(_first_complete_sentence(sentence))
+            # A rhetorical transition is not the evidence or condition that
+            # follows it. Preserve the next unchanged, source-bound sentence.
+            if re.fullmatch(r"What would change (?:that|this|the) assessment\?", candidate, re.IGNORECASE):
+                continue
+            # A surviving second sentence can lose its antecedent when the first
+            # is deduplicated. Prefer another unchanged sentence with its own subject.
+            if re.search(r"\b(?:khả năng ấy|khả năng đó|phản đề này|cơ chế ấy|that possibility|such a possibility)\b", candidate, re.IGNORECASE):
+                continue
             if candidate and not any(
                 _materially_identical_derivative_sentence(candidate, prior)
                 for prior in rejected
@@ -519,7 +529,7 @@ def build_native_derivative_payloads(
     media_ids = [str(value) for value in media_asset_ids if str(value)]
     text_only_package = not media_ids
     scope_notice = str(article.get("editorial_scope_notice") or "")
-    if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package:
+    if ordinary_brief or article_mode == "BREAKING_BRIEF" or text_only_package or article.get("native_brief_layout") is True:
         def native_brief_text(*parts: str, limit: int, platform: str) -> str:
             text = "\n\n".join(part for part in (*parts, scope_notice) if part)
             if len(text) > limit:
@@ -565,6 +575,8 @@ def build_native_derivative_payloads(
             ),
             rejected=(title, brief_dek, mechanism, context),
         )
+        # A writer may already label its passage. Add one readable label only.
+        watch_point = re.sub(r"^(?:(?:what to )?watch\s*:\s*)+", "", watch_point, flags=re.IGNORECASE)
         def brief_layout(*, detail: str, continuation: str, limit: int) -> dict[str, Any]:
             layout = _root_and_replies(
                 title=title,
@@ -641,7 +653,7 @@ def build_native_derivative_payloads(
                     f"**Newsroom brief: {title}**",
                     brief_dek,
                     f"**Context:** {context}" if context else "",
-                    f"Source-bound brief: {canonical_url}",
+                    f"Read the article: {canonical_url}",
                     limit=2_000,
                     platform="discord",
                 ),
@@ -8734,6 +8746,11 @@ def _build_native_derivative_payloads_impl(**kwargs: Any) -> Any:
     return build_native_derivative_payloads(**kwargs)
 
 
+def _run_native_desktop_newsroom_impl(**kwargs: Any) -> Any:
+    from live_contentops.native_desktop_editorial_v1 import run_native_desktop_newsroom
+    return run_native_desktop_newsroom(**kwargs)
+
+
 _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "prepare_text_image_release_candidate": _prepare_text_image_release_candidate,
     "prepare_generic_text_image_release_candidate": _prepare_generic_text_image_release_candidate,
@@ -8741,6 +8758,7 @@ _CANONICAL_OPERATIONS: Mapping[str, Callable[..., Any]] = {
     "run_eight_platform_substack_first_pipeline": _run_eight_platform_substack_first_pipeline,
     "run_rolling_x_newsroom_cycle": _run_rolling_x_newsroom_cycle,
     "run_v1_simple_gemini_newsroom": _run_v1_simple_gemini_newsroom_impl,
+    "run_native_desktop_newsroom": _run_native_desktop_newsroom_impl,
     "build_native_derivative_payloads": _build_native_derivative_payloads_impl,
     "reconcile_public_substack_for_derivative_resume": _reconcile_public_substack_for_derivative_resume,
     "resume_eight_platform_derivatives": _resume_eight_platform_derivatives,

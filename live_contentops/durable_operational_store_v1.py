@@ -433,7 +433,8 @@ class ContentOpsDurableStore:
     def __init__(self, db_path: pathlib.Path, busy_timeout_ms: int = BUSY_TIMEOUT_MS, auto_migrate: bool = True,
                  now_fn: Optional[Callable[[], datetime]] = None,
                  receipt_resolvers: Optional[Mapping[str, Callable[[Mapping[str, Any]], Any]]] = None) -> None:
-        self.db_path = pathlib.Path(db_path).resolve(); self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        from live_contentops.native_desktop_workspace_v1 import resolve_workspace_path
+        self.db_path = resolve_workspace_path(db_path); self.db_path.parent.mkdir(parents=True, exist_ok=True)
         self.busy_timeout_ms = busy_timeout_ms; self._now_fn = now_fn
         self._write_local = threading.local(); self._receipt_resolvers = dict(receipt_resolvers or {})
         self.migration_proofs: List[Dict[str, Any]] = []

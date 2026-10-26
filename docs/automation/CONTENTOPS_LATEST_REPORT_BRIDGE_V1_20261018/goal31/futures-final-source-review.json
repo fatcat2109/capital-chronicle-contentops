@@ -1,0 +1,64 @@
+{
+  "schema_version": "contentops.native_story_source_review.v1",
+  "review_id": "native-source-review-d6857c8e43199199749901d432cb346891ff2be1a165d1b72e5f0f03fd251ff7",
+  "request_sha256": "edd5d7d8d95daaabba868df1d9fcaf024a023fe2762ed21b447da32db8b1b4a0",
+  "run_id": "goal31-futures-cashflow",
+  "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+  "title": "Phòng hộ bằng futures vẫn có thể cần thêm tiền mặt",
+  "cutoff_utc": "2026-10-21T12:05:20.533503Z",
+  "decision": "USE_UNCHANGED",
+  "reader_change_summary": "Giữ nguyên gói CFTC đã dùng: cơ chế hedge, hợp đồng chuẩn hóa và dòng tiền ký quỹ. Không có ngày công bố/cập nhật xác minh, không phải bằng chứng vị thế hay spec hiện tại; không có delta sau writer. Không cần viết lại.",
+  "source_editions": [
+    {
+      "item_id": "goal31-futures-economic-purpose",
+      "source_url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+      "proposition": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+      "text_sha256": "cbd29c7240388139fc8a9bae79662b8703ee3fddbd8c7a48fba4a4544d5f1208",
+      "permission_sha256": "22ad8a681fdc811d16f9aa631434b69acdc3e0c4acaa56f6cd528576bbb6f9b3",
+      "capture_sha256": "4c97b22a32d718a1b02c2a08502d5570a7ed57282a5f5c3bc62d01514156fb2d",
+      "published_at_utc": null,
+      "retrieved_at_utc": "2026-10-21T11:42:01.992100Z",
+      "observation_date": null,
+      "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+      "rights_state": "GOVERNED_GOVERNMENT_AUTHORED_TEXT_PUBLIC_DOMAIN",
+      "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+      "context_kind": "UNDATED_FOUNDATION_BACKGROUND_NOT_CURRENT_CONTRACT_SPECIFICATION",
+      "stage": "RESEARCH_READY"
+    }
+  ],
+  "source_attempts": [
+    {
+      "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+      "status": "PASS",
+      "observed_at_utc": "2026-10-21T12:05:20.533503Z",
+      "route": "EXACT_ADMITTED_SOURCE_SPANS_REUSED",
+      "new_source_requests": 0
+    }
+  ],
+  "source_changes": [],
+  "removed_main_claim_ids": [],
+  "changed_research_descriptor_claim_ids": [],
+  "previous_sources": [
+    {
+      "source_id": "SOURCE_1",
+      "url": "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+      "published_at_utc": "",
+      "canonical_content_sha256": "4bfd7e1c82e4b8f8fc80ae8c87319308a2e56aeea06ff8b250c8bcc7028520d2",
+      "canonical_content_text": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities\n\nFor example, a farmer who wants to deliver wheat to a grain elevator near Topeka might find Chicago Board of Trade (CBOT) wheat futures contracts useful for hedging, but would not want to make delivery on the contracts because the nearest CBOT delivery point is St. Louis. - Instead of making delivery, the farmer will buy back or offset the contracts before the delivery date and sell the wheat locally on the spot market - Most futures contracts (by volume) are liquidated by offsetting and do not result in delivery - The purpose of the delivery provision is to ensure convergence between the futures price and the cash market price -\n\nExchanges set standardized contract terms, including the amount of the commodity to be delivered (the contract size), delivery months, the last trading day, the delivery locations, and acceptable qualities or grades of the commodity - The exchange specifies that different varieties and grades can be delivered at various fixed differentials (premiums or discounts) to the contract price - This standardization enhances liquidity by making it possible for large numbers of market participants to trade the same instrument - This liquidity makes the contract more useful for hedging, but standardization reduces the usefulness of a futures contract as a merchandising vehicle - Futures trades made on an exchange are cleared through a “clearing house,” which acts as the buyer to all sellers and the seller to all buyers - When a futures contract is bought or sold, it is technically bought from or sold to the clearing house rather than the party with whom the transaction was executed on the trading floor or through an electronic trading platform - Since the contract is ultimately bought from and sold from the same party, if a futures contract is bought and subsequently sold, the position has been offset and the contract is extinguished\n\nMargins in the futures markets are not down payments like stock margins, but are performance bonds designed to ensure that traders can meet their financial obligations - When a futures trader enters into a futures position, he or she is required to post initial margin of an amount specified by the exchange or clearing house. Thereafter, the position is “marked to the market” daily - If the futures position loses value when the market moves against it—if, for example, you are buying and the market goes down—the amount of money in the margin account will decline accordingly - If the amount of money in the margin account falls below the specified maintenance margin (which is set at a level less than or equal to the initial margin), the futures trader will be required to post additional variation margin to bring the account up the initial margin level - On the other hand, if the futures position is profitable, the profits will be added to the margin account - Futures commission merchants (FCMs) often require their customers to maintain funds in their margin accounts that exceed the levels specified by an exchange"
+    }
+  ],
+  "main_receipt_id": null,
+  "research_revision": "e5865d6dbae8d76743d0f7f40114156a21d9f3d289d6eecfadff4084fd1ba91c",
+  "invalidates_prepared_review": false,
+  "media_state": "RETAIN_EXACT_BYTES_DATED_SUPPORT",
+  "prior_story": {
+    "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+    "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+    "title": "Phòng hộ bằng futures vẫn có thể cần thêm tiền mặt",
+    "full_text": "Phòng hộ giá bán bằng futures có thể giúp người sản xuất bớt bất định, nhưng tài khoản hợp đồng vẫn có thể cần thêm tiền trước ngày thu tiền hàng. CONFIRMED — CFTC mô tả mục đích hedge cùng cơ chế định giá lại hằng ngày. Theo phân tích của Capital Chronicle, tác dụng bù rủi ro và khả năng đáp ứng tiền mặt phải được kiểm tra cùng nhau. [[SOURCE:SOURCE_1]]\n\n## Nhìn cả vụ mùa và vị thế bán\n\nHedge là phòng hộ: dùng một vị thế để hạn chế rủi ro giá đang có trong hoạt động kinh doanh. CFTC lấy ví dụ người nông dân Kansas đã trồng lúa mì, chịu rủi ro giá giảm trước khi thu hoạch và bán. Bán hợp đồng futures là cách tài liệu minh họa việc giảm bất định về giá bán của vụ mùa. [[SOURCE:SOURCE_1]]\n\nCC diễn giải có điều kiện: nếu giá lúa mì tăng, khả năng bán hàng thực với giá cao hơn có thể đi cùng khoản lỗ trên vị thế futures bán; nếu giá giảm, hướng bù trừ có thể đảo lại. Cách giải thích này cần hàng thực và hợp đồng đủ tương thích, chưa xác lập mức bù hay lợi nhuận của một vụ mùa cụ thể. [[SOURCE:SOURCE_1]]\n\nMột vị thế bán futures vì thế chưa đủ chứng minh người nắm giữ đang bi quan về giá. Trong ví dụ CFTC, người bán còn có lúa mì sẽ đưa ra thị trường. Theo cách đọc của CC, muốn hiểu vị thế phải biết nó đứng cạnh tài sản và rủi ro kinh doanh nào, cùng mục đích của người nắm giữ. [[SOURCE:SOURCE_1]]\n\n## Tài khoản ký quỹ đi theo lịch riêng\n\nCFTC mô tả ký quỹ futures là khoản bảo đảm thực hiện nghĩa vụ tài chính, khác với khoản trả trước trong giao dịch ký quỹ cổ phiếu. Người mở vị thế nộp ký quỹ ban đầu; sau đó vị thế được định giá lại theo thị trường hằng ngày, gọi là mark-to-market. [[SOURCE:SOURCE_1]]\n\nTheo cơ chế trong tài liệu, khi vị thế mất giá, tiền trong tài khoản ký quỹ giảm. Nếu số tiền xuống dưới mức ký quỹ duy trì, người giao dịch phải nộp thêm ký quỹ biến động — variation margin — để đưa tài khoản về mức ban đầu. Khi vị thế có lãi, khoản lãi được cộng vào tài khoản. [[SOURCE:SOURCE_1]]\n\nPhân tích CC: nếu giá tăng trước khi bán lúa mì, vị thế futures bán có thể cần thêm tiền ký quỹ trong lúc doanh thu hàng chưa về. Khoản bù kinh tế dự kiến từ hàng thực chưa đồng nghĩa có tiền đúng lúc. [[SOURCE:SOURCE_1]]\n\nVì vậy cần đặt lịch thu tiền bán hàng cạnh lịch đáp ứng ký quỹ. Giá hàng thực thuận lợi hơn chưa tự tạo ra tiền trong tài khoản futures trước khi bán hàng. Đây là vấn đề thời điểm trong cách giải thích của CC; tài liệu không cung cấp dòng tiền của một nông dân cụ thể để kết luận người đó đang thiếu tiền. [[SOURCE:SOURCE_1]]\n\n## Hàng thực và hợp đồng chuẩn hóa có thể khác nhau\n\nCFTC cho biết sàn chuẩn hóa các yếu tố như quy mô hợp đồng, tháng giao hàng, ngày giao dịch cuối, địa điểm và phẩm cấp được chấp nhận. Nhờ nhiều người cùng giao dịch một công cụ, tính thanh khoản tăng và hợp đồng hữu ích hơn cho phòng hộ. Đổi lại, sự chuẩn hóa làm nó kém linh hoạt hơn cho nhu cầu mua bán hàng thực riêng của từng người. [[SOURCE:SOURCE_1]]\n\nTrong ví dụ CFTC, nông dân muốn giao lúa mì gần Topeka có thể dùng futures lúa mì CBOT để hedge, nhưng không muốn giao hàng theo hợp đồng vì điểm giao gần nhất trong ví dụ ở St. Louis. Người này mua lại để đóng vị thế trước ngày giao và bán lúa mì tại địa phương trên thị trường giao ngay. Đóng vị thế bù trừ, hay offset, là kết thúc vị thế hợp đồng; việc bán hàng thực diễn ra riêng. [[SOURCE:SOURCE_1]]\n\nTừ đó, CC đặt câu hỏi về độ khớp: hàng thực sẽ bán ở đâu, có phẩm cấp nào, vào lúc nào, và hợp đồng đang phòng hộ phần rủi ro nào? Ví dụ địa điểm cho thấy lý do phải hỏi; nó chưa đo mức chênh giữa giá hàng thực và giá hợp đồng trong một trường hợp hiện tại. [[SOURCE:SOURCE_1]]\n\n## Khi nào hedge vẫn hữu ích?\n\nPhản đề của CC: nếu hợp đồng bám sát rủi ro hàng thực và có nguồn tiền đáp ứng ký quỹ đúng lúc, hedge vẫn có thể hữu ích. Nhu cầu bổ sung tiền tự nó chưa chứng minh rủi ro giá của cả hoạt động đã tăng. [[SOURCE:SOURCE_1]]\n\nNếu hàng thực không tạo được khoản bù như giả định, hoặc tiền không về kịp nghĩa vụ ký quỹ, phải rút kết luận hedge vừa giảm rủi ro vừa đủ sức duy trì. Cần kiểm độ khớp và lịch tiền của trường hợp cụ thể. [[SOURCE:SOURCE_1]]\n\n## Cần hỏi gì trước một trường hợp cụ thể?\n\n- Hàng thực và rủi ro: người sản xuất sẽ bán loại hàng nào, khối lượng bao nhiêu, vào kỳ nào, và phần biến động giá nào đang được phòng hộ? Đây là các câu hỏi kiểm tra, chưa phải dữ liệu về một vị thế được xác minh. [[SOURCE:SOURCE_1]]\n\n- Hợp đồng: quy mô, kỳ hạn, địa điểm và phẩm cấp có phù hợp với hàng sẽ bán không; vị thế dự kiến được đóng bù trừ hay dẫn tới giao hàng? Cần điều khoản của đúng hợp đồng để trả lời. [[SOURCE:SOURCE_1]]\n\n- Tiền mặt: tiền hàng dự kiến được nhận khi nào, tiền đáp ứng ký quỹ có sẵn khi nào, và nghĩa vụ bổ sung của đúng tài khoản là gì? Một khoản bù về giá có thể tồn tại mà câu hỏi tiền đến đúng lúc vẫn chưa được trả lời. [[SOURCE:SOURCE_1]]\n\n## Ghi chú nguồn\n\nGhi chú nguồn: bài dùng phần giải thích của CFTC được đọc và lưu ngày 21/10/2026. Bản nguồn không cung cấp ngày công bố hoặc sửa đổi. Các ví dụ được dùng làm kiến thức nền, không xác nhận điều khoản hiện hành của một hợp đồng hay hiệu quả của vị thế hiện tại; bài không đưa ra khuyến nghị giao dịch. [[SOURCE:SOURCE_1]]",
+    "stage": "UNPUBLISHED_REVIEWED_ARTICLE"
+  },
+  "writer_required": false,
+  "publication_authority": false,
+  "public_write_performed": false
+}

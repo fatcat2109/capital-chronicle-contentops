@@ -1,0 +1,10 @@
+{
+  "purpose": "Bản trích hướng dẫn SEC lịch sử về MD&A; phiên bản sửa tháng 7/2011, không xác nhận yêu cầu kê khai hiện hành.",
+  "type": "SOURCE_DOCUMENT_CARD",
+  "reader_value": "Đặt văn bản gốc, ngày nguồn và phạm vi phân tích cạnh bài để người đọc đối chiếu.",
+  "source_headline_id": "goal28-company-reading",
+  "source_url": "https://www.sec.gov/answers/reada10k.htm",
+  "source_capture_sha256": "03272824c29645642aa68cc1220fe0aedc9da26e4a7fd44105c78ce1a4526748",
+  "rights_evidence_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+  "no_market_chart_or_ai_scene": true
+}

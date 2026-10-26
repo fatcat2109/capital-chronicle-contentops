@@ -1,0 +1,21 @@
+{
+  "schema_version": "contentops.linkedin_reauthorization_readback.v1",
+  "observed_at_utc": "2026-10-20T23:25:34.697916Z",
+  "state": "READY_OFFICIAL_MEMBER_API",
+  "authenticated": true,
+  "authorized_at_utc": "2026-10-20T12:31:13.032712Z",
+  "expiry_at_utc": "2026-12-19T12:31:13.032712Z",
+  "granted_scopes": [
+    "openid",
+    "profile",
+    "w_member_social"
+  ],
+  "scope_source": "TOKEN_RESPONSE",
+  "secure_store_binding": "WINDOWS_DPAPI_CURRENT_USER:contentops.linkedin.member.v1",
+  "readback_capability": "READBACK_CAPABILITY_LIMITED",
+  "identity_verified_live": false,
+  "provider_requests": 1,
+  "public_write_performed": false,
+  "live_read_status": "TRANSPORT_UNAVAILABLE",
+  "http_status": null
+}

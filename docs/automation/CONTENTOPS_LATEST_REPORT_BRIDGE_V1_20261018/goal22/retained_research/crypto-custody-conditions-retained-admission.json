@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "official_source_documents": [
+    {
+      "document_id": "goal21-crypto-custody-conditions",
+      "title": "SEC.gov | SEC Proposal Would Address How Investment Advisers and Funds Can Custody Crypto Assets Under the Federal Securities Laws",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal",
+      "publisher": "www.sec.gov",
+      "source_identity": "www.sec.gov",
+      "raw_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "canonical_content_text": "NEWSROOM Press Releases Speeches & Statements Meetings & Events Videos Social Media Directory Podcasts What's New Home Newsroom Press Releases SEC Proposal Would Address How Investment Advisers and Funds Can Custody Crypto Assets Under the Federal Securities Laws PRESS RELEASE SEC Proposal Would Address How Investment Advisers and Funds Can Custody Crypto Assets Under the Federal Securities Laws FOR IMMEDIATE RELEASE 2026-100 Washington D.C., Oct. 1, 2026 — The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission’s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser’s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. “Since the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today’s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before—and replacing the grey of uncertainty created by custody rules crafted for a bygone era,” said SEC Chairman Paul S. Atkins in a statement. The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets. The public comment period will remain open for 60 days following the publication of the SEC’s proposing release in the Federal Register. Last Reviewed or Updated: Oct. 1, 2026 RESOURCES Fact Sheet - Investment Adviser and Regulated Fund Custody Rules; Crypto Custod… Proposed Rule - Investment Adviser and Regulated Fund Custody Rules; Crypto Cus…",
+      "canonical_content_sha256": "47901fff074f01e2e9cdc427dcd1cc9f2bb0f233a14445360b80a5a0f896c30a",
+      "source_adapter_family": "sec_regulatory",
+      "source_authority_class": "official_public_primary_source",
+      "published_at_utc": "2026-10-01T00:00:00Z",
+      "publication_time_precision": "DATE_ONLY",
+      "published_at_source": "RETAINED_SOURCE_VISIBLE_DATE",
+      "source_modified_at_utc": null,
+      "content_truncated": false,
+      "retrieval_method": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE"
+    }
+  ],
+  "provenance": {
+    "retrieved_at_utc": "2026-10-19T09:18:00.480Z",
+    "capture_operation": "EDITORIAL_READ_ONLY_VISIBLE_TEXT",
+    "network_calls_by_materializer": 0
+  }
+}

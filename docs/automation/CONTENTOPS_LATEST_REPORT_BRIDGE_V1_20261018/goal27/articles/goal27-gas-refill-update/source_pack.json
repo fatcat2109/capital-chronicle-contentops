@@ -1,0 +1,19 @@
+[
+  {
+    "browser_rendered_acquisition": null,
+    "canonical_content_sha256": "3ba2bb5597a080a56d19289955a840e1e4e8139a5843c61107e5d0dcaf2a5c6f",
+    "canonical_content_text": "Net injections into storage totaled 67 Bcf for the week ending October 9, compared with the five-year (2021–2025) average net injections of 90 Bcf and last year's net injections of 80 Bcf during the same week. Working natural gas stocks totaled 3,567 Bcf as of Friday, October 9, 2026, according to EIA estimates. Stocks were 45 Bcf (1%) more than the five-year average and 143 Bcf (4%) lower than last year at this time.",
+    "canonical_resolution_status": "",
+    "document_id": "goal27-gas-seasonal",
+    "published_at_source": "RETAINED_SOURCE_VISIBLE_DATE",
+    "published_at_utc": "2026-10-15T00:00:00Z",
+    "publisher": "U.S. Energy Information Administration",
+    "report_truth_only": false,
+    "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+    "secondary_listing_only": false,
+    "source_authority_class": "official_public_primary_source",
+    "source_id": "SOURCE_1",
+    "source_identity": "U.S. Energy Information Administration",
+    "url": "https://www.eia.gov/naturalgas/weekly/supplement/"
+  }
+]

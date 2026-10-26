@@ -18,8 +18,8 @@ TASK_LABEL = "TASK_CONTENTOPS_CANONICAL_PRODUCTION_ENTRYPOINT_AND_LEGACY_LIVE_PA
 SCHEMA_VERSION = "contentops.production_orchestrator.v1"
 CANONICAL_MODULE = "live_contentops._eight_platform_substack_first_pipeline_impl_v1"
 CANONICAL_FUNCTION = "_dispatch_canonical_operation"
-ROUTINE_EDITORIAL_OWNER = "SIMPLE_GEMINI_RUNTIME"
-ROUTINE_EDITORIAL_OPERATION = "run_v1_simple_gemini_newsroom"
+ROUTINE_EDITORIAL_OWNER = "NATIVE_CODEX_DESKTOP"
+ROUTINE_EDITORIAL_OPERATION = "run_native_desktop_newsroom"
 CANONICAL_OPERATIONS = frozenset(
     {
         "prepare_text_image_release_candidate",
@@ -28,6 +28,7 @@ CANONICAL_OPERATIONS = frozenset(
         "run_eight_platform_substack_first_pipeline",
         "run_rolling_x_newsroom_cycle",
         "run_v1_simple_gemini_newsroom",
+        "run_native_desktop_newsroom",
         "build_native_derivative_payloads",
         "reconcile_public_substack_for_derivative_resume",
         "resume_eight_platform_derivatives",
@@ -85,6 +86,7 @@ OPERATION_CONTRACTS: Mapping[str, OperationContract] = MappingProxyType(
         "run_eight_platform_substack_first_pipeline": _operation_contract(restart_mode=RECONCILIATION_REQUIRED, capability="LIVE_CAPABLE"),
         "run_rolling_x_newsroom_cycle": _operation_contract(restart_mode=RECONCILIATION_REQUIRED, capability="LIVE_CAPABLE"),
         "run_v1_simple_gemini_newsroom": _operation_contract(restart_mode=RESTART_SAFE, capability="LOCAL_PREPARATION"),
+        "run_native_desktop_newsroom": _operation_contract(restart_mode=RESTART_SAFE, capability="LOCAL_PREPARATION"),
         "build_native_derivative_payloads": _operation_contract(restart_mode=RESTART_SAFE, capability="LOCAL_PREPARATION"),
         "reconcile_public_substack_for_derivative_resume": _operation_contract(restart_mode=RESTART_SAFE, capability="RECONCILIATION"),
         "resume_eight_platform_derivatives": _operation_contract(restart_mode=RECONCILIATION_REQUIRED, capability="LIVE_CAPABLE"),
@@ -320,6 +322,8 @@ class ContentOpsProductionOrchestrator:
         """Validate and dispatch one exact canonical operation."""
         if operation not in self.canonical_operations:
             raise ValueError(f"unknown_canonical_contentops_operation:{operation}")
+        if operation == "run_v1_simple_gemini_newsroom" and kwargs.get("llm_invoke") is None:
+            raise ValueError("LEGACY_GEMINI_PROVIDER_NON_ROUTING_USE_NATIVE_DESKTOP")
 
         active_store = kwargs.pop("store", self.store)
         raw_context = kwargs.pop("durable_context", None)

@@ -650,4 +650,4 @@ def test_adapter_source_has_no_parallel_runtime_authority():
     assert "import requests" not in source
     assert "creates_scheduler" in source
     assert "DurablePublicationCoordinator" in source
-    assert "SIMPLE_GEMINI_RUNTIME" in source
+    assert "NATIVE_CODEX_DESKTOP" in source

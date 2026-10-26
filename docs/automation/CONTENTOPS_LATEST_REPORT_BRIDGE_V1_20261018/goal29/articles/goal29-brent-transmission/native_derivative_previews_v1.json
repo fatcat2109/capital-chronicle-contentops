@@ -1,0 +1,174 @@
+{
+  "article_identity": "3fead0a142112ae0db2454b3379fb29990d063675446b8a003c34795b6fadce7",
+  "canonical_url": "https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0",
+  "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+  "compiler_input_sha256": "5e4c685bc38d0c6a565aa628f99f52253650676797a682416aba752f95707085",
+  "dispatch_state": "PREVIEW_ONLY_UNDISPATCHED",
+  "epistemic_state": {
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "This report import does not independently verify the underlying events.",
+    "event_truth_supported": false,
+    "evidence_basis": "GOVERNED_CAPITAL_CHRONICLE_REPORT",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Capital Chronicle",
+    "primary_reporting_source_identity": "asset-report:UKOIL",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CC REPORT / EVENT UNCONFIRMED",
+    "report_proposition": "Capital Chronicle reports dated observations and conditional analysis.",
+    "report_scope_notice": "CC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order.",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "main-report-3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "every_preview_preserves_epistemic_state": true,
+  "final_validated_article_public_copy_sha256": "104abd0b7b6c486d03792f7188875ba64836abc64e0d0a418e1b667263c52ce1",
+  "package_count": 8,
+  "packages": {
+    "discord": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]**\n\nCapital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm?\n\n**Context:** Bộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+    },
+    "facebook_page": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 63206,
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm?\n\nWhy it matters: Phân tích CC có điều kiện: nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất lặp lại, thương mại đường biển và chênh giá có thể truyền tác động sang Brent.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+    },
+    "instagram_business": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "platform_limit": 2200,
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm?\n\nIn focus: Bộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\n#CapitalChronicle\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+    },
+    "linkedin": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 3000,
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nWhy it matters: Phân tích CC có điều kiện: nếu rút kho Mỹ phản ánh cạnh tranh dầu vật chất lặp lại, thương mại đường biển và chênh giá có thể truyền tác động sang Brent.\n\nContext: Bộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+    },
+    "telegram": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nCC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm?\n\nWhat to watch: Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+    },
+    "threads": {
+      "format": "text_brief",
+      "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nBộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nWhat to watch: Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nBộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.562,
+          0.648
+        ],
+        "post_character_counts": [
+          281,
+          324
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.867,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+      ],
+      "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nBộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0",
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nBộ nguồn chưa đủ để chọn phản đề này hay cơ chế cạnh tranh vật chất.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0"
+    },
+    "x": {
+      "format": "text_brief",
+      "full_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCapital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm?\n\nWatch: Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.\n\nCC report / event unconfirmed.\n\nFacts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis.",
+      "hard_truncation_used": false,
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Capital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm?\n\nWatch: Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.\n\nCC report / event unconfirmed."
+        },
+        {
+          "media_asset_ids": [],
+          "order": 2,
+          "role": "reply",
+          "text": "Facts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.754,
+          0.661,
+          0.736
+        ],
+        "post_character_counts": [
+          211,
+          185,
+          206
+        ],
+        "reply_count": 2,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.877,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Capital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm?\n\nWatch: Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.\n\nCC report / event unconfirmed.",
+        "Facts, CC analysis and conditional scenarios; 5/21/63 sessions.\n\nProxy/CFD costs unresolved; no forecast or order.\n\nObservation: 2026-10-09; Main report cutoff: 2026-10-19.\n\nInterpretation remains analysis."
+      ],
+      "root_text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0",
+      "text": "CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0"
+    },
+    "youtube": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "platform_limit": 1000,
+      "text": "Update: CC REPORT / EVENT UNCONFIRMED | Capital Chronicle: Rút kho dầu Mỹ chưa đủ để gọi Brent khan hiếm [Main report 2026-10-09, 2026-10-19]\n\nCapital Chronicle đặt câu hỏi: rút kho dầu Mỹ đã đủ để gọi Brent khan hiếm?\n\nWhat to watch: Không có nguồn mới khi xem lại thì đánh dấu bằng chứng cũ hoặc thiếu.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-3fead0a142112ae0\n\nCC report / event unconfirmed. Facts, CC analysis and conditional scenarios; 5/21/63 sessions. Proxy/CFD costs unresolved; no forecast or order. Observation: 2026-10-09; Main report cutoff: 2026-10-19. Interpretation remains analysis."
+    }
+  },
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_coordinator_dispatch_count": 0,
+  "rematerialization_after_real_substack_url_required": true,
+  "schema_version": "contentops.v1_simple_native_derivative_previews.v1",
+  "unknown_write_count": 0
+}

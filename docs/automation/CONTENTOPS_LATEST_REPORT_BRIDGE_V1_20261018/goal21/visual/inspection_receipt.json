@@ -1,0 +1,28 @@
+{
+  "scope": "ACTUAL_CANONICAL_REPORT_COMPONENT_AND_EDITOR_AUTHORED_RESEARCH_ONLY",
+  "desktop_inspected": true,
+  "mobile_inspected": true,
+  "mobile_width": 430,
+  "mobile_scroll_width": 430,
+  "filtered_crypto_images_loaded": 2,
+  "native_preview_text_inspected": true,
+  "native_preview_sample": "Crypto-custody research preview; pending canonical link hidden; authoring/review label preserved",
+  "rendered_media_inspected": 7,
+  "media_files_sha256": {
+    "integrated/company-sec-context/media_assets/source_document_card.png": "1210a36625541a1052fd9dcb4b36b447a81e7d325d8a93be0f9527df4467b403",
+    "integrated/cross-asset-price-versus-custody/media_assets/source_comparison.png": "f4dcd6ed9ae38c7f1f90751276e443adb3e97e7c8a94771b00e621508361195a",
+    "integrated/crypto-custody/media_assets/source_document_card.png": "db17c91a34cf8be9d52af4ed9ed300239a941baf1bbe1037872c2a7d63a60bb2",
+    "integrated/gas-vintage/media_assets/source_document_card.png": "41f795c953c75f7b7558ce991e9e37b1d012051c885b102889ce2ee623484266",
+    "integrated/metals-exposure/media_assets/source_document_card.png": "52e5325d1d07d0d2114fbb0f8f53eb4115e8dfc176d0ff98b1343eb8dee19624",
+    "integrated/options-positioning/media_assets/source_document_card.png": "d6a7a5eb2898dedab5822a056b343cf4f526127e2bcdd9736edf070dd9232cc2",
+    "integrated/rates-fx-transmission/media_assets/source_document_card.png": "dbe2b4833c5940e63aaf3e16e39d6264ac16f62808b2b8cf0743ac818578e0a5"
+  },
+  "desktop_sha256": "394a81f98405e49733f164c56037c2ffa05ffdbc4e266ad8a39ff78a2dd114c5",
+  "mobile_sha256": "0ea8a6c87f62eb4702c5346cb828b082386b58ccc412a5a800220857432c144a",
+  "production_runtime_started": false,
+  "task_preview_pid": 33628,
+  "preview_process_stopped": true,
+  "preview_listener_absent": true,
+  "browser_tools_currently_unavailable": true,
+  "no_alternate_browser_used": true
+}

@@ -1,0 +1,679 @@
+[
+  {
+    "run_id": "goal31-company-machine-reading",
+    "prepared": {
+      "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "run_id": "goal31-company-machine-reading",
+      "work_item_id": "goal31-company-machine-reading",
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "review_id": "native-article-review-2b76b644dbc647a6b343626b12f76f64",
+      "review_notes_sha256": "18af98c9475b77c0bbe71cf1d87206e38362597b9583bf7ce75428140c2f4505",
+      "prepared_handoff_sha256": "abed22a5d517a1547bdf232ac5f46b3b0eb1fa0f88de2b4644c3f903dd96f6ce",
+      "plan_hash": "c5cb6cbe3923f652686d744eef3ea5e0275582d4c4bf3397abfadd8e20d5f341",
+      "binding_sha256": "76b078049400d4a9b64a830c40ede12d28c14c2d3e60d946ce0ba3060489418c",
+      "accepted_evidence_sha256": "49224d73c720a780e578d4f7991e3111d3e552d7001db3fd762b8dbb74655447",
+      "native_result_sha256": "bea876893d2390f14f7caba8b9b69d10052472069152672238ce511e57ae8a75",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "0ffd5cb33b02d2ed021e5fcaa7646e1c86498371d638c2cf794d7fecbaeded25",
+        "qualified_article_record_v1.json": "58769d44045776ff02ae4d4951d3a6a5dedf8e87f68ec6f4ed172383bce9b1ca",
+        "native_derivative_previews_v1.json": "52e7f67663ced97831e0fdd2a6b066a09d5c44967edd36817532c9d90d81230a",
+        "publication_lifecycle_plan_v1.json": "8b24f66615c0384e3651311793ccbfdcb66ba51158d39eeb6f1f0d62b50f17a3",
+        "run_context_v1.json": "bbafcbbb9039cb0ea11d2d40b4d073a6fe7738dfb95372a424a7c23ff92cb9c0"
+      },
+      "media_sha256": {
+        "official_source_document_card": "ed1832d41bcc3225e01379d8c393f1314cf820a4cdd9e08ec910edd57febc5c5"
+      },
+      "publication_authority": false,
+      "next_operation": "publication-status",
+      "public_write_performed": false
+    },
+    "status": {
+      "accepted_evidence_sha256": "49224d73c720a780e578d4f7991e3111d3e552d7001db3fd762b8dbb74655447",
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "0ffd5cb33b02d2ed021e5fcaa7646e1c86498371d638c2cf794d7fecbaeded25",
+        "native_derivative_previews_v1.json": "52e7f67663ced97831e0fdd2a6b066a09d5c44967edd36817532c9d90d81230a",
+        "publication_lifecycle_plan_v1.json": "8b24f66615c0384e3651311793ccbfdcb66ba51158d39eeb6f1f0d62b50f17a3",
+        "qualified_article_record_v1.json": "58769d44045776ff02ae4d4951d3a6a5dedf8e87f68ec6f4ed172383bce9b1ca",
+        "run_context_v1.json": "bbafcbbb9039cb0ea11d2d40b4d073a6fe7738dfb95372a424a7c23ff92cb9c0"
+      },
+      "binding_sha256": "76b078049400d4a9b64a830c40ede12d28c14c2d3e60d946ce0ba3060489418c",
+      "media_sha256": {
+        "official_source_document_card": "ed1832d41bcc3225e01379d8c393f1314cf820a4cdd9e08ec910edd57febc5c5"
+      },
+      "native_result_sha256": "bea876893d2390f14f7caba8b9b69d10052472069152672238ce511e57ae8a75",
+      "plan_hash": "c5cb6cbe3923f652686d744eef3ea5e0275582d4c4bf3397abfadd8e20d5f341",
+      "prepared_handoff_sha256": "abed22a5d517a1547bdf232ac5f46b3b0eb1fa0f88de2b4644c3f903dd96f6ce",
+      "publication_authority": false,
+      "review_id": "native-article-review-2b76b644dbc647a6b343626b12f76f64",
+      "review_notes_sha256": "18af98c9475b77c0bbe71cf1d87206e38362597b9583bf7ce75428140c2f4505",
+      "run_id": "goal31-company-machine-reading",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "work_item_id": "goal31-company-machine-reading",
+      "state": "PREPARED",
+      "operation_scope": "OWNER_MANUAL_ISOLATED",
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_d7eac1a7dfd53a5a3a759f32e6110b1c",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_a950e405f34fcf2a8da74c34ca165379",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_e206a39fe67e9ac4bd101874c537970a",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_1414344d8edcb0f5ee25733008b9efcd",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "transport": "OFFICIAL_MEMBER_API",
+          "dispatch_id": "dispatch_ce4452f12b20d4fb2582e0161de17b92",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_4a5a33da34a0f707ba54fb1a25fbe823",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_87e853b6541ba02a1bc04e7543d9e80b",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_dd0de5b4a6909afe32bc4037e2b0757f",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_186894251c2e405cff9fdcdc7df3c89f",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [],
+      "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+      "next_operation": "publication-status",
+      "dispatch_continuation_operation": "publication-resume",
+      "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading\\binding.json\"",
+      "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+    },
+    "manual_dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+    "reopened": {
+      "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "qualified_article_count": 1,
+      "new_model_invocations": 0,
+      "new_source_requests": 0,
+      "editorial_execution": {
+        "owner": "NATIVE_CODEX_DESKTOP",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "low",
+        "role_assignments": {
+          "filter": {
+            "model": "gpt-6-luna",
+            "reasoning_effort": "max"
+          },
+          "select": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low"
+          },
+          "write": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          },
+          "revise": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          }
+        },
+        "observed_models": [
+          "gpt-6.1-sol"
+        ],
+        "observed_efforts": [
+          "low",
+          "max"
+        ],
+        "native_invocation_count_observed": 2,
+        "semantic_response_count": 2,
+        "maximum_repair_count": 1,
+        "external_provider_attempt_count": 0,
+        "usage_tokens": null,
+        "cost_usd": null,
+        "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+        "observations": [
+          {
+            "invocation_id": "/root/goal31_sol_light",
+            "model": "gpt-6.1-sol",
+            "observation_source": "Actual native collaboration.spawn_agent returned canonical task /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed.",
+            "reasoning_effort": "low",
+            "speed": "standard",
+            "surface": "CODEX_NATIVE_SUBAGENT",
+            "stage": "select",
+            "role": "select"
+          },
+          {
+            "invocation_id": "/root/goal31_sol_max_writer",
+            "model": "gpt-6.1-sol",
+            "observation_source": "Actual native spawn task /root/goal31_sol_max_writer with gpt-6.1-sol / max; output file saved and read back before quota error. UUID/usage not exposed.",
+            "reasoning_effort": "max",
+            "speed": "standard",
+            "surface": "CODEX_NATIVE_SUBAGENT",
+            "stage": "write",
+            "role": "write"
+          }
+        ]
+      },
+      "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+      "public_write_performed": false
+    }
+  },
+  {
+    "run_id": "goal31-futures-cashflow",
+    "prepared": {
+      "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "run_id": "goal31-futures-cashflow",
+      "work_item_id": "goal31-futures-cashflow",
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "review_id": "native-article-review-b06e87ad9b8e4757ae1bfb2b2f086a44",
+      "review_notes_sha256": "6009d7abc6e14a656d56b44efcc76a83fee09db34f635fddfe3685ed2272e193",
+      "prepared_handoff_sha256": "8cfdeb5a3631dfbe0f440c0199ae4008c08b7d09ead25a65d1fa633a79686169",
+      "plan_hash": "a2b9c8293dc841789b66f482806cf509d71bffc4fa1da1848d584d18383f5a82",
+      "binding_sha256": "5c26a5e7558bdcac1a3098804ba81a4b409c7cd2270fdab8b017edeea932c734",
+      "accepted_evidence_sha256": "8fb74c4edd21a223cf11ef3e87060d27307097c9fdf7857fdb6dc424a94e67b6",
+      "native_result_sha256": "fe1a4b7412008be2d8a2a3b4892200dfb779a76c4709c12be4308bcc6489ec3e",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "fd89f7d28250942a4ebe5f5f78c408efdc55c99ad2969e5f7a5ab2c2e40c2fa2",
+        "qualified_article_record_v1.json": "7ddf26c7c0b55dd84892c5147cd0166a1d7bf87678111baf2e060d0976d2abe2",
+        "native_derivative_previews_v1.json": "66b1e5902e7fb865bf4cf2ff3b1b2ab98642f7827f6493502b8f09f885b8b1ec",
+        "publication_lifecycle_plan_v1.json": "63441eff11fbf1a72207788eeb0d1e2898830123ccdc240b7f802879f0e6b631",
+        "run_context_v1.json": "63eec3615c9203ad4c4c4bbfc728451899055bbbb8854387a05a74a9b6c24524"
+      },
+      "media_sha256": {
+        "official_source_document_card": "373e8985d78a6408c16f2c272841ab8a7135dbf7de1416363aec169cdfa68c01"
+      },
+      "publication_authority": false,
+      "next_operation": "publication-status",
+      "public_write_performed": false
+    },
+    "status": {
+      "accepted_evidence_sha256": "8fb74c4edd21a223cf11ef3e87060d27307097c9fdf7857fdb6dc424a94e67b6",
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "fd89f7d28250942a4ebe5f5f78c408efdc55c99ad2969e5f7a5ab2c2e40c2fa2",
+        "native_derivative_previews_v1.json": "66b1e5902e7fb865bf4cf2ff3b1b2ab98642f7827f6493502b8f09f885b8b1ec",
+        "publication_lifecycle_plan_v1.json": "63441eff11fbf1a72207788eeb0d1e2898830123ccdc240b7f802879f0e6b631",
+        "qualified_article_record_v1.json": "7ddf26c7c0b55dd84892c5147cd0166a1d7bf87678111baf2e060d0976d2abe2",
+        "run_context_v1.json": "63eec3615c9203ad4c4c4bbfc728451899055bbbb8854387a05a74a9b6c24524"
+      },
+      "binding_sha256": "5c26a5e7558bdcac1a3098804ba81a4b409c7cd2270fdab8b017edeea932c734",
+      "media_sha256": {
+        "official_source_document_card": "373e8985d78a6408c16f2c272841ab8a7135dbf7de1416363aec169cdfa68c01"
+      },
+      "native_result_sha256": "fe1a4b7412008be2d8a2a3b4892200dfb779a76c4709c12be4308bcc6489ec3e",
+      "plan_hash": "a2b9c8293dc841789b66f482806cf509d71bffc4fa1da1848d584d18383f5a82",
+      "prepared_handoff_sha256": "8cfdeb5a3631dfbe0f440c0199ae4008c08b7d09ead25a65d1fa633a79686169",
+      "publication_authority": false,
+      "review_id": "native-article-review-b06e87ad9b8e4757ae1bfb2b2f086a44",
+      "review_notes_sha256": "6009d7abc6e14a656d56b44efcc76a83fee09db34f635fddfe3685ed2272e193",
+      "run_id": "goal31-futures-cashflow",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "work_item_id": "goal31-futures-cashflow",
+      "state": "PREPARED",
+      "operation_scope": "OWNER_MANUAL_ISOLATED",
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_05c1b223e5d133e0bc76440730040373",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_55e36b4852e943594091284b07d7f068",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_d76d1eb2bcdc0965a30184c63ee3ac79",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_0957b63c56990f24b4c631cfe8dccb9e",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "transport": "OFFICIAL_MEMBER_API",
+          "dispatch_id": "dispatch_8b284fe3100c25a481adf991b69f2e74",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_e5196ca95dcb20b17c559a980fbf17e8",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_53bad704c715c672ad91f3b05ca0add3",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_2b38fe5af9c5b746f9828a5c73a9718e",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_ffd217ffbf7633bece26fdbc29628e62",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [],
+      "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+      "next_operation": "publication-status",
+      "dispatch_continuation_operation": "publication-resume",
+      "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-futures-cashflow\\binding.json\"",
+      "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+    },
+    "manual_dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+    "reopened": {
+      "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+      "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+      "qualified_article_count": 1,
+      "new_model_invocations": 0,
+      "new_source_requests": 0,
+      "editorial_execution": {
+        "owner": "NATIVE_CODEX_DESKTOP",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "low",
+        "role_assignments": {
+          "filter": {
+            "model": "gpt-6-luna",
+            "reasoning_effort": "max"
+          },
+          "select": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low"
+          },
+          "write": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          },
+          "revise": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          }
+        },
+        "observed_models": [
+          "gpt-6.1-sol"
+        ],
+        "observed_efforts": [
+          "low",
+          "max"
+        ],
+        "native_invocation_count_observed": 2,
+        "semantic_response_count": 2,
+        "maximum_repair_count": 1,
+        "external_provider_attempt_count": 0,
+        "usage_tokens": null,
+        "cost_usd": null,
+        "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+        "observations": [
+          {
+            "invocation_id": "/root/goal31_sol_light",
+            "model": "gpt-6.1-sol",
+            "observation_source": "Actual native /root/goal31_sol_light followup, inherited assigned gpt-6.1-sol / low; UUID and usage not exposed.",
+            "reasoning_effort": "low",
+            "speed": "standard",
+            "surface": "CODEX_NATIVE_SUBAGENT",
+            "stage": "select",
+            "role": "select"
+          },
+          {
+            "invocation_id": "/root/goal31_futures_sol_max",
+            "model": "gpt-6.1-sol",
+            "observation_source": "Actual native collaboration.spawn_agent /root/goal31_futures_sol_max with gpt-6.1-sol / max. Output file saved before quota error and independently read back by root; UUID/usage not exposed.",
+            "reasoning_effort": "max",
+            "speed": "standard",
+            "surface": "CODEX_NATIVE_SUBAGENT",
+            "stage": "write",
+            "role": "write"
+          }
+        ]
+      },
+      "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+      "public_write_performed": false
+    }
+  },
+  {
+    "run_id": "goal27-gas-refill-update",
+    "prepared": {
+      "classification": "NATIVE_PUBLICATION_PREPARED_NO_DISPATCH",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "run_id": "goal27-gas-refill-update",
+      "work_item_id": "goal27-gas-refill-update",
+      "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+      "review_id": "native-article-review-f99308c6f055447a960395bc7027745b",
+      "review_notes_sha256": "d3011106a08f621b2c74201b53b56b7f3af2122dc62a464548a190e24ec1ffe3",
+      "prepared_handoff_sha256": "e58b64c8fba1d3e81b407b7584322c562003784d90c4b100ce171c31e9862e76",
+      "plan_hash": "30357b280336667c89a5a74a2ba623949baf562d1ada2976d5c6d97d4b884c00",
+      "binding_sha256": "5bc9face30d8b2a6f38d4569c2e091b8d3b88ec3a098e0ddd85591b37b4e1b8e",
+      "accepted_evidence_sha256": "dc6ba3cfc7ec906bb61c667fe7c890c4e40cd5588430e19ba1819fa8f187f71e",
+      "native_result_sha256": "83384324c0ed40fa80ba43790fa172b70a3b8b9a3f60964c4c80777afb7eb24e",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "ec076bc4b3f889a44c5eb619192bc9de0370d34d9bb16282024ba51ca0fd7af5",
+        "qualified_article_record_v1.json": "497da1f2ad499334d7c9c35542ac0ae9648ee6ca67b4da8a35867a2fb5842cf1",
+        "native_derivative_previews_v1.json": "f408af250a07116c1704cc9876f2b5bdefe23226f0165acd9b80e66a1953b59f",
+        "publication_lifecycle_plan_v1.json": "df3dc8b5fc7af109e34051bff6687c0c0513760be5a8bc1a10460c8368bb1080",
+        "run_context_v1.json": "0c476b41d7d4104ce97e16ece57c0265c07419c9b6ed5e113bc5649182cb2dab"
+      },
+      "media_sha256": {
+        "official_source_document_card": "2c80cb7a64a494842e953f72e770035f17029ecbd8c521a0819c85c5cac7acc6"
+      },
+      "publication_authority": false,
+      "next_operation": "publication-status",
+      "public_write_performed": false
+    },
+    "status": {
+      "accepted_evidence_sha256": "dc6ba3cfc7ec906bb61c667fe7c890c4e40cd5588430e19ba1819fa8f187f71e",
+      "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+      "artifact_sha256": {
+        "article_manifest_v1.json": "ec076bc4b3f889a44c5eb619192bc9de0370d34d9bb16282024ba51ca0fd7af5",
+        "native_derivative_previews_v1.json": "f408af250a07116c1704cc9876f2b5bdefe23226f0165acd9b80e66a1953b59f",
+        "publication_lifecycle_plan_v1.json": "df3dc8b5fc7af109e34051bff6687c0c0513760be5a8bc1a10460c8368bb1080",
+        "qualified_article_record_v1.json": "497da1f2ad499334d7c9c35542ac0ae9648ee6ca67b4da8a35867a2fb5842cf1",
+        "run_context_v1.json": "0c476b41d7d4104ce97e16ece57c0265c07419c9b6ed5e113bc5649182cb2dab"
+      },
+      "binding_sha256": "5bc9face30d8b2a6f38d4569c2e091b8d3b88ec3a098e0ddd85591b37b4e1b8e",
+      "media_sha256": {
+        "official_source_document_card": "2c80cb7a64a494842e953f72e770035f17029ecbd8c521a0819c85c5cac7acc6"
+      },
+      "native_result_sha256": "83384324c0ed40fa80ba43790fa172b70a3b8b9a3f60964c4c80777afb7eb24e",
+      "plan_hash": "30357b280336667c89a5a74a2ba623949baf562d1ada2976d5c6d97d4b884c00",
+      "prepared_handoff_sha256": "e58b64c8fba1d3e81b407b7584322c562003784d90c4b100ce171c31e9862e76",
+      "publication_authority": false,
+      "review_id": "native-article-review-f99308c6f055447a960395bc7027745b",
+      "review_notes_sha256": "d3011106a08f621b2c74201b53b56b7f3af2122dc62a464548a190e24ec1ffe3",
+      "run_id": "goal27-gas-refill-update",
+      "schema_version": "contentops.native_publication_binding.v1",
+      "work_item_id": "goal27-gas-refill-update",
+      "state": "PREPARED",
+      "operation_scope": "OWNER_MANUAL_ISOLATED",
+      "destinations": [
+        {
+          "destination": "substack",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_f8a92ea93475083757ed0db305cfd93b",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "telegram",
+          "transport": "BOT_API",
+          "dispatch_id": "dispatch_76108784fdb866cb5bc32651fbbb2538",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "discord",
+          "transport": "WEBHOOK_API",
+          "dispatch_id": "dispatch_8f234e0c7d9e63462d85505d379a56df",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "x",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_0092a9dba22a8681fd27bc19c2e8f2f8",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "linkedin",
+          "transport": "OFFICIAL_MEMBER_API",
+          "dispatch_id": "dispatch_c22238578c804afa93e6ad8fd13e9872",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "facebook_page",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_71e705cc2fe48e7ebdf2d390d8a48e15",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "instagram_business",
+          "transport": "META_GRAPH_API",
+          "dispatch_id": "dispatch_60ec509d2de7fb79d3e89d05c31751d2",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "threads",
+          "transport": "THREADS_API",
+          "dispatch_id": "dispatch_47905028dbf60adeb890783e79cd2e05",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        },
+        {
+          "destination": "youtube",
+          "transport": "BROWSEROS_NEO_MCP",
+          "dispatch_id": "dispatch_3b429fedfbc380cbfe445b6f94882440",
+          "status": "NOT_DISPATCHED",
+          "reconciliation_status": null,
+          "public_object_url": null,
+          "cached_readiness": "NOT_VERIFIED",
+          "blocker": "CURRENT_EXTERNAL_IDENTITY_AND_READBACK_NOT_VERIFIED"
+        }
+      ],
+      "pending_requests": [],
+      "dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+      "next_operation": "publication-status",
+      "dispatch_continuation_operation": "publication-resume",
+      "next_command": "python scripts/run_native_desktop_editorial.py publication-status --binding \"C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal27-gas-refill-update\\binding.json\"",
+      "external_proof": "Only actual dispatch/readback records establish publication; cached readiness may be stale."
+    },
+    "manual_dispatch_blocker": "OWNER_MANUAL_PUBLICATION_NOT_AUTHORIZED",
+    "reopened": {
+      "classification": "COMPLETED_NATIVE_ARTICLE_REOPENED",
+      "article_identity": "6b3e4d226a50b81e0bb8852d803dde2ad785bcd879c2425a2d8718119b6b77b9",
+      "qualified_article_count": 1,
+      "new_model_invocations": 0,
+      "new_source_requests": 0,
+      "editorial_execution": {
+        "owner": "NATIVE_CODEX_DESKTOP",
+        "requested_model": "gpt-6.1-sol",
+        "requested_reasoning_effort": "low",
+        "role_assignments": {
+          "filter": {
+            "model": "gpt-6-luna",
+            "reasoning_effort": "max"
+          },
+          "select": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "low"
+          },
+          "write": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          },
+          "revise": {
+            "model": "gpt-6.1-sol",
+            "reasoning_effort": "max"
+          }
+        },
+        "observed_models": [
+          "gpt-6.1-sol"
+        ],
+        "observed_efforts": [
+          "low",
+          "max"
+        ],
+        "native_invocation_count_observed": 2,
+        "semantic_response_count": 2,
+        "maximum_repair_count": 1,
+        "external_provider_attempt_count": 0,
+        "usage_tokens": null,
+        "cost_usd": null,
+        "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+        "observations": [
+          {
+            "invocation_id": "/root/goal27_sol_light",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name; model=gpt-6.1-sol reasoning_effort=low explicitly requested",
+            "reasoning_effort": "low",
+            "source_spawn_metadata": {
+              "canonical_task_name": "/root/goal27_sol_light",
+              "fork_turns": "none",
+              "model": "gpt-6.1-sol",
+              "reasoning_effort": "low",
+              "task_name": "goal27_sol_light",
+              "uuid_exposed": false
+            },
+            "speed": "standard",
+            "surface": "CODEX_NATIVE_SUBAGENT",
+            "stage": "select",
+            "role": "select"
+          },
+          {
+            "invocation_id": "/root/goal27_sol_max_writer",
+            "model": "gpt-6.1-sol",
+            "observation_source": "collaboration.spawn_agent returned canonical task_name and requested settings; UUID not exposed",
+            "reasoning_effort": "max",
+            "speed": "standard",
+            "surface": "CODEX_NATIVE_SUBAGENT",
+            "stage": "write",
+            "role": "write"
+          }
+        ]
+      },
+      "publication_handoff_state": "EXISTING_REVIEW_NO_DISPATCH",
+      "public_write_performed": false
+    }
+  }
+]

@@ -1,0 +1,243 @@
+{
+  "admitted_candidate_count": 1,
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-25946d84473ced782f95cb27",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal29-sec-amf-supervision"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "SEC AMF October 20 2026 supervisory memorandum investment adviser registration pending applications",
+        "SEC AMF information sharing consultation supervision French asset management registration applications"
+      ],
+      "selection_rationale": "Thông cáo có ngày 20/10 là nguồn mới khác năng lượng, nêu thay đổi thủ tục cụ thể: xử lý đơn mới và đang chờ trong khuôn khổ hợp tác giám sát. Câu hỏi hữu ích là thông tin giữa cơ quan giám sát tháo gỡ bước nào và còn thiếu bằng chứng nào về kết quả, không phải chỉ nhắc tên MOU.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "codex_runtime_model_calls_before_writer": null,
+  "evidence_attempts": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-25946d84473ced782f95cb27",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal29-sec-amf-supervision"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "provenance": {
+        "read_only_http_get_only": true,
+        "request_count_for_call": 0,
+        "retained_research_revision": "6837eb0145b01656e3a9f594b8a7045784981efb782dd46347b52c155fa899e0",
+        "selected_route": "OFFICIAL_PRIMARY"
+      },
+      "request": {
+        "cluster_id": "simple-story-25946d84473ced782f95cb27",
+        "effective_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "evidence_enrichment_context": {
+          "requested": true
+        },
+        "headline_ids": [
+          "goal29-sec-amf-supervision"
+        ],
+        "remaining_admitted_candidate_count": 0,
+        "request_logical_hash": "63b0b58cf12532dc436c9a6343e1940ebb7a961ebdb1ce548d3e4d7d0a0246bc",
+        "requested_article_mode": "DATA_OR_DOCUMENT_LENS",
+        "required_evidence_capabilities": [
+          "credible_report_or_event_confirmation",
+          "basic_attributed_facts"
+        ],
+        "story_context": {
+          "candidate_packet_locators_grant_factual_authority": false,
+          "candidate_source_account": "www.sec.gov",
+          "candidate_source_timestamp_utc": "2026-10-20T00:00:00Z",
+          "candidate_source_url": "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service",
+          "evolving_story_context": [],
+          "grounded_research_queries": [
+            "SEC AMF October 20 2026 supervisory memorandum investment adviser registration pending applications",
+            "SEC AMF information sharing consultation supervision French asset management registration applications"
+          ],
+          "leaf_summaries": [
+            "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement."
+          ],
+          "locator_query_policy": "ORDERED_QUERY_PLAN_BOUNDED_BY_SHARED_RESOLVER_LEDGER",
+          "planned_research_query_count": 2,
+          "planned_research_query_set_sha256": "56a6f34f4dea3e278e86f5a544861c42a7477b6012d838bfc196dfc59d1157af",
+          "public_source_url_bindings": [
+            {
+              "headline_id": "goal29-sec-amf-supervision",
+              "source_timestamp_utc": "2026-10-20T00:00:00Z",
+              "url": "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service"
+            }
+          ],
+          "report_provenance": {
+            "arbitrary_x_list_membership_grants_authority": false,
+            "attributed_reputable_sources": [],
+            "canonical_x_list_provenance": {},
+            "event_proposition": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+            "explicit_market_rumor": false,
+            "explicit_reputable_attribution": false,
+            "owner_curated_canonical_x_record": false,
+            "preferred_route": "DEFAULT_SHORTEST_GOVERNED_ROUTE",
+            "primary_reporting_publisher": null,
+            "primary_reporting_source_identity": null,
+            "report_or_event_authority_granted": false,
+            "report_proposition": null,
+            "schema_version": "contentops.v1_simple_candidate_report_provenance.v1",
+            "source_account": "www.sec.gov",
+            "source_url": "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service",
+            "trusted_relay_identity_approved": false
+          }
+        },
+        "story_evidence_scope_id": "simple-story-25946d84473ced782f95cb27",
+        "story_type": "selected_current_news"
+      },
+      "research_queries": [
+        "SEC AMF October 20 2026 supervisory memorandum investment adviser registration pending applications",
+        "SEC AMF information sharing consultation supervision French asset management registration applications"
+      ],
+      "selection_rationale": "Thông cáo có ngày 20/10 là nguồn mới khác năng lượng, nêu thay đổi thủ tục cụ thể: xử lý đơn mới và đang chờ trong khuôn khổ hợp tác giám sát. Câu hỏi hữu ích là thông tin giữa cơ quan giám sát tháo gỡ bước nào và còn thiếu bằng chứng nào về kết quả, không phải chỉ nhắc tên MOU.",
+      "source_pack": [
+        {
+          "browser_rendered_acquisition": null,
+          "canonical_content_sha256": "7f3bcbded003c2978703064b94b5a4d763f5f22d17bdb96096bba4f329b17751",
+          "canonical_content_text": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement.",
+          "canonical_resolution_status": "",
+          "document_id": "goal29-sec-amf-supervision",
+          "published_at_source": "RETAINED_SOURCE_VISIBLE_DATE",
+          "published_at_utc": "2026-10-20T00:00:00Z",
+          "publisher": "www.sec.gov",
+          "report_truth_only": false,
+          "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+          "secondary_listing_only": false,
+          "source_authority_class": "official_public_primary_source",
+          "source_id": "SOURCE_1",
+          "source_identity": "www.sec.gov",
+          "url": "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service"
+        }
+      ],
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "model_calls_before_writer": 1,
+  "public_write_performed": false,
+  "request_count": 0,
+  "request_limit": 6,
+  "schema_version": "contentops.v1_simple_candidate_source_walk.v1",
+  "selected_candidate_id": "simple-story-25946d84473ced782f95cb27",
+  "selected_epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.sec.gov",
+    "primary_reporting_source_identity": "www.sec.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.sec.gov reports that the U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal29-sec-amf-supervision"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "selected_source_pack": [
+    {
+      "browser_rendered_acquisition": null,
+      "canonical_content_sha256": "7f3bcbded003c2978703064b94b5a4d763f5f22d17bdb96096bba4f329b17751",
+      "canonical_content_text": "The U.S. Securities and Exchange Commission (SEC) and the French Autorité des Marchés Financiers (AMF) announced that they have entered into a Memorandum of Understanding (MOU) designed to facilitate consultation and information-sharing in the supervision of certain investment advisers and investment companies regulated by the SEC and investment service providers supervised by the AMF. The MOU establishes a comprehensive framework for consultation, cooperation, and the exchange of information between the SEC and the AMF in connection with investment service providers, investment advisers, and investment companies that operate in the U.S. and in France and are overseen by either the SEC or the AMF. In particular, the MOU facilitates the SEC’s registration and supervision of AMF supervised asset management companies wishing to conduct business in the United States as investment advisers. The SEC will process new and pending registration applications by AMF supervised asset management companies in the light of this arrangement.",
+      "canonical_resolution_status": "",
+      "document_id": "goal29-sec-amf-supervision",
+      "published_at_source": "RETAINED_SOURCE_VISIBLE_DATE",
+      "published_at_utc": "2026-10-20T00:00:00Z",
+      "publisher": "www.sec.gov",
+      "report_truth_only": false,
+      "retrieval_method": "RETAINED_OFFICIAL_PERMITTED_TEXT_SPANS",
+      "secondary_listing_only": false,
+      "source_authority_class": "official_public_primary_source",
+      "source_id": "SOURCE_1",
+      "source_identity": "www.sec.gov",
+      "url": "https://www.sec.gov/newsroom/press-releases/2026-108-sec-amf-announce-supervisory-mou-enhance-cooperation-investment-advisers-investment-service"
+    }
+  ],
+  "status": "PASS",
+  "updated_source_route_health": {}
+}

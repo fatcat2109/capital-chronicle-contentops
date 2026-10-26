@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "url": "https://www.kitco.com/news/off-the-wire/2026-10-21/dollar-holds-steady-middle-east-tensions-simmer-oil-rises",
+  "title": "Dollar holds steady as Middle East tensions simmer, oil rises",
+  "reporting_publisher": "Reuters",
+  "attribution_text": "Reuters",
+  "observed_at_utc": "2026-10-21T22:27:23.024Z",
+  "full_text_sha256": "c854b2ea26c75133340d59d7fa5e5c1c25aab4d67a9661dad54b907a2f3323b6",
+  "full_text_characters": 5182,
+  "excerpts": [
+    {
+      "text": "Oct 21 (Reuters) - The dollar held steady against most major currencies on Wednesday as investors weighed developments ​in the Middle East conflict, which has revived demand for the US currency as a safe haven amid concerns about oil-driven ‌inflation.",
+      "start": 19,
+      "end": 271
+    },
+    {
+      "text": "The euro slipped 0.1% to $1.122 and is now down almost 1% this month. Traders remained cautious on the single currency as France grapples with widespread anti-government protests and a worsening fiscal outlook that has pushed its 10-year borrowing costs to 24-year highs.",
+      "start": 273,
+      "end": 544
+    },
+    {
+      "text": "Sterling inched 0.1% up to $1.338. Data showed UK inflation rose more than expected last month, strengthening the case for a Bank of England ​rate increase in November and adding pressure on the government to support households in next week's budget.",
+      "start": 1127,
+      "end": 1377
+    },
+    {
+      "text": "The dollar index , which measures ​the US currency against six peers, was little changed at 101.7 after declining almost 0.3% on Tuesday and touching 101.50, its lowest since October 1.",
+      "start": 1787,
+      "end": 1972
+    }
+  ],
+  "retrieval_method": "READ_ONLY_BROWSEROS_NEO_BOUNDED_EXTRACTS",
+  "credential_or_session_material_read": false,
+  "public_write_performed": false,
+  "capture_scope": "EXACT_SELECTED_FACTUAL_PASSAGES_NOT_FULL_ARTICLE",
+  "publication_visible_clock": {
+    "datetime": null,
+    "text": "Oct 21, 2026 - 8:18 PM"
+  },
+  "publisher_machine_clock_metadata": [
+    {
+      "content": "2026-10-21T09:18:01-04:00",
+      "property": "article:published_time"
+    },
+    {
+      "content": "2026-10-21T09:20:29-04:00",
+      "property": "article:modified_time"
+    }
+  ],
+  "origin": "Reuters syndication; not independent confirmation",
+  "publication_clock_basis": "PUBLISHER_TIMESTAMP_METADATA",
+  "clock_limit": "Reuters time element may represent update rather than original publication; visible original minute retained separately. No future outcome is inferred."
+}

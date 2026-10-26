@@ -1,0 +1,101 @@
+{
+  "schema_version": "contentops.retained_source_research.v1",
+  "records": [
+    {
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.sec.gov/about/privacy-information",
+      "policy_capture_sha256": "89b35274e99b427caca9a0355cd34069d25a6488159fb190c455c340c7389280",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:26.010Z",
+      "headline_id": "goal31-sec-machine-data",
+      "headline_text": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. “In the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public’s use of machine-understandable data and SI along with associated risks and costs,” said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. “Feedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.”",
+      "capture_path": "sec-machine-data-capture.json",
+      "source_capture_sha256": "88792be86f22f262fd0c5e0ccb1269f1f7ba989aec87d6302ef19f3517893b10",
+      "loader_result_path": "sec-machine-data-admission.json",
+      "policy_capture_path": "policy-neo-page-67-revision2-rendered.json",
+      "revision_at_utc": "2026-10-21T11:14:06.426000Z",
+      "proposition_span": [
+        1023,
+        1776
+      ],
+      "context_spans": [],
+      "candidate_catalyst_tags": [
+        "company_sec"
+      ],
+      "research_metadata": {
+        "family": "COMPANY_SEC",
+        "assets": [
+          "PUBLIC_COMPANY_DISCLOSURE",
+          "FINANCIAL_DATA"
+        ],
+        "context_kind": "DATED_EVENT_ANNOUNCEMENT_NOT_RULE_OR_MEASURED_OUTCOME",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "source_modified_at_utc": "2026-10-19T00:00:00Z",
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "What must a reader still verify when a machine can ingest company disclosures?",
+        "authorship_scope": "SEC_AUTHORED_NARRATIVE_AND_ATTRIBUTED_SEC_OFFICIAL_STATEMENT_NO_THIRD_PARTY",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": "2026-10-19",
+        "release_date": "2026-10-19"
+      }
+    },
+    {
+      "capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_capture_class": "READ_ONLY_BROWSEROS_NEO_RENDERED_PAGE",
+      "policy_url": "https://www.cftc.gov/WebPolicy/index.htm",
+      "policy_capture_sha256": "b614f6d1d79d38ce54b3e3d0f94b394ec9b58093a165047d36ad17d0155fea35",
+      "policy_retrieved_at_utc": "2026-10-19T09:15:58.668Z",
+      "headline_id": "goal31-futures-economic-purpose",
+      "headline_text": "Futures markets allow commodities producers and consumers to engage in “hedging” in order to limit the risk of losing money as commodity prices change - For example, a Kansas wheat farmer who plants a crop runs the risk of losing money if the price of wheat falls before harvest and sale - The farmer can minimize this risk by selling wheat futures contracts, which guarantee that the farmer will receive a predetermined price - Hedging helps the economy function by allowing commodities producers (such as farmers) and consumers (such as millers) to conduct their businesses with greater certainty over how much they can expect to earn from and pay for commodities",
+      "capture_path": "cftc-economic-purpose-capture.json",
+      "source_capture_sha256": "4c97b22a32d718a1b02c2a08502d5570a7ed57282a5f5c3bc62d01514156fb2d",
+      "loader_result_path": "cftc-economic-purpose-admission.json",
+      "policy_capture_path": "cftc-policy-retained.json",
+      "revision_at_utc": "2026-10-21T11:42:01.992100Z",
+      "proposition_span": [
+        1920,
+        2586
+      ],
+      "context_spans": [
+        [
+          2804,
+          3442
+        ],
+        [
+          3725,
+          4968
+        ],
+        [
+          5177,
+          6304
+        ]
+      ],
+      "candidate_catalyst_tags": [
+        "index_options"
+      ],
+      "research_metadata": {
+        "family": "INDEX_OPTIONS",
+        "assets": [
+          "COMMODITY_FUTURES",
+          "BUSINESS_HEDGE"
+        ],
+        "context_kind": "UNDATED_FOUNDATION_BACKGROUND_NOT_CURRENT_CONTRACT_SPECIFICATION",
+        "horizons": [
+          "short",
+          "swing",
+          "long"
+        ],
+        "horizon_semantics": "EDITORIAL_QUESTIONS_NOT_MAIN_FORECASTS",
+        "next_editorial_question": "Why can a business hedge reduce price exposure yet require variation-margin cash?",
+        "authorship_scope": "CFTC_AUTHORED_EDUCATIONAL_PROSE_NO_LOGO_NO_CURRENT_CONTRACT_TERMS",
+        "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+        "observation_date": null,
+        "release_date": null
+      }
+    }
+  ]
+}

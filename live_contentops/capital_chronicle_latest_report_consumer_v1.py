@@ -155,10 +155,12 @@ def _hash(value: Any) -> bool:
 
 
 def _time(value: Any) -> datetime:
-    if not isinstance(value, str) or not value.endswith("Z"):
+    # Main emits both RFC3339 UTC spellings. Compare instants without changing
+    # the producer's hash-bound bytes; non-UTC offsets and naive clocks fail.
+    if not isinstance(value, str) or not value.endswith(("Z", "+00:00")):
         raise LatestReportConsumerError("UTC_TIME_REQUIRED")
     try:
-        result = datetime.fromisoformat(value[:-1] + "+00:00")
+        result = datetime.fromisoformat(value.replace("Z", "+00:00"))
     except ValueError as exc:
         raise LatestReportConsumerError("UTC_TIME_INVALID") from exc
     return result
@@ -466,6 +468,7 @@ def validate_latest_report_bytes(
     reports: dict[str, dict[str, Any]] = {}
     report_raw_hashes = []
     public_row = None
+    native_public_lineage = None
     if public_export_bytes is not None:
         public = _load(public_export_bytes, max_bytes=8 * 1024 * 1024)
         if (_private(public) or public.get("schema") != "CapitalChronicleOperationalReportServingProjectionV1"
@@ -480,6 +483,11 @@ def validate_latest_report_bytes(
             errors.append("PUBLIC_REPORT_PROJECTION_INVALID")
         else:
             public_row = public["latest_reports"][0]
+            from live_contentops.capital_chronicle_public_native_lineage_v1 import interpret_public_native_lineage
+            try:
+                native_public_lineage = interpret_public_native_lineage(public_row, envelope)
+            except (ValueError, KeyError, TypeError, AttributeError):
+                errors.append("PUBLIC_NATIVE_LINEAGE_BINDING_INVALID")
             for field, value in (("report_id", envelope.get("report_id")), ("report_version", envelope.get("report_version")),
                                  ("report_sha256", envelope.get("report_sha256")), ("asset_id", (envelope.get("asset_ids") or [None])[0]),
                                  ("public_safe_claims", envelope.get("public_safe_claims")), ("change_kind", envelope.get("change_kind")),
@@ -776,6 +784,12 @@ def validate_latest_report_bytes(
         )
     for cid in required - seen:
         errors.append(f"{cid}:REQUIRED_CLAIM_ABSENT")
+    from live_contentops.capital_chronicle_public_research_semantics_v1 import public_descriptors
+    try:
+        research_descriptors = public_descriptors(public_row or {}, envelope)
+    except (ValueError, TypeError, KeyError):
+        research_descriptors = {}
+        errors.append("PUBLIC_RESEARCH_DESCRIPTOR_INVALID")
     missing.extend(optional - seen)
     explicit_ancestor = (allow_lineage_only and public_export_bytes is not None
                          and binding.get("public_lineage_only") is True)
@@ -804,6 +818,8 @@ def validate_latest_report_bytes(
         and (report_schema_bytes is not None or public_export_bytes is not None)
         and not any("SCHEMA" in error for error in errors),
         "producer_binding": deepcopy(dict(producer_binding or {})),
+        "native_public_lineage": native_public_lineage,
+        "public_research_descriptors": research_descriptors,
         "contract_revision": envelope.get("contract_revision"),
         "contract_version": envelope.get("version"),
         "raw_sha256": hashlib.sha256(raw_bytes).hexdigest(),
@@ -1214,7 +1230,7 @@ def build_report_editorial_input(
         request_id="cc-report-" + admission["envelope_sha256"],
         idempotency_key=admission["envelope_sha256"],
         trigger_kind="SCHEDULED_LATEST_INTELLIGENCE",
-        requester="SIMPLE_GEMINI_RUNTIME",
+        requester="NATIVE_CODEX_DESKTOP",
         target_assets=admission["asset_ids"],
         decision_purpose="Explain the admitted report change, its evidence and limits.",
         requested_at_utc=cutoff_utc,
@@ -1260,6 +1276,7 @@ def build_report_editorial_input(
     )
     sections = []
     for claim in claims:
+        from live_contentops.capital_chronicle_public_research_semantics_v1 import claim_semantics
         sections.append(
             {
                 "section_id": "claim:" + claim["claim_id"],
@@ -1268,6 +1285,7 @@ def build_report_editorial_input(
                 "source_report_ids": claim["source_report_ids"],
                 "claim_id": claim["claim_id"],
                 "claim_hash": claim["claim_hash"],
+                "research_semantics": claim_semantics(admission, claim),
                 "evidence_ids": [row["evidence_id"] for row in claim["evidence"]],
                 "layer": claim["layer"],
                 "source_text": claim["text"],
@@ -1300,6 +1318,7 @@ def build_report_editorial_input(
         "what_to_watch": admission["hold_and_invalidation_conditions"],
         "limitations": admission["limitations"],
         "report_truth": "HASH_BOUND_MAIN_REPORT",
+        "native_public_lineage": deepcopy(admission.get("native_public_lineage")),
         "underlying_event_truth": "NOT_UPGRADED_BY_REPORT_IMPORT",
         "private_context_included": False,
         "publication_authority": False,
@@ -1415,7 +1434,7 @@ def resolve_report_research_gaps(
         request_id=request_id,
         idempotency_key=request_id,
         trigger_kind="SCHEDULED_LATEST_INTELLIGENCE",
-        requester="SIMPLE_GEMINI_RUNTIME",
+        requester="NATIVE_CODEX_DESKTOP",
         decision_purpose="Resolve named report evidence gaps without editing Main truth.",
         requested_at_utc=cutoff_utc,
     )

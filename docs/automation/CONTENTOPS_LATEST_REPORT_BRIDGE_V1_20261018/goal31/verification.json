@@ -1,0 +1,34 @@
+{
+  "backend_suite": {
+    "passed": 51,
+    "log": "verification_backend.txt"
+  },
+  "resume_regression": {
+    "passed": 11,
+    "overlaps_backend": 10,
+    "log": "verification_resume.txt"
+  },
+  "compiler": {
+    "passed": 40,
+    "log": "verification_compiler_final.txt"
+  },
+  "reciprocal": {
+    "passed": 8,
+    "log": "verification_reciprocal_final.txt"
+  },
+  "unique_backend_controls": 100,
+  "ui": {
+    "passed": 8,
+    "log": "verification_ui.txt"
+  },
+  "frontend_build": "PASS",
+  "ruff_focused": "PASS",
+  "prior_goal30_exact_ci": "39587761926 SUCCESS 2/2 at 269f25dafeb80459661a0c8f6e8abcdcc9b2d5dc",
+  "new_goal31_exact_ci": "PENDING_FINAL_REMOTE_HEAD",
+  "reused_goal30_controls": "No target/measure/probability implementation changed. Exact source descriptors remain absent/unknown; no estimates or targets invented.",
+  "failed_attempt_logs_preserved": [
+    "verification_compiler.txt",
+    "verification_reciprocal.txt"
+  ],
+  "public_writes": 0
+}

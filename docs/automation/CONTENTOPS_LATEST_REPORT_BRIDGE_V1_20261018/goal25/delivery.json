@@ -1,0 +1,55 @@
+{
+  "source_release_head": "e7e088363e1d1b491eec54d41ae86f3116bc17d1",
+  "remote_branch": "codex/goal21-multi-asset-research-library",
+  "remote_exact_bytes": [
+    {
+      "path": "live_contentops/native_desktop_editorial_v1.py",
+      "sha256": "c974bebe57da606b9a0c7c436a4a2f9646dce3f50b14b4308beea801fc38f342",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "live_contentops/native_headline_filter_v1.py",
+      "sha256": "5c2ea2bfd1bc732c285ebf6aa4db0f3edb4371de563147feeb0f71a51a6c034d",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "live_contentops/native_neo_executor_v1.py",
+      "sha256": "50baff5440bbb3ed13c56d30da35f676e93770eabbc141dab5e40a4059dde591",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "scripts/run_native_neo_executor.py",
+      "sha256": "c7484ea7417f0e5979dd48fb79e22d5b0494b71bf6923329b052091136cfd068",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "config/native_desktop_rollout_v1.json",
+      "sha256": "7f19394a14cab7a9be28fcf76ddf8b8fc9e64774d99c2e270c524c9afbf94916",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal25/artifacts/article_manifest_v1.json",
+      "sha256": "21c4748d8d8b885ab37e9e158d9088d9caf79473c456d4e28fc6bf50be3d544f",
+      "matches_committed_bytes": true
+    },
+    {
+      "path": "docs/automation/CONTENTOPS_LATEST_REPORT_BRIDGE_V1_20261018/goal25/visual/native-mobile.jpeg",
+      "sha256": "610aa958a5735ce036cedae6fc95a03aa89d37c1f5fde221e002cab1abb0f70c",
+      "matches_committed_bytes": true
+    }
+  ],
+  "pr": 90,
+  "state": "OPEN_DRAFT_NOT_MERGED",
+  "ci_run_id": 39433638762,
+  "ci_state": "SUCCESS",
+  "final_head_readback": "Verified after this docs-only receipt commit through gh pr/run and ls-remote; final outcome is recorded in PR description and final chat response.",
+  "activation": false,
+  "deployment": false,
+  "public_writes": 0,
+  "control_tower_sync": "PENDING_OWNER_RECEIVER",
+  "ci_url": "https://github.com/fatcat2109/capital-chronicle-contentops/actions/runs/39433638762",
+  "ci_jobs": {
+    "branch-codegraph-refresh": "SUCCESS",
+    "deterministic-validation": "SUCCESS"
+  }
+}

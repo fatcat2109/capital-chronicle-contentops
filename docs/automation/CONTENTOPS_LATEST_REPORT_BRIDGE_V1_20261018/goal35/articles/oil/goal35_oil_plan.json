@@ -1,0 +1,37 @@
+{
+  "run_id": "goal35-oil",
+  "request_sha256": "c571fc6b406be522293a2d9b751894616e155416f4139a6d9e5e80672d82a473",
+  "role": "Sol Light selection and data planning",
+  "candidate_count_reviewed": 29,
+  "selected_candidate": {
+    "angle": "The October 21 oil close tells a narrower story than the intraday rally: reported competing forces left Brent nearly flat while WTI fell. Explain what the reversal permits readers to conclude and what it cannot establish.",
+    "article_mode": "STANDARD_NEWS_ANALYSIS",
+    "candidate_id": "simple-story-3c160cea87fca66d7c13eb55",
+    "evidence_plan": "Use only the sealed goal35-oil retained Reuters passages relayed by Yahoo; preserve original Reuters identity, Yahoo syndication, publication 2026-10-21T19:17:12Z and known-at 2026-10-21T22:27:23.049Z. Attribute every settlement, intraday and geopolitical statement to Reuters. Bind Brent settlement +3 cents/+0.03% at $108.82 and WTI close -67 cents/-0.7% at $97.15 separately; both had earlier gained more than $2. Code owns numeric extraction and arithmetic; no new spread or percentage calculation. Reuters describes possible Russia-Ukraine talks, declining US stocks and lack of US-Iran dialogue as competing considerations; retain possible and reported framing, never independently confirm those events or assign causal weights. Do not splice the older retained EIA 8.6-million-barrel draw into this session. No new retrieval, requests, APIs, quotes, photos, broker prices or proprietary Main claims. Missing: exact intraday timestamps and contracts, matched curve/volume data, inventory vintage and expectations, independently verified diplomacy/supply developments. These limit causality, persistence and forecasts, not this narrow attributed session analysis.",
+    "primary_reader_question": "If oil rallied more than $2 during the session but Brent ended nearly flat and WTI lower, what does the closing snapshot actually tell us about the competing pressures on oil?",
+    "research_queries": [
+      "Reuters October 21 2026 oil settlement Brent WTI intraday gains competing pressures"
+    ],
+    "selection_rationale": "A fresh current-session price-path question is distinct from the retained EIA inventory interpretation, gas seasonal refill, hedging and custody explainers. It gives readers practical protection against mistaking an intraday rally for the closing result. Other current Reuters reports are independent company or FX operations; they are not fallbacks for this oil-scoped operation. The single reporting origin supports attributed session facts only, with event truth UNCONFIRMED."
+  },
+  "comparison": "Six current Reuters candidates: oil selected for this operation; FX, IBM, Southwest, Tesla and Meta reserved for their distinct questions. The other 23 are historical official/public Main context or retained research: gas inventory/seasonality, petroleum inventory, SEC/AMF supervision, SEC machine data and filing reading, Fed/FX conventions, crypto custody, cross trading, metals custody/leverage, Southwest hedge clocks and futures economic purpose. They supply no fresh independent confirmation or current oil price delta. Public Main oil/gas projections retain old observation periods; recirculation does not update those periods. Published-memory summary covers seven identities and was deterministically filtered; the full published corpus is not in this packet, so no exhaustive independent published-history audit is claimed.",
+  "mechanism": "Qualitative interpretation: a session can register earlier strength and a modest or negative close as considerations compete. The retained report describes these considerations; the price path alone does not identify their individual effects.",
+  "countercase": "A nearly flat Brent settlement could coexist with substantial uncertainty, earlier volatility and a different WTI result; it does not show the supply concern disappeared or that diplomacy caused the retracement.",
+  "watch_conditions": [
+    "A later independently retained development that changes actual supply availability or diplomatic expectations could alter the balance.",
+    "A subsequent dated inventory release with its own expectations and matched prices could test the stockpile explanation.",
+    "Matched contract/time/curve evidence would be needed to test benchmark divergence or persistence. These are conditional missing inputs, not newly scheduled retrievals."
+  ],
+  "writer_outline": [
+    "Lead with the attributed close versus earlier gains.",
+    "Keep Brent and WTI outcomes distinct; define settlement as the closing reference, not the earlier high.",
+    "Explain the competing considerations only as Reuters reported them.",
+    "Give the countercase and explain why these observations cannot identify the winning cause.",
+    "End with concrete conditional evidence that could change the reading."
+  ],
+  "event_truth": "UNCONFIRMED_SINGLE_REUTERS_ORIGIN",
+  "rights": "Facts-only fresh prose; no quotations, source expression, photos or media reuse",
+  "new_source_requests": 0,
+  "public_write_attempted": false,
+  "runtime_submission_performed": false
+}

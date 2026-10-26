@@ -1,0 +1,114 @@
+{
+  "manual": {
+    "learning_policy_versions": {
+      "prior": 0,
+      "current": 0,
+      "added": 0,
+      "changed": []
+    },
+    "outbox_messages": {
+      "prior": 439,
+      "current": 527,
+      "added": 88,
+      "changed": []
+    },
+    "performance_observations": {
+      "prior": 0,
+      "current": 0,
+      "added": 0,
+      "changed": []
+    },
+    "platform_dispatches": {
+      "prior": 0,
+      "current": 0,
+      "added": 0,
+      "changed": []
+    },
+    "readbacks": {
+      "prior": 0,
+      "current": 0,
+      "added": 0,
+      "changed": []
+    },
+    "reconciliations": {
+      "prior": 0,
+      "current": 0,
+      "added": 0,
+      "changed": []
+    },
+    "review_records": {
+      "prior": 41,
+      "current": 46,
+      "added": 5,
+      "changed": []
+    }
+  },
+  "canonical": {
+    "learning_policy_versions": {
+      "prior": 35,
+      "current": 35,
+      "added": 0,
+      "changed": []
+    },
+    "outbox_messages": {
+      "prior": 91,
+      "current": 91,
+      "added": 0,
+      "changed": []
+    },
+    "performance_observations": {
+      "prior": 205,
+      "current": 205,
+      "added": 0,
+      "changed": []
+    },
+    "platform_dispatches": {
+      "prior": 58,
+      "current": 58,
+      "added": 0,
+      "changed": []
+    },
+    "readbacks": {
+      "prior": 85,
+      "current": 85,
+      "added": 0,
+      "changed": []
+    },
+    "reconciliations": {
+      "prior": 58,
+      "current": 58,
+      "added": 0,
+      "changed": []
+    },
+    "review_records": {
+      "prior": 0,
+      "current": 0,
+      "added": 0,
+      "changed": []
+    }
+  },
+  "prior_files": {
+    "count": 523,
+    "changed": []
+  },
+  "host": {
+    "C:\\Users\\bullw\\.codex\\automations\\v1-newsroom-london-1700\\automation.toml": {
+      "unchanged": true,
+      "status": "PAUSED"
+    },
+    "C:\\Users\\bullw\\.codex\\automations\\v1-newsroom-new-york-0100\\automation.toml": {
+      "unchanged": true,
+      "status": "PAUSED"
+    },
+    "C:\\Users\\bullw\\.codex\\automations\\v1-newsroom-new-york-2100\\automation.toml": {
+      "unchanged": true,
+      "status": "PAUSED"
+    },
+    "C:\\Users\\bullw\\.codex\\automations\\v1-newsroom-new-york-2300\\automation.toml": {
+      "unchanged": true,
+      "status": "PAUSED"
+    }
+  },
+  "pause_unchanged": true,
+  "public_write_performed": false
+}

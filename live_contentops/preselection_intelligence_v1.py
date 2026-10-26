@@ -487,11 +487,26 @@ def _simple_candidate_route_observations(
     )
 
 
+def bounded_learning_preference(feature_values, preferences):
+    """Existing +2 per match / +6 cap, shared by native and cluster preselection."""
+    matches = []
+    for preference in list(preferences or [])[:3]:
+        feature = str(preference.get("feature") or "")
+        preferred = str(preference.get("preferred_value") or "").casefold()
+        candidate = feature_values.get(feature)
+        matched = bool(preferred) and (preferred in {str(v).casefold() for v in candidate} if isinstance(candidate,list) else str(candidate or "").casefold() == preferred)
+        if matched:
+            matches.append({"feature":feature,"preferred_value":preference.get("preferred_value"),
+                "support_count":preference.get("support_count")})
+    return min(6.0,2.0*len(matches)), matches
+
+
 def rank_simple_headline_candidate_universe(
     candidates: Sequence[Mapping[str, Any]],
     *,
     max_candidates: int,
     source_route_health: Mapping[str, Any] | None = None,
+    learning_policy: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Reorder Simple's full deduped universe before its bounded selector packet.
 
@@ -572,6 +587,14 @@ def rank_simple_headline_candidate_universe(
             "sourceability_changes_work_order_only": True,
             "candidate_eligibility_changed": False,
         }
+        bonus, matches = bounded_learning_preference({
+            "article_mode":row.get("resolved_article_mode",row.get("article_mode")),
+            "topic_family":row.get("entities_topics",row.get("topic_families",[])),
+            "story_type":row.get("story_type"),"update_mode":row.get("update_mode")},
+            ((learning_policy or {}).get("content") or {}).get("recommendations",[]))
+        if learning_policy:
+            profile.update(learning_priority_bonus=bonus,learning_preference_matches=matches,
+                learning_policy_version=learning_policy.get("policy_version"),learning_priority_bonus_cap=6.0)
         profiled.append({**row, "sourceability_work_order": profile})
 
     ranked = sorted(
@@ -582,7 +605,7 @@ def rank_simple_headline_candidate_universe(
                     "effective_work_order_freshness_band_index"
                 ]
             ),
-            -float(row["sourceability_work_order"]["score"]),
+            -(float(row["sourceability_work_order"]["score"]) + row["sourceability_work_order"].get("learning_priority_bonus",0.0)),
             int(
                 row["sourceability_work_order"][
                     "observed_repeated_access_failure"
@@ -1013,32 +1036,11 @@ def apply_preselection_intelligence(
             - 24.0 * effective_concentration
             + 28.0 * float(reachability["score"])
         )
-        learning_bonus = 0.0
-        learning_matches: list[dict[str, Any]] = []
-        feature_values = {
-            "article_mode": resolved_mode,
-            "update_mode": decision,
+        learning_bonus, learning_matches = bounded_learning_preference({
+            "article_mode": resolved_mode, "update_mode": decision,
             "topic_family": [str(value) for value in (cluster.get("entities_topics") or [])],
             "story_type": str(cluster.get("story_type") or ""),
-        }
-        for preference in content_preferences:
-            feature = str(preference.get("feature") or "")
-            preferred = str(preference.get("preferred_value") or "").casefold()
-            candidate_value = feature_values.get(feature)
-            if isinstance(candidate_value, list):
-                matched = preferred in {
-                    str(value).casefold() for value in candidate_value
-                }
-            else:
-                matched = bool(preferred and str(candidate_value or "").casefold() == preferred)
-            if matched:
-                learning_bonus += 2.0
-                learning_matches.append({
-                    "feature": feature,
-                    "preferred_value": preference.get("preferred_value"),
-                    "support_count": preference.get("support_count"),
-                })
-        learning_bonus = min(6.0, learning_bonus)
+        }, content_preferences)
         score += learning_bonus
         cluster_headline_ids = {
             str(value) for value in (cluster.get("headline_ids") or []) if str(value)

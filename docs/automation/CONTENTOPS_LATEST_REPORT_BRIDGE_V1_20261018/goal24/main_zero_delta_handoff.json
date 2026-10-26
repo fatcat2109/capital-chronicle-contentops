@@ -1,0 +1,42 @@
+{
+  "schema_version": "contentops.main_context_delta_handoff.v1",
+  "observed_at_utc": "2026-10-19T20:26:31.781263+00:00",
+  "relative_to": "../goal23/main_research_handoff/handoff_manifest.json",
+  "new_rows": 0,
+  "new_independent_source_propositions": 0,
+  "new_public_main_events": 0,
+  "new_company_public_events": 0,
+  "baseline_files_byte_unchanged": {
+    "changed_headlines.jsonl": {
+      "sha256": "002867dee745733df26f42a405ee9b216b593eb4179d9ddbc7be89bd498d89fc",
+      "bytes": 2332
+    },
+    "existing_outbox_opportunity_page.json": {
+      "sha256": "076d60d7c17a416f3ca4fa6701cf236c4f7ec4e24bf08de0ba89e36eae2248b2",
+      "bytes": 129317
+    },
+    "handoff_manifest.json": {
+      "sha256": "919056595a59df6a9ee462b421beb98baf7dbb958ca160c3c5d8ed2deb95b7b3",
+      "bytes": 1737
+    },
+    "README.md": {
+      "sha256": "5fbec6f6756e5b65ec86847fa1efd09bedc974aad8300fb8a7aa20ad0da64fbb",
+      "bytes": 986
+    },
+    "undated_dispositions.json": {
+      "sha256": "b74768f919357fac2ed3879ad7c784e4e119cc3e465fa1f39a74c8b53bc1c5fe",
+      "bytes": 2895
+    },
+    "zero_delta_headlines.jsonl": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "main_public_manifest_sha256": "36543a9f2557f362889afce2879ea1b7e484b74ba9cf90572cf02b8607efce68",
+  "public_pointer_bytes_sha256": "553f08973e13b4bc433a930774ae23b0cb8f9842f63bec0c5f07c999e12fb0c0",
+  "reason": "Goal24 reuses retained Main report and research/media; authored article is never new independent evidence.",
+  "receiver_readback": "PENDING_MAIN_OWNER_UNCHANGED",
+  "control_tower_sync": "PENDING_OWNING_OPERATOR; discoverable checkpoint RELEASE_HANDOFF.md",
+  "main_database_writes": 0,
+  "messages_sent": 0
+}

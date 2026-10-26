@@ -1,0 +1,86 @@
+{
+  "accepted_evidence_ids": [
+    "goal35-oil"
+  ],
+  "accepted_evidence_sha256": "22d40c90181dcb38e32a202f1b7041697cf566ecc8e17109243430a168b255ed",
+  "article": {
+    "editorial_scope_notice": "Source date: 2026-10-21. Interpretation remains analysis.",
+    "effective_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "native_brief_layout": true,
+    "social_cross_asset_summary": "If later comparable closes regain the earlier strength alongside independently verified diplomatic or inventory developments, the October 21 retreat would say less about the persistence of those pressures. If rallies keep fading, the mechanism would still need a matched timeline. Which verified development, if any, lines up with the next comparable closing move?",
+    "social_hook": "Reuters reports oil's early rally faded by the October 21 close. If accurate, the closing result challenges a sustained-rally reading while leaving the cause unresolved.",
+    "social_mechanism_summary": "If Reuters' account is accurate, the mechanism to test is a shift in the balance between those competing considerations during the session. An earlier rise can coexist with a weaker close. Capital Chronicle's reading is that the closing prices constrain a sustained-rally narrative; they cannot establish that diplomacy or inventories caused the reversal.",
+    "social_policy_summary": "The serious countercase is that a faded rally does not mean the concerns cited by Reuters vanished. If Reuters' account is accurate, opposing considerations could have offset one another at the close while remaining unresolved. A nearly flat Brent settlement and a lower WTI close would then describe the balance at that moment, rather than a durable change in the oil outlook.",
+    "substack_body_markdown": "How much of the oil rally survived the close? Reuters reports Brent almost unchanged and WTI lower on October 21, after both had climbed more than $2 earlier in the session. SINGLE-SOURCE REPORT - REUTERS; the underlying events remain unconfirmed. \n\nAccording to Reuters, Brent settled at $108.82 a barrel, up 3 cents, or 0.03%. Reuters puts the WTI close at $97.15, down 67 cents, or 0.7%. \n\nReuters identifies several competing considerations: the possibility of headway on Russia-Ukraine negotiations, a decline in US oil inventories, and its reported absence of US-Iran dialogue. This framing leaves open which consideration mattered at which point in the session. \n\nIf Reuters' account is accurate, the mechanism to test is a shift in the balance between those competing considerations during the session. An earlier rise can coexist with a weaker close. Capital Chronicle's reading is that the closing prices constrain a sustained-rally narrative; they cannot establish that diplomacy or inventories caused the reversal. \n\nThe serious countercase is that a faded rally does not mean the concerns cited by Reuters vanished. If Reuters' account is accurate, opposing considerations could have offset one another at the close while remaining unresolved. A nearly flat Brent settlement and a lower WTI close would then describe the balance at that moment, rather than a durable change in the oil outlook. \n\nIf later comparable closes regain the earlier strength alongside independently verified diplomatic or inventory developments, the October 21 retreat would say less about the persistence of those pressures. If rallies keep fading, the mechanism would still need a matched timeline. Which verified development, if any, lines up with the next comparable closing move? \n\nSource notes\n\nReuters published this report on October 21, 2026, at 19:17:12 UTC; Yahoo Finance carries the syndicated report. The retained copy was available to this analysis at 22:27:23.049 UTC on October 21. This is the retained October 21 snapshot. Causal interpretation would require exact contract and intraday timing, the inventory release and expectations, comparable curve and volume data, and independent checks of the diplomatic reporting. ",
+    "subtitle": "SINGLE-SOURCE REPORT - REUTERS: Brent finished nearly flat and WTI lower on October 21 after an earlier rally; Reuters cites geopolitics and lower US stockpiles.",
+    "title": "SINGLE-SOURCE REPORT - REUTERS | Reuters reports oil's early rally faded by the October 21 close [Source 2026-10-21]"
+  },
+  "article_content_sha256": "bc58cb4c334b923d9e350055d162d4a0d4394383b6dc085c4151ac58008439b6",
+  "article_identity": "dc676e03091e454b6c79037bee64f4b6c0a6a61b24c689f277202e215c1a7fd1",
+  "audience_learning_binding": {
+    "policy_version": "policy_1fa4c4d0f5d3a0b74cee197e",
+    "preference_only": true,
+    "snapshot_sha256": "0b086f47416aac503c665ce717f9fff0db79e371ab79e49435f8d5f61242a4df"
+  },
+  "compiler_input_sha256": "128988c122961153a927b2cc65e30666b87284e5153b45f4434bfa7d619567ad",
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that oil prices steady as investors weigh geopolitics, lower US stockpiles",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-oil"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "media": {
+    "assets": [],
+    "delivery_only_assets": []
+  },
+  "public_write_performed": false,
+  "run_id": "goal35-oil",
+  "schema_version": "contentops.simple_durable_run_context.v1",
+  "selection": {
+    "candidate_id": "simple-story-3c160cea87fca66d7c13eb55",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal35-oil",
+    "headline_text": "Oil prices steady as investors weigh geopolitics, lower US stockpiles",
+    "official_source_urls": [],
+    "public_source_urls": [
+      "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+    "source_account": "Reuters",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-21T19:17:12Z",
+    "source_url": "https://finance.yahoo.com/news/oil-rises-middle-east-supply-005041638.html",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "BOUNDED_DISCOVERY",
+      "known_access_risk": false,
+      "known_official_path": false,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-3c160cea87fca66d7c13eb55",
+    "update_chain_identity": "simple-story-3c160cea87fca66d7c13eb55"
+  }
+}

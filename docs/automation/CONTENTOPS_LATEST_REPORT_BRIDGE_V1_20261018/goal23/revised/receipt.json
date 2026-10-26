@@ -1,0 +1,49 @@
+{
+  "status": "RENDERED_EDITORIAL_RESEARCH_REVIEW_REQUIRED",
+  "observed_at_utc": "2026-10-19T16:56:29.197618Z",
+  "useful_families": 6,
+  "independent_items": 15,
+  "independent_documents": 9,
+  "main_context_projections_prepared": 10,
+  "main_context_projection_gaps": [
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "headline_id": "goal21-metals-leverage",
+      "record_sha256": "f124e2b3a669914fab1938f722bce52909ccc842edd1d8baf7a398edd09dd55f"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "headline_id": "goal21-metals-custody",
+      "record_sha256": "5c60f4aeea8bfc2ebde03875846c7d7cad14a551c7d759b65571635256620658"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "headline_id": "goal21-futures-option",
+      "record_sha256": "aa2028bfa0dcabde1063f6fdd278f44659281ca02bc4ac8905e211e583a33b2c"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "headline_id": "goal21-futures-hedgers",
+      "record_sha256": "5370a37e57bb3ea957a10a1ce92c3e3922f417ee3fcadfc74f4493dd2c37b4c3"
+    },
+    {
+      "state": "HEADLINE_CLOCK_UNAVAILABLE",
+      "headline_id": "goal21-sec-tenk-scope",
+      "record_sha256": "2e473aabdd2db7ae03395ed7b734c32b3b67a131fc38bc61d2ac4ba1c6b78ef7"
+    }
+  ],
+  "main_context_received_by_Main": "NOT_VERIFIED_THIS_GOAL",
+  "briefs": 8,
+  "editor_authored_packages": 2,
+  "native_previews": 16,
+  "media": 2,
+  "deterministic_validation_blockers": {},
+  "fresh_provider_calls": 0,
+  "injected_model_callbacks": 0,
+  "qualified_simple_articles": 0,
+  "public_writes": 0,
+  "runtime_started": false,
+  "schedule_started": false,
+  "actual_render_inspection": "PENDING",
+  "main_multi_asset_readback": "PENDING_MAIN_IMMUTABLE_BATCH"
+}

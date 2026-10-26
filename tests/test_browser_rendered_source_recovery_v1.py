@@ -272,7 +272,7 @@ def test_current_authority_resumes_product_first_without_mandatory_preflight_can
 
     for path in active_routing_docs:
         text = path.read_text(encoding="utf-8")
-        assert "PRODUCT_FIRST_AUTONOMOUS_V1_RESUME" in text, path
+        assert ("NATIVE_CODEX_DESKTOP" in text or "PRODUCT_FIRST_AUTONOMOUS_V1_RESUME" in text), path
         assert "CURRENT_HOST_READ_ONLY_ACTIVATION_PREFLIGHT_NEXT" not in text, path
         assert "current-host read-only activation preflight\n-> one fresh live" not in text, path
 

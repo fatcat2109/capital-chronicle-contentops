@@ -1,0 +1,18 @@
+{
+  "current_intake_freeze": "frozen_current_input.json + current_intake_diagnosis.json",
+  "accepted_public_main_manifest": "main_public_manifest.json + main_manifest_pointer.json",
+  "three_original_story_dispositions": "source_comparisons.json + prior_source_bindings.json",
+  "source_before_writer_freeze": "articles/*/source_pack.json + frozen_stage_arguments.json",
+  "actual_native_roles": "articles/*/editorial_execution.json + native_request_identity.json + accepted return files",
+  "two_material_updates_and_eight_packages_each": "edition_proof.json + articles/*/article_manifest_v1.json + native_derivative_previews_v1.json",
+  "prior_story_continuity": "articles/*/article_manifest_v1.json prior_article_identity/update_chain_identity/source_review_id",
+  "reviewed_media_and_keep_plans": "articles/*/media_binding.json + media/*.png + review_receipt.json + handoff_receipt.json",
+  "unchanged_final_restart": "unchanged_restart.json all_equal=true, zero new work",
+  "preserved_old_artifacts_and_reviews": "unchanged_restart.json goal26_artifacts_preserved + prior_review_preservation.json exact_match=true + media_preservation.json",
+  "rendered_desktop_mobile": "visual/inspection.json + desktop_rendered_copy.json + mobile-oil.jpg",
+  "focused_checks": "verification.json",
+  "host_pause_and_four_tasks": "unchanged_restart.json tasks unchanged + pause sha",
+  "unchanged_external_boundaries": "RELEASE_HANDOFF.md Remaining boundaries",
+  "codegraph_and_remote_delivery": "PR90 Goal27 section + final local goal27_delivery.json; verify after source/graph push",
+  "receiver_sync": "PENDING_OWNER_RECEIVER; durable existing owning handoff, no Main messaging"
+}

@@ -1,0 +1,204 @@
+{
+  "observed_at_utc": "2026-10-22T10:53:16.603939+00:00",
+  "browser_group_id": "076496941DB854AFE4975D8EC52B4FCF",
+  "method": "Actual Neo rendered existing React article; expanded details; desktop/mobile PDF exported and all raster pages visually read",
+  "scope_limit": "Local editorial preview, not platform-native rendering, provider acceptance, cleared media or publication. PDF pagination creates page breaks. Existing UI labels preserved.",
+  "connection_resolution": "Neo MCP became available after owner reconnection; prior unavailable observation remains historical.",
+  "articles": [
+    {
+      "run_id": "goal35-ibm",
+      "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+      "desktop_pages_inspected": 5,
+      "mobile_pages_inspected": 5,
+      "preview_destinations_inspected": [
+        "discord",
+        "facebook_page",
+        "instagram_business",
+        "linkedin",
+        "telegram",
+        "threads",
+        "x",
+        "youtube"
+      ],
+      "inspected_packages_sha256": "4aa05ecd84e40b80200c28e425606f34dab6a4c6712ab5eff32a345fb06883cf",
+      "media_count": 0,
+      "visible_media_gap": true,
+      "render_status": "PASS_ACTUAL_NEO_RENDER_INSPECTED",
+      "metrics": {
+        "desktopMetrics": {
+          "articleWidth": 956,
+          "scrollWidth": 1012,
+          "viewport": 1024
+        },
+        "mobileMetrics": {
+          "articleWidth": 366,
+          "scrollWidth": 390,
+          "viewport": 390
+        }
+      },
+      "artifacts_sha256": {
+        "renders\\ibm\\desktop-1.png": "0f9d5799d2c73661d86625d4f3e54376738bdc40fb35f271a3b6ee00c9a21599",
+        "renders\\ibm\\desktop-2.png": "4732a82e716326261cca6029dd9f946ad1b992a204cff6f6b1fecd0aabc67f8b",
+        "renders\\ibm\\desktop-3.png": "d8865b9e7ce7cc4a9b69633b474dc05c1dfb871265f11feba84beb658354d0b2",
+        "renders\\ibm\\desktop-4.png": "a1f2766cedfa8682e93ebb9fcd044eb5dc137e97971dc29b308c132ae3105503",
+        "renders\\ibm\\desktop-5.png": "dee7cc693cf3d2d9d87a20d94b9d108b33f6c62dd6b754d596bb88550e1f1a96",
+        "renders\\ibm\\desktop.pdf": "4fe720d7369beb667c1869687dd3f8de933030799396267a4493b51d1c53ddd5",
+        "renders\\ibm\\mobile-1.png": "eb695d05d580a690c4ad84311c75d73be2b6a632083dd2ce2d9d571b8e22d3f8",
+        "renders\\ibm\\mobile-2.png": "7550fba0f18dc894185429a96864c1b9d82722f1f892733fef10c0fe4617100a",
+        "renders\\ibm\\mobile-3.png": "42e5c682c343486741fef6d8749970af694ec53b94aed67a9caa35e0b3d48362",
+        "renders\\ibm\\mobile-4.png": "f0650c853f12860152c5534cc4b03fdfea744ead3f53b8cc7df9caa617fdb911",
+        "renders\\ibm\\mobile-5.png": "078b862eff09219a82ab72dd7c44b513fda7323258ed92899fd2a56c497fc7e6",
+        "renders\\ibm\\mobile.pdf": "8a61ef8ab122020169a9a6a55ef0ef2461780fe44d6621332c21b993a0a47067",
+        "renders\\ibm\\neo-expanded-dom.txt": "95e3b5fe051c3b5f7696495454431e60b16af933e33369d5d88907b28a38b7d5"
+      },
+      "rationale": "KEEP after reading the exact revised canonical prose, SEO and all eight preview packages and visually inspecting all five desktop and five mobile Neo PDF pages. The Reuters-only attribution and report-versus-event uncertainty remain explicit. The 7-8% software outlook raises the floor from 6-8%, not the ceiling; the 25% deferred/75% net-new split is limited to transaction-processing revenue, not all IBM growth. Persistence is a testable countercase, not established demand. Source and known-at clocks remain separate. No inspected rights-cleared media is available: accept the explicit text-only media gap. Preparation only; no dispatch authority."
+    },
+    {
+      "run_id": "goal35-tesla",
+      "article_identity": "0fda9c65d3a9ac5c28d78bef85502d9a1880ce71f68b1d033c10a219a03c7171",
+      "desktop_pages_inspected": 5,
+      "mobile_pages_inspected": 5,
+      "preview_destinations_inspected": [
+        "discord",
+        "facebook_page",
+        "instagram_business",
+        "linkedin",
+        "telegram",
+        "threads",
+        "x",
+        "youtube"
+      ],
+      "inspected_packages_sha256": "ef99ac190e0a678e97059e24a03b20a2588236b0dc91202008b8fac4d5fc9dd0",
+      "media_count": 0,
+      "visible_media_gap": true,
+      "render_status": "PASS_ACTUAL_NEO_RENDER_INSPECTED",
+      "metrics": {
+        "desktopMetrics": {
+          "articleWidth": 956,
+          "scrollWidth": 1012,
+          "viewport": 1024
+        },
+        "mobileMetrics": {
+          "articleWidth": 366,
+          "scrollWidth": 390,
+          "viewport": 390
+        }
+      },
+      "artifacts_sha256": {
+        "renders\\tesla\\desktop-1.png": "408058c355762b52cac2a04f0ba028c59b470ba6e83c04ee9e35d2c82b756276",
+        "renders\\tesla\\desktop-2.png": "fefd36cc7fcd00d657f907cffee83c3776a2c7d826aae59e00a00ab6ab7338bd",
+        "renders\\tesla\\desktop-3.png": "bea832112c3014e4db760dbb31f299bfcfec89e22722216467a8b58d68bc4f7a",
+        "renders\\tesla\\desktop-4.png": "9be93de31b91a95a781e77513e2c61592d5e28a82ffafb0f35f2bac76596e05c",
+        "renders\\tesla\\desktop-5.png": "f5e34c8f5dd5ada280f34d5750e6b8e05cf8200613a3aaf4e413d094351625e4",
+        "renders\\tesla\\desktop.pdf": "ebc5a504630a348c9e263c1239640db7e111fa185078246e35d2d3ff99816d92",
+        "renders\\tesla\\mobile-1.png": "0cab5185b12d2d9bd9279e6354ed3e9c472a2d316aaf5ed6d8a853f73477a796",
+        "renders\\tesla\\mobile-2.png": "e05b8005d1dcfdebb139ed1be64bd95caa4633386b1ee135344e0765ee6c42ed",
+        "renders\\tesla\\mobile-3.png": "25367e4e39e68076670bbcc5096d048c7f0e5ded580ecec860063929fdb3b191",
+        "renders\\tesla\\mobile-4.png": "2fac68131e53f5f4917df646512a7007a9a3ada93c132d726165f2bbcb47f3bd",
+        "renders\\tesla\\mobile-5.png": "56f2021e96fa76c058d59a4fc1f9922beb70f9e740621ee392833627b8b0e068",
+        "renders\\tesla\\mobile.pdf": "987fc4489a66ef0db9ba16e31367677a676d0d36e6e1d9c601ed6214214ecb03",
+        "renders\\tesla\\neo-expanded-dom.txt": "d3ad2045a0c6895d35bd08f6c27ab4f24d048d7e8886462f24f53b8b0c773bc7"
+      },
+      "rationale": "KEEP after reading the exact revised canonical prose, SEO and eight preview packages and visually inspecting all five desktop and five mobile Neo PDF pages. Reuters is the sole report origin. Positive free cash flow versus expected burn and below-estimate capex are distinguished from AI returns, capex deferral and durable profitability; spending remains higher year on year and no AI-only allocation is asserted. The countercase and later cash-flow/capex conditions are retained. Source timing is explicit. No inspected rights-cleared image is bound: accept the visible text-only media gap. Preparation only; no public write."
+    },
+    {
+      "run_id": "goal35-meta",
+      "article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+      "desktop_pages_inspected": 5,
+      "mobile_pages_inspected": 6,
+      "preview_destinations_inspected": [
+        "discord",
+        "facebook_page",
+        "instagram_business",
+        "linkedin",
+        "telegram",
+        "threads",
+        "x",
+        "youtube"
+      ],
+      "inspected_packages_sha256": "2916d65d7d8962385e273b9d1fee01705f154dd2e80ac65d51db1994d3cfe953",
+      "media_count": 0,
+      "visible_media_gap": true,
+      "render_status": "PASS_ACTUAL_NEO_RENDER_INSPECTED",
+      "metrics": {
+        "desktopMetrics": {
+          "articleWidth": 956,
+          "scrollWidth": 1012,
+          "viewport": 1024
+        },
+        "mobileMetrics": {
+          "articleWidth": 366,
+          "scrollWidth": 390,
+          "viewport": 390
+        }
+      },
+      "artifacts_sha256": {
+        "renders\\meta\\desktop-1.png": "7700a33ec88ce7637939801ded552cb19fbb6173489e5b2b4f570a5b5d55c743",
+        "renders\\meta\\desktop-2.png": "9e6201f16a3ec5841c2961ad6d8302620087f519c56031f5fc85153a8c182d82",
+        "renders\\meta\\desktop-3.png": "8c7d14ad5f62db0d2739d6783a9a283de426ab57b203579dda4076403d24a8ec",
+        "renders\\meta\\desktop-4.png": "fea27d1207fa9e8b5ad6a35bf5f49d127338463945f2a85738a8dcc05d595eb4",
+        "renders\\meta\\desktop-5.png": "4b60ba27c06a41def8ddf38aeffc7f27e7790758eb3644315c6df2d94be401d9",
+        "renders\\meta\\desktop.pdf": "96920bfdd3efb99d1eb71396f26bdf461dabe420f07a0bbb7f031b92639e379c",
+        "renders\\meta\\mobile-1.png": "a89c85df8b6d29d20e0765fc24eba843caaad06aa50a70beb601e886e1efbf7b",
+        "renders\\meta\\mobile-2.png": "45ac91f4e105a2c4c072145e1477a6bef1262a6a86750ce9cf31cd3cf55a7bc2",
+        "renders\\meta\\mobile-3.png": "5a2812c01de858360dacaf94026483a5f2b51713e70cb6a08da8e4110538744d",
+        "renders\\meta\\mobile-4.png": "62312a8c44b72a241cc64197c1fba2661814a7576405b9388834ec7aa4a8ba4d",
+        "renders\\meta\\mobile-5.png": "4fe3b695b32e47f2a4f8d6b180c9b0515b51f48ba73909bdc315101f621f45ee",
+        "renders\\meta\\mobile-6.png": "1bfb227891f89db9792f035d165ef2536982f19b0a6c8dbc2127167270cf785a",
+        "renders\\meta\\mobile.pdf": "d3361a2ff8c3b02e02d6ffbcb5e09ae8a9ec9ba715d4e3a525060045706c9346",
+        "renders\\meta\\neo-expanded-dom.txt": "dc3c68b900286f3f02c350abd191a30c9ce129a5d74a1c909fd03129468f3098"
+      },
+      "rationale": "KEEP after reading the exact canonical prose, SEO and eight current compiler packages and visually inspecting all five desktop and six mobile Neo PDF pages. Reuters-only report truth, the proposed January2027 non-voting class, voting control, the higher capex floor with unchanged ceiling, and the quarterly cash deficit remain distinct. A split establishes no cash proceeds; the Muse headline establishes no measured return. The temporary-cash-pattern countercase remains explicit. The inspected compiler now carries the following substantive share-terms/cash-flow/returns condition rather than the rhetorical transition; preparation must match those exact payloads. Accept the explicit media-rights gap and pending-link labels. Preparation grants no dispatch."
+    },
+    {
+      "run_id": "goal35-southwest",
+      "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+      "desktop_pages_inspected": 5,
+      "mobile_pages_inspected": 6,
+      "preview_destinations_inspected": [
+        "discord",
+        "facebook_page",
+        "instagram_business",
+        "linkedin",
+        "telegram",
+        "threads",
+        "x",
+        "youtube"
+      ],
+      "inspected_packages_sha256": "f346c5bb10a3116da987cc9ede5984d9a7660660305c2beafebb33092e088eab",
+      "media_count": 0,
+      "visible_media_gap": true,
+      "render_status": "PASS_ACTUAL_NEO_RENDER_INSPECTED",
+      "metrics": {
+        "desktopMetrics": {
+          "articleWidth": 956,
+          "scrollWidth": 1012,
+          "viewport": 1024
+        },
+        "mobileMetrics": {
+          "articleWidth": 366,
+          "scrollWidth": 390,
+          "viewport": 390
+        }
+      },
+      "artifacts_sha256": {
+        "renders\\southwest\\desktop-1.png": "97db8ece3573aa3fa519378b8c901c15b461559d10886553445198068488bc6b",
+        "renders\\southwest\\desktop-2.png": "0c36dec95711752920da1913f22a929d55d86d724339deb0434539c9c9db082a",
+        "renders\\southwest\\desktop-3.png": "94a5daf55d174e8a1f0be84148389f12ee10c5fd21687fdd392dc4291e031880",
+        "renders\\southwest\\desktop-4.png": "7549a5ab56d4b3b98ec50f81e445c1061e6600987860ac284c3eaf158243f32b",
+        "renders\\southwest\\desktop-5.png": "161c18f695eec9bba69fd40d952f75874e3bb2a1feb1806a3722562a6d4dfc2e",
+        "renders\\southwest\\desktop.pdf": "a36c654f69b6e0c33d2ecad6b583f7c6e61d61599f6eb7ea5f4e417bb4350803",
+        "renders\\southwest\\mobile-1.png": "27f7c6a746d6cad4656ee71dd1e141f3c7c79375fdeea297da53784e5429179e",
+        "renders\\southwest\\mobile-2.png": "8d0c7c9247db4b192a6a6f8d9bfd1e12c9297949e9e6bd6a2c14977635802333",
+        "renders\\southwest\\mobile-3.png": "af55c029b753bba6eae1f30f9a3ae19eea75d21988f74e23df4f1a20e6abf8e2",
+        "renders\\southwest\\mobile-4.png": "b96ca1321271a4ef310421b6bae3d78ff1bfa0bb11c2e946666184e117081214",
+        "renders\\southwest\\mobile-5.png": "ecee04772b1a46ecc63927677758bc2949605829d5fb41be70cc83ff763931d5",
+        "renders\\southwest\\mobile-6.png": "5df91244cfd750ec422a67c59cb706088ab6bae7a75a890fce3ed406ed6b7e2a",
+        "renders\\southwest\\mobile.pdf": "453c12bf8487d08c5594ac16f8c4b8c0c9ee3dc844d758a832bc3ac59acf95cf",
+        "renders\\southwest\\neo-expanded-dom.txt": "1c9b8b7b0d6589dcf31e5cde81ee47653bbf9e4e5cbc4e9bfedb3f4c58690c96"
+      },
+      "rationale": "KEEP after reading exact canonical prose, SEO and eight preview packages and visually inspecting all five desktop and six mobile Neo PDF pages. The single Reuters report is attributed throughout. Quarterly earnings/fare progress is separated from the reduced full-year forecast and an expected future fuel rise. No passenger-volume inference, entire-cut fuel attribution, or current hedge-status claim is made; improved operating margin is the serious countercase. The 2025 hedge/AOCI case remains unchanged historical context. Publication/known-at/cutoff clocks are separate. Accept the visible text-only rights gap: no cleared media is bound. Prepare without dispatch."
+    }
+  ],
+  "public_write_performed": false
+}

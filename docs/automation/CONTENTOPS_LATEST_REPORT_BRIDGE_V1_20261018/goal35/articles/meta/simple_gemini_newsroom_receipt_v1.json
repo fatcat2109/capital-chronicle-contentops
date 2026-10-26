@@ -1,0 +1,537 @@
+{
+  "accepted_source_count": 1,
+  "admitted_candidate_count": 1,
+  "article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-meta\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 1,
+      "accepted_source_urls": [
+        "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+      ],
+      "article_mode": "STANDARD_NEWS_ANALYSIS",
+      "blockers": [],
+      "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": true,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "UNCONFIRMED",
+        "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "event_truth_support_status": "UNCONFIRMED",
+        "event_truth_supported": false,
+        "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+        "origin_character": "UNSPECIFIED",
+        "primary_reporting_publisher": "Reuters",
+        "primary_reporting_source_identity": "reuters.com",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+        "relay_source_identity": null,
+        "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal35-meta"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": false
+      },
+      "model_selected_article_mode": "STANDARD_NEWS_ANALYSIS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Meta October 21 2026 non voting Class C stock capex forecast free cash flow"
+      ],
+      "selection_rationale": "The reported capital-structure plan and cash-flow tension provide a distinct useful current company question. A revenue beat does not answer how expansion is financed or how voting control is preserved. This differs from Tesla spending-versus-expectations, IBM software demand, oil and historical filing/custody explainers. Single Reuters origin, underlying event truth unconfirmed.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 27,
+  "candidate_limit": 32,
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-21T22:29:51.437174Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 2,
+    "observations": [
+      {
+        "invocation_id": "/root/goal35_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal35_meta_max",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low",
+      "max"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 2,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": true,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "UNCONFIRMED",
+    "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "event_truth_support_status": "UNCONFIRMED",
+    "event_truth_supported": false,
+    "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+    "origin_character": "UNSPECIFIED",
+    "primary_reporting_publisher": "Reuters",
+    "primary_reporting_source_identity": "reuters.com",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+    "relay_source_identity": null,
+    "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal35-meta"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": false
+  },
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal35_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "d39ad96ed0340d15baffb91b2e3039e947afb31bb3b6b20914cd8b91ef9e8b2a",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "8f0ff5d6afbe77cb258aa7099f5bfaeb96adc1f8d7b7e1c2241dff9fa1ba3081",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal35_meta_max",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_ASSIGNED_NATIVE_ROLE_AND_SAVED_RETURN",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "ba1dc24ad19d1603d2f95ee3accc7ca6a3381bd66723e231d34734e9b1faddc6",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "a79d4af2d60ba6fb039f23c52d293833f545203770102af2a8ad3e5c00d4e938",
+      "role": "write",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "write"
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-meta\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "goal35-meta"
+    ],
+    "accepted_evidence_sha256": "7e4e71dc9a53fdb2b4955591ae4908d21a93505e04047401dd787076eadd3c3c",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "f2f7f568a59f3bba10a9cbc9049c6f896a2b45d21b70f9d29d5c3acd663c9dfc",
+    "article_identity": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "b31e2751fec3008b37629b58c836dae86242105e74ed3dbba743dc23223f80c4",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "208c0862abd4192a5fc2a383a2df446722977d7156c47b6e45ecb24c4e06640b",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "356abbbe3183c4a75a729896ae11f0704ebcbd66beb6f66c647d111bba1e3cff",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "046fe7b791dabedea8d4373db99557cd8767b3ba07e85375ea77a086b447efa9",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "6104f4b4dd60b0f005bc4c595b8d0ece3b6e97f1f0c845a4ae8d9fe7f6345ea4",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "c513aa61440898ae3c67fa30a9d2e94083aaf045a214c31b080b55f322065c1c",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "395168fdc635c45aab8c91b61b6394cb455b0e872044232da49fe7f2ab7a40d4",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "10b609b1fd5d06e46b3e15440914c4d2f276bc0779e482e4928478fbc29feb67",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "d0dbb2a11bb6f88efc9cebef76dca3569c6b4eb95e537eb22ba8b5de043bd27a",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "ec923915ed6bf4b2abdd1087a7857706f0353d98469e4f456e6e8855516b5c29",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": true,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "UNCONFIRMED",
+      "event_proposition": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+      "event_truth_support_status": "UNCONFIRMED",
+      "event_truth_supported": false,
+      "evidence_basis": "DIRECT_REPUTABLE_REPORT",
+      "origin_character": "UNSPECIFIED",
+      "primary_reporting_publisher": "Reuters",
+      "primary_reporting_source_identity": "reuters.com",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "SINGLE-SOURCE REPORT - REUTERS",
+      "relay_source_identity": null,
+      "report_proposition": "Reuters reports that meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+      "report_truth_support_status": "SUPPORTED_ATTRIBUTED_SINGLE_SECONDARY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal35-meta"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": false
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-meta",
+    "package_identity": "117df8fde34d250a1e9c9a42cd970c7de82ca5636a737453f04c09921c1ea072",
+    "plan_hash": "8107f5032d25d7dab5ba2cf90327dbde51fb917a3023e0a58c924b66f563c987",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal35-meta"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "STANDARD_NEWS_ANALYSIS",
+    "run_id": "goal35-meta",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-fac27d440fa75893480ecc46",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "update_chain_identity": "simple-story-fac27d440fa75893480ecc46"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-meta\\qualified_article_record_v1.json",
+  "revision_performed": false,
+  "run_id": "goal35-meta",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [],
+    "headline_id": "goal35-meta",
+    "headline_text": "Meta's Muse AI agent achieves strong growth, company introduces new shares to power investments",
+    "official_source_urls": [],
+    "public_source_urls": [
+      "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T22:29:51.242826Z",
+    "source_account": "Reuters",
+    "source_platform": "",
+    "source_timestamp_utc": "2026-10-21T20:05:00Z",
+    "source_url": "https://www.reuters.com/business/meta-issue-new-class-shares-it-tightens-ai-spending-forecast-2026-10-21/",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": true,
+      "known_official_path": false,
+      "reputable_public_secondary_path": true,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-fac27d440fa75893480ecc46",
+    "update_chain_identity": "simple-story-fac27d440fa75893480ecc46"
+  },
+  "selected_plan_entry": {
+    "angle": "Meta pairs a reported future non-voting share class with a higher capex floor and a quarterly cash deficit: explain how funding flexibility and voting control differ from cash generation, without treating a stock split as cash raised.",
+    "article_mode": "STANDARD_NEWS_ANALYSIS",
+    "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+    "evidence_plan": "Use only retained goal35-meta Reuters facts; published 2026-10-21T20:05:00Z, known 2026-10-21T22:27:23.026Z. Attribute the planned January 2027 non-voting Class C common stock, effectively two-for-one split, and stated acquisition/talent/control purpose to Reuters; it is a future plan, not completed issuance or cash proceeds. Do not infer terms, dilution, valuation, legality or money raised. Bind annual capex $135bn-$145bn versus prior $130bn-$145bn: floor higher, ceiling unchanged. Bind September30 quarter revenue $64.60bn versus $63.37bn LSEG estimate and Q3 free cash flow deficit $2.12bn versus positive $10.63bn a year earlier. Keep revenue, free cash flow and annual capex distinct; no fabricated cash bridge or causal contribution. The headline mentions Muse growth but no retained adoption count or measurement supports a quantified adoption thesis. No user counts, monetization or returns claimed. Missing: exact stock terms and future use, operating cash/working-capital bridge, spending composition and future investment returns. Code owns arithmetic. No new source requests, quotations, photos or retrieval.",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "primary_reader_question": "What does the planned Meta non-voting share class change about funding and control when capital spending guidance is higher and quarterly free cash flow is negative?",
+    "research_queries": [
+      "Meta October 21 2026 non voting Class C stock capex forecast free cash flow"
+    ],
+    "selection_rationale": "The reported capital-structure plan and cash-flow tension provide a distinct useful current company question. A revenue beat does not answer how expansion is financed or how voting control is preserved. This differs from Tesla spending-versus-expectations, IBM software demand, oil and historical filing/custody explainers. Single Reuters origin, underlying event truth unconfirmed."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Meta pairs a reported future non-voting share class with a higher capex floor and a quarterly cash deficit: explain how funding flexibility and voting control differ from cash generation, without treating a stock split as cash raised.",
+        "article_mode": "STANDARD_NEWS_ANALYSIS",
+        "candidate_id": "simple-story-fac27d440fa75893480ecc46",
+        "evidence_plan": "Use only retained goal35-meta Reuters facts; published 2026-10-21T20:05:00Z, known 2026-10-21T22:27:23.026Z. Attribute the planned January 2027 non-voting Class C common stock, effectively two-for-one split, and stated acquisition/talent/control purpose to Reuters; it is a future plan, not completed issuance or cash proceeds. Do not infer terms, dilution, valuation, legality or money raised. Bind annual capex $135bn-$145bn versus prior $130bn-$145bn: floor higher, ceiling unchanged. Bind September30 quarter revenue $64.60bn versus $63.37bn LSEG estimate and Q3 free cash flow deficit $2.12bn versus positive $10.63bn a year earlier. Keep revenue, free cash flow and annual capex distinct; no fabricated cash bridge or causal contribution. The headline mentions Muse growth but no retained adoption count or measurement supports a quantified adoption thesis. No user counts, monetization or returns claimed. Missing: exact stock terms and future use, operating cash/working-capital bridge, spending composition and future investment returns. Code owns arithmetic. No new source requests, quotations, photos or retrieval.",
+        "primary_reader_question": "What does the planned Meta non-voting share class change about funding and control when capital spending guidance is higher and quarterly free cash flow is negative?",
+        "research_queries": [
+          "Meta October 21 2026 non voting Class C stock capex forecast free cash flow"
+        ],
+        "selection_rationale": "The reported capital-structure plan and cash-flow tension provide a distinct useful current company question. A revenue beat does not answer how expansion is financed or how voting control is preserved. This differs from Tesla spending-versus-expectations, IBM software demand, oil and historical filing/custody explainers. Single Reuters origin, underlying event truth unconfirmed."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select Meta only for a funding/control versus cash-generation analysis. Preserve future issuance status and unchanged $145bn capex ceiling; avoid unsupported AI-adoption claims.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "semantic_response_count": 2,
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal35-meta\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 29,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 2,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "ccb0290501e49ad16d01ad370ad54f86e16648553715cae04752b1c08145f14f",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 15,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

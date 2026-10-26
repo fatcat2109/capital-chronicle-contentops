@@ -47,6 +47,7 @@ def _supervisor(tmp_path: Path, *, mode: str = "AUTONOMOUS_DEFAULT", cycle_facto
         output_root=tmp_path / "out",
         operating_mode=mode,
         clock=clock or _fixed_clock(),
+        scheduled_editorial_owner="FDA_G_SUPERVISOR",  # Historical durable-trigger mechanics only.
     )
     supervisor._newsroom_cycle = (cycle_factory or _controlled_cycle)(calls)
     return supervisor, calls
@@ -180,7 +181,7 @@ def test_active_cycle_defers_operator_trigger(tmp_path):
 
 
 def test_operator_trigger_suppresses_same_tick_scheduled_window(tmp_path):
-    in_window_now = datetime(2026, 8, 10, 13, 30, 0, tzinfo=timezone.utc)
+    in_window_now = datetime(2026, 8, 10, 14, 5, 0, tzinfo=timezone.utc)
     supervisor, calls = _supervisor(tmp_path, clock=lambda: in_window_now)
     supervisor._store.record_operator_cycle_trigger(
         trigger_id="operator-trigger-test0007",
@@ -222,7 +223,10 @@ def test_shadow_only_operator_cycle_performs_zero_public_writes(tmp_path):
     report = supervisor.tick(FIXED_NOW)
     assert report["operator_trigger"]["executed"] is True
     assert report["public_write_performed"] is False
-    assert calls[0]["publication_enabled"] is False
+    # Historical callback flag requests the final article worker even in SHADOW_ONLY;
+    # the supervisor separately withholds publication. No dispatch is created.
+    assert calls[0]["publication_enabled"] is True
+    assert supervisor._store.list_platform_dispatches() == []
 
 
 def test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only(tmp_path):
@@ -239,6 +243,7 @@ def test_autonomous_default_operator_cycle_keeps_canonical_gate_flag_only(tmp_pa
     allowed = {
         "run_id", "output_dir", "cutoff_utc", "publication_enabled", "sidecar_glob",
         "capital_chronicle_root", "published_corpus", "cc_catalog", "operating_mode",
+        "newsroom_production_day_id", "learning_policy",
     }
     assert set(calls[0]) <= allowed
     assert "operator_run_now_override" not in calls[0]
@@ -335,22 +340,22 @@ def test_run_now_rejects_malformed_and_extra_fields(server_env, monkeypatch):
     assert store.fetch_pending_operator_trigger() is None
 
 
-def test_run_now_accepts_durable_trigger_and_is_idempotent(server_env, monkeypatch):
+def test_run_now_returns_native_guidance_repeatedly_without_queue(server_env, monkeypatch):
     monkeypatch.setattr("live_contentops.ingestion_bootstrap_v1.ensure_ingestion_runtime", lambda **kwargs: {"status": "ALREADY_READY", "state": "READY"})
     base, _, store = server_env
     control = store.get_operating_control()
     payload = {"trigger": "OPERATOR_REQUESTED", "expected_state_version": int(control["state_version"])}
     status, body = _post(base, "/api/daily-app/control/run-now", payload=payload)
     assert status == 200
-    assert body["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert body["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
     assert body["publication_claimed"] is False
-    trigger_id = body["trigger"]["trigger_id"]
+    assert body["governed_cycle_requested"] is False
     repeat_status, repeat_body = _post(base, "/api/daily-app/control/run-now", payload=payload)
     assert repeat_status == 200
-    assert repeat_body["status"] == "OPERATOR_TRIGGER_ALREADY_PENDING"
-    assert repeat_body["trigger"]["trigger_id"] == trigger_id
+    assert repeat_body["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
+    assert repeat_body["governed_cycle_requested"] is False
     pending = store.fetch_pending_operator_trigger()
-    assert pending is not None and pending["trigger_id"] == trigger_id
+    assert pending is None
 
 
 def test_run_now_state_version_conflict_fails_closed(server_env, monkeypatch):
@@ -395,8 +400,8 @@ def test_run_now_active_cycle_prevents_parallel_trigger(server_env, monkeypatch)
         base, "/api/daily-app/control/run-now",
         payload={"trigger": "OPERATOR_REQUESTED", "expected_state_version": int(control["state_version"])},
     )
-    assert status == 409
-    assert body["status"] == "CYCLE_ALREADY_ACTIVE"
+    assert status == 200
+    assert body["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
     assert body["publication_claimed"] is False
     assert store.fetch_pending_operator_trigger() is None
 
@@ -435,9 +440,9 @@ def test_run_now_ingestion_unavailable_stays_passive_and_records_trigger(server_
         payload={"trigger": "OPERATOR_REQUESTED", "expected_state_version": int(control["state_version"])},
     )
     assert status == 200
-    assert body["status"] == "OPERATOR_TRIGGER_ACCEPTED"
+    assert body["status"] == "NATIVE_DESKTOP_CONVERSATION_REQUIRED"
     assert body["ingestion_browser_interaction_performed"] is False
-    assert store.fetch_pending_operator_trigger() is not None
+    assert store.fetch_pending_operator_trigger() is None
 
 
 def test_snapshot_exposes_operator_trigger_and_run_now_controls(tmp_path):
@@ -453,8 +458,8 @@ def test_snapshot_exposes_operator_trigger_and_run_now_controls(tmp_path):
     assert snapshot["runtime"]["operator_cycle_trigger"]["trigger_id"] == "operator-trigger-test0012"
     assert snapshot["runtime"]["operator_cycle_trigger"]["grants_publication_authority"] is False
     assert snapshot["controls"]["run_now_endpoint"] == "/api/daily-app/control/run-now"
-    assert snapshot["controls"]["run_now_allowed"] is True
-    assert "governed" in snapshot["controls"]["run_now_mode_consequence"].lower() or "cycle" in snapshot["controls"]["run_now_mode_consequence"].lower()
+    assert snapshot["controls"]["run_now_allowed"] is False
+    assert "native" in snapshot["controls"]["run_now_mode_consequence"].lower()
 
 
 def test_trigger_kind_constant_is_operator_requested():

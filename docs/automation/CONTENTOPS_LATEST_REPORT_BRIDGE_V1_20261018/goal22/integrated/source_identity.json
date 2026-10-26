@@ -1,0 +1,18 @@
+{
+  "basis": "Corrected single integrated desk proof after affected-input/held-candidate fixes; actual Goal21 receipt store reused, no repeated source/media campaign.",
+  "source_blobs": {
+    "live_contentops/contentops_foundation_library_v1.py": "2b54f0773ce794f235b5f996475a21434c67cfaa",
+    "live_contentops/contentops_editorial_desk_v1.py": "e3e244dd956af876260edbe44a5eedd924fd390c",
+    "live_contentops/capital_chronicle_report_editorial_workspace_v1.py": "1232c424ce05058aa662bc0150ae0eaa3638653d",
+    "live_contentops/capital_chronicle_report_feed_v1.py": "9fafed4982886d12997b4698dc6d86cf30e3a5e9",
+    "live_contentops/contentops_main_headline_projection_v1.py": "cd134583370d45eb5f945e3264502cc09e641720",
+    "scripts/verify_contentops_editorial_desk_v1.py": "bcdf6c92eda43c09d223b8e707b9e7c8472e8222"
+  },
+  "artifacts": {
+    "frozen_input.json": "a510ab5071a30eac80df173f8df3f2182d3f8565584e037c6fb9a530a6c2196d",
+    "receipt.json": "aa1b1ed77b66c1d822dc2e74b636ace5fd81fcc29d4c2f1f89120b591385b184",
+    "review_records.json": "6c5b691d573faf44a0e3e241fc10c17a726e767f57fd74f56322bdda4edfbba6",
+    "workspace.json": "54066f673096b9e2c08e3020e335aa7ab9aea796084e8825823da312ec137d06"
+  },
+  "llm_pause_unchanged": true
+}

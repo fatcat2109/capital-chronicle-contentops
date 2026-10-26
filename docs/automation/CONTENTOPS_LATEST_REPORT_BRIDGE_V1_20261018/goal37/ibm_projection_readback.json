@@ -1,0 +1,23 @@
+{
+  "scope": "REAL_RETAINED_PRODUCER_PROJECTION_NO_STATE_MUTATION",
+  "article_identity": "d95e87ec871864e3cda197cc4f10e265df2e74f12d5130c6a6d0207ce7ef328e",
+  "before": "If IBM sustains new transaction-processing business after delayed deals clear, the durable-demand reading would strengthen.",
+  "after": "a subsequent dated transaction-processing/new-deal disclosure and the scope of delayed deals. No current-market freshness or new story is claimed.",
+  "details": {
+    "observable": "a subsequent dated transaction-processing/new-deal disclosure and the scope of delayed deals. No current-market freshness or new story is claimed.",
+    "expected_at_utc": null,
+    "date_state": "UNKNOWN_NOT_SUPPLIED",
+    "source_review_id": "native-source-review-7b828fe1ca27d777d84655432256d6aaa6ca8a676bc883b69551280e794b3631",
+    "sources": [
+      "https://www.reuters.com/business/ibm-raises-annual-software-revenue-outlook-deal-delays-ease-2026-10-21/"
+    ],
+    "discriminator": "If IBM sustains new transaction-processing business after delayed deals clear, the durable-demand reading would strengthen.",
+    "missing_evidence": "The subsequent disclosure and its event date have not been established.",
+    "scope": "PRODUCER_REVIEW_OBSERVATION_NOT_NEW_EVENT"
+  },
+  "conditional_thesis_test": "If IBM sustains new transaction-processing business after delayed deals clear, the durable-demand reading would strengthen.",
+  "article_unchanged": true,
+  "new_source_requests": 0,
+  "writer_calls": 0,
+  "public_writes": 0
+}

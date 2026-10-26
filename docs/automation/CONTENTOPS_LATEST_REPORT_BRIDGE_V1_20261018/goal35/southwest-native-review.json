@@ -1,0 +1,11 @@
+{
+  "review_id": "native-article-review-0fa7b6e89b24499e87637d2c394093f6",
+  "decision": "KEEP",
+  "schema_version": "contentops.native_article_review.v1",
+  "run_id": "goal35-southwest",
+  "article_identity": "5acee7b9d83918a3567c39f94e97aa4d9a6f982fd43dcc083433665f6a6a18f9",
+  "package_revision": "64854784422966957384a60c751da887d39d0c64c3a57c9d5e964a9e551d2631",
+  "article_metadata_sha256": "06d195c91492ccd66d471e57e7bf1353e21837d07d50bf869a5dcade52fa9095",
+  "rationale": "KEEP after reading exact canonical prose, SEO and eight preview packages and visually inspecting all five desktop and six mobile Neo PDF pages. The single Reuters report is attributed throughout. Quarterly earnings/fare progress is separated from the reduced full-year forecast and an expected future fuel rise. No passenger-volume inference, entire-cut fuel attribution, or current hedge-status claim is made; improved operating margin is the serious countercase. The 2025 hedge/AOCI case remains unchanged historical context. Publication/known-at/cutoff clocks are separate. Accept the visible text-only rights gap: no cleared media is bound. Prepare without dispatch.",
+  "publication_authority": false
+}

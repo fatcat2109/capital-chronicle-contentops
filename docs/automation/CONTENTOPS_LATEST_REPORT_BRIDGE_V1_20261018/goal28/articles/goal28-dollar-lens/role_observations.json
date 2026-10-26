@@ -1,0 +1,30 @@
+{
+  "select": {
+    "request_sha256": "ad7faf83401d63f3b4de306bf6452e311ba333aa5267a36042dc11758571ab38",
+    "request_file_sha256": "5406d2ca20454a84e3c93e289896b62e6eca6a92a80a0bd2333c1adaeb6ecf17",
+    "output_sha256": "42bf4f012ee5c2a3b2836fae08047e4d183543b35536594fb3c9dac40d521719",
+    "raw_saved_return_sha256": "0a5acb785a265dd8023038ab26f6ff83e4b1242c342a2072dd57f9b3cdfc21f4",
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/goal28_sol_light",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "observation_source": "collaboration.spawn_agent returned canonical task name with explicitly requested gpt-6.1-sol low; UUID not exposed"
+    }
+  },
+  "write": {
+    "request_sha256": "ff6cbe15c22f16932446671b5a868f5a8b71916b369e5773681a1086ad77578d",
+    "request_file_sha256": "fae01510706d41c52b753938681a9faba359ced420ee5bffe3e84d1a9314af78",
+    "output_sha256": "7cbb02c9695d55c887884f6554d7533a5872ed7fdcf492300961b109ba944ceb",
+    "raw_saved_return_sha256": "53dc92ce59bf21e427df7720572680f6ecea49b4d8d22ce9d3e61f6ab3330465",
+    "invocation_observation": {
+      "surface": "CODEX_NATIVE_SUBAGENT",
+      "invocation_id": "/root/goal28_sol_max_a",
+      "model": "gpt-6.1-sol",
+      "reasoning_effort": "max",
+      "speed": "standard",
+      "observation_source": "collaboration.spawn_agent exposed canonical task name with explicitly requested gpt-6.1-sol/max; UUID not exposed"
+    }
+  }
+}

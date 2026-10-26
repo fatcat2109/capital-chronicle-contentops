@@ -1,0 +1,538 @@
+{
+  "accepted_evidence_ids": [
+    "goal28-crypto-safeguards"
+  ],
+  "accepted_evidence_sha256": "2c522e12d27b3492627c2b06d18b3e181308d2084e5cee7021629ce0826463fe",
+  "article_body_sha256": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+  "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+  "article_path": null,
+  "attempt_run_id": "goal28-crypto-safeguards",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-crypto-safeguards"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "official_source_document_card"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nTh\u00eam \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn crypto \u0111\u1eb7t ra m\u1ed9t c\u00e2u h\u1ecfi c\u1ee5 th\u1ec3: ai gi\u1eef t\u00e0i s\u1ea3n, theo \u0111i\u1ec1u ki\u1ec7n n\u00e0o, v\u00e0 ki\u1ec3m to\u00e1n \u00e1p d\u1ee5ng ra sao trong \u0111\u1ec1 xu\u1ea5t c\u1ee7a SEC?\n\nWhat to watch: C\u00e2u h\u1ecfi ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: v\u0103n b\u1ea3n sau c\u00f9ng c\u00f3 gi\u1eef c\u00e1c ph\u01b0\u01a1ng \u00e1n \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t kh\u00f4ng, \u0111i\u1ec1u ki\u1ec7n c\u1ee5 th\u1ec3 l\u00e0 g\u00ec v\u00e0 ph\u01b0\u01a1ng \u00e1n th\u1ef1c t\u1ebf \u0111\u00e1p \u1ee9ng ch\u00fang b\u1eb1ng b\u1eb1ng ch\u1ee9ng n\u00e0o?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3\n\nSource date: 2026-10-01. Interpretation remains analysis."
+      },
+      "payload_sha256": "649159f1f4974003468d907625796e8567ee2dfad4218af3a5131bc97adf583c",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-crypto-safeguards"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3\n\nTh\u00eam \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn crypto \u0111\u1eb7t ra m\u1ed9t c\u00e2u h\u1ecfi c\u1ee5 th\u1ec3: ai gi\u1eef t\u00e0i s\u1ea3n, theo \u0111i\u1ec1u ki\u1ec7n n\u00e0o, v\u00e0 ki\u1ec3m to\u00e1n \u00e1p d\u1ee5ng ra sao trong \u0111\u1ec1 xu\u1ea5t c\u1ee7a SEC?\n\nWatch: C\u00e2u h\u1ecfi ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: v\u0103n b\u1ea3n sau c\u00f9ng c\u00f3 gi\u1eef c\u00e1c ph\u01b0\u01a1ng \u00e1n \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t kh\u00f4ng, \u0111i\u1ec1u ki\u1ec7n c\u1ee5 th\u1ec3 l\u00e0 g\u00ec v\u00e0 ph\u01b0\u01a1ng \u00e1n th\u1ef1c t\u1ebf \u0111\u00e1p \u1ee9ng ch\u00fang b\u1eb1ng b\u1eb1ng ch\u1ee9ng n\u00e0o?\n\nSource date: 2026-10-01.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Th\u00eam \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn crypto \u0111\u1eb7t ra m\u1ed9t c\u00e2u h\u1ecfi c\u1ee5 th\u1ec3: ai gi\u1eef t\u00e0i s\u1ea3n, theo \u0111i\u1ec1u ki\u1ec7n n\u00e0o, v\u00e0 ki\u1ec3m to\u00e1n \u00e1p d\u1ee5ng ra sao trong \u0111\u1ec1 xu\u1ea5t c\u1ee7a SEC?"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 2,
+            "role": "reply",
+            "text": "Watch: C\u00e2u h\u1ecfi ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: v\u0103n b\u1ea3n sau c\u00f9ng c\u00f3 gi\u1eef c\u00e1c ph\u01b0\u01a1ng \u00e1n \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t kh\u00f4ng, \u0111i\u1ec1u ki\u1ec7n c\u1ee5 th\u1ec3 l\u00e0 g\u00ec v\u00e0 ph\u01b0\u01a1ng \u00e1n th\u1ef1c t\u1ebf \u0111\u00e1p \u1ee9ng ch\u00fang b\u1eb1ng b\u1eb1ng ch\u1ee9ng n\u00e0o?\n\nSource date: 2026-10-01.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.646,
+            0.5,
+            0.882
+          ],
+          "post_character_counts": [
+            181,
+            140,
+            247
+          ],
+          "reply_count": 2,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.567,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Th\u00eam \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn crypto \u0111\u1eb7t ra m\u1ed9t c\u00e2u h\u1ecfi c\u1ee5 th\u1ec3: ai gi\u1eef t\u00e0i s\u1ea3n, theo \u0111i\u1ec1u ki\u1ec7n n\u00e0o, v\u00e0 ki\u1ec3m to\u00e1n \u00e1p d\u1ee5ng ra sao trong \u0111\u1ec1 xu\u1ea5t c\u1ee7a SEC?",
+          "Watch: C\u00e2u h\u1ecfi ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: v\u0103n b\u1ea3n sau c\u00f9ng c\u00f3 gi\u1eef c\u00e1c ph\u01b0\u01a1ng \u00e1n \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t kh\u00f4ng, \u0111i\u1ec1u ki\u1ec7n c\u1ee5 th\u1ec3 l\u00e0 g\u00ec v\u00e0 ph\u01b0\u01a1ng \u00e1n th\u1ef1c t\u1ebf \u0111\u00e1p \u1ee9ng ch\u00fang b\u1eb1ng b\u1eb1ng ch\u1ee9ng n\u00e0o?\n\nSource date: 2026-10-01.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3",
+        "text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3"
+      },
+      "payload_sha256": "fba60e67f55ba10000d2b42b876e2f8b1283e2c284af51ac853242d776807238",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-crypto-safeguards"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]**\n\nTh\u00eam \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn crypto \u0111\u1eb7t ra m\u1ed9t c\u00e2u h\u1ecfi c\u1ee5 th\u1ec3: ai gi\u1eef t\u00e0i s\u1ea3n, theo \u0111i\u1ec1u ki\u1ec7n n\u00e0o, v\u00e0 ki\u1ec3m to\u00e1n \u00e1p d\u1ee5ng ra sao trong \u0111\u1ec1 xu\u1ea5t c\u1ee7a SEC?\n\n**Context:** \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC m\u1edf th\u00eam c\u00e1ch ti\u1ebfp c\u1eadn t\u00e0i s\u1ea3n, nh\u01b0ng ng\u01b0\u1eddi g\u00f3p v\u1ed1n c\u1ea7n \u0111\u1ecdc nh\u1eefng g\u00ec \u0111\u1ec3 hi\u1ec3u c\u00e1ch t\u00e0i s\u1ea3n c\u1ee7a m\u00ecnh s\u1ebd \u0111\u01b0\u1ee3c gi\u1eef?\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3\n\nSource date: 2026-10-01. Interpretation remains analysis."
+      },
+      "payload_sha256": "0dd391996161240df9505a2043ce5dcfcfb75b7946ac460a0aad702ff587dfde",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-crypto-safeguards"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nWhy it matters: Ph\u00e2n t\u00edch Capital Chronicle: c\u01a1 ch\u1ebf ch\u00ednh s\u00e1ch \u0111\u01b0\u1ee3c SEC m\u00f4 t\u1ea3 \u0111i t\u1eeb g\u1ee1 r\u00e0o c\u1ea3n t\u1edbi kh\u1ea3 n\u0103ng cung c\u1ea5p t\u01b0 v\u1ea5n v\u00e0 chi\u1ebfn l\u01b0\u1ee3c \u0111\u1ea7u t\u01b0 r\u1ed9ng h\u01a1n.\n\nContext: \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC m\u1edf th\u00eam c\u00e1ch ti\u1ebfp c\u1eadn t\u00e0i s\u1ea3n, nh\u01b0ng ng\u01b0\u1eddi g\u00f3p v\u1ed1n c\u1ea7n \u0111\u1ecdc nh\u1eefng g\u00ec \u0111\u1ec3 hi\u1ec3u c\u00e1ch t\u00e0i s\u1ea3n c\u1ee7a m\u00ecnh s\u1ebd \u0111\u01b0\u1ee3c gi\u1eef?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3\n\nSource date: 2026-10-01. Interpretation remains analysis."
+      },
+      "payload_sha256": "8b410c7c8470ccc7f435e58b92bef3d89dc83d92c790e5e84729bc7843f1ccae",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-crypto-safeguards"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nTh\u00eam \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn crypto \u0111\u1eb7t ra m\u1ed9t c\u00e2u h\u1ecfi c\u1ee5 th\u1ec3: ai gi\u1eef t\u00e0i s\u1ea3n, theo \u0111i\u1ec1u ki\u1ec7n n\u00e0o, v\u00e0 ki\u1ec3m to\u00e1n \u00e1p d\u1ee5ng ra sao trong \u0111\u1ec1 xu\u1ea5t c\u1ee7a SEC?\n\nWhy it matters: Ph\u00e2n t\u00edch Capital Chronicle: c\u01a1 ch\u1ebf ch\u00ednh s\u00e1ch \u0111\u01b0\u1ee3c SEC m\u00f4 t\u1ea3 \u0111i t\u1eeb g\u1ee1 r\u00e0o c\u1ea3n t\u1edbi kh\u1ea3 n\u0103ng cung c\u1ea5p t\u01b0 v\u1ea5n v\u00e0 chi\u1ebfn l\u01b0\u1ee3c \u0111\u1ea7u t\u01b0 r\u1ed9ng h\u01a1n.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3\n\nSource date: 2026-10-01. Interpretation remains analysis."
+      },
+      "payload_sha256": "c5dfdf55fbf6341bf33c231904b9bc3b4421e84378c31fd8a89519b41ac62314",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-crypto-safeguards"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nTh\u00eam \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn crypto \u0111\u1eb7t ra m\u1ed9t c\u00e2u h\u1ecfi c\u1ee5 th\u1ec3: ai gi\u1eef t\u00e0i s\u1ea3n, theo \u0111i\u1ec1u ki\u1ec7n n\u00e0o, v\u00e0 ki\u1ec3m to\u00e1n \u00e1p d\u1ee5ng ra sao trong \u0111\u1ec1 xu\u1ea5t c\u1ee7a SEC?\n\nIn focus: \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC m\u1edf th\u00eam c\u00e1ch ti\u1ebfp c\u1eadn t\u00e0i s\u1ea3n, nh\u01b0ng ng\u01b0\u1eddi g\u00f3p v\u1ed1n c\u1ea7n \u0111\u1ecdc nh\u1eefng g\u00ec \u0111\u1ec3 hi\u1ec3u c\u00e1ch t\u00e0i s\u1ea3n c\u1ee7a m\u00ecnh s\u1ebd \u0111\u01b0\u1ee3c gi\u1eef?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3\n\n#CapitalChronicle\n\nSource date: 2026-10-01. Interpretation remains analysis."
+      },
+      "payload_sha256": "40f18ab24b8c3b622a029db10a0d60f2628f9c2c54daaa1ebb6077d2d4dcf94d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-crypto-safeguards"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\n\u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC m\u1edf th\u00eam c\u00e1ch ti\u1ebfp c\u1eadn t\u00e0i s\u1ea3n, nh\u01b0ng ng\u01b0\u1eddi g\u00f3p v\u1ed1n c\u1ea7n \u0111\u1ecdc nh\u1eefng g\u00ec \u0111\u1ec3 hi\u1ec3u c\u00e1ch t\u00e0i s\u1ea3n c\u1ee7a m\u00ecnh s\u1ebd \u0111\u01b0\u1ee3c gi\u1eef?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3\n\nWhat to watch: C\u00e2u h\u1ecfi ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: v\u0103n b\u1ea3n sau c\u00f9ng c\u00f3 gi\u1eef c\u00e1c ph\u01b0\u01a1ng \u00e1n \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t kh\u00f4ng, \u0111i\u1ec1u ki\u1ec7n c\u1ee5 th\u1ec3 l\u00e0 g\u00ec v\u00e0 ph\u01b0\u01a1ng \u00e1n th\u1ef1c t\u1ebf \u0111\u00e1p \u1ee9ng ch\u00fang b\u1eb1ng b\u1eb1ng ch\u1ee9ng n\u00e0o?\n\nSource date: 2026-10-01.\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\n\u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC m\u1edf th\u00eam c\u00e1ch ti\u1ebfp c\u1eadn t\u00e0i s\u1ea3n, nh\u01b0ng ng\u01b0\u1eddi g\u00f3p v\u1ed1n c\u1ea7n \u0111\u1ecdc nh\u1eefng g\u00ec \u0111\u1ec3 hi\u1ec3u c\u00e1ch t\u00e0i s\u1ea3n c\u1ee7a m\u00ecnh s\u1ebd \u0111\u01b0\u1ee3c gi\u1eef?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: C\u00e2u h\u1ecfi ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: v\u0103n b\u1ea3n sau c\u00f9ng c\u00f3 gi\u1eef c\u00e1c ph\u01b0\u01a1ng \u00e1n \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t kh\u00f4ng, \u0111i\u1ec1u ki\u1ec7n c\u1ee5 th\u1ec3 l\u00e0 g\u00ec v\u00e0 ph\u01b0\u01a1ng \u00e1n th\u1ef1c t\u1ebf \u0111\u00e1p \u1ee9ng ch\u00fang b\u1eb1ng b\u1eb1ng ch\u1ee9ng n\u00e0o?\n\nSource date: 2026-10-01.\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.646,
+            0.51
+          ],
+          "post_character_counts": [
+            323,
+            255
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.789,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: C\u00e2u h\u1ecfi ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: v\u0103n b\u1ea3n sau c\u00f9ng c\u00f3 gi\u1eef c\u00e1c ph\u01b0\u01a1ng \u00e1n \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t kh\u00f4ng, \u0111i\u1ec1u ki\u1ec7n c\u1ee5 th\u1ec3 l\u00e0 g\u00ec v\u00e0 ph\u01b0\u01a1ng \u00e1n th\u1ef1c t\u1ebf \u0111\u00e1p \u1ee9ng ch\u00fang b\u1eb1ng b\u1eb1ng ch\u1ee9ng n\u00e0o?\n\nSource date: 2026-10-01.\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\n\u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC m\u1edf th\u00eam c\u00e1ch ti\u1ebfp c\u1eadn t\u00e0i s\u1ea3n, nh\u01b0ng ng\u01b0\u1eddi g\u00f3p v\u1ed1n c\u1ea7n \u0111\u1ecdc nh\u1eefng g\u00ec \u0111\u1ec3 hi\u1ec3u c\u00e1ch t\u00e0i s\u1ea3n c\u1ee7a m\u00ecnh s\u1ebd \u0111\u01b0\u1ee3c gi\u1eef?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3",
+        "text": "CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\n\u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC m\u1edf th\u00eam c\u00e1ch ti\u1ebfp c\u1eadn t\u00e0i s\u1ea3n, nh\u01b0ng ng\u01b0\u1eddi g\u00f3p v\u1ed1n c\u1ea7n \u0111\u1ecdc nh\u1eefng g\u00ec \u0111\u1ec3 hi\u1ec3u c\u00e1ch t\u00e0i s\u1ea3n c\u1ee7a m\u00ecnh s\u1ebd \u0111\u01b0\u1ee3c gi\u1eef?\n\nhttps://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3"
+      },
+      "payload_sha256": "e82e8747cbaaeeaf671944efc51c39a0a8deddc8c49d10b3bd1a80ad7050edcc",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "7dbe812c490d8bd3f31282c40eb2fb7905495a9af26786df369ce0f296641add",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "www.sec.gov",
+        "primary_reporting_source_identity": "www.sec.gov",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal28-crypto-safeguards"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CONFIRMED | \u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n [Source 2026-10-01]\n\nTh\u00eam \u0111\u01b0\u1eddng ti\u1ebfp c\u1eadn crypto \u0111\u1eb7t ra m\u1ed9t c\u00e2u h\u1ecfi c\u1ee5 th\u1ec3: ai gi\u1eef t\u00e0i s\u1ea3n, theo \u0111i\u1ec1u ki\u1ec7n n\u00e0o, v\u00e0 ki\u1ec3m to\u00e1n \u00e1p d\u1ee5ng ra sao trong \u0111\u1ec1 xu\u1ea5t c\u1ee7a SEC?\n\nWhat to watch: C\u00e2u h\u1ecfi ti\u1ebfp theo c\u1ee7a Capital Chronicle l\u00e0: v\u0103n b\u1ea3n sau c\u00f9ng c\u00f3 gi\u1eef c\u00e1c ph\u01b0\u01a1ng \u00e1n \u0111\u01b0\u1ee3c \u0111\u1ec1 xu\u1ea5t kh\u00f4ng, \u0111i\u1ec1u ki\u1ec7n c\u1ee5 th\u1ec3 l\u00e0 g\u00ec v\u00e0 ph\u01b0\u01a1ng \u00e1n th\u1ef1c t\u1ebf \u0111\u00e1p \u1ee9ng ch\u00fang b\u1eb1ng b\u1eb1ng ch\u1ee9ng n\u00e0o?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-7dbe812c490d8bd3\n\nSource date: 2026-10-01. Interpretation remains analysis."
+      },
+      "payload_sha256": "c421a0a79161254725065be26a4ac8dd13c97f707a0fda27d6b93b696695cc4d",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal28_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent returned canonical task name with explicitly requested gpt-6.1-sol low; UUID not exposed",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal28_sol_max_a",
+          "model": "gpt-6.1-sol",
+          "observation_source": "collaboration.spawn_agent exposed canonical task name with explicitly requested gpt-6.1-sol/max; UUID not exposed",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.sec.gov",
+    "primary_reporting_source_identity": "www.sec.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.sec.gov reports that the Securities and Exchange Commission today proposed new rules and amendments to provide a tailored framework for the custody of crypto assets for registered investment advisers and regulated funds, i.e. registered investment companies and business development companies. The Commission\u2019s proposal would modernize custody rules and expand investor choice by removing regulatory barriers that inhibit the adviser\u2019s ability to provide crypto-related investment advice. It would also allow regulated funds to offer clients access to a wider range of crypto asset-related investment strategies. \u201cSince the advent of Bitcoin in 2008, the crypto asset market has grown from a niche curiosity into a multi-trillion-dollar asset class to which investors actively seek exposure. Unfortunately, our rules and regulations have not kept pace. To that end, today\u2019s proposal would provide a clear regulatory framework for the custody of crypto assets, giving investment advisers and funds a compliant pathway where none existed before\u2014and replacing the grey of uncertainty created by custody rules crafted for a bygone era,\u201d said SEC Chairman Paul S. Atkins in a [statement]( The proposed rules and amendments under the Investment Advisers Act of 1940 and the Investment Company Act of 1940 would better address current industry practices and update a number of requirements relating to, among other things, financial statement audits for registered investment advisers and broker-dealer custodial services for regulated funds. The proposal would also permit crypto assets to be held in self-custody under certain circumstances and allow the use of state trust companies as custodians for client and regulated fund crypto assets",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal28-crypto-safeguards"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-21-bangkok",
+  "parent_window_id": "goal28-crypto-safeguards",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "278886e6e01018cd17f5ef4a56b9f014eb75fc4fa9d6346a8f56f69674e1e91e",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-39523148d6ddd5bdcb0f8687",
+  "title": "\u0110\u1ec1 xu\u1ea5t l\u01b0u k\u00fd crypto c\u1ee7a SEC: m\u1edf l\u1ed1i ti\u1ebfp c\u1eadn, l\u00e0m r\u00f5 c\u00e1ch gi\u1eef t\u00e0i s\u1ea3n",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-39523148d6ddd5bdcb0f8687"
+}

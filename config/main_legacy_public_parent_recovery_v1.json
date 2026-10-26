@@ -1,0 +1,40 @@
+{
+  "schema_version": "contentops.two_legacy_public_parent_recovery.v1",
+  "policy_id": "GOAL29_TWO_PARENT_UNICODE_V1",
+  "producer_repository": "https://github.com/fatcat2109/Headline-Raw-data-json",
+  "producer_commit": "effe788bb2ab92781ff71e38498cff7a24adf567",
+  "manifest_sha256": "c6a41e5a1e6df0f0002bc12114ae1138c53c852d1b81d412b1fa5d218c063db2",
+  "manifest_raw_sha256": "ab497668c62ea2e2141535239f6655ab32c237b57f2a26bff7cfa564fd6e3623",
+  "intended_legacy_canonicalization": "UTF8_SORTED_COMPACT_ENSURE_ASCII_FALSE",
+  "ancestry_only": true,
+  "parents": [
+    {
+      "asset_id": "UKOIL",
+      "report_version": 3,
+      "entry_sha256": "b17738518b4cf4049d79321255d87a92ead88baaa44aa6b16a2e8ed70a57cfd3",
+      "envelope_raw_sha256": "3deca71e3acce970c7aee99e69fb70751ce31c15a89cdd015542fb2a39f6169e",
+      "public_raw_sha256": "9e1095e1c24fe8ce37d29b129d452d38be7b1fd07ea89440c3ba9770a2bc3320",
+      "schema_raw_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+      "report_sha256": "82a2389ed302f6757167c8a1f71b4214fa645f5f3e37c8ea5525d849955ab5e0",
+      "parent_report_sha256": "c194e3de796034c5649ae0b24d625fe7cdfbc0116bb90b99e806a0525effa810",
+      "child_entry_sha256": "22176f53a8d771f9b953cfb50c771e32ecd21396ed0f38480c0ff3984c61777b",
+      "child_report_sha256": "3144fdf4c65107a56bd7e3a941a809e8ccc96a9c7c037b6d6e014204d796edb8",
+      "child_envelope_raw_sha256": "2f83d341393105593b4eaf6813c8a1341164f9435a5f1e2cfd826855f264704e",
+      "child_public_raw_sha256": "684f15d305a3290db931eb35f42e4efdf62335d582d02da43c5203fed6a25198"
+    },
+    {
+      "asset_id": "XNGUSD",
+      "report_version": 4,
+      "entry_sha256": "d9b8311094abbd75f56ed5fa4f2dc5efdcaa76efb608da884ae8c4530b34dc3a",
+      "envelope_raw_sha256": "a2a2ed8c05d27decf0401ba955d5ded29d0037fc539be874de1968506b427044",
+      "public_raw_sha256": "fa5359b0df46fe8503cf815f6634b859077f955672c29f3e833593567e2ecfde",
+      "schema_raw_sha256": "af8f25ba7c702bd9549aa1e94a4bd3f9dde89e45f8b5d62ed23d3e6f9ac4e6fa",
+      "report_sha256": "eae4aa5b6a6b883abc540d7abdda4282bc1647d13a84a0629678407fcb2f8f10",
+      "parent_report_sha256": "972a2edaac857763b9bca92a31edb1f945e03bccdf4e7bc96fc7d7f9d55383f2",
+      "child_entry_sha256": "cd93481274a81708d304a5ecd8a728cece186aa726c6df321f1edc29f4c86c0f",
+      "child_report_sha256": "78290cc6023e495b249f786ffecb538ae299ca57d660ca860050f7b598488a4e",
+      "child_envelope_raw_sha256": "dce562c6ed864fb8d2807e76811acc31ab83e96fa06740fe9d374bf0ca4b3c17",
+      "child_public_raw_sha256": "4f27341d55ecd04f17ddee5f56d1cb466609844ae904963e73adec707028a8e8"
+    }
+  ]
+}

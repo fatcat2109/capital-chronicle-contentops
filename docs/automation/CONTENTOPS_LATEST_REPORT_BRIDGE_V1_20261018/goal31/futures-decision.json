@@ -1,0 +1,16 @@
+{
+  "decision": "HOLD",
+  "operation_id": "goal31-futures-purpose",
+  "selection_status": "ABSTAIN",
+  "reason": "Exact frozen governed pool không chứa hai retained foundation records goal21-futures-hedgers và goal21-futures-option. Chúng vẫn là nền được giữ trong thư viện, nhưng topic package đang current-HOLD và không được dùng để invent candidate hoặc đổi authority. Hai định nghĩa ngắn chưa đủ một bài cơ chế mới sâu có ích; không ép filler.",
+  "exact_hold_scope": "Suy từ vị thế/giao dịch futures hiện tại sang dự báo giá, ý định cụ thể hoặc hiệu quả phòng hộ hiện tại.",
+  "admissible_general_distinction": "Phòng hộ rủi ro của tài sản đã có khác suy vị thế là dự báo giá. Phòng hộ vẫn có thể cùng tồn tại với góc nhìn giá; chỉ quan sát vị thế chưa tách được mục tiêu. Đây là hướng câu hỏi, không phải kết luận về bất kỳ chủ thể hay vị thế hiện tại nào.",
+  "missing_inputs": [
+    "Nguồn công khai mô tả mục đích hedge và tài sản/rủi ro đã có của một trường hợp cụ thể",
+    "Contract, expiry, settlement và mục đích kinh tế cụ thể",
+    "Chain, IV, open interest hoặc dữ liệu vị thế hiện tại có cùng kỳ và phạm vi phù hợp"
+  ],
+  "fresh_access_status": "CFTC security verification; không retry; lần đọc mới không xác minh publication date cho retained foundation text.",
+  "next_finite_action": "Thực hiện một lượt tìm nguồn công khai theo resolver/Neo hiện hữu cho một trường hợp hedge được chính chủ công bố, có hợp đồng và rủi ro tài sản gốc cụ thể; hoặc một bộ dữ liệu hiện tại phù hợp câu hỏi. Nếu không có, đóng cơ hội ở HOLD và giữ foundation records, không đợi Main vô hạn. Chỉ tạo request mới khi có gói nguồn và delta câu hỏi đủ hữu ích.",
+  "public_write_performed": false
+}

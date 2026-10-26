@@ -1,0 +1,73 @@
+{
+  "candidate_count": 21,
+  "candidate_limit": 32,
+  "candidate_packet_hash": "ee4802b9ac797d06bf92f705d528d6b5a1b9738e9a462bcc31cebb797601bd67",
+  "public_write_performed": false,
+  "published_memory_summary": {
+    "article_count": 7,
+    "candidate_filtering_performed_before_model": true,
+    "full_published_corpus_in_prompt": false,
+    "story_identity_count": 7,
+    "story_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a",
+    "title_set_sha256": "136fc0312c91a52b01fbe92aec1c6fb8cdfb193eeab562efdf74fa180a2e76b9",
+    "unique_title_count": 7,
+    "update_chain_identity_count": 7,
+    "update_chain_identity_set_sha256": "7528faa3c1120f5c69fb90cb7a2d5e2d5d64e3480256f44761f7cbae28e4df0a"
+  },
+  "router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal31_sol_light",
+      "model": "gpt-6.1-sol",
+      "observation_source": "Actual native collaboration.spawn_agent returned canonical task /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed.",
+      "reasoning_effort": "low",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "low",
+    "request_sha256": "0f80d25fa8b40a8e4b786f1a09990dbcd03a89bf4398d82962bfb30b539201d7",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "response_sha256": "4c88d97e994a59a98a88ee6c67b62d93f7aafada0bbc4004c21888b585ae21eb",
+    "role": "select",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "select"
+  },
+  "schema_version": "contentops.v1_simple_gemini_selection.v2",
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "Máy đọc được công bố doanh nghiệp đặt lại câu hỏi về chất lượng thông tin: thông báo tọa đàm SEC mở thảo luận về cách dùng, rủi ro và chi phí, chưa chứng minh kết quả phân tích.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-182cbc812476b1abee25b1c8",
+        "evidence_plan": "Resolver hiện hữu dùng exact admitted text goal31-sec-machine-data: xác nhận ngày thông báo 19/10, tọa đàm dự kiến 9/11, mục đích thảo luận cách dùng dữ liệu máy hiểu cùng rủi ro và chi phí. Dùng goal28-company-reading chỉ như hướng dẫn lịch sử, không như dữ liệu doanh nghiệp mới hoặc bằng chứng kết quả AI. Tách việc tiếp nhận dữ liệu, lời quản trị trong MD&A, nhận định về xu hướng/ước tính và phần kiểm chứng; mọi tiêu chí chất lượng/cùng kỳ/phạm vi chỉ là câu hỏi kiểm cần thực hiện, không nói đã phát hiện lỗi. Phản đề: công cụ có thể hữu ích dù người đọc vẫn cần đối chiếu, nhưng thông báo không đo hiệu quả. Giới hạn/falsifier: nếu nguồn chỉ công bố tọa đàm thì rút mọi suy luận về quy định mới, lợi ích đã đo, chi phí cụ thể hoặc năng lực AI đã chứng minh; muốn thay đổi đánh giá cần kết quả/biên bản hoặc nghiên cứu có phương pháp và bằng chứng đối chiếu, hiện chưa có. Code sở hữu số và phép tính; không tự tạo ví dụ số, dữ liệu công ty, dự báo hay xác suất. Giữ claim nguồn và phân tích CC phân biệt.",
+        "primary_reader_question": "Khi máy đọc được dữ liệu công bố doanh nghiệp, người đọc còn cần đối chiếu điều gì trước khi tin phần diễn giải?",
+        "research_queries": [
+          "SEC October 19 2026 roundtable machine-understandable data Super Intelligence risks costs November 9",
+          "SEC reading 10-K MD&A accounting judgments financial statements"
+        ],
+        "selection_rationale": "Câu hỏi mới so với bài Goal28 về đọc MD&A bằng báo cáo tài chính. Thông báo ngày 19/10 cho tọa đàm dự kiến 9/11 tạo mốc thời sự có nguồn; giá trị là phân biệt khả năng sử dụng dữ liệu với chất lượng và kết quả được kiểm chứng. Không lặp bài 10-K hoặc tạo tin doanh nghiệp hiện tại."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Chọn một góc tài liệu mới có ích; không thêm fallback trùng bài đang giữ. Chỉ là lựa chọn nghiên cứu riêng tư.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal31-company-machine-reading\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 21,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  }
+}

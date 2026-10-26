@@ -1,0 +1,359 @@
+{
+  "cited_source_count": 2,
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "www.federalreserve.gov",
+    "primary_reporting_source_identity": "www.federalreserve.gov",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "www.federalreserve.gov reports that 1) A weighted average of the foreign exchange value of the U.S. dollar against the currencies of a broad group of major U.S. trading partners",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal21-fx-broad-index"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "maximum_revision_rounds": 1,
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "public_write_performed": false,
+  "report_truth_validated_separately_from_event_truth": true,
+  "revision_performed": false,
+  "revision_router_receipt": null,
+  "schema_version": "contentops.v1_simple_gemini_validation.v1",
+  "source_bytes_precede_writer": true,
+  "source_timestamps_are_model_authority": false,
+  "source_urls": [
+    "https://www.federalreserve.gov/releases/h10/current/",
+    "https://www.federalreserve.gov/releases/h10/current/"
+  ],
+  "status": "PASS",
+  "supported_material_claim_count": 29,
+  "supported_material_claims": [
+    {
+      "attribution_required": false,
+      "claim_id": "g28_opening_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "USD lên trước một đồng tiền thì vì sao chỉ số USD rộng vẫn có thể không tăng? Fed định nghĩa chỉ số rộng là bình quân có trọng số của giá trị USD so với tiền tệ của nhóm rộng các đối tác thương mại lớn của Mỹ; đây là điểm đã xác nhận (CONFIRMED). Phân tích của Capital Chronicle: một cặp chưa đủ quyết định hướng của cả rổ, và hai tín hiệu cũng có thể cùng hướng.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g28_dated_basis_source_4",
+      "claim_kind": "FACT",
+      "claim_text": "Cách đọc dưới đây dựa trên định nghĩa và quy ước được giữ lại từ bản H.10 phát hành ngày 13/10/2026. Mốc này là ngày phát hành tài liệu; các đoạn nguồn được sử dụng chưa cung cấp hàng tỷ giá và ngày quan sát để xác định một biến động thực tế.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g28_dated_basis_source_1",
+      "claim_kind": "FACT",
+      "claim_text": "Cách đọc dưới đây dựa trên định nghĩa và quy ước được giữ lại từ bản H.10 phát hành ngày 13/10/2026. Mốc này là ngày phát hành tài liệu; các đoạn nguồn được sử dụng chưa cung cấp hàng tỷ giá và ngày quan sát để xác định một biến động thực tế.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g28_quote_convention_source_4",
+      "claim_kind": "FACT",
+      "claim_text": "Bản H.10 nêu quy ước chung: tỷ giá được ghi bằng số đơn vị tiền tệ trên mỗi USD, trừ những trường hợp được đánh dấu sao. Nghĩa là trước khi gọi một con số tăng là USD mạnh lên, người đọc phải biết con số ấy đang đếm bao nhiêu đơn vị tiền nào cho một USD.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_quote_direction_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Từ quy ước đó, nếu một dòng yết theo đơn vị ngoại tệ trên USD tăng qua hai quan sát phù hợp, cùng một USD đổi được nhiều đơn vị ngoại tệ hơn: USD mạnh hơn so với đồng tiền ấy. Nếu số đó giảm, chiều đọc đảo lại. Đây là diễn giải theo đơn vị yết giá, không phải một kết luận rằng USD đã tăng hay giảm trong kỳ cụ thể.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_asterisk_exception_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Với dòng có dấu sao, cần đọc chú thích riêng trước khi áp dụng quy tắc trên. Chẳng hạn, nếu chú thích quy định cách yết là USD trên mỗi đơn vị ngoại tệ, số tăng sẽ có nghĩa đồng ngoại tệ đổi được nhiều USD hơn. Đây là trường hợp có điều kiện; đoạn H.10 được giữ lại chưa cho biết những dòng nào mang dấu sao hoặc cách yết riêng của chúng.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g28_broad_definition_source_1",
+      "claim_kind": "FACT",
+      "claim_text": "Trong định nghĩa của Fed, chỉ số USD rộng tổng hợp giá trị đồng USD trước tiền tệ của một nhóm rộng các đối tác thương mại lớn của Mỹ. Cụm từ có trọng số là điểm then chốt: đây là một phép tổng hợp nhiều quan hệ tiền tệ. Đoạn định nghĩa không liệt kê các đồng tiền hoặc tỷ trọng cụ thể để người đọc tự gán cho rổ.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_basket_mechanism_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phân tích Capital Chronicle: nếu USD mạnh lên trước một đồng tiền trong rổ nhưng yếu đi trước các đồng tiền khác, kết quả tổng hợp còn phụ thuộc trọng số và mức dịch chuyển của các thành phần. Vì thế, một cặp cho tín hiệu USD mạnh hơn vẫn có thể đi cùng chỉ số rộng giảm hoặc ít đổi. Đây là khả năng từ cấu trúc bình quân có trọng số, chưa phải mô tả một phiên thị trường.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_reader_use_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Cách chọn thước đo đi theo câu hỏi. Muốn biết USD thay đổi ra sao trước một đồng tiền cụ thể, hãy đọc đúng cặp và đơn vị của nó. Muốn biết USD thay đổi ra sao trước nhóm tiền tệ mà Fed dùng để tổng hợp, hãy đọc chỉ số rộng tương ứng. Phân tích của Capital Chronicle là dùng mỗi thước đo trong đúng phạm vi; chỉ số rộng không tự trả lời thay cho mọi cặp.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_reader_use_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Cách chọn thước đo đi theo câu hỏi. Muốn biết USD thay đổi ra sao trước một đồng tiền cụ thể, hãy đọc đúng cặp và đơn vị của nó. Muốn biết USD thay đổi ra sao trước nhóm tiền tệ mà Fed dùng để tổng hợp, hãy đọc chỉ số rộng tương ứng. Phân tích của Capital Chronicle là dùng mỗi thước đo trong đúng phạm vi; chỉ số rộng không tự trả lời thay cho mọi cặp.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g28_release_observation_source_4",
+      "claim_kind": "FACT",
+      "claim_text": "H.10 ghi rõ ngày phát hành 13/10/2026. Dòng ghi ngày phát hành chưa xác định ngày của từng quan sát tỷ giá: muốn biết số nào thuộc thời điểm nào, cần phần bảng và nhãn ngày tương ứng. Những phần đó chưa có trong các đoạn nguồn dùng ở đây, nên không thể lấy ngày phát hành làm ngày của một mức giá.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_comparison_window_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Trong phép kiểm tra của Capital Chronicle, chiều yết giá và kỳ so sánh phải được làm rõ cùng lúc. Nếu cặp tỷ giá được so từ một mốc còn chỉ số rộng được so từ mốc khác, hai kết quả chưa kiểm tra cùng một câu hỏi. Cần ghép ngày đầu, ngày cuối và cách ghi quan sát trước khi giải thích sự khác nhau bằng cấu trúc rổ.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_comparison_window_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Trong phép kiểm tra của Capital Chronicle, chiều yết giá và kỳ so sánh phải được làm rõ cùng lúc. Nếu cặp tỷ giá được so từ một mốc còn chỉ số rộng được so từ mốc khác, hai kết quả chưa kiểm tra cùng một câu hỏi. Cần ghép ngày đầu, ngày cuối và cách ghi quan sát trước khi giải thích sự khác nhau bằng cấu trúc rổ.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_same_direction_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phản đề từ cấu trúc rổ: nếu USD cùng mạnh lên trước các đồng tiền trong rổ trên một kỳ so sánh phù hợp, một cặp và chỉ số rộng có thể cùng cho tín hiệu USD mạnh hơn. Khác phạm vi đo không buộc chúng phải phân kỳ. Định nghĩa của Fed chưa chứng minh trường hợp cùng hướng hay trái hướng nào đã xảy ra.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_competing_reading_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Một lời giải cạnh tranh cần kiểm tra trước là cách đọc dữ liệu: điều trông như hai tín hiệu trái nhau có thể biến mất sau khi xử lý đúng chiều yết giá hoặc ghép lại kỳ quan sát. Nếu vậy, riêng sự khác biệt giữa một cặp và cả rổ chưa giải thích được trường hợp ấy. Đây là điều kiện kiểm tra của Capital Chronicle, không phải bằng chứng đã quan sát được một sai lệch dữ liệu.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_competing_reading_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Một lời giải cạnh tranh cần kiểm tra trước là cách đọc dữ liệu: điều trông như hai tín hiệu trái nhau có thể biến mất sau khi xử lý đúng chiều yết giá hoặc ghép lại kỳ quan sát. Nếu vậy, riêng sự khác biệt giữa một cặp và cả rổ chưa giải thích được trường hợp ấy. Đây là điều kiện kiểm tra của Capital Chronicle, không phải bằng chứng đã quan sát được một sai lệch dữ liệu.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_required_evidence_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Để chuyển từ khả năng giải thích sang nhận định về một trường hợp thực, cần chuỗi quan sát của chính cặp tỷ giá và chỉ số rộng, kèm đơn vị cùng kỳ so sánh. Để đi tiếp tới câu hỏi thành phần nào đóng góp, cần danh sách tiền tệ, trọng số và tài liệu phương pháp áp dụng cho đúng giai đoạn. Định nghĩa bình quân có trọng số và quy ước chung H.10 là điểm xuất phát cho phép kiểm tra ấy.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_required_evidence_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Để chuyển từ khả năng giải thích sang nhận định về một trường hợp thực, cần chuỗi quan sát của chính cặp tỷ giá và chỉ số rộng, kèm đơn vị cùng kỳ so sánh. Để đi tiếp tới câu hỏi thành phần nào đóng góp, cần danh sách tiền tệ, trọng số và tài liệu phương pháp áp dụng cho đúng giai đoạn. Định nghĩa bình quân có trọng số và quy ước chung H.10 là điểm xuất phát cho phép kiểm tra ấy.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_watch_question_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phép kiểm tra tiếp theo của Capital Chronicle là: sau khi đọc đúng chiều yết giá, ghép đúng kỳ quan sát và đối chiếu rổ có trọng số, hai tín hiệu còn khác nhau không? Nếu chênh lệch biến mất khi sửa đơn vị hoặc kỳ so sánh, cách giải thích bằng sự khác biệt giữa một cặp và cả rổ không còn đủ cho trường hợp ấy.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_watch_question_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Phép kiểm tra tiếp theo của Capital Chronicle là: sau khi đọc đúng chiều yết giá, ghép đúng kỳ quan sát và đối chiếu rổ có trọng số, hai tín hiệu còn khác nhau không? Nếu chênh lệch biến mất khi sửa đơn vị hoặc kỳ so sánh, cách giải thích bằng sự khác biệt giữa một cặp và cả rổ không còn đủ cho trường hợp ấy.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g28_source_notes_source_4",
+      "claim_kind": "FACT",
+      "claim_text": "Nguồn sử dụng: [Federal Reserve, Foreign Exchange Rates — H.10](https://www.federalreserve.gov/releases/h10/current/), với hai đoạn giữ lại về quy ước yết tỷ giá và định nghĩa chỉ số rộng, gắn bản phát hành ngày 13/10/2026. Đoạn nguồn không cung cấp giờ phát hành. Bài giải thích dùng lại các đoạn này và chưa đưa ra nhận định về giá thị trường hiện tại.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": true,
+      "claim_id": "g28_source_notes_source_1",
+      "claim_kind": "FACT",
+      "claim_text": "Nguồn sử dụng: [Federal Reserve, Foreign Exchange Rates — H.10](https://www.federalreserve.gov/releases/h10/current/), với hai đoạn giữ lại về quy ước yết tỷ giá và định nghĩa chỉ số rộng, gắn bản phát hành ngày 13/10/2026. Đoạn nguồn không cung cấp giờ phát hành. Bài giải thích dùng lại các đoạn này và chưa đưa ra nhận định về giá thị trường hiện tại.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_metadata_title_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "USD lên trước một đồng tiền chưa có nghĩa cả rổ cùng tăng",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_metadata_dek_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Chỉ số USD rộng (broad dollar index) là bình quân có trọng số theo định nghĩa Fed đã xác nhận (CONFIRMED). Một cặp tỷ giá chưa đủ quyết định hướng của cả rổ.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_metadata_search_title_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Vì sao USD tăng ở một cặp nhưng chỉ số USD rộng không tăng?",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_metadata_meta_description_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Đọc tỷ giá song phương và chỉ số USD rộng qua quy ước H.10 của Fed: kiểm tra đơn vị yết giá, ngày quan sát và phạm vi rổ có trọng số.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_metadata_meta_description_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "Đọc tỷ giá song phương và chỉ số USD rộng qua quy ước H.10 của Fed: kiểm tra đơn vị yết giá, ngày quan sát và phạm vi rổ có trọng số.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_metadata_social_hook_source_1",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "USD lên so với ai? Trước khi xem một cặp là sức mạnh chung của đồng USD, hãy kiểm tra chiều yết giá, ngày quan sát và rổ so sánh.",
+      "document_id": "goal21-fx-broad-index",
+      "source_id": "SOURCE_1",
+      "support_excerpt_sha256": "55c1ce6be5956d5c454d72cc7527cf4694a0ef8d6969b68319aa303f7c2f6dac",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    },
+    {
+      "attribution_required": false,
+      "claim_id": "g28_metadata_social_hook_source_4",
+      "claim_kind": "CAUSALITY",
+      "claim_text": "USD lên so với ai? Trước khi xem một cặp là sức mạnh chung của đồng USD, hãy kiểm tra chiều yết giá, ngày quan sát và rổ so sánh.",
+      "document_id": "goal21-fx-convention",
+      "source_id": "SOURCE_4",
+      "support_excerpt_sha256": "32d1efdce55cf1c533ecc7e0b71ec91a15b0061b9c95aaa218fc92a622d6bbea",
+      "support_status": "SUPPORTED_EXACT_RETRIEVED_SOURCE_BYTES"
+    }
+  ],
+  "unknown_write_detected": false,
+  "unsupported_material_claim_count": 0,
+  "worker_router_receipt": {
+    "external_provider_attempt_count": 0,
+    "observation": {
+      "invocation_id": "/root/goal28_sol_max_a",
+      "model": "gpt-6.1-sol",
+      "observation_source": "collaboration.spawn_agent exposed canonical task name with explicitly requested gpt-6.1-sol/max; UUID not exposed",
+      "reasoning_effort": "max",
+      "speed": "standard",
+      "surface": "CODEX_NATIVE_SUBAGENT"
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "max",
+    "request_sha256": "ff6cbe15c22f16932446671b5a868f5a8b71916b369e5773681a1086ad77578d",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "max",
+    "response_sha256": "7cbb02c9695d55c887884f6554d7533a5872ed7fdcf492300961b109ba944ceb",
+    "role": "write",
+    "selected_model": "gpt-6.1-sol",
+    "stage": "write"
+  }
+}

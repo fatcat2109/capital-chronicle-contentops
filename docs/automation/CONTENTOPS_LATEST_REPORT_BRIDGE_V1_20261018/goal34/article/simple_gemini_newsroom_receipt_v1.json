@@ -1,0 +1,589 @@
+{
+  "accepted_source_count": 3,
+  "admitted_candidate_count": 1,
+  "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+  "article_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal34-hedge-cash-clocks\\article_manifest_v1.json",
+  "candidate_attempt_history": [
+    {
+      "accepted_source_count": 3,
+      "accepted_source_urls": [
+        "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/economicpurpose.html",
+        "https://www.cftc.gov/LearnAndProtect/AdvisoriesAndArticles/FuturesMarketBasics/index.htm"
+      ],
+      "article_mode": "DATA_OR_DOCUMENT_LENS",
+      "blockers": [],
+      "candidate_id": "simple-story-58c20e2b812d839f223fed99",
+      "deterministic_mode_cap_reason": null,
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "Southwest Airlines Co.",
+        "primary_reporting_source_identity": "Southwest Airlines Co.",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+        "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal34-southwest-hedge-clocks"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "model_selected_article_mode": "DATA_OR_DOCUMENT_LENS",
+      "plan_position": 1,
+      "plan_role": "PRIMARY",
+      "research_queries": [
+        "Southwest second quarter 2025 fuel hedge termination cash proceeds AOCI recognition"
+      ],
+      "selection_rationale": "The newly admitted named issuer filing answers part of the saved hedge question with an actual case and a useful cash-versus-accounting distinction absent from the prior general futures article. It does not establish a margin call, liquidity distress, hedge failure or current 2026 position.",
+      "source_request_count_for_attempt": 0,
+      "source_request_count_total": 0,
+      "source_route_history": [],
+      "status": "SOURCE_QUALIFIED"
+    }
+  ],
+  "candidate_count": 23,
+  "candidate_limit": 32,
+  "classification": "PASS_NATIVE_DESKTOP_ZERO_WRITE_ARTICLE",
+  "codex_runtime_model_call_count": null,
+  "cutoff_utc": "2026-10-21T21:04:06.088334Z",
+  "derivative_intent_count": 8,
+  "deterministic_relay_attribution_normalization_count": 0,
+  "editorial_execution": {
+    "cost_usd": null,
+    "external_provider_attempt_count": 0,
+    "maximum_repair_count": 1,
+    "native_invocation_count_observed": 2,
+    "observations": [
+      {
+        "invocation_id": "/root/goal34_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+        "reasoning_effort": "low",
+        "role": "select",
+        "speed": "standard",
+        "stage": "select",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      {
+        "invocation_id": "/root/goal34_sol_max_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+        "reasoning_effort": "max",
+        "role": "write",
+        "speed": "standard",
+        "stage": "write",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      }
+    ],
+    "observed_efforts": [
+      "low",
+      "max"
+    ],
+    "observed_models": [
+      "gpt-6.1-sol"
+    ],
+    "owner": "NATIVE_CODEX_DESKTOP",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "low",
+    "role_assignments": {
+      "filter": {
+        "model": "gpt-6-luna",
+        "reasoning_effort": "max"
+      },
+      "revise": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      },
+      "select": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "low"
+      },
+      "write": {
+        "model": "gpt-6.1-sol",
+        "reasoning_effort": "max"
+      }
+    },
+    "semantic_response_count": 2,
+    "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+    "usage_tokens": null
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "Southwest Airlines Co.",
+    "primary_reporting_source_identity": "Southwest Airlines Co.",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+    "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal34-southwest-hedge-clocks"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "model_receipts": [
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal34_sol_light",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+        "reasoning_effort": "low",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "low",
+      "request_sha256": "da11b4c32dcba4dc79aaf53cf17ae78a6d18c7f6273c7028fb07879d313be366",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "response_sha256": "34c9c937877222ff967cf074b112b1c71b39ae367ce8d19928c4099d380709a1",
+      "role": "select",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "select"
+    },
+    {
+      "external_provider_attempt_count": 0,
+      "observation": {
+        "invocation_id": "/root/goal34_sol_max_writer",
+        "model": "gpt-6.1-sol",
+        "observation_source": "ACTUAL_COLLABORATION_TOOL_ASSIGNED_ROLE_AND_SAVED_NATIVE_RETURN",
+        "reasoning_effort": "max",
+        "speed": "standard",
+        "surface": "CODEX_NATIVE_SUBAGENT"
+      },
+      "provider": "NATIVE_CODEX_DESKTOP",
+      "public_write_attempted": false,
+      "reasoning_effort": "max",
+      "request_sha256": "5811e7479896d51218bad41533cfa410a7469cfc68f2457b2b7506d514200ecf",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "max",
+      "response_sha256": "a9d1ddf1beaa122af5d4941db100fd6bcf167806f7c579bcc6c16a5c77658cb7",
+      "role": "write",
+      "selected_model": "gpt-6.1-sol",
+      "stage": "write"
+    }
+  ],
+  "native_derivative_preview_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal34-hedge-cash-clocks\\native_derivative_previews_v1.json",
+  "ordering": "DETERMINISTIC_RELEVANCE_THEN_NATIVE_DESKTOP_SELECT_THEN_BOUNDED_SOURCES_THEN_NATIVE_DESKTOP_WRITE_THEN_VALIDATE",
+  "provider_publication_writes": 0,
+  "public_write_performed": false,
+  "publication_bridge_model_call_count": 0,
+  "publication_bridge_source_get_count": 0,
+  "publication_coordinator_remains_sole_public_write_owner": true,
+  "publication_lifecycle_plan": {
+    "accepted_evidence_ids": [
+      "goal21-futures-hedgers",
+      "goal31-futures-economic-purpose",
+      "goal34-southwest-hedge-clocks"
+    ],
+    "accepted_evidence_sha256": "944b092c47e4de8c45e72a03d6f465d1532004a1b72ec09f386533deba6bfa32",
+    "adapter_callables_persisted": false,
+    "article_content_sha256": "1ad163752f863df9b4297fefeb68e8465fb18cfd9b50f394c1c118d79fea8262",
+    "article_identity": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+    "artifact_refs": {
+      "article_manifest": "article_manifest_v1.json",
+      "derivative_intents": "derivative_intents_v1.json",
+      "epistemic_state": "simple_epistemic_state_v1.json",
+      "native_derivative_previews": "native_derivative_previews_v1.json",
+      "qualified_article_record": "qualified_article_record_v1.json"
+    },
+    "bridge_model_call_count": 0,
+    "bridge_schema_version": "contentops.v1_simple_publication_bridge.v1",
+    "bridge_source_get_count": 0,
+    "canonical_url_before_state": "PENDING_NON_DISPATCHABLE",
+    "compiler_input_sha256": "82e634f28ffe7aa5ef03e50d35d279dde6b780e2fec17d01a4f58fd40716b58f",
+    "derivative_rematerialization_owner": "CanonicalDestinationTransportRuntimeV1.finalize_intent",
+    "destinations": [
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": null,
+        "canonical_url_state": "CANONICAL_SUBSTACK_TO_BE_ESTABLISHED",
+        "delivery_media_required": false,
+        "destination": "substack",
+        "expected_destination_identity": "capitalchronicle.substack.com",
+        "payload_hash": "79bf97d32f31071c7099afb56265bd6c4b0aa45775b9f63f0bc9a38c84ad3d2f",
+        "payload_hash_kind": "QUALIFIED_SIMPLE_ARTICLE_IDENTITY",
+        "platform": "substack",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": false,
+        "surface": "SUBSTACK_ARTICLE",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "telegram_live_adapter_v6.execute_telegram_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "telegram",
+        "expected_destination_identity": "@CapitalChronicle",
+        "payload_hash": "e7a195d5916152882a7cf2abc39c69ffc07db6e5dc5566b20206d94eb9db0667",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "telegram",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "TELEGRAM_CHANNEL_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BOT_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "x",
+        "expected_destination_identity": "@Capitalnicle",
+        "payload_hash": "f654cd29301fb374425f55359d280e49e90bd221352136ed4c7ecceeed2930f9",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "x",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "X_THREAD",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      },
+      {
+        "adapter": "discord_live_adapter_v6.execute_discord_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "discord",
+        "expected_destination_identity": "discord_channel:1519311669216673802",
+        "payload_hash": "94aebd0fb7b7268722090689ab2cda9caa73cf26d58cbb1d99c0f522be3e811e",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "discord",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "DISCORD_ANNOUNCEMENT",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "WEBHOOK_API"
+      },
+      {
+        "adapter": "linkedin_official_member_api_v1.LinkedInOfficialMemberApiTransportV1",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "linkedin",
+        "expected_destination_identity": "linkedin:jimcc",
+        "payload_hash": "e3182a4204027ed17a51a69685470a91ab3b21125d3d528459fce7c61893be38",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "linkedin",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "LINKEDIN_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "OFFICIAL_MEMBER_API"
+      },
+      {
+        "adapter": "facebook_page_adapter_v6.execute_facebook_photo",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "facebook_page",
+        "expected_destination_identity": "Capital Chronicle",
+        "payload_hash": "1983a79415bd016cc93d8d0d4311d588c30cba83b11cac11aa8ada4a5d8d47eb",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "facebook_page",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "FACEBOOK_PAGE_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "instagram_adapter_v6.execute_instagram_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": true,
+        "destination": "instagram_business",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "56a6a285107613ee6fa6fa62783fd9a8f736034e49218222fc880f4fda151828",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "instagram_business",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "INSTAGRAM_BUSINESS_POST",
+        "text_only_supported": false,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "META_GRAPH_API"
+      },
+      {
+        "adapter": "threads_adapter_v6.execute_threads_post",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "threads",
+        "expected_destination_identity": "official.capitalchronicle",
+        "payload_hash": "76770727386288e4e346369beec119fc5c00aed704886f55fcc9d0ec7ba5ca72",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "threads",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "THREADS_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "THREADS_API"
+      },
+      {
+        "adapter": "neo_destination_handoff_v1.NeoDestinationHandoff",
+        "canonical_url": null,
+        "canonical_url_dependency": "SUBSTACK_ARTICLE",
+        "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+        "delivery_media_required": false,
+        "destination": "youtube",
+        "expected_destination_identity": "@CapitalChronicleYouTube",
+        "payload_hash": "a2051a4250dfb38b5787c086e900da6fb30a342698da9cb1d294473fe8ffcb24",
+        "payload_hash_kind": "PRE_CANONICAL_URL_TEMPLATE",
+        "platform": "youtube",
+        "readiness_state": "JIT_VERIFICATION_REQUIRED",
+        "rematerialization_after_real_substack_url_required": true,
+        "surface": "YOUTUBE_COMMUNITY_POST",
+        "text_only_supported": true,
+        "transport_registry_version": "contentops.destination_transport_registry.v3",
+        "transport_type": "BROWSEROS_NEO_MCP"
+      }
+    ],
+    "editorial_classification": "QUALIFIED_NATIVE_DESKTOP_ARTICLE",
+    "epistemic_state": {
+      "adapter_changes_proposition_not_evidence_authority": true,
+      "analysis_must_be_conditional": false,
+      "authority_granted_by_adapter": false,
+      "event_confirmation_state": "CONFIRMED",
+      "event_proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+      "event_truth_support_status": "SUPPORTED_PRIMARY",
+      "event_truth_supported": true,
+      "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+      "origin_character": "ON_RECORD",
+      "primary_reporting_publisher": "Southwest Airlines Co.",
+      "primary_reporting_source_identity": "Southwest Airlines Co.",
+      "public_write_authority": false,
+      "reader_visible_epistemic_label": "CONFIRMED",
+      "relay_source_identity": null,
+      "report_proposition": "Southwest Airlines Co. reports that during second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio",
+      "report_truth_support_status": "SUPPORTED_ATTRIBUTED_INTERESTED_PARTY",
+      "report_truth_supported": true,
+      "schema_version": "contentops.v1_simple_epistemic_state.v1",
+      "selected_route": "OFFICIAL_PRIMARY",
+      "source_multiplicity": "SINGLE_SOURCE",
+      "supporting_document_ids": [
+        "goal34-southwest-hedge-clocks"
+      ],
+      "underlying_event_may_be_stated_as_confirmed": true
+    },
+    "full_v1_distribution_required": true,
+    "output_dir": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal34-hedge-cash-clocks",
+    "package_identity": "8983f9e8c0fa559fe787baf0e3786e549a422251cb2ae0bd523a7dd30e3b8037",
+    "plan_hash": "4fa0a4cae512a9889dad7aef1ebd7b1461e6f5603476f0f6029d13e3fa8a7df7",
+    "policy_mode_version": "AUTONOMOUS_DEFAULT:contentops.operating_mode.v1",
+    "pre_substack_blockers": [],
+    "publication_window": {
+      "window_identity": "goal34-hedge-cash-clocks"
+    },
+    "quality_probation_policy_id": "QUALITY_PROBATION_FOUR_WINDOW_V1",
+    "required_derivative_destinations": [
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "required_publication_destinations": [
+      "substack",
+      "telegram",
+      "x",
+      "discord",
+      "linkedin",
+      "facebook_page",
+      "instagram_business",
+      "threads",
+      "youtube"
+    ],
+    "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+    "run_id": "goal34-hedge-cash-clocks",
+    "schema_version": "contentops.publication_plan.v1",
+    "secrets_persisted": false,
+    "skipped_derivative_destinations": [],
+    "source_provenance_binding_preserved": true,
+    "story_identity": "simple-story-58c20e2b812d839f223fed99",
+    "substack_first_dependency": true,
+    "transaction_readiness": "CANONICAL_READY_DERIVATIVES_DEFERRED",
+    "transport_registry_version": "contentops.destination_transport_registry.v3",
+    "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+  },
+  "qualified_article_count": 1,
+  "qualified_record_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal34-hedge-cash-clocks\\qualified_article_record_v1.json",
+  "revision_performed": false,
+  "run_id": "goal34-hedge-cash-clocks",
+  "schema_version": "contentops.v1_simple_gemini_newsroom.v5",
+  "selected_candidate": {
+    "candidate_id": "simple-story-58c20e2b812d839f223fed99",
+    "canonical_x_list_provenance": {},
+    "evolving_story_context": [
+      {
+        "changed_evidence": [
+          {
+            "after": {
+              "capture_sha256": "972f088288e252878b4cc7ae3157af456759bd3f1c48da16532d32868d8ba7c8",
+              "context_kind": "DATED_2025_ISSUER_CASE_NOT_2026_NEWS_OR_EXCHANGE_MARGIN_PROOF",
+              "item_id": "goal34-southwest-hedge-clocks",
+              "observation_date": "2025-06-30",
+              "originality": "INDEPENDENT_CONTENTOPS_ACQUISITION",
+              "period_relation": "MATERIAL_NEW_SOURCE_PROPOSITION",
+              "permission_sha256": "59650fb790d9edfce73bb77e1e90761b79b2313ac99d6fb99e2ee75f681e3dfb",
+              "proposition": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio.",
+              "published_at_utc": "2025-07-24T00:00:00Z",
+              "retrieved_at_utc": "2026-10-21T20:58:43.268Z",
+              "rights_state": "GOVERNED_PUBLIC_FILING_FACTS_ONLY_NO_EXPRESSIVE_REUSE",
+              "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+              "stage": "RESEARCH_READY",
+              "text_sha256": "b53bd56534f2726f46bbab826f7ed86e056e1a81f05c49202c87190164876524"
+            },
+            "before": null,
+            "item_id": "goal34-southwest-hedge-clocks",
+            "material": true,
+            "state": "ADDED"
+          }
+        ],
+        "disposition": "MATERIAL_FOLLOW_UP",
+        "prior_package": {
+          "article_identity": "178a461911427a953e121cb7014ee9e73d51b2d19ef5b621ef9e08d443236872",
+          "full_text": "Phòng hộ giá bán bằng futures có thể giúp người sản xuất bớt bất định, nhưng tài khoản hợp đồng vẫn có thể cần thêm tiền trước ngày thu tiền hàng. CONFIRMED — CFTC mô tả mục đích hedge cùng cơ chế định giá lại hằng ngày. Theo phân tích của Capital Chronicle, tác dụng bù rủi ro và khả năng đáp ứng tiền mặt phải được kiểm tra cùng nhau. [[SOURCE:SOURCE_1]]\n\n## Nhìn cả vụ mùa và vị thế bán\n\nHedge là phòng hộ: dùng một vị thế để hạn chế rủi ro giá đang có trong hoạt động kinh doanh. CFTC lấy ví dụ người nông dân Kansas đã trồng lúa mì, chịu rủi ro giá giảm trước khi thu hoạch và bán. Bán hợp đồng futures là cách tài liệu minh họa việc giảm bất định về giá bán của vụ mùa. [[SOURCE:SOURCE_1]]\n\nCC diễn giải có điều kiện: nếu giá lúa mì tăng, khả năng bán hàng thực với giá cao hơn có thể đi cùng khoản lỗ trên vị thế futures bán; nếu giá giảm, hướng bù trừ có thể đảo lại. Cách giải thích này cần hàng thực và hợp đồng đủ tương thích, chưa xác lập mức bù hay lợi nhuận của một vụ mùa cụ thể. [[SOURCE:SOURCE_1]]\n\nMột vị thế bán futures vì thế chưa đủ chứng minh người nắm giữ đang bi quan về giá. Trong ví dụ CFTC, người bán còn có lúa mì sẽ đưa ra thị trường. Theo cách đọc của CC, muốn hiểu vị thế phải biết nó đứng cạnh tài sản và rủi ro kinh doanh nào, cùng mục đích của người nắm giữ. [[SOURCE:SOURCE_1]]\n\n## Tài khoản ký quỹ đi theo lịch riêng\n\nCFTC mô tả ký quỹ futures là khoản bảo đảm thực hiện nghĩa vụ tài chính, khác với khoản trả trước trong giao dịch ký quỹ cổ phiếu. Người mở vị thế nộp ký quỹ ban đầu; sau đó vị thế được định giá lại theo thị trường hằng ngày, gọi là mark-to-market. [[SOURCE:SOURCE_1]]\n\nTheo cơ chế trong tài liệu, khi vị thế mất giá, tiền trong tài khoản ký quỹ giảm. Nếu số tiền xuống dưới mức ký quỹ duy trì, người giao dịch phải nộp thêm ký quỹ biến động — variation margin — để đưa tài khoản về mức ban đầu. Khi vị thế có lãi, khoản lãi được cộng vào tài khoản. [[SOURCE:SOURCE_1]]\n\nPhân tích CC: nếu giá tăng trước khi bán lúa mì, vị thế futures bán có thể cần thêm tiền ký quỹ trong lúc doanh thu hàng chưa về. Khoản bù kinh tế dự kiến từ hàng thực chưa đồng nghĩa có tiền đúng lúc. [[SOURCE:SOURCE_1]]\n\nVì vậy cần đặt lịch thu tiền bán hàng cạnh lịch đáp ứng ký quỹ. Giá hàng thực thuận lợi hơn chưa tự tạo ra tiền trong tài khoản futures trước khi bán hàng. Đây là vấn đề thời điểm trong cách giải thích của CC; tài liệu không cung cấp dòng tiền của một nông dân cụ thể để kết luận người đó đang thiếu tiền. [[SOURCE:SOURCE_1]]\n\n## Hàng thực và hợp đồng chuẩn hóa có thể khác nhau\n\nCFTC cho biết sàn chuẩn hóa các yếu tố như quy mô hợp đồng, tháng giao hàng, ngày giao dịch cuối, địa điểm và phẩm cấp được chấp nhận. Nhờ nhiều người cùng giao dịch một công cụ, tính thanh khoản tăng và hợp đồng hữu ích hơn cho phòng hộ. Đổi lại, sự chuẩn hóa làm nó kém linh hoạt hơn cho nhu cầu mua bán hàng thực riêng của từng người. [[SOURCE:SOURCE_1]]\n\nTrong ví dụ CFTC, nông dân muốn giao lúa mì gần Topeka có thể dùng futures lúa mì CBOT để hedge, nhưng không muốn giao hàng theo hợp đồng vì điểm giao gần nhất trong ví dụ ở St. Louis. Người này mua lại để đóng vị thế trước ngày giao và bán lúa mì tại địa phương trên thị trường giao ngay. Đóng vị thế bù trừ, hay offset, là kết thúc vị thế hợp đồng; việc bán hàng thực diễn ra riêng. [[SOURCE:SOURCE_1]]\n\nTừ đó, CC đặt câu hỏi về độ khớp: hàng thực sẽ bán ở đâu, có phẩm cấp nào, vào lúc nào, và hợp đồng đang phòng hộ phần rủi ro nào? Ví dụ địa điểm cho thấy lý do phải hỏi; nó chưa đo mức chênh giữa giá hàng thực và giá hợp đồng trong một trường hợp hiện tại. [[SOURCE:SOURCE_1]]\n\n## Khi nào hedge vẫn hữu ích?\n\nPhản đề của CC: nếu hợp đồng bám sát rủi ro hàng thực và có nguồn tiền đáp ứng ký quỹ đúng lúc, hedge vẫn có thể hữu ích. Nhu cầu bổ sung tiền tự nó chưa chứng minh rủi ro giá của cả hoạt động đã tăng. [[SOURCE:SOURCE_1]]\n\nNếu hàng thực không tạo được khoản bù như giả định, hoặc tiền không về kịp nghĩa vụ ký quỹ, phải rút kết luận hedge vừa giảm rủi ro vừa đủ sức duy trì. Cần kiểm độ khớp và lịch tiền của trường hợp cụ thể. [[SOURCE:SOURCE_1]]\n\n## Cần hỏi gì trước một trường hợp cụ thể?\n\n- Hàng thực và rủi ro: người sản xuất sẽ bán loại hàng nào, khối lượng bao nhiêu, vào kỳ nào, và phần biến động giá nào đang được phòng hộ? Đây là các câu hỏi kiểm tra, chưa phải dữ liệu về một vị thế được xác minh. [[SOURCE:SOURCE_1]]\n\n- Hợp đồng: quy mô, kỳ hạn, địa điểm và phẩm cấp có phù hợp với hàng sẽ bán không; vị thế dự kiến được đóng bù trừ hay dẫn tới giao hàng? Cần điều khoản của đúng hợp đồng để trả lời. [[SOURCE:SOURCE_1]]\n\n- Tiền mặt: tiền hàng dự kiến được nhận khi nào, tiền đáp ứng ký quỹ có sẵn khi nào, và nghĩa vụ bổ sung của đúng tài khoản là gì? Một khoản bù về giá có thể tồn tại mà câu hỏi tiền đến đúng lúc vẫn chưa được trả lời. [[SOURCE:SOURCE_1]]\n\n## Ghi chú nguồn\n\nGhi chú nguồn: bài dùng phần giải thích của CFTC được đọc và lưu ngày 21/10/2026. Bản nguồn không cung cấp ngày công bố hoặc sửa đổi. Các ví dụ được dùng làm kiến thức nền, không xác nhận điều khoản hiện hành của một hợp đồng hay hiệu quả của vị thế hiện tại; bài không đưa ra khuyến nghị giao dịch. [[SOURCE:SOURCE_1]]",
+          "stage": "UNPUBLISHED_REVIEWED_ARTICLE",
+          "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+          "title": "Phòng hộ bằng futures vẫn có thể cần thêm tiền mặt"
+        },
+        "publication_state": "UNPUBLISHED_RESEARCH",
+        "reason": "UPDATE warranted by a newly retained dated issuer case, not by new 2026 news. Southwest Q2 2025 closed OTC fuel options: about $40m cash proceeds, about $36m expense reclassification, about $209m remaining AOCI net of proceeds and before tax, and no cash collateral posted or received at June 30. Distinguish cash receipt, earnings recognition and underlying fuel dates; OTC options are not evidence of exchange variation margin or liquidity distress. Preserve original general futures explainer and invalidate its former prepared binding for this follow-up.",
+        "removed_main_claim_ids": [],
+        "source_item_ids": [
+          "goal34-southwest-hedge-clocks",
+          "goal31-futures-economic-purpose",
+          "goal21-futures-hedgers"
+        ],
+        "source_review_id": "native-source-review-419900a25c926621120e1346789394486c163343b67b43069a589f55e9a0b7b2",
+        "story_identity": "simple-story-90948260be9bd56524b7f2c8",
+        "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+      }
+    ],
+    "headline_id": "goal34-southwest-hedge-clocks",
+    "headline_text": "During second quarter 2025, the Company terminated its remaining portfolio of fuel hedging contracts, which were scheduled to settle through 2027, to effectively close its fuel hedging portfolio.",
+    "official_source_urls": [
+      "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+    ],
+    "public_source_urls": [
+      "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm"
+    ],
+    "report_editorial_context": {},
+    "revision_at_utc": "2026-10-21T21:04:05.991322Z",
+    "source_account": "Southwest Airlines Co.",
+    "source_platform": "",
+    "source_timestamp_utc": "2025-07-24T00:00:00Z",
+    "source_url": "https://www.sec.gov/Archives/edgar/data/92380/000009238025000134/luv-20250630.htm",
+    "sourceability_route_hint": {
+      "canonical_x_zero_get_route_available": false,
+      "expected_route_request_cost_class": "DIRECT_OR_ALREADY_BOUND",
+      "known_access_risk": false,
+      "known_official_path": true,
+      "reputable_public_secondary_path": false,
+      "routing_hint_grants_factual_or_publication_authority": false
+    },
+    "story_identity": "simple-story-58c20e2b812d839f223fed99",
+    "update_chain_identity": "simple-story-90948260be9bd56524b7f2c8"
+  },
+  "selected_plan_entry": {
+    "angle": "A dated Southwest 2025 filing case separates the cash received when OTC fuel options closed, the expense recognized in Q2, and future expense recognition tied to originally forecast fuel transactions.",
+    "article_mode": "DATA_OR_DOCUMENT_LENS",
+    "candidate_id": "simple-story-58c20e2b812d839f223fed99",
+    "evidence_plan": "Use only admitted goal34-southwest-hedge-clocks exact filing extracts and existing source review; preserve original goal31 futures explainer as background. Bind approximately $40m cash proceeds, $36m Q2 premium-expense reclassification, and $209m remaining AOCI net of proceeds and before tax to exact spans. Distinguish June 30 collateral snapshot from a cashflow history and OTC options from exchange variation margin. Code owns any arithmetic; no new calculation or source request is needed. Retain the historical 2025 dates prominently and Vietnamese owner-edition reader language.",
+    "plan_position": 1,
+    "plan_role": "PRIMARY",
+    "primary_reader_question": "When a company closes a fuel hedge and receives cash, why can related fuel expense still appear in later periods, and what does its collateral disclosure actually establish?",
+    "research_queries": [
+      "Southwest second quarter 2025 fuel hedge termination cash proceeds AOCI recognition"
+    ],
+    "selection_rationale": "The newly admitted named issuer filing answers part of the saved hedge question with an actual case and a useful cash-versus-accounting distinction absent from the prior general futures article. It does not establish a margin call, liquidity distress, hedge failure or current 2026 position."
+  },
+  "selection": {
+    "ordered_candidate_plan": [
+      {
+        "angle": "A dated Southwest 2025 filing case separates the cash received when OTC fuel options closed, the expense recognized in Q2, and future expense recognition tied to originally forecast fuel transactions.",
+        "article_mode": "DATA_OR_DOCUMENT_LENS",
+        "candidate_id": "simple-story-58c20e2b812d839f223fed99",
+        "evidence_plan": "Use only admitted goal34-southwest-hedge-clocks exact filing extracts and existing source review; preserve original goal31 futures explainer as background. Bind approximately $40m cash proceeds, $36m Q2 premium-expense reclassification, and $209m remaining AOCI net of proceeds and before tax to exact spans. Distinguish June 30 collateral snapshot from a cashflow history and OTC options from exchange variation margin. Code owns any arithmetic; no new calculation or source request is needed. Retain the historical 2025 dates prominently and Vietnamese owner-edition reader language.",
+        "primary_reader_question": "When a company closes a fuel hedge and receives cash, why can related fuel expense still appear in later periods, and what does its collateral disclosure actually establish?",
+        "research_queries": [
+          "Southwest second quarter 2025 fuel hedge termination cash proceeds AOCI recognition"
+        ],
+        "selection_rationale": "The newly admitted named issuer filing answers part of the saved hedge question with an actual case and a useful cash-versus-accounting distinction absent from the prior general futures article. It does not establish a margin call, liquidity distress, hedge failure or current 2026 position."
+      }
+    ],
+    "public_write_attempted": false,
+    "schema_version": "contentops.v1_simple_gemini_selection.v2",
+    "selection_summary": "Select one dated document-lens follow-up from the 23 compared candidates. Gas is unchanged October 9/October 15 evidence; the SEC November 9 event remains future at the sealed cutoff. Other retained proposals, historical explainers, source-convention items and Main recirculations do not improve this exact three-brief task. Audience policy remains HOLD with no observed independent reader questions. Query text is required plan metadata only: execute no further requests.",
+    "status": "SELECT_CANDIDATE_PLAN"
+  },
+  "semantic_response_count": 2,
+  "source_request_count": 0,
+  "source_request_limit": 6,
+  "sourceability_preselection": {
+    "artifact_path": "C:\\Users\\bullw\\AppData\\Local\\CapitalChronicle\\ContentOps\\editorial-previews\\goal34-hedge-cash-clocks\\simple_sourceability_preselection_v1.json",
+    "authority_granted": false,
+    "candidate_ids_entering_top_packet": [],
+    "candidate_ids_leaving_top_packet": [],
+    "full_eligible_deduped_universe_count": 23,
+    "model_or_provider_calls": 0,
+    "network_gets": 0,
+    "ranking_order_changed": true,
+    "same_production_day_candidate_retry_suppression_grants_authority": false,
+    "same_production_day_source_blocked_candidate_exclusion_count": 0,
+    "same_production_day_source_blocked_candidate_exclusion_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "source_route_health_reused": false
+  },
+  "supported_material_claim_count": 23,
+  "unknown_write_count": 0,
+  "updated_source_route_health": {}
+}

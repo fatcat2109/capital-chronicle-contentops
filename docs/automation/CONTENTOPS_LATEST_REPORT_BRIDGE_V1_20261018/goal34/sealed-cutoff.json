@@ -1,0 +1,13 @@
+{
+  "initial_acquisition_target_utc": "2026-10-21T20:45:56Z",
+  "editorial_cutoff_utc": "2026-10-21T21:04:06.088334Z",
+  "reason": "The initial pre-acquisition timestamp was a target, not an admissible known-at cutoff. Seal after actual byte retention and admission; no retrieval or admission clocks backdated.",
+  "eligible_publication_upper_bound_utc": "2026-10-21T20:45:56Z",
+  "later_publications_admitted": false,
+  "source_request_counts": {
+    "eia": 1,
+    "sec_event": 2,
+    "issuer_case": 5
+  },
+  "initial_context_preserved": true
+}

@@ -1,0 +1,530 @@
+{
+  "accepted_evidence_ids": [
+    "goal28-company-reading",
+    "goal31-sec-machine-data"
+  ],
+  "accepted_evidence_sha256": "49224d73c720a780e578d4f7991e3111d3e552d7001db3fd762b8dbb74655447",
+  "article_body_sha256": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+  "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+  "article_path": null,
+  "attempt_run_id": "goal31-company-machine-reading",
+  "derivative_package_intent_count": 8,
+  "derivative_package_intents": [
+    {
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "telegram",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "channel_brief",
+        "hard_truncation_used": false,
+        "media_asset_ids": [
+          "official_source_document_card"
+        ],
+        "platform_limit": 1024,
+        "text": "NEWSROOM BRIEF\n\nCONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\nWhat to watch: C\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed5i c\u00e1ch nh\u00ecn c\u1ee7a CC l\u00e0: c\u00f3 ph\u00e9p th\u1eed \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c v\u1edbi t\u00e0i li\u1ec7u g\u1ed1c, n\u00eau r\u00f5 l\u1ed7i v\u00e0 gi\u1edbi h\u1ea1n, cho th\u1ea5y c\u00f4ng c\u1ee5 gi\u1eef \u0111\u00fang k\u1ef3, ph\u1ea1m vi v\u00e0 gi\u1ea3 \u0111\u1ecbnh hay ch\u01b0a?\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e\n\nSource date: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "6807226a6aaa10a87f885442c60765c7e75fdd76176592173a08dde468619cae",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "x",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e\n\nWatch: C\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed5i c\u00e1ch nh\u00ecn c\u1ee7a CC l\u00e0: c\u00f3 ph\u00e9p th\u1eed \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c v\u1edbi t\u00e0i li\u1ec7u g\u1ed1c, n\u00eau r\u00f5 l\u1ed7i v\u00e0 gi\u1edbi h\u1ea1n, cho th\u1ea5y c\u00f4ng c\u1ee5 gi\u1eef \u0111\u00fang k\u1ef3, ph\u1ea1m vi v\u00e0 gi\u1ea3 \u0111\u1ecbnh hay ch\u01b0a?\n\nSource date: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 280,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "Watch: C\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed5i c\u00e1ch nh\u00ecn c\u1ee7a CC l\u00e0: c\u00f3 ph\u00e9p th\u1eed \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c v\u1edbi t\u00e0i li\u1ec7u g\u1ed1c, n\u00eau r\u00f5 l\u1ed7i v\u00e0 gi\u1edbi h\u1ea1n, cho th\u1ea5y c\u00f4ng c\u1ee5 gi\u1eef \u0111\u00fang k\u1ef3, ph\u1ea1m vi v\u00e0 gi\u1ea3 \u0111\u1ecbnh hay ch\u01b0a?\n\nSource date: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.739,
+            1.0
+          ],
+          "post_character_counts": [
+            207,
+            280
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.739,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "Watch: C\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed5i c\u00e1ch nh\u00ecn c\u1ee7a CC l\u00e0: c\u00f3 ph\u00e9p th\u1eed \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c v\u1edbi t\u00e0i li\u1ec7u g\u1ed1c, n\u00eau r\u00f5 l\u1ed7i v\u00e0 gi\u1edbi h\u1ea1n, cho th\u1ea5y c\u00f4ng c\u1ee5 gi\u1eef \u0111\u00fang k\u1ef3, ph\u1ea1m vi v\u00e0 gi\u1ea3 \u0111\u1ecbnh hay ch\u01b0a?\n\nSource date: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e",
+        "text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e"
+      },
+      "payload_sha256": "32d3a1559881e2cd73aecadb56e0aa92541c3101058a0841e85a44be0c0b15e2",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "discord",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "newsroom_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 2000,
+        "text": "**Newsroom brief: CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]**\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\n**Context:** Ph\u1ea3n \u0111\u1ec1 c\u1ee7a CC: m\u1ed9t c\u00f4ng c\u1ee5 gi\u1eef nguy\u00ean ng\u1eef c\u1ea3nh v\u00e0 ch\u1ec9 \u0111\u00fang ch\u1ed7 c\u1ea7n \u0111\u1ed1i chi\u1ebfu c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc ki\u1ec3m tra t\u1ed1t h\u01a1n.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e\n\nSource date: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "b41ddbf7c4c9ffe79656114c843eed97131a52c1c2fa10a209bda43a297ad317",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "linkedin",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "professional_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 3000,
+        "text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nWhy it matters: Ph\u00e2n t\u00edch CC: n\u1ebfu c\u00f4ng c\u1ee5 gi\u1eef con s\u1ed1 nh\u01b0ng b\u1ecf k\u1ef3, ph\u1ea1m vi ho\u1eb7c gi\u1ea3 \u0111\u1ecbnh \u0111i k\u00e8m, c\u00e2u tr\u1ea3 l\u1eddi c\u00f3 th\u1ec3 \u0111\u1ed5i ngh\u0129a d\u00f9 ch\u00e9p \u0111\u00fang gi\u00e1 tr\u1ecb.\n\nContext: Ph\u1ea3n \u0111\u1ec1 c\u1ee7a CC: m\u1ed9t c\u00f4ng c\u1ee5 gi\u1eef nguy\u00ean ng\u1eef c\u1ea3nh v\u00e0 ch\u1ec9 \u0111\u00fang ch\u1ed7 c\u1ea7n \u0111\u1ed1i chi\u1ebfu c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc ki\u1ec3m tra t\u1ed1t h\u01a1n.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e\n\nSource date: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "cf330f0a6a39af3f76f72db943f01125a23778e526f973e521cb7512fbb00187",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "facebook_page",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "page_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 63206,
+        "text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\nWhy it matters: Ph\u00e2n t\u00edch CC: n\u1ebfu c\u00f4ng c\u1ee5 gi\u1eef con s\u1ed1 nh\u01b0ng b\u1ecf k\u1ef3, ph\u1ea1m vi ho\u1eb7c gi\u1ea3 \u0111\u1ecbnh \u0111i k\u00e8m, c\u00e2u tr\u1ea3 l\u1eddi c\u00f3 th\u1ec3 \u0111\u1ed5i ngh\u0129a d\u00f9 ch\u00e9p \u0111\u00fang gi\u00e1 tr\u1ecb.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e\n\nSource date: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "85575a093ed2c18fd596778f7085c984e409d919c940ab4b5b4f8edfc5ff2f83",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "instagram_business",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "brief_caption",
+        "hard_truncation_used": false,
+        "platform_limit": 2200,
+        "text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\nIn focus: Ph\u1ea3n \u0111\u1ec1 c\u1ee7a CC: m\u1ed9t c\u00f4ng c\u1ee5 gi\u1eef nguy\u00ean ng\u1eef c\u1ea3nh v\u00e0 ch\u1ec9 \u0111\u00fang ch\u1ed7 c\u1ea7n \u0111\u1ed1i chi\u1ebfu c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc ki\u1ec3m tra t\u1ed1t h\u01a1n.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e\n\n#CapitalChronicle\n\nSource date: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "503126cfe6fe67b60fa3a38172b6cea262937661bba22bfa062637e3e7db056b",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "threads",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "text_brief",
+        "full_text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a CC: m\u1ed9t c\u00f4ng c\u1ee5 gi\u1eef nguy\u00ean ng\u1eef c\u1ea3nh v\u00e0 ch\u1ec9 \u0111\u00fang ch\u1ed7 c\u1ea7n \u0111\u1ed1i chi\u1ebfu c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc ki\u1ec3m tra t\u1ed1t h\u01a1n.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e\n\nWhat to watch: C\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed5i c\u00e1ch nh\u00ecn c\u1ee7a CC l\u00e0: c\u00f3 ph\u00e9p th\u1eed \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c v\u1edbi t\u00e0i li\u1ec7u g\u1ed1c, n\u00eau r\u00f5 l\u1ed7i v\u00e0 gi\u1edbi h\u1ea1n, cho th\u1ea5y c\u00f4ng c\u1ee5 gi\u1eef \u0111\u00fang k\u1ef3, ph\u1ea1m vi v\u00e0 gi\u1ea3 \u0111\u1ecbnh hay ch\u01b0a?\n\nSource date: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis.",
+        "hard_truncation_used": false,
+        "overflow_strategy": "ordered_reply_chain",
+        "platform_limit": 500,
+        "posts": [
+          {
+            "media_asset_ids": [
+              "official_source_document_card"
+            ],
+            "order": 0,
+            "role": "root",
+            "text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a CC: m\u1ed9t c\u00f4ng c\u1ee5 gi\u1eef nguy\u00ean ng\u1eef c\u1ea3nh v\u00e0 ch\u1ec9 \u0111\u00fang ch\u1ed7 c\u1ea7n \u0111\u1ed1i chi\u1ebfu c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc ki\u1ec3m tra t\u1ed1t h\u01a1n.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e"
+          },
+          {
+            "media_asset_ids": [],
+            "order": 1,
+            "role": "reply",
+            "text": "What to watch: C\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed5i c\u00e1ch nh\u00ecn c\u1ee7a CC l\u00e0: c\u00f3 ph\u00e9p th\u1eed \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c v\u1edbi t\u00e0i li\u1ec7u g\u1ed1c, n\u00eau r\u00f5 l\u1ed7i v\u00e0 gi\u1edbi h\u1ea1n, cho th\u1ea5y c\u00f4ng c\u1ee5 gi\u1eef \u0111\u00fang k\u1ef3, ph\u1ea1m vi v\u00e0 gi\u1ea3 \u0111\u1ecbnh hay ch\u01b0a?\n\nSource date: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+          }
+        ],
+        "quality_metrics": {
+          "complete_article_visual_count": 1,
+          "duplicated_sentence_count": 0,
+          "hard_character_slicing_used": false,
+          "orphan_fragment_count": 0,
+          "per_post_character_utilization": [
+            0.58,
+            0.576
+          ],
+          "post_character_counts": [
+            290,
+            288
+          ],
+          "reply_count": 1,
+          "sentence_boundary_pass": true,
+          "shortest_longest_reply_ratio": 0.993,
+          "visual_distribution_pass": true
+        },
+        "reply_texts": [
+          "What to watch: C\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed5i c\u00e1ch nh\u00ecn c\u1ee7a CC l\u00e0: c\u00f3 ph\u00e9p th\u1eed \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c v\u1edbi t\u00e0i li\u1ec7u g\u1ed1c, n\u00eau r\u00f5 l\u1ed7i v\u00e0 gi\u1edbi h\u1ea1n, cho th\u1ea5y c\u00f4ng c\u1ee5 gi\u1eef \u0111\u00fang k\u1ef3, ph\u1ea1m vi v\u00e0 gi\u1ea3 \u0111\u1ecbnh hay ch\u01b0a?\n\nSource date: 2026-10-19; Source date: not supplied (retained background).\n\nInterpretation remains analysis."
+        ],
+        "root_text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a CC: m\u1ed9t c\u00f4ng c\u1ee5 gi\u1eef nguy\u00ean ng\u1eef c\u1ea3nh v\u00e0 ch\u1ec9 \u0111\u00fang ch\u1ed7 c\u1ea7n \u0111\u1ed1i chi\u1ebfu c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc ki\u1ec3m tra t\u1ed1t h\u01a1n.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e",
+        "text": "CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nPh\u1ea3n \u0111\u1ec1 c\u1ee7a CC: m\u1ed9t c\u00f4ng c\u1ee5 gi\u1eef nguy\u00ean ng\u1eef c\u1ea3nh v\u00e0 ch\u1ec9 \u0111\u00fang ch\u1ed7 c\u1ea7n \u0111\u1ed1i chi\u1ebfu c\u00f3 th\u1ec3 gi\u00fap ng\u01b0\u1eddi \u0111\u1ecdc ki\u1ec3m tra t\u1ed1t h\u01a1n.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e"
+      },
+      "payload_sha256": "5aebe819dbeed95c2672587c5ec1f5aa5d47e828f3ecc4c690645446f83a12e8",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    },
+    {
+      "article_identity": "2f1f22c5cba3c41e97f6c7213a7ccaa3d101dbc5172cc1ae789dfd151c67ea8d",
+      "canonical_url_state": "PENDING_NON_DISPATCHABLE",
+      "destination": "youtube",
+      "dispatch_state": "UNDISPATCHED",
+      "epistemic_state": {
+        "adapter_changes_proposition_not_evidence_authority": true,
+        "analysis_must_be_conditional": false,
+        "authority_granted_by_adapter": false,
+        "event_confirmation_state": "CONFIRMED",
+        "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "event_truth_support_status": "SUPPORTED_PRIMARY",
+        "event_truth_supported": true,
+        "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+        "origin_character": "ON_RECORD",
+        "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+        "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+        "public_write_authority": false,
+        "reader_visible_epistemic_label": "CONFIRMED",
+        "relay_source_identity": null,
+        "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+        "report_truth_support_status": "SUPPORTED_PRIMARY",
+        "report_truth_supported": true,
+        "schema_version": "contentops.v1_simple_epistemic_state.v1",
+        "selected_route": "OFFICIAL_PRIMARY",
+        "source_multiplicity": "SINGLE_SOURCE",
+        "supporting_document_ids": [
+          "goal31-sec-machine-data"
+        ],
+        "underlying_event_may_be_stated_as_confirmed": true
+      },
+      "native_payload": {
+        "format": "community_brief",
+        "hard_truncation_used": false,
+        "platform_limit": 1000,
+        "text": "Update: CONFIRMED | SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec? [Source 2026-10-19]\n\nSEC l\u00ean l\u1ecbch b\u00e0n d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u.\n\nWhat to watch: C\u00e2u h\u1ecfi \u0111\u1ec3 \u0111\u1ed5i c\u00e1ch nh\u00ecn c\u1ee7a CC l\u00e0: c\u00f3 ph\u00e9p th\u1eed \u0111\u1ed1i chi\u1ebfu \u0111\u01b0\u1ee3c v\u1edbi t\u00e0i li\u1ec7u g\u1ed1c, n\u00eau r\u00f5 l\u1ed7i v\u00e0 gi\u1edbi h\u1ea1n, cho th\u1ea5y c\u00f4ng c\u1ee5 gi\u1eef \u0111\u00fang k\u1ef3, ph\u1ea1m vi v\u00e0 gi\u1ea3 \u0111\u1ecbnh hay ch\u01b0a?\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-2f1f22c5cba3c41e\n\nSource date: 2026-10-19; Source date: not supplied (retained background). Interpretation remains analysis."
+      },
+      "payload_sha256": "23ac59956b6de2b5e64301e1d033f7394bfc7ed49af35e557d64cc690e9870c9",
+      "payload_state": "PREVIEW_ONLY_PENDING_CANONICAL_URL",
+      "rematerialization_after_real_substack_url_required": true
+    }
+  ],
+  "editorial_worker": {
+    "codex_runtime_model_call_count": null,
+    "model": "gpt-6.1-sol",
+    "native_execution_observation": {
+      "cost_usd": null,
+      "external_provider_attempt_count": 0,
+      "maximum_repair_count": 1,
+      "native_invocation_count_observed": 2,
+      "observations": [
+        {
+          "invocation_id": "/root/goal31_sol_light",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual native collaboration.spawn_agent returned canonical task /root/goal31_sol_light with gpt-6.1-sol / low; UUID and usage not exposed.",
+          "reasoning_effort": "low",
+          "role": "select",
+          "speed": "standard",
+          "stage": "select",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        },
+        {
+          "invocation_id": "/root/goal31_sol_max_writer",
+          "model": "gpt-6.1-sol",
+          "observation_source": "Actual native spawn task /root/goal31_sol_max_writer with gpt-6.1-sol / max; output file saved and read back before quota error. UUID/usage not exposed.",
+          "reasoning_effort": "max",
+          "role": "write",
+          "speed": "standard",
+          "stage": "write",
+          "surface": "CODEX_NATIVE_SUBAGENT"
+        }
+      ],
+      "observed_efforts": [
+        "low",
+        "max"
+      ],
+      "observed_models": [
+        "gpt-6.1-sol"
+      ],
+      "owner": "NATIVE_CODEX_DESKTOP",
+      "requested_model": "gpt-6.1-sol",
+      "requested_reasoning_effort": "low",
+      "role_assignments": {
+        "filter": {
+          "model": "gpt-6-luna",
+          "reasoning_effort": "max"
+        },
+        "revise": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        },
+        "select": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "low"
+        },
+        "write": {
+          "model": "gpt-6.1-sol",
+          "reasoning_effort": "max"
+        }
+      },
+      "semantic_response_count": 2,
+      "usage_state": "NOT_EXPOSED_BY_NATIVE_TOOL",
+      "usage_tokens": null
+    },
+    "provider": "NATIVE_CODEX_DESKTOP",
+    "public_write_attempted": false,
+    "reasoning_effort": "MAX",
+    "semantic_response_count": 2
+  },
+  "epistemic_state": {
+    "adapter_changes_proposition_not_evidence_authority": true,
+    "analysis_must_be_conditional": false,
+    "authority_granted_by_adapter": false,
+    "event_confirmation_state": "CONFIRMED",
+    "event_proposition": "The Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+    "event_truth_support_status": "SUPPORTED_PRIMARY",
+    "event_truth_supported": true,
+    "evidence_basis": "PRIMARY_EVENT_EVIDENCE",
+    "origin_character": "ON_RECORD",
+    "primary_reporting_publisher": "U.S. Securities and Exchange Commission",
+    "primary_reporting_source_identity": "U.S. Securities and Exchange Commission",
+    "public_write_authority": false,
+    "reader_visible_epistemic_label": "CONFIRMED",
+    "relay_source_identity": null,
+    "report_proposition": "U.S. Securities and Exchange Commission reports that the Securities and Exchange Commission announced today that it will host a roundtable on November 9, 2026, to discuss the use of machine-understandable data and Super Intelligence (SI) and related risks and costs. \u201cIn the age of SI, high-quality information is critical. The roundtable will facilitate insightful discussions on the public\u2019s use of machine-understandable data and SI along with associated risks and costs,\u201d said Joshua White, Chief Economist and Director of the Division of Economic and Risk Analysis. \u201cFeedback from market participants will give the SEC staff insight on how the market and investing public are using machine-understandable data for SI solutions and inform the SEC staff on how the Commission can better facilitate SI.\u201d",
+    "report_truth_support_status": "SUPPORTED_PRIMARY",
+    "report_truth_supported": true,
+    "schema_version": "contentops.v1_simple_epistemic_state.v1",
+    "selected_route": "OFFICIAL_PRIMARY",
+    "source_multiplicity": "SINGLE_SOURCE",
+    "supporting_document_ids": [
+      "goal31-sec-machine-data"
+    ],
+    "underlying_event_may_be_stated_as_confirmed": true
+  },
+  "newsroom_production_day_id": "newsroom-production-day-2026-10-21-bangkok",
+  "parent_window_id": "goal31-company-machine-reading",
+  "public_write_performed": false,
+  "qualification_blockers": [],
+  "qualified": true,
+  "record_sha256": "6d223dde79244e0aa436a61b2fbd323f0d4ddd0264d09dca8ffe233bcb912368",
+  "resolved_article_mode": "DATA_OR_DOCUMENT_LENS",
+  "schema_version": "contentops.newsroom_qualified_article.v1",
+  "story_identity": "simple-story-182cbc812476b1abee25b1c8",
+  "title": "SEC l\u00ean l\u1ecbch t\u1ecda \u0111\u00e0m d\u1eef li\u1ec7u m\u00e1y hi\u1ec3u: ng\u01b0\u1eddi \u0111\u1ecdc c\u1ea7n ki\u1ec3m g\u00ec?",
+  "unknown_write_count": 0,
+  "update_chain_identity": "simple-story-182cbc812476b1abee25b1c8"
+}

@@ -171,12 +171,42 @@ class MainReportFeed:
         if retained_research is None and pointer.get("research_root"):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             try:
-                retained_research = RetainedSourceResearch(pointer["research_root"])
+                retained_research = RetainedSourceResearch(pointer["research_root"], editions_root=pointer.get("research_editions_root"))
             except (OSError, ValueError, KeyError, TypeError):
                 self.research_error = "CONFIGURED_RESEARCH_INDEX_UNAVAILABLE_OR_INVALID"
         self.retained_research = retained_research
         if not hasattr(self.source, "refresh") and not 0 < len(pointer.get("bundles", [])) <= 64:
             raise LatestReportConsumerError("MAIN_FEED_BUNDLE_BOUND_INVALID")
+
+    def refresh_research_library(self, *, cutoff_utc):
+        if self.retained_research is None:
+            return None
+        from live_contentops.contentops_foundation_library_v1 import persist_library, persist_research_package, source_binding
+        briefs = []
+        brief_path = self.retained_research.root / "editorial_briefs.json"
+        if brief_path.is_file() and brief_path.stat().st_size <= 1_000_000:
+            try:
+                briefs = json.loads(brief_path.read_bytes())["briefs"][:32]
+            except (ValueError, KeyError, TypeError):
+                self.research_error = "EDITORIAL_BRIEFS_UNAVAILABLE_OR_INVALID"
+        snapshot = persist_library(self.tracker, self.retained_research, cutoff_utc=cutoff_utc, briefs=briefs)
+        package_path = self.retained_research.root / "packages.json"
+        if package_path.is_file() and package_path.stat().st_size <= 4_000_000:
+            try:
+                packages = json.loads(package_path.read_bytes())
+                if not isinstance(packages, list) or len(packages) > 32:
+                    raise ValueError("RESEARCH_PACKAGE_BOUND_INVALID")
+                for package in packages:
+                    brief = next((b for b in snapshot["briefs"] if b["brief_id"] == package.get("brief_id")), None)
+                    if not brief or package.get("brief_sha256") != brief["brief_sha256"]:
+                        continue
+                    dependencies = [i for i in snapshot["items"] if i["item_id"] in brief["source_item_ids"]]
+                    if package.get("source_binding_sha256") != source_binding(dependencies):
+                        continue
+                    persist_research_package(self.tracker, package, research_revision=self.retained_research.revision)
+            except (ValueError, KeyError, TypeError):
+                self.research_error = "CONFIGURED_RESEARCH_PACKAGES_INVALID_OR_UNAVAILABLE"
+        return snapshot
 
     def poll(self, *, cutoff_utc: str) -> dict[str, Any]:
         owner = "cc-feed-" + uuid4().hex
@@ -184,6 +214,7 @@ class MainReportFeed:
             "internal:cc-report-feed", owner, ttl_seconds=120
         )
         try:
+            self.refresh_research_library(cutoff_utc=cutoff_utc)
             bundles, gaps = [], []
             if self.pointer_loader is not None:
                 try:
@@ -220,24 +251,38 @@ class MainReportFeed:
                         FEED,
                     )
                     return summary
-            manifest = None
+            manifest, previous, history_checkpoint = None, None, None
+            artifact_cache, reused = {}, 0
             specs = self.pointer.get("bundles", [])
             if hasattr(self.source, "refresh"):
                 scans = [json.loads(r["payload"]) for r in self.tracker.store.list_outbox_messages() if r["destination"] == FEED]
-                previous = next((s for s in reversed(scans) if s.get("manifest_sha256") and s.get("export_root_id") == self.pointer.get("export_root_id")), None)
+                previous = next((s for s in reversed(scans) if (s.get("manifest_sha256") or s.get("history_checkpoint")) and s.get("export_root_id") == self.pointer.get("export_root_id")), None)
                 try:
                     manifest = self.source.refresh(cutoff_utc=cutoff_utc, previous=previous)
                     specs = manifest["entries"]
                 except (OSError, ValueError, KeyError, TypeError) as exc:
                     gaps.append({"state": str(exc) if isinstance(exc, LatestReportConsumerError) else "MAIN_PUBLIC_EXPORT_UNAVAILABLE"})
+                    history_checkpoint = getattr(exc, "checkpoint", None)
                     specs = []
             withdrawals = []
+            received_by_id = {r["receipt_id"]: r for r in self.tracker.receipts()}
             for spec in specs:
                 try:
                     if spec.get("event_type") == "WITHDRAWAL":
                         withdrawals.append(spec)
                         continue
+                    event_key = sha256_of(spec)
+                    fingerprint = self.source.artifact_fingerprint(spec) if manifest else None
+                    cached = (previous or {}).get("artifact_cache", {}).get(event_key)
+                    existing_cached = received_by_id.get(cached["receipt_id"]) if cached else None
+                    if (cached and fingerprint == cached.get("fingerprint") and existing_cached
+                            and existing_cached["status"] in CURRENT
+                            and _time(previous["observed_at_utc"]) <= _time(cutoff_utc)):
+                        artifact_cache[event_key] = cached
+                        reused += 1
+                        continue
                     b = self.source.bundle(spec)
+                    b["cache_key"], b["fingerprint"] = event_key, fingerprint
                     e = json.loads(b["envelope"])
                     if _private(e):
                         gaps.append({"state": "PRIVATE_CONTEXT_EXCLUDED"})
@@ -288,6 +333,8 @@ class MainReportFeed:
                 )
                 if existing:
                     self.tracker.consume(existing, receipt_id=existing["receipt_id"])
+                    if b.get("fingerprint"):
+                        artifact_cache[b["cache_key"]] = {"fingerprint": b["fingerprint"], "receipt_id": existing["receipt_id"]}
                     events.append(
                         {
                             "report_id": existing["report_id"],
@@ -321,6 +368,14 @@ class MainReportFeed:
                     and r.get("source_report_sha256") == e.get("parent_report_sha256")
                     for r in self.tracker.receipts()
                 )
+                if validation["status"] == "BLOCKED" and b["binding"].get("legacy_parent_recovery"):
+                    from live_contentops.capital_chronicle_legacy_parent_recovery_v1 import recover_pinned_parent
+                    failed_id = "main-feed-" + sha256_of([raw_hash, parent_received, b["binding"], "BLOCKED"])
+                    self.tracker.consume(validation, receipt_id=failed_id)
+                    recovered = recover_pinned_parent(b, validation, cutoff_utc=cutoff_utc)
+                    if recovered:
+                        recovered["lineage_recovery"]["original_failure_receipt_id"] = failed_id
+                        validation = recovered
                 receipt_id = "main-feed-" + sha256_of(
                     [raw_hash, parent_received, b["binding"], validation["status"]]
                 )
@@ -328,6 +383,8 @@ class MainReportFeed:
                     r["receipt_id"] == receipt_id for r in self.tracker.receipts()
                 )
                 record = self.tracker.consume(validation, receipt_id=receipt_id)
+                if b.get("fingerprint") and record["status"] in CURRENT:
+                    artifact_cache[b["cache_key"]] = {"fingerprint": b["fingerprint"], "receipt_id": receipt_id}
                 new += int(not was_seen)
                 events.append(
                     {
@@ -349,6 +406,14 @@ class MainReportFeed:
                     new += int(event["state"] == "CLAIMS_WITHDRAWN")
                 except (ValueError, KeyError, TypeError):
                     gaps.append({"state": "MAIN_PUBLIC_WITHDRAWAL_INVALID"})
+            if reused:
+                seen_receipts = {e.get("receipt_id") for e in events}
+                events.extend({"report_id": r["report_id"], "report_version": r["report_version"],
+                               "receipt_id": r["receipt_id"], "state": "DUPLICATE_NOOP"}
+                              for cached in artifact_cache.values()
+                              for r in [received_by_id.get(cached["receipt_id"])]
+                              if r and r["receipt_id"] not in seen_receipts)
+                events.sort(key=lambda e: ("WITHDRAW" in e.get("state", ""), e.get("report_version", 10**9), e.get("report_id", "")))
             summary = {
                 "schema_version": SCHEMA,
                 "producer_commit": self.pointer.get("producer_commit"),
@@ -357,6 +422,10 @@ class MainReportFeed:
                 "new_events": new,
                 "events": events,
                 "gaps": gaps,
+                "artifact_cache": artifact_cache,
+                "unchanged_artifact_bundles_reused": reused,
+                **({"history_checkpoint": history_checkpoint, "export_root_id": self.pointer.get("export_root_id"),
+                    "manifest_sha256": (previous or {}).get("manifest_sha256")} if history_checkpoint else {}),
                 "coverage": "MAIN_PUBLIC_FILE_OUTBOX" if manifest else "CONFIGURED_IMMUTABLE_EXPORTS_ONLY",
                 **({"manifest_sha256": manifest["manifest_sha256"], "export_root_id": manifest["export_root_id"]} if manifest else {}),
                 "public_write_performed": False,
@@ -364,6 +433,8 @@ class MainReportFeed:
             _persist(
                 self.tracker.store, "cc-feed-scan-" + sha256_of(summary), summary, FEED
             )
+            from live_contentops.contentops_foundation_library_v1 import reconcile_affected_work
+            reconcile_affected_work(self.tracker)
             return summary
         finally:
             self.tracker.store.release_lease(
@@ -419,7 +490,7 @@ class MainReportFeed:
                 and v.get("classification") == "DRAFT_READY"
                 and (
                     include_controlled
-                    or v.get("model_execution_state") == "EXISTING_SIMPLE_PROVIDER"
+                    or v.get("model_execution_state") in {"EXISTING_SIMPLE_PROVIDER", "NATIVE_DESKTOP_REQUEST_RETURN"}
                 )
                 for v in results
             )
@@ -436,13 +507,20 @@ class MainReportFeed:
         llm_invoke=None,
         source_route_health=None,
         attempted_candidate_ids=(),
+        editorial_request=None,
     ) -> dict[str, Any]:
         """One existing newsroom slot; all reports compete with normal news in one Simple call."""
-        scan = self.poll(cutoff_utc=cutoff_utc)
-        if self.pointer.get("research_root") and not self.can_resume(run_id):
+        input_key = "native-current-input-" + sha256_of(run_id)
+        frozen_row = self.tracker.store.get_outbox_message(input_key)
+        frozen_input = json.loads(frozen_row["payload"]) if frozen_row else None
+        scan = frozen_input["feed_scan"] if frozen_input else self.poll(cutoff_utc=cutoff_utc)
+        if frozen_input and frozen_input.get("research"):
+            from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
+            self.retained_research = RetainedSourceResearch.from_frozen_snapshot(frozen_input["research"])
+        elif self.pointer.get("research_root") and not self.can_resume(run_id):
             from live_contentops.contentops_source_research_v1 import RetainedSourceResearch
             try:
-                self.retained_research = RetainedSourceResearch(self.pointer["research_root"])
+                self.retained_research = RetainedSourceResearch(self.pointer["research_root"], editions_root=self.pointer.get("research_editions_root"))
                 self.research_error = None
             except (OSError, ValueError, KeyError, TypeError):
                 # Do not turn an unavailable configured evidence index into a
@@ -453,6 +531,8 @@ class MainReportFeed:
             MainHeadlineExporter,
             permitted_report_headlines,
         )
+        if not frozen_input:
+            self.refresh_research_library(cutoff_utc=cutoff_utc)
         from live_contentops.headline_data_root_v1 import canonical_headline_sidecar_dir
 
         export = MainHeadlineExporter(self.tracker.store, research=self.retained_research).export(
@@ -478,11 +558,11 @@ class MainReportFeed:
         (export_root / "main_headline_rows.jsonl").write_bytes(
             b"".join(canonical_bytes(row) + b"\n" for row in export["rows"])
         )
-        pending = self.pending(include_controlled=llm_invoke is not None)
+        pending = frozen_input["reports"] if frozen_input else self.pending(include_controlled=llm_invoke is not None)
         previous = self.tracker.store.get_outbox_message(
             "cc-editorial-final-" + sha256_of(run_id)
         )
-        if previous:
+        if previous and json.loads(previous["payload"]).get("qualified_article_count"):
             cached = json.loads(previous["payload"])
             record = next(
                 (r
@@ -516,14 +596,35 @@ class MainReportFeed:
             # A restarted slot must resume its frozen selection/source/writer pool even if
             # new reports or successful outputs have changed the live pending inventory.
             pending = json.loads(pool["payload"])["reports"]
-        if rolling_input is None:
+        if frozen_input:
+            rolling_input = frozen_input["rolling_input"]
+        elif rolling_input is None:
             from live_contentops.newsroom_assignment_scheduler_v1 import (
                 load_rolling_x_headline_sidecars,
             )
 
             rolling_input = load_rolling_x_headline_sidecars(cutoff_utc=cutoff_utc)
+        if not frozen_input:
+            review_ids = self.pointer.get("source_review_ids", [])
+            reviews = [json.loads(self.tracker.store.get_outbox_message(k)["payload"]) for k in review_ids]
+            frozen_input = {"schema_version": "contentops.native_current_input.v1", "run_id": run_id,
+                "cutoff_utc": cutoff_utc, "rolling_input": rolling_input, "reports": pending,
+                "feed_scan": scan, "accepted_manifest_sha256": scan.get("manifest_sha256"),
+                "research": self.retained_research.frozen_snapshot() if self.retained_research else None,
+                "source_review_ids": review_ids,
+                "source_requests_before_writer_freeze": sum(len(s["source_attempts"]) for s in reviews),
+                "public_write_performed": False}
+            _persist(self.tracker.store, input_key, frozen_input, "internal:native-current-input")
         if self.retained_research and not pool:
-            rolling_input = {**rolling_input, "headlines": [*self.retained_research.headlines(cutoff_utc=cutoff_utc), *rolling_input.get("headlines", [])]}
+            from live_contentops.contentops_foundation_library_v1 import library_projection
+            from live_contentops.contentops_editorial_desk_v1 import read_reviews
+            desk = library_projection(self.tracker.store.list_outbox_messages(), read_reviews(self.tracker.store))
+            held = {p["brief_id"] for p in (desk or {}).get("packages", []) if p["review"]["state"] == "HOLD"}
+            held_ids = {i for b in (desk or {}).get("briefs", []) if b["brief_id"] in held for i in b["source_item_ids"]}
+            active_ids = {i for b in (desk or {}).get("briefs", []) if b["brief_id"] not in held for i in b["source_item_ids"]}
+            excluded = held_ids - active_ids
+            headlines = [r for r in self.retained_research.headlines(cutoff_utc=cutoff_utc) if r["headline_id"] not in excluded]
+            rolling_input = {**rolling_input, "headlines": [*headlines, *rolling_input.get("headlines", [])]}
         result = run_report_editorial_cycle(
             self.tracker,
             receipt_id=pending[0]["receipt_id"] if pending else "independent-" + sha256_of(run_id),
@@ -539,6 +640,9 @@ class MainReportFeed:
             source_route_health=source_route_health,
             attempted_candidate_ids=attempted_candidate_ids,
             retained_research=self.retained_research,
+            editorial_request=editorial_request,
+            source_reviews=[json.loads(self.tracker.store.get_outbox_message(k)["payload"])
+                            for k in frozen_input.get("source_review_ids", self.pointer.get("source_review_ids", []))],
         )
         disposition = {
             "schema_version": SCHEMA,
@@ -558,11 +662,12 @@ class MainReportFeed:
             ],
             "classification": result["classification"],
             "exact_next_blocker": result.get("exact_next_blocker"),
-            "fresh_model_calls": 0
+            "fresh_model_calls": None if getattr(llm_invoke, "native_desktop_protocol", False) else 0
             if llm_invoke
             or result.get("model_execution_state") == "PAUSED_BEFORE_PROVIDER_CALL"
             else result.get("logical_model_invocation_count", 0),
             "feed_scan_new_events": scan["new_events"],
+            "editorial_execution": result.get("editorial_execution"),
             "public_write_performed": False,
         }
         _persist(

@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "blockers": [],
+  "validator": "existing_grounded_article_validator",
+  "material_claim_lineage": [
+    {
+      "item_id": "goal21-crypto-custody-proposal",
+      "source_id": "SOURCE_1",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal",
+      "text_sha256": "ed8a76101f6816ab13ba13eb7f60ede5d791b56bfdc79de58f24455b74cdaa44",
+      "source_capture_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "permission_sha256": "1cb0e665e5afce0cfd2aaa943967ee7bd3def126d171c63d5891071c0e53ad06",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    },
+    {
+      "item_id": "goal21-crypto-custody-conditions",
+      "source_id": "SOURCE_2",
+      "source_url": "https://www.sec.gov/newsroom/press-releases/2026-100-sec-proposal-would-address-how-investment-advisers-funds-can-custody-crypto-assets-under-federal",
+      "text_sha256": "0afcda60cf97045687f94138f0cf961ced15427c8c27c8f340c6ee970ad9e657",
+      "source_capture_sha256": "2a0b4276ad1ed95b0e364d37ff2cfaf71689ce255ac1d9ea329f303c7868a2af",
+      "permission_sha256": "7c20b104e65f4c0a3a4f6e50a8836954d61f63bd96dffc5cf41b236a73b8c9d0",
+      "claim_kind": "ATTRIBUTED_OFFICIAL_SOURCE_TEXT"
+    }
+  ],
+  "semantic_editorial_review": "REQUIRED",
+  "qualified_simple_article": false
+}

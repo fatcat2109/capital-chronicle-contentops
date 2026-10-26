@@ -6,6 +6,7 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+throw 'NON_ROUTING: native Codex Desktop owns the four routine windows. Use the paused rollout packet; this legacy scheduler cannot be installed or started.'
 $repoRoot = (Resolve-Path -LiteralPath (Join-Path $PSScriptRoot '..')).Path
 $runtimeRoot = 'A:\Capital Chronicle\Runtime\ContentOps'
 $python = (Resolve-Path -LiteralPath (Join-Path $runtimeRoot 'v1-runtime\venv\Scripts\python.exe')).Path
