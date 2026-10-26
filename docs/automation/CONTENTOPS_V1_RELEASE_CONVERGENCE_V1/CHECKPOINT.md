@@ -18,12 +18,14 @@ L2 run-now then exposed IMMUTABLE_RETURN_CONFLICT; exact packet values match, JS
 Scoped native_headline_filter fix reuses the issued prompt only for identical governed input; corrupted prompt fails closed.
 Actual advance now returns the SAME first request SHA bce71715f8a048ddfcf9515c62b89de26bba4788181c0fa72567a09be682d71c.
 Six focused filter tests/Ruff PASS; installed pending-scheduled regression PASS; no request/binding replacement.
-Actual Luna/MAX child scheduled_2100_luna owns sequential frozen filter batches; no final selection/prose authority.
-Next roles: Sol6.1/low selects/prepares; same Sol6.1/MAX decides visuals/writes and at most one useful repair.
+Actual Luna/MAX completed24batches/all572frozen Xrecords; exact native returns retained without rerun.
+Actual SELECT b7c0b939 accepted; three admissions; Anthropic blocked, SpaceX relay qualified with2/6factual requests.
+Actual Sol6.1/low preparation accepted; same Sol6.1/MAX scheduled_2100_max_editor visual decision accepted46daf223.
 Ordinary32candidate/3admission/6source requests; exact source/PIT/rights; no later capture treated as earlier knowledge.
-No article/source/media/review acceptance claimed until actual qualified output or justified abstention.
+MAX chose genuine narrow NEWS/zero charts with substantive rationale; source stays single-relay/unconfirmed.
 Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/scheduled-editorial-continuation-20261026/.
 Existing72retained examples/fixed Main selection unchanged; V2/V3/public writes/paid services/CUA remain outside scope.
-Next command: same binding advance after actual exact filter returns; never call scheduled to allocate another slot.
+NASA original1ddafd91 inspected; retained official policy/source/EXIF validated with scoped source repaird6a0cd77.
+Pending same-editor visual-edit-amend73377cff; next bind exact media plan, advance same binding, same MAX WRITE.
 Deployment preserved17tracked WIP/owned patches; exact six unrelated WIP retained; healthy API listener40360 unchanged.
 Completion notice NOT_SENT; no L1/peer/progress notice, future-window wait, heartbeat or monitoring task.
