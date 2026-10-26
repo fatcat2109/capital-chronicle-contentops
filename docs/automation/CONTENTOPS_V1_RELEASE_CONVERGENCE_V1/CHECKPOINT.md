@@ -1,39 +1,29 @@
-# V1 runtime owner recovery — 26 October 2026
-
-Goal: CONTENTOPS_V1_RUNTIME_OWNER_RECOVERY_V1 — ACTIVE; post-activation owner lifetime/capture failure.
-Predecessor zero-write activation completed; its immediate readback does not establish ongoing health.
+# V1 scheduled editorial continuation — 26 October 2026
+Goal: CONTENTOPS_V1_SCHEDULED_EDITORIAL_CONTINUATION_V1 — ACTIVE; same natural21:00 operation.
 Source root: A:/Capital Chronicle/Worktrees/ContentOps/v1-newsroom-release-convergence.
-Execution branch: codex/v1-newsroom-release-convergence; sole V1 integrator; recovery PR93.
-Operating root: A:/Capital Chronicle/ContentOps, merged 9bda0d70 plus two owned debug patches pending protected delivery.
-PR90 merged bc2e0ac6; PR92 merged 9bda0d70 after exact-head required CI passed on 86ddf99c.
-Six tracked WIP files and unrelated untracked work preserved; two historical append conflicts retain both histories.
-Installed native entry, config and owner modules match the merged source; the original store is retained.
-Stable runtime preflight and 15 installed/WIP smoke tests passed; prior 139 Python/27 UI/build evidence reused.
-CI's two stale fixtures now exercise frozen research and mandatory Light/media/MAX preparation; 17 tests pass.
-Four EXISTING App tasks updated through supported tools, read back PAUSED, then ACTIVE on Sol6.1/low.
-Exact generated prompts, calendars, local project and Luna MAX / Sol Light / same Sol MAX roles match.
-The setup packet remains a paused template; it does not override actual ACTIVE host state.
-Store: A:/Capital Chronicle/Runtime/ContentOps/contentops_daily_app_v1.sqlite3.
-Durable mode SHADOW_ONLY, version 37; rollout public_write_authority remains false.
-Exact operator fuse released LAST through its existing owner at 26 October 13:25:02 UTC.
-FDA-G/API8765 absent at 13:50–14:02 UTC; restored hidden at 14:03:55 through the same launcher.
-Codex's nested kill-on-close jobs outlive immediate commands but still kill detached children at turn transition.
-Breakaway-only restoration failed at that transition; existing disabled FDA-G task also retained a stale checkout path.
-Reservation: existing launcher/runtime installer, intake/telemetry, focused owner tests/checkpoint; no new scheduler.
-Fresh X restored through locked CDP9222 bootstrap; bounded captures added 550 then 46 identities.
-Prior 13:30 UTC readback admitted 573 current 24-hour rows; it is not a current-health claim.
-First 13:21 capture PermissionError preserved; Windows snapshot-reader/atomic-replace race independently reproduced.
-Same reader/writer lock fixes that boundary; original exception had no stack, so exact historical attribution is limited.
-Actual 14:03:57 capture added 61 headlines; zero provider calls; normal backoff/history retained after owner exit.
-21:00 task created its exact native binding then stopped at FILTER_REQUIRED under stale paused root wording; no article.
-Immediate readback: public writes blocked, zero provider calls/unknown writes, unchanged dispatch counts.
-All 72 retained example destinations and fixed Main selection remain untouched; V2/V3 stay paused.
-[Actual application and private evidence](ACTIVATION.md); current lane/runtime docs supersede old prepared-only holds.
-Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/applied-zero-write-activation-20261026/.
-Human grant verified: L2 turn 01a17840, user 01a17840-ea44-7522-b01e-d3f9d0951975.
-Strategic/role/native-return reads reused; no public destination, paid service, broker, CUA or user-app restart.
-Next: restore SAME hidden FDA-G Scheduled Task with current path/logged same-CLI entry; finish PR93 and installed proof.
-Scoped applied-state docs pushed/read back at 08b8cfae; executable release remains 9bda0d70.
-Predecessor notice was sent once; CURRENT recovery completion notice NOT_SENT.
-Current private evidence: reader-first-review/runtime-owner-recovery-20261026/ under the same local evidence root.
-No L1/peer/progress notice, monitoring schedule, unscheduled edition or future-window wait.
+Branch: codex/v1-newsroom-release-convergence; this chat is sole V1 integration/application writer.
+Operating root: A:/Capital Chronicle/ContentOps; healthy executable cbfa1e8f plus scoped filter-resume debug fix.
+L2 applied six shared instruction corrections exactly from ebb0e03a/2e0dd6d0; PR94 protected integration pending.
+Jim run-now authority verified: L2 turn01a178ab-6331-7b61-9ea3-3f366b685d1b/user01a178ab-6491-7161-8d0e-71f7b1e444ba.
+Earlier application authority remains valid; no new review/date/calendar gate.
+Prior runtime recovery accepted by L2; reuse68installed tests and actual task-owned capture; no restart/recovery rerun.
+Existing SHADOW_ONLY/version37, public_write_authority=false, fourACTIVE tasks and original store remain.
+Task Scheduler owns the existing FDA-G runtime; exact two triggers/principal and unrelated WIP preserved.
+Run: simple-gemini-slot-469afb66614b3245f5e822f38f628387.
+Window: editorial-window-cedb9958b953d56fcaf680d62566db37; cutoff2026-10-26T14:00:00Z.
+Binding under Runtime/ContentOps/daily_app_outputs/newsroom-production-day-2026-10-26-bangkok/<window>/<run>/native_operation_binding.json.
+Binding SHA25609d9324a2cd3974cf8007c52a3ca7e1438c5080d3f0f7964b7d418e6fbd51b94 retained.
+The natural trigger occurred; its first invocation stopped before FILTER_REQUIRED under stale instructions.
+L2 run-now then exposed IMMUTABLE_RETURN_CONFLICT; exact packet values match, JSON key order changed prompt text.
+Scoped native_headline_filter fix reuses the issued prompt only for identical governed input; corrupted prompt fails closed.
+Actual advance now returns the SAME first request SHA bce71715f8a048ddfcf9515c62b89de26bba4788181c0fa72567a09be682d71c.
+Six focused filter tests/Ruff PASS; no request/binding deletion or replacement.
+Actual Luna/MAX child scheduled_2100_luna owns sequential frozen filter batches; no final selection/prose authority.
+Next roles: Sol6.1/low selects/prepares; same Sol6.1/MAX decides visuals/writes and at most one useful repair.
+Ordinary32candidate/3admission/6source requests; exact source/PIT/rights; no later capture treated as earlier knowledge.
+No article/source/media/review acceptance claimed until actual qualified output or justified abstention.
+Private evidence: C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/scheduled-editorial-continuation-20261026/.
+Existing72retained examples/fixed Main selection unchanged; V2/V3/public writes/paid services/CUA remain outside scope.
+Next command: same binding advance after actual exact filter returns; never call scheduled to allocate another slot.
+PR94 integration proceeds in parallel; bot-created head had action_required/no jobs, scoped human push retriggers normal CI.
+Completion notice NOT_SENT; no L1/peer/progress notice, future-window wait, heartbeat or monitoring task.

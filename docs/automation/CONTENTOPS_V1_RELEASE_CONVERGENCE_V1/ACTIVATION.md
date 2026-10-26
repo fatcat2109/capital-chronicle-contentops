@@ -2,6 +2,20 @@
 
 Jim authorized application in L2 turn `01a17840-e9da-77d2-8f09-76b1319c6be4`, human message `01a17840-ea44-7522-b01e-d3f9d0951975`: “dont wait for my review, implement next steps”. This supersedes the earlier prepared-only hold for integration, deployment and the four-task scheduled zero-write transition. Public publication, V2/V3 and native Computer Use remain outside that grant.
 
+## Runtime recovery applied at 14:32 UTC
+
+[PR93](https://github.com/fatcat2109/capital-chronicle-contentops/pull/93) merged as `cbfa1e8f012686c57f9f8fcc014ebdc012f2905c` after required exact-head `fa36b51d` CI passed. That source is installed in the same operating checkout. All six unrelated tracked WIP files remain exact; the four owned recovery patches were integrated, and the existing store was retained. All 68 focused launcher/intake/telemetry tests also pass from the installed checkout; stable-runtime preflight and changed-file Ruff pass.
+
+The 13:30 healthy sample was superseded by an actual owner exit. Codex's nested kill-on-close jobs also ended a breakaway-only debug restoration at a turn transition. The supported installer now restores the SAME existing `CapitalChronicle_ContentOps_V1_Daily_App_Runtime` task using hidden `pythonw.exe`, the current working directory and a logged entry into the existing CLI. The accepted two triggers and principal are unchanged; no task, service, scheduler, crawler or editorial opportunity was added. Task Scheduler, rather than a temporary Codex process, owns its lifetime. Startup/source/PID and safe fatal-error locations are logged.
+
+Windows reproduction showed that a snapshot reader could hold `current_state.json` while capture telemetry attempted atomic replacement, raising `PermissionError(13)`. Both now use the same existing lock. Safe errno/Win32 codes and failing module/function/line are retained for any future capture exception. The original stack was unavailable, so the historical exception cannot be attributed more narrowly than this reproduced boundary. Original failure evidence and cadence were preserved. An actual task-owned recurring capture at `14:27:42Z` appended six headlines without error or provider calls and retained its normal next eligibility; the final restart reuses that result without forcing another capture.
+
+At `14:33:46Z`, final readback proves one logical owner, API8765 HEALTHY, actual runtime source `cbfa1e8f`, SHADOW_ONLY/version37, publication authority false, zero provider calls and unchanged dispatch counts. Four App tasks remain ACTIVE with exact prompts/calendars/project/model. The legacy Simple scheduler and hourly audit remain Disabled. No public writes, user-app changes or V2/V3 work occurred. These observations prove this finite recovery, not future uptime or daily throughput.
+
+The natural 21:00 task did create its exact window/slot binding at a `14:00Z` cutoff, then stopped at `FILTER_REQUIRED` under stale root wording that still says paused. It produced no article. L2's next action is to align that shared authority wording with Jim's already-applied zero-write grant and resume the same pending binding within existing policy, without a replacement edition or a fifth task. Binding: `newsroom-production-day-2026-10-26-bangkok/editorial-window-cedb9958b953d56fcaf680d62566db37/simple-gemini-slot-469afb66614b3245f5e822f38f628387/native_operation_binding.json` under the existing `daily_app_outputs` root.
+
+Private recovery evidence: `C:/Users/bullw/AppData/Local/CapitalChronicle/ContentOps/reader-first-review/runtime-owner-recovery-20261026/`, including final operating readback, installed test XML, original failure, exact task preservation and WIP deployment evidence. The dated application below remains history; its first detached-owner health claim and old next-window/retry times do not describe current state.
+
 Actual application:
 
 - PR90 merged as `bc2e0ac6fe26af8d3c396f218700776cdee2d8c2`; PR92 merged as `9bda0d70320517ce8dd8c676c5966b3fff0e167e` after required CI passed on `86ddf99c`. No admin bypass, force push or history rewrite was used.
