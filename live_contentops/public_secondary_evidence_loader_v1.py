@@ -44,7 +44,7 @@ from live_contentops.source_route_health_v1 import (
 REPUTABLE_SECONDARY_HOSTS = frozenset(
     {
         "abcnews.go.com", "aljazeera.com", "apnews.com", "axios.com", "bbc.com",
-        "bbc.co.uk", "bloomberg.com", "cbsnews.com", "cnbc.com", "cnn.com", "ft.com",
+        "bbc.co.uk", "bloomberg.com", "cbsnews.com", "cnbc.com", "cnn.com", "en.yna.co.kr", "ft.com",
         "financialjuice.com", "marketwatch.com", "nbcnews.com", "npr.org", "politico.com", "reuters.com",
         "theguardian.com", "thehill.com", "jpost.com", "wsj.com", "www.abcnews.go.com",
         "www.aljazeera.com", "www.apnews.com", "www.axios.com", "www.bbc.com",
@@ -58,7 +58,7 @@ REPUTABLE_SECONDARY_NAMES = frozenset(
         "abc news", "al jazeera", "associated press", "the associated press", "ap", "ap news", "axios", "bbc", "bloomberg",
         "cbs news", "cnbc", "cnn", "financial times", "financialjuice", "marketwatch", "nbc news", "npr",
         "politico", "reuters", "the guardian", "the hill", "the jerusalem post",
-        "jerusalem post", "the wall street journal", "wsj",
+        "jerusalem post", "the wall street journal", "wsj", "yonhap", "yonhap news agency",
     }
 )
 # Exact, publisher-controlled short-link origins that may redirect only into the
@@ -83,7 +83,7 @@ _RSS_DESK_LABEL_RE = re.compile(
     r"^(?:breaking|exclusive|analysis|opinion|live|update)\s*[|:\-]\s*", re.I
 )
 _RSS_TRAILING_PUBLISHER_RE = re.compile(
-    r"\s+-\s+(?:AP|Associated Press|BBC|Bloomberg|CNBC|CNN|Financial Times|FT|Reuters|The Guardian|WSJ)\s*$",
+    r"\s+-\s+(?:AP|Associated Press|BBC|Bloomberg|CNBC|CNN|Financial Times|FT|Reuters|The Guardian|WSJ|Yonhap(?: News Agency)?)\s*$",
     re.I,
 )
 

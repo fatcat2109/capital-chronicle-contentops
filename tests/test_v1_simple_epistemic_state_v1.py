@@ -95,6 +95,40 @@ def _canonical_candidate(
     return candidate
 
 
+def test_explicit_yonhap_direct_report_remains_unconfirmed_event_truth():
+    url = "https://en.yna.co.kr/view/AEN20261026001800320"
+    event = "Samsung SDI America has signed an energy storage supply agreement"
+    candidate = _candidate()
+    candidate.update(headline_text=event + " - YONHAP", public_source_urls=[url],
+        source_timestamp_utc="2026-10-26T00:30:00Z")
+    request = _request(candidate, source_url=url)
+    calls = []
+    body = (f'<html><head><meta property="article:published_time" content="2026-10-26T00:24:27Z"/>'
+        f'<title>{event}</title></head><body><p>{event}, Yonhap reported. '
+        'The controlled report describes a supply announcement with prospective delivery. '
+        'The report alone does not independently establish delivery, earnings or the underlying event.</p></body></html>').encode()
+
+    def get(requested, *_args):
+        calls.append(requested)
+        assert requested == url
+        return _response(url, body)
+
+    result = SimpleFirstPartyAwareEvidenceResolver(evaluation_as_of_utc="2026-10-26T03:59:47Z",
+        http_get=get, clock=lambda: datetime(2026, 10, 26, 4, tzinfo=timezone.utc))(request)
+    assert result["status"] == "PASS"
+    assert calls == [url]
+    assert result["epistemic_state"]["evidence_basis"] == "DIRECT_REPUTABLE_REPORT"
+    assert result["epistemic_state"]["primary_reporting_publisher"] == "Yonhap News Agency"
+    assert result["epistemic_state"]["event_confirmation_state"] == "UNCONFIRMED"
+    assert result["epistemic_state"]["event_truth_supported"] is False
+
+
+def test_yonhap_mention_without_report_attribution_does_not_gain_a_publisher_route():
+    profile = candidate_report_provenance({"headline_text": "Samsung SDI talked with Yonhap readers"})
+    assert profile["explicit_reputable_attribution"] is False
+    assert profile["primary_reporting_source_identity"] is None
+
+
 def _request(candidate: dict[str, object], *, source_url: str = WSJ_URL):
     profile = candidate_report_provenance(candidate)
     return {

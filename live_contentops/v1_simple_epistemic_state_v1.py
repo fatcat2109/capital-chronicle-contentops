@@ -131,6 +131,7 @@ def _event_proposition(text: str, hint: Mapping[str, Any] | None) -> str:
         re.IGNORECASE,
     )
     cleaned = trailing_reported.sub("", cleaned)
+    cleaned = re.sub(rf"\s+-\s+(?:the\s+)?{alias}\.?$", "", cleaned, flags=re.IGNORECASE)
     return cleaned.strip(" -:;,.\n")
 
 

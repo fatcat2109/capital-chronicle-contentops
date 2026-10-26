@@ -115,12 +115,21 @@ function PackagePreview({ payload, assets = [], originals }: { payload: Record<s
   const posts = Array.isArray(payload.posts) ? payload.posts as Array<Record<string, unknown>> : [];
   const ids = new Set([...(Array.isArray(payload.media_asset_ids) ? payload.media_asset_ids : []),
     ...posts.flatMap(p => Array.isArray(p.media_asset_ids) ? p.media_asset_ids : [])]);
+  const attached = assets.filter(a => ids.has(a.asset_id));
+  // Display a complete photo attribution once, beside its image. The actual channel
+  // payload is immutable and keeps its standalone credit, license and archive caveat.
+  // Unknown/changed credits and missing images stay in the copy rather than being stripped.
+  const figureCredits = new Set(attached.filter(a => a.preview_data_url && a.modality === 'documentary_photo'
+    && a.reader_caption && a.reader_credit && a.license_name && a.license_url?.startsWith('https://')
+    && a.source_page_url?.startsWith('https://')).map(a =>
+    `Photo: [${a.reader_credit}](${a.source_page_url}) · [${a.license_name}](${a.license_url}). ${a.reader_caption}`));
+  const readingText = (text: string) => text.split(/\n\s*\n/).filter(block => !figureCredits.has(block.trim())).join('\n\n');
   return <>
     {posts.length ? posts.map((p, index) => <div key={index} data-preview-post={index}>
       <p><strong>{index === 0 ? 'Root post' : `Reply ${index}`}</strong></p>
-      <ArticleParagraphs text={previewText({ text: p.text })} />
-    </div>) : <ArticleParagraphs text={previewText(payload)} />}
-    {assets.filter(a => ids.has(a.asset_id)).map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} readerDetails={false} />)}
+      <ArticleParagraphs text={readingText(previewText({ text: p.text }))} />
+    </div>) : <ArticleParagraphs text={readingText(previewText(payload))} />}
+    {attached.map(a => <MediaFigure key={a.asset_id} asset={a} originalHref={originals?.[a.sha256]} readerDetails={false} />)}
   </>;
 }
 
@@ -210,10 +219,8 @@ function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; con
   const undispatched = articles.reduce((sum, a) => sum + (a.publication?.destinations.filter(d => d.status === 'NOT_DISPATCHED').length ?? 0), 0);
   return <section className="owner-review" aria-label="Private owner review">
     <header className="owner-intro" id="review-top">
-      <p className="eyebrow">Capital Chronicle · ContentOps V1</p><h1>Your newsroom review</h1>
-      <p>Read the canonical article, then choose how the same reporting appears on each channel.</p>
-      <p className="review-mode" role="status"><strong>Frozen, read-only review.</strong> Navigation and media enlargement work offline.
-        This file cannot save a review, approve a release or publish. External source and credit links need an internet connection.</p>
+      <p className="eyebrow">Capital Chronicle</p><h1>Newsroom</h1>
+      <p className="review-mode" role="status"><strong>Private, read-only preview.</strong></p>
       <details><summary>Edition status</summary>
         <p className="review-counts">{edition.ready} ready · {edition.missing} missing · {edition.held} held · {edition.preview_count} channel previews · {undispatched} destination states not dispatched</p>
         <p>Snapshot: {context?.captured_at_utc ?? 'capture time not supplied'}. Source dates remain their original dates; these examples are not a production day.</p>
@@ -232,27 +239,28 @@ function OwnerEditionReview({ data, context }: { data?: ReportWorkspaceData; con
         {DESTINATIONS.map(d => <option key={d} value={d}>{channelNames[d]}</option>)}</select></label>
     </div>
     <article className="report-copy owner-article" data-owner-story={item.run_id} data-reading-view={channel} aria-label="Selected article">
-      <p className="eyebrow">{channel === 'canonical' ? 'Canonical article · Substack preview' : `${channelNames[channel]} · channel preview`}</p>
-      <h2>{item.article.title}</h2><p className="article-dek">{item.article.dek}</p>
-      {item.article.display_date && <p className="article-date">{item.article.display_date}</p>}
+      <h2>{channel === 'canonical' ? item.article.title : channelNames[channel]}</h2>
+      {channel === 'canonical' && <><p className="article-dek">{item.article.dek}</p>
+        {item.article.display_date && <p className="article-date">{item.article.display_date}</p>}</>}
       {channel === 'canonical' ? <>
         <ArticleWithMedia text={item.article.substack_body_markdown} assets={item.media_assets} originals={context?.original_media_links} />
       </> : preview ? <>
         <PackagePreview payload={preview.payload} assets={item.media_assets} originals={context?.original_media_links} /></> : <p role="status">No package is recorded for this destination.</p>}
-      <details className="dated-sources" aria-label="Dated sources"><summary>Source editions and review details</summary>
-        <p>Editorial review: {item.review?.decision ?? 'not recorded'} · Preparation: {pub?.state ?? 'not prepared'} · Not published</p>
+      <details className="dated-sources" aria-label="Dated sources"><summary>Sources and dates</summary>
         <p>{item.article.source_date_notice}</p>
         {item.evidence?.map(s => <p key={s.source_id}><strong>{s.source_id} · {s.publisher}</strong><br />{retainedSourceDate(s)}<br />
           {s.url.startsWith('https://') ? <a href={s.url} target="_blank" rel="noreferrer">Read original source</a> : 'Retained public report; no external source URL recorded.'}</p>)}
         <p>A source check does not create a new event. Attributed reporting and independently confirmed event truth remain distinct.</p>
       </details>
-      <details><summary>SEO, editorial review and exact record</summary><p>Search title: {item.article.search_title ?? 'not separately recorded'}</p>
+    </article>
+      <details className="owner-record"><summary>Owner record: review and preparation</summary>
+        <p>Editorial review: {item.review?.decision ?? 'not recorded'} · Preparation: {pub?.state ?? 'not prepared'} · Not published</p>
+        <p>Search title: {item.article.search_title ?? 'not separately recorded'}</p>
         <p>{item.article.meta_description}</p><p>Slug: {item.article.canonical_slug_candidate ?? 'not separately recorded'}</p><p>{item.review?.rationale}</p>
         <p>Article identity: <code>{item.article_identity}</code></p><p>Operation: <code>{item.run_id}</code>.</p>
         <p>These isolated manual examples have no dispatch authority. KEEP and PREPARED do not establish publication or current account readiness.</p>
         {pub?.destinations.map(d => <p key={d.destination}>{d.destination === 'substack' ? 'Substack' : channelNames[d.destination] ?? d.destination}: {display(d.status)} · readiness {display(d.cached_readiness)}</p>)}
       </details>
-    </article>
     <section className="owner-guide" id="how-v1-works"><h2>What you are reviewing</h2>
       <p>V1 turns admitted public reporting and public-safe Capital Chronicle research into a sourced article, lawful contextual photography and eight channel-specific packages. Substantial analysis uses two to five distinct useful charts drawn from primary data. A news or policy story may omit charts when no defensible useful comparison exists; its editorial reason stays in the record.</p>
       <details><summary>How to use the working manual newsroom</summary>

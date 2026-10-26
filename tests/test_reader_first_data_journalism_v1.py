@@ -169,6 +169,62 @@ def test_paired_label_years_stay_bound_for_falling_rising_equal_and_close(values
     plt.close(fig)
 
 
+@pytest.mark.parametrize("kind", ["horizontal_diverging_bar", "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS"])
+@pytest.mark.parametrize("numbers", [(-10, -8, -5), (0, 0, 0), (2, 5, 10), (-10, 0, 2), (-10000, 100, 2000)])
+def test_signed_horizontal_marks_zero_and_labels_remain_inside_actual_axes(kind, numbers):
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _draw_editorial_chart
+
+    rows = [list(numbers)]
+    if kind == "SMALL_MULTIPLE_HORIZONTAL_DIVERGING_BARS":
+        rows.append([n / 2 for n in numbers])
+    packet = {"chart_type": kind, "title": "Controlled signed-geometry regression",
+        "unit": "Controlled units", "source_caption": "Synthetic test data; not an article.",
+        "series": [{"label": f"Series {i + 1}", "points": [{"period": f"Q{q + 1} 2026"} for q in range(3)]}
+            for i in range(len(rows))]}
+    fig = _draw_editorial_chart(packet, rows, plt, np)
+    try:
+        fig.canvas.draw()
+        renderer = fig.canvas.get_renderer()
+        domains = []
+        for ax, expected in zip(fig.axes, rows):
+            low, high = ax.get_xlim()
+            domains.append((low, high))
+            assert low < 0 < high  # Includes the baseline for all-negative and all-zero data.
+            assert [mark.get_x() for mark in ax.patches] == [0] * len(expected)
+            assert [mark.get_width() for mark in ax.patches] == expected
+            for mark, value in zip(ax.patches, expected):
+                endpoint = ax.transData.transform((mark.get_x() + mark.get_width(), 0))[0]
+                baseline = ax.transData.transform((0, 0))[0]
+                assert ax.bbox.x0 <= endpoint <= ax.bbox.x1
+                assert (endpoint - baseline) * value >= 0
+            for label in ax.texts:
+                box = label.get_window_extent(renderer)
+                assert ax.bbox.x0 <= box.x0 <= box.x1 <= ax.bbox.x1
+                assert "%" not in label.get_text()  # Never relabel a non-percent unit as percent.
+        assert len(set(domains)) == 1  # Every small multiple uses the same actual scale.
+    finally:
+        plt.close(fig)
+
+
+def test_signed_horizontal_percent_labels_keep_the_declared_unit():
+    import matplotlib.pyplot as plt
+    import numpy as np
+    from live_contentops.rolling_x_grounded_article_media_builder_v1 import _draw_editorial_chart
+
+    packet = {"chart_type": "horizontal_diverging_bar", "title": "Controlled percentage comparison",
+        "unit": "% versus prior year", "source_caption": "Synthetic percent regression data.",
+        "series": [{"label": "Controlled", "points": [{"period": "2025"}, {"period": "2026"}]}]}
+    fig = _draw_editorial_chart(packet, [[-3.2, 21.2]], plt, np)
+    try:
+        assert [label.get_text() for label in fig.axes[0].texts] == ["-3.2%", "+21.2%"]
+    finally:
+        plt.close(fig)
+
+
 def test_point_bound_chart_links_exclude_wrong_quarter_and_retain_multiple_sources(tmp_path):
     from live_contentops.rolling_x_grounded_article_media_builder_v1 import editorial_chart_source_links,validate_editorial_data_chart
     packet,docs=chart_packet()

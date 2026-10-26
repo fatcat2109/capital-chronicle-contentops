@@ -1,0 +1,180 @@
+[
+  {
+    "preview_id": "cc-preview-a5822d7b0d096994d2897c389c2c845aa0487890ca03548e53e518a582910873",
+    "destination": "telegram",
+    "article_identity": "cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8",
+    "payload": {
+      "format": "channel_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 1024,
+      "text": "NEWSROOM BRIEF\n\nSamsung SDI reports 1 GWh US storage deal, Yonhap says\n\nThe 1.5 GWh figure covers two agreements.\n\nWhat to watch: The next useful test is whether supply happens by the reported December deadline.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751"
+    }
+  },
+  {
+    "preview_id": "cc-preview-2f7fefacf7c6eaabb8cdd19b65e5d65568e91addec35eb3d170f5426132d8be8",
+    "destination": "x",
+    "article_identity": "cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nThe 1.5 GWh figure covers two agreements.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751\n\nWatch: The next useful test is whether supply happens by the reported December deadline.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 280,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nThe 1.5 GWh figure covers two agreements.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "Watch: The next useful test is whether supply happens by the reported December deadline."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.625,
+          0.314
+        ],
+        "post_character_counts": [
+          175,
+          88
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.503,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "Watch: The next useful test is whether supply happens by the reported December deadline."
+      ],
+      "root_text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nThe 1.5 GWh figure covers two agreements.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751",
+      "text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nThe 1.5 GWh figure covers two agreements.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751"
+    }
+  },
+  {
+    "preview_id": "cc-preview-bbac13c4c0749027ac12fdb42e849028e746e9bb1f79da4d92c378875fcb595e",
+    "destination": "linkedin",
+    "article_identity": "cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8",
+    "payload": {
+      "format": "professional_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 3000,
+      "text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nWhy it matters: Yonhap also reports talks with other US customers.\n\nContext: A second signed agreement would be a more concrete commercial signal than a prospective sale.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751"
+    }
+  },
+  {
+    "preview_id": "cc-preview-13644c2f99706cd711cc94999731ad3da550408b35adac694987ce54ed74d56b",
+    "destination": "discord",
+    "article_identity": "cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8",
+    "payload": {
+      "format": "newsroom_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "platform_limit": 2000,
+      "text": "**Newsroom brief: Samsung SDI reports 1 GWh US storage deal, Yonhap says**\n\nThe 1.5 GWh figure covers two agreements.\n\n**Context:** A second signed agreement would be a more concrete commercial signal than a prospective sale.\n\nRead the article: https://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751"
+    }
+  },
+  {
+    "preview_id": "cc-preview-82bf529bf007b642f0ed979fdc62e1a5e1fa17567b9adb72b779830cc00d789f",
+    "destination": "facebook_page",
+    "article_identity": "cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8",
+    "payload": {
+      "format": "page_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "documentary_stationary_storage_context"
+      ],
+      "platform_limit": 63206,
+      "text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nThe 1.5 GWh figure covers two agreements.\n\nWhy it matters: Yonhap also reports talks with other US customers.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751\n\nPhoto: [UniEnergy Technologies](https://commons.wikimedia.org/wiki/File:1_MW_4_MWh_Turner_Energy_Storage_Project_in_Pullman,_WA.jpg) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). Archive context: a UniEnergy Technologies stationary storage installation in Pullman, Washington, May 22, 2015. Different vendor and technology; this is not the Samsung SDI project."
+    }
+  },
+  {
+    "preview_id": "cc-preview-f63d593293fdbc0462ab7d933c0f992e61346b71090847fc13450e31fda9ff0d",
+    "destination": "instagram_business",
+    "article_identity": "cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8",
+    "payload": {
+      "format": "brief_caption",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "documentary_stationary_storage_context"
+      ],
+      "platform_limit": 2200,
+      "text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nThe 1.5 GWh figure covers two agreements.\n\nIn focus: A second signed agreement would be a more concrete commercial signal than a prospective sale.\n\nFull brief: https://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751\n\n#CapitalChronicle\n\nPhoto: [UniEnergy Technologies](https://commons.wikimedia.org/wiki/File:1_MW_4_MWh_Turner_Energy_Storage_Project_in_Pullman,_WA.jpg) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). Archive context: a UniEnergy Technologies stationary storage installation in Pullman, Washington, May 22, 2015. Different vendor and technology; this is not the Samsung SDI project."
+    }
+  },
+  {
+    "preview_id": "cc-preview-b1b372a5e278d5efaa6366e62f0a6d91a13c124d33ed59e5b1453e3d97f8268e",
+    "destination": "threads",
+    "article_identity": "cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8",
+    "payload": {
+      "format": "text_brief",
+      "full_text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nA second signed agreement would be a more concrete commercial signal than a prospective sale.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751\n\nWhat to watch: The next useful test is whether supply happens by the reported December deadline.",
+      "hard_truncation_used": false,
+      "media_asset_ids": [],
+      "overflow_strategy": "ordered_reply_chain",
+      "platform_limit": 500,
+      "posts": [
+        {
+          "media_asset_ids": [],
+          "order": 0,
+          "role": "root",
+          "text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nA second signed agreement would be a more concrete commercial signal than a prospective sale.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751"
+        },
+        {
+          "media_asset_ids": [],
+          "order": 1,
+          "role": "reply",
+          "text": "What to watch: The next useful test is whether supply happens by the reported December deadline."
+        }
+      ],
+      "quality_metrics": {
+        "complete_article_visual_count": 0,
+        "duplicated_sentence_count": 0,
+        "hard_character_slicing_used": false,
+        "orphan_fragment_count": 0,
+        "per_post_character_utilization": [
+          0.454,
+          0.192
+        ],
+        "post_character_counts": [
+          227,
+          96
+        ],
+        "reply_count": 1,
+        "sentence_boundary_pass": true,
+        "shortest_longest_reply_ratio": 0.423,
+        "visual_distribution_pass": true
+      },
+      "reply_texts": [
+        "What to watch: The next useful test is whether supply happens by the reported December deadline."
+      ],
+      "root_text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nA second signed agreement would be a more concrete commercial signal than a prospective sale.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751",
+      "text": "Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nA second signed agreement would be a more concrete commercial signal than a prospective sale.\n\nhttps://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751"
+    }
+  },
+  {
+    "preview_id": "cc-preview-ec8a54877bbfb9330bd81e7fc98edb3adde0767163dc7b64c818b41d095dfbf6",
+    "destination": "youtube",
+    "article_identity": "cdc2708251a0675107569a7e58b75815f36305db711f4041eac6713bf42df3a8",
+    "payload": {
+      "format": "community_brief",
+      "hard_truncation_used": false,
+      "media_asset_ids": [
+        "documentary_stationary_storage_context"
+      ],
+      "platform_limit": 1000,
+      "text": "Update: Samsung SDI reports 1 GWh US storage deal, Yonhap says\n\nThe 1.5 GWh figure covers two agreements.\n\nWhat to watch: The next useful test is whether supply happens by the reported December deadline.\n\nRead the full brief: https://capitalchronicle.substack.com/p/pending-publication-cdc2708251a06751\n\nPhoto: [UniEnergy Technologies](https://commons.wikimedia.org/wiki/File:1_MW_4_MWh_Turner_Energy_Storage_Project_in_Pullman,_WA.jpg) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). Archive context: a UniEnergy Technologies stationary storage installation in Pullman, Washington, May 22, 2015. Different vendor and technology; this is not the Samsung SDI project."
+    }
+  }
+]

@@ -126,6 +126,64 @@ subject to the existing claim and epistemic validators.
     }
 
 
+@pytest.mark.parametrize("include_yonhap", [True, False])
+def test_explicit_yonhap_report_pins_original_publisher_without_spending_on_reuters(include_yonhap):
+    from live_contentops.v1_simple_epistemic_state_v1 import candidate_report_provenance
+
+    title = "Samsung SDI expands US storage business with new contracts"
+    publisher_url = "https://en.yna.co.kr/view/AEN20261026001800320"
+    profile = candidate_report_provenance({"headline_text": title + " - YONHAP"})
+    assert profile["primary_reporting_source_identity"] == "en.yna.co.kr"
+    assert profile["primary_reporting_publisher"] == "Yonhap News Agency"
+    assert profile["event_proposition"] == title
+    other = """<item><title>Samsung SDI expands US storage business with new contracts - Reuters</title>
+      <link>https://www.reuters.com/controlled-other-report</link>
+      <pubDate>Mon, 26 Oct 2026 00:30:00 GMT</pubDate>
+      <source url="https://www.reuters.com">Reuters</source></item>"""
+    named = f"""<item><title>{title} - Yonhap News Agency</title><link>{publisher_url}</link>
+      <pubDate>Mon, 26 Oct 2026 00:24:27 GMT</pubDate>
+      <source url="https://en.yna.co.kr">Yonhap News Agency</source></item>"""
+    rss = ("<rss><channel>" + other + (named if include_yonhap else "") + "</channel></rss>").encode()
+    body = (f'<html><head><meta property="article:published_time" content="2026-10-26T00:24:27Z"/>'
+        f'<meta property="og:title" content="{title}"/></head><body><main>'
+        'Controlled publisher text supports a narrow attributed storage report and the exact contract claim. '
+        'Acquisition of this source establishes what this publisher reported; it does not independently '
+        'confirm contract execution, customer demand, future revenue or the underlying event. '
+        'Source identity and publication time stay bound to the original controlled article bytes.'
+        '</main></body></html>').encode()
+    calls = []
+
+    def get(url, *_args):
+        calls.append(url)
+        if url.startswith(NEWS_RSS_ENDPOINT):
+            return _response(url, rss, "application/xml")
+        if url == "https://en.yna.co.kr/news-sitemap.xml":
+            sitemap = f'<urlset><url><loc>{publisher_url}</loc><title>{title}</title><publication_date>2026-10-26T00:24:27Z</publication_date></url></urlset>'.encode()
+            return _response(url, sitemap, "application/xml")
+        if url == publisher_url:
+            return _response(url, body, "text/html")
+        raise AssertionError(f"Unrelated publisher or unbounded request: {url}")
+
+    request = _request()
+    request["story_context"] = {"leaf_summaries": [title + " - YONHAP"],
+        "grounded_research_queries": [title], "report_provenance": profile}
+    result = BoundedPublicSecondaryEvidenceLoader(evaluation_as_of_utc="2026-10-26T03:59:47Z",
+        max_requests=6, max_requests_per_candidate=3, http_get=get,
+        clock=lambda: datetime(2026, 10, 26, 4, tzinfo=timezone.utc))(request)
+    provenance = result["provenance"]
+    assert provenance["attributed_publisher_identity"] == "en.yna.co.kr"
+    assert provenance["attributed_publisher_pinning_applied"] is True
+    assert provenance["publisher_pinning_grants_report_or_event_authority"] is False
+    assert provenance["publisher_resolution_attempted_identities"] == (["en.yna.co.kr"] if include_yonhap else [])
+    assert provenance["request_count_for_call"] == (3 if include_yonhap else 1)
+    assert not any("reuters.com" in url for url in calls)
+    if include_yonhap:
+        assert result["evidence_documents"][0]["source_url"] == publisher_url
+        assert result["evidence_documents"][0].get("secondary_listing_only") is not True
+    else:
+        assert result["evidence_documents"] == []
+
+
 def test_exact_bound_403_recovers_through_distinct_browser_rendered_provenance():
     url = "https://www.bloomberg.com/news/articles/2026-08-18/example-story"
     http_calls: list[str] = []

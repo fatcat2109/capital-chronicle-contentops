@@ -68,14 +68,14 @@ describe('Main report editorial workspace', () => {
       original_media_links: { 'photo-hash': 'editorial-media/controlled.jpg' },
       audience: { sample_count: 0, content_state: 'INSUFFICIENT_REAL_SAMPLE', search_state: 'INSUFFICIENT_REAL_SEARCH_SAMPLE', destination_state: 'INSUFFICIENT_REAL_DESTINATION_SAMPLE' } }} />);
     expect(screen.getByText('September 16, 2026 (date only; release time not supplied)')).toBeInTheDocument();
-    fireEvent.click(screen.getByText('Source editions and review details'));
+    fireEvent.click(screen.getByText('Sources and dates'));
     expect(screen.getByRole('link', { name: 'Read original source' })).toHaveAttribute('href', 'https://example.com/source');
     expect(screen.getByRole('link', { name: 'View full-size Controlled archive subject' })).toHaveAttribute('href', 'editorial-media/controlled.jpg');
     expect(screen.getByText(/Real audience samples: 0/)).toHaveTextContent('INSUFFICIENT REAL SEARCH SAMPLE');
     expect(screen.getByText(/Held: Held FX/)).toBeInTheDocument();
     fireEvent.click(screen.getByRole('link', { name: 'Activation boundary' }));
     expect(screen.getByText("Production activation needs Jim's decision").closest('details')).toHaveAttribute('open');
-    expect(screen.getByText(/Frozen, read-only review/)).toBeInTheDocument();
+    expect(screen.getByText(/Private, read-only preview/)).toBeInTheDocument();
   });
 
   it('fails visibly when the owner edition has no exact selected record', () => {
@@ -101,9 +101,50 @@ describe('Main report editorial workspace', () => {
     expect(explanation.compareDocumentPosition(chart) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(chart.compareDocumentPosition(next) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(within(article).getByRole('link', { name: 'View full-size Comparable cash series' })).toHaveAttribute('href', 'cash.png');
-    expect(within(article).getByText(/Editorial review:/).closest('details')).not.toHaveAttribute('open');
+    expect(within(article).queryByText(/Editorial review:|Preparation:|KEEP|PREPARED|Article identity:|Operation:/)).not.toBeInTheDocument();
+    expect(screen.getByText(/Editorial review:/).closest('details')).not.toHaveAttribute('open');
     expect(within(article).queryByText(/Open original image|Enlarge image|Interpretation remains analysis/)).not.toBeInTheDocument();
     expect(within(article).getByText('Updated 24 October 2026')).toBeVisible();
+  });
+
+  it.each(['instagram_business', 'facebook_page', 'x'])('shows the complete attached photo credit once in %s without changing its actual package', destination => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    const caption = 'Archive context, May 2015. Different vendor; not the reported project.';
+    const credit = `Photo: [Original photographer](https://example.com/photo) · [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0). ${caption}`;
+    item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'original-photo', modality: 'documentary_photo',
+      caption, reader_caption: caption, reader_credit: 'Original photographer', source_page_url: 'https://example.com/photo',
+      license_name: 'CC BY-SA 4.0', license_url: 'https://creativecommons.org/licenses/by-sa/4.0',
+      preview_data_url: 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
+    const payload = { text: `Attributed reporting; execution is unconfirmed.\n\n${credit}`, media_asset_ids: ['archive'] };
+    item.previews.find(p => p.destination === destination)!.payload = destination === 'x' ? { posts: [payload] } : payload;
+    const before = JSON.stringify(snapshot);
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: destination } });
+    const article = screen.getByRole('article', { name: 'Selected article' });
+    expect(within(article).getAllByText(/Archive context, May 2015/)).toHaveLength(1);
+    expect(within(article).getAllByRole('link', { name: 'Original photographer' })).toHaveLength(1);
+    expect(within(article).getAllByRole('link', { name: 'CC BY-SA 4.0' })).toHaveLength(1);
+    expect(within(article).getByText(/execution is unconfirmed/)).toBeInTheDocument();
+    expect(JSON.stringify(snapshot)).toBe(before);
+  });
+
+  it.each(['missing-image', 'unbound-image', 'changed-credit'])('preserves standalone photo attribution and uncertainty for %s', condition => {
+    const snapshot = ownerData();
+    const item = snapshot.native_edition![0];
+    const caption = 'Archive context; not this project.';
+    const credit = `Photo: [Photographer](https://example.com/photo) · [CC BY 2.0](https://creativecommons.org/licenses/by/2.0). ${caption}`;
+    item.media_assets = [{ asset_id: 'archive', path: 'archive.jpg', sha256: 'original-photo', modality: 'documentary_photo',
+      caption, reader_caption: caption, reader_credit: 'Photographer', source_page_url: 'https://example.com/photo',
+      license_name: 'CC BY 2.0', license_url: 'https://creativecommons.org/licenses/by/2.0',
+      preview_data_url: condition === 'missing-image' ? undefined : 'data:image/jpeg;base64,Y29udHJvbGxlZA==' }];
+    const text = `Reported deal.\n\n${credit}${condition === 'changed-credit' ? ' Cropped by a third party; further rights unresolved.' : ''}`;
+    item.previews.find(p => p.destination === 'instagram_business')!.payload = {
+      text, media_asset_ids: condition === 'unbound-image' ? [] : ['archive'] };
+    render(<ReportEditorialWorkspace data={snapshot} mode="owner-review" />);
+    fireEvent.change(screen.getByRole('combobox', { name: 'Choose reading view' }), { target: { value: 'instagram_business' } });
+    expect(screen.getByRole('article', { name: 'Selected article' }).textContent).toContain('Photo: Photographer');
+    if (condition === 'changed-credit') expect(screen.getByText(/further rights unresolved/)).toBeInTheDocument();
   });
 
   it('uses a native modal for full-size media and returns keyboard focus on close', () => {

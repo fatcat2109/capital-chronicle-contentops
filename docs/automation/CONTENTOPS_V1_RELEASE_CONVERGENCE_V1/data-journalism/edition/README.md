@@ -1,5 +1,7 @@
 # Seven prepared articles
 
+[The current retained release candidate](../../release-candidate/README.md) adds the separately completed Samsung brief. This seven-story reader is rebuilt with the same corrected layout; its article, chart, package and fixed workspace bytes remain unchanged.
+
 [Open the offline reader](index.html) after downloading/checking out this folder. It uses the existing `ReportEditorialWorkspace`, includes all seven stories and eight reading views per story, and needs no server. Its source/credit links need internet access. It cannot run editorial work, approve or publish.
 
 | Story | Original article | Eight native channel packages | Charts |

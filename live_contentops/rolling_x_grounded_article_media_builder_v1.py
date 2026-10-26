@@ -1564,6 +1564,14 @@ def _draw_compact_cash_comparison(packet, values, plt):
     return fig
 
 
+def _signed_horizontal_domain(values):
+    """Keep zero, every signed endpoint and its outside label on the shared scale."""
+    low = min(0, min(values))
+    high = max(0, max(values))
+    span = high - low or 1.0
+    return low - span * .35, high + span * .35, span
+
+
 def _draw_editorial_chart(packet, values, plt, np):
     """Render the editor's selected grammar; no content or chart-count decision here."""
     import textwrap
@@ -1596,10 +1604,11 @@ def _draw_editorial_chart(packet, values, plt, np):
             ax.barh(y, nums, height=.58, color=[colors[0] if n >= 0 else colors[1] for n in nums])
             ax.set_yticks(y, [textwrap.fill(p, 22) for p in periods], fontsize=10)
             ax.invert_yaxis()
-            span = max(abs(n) for n in nums)
-            ax.set_xlim(min(0, min(nums))-span*.12, max(nums)+span*.25)
+            low, high, span = _signed_horizontal_domain(nums)
+            ax.set_xlim(low, high)
+            suffix = "%" if str(packet["unit"]).casefold().startswith(("%", "percent")) else ""
             for x, yy in zip(nums,y):
-                ax.text(x+span*.025 if x>=0 else span*.025,yy,f"{x:+.1f}%",va="center",ha="left",fontsize=11)
+                ax.text(x+span*.025 if x>=0 else span*.025,yy,f"{x:+.1f}{suffix}",va="center",ha="left",fontsize=11)
             ax.axvline(0,color="#6d807b",linewidth=.8)
         else:
             for i,(label,nums) in enumerate(zip(labels,values)):
@@ -1651,8 +1660,8 @@ def _draw_editorial_chart(packet, values, plt, np):
                 ax.set_yticks(y, names)
                 ax.invert_yaxis()
                 ax.axvline(0, color="#667b78", linewidth=0.8)
-                span = max(abs(n) for row in values for n in row)
-                ax.set_xlim(-span * 0.65, span * 1.26)
+                low, high, span = _signed_horizontal_domain([n for row in values for n in row])
+                ax.set_xlim(low, high)
                 for x, yy in zip(nums, y):
                     ax.text(
                         x + (span * 0.02 if x >= 0 else -span * 0.02),
