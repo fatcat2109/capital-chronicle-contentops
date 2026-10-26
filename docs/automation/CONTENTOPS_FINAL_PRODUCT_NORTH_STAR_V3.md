@@ -5,6 +5,8 @@ Status: `CURRENT_ROOT_PRODUCT_NORTH_STAR / EARLY_ATTRIBUTED_INTELLIGENCE / V1_AC
 
 This document records the current product direction. It supersedes conflicting current-looking wording that requires universal official confirmation, routes routine V1 through historical model fleets, says routine V1 public-write/readback remains ungranted, or says `V1_FINAL_PRODUCT_ACCEPTED` is still pending.
 
+Current amendment (26 October 2026): read [audited tooling and V1 live continuation](CONTENTOPS_V1_TOOL_DECISIONS_AND_LIVE_HANDOFF_20261026.md) with the dated operating states below. V1 remains the sole active priority; V2/V3 remain owner-paused until V1 actually operates live daily and their existing explicit resumption authority is satisfied.
+
 ## 1. Product role and North Star
 
 Capital Chronicle/Core Analyzer owns proprietary analytical and numeric truth. ContentOps is the autonomous early-signal financial newsroom, distribution, readback/reconciliation, organic audience-acquisition, and bounded-learning engine.
@@ -349,3 +351,19 @@ An explicitly requested editorial refinement of unchanged retained facts uses th
 V1 is the sole active product priority. V2 and V3 work remain owner-paused until final V1 actually operates live daily; no video/speech dependency or work is authorized by this standard. Runtime, four Automations and publication stay paused; adoption grants no deployment, merge, activation, platform draft/upload/post, spend or new store/scheduler/publisher authority. Historical acceptance and native daily-live proof remain distinct.
 
 Native Sol6.1 Light prepares exact evidence/data and visual proposals; the same actual native gpt-6.1-sol/MAX writer decides data, chart types/count/placement and any justified exception, then authors/refines the article. Code owns acquisition/computation/rendering/state. No canned menu, copied proprietary chart, fabricated history/expectations or later information passed off as known earlier. Primary company/SEC/central-bank/statistical/energy sources govern data; Reuters remains attributed news, syndication one origin. Internal claim/span/rights/version records stay exact while public copy uses natural key attribution and compact distinct Sources/Notes, not identical links after every paragraph. Reader/public payloads contain no KEEP/PREPARED/IDs/workflow/revision bureaucracy or ritual source notices; one discreet private-preview notice stays outside the article. Natural accessible zoom and compact lawful photo credit replace repeated instructions. Derivatives use editorially chosen chart subsets. New source/copy/media/preview changes require traceable revision and fresh exact review; no store/publisher/scheduler or production authority is added.
+
+## Audited tooling: reader value before visual complexity — 26 October 2026
+
+Jim adopted the twenty-repository evaluation as scoped product direction, not a production installation. Use the [decision and Control Tower handoff](CONTENTOPS_V1_TOOL_DECISIONS_AND_LIVE_HANDOFF_20261026.md) for evidence, exact limits and continuation.
+
+- Retain the existing **Remotion and FFmpeg** video/media foundations. Their presence is not a reason to rebuild V2/V3 or resume them.
+- **SVGO** is an optional final optimization of already-correct SVG assets, preserving accessibility, labels and geometry. It does not repair incorrect signs, scales, periods or source data, and does not optimize existing PNG charts.
+- **Satori** is a candidate for a bounded social/cover-card experiment when a real layout need justifies it. Its initial clipped test output and dependency finding must inform adoption; successful SVG generation alone is insufficient acceptance.
+- **Mediabunny** remains a later option for a named browser metadata/remux/edit/export operation. Do not replace the existing host export/recovery owner or claim untested mobile-codec reliability.
+- Motion, GSAP and Anime.js are alternatives for a demonstrated interaction, not three required dependencies. Rive/dotLottie require a specific authored-animation need. Motion Canvas is not a new parallel renderer.
+- Three.js/R3F/Drei require a genuine spatial explanatory question. Rapier physics and cinematic postprocessing have no justified current V1 assignment. Economic claims cannot be inferred from a physics simulation.
+- Upstream agent skills are selective reference material, subordinate to ContentOps authority. The audit found actual GSAP skill errors and unresolved Remotion-skill licensing detail; do not bulk-install guidance or add hosted/paid tools by default.
+
+The model retains editorial judgment; deterministic owners retain acquisition, computation and rendering. Verify the source-to-geometry relationship, signed direction, zero/reference baseline where appropriate, units, periods, series labels and missingness, then inspect the actual changed output. No tool score or valid file proves chart truth, readability, SEO, audience value or daily throughput.
+
+These choices preserve the full V1/V2/V3 North Star. Optional graphics experiments do not become prerequisites for V1 launch. V2 analytical video and V3 authentic-speaker Signal Clips stay paused while V1 moves toward actual live daily operation; one private edition or one public post does not automatically reopen them.

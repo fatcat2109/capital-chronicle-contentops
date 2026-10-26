@@ -5,6 +5,8 @@ Status: `CURRENT_ROOT_AUTHORITY_MAP`
 
 This map prevents fresh sessions from reviving stale quota, scheduler, canary, owner-gate, or branch assumptions.
 
+Latest scoped amendment, 26 October 2026: [tool decisions and V1 live continuation](CONTENTOPS_V1_TOOL_DECISIONS_AND_LIVE_HANDOFF_20261026.md) are adopted in the root North Star/Master Plan. They add no installation, fresh-edition, public-write, merge, deployment or activation grant. V1 remains the sole active priority; V2/V3 remain owner-paused until actual V1 live daily operation and explicit resumption. The earlier historical acceptance/grants below do not establish current native deployment or supersede newer scoped holds.
+
 ## 1. Current owner override
 
 Jim's latest owner state is:

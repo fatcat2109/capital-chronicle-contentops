@@ -2,6 +2,8 @@
 
 The retained delivery is seven internally reviewed/prepared articles,16 charts and56 channel packages on PR92. The later IBM reader-layout refinement is delivered; Jim's final visual verdict remains OPEN. The independent private News read seam is producer-delivered for Main adoption, which remains NOT_VERIFIED. Neither delivery authorizes activation, merge, deployment or platform writes.
 
+26 October update: the separately authorized one-shot manual edition is complete at product `f042c9a8`, checkpoint `7202f333`: one current Samsung SDI/AOP brief, one licensed contextual photograph and eight private previews, all nine destinations NOT_DISPATCHED. That operation and its three-extra-read exception are exhausted; they do not authorize a second edition or activation. The [audited tool decisions and next V1 milestone](../CONTENTOPS_V1_TOOL_DECISIONS_AND_LIVE_HANDOFF_20261026.md) preserve the existing release procedure. Optional tools are not a launch prerequisite. V2/V3 remain paused until actual V1 live daily operation and their explicit resumption conditions.
+
 ## The remaining Jim decision
 
 Any later operating grant must name the exact accepted source/PR92 revision, intended integration/deployment if any, **manual zero-write versus scheduled mode**, and exact time/timezone. A scheduled grant must identify the existing four windows below; any authorized destination(s) require their own exact scope. A zero-write grant keeps `public_write_authority=false`; it cannot be interpreted as permission to save platform drafts, upload or post. An approval of these seven dated examples does not make them current news or authorize dispatch of their isolated manual bindings.
